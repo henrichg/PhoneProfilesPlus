@@ -94,12 +94,13 @@ public class Profile {
             "ic_profile_work_6", "ic_profile_work_7", "ic_profile_work_8", "ic_profile_work_9", "ic_profile_work_10",
             "ic_profile_work_11", "ic_profile_work_12",
 
-            "ic_profile_sleep", "ic_profile_sleep_2", "ic_profile_night",
-            "ic_profile_call_1",
+            "ic_profile_sleep", "ic_profile_sleep_2", "ic_profile_night", "ic_profile_call_1", "ic_profile_food_1",
+            "ic_profile_food_2","ic_profile_food_3","ic_profile_food_4","ic_profile_food_5",
 
             "ic_profile_car_1", "ic_profile_car_2", "ic_profile_car_3", "ic_profile_car_4", "ic_profile_car_5",
-            "ic_profile_car_6", "ic_profile_car_7", "ic_profile_car_8", "ic_profile_car_9",
-            "ic_profile_airplane_1", "ic_profile_airplane_2", "ic_profile_airplane_3",
+            "ic_profile_car_6", "ic_profile_car_7", "ic_profile_car_8", "ic_profile_car_9", "ic_profile_airplane_1",
+            "ic_profile_airplane_2", "ic_profile_airplane_3", "ic_profile_tickets_1", "ic_profile_tickets_2",
+            "ic_profile_tickets_3",
 
             "ic_profile_battery_1", "ic_profile_battery_2", "ic_profile_battery_3",
 
@@ -121,12 +122,13 @@ public class Profile {
             0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
             0xffa801ff, 0xffa801ff,
 
-            0xff0099cc, 0xff0099cc, 0xff0099cc,
-            0xff0099cc,
+            0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc,
+            0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc,
 
             0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
+            0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
             0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
-            0xff28a174, 0xff28a174, 0xff28a174,
+            0xff28a174,
 
             0xffdb3514, 0xffdb9714, 0xff2aa561,
 
