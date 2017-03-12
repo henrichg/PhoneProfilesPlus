@@ -136,7 +136,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
         }
     }
 
-    private static void saveConnectedDevices(Context context)
+    static void saveConnectedDevices(Context context)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
 
@@ -193,6 +193,13 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
             }
             if (found)
                 connectedDevices.remove(index);
+        }
+    }
+
+    static void clearConnectedDevices()
+    {
+        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
+            connectedDevices.clear();
         }
     }
 

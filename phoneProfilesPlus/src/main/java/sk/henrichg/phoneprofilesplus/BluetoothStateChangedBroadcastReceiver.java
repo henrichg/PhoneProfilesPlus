@@ -54,6 +54,10 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
                         }
                     //}
                 }
+                else {
+                    BluetoothConnectionBroadcastReceiver.clearConnectedDevices();
+                    BluetoothConnectionBroadcastReceiver.saveConnectedDevices(context);
+                }
 
                 if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
                         (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
