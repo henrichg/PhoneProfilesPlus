@@ -36,6 +36,12 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
         {
             boolean connected = action.equals(BluetoothDevice.ACTION_ACL_CONNECTED);
 
+            if (!action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
+                PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "connected=" + connected);
+                PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getName()=" + device.getName());
+                PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getAddress()=" + device.getAddress());
+            }
+
             if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED))
                 addConnectedDevice(device);
             else
