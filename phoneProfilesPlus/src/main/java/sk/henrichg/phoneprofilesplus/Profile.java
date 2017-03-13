@@ -1,13 +1,17 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -1546,6 +1550,297 @@ public class Profile {
             return null;
     }
 
+    static int isProfilePreferenceAllowed(String preferenceKey, Context context)
+    {
+        int featurePresented = PPApplication.PREFERENCE_NOT_ALLOWED;
+
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE))
+        {
+            if (android.os.Build.VERSION.SDK_INT >= 17)
+            {
+                if (PPApplication.isRooted())
+                {
+                    // zariadenie je rootnute
+                    if (PPApplication.settingsBinaryExists())
+                        featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                    else
+                        PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                }
+                else
+                    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+            }
+            else
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
+                // device ma Wifi
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
+                // device ma bluetooth
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+            {
+                if (android.os.Build.VERSION.SDK_INT >= 21)
+                {
+                    if (PPApplication.isRooted()) {
+                        // zariadenie je rootnute
+                        //if (serviceBinaryExists() && telephonyServiceExists(context, PREF_PROFILE_DEVICE_MOBILE_DATA))
+                        featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                    }
+                    else
+                        PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                }
+                else
+                {
+                    if (ActivateProfileHelper.canSetMobileData(context))
+                        featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                    else {
+                        PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                        PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                    }
+                }
+            }
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+            {
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            }
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_GPS))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS))
+            {
+                // device ma gps
+                /*if (android.os.Build.VERSION.SDK_INT < 17)
+                {
+                    if (isRooted(false))
+                        featurePresented = PREFERENCE_ALLOWED;
+                }
+                else*/
+                if (PPApplication.isRooted())
+                {
+                    // zariadenie je rootnute
+                    if (PPApplication.settingsBinaryExists())
+                        featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                    else
+                        PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                }
+                else
+                if (ActivateProfileHelper.canExploitGPS(context))
+                {
+                    featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                }
+                else
+                    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+            }
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NFC))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC))
+            {
+                PPApplication.logE("PPApplication.hardwareCheck","NFC=presented");
+
+                // device ma nfc
+                if (PPApplication.isRooted())
+                    featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                else
+                    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+            }
+            else
+            {
+                PPApplication.logE("PPApplication.hardwareCheck","NFC=not presented");
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            }
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI)) {
+                // device ma Wifi
+                if (WifiApManager.canExploitWifiAP(context))
+                {
+                    featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                }
+                else {
+                    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                }
+            }
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))
+        {
+            if (android.os.Build.VERSION.SDK_INT >= 23) {
+                if (PPApplication.isRooted()) {
+                    // zariadenie je rootnute
+                    if (PPApplication.settingsBinaryExists())
+                        featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                    else
+                        PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                }
+                else
+                    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+            }
+            else
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS))
+        {
+            if (android.os.Build.VERSION.SDK_INT >= 21) {
+                if (android.os.Build.VERSION.SDK_INT >= 23)
+                {
+                    if (PPApplication.isRooted())
+                    {
+                        // zariadenie je rootnute
+                        if (PPApplication.settingsBinaryExists())
+                            featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                        else
+                            PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                    }
+                    else
+                        PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                }
+                else
+                    featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            }
+            else {
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
+            }
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE))
+        {
+            if (android.os.Build.VERSION.SDK_INT >= 21) {
+                if (PPApplication.isRooted()) {
+                    // zariadenie je rootnute
+                    if (PPApplication.settingsBinaryExists())
+                        featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                    else
+                        PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                }
+                else
+                    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+            }
+            else {
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
+            }
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+            {
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                final int phoneType = telephonyManager.getPhoneType();
+                if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
+                    if (PPApplication.isRooted()) {
+                        // zariadenie je rootnute
+                        if (ActivateProfileHelper.telephonyServiceExists(context, Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
+                            if (PPApplication.serviceBinaryExists())
+                                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                            else
+                                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                        }
+                        else {
+                            PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                            PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_network_type);
+                        }
+                    }
+                    else
+                        PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                }
+                else {
+                    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_network_type);
+                }
+            }
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_NOTIFICATION_LED))
+        {
+            int value = Settings.System.getInt(context.getContentResolver(), "notification_light_pulse", -10);
+            if ((value != -10) && (android.os.Build.VERSION.SDK_INT >= 23)) {
+                if (PPApplication.isRooted()) {
+                    // zariadenie je rootnute
+                    if (PPApplication.settingsBinaryExists())
+                        featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                    else
+                        PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                }
+                else
+                    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+            }
+            else
+            if (value != -10)
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else {
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
+            }
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD))
+        {
+            boolean secureKeyguard;
+            KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Activity.KEYGUARD_SERVICE);
+            if (android.os.Build.VERSION.SDK_INT >= 16)
+                secureKeyguard = keyguardManager.isKeyguardSecure();
+            else
+                secureKeyguard = keyguardManager.inKeyguardRestrictedInputMode();
+            if (secureKeyguard) {
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION;
+                PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_secure_lock);
+            }
+            else
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
+                // device ma Wifi
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+            featurePresented = PPApplication.PREFERENCE_ALLOWED;
+
+        return featurePresented;
+    }
 
     static public long getActivatedProfileForDuration(Context context)
     {

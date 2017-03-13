@@ -130,7 +130,7 @@ public class ScannerService extends IntentService
         {
             PPApplication.logE("$$$W ScannerService.onHandleIntent", "start wifi scan");
 
-            boolean canScan = PPApplication.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED;
+            boolean canScan = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED;
             if (canScan) {
                 canScan = !WifiApManager.isWifiAPEnabled(context);
                 PPApplication.logE("$$$W ScannerService.onHandleIntent", "canScan=" + canScan);
@@ -263,7 +263,7 @@ public class ScannerService extends IntentService
         else
         if (scanType.equals(SCANNER_TYPE_BLUETOOTH)) {
 
-            if (PPApplication.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
+            if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
 
                 PPApplication.logE("$$$B ScannerService.onHandleIntent", "start bt scan");
 

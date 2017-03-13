@@ -150,7 +150,7 @@ class EventPreferencesLocation extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
+        if (Event.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesLocation tmp = new EventPreferencesLocation(this._event, this._enabled, this._geofences, this._whenOutside);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);

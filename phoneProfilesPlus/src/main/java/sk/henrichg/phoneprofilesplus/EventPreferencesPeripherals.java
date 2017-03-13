@@ -108,7 +108,7 @@ class EventPreferencesPeripherals extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_PERIPHERAL_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
+        if (Event.isEventPreferenceAllowed(PREF_EVENT_PERIPHERAL_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesPeripherals tmp = new EventPreferencesPeripherals(this._event, this._enabled, this._peripheralType);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);

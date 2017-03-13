@@ -127,7 +127,7 @@ class EventPreferencesScreen extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_SCREEN_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
+        if (Event.isEventPreferenceAllowed(PREF_EVENT_SCREEN_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesScreen tmp = new EventPreferencesScreen(this._event, this._enabled, this._eventType, this._whenUnlocked);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);

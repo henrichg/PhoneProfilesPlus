@@ -286,7 +286,7 @@ class EventPreferencesTime extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
+        if (Event.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesTime tmp = new EventPreferencesTime(this._event, this._enabled, this._sunday, this._monday, this._tuesday, this._wendesday,
                     this._thursday, this._friday, this._saturday, this._startTime, this._endTime);
             if (preferences != null)

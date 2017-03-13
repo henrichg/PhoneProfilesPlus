@@ -203,7 +203,7 @@ class EventPreferencesSMS extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
+        if (Event.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesSMS tmp = new EventPreferencesSMS(this._event, this._enabled, this._contacts, this._contactGroups, this._contactListType,
                                                                 this._permanentRun, this._duration);
             if (preferences != null)

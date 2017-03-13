@@ -207,7 +207,7 @@ public class DataWrapper {
                 profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_home), "ic_profile_home_2", 1);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (PPApplication.canChangeZenMode(context, true)) {
+                    if (ActivateProfileHelper.canChangeZenMode(context, true)) {
                         if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 1; // ALL
@@ -231,7 +231,7 @@ public class DataWrapper {
                 profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_outdoor), "ic_profile_outdoors_1", 2);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (PPApplication.canChangeZenMode(context, true)) {
+                    if (ActivateProfileHelper.canChangeZenMode(context, true)) {
                         if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 4; // ALL with vibration
@@ -255,7 +255,7 @@ public class DataWrapper {
                 profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_work), "ic_profile_work_5", 3);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (PPApplication.canChangeZenMode(context, true)) {
+                    if (ActivateProfileHelper.canChangeZenMode(context, true)) {
                         if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 1; // ALL
@@ -279,7 +279,7 @@ public class DataWrapper {
                 profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_meeting), "ic_profile_meeting_2", 4);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (PPApplication.canChangeZenMode(context, true)) {
+                    if (ActivateProfileHelper.canChangeZenMode(context, true)) {
                         if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 3; // NONE
@@ -303,7 +303,7 @@ public class DataWrapper {
                 profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_sleep), "ic_profile_sleep", 5);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (PPApplication.canChangeZenMode(context, true)) {
+                    if (ActivateProfileHelper.canChangeZenMode(context, true)) {
                         if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 6; // ALARMS
@@ -1572,7 +1572,7 @@ public class DataWrapper {
         PPApplication.logE("%%% DataWrapper.doEventService","------- broadcastType="+broadcastType);
 
         if (event._eventPreferencesTime._enabled &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+                (Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
             ignoreTime = false;
 
@@ -1610,7 +1610,7 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesBattery._enabled &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+                (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
             ignoreBattery = false;
 
@@ -1662,7 +1662,7 @@ public class DataWrapper {
         }
 
         if ((event._eventPreferencesCall._enabled)  &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)&&
+                (Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)&&
                 Permissions.checkEventCallContacts(context, event) &&
                 Permissions.checkEventPhoneBroadcast(context, event))
         {
@@ -1801,7 +1801,7 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesPeripherals._enabled &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+                (Event.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
             ignorePeripheral = false;
 
@@ -1869,7 +1869,7 @@ public class DataWrapper {
         }
 
         if ((event._eventPreferencesCalendar._enabled) &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) &&
+                (Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) &&
                 (Permissions.checkEventCalendar(context, event)))
         {
             ignoreCalendar = false;
@@ -1911,7 +1911,7 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesWifi._enabled &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
+                (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event))
         {
             ignoreWifi = false;
@@ -2088,7 +2088,7 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesScreen._enabled &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+                (Event.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
             ignoreScreen = false;
 
@@ -2133,7 +2133,7 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesBluetooth._enabled &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
+                (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event))
         {
             ignoreBluetooth = false;
@@ -2305,7 +2305,7 @@ public class DataWrapper {
         }
 
         if ((event._eventPreferencesSMS._enabled) &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
+                (Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventSMSContacts(context, event) &&
                 Permissions.checkEventSMSBroadcast(context, event))
         {
@@ -2353,7 +2353,7 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesNotification._enabled &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+                (Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
             ignoreNotification = false;
 
@@ -2405,7 +2405,7 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesApplication._enabled &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+                (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
             ignoreApplication = false;
 
@@ -2427,7 +2427,7 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesLocation._enabled &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
+                (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event))
         {
             ignoreLocation = false;
@@ -2455,7 +2455,7 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesOrientation._enabled &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+                (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
             ignoreOrientation = false;
 
@@ -2560,7 +2560,7 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesMobileCells._enabled &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
+                (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event))
         {
             ignoreMobileCell = false;
@@ -2586,7 +2586,7 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesNFC._enabled &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+                (Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
             ignoreNfc = false;
 
@@ -2631,7 +2631,7 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesRadioSwitch._enabled &&
-                (PPApplication.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+                (Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
             ignoreRadioSwitch = false;
 

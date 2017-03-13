@@ -84,7 +84,7 @@ public class BrightnessDialogPreference extends
         _defaultProfile = Profile.getDefaultProfile(_context);
 
         adaptiveAllowed = (android.os.Build.VERSION.SDK_INT <= 21) ||
-                (PPApplication.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, _context)
+                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, _context)
                         == PPApplication.PREFERENCE_ALLOWED);
 
         savedBrightness = Settings.System.getInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 128);

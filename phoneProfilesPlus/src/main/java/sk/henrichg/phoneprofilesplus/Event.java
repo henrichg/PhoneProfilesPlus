@@ -8,9 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
@@ -1696,6 +1698,73 @@ class Event {
         this._isInDelayEnd = false;
         dataWrapper.getDatabaseHandler().updateEventInDelayEnd(this);
     }
+
+    static int isEventPreferenceAllowed(String preferenceKey, Context context)
+    {
+        int featurePresented = PPApplication.PREFERENCE_NOT_ALLOWED;
+
+        if (preferenceKey.equals(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
+                // device ma Wifi
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
+                // device ma bluetooth
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED))
+        {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else {
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
+            }
+        }
+        else
+        if (preferenceKey.equals(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED))
+        {
+            boolean enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null) &&
+                    (PhoneProfilesService.getMagneticFieldSensor(context.getApplicationContext()) != null) &&
+                    (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null);
+            if (enabled)
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+                // device ma bluetooth
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC))
+                // device ma bluetooth
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+            featurePresented = PPApplication.PREFERENCE_ALLOWED;
+
+        return featurePresented;
+    }
+
 
 
     static public boolean getGlobalEventsRuning(Context context)

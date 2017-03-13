@@ -20,6 +20,8 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.telephony.TelephonyManager;
 
+import javax.microedition.khronos.opengles.GL;
+
 import static android.content.Context.DEVICE_POLICY_SERVICE;
 
 public class ProfilePreferencesNestedFragment extends PreferenceFragment
@@ -136,7 +138,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                      (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
                     );*/
-            final boolean canEnableZenMode = PPApplication.canChangeZenMode(context.getApplicationContext(), true);
+            final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), true);
 
             Preference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
             if (zenModePreference != null) {
@@ -190,7 +192,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                             (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                                     (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
                             );*/
-                        final boolean canEnableZenMode = PPApplication.canChangeZenMode(context.getApplicationContext(), true);
+                        final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), true);
 
                         Preference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
 
@@ -307,7 +309,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-        if (!PPApplication.getMergedRingNotificationVolumes(context)) {
+        if (!ActivateProfileHelper.getMergedRingNotificationVolumes(context)) {
             preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_volumeCategory");
@@ -376,14 +378,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             if (key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION)) {
                 boolean defaultValue =
                         getResources().getBoolean(
-                                PPApplication.getResourceId(preference.getKey(), "bool", context));
+                                GlobalGUIRoutines.getResourceId(preference.getKey(), "bool", context));
                 if (preferences.getBoolean(key, defaultValue) != defaultValue)
                     title = preference.getTitle().toString();
             }
             else {
                 String defaultValue =
                         getResources().getString(
-                                PPApplication.getResourceId(preference.getKey(), "string", context));
+                                GlobalGUIRoutines.getResourceId(preference.getKey(), "string", context));
                 if (preference instanceof VolumeDialogPreference) {
                     if (VolumeDialogPreference.changeEnabled(preferences.getString(preference.getKey(), defaultValue)))
                         title = preference.getTitle().toString();
@@ -475,7 +477,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 summary = summary + title;
             }
             String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
-            if ((!PPApplication.getMergedRingNotificationVolumes(context) || PPApplication.applicationUnlinkRingerNotificationVolumes) &&
+            if ((!ActivateProfileHelper.getMergedRingNotificationVolumes(context) || PPApplication.applicationUnlinkRingerNotificationVolumes) &&
                     getEnableVolumeNotificationByRingtone(ringtoneValue)) {
                 title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, false);
                 if (!title.isEmpty()) {
@@ -756,7 +758,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                          (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
                         );*/
-                final boolean canEnableZenMode = PPApplication.canChangeZenMode(context.getApplicationContext(), true);
+                final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), true);
 
                 if (!canEnableZenMode)
                 {
@@ -876,7 +878,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     }
                 }
             }
-            int canChange = PPApplication.isProfilePreferenceAllowed(key, context);
+            int canChange = Profile.isProfilePreferenceAllowed(key, context);
             if (canChange != PPApplication.PREFERENCE_ALLOWED)
             {
                 ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
@@ -917,7 +919,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
             if (listPreference != null) {
-                int canChange = PPApplication.isProfilePreferenceAllowed(key, context);
+                int canChange = Profile.isProfilePreferenceAllowed(key, context);
                 if (canChange != PPApplication.PREFERENCE_ALLOWED) {
                     listPreference.setEnabled(false);
                     if (canChange == PPApplication.PREFERENCE_NOT_ALLOWED)
@@ -972,7 +974,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         {
             int canChange = PPApplication.PREFERENCE_ALLOWED;
             if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))
-                canChange = PPApplication.isProfilePreferenceAllowed(key, context);
+                canChange = Profile.isProfilePreferenceAllowed(key, context);
             if (canChange != PPApplication.PREFERENCE_ALLOWED)
             {
                 ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
@@ -1006,7 +1008,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 } else {
                     listPreference.setTitle(R.string.profile_preferences_notificationLed);
                 }
-                int canChange = PPApplication.isProfilePreferenceAllowed(key, context);
+                int canChange = Profile.isProfilePreferenceAllowed(key, context);
                 if (canChange != PPApplication.PREFERENCE_ALLOWED) {
                     listPreference.setEnabled(false);
                     if (canChange == PPApplication.PREFERENCE_NOT_ALLOWED)
@@ -1124,7 +1126,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     }
 
     private boolean getEnableVolumeNotificationVolume0(boolean notificationEnabled, String notificationValue) {
-        return  notificationEnabled && PPApplication.getMergedRingNotificationVolumes(context) &&
+        return  notificationEnabled && ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
                     PPApplication.applicationUnlinkRingerNotificationVolumes &&
                     Profile.getVolumeRingtoneChange(notificationValue) && (Profile.getVolumeRingtoneValue(notificationValue) == 0);
     }
@@ -1150,7 +1152,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(Profile.PREF_PROFILE_VOLUME_NOTIFICATION)) {
             String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
-            boolean enabled = (!PPApplication.getMergedRingNotificationVolumes(context) || PPApplication.applicationUnlinkRingerNotificationVolumes) &&
+            boolean enabled = (!ActivateProfileHelper.getMergedRingNotificationVolumes(context) || PPApplication.applicationUnlinkRingerNotificationVolumes) &&
                                     getEnableVolumeNotificationByRingtone(ringtoneValue);
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
             if (preference != null)
@@ -1214,7 +1216,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
                 String zenMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "0");
                 boolean enabled = false;
-                if ((PPApplication.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, context) == PPApplication.PREFERENCE_ALLOWED) &&
+                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, context) == PPApplication.PREFERENCE_ALLOWED) &&
                         ringerMode.equals("5")) {
                     if (zenMode.equals("1") || zenMode.equals("2"))
                         enabled = true;

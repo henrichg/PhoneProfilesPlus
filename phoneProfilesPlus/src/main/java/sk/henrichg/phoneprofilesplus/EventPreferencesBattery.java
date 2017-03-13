@@ -140,7 +140,7 @@ class EventPreferencesBattery extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
+        if (Event.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesBattery tmp = new EventPreferencesBattery(this._event, this._enabled, this._levelLow, this._levelHight, this._charging, this._powerSaveMode);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);

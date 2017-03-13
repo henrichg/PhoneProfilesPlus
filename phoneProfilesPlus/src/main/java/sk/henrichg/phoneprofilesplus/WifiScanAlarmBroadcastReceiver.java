@@ -49,7 +49,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         setAlarm(context, false, false);
 
-        if (PPApplication.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) !=
+        if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED) {
             removeAlarm(context);
             return;
@@ -73,7 +73,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         setWaitForResults(context, false);
         setWifiEnabledForScan(context, false);
 
-        if (PPApplication.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) !=
+        if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED)
             return;
 
@@ -112,7 +112,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     {
         //PPApplication.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot);
 
-        if (PPApplication.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context)
+        if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context)
                 == PPApplication.PREFERENCE_ALLOWED)
         {
             PPApplication.logE("WifiScanAlarmBroadcastReceiver.setAlarm","WifiHardware=true");

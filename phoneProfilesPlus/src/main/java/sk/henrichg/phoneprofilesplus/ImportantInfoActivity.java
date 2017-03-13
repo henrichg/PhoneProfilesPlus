@@ -235,7 +235,7 @@ public class ImportantInfoActivity extends AppCompatActivity {
             infoText14.setVisibility(View.GONE);
         }
 
-        if (PPApplication.getMergedRingNotificationVolumes(context)) {
+        if (ActivateProfileHelper.getMergedRingNotificationVolumes(context)) {
             TextView infoText3 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text3);
             infoText3.setOnClickListener(new View.OnClickListener() {
                 @Override

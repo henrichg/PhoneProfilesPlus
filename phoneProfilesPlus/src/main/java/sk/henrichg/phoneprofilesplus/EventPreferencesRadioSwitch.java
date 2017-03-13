@@ -188,7 +188,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_NFC, preferences, context);
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE, preferences, context);
 
-        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context)
+        if (Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context)
                 != PPApplication.PREFERENCE_ALLOWED)
         {
             /*Preference preference = prefMng.findPreference(PREF_EVENT_NFC_ENABLED);
@@ -202,7 +202,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
+        if (Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesRadioSwitch tmp = new EventPreferencesRadioSwitch(this._event, this._enabled,
                     this._wifi, this._bluetooth, this._mobileData, this._gps, this._nfc, this._airplaneMode);
             if (preferences != null)
@@ -239,7 +239,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context)
     {
-        boolean enabled = PPApplication.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED;
+        boolean enabled = Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED;
 
         Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
         if (preference != null)

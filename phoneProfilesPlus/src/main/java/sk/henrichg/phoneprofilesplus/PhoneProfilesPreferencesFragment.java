@@ -133,7 +133,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(PPApplication.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES);
 
 
-        if (PPApplication.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext())
+        if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext())
                     != PPApplication.PREFERENCE_ALLOWED)
         {
             /*prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL).setEnabled(false);
@@ -149,7 +149,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             preference.setEnabled(false);
         }
 
-        if (PPApplication.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, getActivity().getApplicationContext())
+        if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, getActivity().getApplicationContext())
                 != PPApplication.PREFERENCE_ALLOWED)
         {
             /*prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL).setEnabled(false);
@@ -167,7 +167,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             preference.setEnabled(false);
         }
 
-        if (PPApplication.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, getActivity().getApplicationContext())
+        if (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, getActivity().getApplicationContext())
                 != PPApplication.PREFERENCE_ALLOWED)
         {
             Preference preference = prefMng.findPreference("orientationScanningCategory");
@@ -175,7 +175,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
                     ": "+ PPApplication.getNotAllowedPreferenceReasonString(getActivity()));
             preference.setEnabled(false);
         }
-        if (PPApplication.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, getActivity().getApplicationContext())
+        if (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, getActivity().getApplicationContext())
                 != PPApplication.PREFERENCE_ALLOWED)
         {
             Preference preference = prefMng.findPreference("mobileCellsScanningCategory");

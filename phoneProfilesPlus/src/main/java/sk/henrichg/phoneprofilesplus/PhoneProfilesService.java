@@ -322,7 +322,7 @@ public class PhoneProfilesService extends Service
         if (onlyStart) {
             getApplicationContext().startService(serviceIntent);
 
-            PPApplication.setMergedRingNotificationVolumes(getApplicationContext(), false);
+            ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), false);
         }
 
         return onlyStart;

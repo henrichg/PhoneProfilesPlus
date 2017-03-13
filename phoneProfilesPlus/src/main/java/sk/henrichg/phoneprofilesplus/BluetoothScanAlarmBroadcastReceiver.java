@@ -47,7 +47,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         setAlarm(context, false, false);
 
-        if (PPApplication.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
+        if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED) {
             removeAlarm(context);
             return;
@@ -84,7 +84,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         setWaitForLEResults(context, false);
         setBluetoothEnabledForScan(context, false);
 
-        if (PPApplication.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
+        if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED)
             return;
 
@@ -114,7 +114,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     {
         //PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot);
 
-        if (PPApplication.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
+        if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
                 == PPApplication.PREFERENCE_ALLOWED)
         {
             PPApplication.logE("BluetoothScanAlarmBroadcastReceiver.setAlarm","BluetoothHardware=true");

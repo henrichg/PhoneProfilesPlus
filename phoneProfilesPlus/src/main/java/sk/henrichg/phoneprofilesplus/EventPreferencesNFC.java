@@ -171,7 +171,7 @@ class EventPreferencesNFC extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_NFC_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_NFC_DURATION, preferences, context);
 
-        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context)
+        if (Event.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context)
                 != PPApplication.PREFERENCE_ALLOWED)
         {
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_ENABLED);
@@ -185,7 +185,7 @@ class EventPreferencesNFC extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
+        if (Event.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesNFC tmp = new EventPreferencesNFC(this._event, this._enabled, this._nfcTags, this._permanentRun, this._duration);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -220,7 +220,7 @@ class EventPreferencesNFC extends EventPreferences {
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context)
     {
-        boolean enabled = PPApplication.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED;
+        boolean enabled = Event.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED;
         Preference nfcTagsPreference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
         Preference permanentRunPreference = prefMng.findPreference(PREF_EVENT_NFC_PERMANENT_RUN);
         Preference durationPreference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);

@@ -133,13 +133,13 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 int zenMode = 0;
                 switch (interruptionFilter) {
                     case NotificationListenerService.INTERRUPTION_FILTER_ALL:
-                        if (PPApplication.vibrationIsOn(getApplicationContext(), audioManager, true))
+                        if (ActivateProfileHelper.vibrationIsOn(getApplicationContext(), audioManager, true))
                             zenMode = 4;
                         else
                             zenMode = 1;
                         break;
                     case NotificationListenerService.INTERRUPTION_FILTER_PRIORITY:
-                        if (PPApplication.vibrationIsOn(getApplicationContext(), audioManager, true))
+                        if (ActivateProfileHelper.vibrationIsOn(getApplicationContext(), audioManager, true))
                             zenMode = 5;
                         else
                             zenMode = 2;
@@ -166,17 +166,17 @@ public class PPNotificationListenerService extends NotificationListenerService {
     private static int getZenMode(Context context, AudioManager audioManager) {
         // convert to profile zenMode
         int zenMode = 0;
-        int systemZenMode = PPApplication.getSystemZenMode(context, -1);
+        int systemZenMode = ActivateProfileHelper.getSystemZenMode(context, -1);
         PPApplication.logE("PPNotificationListenerService.getZenMode", "systemZenMode=" + systemZenMode);
         switch (systemZenMode) {
             case ActivateProfileHelper.ZENMODE_ALL:
-                if (PPApplication.vibrationIsOn(context, audioManager, true))
+                if (ActivateProfileHelper.vibrationIsOn(context, audioManager, true))
                     zenMode = 4;
                 else
                     zenMode = 1;
                 break;
             case ActivateProfileHelper.ZENMODE_PRIORITY:
-                if (PPApplication.vibrationIsOn(context, audioManager, true))
+                if (ActivateProfileHelper.vibrationIsOn(context, audioManager, true))
                     zenMode = 5;
                 else
                     zenMode = 2;
