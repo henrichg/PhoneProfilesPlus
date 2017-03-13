@@ -20,7 +20,7 @@ public class NotificationBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             //PPApplication.logE("@@@ NotificationBroadcastReceiver.onReceive","packageName="+intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
 

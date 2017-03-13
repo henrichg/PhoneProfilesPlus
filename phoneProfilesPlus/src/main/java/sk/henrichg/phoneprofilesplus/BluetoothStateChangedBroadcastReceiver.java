@@ -30,7 +30,7 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive","state="+bluetoothState);
 

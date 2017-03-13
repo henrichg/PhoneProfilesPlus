@@ -55,10 +55,10 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
             }
         }
 
-        int forceOneScan = PPApplication.getForceOneWifiScan(context);
+        int forceOneScan = ScannerService.getForceOneWifiScan(context);
         PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "forceOneScan="+forceOneScan);
 
-        if (PPApplication.getGlobalEventsRuning(context) || (forceOneScan == PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+        if (Event.getGlobalEventsRuning(context) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
         {
             PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive","state="+wifiState);
 

@@ -21,7 +21,7 @@ public class EventTimeBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ EventTimeBroadcastReceiver.onReceive","xxx");
 

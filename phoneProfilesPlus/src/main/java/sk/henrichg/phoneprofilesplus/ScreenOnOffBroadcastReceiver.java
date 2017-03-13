@@ -34,7 +34,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
 
             PPApplication.setScreenUnlocked(context, false);
-            if (!PPApplication.getGlobalEventsRuning(context)) {
+            if (!Event.getGlobalEventsRuning(context)) {
                 DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
                 dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
                 //dataWrapper.getActivateProfileHelper().removeNotification();
@@ -76,7 +76,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             return;
         }
 
-        if (PPApplication.getGlobalEventsRuning(context)) {
+        if (Event.getGlobalEventsRuning(context)) {
 
             /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0); */
 

@@ -156,7 +156,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 descr = descr + "; " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": " + GlobalGUIRoutines.getDurationString(this._startBeforeEvent);
 
             if (addBullet) {
-                if (PPApplication.getGlobalEventsRuning(context)) {
+                if (Event.getGlobalEventsRuning(context)) {
                     if (_eventFound) {
                         long alarmTime;
                         //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");

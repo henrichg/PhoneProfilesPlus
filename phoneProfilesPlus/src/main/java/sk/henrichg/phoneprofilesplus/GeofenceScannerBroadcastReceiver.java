@@ -21,7 +21,7 @@ public class GeofenceScannerBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ GeofenceScannerBroadcastReceiver.onReceive", "xxx");
 

@@ -43,7 +43,7 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
                 }
             }
 
-            if (PPApplication.getGlobalEventsRuning(context))
+            if (Event.getGlobalEventsRuning(context))
             {
                 if ((info.getState() == NetworkInfo.State.CONNECTED) ||
                     (info.getState() == NetworkInfo.State.DISCONNECTED))

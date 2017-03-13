@@ -545,7 +545,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         menuItem = menu.findItem(R.id.menu_run_stop_events);
         if (menuItem != null)
         {
-            if (PPApplication.getGlobalEventsRuning(getApplicationContext()))
+            if (Event.getGlobalEventsRuning(getApplicationContext()))
             {
                 menuItem.setTitle(R.string.menu_stop_events);
             }
@@ -573,7 +573,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         menuItem = menu.findItem(R.id.menu_restart_events);
         if (menuItem != null)
         {
-            menuItem.setVisible(PPApplication.getGlobalEventsRuning(getApplicationContext()));
+            menuItem.setVisible(Event.getGlobalEventsRuning(getApplicationContext()));
         }
 
         return super.onPrepareOptionsMenu(menu);
@@ -598,7 +598,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         // remove alarm for profile duration
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-        PPApplication.setActivatedProfileForDuration(context, 0);
+        Profile.setActivatedProfileForDuration(context, 0);
 
         if (PhoneProfilesService.instance != null) {
             PPApplication.stopGeofenceScanner(context);
@@ -1222,9 +1222,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //dataWrapper.getActivateProfileHelper().updateWidget();
 
                         PPApplication.logE("$$$ setEventsBlocked", "EditorProfilesActivity.doImportData.onPostExecute, false");
-                        PPApplication.setEventsBlocked(getApplicationContext(), false);
+                        Event.setEventsBlocked(getApplicationContext(), false);
                         dataWrapper.getDatabaseHandler().unblockAllEvents();
-                        PPApplication.setForceRunEventRunning(getApplicationContext(), false);
+                        Event.setForceRunEventRunning(getApplicationContext(), false);
 
                         SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                         Editor editor = preferences.edit();
@@ -1239,7 +1239,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         // restart events
                         // startneme eventy
-                        if (PPApplication.getGlobalEventsRuning(getApplicationContext())) {
+                        if (Event.getGlobalEventsRuning(getApplicationContext())) {
                         /*
                         Intent intent = new Intent();
                         intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
@@ -1850,9 +1850,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     public void setEventsRunStopIndicator()
     {
-        if (PPApplication.getGlobalEventsRuning(getApplicationContext()))
+        if (Event.getGlobalEventsRuning(getApplicationContext()))
         {
-            if (PPApplication.getEventsBlocked(getApplicationContext()))
+            if (Event.getEventsBlocked(getApplicationContext()))
                 eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation);
             else
                 eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running);
@@ -1931,7 +1931,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     circleColor = 0x7F7F7F;
 
                 final TapTargetSequence sequence = new TapTargetSequence(this);
-                if (PPApplication.getGlobalEventsRuning(getApplicationContext()))
+                if (Event.getGlobalEventsRuning(getApplicationContext()))
                     sequence.targets(
                             TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
                                     .targetCircleColorInt(circleColor)

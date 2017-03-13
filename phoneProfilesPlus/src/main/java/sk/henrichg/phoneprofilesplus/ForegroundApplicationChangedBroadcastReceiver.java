@@ -21,7 +21,7 @@ public class ForegroundApplicationChangedBroadcastReceiver extends WakefulBroadc
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             String packageName = PPApplication.getApplicationInForeground(context);
             PPApplication.logE("@@@ ForegroundApplicationChangedBroadcastReceiver.onReceive","packageName="+packageName);

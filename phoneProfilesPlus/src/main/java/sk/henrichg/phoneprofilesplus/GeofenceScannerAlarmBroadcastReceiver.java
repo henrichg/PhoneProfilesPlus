@@ -50,7 +50,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             return;
         }
 
-        if (PPApplication.getGlobalEventsRuning(context)) {
+        if (Event.getGlobalEventsRuning(context)) {
             if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.geofencesScanner != null)) {
                 if (PhoneProfilesService.geofencesScanner.mUpdatesStarted) {
                     PhoneProfilesService.geofencesScanner.stopLocationUpdates();

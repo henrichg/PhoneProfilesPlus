@@ -28,7 +28,7 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ SearchCalendarEventsBroadcastReceiver.onReceive","xxx");
 

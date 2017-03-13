@@ -53,7 +53,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         if (wifi == null)
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ WifiScanAlarmBroadcastReceiver.onReceive", "xxx");
 
@@ -294,7 +294,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     static public void startScanner(Context context)
     {
         Intent scanServiceIntent = new Intent(context, ScannerService.class);
-        scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, PPApplication.SCANNER_TYPE_WIFI);
+        scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_WIFI);
         context.startService(scanServiceIntent);
     }
 

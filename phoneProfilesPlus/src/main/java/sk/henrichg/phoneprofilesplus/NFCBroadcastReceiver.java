@@ -38,7 +38,7 @@ public class NFCBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ NFCBroadcastReceiver.startService","xxx");
 

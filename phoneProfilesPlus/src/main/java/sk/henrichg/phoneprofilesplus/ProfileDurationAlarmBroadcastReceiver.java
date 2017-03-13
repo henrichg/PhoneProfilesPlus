@@ -50,7 +50,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         }
                         if (profile._afterDurationDo == Profile.AFTERDURATIONDO_UNDOPROFILE)
                         {
-                            activateProfileId = PPApplication.getActivatedProfileForDuration(context);
+                            activateProfileId = Profile.getActivatedProfileForDuration(context);
 
                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, null,
                                     dataWrapper.getProfileNameWithManualIndicator(profile, true, true, false),
@@ -99,7 +99,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             now.add(Calendar.SECOND, profile._duration);
             long alarmTime = now.getTimeInMillis();// + 1000 * 60 * profile._duration;
 
-            PPApplication.setActivatedProfileEndDurationTime(context, alarmTime);
+            Profile.setActivatedProfileEndDurationTime(context, alarmTime);
 
             //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
             //String result = sdf.format(alarmTime);
@@ -146,7 +146,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         //this._isInDelay = false;
         //dataWrapper.getDatabaseHandler().updateEventInDelay(this);
 
-        PPApplication.setActivatedProfileEndDurationTime(context, 0);
+        Profile.setActivatedProfileEndDurationTime(context, 0);
     }
 
 }

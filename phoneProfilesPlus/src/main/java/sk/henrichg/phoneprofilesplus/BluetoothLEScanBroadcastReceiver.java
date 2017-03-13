@@ -30,9 +30,9 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
         PPApplication.loadPreferences(context);
 
-        int forceOneScan = PPApplication.getForceOneLEBluetoothScan(context);
+        int forceOneScan = ScannerService.getForceOneLEBluetoothScan(context);
 
-        if (PPApplication.getGlobalEventsRuning(context) || (forceOneScan == PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+        if (Event.getGlobalEventsRuning(context) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
         {
 
             boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context));
@@ -45,9 +45,9 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
                 BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
 
-                PPApplication.setForceOneLEBluetoothScan(context, PPApplication.FORCE_ONE_SCAN_DISABLED);
+                ScannerService.setForceOneLEBluetoothScan(context, ScannerService.FORCE_ONE_SCAN_DISABLED);
 
-                if (forceOneScan != PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
+                if (forceOneScan != ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
                     // start service
                     //setAlarm(context);

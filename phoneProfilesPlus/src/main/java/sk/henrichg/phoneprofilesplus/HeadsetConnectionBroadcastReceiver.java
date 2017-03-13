@@ -80,7 +80,7 @@ public class HeadsetConnectionBroadcastReceiver extends WakefulBroadcastReceiver
 
         PPApplication.loadPreferences(context);
         
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             if (broadcast)
             {

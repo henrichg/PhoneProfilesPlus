@@ -539,7 +539,7 @@ public class EditorProfileListFragment extends Fragment {
         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
             // remove alarm for profile duration
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
-            PPApplication.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
+            Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
         }
 
         dataWrapper.stopEventsForProfile(profile, true);
@@ -691,7 +691,7 @@ public class EditorProfileListFragment extends Fragment {
 
                 // remove alarm for profile duration
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
-                PPApplication.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
+                Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
 
                 dataWrapper.stopAllEvents(true, false);
                 dataWrapper.unlinkAllEvents();

@@ -35,7 +35,7 @@ public class RadioSwitchBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ RadioSwitchBroadcastReceiver.startService","xxx");
 

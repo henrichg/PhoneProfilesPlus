@@ -786,7 +786,7 @@ public class DataWrapper {
 
         // blockEvents == true -> manual profile activation is set
         PPApplication.logE("$$$ setEventsBlocked", "DataWrapper.pauseAllEvents, " + blockEvents);
-        PPApplication.setEventsBlocked(context, blockEvents);
+        Event.setEventsBlocked(context, blockEvents);
     }
 
     // stops all events
@@ -860,14 +860,14 @@ public class DataWrapper {
             invalidateEventList();  // force load form db
 
         if (!startedFromService) {
-            PPApplication.setEventsBlocked(context, false);
+            Event.setEventsBlocked(context, false);
             for (Event event : getEventList())
             {
                 if (event != null)
                     event._blocked = false;
             }
             getDatabaseHandler().unblockAllEvents();
-            PPApplication.setForceRunEventRunning(context, false);
+            Event.setForceRunEventRunning(context, false);
         }
 
         /*
@@ -1140,7 +1140,7 @@ public class DataWrapper {
     {
         // remove last configured profile duration alarm
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-        PPApplication.setActivatedProfileForDuration(context, 0);
+        Profile.setActivatedProfileForDuration(context, 0);
 
         Profile profile = Profile.getMappedProfile(_profile, context);
         //profile = filterProfileWithBatteryEvents(profile);
@@ -1204,7 +1204,7 @@ public class DataWrapper {
                 if (activatedProfile != null)
                     profileId = activatedProfile._id;
                 PPApplication.logE("$$$ DataWrapper._activateProfile","setActivatedProfileForDuration profileId="+profileId);
-                PPApplication.setActivatedProfileForDuration(context, profileId);
+                Profile.setActivatedProfileForDuration(context, profileId);
 
                 ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, context);
                 ///////////
@@ -1423,7 +1423,7 @@ public class DataWrapper {
             // aktivacia bola spustena po boote telefonu
 
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-            PPApplication.setActivatedProfileForDuration(context, 0);
+            Profile.setActivatedProfileForDuration(context, 0);
 
             if (PPApplication.applicationActivate)
             {
@@ -1462,7 +1462,7 @@ public class DataWrapper {
             // aktivacia bola spustena z lauchera
 
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-            PPApplication.setActivatedProfileForDuration(context, 0);
+            Profile.setActivatedProfileForDuration(context, 0);
 
             if (PPApplication.applicationActivate)
             {
@@ -2926,13 +2926,13 @@ public class DataWrapper {
 
     public void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile, boolean interactive)
     {
-        if (!PPApplication.getGlobalEventsRuning(context))
+        if (!Event.getGlobalEventsRuning(context))
             // events are globally stopped
             return;
 
         PPApplication.logE("$$$ restartEvents", "in DataWrapper.restartEvents");
 
-        if (PPApplication.getEventsBlocked(context) && (!unblockEventsRun)) {
+        if (Event.getEventsBlocked(context) && (!unblockEventsRun)) {
 
             Intent intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
             context.sendBroadcast(intent);
@@ -2947,14 +2947,14 @@ public class DataWrapper {
         if (unblockEventsRun)
         {
             PPApplication.logE("$$$ setEventsBlocked", "DataWrapper.restartEvents, false");
-            PPApplication.setEventsBlocked(context, false);
+            Event.setEventsBlocked(context, false);
             for (Event event : getEventList())
             {
                 if (event != null)
                     event._blocked = false;
             }
             getDatabaseHandler().unblockAllEvents();
-            PPApplication.setForceRunEventRunning(context, false);
+            Event.setForceRunEventRunning(context, false);
         }
 
         if (!keepActivatedProfile) {
@@ -3026,7 +3026,7 @@ public class DataWrapper {
 
     void restartEventsWithAlert(Activity activity)
     {
-        if (!PPApplication.getGlobalEventsRuning(context))
+        if (!Event.getGlobalEventsRuning(context))
             // events are globally stopped
             return;
 
@@ -3107,10 +3107,10 @@ public class DataWrapper {
     // 2. no any forceRun event is running
     boolean getIsManualProfileActivation()
     {
-        if (!PPApplication.getEventsBlocked(context))
+        if (!Event.getEventsBlocked(context))
             return false;
         else
-            return !PPApplication.getForceRunEventRunning(context);
+            return !Event.getForceRunEventRunning(context);
     }
 
     private String getProfileNameWithManualIndicator(Profile profile, List<EventTimeline> eventTimelineList, boolean addIndicators, boolean addDuration, boolean multyline, Context context)
@@ -3124,11 +3124,11 @@ public class DataWrapper {
         else
             name = profile._name;
 
-        if (PPApplication.getEventsBlocked(context))
+        if (Event.getEventsBlocked(context))
         {
             if (addIndicators)
             {
-                if (PPApplication.getForceRunEventRunning(context))
+                if (Event.getForceRunEventRunning(context))
                 {
                     name = "[\u00BB] " + name;
                 }
@@ -3168,7 +3168,7 @@ public class DataWrapper {
     private String getLastStartedEventName(List<EventTimeline> eventTimelineList)
     {
 
-        if (PPApplication.getGlobalEventsRuning(context) && PPApplication.getApplicationStarted(context, false))
+        if (Event.getGlobalEventsRuning(context) && PPApplication.getApplicationStarted(context, false))
         {
             if (eventTimelineList.size() > 0)
             {
@@ -3177,7 +3177,7 @@ public class DataWrapper {
                 Event event = getEventById(event_id);
                 if (event != null)
                 {
-                    if ((!PPApplication.getEventsBlocked(context)) || (event._forceRun))
+                    if ((!Event.getEventsBlocked(context)) || (event._forceRun))
                     {
                         Profile profile = getActivatedProfile();
                         if ((profile != null) && (event._fkProfileStart == profile._id))
@@ -3195,7 +3195,7 @@ public class DataWrapper {
             else
             {
                 long profileId = Long.valueOf(PPApplication.applicationBackgroundProfile);
-                if ((!PPApplication.getEventsBlocked(context)) && (profileId != Profile.PROFILE_NO_ACTIVATE))
+                if ((!Event.getEventsBlocked(context)) && (profileId != Profile.PROFILE_NO_ACTIVATE))
                 {
                     Profile profile = getActivatedProfile();
                     if ((profile != null) && (profile._id == profileId))
@@ -3282,7 +3282,7 @@ public class DataWrapper {
     }
 
     void runStopEvents() {
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             //noinspection ConstantConditions
             addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, null, null, null, 0);
@@ -3292,7 +3292,7 @@ public class DataWrapper {
             resetAllEventsInDelayEnd(false);
             // no set system events, unblock all events, no activate return profile
             pauseAllEvents(true, false/*, false*/);
-            PPApplication.setGlobalEventsRuning(context, false);
+            Event.setGlobalEventsRuning(context, false);
             // stop Wifi scanner
             WifiScanAlarmBroadcastReceiver.initialize(context);
             WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
@@ -3313,7 +3313,7 @@ public class DataWrapper {
             //noinspection ConstantConditions
             addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, null, null, null, 0);
 
-            PPApplication.setGlobalEventsRuning(context, true);
+            Event.setGlobalEventsRuning(context, true);
 
             if (PhoneProfilesService.instance != null) {
                 PPApplication.startGeofenceScanner(context);

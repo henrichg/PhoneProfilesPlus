@@ -258,7 +258,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         MenuItem menuItem = menu.findItem(R.id.menu_restart_events);
         if (menuItem != null)
         {
-            menuItem.setVisible(PPApplication.getGlobalEventsRuning(getApplicationContext()));
+            menuItem.setVisible(Event.getGlobalEventsRuning(getApplicationContext()));
         }
 
         return super.onPrepareOptionsMenu(menu);
@@ -328,9 +328,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     public void setEventsRunStopIndicator()
     {
-        if (PPApplication.getGlobalEventsRuning(getApplicationContext()))
+        if (Event.getGlobalEventsRuning(getApplicationContext()))
         {
-            if (PPApplication.getEventsBlocked(getApplicationContext()))
+            if (Event.getEventsBlocked(getApplicationContext()))
                 eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation);
             else
                 eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running);
@@ -377,7 +377,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                 View editorActionView = toolbar.findViewById(R.id.menu_edit_profiles);
                 final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
-                if (PPApplication.getGlobalEventsRuning(getApplicationContext())) {
+                if (Event.getGlobalEventsRuning(getApplicationContext())) {
                     View restartEventsActionView = toolbar.findViewById(R.id.menu_restart_events);
                     sequence.targets(
                             TapTarget.forView(editorActionView, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))

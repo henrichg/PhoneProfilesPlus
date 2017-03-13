@@ -216,7 +216,7 @@ class EventPreferencesTime extends EventPreferences {
 
 
             if (addBullet) {
-                if (PPApplication.getGlobalEventsRuning(context)) {
+                if (Event.getGlobalEventsRuning(context)) {
                     long alarmTime;
                     //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                     String alarmTimeS;

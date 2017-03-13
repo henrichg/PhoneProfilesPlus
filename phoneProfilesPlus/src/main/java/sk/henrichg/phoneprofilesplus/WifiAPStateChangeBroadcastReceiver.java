@@ -18,7 +18,7 @@ public class WifiAPStateChangeBroadcastReceiver extends WakefulBroadcastReceiver
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             // get Wi-Fi Hotspot state here
             //int state = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);

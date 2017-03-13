@@ -20,7 +20,7 @@ public class SMSEventEndBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ SMSEventEndBroadcastReceiver.onReceive","xxx");
 

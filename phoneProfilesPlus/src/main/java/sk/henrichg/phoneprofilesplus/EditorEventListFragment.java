@@ -391,7 +391,7 @@ public class EditorEventListFragment extends Fragment {
 
     void runStopEvent(Event event)
     {
-        if (PPApplication.getGlobalEventsRuning(dataWrapper.context)) {
+        if (Event.getGlobalEventsRuning(dataWrapper.context)) {
             // events are not globally stopped
 
             if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP) {

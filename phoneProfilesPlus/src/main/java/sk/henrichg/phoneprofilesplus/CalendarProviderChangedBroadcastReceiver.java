@@ -21,7 +21,7 @@ public class CalendarProviderChangedBroadcastReceiver extends WakefulBroadcastRe
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ CalendarProviderChangedBroadcastReceiver.onReceive","xxx");
 

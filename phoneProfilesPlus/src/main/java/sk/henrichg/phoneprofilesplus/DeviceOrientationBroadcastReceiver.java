@@ -21,7 +21,7 @@ public class DeviceOrientationBroadcastReceiver extends WakefulBroadcastReceiver
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ DeviceOrientationBroadcastReceiver.onReceive", "-----------");
 

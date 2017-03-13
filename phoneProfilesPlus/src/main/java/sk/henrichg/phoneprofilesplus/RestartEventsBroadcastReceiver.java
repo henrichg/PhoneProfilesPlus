@@ -19,12 +19,12 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             boolean unblockEventsRun = intent.getBooleanExtra(DataWrapper.EXTRA_UNBLOCKEVENTSRUN, false);
             boolean interactive = intent.getBooleanExtra(DataWrapper.EXTRA_INTERACTIVE, false);
 
-            if (PPApplication.getEventsBlocked(context) && (!unblockEventsRun))
+            if (Event.getEventsBlocked(context) && (!unblockEventsRun))
                 return;
 
             PPApplication.logE("$$$ restartEvents","in RestartEventsBroadcastReceiver, unblockEventsRun="+unblockEventsRun);

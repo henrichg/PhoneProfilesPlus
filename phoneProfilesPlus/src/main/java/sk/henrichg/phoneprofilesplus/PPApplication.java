@@ -199,6 +199,12 @@ public class PPApplication extends Application {
     public static final String PREF_NOTIFICATION_THEME = "notificationTheme";
     public static final String PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES = "applicationForceSetMergeRingNotificationVolumes";
 
+    //public static final String RESCAN_TYPE_NONE = "0";
+    public static final String RESCAN_TYPE_SCREEN_ON = "1";
+    public static final String RESCAN_TYPE_RESTART_EVENTS = "2";
+    public static final String RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS = "3";
+
+
     public static final int PREFERENCE_NOT_ALLOWED = 0;
     public static final int PREFERENCE_ALLOWED = 1;
     public static final int PREFERENCE_NOT_ALLOWED_NO_HARDWARE = 0;
@@ -209,25 +215,9 @@ public class PPApplication extends Application {
     public static final int PREFERENCE_NOT_ALLOWED_NOT_CONFIGURED_IN_SYSTEM_SETTINGS = 5;
     public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION = 6;
 
-    public static final String SCANNER_TYPE_WIFI = "wifi";
-    public static final String SCANNER_TYPE_BLUETOOTH = "bluetooth";
-
-    //public static final String RESCAN_TYPE_NONE = "0";
-    public static final String RESCAN_TYPE_SCREEN_ON = "1";
-    public static final String RESCAN_TYPE_RESTART_EVENTS = "2";
-    public static final String RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS = "3";
-
     // global internal preferences
-    private static final String PREF_GLOBAL_EVENTS_RUN_STOP = "globalEventsRunStop";
     private static final String PREF_APPLICATION_STARTED = "applicationStarted";
-    private static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
-    private static final String PREF_FORCE_RUN_EVENT_RUNNING = "forceRunEventRunning";
-    private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
-    private static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
-    private static final String PREF_FORCE_ONE_BLUETOOTH_SCAN = "forceOneBluetoothScanInt";
-    private static final String PREF_FORCE_ONE_LE_BLUETOOTH_SCAN = "forceOneLEBluetoothScanInt";
-    private static final String PREF_FORCE_ONE_WIFI_SCAN = "forceOneWifiScanInt";
-    private static final String PREF_FORCE_ONE_GEOFENCE_SCAN = "forceOneGeofenceScanInt";
+    //private static final String PREF_FORCE_ONE_GEOFENCE_SCAN = "forceOneGeofenceScanInt";
     private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
     private static final String PREF_RINGER_VOLUME = "ringer_volume";
     private static final String PREF_NOTIFICATION_VOLUME = "notification_volume";
@@ -252,9 +242,6 @@ public class PPApplication extends Application {
     private static final String PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION = "show_request_draw_overlays_permission";
     private static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
     private static final String PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT = "activated_profile_screen_timeout";
-
-    public static final int FORCE_ONE_SCAN_DISABLED = 0;
-    public static final int FORCE_ONE_SCAN_FROM_PREF_DIALOG = 3;
 
     // alarm time offset (miliseconds) for events with generated alarms
     public static final int EVENT_ALARM_TIME_OFFSET = 15000;
@@ -624,20 +611,6 @@ public class PPApplication extends Application {
         }
     }
 
-    static public boolean getGlobalEventsRuning(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, true);
-    }
-
-    static public void setGlobalEventsRuning(Context context, boolean globalEventsRuning)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, globalEventsRuning);
-        editor.commit();
-    }
-
     static public boolean getApplicationStarted(Context context, boolean testService)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
@@ -652,104 +625,6 @@ public class PPApplication extends Application {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_APPLICATION_STARTED, appStarted);
-        editor.commit();
-    }
-
-    static public boolean getEventsBlocked(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_EVENTS_BLOCKED, false);
-    }
-
-    static public void setEventsBlocked(Context context, boolean eventsBlocked)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putBoolean(PREF_EVENTS_BLOCKED, eventsBlocked);
-        editor.commit();
-    }
-
-    static public boolean getForceRunEventRunning(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_FORCE_RUN_EVENT_RUNNING, false);
-    }
-
-    static public void setForceRunEventRunning(Context context, boolean forceRunEventRunning)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putBoolean(PREF_FORCE_RUN_EVENT_RUNNING, forceRunEventRunning);
-        editor.commit();
-    }
-
-    static public long getActivatedProfileForDuration(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, 0);
-    }
-
-    static public void setActivatedProfileForDuration(Context context, long profileId)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, profileId);
-        editor.commit();
-    }
-
-    static public long getActivatedProfileEndDurationTime(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
-    }
-
-    static public void setActivatedProfileEndDurationTime(Context context, long time)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
-        editor.commit();
-    }
-
-    static public int getForceOneWifiScan(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_FORCE_ONE_WIFI_SCAN, FORCE_ONE_SCAN_DISABLED);
-    }
-
-    static public void setForceOneWifiScan(Context context, int forceScan)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putInt(PREF_FORCE_ONE_WIFI_SCAN, forceScan);
-        editor.commit();
-    }
-
-    static public int getForceOneBluetoothScan(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_FORCE_ONE_BLUETOOTH_SCAN, FORCE_ONE_SCAN_DISABLED);
-    }
-
-    static public void setForceOneBluetoothScan(Context context, int forceScan)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putInt(PREF_FORCE_ONE_BLUETOOTH_SCAN, forceScan);
-        editor.commit();
-    }
-
-    static public int getForceOneLEBluetoothScan(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, FORCE_ONE_SCAN_DISABLED);
-    }
-
-    static public void setForceOneLEBluetoothScan(Context context, int forceScan)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putInt(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, forceScan);
         editor.commit();
     }
 

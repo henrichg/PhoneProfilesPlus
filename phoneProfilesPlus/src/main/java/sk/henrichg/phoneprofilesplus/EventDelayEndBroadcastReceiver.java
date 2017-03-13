@@ -21,7 +21,7 @@ public class EventDelayEndBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ EventDelayEndBroadcastReceiver.onReceive","xxx");
 

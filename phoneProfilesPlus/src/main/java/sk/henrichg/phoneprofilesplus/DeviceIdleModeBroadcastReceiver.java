@@ -25,7 +25,7 @@ public class DeviceIdleModeBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             // isLightDeviceIdleMode() is @hide :-(

@@ -23,7 +23,7 @@ public class StartEventsServiceBroadcastReceiver extends WakefulBroadcastReceive
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ StartEventsServiceBroadcastReceiver.onReceive","xxx");
 

@@ -20,7 +20,7 @@ public class NotificationEventEndBroadcastReceiver extends WakefulBroadcastRecei
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ NotificationEventEndBroadcastReceiver.onReceive","xxx");
 

@@ -51,7 +51,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         if (bluetooth == null)
             bluetooth = getBluetoothAdapter(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.onReceive", "xxx");
 
@@ -362,8 +362,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
                     tmpScanLEResults = null;
 
-                    int forceScan = PPApplication.getForceOneBluetoothScan(context);
-                    if (forceScan == PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG)
+                    int forceScan = ScannerService.getForceOneBluetoothScan(context);
+                    if (forceScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG)
                         builder.setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY);
                     else
                         builder.setScanMode(ScanSettings.SCAN_MODE_LOW_POWER);
@@ -455,7 +455,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     static public void startScanner(Context context)
     {
         Intent scanServiceIntent = new Intent(context, ScannerService.class);
-        scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, PPApplication.SCANNER_TYPE_BLUETOOTH);
+        scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_BLUETOOTH);
         context.startService(scanServiceIntent);
     }
 

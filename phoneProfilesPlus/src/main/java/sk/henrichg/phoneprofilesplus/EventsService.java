@@ -110,7 +110,7 @@ public class EventsService extends IntentService
             }
         }
 
-        if (!PPApplication.getGlobalEventsRuning(context)) {
+        if (!Event.getGlobalEventsRuning(context)) {
             // events are globally stopped
 
             doEndService(intent);
@@ -160,11 +160,11 @@ public class EventsService extends IntentService
             if (intent.getBooleanExtra(DataWrapper.EXTRA_UNBLOCKEVENTSRUN, false)) {
                 // remove alarm for profile duration
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-                PPApplication.setActivatedProfileForDuration(context, 0);
+                Profile.setActivatedProfileForDuration(context, 0);
 
-                PPApplication.setEventsBlocked(context, false);
+                Event.setEventsBlocked(context, false);
                 dataWrapper.getDatabaseHandler().unblockAllEvents();
-                PPApplication.setForceRunEventRunning(context, false);
+                Event.setForceRunEventRunning(context, false);
             }
         }
 

@@ -21,7 +21,7 @@ public class LocationModeChangedBroadcastReceiver extends WakefulBroadcastReceiv
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("@@@ LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 

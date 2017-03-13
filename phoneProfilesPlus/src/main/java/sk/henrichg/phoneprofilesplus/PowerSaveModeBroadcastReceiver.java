@@ -33,7 +33,7 @@ public class PowerSaveModeBroadcastReceiver extends WakefulBroadcastReceiver {
         else
             PPApplication.isPowerSaveMode = oldPowerSaveMode;
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             if (PhoneProfilesService.instance != null) {
                 if (PhoneProfilesService.isGeofenceScannerStarted())

@@ -76,7 +76,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
             editor.putInt(PPApplication.PREF_EVENT_BLUETOOTH_LAST_STATE, currState);
             editor.commit();*/
 
-            if (PPApplication.getGlobalEventsRuning(context))
+            if (Event.getGlobalEventsRuning(context))
             {
 
                 //if (lastState != currState)

@@ -82,7 +82,7 @@ public class FirstStartService extends IntentService {
             PPNotificationListenerService.setZenMode(context, audioManager);
         InterruptionFilterChangedBroadcastReceiver.setZenMode(context, audioManager);
 
-        PPApplication.setActivatedProfileForDuration(context, 0);
+        Profile.setActivatedProfileForDuration(context, 0);
         PPApplication.setApplicationInForeground(context, "");
 
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
@@ -95,7 +95,7 @@ public class FirstStartService extends IntentService {
         ImportantInfoNotification.showInfoNotification(context);
 
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-        PPApplication.setActivatedProfileForDuration(context, 0);
+        Profile.setActivatedProfileForDuration(context, 0);
 
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
         dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
@@ -127,7 +127,7 @@ public class FirstStartService extends IntentService {
         PPApplication.startPhoneStateScanner(context);
 
         // startneme eventy
-        if (PPApplication.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(context))
         {
             PPApplication.logE("$$$ FirstStartService.onHandleIntent","global event run is enabled, first start events");
             dataWrapper.firstStartEvents(true);
