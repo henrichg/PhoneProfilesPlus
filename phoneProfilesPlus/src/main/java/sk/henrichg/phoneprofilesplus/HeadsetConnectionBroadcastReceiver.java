@@ -12,6 +12,10 @@ public class HeadsetConnectionBroadcastReceiver extends WakefulBroadcastReceiver
 
     public static final String BROADCAST_RECEIVER_TYPE = "headsetConnection";
 
+    static final String PREF_EVENT_HEADSET_CONNECTED = "eventHeadsetConnected";
+    static final String PREF_EVENT_HEADSET_MICROPHONE = "eventHeadsetMicrophone";
+    static final String PREF_EVENT_HEADSET_BLUETOOTH = "eventHeadsetBluetooth";
+
     public static final String[] HEADPHONE_ACTIONS = {
         Intent.ACTION_HEADSET_PLUG,
         BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED,
@@ -68,9 +72,9 @@ public class HeadsetConnectionBroadcastReceiver extends WakefulBroadcastReceiver
 
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             Editor editor = preferences.edit();
-            editor.putBoolean(PPApplication.PREF_EVENT_HEADSET_CONNECTED, connectedHeadphones);
-            editor.putBoolean(PPApplication.PREF_EVENT_HEADSET_MICROPHONE, connectedMicrophone);
-            editor.putBoolean(PPApplication.PREF_EVENT_HEADSET_BLUETOOTH, bluetoothHeadset);
+            editor.putBoolean(PREF_EVENT_HEADSET_CONNECTED, connectedHeadphones);
+            editor.putBoolean(PREF_EVENT_HEADSET_MICROPHONE, connectedMicrophone);
+            editor.putBoolean(PREF_EVENT_HEADSET_BLUETOOTH, bluetoothHeadset);
             editor.commit();
         }
 

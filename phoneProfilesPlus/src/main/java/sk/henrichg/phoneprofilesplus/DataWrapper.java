@@ -1669,8 +1669,8 @@ public class DataWrapper {
             ignoreCall = false;
 
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            int callEventType = preferences.getInt(PPApplication.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
-            String phoneNumber = preferences.getString(PPApplication.PREF_EVENT_CALL_PHONE_NUMBER, "");
+            int callEventType = preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+            String phoneNumber = preferences.getString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, "");
 
             boolean phoneNumberFinded = false;
 
@@ -1845,9 +1845,9 @@ public class DataWrapper {
                 (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_HEADPHONES))
             {
                 SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-                boolean headsetConnected = preferences.getBoolean(PPApplication.PREF_EVENT_HEADSET_CONNECTED, false);
-                boolean headsetMicrophone = preferences.getBoolean(PPApplication.PREF_EVENT_HEADSET_MICROPHONE, false);
-                boolean bluetoothHeadset = preferences.getBoolean(PPApplication.PREF_EVENT_HEADSET_BLUETOOTH, false);
+                boolean headsetConnected = preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_CONNECTED, false);
+                boolean headsetMicrophone = preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_MICROPHONE, false);
+                boolean bluetoothHeadset = preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_BLUETOOTH, false);
 
                 if (headsetConnected)
                 {
@@ -2460,7 +2460,7 @@ public class DataWrapper {
             ignoreOrientation = false;
 
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            int callEventType = preferences.getInt(PPApplication.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+            int callEventType = preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
 
             if (Permissions.checkEventPhoneBroadcast(context, event) &&
                 (callEventType != PhoneCallService.CALL_EVENT_UNDEFINED) &&

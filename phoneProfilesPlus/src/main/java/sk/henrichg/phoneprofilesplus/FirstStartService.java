@@ -87,8 +87,8 @@ public class FirstStartService extends IntentService {
 
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(PPApplication.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
-        editor.putString(PPApplication.PREF_EVENT_CALL_PHONE_NUMBER, "");
+        editor.putInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+        editor.putString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, "");
         editor.commit();
 
         // show info notification

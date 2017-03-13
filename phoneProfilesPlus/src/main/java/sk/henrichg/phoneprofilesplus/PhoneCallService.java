@@ -30,6 +30,9 @@ public class PhoneCallService extends IntentService {
     public static final int LINKMODE_LINK = 1;
     public static final int LINKMODE_UNLINK = 2;
 
+    static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
+    static final String PREF_EVENT_CALL_PHONE_NUMBER = "eventCallPhoneNumber";
+
     public PhoneCallService() {
         super("PhoneCallService");
     }
@@ -73,8 +76,8 @@ public class PhoneCallService extends IntentService {
     {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(PPApplication.PREF_EVENT_CALL_EVENT_TYPE, eventType);
-        editor.putString(PPApplication.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
+        editor.putInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, eventType);
+        editor.putString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
         editor.commit();
 
         linkUnlinkExecuted = false;

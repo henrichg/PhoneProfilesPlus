@@ -222,25 +222,6 @@ public class PPApplication extends Application {
     private static final String PREF_DAYS_AFTER_FIRST_START = "days_after_first_start";
     private static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
 
-    // alarm time offset (miliseconds) for events with generated alarms
-    public static final int EVENT_ALARM_TIME_OFFSET = 15000;
-
-    // preferences for event - filled with broadcast receivers
-    static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
-    static final String PREF_EVENT_CALL_PHONE_NUMBER = "eventCallPhoneNumber";
-    static final String PREF_EVENT_HEADSET_CONNECTED = "eventHeadsetConnected";
-    static final String PREF_EVENT_HEADSET_MICROPHONE = "eventHeadsetMicrophone";
-    static final String PREF_EVENT_HEADSET_BLUETOOTH = "eventHeadsetBluetooth";
-    static final String PREF_EVENT_WIFI_SCAN_REQUEST = "eventWifiScanRequest";
-    static final String PREF_EVENT_WIFI_WAIT_FOR_RESULTS = "eventWifiWaitForResults";
-    static final String PREF_EVENT_WIFI_ENABLED_FOR_SCAN = "eventWifiEnabledForScan";
-    static final String PREF_EVENT_BLUETOOTH_SCAN_REQUEST = "eventBluetoothScanRequest";
-    static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS = "eventBluetoothWaitForResults";
-    static final String PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST = "eventBluetoothLEScanRequest";
-    static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS = "eventBluetoothWaitForLEResults";
-    static final String PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN = "eventBluetoothEnabledForScan";
-    //static final String PREF_EVENT_WIFI_LAST_STATE = "eventWifiLastState";
-    //static final String PREF_EVENT_BLUETOOTH_LAST_STATE = "eventBluetoothLastState";
 
     // scanner start/stop types
     static final int SCANNER_START_GEOFENCE_SCANNER = 1;

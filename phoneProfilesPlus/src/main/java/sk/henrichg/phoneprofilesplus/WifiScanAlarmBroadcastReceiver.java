@@ -34,6 +34,11 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     //public static List<WifiSSIDData> scanResults = null;
     //public static List<WifiSSIDData> wifiConfigurationList = null;
 
+    static final String PREF_EVENT_WIFI_SCAN_REQUEST = "eventWifiScanRequest";
+    static final String PREF_EVENT_WIFI_WAIT_FOR_RESULTS = "eventWifiWaitForResults";
+    static final String PREF_EVENT_WIFI_ENABLED_FOR_SCAN = "eventWifiEnabledForScan";
+
+
     @SuppressLint("NewApi")
     public void onReceive(Context context, Intent intent) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
@@ -244,14 +249,14 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     static public boolean getScanRequest(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PPApplication.PREF_EVENT_WIFI_SCAN_REQUEST, false);
+        return preferences.getBoolean(PREF_EVENT_WIFI_SCAN_REQUEST, false);
     }
 
     static public void setScanRequest(Context context, boolean scanRequest)
     {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putBoolean(PPApplication.PREF_EVENT_WIFI_SCAN_REQUEST, scanRequest);
+        editor.putBoolean(PREF_EVENT_WIFI_SCAN_REQUEST, scanRequest);
         editor.commit();
         PPApplication.logE("@@@ WifiScanAlarmBroadcastReceiver.setScanRequest","scanRequest="+scanRequest);
     }
@@ -259,14 +264,14 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     static public boolean getWaitForResults(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PPApplication.PREF_EVENT_WIFI_WAIT_FOR_RESULTS, false);
+        return preferences.getBoolean(PREF_EVENT_WIFI_WAIT_FOR_RESULTS, false);
     }
 
     static public void setWaitForResults(Context context, boolean waitForResults)
     {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putBoolean(PPApplication.PREF_EVENT_WIFI_WAIT_FOR_RESULTS, waitForResults);
+        editor.putBoolean(PREF_EVENT_WIFI_WAIT_FOR_RESULTS, waitForResults);
         editor.commit();
         PPApplication.logE("$$$ WifiScanAlarmBroadcastReceiver.setWaitForResults", "waitForResults=" + waitForResults);
     }
@@ -315,7 +320,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     static public boolean getWifiEnabledForScan(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PPApplication.PREF_EVENT_WIFI_ENABLED_FOR_SCAN, false);
+        return preferences.getBoolean(PREF_EVENT_WIFI_ENABLED_FOR_SCAN, false);
     }
 
     static public void setWifiEnabledForScan(Context context, boolean setEnabled)
@@ -323,7 +328,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("@@@ WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan","setEnabled="+setEnabled);
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putBoolean(PPApplication.PREF_EVENT_WIFI_ENABLED_FOR_SCAN, setEnabled);
+        editor.putBoolean(PREF_EVENT_WIFI_ENABLED_FOR_SCAN, setEnabled);
         editor.commit();
     }
 

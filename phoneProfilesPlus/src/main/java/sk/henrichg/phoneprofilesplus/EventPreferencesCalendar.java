@@ -402,12 +402,12 @@ class EventPreferencesCalendar extends EventPreferences {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
         if (android.os.Build.VERSION.SDK_INT >= 23)
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime+ PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime+ Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
         else
         if (android.os.Build.VERSION.SDK_INT >= 19)
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime+ PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime+ Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
         else
-            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime+ PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime+ Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
     }
 
     private void searchEvent(Context context)
