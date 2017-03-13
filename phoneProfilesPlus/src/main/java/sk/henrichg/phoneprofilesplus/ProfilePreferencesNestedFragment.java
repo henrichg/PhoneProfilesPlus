@@ -20,8 +20,6 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.telephony.TelephonyManager;
 
-import javax.microedition.khronos.opengles.GL;
-
 import static android.content.Context.DEVICE_POLICY_SERVICE;
 
 public class ProfilePreferencesNestedFragment extends PreferenceFragment

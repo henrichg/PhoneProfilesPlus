@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EventsService extends IntentService
