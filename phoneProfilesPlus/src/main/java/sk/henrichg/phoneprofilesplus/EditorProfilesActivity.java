@@ -181,7 +181,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            if (PPApplication.applicationTheme.equals("material"))
+            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff237e9f"));
             else
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
@@ -280,13 +280,13 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerRoot = (ScrimInsetsFrameLayout) findViewById(R.id.editor_drawer_root);
 
         // set status bar background for Activity body layout
-        if (PPApplication.applicationTheme.equals("material"))
+        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
             drawerLayout.setStatusBarBackground(R.color.profile_all_primaryDark);
         else
-        if (PPApplication.applicationTheme.equals("dark"))
+        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
             drawerLayout.setStatusBarBackground(R.color.profile_all_primaryDark_dark);
         else
-        if (PPApplication.applicationTheme.equals("dlight"))
+        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dlight"))
             drawerLayout.setStatusBarBackground(R.color.profile_all_primaryDark_dark);
 
         drawerListView = (ListView) findViewById(R.id.editor_drawer_list);
@@ -297,7 +297,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerHeaderFilterSubtitle = (TextView) findViewById(R.id.editor_drawer_list_header_subtitle);
 
         int drawerShadowId;
-        if (PPApplication.applicationTheme.equals("dark"))
+        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
             drawerShadowId = R.drawable.drawer_shadow_dark;
         else
             drawerShadowId = R.drawable.drawer_shadow;
@@ -450,7 +450,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         });
         
         // set drawer item and order
-        if ((savedInstanceState != null) || (PPApplication.applicationEditorSaveEditorState))
+        if ((savedInstanceState != null) || (ApplicationPreferences.applicationEditorSaveEditorState(getApplicationContext())))
         {
             SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
             drawerSelectedItem = preferences.getInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
@@ -887,7 +887,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         
         
         // Close drawer
-        if (PPApplication.applicationEditorAutoCloseDrawer && (!orientationChange))
+        if (ApplicationPreferences.applicationEditorAutoCloseDrawer(getApplicationContext()) && (!orientationChange))
             drawerLayout.closeDrawer(drawerRoot);
     }
     
@@ -932,7 +932,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         orderSpinner.setSelection(orderSelectedItem);
 
         // Close drawer
-        if (PPApplication.applicationEditorAutoCloseDrawer && (!orientationChange))
+        if (ApplicationPreferences.applicationEditorAutoCloseDrawer(getApplicationContext()) && (!orientationChange))
             drawerLayout.closeDrawer(drawerRoot);
 
     }
@@ -1109,7 +1109,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     if (what == 1)
                     {
-                        if (key.equals(PPApplication.PREF_APPLICATION_THEME))
+                        if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME))
                         {
                             if (v.equals("light"))
                                 prefEdit.putString(key, "material");
@@ -1212,7 +1212,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     unlockScreenOrientation();
 
                     if (result == 1) {
-                        PPApplication.loadPreferences(getApplicationContext());
+                        //PPApplication.loadPreferences(getApplicationContext());
 
                         dataWrapper.invalidateProfileList();
                         dataWrapper.invalidateEventList();
@@ -1927,7 +1927,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 final Display display = getWindowManager().getDefaultDisplay();
 
                 int circleColor = 0xFFFFFF;
-                if (PPApplication.applicationTheme.equals("dark"))
+                if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
                     circleColor = 0x7F7F7F;
 
                 final TapTargetSequence sequence = new TapTargetSequence(this);

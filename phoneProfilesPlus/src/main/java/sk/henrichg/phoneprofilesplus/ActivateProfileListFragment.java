@@ -63,22 +63,22 @@ public class ActivateProfileListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
-        if (!PPApplication.applicationActivatorGridLayout)
+        if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
         {
-            if (PPApplication.applicationActivatorPrefIndicator && PPApplication.applicationActivatorHeader)
+            if (ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context) && ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
                 rootView = inflater.inflate(R.layout.activate_profile_list, container, false);
             else
-            if (PPApplication.applicationActivatorHeader)
+            if (ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
                 rootView = inflater.inflate(R.layout.activate_profile_list_no_indicator, container, false);
             else
                 rootView = inflater.inflate(R.layout.activate_profile_list_no_header, container, false);
         }
         else
         {
-            if (PPApplication.applicationActivatorPrefIndicator && PPApplication.applicationActivatorHeader)
+            if (ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context) && ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
                 rootView = inflater.inflate(R.layout.activate_profile_grid, container, false);
             else
-            if (PPApplication.applicationActivatorHeader)
+            if (ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
                 rootView = inflater.inflate(R.layout.activate_profile_grid_no_indicator, container, false);
             else
                 rootView = inflater.inflate(R.layout.activate_profile_grid_no_header, container, false);
@@ -102,13 +102,13 @@ public class ActivateProfileListFragment extends Fragment {
     {
         activeProfileName = (TextView)view.findViewById(R.id.act_prof_activated_profile_name);
         activeProfileIcon = (ImageView)view.findViewById(R.id.act_prof_activated_profile_icon);
-        if (!PPApplication.applicationActivatorGridLayout)
+        if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
             listView = (ListView)view.findViewById(R.id.act_prof_profiles_list);
         else
             gridView = (GridView)view.findViewById(R.id.act_prof_profiles_grid);
 
         AbsListView absListView;
-        if (!PPApplication.applicationActivatorGridLayout)
+        if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
             absListView = listView;
         else
             absListView = gridView;
@@ -119,7 +119,7 @@ public class ActivateProfileListFragment extends Fragment {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (!PPApplication.applicationLongClickActivation)
+                if (!ApplicationPreferences.applicationLongClickActivation(dataWrapper.context))
                     //activateProfileWithAlert(position);
                     activateProfile((Profile)profileListAdapter.getItem(position), PPApplication.STARTUP_SOURCE_ACTIVATOR);
 
@@ -132,7 +132,7 @@ public class ActivateProfileListFragment extends Fragment {
 
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (PPApplication.applicationLongClickActivation)
+                if (ApplicationPreferences.applicationLongClickActivation(dataWrapper.context))
                     //activateProfileWithAlert(position);
                     activateProfile((Profile)profileListAdapter.getItem(position), PPApplication.STARTUP_SOURCE_ACTIVATOR);
 
@@ -180,7 +180,7 @@ public class ActivateProfileListFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             List<Profile> profileList = dataWrapper.getProfileList();
 
-            if (!PPApplication.applicationActivatorHeader)
+            if (!ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
             {
                 Profile profile = dataWrapper.getActivatedProfile();
                 if ((profile != null) && (!profile._showInActivator))
@@ -190,7 +190,7 @@ public class ActivateProfileListFragment extends Fragment {
                 }
             }
 
-            if (PPApplication.applicationActivatorGridLayout) {
+            if (ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context)) {
                 int count = 0;
                 for (Profile profile : profileList)
                 {
@@ -244,7 +244,7 @@ public class ActivateProfileListFragment extends Fragment {
                 fragment.profileListAdapter = new ActivateProfileListAdapter(fragment, fragment.profileList, fragment.dataWrapper);
 
                 AbsListView absListView;
-                if (!PPApplication.applicationActivatorGridLayout)
+                if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
                     absListView = fragment.listView;
                 else
                     absListView = fragment.gridView;
@@ -303,7 +303,7 @@ public class ActivateProfileListFragment extends Fragment {
         if (!isAsyncTaskPendingOrRunning())
         {
             AbsListView absListView;
-            if (!PPApplication.applicationActivatorGridLayout)
+            if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
                 absListView = listView;
             else
                 absListView = gridView;
@@ -324,7 +324,7 @@ public class ActivateProfileListFragment extends Fragment {
 
     private void updateHeader(Profile profile)
     {
-        if (!PPApplication.applicationActivatorHeader)
+        if (!ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
             return;
 
         if (profile == null)
@@ -350,7 +350,7 @@ public class ActivateProfileListFragment extends Fragment {
             }
         }
 
-        if (PPApplication.applicationActivatorPrefIndicator)
+        if (ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context))
         {
             ImageView profilePrefIndicatorImageView = (ImageView)getActivity().findViewById(R.id.act_prof_activated_profile_pref_indicator);
             if (profilePrefIndicatorImageView != null)
@@ -380,7 +380,7 @@ public class ActivateProfileListFragment extends Fragment {
             if (profile != null)
                 profilePos = profileListAdapter.getItemPosition(profile);
             else {
-                if (!PPApplication.applicationActivatorGridLayout)
+                if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
                     profilePos = listView.getCheckedItemPosition();
                 else
                     profilePos = gridView.getCheckedItemPosition();
@@ -388,10 +388,10 @@ public class ActivateProfileListFragment extends Fragment {
 
             profileListAdapter.notifyDataSetChanged(refreshIcons);
 
-            if ((!PPApplication.applicationActivatorHeader) && (profilePos != ListView.INVALID_POSITION))
+            if ((!ApplicationPreferences.applicationActivatorHeader(dataWrapper.context)) && (profilePos != ListView.INVALID_POSITION))
             {
                 // set profile visible in list
-                if (!PPApplication.applicationActivatorGridLayout) {
+                if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context)) {
                     listView.setItemChecked(profilePos, true);
                     int last = listView.getLastVisiblePosition();
                     int first = listView.getFirstVisiblePosition();
@@ -499,7 +499,7 @@ public class ActivateProfileListFragment extends Fragment {
             return;
 
         View itemView;
-        if (!PPApplication.applicationActivatorGridLayout) {
+        if (!ApplicationPreferences.applicationActivatorGridLayout(getActivity())) {
             if (listView.getChildCount() > 1)
                 itemView = listView.getChildAt(1);
             else

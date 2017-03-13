@@ -14,7 +14,7 @@ public class RestartEventsFromNotificationActivity extends Activity
 
         super.onCreate(savedInstanceState);
 
-        PPApplication.loadPreferences(getApplicationContext());
+        //PPApplication.loadPreferences(getApplicationContext());
 
         dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
 

@@ -477,7 +477,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 summary = summary + title;
             }
             String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
-            if ((!ActivateProfileHelper.getMergedRingNotificationVolumes(context) || PPApplication.applicationUnlinkRingerNotificationVolumes) &&
+            if ((!ActivateProfileHelper.getMergedRingNotificationVolumes(context) || ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) &&
                     getEnableVolumeNotificationByRingtone(ringtoneValue)) {
                 title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, false);
                 if (!title.isEmpty()) {
@@ -1127,7 +1127,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
     private boolean getEnableVolumeNotificationVolume0(boolean notificationEnabled, String notificationValue) {
         return  notificationEnabled && ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
-                    PPApplication.applicationUnlinkRingerNotificationVolumes &&
+                ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context) &&
                     Profile.getVolumeRingtoneChange(notificationValue) && (Profile.getVolumeRingtoneValue(notificationValue) == 0);
     }
 
@@ -1152,7 +1152,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(Profile.PREF_PROFILE_VOLUME_NOTIFICATION)) {
             String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
-            boolean enabled = (!ActivateProfileHelper.getMergedRingNotificationVolumes(context) || PPApplication.applicationUnlinkRingerNotificationVolumes) &&
+            boolean enabled = (!ActivateProfileHelper.getMergedRingNotificationVolumes(context) || ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) &&
                                     getEnableVolumeNotificationByRingtone(ringtoneValue);
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
             if (preference != null)

@@ -19,7 +19,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
         //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         // start delayed bootup broadcast
         PPApplication.startedOnBoot = true;
@@ -30,7 +30,7 @@ public class BootUpReceiver extends BroadcastReceiver {
         calendar.add(Calendar.SECOND, 10);
         alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmIntent);
 
-        PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot="+ PPApplication.applicationStartOnBoot);
+        PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot="+ ApplicationPreferences.applicationStartOnBoot(context));
         //PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning="+PPApplication.getGlobalEventsRuning(context));
 
         BluetoothConnectionBroadcastReceiver.clearConnectedDevices(context, true);
@@ -38,7 +38,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
         PPApplication.setApplicationStarted(context, false);
 
-        if (PPApplication.applicationStartOnBoot)
+        if (ApplicationPreferences.applicationStartOnBoot(context))
         {
             PPApplication.logE("BootUpReceiver.onReceive","PhoneProfilesService.instance="+PhoneProfilesService.instance);
 

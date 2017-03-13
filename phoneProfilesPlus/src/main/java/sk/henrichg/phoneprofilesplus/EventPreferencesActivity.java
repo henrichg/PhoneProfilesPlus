@@ -63,14 +63,14 @@ public class EventPreferencesActivity extends PreferenceActivity
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            if (PPApplication.applicationTheme.equals("material"))
+            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff237e9f"));
             else
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
         }
         else
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (PPApplication.applicationTheme.equals("material"))
+            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
                 getWindow().setStatusBarColor(Color.parseColor("#1d6681"));
             else
                 getWindow().setStatusBarColor(Color.parseColor("#141414"));
@@ -358,7 +358,7 @@ public class EventPreferencesActivity extends PreferenceActivity
             final Display display = getWindowManager().getDefaultDisplay();
 
             int circleColor = 0xFFFFFF;
-            if (PPApplication.applicationTheme.equals("dark"))
+            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
                 circleColor = 0x7F7F7F;
 
             final TapTargetSequence sequence = new TapTargetSequence(this);

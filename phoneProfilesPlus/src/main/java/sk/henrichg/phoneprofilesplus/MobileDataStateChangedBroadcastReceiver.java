@@ -18,7 +18,7 @@ public class MobileDataStateChangedBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         final boolean state = intent.getBooleanExtra("state", false);
 

@@ -22,7 +22,7 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
             // application is not started
             return;
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         //boolean batteryEventsExists = false;
 
@@ -54,8 +54,8 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
                 boolean oldPowerSaveMode = PPApplication.isPowerSaveMode;
                 PPApplication.isPowerSaveMode = false;
                 if ((!isCharging) &&
-                    ((PPApplication.applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5)) ||
-                     (PPApplication.applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15))))
+                    ((ApplicationPreferences.applicationPowerSaveModeInternal(context).equals("1") && (batteryPct <= 5)) ||
+                     (ApplicationPreferences.applicationPowerSaveModeInternal(context).equals("2") && (batteryPct <= 15))))
                     PPApplication.isPowerSaveMode = true;
                 else {
                     if (isCharging)

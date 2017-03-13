@@ -19,7 +19,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
         if (PPApplication.getApplicationStarted(context, true))
         {
-            PPApplication.loadPreferences(context);
+            //PPApplication.loadPreferences(context);
 
             long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
             if (profileId != 0)
@@ -40,7 +40,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         long activateProfileId = 0;
                         if (profile._afterDurationDo == Profile.AFTERDURATIONDO_BACKGROUNPROFILE)
                         {
-                            activateProfileId = Long.valueOf(PPApplication.applicationBackgroundProfile);
+                            activateProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
                             if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
                                 activateProfileId = 0;
 

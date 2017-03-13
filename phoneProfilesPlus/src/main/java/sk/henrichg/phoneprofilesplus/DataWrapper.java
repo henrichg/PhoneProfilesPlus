@@ -559,11 +559,11 @@ public class DataWrapper {
                 event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
         }
         // unlink profile from Background profile
-        if (Long.valueOf(PPApplication.applicationBackgroundProfile) == profile._id)
+        if (Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context)) == profile._id)
         {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             Editor editor = preferences.edit();
-            editor.putString(PPApplication.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
             editor.commit();
         }
     }
@@ -582,7 +582,7 @@ public class DataWrapper {
         // unlink profiles from Background profile
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putString(PPApplication.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
+        editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
         editor.commit();
     }
 
@@ -833,7 +833,7 @@ public class DataWrapper {
 
     void activateProfileOnBoot()
     {
-        if (PPApplication.applicationActivate)
+        if (ApplicationPreferences.applicationActivate(context))
         {
             Profile profile = getDatabaseHandler().getActivatedProfile();
             long profileId;
@@ -841,7 +841,7 @@ public class DataWrapper {
                 profileId = profile._id;
             else
             {
-                profileId = Long.valueOf(PPApplication.applicationBackgroundProfile);
+                profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
                 if (profileId == Profile.PROFILE_NO_ACTIVATE)
                     profileId = 0;
             }
@@ -1227,7 +1227,7 @@ public class DataWrapper {
 
         if (profile != null)
         {
-            if (PPApplication.notificationsToast && (!ActivateProfileHelper.lockRefresh))
+            if (ApplicationPreferences.notificationsToast(context) && (!ActivateProfileHelper.lockRefresh))
             {
                 // toast notification
                 if (toastHandler != null) {
@@ -1276,7 +1276,7 @@ public class DataWrapper {
     private void activateProfileWithAlert(Profile profile, int startupSource, final boolean interactive,
                                             Activity activity)
     {
-        if (interactive && (PPApplication.applicationActivateWithAlert ||
+        if (interactive && (ApplicationPreferences.applicationActivateWithAlert(context) ||
                             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR)))
         {
             // set theme and language for dialog alert ;-)
@@ -1377,7 +1377,7 @@ public class DataWrapper {
         if (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR)
         {
             finish = false;
-            if (PPApplication.applicationClose)
+            if (ApplicationPreferences.applicationClose(context))
             {
                 // ma sa zatvarat aktivita po aktivacii
                 if (PPApplication.getApplicationStarted(context, false))
@@ -1425,7 +1425,7 @@ public class DataWrapper {
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
             Profile.setActivatedProfileForDuration(context, 0);
 
-            if (PPApplication.applicationActivate)
+            if (ApplicationPreferences.applicationActivate(context))
             {
                 // je nastavene, ze pri starte sa ma aktivita aktivovat
                 actProfile = true;
@@ -1464,7 +1464,7 @@ public class DataWrapper {
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
             Profile.setActivatedProfileForDuration(context, 0);
 
-            if (PPApplication.applicationActivate)
+            if (ApplicationPreferences.applicationActivate(context))
             {
                 // je nastavene, ze pri starte sa ma aktivita aktivovat
                 actProfile = true;
@@ -2983,29 +2983,29 @@ public class DataWrapper {
         PPApplication.logE("$$$ restartEvents","from DataWrapper.restartEventsWithRescan");
         restartEvents(true, false, interactive);
 
-        if (PPApplication.applicationEventWifiRescan.equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
-            PPApplication.applicationEventWifiRescan.equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
+        if (ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
+                ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
                 // rescan wifi
                 WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
         }
-        if (PPApplication.applicationEventBluetoothRescan.equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
-            PPApplication.applicationEventBluetoothRescan.equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
+        if (ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
+                ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
                 // rescan bluetooth
                 BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
         }
-        if (PPApplication.applicationEventLocationRescan.equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
-            PPApplication.applicationEventLocationRescan.equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
+        if (ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
+                ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
                 // send broadcast for location scan
                 GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
         }
-        if (PPApplication.applicationEventMobileCellsRescan.equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
-            PPApplication.applicationEventMobileCellsRescan.equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
+        if (ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
+                ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0)
                 // rescan mobile cells
@@ -3037,7 +3037,7 @@ public class DataWrapper {
 
         PPApplication.logE("$$$ restartEvents", "in DataWrapper.restartEventsWithAlert");
 
-        if (PPApplication.applicationActivateWithAlert || (activity instanceof EditorProfilesActivity))
+        if (ApplicationPreferences.applicationActivateWithAlert(context) || (activity instanceof EditorProfilesActivity))
         {
             final Activity _activity = activity;
 
@@ -3050,7 +3050,7 @@ public class DataWrapper {
                     PPApplication.logE("$$$ restartEvents", "from DataWrapper.restartEventsWithAlert");
                     restartEventsWithRescan(true, true);
 
-                    if (PPApplication.applicationClose && (!(_activity instanceof EditorProfilesActivity)))
+                    if (ApplicationPreferences.applicationClose(context) && (!(_activity instanceof EditorProfilesActivity)))
                         _activity.finish();
                 }
             });
@@ -3062,7 +3062,7 @@ public class DataWrapper {
             PPApplication.logE("$$$ restartEvents", "from DataWrapper.restartEventsWithAlert");
             restartEventsWithRescan(true, true);
 
-            if (PPApplication.applicationClose)
+            if (ApplicationPreferences.applicationClose(context))
                 activity.finish();
         }
     }
@@ -3194,7 +3194,7 @@ public class DataWrapper {
             }
             else
             {
-                long profileId = Long.valueOf(PPApplication.applicationBackgroundProfile);
+                long profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
                 if ((!Event.getEventsBlocked(context)) && (profileId != Profile.PROFILE_NO_ACTIVATE))
                 {
                     Profile profile = getActivatedProfile();
@@ -3275,8 +3275,8 @@ public class DataWrapper {
                                int durationDelay) {
         if (PPApplication.getActivityLogEnabled(context)) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            PPApplication.applicationDeleteOldActivityLogs = Integer.valueOf(preferences.getString(PPApplication.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7"));
-            getDatabaseHandler().addActivityLog(PPApplication.applicationDeleteOldActivityLogs,
+            //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
+            getDatabaseHandler().addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs(context),
                                     logType, eventName, profileName, profileIcon, durationDelay);
         }
     }

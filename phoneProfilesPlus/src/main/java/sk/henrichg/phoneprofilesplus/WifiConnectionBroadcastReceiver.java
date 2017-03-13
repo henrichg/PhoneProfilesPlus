@@ -21,7 +21,7 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
             // application is not started
             return;
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
 

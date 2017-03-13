@@ -39,18 +39,18 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         if (largeLayout)
         {
-            if (PPApplication.applicationWidgetListHeader)
+            if (ApplicationPreferences.applicationWidgetListHeader(context))
             {
-                if (!PPApplication.applicationWidgetListGridLayout)
+                if (!ApplicationPreferences.applicationWidgetListGridLayout(context))
                 {
-                    if (PPApplication.applicationWidgetListPrefIndicator)
+                    if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
                         widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget);
                     else
                         widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_no_indicator);
                 }
                 else
                 {
-                    if (PPApplication.applicationWidgetListPrefIndicator)
+                    if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
                         widget=new RemoteViews(context.getPackageName(), R.layout.profile_grid_widget);
                     else
                         widget=new RemoteViews(context.getPackageName(), R.layout.profile_grid_widget_no_indicator);
@@ -58,7 +58,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             }
             else
             {
-                if (!PPApplication.applicationWidgetListGridLayout)
+                if (!ApplicationPreferences.applicationWidgetListGridLayout(context))
                     widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_no_header);
                 else
                     widget=new RemoteViews(context.getPackageName(), R.layout.profile_grid_widget_no_header);
@@ -68,14 +68,14 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         {
             if (isKeyguard)
             {
-                if (PPApplication.applicationWidgetListPrefIndicator)
+                if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
                     widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_small_keyguard);
                 else
                     widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_small_no_indicator_keyguard);
             }
             else
             {
-                if (PPApplication.applicationWidgetListPrefIndicator)
+                if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
                     widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_small);
                 else
                     widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_small_no_indicator);
@@ -86,30 +86,33 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         int red = 0;
         int green;
         int blue;
-        if (PPApplication.applicationWidgetListLightnessB.equals("0")) red = 0x00;
-        if (PPApplication.applicationWidgetListLightnessB.equals("25")) red = 0x40;
-        if (PPApplication.applicationWidgetListLightnessB.equals("50")) red = 0x80;
-        if (PPApplication.applicationWidgetListLightnessB.equals("75")) red = 0xC0;
-        if (PPApplication.applicationWidgetListLightnessB.equals("100")) red = 0xFF;
+        String applicationWidgetListLightnessB = ApplicationPreferences.applicationWidgetListLightnessB(context);
+        if (applicationWidgetListLightnessB.equals("0")) red = 0x00;
+        if (applicationWidgetListLightnessB.equals("25")) red = 0x40;
+        if (applicationWidgetListLightnessB.equals("50")) red = 0x80;
+        if (applicationWidgetListLightnessB.equals("75")) red = 0xC0;
+        if (applicationWidgetListLightnessB.equals("100")) red = 0xFF;
         green = red; blue = red;
         int alpha = 0x40;
-        if (PPApplication.applicationWidgetListBackground.equals("0")) alpha = 0x00;
-        if (PPApplication.applicationWidgetListBackground.equals("25")) alpha = 0x40;
-        if (PPApplication.applicationWidgetListBackground.equals("50")) alpha = 0x80;
-        if (PPApplication.applicationWidgetListBackground.equals("75")) alpha = 0xC0;
-        if (PPApplication.applicationWidgetListBackground.equals("100")) alpha = 0xFF;
+        String applicationWidgetListBackground = ApplicationPreferences.applicationWidgetListBackground(context);
+        if (applicationWidgetListBackground.equals("0")) alpha = 0x00;
+        if (applicationWidgetListBackground.equals("25")) alpha = 0x40;
+        if (applicationWidgetListBackground.equals("50")) alpha = 0x80;
+        if (applicationWidgetListBackground.equals("75")) alpha = 0xC0;
+        if (applicationWidgetListBackground.equals("100")) alpha = 0xFF;
         widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
 
 
         // header
-        if (PPApplication.applicationWidgetListHeader || (!largeLayout))
+        if (ApplicationPreferences.applicationWidgetListHeader(context) || (!largeLayout))
         {
             int monochromeValue = 0xFF;
-            if (PPApplication.applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
-            if (PPApplication.applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
-            if (PPApplication.applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
-            if (PPApplication.applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
-            if (PPApplication.applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
+            String applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness(context);
+            if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
+            if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
+            if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
+            if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
+            if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
             Profile profile = dataWrapper.getDatabaseHandler().getActivatedProfile();
 
@@ -119,10 +122,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             if (profile != null)
             {
                 profile.generateIconBitmap(context,
-                        PPApplication.applicationWidgetListIconColor.equals("1"),
+                        ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
                         monochromeValue);
                 profile.generatePreferencesIndicator(context,
-                        PPApplication.applicationWidgetListIconColor.equals("1"),
+                        ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
                         monochromeValue);
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
@@ -136,10 +139,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 profile._icon = Profile.PROFILE_ICON_DEFAULT+"|1|0|0";
 
                 profile.generateIconBitmap(context,
-                        PPApplication.applicationWidgetListIconColor.equals("1"),
+                        ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
                         monochromeValue);
                 profile.generatePreferencesIndicator(context,
-                        PPApplication.applicationWidgetListIconColor.equals("1"),
+                        ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
                         monochromeValue);
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
@@ -161,11 +164,12 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             //if (PPApplication.applicationWidgetListIconColor.equals("1"))
             //{
                 red = 0xFF;
-                if (PPApplication.applicationWidgetListLightnessT.equals("0")) red = 0x00;
-                if (PPApplication.applicationWidgetListLightnessT.equals("25")) red = 0x40;
-                if (PPApplication.applicationWidgetListLightnessT.equals("50")) red = 0x80;
-                if (PPApplication.applicationWidgetListLightnessT.equals("75")) red = 0xC0;
-                if (PPApplication.applicationWidgetListLightnessT.equals("100")) red = 0xFF;
+                String applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT(context);
+                if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
+                if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
+                if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
+                if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
+                if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
                 green = red; blue = red;
                 widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.argb(0xFF, red, green, blue));
             //}
@@ -174,18 +178,18 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             //	widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.parseColor("#33b5e5"));
             //}
             widget.setTextViewText(R.id.widget_profile_list_header_profile_name, profileName);
-            if (PPApplication.applicationWidgetListPrefIndicator)
+            if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
             {
                 widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_pref_indicator, profile._preferencesIndicator);
             }
             if (largeLayout)
             {
                 red = 0xFF;
-                if (PPApplication.applicationWidgetListLightnessT.equals("0")) red = 0x00;
-                if (PPApplication.applicationWidgetListLightnessT.equals("25")) red = 0x40;
-                if (PPApplication.applicationWidgetListLightnessT.equals("50")) red = 0x80;
-                if (PPApplication.applicationWidgetListLightnessT.equals("75")) red = 0xC0;
-                if (PPApplication.applicationWidgetListLightnessT.equals("100")) red = 0xFF;
+                if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
+                if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
+                if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
+                if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
+                if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
                 green = red; blue = red;
                 widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(alpha, red, green, blue));
             }
@@ -209,7 +213,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
             widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events, pIntentRE);
 
-            if (!PPApplication.applicationWidgetListGridLayout)
+            if (!ApplicationPreferences.applicationWidgetListGridLayout(context))
                 widget.setRemoteAdapter(appWidgetId, R.id.widget_profile_list, svcIntent);
             else
                 widget.setRemoteAdapter(appWidgetId, R.id.widget_profile_grid, svcIntent);
@@ -217,7 +221,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             // The empty view is displayed when the collection has no items.
             // It should be in the same layout used to instantiate the RemoteViews
             // object above.
-            if (!PPApplication.applicationWidgetListGridLayout)
+            if (!ApplicationPreferences.applicationWidgetListGridLayout(context))
                 widget.setEmptyView(R.id.widget_profile_list, R.id.widget_profiles_list_empty);
             else
                 widget.setEmptyView(R.id.widget_profile_grid, R.id.widget_profiles_list_empty);
@@ -228,7 +232,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                                         clickIntent,
                                                         PendingIntent.FLAG_UPDATE_CURRENT);
 
-            if (!PPApplication.applicationWidgetListGridLayout)
+            if (!ApplicationPreferences.applicationWidgetListGridLayout(context))
                 widget.setPendingIntentTemplate(R.id.widget_profile_list, clickPI);
             else
                 widget.setPendingIntentTemplate(R.id.widget_profile_grid, clickPI);
@@ -251,7 +255,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     public void createProfilesDataWrapper(Context context)
     {
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
         if (dataWrapper == null)
         {
             dataWrapper = new DataWrapper(context, false, false, 0);
@@ -428,7 +432,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         doOnUpdate(context, appWidgetManager, appWidgetId);
         if (isLargeLayout)
         {
-            if (!PPApplication.applicationWidgetListGridLayout)
+            if (!ApplicationPreferences.applicationWidgetListGridLayout(context))
                 appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_list);
             else
                 appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid);

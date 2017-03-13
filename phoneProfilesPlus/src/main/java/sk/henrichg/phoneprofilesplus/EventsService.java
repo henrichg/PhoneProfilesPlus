@@ -73,7 +73,7 @@ public class EventsService extends IntentService
 
         //PPApplication.setApplicationStarted(context, true);
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         dataWrapper = new DataWrapper(context, true, false, 0);
 
@@ -362,7 +362,7 @@ public class EventsService extends IntentService
                 if (runningEventCountE == 0) {
                     PPApplication.logE("$$$ EventsService.onHandleIntent", "no events running");
                     // no events running
-                    long profileId = Long.valueOf(PPApplication.applicationBackgroundProfile);
+                    long profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
                     if (profileId != Profile.PROFILE_NO_ACTIVATE) {
                         PPApplication.logE("$$$ EventsService.onHandleIntent", "default profile is set");
                         long activatedProfileId = 0;
@@ -383,7 +383,7 @@ public class EventsService extends IntentService
             } else {
                 PPApplication.logE("$$$ EventsService.onHandleIntent", "active profile is activated manually");
                 // manual profile activation
-                long profileId = Long.valueOf(PPApplication.applicationBackgroundProfile);
+                long profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
                 if (profileId != Profile.PROFILE_NO_ACTIVATE) {
                     if (activatedProfile == null) {
                         // if not profile activated, activate Default profile

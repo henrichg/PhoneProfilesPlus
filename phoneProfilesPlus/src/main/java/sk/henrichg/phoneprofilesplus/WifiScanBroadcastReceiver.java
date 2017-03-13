@@ -27,7 +27,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         int forceOneScan = ScannerService.getForceOneWifiScan(context);
         PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan="+forceOneScan);

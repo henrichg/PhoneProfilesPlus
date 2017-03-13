@@ -15,7 +15,7 @@ public class LauncherActivity extends Activity {
 
         super.onCreate(savedInstanceState);
 
-        PPApplication.loadPreferences(getApplicationContext());
+        //PPApplication.loadPreferences(getApplicationContext());
 
         overridePendingTransition(0, 0);
 
@@ -85,19 +85,19 @@ public class LauncherActivity extends Activity {
 
         switch (startupSource) {
             case PPApplication.STARTUP_SOURCE_NOTIFICATION:
-                if (PPApplication.applicationNotificationLauncher.equals("activator"))
+                if (ApplicationPreferences.applicationNotificationLauncher(getApplicationContext()).equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
                     intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
                 break;
             case PPApplication.STARTUP_SOURCE_WIDGET:
-                if (PPApplication.applicationWidgetLauncher.equals("activator"))
+                if (ApplicationPreferences.applicationWidgetLauncher(getApplicationContext()).equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
                     intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
                 break;
             default:
-                if (PPApplication.applicationHomeLauncher.equals("activator"))
+                if (ApplicationPreferences.applicationHomeLauncher(getApplicationContext()).equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
                     intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);

@@ -19,7 +19,7 @@ public class LocationModeChangedBroadcastReceiver extends WakefulBroadcastReceiv
             // application is not started
             return;
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         if (Event.getGlobalEventsRuning(context))
         {

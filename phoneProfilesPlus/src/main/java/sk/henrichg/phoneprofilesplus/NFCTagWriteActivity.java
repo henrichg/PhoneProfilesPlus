@@ -29,7 +29,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        PPApplication.loadPreferences(getApplicationContext());
+        //PPApplication.loadPreferences(getApplicationContext());
 
         // must by called before super.onCreate() for PreferenceActivity
         GlobalGUIRoutines.setTheme(this, false, false); // must by called before super.onCreate()
@@ -49,7 +49,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            if (PPApplication.applicationTheme.equals("material"))
+            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff237e9f"));
             else
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));

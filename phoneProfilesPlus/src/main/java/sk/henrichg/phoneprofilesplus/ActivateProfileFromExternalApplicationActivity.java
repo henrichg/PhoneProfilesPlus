@@ -29,7 +29,7 @@ public class ActivateProfileFromExternalApplicationActivity extends Activity {
         //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "profileName="+profileName);
 
         if (!profileName.isEmpty()) {
-            PPApplication.loadPreferences(getApplicationContext());
+            //PPApplication.loadPreferences(getApplicationContext());
 
             dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
             dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());

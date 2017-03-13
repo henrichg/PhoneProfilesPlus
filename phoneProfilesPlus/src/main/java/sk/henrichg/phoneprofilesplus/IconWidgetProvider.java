@@ -15,17 +15,18 @@ public class IconWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         int monochromeValue = 0xFF;
-        if (PPApplication.applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
-        if (PPApplication.applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
-        if (PPApplication.applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
-        if (PPApplication.applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
-        if (PPApplication.applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
+        String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness(context);
+        if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
+        if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
+        if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
+        if (applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
+        if (applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
 
         DataWrapper dataWrapper = new DataWrapper(context, true,
-                                                PPApplication.applicationWidgetIconColor.equals("1"),
+                                                ApplicationPreferences.applicationWidgetIconColor(context).equals("1"),
                                                 monochromeValue);
 
         Profile profile = dataWrapper.getActivatedProfile();
@@ -54,7 +55,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 profile._icon = Profile.PROFILE_ICON_DEFAULT+"|1|0|0";
 
                 profile.generateIconBitmap(context,
-                        PPApplication.applicationWidgetListIconColor.equals("1"), monochromeValue);
+                        ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"), monochromeValue);
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
                 profileName = profile._name;
@@ -62,7 +63,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
             // priprava view-u na aktualizacia widgetu
             RemoteViews remoteViews;
-            if (PPApplication.applicationWidgetIconHideProfileName)
+            if (ApplicationPreferences.applicationWidgetIconHideProfileName(context))
                 remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_no_profile_name);
             else
                 remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget);
@@ -71,18 +72,20 @@ public class IconWidgetProvider extends AppWidgetProvider {
             int red = 0;
             int green;
             int blue;
-            if (PPApplication.applicationWidgetIconLightnessB.equals("0")) red = 0x00;
-            if (PPApplication.applicationWidgetIconLightnessB.equals("25")) red = 0x40;
-            if (PPApplication.applicationWidgetIconLightnessB.equals("50")) red = 0x80;
-            if (PPApplication.applicationWidgetIconLightnessB.equals("75")) red = 0xC0;
-            if (PPApplication.applicationWidgetIconLightnessB.equals("100")) red = 0xFF;
+            String applicationWidgetIconLightnessB = ApplicationPreferences.applicationWidgetIconLightnessB(context);
+            if (applicationWidgetIconLightnessB.equals("0")) red = 0x00;
+            if (applicationWidgetIconLightnessB.equals("25")) red = 0x40;
+            if (applicationWidgetIconLightnessB.equals("50")) red = 0x80;
+            if (applicationWidgetIconLightnessB.equals("75")) red = 0xC0;
+            if (applicationWidgetIconLightnessB.equals("100")) red = 0xFF;
             green = red; blue = red;
             int alpha = 0x40;
-            if (PPApplication.applicationWidgetIconBackground.equals("0")) alpha = 0x00;
-            if (PPApplication.applicationWidgetIconBackground.equals("25")) alpha = 0x40;
-            if (PPApplication.applicationWidgetIconBackground.equals("50")) alpha = 0x80;
-            if (PPApplication.applicationWidgetIconBackground.equals("75")) alpha = 0xC0;
-            if (PPApplication.applicationWidgetIconBackground.equals("100")) alpha = 0xFF;
+            String applicationWidgetIconBackground = ApplicationPreferences.applicationWidgetIconBackground(context);
+            if (applicationWidgetIconBackground.equals("0")) alpha = 0x00;
+            if (applicationWidgetIconBackground.equals("25")) alpha = 0x40;
+            if (applicationWidgetIconBackground.equals("50")) alpha = 0x80;
+            if (applicationWidgetIconBackground.equals("75")) alpha = 0xC0;
+            if (applicationWidgetIconBackground.equals("100")) alpha = 0xFF;
             remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
 
             if (isIconResourceID)
@@ -100,15 +103,16 @@ public class IconWidgetProvider extends AppWidgetProvider {
             }
 
             red = 0xFF;
-            if (PPApplication.applicationWidgetIconLightnessT.equals("0")) red = 0x00;
-            if (PPApplication.applicationWidgetIconLightnessT.equals("25")) red = 0x40;
-            if (PPApplication.applicationWidgetIconLightnessT.equals("50")) red = 0x80;
-            if (PPApplication.applicationWidgetIconLightnessT.equals("75")) red = 0xC0;
-            if (PPApplication.applicationWidgetIconLightnessT.equals("100")) red = 0xFF;
+            String applicationWidgetIconLightnessT = ApplicationPreferences.applicationWidgetIconLightnessT(context);
+            if (applicationWidgetIconLightnessT.equals("0")) red = 0x00;
+            if (applicationWidgetIconLightnessT.equals("25")) red = 0x40;
+            if (applicationWidgetIconLightnessT.equals("50")) red = 0x80;
+            if (applicationWidgetIconLightnessT.equals("75")) red = 0xC0;
+            if (applicationWidgetIconLightnessT.equals("100")) red = 0xFF;
             green = red; blue = red;
             remoteViews.setTextColor(R.id.icon_widget_name, Color.argb(0xFF, red, green, blue));
 
-            if (!PPApplication.applicationWidgetIconHideProfileName)
+            if (!ApplicationPreferences.applicationWidgetIconHideProfileName(context))
                 remoteViews.setTextViewText(R.id.icon_widget_name, profileName);
 
             // konfiguracia, ze ma spustit hlavnu aktivitu zoznamu profilov, ked kliknme na widget

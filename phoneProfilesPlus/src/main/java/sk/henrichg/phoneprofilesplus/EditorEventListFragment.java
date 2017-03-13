@@ -696,7 +696,7 @@ public class EditorEventListFragment extends Fragment {
                 Collections.sort(eventList, new ProfileNameComparator());
                 break;
             case ORDER_TYPE_PRIORITY:
-                if (PPApplication.applicationEventUsePriority)
+                if (ApplicationPreferences.applicationEventUsePriority(_dataWrapper.context))
                     Collections.sort(eventList, new PriorityComparator());
                 else
                     Collections.sort(eventList, new StartOrderComparator());
@@ -752,7 +752,7 @@ public class EditorEventListFragment extends Fragment {
                 editor.commit();
 
                 int circleColor = 0xFFFFFF;
-                if (PPApplication.applicationTheme.equals("dark"))
+                if (ApplicationPreferences.applicationTheme(getActivity()).equals("dark"))
                     circleColor = 0x7F7F7F;
 
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity())

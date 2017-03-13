@@ -567,7 +567,7 @@ class Event {
         if (key.equals(PREF_EVENT_PRIORITY))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            if (PPApplication.applicationEventUsePriority) {
+            if (ApplicationPreferences.applicationEventUsePriority(context)) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
@@ -575,7 +575,7 @@ class Event {
             else {
                 listPreference.setSummary(R.string.event_preferences_priority_notUse);
             }
-            listPreference.setEnabled(PPApplication.applicationEventUsePriority);
+            listPreference.setEnabled(ApplicationPreferences.applicationEventUsePriority(context));
         }
         if (key.equals(PREF_EVENT_AT_END_DO))
         {
@@ -1001,7 +1001,7 @@ class Event {
         for (EventTimeline eventTimeline : eventTimelineList)
         {
             Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
-            if ((event != null) && PPApplication.applicationEventUsePriority && (event._priority > this._priority))
+            if ((event != null) && ApplicationPreferences.applicationEventUsePriority(dataWrapper.context) && (event._priority > this._priority))
                 // is running event with higher priority
                 return;
         }

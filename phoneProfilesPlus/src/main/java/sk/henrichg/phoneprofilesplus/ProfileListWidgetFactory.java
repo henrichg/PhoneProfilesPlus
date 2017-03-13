@@ -33,22 +33,23 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
   
     private void createProfilesDataWrapper()
     {
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         int monochromeValue = 0xFF;
-        if (PPApplication.applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
-        if (PPApplication.applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
-        if (PPApplication.applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
-        if (PPApplication.applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
-        if (PPApplication.applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
+        String applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness(context);
+        if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
+        if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
+        if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
+        if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
+        if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
         if (dataWrapper == null)
         {
-            dataWrapper = new DataWrapper(context, true, PPApplication.applicationWidgetListIconColor.equals("1"), monochromeValue);
+            dataWrapper = new DataWrapper(context, true, ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"), monochromeValue);
         }
         else
         {
-            dataWrapper.setParameters(true, PPApplication.applicationWidgetListIconColor.equals("1"), monochromeValue);
+            dataWrapper.setParameters(true, ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"), monochromeValue);
         }
     }
 
@@ -101,7 +102,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
     public RemoteViews getViewAt(int position) {
 
         RemoteViews row;
-        if (!PPApplication.applicationWidgetListGridLayout)
+        if (!ApplicationPreferences.applicationWidgetListGridLayout(context))
             row=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_item);
         else
             row=new RemoteViews(context.getPackageName(), R.layout.profile_grid_widget_item);
@@ -123,14 +124,15 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             int red = 0xFF;
             int green;
             int blue;
-            if (PPApplication.applicationWidgetListLightnessT.equals("0")) red = 0x00;
-            if (PPApplication.applicationWidgetListLightnessT.equals("25")) red = 0x40;
-            if (PPApplication.applicationWidgetListLightnessT.equals("50")) red = 0x80;
-            if (PPApplication.applicationWidgetListLightnessT.equals("75")) red = 0xC0;
-            if (PPApplication.applicationWidgetListLightnessT.equals("100")) red = 0xFF;
+            String applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT(context);
+            if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
+            if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
+            if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
+            if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
+            if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
             green = red;
             blue = red;
-            if (!PPApplication.applicationWidgetListHeader) {
+            if (!ApplicationPreferences.applicationWidgetListHeader(context)) {
                 if (profile._checked) {
                     if (android.os.Build.VERSION.SDK_INT >= 16)
                         row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_SP, 17);
@@ -151,18 +153,18 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             } else {
                 row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
             }
-            if ((!PPApplication.applicationWidgetListHeader) && (profile._checked)) {
+            if ((!ApplicationPreferences.applicationWidgetListHeader(context)) && (profile._checked)) {
                 // hm, interesting, how to set bold style for RemoteView text ;-)
-                String profileName = dataWrapper.getProfileNameWithManualIndicator(profile, !PPApplication.applicationWidgetListGridLayout, true, PPApplication.applicationWidgetListGridLayout);
+                String profileName = dataWrapper.getProfileNameWithManualIndicator(profile, !ApplicationPreferences.applicationWidgetListGridLayout(context), true, ApplicationPreferences.applicationWidgetListGridLayout(context));
                 Spannable sb = new SpannableString(profileName);
                 sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
             } else {
-                String profileName = profile.getProfileNameWithDuration(PPApplication.applicationWidgetListGridLayout, dataWrapper.context);
+                String profileName = profile.getProfileNameWithDuration(ApplicationPreferences.applicationWidgetListGridLayout(context), dataWrapper.context);
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
             }
-            if (!PPApplication.applicationWidgetListGridLayout) {
-                if (PPApplication.applicationWidgetListPrefIndicator)
+            if (!ApplicationPreferences.applicationWidgetListGridLayout(context)) {
+                if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
                     row.setImageViewBitmap(R.id.widget_profile_list_profile_pref_indicator, profile._preferencesIndicator);
                 else
                     row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
@@ -206,7 +208,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         dataWrapper.invalidateProfileList();
         profileList = dataWrapper.getProfileList();
 
-        if (!PPApplication.applicationWidgetListHeader)
+        if (!ApplicationPreferences.applicationWidgetListHeader(context))
         {
             // show activated profile in list if is not showed in activator
             Profile profile = dataWrapper.getActivatedProfile();

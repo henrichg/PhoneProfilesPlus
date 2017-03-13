@@ -63,7 +63,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                 // application is not started
                 return;
 
-            PPApplication.loadPreferences(context);
+            //PPApplication.loadPreferences(context);
 
             /*SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             int lastState = preferences.getInt(PPApplication.PREF_EVENT_BLUETOOTH_LAST_STATE, -1);

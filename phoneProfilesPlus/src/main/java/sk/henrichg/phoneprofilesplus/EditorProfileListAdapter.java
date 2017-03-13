@@ -281,14 +281,14 @@ class EditorProfileListAdapter extends BaseAdapter
             LayoutInflater inflater = LayoutInflater.from(fragment.getActivity());
             if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
             {
-                if (PPApplication.applicationEditorPrefIndicator)
+                if (ApplicationPreferences.applicationEditorPrefIndicator(dataWrapper.context))
                     vi = inflater.inflate(R.layout.editor_profile_list_item, parent, false);
                 else
                     vi = inflater.inflate(R.layout.editor_profile_list_item_no_indicator, parent, false);
             }
             else
             {
-                if (PPApplication.applicationEditorPrefIndicator)
+                if (ApplicationPreferences.applicationEditorPrefIndicator(dataWrapper.context))
                     vi = inflater.inflate(R.layout.editor_profile_list_item_no_order_handler, parent, false);
                 else
                     vi = inflater.inflate(R.layout.editor_profile_list_item_no_indicator_no_order_handler, parent, false);
@@ -298,7 +298,7 @@ class EditorProfileListAdapter extends BaseAdapter
             holder.profileName = (TextView)vi.findViewById(R.id.profile_list_item_profile_name);
             holder.profileIcon = (ImageView)vi.findViewById(R.id.profile_list_item_profile_icon);
             holder.profileItemEditMenu = (ImageView)vi.findViewById(R.id.profile_list_item_edit_menu);
-            if (PPApplication.applicationEditorPrefIndicator)
+            if (ApplicationPreferences.applicationEditorPrefIndicator(dataWrapper.context))
                 holder.profileIndicator = (ImageView)vi.findViewById(R.id.profile_list_profile_pref_indicator);
             vi.setTag(holder);        
         }
@@ -332,7 +332,7 @@ class EditorProfileListAdapter extends BaseAdapter
             }
             */
 
-            if (profile._checked && (!PPApplication.applicationEditorHeader))
+            if (profile._checked && (!ApplicationPreferences.applicationEditorHeader(dataWrapper.context)))
             {
                 holder.profileName.setTypeface(null, Typeface.BOLD);
                 holder.profileName.setTextSize(16);
@@ -347,7 +347,7 @@ class EditorProfileListAdapter extends BaseAdapter
 
             String profileName = dataWrapper.getProfileNameWithManualIndicator(profile,
                     profile._checked &&
-                    (!PPApplication.applicationEditorHeader), true, false);
+                    (!ApplicationPreferences.applicationEditorHeader(dataWrapper.context)), true, false);
 
             if (profile._showInActivator)
                 profileName = "[A] " + profileName;
@@ -370,7 +370,7 @@ class EditorProfileListAdapter extends BaseAdapter
                 holder.profileIcon.setImageBitmap(profile._iconBitmap);
             }
 
-            if (PPApplication.applicationEditorPrefIndicator)
+            if (ApplicationPreferences.applicationEditorPrefIndicator(dataWrapper.context))
             {
                 //profilePrefIndicatorImageView.setImageBitmap(null);
                 //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -404,7 +404,7 @@ class EditorProfileListAdapter extends BaseAdapter
             //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
             int circleColor = 0xFFFFFF;
-            if (PPApplication.applicationTheme.equals("dark"))
+            if (ApplicationPreferences.applicationTheme(activity).equals("dark"))
                 circleColor = 0x7F7F7F;
 
             if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {

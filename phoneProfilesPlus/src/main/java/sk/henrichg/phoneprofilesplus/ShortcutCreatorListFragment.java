@@ -239,14 +239,15 @@ public class ShortcutCreatorListFragment extends Fragment {
             shortcutOverlayBitmap = BitmapManipulator.resampleResource(resources, R.drawable.ic_shortcut_overlay, width, height);
         }
         
-        if (PPApplication.applicationWidgetIconColor.equals("1"))
+        if (ApplicationPreferences.applicationWidgetIconColor(dataWrapper.context).equals("1"))
         {
             int monochromeValue = 0xFF;
-            if (PPApplication.applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
-            if (PPApplication.applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
-            if (PPApplication.applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
-            if (PPApplication.applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
-            if (PPApplication.applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
+            String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness(dataWrapper.context);
+            if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
+            if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
+            if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
+            if (applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
+            if (applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
             
             if (isIconResourceID || useCustomColor) {
                 // icon is from resource or colored by custom color
@@ -281,7 +282,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         Canvas canvas = new Canvas(combined);
         canvas.drawBitmap(bitmap1, 0f, 0f, null);
-        if (PPApplication.applicationShortcutEmblem)
+        if (ApplicationPreferences.applicationShortcutEmblem(dataWrapper.context))
             canvas.drawBitmap(bitmap2, 0f, 0f, null);
 
         return combined;

@@ -45,7 +45,7 @@ public class ActivityLogActivity extends AppCompatActivity {
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            if (PPApplication.applicationTheme.equals("material"))
+            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff237e9f"));
             else
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
@@ -84,13 +84,13 @@ public class ActivityLogActivity extends AppCompatActivity {
         menuItem.setTitle(getResources().getString(R.string.menu_settings) + "  >");*/
         MenuItem menuItem = menu.findItem(R.id.menu_activity_log_play_pause);
         if (PPApplication.getActivityLogEnabled(getApplicationContext())) {
-            TypedArray a = getTheme().obtainStyledAttributes(GlobalGUIRoutines.getTheme(false, false), new int[]{R.attr.actionActivityLogPauseIcon});
+            TypedArray a = getTheme().obtainStyledAttributes(GlobalGUIRoutines.getTheme(false, false, getApplicationContext()), new int[]{R.attr.actionActivityLogPauseIcon});
             int attributeResourceId = a.getResourceId(0, 0);
             menuItem.setIcon(attributeResourceId);
             menuItem.setTitle(R.string.menu_activity_log_pause);
         }
         else {
-            TypedArray a = getTheme().obtainStyledAttributes(GlobalGUIRoutines.getTheme(false, false), new int[] {R.attr.actionActivityLogPlayIcon});
+            TypedArray a = getTheme().obtainStyledAttributes(GlobalGUIRoutines.getTheme(false, false, getApplicationContext()), new int[] {R.attr.actionActivityLogPlayIcon});
             int attributeResourceId = a.getResourceId(0, 0);
             menuItem.setIcon(attributeResourceId);
             menuItem.setTitle(R.string.menu_activity_log_play);

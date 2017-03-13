@@ -45,7 +45,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         PPApplication.logE("##### WifiScanAlarmBroadcastReceiver.onReceive", "xxx");
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         setAlarm(context, false, false);
 
@@ -135,9 +135,9 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                     calendar.add(Calendar.SECOND, 5);
             }
             else {
-                int interval = PPApplication.applicationEventWifiScanInterval;
+                int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
                 boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
-                if (isPowerSaveMode && PPApplication.applicationEventWifiScanInPowerSaveMode.equals("1"))
+                if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("1"))
                     interval = 2 * interval;
                 calendar.add(Calendar.MINUTE, interval);
             }

@@ -133,72 +133,6 @@ public class PPApplication extends Application {
     static final String PERMISSIONS_PREFS_NAME = "permissions_list";
     static final String POSTED_NOTIFICATIONS_PREFS_NAME = "posted_notifications";
 
-    public static final String PREF_APPLICATION_START_ON_BOOT = "applicationStartOnBoot";
-    public static final String PREF_APPLICATION_ACTIVATE = "applicationActivate";
-    public static final String PREF_APPLICATION_ALERT = "applicationAlert";
-    public static final String PREF_APPLICATION_CLOSE = "applicationClose";
-    public static final String PREF_APPLICATION_LONG_PRESS_ACTIVATION = "applicationLongClickActivation";
-    public static final String PREF_APPLICATION_LANGUAGE = "applicationLanguage";
-    public static final String PREF_APPLICATION_THEME = "applicationTheme";
-    public static final String PREF_APPLICATION_ACTIVATOR_PREF_INDICATOR = "applicationActivatorPrefIndicator";
-    public static final String PREF_APPLICATION_EDITOR_PREF_INDICATOR = "applicationEditorPrefIndicator";
-    public static final String PREF_APPLICATION_ACTIVATOR_HEADER = "applicationActivatorHeader";
-    public static final String PREF_APPLICATION_EDITOR_HEADER = "applicationEditorHeader";
-    public static final String PREF_NOTIFICATION_TOAST = "notificationsToast";
-    public static final String PREF_NOTIFICATION_STATUS_BAR  = "notificationStatusBar";
-    public static final String PREF_NOTIFICATION_STATUS_BAR_STYLE  = "notificationStatusBarStyle";
-    public static final String PREF_NOTIFICATION_STATUS_BAR_PERMANENT  = "notificationStatusBarPermanent";
-    public static final String PREF_NOTIFICATION_STATUS_BAR_CANCEL  = "notificationStatusBarCancel";
-    public static final String PREF_NOTIFICATION_SHOW_IN_STATUS_BAR  = "notificationShowInStatusBar";
-    public static final String PREF_NOTIFICATION_TEXT_COLOR = "notificationTextColor";
-    public static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR = "applicationWidgetListPrefIndicator";
-    public static final String PREF_APPLICATION_WIDGET_LIST_HEADER = "applicationWidgetListHeader";
-    public static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND = "applicationWidgetListBackground";
-    public static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B = "applicationWidgetListLightnessB";
-    public static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T = "applicationWidgetListLightnessT";
-    public static final String PREF_APPLICATION_WIDGET_ICON_COLOR = "applicationWidgetIconColor";
-    public static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS = "applicationWidgetIconLightness";
-    public static final String PREF_APPLICATION_WIDGET_LIST_ICON_COLOR = "applicationWidgetListIconColor";
-    public static final String PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS = "applicationWidgetListIconLightness";
-    public static final String PREF_APPLICATION_EDITOR_AUTO_CLOSE_DRAWER = "applicationEditorAutoCloseDrawer";
-    public static final String PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE = "applicationEditorSaveEditorState";
-    public static final String PREF_NOTIFICATION_PREF_INDICATOR = "notificationPrefIndicator";
-    public static final String PREF_APPLICATION_HOME_LAUNCHER = "applicationHomeLauncher";
-    public static final String PREF_APPLICATION_WIDGET_LAUNCHER = "applicationWidgetLauncher";
-    public static final String PREF_APPLICATION_NOTIFICATION_LAUNCHER = "applicationNotificationLauncher";
-    public static final String PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL = "applicationEventWifiScanInterval";
-    public static final String PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI = "applicationEventWifiEnableWifi";
-    public static final String PREF_APPLICATION_BACKGROUND_PROFILE = "applicationBackgroundProfile";
-    public static final String PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT= "applicationActivatorGridLayout";
-    public static final String PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT= "applicationWidgetListGridLayout";
-    public static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL = "applicationEventBluetoothScanInterval";
-    public static final String PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH = "applicationEventBluetoothEnableBluetooth";
-    public static final String PREF_APPLICATION_EVENT_WIFI_RESCAN = "applicationEventWifiRescan";
-    public static final String PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN = "applicationEventBluetoothRescan";
-    public static final String PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME = "applicationWidgetIconHideProfileName";
-    public static final String PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES = "applicationUnlinkRingerNotificationVolumes";
-    public static final String PREF_APPLICATION_SHORTCUT_EMBLEM = "applicationShortcutEmblem";
-    public static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE = "applicationEventWifiScanInPowerSaveMode";
-    public static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE = "applicationEventBluetoothScanInPowerSaveMode";
-    public static final String PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
-    public static final String PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION = "applicationEventBluetoothLEScanDuration";
-    public static final String PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL = "applicationEventLocationUpdateInterval";
-    public static final String PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE = "applicationEventLocationUpdateInPowerSaveMode";
-    public static final String PREF_APPLICATION_EVENT_LOCATION_USE_GPS = "applicationEventLocationUseGPS";
-    public static final String PREF_APPLICATION_EVENT_LOCATION_RESCAN = "applicationEventLocationRescan";
-    public static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL = "applicationEventOrientationScanInterval";
-    public static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE = "applicationEventOrientationScanInPowerSaveMode";
-    public static final String PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE = "applicationEventMobileCellScanInPowerSaveMode";
-    public static final String PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN = "applicationEventMobileCellsRescan";
-    public static final String PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN = "notificationHideInLockscreen";
-    public static final String PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS = "applicationDeleteOldActivityLogs";
-    public static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND = "applicationWidgetIconBackground";
-    public static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B = "applicationWidgetIconLightnessB";
-    public static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T = "applicationWidgetIconLightnessT";
-    public static final String PREF_APPLICATION_EVENT_USE_PRIORITY = "applicationEventUsePriority";
-    public static final String PREF_NOTIFICATION_THEME = "notificationTheme";
-    public static final String PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES = "applicationForceSetMergeRingNotificationVolumes";
-
     //public static final String RESCAN_TYPE_NONE = "0";
     public static final String RESCAN_TYPE_SCREEN_ON = "1";
     public static final String RESCAN_TYPE_RESTART_EVENTS = "2";
@@ -229,72 +163,6 @@ public class PPApplication extends Application {
     static final int SCANNER_STOP_ORIENTATION_SCANNER = 4;
     static final int SCANNER_START_PHONE_STATE_SCANNER = 5;
     static final int SCANNER_STOP_PHONE_STATE_SCANNER = 6;
-
-    public static boolean applicationStartOnBoot;
-    public static boolean applicationActivate;
-    public static boolean applicationActivateWithAlert;
-    public static boolean applicationClose;
-    public static boolean applicationLongClickActivation;
-    public static String applicationLanguage;
-    public static String applicationTheme;
-    public static boolean applicationActivatorPrefIndicator;
-    public static boolean applicationEditorPrefIndicator;
-    public static boolean applicationActivatorHeader;
-    public static boolean applicationEditorHeader;
-    public static boolean notificationsToast;
-    public static boolean notificationStatusBar;
-    public static boolean notificationStatusBarPermanent;
-    public static String notificationStatusBarCancel;
-    public static String notificationStatusBarStyle;
-    public static boolean notificationShowInStatusBar;
-    public static String notificationTextColor;
-    public static String notificationTheme;
-    public static boolean notificationHideInLockscreen;
-    public static boolean applicationWidgetListPrefIndicator;
-    public static boolean applicationWidgetListHeader;
-    public static String applicationWidgetListBackground;
-    public static String applicationWidgetListLightnessB;
-    public static String applicationWidgetListLightnessT;
-    public static String applicationWidgetIconColor;
-    public static String applicationWidgetIconLightness;
-    public static String applicationWidgetListIconColor;
-    public static String applicationWidgetListIconLightness;
-    public static boolean applicationEditorAutoCloseDrawer;
-    public static boolean applicationEditorSaveEditorState;
-    public static boolean notificationPrefIndicator;
-    public static String applicationHomeLauncher;
-    public static String applicationWidgetLauncher;
-    public static String applicationNotificationLauncher;
-    public static int applicationEventWifiScanInterval;
-    public static boolean applicationEventWifiEnableWifi;
-    public static String applicationBackgroundProfile;
-    public static boolean applicationActivatorGridLayout;
-    public static boolean applicationWidgetListGridLayout;
-    public static int applicationEventBluetoothScanInterval;
-    public static boolean applicationEventBluetoothEnableBluetooth;
-    public static String applicationEventWifiRescan;
-    public static String applicationEventBluetoothRescan;
-    public static boolean applicationWidgetIconHideProfileName;
-    public static boolean applicationUnlinkRingerNotificationVolumes;
-    public static boolean applicationShortcutEmblem;
-    public static String applicationEventWifiScanInPowerSaveMode;
-    public static String applicationEventBluetoothScanInPowerSaveMode;
-    public static String applicationPowerSaveModeInternal;
-    public static int applicationEventBluetoothLEScanDuration;
-    public static int applicationEventLocationUpdateInterval;
-    public static String applicationEventLocationUpdateInPowerSaveMode;
-    public static boolean applicationEventLocationUseGPS;
-    public static String applicationEventLocationRescan;
-    public static int applicationEventOrientationScanInterval;
-    public static String applicationEventOrientationScanInPowerSaveMode;
-    public static String applicationEventMobileCellsScanInPowerSaveMode;
-    public static String applicationEventMobileCellsRescan;
-    public static int applicationDeleteOldActivityLogs;
-    public static String applicationWidgetIconBackground;
-    public static String applicationWidgetIconLightnessB;
-    public static String applicationWidgetIconLightnessT;
-    public static boolean applicationEventUsePriority;
-    public static int applicationForceSetMergeRingNotificationVolumes;
 
     public static int notAllowedReason;
     public static String notAllowedReasonDetail;
@@ -339,7 +207,7 @@ public class PPApplication extends Application {
         PACKAGE_NAME = this.getPackageName();
 
         // initialization
-        loadPreferences(this);
+        //loadPreferences(this);
 
         PPApplication.initRoot();
 
@@ -488,87 +356,6 @@ public class PPApplication extends Application {
     }
 
     //--------------------------------------------------------------
-
-    static public void loadPreferences(Context context)
-    {
-        PPApplication.logE("PPApplication.loadPreferences", "xxx");
-
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-
-        applicationStartOnBoot = preferences.getBoolean(PREF_APPLICATION_START_ON_BOOT, true);
-        applicationActivate = preferences.getBoolean(PREF_APPLICATION_ACTIVATE, true);
-        applicationActivateWithAlert = preferences.getBoolean(PREF_APPLICATION_ALERT, true);
-        applicationClose = preferences.getBoolean(PREF_APPLICATION_CLOSE, true);
-        applicationLongClickActivation = preferences.getBoolean(PREF_APPLICATION_LONG_PRESS_ACTIVATION, false);
-        applicationLanguage = preferences.getString(PREF_APPLICATION_LANGUAGE, "system");
-        applicationTheme = preferences.getString(PREF_APPLICATION_THEME, "material");
-        applicationActivatorPrefIndicator = preferences.getBoolean(PREF_APPLICATION_ACTIVATOR_PREF_INDICATOR, true);
-        applicationEditorPrefIndicator = preferences.getBoolean(PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
-        applicationActivatorHeader = preferences.getBoolean(PREF_APPLICATION_ACTIVATOR_HEADER, true);
-        applicationEditorHeader = preferences.getBoolean(PREF_APPLICATION_EDITOR_HEADER, true);
-        notificationsToast = preferences.getBoolean(PREF_NOTIFICATION_TOAST, true);
-        notificationStatusBar = preferences.getBoolean(PREF_NOTIFICATION_STATUS_BAR, true);
-        notificationStatusBarPermanent = preferences.getBoolean(PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
-        notificationStatusBarCancel = preferences.getString(PREF_NOTIFICATION_STATUS_BAR_CANCEL, "10");
-        notificationStatusBarStyle = preferences.getString(PREF_NOTIFICATION_STATUS_BAR_STYLE, "1");
-        notificationShowInStatusBar = preferences.getBoolean(PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, true);
-        notificationTextColor = preferences.getString(PREF_NOTIFICATION_TEXT_COLOR, "0");
-        notificationHideInLockscreen = preferences.getBoolean(PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN, false);
-        notificationTheme = preferences.getString(PREF_NOTIFICATION_THEME, "0");
-        applicationWidgetListPrefIndicator = preferences.getBoolean(PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, true);
-        applicationWidgetListHeader = preferences.getBoolean(PREF_APPLICATION_WIDGET_LIST_HEADER, true);
-        applicationWidgetListBackground = preferences.getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, "25");
-        applicationWidgetListLightnessB = preferences.getString(PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B, "0");
-        applicationWidgetListLightnessT = preferences.getString(PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, "100");
-        applicationWidgetIconColor = preferences.getString(PREF_APPLICATION_WIDGET_ICON_COLOR, "0");
-        applicationWidgetIconLightness = preferences.getString(PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, "100");
-        applicationWidgetListIconColor = preferences.getString(PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, "0");
-        applicationWidgetListIconLightness = preferences.getString(PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, "100");
-        applicationEditorAutoCloseDrawer = preferences.getBoolean(PREF_APPLICATION_EDITOR_AUTO_CLOSE_DRAWER, true);
-        applicationEditorSaveEditorState = preferences.getBoolean(PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
-        notificationPrefIndicator = preferences.getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, true);
-        applicationHomeLauncher = preferences.getString(PREF_APPLICATION_HOME_LAUNCHER, "activator");
-        applicationWidgetLauncher = preferences.getString(PREF_APPLICATION_WIDGET_LAUNCHER, "activator");
-        applicationNotificationLauncher = preferences.getString(PREF_APPLICATION_NOTIFICATION_LAUNCHER, "activator");
-        applicationEventWifiScanInterval = Integer.valueOf(preferences.getString(PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "10"));
-        applicationEventWifiEnableWifi = preferences.getBoolean(PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, true);
-        applicationBackgroundProfile = preferences.getString(PREF_APPLICATION_BACKGROUND_PROFILE, "-999");
-        applicationActivatorGridLayout = preferences.getBoolean(PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, true);
-        applicationWidgetListGridLayout = preferences.getBoolean(PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, true);
-        applicationEventBluetoothScanInterval = Integer.valueOf(preferences.getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "10"));
-        applicationEventBluetoothEnableBluetooth = preferences.getBoolean(PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true);
-        applicationEventWifiRescan = preferences.getString(PREF_APPLICATION_EVENT_WIFI_RESCAN, "1");
-        applicationEventBluetoothRescan = preferences.getString(PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "1");
-        applicationWidgetIconHideProfileName = preferences.getBoolean(PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, false);
-        applicationUnlinkRingerNotificationVolumes = preferences.getBoolean(PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, false);
-        applicationShortcutEmblem = preferences.getBoolean(PREF_APPLICATION_SHORTCUT_EMBLEM, true);
-        applicationEventWifiScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE, "1");
-        applicationEventBluetoothScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE, "1");
-        applicationPowerSaveModeInternal = preferences.getString(PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, "2");
-        applicationEventBluetoothLEScanDuration = Integer.valueOf(preferences.getString(PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION, "10"));
-        applicationEventLocationUpdateInterval  = Integer.valueOf(preferences.getString(PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "5"));
-        applicationEventLocationUpdateInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE, "1");
-        applicationEventLocationUseGPS = preferences.getBoolean(PREF_APPLICATION_EVENT_LOCATION_USE_GPS, false);
-        applicationEventLocationRescan = preferences.getString(PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
-        applicationEventOrientationScanInterval = Integer.valueOf(preferences.getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, "5"));
-        applicationEventOrientationScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE, "1");
-        applicationEventMobileCellsScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE, "1");
-        applicationEventMobileCellsRescan = preferences.getString(PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
-        applicationDeleteOldActivityLogs = Integer.valueOf(preferences.getString(PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7"));
-        applicationWidgetIconBackground = preferences.getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, "0");
-        applicationWidgetIconLightnessB = preferences.getString(PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B, "0");
-        applicationWidgetIconLightnessT = preferences.getString(PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, "100");
-        applicationEventUsePriority = preferences.getBoolean(PREF_APPLICATION_EVENT_USE_PRIORITY, false);
-        applicationForceSetMergeRingNotificationVolumes = Integer.valueOf(preferences.getString(PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, "0"));
-
-        if (applicationTheme.equals("light"))
-        {
-            applicationTheme = "material";
-            Editor editor = preferences.edit();
-            editor.putString(PREF_APPLICATION_THEME, applicationTheme);
-            editor.commit();
-        }
-    }
 
     static public boolean getApplicationStarted(Context context, boolean testService)
     {

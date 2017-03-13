@@ -59,7 +59,7 @@ class ImageViewPreferenceAdapter extends BaseAdapter {
         }
 
         if (Profile.profileIconId[position].equals(imageIdentifier) && isImageResourceID)
-            if (PPApplication.applicationTheme.equals("dark"))
+            if (ApplicationPreferences.applicationTheme(context).equals("dark"))
                 holder.icon.setBackgroundResource(R.drawable.abc_list_pressed_holo_dark);
             else
                 holder.icon.setBackgroundResource(R.drawable.abc_list_pressed_holo_light);

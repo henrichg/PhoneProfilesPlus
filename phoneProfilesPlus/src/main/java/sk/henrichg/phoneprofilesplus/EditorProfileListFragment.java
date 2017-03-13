@@ -145,10 +145,10 @@ public class EditorProfileListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
-        if (PPApplication.applicationEditorPrefIndicator && PPApplication.applicationEditorHeader)
+        if (ApplicationPreferences.applicationEditorPrefIndicator(dataWrapper.context) && ApplicationPreferences.applicationEditorHeader(dataWrapper.context))
             rootView = inflater.inflate(R.layout.editor_profile_list, container, false);
         else
-        if (PPApplication.applicationEditorHeader)
+        if (ApplicationPreferences.applicationEditorHeader(dataWrapper.context))
             rootView = inflater.inflate(R.layout.editor_profile_list_no_indicator, container, false);
         else
             rootView = inflater.inflate(R.layout.editor_profile_list_no_header, container, false);
@@ -717,7 +717,7 @@ public class EditorProfileListFragment extends Fragment {
 
     public void updateHeader(Profile profile)
     {
-        if (!PPApplication.applicationEditorHeader)
+        if (!ApplicationPreferences.applicationEditorHeader(dataWrapper.context))
             return;
 
         if ((activeProfileName == null) || (activeProfileIcon == null))
@@ -751,7 +751,7 @@ public class EditorProfileListFragment extends Fragment {
             }
         }
 
-        if (PPApplication.applicationEditorPrefIndicator)
+        if (ApplicationPreferences.applicationEditorPrefIndicator(dataWrapper.context))
         {
             ImageView profilePrefIndicatorImageView = (ImageView)getActivity().findViewById(R.id.activated_profile_pref_indicator);
             if (profilePrefIndicatorImageView != null)
@@ -802,7 +802,7 @@ public class EditorProfileListFragment extends Fragment {
 
             profileListAdapter.notifyDataSetChanged(refreshIcons);
 
-            if ((!PPApplication.applicationEditorHeader) && (profilePos != ListView.INVALID_POSITION))
+            if ((!ApplicationPreferences.applicationEditorHeader(dataWrapper.context)) && (profilePos != ListView.INVALID_POSITION))
             {
                 // set profile visible in list
                 listView.setItemChecked(profilePos, true);
@@ -935,7 +935,7 @@ public class EditorProfileListFragment extends Fragment {
                 editor.commit();
 
                 int circleColor = 0xFFFFFF;
-                if (PPApplication.applicationTheme.equals("dark"))
+                if (ApplicationPreferences.applicationTheme(getActivity()).equals("dark"))
                     circleColor = 0x7F7F7F;
 
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity())

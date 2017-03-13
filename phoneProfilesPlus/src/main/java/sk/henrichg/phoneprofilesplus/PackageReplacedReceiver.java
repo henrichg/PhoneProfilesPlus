@@ -52,9 +52,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
                         PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "applicationEventUsePriority=true");
-                        editor.putBoolean(PPApplication.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
                         editor.commit();
-                        PPApplication.loadPreferences(context);
+                        //PPApplication.loadPreferences(context);
                     }
                     if (actualVersionCode <= 2400) {
                         PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "donation alarm restart");
@@ -64,19 +64,19 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     if (actualVersionCode <= 2500) {
                         // for old packages hide profile notification from status bar if notification is disabled
                         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-                        if (!preferences.getBoolean(PPApplication.PREF_NOTIFICATION_STATUS_BAR, true)) {
+                        if (!preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true)) {
                             SharedPreferences.Editor editor = preferences.edit();
                             PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "notificationShowInStatusBar=false");
-                            editor.putBoolean(PPApplication.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
                             editor.commit();
-                            PPApplication.loadPreferences(context);
+                            //PPApplication.loadPreferences(context);
                         }
                     }
                     if (actualVersionCode <= 2700) {
                         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
 
-                        editor.putBoolean(PPApplication.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
 
                         editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, false);
                         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);

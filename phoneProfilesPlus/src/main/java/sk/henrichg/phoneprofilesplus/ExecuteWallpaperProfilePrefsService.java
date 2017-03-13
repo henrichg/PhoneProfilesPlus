@@ -19,7 +19,7 @@ public class ExecuteWallpaperProfilePrefsService extends IntentService
 
         Context context = getApplicationContext();
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 

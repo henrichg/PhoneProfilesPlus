@@ -177,13 +177,13 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     //-------------------------------------------
 
     private void createLocationRequest() {
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         //Log.d("GeofenceScanner.createLocationRequest", "xxx");
 
         // check power save mode
         boolean powerSaveMode = DataWrapper.isPowerSaveMode();
-        if (powerSaveMode && PPApplication.applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
+        if (powerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
             mLocationRequest = null;
             return;
         }
@@ -195,7 +195,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
          */
         //int interval = PPApplication.applicationEventLocationUpdateInterval * 60;
         int interval = 5;
-        if (powerSaveMode && PPApplication.applicationEventLocationUpdateInPowerSaveMode.equals("1"))
+        if (powerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("1"))
             interval = 2 * interval;
         final long UPDATE_INTERVAL_IN_MILLISECONDS = interval * 1000;
 
@@ -216,7 +216,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         // application will never receive updates faster than this value.
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
 
-        if ((!PPApplication.applicationEventLocationUseGPS) || powerSaveMode) {
+        if ((!ApplicationPreferences.applicationEventLocationUseGPS(context)) || powerSaveMode) {
             //Log.d("GeofenceScanner.createLocationRequest","PRIORITY_BALANCED_POWER_ACCURACY");
             mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         }

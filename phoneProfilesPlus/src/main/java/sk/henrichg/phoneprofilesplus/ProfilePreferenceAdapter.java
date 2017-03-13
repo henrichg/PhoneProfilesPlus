@@ -79,7 +79,7 @@ class ProfilePreferenceAdapter extends BaseAdapter {
         View vi = convertView;
         if (convertView == null)
         {
-            if (PPApplication.applicationEditorPrefIndicator)
+            if (ApplicationPreferences.applicationEditorPrefIndicator(context))
                 vi = inflater.inflate(R.layout.profile_preference_list_item, parent, false);
             else
                 vi = inflater.inflate(R.layout.profile_preference_list_item_no_indicator, parent, false);
@@ -87,7 +87,7 @@ class ProfilePreferenceAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.profileIcon = (ImageView)vi.findViewById(R.id.profile_pref_dlg_item_icon);
             holder.profileLabel = (TextView)vi.findViewById(R.id.profile_pref_dlg_item_label);
-            if (PPApplication.applicationEditorPrefIndicator)
+            if (ApplicationPreferences.applicationEditorPrefIndicator(context))
                 holder.profileIndicator = (ImageView)vi.findViewById(R.id.profile_pref_dlg_item_indicator);
             holder.radioBtn = (RadioButton)vi.findViewById(R.id.profile_pref_dlg_item_radiobtn);
             vi.setTag(holder);
@@ -138,7 +138,7 @@ class ProfilePreferenceAdapter extends BaseAdapter {
             }
             else
                 holder.profileIcon.setImageBitmap(profile._iconBitmap);
-            if (PPApplication.applicationEditorPrefIndicator) {
+            if (ApplicationPreferences.applicationEditorPrefIndicator(context)) {
                 holder.profileIndicator.setVisibility(View.VISIBLE);
                 holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
             }
@@ -154,7 +154,7 @@ class ProfilePreferenceAdapter extends BaseAdapter {
                     holder.profileLabel.setText(vi.getResources().getString(R.string.profile_preference_profile_end_no_activate));
                 //holder.profileIcon.setImageResource(R.drawable.ic_empty);
                 holder.profileIcon.setVisibility(View.GONE);
-                if (PPApplication.applicationEditorPrefIndicator)
+                if (ApplicationPreferences.applicationEditorPrefIndicator(context))
                     //holder.profileIndicator.setImageResource(R.drawable.ic_empty);
                     holder.profileIndicator.setVisibility(View.GONE);
             }
@@ -164,7 +164,7 @@ class ProfilePreferenceAdapter extends BaseAdapter {
                 holder.profileLabel.setText("");
                 holder.profileIcon.setVisibility(View.VISIBLE);
                 holder.profileIcon.setImageResource(R.drawable.ic_empty);
-                if (PPApplication.applicationEditorPrefIndicator) {
+                if (ApplicationPreferences.applicationEditorPrefIndicator(context)) {
                     holder.profileIndicator.setVisibility(View.VISIBLE);
                     holder.profileIndicator.setImageResource(R.drawable.ic_empty);
                 }

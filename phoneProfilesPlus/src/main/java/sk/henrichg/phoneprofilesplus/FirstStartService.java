@@ -67,7 +67,7 @@ public class FirstStartService extends IntentService {
 
         //int startType = intent.getStringExtra(PPApplication.EXTRA_FIRST_START_TYPE);
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
         GlobalGUIRoutines.setLanguage(context);
 
         installTone(TONE_ID, TONE_NAME, context, false);

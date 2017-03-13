@@ -58,7 +58,7 @@ public class GrantPermissionActivity extends Activity {
 
         super.onCreate(savedInstanceState);
 
-        PPApplication.loadPreferences(getApplicationContext());
+        //PPApplication.loadPreferences(getApplicationContext());
 
         Intent intent = getIntent();
         grantType = intent.getIntExtra(Permissions.EXTRA_GRANT_TYPE, 0);

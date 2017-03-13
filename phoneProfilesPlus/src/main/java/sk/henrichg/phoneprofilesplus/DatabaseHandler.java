@@ -2488,7 +2488,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting profiles Count
-    int getProfilesCount(boolean forActivator) {
+    int getProfilesCount(boolean forActivator, Context context) {
         final String countQuery;
         if (forActivator)
           countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES + " WHERE " + KEY_SHOW_IN_ACTIVATOR + "=1";
@@ -2513,7 +2513,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         //db.close();
 
-        if (forActivator && (!PPApplication.applicationActivatorHeader))
+        if (forActivator && (!ApplicationPreferences.applicationActivatorHeader(context)))
         {
             Profile profile = getActivatedProfile();
             if ((profile != null) && (!profile._showInActivator))

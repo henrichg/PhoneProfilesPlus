@@ -17,7 +17,7 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
             // application is not started
             return;
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         final String action = intent.getAction();
 

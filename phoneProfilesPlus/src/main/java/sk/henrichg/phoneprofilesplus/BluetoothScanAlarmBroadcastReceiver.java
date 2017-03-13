@@ -43,7 +43,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         PPApplication.logE("##### BluetoothScanAlarmBroadcastReceiver.onReceive", "xxx");
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         setAlarm(context, false, false);
 
@@ -137,9 +137,9 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                     calendar.add(Calendar.SECOND, 5);
             }
             else {
-                int interval = PPApplication.applicationEventBluetoothScanInterval;
+                int interval = ApplicationPreferences.applicationEventBluetoothScanInterval(context);
                 boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
-                if (isPowerSaveMode && PPApplication.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
+                if (isPowerSaveMode && ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context).equals("1"))
                     interval = 2 * interval;
                 calendar.add(Calendar.MINUTE, interval);
             }
@@ -374,7 +374,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                         builder.setScanMode(ScanSettings.SCAN_MODE_LOW_POWER);
 
                     if (bluetooth.isOffloadedScanBatchingSupported())
-                        builder.setReportDelay(PPApplication.applicationEventBluetoothLEScanDuration * 1000);
+                        builder.setReportDelay(ApplicationPreferences.applicationEventBluetoothLEScanDuration(context) * 1000);
                     ScanSettings settings = builder.build();
 
                     List<ScanFilter> filters = new ArrayList<>();

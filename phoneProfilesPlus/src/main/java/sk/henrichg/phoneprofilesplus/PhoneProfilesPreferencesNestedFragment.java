@@ -81,7 +81,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
         if (Build.VERSION.SDK_INT >= 24) {
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("applicationInterfaceCategory");
-            Preference preference = findPreference(PPApplication.PREF_APPLICATION_LANGUAGE);
+            Preference preference = findPreference(ApplicationPreferences.PREF_APPLICATION_LANGUAGE);
             if (preference != null)
                 preferenceCategory.removePreference(preference);
             preference = findPreference(PREF_APPLICATION_LANGUAGE_24);
@@ -298,7 +298,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
         if (!ScannerService.bluetoothLESupported(getActivity().getApplicationContext())) {
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("bluetoothScanninCategory");
-            Preference preference = findPreference(PPApplication.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
+            Preference preference = findPreference(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
             if (preference != null)
                 preferenceCategory.removePreference(preference);
         }
@@ -317,7 +317,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
         if (android.os.Build.VERSION.SDK_INT < 21) {
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryNotifications");
-            preference = prefMng.findPreference(PPApplication.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
+            preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
             if (preference != null)
                 preferenceCategory.removePreference(preference);
         }
@@ -357,9 +357,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             return;
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
-            if (key.equals(PPApplication.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR)) {
+            if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR)) {
                 boolean show = preferences.getBoolean(key, true);
-                Preference _preference = prefMng.findPreference(PPApplication.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
+                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
                 _preference.setEnabled(show);
             }
         }
@@ -373,7 +373,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
         String stringValue = preferences.getString(key, "");
 
-        if (key.equals(PPApplication.PREF_APPLICATION_BACKGROUND_PROFILE))
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE))
         {
             long lProfileId;
             try {
@@ -437,8 +437,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             //preference.setSummary(preference.toString());
              preference.setSummary(stringValue);
         }
-        if (key.equals(PPApplication.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES)) {
-            Preference _preference = prefMng.findPreference(PPApplication.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
             boolean enabled;
             String value = preferences.getString(key, "0");
             if (!value.equals("0"))
@@ -448,13 +448,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             //Log.d("PhoneProfilesPreferencesNestedFragment.setSummary","enabled="+enabled);
             _preference.setEnabled(enabled);
         }
-        if (key.equals(PPApplication.PREF_APPLICATION_WIDGET_ICON_COLOR)) {
-            Preference _preference = prefMng.findPreference(PPApplication.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS);
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS);
             boolean colorful = preferences.getString(key, "0").equals("1");
             _preference.setEnabled(colorful);
         }
-        if (key.equals(PPApplication.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR)) {
-            Preference _preference = prefMng.findPreference(PPApplication.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS);
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS);
             boolean colorful = preferences.getString(key, "0").equals("1");
             _preference.setEnabled(colorful);
         }

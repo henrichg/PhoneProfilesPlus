@@ -17,7 +17,7 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.logE("@@@ RestartEventsBroadcastReceiver.onReceive","####");
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         if (Event.getGlobalEventsRuning(context))
         {

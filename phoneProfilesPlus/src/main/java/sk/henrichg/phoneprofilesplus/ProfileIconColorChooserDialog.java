@@ -20,12 +20,14 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
 
     private ProfileIconPreference profileIconPreference;
     private MaterialDialog mDialog;
+    private Context context;
 
     private int[] mColors;
 
     ProfileIconColorChooserDialog(Context context, ProfileIconPreference preference, boolean useCustomColor, int selectedColor, int defaultColor)
     {
         profileIconPreference = preference;
+        this.context = context;
 
         MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                 .title(R.string.colorChooser_pref_dialog_title)
@@ -132,7 +134,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
         coloredCircle.setShape(GradientDrawable.OVAL);
-        if (PPApplication.applicationTheme.equals("dark")) {
+        if (ApplicationPreferences.applicationTheme(context).equals("dark")) {
             if (position == 3) // dark gray color
                 coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
         }
@@ -143,7 +145,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
         GradientDrawable darkerCircle = new GradientDrawable();
         darkerCircle.setColor(shiftColor(color));
         darkerCircle.setShape(GradientDrawable.OVAL);
-        if (PPApplication.applicationTheme.equals("dark")) {
+        if (ApplicationPreferences.applicationTheme(context).equals("dark")) {
             if (position == 3) // dark gray color
                 coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
         }

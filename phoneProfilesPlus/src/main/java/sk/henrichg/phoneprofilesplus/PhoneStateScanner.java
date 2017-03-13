@@ -70,7 +70,7 @@ class PhoneStateScanner extends PhoneStateListener {
     }
 
     void connect() {
-        if (PPApplication.isPowerSaveMode && PPApplication.applicationEventMobileCellsScanInPowerSaveMode.equals("2"))
+        if (PPApplication.isPowerSaveMode && ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode(context).equals("2"))
             // start scanning in power save mode is not allowed
             return;
 

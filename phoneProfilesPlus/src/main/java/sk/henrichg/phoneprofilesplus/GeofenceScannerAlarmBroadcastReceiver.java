@@ -22,7 +22,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
         PPApplication.logE("##### GeofenceScannerAlarmBroadcastReceiver.onReceive", "xxx");
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
         if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
@@ -44,7 +44,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
         }
 
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
-        if (isPowerSaveMode && PPApplication.applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
+        if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
             removeAlarm(context/*, false*/);
             //removeAlarm(context/*, true*/);
             return;
@@ -100,9 +100,9 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             int updateDuration = 30;
             int interval;
             if (PhoneProfilesService.geofencesScanner.mUpdatesStarted) {
-                interval = PPApplication.applicationEventLocationUpdateInterval * 60;
+                interval = ApplicationPreferences.applicationEventLocationUpdateInterval(context) * 60;
                 boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
-                if (isPowerSaveMode && PPApplication.applicationEventLocationUpdateInPowerSaveMode.equals("1"))
+                if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("1"))
                     interval = 2 * interval;
                 interval = interval - updateDuration;
             }

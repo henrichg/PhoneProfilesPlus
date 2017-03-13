@@ -169,7 +169,7 @@ public class EventDetailsFragment extends Fragment {
 
             String _eventName = event._name;
             String eventPriority = "";
-            if (PPApplication.applicationEventUsePriority)
+            if (ApplicationPreferences.applicationEventUsePriority(getActivity()))
                 eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
             //else
             //    eventPriority = "[P:" + "5" + "] ";

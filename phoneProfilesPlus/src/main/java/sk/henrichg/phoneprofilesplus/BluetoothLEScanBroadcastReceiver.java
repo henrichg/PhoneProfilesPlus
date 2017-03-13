@@ -28,7 +28,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         int forceOneScan = ScannerService.getForceOneLEBluetoothScan(context);
 

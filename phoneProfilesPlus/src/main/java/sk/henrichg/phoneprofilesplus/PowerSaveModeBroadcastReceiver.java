@@ -22,11 +22,11 @@ public class PowerSaveModeBroadcastReceiver extends WakefulBroadcastReceiver {
             // application is not started
             return;
 
-        PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(context);
 
         boolean oldPowerSaveMode = PPApplication.isPowerSaveMode;
         PPApplication.isPowerSaveMode = false;
-        if (PPApplication.applicationPowerSaveModeInternal.equals("3")) {
+        if (ApplicationPreferences.applicationPowerSaveModeInternal(context).equals("3")) {
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             PPApplication.isPowerSaveMode = powerManager.isPowerSaveMode();
         }
