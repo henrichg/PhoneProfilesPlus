@@ -143,10 +143,10 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             intent.putExtra(EXTRA_ONESHOT, 0);
             PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            if (android.os.Build.VERSION.SDK_INT >= 23)
                 //alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
                 alarmMgr.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            else if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            else if (android.os.Build.VERSION.SDK_INT >= 19)
                 //alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
                 alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
             else
@@ -455,7 +455,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     static public void startScanner(Context context)
     {
         Intent scanServiceIntent = new Intent(context, ScannerService.class);
-        scanServiceIntent.putExtra(PPApplication.EXTRA_SCANNER_TYPE, PPApplication.SCANNER_TYPE_BLUETOOTH);
+        scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, PPApplication.SCANNER_TYPE_BLUETOOTH);
         context.startService(scanServiceIntent);
     }
 

@@ -81,8 +81,8 @@ public class EventPreferencesActivity extends PreferenceActivity
         //getSupportActionBar().setTitle(R.string.title_activity_event_preferences);
 
         event_id = getIntent().getLongExtra(PPApplication.EXTRA_EVENT_ID, 0L);
-        newEventMode = getIntent().getIntExtra(PPApplication.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
-        predefinedEventIndex = getIntent().getIntExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+        newEventMode = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
+        predefinedEventIndex = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
         fragment = createFragment(false);
 
@@ -102,8 +102,8 @@ public class EventPreferencesActivity extends PreferenceActivity
 
         Bundle arguments = new Bundle();
         arguments.putLong(PPApplication.EXTRA_EVENT_ID, event_id);
-        arguments.putInt(PPApplication.EXTRA_NEW_EVENT_MODE, newEventMode);
-        arguments.putInt(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+        arguments.putInt(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, newEventMode);
+        arguments.putInt(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
         arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
         fragment.setArguments(arguments);
 
@@ -129,8 +129,8 @@ public class EventPreferencesActivity extends PreferenceActivity
         // for startActivityForResult
         Intent returnIntent = new Intent();
         returnIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
-        returnIntent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, newEventMode);
-        returnIntent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+        returnIntent.putExtra(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, newEventMode);
+        returnIntent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
         setResult(resultCode,returnIntent);
 
         super.finish();

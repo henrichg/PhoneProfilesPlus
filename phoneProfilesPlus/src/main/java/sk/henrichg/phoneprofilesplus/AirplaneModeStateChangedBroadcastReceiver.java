@@ -1,12 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class AirplaneModeStateChangedBroadcastReceiver extends WakefulBroadcastReceiver {
-
-    public static final String BROADCAST_RECEIVER_TYPE = "airplaneModeState";
+public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -26,8 +25,8 @@ public class AirplaneModeStateChangedBroadcastReceiver extends WakefulBroadcastR
             final boolean state = intent.getBooleanExtra("state", false);
 
             Intent broadcastIntent = new Intent(context, RadioSwitchBroadcastReceiver.class);
-            broadcastIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_AIRPLANE_MODE);
-            broadcastIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_STATE, state);
+            broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_AIRPLANE_MODE);
+            broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, state);
             context.sendBroadcast(broadcastIntent);
 
         }

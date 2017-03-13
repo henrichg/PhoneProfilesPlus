@@ -28,6 +28,21 @@ public class EventsService extends IntentService
     public static int oldZenMode;
     public static String oldRingtone;
 
+    static final String EXTRA_BROADCAST_RECEIVER_TYPE = "broadcast_receiver_type";
+    static final String EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED = "event_notification_posted_removed";
+    static final String EXTRA_EVENT_SMS_PHONE_NUMBER = "event_sms_phone_number";
+    static final String EXTRA_EVENT_SMS_DATE = "event_sms_date";
+    static final String EXTRA_SIMULATE_RINGING_CALL = "simulate_ringing_call";
+    static final String EXTRA_OLD_RINGER_MODE = "old_ringer_mode";
+    static final String EXTRA_OLD_SYSTEM_RINGER_MODE = "old_system_ringer_mode";
+    static final String EXTRA_OLD_ZEN_MODE = "old_zen_mode";
+    static final String EXTRA_OLD_RINGTONE = "old_ringtone";
+    static final String EXTRA_EVENT_NFC_DATE = "event_nfc_date";
+    static final String EXTRA_EVENT_NFC_TAG_NAME = "event_nfc_tag_name";
+    static final String EXTRA_EVENT_RADIO_SWITCH_TYPE = "event_radio_switch_type";
+    static final String EXTRA_EVENT_RADIO_SWITCH_STATE = "event_radio_switch_state";
+
+
     //public static ArrayList<Profile> mergedProfiles = null;
     //public static Profile oldActivatedProfile = null;
 
@@ -46,7 +61,7 @@ public class EventsService extends IntentService
 
         PPApplication.logE("#### EventsService.onHandleIntent", "-- start --------------------------------");
 
-        broadcastReceiverType = intent.getStringExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE);
+        broadcastReceiverType = intent.getStringExtra(EXTRA_BROADCAST_RECEIVER_TYPE);
         PPApplication.logE("#### EventsService.onHandleIntent", "broadcastReceiverType=" + broadcastReceiverType);
 
         //restartAtEndOfEvent = false;
@@ -139,10 +154,10 @@ public class EventsService extends IntentService
                              broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE) ||
                              broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)*/);
 
-        boolean interactive = (!isRestart) || intent.getBooleanExtra(PPApplication.EXTRA_INTERACTIVE, false);
+        boolean interactive = (!isRestart) || intent.getBooleanExtra(DataWrapper.EXTRA_INTERACTIVE, false);
 
         if (isRestart) {
-            if (intent.getBooleanExtra(PPApplication.EXTRA_UNBLOCKEVENTSRUN, false)) {
+            if (intent.getBooleanExtra(DataWrapper.EXTRA_UNBLOCKEVENTSRUN, false)) {
                 // remove alarm for profile duration
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
                 PPApplication.setActivatedProfileForDuration(context, 0);
@@ -187,8 +202,8 @@ public class EventsService extends IntentService
                         if (_event._eventPreferencesSMS._enabled) {
                             PPApplication.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
                             _event._eventPreferencesSMS.saveStartTime(dataWrapper,
-                                    intent.getStringExtra(PPApplication.EXTRA_EVENT_SMS_PHONE_NUMBER),
-                                    intent.getLongExtra(PPApplication.EXTRA_EVENT_SMS_DATE, 0));
+                                    intent.getStringExtra(EXTRA_EVENT_SMS_PHONE_NUMBER),
+                                    intent.getLongExtra(EXTRA_EVENT_SMS_DATE, 0));
                         }
                     }
                 }
@@ -204,7 +219,7 @@ public class EventsService extends IntentService
                         /*_event._eventPreferencesNotification.saveStartTime(dataWrapper,
                                 intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),
                                 intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));*/
-                                if (intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED).equals("posted"))
+                                if (intent.getStringExtra(EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED).equals("posted"))
                                     _event._eventPreferencesNotification.saveStartTime(dataWrapper);
 
                             }
@@ -220,8 +235,8 @@ public class EventsService extends IntentService
                         if (_event._eventPreferencesNFC._enabled) {
                             PPApplication.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
                             _event._eventPreferencesNFC.saveStartTime(dataWrapper,
-                                    intent.getStringExtra(PPApplication.EXTRA_EVENT_NFC_TAG_NAME),
-                                    intent.getLongExtra(PPApplication.EXTRA_EVENT_NFC_DATE, 0));
+                                    intent.getStringExtra(EXTRA_EVENT_NFC_TAG_NAME),
+                                    intent.getLongExtra(EXTRA_EVENT_NFC_DATE, 0));
                         }
                     }
                 }
@@ -348,7 +363,7 @@ public class EventsService extends IntentService
                     PPApplication.logE("$$$ EventsService.onHandleIntent", "no events running");
                     // no events running
                     long profileId = Long.valueOf(PPApplication.applicationBackgroundProfile);
-                    if (profileId != PPApplication.PROFILE_NO_ACTIVATE) {
+                    if (profileId != Profile.PROFILE_NO_ACTIVATE) {
                         PPApplication.logE("$$$ EventsService.onHandleIntent", "default profile is set");
                         long activatedProfileId = 0;
                         if (activatedProfile != null)
@@ -369,7 +384,7 @@ public class EventsService extends IntentService
                 PPApplication.logE("$$$ EventsService.onHandleIntent", "active profile is activated manually");
                 // manual profile activation
                 long profileId = Long.valueOf(PPApplication.applicationBackgroundProfile);
-                if (profileId != PPApplication.PROFILE_NO_ACTIVATE) {
+                if (profileId != Profile.PROFILE_NO_ACTIVATE) {
                     if (activatedProfile == null) {
                         // if not profile activated, activate Default profile
                         mergedProfile.mergeProfiles(profileId, dataWrapper);
@@ -564,12 +579,12 @@ public class EventsService extends IntentService
                     linkUnlink = true;
                 if (linkUnlink) {
                     Profile profile = dataWrapper.getActivatedProfile();
-                    profile = PPApplication.getMappedProfile(profile, context);
+                    profile = Profile.getMappedProfile(profile, context);
                     if (profile != null) {
                         PPApplication.logE("EventsService.doEndService", "callEventType=" + callEventType);
                         Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
                         volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                        volumeServiceIntent.putExtra(PPApplication.EXTRA_FOR_PROFILE_ACTIVATION, false);
+                        volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_FOR_PROFILE_ACTIVATION, false);
                         context.startService(volumeServiceIntent);
                         // wait for link/unlink
                         //try { Thread.sleep(500); } catch (InterruptedException e) { }
@@ -583,13 +598,13 @@ public class EventsService extends IntentService
             if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING)) {
                 // start PhoneProfilesService for ringing call simulation
                 Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-                lIntent.putExtra(PPApplication.EXTRA_ONLY_START, false);
-                lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
-                lIntent.putExtra(PPApplication.EXTRA_SIMULATE_RINGING_CALL, true);
-                lIntent.putExtra(PPApplication.EXTRA_OLD_RINGER_MODE, oldRingerMode);
-                lIntent.putExtra(PPApplication.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
-                lIntent.putExtra(PPApplication.EXTRA_OLD_ZEN_MODE, oldZenMode);
-                lIntent.putExtra(PPApplication.EXTRA_OLD_RINGTONE, oldRingtone);
+                lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+                lIntent.putExtra(EXTRA_SIMULATE_RINGING_CALL, true);
+                lIntent.putExtra(EXTRA_OLD_RINGER_MODE, oldRingerMode);
+                lIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+                lIntent.putExtra(EXTRA_OLD_ZEN_MODE, oldZenMode);
+                lIntent.putExtra(EXTRA_OLD_RINGTONE, oldRingtone);
                 context.startService(lIntent);
             }
 
@@ -599,7 +614,7 @@ public class EventsService extends IntentService
                 if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
                         (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
                     Profile profile = dataWrapper.getActivatedProfile();
-                    profile = PPApplication.getMappedProfile(profile, context);
+                    profile = Profile.getMappedProfile(profile, context);
                     PhoneCallService.setSpeakerphoneOn(profile, context);
                 }
             } else

@@ -43,7 +43,7 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
             {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 startWakefulService(context, eventsServiceIntent);
             //}
 
@@ -71,10 +71,10 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
 
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+        if (android.os.Build.VERSION.SDK_INT >= 23)
             //alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
             alarmMgr.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-        else if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+        else if (android.os.Build.VERSION.SDK_INT >= 19)
             //alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
             alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
         else

@@ -21,6 +21,8 @@ public class ActionForExternalApplicationActivity extends Activity {
     private static final String ACTION_PAUSE_EVENT = "sk.henrichg.phoneprofilesplus.ACTION_PAUSE_EVENT";
     private static final String ACTION_STOP_EVENT = "sk.henrichg.phoneprofilesplus.ACTION_STOP_EVENT";
 
+    static final String EXTRA_EVENT_NAME = "event_name";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -40,7 +42,7 @@ public class ActionForExternalApplicationActivity extends Activity {
         dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 
         if (action.equals(ACTION_ACTIVATE_PROFILE)) {
-            String profileName = intent.getStringExtra(PPApplication.EXTRA_PROFILE_NAME);
+            String profileName = intent.getStringExtra(ActivateProfileFromExternalApplicationActivity.EXTRA_PROFILE_NAME);
             profileName = profileName.trim();
             //Log.d("ActionForExternalApplicationActivity.onCreate", "profileName="+profileName);
 
@@ -61,7 +63,7 @@ public class ActionForExternalApplicationActivity extends Activity {
 
         }
         else {
-            String eventName = intent.getStringExtra(PPApplication.EXTRA_EVENT_NAME);
+            String eventName = intent.getStringExtra(EXTRA_EVENT_NAME);
             eventName = eventName.trim();
             //Log.d("ActionForExternalApplicationActivity.onCreate", "eventName=" + eventName);
 
@@ -85,8 +87,8 @@ public class ActionForExternalApplicationActivity extends Activity {
 
         if (!PPApplication.getApplicationStarted(getApplicationContext(), true)) {
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PPApplication.EXTRA_ONLY_START, true);
-            serviceIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             startService(serviceIntent);
         }
 

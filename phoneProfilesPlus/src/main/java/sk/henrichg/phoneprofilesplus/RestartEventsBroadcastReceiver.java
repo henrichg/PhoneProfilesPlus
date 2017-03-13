@@ -21,8 +21,8 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
 
         if (PPApplication.getGlobalEventsRuning(context))
         {
-            boolean unblockEventsRun = intent.getBooleanExtra(PPApplication.EXTRA_UNBLOCKEVENTSRUN, false);
-            boolean interactive = intent.getBooleanExtra(PPApplication.EXTRA_INTERACTIVE, false);
+            boolean unblockEventsRun = intent.getBooleanExtra(DataWrapper.EXTRA_UNBLOCKEVENTSRUN, false);
+            boolean interactive = intent.getBooleanExtra(DataWrapper.EXTRA_INTERACTIVE, false);
 
             if (PPApplication.getEventsBlocked(context) && (!unblockEventsRun))
                 return;
@@ -46,9 +46,9 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
 
             // start service
             Intent eventsServiceIntent = new Intent(context, EventsService.class);
-            eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-            eventsServiceIntent.putExtra(PPApplication.EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);
-            eventsServiceIntent.putExtra(PPApplication.EXTRA_INTERACTIVE, interactive);
+            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+            eventsServiceIntent.putExtra(DataWrapper.EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);
+            eventsServiceIntent.putExtra(DataWrapper.EXTRA_INTERACTIVE, interactive);
             startWakefulService(context, eventsServiceIntent);
         }
     }

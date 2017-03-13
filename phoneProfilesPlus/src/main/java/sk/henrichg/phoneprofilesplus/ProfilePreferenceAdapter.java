@@ -30,7 +30,7 @@ class ProfilePreferenceAdapter extends BaseAdapter {
 
         if (profileId.isEmpty())
             if (dialog.addNoActivateItem == 1)
-                this.profileId = PPApplication.PROFILE_NO_ACTIVATE;
+                this.profileId = Profile.PROFILE_NO_ACTIVATE;
             else
                 this.profileId = 0;
         else
@@ -147,7 +147,7 @@ class ProfilePreferenceAdapter extends BaseAdapter {
         {
             if ((dialog.addNoActivateItem == 1) && (position == 0))
             {
-                holder.radioBtn.setChecked((profileId == PPApplication.PROFILE_NO_ACTIVATE));
+                holder.radioBtn.setChecked((profileId == Profile.PROFILE_NO_ACTIVATE));
                 if (dialog.noActivateAsDoNotApply == 1)
                     holder.profileLabel.setText(vi.getResources().getString(R.string.profile_preference_do_not_apply));
                 else

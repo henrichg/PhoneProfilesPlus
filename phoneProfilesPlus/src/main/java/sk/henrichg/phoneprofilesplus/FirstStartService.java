@@ -61,7 +61,7 @@ public class FirstStartService extends IntentService {
 
         PPApplication.logE("$$$ FirstStartService.onHandleIntent","application not started, start it");
 
-        boolean startOnBoot = intent.getBooleanExtra(PPApplication.EXTRA_START_ON_BOOT, false);
+        boolean startOnBoot = intent.getBooleanExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
 
         PPApplication.clearMergedPermissions(context);
 

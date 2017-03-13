@@ -767,7 +767,7 @@ public class EditorProfileListFragment extends Fragment {
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (requestCode == PPApplication.REQUEST_CODE_ACTIVATE_PROFILE)
+        if (requestCode == EditorProfilesActivity.REQUEST_CODE_ACTIVATE_PROFILE)
         {
             if(resultCode == Activity.RESULT_OK)
             {

@@ -25,7 +25,7 @@ public class ExecuteRadioProfilePrefsService extends IntentService
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 
         long profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-        boolean merged = intent.getBooleanExtra(PPApplication.EXTRA_MERGED_PROFILE, false);
+        boolean merged = intent.getBooleanExtra(ActivateProfileHelper.EXTRA_MERGED_PROFILE, false);
         Profile profile = dataWrapper.getProfileById(profile_id, merged);
 
         /*
@@ -43,7 +43,7 @@ public class ExecuteRadioProfilePrefsService extends IntentService
 
         PPApplication.logE("$$$ ExecuteRadioProfilePrefsService.onHandleIntent", "in synchronized block - start");
 
-        profile = PPApplication.getMappedProfile(profile, context);
+        profile = Profile.getMappedProfile(profile, context);
         if (profile != null) {
 
             if (Permissions.checkProfileRadioPreferences(context, profile)) {

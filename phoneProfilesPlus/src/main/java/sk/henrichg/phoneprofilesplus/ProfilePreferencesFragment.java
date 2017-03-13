@@ -54,67 +54,67 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
         // updating activity with selected profile preferences
 
         // disable depended preferences
-        disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_RINGTONE);
-        disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION);
-        disableDependedPref(PPApplication.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
-        disableDependedPref(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
-        disableDependedPref(PPApplication.PREF_PROFILE_SOUND_ALARM_CHANGE);
-        disableDependedPref(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
-        disableDependedPref(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
-        disableDependedPref(PPApplication.PREF_PROFILE_DEVICE_WIFI_AP);
-        disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE);
-        disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE);
+        disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);
+        disableDependedPref(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
+        disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
+        disableDependedPref(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
         disableDependedPref(ProfilePreferencesNestedFragment.PREF_DEVICE_ADMINISTRATOR_SETTINGS);
 
-        setSummary(PPApplication.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
+        setSummary(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
 
         if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
         {
-            setSummary(PPApplication.PREF_PROFILE_NAME);
-            setSummary(PPApplication.PREF_PROFILE_DURATION);
-            setSummary(PPApplication.PREF_PROFILE_AFTER_DURATION_DO);
-            setSummary(PPApplication.PREF_PROFILE_ASK_FOR_DURATION);
-            setSummary(PPApplication.PREF_PROFILE_HIDE_STATUS_BAR_ICON);
+            setSummary(Profile.PREF_PROFILE_NAME);
+            setSummary(Profile.PREF_PROFILE_DURATION);
+            setSummary(Profile.PREF_PROFILE_AFTER_DURATION_DO);
+            setSummary(Profile.PREF_PROFILE_ASK_FOR_DURATION);
+            setSummary(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON);
         }
-        setSummary(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE);
-        setSummary(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE);
-        setSummary(PPApplication.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
-        setSummary(PPApplication.PREF_PROFILE_SOUND_RINGTONE);
-        setSummary(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
-        setSummary(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION);
-        setSummary(PPApplication.PREF_PROFILE_SOUND_ALARM_CHANGE);
-        setSummary(PPApplication.PREF_PROFILE_SOUND_ALARM);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_WIFI);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_BLUETOOTH);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_GPS);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_AUTOSYNC);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_AUTOROTATE);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS);
-        setSummary(PPApplication.PREF_PROFILE_VOLUME_SPEAKER_PHONE);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_NFC);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_KEYGUARD);
-        setSummary(PPApplication.PREF_PROFILE_VOLUME_RINGTONE);
-        setSummary(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION);
-        setSummary(PPApplication.PREF_PROFILE_VOLUME_MEDIA);
-        setSummary(PPApplication.PREF_PROFILE_VOLUME_ALARM);
-        setSummary(PPApplication.PREF_PROFILE_VOLUME_SYSTEM);
-        setSummary(PPApplication.PREF_PROFILE_VOLUME_VOICE);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_BRIGHTNESS);
-        setSummary(PPApplication.PREF_PROFILE_VIBRATION_ON_TOUCH);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_WIFI_AP);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_POWER_SAVE_MODE);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE);
-        setSummary(PPApplication.PREF_PROFILE_NOTIFICATION_LED);
-        setSummary(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
-        setSummary(PPApplication.PREF_PROFILE_LOCK_DEVICE);
-        setSummary(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID);
+        setSummary(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
+        setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+        setSummary(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
+        setSummary(Profile.PREF_PROFILE_SOUND_RINGTONE);
+        setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
+        setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION);
+        setSummary(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE);
+        setSummary(Profile.PREF_PROFILE_SOUND_ALARM);
+        setSummary(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
+        setSummary(Profile.PREF_PROFILE_DEVICE_WIFI);
+        setSummary(Profile.PREF_PROFILE_DEVICE_BLUETOOTH);
+        setSummary(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
+        setSummary(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA);
+        setSummary(Profile.PREF_PROFILE_DEVICE_GPS);
+        setSummary(Profile.PREF_PROFILE_DEVICE_AUTOSYNC);
+        setSummary(Profile.PREF_PROFILE_DEVICE_AUTOROTATE);
+        setSummary(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
+        setSummary(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS);
+        setSummary(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
+        setSummary(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS);
+        setSummary(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE);
+        setSummary(Profile.PREF_PROFILE_DEVICE_NFC);
+        setSummary(Profile.PREF_PROFILE_DEVICE_KEYGUARD);
+        setSummary(Profile.PREF_PROFILE_VOLUME_RINGTONE);
+        setSummary(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
+        setSummary(Profile.PREF_PROFILE_VOLUME_MEDIA);
+        setSummary(Profile.PREF_PROFILE_VOLUME_ALARM);
+        setSummary(Profile.PREF_PROFILE_VOLUME_SYSTEM);
+        setSummary(Profile.PREF_PROFILE_VOLUME_VOICE);
+        setSummary(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS);
+        setSummary(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH);
+        setSummary(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
+        setSummary(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE);
+        setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE);
+        setSummary(Profile.PREF_PROFILE_NOTIFICATION_LED);
+        setSummary(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
+        setSummary(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
+        setSummary(Profile.PREF_PROFILE_LOCK_DEVICE);
+        setSummary(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID);
 
         //}
     }

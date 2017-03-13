@@ -81,7 +81,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         Intent intent = new Intent(context, NotificationBroadcastReceiver.class);
         //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
         //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, time);
-        intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
+        intent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
         context.sendBroadcast(intent);
 
     }
@@ -105,7 +105,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         Intent intent = new Intent(context, NotificationBroadcastReceiver.class);
         //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
         //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, time);
-        intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
+        intent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
         context.sendBroadcast(intent);
 
     }

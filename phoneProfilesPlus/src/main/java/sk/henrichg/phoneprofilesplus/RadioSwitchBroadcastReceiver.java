@@ -18,8 +18,8 @@ public class RadioSwitchBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.logE("##### RadioSwitchBroadcastReceiver.onReceive", "xxx");
 
-        int radioSwitchType = intent.getIntExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_TYPE, 0);
-        boolean radioSwitchState = intent.getBooleanExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_STATE, false);
+        int radioSwitchType = intent.getIntExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, 0);
+        boolean radioSwitchState = intent.getBooleanExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, false);
 
         PPApplication.logE("  RadioSwitchBroadcastReceiver.onReceive", "radioSwitchType="+radioSwitchType);
         PPApplication.logE("  RadioSwitchBroadcastReceiver.onReceive", "radioSwitchState="+radioSwitchState);
@@ -50,9 +50,9 @@ public class RadioSwitchBroadcastReceiver extends WakefulBroadcastReceiver {
             {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_TYPE, radioSwitchType);
-                eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_STATE, radioSwitchState);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, radioSwitchType);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, radioSwitchState);
                 startWakefulService(context, eventsServiceIntent);
             //}
         }

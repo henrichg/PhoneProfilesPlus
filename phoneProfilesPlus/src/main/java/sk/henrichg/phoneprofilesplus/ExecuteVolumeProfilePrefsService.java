@@ -49,11 +49,11 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
             PhoneCallService.linkUnlinkExecuted = true;
 
         long profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-        boolean merged = intent.getBooleanExtra(PPApplication.EXTRA_MERGED_PROFILE, false);
+        boolean merged = intent.getBooleanExtra(ActivateProfileHelper.EXTRA_MERGED_PROFILE, false);
         Profile profile = dataWrapper.getProfileById(profile_id, merged);
-        profile = PPApplication.getMappedProfile(profile, context);
+        profile = Profile.getMappedProfile(profile, context);
 
-        boolean forProfileActivation = intent.getBooleanExtra(PPApplication.EXTRA_FOR_PROFILE_ACTIVATION, false);
+        boolean forProfileActivation = intent.getBooleanExtra(ActivateProfileHelper.EXTRA_FOR_PROFILE_ACTIVATION, false);
 
         if (profile != null)
             PPApplication.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "profile.name="+profile._name);

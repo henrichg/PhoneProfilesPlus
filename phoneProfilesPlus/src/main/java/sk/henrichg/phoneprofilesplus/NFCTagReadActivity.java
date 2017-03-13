@@ -31,7 +31,7 @@ public class NFCTagReadActivity extends Activity {
                 Toast.makeText(NFCTagReadActivity.this, "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_readed)+": "+tagRead, Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(getApplicationContext(), NFCBroadcastReceiver.class);
-                intent.putExtra(PPApplication.EXTRA_EVENT_NFC_TAG_NAME, tagRead);
+                intent.putExtra(EventsService.EXTRA_EVENT_NFC_TAG_NAME, tagRead);
                 sendBroadcast(intent);
 
                 NFCTagReadActivity.this.finish();

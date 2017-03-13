@@ -32,7 +32,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
 
                 Profile profile = dataWrapper.getActivatedProfile();
-                profile = PPApplication.getMappedProfile(profile, appContext);
+                profile = Profile.getMappedProfile(profile, appContext);
 
                 if (profile != null) {
 

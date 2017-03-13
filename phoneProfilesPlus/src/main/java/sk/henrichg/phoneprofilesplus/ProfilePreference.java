@@ -218,7 +218,7 @@ public class ProfilePreference extends Preference {
         }
         else
         {
-            if ((addNoActivateItem == 1) && (profileId == PPApplication.PROFILE_NO_ACTIVATE))
+            if ((addNoActivateItem == 1) && (profileId == Profile.PROFILE_NO_ACTIVATE))
                 if (noActivateAsDoNotApply == 1)
                     setSummary(prefContext.getResources().getString(R.string.profile_preference_do_not_apply));
                 else

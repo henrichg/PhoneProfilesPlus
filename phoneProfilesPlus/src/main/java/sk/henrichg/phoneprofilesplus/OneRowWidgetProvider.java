@@ -52,7 +52,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 // create empty profile and set icon resource
                 profile = new Profile();
                 profile._name = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
-                profile._icon = PPApplication.PROFILE_ICON_DEFAULT+"|1|0|0";
+                profile._icon = Profile.PROFILE_ICON_DEFAULT+"|1|0|0";
 
                 profile.generateIconBitmap(context,
                         PPApplication.applicationWidgetListIconColor.equals("1"),

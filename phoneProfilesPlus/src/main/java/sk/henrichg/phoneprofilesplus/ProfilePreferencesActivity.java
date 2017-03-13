@@ -79,8 +79,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         profile_id = getIntent().getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-        newProfileMode = getIntent().getIntExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
-        predefinedProfileIndex = getIntent().getIntExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+        newProfileMode = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+        predefinedProfileIndex = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
         //Log.d("------ ProfilePreferencesActivity.onCreate", "profile_id="+profile_id);
 
@@ -108,12 +108,12 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         Bundle arguments = new Bundle();
         arguments.putLong(PPApplication.EXTRA_PROFILE_ID, profile_id);
-        arguments.putInt(PPApplication.EXTRA_NEW_PROFILE_MODE, newProfileMode);
-        if (profile_id == PPApplication.DEFAULT_PROFILE_ID)
+        arguments.putInt(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, newProfileMode);
+        if (profile_id == Profile.DEFAULT_PROFILE_ID)
             arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE);
         else
             arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
-        arguments.putInt(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
+        arguments.putInt(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
         fragment.setArguments(arguments);
 
         return fragment;
@@ -130,8 +130,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         // for startActivityForResult
         Intent returnIntent = new Intent();
         returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile_id);
-        returnIntent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, newProfileMode);
-        returnIntent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
+        returnIntent.putExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, newProfileMode);
+        returnIntent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
         setResult(resultCode,returnIntent);
 
         super.finish();
@@ -196,7 +196,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
         {
-            profile = PPApplication.getDefaultProfile(context);
+            profile = Profile.getDefaultProfile(context);
         }
         else
         if (new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT)
@@ -205,7 +205,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             if (predefinedProfileIndex == 0) {
                 profile = DataWrapper.getNoinitializedProfile(
                         context.getResources().getString(R.string.profile_name_default),
-                        PPApplication.PROFILE_ICON_DEFAULT, 0);
+                        Profile.PROFILE_ICON_DEFAULT, 0);
             }
             else {
                 profile = dataWrapper.getPredefinedProfile(predefinedProfileIndex-1, false);
@@ -282,7 +282,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         //Log.e("------------ ProfilePreferencesActivity", "loadPreferences");
 
         int startupSource;
-        if (profile_id == PPApplication.DEFAULT_PROFILE_ID)
+        if (profile_id == Profile.DEFAULT_PROFILE_ID)
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE;
         else
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
@@ -299,61 +299,61 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
             {
                 /*
-                editor.remove(PPApplication.PREF_PROFILE_NAME).putString(PPApplication.PREF_PROFILE_NAME, profile._name);
-                editor.remove(PPApplication.PREF_PROFILE_ICON).putString(PPApplication.PREF_PROFILE_ICON, profile._icon);
-                editor.remove(PPApplication.PREF_PROFILE_SHOW_IN_ACTIVATOR).putBoolean(PPApplication.PREF_PROFILE_SHOW_IN_ACTIVATOR, profile._showInActivator);
-                editor.remove(PPApplication.PREF_PROFILE_DURATION).editor.putString(PPApplication.PREF_PROFILE_DURATION, Integer.toString(profile._duration));
-                editor.remove(PPApplication.PREF_PROFILE_AFTER_DURATION_DO).editor.putString(PPApplication.PREF_PROFILE_AFTER_DURATION_DO, Integer.toString(profile._afterDurationDo));
+                editor.remove(Profile.PREF_PROFILE_NAME).putString(Profile.PREF_PROFILE_NAME, profile._name);
+                editor.remove(Profile.PREF_PROFILE_ICON).putString(Profile.PREF_PROFILE_ICON, profile._icon);
+                editor.remove(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR).putBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, profile._showInActivator);
+                editor.remove(Profile.PREF_PROFILE_DURATION).editor.putString(Profile.PREF_PROFILE_DURATION, Integer.toString(profile._duration));
+                editor.remove(Profile.PREF_PROFILE_AFTER_DURATION_DO).editor.putString(Profile.PREF_PROFILE_AFTER_DURATION_DO, Integer.toString(profile._afterDurationDo));
                 */
-                editor.putString(PPApplication.PREF_PROFILE_NAME, profile._name);
-                editor.putString(PPApplication.PREF_PROFILE_ICON, profile._icon);
-                editor.putBoolean(PPApplication.PREF_PROFILE_SHOW_IN_ACTIVATOR, profile._showInActivator);
-                editor.putString(PPApplication.PREF_PROFILE_DURATION, Integer.toString(profile._duration));
-                editor.putString(PPApplication.PREF_PROFILE_AFTER_DURATION_DO, Integer.toString(profile._afterDurationDo));
-                editor.putBoolean(PPApplication.PREF_PROFILE_ASK_FOR_DURATION, profile._askForDuration);
-                editor.putBoolean(PPApplication.PREF_PROFILE_HIDE_STATUS_BAR_ICON, profile._hideStatusBarIcon);
+                editor.putString(Profile.PREF_PROFILE_NAME, profile._name);
+                editor.putString(Profile.PREF_PROFILE_ICON, profile._icon);
+                editor.putBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, profile._showInActivator);
+                editor.putString(Profile.PREF_PROFILE_DURATION, Integer.toString(profile._duration));
+                editor.putString(Profile.PREF_PROFILE_AFTER_DURATION_DO, Integer.toString(profile._afterDurationDo));
+                editor.putBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, profile._askForDuration);
+                editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, profile._hideStatusBarIcon);
             }
-            editor.putString(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE, Integer.toString(profile._volumeRingerMode));
-            editor.putString(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE, Integer.toString(profile._volumeZenMode));
-            editor.putString(PPApplication.PREF_PROFILE_VOLUME_RINGTONE, profile._volumeRingtone);
-            editor.putString(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION, profile._volumeNotification);
-            editor.putString(PPApplication.PREF_PROFILE_VOLUME_MEDIA, profile._volumeMedia);
-            editor.putString(PPApplication.PREF_PROFILE_VOLUME_ALARM, profile._volumeAlarm);
-            editor.putString(PPApplication.PREF_PROFILE_VOLUME_SYSTEM, profile._volumeSystem);
-            editor.putString(PPApplication.PREF_PROFILE_VOLUME_VOICE, profile._volumeVoice);
-            editor.putString(PPApplication.PREF_PROFILE_SOUND_RINGTONE_CHANGE, Integer.toString(profile._soundRingtoneChange));
-            editor.putString(PPApplication.PREF_PROFILE_SOUND_RINGTONE, profile._soundRingtone);
-            editor.putString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, Integer.toString(profile._soundNotificationChange));
-            editor.putString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION, profile._soundNotification);
-            editor.putString(PPApplication.PREF_PROFILE_SOUND_ALARM_CHANGE, Integer.toString(profile._soundAlarmChange));
-            editor.putString(PPApplication.PREF_PROFILE_SOUND_ALARM, profile._soundAlarm);
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_AIRPLANE_MODE, Integer.toString(profile._deviceAirplaneMode));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_WIFI, Integer.toString(profile._deviceWiFi));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_BLUETOOTH, Integer.toString(profile._deviceBluetooth));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, Integer.toString(profile._deviceScreenTimeout));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_BRIGHTNESS, profile._deviceBrightness);
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, Integer.toString(profile._deviceWallpaperChange));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER, profile._deviceWallpaper);
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA, Integer.toString(profile._deviceMobileData));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, Integer.toString(profile._deviceMobileDataPrefs));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_GPS, Integer.toString(profile._deviceGPS));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, Integer.toString(profile._deviceRunApplicationChange));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_AUTOSYNC, Integer.toString(profile._deviceAutosync));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_AUTOROTATE, Integer.toString(profile._deviceAutoRotate));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, Integer.toString(profile._deviceLocationServicePrefs));
-            editor.putString(PPApplication.PREF_PROFILE_VOLUME_SPEAKER_PHONE, Integer.toString(profile._volumeSpeakerPhone));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_NFC, Integer.toString(profile._deviceNFC));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_KEYGUARD, Integer.toString(profile._deviceKeyguard));
-            editor.putString(PPApplication.PREF_PROFILE_VIBRATION_ON_TOUCH, Integer.toString(profile._vibrationOnTouch));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_WIFI_AP, Integer.toString(profile._deviceWiFiAP));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, Integer.toString(profile._devicePowerSaveMode));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE, Integer.toString(profile._deviceNetworkType));
-            editor.putString(PPApplication.PREF_PROFILE_NOTIFICATION_LED, Integer.toString(profile._notificationLed));
-            editor.putString(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING, Integer.toString(profile._vibrateWhenRinging));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR, Integer.toString(profile._deviceWallpaperFor));
-            editor.putString(PPApplication.PREF_PROFILE_LOCK_DEVICE, Integer.toString(profile._lockDevice));
-            editor.putString(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
+            editor.putString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, Integer.toString(profile._volumeRingerMode));
+            editor.putString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, Integer.toString(profile._volumeZenMode));
+            editor.putString(Profile.PREF_PROFILE_VOLUME_RINGTONE, profile._volumeRingtone);
+            editor.putString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, profile._volumeNotification);
+            editor.putString(Profile.PREF_PROFILE_VOLUME_MEDIA, profile._volumeMedia);
+            editor.putString(Profile.PREF_PROFILE_VOLUME_ALARM, profile._volumeAlarm);
+            editor.putString(Profile.PREF_PROFILE_VOLUME_SYSTEM, profile._volumeSystem);
+            editor.putString(Profile.PREF_PROFILE_VOLUME_VOICE, profile._volumeVoice);
+            editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, Integer.toString(profile._soundRingtoneChange));
+            editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE, profile._soundRingtone);
+            editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, Integer.toString(profile._soundNotificationChange));
+            editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, profile._soundNotification);
+            editor.putString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, Integer.toString(profile._soundAlarmChange));
+            editor.putString(Profile.PREF_PROFILE_SOUND_ALARM, profile._soundAlarm);
+            editor.putString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, Integer.toString(profile._deviceAirplaneMode));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_WIFI, Integer.toString(profile._deviceWiFi));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, Integer.toString(profile._deviceBluetooth));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, Integer.toString(profile._deviceScreenTimeout));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, profile._deviceBrightness);
+            editor.putString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, Integer.toString(profile._deviceWallpaperChange));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_WALLPAPER, profile._deviceWallpaper);
+            editor.putString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, Integer.toString(profile._deviceMobileData));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, Integer.toString(profile._deviceMobileDataPrefs));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_GPS, Integer.toString(profile._deviceGPS));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, Integer.toString(profile._deviceRunApplicationChange));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
+            editor.putString(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, Integer.toString(profile._deviceAutosync));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, Integer.toString(profile._deviceAutoRotate));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, Integer.toString(profile._deviceLocationServicePrefs));
+            editor.putString(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, Integer.toString(profile._volumeSpeakerPhone));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_NFC, Integer.toString(profile._deviceNFC));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_KEYGUARD, Integer.toString(profile._deviceKeyguard));
+            editor.putString(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, Integer.toString(profile._vibrationOnTouch));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_WIFI_AP, Integer.toString(profile._deviceWiFiAP));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, Integer.toString(profile._devicePowerSaveMode));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, Integer.toString(profile._deviceNetworkType));
+            editor.putString(Profile.PREF_PROFILE_NOTIFICATION_LED, Integer.toString(profile._notificationLed));
+            editor.putString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, Integer.toString(profile._vibrateWhenRinging));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR, Integer.toString(profile._deviceWallpaperFor));
+            editor.putString(Profile.PREF_PROFILE_LOCK_DEVICE, Integer.toString(profile._lockDevice));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
             editor.commit();
         }
     }
@@ -361,7 +361,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     private void savePreferences(int new_profile_mode, int predefinedProfileIndex)
     {
         int startupSource;
-        if (profile_id == PPApplication.DEFAULT_PROFILE_ID)
+        if (profile_id == Profile.DEFAULT_PROFILE_ID)
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE;
         else
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
@@ -378,15 +378,15 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         // save preferences into profile
         if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
         {
-            profile._name = preferences.getString(PPApplication.PREF_PROFILE_NAME, "");
-            profile._icon = preferences.getString(PPApplication.PREF_PROFILE_ICON, "");
-            profile._showInActivator = preferences.getBoolean(PPApplication.PREF_PROFILE_SHOW_IN_ACTIVATOR, true);
+            profile._name = preferences.getString(Profile.PREF_PROFILE_NAME, "");
+            profile._icon = preferences.getString(Profile.PREF_PROFILE_ICON, "");
+            profile._showInActivator = preferences.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, true);
 
-            profile._duration = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DURATION, ""));
-            profile._afterDurationDo = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_AFTER_DURATION_DO, ""));
-            profile._askForDuration = preferences.getBoolean(PPApplication.PREF_PROFILE_ASK_FOR_DURATION, false);
+            profile._duration = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DURATION, ""));
+            profile._afterDurationDo = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO, ""));
+            profile._askForDuration = preferences.getBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, false);
 
-            profile._hideStatusBarIcon = preferences.getBoolean(PPApplication.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
+            profile._hideStatusBarIcon = preferences.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
 
             Profile activatedProfile = dataWrapper.getActivatedProfile();
             if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
@@ -395,56 +395,56 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                 PPApplication.setActivatedProfileForDuration(getApplicationContext(), profile._id);
             }
         }
-        profile._volumeRingerMode = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE, ""));
-        profile._volumeZenMode = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE, ""));
-        profile._volumeRingtone = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_RINGTONE, "");
-        profile._volumeNotification = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION, "");
-        profile._volumeMedia = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_MEDIA, "");
-        profile._volumeAlarm = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_ALARM, "");
-        profile._volumeSystem = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_SYSTEM, "");
-        profile._volumeVoice = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_VOICE, "");
-        profile._soundRingtoneChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_SOUND_RINGTONE_CHANGE, ""));
-        profile._soundRingtone = preferences.getString(PPApplication.PREF_PROFILE_SOUND_RINGTONE, "");
-        profile._soundNotificationChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, ""));
-        profile._soundNotification = preferences.getString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION, "");
-        profile._soundAlarmChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_SOUND_ALARM_CHANGE, ""));
-        profile._soundAlarm = preferences.getString(PPApplication.PREF_PROFILE_SOUND_ALARM, "");
-        profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_AIRPLANE_MODE, ""));
-        profile._deviceWiFi = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WIFI, ""));
-        profile._deviceBluetooth = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_BLUETOOTH, ""));
-        profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, ""));
-        profile._deviceBrightness = preferences.getString(PPApplication.PREF_PROFILE_DEVICE_BRIGHTNESS, "");
-        profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, ""));
+        profile._volumeRingerMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, ""));
+        profile._volumeZenMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, ""));
+        profile._volumeRingtone = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
+        profile._volumeNotification = preferences.getString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, "");
+        profile._volumeMedia = preferences.getString(Profile.PREF_PROFILE_VOLUME_MEDIA, "");
+        profile._volumeAlarm = preferences.getString(Profile.PREF_PROFILE_VOLUME_ALARM, "");
+        profile._volumeSystem = preferences.getString(Profile.PREF_PROFILE_VOLUME_SYSTEM, "");
+        profile._volumeVoice = preferences.getString(Profile.PREF_PROFILE_VOLUME_VOICE, "");
+        profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, ""));
+        profile._soundRingtone = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE, "");
+        profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, ""));
+        profile._soundNotification = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
+        profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, ""));
+        profile._soundAlarm = preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM, "");
+        profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, ""));
+        profile._deviceWiFi = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI, ""));
+        profile._deviceBluetooth = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, ""));
+        profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, ""));
+        profile._deviceBrightness = preferences.getString(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, "");
+        profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, ""));
         if (profile._deviceWallpaperChange == 1) {
-            profile._deviceWallpaper = preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER, "");
-            profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR, ""));
+            profile._deviceWallpaper = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER, "");
+            profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR, ""));
         }
         else {
             profile._deviceWallpaper = "-|0";
             profile._deviceWallpaperFor = 0;
         }
-        profile._deviceMobileData = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA, ""));
-        profile._deviceMobileDataPrefs = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, ""));
-        profile._deviceGPS = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_GPS, ""));
-        profile._deviceRunApplicationChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, ""));
+        profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, ""));
+        profile._deviceMobileDataPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, ""));
+        profile._deviceGPS = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_GPS, ""));
+        profile._deviceRunApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, ""));
         if (profile._deviceRunApplicationChange == 1)
-            profile._deviceRunApplicationPackageName = preferences.getString(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, "-");
+            profile._deviceRunApplicationPackageName = preferences.getString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, "-");
         else
             profile._deviceRunApplicationPackageName = "-";
-        profile._deviceAutosync = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_AUTOSYNC, ""));
-        profile._deviceAutoRotate = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_AUTOROTATE, ""));
-        profile._deviceLocationServicePrefs = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, ""));
-        profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VOLUME_SPEAKER_PHONE, ""));
-        profile._deviceNFC = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_NFC, ""));
-        profile._deviceKeyguard = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_KEYGUARD, ""));
-        profile._vibrationOnTouch = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VIBRATION_ON_TOUCH, ""));
-        profile._deviceWiFiAP = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WIFI_AP, ""));
-        profile._devicePowerSaveMode = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, ""));
-        profile._deviceNetworkType = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE, ""));
-        profile._notificationLed = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_NOTIFICATION_LED, ""));
-        profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING, ""));
-        profile._lockDevice = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_LOCK_DEVICE, ""));
-        profile._deviceConnectToSSID = preferences.getString(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, "");
+        profile._deviceAutosync = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, ""));
+        profile._deviceAutoRotate = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, ""));
+        profile._deviceLocationServicePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, ""));
+        profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, ""));
+        profile._deviceNFC = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NFC, ""));
+        profile._deviceKeyguard = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_KEYGUARD, ""));
+        profile._vibrationOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, ""));
+        profile._deviceWiFiAP = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP, ""));
+        profile._devicePowerSaveMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, ""));
+        profile._deviceNetworkType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, ""));
+        profile._notificationLed = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_NOTIFICATION_LED, ""));
+        profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, ""));
+        profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, ""));
+        profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, "");
 
         if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
         {

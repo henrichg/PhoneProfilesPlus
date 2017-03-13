@@ -33,6 +33,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
     public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
     public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
+    public static final String EXTRA_RESET_EDITOR = "reset_editor";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -220,7 +221,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
         // for startActivityForResult
         Intent returnIntent = new Intent();
-        returnIntent.putExtra(PPApplication.EXTRA_RESET_EDITOR, invalidateEditor);
+        returnIntent.putExtra(EXTRA_RESET_EDITOR, invalidateEditor);
         setResult(RESULT_OK,returnIntent);
 
         super.finish();

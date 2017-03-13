@@ -26,8 +26,8 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
 
             if ((state == NfcAdapter.STATE_ON) || (state == NfcAdapter.STATE_OFF)) {
                 Intent broadcastIntent = new Intent(context, RadioSwitchBroadcastReceiver.class);
-                broadcastIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_NFC);
-                broadcastIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_STATE, state == NfcAdapter.STATE_ON);
+                broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_NFC);
+                broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, state == NfcAdapter.STATE_ON);
                 context.sendBroadcast(broadcastIntent);
             }
         }

@@ -35,10 +35,10 @@ public class NotificationBroadcastReceiver extends WakefulBroadcastReceiver {
             {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
                 //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));
-                eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED));
+                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, intent.getStringExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED));
                 startWakefulService(context, eventsServiceIntent);
             //}
         }

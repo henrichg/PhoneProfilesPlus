@@ -45,6 +45,11 @@ public class PhoneProfilesService extends Service
     private static SettingsContentObserver settingsContentObserver = null;
     private static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
 
+    static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
+    static final String EXTRA_START_STOP_SCANNER_TYPE = "start_stop_scanner_type";
+    static final String EXTRA_START_ON_BOOT = "start_on_boot";
+    static final String EXTRA_ONLY_START = "only_start";
+
     //-----------------------
 
     public static GeofencesScanner geofencesScanner = null;
@@ -310,8 +315,8 @@ public class PhoneProfilesService extends Service
         Intent serviceIntent = new Intent(getApplicationContext(), FirstStartService.class);
 
         if (intent != null) {
-            onlyStart = intent.getBooleanExtra(PPApplication.EXTRA_ONLY_START, true);
-            serviceIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, intent.getBooleanExtra(PPApplication.EXTRA_START_ON_BOOT, false));
+            onlyStart = intent.getBooleanExtra(EXTRA_ONLY_START, true);
+            serviceIntent.putExtra(EXTRA_START_ON_BOOT, intent.getBooleanExtra(EXTRA_START_ON_BOOT, false));
         }
 
         if (onlyStart) {
@@ -334,11 +339,11 @@ public class PhoneProfilesService extends Service
 
         if (!doForFirstStart(intent, flags, startId)) {
             if (intent != null) {
-                if (intent.getBooleanExtra(PPApplication.EXTRA_SIMULATE_RINGING_CALL, false))
+                if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_RINGING_CALL, false))
                     doSimulatingRingingCall(intent);
 
-                if (intent.getBooleanExtra(PPApplication.EXTRA_START_STOP_SCANNER, false)) {
-                    switch (intent.getIntExtra(PPApplication.EXTRA_START_STOP_SCANNER_TYPE, 0)) {
+                if (intent.getBooleanExtra(EXTRA_START_STOP_SCANNER, false)) {
+                    switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
                         case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_GEOFENCE_SCANNER");
                             startGeofenceScanner();
@@ -746,7 +751,7 @@ public class PhoneProfilesService extends Service
     //---------------------------
 
     private void doSimulatingRingingCall(Intent intent) {
-        if (intent.getBooleanExtra(PPApplication.EXTRA_SIMULATE_RINGING_CALL, false))
+        if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_RINGING_CALL, false))
         {
             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "simulate ringing call");
 
@@ -754,10 +759,10 @@ public class PhoneProfilesService extends Service
 
             ringingCallIsSimulating = false;
 
-            int oldRingerMode = intent.getIntExtra(PPApplication.EXTRA_OLD_RINGER_MODE, 0);
-            int oldSystemRingerMode = intent.getIntExtra(PPApplication.EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
-            int oldZenMode = intent.getIntExtra(PPApplication.EXTRA_OLD_ZEN_MODE, 0);
-            String oldRingtone = intent.getStringExtra(PPApplication.EXTRA_OLD_RINGTONE);
+            int oldRingerMode = intent.getIntExtra(EventsService.EXTRA_OLD_RINGER_MODE, 0);
+            int oldSystemRingerMode = intent.getIntExtra(EventsService.EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
+            int oldZenMode = intent.getIntExtra(EventsService.EXTRA_OLD_ZEN_MODE, 0);
+            String oldRingtone = intent.getStringExtra(EventsService.EXTRA_OLD_RINGTONE);
             int newRingerMode = PPApplication.getRingerMode(context);
             int newZenMode = PPApplication.getZenMode(context);
             String newRingtone;

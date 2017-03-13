@@ -192,7 +192,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         else
         {
             isIconResourceID = true;
-            iconIdentifier = PPApplication.PROFILE_ICON_DEFAULT;
+            iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
             profileName = getResources().getString(R.string.profile_name_default);
             useCustomColor = false;
         }

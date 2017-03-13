@@ -119,9 +119,9 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
             {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_SMS_PHONE_NUMBER, origin);
-                eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_SMS_DATE, time);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_SMS_PHONE_NUMBER, origin);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_SMS_DATE, time);
                 startWakefulService(context, eventsServiceIntent);
             //}
         }

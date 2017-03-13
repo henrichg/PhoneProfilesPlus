@@ -466,7 +466,7 @@ class Event {
     {
         this._name = preferences.getString(PREF_EVENT_NAME, "");
         this._fkProfileStart = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_START, "0"));
-        this._fkProfileEnd = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_END, Long.toString(PPApplication.PROFILE_NO_ACTIVATE)));
+        this._fkProfileEnd = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_END, Long.toString(Profile.PROFILE_NO_ACTIVATE)));
         this._status = (preferences.getBoolean(PREF_EVENT_ENABLED, false)) ? ESTATUS_PAUSE : ESTATUS_STOP;
         this._notificationSound = preferences.getString(PREF_EVENT_NOTIFICATION_SOUND, "");
         this._forceRun = preferences.getBoolean(PREF_EVENT_FORCE_RUN, false);
@@ -474,7 +474,7 @@ class Event {
         this._priority = Integer.parseInt(preferences.getString(PREF_EVENT_PRIORITY, Integer.toString(EPRIORITY_MEDIUM)));
         this._atEndDo = Integer.parseInt(preferences.getString(PREF_EVENT_AT_END_DO, Integer.toString(EATENDDO_UNDONE_PROFILE)));
         this._manualProfileActivation = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
-        this._fkProfileStartWhenActivated = Long.parseLong(preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, Long.toString(PPApplication.PROFILE_NO_ACTIVATE)));
+        this._fkProfileStartWhenActivated = Long.parseLong(preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, Long.toString(Profile.PROFILE_NO_ACTIVATE)));
 
         String sDelayStart = preferences.getString(PREF_EVENT_DELAY_START, "0");
         if (sDelayStart.isEmpty()) sDelayStart = "0";
@@ -532,7 +532,7 @@ class Event {
             if (key.equals(PREF_EVENT_PROFILE_START))
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE)) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, lProfileId != PPApplication.PROFILE_NO_ACTIVATE, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, lProfileId != Profile.PROFILE_NO_ACTIVATE, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_SOUND))
@@ -627,7 +627,7 @@ class Event {
             if (preferences == null) {
                 //forceRunChanged = this._forceRun;
                 manualProfileActivationChanged = this._manualProfileActivation;
-                profileStartWhenActivatedChanged = this._fkProfileStartWhenActivated != PPApplication.PROFILE_NO_ACTIVATE;
+                profileStartWhenActivatedChanged = this._fkProfileStartWhenActivated != Profile.PROFILE_NO_ACTIVATE;
                 fkProfileStartWhenActivated = this._fkProfileStartWhenActivated;
                 delayStartChanged = this._delayStart != 0;
                 delayEndChanged = this._delayEnd != 0;
@@ -638,8 +638,8 @@ class Event {
             else {
                 //forceRunChanged = preferences.getBoolean(PREF_EVENT_FORCE_RUN, false);
                 manualProfileActivationChanged = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
-                fkProfileStartWhenActivated = Long.parseLong(preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, String.valueOf(PPApplication.PROFILE_NO_ACTIVATE)));
-                profileStartWhenActivatedChanged = fkProfileStartWhenActivated != PPApplication.PROFILE_NO_ACTIVATE;
+                fkProfileStartWhenActivated = Long.parseLong(preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
+                profileStartWhenActivatedChanged = fkProfileStartWhenActivated != Profile.PROFILE_NO_ACTIVATE;
                 delayStartChanged = !preferences.getString(PREF_EVENT_DELAY_START, "0").equals("0");
                 delayEndChanged = !preferences.getString(PREF_EVENT_DELAY_END, "0").equals("0");
                 delayStart = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_START, "0"));
@@ -1125,7 +1125,7 @@ class Event {
             if (activatedProfile != null)
                 activatedProfileId = activatedProfile._id;
             // first activate _fkProfileEnd
-            if (_fkProfileEnd != PPApplication.PROFILE_NO_ACTIVATE)
+            if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
             {
                 if (_fkProfileEnd != activatedProfileId)
                 {
@@ -1274,15 +1274,15 @@ class Event {
 
         if (log && (status != this._status)) {
             int alType = DatabaseHandler.ALTYPE_EVENTEND_NONE;
-            if ((_atEndDo == EATENDDO_UNDONE_PROFILE) && (_fkProfileEnd != PPApplication.PROFILE_NO_ACTIVATE))
+            if ((_atEndDo == EATENDDO_UNDONE_PROFILE) && (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE))
                 alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE;
-            if ((_atEndDo == EATENDDO_RESTART_EVENTS) && (_fkProfileEnd != PPApplication.PROFILE_NO_ACTIVATE))
+            if ((_atEndDo == EATENDDO_RESTART_EVENTS) && (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE))
                 alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_RESTARTEVENTS;
             else if (_atEndDo == EATENDDO_UNDONE_PROFILE)
                 alType = DatabaseHandler.ALTYPE_EVENTEND_UNDOPROFILE;
             else if (_atEndDo == EATENDDO_RESTART_EVENTS)
                 alType = DatabaseHandler.ALTYPE_EVENTEND_RESTARTEVENTS;
-            else if (_fkProfileEnd != PPApplication.PROFILE_NO_ACTIVATE)
+            else if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
                 alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE;
 
             dataWrapper.addActivityLog(alType, _name, null, null, 0);
@@ -1489,10 +1489,10 @@ class Event {
 
             AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
 
-            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            if (android.os.Build.VERSION.SDK_INT >= 23)
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             else
-            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            if (android.os.Build.VERSION.SDK_INT >= 19)
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             else
                 alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
@@ -1606,10 +1606,10 @@ class Event {
 
             AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
 
-            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            if (android.os.Build.VERSION.SDK_INT >= 23)
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             else
-            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            if (android.os.Build.VERSION.SDK_INT >= 19)
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             else
                 alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);

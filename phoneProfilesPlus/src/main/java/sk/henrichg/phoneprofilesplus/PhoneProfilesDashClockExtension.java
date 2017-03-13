@@ -68,7 +68,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         if (dataWrapper == null)
             return;
 
-        profile = PPApplication.getMappedProfile(
+        profile = Profile.getMappedProfile(
                                     dataWrapper.getActivatedProfile(), this);
 
         boolean isIconResourceID;
@@ -83,14 +83,14 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         else
         {
             isIconResourceID = true;
-            iconIdentifier = PPApplication.PROFILE_ICON_DEFAULT;
+            iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
             profileName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
         }
         int iconResource;
         if (isIconResourceID)
             iconResource = getResources().getIdentifier(iconIdentifier, "drawable", getPackageName());
         else
-            iconResource = getResources().getIdentifier(PPApplication.PROFILE_ICON_DEFAULT, "drawable", getPackageName());
+            iconResource = getResources().getIdentifier(Profile.PROFILE_ICON_DEFAULT, "drawable", getPackageName());
 
         // profile preferences indicator
         String indicator1 = "";

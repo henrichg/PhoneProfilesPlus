@@ -50,10 +50,6 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    //public static boolean firstStartServiceStarted = false;
-
-    public static final boolean exactAlarms = true;
-
     private static boolean logIntoLogCat = false;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
@@ -92,40 +88,10 @@ public class PPApplication extends Application {
 
     public static final String EXPORT_PATH = "/PhoneProfilesPlus";
     public static final String LOG_FILENAME = "log.txt";
-    public static final String CRASH_FILENAME = "crash.txt";
 
     static final String EXTRA_PROFILE_ID = "profile_id";
-    static final String EXTRA_MERGED_PROFILE = "merged_profile";
     static final String EXTRA_EVENT_ID = "event_id";
     static final String EXTRA_STARTUP_SOURCE = "startup_source";
-    static final String EXTRA_RESET_EDITOR = "reset_editor";
-    static final String EXTRA_NEW_PROFILE_MODE = "new_profile_mode";
-    static final String EXTRA_PREDEFINED_PROFILE_INDEX = "predefined_profile_index";
-    static final String EXTRA_NEW_EVENT_MODE = "new_event_mode";
-    static final String EXTRA_PREDEFINED_EVENT_INDEX = "predefined_event_index";
-    static final String EXTRA_BROADCAST_RECEIVER_TYPE = "broadcast_receiver_type";
-    static final String EXTRA_SCANNER_TYPE = "scanner_type";
-    static final String EXTRA_UNBLOCKEVENTSRUN = "unblock_events_run";
-    static final String EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED = "event_notification_posted_removed";
-    static final String EXTRA_EVENT_SMS_PHONE_NUMBER = "event_sms_phone_number";
-    static final String EXTRA_EVENT_SMS_DATE = "event_sms_date";
-    static final String EXTRA_SIMULATE_RINGING_CALL = "simulate_ringing_call";
-    static final String EXTRA_OLD_RINGER_MODE = "old_ringer_mode";
-    static final String EXTRA_OLD_SYSTEM_RINGER_MODE = "old_system_ringer_mode";
-    static final String EXTRA_OLD_ZEN_MODE = "old_zen_mode";
-    static final String EXTRA_OLD_RINGTONE = "old_ringtone";
-    static final String EXTRA_FOR_PROFILE_ACTIVATION = "for_profile_activation";
-    static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
-    static final String EXTRA_START_STOP_SCANNER_TYPE = "start_stop_scanner_type";
-    static final String EXTRA_PROFILE_NAME = "profile_name";
-    static final String EXTRA_INTERACTIVE = "interactive";
-    static final String EXTRA_EVENT_NAME = "event_name";
-    static final String EXTRA_EVENT_NFC_DATE = "event_nfc_date";
-    static final String EXTRA_EVENT_NFC_TAG_NAME = "event_nfc_tag_name";
-    static final String EXTRA_START_ON_BOOT = "start_on_boot";
-    static final String EXTRA_ONLY_START = "only_start";
-    static final String EXTRA_EVENT_RADIO_SWITCH_TYPE = "event_radio_switch_type";
-    static final String EXTRA_EVENT_RADIO_SWITCH_STATE = "event_radio_switch_state";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;
@@ -144,17 +110,6 @@ public class PPApplication extends Application {
     static final int PREFERENCES_STARTUP_SOURCE_FRAGMENT = 2;
     static final int PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE = 3;
 
-    // request code for startActivityForResult with intent BackgroundActivateProfileActivity
-    static final int REQUEST_CODE_ACTIVATE_PROFILE = 6220;
-    // request code for startActivityForResult with intent ProfilePreferencesActivity
-    static final int REQUEST_CODE_PROFILE_PREFERENCES = 6221;
-    // request code for startActivityForResult with intent EventPreferencesActivity
-    static final int REQUEST_CODE_EVENT_PREFERENCES = 6222;
-    // request code for startActivityForResult with intent PhoneProfilesActivity
-    static final int REQUEST_CODE_APPLICATION_PREFERENCES = 6229;
-    // request code for startActivityForResult with intent "phoneprofiles.intent.action.EXPORTDATA"
-    static final int REQUEST_CODE_REMOTE_EXPORT = 6250;
-
     static final int PROFILE_NOTIFICATION_ID = 700420;
     static final int IMPORTANT_INFO_NOTIFICATION_ID = 700422;
     static final int GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID = 700423;
@@ -166,62 +121,6 @@ public class PPApplication extends Application {
     static final int GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID = 700429;
     static final int MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID = 700430;
     static final int ABOUT_APPLICATION_DONATE_NOTIFICATION_ID = 700431;
-
-    static final String PREF_PROFILE_NAME = "prf_pref_profileName";
-    static final String PREF_PROFILE_ICON = "prf_pref_profileIcon";
-    static final String PREF_PROFILE_VOLUME_RINGER_MODE = "prf_pref_volumeRingerMode";
-    static final String PREF_PROFILE_VOLUME_ZEN_MODE = "prf_pref_volumeZenMode";
-    static final String PREF_PROFILE_VOLUME_RINGTONE = "prf_pref_volumeRingtone";
-    static final String PREF_PROFILE_VOLUME_NOTIFICATION = "prf_pref_volumeNotification";
-    static final String PREF_PROFILE_VOLUME_MEDIA = "prf_pref_volumeMedia";
-    static final String PREF_PROFILE_VOLUME_ALARM = "prf_pref_volumeAlarm";
-    static final String PREF_PROFILE_VOLUME_SYSTEM = "prf_pref_volumeSystem";
-    static final String PREF_PROFILE_VOLUME_VOICE = "prf_pref_volumeVoice";
-    static final String PREF_PROFILE_SOUND_RINGTONE_CHANGE = "prf_pref_soundRingtoneChange";
-    static final String PREF_PROFILE_SOUND_RINGTONE = "prf_pref_soundRingtone";
-    static final String PREF_PROFILE_SOUND_NOTIFICATION_CHANGE = "prf_pref_soundNotificationChange";
-    static final String PREF_PROFILE_SOUND_NOTIFICATION = "prf_pref_soundNotification";
-    static final String PREF_PROFILE_SOUND_ALARM_CHANGE = "prf_pref_soundAlarmChange";
-    static final String PREF_PROFILE_SOUND_ALARM = "prf_pref_soundAlarm";
-    static final String PREF_PROFILE_DEVICE_AIRPLANE_MODE = "prf_pref_deviceAirplaneMode";
-    static final String PREF_PROFILE_DEVICE_WIFI = "prf_pref_deviceWiFi";
-    static final String PREF_PROFILE_DEVICE_BLUETOOTH = "prf_pref_deviceBluetooth";
-    static final String PREF_PROFILE_DEVICE_SCREEN_TIMEOUT = "prf_pref_deviceScreenTimeout";
-    static final String PREF_PROFILE_DEVICE_BRIGHTNESS = "prf_pref_deviceBrightness";
-    static final String PREF_PROFILE_DEVICE_WALLPAPER_CHANGE = "prf_pref_deviceWallpaperChange";
-    static final String PREF_PROFILE_DEVICE_WALLPAPER = "prf_pref_deviceWallpaper";
-    static final String PREF_PROFILE_DEVICE_MOBILE_DATA = "prf_pref_deviceMobileData";
-    static final String PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS = "prf_pref_deviceMobileDataPrefs";
-    static final String PREF_PROFILE_DEVICE_GPS = "prf_pref_deviceGPS";
-    static final String PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE = "prf_pref_deviceRunApplicationChange";
-    static final String PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME = "prf_pref_deviceRunApplicationPackageName";
-    static final String PREF_PROFILE_DEVICE_AUTOSYNC = "prf_pref_deviceAutosync";
-    static final String PREF_PROFILE_SHOW_IN_ACTIVATOR = "prf_pref_showInActivator";
-    static final String PREF_PROFILE_DEVICE_AUTOROTATE = "prf_pref_deviceAutoRotation";
-    static final String PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS = "prf_pref_deviceLocationServicePrefs";
-    static final String PREF_PROFILE_VOLUME_SPEAKER_PHONE = "prf_pref_volumeSpeakerPhone";
-    static final String PREF_PROFILE_DEVICE_NFC = "prf_pref_deviceNFC";
-    static final String PREF_PROFILE_DURATION = "prf_pref_duration";
-    static final String PREF_PROFILE_AFTER_DURATION_DO = "prf_pref_afterDurationDo";
-    static final String PREF_PROFILE_DEVICE_KEYGUARD = "prf_pref_deviceKeyguard";
-    static final String PREF_PROFILE_VIBRATION_ON_TOUCH = "prf_pref_vibrationOnTouch";
-    static final String PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS = "prf_pref_volumeUnlinkVolumesAppSettings";
-    static final String PREF_PROFILE_DEVICE_WIFI_AP = "prf_pref_deviceWiFiAP";
-    static final String PREF_PROFILE_DEVICE_POWER_SAVE_MODE = "prf_pref_devicePowerSaveMode";
-    //static final String PREF_PROFILE_SHOW_DURATION_BUTTON = "prf_pref_showDurationButton";
-    static final String PREF_PROFILE_ASK_FOR_DURATION = "prf_pref_askForDuration";
-    static final String PREF_PROFILE_DEVICE_NETWORK_TYPE = "prf_pref_deviceNetworkType";
-    static final String PREF_PROFILE_NOTIFICATION_LED = "prf_pref_notificationLed";
-    static final String PREF_PROFILE_VIBRATE_WHEN_RINGING = "prf_pref_vibrateWhenRinging";
-    static final String PREF_PROFILE_DEVICE_WALLPAPER_FOR = "prf_pref_deviceWallpaperFor";
-    static final String PREF_PROFILE_HIDE_STATUS_BAR_ICON = "prf_pref_hideStatusBarIcon";
-    static final String PREF_PROFILE_LOCK_DEVICE = "prf_pref_lockDevice";
-    static final String PREF_PROFILE_DEVICE_CONNECT_TO_SSID = "prf_pref_deviceConnectToSSID";
-
-    // no preferences, bud checked from isProfilePreferenceAllowed
-    static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
-
-    static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
 
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
     static final String DEFAULT_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
@@ -309,9 +208,6 @@ public class PPApplication extends Application {
     public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM = 4;
     public static final int PREFERENCE_NOT_ALLOWED_NOT_CONFIGURED_IN_SYSTEM_SETTINGS = 5;
     public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION = 6;
-
-    public static final long DEFAULT_PROFILE_ID = -999L;  // source profile id
-    public static final long PROFILE_NO_ACTIVATE = -999;
 
     public static final String SCANNER_TYPE_WIFI = "wifi";
     public static final String SCANNER_TYPE_BLUETOOTH = "bluetooth";
@@ -726,314 +622,6 @@ public class PPApplication extends Application {
             editor.putString(PREF_APPLICATION_THEME, applicationTheme);
             editor.commit();
         }
-    }
-
-    private static String getVolumeLevelString(int percentage, int maxValue)
-    {
-        Double dValue = maxValue / 100.0 * percentage;
-        return String.valueOf(dValue.intValue());
-    }
-
-    private static void moveDefaultProfilesPreference(Context context)
-    {
-        SharedPreferences oldPreferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences newPreferences = context.getSharedPreferences(DEFAULT_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editorNew = newPreferences.edit();
-        SharedPreferences.Editor editorOld = oldPreferences.edit();
-        Map<String, ?> all = oldPreferences.getAll();
-        for (Entry<String, ?> x : all.entrySet()) {
-
-            if (x.getKey().equals(PREF_PROFILE_NAME) ||
-                x.getKey().equals(PREF_PROFILE_NAME) ||
-                x.getKey().equals(PREF_PROFILE_ICON) ||
-                x.getKey().equals(PREF_PROFILE_VOLUME_RINGER_MODE) ||
-                x.getKey().equals(PREF_PROFILE_VOLUME_ZEN_MODE) ||
-                x.getKey().equals(PREF_PROFILE_VOLUME_RINGTONE) ||
-                x.getKey().equals(PREF_PROFILE_VOLUME_NOTIFICATION) ||
-                x.getKey().equals(PREF_PROFILE_VOLUME_MEDIA) ||
-                x.getKey().equals(PREF_PROFILE_VOLUME_ALARM) ||
-                x.getKey().equals(PREF_PROFILE_VOLUME_SYSTEM) ||
-                x.getKey().equals(PREF_PROFILE_VOLUME_VOICE) ||
-                x.getKey().equals(PREF_PROFILE_SOUND_RINGTONE_CHANGE) ||
-                x.getKey().equals(PREF_PROFILE_SOUND_RINGTONE) ||
-                x.getKey().equals(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE) ||
-                x.getKey().equals(PREF_PROFILE_SOUND_NOTIFICATION) ||
-                x.getKey().equals(PREF_PROFILE_SOUND_ALARM_CHANGE) ||
-                x.getKey().equals(PREF_PROFILE_SOUND_ALARM) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_AIRPLANE_MODE) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_WIFI) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_BLUETOOTH) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_SCREEN_TIMEOUT) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_BRIGHTNESS) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_WALLPAPER) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_MOBILE_DATA) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_GPS) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_AUTOSYNC) ||
-                x.getKey().equals(PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_AUTOROTATE) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
-                x.getKey().equals(PREF_PROFILE_VOLUME_SPEAKER_PHONE) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_NFC) ||
-                x.getKey().equals(PREF_PROFILE_DURATION) ||
-                x.getKey().equals(PREF_PROFILE_AFTER_DURATION_DO) ||
-                x.getKey().equals(PREF_PROFILE_ASK_FOR_DURATION) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_KEYGUARD) ||
-                x.getKey().equals(PREF_PROFILE_VIBRATION_ON_TOUCH) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_WIFI_AP) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
-                x.getKey().equals(PREF_PROFILE_NOTIFICATION_LED) ||
-                x.getKey().equals(PREF_PROFILE_VIBRATE_WHEN_RINGING) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_WALLPAPER_FOR) ||
-                x.getKey().equals(PREF_PROFILE_HIDE_STATUS_BAR_ICON) ||
-                x.getKey().equals(PREF_PROFILE_LOCK_DEVICE) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
-            {
-                if      (x.getValue().getClass().equals(Boolean.class)) editorNew.putBoolean(x.getKey(), (Boolean)x.getValue());
-                else if (x.getValue().getClass().equals(Float.class))   editorNew.putFloat(x.getKey(),   (Float)x.getValue());
-                else if (x.getValue().getClass().equals(Integer.class)) editorNew.putInt(x.getKey(),     (Integer)x.getValue());
-                else if (x.getValue().getClass().equals(Long.class))    editorNew.putLong(x.getKey(),    (Long)x.getValue());
-                else if (x.getValue().getClass().equals(String.class))  editorNew.putString(x.getKey(),  (String)x.getValue());
-
-                editorOld.remove(x.getKey());
-            }
-        }
-        editorNew.commit();
-        editorOld.commit();
-    }
-
-    static public Profile getDefaultProfile(Context context)
-    {
-        // move default profile preferences into new file
-        moveDefaultProfilesPreference(context);
-
-        AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-        int	maximumValueRing = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-        int	maximumValueNotification = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-        int	maximumValueMusic = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        int	maximumValueAlarm = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-        int	maximumValueSystem = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
-        int	maximumValueVoicecall = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
-
-        SharedPreferences preferences = context.getSharedPreferences(DEFAULT_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
-
-        Profile profile = new Profile();
-        profile._id = DEFAULT_PROFILE_ID;
-        profile._name = context.getResources().getString(R.string.default_profile_name);
-        profile._icon = PROFILE_ICON_DEFAULT+"1|0|0";
-        profile._checked = false;
-        profile._porder = 0;
-        profile._duration = 0;
-        profile._afterDurationDo = Profile.AFTERDURATIONDO_RESTARTEVENTS;
-        profile._volumeRingerMode = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE, "1")); // ring
-        profile._volumeZenMode = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE, "1")); // all
-        profile._volumeRingtone = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_RINGTONE, getVolumeLevelString(71, maximumValueRing) + "|0|0");
-        profile._volumeNotification = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION, getVolumeLevelString(86, maximumValueNotification)+"|0|0");
-        profile._volumeMedia = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_MEDIA, getVolumeLevelString(80, maximumValueMusic)+"|0|0");
-        profile._volumeAlarm = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_ALARM, getVolumeLevelString(100, maximumValueAlarm)+"|0|0");
-        profile._volumeSystem = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_SYSTEM, getVolumeLevelString(70, maximumValueSystem)+"|0|0");
-        profile._volumeVoice = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_VOICE, getVolumeLevelString(70, maximumValueVoicecall)+"|0|0");
-        profile._soundRingtoneChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_SOUND_RINGTONE_CHANGE, "0"));
-        profile._soundRingtone = preferences.getString(PPApplication.PREF_PROFILE_SOUND_RINGTONE, Settings.System.DEFAULT_RINGTONE_URI.toString());
-        profile._soundNotificationChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0"));
-        profile._soundNotification = preferences.getString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION, Settings.System.DEFAULT_NOTIFICATION_URI.toString());
-        profile._soundAlarmChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_SOUND_ALARM_CHANGE, "0"));
-        profile._soundAlarm = preferences.getString(PPApplication.PREF_PROFILE_SOUND_ALARM, Settings.System.DEFAULT_ALARM_ALERT_URI.toString());
-        profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_AIRPLANE_MODE, "2")); // OFF
-        profile._deviceWiFi = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WIFI, "2")); // OFF
-        profile._deviceBluetooth = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_BLUETOOTH, "2")); //OFF
-        profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "2")); // 30 seconds
-        profile._deviceBrightness = preferences.getString(PPApplication.PREF_PROFILE_DEVICE_BRIGHTNESS, Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + "|0|1|0");  // automatic on
-        profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
-        profile._deviceWallpaper = preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER, "-|0");
-        profile._deviceMobileData = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA, "1")); //ON
-        profile._deviceMobileDataPrefs = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, "0"));
-        profile._deviceGPS = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_GPS, "2")); //OFF
-        profile._deviceRunApplicationChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, "0"));
-        profile._deviceRunApplicationPackageName = preferences.getString(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, "-");
-        profile._deviceAutosync = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_AUTOSYNC, "1")); // ON
-        profile._deviceAutoRotate = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_AUTOROTATE, "1")); // ON
-        profile._deviceLocationServicePrefs = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, "0"));
-        profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VOLUME_SPEAKER_PHONE, "0"));
-        profile._deviceNFC = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_NFC, "0"));
-        profile._deviceKeyguard = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_KEYGUARD, "0"));
-        profile._vibrationOnTouch = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VIBRATION_ON_TOUCH, "0"));
-        profile._deviceWiFiAP = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WIFI_AP, "2")); // OFF
-        profile._devicePowerSaveMode = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, "0"));
-        profile._deviceNetworkType = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
-        profile._notificationLed = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_NOTIFICATION_LED, "0"));
-        profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING, "0"));
-        profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR, "0"));
-        profile._lockDevice = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_LOCK_DEVICE, "0"));
-        profile._deviceConnectToSSID = preferences.getString(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
-
-        return profile;
-    }
-
-    static public Profile getMappedProfile(Profile profile, Context context)
-    {
-        if (profile != null)
-        {
-            Profile defaultProfile = getDefaultProfile(context);
-
-            Profile mappedProfile = new Profile(
-                               profile._id,
-                               profile._name,
-                               profile._icon,
-                               profile._checked,
-                               profile._porder,
-                               profile._volumeRingerMode,
-                               profile._volumeRingtone,
-                               profile._volumeNotification,
-                               profile._volumeMedia,
-                               profile._volumeAlarm,
-                               profile._volumeSystem,
-                               profile._volumeVoice,
-                               profile._soundRingtoneChange,
-                               profile._soundRingtone,
-                               profile._soundNotificationChange,
-                               profile._soundNotification,
-                               profile._soundAlarmChange,
-                               profile._soundAlarm,
-                               profile._deviceAirplaneMode,
-                               profile._deviceWiFi,
-                               profile._deviceBluetooth,
-                               profile._deviceScreenTimeout,
-                               profile._deviceBrightness,
-                               profile._deviceWallpaperChange,
-                               profile._deviceWallpaper,
-                               profile._deviceMobileData,
-                               profile._deviceMobileDataPrefs,
-                               profile._deviceGPS,
-                               profile._deviceRunApplicationChange,
-                               profile._deviceRunApplicationPackageName,
-                               profile._deviceAutosync,
-                               profile._showInActivator,
-                               profile._deviceAutoRotate,
-                               profile._deviceLocationServicePrefs,
-                               profile._volumeSpeakerPhone,
-                               profile._deviceNFC,
-                               profile._duration,
-                               profile._afterDurationDo,
-                               profile._volumeZenMode,
-                               profile._deviceKeyguard,
-                               profile._vibrationOnTouch,
-                               profile._deviceWiFiAP,
-                               profile._devicePowerSaveMode,
-                               profile._askForDuration,
-                               profile._deviceNetworkType,
-                               profile._notificationLed,
-                               profile._vibrateWhenRinging,
-                               profile._deviceWallpaperFor,
-                               profile._hideStatusBarIcon,
-                               profile._lockDevice,
-                               profile._deviceConnectToSSID);
-
-            boolean zenModeMapped = false;
-            if (profile._volumeRingerMode == 99) {
-                mappedProfile._volumeRingerMode = defaultProfile._volumeRingerMode;
-                if (mappedProfile._volumeRingerMode == 5) {
-                    mappedProfile._volumeZenMode = defaultProfile._volumeZenMode;
-                    zenModeMapped = true;
-                }
-            }
-            if ((profile._volumeZenMode == 99) && (!zenModeMapped))
-                mappedProfile._volumeZenMode = defaultProfile._volumeZenMode;
-            if (profile.getVolumeRingtoneDefaultProfile())
-                mappedProfile._volumeRingtone = defaultProfile._volumeRingtone;
-            if (profile.getVolumeNotificationDefaultProfile())
-                mappedProfile._volumeNotification = defaultProfile._volumeNotification;
-            if (profile.getVolumeAlarmDefaultProfile())
-                mappedProfile._volumeAlarm = defaultProfile._volumeAlarm;
-            if (profile.getVolumeMediaDefaultProfile())
-                mappedProfile._volumeMedia = defaultProfile._volumeMedia;
-            if (profile.getVolumeSystemDefaultProfile())
-                mappedProfile._volumeSystem = defaultProfile._volumeSystem;
-            if (profile.getVolumeVoiceDefaultProfile())
-                mappedProfile._volumeVoice = defaultProfile._volumeVoice;
-            if (profile._soundRingtoneChange == 99)
-            {
-                mappedProfile._soundRingtoneChange = defaultProfile._soundRingtoneChange;
-                mappedProfile._soundRingtone = defaultProfile._soundRingtone;
-            }
-            if (profile._soundNotificationChange == 99)
-            {
-                mappedProfile._soundNotificationChange = defaultProfile._soundNotificationChange;
-                mappedProfile._soundNotification = defaultProfile._soundNotification;
-            }
-            if (profile._soundAlarmChange == 99)
-            {
-                mappedProfile._soundAlarmChange = defaultProfile._soundAlarmChange;
-                mappedProfile._soundAlarm = defaultProfile._soundAlarm;
-            }
-            if (profile._deviceAirplaneMode == 99)
-                mappedProfile._deviceAirplaneMode = defaultProfile._deviceAirplaneMode;
-            if (profile._deviceAutosync == 99)
-                mappedProfile._deviceAutosync = defaultProfile._deviceAutosync;
-            if (profile._deviceMobileData == 99)
-                mappedProfile._deviceMobileData = defaultProfile._deviceMobileData;
-            if (profile._deviceMobileDataPrefs == 99)
-                mappedProfile._deviceMobileDataPrefs = defaultProfile._deviceMobileDataPrefs;
-            if (profile._deviceWiFi == 99)
-                mappedProfile._deviceWiFi = defaultProfile._deviceWiFi;
-            if (profile._deviceBluetooth == 99)
-                mappedProfile._deviceBluetooth = defaultProfile._deviceBluetooth;
-            if (profile._deviceGPS == 99)
-                mappedProfile._deviceGPS = defaultProfile._deviceGPS;
-            if (profile._deviceLocationServicePrefs == 99)
-                mappedProfile._deviceLocationServicePrefs = defaultProfile._deviceLocationServicePrefs;
-            if (profile._deviceScreenTimeout == 99)
-                mappedProfile._deviceScreenTimeout = defaultProfile._deviceScreenTimeout;
-            if (profile.getDeviceBrightnessDefaultProfile())
-                mappedProfile._deviceBrightness = defaultProfile._deviceBrightness;
-            if (profile._deviceAutoRotate == 99)
-                mappedProfile._deviceAutoRotate = defaultProfile._deviceAutoRotate;
-            if (profile._deviceRunApplicationChange == 99)
-            {
-                mappedProfile._deviceRunApplicationChange = defaultProfile._deviceRunApplicationChange;
-                mappedProfile._deviceRunApplicationPackageName = defaultProfile._deviceRunApplicationPackageName;
-            }
-            if (profile._deviceWallpaperChange == 99)
-            {
-                mappedProfile._deviceWallpaperChange = defaultProfile._deviceWallpaperChange;
-                mappedProfile._deviceWallpaper = defaultProfile._deviceWallpaper;
-                mappedProfile._deviceWallpaperFor = defaultProfile._deviceWallpaperFor;
-            }
-            if (profile._volumeSpeakerPhone == 99)
-                mappedProfile._volumeSpeakerPhone = defaultProfile._volumeSpeakerPhone;
-            if (profile._deviceNFC == 99)
-                mappedProfile._deviceNFC = defaultProfile._deviceNFC;
-            if (profile._deviceKeyguard == 99)
-                mappedProfile._deviceKeyguard = defaultProfile._deviceKeyguard;
-            if (profile._vibrationOnTouch == 99)
-                mappedProfile._vibrationOnTouch = defaultProfile._vibrationOnTouch;
-            if (profile._deviceWiFiAP == 99)
-                mappedProfile._deviceWiFiAP = defaultProfile._deviceWiFiAP;
-            if (profile._devicePowerSaveMode == 99)
-                mappedProfile._devicePowerSaveMode = defaultProfile._devicePowerSaveMode;
-            if (profile._deviceNetworkType == 99)
-                mappedProfile._deviceNetworkType = defaultProfile._deviceNetworkType;
-            if (profile._notificationLed == 99)
-                mappedProfile._notificationLed = defaultProfile._notificationLed;
-            if (profile._vibrateWhenRinging == 99)
-                mappedProfile._vibrateWhenRinging = defaultProfile._vibrateWhenRinging;
-            if (profile._lockDevice == 99)
-                mappedProfile._lockDevice = defaultProfile._lockDevice;
-            if ((profile._deviceConnectToSSID != null) && (profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_DEFAULTPROFILE)))
-                mappedProfile._deviceConnectToSSID = defaultProfile._deviceConnectToSSID;
-
-            mappedProfile._iconBitmap = profile._iconBitmap;
-            mappedProfile._preferencesIndicator = profile._preferencesIndicator;
-
-            return mappedProfile;
-        }
-        else
-            return null;
     }
 
     static public boolean getGlobalEventsRuning(Context context)
@@ -1525,13 +1113,11 @@ public class PPApplication extends Application {
         editor.commit();
     }
 
-    // ----- Check if preference is allowed in device -------------------------------------
-
     static int isProfilePreferenceAllowed(String preferenceKey, Context context)
     {
         int featurePresented = PREFERENCE_NOT_ALLOWED;
 
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_AIRPLANE_MODE))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE))
         {
             if (android.os.Build.VERSION.SDK_INT >= 17)
             {
@@ -1550,7 +1136,7 @@ public class PPApplication extends Application {
                 featurePresented = PREFERENCE_ALLOWED;
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_WIFI))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI))
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
                 // device ma Wifi
@@ -1559,7 +1145,7 @@ public class PPApplication extends Application {
                 notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_BLUETOOTH))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH))
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
                 // device ma bluetooth
@@ -1568,7 +1154,7 @@ public class PPApplication extends Application {
                 notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_MOBILE_DATA))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
             {
@@ -1596,7 +1182,7 @@ public class PPApplication extends Application {
                 notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
             {
@@ -1606,7 +1192,7 @@ public class PPApplication extends Application {
                 notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_GPS))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_GPS))
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS))
             {
@@ -1637,7 +1223,7 @@ public class PPApplication extends Application {
                 notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_NFC))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NFC))
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC))
             {
@@ -1656,7 +1242,7 @@ public class PPApplication extends Application {
             }
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_WIFI_AP))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI)) {
                 // device ma Wifi
@@ -1673,7 +1259,7 @@ public class PPApplication extends Application {
                 notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_VIBRATE_WHEN_RINGING))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))
         {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
                 if (isRooted()) {
@@ -1690,7 +1276,7 @@ public class PPApplication extends Application {
                 featurePresented = PREFERENCE_ALLOWED;
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS))
         {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 if (android.os.Build.VERSION.SDK_INT >= 23)
@@ -1715,7 +1301,7 @@ public class PPApplication extends Application {
             }
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_POWER_SAVE_MODE))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE))
         {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 if (isRooted()) {
@@ -1734,7 +1320,7 @@ public class PPApplication extends Application {
             }
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_NETWORK_TYPE))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE))
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
             {
@@ -1743,7 +1329,7 @@ public class PPApplication extends Application {
                 if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
                     if (isRooted()) {
                         // zariadenie je rootnute
-                        if (telephonyServiceExists(context, PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
+                        if (telephonyServiceExists(context, Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
                             if (serviceBinaryExists())
                                 featurePresented = PREFERENCE_ALLOWED;
                             else
@@ -1766,7 +1352,7 @@ public class PPApplication extends Application {
                 notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_NOTIFICATION_LED))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_NOTIFICATION_LED))
         {
             int value = Settings.System.getInt(context.getContentResolver(), "notification_light_pulse", -10);
             if ((value != -10) && (android.os.Build.VERSION.SDK_INT >= 23)) {
@@ -1789,7 +1375,7 @@ public class PPApplication extends Application {
             }
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_KEYGUARD))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD))
         {
             boolean secureKeyguard;
             KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Activity.KEYGUARD_SERVICE);
@@ -1805,7 +1391,7 @@ public class PPApplication extends Application {
                 featurePresented = PREFERENCE_ALLOWED;
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
                 // device ma Wifi
@@ -1977,11 +1563,11 @@ public class PPApplication extends Application {
 
     static boolean telephonyServiceExists(Context context, String preference) {
         try {
-            if (preference.equals(PREF_PROFILE_DEVICE_MOBILE_DATA)) {
+            if (preference.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
                 getTransactionCode(context, "TRANSACTION_setDataEnabled");
             }
             else
-            if (preference.equals(PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
+            if (preference.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
                 getTransactionCode(context, "TRANSACTION_setPreferredNetworkType");
             }
             return true;
@@ -2292,55 +1878,55 @@ public class PPApplication extends Application {
 
     public static void startGeofenceScanner(Context context) {
         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-        lIntent.putExtra(PPApplication.EXTRA_ONLY_START, false);
-        lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
-        lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
-        lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_GEOFENCE_SCANNER);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_GEOFENCE_SCANNER);
         context.startService(lIntent);
     }
 
     public static void stopGeofenceScanner(Context context) {
         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-        lIntent.putExtra(PPApplication.EXTRA_ONLY_START, false);
-        lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
-        lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
-        lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_GEOFENCE_SCANNER);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_GEOFENCE_SCANNER);
         context.startService(lIntent);
     }
 
     public static void startOrientationScanner(Context context) {
         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-        lIntent.putExtra(PPApplication.EXTRA_ONLY_START, false);
-        lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
-        lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
-        lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_ORIENTATION_SCANNER);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_ORIENTATION_SCANNER);
         context.startService(lIntent);
     }
 
     public static void stopOrientationScanner(Context context) {
         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-        lIntent.putExtra(PPApplication.EXTRA_ONLY_START, false);
-        lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
-        lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
-        lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_ORIENTATION_SCANNER);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_ORIENTATION_SCANNER);
         context.startService(lIntent);
     }
 
     public static void startPhoneStateScanner(Context context) {
         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-        lIntent.putExtra(PPApplication.EXTRA_ONLY_START, false);
-        lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
-        lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
-        lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_PHONE_STATE_SCANNER);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_PHONE_STATE_SCANNER);
         context.startService(lIntent);
     }
 
     public static void stopPhoneStateScanner(Context context) {
         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-        lIntent.putExtra(PPApplication.EXTRA_ONLY_START, false);
-        lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
-        lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
-        lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_PHONE_STATE_SCANNER);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+        lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_PHONE_STATE_SCANNER);
         context.startService(lIntent);
     }
 

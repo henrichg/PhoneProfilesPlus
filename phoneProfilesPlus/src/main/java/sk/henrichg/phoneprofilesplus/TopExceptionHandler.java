@@ -15,6 +15,8 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     private Thread.UncaughtExceptionHandler defaultUEH;
     private int actualVersionCode;
 
+    private static final String CRASH_FILENAME = "crash.txt";
+
     public TopExceptionHandler(int actualVersionCode) {
         this.defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
         this.actualVersionCode = actualVersionCode;
@@ -72,7 +74,7 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                 //noinspection ResultOfMethodCallIgnored
                 exportDir.mkdirs();
 
-            File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + PPApplication.CRASH_FILENAME);
+            File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + CRASH_FILENAME);
 
             if (logFile.length() > 1024 * 10000)
                 resetLog();
@@ -106,7 +108,7 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
             //noinspection ResultOfMethodCallIgnored
             exportDir.mkdirs();
 
-        File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + PPApplication.CRASH_FILENAME);
+        File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + CRASH_FILENAME);
         //noinspection ResultOfMethodCallIgnored
         logFile.delete();
     }

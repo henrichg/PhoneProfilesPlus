@@ -42,6 +42,8 @@ public class ScannerService extends IntentService
     public static BluetoothLEScanCallback18 leScanCallback18 = null;
     public static BluetoothLEScanCallback21 leScanCallback21 = null;
 
+    static final String EXTRA_SCANNER_TYPE = "scanner_type";
+
     public ScannerService()
     {
         super("ScannerService");
@@ -64,7 +66,7 @@ public class ScannerService extends IntentService
 
         PPApplication.logE("%%%% ScannerService.onHandleIntent", "-- START ------------");
 
-        String scanType = intent.getStringExtra(PPApplication.EXTRA_SCANNER_TYPE);
+        String scanType = intent.getStringExtra(EXTRA_SCANNER_TYPE);
         PPApplication.logE("%%%% ScannerService.onHandleIntent", "scanType="+scanType);
 
         PPApplication.loadPreferences(context);

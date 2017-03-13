@@ -108,7 +108,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
-            ListPreference ringerModePreference = (ListPreference) prefMng.findPreference(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE);
+            ListPreference ringerModePreference = (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
             /*if (ringerModePreference.findIndexOfValue("5") < 0) {
                 // add zen mode option to preference Ringer mode
                 CharSequence[] entries = ringerModePreference.getEntries();
@@ -128,7 +128,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 ringerModePreference.setEntries(newEntries);
                 ringerModePreference.setEntryValues(newEntryValues);
                 ringerModePreference.setValue(Integer.toString(profile._volumeRingerMode));
-                setSummary(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE, profile._volumeRingerMode);
+                setSummary(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, profile._volumeRingerMode);
             }
             */
 
@@ -138,9 +138,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     );*/
             final boolean canEnableZenMode = PPApplication.canChangeZenMode(context.getApplicationContext(), true);
 
-            Preference zenModePreference = prefMng.findPreference(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE);
+            Preference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
             if (zenModePreference != null) {
-                String value = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE, "");
+                String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "");
                 zenModePreference.setEnabled((value.equals("5")) && canEnableZenMode);
             }
 
@@ -192,7 +192,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                             );*/
                         final boolean canEnableZenMode = PPApplication.canChangeZenMode(context.getApplicationContext(), true);
 
-                        Preference zenModePreference = prefMng.findPreference(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE);
+                        Preference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
 
                         zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode);
 
@@ -209,7 +209,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         {
             // remove zen mode preferences from preferences screen
             // for Android version < 5.0 this is not supported
-            Preference preference = prefMng.findPreference(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE);
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
             if (preference != null)
             {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_soundProfileCategory");
@@ -221,7 +221,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_soundProfileCategory");
                 preferenceCategory.removePreference(preference);
             }
-            preference = prefMng.findPreference(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING);
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
             if (preference != null)
             {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_soundProfileCategory");
@@ -236,16 +236,16 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             }
         }
         else {
-            Preference preference = prefMng.findPreference(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING);
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
             if (preference != null)
             {
                 preference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
-                String value = preferences.getString(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING, "");
-                setSummary(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING, value);
+                String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, "");
+                setSummary(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, value);
             }
         }
         if (android.os.Build.VERSION.SDK_INT < 24) {
-            Preference preference = prefMng.findPreference(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_othersCategory");
                 preferenceCategory.removePreference(preference);
@@ -253,7 +253,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
         if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
         {
-            ListPreference networkTypePreference = (ListPreference) prefMng.findPreference(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE);
+            ListPreference networkTypePreference = (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE);
             if (networkTypePreference != null) {
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 final int phoneType = telephonyManager.getPhoneType();
@@ -266,9 +266,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMArray));
                         networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMValues));
                     }
-                    String value = preferences.getString(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE, "");
+                    String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "");
                     networkTypePreference.setValue(value);
-                    setSummary(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE, value);
+                    setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, value);
                 }
 
                 if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
@@ -279,18 +279,18 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMAArray));
                         networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMAValues));
                     }
-                    String value = preferences.getString(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE, "");
+                    String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "");
                     networkTypePreference.setValue(value);
-                    setSummary(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE, value);
+                    setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, value);
                 }
             }
         }
-        Preference preference = prefMng.findPreference(PPApplication.PREF_PROFILE_DURATION);
+        Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DURATION);
         if (preference != null)
         {
             preference.setTitle("[M] " + context.getString(R.string.profile_preferences_duration));
-            String value = preferences.getString(PPApplication.PREF_PROFILE_DURATION, "");
-            setSummary(PPApplication.PREF_PROFILE_DURATION, value);
+            String value = preferences.getString(Profile.PREF_PROFILE_DURATION, "");
+            setSummary(Profile.PREF_PROFILE_DURATION, value);
         }
         preference = prefMng.findPreference("prf_pref_sourceProfileInfo");
         if (preference != null) {
@@ -299,23 +299,23 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 public boolean onPreferenceClick(Preference preference) {
                     // start preferences activity for default profile
                     Intent intent = new Intent(getActivity().getBaseContext(), ProfilePreferencesActivity.class);
-                    intent.putExtra(PPApplication.EXTRA_PROFILE_ID, PPApplication.DEFAULT_PROFILE_ID);
-                    intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                    intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-                    getActivity().startActivityForResult(intent, PPApplication.REQUEST_CODE_PROFILE_PREFERENCES);
+                    intent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.DEFAULT_PROFILE_ID);
+                    intent.putExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+                    intent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+                    getActivity().startActivityForResult(intent, EditorProfilesActivity.REQUEST_CODE_PROFILE_PREFERENCES);
                     return false;
                 }
             });
         }
         if (!PPApplication.getMergedRingNotificationVolumes(context)) {
-            preference = prefMng.findPreference(PPApplication.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_volumeCategory");
                 preferenceCategory.removePreference(preference);
             }
         }
         else {
-            preference = prefMng.findPreference(PPApplication.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
             if (preference != null) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
@@ -356,7 +356,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     getString(R.string.important_info_profile_interactive));
         }
 
-        Preference showInActivatorPreference = prefMng.findPreference(PPApplication.PREF_PROFILE_SHOW_IN_ACTIVATOR);
+        Preference showInActivatorPreference = prefMng.findPreference(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR);
         if (showInActivatorPreference != null)
             showInActivatorPreference.setTitle("[A] " + getResources().getString(R.string.profile_preferences_showInActivator));
 
@@ -373,7 +373,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         Preference preference = prefMng.findPreference(key);
         String title = "";
         if ((preference != null) && (preference.isEnabled())) {
-            if (key.equals(PPApplication.PREF_PROFILE_ASK_FOR_DURATION)) {
+            if (key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION)) {
                 boolean defaultValue =
                         getResources().getBoolean(
                                 PPApplication.getResourceId(preference.getKey(), "bool", context));
@@ -411,17 +411,17 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         Preference preferenceScreen = null;
         String summary = "";
 
-        if (key.equals(PPApplication.PREF_PROFILE_DURATION) ||
-            key.equals(PPApplication.PREF_PROFILE_AFTER_DURATION_DO) ||
-            key.equals(PPApplication.PREF_PROFILE_ASK_FOR_DURATION)) {
-            String title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DURATION, false);
-            String afterDurationDoTitle = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_AFTER_DURATION_DO, false);
+        if (key.equals(Profile.PREF_PROFILE_DURATION) ||
+            key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO) ||
+            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION)) {
+            String title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DURATION, false);
+            String afterDurationDoTitle = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_DO, false);
             if ((!afterDurationDoTitle.isEmpty()) && (!title.isEmpty())) {
                 _bold = true;
                 summary = summary + title + " • ";
                 summary = summary + afterDurationDoTitle;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_ASK_FOR_DURATION, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ASK_FOR_DURATION, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -430,30 +430,30 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             preferenceScreen = prefMng.findPreference("prf_pref_activationDurationCategory");
         }
 
-        if (key.equals(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE) ||
-                key.equals(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE) ||
-                key.equals(PPApplication.PREF_PROFILE_VIBRATION_ON_TOUCH) ||
-                key.equals(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING)) {
-            String title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE, false);
+        if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE) ||
+                key.equals(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH) ||
+                key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING)) {
+            String title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 summary = summary + title;
             }
             boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
             boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60));
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE, addS);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, addS);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_VIBRATION_ON_TOUCH, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -462,53 +462,53 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             preferenceScreen = prefMng.findPreference("prf_pref_soundProfileCategory");
         }
 
-        if (key.equals(PPApplication.PREF_PROFILE_VOLUME_RINGTONE) ||
-                key.equals(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION) ||
-                key.equals(PPApplication.PREF_PROFILE_VOLUME_MEDIA) ||
-                key.equals(PPApplication.PREF_PROFILE_VOLUME_ALARM) ||
-                key.equals(PPApplication.PREF_PROFILE_VOLUME_SYSTEM) ||
-                key.equals(PPApplication.PREF_PROFILE_VOLUME_VOICE) ||
-                key.equals(PPApplication.PREF_PROFILE_VOLUME_SPEAKER_PHONE)) {
-            String title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_VOLUME_RINGTONE, false);
+        if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGTONE) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_NOTIFICATION) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_MEDIA) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_ALARM) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_SYSTEM) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_VOICE) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE)) {
+            String title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_RINGTONE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 summary = summary + title;
             }
-            String ringtoneValue = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_RINGTONE, "");
+            String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
             if ((!PPApplication.getMergedRingNotificationVolumes(context) || PPApplication.applicationUnlinkRingerNotificationVolumes) &&
                     getEnableVolumeNotificationByRingtone(ringtoneValue)) {
-                title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION, false);
+                title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, false);
                 if (!title.isEmpty()) {
                     _bold = true;
                     if (!summary.isEmpty()) summary = summary + " • ";
                     summary = summary + title;
                 }
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_VOLUME_MEDIA, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_MEDIA, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_VOLUME_ALARM, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ALARM, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_VOLUME_SYSTEM, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_SYSTEM, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_VOLUME_VOICE, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_VOICE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_VOLUME_SPEAKER_PHONE, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -517,113 +517,113 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             preferenceScreen = prefMng.findPreference("prf_pref_volumeCategory");
         }
 
-        if (key.equals(PPApplication.PREF_PROFILE_SOUND_RINGTONE_CHANGE) ||
-                //key.equals(PPApplication.PREF_PROFILE_SOUND_RINGTONE) ||
-                key.equals(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE) ||
-                //key.equals(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION) ||
-                key.equals(PPApplication.PREF_PROFILE_SOUND_ALARM_CHANGE)) {
-            //key.equals(PPApplication.PREF_PROFILE_SOUND_ALARM)) {
-            String title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_SOUND_RINGTONE_CHANGE, false);
+        if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE) ||
+                //key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE) ||
+                key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE) ||
+                //key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION) ||
+                key.equals(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE)) {
+            //key.equals(Profile.PREF_PROFILE_SOUND_ALARM)) {
+            String title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 summary = summary + title;
             }
-            //_bold = _bold || isBold(PPApplication.PREF_PROFILE_SOUND_RINGTONE);
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, false);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-                summary = summary + title;
-            }
-            //_bold = _bold || isBold(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION);
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_SOUND_ALARM_CHANGE, false);
+            //_bold = _bold || isBold(Profile.PREF_PROFILE_SOUND_RINGTONE);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            //_bold = _bold || isBold(PPApplication.PREF_PROFILE_SOUND_ALARM);
+            //_bold = _bold || isBold(Profile.PREF_PROFILE_SOUND_NOTIFICATION);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            //_bold = _bold || isBold(Profile.PREF_PROFILE_SOUND_ALARM);
             preferenceScreen = prefMng.findPreference("prf_pref_soundsCategory");
         }
 
-        if (key.equals(PPApplication.PREF_PROFILE_DEVICE_AIRPLANE_MODE) ||
-                key.equals(PPApplication.PREF_PROFILE_DEVICE_AUTOSYNC) ||
-                key.equals(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
-                key.equals(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
-                key.equals(PPApplication.PREF_PROFILE_DEVICE_WIFI) ||
-                key.equals(PPApplication.PREF_PROFILE_DEVICE_WIFI_AP) ||
-                key.equals(PPApplication.PREF_PROFILE_DEVICE_BLUETOOTH) ||
-                key.equals(PPApplication.PREF_PROFILE_DEVICE_GPS) ||
-                key.equals(PPApplication.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
-                key.equals(PPApplication.PREF_PROFILE_DEVICE_NFC) ||
-                key.equals(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
-                key.equals(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID)) {
-            String title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_AIRPLANE_MODE, false);
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_AUTOSYNC) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_WIFI) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_GPS) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_NFC) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID)) {
+            String title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_AUTOSYNC, false);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-                summary = summary + title;
-            }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_WIFI, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_WIFI_AP, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_BLUETOOTH, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI_AP, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_GPS, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_GPS, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_NFC, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NFC, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -632,35 +632,35 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             preferenceScreen = prefMng.findPreference("prf_pref_radiosCategory");
         }
 
-        if (key.equals(PPApplication.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT) ||
-                key.equals(PPApplication.PREF_PROFILE_DEVICE_KEYGUARD) ||
-                key.equals(PPApplication.PREF_PROFILE_DEVICE_BRIGHTNESS) ||
-                key.equals(PPApplication.PREF_PROFILE_DEVICE_AUTOROTATE) ||
-                key.equals(PPApplication.PREF_PROFILE_NOTIFICATION_LED)) {
-            String title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, false);
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_AUTOROTATE) ||
+                key.equals(Profile.PREF_PROFILE_NOTIFICATION_LED)) {
+            String title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_KEYGUARD, false);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-                summary = summary + title;
-            }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_BRIGHTNESS, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_KEYGUARD, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_AUTOROTATE, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_NOTIFICATION_LED, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_NOTIFICATION_LED, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -669,32 +669,32 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             preferenceScreen = prefMng.findPreference("prf_pref_screenCategory");
         }
 
-        if (key.equals(PPApplication.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
-            //key.equals(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
-            //key.equals(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER)
-            key.equals(PPApplication.PREF_PROFILE_LOCK_DEVICE)) {
-            String title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, false);
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
+            //key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
+            //key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER)
+            key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {
+            String title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, false);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-                summary = summary + title;
-            }
-            //_bold = _bold || isBold(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, false);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            //_bold = _bold || isBold(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER);
-            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_LOCK_DEVICE, false);
+            //_bold = _bold || isBold(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            //_bold = _bold || isBold(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_LOCK_DEVICE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -715,8 +715,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     private void setSummaryForNotificationVolume0() {
         Preference preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
         if (preference != null) {
-            String notificationToneChange = preferences.getString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
-            String notificationTone = preferences.getString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION, "");
+            String notificationToneChange = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
+            String notificationTone = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
             String uriId = FirstStartService.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_NOTIFICATION);
             if (notificationToneChange.equals("1") && notificationTone.equals(uriId))
                 preference.setSummary(R.string.profile_preferences_volumeNotificationVolume0_summaryConfigured);
@@ -727,7 +727,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
     private void setSummary(String key, Object value)
     {
-        if (key.equals(PPApplication.PREF_PROFILE_NAME))
+        if (key.equals(Profile.PREF_PROFILE_NAME))
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -736,7 +736,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 setCategorySummary(preference, false);
             }
         }
-        if (key.equals(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE))
+        if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE))
         {
             String sValue = value.toString();
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
@@ -748,7 +748,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 setCategorySummary(listPreference, index > 0);
             }
         }
-        if (key.equals(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE))
+        if (key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE))
         {
             if (android.os.Build.VERSION.SDK_INT >= 21)
             {
@@ -787,7 +787,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         }
                         listPreference.setSummary(summary);
 
-                        final String sRingerMode = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE, "");
+                        final String sRingerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "");
                         int iRingerMode;
                         if (sRingerMode.isEmpty())
                             iRingerMode = 0;
@@ -805,9 +805,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             }
         }
-        if (key.equals(PPApplication.PREF_PROFILE_SOUND_RINGTONE_CHANGE) ||
-                key.equals(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE) ||
-                key.equals(PPApplication.PREF_PROFILE_SOUND_ALARM_CHANGE))
+        if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE) ||
+                key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE) ||
+                key.equals(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE))
         {
             String sValue = value.toString();
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
@@ -820,9 +820,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             }
             setSummaryForNotificationVolume0();
         }
-        if (key.equals(PPApplication.PREF_PROFILE_SOUND_RINGTONE) ||
-            key.equals(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION) ||
-            key.equals(PPApplication.PREF_PROFILE_SOUND_ALARM))
+        if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE) ||
+            key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION) ||
+            key.equals(Profile.PREF_PROFILE_SOUND_ALARM))
         {
             String ringtoneUri = value.toString();
 
@@ -848,29 +848,29 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             }
             setSummaryForNotificationVolume0();
         }
-        if (key.equals(PPApplication.PREF_PROFILE_DEVICE_AIRPLANE_MODE) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_AUTOSYNC) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_WIFI) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_BLUETOOTH) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_GPS) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_NFC) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_WIFI_AP) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_AUTOSYNC) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_WIFI) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_GPS) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_NFC) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
         {
-            if (key.equals(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
+            if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
                 // set mobile data preference title
                 if (android.os.Build.VERSION.SDK_INT >= 21) {
-                    Preference mobileDataPreference = prefMng.findPreference(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA);
+                    Preference mobileDataPreference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA);
                     if (mobileDataPreference != null) {
                         mobileDataPreference.setTitle(R.string.profile_preferences_deviceMobileData_21);
                     }
                 }
                 else {
-                    Preference mobileDataPreference = prefMng.findPreference(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA);
+                    Preference mobileDataPreference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA);
                     if (mobileDataPreference != null) {
                         mobileDataPreference.setTitle(R.string.profile_preferences_deviceMobileData);
                     }
@@ -890,7 +890,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             }
             else
-            if (key.equals(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID)) {
+            if (key.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID)) {
                 Preference preference = prefMng.findPreference(key);
                 String sValue = value.toString();
                 boolean bold = !sValue.equals(Profile.CONNECTTOSSID_JUSTANY);
@@ -905,7 +905,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
-                    //if (key.equals(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA))
+                    //if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
                     //    Log.e("ProfilePreferencesFragment", "index="+index);
                     GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
                     setCategorySummary(listPreference, index > 0);
@@ -913,7 +913,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             }
 
         }
-        if (key.equals(PPApplication.PREF_PROFILE_DEVICE_KEYGUARD))
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
             if (listPreference != null) {
@@ -936,7 +936,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             }
         }
-        if (key.equals(PPApplication.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT))
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT))
         {
             String sValue = value.toString();
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
@@ -948,7 +948,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 setCategorySummary(listPreference, index > 0);
             }
         }
-        if (key.equals(PPApplication.PREF_PROFILE_DEVICE_AUTOROTATE))
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_AUTOROTATE))
         {
             String sValue = value.toString();
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
@@ -960,18 +960,18 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 setCategorySummary(listPreference, index > 0);
             }
         }
-        if (key.equals(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
-            key.equals(PPApplication.PREF_PROFILE_VOLUME_SPEAKER_PHONE) ||
-            key.equals(PPApplication.PREF_PROFILE_VIBRATION_ON_TOUCH) ||
-            key.equals(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR) ||
-            key.equals(PPApplication.PREF_PROFILE_LOCK_DEVICE))
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
+            key.equals(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE) ||
+            key.equals(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH) ||
+            key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR) ||
+            key.equals(Profile.PREF_PROFILE_LOCK_DEVICE))
         {
             int canChange = PPApplication.PREFERENCE_ALLOWED;
-            if (key.equals(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING))
+            if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))
                 canChange = PPApplication.isProfilePreferenceAllowed(key, context);
             if (canChange != PPApplication.PREFERENCE_ALLOWED)
             {
@@ -997,7 +997,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             }
         }
-        if (key.equals(PPApplication.PREF_PROFILE_NOTIFICATION_LED))
+        if (key.equals(Profile.PREF_PROFILE_NOTIFICATION_LED))
         {
             ListPreference listPreference = (ListPreference) prefMng.findPreference(key);
             if (listPreference != null) {
@@ -1024,7 +1024,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             }
         }
-        if (key.equals(PPApplication.PREF_PROFILE_DURATION))
+        if (key.equals(Profile.PREF_PROFILE_DURATION))
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -1037,7 +1037,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 setCategorySummary(preference, iValue > 0);
             }
         }
-        if (key.equals(PPApplication.PREF_PROFILE_AFTER_DURATION_DO))
+        if (key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO))
         {
             String sValue = value.toString();
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
@@ -1049,7 +1049,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 setCategorySummary(listPreference, /*index > 0*/false);
             }
         }
-        if (key.equals(PPApplication.PREF_PROFILE_ASK_FOR_DURATION))
+        if (key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION))
         {
             String sValue = value.toString();
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference)prefMng.findPreference(key);
@@ -1059,7 +1059,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 setCategorySummary(checkBoxPreference, show);
             }
         }
-        if (key.equals(PPApplication.PREF_PROFILE_HIDE_STATUS_BAR_ICON))
+        if (key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON))
         {
             String sValue = value.toString();
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference)prefMng.findPreference(key);
@@ -1069,12 +1069,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 setCategorySummary(checkBoxPreference, show);
             }
         }
-        if (key.equals(PPApplication.PREF_PROFILE_VOLUME_RINGTONE) ||
-            key.equals(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION) ||
-            key.equals(PPApplication.PREF_PROFILE_VOLUME_MEDIA) ||
-            key.equals(PPApplication.PREF_PROFILE_VOLUME_ALARM) ||
-            key.equals(PPApplication.PREF_PROFILE_VOLUME_SYSTEM) ||
-            key.equals(PPApplication.PREF_PROFILE_VOLUME_VOICE))
+        if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGTONE) ||
+            key.equals(Profile.PREF_PROFILE_VOLUME_NOTIFICATION) ||
+            key.equals(Profile.PREF_PROFILE_VOLUME_MEDIA) ||
+            key.equals(Profile.PREF_PROFILE_VOLUME_ALARM) ||
+            key.equals(Profile.PREF_PROFILE_VOLUME_SYSTEM) ||
+            key.equals(Profile.PREF_PROFILE_VOLUME_VOICE))
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -1087,7 +1087,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (key.equals(PREF_VOLUME_NOTIFICATION_VOLUME0)) {
             setSummaryForNotificationVolume0();
         }
-        if (key.equals(PPApplication.PREF_PROFILE_DEVICE_BRIGHTNESS))
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS))
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -1102,9 +1102,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
     public void setSummary(String key) {
         String value;
-        if (key.equals(PPApplication.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
-            key.equals(PPApplication.PREF_PROFILE_ASK_FOR_DURATION) ||
-            key.equals(PPApplication.PREF_PROFILE_HIDE_STATUS_BAR_ICON)) {
+        if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
+            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
+            key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON)) {
             boolean b = preferences.getBoolean(key, false);
             value = Boolean.toString(b);
         }
@@ -1137,22 +1137,22 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         final String DEFAULT_PROFILE = "99";
         final String ON = "1";
 
-        if (key.equals(PPApplication.PREF_PROFILE_VOLUME_RINGTONE)) {
+        if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGTONE)) {
             boolean enabled = getEnableVolumeNotificationByRingtone(sValue);
-            Preference preference = prefMng.findPreference(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION);
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
             if (preference != null)
                 preference.setEnabled(enabled);
-            String notificationValue = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION, "");
+            String notificationValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, "");
             enabled = getEnableVolumeNotificationVolume0(enabled, notificationValue);
             preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
-        if (key.equals(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION)) {
-            String ringtoneValue = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_RINGTONE, "");
+        if (key.equals(Profile.PREF_PROFILE_VOLUME_NOTIFICATION)) {
+            String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
             boolean enabled = (!PPApplication.getMergedRingNotificationVolumes(context) || PPApplication.applicationUnlinkRingerNotificationVolumes) &&
                                     getEnableVolumeNotificationByRingtone(ringtoneValue);
-            Preference preference = prefMng.findPreference(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION);
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
             if (preference != null)
                 preference.setEnabled(enabled);
             enabled = getEnableVolumeNotificationVolume0(enabled, sValue);
@@ -1160,66 +1160,66 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             if (preference != null)
                 preference.setEnabled(enabled);
         }
-        if (key.equals(PPApplication.PREF_PROFILE_SOUND_RINGTONE_CHANGE))
+        if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE))
         {
             boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
-            Preference preference = prefMng.findPreference(PPApplication.PREF_PROFILE_SOUND_RINGTONE);
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
-        if (key.equals(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE))
+        if (key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE))
         {
             boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
-            Preference preference = prefMng.findPreference(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION);
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
-        if (key.equals(PPApplication.PREF_PROFILE_SOUND_ALARM_CHANGE))
+        if (key.equals(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE))
         {
             boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
-            Preference preference = prefMng.findPreference(PPApplication.PREF_PROFILE_SOUND_ALARM);
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_ALARM);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
-        if (key.equals(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE))
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE))
         {
             boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
-            Preference preference = prefMng.findPreference(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER);
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
             if (preference != null)
                 preference.setEnabled(enabled);
-            preference = prefMng.findPreference(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
-        if (key.equals(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
         {
             boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
-            Preference preference = prefMng.findPreference(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
-        if (key.equals(PPApplication.PREF_PROFILE_DEVICE_WIFI_AP))
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
         {
             boolean enabled = !sValue.equals(ON);
-            ListPreference preference = (ListPreference) prefMng.findPreference(PPApplication.PREF_PROFILE_DEVICE_WIFI);
+            ListPreference preference = (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI);
             if (preference != null) {
                 if (!enabled)
                     preference.setValue(NO_CHANGE);
                 preference.setEnabled(enabled);
             }
         }
-        if (key.equals(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE) ||
-                key.equals(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE)) {
+        if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE)) {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
-                String ringerMode = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
-                String zenMode = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE, "0");
+                String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
+                String zenMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "0");
                 boolean enabled = false;
-                if ((PPApplication.isProfilePreferenceAllowed(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING, context) == PPApplication.PREFERENCE_ALLOWED) &&
+                if ((PPApplication.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, context) == PPApplication.PREFERENCE_ALLOWED) &&
                         ringerMode.equals("5")) {
                     if (zenMode.equals("1") || zenMode.equals("2"))
                         enabled = true;
                 }
-                ListPreference preference = (ListPreference) prefMng.findPreference(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING);
+                ListPreference preference = (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
                 if (preference != null) {
                     if (!enabled)
                         preference.setValue(NO_CHANGE);
@@ -1231,8 +1231,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         DevicePolicyManager manager = (DevicePolicyManager) getActivity().getSystemService(DEVICE_POLICY_SERVICE);
         final ComponentName component = new ComponentName(getActivity(), PPDeviceAdminReceiver.class);
         /* THIS NOT WORKING - after enabling device admin, entries are not refreshed in dialog :-/
-        if (key.equals(PPApplication.PREF_PROFILE_LOCK_DEVICE)) {
-            ListPreference lockDevicePreference = (ListPreference) prefMng.findPreference(PPApplication.PREF_PROFILE_LOCK_DEVICE);
+        if (key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {
+            ListPreference lockDevicePreference = (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_LOCK_DEVICE);
             if (lockDevicePreference != null) {
                 CharSequence[] entries = lockDevicePreference.getEntries();
                 if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
@@ -1266,7 +1266,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
     protected void disableDependedPref(String key) {
         String value;
-        if (key.equals(PPApplication.PREF_PROFILE_SHOW_IN_ACTIVATOR)) {
+        if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR)) {
             boolean b = preferences.getBoolean(key, false);
             value = Boolean.toString(b);
         }
@@ -1279,9 +1279,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             String key) {
 
         String value;
-        if (key.equals(PPApplication.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
-            key.equals(PPApplication.PREF_PROFILE_ASK_FOR_DURATION) ||
-            key.equals(PPApplication.PREF_PROFILE_HIDE_STATUS_BAR_ICON)) {
+        if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
+            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
+            key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON)) {
             boolean bValue = sharedPreferences.getBoolean(key, false);
             value = Boolean.toString(bValue);
         }
@@ -1308,7 +1308,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         //Log.d("------ ProfilePreferencesFragment.doOnActivityResult", "prefMng="+prefMng);
         //Log.d("------ ProfilePreferencesFragment.doOnActivityResult", "preferences="+preferences);
 
-        if (requestCode == PPApplication.REQUEST_CODE_PROFILE_PREFERENCES)
+        if (requestCode == EditorProfilesActivity.REQUEST_CODE_PROFILE_PREFERENCES)
         {
             if ((resultCode == Activity.RESULT_OK) && (data != null))
             {
@@ -1316,9 +1316,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 //int newProfileMode = data.getIntExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
                 //int predefinedProfileIndex = data.getIntExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
-                if (profile_id == PPApplication.DEFAULT_PROFILE_ID)
+                if (profile_id == Profile.DEFAULT_PROFILE_ID)
                 {
-                    Profile defaultProfile = PPApplication.getDefaultProfile(context);
+                    Profile defaultProfile = Profile.getDefaultProfile(context);
                     Permissions.grantProfilePermissions(context, defaultProfile, false, true,
                             true, false, 0, PPApplication.STARTUP_SOURCE_EDITOR, true, null, false);
                 }
@@ -1348,8 +1348,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                             (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
                     );*/
 
-            final String sZenModeType = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE, "");
-            setSummary(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE, sZenModeType);
+            final String sZenModeType = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "");
+            setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, sZenModeType);
         }
         if (requestCode == ApplicationsDialogPreference.RESULT_APPLICATIONS_EDITOR && resultCode == Activity.RESULT_OK && data != null)
         {
@@ -1362,8 +1362,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             }
         }
         if (requestCode == RESULT_UNLINK_VOLUMES_APP_PREFERENCES) {
-            disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_RINGTONE);
-            disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION);
+            disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);
+            disableDependedPref(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
         }
         if (requestCode == RESULT_DEVICE_ADMINISTRATOR_SETTINGS) {
             disableDependedPref(PREF_DEVICE_ADMINISTRATOR_SETTINGS);

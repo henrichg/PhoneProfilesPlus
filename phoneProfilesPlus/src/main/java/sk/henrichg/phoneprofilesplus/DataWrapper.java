@@ -52,6 +52,9 @@ public class DataWrapper {
     private List<Profile> profileList = null;
     private List<Event> eventList = null;
 
+    static final String EXTRA_UNBLOCKEVENTSRUN = "unblock_events_run";
+    static final String EXTRA_INTERACTIVE = "interactive";
+
     DataWrapper(Context c,
                         boolean fgui,
                         boolean mono,
@@ -553,14 +556,14 @@ public class DataWrapper {
             if (event._fkProfileStart == profile._id)
                 event._fkProfileStart = 0;
             if (event._fkProfileEnd == profile._id)
-                event._fkProfileEnd = PPApplication.PROFILE_NO_ACTIVATE;
+                event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
         }
         // unlink profile from Background profile
         if (Long.valueOf(PPApplication.applicationBackgroundProfile) == profile._id)
         {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             Editor editor = preferences.edit();
-            editor.putString(PPApplication.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(PPApplication.PROFILE_NO_ACTIVATE));
+            editor.putString(PPApplication.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
             editor.commit();
         }
     }
@@ -574,12 +577,12 @@ public class DataWrapper {
         for (Event event : eventList)
         {
             event._fkProfileStart = 0;
-            event._fkProfileEnd = PPApplication.PROFILE_NO_ACTIVATE;
+            event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
         }
         // unlink profiles from Background profile
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putString(PPApplication.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(PPApplication.PROFILE_NO_ACTIVATE));
+        editor.putString(PPApplication.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
         editor.commit();
     }
 
@@ -815,7 +818,7 @@ public class DataWrapper {
             if (event._fkProfileStart == profile._id)
                 event._fkProfileStart = 0;
             if (event._fkProfileEnd == profile._id)
-                event._fkProfileEnd = PPApplication.PROFILE_NO_ACTIVATE;
+                event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
         }
     }
 
@@ -824,7 +827,7 @@ public class DataWrapper {
         for (Event event : getEventList())
         {
             event._fkProfileStart = 0;
-            event._fkProfileEnd = PPApplication.PROFILE_NO_ACTIVATE;
+            event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
         }
     }
 
@@ -839,7 +842,7 @@ public class DataWrapper {
             else
             {
                 profileId = Long.valueOf(PPApplication.applicationBackgroundProfile);
-                if (profileId == PPApplication.PROFILE_NO_ACTIVATE)
+                if (profileId == Profile.PROFILE_NO_ACTIVATE)
                     profileId = 0;
             }
             activateProfile(profileId, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);
@@ -885,8 +888,8 @@ public class DataWrapper {
         if (!getIsManualProfileActivation()) {
             PPApplication.logE("DataWrapper.firstStartEvents", "no manual profile activation, restart events");
             Intent intent = new Intent(context, RestartEventsBroadcastReceiver.class);
-            intent.putExtra(PPApplication.EXTRA_UNBLOCKEVENTSRUN, false);
-            intent.putExtra(PPApplication.EXTRA_INTERACTIVE, false);
+            intent.putExtra(EXTRA_UNBLOCKEVENTSRUN, false);
+            intent.putExtra(EXTRA_INTERACTIVE, false);
             context.sendBroadcast(intent);
         }
         else
@@ -901,7 +904,7 @@ public class DataWrapper {
         return new Event(name,
                 startOrder,
                 0,
-                PPApplication.PROFILE_NO_ACTIVATE,
+                Profile.PROFILE_NO_ACTIVATE,
                 Event.ESTATUS_STOP,
                 "",
                 false,
@@ -911,7 +914,7 @@ public class DataWrapper {
                 false,
                 Event.EATENDDO_UNDONE_PROFILE,
                 false,
-                PPApplication.PROFILE_NO_ACTIVATE,
+                Profile.PROFILE_NO_ACTIVATE,
                 0,
                 false,
                 0,
@@ -1139,7 +1142,7 @@ public class DataWrapper {
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
         PPApplication.setActivatedProfileForDuration(context, 0);
 
-        Profile profile = PPApplication.getMappedProfile(_profile, context);
+        Profile profile = Profile.getMappedProfile(_profile, context);
         //profile = filterProfileWithBatteryEvents(profile);
 
         if (profile != null)
@@ -2962,8 +2965,8 @@ public class DataWrapper {
         //Intent intent = new Intent();
         //intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
         Intent intent = new Intent(context, RestartEventsBroadcastReceiver.class);
-        intent.putExtra(PPApplication.EXTRA_UNBLOCKEVENTSRUN, false);
-        intent.putExtra(PPApplication.EXTRA_INTERACTIVE, interactive);
+        intent.putExtra(EXTRA_UNBLOCKEVENTSRUN, false);
+        intent.putExtra(EXTRA_INTERACTIVE, interactive);
         context.sendBroadcast(intent);
 
     }
@@ -3071,8 +3074,8 @@ public class DataWrapper {
 
         AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, RestartEventsBroadcastReceiver.class);
-        intent.putExtra(PPApplication.EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);
-        intent.putExtra(PPApplication.EXTRA_INTERACTIVE, interactive);
+        intent.putExtra(EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);
+        intent.putExtra(EXTRA_INTERACTIVE, interactive);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.SECOND, delay);
@@ -3082,11 +3085,11 @@ public class DataWrapper {
         //PPApplication.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+        if (android.os.Build.VERSION.SDK_INT >= 23)
             //alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
             alarmMgr.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
         else
-        if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+        if (android.os.Build.VERSION.SDK_INT >= 19)
             //alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
             alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
         else
@@ -3192,7 +3195,7 @@ public class DataWrapper {
             else
             {
                 long profileId = Long.valueOf(PPApplication.applicationBackgroundProfile);
-                if ((!PPApplication.getEventsBlocked(context)) && (profileId != PPApplication.PROFILE_NO_ACTIVATE))
+                if ((!PPApplication.getEventsBlocked(context)) && (profileId != Profile.PROFILE_NO_ACTIVATE))
                 {
                     Profile profile = getActivatedProfile();
                     if ((profile != null) && (profile._id == profileId))

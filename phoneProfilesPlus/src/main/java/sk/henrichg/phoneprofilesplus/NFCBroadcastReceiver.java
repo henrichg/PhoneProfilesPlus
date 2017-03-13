@@ -21,7 +21,7 @@ public class NFCBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.logE("##### NFCBroadcastReceiver.onReceive", "xxx");
 
-        String tagName = intent.getStringExtra(PPApplication.EXTRA_EVENT_NFC_TAG_NAME);
+        String tagName = intent.getStringExtra(EventsService.EXTRA_EVENT_NFC_TAG_NAME);
 
         Calendar now = Calendar.getInstance();
         int gmtOffset = TimeZone.getDefault().getRawOffset();
@@ -53,9 +53,9 @@ public class NFCBroadcastReceiver extends WakefulBroadcastReceiver {
             {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NFC_TAG_NAME, tagName);
-                eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NFC_DATE, time);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NFC_TAG_NAME, tagName);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NFC_DATE, time);
                 startWakefulService(context, eventsServiceIntent);
             //}
         }

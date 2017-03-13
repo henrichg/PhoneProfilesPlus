@@ -6,8 +6,6 @@ import android.content.Intent;
 
 public class MobileDataStateChangedBroadcastReceiver extends BroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "mobileDataState";
-
     public static final String EXTRA_STATE = "state";
 
     @Override
@@ -25,8 +23,8 @@ public class MobileDataStateChangedBroadcastReceiver extends BroadcastReceiver {
         final boolean state = intent.getBooleanExtra("state", false);
 
         Intent broadcastIntent = new Intent(context, RadioSwitchBroadcastReceiver.class);
-        broadcastIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_MOBILE_DATA);
-        broadcastIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_STATE, state);
+        broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_MOBILE_DATA);
+        broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, state);
         context.sendBroadcast(broadcastIntent);
 
     }

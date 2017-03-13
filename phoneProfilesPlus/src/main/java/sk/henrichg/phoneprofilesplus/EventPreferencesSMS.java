@@ -331,9 +331,9 @@ class EventPreferencesSMS extends EventPreferences {
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
-            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            if (android.os.Build.VERSION.SDK_INT >= 23)
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-            else if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            else if (android.os.Build.VERSION.SDK_INT >= 19)
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
             else
                 alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);

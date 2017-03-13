@@ -490,7 +490,7 @@ class EditorEventListAdapter extends BaseAdapter
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
                         profileName = profileName + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
                     else {
-                        if (event._fkProfileEnd == PPApplication.PROFILE_NO_ACTIVATE)
+                        if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
                             profileName = profileName + vi.getResources().getString(R.string.profile_preference_profile_end_no_activate);
                         else
                             profileName = profileName + vi.getResources().getString(R.string.profile_preference_profile_not_set);

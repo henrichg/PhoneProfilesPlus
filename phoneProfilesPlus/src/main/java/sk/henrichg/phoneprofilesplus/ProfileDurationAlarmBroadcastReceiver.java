@@ -41,7 +41,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         if (profile._afterDurationDo == Profile.AFTERDURATIONDO_BACKGROUNPROFILE)
                         {
                             activateProfileId = Long.valueOf(PPApplication.applicationBackgroundProfile);
-                            if (activateProfileId == PPApplication.PROFILE_NO_ACTIVATE)
+                            if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
                                 activateProfileId = 0;
 
                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_BACKGROUNDPROFILE, null,
@@ -111,10 +111,10 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
-            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            if (android.os.Build.VERSION.SDK_INT >= 23)
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             else
-            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            if (android.os.Build.VERSION.SDK_INT >= 19)
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             else
                 alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);

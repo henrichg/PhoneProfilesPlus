@@ -12,6 +12,8 @@ public class ActivateProfileFromExternalApplicationActivity extends Activity {
 
     private long profile_id = 0;
 
+    static final String EXTRA_PROFILE_NAME = "profile_name";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -22,7 +24,7 @@ public class ActivateProfileFromExternalApplicationActivity extends Activity {
         //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "xxx");
 
         Intent intent = getIntent();
-        String profileName = intent.getStringExtra(PPApplication.EXTRA_PROFILE_NAME);
+        String profileName = intent.getStringExtra(EXTRA_PROFILE_NAME);
         profileName = profileName.trim();
         //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "profileName="+profileName);
 
@@ -50,8 +52,8 @@ public class ActivateProfileFromExternalApplicationActivity extends Activity {
 
         if (!PPApplication.getApplicationStarted(getApplicationContext(), true)) {
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PPApplication.EXTRA_ONLY_START, true);
-            serviceIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             startService(serviceIntent);
         }
 

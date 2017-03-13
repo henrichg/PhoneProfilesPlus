@@ -1,13 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class GPSStateChangedBroadcastReceiver extends WakefulBroadcastReceiver {
-
-    public static final String BROADCAST_RECEIVER_TYPE = "GPSState";
+public class GPSStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -29,8 +28,8 @@ public class GPSStateChangedBroadcastReceiver extends WakefulBroadcastReceiver {
             //boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             Intent broadcastIntent = new Intent(context, RadioSwitchBroadcastReceiver.class);
-            broadcastIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_GPS);
-            broadcastIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_STATE, isGpsEnabled);
+            broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_GPS);
+            broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, isGpsEnabled);
             context.sendBroadcast(broadcastIntent);
 
         }
