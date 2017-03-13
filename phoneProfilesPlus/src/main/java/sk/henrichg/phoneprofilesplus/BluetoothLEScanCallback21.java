@@ -30,7 +30,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
             PPApplication.logE("BluetoothLEScanCallback21", "onScanResult - deviceName=" + btName);
 
             BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
-                    BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false);
+                    BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false, 0);
 
             BluetoothScanAlarmBroadcastReceiver.addLEScanResult(context, deviceData);
         }
@@ -48,7 +48,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                 PPApplication.logE("BluetoothLEScanCallback21", "onBatchScanResults - deviceName=" + btName);
 
                 BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
-                        BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false);
+                        BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false, 0);
 
                 BluetoothScanAlarmBroadcastReceiver.addLEScanResult(context, deviceData);
             }

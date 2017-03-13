@@ -98,7 +98,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                     if (!found)
                     {
                         tmpScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
-                                BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false));
+                                BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false, 0));
                     }
                 }
                 else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
@@ -131,7 +131,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
             if (tmpScanResults != null) {
 
                 for (BluetoothDeviceData device : tmpScanResults) {
-                    scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false));
+                    scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0));
                 }
                 tmpScanResults = null;
             }

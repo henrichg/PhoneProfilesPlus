@@ -20,7 +20,7 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
 
         // remove connected devices list
         if (bluetoothState == BluetoothAdapter.STATE_OFF) {
-            BluetoothConnectionBroadcastReceiver.clearConnectedDevices();
+            BluetoothConnectionBroadcastReceiver.clearConnectedDevices(context, false);
             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(context);
         }
 

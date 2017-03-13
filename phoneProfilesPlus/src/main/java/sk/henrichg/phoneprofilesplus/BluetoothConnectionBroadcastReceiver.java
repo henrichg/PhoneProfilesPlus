@@ -4,12 +4,16 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.SystemClock;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
 
@@ -132,11 +136,24 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
             Gson gson = new Gson();
 
+            int gmtOffset = TimeZone.getDefault().getRawOffset();
             for (int i = 0; i < count; i++) {
                 String json = preferences.getString(CONNECTED_DEVICES_DEVICE_PREF + i, "");
                 if (!json.isEmpty()) {
                     BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
-                    connectedDevices.add(device);
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices","device.name="+device.name);
+                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "device.timestamp="+sdf.format(device.timestamp));
+                    long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime() - gmtOffset;
+                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "bootTime="+sdf.format(bootTime));
+
+                    if (device.timestamp >= bootTime) {
+                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "added");
+                        connectedDevices.add(device);
+                    }
+                    else
+                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "not added");
                 }
             }
 
@@ -181,8 +198,11 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                 }
             }
             if (!found) {
+                int gmtOffset = TimeZone.getDefault().getRawOffset();
+                Calendar now = Calendar.getInstance();
+                long timestamp = now.getTimeInMillis() - gmtOffset;
                 connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
-                        BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false));
+                        BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false, timestamp));
             }
         }
     }
@@ -204,11 +224,31 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
         }
     }
 
-    static void clearConnectedDevices()
+    static void clearConnectedDevices(Context context, boolean onlyOld)
     {
+        PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices","onlyOld="+onlyOld);
+
+        if (onlyOld) {
+            getConnectedDevices(context);
+        }
+
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
-            if (connectedDevices != null)
-                connectedDevices.clear();
+            if (connectedDevices != null) {
+                if (onlyOld) {
+                    int gmtOffset = TimeZone.getDefault().getRawOffset();
+                    for (BluetoothDeviceData device : connectedDevices) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices","device.name="+device.name);
+                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "device.timestamp="+sdf.format(device.timestamp));
+                        long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime() - gmtOffset;
+                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "bootTime="+sdf.format(bootTime));
+                        if (device.timestamp < bootTime)
+                            connectedDevices.remove(device);
+                    }
+                }
+                else
+                    connectedDevices.clear();
+            }
         }
     }
 

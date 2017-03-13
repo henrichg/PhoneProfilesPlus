@@ -6,16 +6,18 @@ class BluetoothDeviceData {
     String address;
     int type;
     boolean custom;
+    long timestamp;
 
     //BluetoothDeviceData() {
     //}
 
-    BluetoothDeviceData(String name, String address, int type, boolean custom)
+    BluetoothDeviceData(String name, String address, int type, boolean custom, long timestamp)
     {
         this.name = name;
         this.address = address;
         this.type = type;
         this.custom = custom;
+        this.timestamp = timestamp;
     }
 
     String getName() {

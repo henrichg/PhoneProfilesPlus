@@ -54,8 +54,8 @@ public class PPApplication extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = true;
-    private static boolean logIntoFile = true;
+    private static boolean logIntoLogCat = false;
+    private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
@@ -74,7 +74,6 @@ public class PPApplication extends Application {
                                          +"|$$$BLE ScannerService.onHandleIntent"
                                          +"|BluetoothScanBroadcastReceiver.finishScan"
                                          +"|@@@ BluetoothStateChangedBroadcastReceiver.onReceive"*/
-                                         +"|[BTScan] DataWrapper.doEventService"
                                          +"|BluetoothConnectionBroadcastReceiver"
 
                                          //+"|PhoneProfilesService.onStartCommand"
