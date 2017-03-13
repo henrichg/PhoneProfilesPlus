@@ -66,7 +66,7 @@ class PhoneStateScanner extends PhoneStateListener {
         else {*/
             telephonyManager = (TelephonyManager) this.context.getSystemService(Context.TELEPHONY_SERVICE);
         //}
-        PPApplication.getMobileCellsAutoRegistration(context);
+        MobileCellsRegistrationService.getMobileCellsAutoRegistration(context);
     }
 
     void connect() {
@@ -351,7 +351,7 @@ class PhoneStateScanner extends PhoneStateListener {
             // application is not started
             return;
 
-        PPApplication.getMobileCellsAutoRegistration(context);
+        MobileCellsRegistrationService.getMobileCellsAutoRegistration(context);
         if (enabledAutoRegistration) {
             //Log.d("PhoneStateScanner.startAutoRegistration","xxx");
             stopAutoRegistration();

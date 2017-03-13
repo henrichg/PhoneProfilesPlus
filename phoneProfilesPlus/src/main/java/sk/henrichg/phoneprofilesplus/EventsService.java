@@ -80,8 +80,8 @@ public class EventsService extends IntentService
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         callEventType = preferences.getInt(PPApplication.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
 
-        oldRingerMode = PPApplication.getRingerMode(context);
-        oldZenMode = PPApplication.getZenMode(context);
+        oldRingerMode = ActivateProfileHelper.getRingerMode(context);
+        oldZenMode = ActivateProfileHelper.getZenMode(context);
         final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         oldSystemRingerMode = audioManager.getRingerMode();
 

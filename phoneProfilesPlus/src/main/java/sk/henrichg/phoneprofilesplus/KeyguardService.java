@@ -5,6 +5,7 @@ import android.app.KeyguardManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.os.PowerManager;
 
@@ -70,13 +71,13 @@ public class KeyguardService extends Service {
         PPApplication.logE("$$$ KeyguardService.onStartCommand","secureKeyguard="+secureKeyguard);
         if (!secureKeyguard)
         {
-            PPApplication.logE("$$$ KeyguardService.onStartCommand xxx","getLockscreenDisabled="+ PPApplication.getLockscreenDisabled(context));
+            PPApplication.logE("$$$ KeyguardService.onStartCommand xxx","getLockscreenDisabled="+ ActivateProfileHelper.getLockscreenDisabled(context));
 
 
             if (isScreenOn) {
                 PPApplication.logE("$$$ KeyguardService.onStartCommand", "screen on");
 
-                if (PPApplication.getLockscreenDisabled(context)) {
+                if (ActivateProfileHelper.getLockscreenDisabled(context)) {
                     PPApplication.logE("$$$ KeyguardService.onStartCommand", "Keyguard.disable(), START_STICKY");
                     reenableKeyguard();
                     disableKeyguard();

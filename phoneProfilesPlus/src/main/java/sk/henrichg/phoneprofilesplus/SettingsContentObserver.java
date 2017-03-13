@@ -56,11 +56,11 @@ class SettingsContentObserver  extends ContentObserver {
             //Log.e("### SettingsContentObserver", "channel="+volumeStream+" Decreased");
             if (!RingerModeChangeReceiver.internalChange) {
                 if (volumeStream == AudioManager.STREAM_RING) {
-                    PPApplication.setRingerVolume(context, currentVolume);
+                    ActivateProfileHelper.setRingerVolume(context, currentVolume);
                     PhoneProfilesService.ringingVolume = currentVolume;
                 }
                 if (volumeStream == AudioManager.STREAM_NOTIFICATION)
-                    PPApplication.setNotificationVolume(context, currentVolume);
+                    ActivateProfileHelper.setNotificationVolume(context, currentVolume);
             }
         }
         else if(delta<0)
@@ -68,11 +68,11 @@ class SettingsContentObserver  extends ContentObserver {
             //Log.e("### SettingsContentObserver", "channel="+volumeStream+" Increased");
             if (!RingerModeChangeReceiver.internalChange) {
                 if (volumeStream == AudioManager.STREAM_RING) {
-                    PPApplication.setRingerVolume(context, currentVolume);
+                    ActivateProfileHelper.setRingerVolume(context, currentVolume);
                     PhoneProfilesService.ringingVolume = currentVolume;
                 }
                 if (volumeStream == AudioManager.STREAM_NOTIFICATION)
-                    PPApplication.setNotificationVolume(context, currentVolume);
+                    ActivateProfileHelper.setNotificationVolume(context, currentVolume);
             }
         }
         return currentVolume;
@@ -103,7 +103,7 @@ class SettingsContentObserver  extends ContentObserver {
         ////// screen timeout change
         if (!DisableScreenTimeoutInternalChangeReceiver.internalChange) {
             if (Permissions.checkScreenTimeout(context)) {
-                PPApplication.setActivatedProfileScreenTimeout(context, 0);
+                ActivateProfileHelper.setActivatedProfileScreenTimeout(context, 0);
                 ActivateProfileHelper.screenTimeoutUnlock(context);
             }
         }

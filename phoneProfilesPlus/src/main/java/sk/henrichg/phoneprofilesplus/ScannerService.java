@@ -54,6 +54,8 @@ public class ScannerService extends IntentService
     public static final int FORCE_ONE_SCAN_DISABLED = 0;
     public static final int FORCE_ONE_SCAN_FROM_PREF_DIALOG = 3;
 
+    private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION = "show_enable_location_notification";
+
     public ScannerService()
     {
         super("ScannerService");
@@ -904,7 +906,7 @@ public class ScannerService extends IntentService
             if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!isScanAlwaysAvailable)) {
                 // Location settings are not properly set, show notification about it
 
-                if (PPApplication.getShowEnableLocationNotification(context)) {
+                if (getShowEnableLocationNotification(context)) {
                     Intent notificationIntent = new Intent(context, PhoneProfilesPreferencesActivity.class);
                     notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -956,21 +958,36 @@ public class ScannerService extends IntentService
                     else
                         mNotificationManager.notify(PPApplication.LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_ID, mBuilder.build());
 
-                    PPApplication.setShowEnableLocationNotification(context, false);
+                    setShowEnableLocationNotification(context, false);
                 }
 
                 return false;
             }
             else {
-                PPApplication.setShowEnableLocationNotification(context, true);
+                setShowEnableLocationNotification(context, true);
                 return true;
             }
 
         }
         else {
-            PPApplication.setShowEnableLocationNotification(context, true);
+            setShowEnableLocationNotification(context, true);
             return true;
         }
     }
+
+    static public boolean getShowEnableLocationNotification(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_SHOW_ENABLE_LOCATION_NOTIFICATION, true);
+    }
+
+    static public void setShowEnableLocationNotification(Context context, boolean show)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(PREF_SHOW_ENABLE_LOCATION_NOTIFICATION, show);
+        editor.commit();
+    }
+
 
 }

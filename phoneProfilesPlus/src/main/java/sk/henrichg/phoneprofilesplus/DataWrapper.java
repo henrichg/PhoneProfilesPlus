@@ -2411,7 +2411,7 @@ public class DataWrapper {
 
             applicationPassed = false;
 
-            String foregroundApplication = PPApplication.getApplicationInForeground(context);
+            String foregroundApplication = ForegroundApplicationChangedService.getApplicationInForeground(context);
 
             if (!foregroundApplication.isEmpty()) {
                 String[] splits = event._eventPreferencesApplication._applications.split("\\|");
@@ -2473,7 +2473,7 @@ public class DataWrapper {
             {
                 if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isOrientationScannerStarted()) {
 
-                    String foregroundApplication = PPApplication.getApplicationInForeground(context);
+                    String foregroundApplication = ForegroundApplicationChangedService.getApplicationInForeground(context);
                     boolean lApplicationPassed = false;
                     if (!foregroundApplication.isEmpty()) {
                         String[] splits = event._eventPreferencesOrientation._ignoredApplications.split("\\|");

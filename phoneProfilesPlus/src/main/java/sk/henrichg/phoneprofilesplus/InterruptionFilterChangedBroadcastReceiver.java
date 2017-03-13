@@ -55,8 +55,8 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                     PPApplication.logE(TAG, "onReceive(zenMode=" + zenMode + ')');
                     if (zenMode != 0) {
                         //Log.e(TAG, "onInterruptionFilterChanged  new zenMode=" + zenMode);
-                        PPApplication.setRingerMode(context.getApplicationContext(), 5);
-                        PPApplication.setZenMode(context.getApplicationContext(), zenMode);
+                        ActivateProfileHelper.setRingerMode(context.getApplicationContext(), 5);
+                        ActivateProfileHelper.setZenMode(context.getApplicationContext(), zenMode);
                     }
                 }
 
@@ -105,8 +105,8 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
             if (no60) {
                 int zenMode = getZenMode(context, audioManager);
                 if (zenMode != 0) {
-                    PPApplication.setRingerMode(context, 5);
-                    PPApplication.setZenMode(context, zenMode);
+                    ActivateProfileHelper.setRingerMode(context, 5);
+                    ActivateProfileHelper.setZenMode(context, zenMode);
                 }
             }
         }

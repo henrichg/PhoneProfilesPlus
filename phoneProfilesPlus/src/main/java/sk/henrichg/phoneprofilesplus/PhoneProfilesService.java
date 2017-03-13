@@ -763,8 +763,8 @@ public class PhoneProfilesService extends Service
             int oldSystemRingerMode = intent.getIntExtra(EventsService.EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
             int oldZenMode = intent.getIntExtra(EventsService.EXTRA_OLD_ZEN_MODE, 0);
             String oldRingtone = intent.getStringExtra(EventsService.EXTRA_OLD_RINGTONE);
-            int newRingerMode = PPApplication.getRingerMode(context);
-            int newZenMode = PPApplication.getZenMode(context);
+            int newRingerMode = ActivateProfileHelper.getRingerMode(context);
+            int newZenMode = ActivateProfileHelper.getZenMode(context);
             String newRingtone;
             try {
                 Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
@@ -1002,7 +1002,7 @@ public class PhoneProfilesService extends Service
 
                     oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-                    int notificationVolume = PPApplication.getNotificationVolume(this);
+                    int notificationVolume = ActivateProfileHelper.getNotificationVolume(this);
 
                     PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "notificationVolume=" + notificationVolume);
 

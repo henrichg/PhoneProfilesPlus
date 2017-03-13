@@ -492,16 +492,16 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) {
                     if (Settings.System.canWrite(context))
-                        PPApplication.setShowRequestWriteSettingsPermission(context, true);
+                        Permissions.setShowRequestWriteSettingsPermission(context, true);
                 }
                 if (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) {
                     NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (mNotificationManager.isNotificationPolicyAccessGranted())
-                        PPApplication.setShowRequestAccessNotificationPolicyPermission(context, true);
+                        Permissions.setShowRequestAccessNotificationPolicyPermission(context, true);
                 }
                 if (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS) {
                     if (Settings.canDrawOverlays(context))
-                        PPApplication.setShowRequestDrawOverlaysPermission(context, true);
+                        Permissions.setShowRequestDrawOverlaysPermission(context, true);
                 }
             }
 

@@ -63,7 +63,7 @@ public class FirstStartService extends IntentService {
 
         boolean startOnBoot = intent.getBooleanExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
 
-        PPApplication.clearMergedPermissions(context);
+        Permissions.clearMergedPermissions(context);
 
         //int startType = intent.getStringExtra(PPApplication.EXTRA_FIRST_START_TYPE);
 
@@ -72,18 +72,18 @@ public class FirstStartService extends IntentService {
 
         installTone(TONE_ID, TONE_NAME, context, false);
 
-        PPApplication.setLockscreenDisabled(context, false);
+        ActivateProfileHelper.setLockscreenDisabled(context, false);
 
         AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-        PPApplication.setRingerVolume(context, audioManager.getStreamVolume(AudioManager.STREAM_RING));
-        PPApplication.setNotificationVolume(context, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
+        ActivateProfileHelper.setRingerVolume(context, audioManager.getStreamVolume(AudioManager.STREAM_RING));
+        ActivateProfileHelper.setNotificationVolume(context, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
         RingerModeChangeReceiver.setRingerMode(context, audioManager);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
             PPNotificationListenerService.setZenMode(context, audioManager);
         InterruptionFilterChangedBroadcastReceiver.setZenMode(context, audioManager);
 
         Profile.setActivatedProfileForDuration(context, 0);
-        PPApplication.setApplicationInForeground(context, "");
+        ForegroundApplicationChangedService.setApplicationInForeground(context, "");
 
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -113,7 +113,7 @@ public class FirstStartService extends IntentService {
         WifiScanAlarmBroadcastReceiver.initialize(context);
         BluetoothScanAlarmBroadcastReceiver.initialize(context);
 
-        PPApplication.setMobileCellsAutoRegistration(context, true);
+        MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, true);
 
         PPApplication.setApplicationStarted(context, true);
         if (startOnBoot)

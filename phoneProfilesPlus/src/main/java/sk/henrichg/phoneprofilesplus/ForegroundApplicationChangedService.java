@@ -5,6 +5,7 @@ import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -17,6 +18,8 @@ import java.util.List;
 public class ForegroundApplicationChangedService extends AccessibilityService {
 
     private static final String SERVICE_ID = "sk.henrichg.phoneprofilesplus/.ForegroundApplicationChangedService";
+
+    private static final String PREF_APPLICATION_IN_FOREGROUND = "application_in_foreground";
 
     @Override
     protected void onServiceConnected() {
@@ -56,7 +59,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
                     String packageInForeground = event.getPackageName().toString();
                     //Log.d("ForegroundApplicationChangedService", "packageInForeground="+packageInForeground);
-                    PPApplication.setApplicationInForeground(context, packageInForeground);
+                    setApplicationInForeground(context, packageInForeground);
 
                     Intent intent = new Intent(context, ForegroundApplicationChangedBroadcastReceiver.class);
                     context.sendBroadcast(intent);
@@ -85,7 +88,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
         Context context = getApplicationContext();
 
-        PPApplication.setApplicationInForeground(context, "");
+        setApplicationInForeground(context, "");
 
         Intent bintent = new Intent(context, ForegroundApplicationChangedBroadcastReceiver.class);
         context.sendBroadcast(bintent);
@@ -107,4 +110,20 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
         return false;
     }
+
+
+    static public String getApplicationInForeground(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getString(PREF_APPLICATION_IN_FOREGROUND, "");
+    }
+
+    static public void setApplicationInForeground(Context context, String application)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(PREF_APPLICATION_IN_FOREGROUND, application);
+        editor.commit();
+    }
+
 }

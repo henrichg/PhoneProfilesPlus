@@ -63,7 +63,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         //else
         //    Log.d("MobileCellsPreference","scanner started");
 
-        PPApplication.getMobileCellsAutoRegistration(context);
+        MobileCellsRegistrationService.getMobileCellsAutoRegistration(context);
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(MobileCellsRegistrationService.ACTION_COUNT_DOWN_TICK);
@@ -98,11 +98,11 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
                         if (PhoneProfilesService.isPhoneStateStarted()) {
                             //Log.d("MobileCellsRegistrationDialogPreference.onPositive","is started");
-                            PPApplication.setMobileCellsAutoRegistrationRemainingDuration(context, iValue);
+                            MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(context, iValue);
                             PhoneProfilesService.phoneStateScanner.durationForAutoRegistration = iValue;
                             PhoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
                             PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = true;
-                            PPApplication.setMobileCellsAutoRegistration(context, false);
+                            MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
                             PhoneProfilesService.phoneStateScanner.startAutoRegistration();
                         }
                         value = String.valueOf(iValue);
@@ -122,11 +122,11 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (PhoneProfilesService.isPhoneStateStarted()) {
-                            PPApplication.setMobileCellsAutoRegistrationRemainingDuration(context, 0);
+                            MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(context, 0);
                             //PPApplication.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = 0;
                             //PPApplication.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = "";
                             PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = false;
-                            PPApplication.setMobileCellsAutoRegistration(context, false);
+                            MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
                             setSummaryDDP(0);
                             PhoneProfilesService.phoneStateScanner.stopAutoRegistration();
                         }

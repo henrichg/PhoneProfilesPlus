@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
@@ -17,6 +18,11 @@ public class MobileCellsRegistrationService extends Service {
     CountDownTimer countDownTimer = null;
     Notification notification = null;
 
+    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION = "mobile_cells_autoregistration_duration";
+    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION = "mobile_cells_autoregistration_remaining_duration";
+    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME = "mobile_cells_autoregistration_cell_name";
+    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED = "mobile_cells_autoregistration_enabled";
+
     @Override
     public void onCreate()
     {
@@ -27,9 +33,9 @@ public class MobileCellsRegistrationService extends Service {
 
         PhoneStateScanner.autoRegistrationService = this;
 
-        showNotification(PPApplication.getMobileCellsAutoRegistrationRemainingDuration(this));
+        showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
 
-        int remainingDuration = PPApplication.getMobileCellsAutoRegistrationRemainingDuration(this);
+        int remainingDuration = getMobileCellsAutoRegistrationRemainingDuration(this);
 
         final Context context = this;
 
@@ -41,7 +47,7 @@ public class MobileCellsRegistrationService extends Service {
 
                 showNotification(millisUntilFinished);
 
-                PPApplication.setMobileCellsAutoRegistrationRemainingDuration(context, (int) millisUntilFinished / 1000);
+                setMobileCellsAutoRegistrationRemainingDuration(context, (int) millisUntilFinished / 1000);
 
                 // broadcast for application preferences
                 Intent intent = new Intent(ACTION_COUNT_DOWN_TICK);
@@ -54,7 +60,7 @@ public class MobileCellsRegistrationService extends Service {
                 //Log.d("MobileCellsRegistrationService", "Timer finished");
 
                 PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = false;
-                PPApplication.setMobileCellsAutoRegistration(context, false);
+                setMobileCellsAutoRegistration(context, false);
 
                 // broadcast for application preferences
                 Intent intent = new Intent(ACTION_COUNT_DOWN_TICK);
@@ -123,6 +129,47 @@ public class MobileCellsRegistrationService extends Service {
         notification = mBuilder.build();
         notification.flags |= Notification.FLAG_ONGOING_EVENT;
         startForeground(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID, notification);
+    }
+
+
+    static public void getMobileCellsAutoRegistration(Context context) {
+        if (PhoneProfilesService.isPhoneStateStarted()) {
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            PhoneProfilesService.phoneStateScanner.durationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
+            PhoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
+            PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
+        }
+    }
+
+    static public void setMobileCellsAutoRegistration(Context context, boolean firstStart) {
+        if (PhoneProfilesService.isPhoneStateStarted()) {
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PhoneProfilesService.phoneStateScanner.durationForAutoRegistration);
+            editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, PhoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration);
+            if (firstStart)
+                editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
+            else
+                editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, PhoneProfilesService.phoneStateScanner.enabledAutoRegistration);
+            editor.commit();
+        }
+    }
+
+    static public int getMobileCellsAutoRegistrationRemainingDuration(Context context) {
+        if (PhoneProfilesService.isPhoneStateStarted()) {
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            return preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, 0);
+        }
+        return 0;
+    }
+
+    static public void setMobileCellsAutoRegistrationRemainingDuration(Context context, int remainingDuration) {
+        if (PhoneProfilesService.isPhoneStateStarted()) {
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, remainingDuration);
+            editor.commit();
+        }
     }
 
 }

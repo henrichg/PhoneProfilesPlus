@@ -33,7 +33,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
         else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
 
-            PPApplication.setScreenUnlocked(context, false);
+            ActivateProfileHelper.setScreenUnlocked(context, false);
             if (!Event.getGlobalEventsRuning(context)) {
                 DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
                 dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
@@ -46,7 +46,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
         }
         else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
-            PPApplication.setScreenUnlocked(context, true);
+            ActivateProfileHelper.setScreenUnlocked(context, true);
 
             DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
             dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
@@ -62,7 +62,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             // change screen timeout
             if (lockDeviceEnabled && Permissions.checkLockDevice(context))
                 Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
-            int screenTimeout = PPApplication.getActivatedProfileScreenTimeout(context);
+            int screenTimeout = ActivateProfileHelper.getActivatedProfileScreenTimeout(context);
             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screenTimeout="+screenTimeout);
             if (screenTimeout > 0)
                 dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);

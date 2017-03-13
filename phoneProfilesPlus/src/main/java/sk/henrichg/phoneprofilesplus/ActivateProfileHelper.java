@@ -15,6 +15,7 @@ import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -86,6 +87,15 @@ public class ActivateProfileHelper {
 
     static final String EXTRA_MERGED_PROFILE = "merged_profile";
     static final String EXTRA_FOR_PROFILE_ACTIVATION = "for_profile_activation";
+
+    private static final String PREF_RINGER_VOLUME = "ringer_volume";
+    private static final String PREF_NOTIFICATION_VOLUME = "notification_volume";
+    private static final String PREF_RINGER_MODE = "ringer_mode";
+    private static final String PREF_ZEN_MODE = "zen_mode";
+    private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
+    private static final String PREF_SCREEN_UNLOCKED = "screen_unlocked";
+    private static final String PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT = "activated_profile_screen_timeout";
+
 
     public ActivateProfileHelper()
     {
@@ -491,15 +501,15 @@ public class ActivateProfileHelper {
     {
         if (profile.getVolumeRingtoneChange()) {
             if (forProfileActivation)
-                PPApplication.setRingerVolume(context, profile.getVolumeRingtoneValue());
+                setRingerVolume(context, profile.getVolumeRingtoneValue());
         }
         if (profile.getVolumeNotificationChange()) {
             if (forProfileActivation)
-                PPApplication.setNotificationVolume(context, profile.getVolumeNotificationValue());
+                setNotificationVolume(context, profile.getVolumeNotificationValue());
         }
 
-        int ringerMode = PPApplication.getRingerMode(context);
-        int zenMode = PPApplication.getZenMode(context);
+        int ringerMode = getRingerMode(context);
+        int zenMode = getZenMode(context);
 
         PPApplication.logE("ActivateProfileHelper.setVolumes", "ringerMode=" + ringerMode);
         PPApplication.logE("ActivateProfileHelper.setVolumes", "zenMode=" + zenMode);
@@ -537,7 +547,7 @@ public class ActivateProfileHelper {
                         // for separating ringing and notification
                         // in ringing state ringer volumes must by set
                         // and notification volumes must not by set
-                        int volume = PPApplication.getRingerVolume(context);
+                        int volume = getRingerVolume(context);
                         PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-RINGING  ringer volume=" + volume);
                         if (volume != -999) {
                             try {
@@ -554,7 +564,7 @@ public class ActivateProfileHelper {
                         // for separating ringing and notification
                         // in not ringing state ringer and notification volume must by change
                         //Log.e("ActivateProfileHelper","setVolumes get audio mode="+audioManager.getMode());
-                        int volume = PPApplication.getRingerVolume(context);
+                        int volume = getRingerVolume(context);
                         PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-link  ringer volume=" + volume);
                         if (volume != -999) {
                             //Log.e("ActivateProfileHelper","setVolumes set ring volume="+volume);
@@ -564,7 +574,7 @@ public class ActivateProfileHelper {
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                             } catch (Exception ignored) { }
                         }
-                        volume = PPApplication.getNotificationVolume(context);
+                        volume = getNotificationVolume(context);
                         PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-link  notification volume=" + volume);
                         if (volume != -999) {
                             //Log.e("ActivateProfileHelper","setVolumes set notification volume="+volume);
@@ -576,7 +586,7 @@ public class ActivateProfileHelper {
                         //correctVolume0(audioManager);
                         volumesSet = true;
                     } else {
-                        int volume = PPApplication.getRingerVolume(context);
+                        int volume = getRingerVolume(context);
                         PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING  ringer volume=" + volume);
                         if (volume != -999) {
                             try {
@@ -586,7 +596,7 @@ public class ActivateProfileHelper {
                                 //correctVolume0(audioManager);
                             } catch (Exception ignored) { }
                         }
-                        volume = PPApplication.getNotificationVolume(context);
+                        volume = getNotificationVolume(context);
                         PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING  notification volume=" + volume);
                         if (volume != -999) {
                             try {
@@ -611,7 +621,7 @@ public class ActivateProfileHelper {
                     // reverted order for disabled unlink
                     int volume;
                     if (!PPApplication.getMergedRingNotificationVolumes(context)) {
-                        volume = PPApplication.getNotificationVolume(context);
+                        volume = getNotificationVolume(context);
                         PPApplication.logE("ActivateProfileHelper.setVolumes", "no doUnlink  notification volume=" + volume);
                         if (volume != -999) {
                             try {
@@ -621,7 +631,7 @@ public class ActivateProfileHelper {
                             } catch (Exception ignored) { }
                         }
                     }
-                    volume = PPApplication.getRingerVolume(context);
+                    volume = getRingerVolume(context);
                     PPApplication.logE("ActivateProfileHelper.setVolumes", "no doUnlink  ringer volume=" + volume);
                     if (volume != -999) {
                         try {
@@ -852,17 +862,17 @@ public class ActivateProfileHelper {
 
         if (forProfileActivation) {
             if (profile._volumeRingerMode != 0) {
-                PPApplication.setRingerMode(context, profile._volumeRingerMode);
+                setRingerMode(context, profile._volumeRingerMode);
                 if ((profile._volumeRingerMode == 5) && (profile._volumeZenMode != 0))
-                    PPApplication.setZenMode(context, profile._volumeZenMode);
+                    setZenMode(context, profile._volumeZenMode);
             }
         }
 
         if (firstCall)
             return;
 
-        ringerMode = PPApplication.getRingerMode(context);
-        zenMode = PPApplication.getZenMode(context);
+        ringerMode = getRingerMode(context);
+        zenMode = getZenMode(context);
 
         PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringerMode=" + ringerMode);
         PPApplication.logE("ActivateProfileHelper.setRingerMode", "zenMode=" + zenMode);
@@ -1189,7 +1199,7 @@ public class ActivateProfileHelper {
             }
             else {
                 //Log.d("ActivateProfileHelper.execute","screen off");
-                PPApplication.setActivatedProfileScreenTimeout(context, profile._deviceScreenTimeout);
+                setActivatedProfileScreenTimeout(context, profile._deviceScreenTimeout);
             }
         }
         //else
@@ -1202,13 +1212,13 @@ public class ActivateProfileHelper {
             case 1:
                 // enable lockscreen
                 PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguard=ON");
-                PPApplication.setLockscreenDisabled(context, false);
+                setLockscreenDisabled(context, false);
                 setLockscreen = true;
                 break;
             case 2:
                 // disable lockscreen
                 PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguard=OFF");
-                PPApplication.setLockscreenDisabled(context, true);
+                setLockscreenDisabled(context, true);
                 setLockscreen = true;
                 break;
         }
@@ -1503,7 +1513,7 @@ public class ActivateProfileHelper {
                 screenTimeoutLock(context);
                 break;
         }
-        PPApplication.setActivatedProfileScreenTimeout(context, 0);
+        setActivatedProfileScreenTimeout(context, 0);
         DisableScreenTimeoutInternalChangeReceiver.setAlarm(context);
     }
 
@@ -1682,7 +1692,7 @@ public class ActivateProfileHelper {
 
             if (Build.VERSION.SDK_INT >= 16) {
                 if (notificationShowInStatusBar) {
-                    boolean screenUnlocked = PPApplication.getScreenUnlocked(context);
+                    boolean screenUnlocked = getScreenUnlocked(context);
                     if ((PPApplication.notificationHideInLockscreen && (!screenUnlocked)) ||
                             ((profile != null) && profile._hideStatusBarIcon))
                         notificationBuilder.setPriority(Notification.PRIORITY_MIN);
@@ -2673,6 +2683,105 @@ public class ActivateProfileHelper {
         if (!cmd.isFinished()){
             Log.e("ActivateProfileHelper", "Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
-    }	
+    }
+
+
+    static public int getRingerVolume(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getInt(PREF_RINGER_VOLUME, -999);
+    }
+
+    static public void setRingerVolume(Context context, int volume)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(PREF_RINGER_VOLUME, volume);
+        editor.commit();
+    }
+
+    static public int getNotificationVolume(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getInt(PREF_NOTIFICATION_VOLUME, -999);
+    }
+
+    static public void setNotificationVolume(Context context, int volume)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(PREF_NOTIFICATION_VOLUME, volume);
+        editor.commit();
+    }
+
+    static public int getRingerMode(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getInt(PREF_RINGER_MODE, 0);
+    }
+
+    static public void setRingerMode(Context context, int mode)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(PREF_RINGER_MODE, mode);
+        editor.commit();
+    }
+
+    static public int getZenMode(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getInt(PREF_ZEN_MODE, 0);
+    }
+
+    static public void setZenMode(Context context, int mode)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(PREF_ZEN_MODE, mode);
+        editor.commit();
+    }
+
+    static public boolean getLockscreenDisabled(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_LOCKSCREEN_DISABLED, false);
+    }
+
+    static public void setLockscreenDisabled(Context context, boolean disabled)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(PREF_LOCKSCREEN_DISABLED, disabled);
+        editor.commit();
+    }
+
+    static public boolean getScreenUnlocked(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_SCREEN_UNLOCKED, true);
+    }
+
+    static public void setScreenUnlocked(Context context, boolean unlocked)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(PREF_SCREEN_UNLOCKED, unlocked);
+        editor.commit();
+    }
+
+    static public int getActivatedProfileScreenTimeout(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT, 0);
+    }
+
+    static public void setActivatedProfileScreenTimeout(Context context, int timeout)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT, timeout);
+        editor.commit();
+    }
 
 }

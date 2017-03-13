@@ -617,10 +617,10 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         PPApplication.setApplicationStarted(context, false);
 
-        PPApplication.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
-        PPApplication.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
-        PPApplication.setShowEnableLocationNotification(context.getApplicationContext(), true);
-        PPApplication.setScreenUnlocked(context, true);
+        Permissions.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
+        Permissions.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
+        ScannerService.setShowEnableLocationNotification(context.getApplicationContext(), true);
+        ActivateProfileHelper.setScreenUnlocked(context, true);
 
         if (activity != null) {
             Handler handler = new Handler();
@@ -1232,10 +1232,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                         editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
                         editor.commit();
 
-                        PPApplication.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
-                        PPApplication.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
-                        PPApplication.setShowEnableLocationNotification(getApplicationContext(), true);
-                        PPApplication.setScreenUnlocked(getApplicationContext(), true);
+                        Permissions.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
+                        Permissions.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
+                        ScannerService.setShowEnableLocationNotification(getApplicationContext(), true);
+                        ActivateProfileHelper.setScreenUnlocked(getApplicationContext(), true);
 
                         // restart events
                         // startneme eventy

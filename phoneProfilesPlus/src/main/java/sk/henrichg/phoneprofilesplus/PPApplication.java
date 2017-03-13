@@ -217,31 +217,10 @@ public class PPApplication extends Application {
 
     // global internal preferences
     private static final String PREF_APPLICATION_STARTED = "applicationStarted";
-    //private static final String PREF_FORCE_ONE_GEOFENCE_SCAN = "forceOneGeofenceScanInt";
-    private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
-    private static final String PREF_RINGER_VOLUME = "ringer_volume";
-    private static final String PREF_NOTIFICATION_VOLUME = "notification_volume";
-    private static final String PREF_RINGER_MODE = "ringer_mode";
-    private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
-    private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
-    private static final String PREF_ZEN_MODE = "zen_mode";
-    private static final String PREF_SHOW_REQUEST_WRITE_SETTINGS_PERMISSION = "show_request_write_settings_permission";
-    private static final String PREF_MERGED_PERMISSIONS = "merged_permissions";
-    private static final String PREF_MERGED_PERMISSIONS_COUNT = "merged_permissions_count";
-    private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION = "show_enable_location_notification";
-    private static final String PREF_APPLICATION_IN_FOREGROUND = "application_in_foreground";
     private static final String PREF_ACTIVITY_LOG_ENABLED = "activity_log_enabled";
-    private static final String PREF_SHOW_REQUEST_ACCESS_NOTIFICATION_POLICY_PERMISSION = "show_request_access_notification_policy_permission";
-    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION = "mobile_cells_autoregistration_duration";
-    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION = "mobile_cells_autoregistration_remaining_duration";
-    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME = "mobile_cells_autoregistration_cell_name";
-    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED = "mobile_cells_autoregistration_enabled";
-    private static final String PREF_SCREEN_UNLOCKED = "screen_unlocked";
     private static final String PREF_SAVED_VERSION_CODE = "saved_version_code";
     private static final String PREF_DAYS_AFTER_FIRST_START = "days_after_first_start";
-    private static final String PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION = "show_request_draw_overlays_permission";
     private static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
-    private static final String PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT = "activated_profile_screen_timeout";
 
     // alarm time offset (miliseconds) for events with generated alarms
     public static final int EVENT_ALARM_TIME_OFFSET = 15000;
@@ -628,106 +607,6 @@ public class PPApplication extends Application {
         editor.commit();
     }
 
-    /*
-    static public int getForceOneGeofenceScan(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_FORCE_ONE_GEOFENCE_SCAN, FORCE_ONE_SCAN_DISABLED);
-    }
-
-    static public void setForceOneGeofenceScan(Context context, int forceScan)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putInt(PREF_FORCE_ONE_GEOFENCE_SCAN, forceScan);
-        editor.commit();
-    }
-    */
-
-    static public boolean getLockscreenDisabled(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_LOCKSCREEN_DISABLED, false);
-    }
-
-    static public void setLockscreenDisabled(Context context, boolean disabled)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putBoolean(PREF_LOCKSCREEN_DISABLED, disabled);
-        editor.commit();
-    }
-
-    static public boolean getScreenUnlocked(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_SCREEN_UNLOCKED, true);
-    }
-
-    static public void setScreenUnlocked(Context context, boolean unlocked)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putBoolean(PREF_SCREEN_UNLOCKED, unlocked);
-        editor.commit();
-    }
-
-    static public int getRingerVolume(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_RINGER_VOLUME, -999);
-    }
-
-    static public void setRingerVolume(Context context, int volume)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putInt(PREF_RINGER_VOLUME, volume);
-        editor.commit();
-    }
-
-    static public int getNotificationVolume(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_NOTIFICATION_VOLUME, -999);
-    }
-
-    static public void setNotificationVolume(Context context, int volume)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putInt(PREF_NOTIFICATION_VOLUME, volume);
-        editor.commit();
-    }
-
-    static public int getRingerMode(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_RINGER_MODE, 0);
-    }
-
-    static public void setRingerMode(Context context, int mode)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putInt(PREF_RINGER_MODE, mode);
-        editor.commit();
-    }
-
-    static public int getZenMode(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_ZEN_MODE, 0);
-    }
-
-    static public void setZenMode(Context context, int mode)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putInt(PREF_ZEN_MODE, mode);
-        editor.commit();
-    }
-
     static public int getSavedVersionCode(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         return preferences.getInt(PREF_SAVED_VERSION_CODE, 0);
@@ -738,171 +617,6 @@ public class PPApplication extends Application {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
         editor.putInt(PREF_SAVED_VERSION_CODE, version);
-        editor.commit();
-    }
-
-    static public boolean getShowInfoNotificationOnStart(Context context, int version)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        boolean show = preferences.getBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, true);
-        int _version = preferences.getInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, version);
-        return ((_version >= version) && show);
-    }
-
-    static public void setShowInfoNotificationOnStart(Context context, boolean show, int version)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, show);
-        editor.putInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, version);
-        editor.commit();
-    }
-
-    static public int getShowInfoNotificationOnStartVersion(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, 0);
-    }
-
-    static public void setShowInfoNotificationOnStartVersion(Context context, int version)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, version);
-        editor.commit();
-    }
-
-    static public boolean getShowEnableLocationNotification(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_SHOW_ENABLE_LOCATION_NOTIFICATION, true);
-    }
-
-    static public void setShowEnableLocationNotification(Context context, boolean show)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putBoolean(PREF_SHOW_ENABLE_LOCATION_NOTIFICATION, show);
-        editor.commit();
-    }
-
-    static public boolean getShowRequestWriteSettingsPermission(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_SHOW_REQUEST_WRITE_SETTINGS_PERMISSION, true);
-    }
-
-    static public void setShowRequestWriteSettingsPermission(Context context, boolean value)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putBoolean(PREF_SHOW_REQUEST_WRITE_SETTINGS_PERMISSION, value);
-        editor.commit();
-    }
-
-    static public boolean getShowRequestAccessNotificationPolicyPermission(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_SHOW_REQUEST_ACCESS_NOTIFICATION_POLICY_PERMISSION, true);
-    }
-
-    static public void setShowRequestAccessNotificationPolicyPermission(Context context, boolean value)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putBoolean(PREF_SHOW_REQUEST_ACCESS_NOTIFICATION_POLICY_PERMISSION, value);
-        editor.commit();
-    }
-
-    static public boolean getShowRequestDrawOverlaysPermission(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION, true);
-    }
-
-    static public void setShowRequestDrawOverlaysPermission(Context context, boolean value)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putBoolean(PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION, value);
-        editor.commit();
-    }
-
-    static public List<Permissions.PermissionType> getMergedPermissions(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(PERMISSIONS_PREFS_NAME, Context.MODE_PRIVATE);
-
-        List<Permissions.PermissionType> permissions = new ArrayList<>();
-
-        int count = preferences.getInt(PREF_MERGED_PERMISSIONS_COUNT, 0);
-
-        Gson gson = new Gson();
-
-        for (int i = 0; i < count; i++) {
-            String json = preferences.getString(PREF_MERGED_PERMISSIONS + i, "");
-            if (!json.isEmpty()) {
-                Permissions.PermissionType permission = gson.fromJson(json, Permissions.PermissionType.class);
-                permissions.add(permission);
-            }
-        }
-
-        return permissions;
-    }
-
-    static public void addMergedPermissions(Context context, List<Permissions.PermissionType> permissions)
-    {
-        List<Permissions.PermissionType> savedPermissions = getMergedPermissions(context);
-
-        for (Permissions.PermissionType permission : permissions) {
-            boolean found = false;
-            for (Permissions.PermissionType savedPermission : savedPermissions) {
-
-                if (savedPermission.permission.equals(permission.permission)) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                savedPermissions.add(new Permissions.PermissionType(permission.preference, permission.permission));
-            }
-        }
-
-        SharedPreferences preferences = context.getSharedPreferences(PERMISSIONS_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-
-        editor.clear();
-
-        editor.putInt(PREF_MERGED_PERMISSIONS_COUNT, savedPermissions.size());
-
-        Gson gson = new Gson();
-
-        for (int i = 0; i < savedPermissions.size(); i++)
-        {
-            String json = gson.toJson(savedPermissions.get(i));
-            editor.putString(PREF_MERGED_PERMISSIONS+i, json);
-        }
-
-        editor.commit();
-    }
-
-    static public void clearMergedPermissions(Context context){
-        SharedPreferences preferences = context.getSharedPreferences(PERMISSIONS_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.commit();
-    }
-
-    static public String getApplicationInForeground(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getString(PREF_APPLICATION_IN_FOREGROUND, "");
-    }
-
-    static public void setApplicationInForeground(Context context, String application)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putString(PREF_APPLICATION_IN_FOREGROUND, application);
         editor.commit();
     }
 
@@ -920,46 +634,6 @@ public class PPApplication extends Application {
         editor.commit();
     }
 
-    static public void getMobileCellsAutoRegistration(Context context) {
-        if (PhoneProfilesService.isPhoneStateStarted()) {
-            SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            PhoneProfilesService.phoneStateScanner.durationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
-            PhoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
-            PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
-        }
-    }
-
-    static public void setMobileCellsAutoRegistration(Context context, boolean firstStart) {
-        if (PhoneProfilesService.isPhoneStateStarted()) {
-            SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            Editor editor = preferences.edit();
-            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PhoneProfilesService.phoneStateScanner.durationForAutoRegistration);
-            editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, PhoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration);
-            if (firstStart)
-                editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
-            else
-                editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, PhoneProfilesService.phoneStateScanner.enabledAutoRegistration);
-            editor.commit();
-        }
-    }
-
-    static public int getMobileCellsAutoRegistrationRemainingDuration(Context context) {
-        if (PhoneProfilesService.isPhoneStateStarted()) {
-            SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            return preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, 0);
-        }
-        return 0;
-    }
-
-    static public void setMobileCellsAutoRegistrationRemainingDuration(Context context, int remainingDuration) {
-        if (PhoneProfilesService.isPhoneStateStarted()) {
-            SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            Editor editor = preferences.edit();
-            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, remainingDuration);
-            editor.commit();
-        }
-    }
-
     static public int getDaysAfterFirtsStart(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
@@ -971,20 +645,6 @@ public class PPApplication extends Application {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
         editor.putInt(PREF_DAYS_AFTER_FIRST_START, days);
-        editor.commit();
-    }
-
-    static public int getActivatedProfileScreenTimeout(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT, 0);
-    }
-
-    static public void setActivatedProfileScreenTimeout(Context context, int timeout)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT, timeout);
         editor.commit();
     }
 
