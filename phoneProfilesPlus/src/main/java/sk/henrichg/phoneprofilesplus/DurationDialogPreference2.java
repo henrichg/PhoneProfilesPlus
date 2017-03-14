@@ -261,4 +261,5 @@ public class DurationDialogPreference2 extends DialogPreference
     public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
+
 }

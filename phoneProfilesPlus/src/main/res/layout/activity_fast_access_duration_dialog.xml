@@ -49,31 +49,25 @@
         <SeekBar
             android:id="@+id/duration_pref_dlg_hours"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="10dp"
             android:max="24"
             android:rotation="180"/>
         <SeekBar
             android:id="@+id/duration_pref_dlg_minutes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:max="59"
             android:rotation="180" />
         <SeekBar
             android:id="@+id/duration_pref_dlg_seconds"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="12dp"
             android:max="59"
             android:rotation="180" />
 
