@@ -16,7 +16,7 @@ class AddEventDialog
 {
     EditorEventListFragment eventListFragment;
 
-    private MaterialDialog mDialog;
+    MaterialDialog mDialog;
 
     AddEventDialog(Context context, EditorEventListFragment eventListFragment)
     {

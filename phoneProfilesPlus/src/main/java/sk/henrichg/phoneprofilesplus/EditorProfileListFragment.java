@@ -202,8 +202,8 @@ public class EditorProfileListFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_add_profile:
-                        AddProfileDialog dialog = new AddProfileDialog(activity, fragment);
-                        dialog.show();
+                        ((EditorProfilesActivity)getActivity()).addProfileDialog = new AddProfileDialog(activity, fragment);
+                        ((EditorProfilesActivity)getActivity()).addProfileDialog.show();
                         return true;
                     case R.id.menu_delete_all_profiles:
                         deleteAllProfiles();

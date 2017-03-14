@@ -17,7 +17,7 @@ class AddProfileDialog
 
     private EditorProfileListFragment profileListFragment;
 
-    private MaterialDialog mDialog;
+    MaterialDialog mDialog;
 
     AddProfileDialog(Context context, EditorProfileListFragment profileListFragment)
     {

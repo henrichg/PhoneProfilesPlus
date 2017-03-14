@@ -148,6 +148,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private static final int COUNT_DRAWER_PROFILE_ITEMS = 3;
 
+    AddProfileDialog addProfileDialog;
+    AddEventDialog addEventDialog;
+
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -481,6 +484,12 @@ public class EditorProfilesActivity extends AppCompatActivity
     {
         //Log.e("$$$ PPP","EditorProfilesActivity.onStop");
         super.onStop();
+
+        if (addProfileDialog != null && addProfileDialog.mDialog != null && addProfileDialog.mDialog.isShowing())
+            addProfileDialog.mDialog.dismiss();
+        if (addEventDialog != null && addEventDialog.mDialog != null && addEventDialog.mDialog.isShowing())
+            addEventDialog.mDialog.dismiss();
+
         if (instance == this)
             instance = null;
     }

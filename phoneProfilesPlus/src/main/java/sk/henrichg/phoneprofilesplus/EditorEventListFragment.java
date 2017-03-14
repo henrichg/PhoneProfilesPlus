@@ -196,8 +196,8 @@ public class EditorEventListFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_add_event:
-                        AddEventDialog dialog = new AddEventDialog(activity, fragment);
-                        dialog.show();
+                        ((EditorProfilesActivity)getActivity()).addEventDialog = new AddEventDialog(activity, fragment);
+                        ((EditorProfilesActivity)getActivity()).addEventDialog.show();
                         return true;
                     case R.id.menu_delete_all_events:
                         deleteAllEvents();
