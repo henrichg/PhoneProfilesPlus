@@ -19,7 +19,7 @@ class ApplicationEditorDialog
     public ApplicationsDialogPreference preference;
     private List<Application> cachedApplicationList;
 
-    private MaterialDialog mDialog;
+    MaterialDialog mDialog;
 
     Application application;
     private int dialogPrefPosition;

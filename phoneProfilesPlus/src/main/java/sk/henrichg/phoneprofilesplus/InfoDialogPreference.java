@@ -14,6 +14,8 @@ public class InfoDialogPreference extends DialogPreference {
 
     private Context _context;
 
+    AlertDialog mDialog;
+
     public InfoDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -29,21 +31,27 @@ public class InfoDialogPreference extends DialogPreference {
 
     @Override
     protected void showDialog(Bundle state) {
-
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(_context);
         dialogBuilder.setTitle(getDialogTitle());
         dialogBuilder.setMessage(infoText);
         dialogBuilder.setPositiveButton(android.R.string.ok, null);
 
-        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
-        dialogBuilder.show();
+        mDialog = dialogBuilder.show();
     }
 
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
     }
 
     @Override

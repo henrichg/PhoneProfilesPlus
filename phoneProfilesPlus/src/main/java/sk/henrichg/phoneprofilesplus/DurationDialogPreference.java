@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.preference.DialogPreference;
@@ -21,6 +22,7 @@ public class DurationDialogPreference extends DialogPreference {
 
     private int mMin, mMax;
 
+    MaterialDialog mDialog;
     private NumberPicker mNumberPickerHours;
     private NumberPicker mNumberPickerMinutes;
     private NumberPicker mNumberPickerSeconds;
@@ -129,12 +131,27 @@ public class DurationDialogPreference extends DialogPreference {
 
         mBuilder.customView(layout, false);
 
-        MaterialDialog mDialog = mBuilder.build();
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+
+        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 
         mDialog.setOnDismissListener(this);
         mDialog.show();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
     }
 
     @Override

@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -12,7 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-class ProfilePreferenceDialog
+class ProfilePreferenceDialog implements PreferenceManager.OnActivityDestroyListener
 {
 
     private ProfilePreference profilePreference;
@@ -41,7 +43,15 @@ class ProfilePreferenceDialog
                 .title(R.string.title_activity_profile_preference_dialog)
                 //.disableDefaultFonts()
                 .autoDismiss(false)
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(profilePreference, ProfilePreferenceDialog.this);
+                    }
+                })
                 .customView(R.layout.activity_profile_pref_dialog, false);
+
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(profilePreference, this);
 
         mDialog = dialogBuilder.build();
 
@@ -106,6 +116,12 @@ class ProfilePreferenceDialog
         else
             profilePreference.setProfileId(profilePreferenceAdapter.profileList.get(position)._id);
         mDialog.dismiss();
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
     }
 
     private class AlphabeticallyComparator implements Comparator<Profile> {

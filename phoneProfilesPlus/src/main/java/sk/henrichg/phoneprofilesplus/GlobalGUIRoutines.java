@@ -271,6 +271,7 @@ public class GlobalGUIRoutines {
         }
     }
 
+    /* using is MaterialDialogsPrefUtil version
     static void registerOnActivityDestroyListener(Preference preference, PreferenceManager.OnActivityDestroyListener listener) {
         try {
             PreferenceManager pm = preference.getPreferenceManager();
@@ -294,6 +295,7 @@ public class GlobalGUIRoutines {
         } catch (Exception ignored) {
         }
     }
+    */
 
     /**
      * Sets the specified image buttonto the given state, while modifying or

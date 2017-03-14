@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ public class DaysOfWeekPreference extends DialogPreference {
 
     private List<DayOfWeek> daysOfWeekList = null;
 
+    MaterialDialog mDialog;
     private DaysOfWeekPreferenceAdapter listAdapter;
 
 
@@ -129,7 +131,9 @@ public class DaysOfWeekPreference extends DialogPreference {
         });
         */
 
-        MaterialDialog mDialog = mBuilder.build();
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+
+        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 
@@ -137,38 +141,18 @@ public class DaysOfWeekPreference extends DialogPreference {
         mDialog.show();
     }
 
-    /*
-    public void onShow(DialogInterface dialog) {
-
-        CharSequence[] newEntries = new CharSequence[8];
-        CharSequence[] newEntryValues = new CharSequence[8];
-
-        daysOfWeekList.clear();
-        DayOfWeek dayOfWeek = new DayOfWeek();
-        dayOfWeek.name = _context.getString(R.string.array_pref_event_all);
-        dayOfWeek.value = allValue;
-        daysOfWeekList.add(dayOfWeek);
-
-        String[] namesOfDay = DateFormatSymbols.getInstance().getWeekdays();
-
-        int _dayOfWeek;
-        for (int i = 1; i < 8; i++)
-        {
-            _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
-
-            dayOfWeek = new DayOfWeek();
-            dayOfWeek.name = namesOfDay[_dayOfWeek+1];
-            dayOfWeek.value = String.valueOf(_dayOfWeek);
-            daysOfWeekList.add(dayOfWeek);
-        }
-
-        getValueDOWMDP();
-
-        listAdapter = new DaysOfWeekPreferenceAdapter(_context, daysOfWeekList);
-        listView.setAdapter(listAdapter);
-
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
     }
-    */
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
+    }
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {

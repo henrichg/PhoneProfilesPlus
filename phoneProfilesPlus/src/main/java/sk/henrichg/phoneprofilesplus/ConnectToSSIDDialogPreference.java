@@ -109,6 +109,8 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
             }
         });
 
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+
         mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -175,6 +177,19 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
             }
 
         }.execute();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
     }
 
     @Override

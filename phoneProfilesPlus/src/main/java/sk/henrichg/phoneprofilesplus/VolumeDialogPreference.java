@@ -26,6 +26,7 @@ public class VolumeDialogPreference extends
     // Layout widgets.
 
     Context _context;;
+    MaterialDialog mDialog;
     private SeekBar seekBar = null;
     private TextView valueText = null;
     private CheckBox noChangeChBox = null;
@@ -162,7 +163,9 @@ public class VolumeDialogPreference extends
 
         mBuilder.customView(layout, false);
 
-        MaterialDialog mDialog = mBuilder.build();
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+
+        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 
@@ -316,9 +319,18 @@ public class VolumeDialogPreference extends
     @Override
     public void onDismiss(DialogInterface dialog)
     {
+        super.onDismiss(dialog);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, defaultValueMusic, 0);
         if (mediaPlayer != null)
             mediaPlayer.release();
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
     }
 
     static boolean changeEnabled(String value) {

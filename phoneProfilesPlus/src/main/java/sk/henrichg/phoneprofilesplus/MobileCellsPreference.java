@@ -41,6 +41,8 @@ public class MobileCellsPreference extends DialogPreference {
     Context context;
 
     private MaterialDialog mDialog;
+    private MaterialDialog mRenameDialog;
+    private MaterialDialog mSelectorDialog;
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
     private EditText cellName;
@@ -163,7 +165,7 @@ public class MobileCellsPreference extends DialogPreference {
         editIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MaterialDialog.Builder(context)
+                mRenameDialog = new MaterialDialog.Builder(context)
                         .title(R.string.mobile_cells_pref_dlg_cell_rename_title)
                         .items(R.array.mobileCellsRenameArray)
                         .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
@@ -183,7 +185,7 @@ public class MobileCellsPreference extends DialogPreference {
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new MaterialDialog.Builder(context)
+                mSelectorDialog = new MaterialDialog.Builder(context)
                         .title(R.string.pref_dlg_change_selection_title)
                         .items(R.array.mobileCellsChangeSelectionArray)
                         .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
@@ -227,6 +229,8 @@ public class MobileCellsPreference extends DialogPreference {
             }
         });
 
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+
         mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -238,8 +242,21 @@ public class MobileCellsPreference extends DialogPreference {
     @Override
     public void onDismiss(DialogInterface dialog)
     {
+        super.onDismiss(dialog);
         if ((rescanAsyncTask != null) && (!rescanAsyncTask.isCancelled()))
             rescanAsyncTask.cancel(true);
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mRenameDialog != null && mRenameDialog.isShowing())
+            mRenameDialog.dismiss();
+        if (mSelectorDialog != null && mSelectorDialog.isShowing())
+            mSelectorDialog.dismiss();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
     }
 
     @Override

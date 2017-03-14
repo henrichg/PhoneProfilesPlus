@@ -42,6 +42,7 @@ public class BluetoothNamePreference extends DialogPreference {
     Context context;
 
     private MaterialDialog mDialog;
+    private MaterialDialog mSelectorDialog;
     private LinearLayout progressLinearLayout;
     private RelativeLayout dataRelativeLayout;
     private EditText bluetoothName;
@@ -212,7 +213,7 @@ public class BluetoothNamePreference extends DialogPreference {
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new MaterialDialog.Builder(context)
+                mSelectorDialog = new MaterialDialog.Builder(context)
                         .title(R.string.pref_dlg_change_selection_title)
                         .items(R.array.bluetoothNameDChangeSelectionArray)
                         .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
@@ -239,6 +240,8 @@ public class BluetoothNamePreference extends DialogPreference {
             }
         });
 
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+
         mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -249,11 +252,21 @@ public class BluetoothNamePreference extends DialogPreference {
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-
+        super.onDismiss(dialog);
         if ((rescanAsyncTask != null) && (!rescanAsyncTask.isCancelled()))
             rescanAsyncTask.cancel(true);
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
     }
-    
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mSelectorDialog != null && mSelectorDialog.isShowing())
+            mSelectorDialog.dismiss();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
+    }
+
     @Override 
     protected Object onGetDefaultValue(TypedArray ta, int index)
     {

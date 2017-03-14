@@ -40,6 +40,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
     List<Application> applicationsList = null;
 
     private MaterialDialog mDialog;
+    ApplicationEditorDialog mEditorDialog;
 
     private DragSortListView applicationsListView;
     private LinearLayout linlaProgress;
@@ -183,6 +184,8 @@ public class ApplicationsDialogPreference  extends DialogPreference {
             }
         });
 
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+
         mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -232,10 +235,20 @@ public class ApplicationsDialogPreference  extends DialogPreference {
     @Override
     public void onDismiss(DialogInterface dialog)
     {
+        super.onDismiss(dialog);
         EditorProfilesActivity.getApplicationsCache().cancelCaching();
-
         if (!EditorProfilesActivity.getApplicationsCache().isCached())
             EditorProfilesActivity.getApplicationsCache().clearCache(false);
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mEditorDialog != null && mEditorDialog.mDialog != null && mEditorDialog.mDialog.isShowing())
+            mEditorDialog.mDialog.dismiss();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
     }
 
     @Override
@@ -531,8 +544,8 @@ public class ApplicationsDialogPreference  extends DialogPreference {
         Application application = null;
         if (position > -1)
             application = applicationsList.get(position);
-        ApplicationEditorDialog dialog = new ApplicationEditorDialog(context, this, application, position);
-        dialog.show();
+        mEditorDialog = new ApplicationEditorDialog(context, this, application, position);
+        mEditorDialog.show();
     }
 
     private void deleteApplication(int position) {

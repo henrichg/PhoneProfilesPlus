@@ -190,6 +190,8 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             }
         });
 
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+
         mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -245,10 +247,18 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
     public void onDismiss (DialogInterface dialog)
     {
+        super.onDismiss(dialog);
         EditorProfilesActivity.getApplicationsCache().cancelCaching();
-
         if (!EditorProfilesActivity.getApplicationsCache().isCached())
             EditorProfilesActivity.getApplicationsCache().clearCache(false);
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
     }
 
     @Override

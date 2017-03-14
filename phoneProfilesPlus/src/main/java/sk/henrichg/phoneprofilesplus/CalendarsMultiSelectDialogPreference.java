@@ -137,6 +137,8 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
             }
         });
 
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+
         mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -236,6 +238,19 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
     public void onShow(DialogInterface dialog) {
         if (Permissions.grantCalendarDialogPermissions(_context, this))
             refreshListView(true);
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
     }
 
     @Override

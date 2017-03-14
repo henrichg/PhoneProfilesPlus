@@ -143,6 +143,8 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             }
         });
 
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+
         mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -200,10 +202,18 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
     public void onDismiss (DialogInterface dialog)
     {
+        super.onDismiss(dialog);
         EditorProfilesActivity.getContactsCache().cancelCaching();
-
         if (!EditorProfilesActivity.getContactsCache().isCached())
             EditorProfilesActivity.getContactsCache().clearCache(false);
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
     }
 
     @Override

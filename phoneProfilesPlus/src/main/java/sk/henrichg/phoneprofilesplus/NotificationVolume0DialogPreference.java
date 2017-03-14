@@ -13,6 +13,8 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
 
     private Context _context;
 
+    AlertDialog mDialog;
+
     public NotificationVolume0DialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -76,15 +78,22 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
             });*/
         }
 
-        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
-        dialogBuilder.show();
+        mDialog = dialogBuilder.show();
     }
 
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
     }
 
     @Override

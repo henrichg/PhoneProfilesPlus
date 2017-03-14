@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -30,6 +31,7 @@ public class ProfileIconPreference extends DialogPreference {
     private int customColor;
 
     private MaterialDialog mDialog;
+    ProfileIconColorChooserDialog mColorDialog;
 
     private ImageView imageView;
     ProfileIconPreferenceAdapter adapter;
@@ -166,12 +168,29 @@ public class ProfileIconPreference extends DialogPreference {
             }
         });
 
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+
         mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 
         mDialog.setOnDismissListener(this);
         mDialog.show();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mColorDialog != null && mColorDialog.mDialog != null && mColorDialog.mDialog.isShowing())
+            mColorDialog.mDialog.dismiss();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
     }
 
     @Override
@@ -361,9 +380,9 @@ public class ProfileIconPreference extends DialogPreference {
     }
 
     private void showCustomColorChooser() {
-        final ProfileIconColorChooserDialog dialog = new ProfileIconColorChooserDialog(prefContext, this, useCustomColor, customColor,
+        mColorDialog = new ProfileIconColorChooserDialog(prefContext, this, useCustomColor, customColor,
                                                             ProfileIconPreferenceAdapter.getIconColor(imageIdentifier));
-        dialog.show();
+        mColorDialog.show();
     }
 
     private void updateIcon(boolean inDialog) {

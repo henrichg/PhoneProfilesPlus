@@ -168,12 +168,12 @@ public class BrightnessDialogPreference extends
             }
         });
 
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+
         mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 
-
-        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         mDialog.setOnDismissListener(this);
 
@@ -209,7 +209,6 @@ public class BrightnessDialogPreference extends
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
 
         if (Permissions.checkScreenBrightness(_context)) {
             Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, savedBrightness);
@@ -224,6 +223,8 @@ public class BrightnessDialogPreference extends
         else
             layoutParams.screenBrightness = savedBrightness / (float) 255;
         win.setAttributes(layoutParams);
+
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
     }
 
     @Override

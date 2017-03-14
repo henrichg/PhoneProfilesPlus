@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,7 +12,7 @@ import android.widget.GridView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
-class ImageViewPreferenceDialog  {
+class ImageViewPreferenceDialog implements PreferenceManager.OnActivityDestroyListener {
 
     private ImageViewPreference imageViewPreference;
     MaterialDialog dialog;
@@ -24,6 +26,12 @@ class ImageViewPreferenceDialog  {
                 .title(R.string.title_activity_image_view_preference_dialog)
                 //.disableDefaultFonts()
                 .autoDismiss(false)
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(imageViewPreference, ImageViewPreferenceDialog.this);
+                    }
+                })
                 .customView(R.layout.activity_imageview_resource_pref_dialog, false);
 
         if (imgSource.equals("resource_file"))
@@ -39,6 +47,8 @@ class ImageViewPreferenceDialog  {
                 }
             });
         }
+
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(imageViewPreference, this);
 
         dialog = dialogBuilder.build();
 
@@ -59,4 +69,11 @@ class ImageViewPreferenceDialog  {
     public void show() {
         dialog.show();
     }
+
+    @Override
+    public void onActivityDestroy() {
+        if (dialog != null && dialog.isShowing())
+            dialog.dismiss();
+    }
+
 }
