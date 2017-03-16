@@ -74,8 +74,8 @@ public class PhoneCallService extends IntentService {
 
     private void doCallEvent(int eventType, String phoneNumber)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, eventType);
         editor.putString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
         editor.commit();

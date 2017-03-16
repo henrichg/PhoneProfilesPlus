@@ -918,19 +918,19 @@ public class EditorProfileListFragment extends Fragment {
         if (((EditorProfilesActivity)getActivity()).targetHelpsSequenceStarted)
             return;
 
-        final SharedPreferences preferences = getActivity().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        ApplicationPreferences.getSharedPreferences(getActivity());
 
-        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
-                preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
-                preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
+        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
+                ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
+                ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
 
             //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
 
                 //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-                SharedPreferences.Editor editor = preferences.edit();
+                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.commit();
 
@@ -973,7 +973,7 @@ public class EditorProfileListFragment extends Fragment {
                             @Override
                             public void onSequenceCanceled(TapTarget lastTarget) {
                                 targetHelpsSequenceStarted = false;
-                                SharedPreferences.Editor editor = preferences.edit();
+                                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                                 editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
                                 if (filterType == FILTER_TYPE_SHOW_IN_ACTIVATOR)
                                     editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
@@ -1011,8 +1011,8 @@ public class EditorProfileListFragment extends Fragment {
             profileListAdapter.showTargetHelps(getActivity(), this, itemView);
         else {
             targetHelpsSequenceStarted = false;
-            final SharedPreferences preferences = getActivity().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
+            ApplicationPreferences.getSharedPreferences(getActivity());
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
             editor.commit();

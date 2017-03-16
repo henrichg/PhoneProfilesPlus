@@ -85,8 +85,8 @@ public class FirstStartService extends IntentService {
         Profile.setActivatedProfileForDuration(context, 0);
         ForegroundApplicationChangedService.setApplicationInForeground(context, "");
 
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
         editor.putString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, "");
         editor.commit();

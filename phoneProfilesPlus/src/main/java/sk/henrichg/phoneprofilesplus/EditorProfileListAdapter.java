@@ -397,9 +397,9 @@ class EditorProfileListAdapter extends BaseAdapter
         if (fragment.targetHelpsSequenceStarted)
             return;
 
-        SharedPreferences preferences = activity.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        ApplicationPreferences.getSharedPreferences(activity);
 
-        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) || preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
+        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) || ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
 
             //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
@@ -407,10 +407,10 @@ class EditorProfileListAdapter extends BaseAdapter
             if (ApplicationPreferences.applicationTheme(activity).equals("dark"))
                 circleColor = 0x7F7F7F;
 
-            if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
                 //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-                SharedPreferences.Editor editor = preferences.edit();
+                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.commit();
 
@@ -477,10 +477,10 @@ class EditorProfileListAdapter extends BaseAdapter
                 targetHelpsSequenceStarted = true;
                 sequence.start();
             }
-            if (preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
+            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
                 //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
-                    SharedPreferences.Editor editor = preferences.edit();
+                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
                     editor.commit();
 

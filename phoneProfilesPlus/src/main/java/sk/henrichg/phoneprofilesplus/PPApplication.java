@@ -341,58 +341,58 @@ public class PPApplication extends Application {
 
     static public boolean getApplicationStarted(Context context, boolean testService)
     {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        ApplicationPreferences.getSharedPreferences(context);
         if (testService)
-            return preferences.getBoolean(PREF_APPLICATION_STARTED, false) && (PhoneProfilesService.instance != null);
+            return ApplicationPreferences.preferences.getBoolean(PREF_APPLICATION_STARTED, false) && (PhoneProfilesService.instance != null);
         else
-            return preferences.getBoolean(PREF_APPLICATION_STARTED, false);
+            return ApplicationPreferences.preferences.getBoolean(PREF_APPLICATION_STARTED, false);
     }
 
     static public void setApplicationStarted(Context context, boolean appStarted)
     {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_APPLICATION_STARTED, appStarted);
         editor.commit();
     }
 
     static public int getSavedVersionCode(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_SAVED_VERSION_CODE, 0);
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getInt(PREF_SAVED_VERSION_CODE, 0);
     }
 
     static public void setSavedVersionCode(Context context, int version)
     {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_SAVED_VERSION_CODE, version);
         editor.commit();
     }
 
     static public boolean getActivityLogEnabled(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_ACTIVITY_LOG_ENABLED, true);
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getBoolean(PREF_ACTIVITY_LOG_ENABLED, true);
     }
 
     static public void setActivityLogEnabled(Context context, boolean enabled)
     {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_ACTIVITY_LOG_ENABLED, enabled);
         editor.commit();
     }
 
     static public int getDaysAfterFirtsStart(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_DAYS_AFTER_FIRST_START, 0);
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getInt(PREF_DAYS_AFTER_FIRST_START, 0);
     }
 
     static public void setDaysAfterFirstStart(Context context, int days)
     {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_DAYS_AFTER_FIRST_START, days);
         editor.commit();
     }

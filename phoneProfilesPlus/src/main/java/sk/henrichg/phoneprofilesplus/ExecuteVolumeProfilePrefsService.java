@@ -32,8 +32,8 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
         // link, unlink volumes during activation of profile
         // required for phone call events
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        int callEventType = preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+        ApplicationPreferences.getSharedPreferences(context);
+        int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
         int linkUnlink = PhoneCallService.LINKMODE_NONE;
         if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
             if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING) ||

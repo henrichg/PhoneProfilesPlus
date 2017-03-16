@@ -134,17 +134,17 @@ public class MobileCellsRegistrationService extends Service {
 
     static public void getMobileCellsAutoRegistration(Context context) {
         if (PhoneProfilesService.isPhoneStateStarted()) {
-            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            PhoneProfilesService.phoneStateScanner.durationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
-            PhoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
-            PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
+            ApplicationPreferences.getSharedPreferences(context);
+            PhoneProfilesService.phoneStateScanner.durationForAutoRegistration = ApplicationPreferences.preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
+            PhoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = ApplicationPreferences.preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
+            PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = ApplicationPreferences.preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
         }
     }
 
     static public void setMobileCellsAutoRegistration(Context context, boolean firstStart) {
         if (PhoneProfilesService.isPhoneStateStarted()) {
-            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PhoneProfilesService.phoneStateScanner.durationForAutoRegistration);
             editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, PhoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration);
             if (firstStart)
@@ -157,16 +157,16 @@ public class MobileCellsRegistrationService extends Service {
 
     static public int getMobileCellsAutoRegistrationRemainingDuration(Context context) {
         if (PhoneProfilesService.isPhoneStateStarted()) {
-            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            return preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, 0);
+            ApplicationPreferences.getSharedPreferences(context);
+            return ApplicationPreferences.preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, 0);
         }
         return 0;
     }
 
     static public void setMobileCellsAutoRegistrationRemainingDuration(Context context, int remainingDuration) {
         if (PhoneProfilesService.isPhoneStateStarted()) {
-            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, remainingDuration);
             editor.commit();
         }

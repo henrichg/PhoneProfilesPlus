@@ -340,11 +340,11 @@ public class ActivateProfileActivity extends AppCompatActivity {
     }
 
     public void startTargetHelpsActivity() {
-        SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        ApplicationPreferences.getSharedPreferences(this);
 
-        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
-                preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true) ||
-                preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
+        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
+                ApplicationPreferences.preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true) ||
+                ApplicationPreferences.preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
 
             //Log.d("ActivateProfilesActivity.startTargetHelpsActivity", "xxx");
 
@@ -356,18 +356,18 @@ public class ActivateProfileActivity extends AppCompatActivity {
     }
 
     public void showTargetHelps() {
-        final SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        ApplicationPreferences.getSharedPreferences(this);
 
-        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
-                preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true) ||
-                preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
+        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
+                ApplicationPreferences.preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true) ||
+                ApplicationPreferences.preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
 
             //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
                 //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-                SharedPreferences.Editor editor = preferences.edit();
+                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.commit();
 
@@ -433,7 +433,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                             }
                         }, 500);
 
-                        SharedPreferences.Editor editor = preferences.edit();
+                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
                         editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
                         editor.commit();

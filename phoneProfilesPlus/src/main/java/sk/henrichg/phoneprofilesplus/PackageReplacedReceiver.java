@@ -49,8 +49,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 if (oldVersionCode < actualVersionCode) {
                     if (actualVersionCode <= 2322) {
                         // for old packages use Priority in events
-                        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
+                        ApplicationPreferences.getSharedPreferences(context);
+                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                         PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "applicationEventUsePriority=true");
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
                         editor.commit();
@@ -63,9 +63,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     }
                     if (actualVersionCode <= 2500) {
                         // for old packages hide profile notification from status bar if notification is disabled
-                        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-                        if (!preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true)) {
-                            SharedPreferences.Editor editor = preferences.edit();
+                        ApplicationPreferences.getSharedPreferences(context);
+                        if (!ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true)) {
+                            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                             PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "notificationShowInStatusBar=false");
                             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
                             editor.commit();
@@ -73,8 +73,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         }
                     }
                     if (actualVersionCode <= 2700) {
-                        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
+                        ApplicationPreferences.getSharedPreferences(context);
+                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
 
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
 

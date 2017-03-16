@@ -76,8 +76,8 @@ public class EventsService extends IntentService
 
         dataWrapper = new DataWrapper(context, true, false, 0);
 
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        callEventType = preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+        ApplicationPreferences.getSharedPreferences(context);
+        callEventType = ApplicationPreferences.preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
 
         oldRingerMode = ActivateProfileHelper.getRingerMode(context);
         oldZenMode = ActivateProfileHelper.getZenMode(context);
@@ -621,8 +621,8 @@ public class EventsService extends IntentService
 
             if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) ||
                 (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED)) {
-                SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
+                ApplicationPreferences.getSharedPreferences(context);
+                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
                 editor.putString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, "");
                 editor.commit();

@@ -1844,28 +1844,28 @@ public class Profile {
 
     static public long getActivatedProfileForDuration(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, 0);
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, 0);
     }
 
     static public void setActivatedProfileForDuration(Context context, long profileId)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, profileId);
         editor.commit();
     }
 
     static public long getActivatedProfileEndDurationTime(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
     }
 
     static public void setActivatedProfileEndDurationTime(Context context, long time)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
         editor.commit();
     }

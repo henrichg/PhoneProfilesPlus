@@ -483,42 +483,42 @@ public class ScannerService extends IntentService
 
     static public int getForceOneWifiScan(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_FORCE_ONE_WIFI_SCAN, FORCE_ONE_SCAN_DISABLED);
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getInt(PREF_FORCE_ONE_WIFI_SCAN, FORCE_ONE_SCAN_DISABLED);
     }
 
     static public void setForceOneWifiScan(Context context, int forceScan)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_FORCE_ONE_WIFI_SCAN, forceScan);
         editor.commit();
     }
 
     static public int getForceOneBluetoothScan(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_FORCE_ONE_BLUETOOTH_SCAN, FORCE_ONE_SCAN_DISABLED);
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getInt(PREF_FORCE_ONE_BLUETOOTH_SCAN, FORCE_ONE_SCAN_DISABLED);
     }
 
     static public void setForceOneBluetoothScan(Context context, int forceScan)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_FORCE_ONE_BLUETOOTH_SCAN, forceScan);
         editor.commit();
     }
 
     static public int getForceOneLEBluetoothScan(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, FORCE_ONE_SCAN_DISABLED);
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getInt(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, FORCE_ONE_SCAN_DISABLED);
     }
 
     static public void setForceOneLEBluetoothScan(Context context, int forceScan)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, forceScan);
         editor.commit();
     }
@@ -977,14 +977,14 @@ public class ScannerService extends IntentService
 
     static public boolean getShowEnableLocationNotification(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_SHOW_ENABLE_LOCATION_NOTIFICATION, true);
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getBoolean(PREF_SHOW_ENABLE_LOCATION_NOTIFICATION, true);
     }
 
     static public void setShowEnableLocationNotification(Context context, boolean show)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_SHOW_ENABLE_LOCATION_NOTIFICATION, show);
         editor.commit();
     }

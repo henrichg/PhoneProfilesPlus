@@ -1769,42 +1769,42 @@ class Event {
 
     static public boolean getGlobalEventsRuning(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, true);
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, true);
     }
 
     static public void setGlobalEventsRuning(Context context, boolean globalEventsRuning)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, globalEventsRuning);
         editor.commit();
     }
 
     static public boolean getEventsBlocked(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_EVENTS_BLOCKED, false);
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getBoolean(PREF_EVENTS_BLOCKED, false);
     }
 
     static public void setEventsBlocked(Context context, boolean eventsBlocked)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_EVENTS_BLOCKED, eventsBlocked);
         editor.commit();
     }
 
     static public boolean getForceRunEventRunning(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_FORCE_RUN_EVENT_RUNNING, false);
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getBoolean(PREF_FORCE_RUN_EVENT_RUNNING, false);
     }
 
     static public void setForceRunEventRunning(Context context, boolean forceRunEventRunning)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_FORCE_RUN_EVENT_RUNNING, forceRunEventRunning);
         editor.commit();
     }

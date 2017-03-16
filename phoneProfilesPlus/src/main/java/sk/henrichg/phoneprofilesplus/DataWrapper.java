@@ -561,8 +561,8 @@ public class DataWrapper {
         // unlink profile from Background profile
         if (Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context)) == profile._id)
         {
-            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            Editor editor = preferences.edit();
+            ApplicationPreferences.getSharedPreferences(context);
+            Editor editor = ApplicationPreferences.preferences.edit();
             editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
             editor.commit();
         }
@@ -580,8 +580,8 @@ public class DataWrapper {
             event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
         }
         // unlink profiles from Background profile
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        Editor editor = ApplicationPreferences.preferences.edit();
         editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
         editor.commit();
     }
@@ -1668,9 +1668,9 @@ public class DataWrapper {
         {
             ignoreCall = false;
 
-            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            int callEventType = preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
-            String phoneNumber = preferences.getString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, "");
+            ApplicationPreferences.getSharedPreferences(context);
+            int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+            String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, "");
 
             boolean phoneNumberFinded = false;
 
@@ -1844,10 +1844,10 @@ public class DataWrapper {
                 (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_BLUETOOTH_HEADSET) ||
                 (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_HEADPHONES))
             {
-                SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-                boolean headsetConnected = preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_CONNECTED, false);
-                boolean headsetMicrophone = preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_MICROPHONE, false);
-                boolean bluetoothHeadset = preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_BLUETOOTH, false);
+                ApplicationPreferences.getSharedPreferences(context);
+                boolean headsetConnected = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_CONNECTED, false);
+                boolean headsetMicrophone = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_MICROPHONE, false);
+                boolean bluetoothHeadset = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_BLUETOOTH, false);
 
                 if (headsetConnected)
                 {
@@ -2459,8 +2459,8 @@ public class DataWrapper {
         {
             ignoreOrientation = false;
 
-            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            int callEventType = preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+            ApplicationPreferences.getSharedPreferences(context);
+            int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
 
             if (Permissions.checkEventPhoneBroadcast(context, event) &&
                 (callEventType != PhoneCallService.CALL_EVENT_UNDEFINED) &&
@@ -3274,7 +3274,8 @@ public class DataWrapper {
     public void addActivityLog(int logType, String eventName, String profileName, String profileIcon,
                                int durationDelay) {
         if (PPApplication.getActivityLogEnabled(context)) {
-            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            //if (ApplicationPreferences.preferences == null)
+            //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
             getDatabaseHandler().addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs(context),
                                     logType, eventName, profileName, profileIcon, durationDelay);

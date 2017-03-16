@@ -70,8 +70,8 @@ public class HeadsetConnectionBroadcastReceiver extends WakefulBroadcastReceiver
         {
             PPApplication.logE("@@@ HeadsetConnectionBroadcastReceiver.onReceive","xxx");
 
-            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            Editor editor = preferences.edit();
+            ApplicationPreferences.getSharedPreferences(context);
+            Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(PREF_EVENT_HEADSET_CONNECTED, connectedHeadphones);
             editor.putBoolean(PREF_EVENT_HEADSET_MICROPHONE, connectedMicrophone);
             editor.putBoolean(PREF_EVENT_HEADSET_BLUETOOTH, bluetoothHeadset);

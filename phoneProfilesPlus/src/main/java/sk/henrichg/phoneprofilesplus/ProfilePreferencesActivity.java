@@ -473,12 +473,12 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         if (!showSaveMenu)
             return;
 
-        final SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        ApplicationPreferences.getSharedPreferences(this);
 
-        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
             //Log.d("ProfilePreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-            SharedPreferences.Editor editor = preferences.edit();
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.commit();
 

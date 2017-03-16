@@ -225,12 +225,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // In this method, editmode and profile_id is saved into shared preferences
                 // And when orientaion changed into lanscape mode, profile preferences fragment
                 // must by recreated due profile preference changes
-                SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                int dataType = preferences.getInt(SP_DATA_DETAILS_DATA_TYPE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+                ApplicationPreferences.getSharedPreferences(this);
+                int dataType = ApplicationPreferences.preferences.getInt(SP_DATA_DETAILS_DATA_TYPE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
                 if (dataType == 1) {
-                    long profile_id = preferences.getLong(SP_DATA_DETAILS_DATA_ID, 0);
-                    int editMode = preferences.getInt(SP_DATA_DETAILS_EDIT_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
-                    int predefinedProfileIndex = preferences.getInt(SP_DATA_DETAILS_PREDEFINED_PROFILE_INDEX, 0);
+                    long profile_id = ApplicationPreferences.preferences.getLong(SP_DATA_DETAILS_DATA_ID, 0);
+                    int editMode = ApplicationPreferences.preferences.getInt(SP_DATA_DETAILS_EDIT_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+                    int predefinedProfileIndex = ApplicationPreferences.preferences.getInt(SP_DATA_DETAILS_PREDEFINED_PROFILE_INDEX, 0);
                     Bundle arguments = new Bundle();
                     arguments.putLong(PPApplication.EXTRA_PROFILE_ID, profile_id);
                     arguments.putInt(EXTRA_NEW_PROFILE_MODE, editMode);
@@ -242,9 +242,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                             .replace(R.id.editor_detail_container, fragment, "ProfileDetailsFragment").commit();
                 }
                 else if (dataType == 2) {
-                    long event_id = preferences.getLong(SP_DATA_DETAILS_DATA_ID, 0);
-                    int editMode = preferences.getInt(SP_DATA_DETAILS_EDIT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
-                    int predefinedEventIndex = preferences.getInt(SP_DATA_DETAILS_PREDEFINED_EVENT_INDEX, 0);
+                    long event_id = ApplicationPreferences.preferences.getLong(SP_DATA_DETAILS_DATA_ID, 0);
+                    int editMode = ApplicationPreferences.preferences.getInt(SP_DATA_DETAILS_EDIT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
+                    int predefinedEventIndex = ApplicationPreferences.preferences.getInt(SP_DATA_DETAILS_PREDEFINED_EVENT_INDEX, 0);
                     Bundle arguments = new Bundle();
                     arguments.putLong(PPApplication.EXTRA_EVENT_ID, event_id);
                     arguments.putInt(EXTRA_NEW_EVENT_MODE, editMode);
@@ -455,9 +455,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         // set drawer item and order
         if ((savedInstanceState != null) || (ApplicationPreferences.applicationEditorSaveEditorState(getApplicationContext())))
         {
-            SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-            drawerSelectedItem = preferences.getInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
-            orderSelectedItem = preferences.getInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
+            ApplicationPreferences.getSharedPreferences(this);
+            drawerSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
+            orderSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
         }
 
         // first must be set eventsOrderType
@@ -768,8 +768,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             drawerSelectedItem = position;
 
             // save into shared preferences
-            SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-            Editor editor = preferences.edit();
+            ApplicationPreferences.getSharedPreferences(this);
+            Editor editor = ApplicationPreferences.preferences.edit();
             editor.putInt(SP_EDITOR_DRAWER_SELECTED_ITEM, drawerSelectedItem);
             editor.commit();
 
@@ -904,8 +904,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         orderSelectedItem = position;
 
         // save into shared preferences
-        SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-        Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(this);
+        Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
         editor.commit();
 
@@ -1235,8 +1235,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         dataWrapper.getDatabaseHandler().unblockAllEvents();
                         Event.setForceRunEventRunning(getApplicationContext(), false);
 
-                        SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                        Editor editor = preferences.edit();
+                        ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                        Editor editor = ApplicationPreferences.preferences.edit();
                         editor.putInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
                         editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
                         editor.commit();
@@ -1515,7 +1515,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         savedInstanceStateChanged = true;
 
         if (mTwoPane) {
-            SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+            ApplicationPreferences.getSharedPreferences(this);
 
             if (drawerSelectedItem <= COUNT_DRAWER_PROFILE_ITEMS)
             {
@@ -1523,7 +1523,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Fragment fragment = fragmentManager.findFragmentByTag("ProfileDetailsFragment");
                 if (fragment != null)
                 {
-                    Editor editor = preferences.edit();
+                    Editor editor = ApplicationPreferences.preferences.edit();
                     editor.putLong(SP_DATA_DETAILS_DATA_ID, ((ProfileDetailsFragment) fragment).profile_id);
                     editor.putInt(SP_DATA_DETAILS_EDIT_MODE, ((ProfileDetailsFragment) fragment).editMode);
                     editor.putInt(SP_DATA_DETAILS_PREDEFINED_PROFILE_INDEX, ((ProfileDetailsFragment) fragment).predefinedProfileIndex);
@@ -1536,7 +1536,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Fragment fragment = fragmentManager.findFragmentByTag("EventDetailsFragment");
                 if (fragment != null)
                 {
-                    Editor editor = preferences.edit();
+                    Editor editor = ApplicationPreferences.preferences.edit();
                     editor.putLong(SP_DATA_DETAILS_DATA_ID, ((EventDetailsFragment) fragment).event_id);
                     editor.putInt(SP_DATA_DETAILS_EDIT_MODE, ((EventDetailsFragment) fragment).editMode);
                     editor.putInt(SP_DATA_DETAILS_PREDEFINED_EVENT_INDEX, ((EventDetailsFragment) fragment).predefinedEventIndex);
@@ -1911,22 +1911,22 @@ public class EditorProfilesActivity extends AppCompatActivity
     */
 
     private void showTargetHelps() {
-        final SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        ApplicationPreferences.getSharedPreferences(this);
 
-        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
-                preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true) ||
-                preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
-                preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
-                preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, true) ||
-                preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
-                preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
+        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
+                ApplicationPreferences.preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true) ||
+                ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
+                ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
+                ApplicationPreferences.preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, true) ||
+                ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
+                ApplicationPreferences.preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
 
             //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
                 //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-                Editor editor = preferences.edit();
+                Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.commit();
 
@@ -2005,7 +2005,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
                         targetHelpsSequenceStarted = false;
-                        Editor editor = preferences.edit();
+                        Editor editor = ApplicationPreferences.preferences.edit();
                         if (drawerSelectedItem <= COUNT_DRAWER_PROFILE_ITEMS) {
                             editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
                             editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);

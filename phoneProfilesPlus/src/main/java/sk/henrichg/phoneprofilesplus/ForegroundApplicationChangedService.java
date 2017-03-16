@@ -114,14 +114,14 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
     static public String getApplicationInForeground(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getString(PREF_APPLICATION_IN_FOREGROUND, "");
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getString(PREF_APPLICATION_IN_FOREGROUND, "");
     }
 
     static public void setApplicationInForeground(Context context, String application)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        ApplicationPreferences.getSharedPreferences(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putString(PREF_APPLICATION_IN_FOREGROUND, application);
         editor.commit();
     }

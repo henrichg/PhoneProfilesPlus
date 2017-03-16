@@ -449,18 +449,18 @@ public class ActivateProfileListFragment extends Fragment {
         if (((ActivateProfileActivity)getActivity()).targetHelpsSequenceStarted)
             return;
 
-        SharedPreferences preferences = getActivity().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        ApplicationPreferences.getSharedPreferences(getActivity());
 
-        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
-                preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
+        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
+                ApplicationPreferences.preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
 
             //Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
 
                 //Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-                SharedPreferences.Editor editor = preferences.edit();
+                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.commit();
 
