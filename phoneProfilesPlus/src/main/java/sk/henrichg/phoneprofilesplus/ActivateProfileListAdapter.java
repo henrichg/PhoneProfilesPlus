@@ -26,7 +26,7 @@ class ActivateProfileListAdapter extends BaseAdapter
     private ActivateProfileListFragment fragment;
     private DataWrapper dataWrapper;
 
-    public boolean targetHelpsSequenceStarted;
+    //public boolean targetHelpsSequenceStarted;
     static final String PREF_START_TARGET_HELPS = "activate_profile_list_adapter_start_target_helps";
 
     ActivateProfileListAdapter(ActivateProfileListFragment f, List<Profile> pl, DataWrapper dataWrapper)
@@ -267,7 +267,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                 // to the sequence
                 @Override
                 public void onSequenceFinish() {
-                    targetHelpsSequenceStarted = false;
+                    //targetHelpsSequenceStarted = false;
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -288,7 +288,7 @@ class ActivateProfileListAdapter extends BaseAdapter
 
                 @Override
                 public void onSequenceCanceled(TapTarget lastTarget) {
-                    targetHelpsSequenceStarted = false;
+                    //targetHelpsSequenceStarted = false;
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -302,7 +302,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                     }, 500);
                 }
             });
-            targetHelpsSequenceStarted = true;
+            //targetHelpsSequenceStarted = true;
             sequence.start();
         }
         else {
