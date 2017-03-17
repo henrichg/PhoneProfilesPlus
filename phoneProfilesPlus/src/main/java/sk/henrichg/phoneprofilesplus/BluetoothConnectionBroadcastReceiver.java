@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
@@ -142,7 +143,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                 if (!json.isEmpty()) {
                     BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                     PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices","device.name="+device.name);
                     PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "device.timestamp="+sdf.format(device.timestamp));
                     long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime() - gmtOffset;
@@ -237,7 +238,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                 if (onlyOld) {
                     int gmtOffset = TimeZone.getDefault().getRawOffset();
                     for (BluetoothDeviceData device : connectedDevices) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices","device.name="+device.name);
                         PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "device.timestamp="+sdf.format(device.timestamp));
                         long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime() - gmtOffset;
@@ -286,6 +287,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
         }
     }
 
+    /*
     public static boolean isAdapterNameScanned(DataWrapper dataWrapper, int connectionType)
     {
         if (isBluetoothConnected(dataWrapper.context, ""))
@@ -303,5 +305,6 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
         else
             return false;
     }
+    */
 
 }

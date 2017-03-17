@@ -229,7 +229,7 @@ public class ActivateProfileHelper {
                     boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
                     if (!isWifiAPEnabled) { // only when wifi AP is not enabled, change wifi
                         PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled=false");
-                        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                         int wifiState = wifiManager.getWifiState();
                         boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
                         boolean setWifiState = false;
@@ -271,7 +271,7 @@ public class ActivateProfileHelper {
             // connect to SSID
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, context) == PPApplication.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
-                    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                    WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                     int wifiState = wifiManager.getWifiState();
                     if  (wifiState == WifiManager.WIFI_STATE_ENABLED) {
 
@@ -500,7 +500,7 @@ public class ActivateProfileHelper {
     }
     */
 
-    public static boolean getMergedRingNotificationVolumes(Context context) {
+    static boolean getMergedRingNotificationVolumes(Context context) {
         ApplicationPreferences.getSharedPreferences(context);
         if (ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context) > 0)
             return ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context) == 1;
@@ -509,7 +509,7 @@ public class ActivateProfileHelper {
     }
 
     // test if ring and notification volumes are merged
-    public static void setMergedRingNotificationVolumes(Context context, boolean force) {
+    static void setMergedRingNotificationVolumes(Context context, boolean force) {
         ApplicationPreferences.getSharedPreferences(context);
 
         PPApplication.logE("$$$ PhoneProfilesService.setMergedRingNotificationVolumes", "xxx");
@@ -904,7 +904,7 @@ public class ActivateProfileHelper {
         }
     }
 
-    public static boolean canChangeZenMode(Context context, boolean notCheckAccess) {
+    static boolean canChangeZenMode(Context context, boolean notCheckAccess) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60) {
@@ -922,7 +922,7 @@ public class ActivateProfileHelper {
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public static int getSystemZenMode(Context context, int defaultValue) {
+    static int getSystemZenMode(Context context, int defaultValue) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60) {
@@ -972,7 +972,7 @@ public class ActivateProfileHelper {
     }
 
     @SuppressWarnings("deprecation")
-    public static boolean vibrationIsOn(Context context, AudioManager audioManager, boolean testRingerMode) {
+    static boolean vibrationIsOn(Context context, AudioManager audioManager, boolean testRingerMode) {
         int ringerMode = -999;
         if (testRingerMode)
             ringerMode = audioManager.getRingerMode();
@@ -1203,33 +1203,32 @@ public class ActivateProfileHelper {
             //ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
             //List<ActivityManager.RunningAppProcessInfo> procInfos = activityManager.getRunningAppProcesses();
 
-            for (int i = 0; i < splits.length; i++) {
+            for (String split : splits) {
                 //Log.d("ActivateProfileHelper.executeForRunApplications","app data="+splits[i]);
-                if (!ApplicationsCache.isShortcut(splits[i])) {
+                if (!ApplicationsCache.isShortcut(split)) {
                     //Log.d("ActivateProfileHelper.executeForRunApplications","no shortcut");
-                    String packageName = ApplicationsCache.getPackageName(splits[i]);
+                    String packageName = ApplicationsCache.getPackageName(split);
                     intent = packageManager.getLaunchIntentForPackage(packageName);
                     if (intent != null) {
                         //if (!isRunning(procInfos, packageName)) {
                         //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": not running");
-                            //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
-                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            try {
-                                context.startActivity(intent);
-                            } catch (Exception ignored) {
-                            }
-                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(1000);
-                            PPApplication.sleep(1000);
+                        //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        try {
+                            context.startActivity(intent);
+                        } catch (Exception ignored) {
+                        }
+                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(1000);
+                        PPApplication.sleep(1000);
                         //}
                         //else
                         //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": running");
                     }
-                }
-                else {
+                } else {
                     //Log.d("ActivateProfileHelper.executeForRunApplications","shortcut");
-                    long shortcutId = ApplicationsCache.getShortcutId(splits[i]);
+                    long shortcutId = ApplicationsCache.getShortcutId(split);
                     //Log.d("ActivateProfileHelper.executeForRunApplications","shortcutId="+shortcutId);
                     if (shortcutId > 0) {
                         Shortcut shortcut = dataWrapper.getDatabaseHandler().getShortcut(shortcutId);
@@ -1240,15 +1239,15 @@ public class ActivateProfileHelper {
                                     //String packageName = intent.getPackage();
                                     //if (!isRunning(procInfos, packageName)) {
                                     //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": not running");
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
-                                        try {
-                                            context.startActivity(intent);
-                                        } catch (Exception ignored) {
-                                        }
-                                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                                        //SystemClock.sleep(1000);
-                                        PPApplication.sleep(1000);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
+                                    try {
+                                        context.startActivity(intent);
+                                    } catch (Exception ignored) {
+                                    }
+                                    //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                                    //SystemClock.sleep(1000);
+                                    PPApplication.sleep(1000);
                                     //} else
                                     //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": running");
                                 }
@@ -1980,7 +1979,8 @@ public class ActivateProfileHelper {
             //    notificationBuilder.setCustomContentView(contentView);
             //}
             //else
-                notificationBuilder.setContent(contentView);
+            //noinspection deprecation
+            notificationBuilder.setContent(contentView);
 
             PPApplication.phoneProfilesNotification = notificationBuilder.build();
 
@@ -2423,7 +2423,7 @@ public class ActivateProfileHelper {
     }
     */
 
-    static public String getTransactionCode(Context context, String fieldName) throws Exception {
+    private static String getTransactionCode(Context context, String fieldName) throws Exception {
         //try {
         final TelephonyManager mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         final Class<?> mTelephonyClass = Class.forName(mTelephonyManager.getClass().getName());
@@ -2701,12 +2701,12 @@ public class ActivateProfileHelper {
 
                     String newSet = "";
                     int j = 0;
-                    for (int i = 0; i < list.length; i++) {
+                    for (String aList : list) {
 
-                        if (!list[i].equals(LocationManager.GPS_PROVIDER)) {
+                        if (!aList.equals(LocationManager.GPS_PROVIDER)) {
                             if (j > 0)
                                 newSet += ",";
-                            newSet += list[i];
+                            newSet += aList;
                             j++;
                         }
                     }
@@ -2918,7 +2918,7 @@ public class ActivateProfileHelper {
     }
 
 
-    static int getRingerVolume(Context context)
+    private static int getRingerVolume(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getInt(PREF_RINGER_VOLUME, -999);
@@ -2988,7 +2988,7 @@ public class ActivateProfileHelper {
         editor.apply();
     }
 
-    static boolean getScreenUnlocked(Context context)
+    private static boolean getScreenUnlocked(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getBoolean(PREF_SCREEN_UNLOCKED, true);

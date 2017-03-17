@@ -40,8 +40,8 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
      * implement. This mechanism allows activities to be notified.
      */
     // invoked when nested fragment is created
-    public interface OnCreateNestedPreferenceFragment {
-        public PreferenceFragment onCreateNestedPreferenceFragment();
+    interface OnCreateNestedPreferenceFragment {
+        PreferenceFragment onCreateNestedPreferenceFragment();
     }
 
     /**
@@ -62,6 +62,7 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
         mPreferenceScreen = preferenceScreen;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

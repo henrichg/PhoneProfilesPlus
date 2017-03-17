@@ -57,7 +57,7 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
     protected abstract void onEndReceive();
 
     //Deals with actual events
-    public class PhonecallStartEndDetector {
+    private class PhonecallStartEndDetector {
         int lastState = TelephonyManager.CALL_STATE_IDLE;
         Date callStartTime;
         boolean inCall;

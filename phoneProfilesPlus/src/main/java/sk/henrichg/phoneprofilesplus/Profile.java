@@ -138,9 +138,9 @@ public class Profile {
     static final String CONNECTTOSSID_JUSTANY = "^just_any^";
     static final String CONNECTTOSSID_DEFAULTPROFILE = "^default_profile^";
 
-    public static final long DEFAULT_PROFILE_ID = -999L;  // source profile id
+    static final long DEFAULT_PROFILE_ID = -999L;  // source profile id
     static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
-    public static final long PROFILE_NO_ACTIVATE = -999;
+    static final long PROFILE_NO_ACTIVATE = -999;
 
     private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
     private static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
@@ -752,7 +752,7 @@ public class Profile {
         return getVolumeRingtoneChange(_volumeRingtone);
     }
 
-    boolean getVolumeRingtoneDefaultProfile()
+    private boolean getVolumeRingtoneDefaultProfile()
     {
         int value;
         try {
@@ -803,7 +803,7 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
-    boolean getVolumeNotificationDefaultProfile()
+    private boolean getVolumeNotificationDefaultProfile()
     {
         int value;
         try {
@@ -854,7 +854,7 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
-    boolean getVolumeMediaDefaultProfile()
+    private boolean getVolumeMediaDefaultProfile()
     {
         int value;
         try {
@@ -890,7 +890,7 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
-    boolean getVolumeAlarmDefaultProfile()
+    private boolean getVolumeAlarmDefaultProfile()
     {
         int value;
         try {
@@ -926,7 +926,7 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
-    boolean getVolumeSystemDefaultProfile()
+    private boolean getVolumeSystemDefaultProfile()
     {
         int value;
         try {
@@ -962,7 +962,7 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
-    boolean getVolumeVoiceDefaultProfile()
+    private boolean getVolumeVoiceDefaultProfile()
     {
         int value;
         try {
@@ -998,7 +998,7 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
-    boolean getDeviceBrightnessDefaultProfile()
+    private boolean getDeviceBrightnessDefaultProfile()
     {
         int value;
         try {
@@ -1324,7 +1324,7 @@ public class Profile {
         return String.valueOf(dValue.intValue());
     }
 
-    static public Profile getDefaultProfile(Context context)
+    static Profile getDefaultProfile(Context context)
     {
         AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         int	maximumValueRing = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
@@ -1856,7 +1856,7 @@ public class Profile {
         editor.apply();
     }
 
-    static long getActivatedProfileEndDurationTime(Context context)
+    private static long getActivatedProfileEndDurationTime(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);

@@ -291,19 +291,17 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             for (Application application : applicationList)
             {
                 application.checked = false;
-                for (int i = 0; i < splits.length; i++)
-                {
+                for (String split : splits) {
                     String packageName;
                     String activityName;
                     String shortcut;
-                    String[] splits2 = splits[i].split("/");
-                    if (splits[i].length() > 2) {
+                    String[] splits2 = split.split("/");
+                    if (split.length() > 2) {
                         if (splits2.length == 2) {
                             shortcut = splits2[0].substring(0, 3);
                             packageName = splits2[0];
                             activityName = splits2[1];
-                        }
-                        else {
+                        } else {
                             shortcut = value.substring(0, 3);
                             packageName = value;
                             activityName = "";
@@ -318,8 +316,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         if (!activityName.isEmpty()) {
                             if (shortcutPassed && packagePassed && activityPassed)
                                 application.checked = true;
-                        }
-                        else {
+                        } else {
                             if (!shortcut.equals("(s)") && (!application.shortcut)) {
                                 if (packagePassed)
                                     application.checked = true;

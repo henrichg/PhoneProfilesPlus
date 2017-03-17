@@ -11,8 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -185,8 +183,8 @@ public class EventPreferencesActivity extends PreferenceActivity
             ((EventPreferencesNestedFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
     }
 
-    public Event createEvent(int startupSource, Context context,
-                             long event_id, int new_event_mode, int predefinedEventIndex, boolean leaveSaveMenu) {
+    public Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex,
+                             boolean leaveSaveMenu) {
         Event event;
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 
@@ -238,7 +236,7 @@ public class EventPreferencesActivity extends PreferenceActivity
     }
 
     private void loadPreferences(int new_event_mode, int predefinedEventIndex) {
-        Event event = createEvent(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY, getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
+        Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
 
         if (event != null)
         {
@@ -285,7 +283,7 @@ public class EventPreferencesActivity extends PreferenceActivity
     private void savePreferences(int new_event_mode, int predefinedEventIndex)
     {
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext().getApplicationContext(), false, false, 0);
-        Event event = createEvent(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY, getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
+        Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
 
         String PREFS_NAME = EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
 
@@ -352,10 +350,10 @@ public class EventPreferencesActivity extends PreferenceActivity
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
 
-            TypedValue tv = new TypedValue();
+            //TypedValue tv = new TypedValue();
             //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
 
-            final Display display = getWindowManager().getDefaultDisplay();
+            //final Display display = getWindowManager().getDefaultDisplay();
 
             int circleColor = 0xFFFFFF;
             if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))

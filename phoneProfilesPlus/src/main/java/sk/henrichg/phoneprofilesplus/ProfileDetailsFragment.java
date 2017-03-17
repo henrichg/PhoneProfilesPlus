@@ -31,7 +31,7 @@ public class ProfileDetailsFragment extends Fragment {
      * implement. This mechanism allows activities to be notified.
      */
     // invoked when start profile preference fragment/activity needed
-    public interface OnStartProfilePreferencesFromDetail {
+    interface OnStartProfilePreferencesFromDetail {
         void onStartProfilePreferencesFromDetail(Profile profile);
     }
 

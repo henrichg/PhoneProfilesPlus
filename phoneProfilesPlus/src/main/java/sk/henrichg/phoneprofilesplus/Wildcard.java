@@ -3,7 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 // Copyright (c) 2003-2009, Jodd Team (jodd.org). All Rights Reserved.
 
 
-/**
+/*
  * Checks whether a string matches a given wildcard pattern.
  * Possible patterns allow to match single characters (for example '?') or any count of
  * characters (for example '*'). Wildcard characters can be escaped (by an '\').
@@ -13,7 +13,7 @@ package sk.henrichg.phoneprofilesplus;
  */
 class Wildcard {
 
-    /**
+    /*
      * Checks whether a string matches a given wildcard pattern.
      *
      * @param string  input string
@@ -26,7 +26,7 @@ class Wildcard {
         return match(string, pattern, one, more, 0, 0, caseInsensitive);
     }
 
-    /**
+    /*
      * Checks if two strings are equals or if they {@link ##match(String, String, char, char)}.
      * Useful for cases when matching a lot of equal strings and speed is important.
      */
@@ -38,7 +38,7 @@ class Wildcard {
     }*/
 
 
-    /**
+    /*
      * Internal matching recursive function.
      */
     private static boolean match(String string, String pattern, char one, char more, int stringStartNdx, int patternStartNdx, boolean caseInsensitive) {
@@ -123,18 +123,18 @@ class Wildcard {
 
     // ---------------------------------------------------------------- utilities
 
-    /**
+    /*
      * Matches string to at least one pattern.
      * Returns index of matched pattern, or <code>-1</code> otherwise.
      * @see ##match(String, String, char, char)
      */
-    public static int matchOne(String src, String[] patterns, char one, char more, boolean caseInsensitive) {
+    /*public static int matchOne(String src, String[] patterns, char one, char more, boolean caseInsensitive) {
         for (int i = 0; i < patterns.length; i++) {
             if (match(src, patterns[i], one, more, caseInsensitive)) {
                 return i;
             }
         }
         return -1;
-    }
+    }*/
 
 }

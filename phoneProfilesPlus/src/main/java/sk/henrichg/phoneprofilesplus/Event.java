@@ -103,7 +103,7 @@ class Event {
     private static final String PREF_FORCE_RUN_EVENT_RUNNING = "forceRunEventRunning";
 
     // alarm time offset (miliseconds) for events with generated alarms
-    public static final int EVENT_ALARM_TIME_OFFSET = 15000;
+    static final int EVENT_ALARM_TIME_OFFSET = 15000;
 
     // Empty constructor
     Event(){

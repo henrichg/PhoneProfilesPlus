@@ -5,7 +5,6 @@ import android.app.Application;
 import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -278,10 +277,8 @@ public class PPApplication extends Application {
     {
         boolean contains = false;
         String[] splits = logFilterTags.split("\\|");
-        for (int i = 0; i < splits.length; i++)
-        {
-            if (tag.contains(splits[i]))
-            {
+        for (String split : splits) {
+            if (tag.contains(split)) {
                 contains = true;
                 break;
             }

@@ -431,20 +431,21 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 View contentView = popup.getContentView();
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                int measuredW = contentView.getMeasuredWidth();
-                int measuredH = contentView.getMeasuredHeight();
+                //int measuredW = contentView.getMeasuredWidth();
+                //int measuredH = contentView.getMeasuredHeight();
                 //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","measuredW="+measuredW);
                 //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","measuredH="+measuredH);
 
                 int[] location = new int[2];
                 eventsRunStopIndicator.getLocationOnScreen(location);
 
-                int x = 0;
+                /*int x = 0;
                 int y = 0;
 
                 if (location[0] + eventsRunStopIndicator.getWidth() - measuredW < 0)
                     x = -(location[0] + eventsRunStopIndicator.getWidth() - measuredW);
                 //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","presah="+(location[0] + eventsRunStopIndicator.getWidth() - measuredW));
+                */
 
                 popup.setClippingEnabled(false);
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
@@ -1934,10 +1935,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.apply();
 
-                TypedValue tv = new TypedValue();
+                //TypedValue tv = new TypedValue();
                 //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
 
-                final Display display = getWindowManager().getDefaultDisplay();
+                //final Display display = getWindowManager().getDefaultDisplay();
 
                 int circleColor = 0xFFFFFF;
                 if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))

@@ -26,7 +26,7 @@ import java.util.List;
 public class CalendarsMultiSelectDialogPreference extends DialogPreference
 {
 
-    Context _context = null;;
+    Context _context = null;
     String value = "";
 
     private List<CalendarEvent> calendarList = null;
@@ -287,9 +287,9 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
             {
                 calendar.checked = false;
                 if (notForUnselect) {
-                    for (int i = 0; i < splits.length; i++) {
+                    for (String split : splits) {
                         try {
-                            long calendarId = Long.parseLong(splits[i]);
+                            long calendarId = Long.parseLong(split);
                             //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP", "calendar.calendarId=" + calendar.calendarId);
                             //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP", "calendarId=" + calendarId);
                             if (calendar.calendarId == calendarId)

@@ -92,6 +92,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
     }
 
+    /*
     private void removeAlarm(Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
@@ -128,5 +129,6 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
         else
             alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
     }
+    */
 
 }

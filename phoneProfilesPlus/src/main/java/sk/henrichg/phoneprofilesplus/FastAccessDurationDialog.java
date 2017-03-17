@@ -27,7 +27,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     private int mStartupSource;
     private boolean mInteractive;
     private Activity mActivity;
-    private boolean mLog;
+    //private boolean mLog;
     private String[] afterDoValues;
 
     //Context mContext;

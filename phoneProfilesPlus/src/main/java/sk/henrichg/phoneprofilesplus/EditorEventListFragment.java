@@ -81,7 +81,7 @@ public class EditorEventListFragment extends Fragment {
      * implement. This mechanism allows activities to be notified.
      */
     // invoked when start profile preference fragment/activity needed
-    public interface OnStartEventPreferences {
+    interface OnStartEventPreferences {
         void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex, boolean startTargetHelps);
     }
 

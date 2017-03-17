@@ -50,8 +50,7 @@ public abstract class PreferenceActivity extends AppCompatPreferenceActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB
-                        && getFragmentManager().getBackStackEntryCount() > 0) {
+                if (getFragmentManager().getBackStackEntryCount() > 0) {
                     getFragmentManager().popBackStack();
                 } else {
                     finish();

@@ -15,7 +15,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageButton;
 import android.text.Html;
@@ -34,7 +33,6 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.text.Collator;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -98,7 +96,7 @@ public class GlobalGUIRoutines {
         //languageChanged = restart;
     }
 
-    public static Collator getCollator(Context context)
+    private static Collator getCollator(Context context)
     {
         if (android.os.Build.VERSION.SDK_INT < 24) {
             // get application Locale
@@ -339,12 +337,12 @@ public class GlobalGUIRoutines {
         return sp * context.getResources().getDisplayMetrics().scaledDensity;
     }
 
-    static int dpToPx(int dp)
+    /*static int dpToPx(int dp)
     {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
-    /*static int pxToDp(int px)
+    static int pxToDp(int px)
     {
         return (int) (px / Resources.getSystem().getDisplayMetrics().density);
     } */
@@ -396,7 +394,7 @@ public class GlobalGUIRoutines {
 
         String finalDateTime = "";
 
-        SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Date date;
         if (timeToFormat != null) {
@@ -476,7 +474,7 @@ public class GlobalGUIRoutines {
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
-    public static Point getNavigationBarSize(Context context) {
+    static Point getNavigationBarSize(Context context) {
         Point appUsableSize = getAppUsableScreenSize(context);
         Point realScreenSize = getRealScreenSize(context);
 
@@ -509,7 +507,7 @@ public class GlobalGUIRoutines {
 
         if (Build.VERSION.SDK_INT >= 17) {
             display.getRealSize(size);
-        } else if (Build.VERSION.SDK_INT >= 14) {
+        } else /*if (Build.VERSION.SDK_INT >= 14)*/ {
             try {
                 size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
                 size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
@@ -532,7 +530,7 @@ public class GlobalGUIRoutines {
         return value.data;
     }
 
-    public static int getResourceId(String pVariableName, String pResourcename, Context context)
+    static int getResourceId(String pVariableName, String pResourcename, Context context)
     {
         try {
             return context.getResources().getIdentifier(pVariableName, pResourcename, context.getPackageName());

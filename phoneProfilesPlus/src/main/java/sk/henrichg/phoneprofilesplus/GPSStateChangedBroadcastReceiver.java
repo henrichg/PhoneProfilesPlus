@@ -19,7 +19,7 @@ public class GPSStateChangedBroadcastReceiver extends BroadcastReceiver {
 
         //PPApplication.loadPreferences(context);
 
-        final String action = intent.getAction();
+        //final String action = intent.getAction();
 
         if (intent.getAction().matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);

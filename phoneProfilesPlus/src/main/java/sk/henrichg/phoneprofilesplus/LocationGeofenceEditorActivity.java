@@ -534,7 +534,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     }
 
     @SuppressLint("ParcelCreator")
-    class AddressResultReceiver extends ResultReceiver {
+    private class AddressResultReceiver extends ResultReceiver {
 
         AddressResultReceiver(Handler handler) {
             super(handler);

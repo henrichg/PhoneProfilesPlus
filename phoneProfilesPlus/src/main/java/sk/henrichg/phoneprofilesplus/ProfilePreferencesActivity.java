@@ -28,8 +28,6 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     int newProfileMode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
     int predefinedProfileIndex = 0;
 
-    private ProfilePreferencesNestedFragment fragment;
-
     private int resultCode = RESULT_CANCELED;
 
     public static boolean showSaveMenu = false;
@@ -91,7 +89,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             getSupportActionBar().setTitle(R.string.title_activity_profile_preferences);
         */
 
-        fragment = createFragment(false);
+        ProfilePreferencesNestedFragment fragment = createFragment(false);
 
         if (savedInstanceState == null)
             loadPreferences(newProfileMode, predefinedProfileIndex);
@@ -484,10 +482,10 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
 
-            TypedValue tv = new TypedValue();
+            //TypedValue tv = new TypedValue();
             //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
 
-            final Display display = getWindowManager().getDefaultDisplay();
+            //final Display display = getWindowManager().getDefaultDisplay();
 
             int circleColor = 0xFFFFFF;
             if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))

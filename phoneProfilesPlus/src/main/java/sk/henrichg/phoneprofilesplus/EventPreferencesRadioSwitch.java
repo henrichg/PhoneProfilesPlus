@@ -188,16 +188,18 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_NFC, preferences, context);
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE, preferences, context);
 
+        /*
         if (Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context)
                 != PPApplication.PREFERENCE_ALLOWED)
         {
-            /*Preference preference = prefMng.findPreference(PREF_EVENT_NFC_ENABLED);
+            Preference preference = prefMng.findPreference(PREF_EVENT_NFC_ENABLED);
             if (preference != null) preference.setEnabled(false);
             preference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
             if (preference != null) preference.setEnabled(false);
             preference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);
-            if (preference != null) preference.setEnabled(false);*/
+            if (preference != null) preference.setEnabled(false);
         }
+        */
     }
 
     @Override

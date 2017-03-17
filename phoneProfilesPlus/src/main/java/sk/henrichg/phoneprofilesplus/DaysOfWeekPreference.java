@@ -182,9 +182,8 @@ public class DaysOfWeekPreference extends DialogPreference {
             for (DayOfWeek dayOfWeek : daysOfWeekList)
             {
                 dayOfWeek.checked = false;
-                for (int i = 0; i < splits.length; i++)
-                {
-                    if (dayOfWeek.value.equals(splits[i]))
+                for (String split : splits) {
+                    if (dayOfWeek.value.equals(split))
                         dayOfWeek.checked = true;
                 }
             }

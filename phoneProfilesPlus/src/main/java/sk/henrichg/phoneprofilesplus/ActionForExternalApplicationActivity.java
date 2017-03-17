@@ -59,10 +59,7 @@ public class ActionForExternalApplicationActivity extends Activity {
                 //Log.d("ActionForExternalApplicationActivity.onCreate", "profile_id="+profile_id);
             }
         }
-        else if (action.equals(ACTION_RESTART_EVENTS)) {
-
-        }
-        else {
+        else if (!action.equals(ACTION_RESTART_EVENTS)) {
             String eventName = intent.getStringExtra(EXTRA_EVENT_NAME);
             eventName = eventName.trim();
             //Log.d("ActionForExternalApplicationActivity.onCreate", "eventName=" + eventName);

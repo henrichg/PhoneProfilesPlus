@@ -392,8 +392,8 @@ class EventPreferencesNotification extends EventPreferences {
         PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
 
         String[] splits = this._applications.split("\\|");
-        for (int i = 0; i < splits.length; i++) {
-            String packageName = ApplicationsCache.getPackageName(splits[i]);
+        for (String split : splits) {
+            String packageName = ApplicationsCache.getPackageName(split);
 
             PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(packageName);
             if (notification != null)
@@ -409,10 +409,10 @@ class EventPreferencesNotification extends EventPreferences {
             boolean notificationFound = false;
 
             String[] splits = this._applications.split("\\|");
-            for (int i = 0; i < splits.length; i++) {
-                String packageName = splits[i];
-                if (ApplicationsCache.isShortcut(splits[i]))
-                    packageName = ApplicationsCache.getPackageName(splits[i]);
+            for (String split : splits) {
+                String packageName = split;
+                if (ApplicationsCache.isShortcut(split))
+                    packageName = ApplicationsCache.getPackageName(split);
 
                 PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(packageName);
                 if (notification != null) {

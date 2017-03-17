@@ -25,9 +25,7 @@ class NFCTagReadWriteManager {
 
     boolean tagReaded = false;
 
-    int tagSize;            // tag size
     boolean tagIsWritable;  // is tag writable?
-    String tagType;         // tag type
 
     private TagReadListener onTagReadListener;
     private TagWriteListener onTagWriteListener;
@@ -40,35 +38,35 @@ class NFCTagReadWriteManager {
         this.activity = activity;
     }
 
-    /**
+    /*
      * Sets the listener to read events
      */
     void setOnTagReadListener(TagReadListener onTagReadListener) {
         this.onTagReadListener = onTagReadListener;
     }
 
-    /**
+    /*
      * Sets the listener to write events
      */
     void setOnTagWriteListener(TagWriteListener onTagWriteListener) {
         this.onTagWriteListener = onTagWriteListener;
     }
 
-    /**
+    /*
      * Sets the listener to write error events
      */
     void setOnTagWriteErrorListener(TagWriteErrorListener onTagWriteErrorListener) {
         this.onTagWriteErrorListener = onTagWriteErrorListener;
     }
 
-    /**
+    /*
      * Indicates that we want to write the given text to the next tag detected
      */
     void writeText(String writeText) {
         this.writeText = writeText;
     }
 
-    /**
+    /*
      * Stops a writeText operation
      */
     /*public void undoWriteText() {
@@ -76,7 +74,7 @@ class NFCTagReadWriteManager {
     }*/
 
 
-    /**
+    /*
      * To be executed on OnCreate of the activity
      * @return true if the device has nfc capabilities
      */
@@ -87,7 +85,7 @@ class NFCTagReadWriteManager {
         return nfcAdapter!=null;
     }
 
-    /**
+    /*
      * To be executed on onResume of the activity
      */
     void onActivityResume() {
@@ -98,7 +96,7 @@ class NFCTagReadWriteManager {
             readTagFromIntent(activity.getIntent());
     }
 
-    /**
+    /*
      * To be executed on onPause of the activity
      */
     void onActivityPause() {
@@ -107,7 +105,7 @@ class NFCTagReadWriteManager {
         }
     }
 
-    /**
+    /*
      * To be executed on onNewIntent of activity
      * @param intent x
      */
@@ -130,7 +128,7 @@ class NFCTagReadWriteManager {
         }
     }
 
-    /**
+    /*
      * Reads a tag for a given intent and notifies listeners
      * @param intent x
      */
@@ -143,9 +141,9 @@ class NFCTagReadWriteManager {
                 // get NDEF tag details
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 Ndef ndefTag = Ndef.get(tag);
-                tagSize = ndefTag.getMaxSize();         // tag size
+                //int tagSize = ndefTag.getMaxSize();         // tag size
                 tagIsWritable = ndefTag.isWritable();   // is tag writable?
-                tagType = ndefTag.getType();            // tag type
+                //String tagType = ndefTag.getType();            // tag type
 
                 Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
                 if (rawMsgs != null) {
@@ -162,7 +160,7 @@ class NFCTagReadWriteManager {
         return new String(payload);
     }
 
-    /**
+    /*
      * Writes a text to a tag
      * @param context x
      * @param tag x

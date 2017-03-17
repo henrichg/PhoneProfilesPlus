@@ -26,7 +26,7 @@ import java.util.List;
 public class ContactsMultiSelectDialogPreference extends DialogPreference
 {
 
-    Context _context = null;;
+    Context _context = null;
     String value = "";
 
     MaterialDialog mDialog;
@@ -246,10 +246,9 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             for (Contact contact : contactList)
             {
                 contact.checked = false;
-                for (int i = 0; i < splits.length; i++)
-                {
+                for (String split : splits) {
                     try {
-                        String [] splits2 = splits[i].split("#");
+                        String[] splits2 = split.split("#");
                         long contactId = Long.parseLong(splits2[0]);
                         long phoneId = Long.parseLong(splits2[1]);
                         if ((contact.contactId == contactId) && (contact.phoneId == phoneId))

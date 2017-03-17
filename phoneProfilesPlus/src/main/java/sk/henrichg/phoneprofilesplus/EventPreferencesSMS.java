@@ -348,12 +348,12 @@ class EventPreferencesSMS extends EventPreferences {
             if (this._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
                 // find phone number in groups
                 String[] splits = this._contactGroups.split("\\|");
-                for (int i = 0; i < splits.length; i++) {
+                for (String split : splits) {
                     String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
                     String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
                             + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
                             + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
-                    String[] selectionArgs = new String[]{splits[i]};
+                    String[] selectionArgs = new String[]{split};
                     Cursor mCursor = dataWrapper.context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
                     if (mCursor != null) {
                         while (mCursor.moveToNext()) {
@@ -385,8 +385,8 @@ class EventPreferencesSMS extends EventPreferences {
                 if (!phoneNumberFound) {
                     // find phone number in contacts
                     splits = this._contacts.split("\\|");
-                    for (int i = 0; i < splits.length; i++) {
-                        String[] splits2 = splits[i].split("#");
+                    for (String split : splits) {
+                        String[] splits2 = split.split("#");
 
                         // get phone number from contacts
                         String[] projection = new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.HAS_PHONE_NUMBER};

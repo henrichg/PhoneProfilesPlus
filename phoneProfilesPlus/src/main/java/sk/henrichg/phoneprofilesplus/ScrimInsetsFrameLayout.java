@@ -1,6 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
-/**
+/*
  * Copyright 2014 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -135,7 +135,7 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
         mOnInsetsCallback = onInsetsCallback;
     }*/
 
-    public interface OnInsetsCallback {
+    interface OnInsetsCallback {
         void onInsetsChanged(Rect insets);
     }
 }

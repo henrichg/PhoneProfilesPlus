@@ -10,15 +10,15 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.v4.app.NotificationCompat;
 
-public class ImportantInfoNotification {
+class ImportantInfoNotification {
 
     // this version code must by <= version code in manifest
-    public static final int VERSION_CODE_FOR_NEWS = 2320;
+    static final int VERSION_CODE_FOR_NEWS = 2320;
 
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
 
-    static public void showInfoNotification(Context context) {
+    static void showInfoNotification(Context context) {
         //Log.d("ImportantInfoNotification.showInfoNotification","xxx");
         int packageVersionCode = 0;
         int savedVersionCode = 0;
@@ -113,7 +113,7 @@ public class ImportantInfoNotification {
         notificationManager.cancel(PPApplication.IMPORTANT_INFO_NOTIFICATION_ID);
     }
 
-    static boolean getShowInfoNotificationOnStart(Context context, int version)
+    private static boolean getShowInfoNotificationOnStart(Context context, int version)
     {
         ApplicationPreferences.getSharedPreferences(context);
         boolean show = ApplicationPreferences.preferences.getBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, true);
@@ -121,7 +121,7 @@ public class ImportantInfoNotification {
         return ((_version >= version) && show);
     }
 
-    static void setShowInfoNotificationOnStart(Context context, boolean show, int version)
+    private static void setShowInfoNotificationOnStart(Context context, boolean show, int version)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
@@ -130,13 +130,13 @@ public class ImportantInfoNotification {
         editor.apply();
     }
 
-    static int getShowInfoNotificationOnStartVersion(Context context)
+    private static int getShowInfoNotificationOnStartVersion(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, 0);
     }
 
-    static void setShowInfoNotificationOnStartVersion(Context context, int version)
+    private static void setShowInfoNotificationOnStartVersion(Context context, int version)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();

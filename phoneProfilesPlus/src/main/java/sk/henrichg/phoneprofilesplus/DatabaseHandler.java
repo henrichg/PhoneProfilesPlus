@@ -55,7 +55,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_CALENDAR = 5;
     static final int ETYPE_WIFICONNECTED = 6;
     static final int ETYPE_WIFIINFRONT = 7;
-    static final int ETYPE_SCREEN = 8;
+    private static final int ETYPE_SCREEN = 8;
     static final int ETYPE_BLUETOOTHCONNECTED = 9;
     static final int ETYPE_BLUETOOTHINFRONT = 10;
     static final int ETYPE_SMS = 11;
@@ -1980,9 +1980,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_AIRPLANE_MODE + "=0");
         }
 
-        if (oldVersion < 1850)
+        /*if (oldVersion < 1850)
         {
-        }
+        }*/
 
         if (oldVersion < 1860)
         {
@@ -4678,6 +4678,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     */
 
+    /*
     boolean isBluetoothAdapterNameScanned(String adapterName, int connectionType)
     {
         final String countQuery;
@@ -4711,6 +4712,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return r != 0;
     }
+    */
 
     int updateSMSStartTime(Event event)
     {

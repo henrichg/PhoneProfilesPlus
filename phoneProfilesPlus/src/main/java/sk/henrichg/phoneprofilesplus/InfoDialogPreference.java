@@ -59,7 +59,7 @@ public class InfoDialogPreference extends DialogPreference {
     {
     }
 
-    public void setInfoText(String _infoText) {
+    void setInfoText(String _infoText) {
         this.infoText = _infoText;
     }
 

@@ -17,7 +17,7 @@ final class WifiApManager {
     private Method wifiApEnabled;
 
     WifiApManager(Context context) throws SecurityException, NoSuchMethodException {
-        mWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         wifiControlMethod = mWifiManager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class,boolean.class);
         wifiApConfigurationMethod = mWifiManager.getClass().getMethod("getWifiApConfiguration"/*,null*/);
         //wifiApState = mWifiManager.getClass().getMethod("getWifiApState");

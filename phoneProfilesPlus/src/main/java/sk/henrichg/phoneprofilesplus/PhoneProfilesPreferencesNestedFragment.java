@@ -365,9 +365,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
 
         // Do not bind toggles.
-        if (preference instanceof CheckBoxPreference
-                || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH
-                    && preference instanceof TwoStatePreference)) {
+        if (preference instanceof CheckBoxPreference || preference instanceof TwoStatePreference) {
             return;
         }
 

@@ -228,10 +228,9 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
             for (ContactGroup contactGroup : contactGroupList)
             {
                 contactGroup.checked = false;
-                for (int i = 0; i < splits.length; i++)
-                {
+                for (String split : splits) {
                     try {
-                        long groupId = Long.parseLong(splits[i]);
+                        long groupId = Long.parseLong(split);
                         if (contactGroup.groupId == groupId)
                             contactGroup.checked = true;
                     } catch (Exception ignored) {

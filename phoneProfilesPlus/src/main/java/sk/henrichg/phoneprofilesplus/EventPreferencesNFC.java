@@ -345,9 +345,7 @@ class EventPreferencesNFC extends EventPreferences {
         boolean tagFound = false;
 
         String[] splits = this._nfcTags.split("\\|");
-        for (int i = 0; i < splits.length; i++) {
-            String tag = splits[i];
-
+        for (String tag : splits) {
             if (tag.equals(tagName))
                 tagFound = true;
         }

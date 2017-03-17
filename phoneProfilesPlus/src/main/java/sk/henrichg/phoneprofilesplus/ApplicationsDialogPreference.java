@@ -40,7 +40,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
     List<Application> applicationsList = null;
 
     private MaterialDialog mDialog;
-    ApplicationEditorDialog mEditorDialog;
+    private ApplicationEditorDialog mEditorDialog;
 
     private DragSortListView applicationsListView;
     private LinearLayout linlaProgress;
@@ -279,19 +279,17 @@ public class ApplicationsDialogPreference  extends DialogPreference {
         if (cachedApplicationList != null)
         {
             String[] splits = value.split("\\|");
-            for (int i = 0; i < splits.length; i++)
-            {
+            for (String split : splits) {
                 Application _application = null;
-                for (Application application : cachedApplicationList)
-                {
+                for (Application application : cachedApplicationList) {
                     application.checked = false;
 
                     String packageName;
                     String activityName;
                     String shortcut;
                     String shortcutId = "";
-                    String[] splits2 = splits[i].split("/");
-                    if (splits[i].length() > 2) {
+                    String[] splits2 = split.split("/");
+                    if (split.length() > 2) {
                         if (splits2.length == 2) {
                             shortcut = splits2[0].substring(0, 3);
                             packageName = splits2[0];
@@ -299,8 +297,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                             activityName = splits3[0];
                             if (splits3.length == 2)
                                 shortcutId = splits3[1];
-                        }
-                        else {
+                        } else {
                             shortcut = value.substring(0, 3);
                             packageName = value;
                             activityName = "";
@@ -325,8 +322,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                                     application.shortcutId = 0;
                                 }
                             }
-                        }
-                        else {
+                        } else {
                             if (!shortcut.equals("(s)")) {
                                 if (packagePassed && (!application.shortcut))
                                     application.checked = true;

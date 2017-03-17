@@ -163,7 +163,7 @@ public class ScannerService extends IntentService
                     PPApplication.logE("$$$W ScannerService.onHandleIntent","can scan");
 
                     if (WifiScanAlarmBroadcastReceiver.wifi == null)
-                        WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                        WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
                     if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)) {
                         // service restarted during scanning, disable wifi
@@ -899,7 +899,7 @@ public class ScannerService extends IntentService
 
             if (scanType.equals(SCANNER_TYPE_WIFI)) {
                 if (WifiScanAlarmBroadcastReceiver.wifi == null)
-                    WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                    WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 isScanAlwaysAvailable = WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable();
             }
 

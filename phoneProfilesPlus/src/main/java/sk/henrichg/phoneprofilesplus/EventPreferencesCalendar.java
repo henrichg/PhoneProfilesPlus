@@ -513,8 +513,8 @@ class EventPreferencesCalendar extends EventPreferences {
             while (cur.moveToNext()) {
 
                 boolean calendarFound = false;
-                for (int i = 0; i < splits.length; i++) {
-                    long calendarId = Long.parseLong(splits[i]);
+                for (String split : splits) {
+                    long calendarId = Long.parseLong(split);
                     if (cur.getLong(PROJECTION_CALENDAR_ID_INDEX) == calendarId) {
                         calendarFound = true;
                     }

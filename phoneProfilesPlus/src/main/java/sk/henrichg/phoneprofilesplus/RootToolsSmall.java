@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 class RootToolsSmall {
 
-    private static final HashMap<String, Boolean> BIN_MAP = new HashMap<String, Boolean>();
+    private static final HashMap<String, Boolean> BIN_MAP = new HashMap<>();
 
     private static boolean hasBinary(String binaryName) {
         Boolean exists = BIN_MAP.get(binaryName);
@@ -48,10 +48,8 @@ class RootToolsSmall {
         return hasBinary("/service");
     }
 
-    /**
-     * Runs a command using su binary.
-     */
-    static boolean runSuCommand(String command) {
+    /*
+    private static boolean runSuCommand(String command) {
         if (!isRooted()) {
             return false;
         }
@@ -113,4 +111,5 @@ class RootToolsSmall {
     }
       return false;
     }
+    */
 }

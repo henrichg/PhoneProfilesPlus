@@ -190,7 +190,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
         mLocationRequest = new LocationRequest();
 
-        /**
+        /*
          * The desired interval for location updates. Inexact. Updates may be more or less frequent.
          */
         //int interval = PPApplication.applicationEventLocationUpdateInterval * 60;
@@ -199,7 +199,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             interval = 2 * interval;
         final long UPDATE_INTERVAL_IN_MILLISECONDS = interval * 1000;
 
-        /**
+        /*
          * The fastest rate for active location updates. Exact. Updates will never be more frequent
          * than this value.
          */

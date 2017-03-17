@@ -1,9 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -11,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
@@ -163,6 +158,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
+    /*
     static private void removeAlarm(Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
@@ -199,5 +195,6 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
         else
             alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
     }
+    */
 
 }
