@@ -10,8 +10,8 @@ ext.versions = [
         targetSdk: 25,
         compileSdk: 25,
         buildTools: '25.0.2',
-        publishVersion: '3.5.0.2b',
-        publishVersionCode: 2722,
+        publishVersion: '3.5.0.2',
+        publishVersionCode: 2730,
         gradlePlugin: '2.3.0',
         supportLib: '25.3.0'
 ]
