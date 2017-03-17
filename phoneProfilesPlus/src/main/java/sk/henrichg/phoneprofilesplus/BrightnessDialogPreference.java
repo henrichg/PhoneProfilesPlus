@@ -103,6 +103,7 @@ public class BrightnessDialogPreference extends
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
                 .content(getDialogMessage())
+                .customView(R.layout.activity_brightness_pref_dialog, false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -116,8 +117,8 @@ public class BrightnessDialogPreference extends
                     }
                 });
 
-        View layout = LayoutInflater.from(_context).inflate(R.layout.activity_brightness_pref_dialog, null);
-        onBindDialogView(layout);
+        mDialog = mBuilder.build();
+        View layout = mDialog.getCustomView();
 
         seekBar = (SeekBar)layout.findViewById(R.id.brightnessPrefDialogSeekbar);
         valueText = (TextView)layout.findViewById(R.id.brightnessPrefDialogValueText);
@@ -159,8 +160,6 @@ public class BrightnessDialogPreference extends
 
         enableViews();
 
-        mBuilder.customView(layout, false);
-
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
@@ -170,7 +169,6 @@ public class BrightnessDialogPreference extends
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
-        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 

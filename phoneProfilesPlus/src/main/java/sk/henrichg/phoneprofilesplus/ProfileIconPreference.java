@@ -88,6 +88,7 @@ public class ProfileIconPreference extends DialogPreference {
                 .neutralText(R.string.imageview_resource_file_pref_dialog_gallery_btn)
                 .autoDismiss(false)
                 .content(getDialogMessage())
+                .customView(R.layout.activity_profileicon_pref_dialog, false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -114,10 +115,10 @@ public class ProfileIconPreference extends DialogPreference {
                     }
                 });
 
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_profileicon_pref_dialog, null);
-        onBindDialogView(layout);
-
         getValuePIDP();
+
+        mDialog = mBuilder.build();
+        View layout = mDialog.getCustomView();
 
         GridView gridView = (GridView)layout.findViewById(R.id.profileicon_pref_dlg_gridview);
         adapter = new ProfileIconPreferenceAdapter(prefContext, imageIdentifier, isImageResourceID, useCustomColor, customColor);
@@ -151,8 +152,6 @@ public class ProfileIconPreference extends DialogPreference {
         else
             colorChooserButton.setVisibility(View.GONE);
 
-        mBuilder.customView(layout, false);
-
         final TextView helpText = (TextView)layout.findViewById(R.id.profileicon_pref_dlg_helpText);
 
         ImageView helpIcon = (ImageView)layout.findViewById(R.id.profileicon_pref_dlg_helpIcon);
@@ -170,7 +169,6 @@ public class ProfileIconPreference extends DialogPreference {
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
-        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 

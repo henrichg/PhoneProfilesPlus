@@ -63,7 +63,8 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
                 .icon(getDialogIcon())
                 //.disableDefaultFonts()
                 .autoDismiss(false)
-                .content(getDialogMessage());
+                .content(getDialogMessage())
+                .customView(R.layout.activity_connect_to_ssid_pref_dialog, false);
 
         mBuilder.positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText());
@@ -85,15 +86,13 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
             }
         });
 
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_connect_to_ssid_pref_dialog, null);
-        onBindDialogView(layout);
+        mDialog = mBuilder.build();
+        View layout = mDialog.getCustomView();
 
         listView = (ListView) layout.findViewById(R.id.connect_to_ssid_pref_dlg_listview);
         linlaProgress = (LinearLayout)layout.findViewById(R.id.connect_to_ssid_pref_dlg_linla_progress);
 
         listAdapter = new ConnectToSSIDPreferenceAdapter(context, this);
-
-        mBuilder.customView(layout, false);
 
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
@@ -111,7 +110,6 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
-        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 

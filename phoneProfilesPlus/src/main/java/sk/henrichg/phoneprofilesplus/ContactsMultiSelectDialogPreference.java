@@ -56,6 +56,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                 .negativeText(getNegativeButtonText())
                 .neutralText(R.string.pref_dlg_change_selection_button_unselect_all)
                 .content(getDialogMessage())
+                .customView(R.layout.activity_contacts_multiselect_pref_dialog, false)
                 .autoDismiss(false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -98,8 +99,8 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                     }
                 });
 
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_contacts_multiselect_pref_dialog, null);
-        onBindDialogView(layout);
+        mDialog = mBuilder.build();
+        View layout = mDialog.getCustomView();
 
         linlaProgress = (LinearLayout)layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_progress);
         linlaListView = (LinearLayout)layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_listview);
@@ -134,8 +135,6 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         quickscroll.setIndicatorColor(colorQSHandlebarActive, colorQSHandlebarActive, Color.WHITE);
         quickscroll.setFixedSize(1);
 
-        mBuilder.customView(layout, false);
-
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
@@ -145,7 +144,6 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
-        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 

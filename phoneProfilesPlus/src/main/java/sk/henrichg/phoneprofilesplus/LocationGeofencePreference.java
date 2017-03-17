@@ -68,7 +68,8 @@ public class LocationGeofencePreference extends DialogPreference {
                 .icon(getDialogIcon())
                 //.disableDefaultFonts()
                 .autoDismiss(false)
-                .content(getDialogMessage());
+                .content(getDialogMessage())
+                .customView(R.layout.activity_location_pref_dialog, false);
 
         if (onlyEdit == 0) {
             mBuilder.positiveText(getPositiveButtonText())
@@ -105,8 +106,9 @@ public class LocationGeofencePreference extends DialogPreference {
                 }
             });
         }
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_location_pref_dialog, null);
-        onBindDialogView(layout);
+
+        mDialog = mBuilder.build();
+        View layout = mDialog.getCustomView();
 
         //progressLinearLayout = (LinearLayout) layout.findViewById(R.id.location_pref_dlg_linla_progress);
         //dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.location_pref_dlg_rella_data);
@@ -152,8 +154,6 @@ public class LocationGeofencePreference extends DialogPreference {
 
         });
 
-        mBuilder.customView(layout, false);
-
         /*
         final TextView helpText = (TextView)layout.findViewById(R.id.wifi_ssid_pref_dlg_helpText);
         String helpString = context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
@@ -185,7 +185,6 @@ public class LocationGeofencePreference extends DialogPreference {
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
-        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 

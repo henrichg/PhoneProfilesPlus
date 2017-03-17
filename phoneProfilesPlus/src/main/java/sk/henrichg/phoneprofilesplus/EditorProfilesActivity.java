@@ -1400,8 +1400,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private void exportData()
     {
-        final Activity activity = this;
-
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setTitle(R.string.export_profiles_alert_title);
         dialogBuilder.setMessage(R.string.export_profiles_alert_message);

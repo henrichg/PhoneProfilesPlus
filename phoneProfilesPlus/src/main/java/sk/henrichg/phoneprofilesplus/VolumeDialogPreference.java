@@ -118,6 +118,7 @@ public class VolumeDialogPreference extends
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
                 .content(getDialogMessage())
+                .customView(R.layout.activity_volume_pref_dialog, false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -130,8 +131,8 @@ public class VolumeDialogPreference extends
                     }
                 });
 
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_volume_pref_dialog, null);
-        onBindDialogView(layout);
+        mDialog = mBuilder.build();
+        View layout = mDialog.getCustomView();
 
         seekBar = (SeekBar)layout.findViewById(R.id.volumePrefDialogSeekbar);
         valueText = (TextView)layout.findViewById(R.id.volumePrefDialogValueText);
@@ -161,11 +162,8 @@ public class VolumeDialogPreference extends
         valueText.setEnabled((noChange == 0) && (defaultProfile == 0));
         seekBar.setEnabled((noChange == 0) && (defaultProfile == 0));
 
-        mBuilder.customView(layout, false);
-
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
-        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 

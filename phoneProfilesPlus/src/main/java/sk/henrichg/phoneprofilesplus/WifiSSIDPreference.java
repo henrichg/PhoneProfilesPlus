@@ -72,6 +72,7 @@ public class WifiSSIDPreference extends DialogPreference {
                 .neutralText(R.string.wifi_ssid_pref_dlg_rescan_button)
                 .autoDismiss(false)
                 .content(getDialogMessage())
+                .customView(R.layout.activity_wifi_ssid_pref_dialog, false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -108,8 +109,8 @@ public class WifiSSIDPreference extends DialogPreference {
                     }
                 });
 
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_wifi_ssid_pref_dialog, null);
-        onBindDialogView(layout);
+        mDialog = mBuilder.build();
+        View layout = mDialog.getCustomView();
 
         progressLinearLayout = (LinearLayout) layout.findViewById(R.id.wifi_ssid_pref_dlg_linla_progress);
         dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.wifi_ssid_pref_dlg_rella_data);
@@ -180,8 +181,6 @@ public class WifiSSIDPreference extends DialogPreference {
 
         });
 
-        mBuilder.customView(layout, false);
-
         final TextView helpText = (TextView)layout.findViewById(R.id.wifi_ssid_pref_dlg_helpText);
         String helpString = context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
                             context.getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
@@ -234,7 +233,6 @@ public class WifiSSIDPreference extends DialogPreference {
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
-        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 

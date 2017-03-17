@@ -95,6 +95,7 @@ public class MobileCellsPreference extends DialogPreference {
                 .neutralText(R.string.mobile_cells_pref_dlg_rescan_button)
                 .autoDismiss(false)
                 .content(getDialogMessage())
+                .customView(R.layout.activity_mobile_cells_pref_dialog, false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -125,8 +126,8 @@ public class MobileCellsPreference extends DialogPreference {
                     }
                 });
 
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_mobile_cells_pref_dialog, null);
-        onBindDialogView(layout);
+        mDialog = mBuilder.build();
+        View layout = mDialog.getCustomView();
 
         //progressLinearLayout = (LinearLayout) layout.findViewById(R.id.mobile_cells_pref_dlg_linla_progress);
         //dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.mobile_cells_pref_dlg_rella_data);
@@ -212,8 +213,6 @@ public class MobileCellsPreference extends DialogPreference {
             }
         });
 
-        mBuilder.customView(layout, false);
-
         final TextView helpText = (TextView)layout.findViewById(R.id.mobile_cells_pref_dlg_helpText);
 
         ImageView helpIcon = (ImageView)layout.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
@@ -231,7 +230,6 @@ public class MobileCellsPreference extends DialogPreference {
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
-        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 

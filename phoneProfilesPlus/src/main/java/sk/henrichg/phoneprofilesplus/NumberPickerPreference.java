@@ -54,6 +54,7 @@ public class NumberPickerPreference extends DialogPreference {
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
                 .content(getDialogMessage())
+                .customView(R.layout.activity_number_pref_dialog, false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -69,8 +70,8 @@ public class NumberPickerPreference extends DialogPreference {
                     }
                 });
 
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_number_pref_dialog, null);
-        onBindDialogView(layout);
+        mDialog = mBuilder.build();
+        View layout = mDialog.getCustomView();
 
         /*
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
@@ -97,11 +98,8 @@ public class NumberPickerPreference extends DialogPreference {
         GlobalGUIRoutines.setSeparatorColorForNumberPicker(mNumberPicker, tv.data);
         GlobalGUIRoutines.updateTextAttributesForNumberPicker(mNumberPicker, 18);
 
-        mBuilder.customView(layout, false);
-
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
-        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 
