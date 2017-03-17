@@ -93,7 +93,7 @@ class EventPreferencesSMS extends EventPreferences {
         editor.putString(PREF_EVENT_SMS_CONTACT_LIST_TYPE, String.valueOf(this._contactListType));
         editor.putBoolean(PREF_EVENT_SMS_PERMANENT_RUN, this._permanentRun);
         editor.putString(PREF_EVENT_SMS_DURATION, String.valueOf(this._duration));
-        editor.commit();
+        editor.apply();
     }
 
     @Override

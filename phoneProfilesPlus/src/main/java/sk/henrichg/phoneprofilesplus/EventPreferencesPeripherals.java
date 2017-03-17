@@ -44,7 +44,7 @@ class EventPreferencesPeripherals extends EventPreferences {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_PERIPHERAL_ENABLED, _enabled);
         editor.putString(PREF_EVENT_PERIPHERAL_TYPE, String.valueOf(this._peripheralType));
-        editor.commit();
+        editor.apply();
     }
 
     @Override

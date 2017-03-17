@@ -74,7 +74,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         editor.putString(PREF_EVENT_RADIO_SWITCH_GPS, String.valueOf(this._gps));
         editor.putString(PREF_EVENT_RADIO_SWITCH_NFC, String.valueOf(this._nfc));
         editor.putString(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE, String.valueOf(this._airplaneMode));
-        editor.commit();
+        editor.apply();
     }
 
     @Override

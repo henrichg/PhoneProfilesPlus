@@ -247,7 +247,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_EVENT_BLUETOOTH_SCAN_REQUEST, startScan);
-        editor.commit();
+        editor.apply();
     }
 
     static public boolean getLEScanRequest(Context context)
@@ -266,7 +266,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             ApplicationPreferences.getSharedPreferences(context);
             Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, startScan);
-            editor.commit();
+            editor.apply();
         }
     }
 
@@ -281,7 +281,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS, startScan);
-        editor.commit();
+        editor.apply();
     }
 
     static public boolean getWaitForLEResults(Context context)
@@ -300,7 +300,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             ApplicationPreferences.getSharedPreferences(context);
             Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS, startScan);
-            editor.commit();
+            editor.apply();
         }
     }
 
@@ -488,7 +488,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN, setEnabled);
-        editor.commit();
+        editor.apply();
     }
 
     static public int getBluetoothType(BluetoothDevice device) {
@@ -569,7 +569,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             editor.putString(SCAN_RESULT_DEVICE_PREF+i, json);
         }
 
-        editor.commit();
+        editor.apply();
     }
 
     public static List<BluetoothDeviceData> getScanResults(Context context)
@@ -617,7 +617,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         editor.clear();
         editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
 
-        editor.commit();
+        editor.apply();
 
         preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_LE_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
         editor = preferences.edit();
@@ -625,7 +625,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         editor.clear();
         editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
 
-        editor.commit();
+        editor.apply();
     }
 
     public static void saveCLScanResults(Context context, List<BluetoothDeviceData> scanResults)
@@ -644,7 +644,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             editor.putString(SCAN_RESULT_DEVICE_PREF+i, json);
         }
 
-        editor.commit();
+        editor.apply();
     }
 
     public static void saveLEScanResults(Context context, List<BluetoothDeviceData> scanResults)
@@ -663,7 +663,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             editor.putString(SCAN_RESULT_DEVICE_PREF+i, json);
         }
 
-        editor.commit();
+        editor.apply();
     }
 
     /*

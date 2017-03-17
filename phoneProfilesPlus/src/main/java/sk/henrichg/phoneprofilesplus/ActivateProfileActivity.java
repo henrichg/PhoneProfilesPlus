@@ -369,7 +369,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.commit();
+                editor.apply();
 
                 int circleColor = 0xFFFFFF;
                 if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
@@ -436,7 +436,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
                         editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
-                        editor.commit();
+                        editor.apply();
                     }
                 });
                 targetHelpsSequenceStarted = true;

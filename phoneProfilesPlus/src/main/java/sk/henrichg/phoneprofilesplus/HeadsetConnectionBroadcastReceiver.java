@@ -75,7 +75,7 @@ public class HeadsetConnectionBroadcastReceiver extends WakefulBroadcastReceiver
             editor.putBoolean(PREF_EVENT_HEADSET_CONNECTED, connectedHeadphones);
             editor.putBoolean(PREF_EVENT_HEADSET_MICROPHONE, connectedMicrophone);
             editor.putBoolean(PREF_EVENT_HEADSET_BLUETOOTH, bluetoothHeadset);
-            editor.commit();
+            editor.apply();
         }
 
         if (!PPApplication.getApplicationStarted(context, true))

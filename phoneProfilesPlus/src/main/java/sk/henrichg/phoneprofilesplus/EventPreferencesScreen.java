@@ -51,7 +51,7 @@ class EventPreferencesScreen extends EventPreferences {
         editor.putBoolean(PREF_EVENT_SCREEN_ENABLED, _enabled);
         editor.putString(PREF_EVENT_SCREEN_EVENT_TYPE, String.valueOf(this._eventType));
         editor.putBoolean(PREF_EVENT_SCREEN_WHEN_UNLOCKED, _whenUnlocked);
-        editor.commit();
+        editor.apply();
     }
 
     @Override

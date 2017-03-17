@@ -257,7 +257,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_EVENT_WIFI_SCAN_REQUEST, scanRequest);
-        editor.commit();
+        editor.apply();
         PPApplication.logE("@@@ WifiScanAlarmBroadcastReceiver.setScanRequest","scanRequest="+scanRequest);
     }
 
@@ -272,7 +272,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_EVENT_WIFI_WAIT_FOR_RESULTS, waitForResults);
-        editor.commit();
+        editor.apply();
         PPApplication.logE("$$$ WifiScanAlarmBroadcastReceiver.setWaitForResults", "waitForResults=" + waitForResults);
     }
 
@@ -329,7 +329,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_EVENT_WIFI_ENABLED_FOR_SCAN, setEnabled);
-        editor.commit();
+        editor.apply();
     }
 
     static public void fillWifiConfigurationList(Context context)
@@ -465,7 +465,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
             }
 
-            editor.commit();
+            editor.apply();
         }
     }
 
@@ -515,7 +515,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
             }
 
-            editor.commit();
+            editor.apply();
         }
     }
 
@@ -527,7 +527,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             editor.clear();
             editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
 
-            editor.commit();
+            editor.apply();
         }
     }
 

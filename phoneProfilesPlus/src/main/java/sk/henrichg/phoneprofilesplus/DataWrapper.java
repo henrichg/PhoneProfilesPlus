@@ -564,7 +564,7 @@ public class DataWrapper {
             ApplicationPreferences.getSharedPreferences(context);
             Editor editor = ApplicationPreferences.preferences.edit();
             editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
-            editor.commit();
+            editor.apply();
         }
     }
 
@@ -583,7 +583,7 @@ public class DataWrapper {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putString(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE));
-        editor.commit();
+        editor.apply();
     }
 
     void refreshProfileIcon(Profile profile, boolean monochrome, int monochromeValue) {

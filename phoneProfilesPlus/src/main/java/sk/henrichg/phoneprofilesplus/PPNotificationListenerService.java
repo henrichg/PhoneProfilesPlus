@@ -393,7 +393,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 editor.putString(POSTED_NOTIFICATIONS_PACKAGE_PREF + i, json);
             }
 
-            editor.commit();
+            editor.apply();
         }
     }
 

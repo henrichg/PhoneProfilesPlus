@@ -462,7 +462,7 @@ public class ActivateProfileListFragment extends Fragment {
 
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.commit();
+                editor.apply();
 
                 showAdapterTargetHelps();
             }

@@ -262,7 +262,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                     public void onClick(DialogInterface dialog, int which) {
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
-                        editor.commit();
+                        editor.apply();
                         savePreferences(new_event_mode, predefinedEventIndex);
                         resultCode = RESULT_OK;
                         finish();
@@ -348,7 +348,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
-            editor.commit();
+            editor.apply();
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
 

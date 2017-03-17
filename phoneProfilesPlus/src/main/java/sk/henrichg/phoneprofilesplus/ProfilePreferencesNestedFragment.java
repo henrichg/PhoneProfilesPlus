@@ -32,7 +32,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     protected Context context;
 
     static final String PREFS_NAME_ACTIVITY = "profile_preferences_activity";
-    static final String PREFS_NAME_FRAGMENT = "profile_preferences_fragment";
+    //static final String PREFS_NAME_FRAGMENT = "profile_preferences_fragment";
     static final String PREFS_NAME_DEFAULT_PROFILE = PPApplication.DEFAULT_PROFILE_PREFS_NAME;
 
     static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
@@ -75,14 +75,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         String PREFS_NAME;
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
             PREFS_NAME = PREFS_NAME_ACTIVITY;
-        else
+        /*else
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
-            PREFS_NAME = PREFS_NAME_FRAGMENT;
+            PREFS_NAME = PREFS_NAME_FRAGMENT;*/
         else
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
             PREFS_NAME = PREFS_NAME_DEFAULT_PROFILE;
         else
-            PREFS_NAME = PREFS_NAME_FRAGMENT;
+            PREFS_NAME = PREFS_NAME_ACTIVITY;
         return PREFS_NAME;
     }
 

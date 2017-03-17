@@ -1165,49 +1165,49 @@ class Permissions {
     }
 
 
-    static public boolean getShowRequestWriteSettingsPermission(Context context)
+    static boolean getShowRequestWriteSettingsPermission(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getBoolean(PREF_SHOW_REQUEST_WRITE_SETTINGS_PERMISSION, true);
     }
 
-    static public void setShowRequestWriteSettingsPermission(Context context, boolean value)
+    static void setShowRequestWriteSettingsPermission(Context context, boolean value)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_SHOW_REQUEST_WRITE_SETTINGS_PERMISSION, value);
-        editor.commit();
+        editor.apply();
     }
 
-    static public boolean getShowRequestAccessNotificationPolicyPermission(Context context)
+    static boolean getShowRequestAccessNotificationPolicyPermission(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getBoolean(PREF_SHOW_REQUEST_ACCESS_NOTIFICATION_POLICY_PERMISSION, true);
     }
 
-    static public void setShowRequestAccessNotificationPolicyPermission(Context context, boolean value)
+    static void setShowRequestAccessNotificationPolicyPermission(Context context, boolean value)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_SHOW_REQUEST_ACCESS_NOTIFICATION_POLICY_PERMISSION, value);
-        editor.commit();
+        editor.apply();
     }
 
-    static public boolean getShowRequestDrawOverlaysPermission(Context context)
+    static boolean getShowRequestDrawOverlaysPermission(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getBoolean(PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION, true);
     }
 
-    static public void setShowRequestDrawOverlaysPermission(Context context, boolean value)
+    static void setShowRequestDrawOverlaysPermission(Context context, boolean value)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION, value);
-        editor.commit();
+        editor.apply();
     }
 
-    static public List<Permissions.PermissionType> getMergedPermissions(Context context)
+    static List<Permissions.PermissionType> getMergedPermissions(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_PREFS_NAME, Context.MODE_PRIVATE);
 
@@ -1228,7 +1228,7 @@ class Permissions {
         return permissions;
     }
 
-    static public void addMergedPermissions(Context context, List<Permissions.PermissionType> permissions)
+    static void addMergedPermissions(Context context, List<Permissions.PermissionType> permissions)
     {
         List<Permissions.PermissionType> savedPermissions = getMergedPermissions(context);
 
@@ -1261,14 +1261,14 @@ class Permissions {
             editor.putString(PREF_MERGED_PERMISSIONS+i, json);
         }
 
-        editor.commit();
+        editor.apply();
     }
 
-    static public void clearMergedPermissions(Context context){
+    static void clearMergedPermissions(Context context){
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
     }
 
 }

@@ -749,7 +749,7 @@ public class EditorEventListFragment extends Fragment {
 
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.commit();
+                editor.apply();
 
                 int circleColor = 0xFFFFFF;
                 if (ApplicationPreferences.applicationTheme(getActivity()).equals("dark"))
@@ -794,7 +794,7 @@ public class EditorEventListFragment extends Fragment {
                                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
                                 if (filterType == FILTER_TYPE_START_ORDER)
                                     editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
-                                editor.commit();
+                                editor.apply();
                             }
                         });
                 targetHelpsSequenceStarted = true;
@@ -831,7 +831,7 @@ public class EditorEventListFragment extends Fragment {
             editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
             if (filterType == FILTER_TYPE_START_ORDER)
                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
-            editor.commit();
+            editor.apply();
         }
     }
 

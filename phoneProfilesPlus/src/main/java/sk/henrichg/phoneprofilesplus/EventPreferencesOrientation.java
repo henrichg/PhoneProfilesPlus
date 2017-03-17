@@ -71,7 +71,7 @@ class EventPreferencesOrientation extends EventPreferences {
 
         editor.putString(PREF_EVENT_ORIENTATION_DISTANCE, String.valueOf(this._distance));
         editor.putString(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS, this._ignoredApplications);
-        editor.commit();
+        editor.apply();
     }
 
     @Override

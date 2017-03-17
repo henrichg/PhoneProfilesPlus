@@ -383,7 +383,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         {
             Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(preferenceKey, isLargeLayout);
-            editor.commit();
+            editor.apply();
         }
         
     }
@@ -398,7 +398,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(preferenceKey, isLargeLayout);
-        editor.commit();
+        editor.apply();
     }
 
     @Override
@@ -415,7 +415,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         // remove preference, will by reseted in setLayoutParams
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.remove(preferenceKey);
-        editor.commit();
+        editor.apply();
 
 
         updateWidget(context, appWidgetId);

@@ -123,7 +123,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putString(PREF_APPLICATION_IN_FOREGROUND, application);
-        editor.commit();
+        editor.apply();
     }
 
 }

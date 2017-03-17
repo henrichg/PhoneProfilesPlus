@@ -109,7 +109,7 @@ class ApplicationPreferences {
             applicationTheme = "material";
             SharedPreferences.Editor editor = getSharedPreferences(context).edit();
             editor.putString(PREF_APPLICATION_THEME, applicationTheme);
-            editor.commit();
+            editor.apply();
         }
         return applicationTheme;
     }

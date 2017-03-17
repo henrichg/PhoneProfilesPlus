@@ -46,7 +46,7 @@ class EventPreferencesLocation extends EventPreferences {
             editor.putBoolean(PREF_EVENT_LOCATION_ENABLED, _enabled);
             editor.putString(PREF_EVENT_LOCATION_GEOFENCES, this._geofences);
             editor.putBoolean(PREF_EVENT_LOCATION_WHEN_OUTSIDE, this._whenOutside);
-            editor.commit();
+            editor.apply();
         //}
     }
 

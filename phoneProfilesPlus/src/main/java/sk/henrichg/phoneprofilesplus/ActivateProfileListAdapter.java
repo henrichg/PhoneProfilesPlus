@@ -247,7 +247,7 @@ class ActivateProfileListAdapter extends BaseAdapter
 
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
-            editor.commit();
+            editor.apply();
 
             Rect profileItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
             int[] screenLocation = new int[2];

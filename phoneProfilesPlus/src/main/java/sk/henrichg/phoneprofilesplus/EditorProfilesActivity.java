@@ -771,7 +771,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             ApplicationPreferences.getSharedPreferences(this);
             Editor editor = ApplicationPreferences.preferences.edit();
             editor.putInt(SP_EDITOR_DRAWER_SELECTED_ITEM, drawerSelectedItem);
-            editor.commit();
+            editor.apply();
 
             Bundle arguments;
 
@@ -907,7 +907,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         ApplicationPreferences.getSharedPreferences(this);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
-        editor.commit();
+        editor.apply();
 
         int _eventsOrderType;
         if (drawerSelectedItem == DSI_EVENTS_START_ORDER) {
@@ -1088,6 +1088,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         dialogBuilder.show();
     }
 
+    @SuppressLint("ApplySharedPref")
     @SuppressWarnings({ "unchecked" })
     private boolean importApplicationPreferences(File src, int what) {
         boolean res = false;
@@ -1239,7 +1240,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         Editor editor = ApplicationPreferences.preferences.edit();
                         editor.putInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
                         editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
-                        editor.commit();
+                        editor.apply();
 
                         Permissions.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
                         Permissions.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
@@ -1363,6 +1364,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             importDataAlert(false);
     }
 
+    @SuppressLint("ApplySharedPref")
     private boolean exportApplicationPreferences(File dst, int what) {
         boolean res = false;
         ObjectOutputStream output = null;
@@ -1373,6 +1375,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 pref = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
             else
                 pref = getSharedPreferences(PPApplication.DEFAULT_PROFILE_PREFS_NAME, Activity.MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.commit();
             output.writeObject(pref.getAll());
 
             res = true;
@@ -1527,7 +1531,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     editor.putLong(SP_DATA_DETAILS_DATA_ID, ((ProfileDetailsFragment) fragment).profile_id);
                     editor.putInt(SP_DATA_DETAILS_EDIT_MODE, ((ProfileDetailsFragment) fragment).editMode);
                     editor.putInt(SP_DATA_DETAILS_PREDEFINED_PROFILE_INDEX, ((ProfileDetailsFragment) fragment).predefinedProfileIndex);
-                    editor.commit();
+                    editor.apply();
                 }
             }
             else
@@ -1540,7 +1544,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     editor.putLong(SP_DATA_DETAILS_DATA_ID, ((EventDetailsFragment) fragment).event_id);
                     editor.putInt(SP_DATA_DETAILS_EDIT_MODE, ((EventDetailsFragment) fragment).editMode);
                     editor.putInt(SP_DATA_DETAILS_PREDEFINED_EVENT_INDEX, ((EventDetailsFragment) fragment).predefinedEventIndex);
-                    editor.commit();
+                    editor.apply();
                 }
             }
         }
@@ -1928,7 +1932,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.commit();
+                editor.apply();
 
                 TypedValue tv = new TypedValue();
                 //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
@@ -2018,7 +2022,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             if (drawerSelectedItem == DSI_EVENTS_START_ORDER)
                                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                         }
-                        editor.commit();
+                        editor.apply();
                     }
                 });
                 targetHelpsSequenceStarted = true;

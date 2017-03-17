@@ -412,7 +412,7 @@ class EditorProfileListAdapter extends BaseAdapter
 
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.commit();
+                editor.apply();
 
                 Rect profileItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
                 int[] screenLocation = new int[2];
@@ -423,7 +423,7 @@ class EditorProfileListAdapter extends BaseAdapter
 
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
-                    editor.commit();
+                    editor.apply();
 
                     sequence.targets(
                             TapTarget.forBounds(profileItemTarget, activity.getString(R.string.editor_activity_targetHelps_profilePreferences_title), activity.getString(R.string.editor_activity_targetHelps_profilePreferences_description))
@@ -482,7 +482,7 @@ class EditorProfileListAdapter extends BaseAdapter
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
-                    editor.commit();
+                    editor.apply();
 
                     final TapTargetSequence sequence = new TapTargetSequence(activity);
                     sequence.targets(

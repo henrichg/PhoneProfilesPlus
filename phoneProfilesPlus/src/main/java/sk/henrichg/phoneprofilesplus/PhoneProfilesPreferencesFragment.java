@@ -90,7 +90,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
                 preference.setEnabled(false);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, true);
-                editor.commit();
+                editor.apply();
             }
         }
 
@@ -142,7 +142,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_WIFI_RESCAN).setEnabled(false);*/
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, false);
-            editor.commit();
+            editor.apply();
             Preference preference = prefMng.findPreference("wifiScanningCategory");
             preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                     ": "+ PPApplication.getNotAllowedPreferenceReasonString(getActivity()));
@@ -160,7 +160,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
                 prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION).setEnabled(false);*/
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, false);
-            editor.commit();
+            editor.apply();
             Preference preference = prefMng.findPreference("bluetoothScanninCategory");
             preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                     ": "+ PPApplication.getNotAllowedPreferenceReasonString(getActivity()));

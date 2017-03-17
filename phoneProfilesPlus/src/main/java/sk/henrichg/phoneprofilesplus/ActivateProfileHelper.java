@@ -543,7 +543,7 @@ public class ActivateProfileHelper {
 
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
-                editor.commit();
+                editor.apply();
             } catch (Exception ignored) { }
         }
     }
@@ -2918,102 +2918,102 @@ public class ActivateProfileHelper {
     }
 
 
-    static public int getRingerVolume(Context context)
+    static int getRingerVolume(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getInt(PREF_RINGER_VOLUME, -999);
     }
 
-    static public void setRingerVolume(Context context, int volume)
+    static void setRingerVolume(Context context, int volume)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_RINGER_VOLUME, volume);
-        editor.commit();
+        editor.apply();
     }
 
-    static public int getNotificationVolume(Context context)
+    static int getNotificationVolume(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getInt(PREF_NOTIFICATION_VOLUME, -999);
     }
 
-    static public void setNotificationVolume(Context context, int volume)
+    static void setNotificationVolume(Context context, int volume)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_NOTIFICATION_VOLUME, volume);
-        editor.commit();
+        editor.apply();
     }
 
-    static public int getRingerMode(Context context)
+    static int getRingerMode(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getInt(PREF_RINGER_MODE, 0);
     }
 
-    static public void setRingerMode(Context context, int mode)
+    static void setRingerMode(Context context, int mode)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_RINGER_MODE, mode);
-        editor.commit();
+        editor.apply();
     }
 
-    static public int getZenMode(Context context)
+    static int getZenMode(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getInt(PREF_ZEN_MODE, 0);
     }
 
-    static public void setZenMode(Context context, int mode)
+    static void setZenMode(Context context, int mode)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_ZEN_MODE, mode);
-        editor.commit();
+        editor.apply();
     }
 
-    static public boolean getLockscreenDisabled(Context context)
+    static boolean getLockscreenDisabled(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getBoolean(PREF_LOCKSCREEN_DISABLED, false);
     }
 
-    static public void setLockscreenDisabled(Context context, boolean disabled)
+    static void setLockscreenDisabled(Context context, boolean disabled)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_LOCKSCREEN_DISABLED, disabled);
-        editor.commit();
+        editor.apply();
     }
 
-    static public boolean getScreenUnlocked(Context context)
+    static boolean getScreenUnlocked(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getBoolean(PREF_SCREEN_UNLOCKED, true);
     }
 
-    static public void setScreenUnlocked(Context context, boolean unlocked)
+    static void setScreenUnlocked(Context context, boolean unlocked)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_SCREEN_UNLOCKED, unlocked);
-        editor.commit();
+        editor.apply();
     }
 
-    static public int getActivatedProfileScreenTimeout(Context context)
+    static int getActivatedProfileScreenTimeout(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT, 0);
     }
 
-    static public void setActivatedProfileScreenTimeout(Context context, int timeout)
+    static void setActivatedProfileScreenTimeout(Context context, int timeout)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT, timeout);
-        editor.commit();
+        editor.apply();
     }
 
 }

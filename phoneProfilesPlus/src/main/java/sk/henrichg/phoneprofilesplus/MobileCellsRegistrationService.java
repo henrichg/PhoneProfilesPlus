@@ -151,7 +151,7 @@ public class MobileCellsRegistrationService extends Service {
                 editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
             else
                 editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, PhoneProfilesService.phoneStateScanner.enabledAutoRegistration);
-            editor.commit();
+            editor.apply();
         }
     }
 
@@ -168,7 +168,7 @@ public class MobileCellsRegistrationService extends Service {
             ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, remainingDuration);
-            editor.commit();
+            editor.apply();
         }
     }
 

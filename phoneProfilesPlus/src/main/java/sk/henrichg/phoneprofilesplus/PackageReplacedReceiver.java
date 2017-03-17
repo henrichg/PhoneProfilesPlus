@@ -53,7 +53,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                         PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "applicationEventUsePriority=true");
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
-                        editor.commit();
+                        editor.apply();
                         //PPApplication.loadPreferences(context);
                     }
                     if (actualVersionCode <= 2400) {
@@ -68,7 +68,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                             PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "notificationShowInStatusBar=false");
                             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
-                            editor.commit();
+                            editor.apply();
                             //PPApplication.loadPreferences(context);
                         }
                     }
@@ -90,7 +90,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                         editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS, false);
                         editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, false);
-                        editor.commit();
+                        editor.apply();
                     }
                 }
             } catch (PackageManager.NameNotFoundException e) {

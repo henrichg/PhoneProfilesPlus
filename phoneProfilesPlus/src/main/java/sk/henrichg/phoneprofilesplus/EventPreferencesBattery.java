@@ -57,7 +57,7 @@ class EventPreferencesBattery extends EventPreferences {
         editor.putString(PREF_EVENT_BATTERY_LEVEL_HIGHT, String.valueOf(this._levelHight));
         editor.putBoolean(PREF_EVENT_BATTERY_CHARGING, this._charging);
         editor.putBoolean(PREF_EVENT_BATTERY_POWER_SAVE_MODE, this._powerSaveMode);
-        editor.commit();
+        editor.apply();
     }
 
     @Override

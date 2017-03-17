@@ -75,7 +75,7 @@ class EventPreferencesNotification extends EventPreferences {
             editor.putBoolean(PREF_EVENT_NOTIFICATION_PERMANENT_RUN, this._permanentRun);
             editor.putString(PREF_EVENT_NOTIFICATION_DURATION, String.valueOf(this._duration));
             editor.putBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, _endWhenRemoved);
-            editor.commit();
+            editor.apply();
         }
     }
 

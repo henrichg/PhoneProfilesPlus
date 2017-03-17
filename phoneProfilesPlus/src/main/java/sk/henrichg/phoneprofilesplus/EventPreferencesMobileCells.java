@@ -47,7 +47,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         editor.putString(PREF_EVENT_MOBILE_CELLS_CELLS, this._cells);
         editor.putBoolean(PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE, this._whenOutside);
         editor.putString(PREF_EVENT_MOBILE_CELLS_REGISTRATION, Long.toString(_event._id));
-        editor.commit();
+        editor.apply();
     }
 
     @Override

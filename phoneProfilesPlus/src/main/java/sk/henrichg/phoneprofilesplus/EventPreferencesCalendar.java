@@ -106,7 +106,7 @@ class EventPreferencesCalendar extends EventPreferences {
         editor.putString(PREF_EVENT_CALENDAR_AVAILABILITY, String.valueOf(_availability));
         editor.putBoolean(PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS, _ignoreAllDayEvents);
         editor.putString(PREF_EVENT_CALENDAR_START_BEFORE_EVENT, Integer.toString(_startBeforeEvent));
-        editor.commit();
+        editor.apply();
     }
 
     @Override

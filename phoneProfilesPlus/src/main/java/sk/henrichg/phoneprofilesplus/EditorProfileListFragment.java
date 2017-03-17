@@ -932,7 +932,7 @@ public class EditorProfileListFragment extends Fragment {
 
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.commit();
+                editor.apply();
 
                 int circleColor = 0xFFFFFF;
                 if (ApplicationPreferences.applicationTheme(getActivity()).equals("dark"))
@@ -977,7 +977,7 @@ public class EditorProfileListFragment extends Fragment {
                                 editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
                                 if (filterType == FILTER_TYPE_SHOW_IN_ACTIVATOR)
                                     editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
-                                editor.commit();
+                                editor.apply();
                             }
                         });
                 targetHelpsSequenceStarted = true;
@@ -1015,7 +1015,7 @@ public class EditorProfileListFragment extends Fragment {
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
-            editor.commit();
+            editor.apply();
         }
     }
 

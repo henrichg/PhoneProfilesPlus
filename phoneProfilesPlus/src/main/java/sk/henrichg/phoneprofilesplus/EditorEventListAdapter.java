@@ -579,7 +579,7 @@ class EditorEventListAdapter extends BaseAdapter
 
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.commit();
+                editor.apply();
 
                 Rect eventItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
                 int[] screenLocation = new int[2];
@@ -590,7 +590,7 @@ class EditorEventListAdapter extends BaseAdapter
 
                 if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
-                    editor.commit();
+                    editor.apply();
 
                     sequence.targets(
                             TapTarget.forBounds(eventItemTarget, activity.getString(R.string.editor_activity_targetHelps_eventPreferences_title), activity.getString(R.string.editor_activity_targetHelps_eventPreferences_description))
@@ -650,7 +650,7 @@ class EditorEventListAdapter extends BaseAdapter
                 if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
-                    editor.commit();
+                    editor.apply();
 
                     final TapTargetSequence sequence = new TapTargetSequence(activity);
                     sequence.targets(

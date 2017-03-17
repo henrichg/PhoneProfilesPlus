@@ -55,7 +55,7 @@ class EventPreferencesWifi extends EventPreferences {
         editor.putBoolean(PREF_EVENT_WIFI_ENABLED, _enabled);
         editor.putString(PREF_EVENT_WIFI_SSID, this._SSID);
         editor.putString(PREF_EVENT_WIFI_CONNECTION_TYPE, String.valueOf(this._connectionType));
-        editor.commit();
+        editor.apply();
     }
 
     @Override

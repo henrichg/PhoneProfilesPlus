@@ -62,7 +62,7 @@ class EventPreferencesNFC extends EventPreferences {
         editor.putString(PREF_EVENT_NFC_NFC_TAGS, _nfcTags);
         editor.putBoolean(PREF_EVENT_NFC_PERMANENT_RUN, this._permanentRun);
         editor.putString(PREF_EVENT_NFC_DURATION, String.valueOf(this._duration));
-        editor.commit();
+        editor.apply();
     }
 
     @Override

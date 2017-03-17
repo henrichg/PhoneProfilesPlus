@@ -182,7 +182,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                 editor.putString(CONNECTED_DEVICES_DEVICE_PREF + i, json);
             }
 
-            editor.commit();
+            editor.apply();
         }
     }
 

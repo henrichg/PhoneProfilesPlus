@@ -23,7 +23,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     public static MobileCellsPreference.PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver;
 
     static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
-    static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
+    //static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
 
     static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
     static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
@@ -72,11 +72,11 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         String PREFS_NAME;
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
             PREFS_NAME = PREFS_NAME_ACTIVITY;
-        else
+        /*else
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
-            PREFS_NAME = PREFS_NAME_FRAGMENT;
+            PREFS_NAME = PREFS_NAME_FRAGMENT;*/
         else
-            PREFS_NAME = PREFS_NAME_FRAGMENT;
+            PREFS_NAME = PREFS_NAME_ACTIVITY;
         return PREFS_NAME;
     }
 

@@ -1842,32 +1842,32 @@ public class Profile {
         return featurePresented;
     }
 
-    static public long getActivatedProfileForDuration(Context context)
+    static long getActivatedProfileForDuration(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, 0);
     }
 
-    static public void setActivatedProfileForDuration(Context context, long profileId)
+    static void setActivatedProfileForDuration(Context context, long profileId)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, profileId);
-        editor.commit();
+        editor.apply();
     }
 
-    static public long getActivatedProfileEndDurationTime(Context context)
+    static long getActivatedProfileEndDurationTime(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
     }
 
-    static public void setActivatedProfileEndDurationTime(Context context, long time)
+    static void setActivatedProfileEndDurationTime(Context context, long time)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
-        editor.commit();
+        editor.apply();
     }
 
 

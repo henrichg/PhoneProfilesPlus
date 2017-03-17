@@ -53,7 +53,7 @@ class EventPreferencesApplication extends EventPreferences {
             editor.putBoolean(PREF_EVENT_APPLICATION_ENABLED, _enabled);
             editor.putString(PREF_EVENT_APPLICATION_APPLICATIONS, this._applications);
             //editor.putString(PREF_EVENT_NOTIFICATION_DURATION, String.valueOf(this._duration));
-            editor.commit();
+            editor.apply();
         //}
     }
 

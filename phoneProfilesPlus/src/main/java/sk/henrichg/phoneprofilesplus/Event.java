@@ -468,7 +468,7 @@ class Event {
         this._eventPreferencesMobileCells.loadSharedPreferences(preferences);
         this._eventPreferencesNFC.loadSharedPreferences(preferences);
         this._eventPreferencesRadioSwitch.loadSharedPreferences(preferences);
-        editor.commit();
+        editor.apply();
     }
 
     public void saveSharedPreferences(SharedPreferences preferences, Context context)
@@ -1773,40 +1773,40 @@ class Event {
         return ApplicationPreferences.preferences.getBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, true);
     }
 
-    static public void setGlobalEventsRuning(Context context, boolean globalEventsRuning)
+    static void setGlobalEventsRuning(Context context, boolean globalEventsRuning)
     {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, globalEventsRuning);
-        editor.commit();
+        editor.apply();
     }
 
-    static public boolean getEventsBlocked(Context context)
+    static boolean getEventsBlocked(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getBoolean(PREF_EVENTS_BLOCKED, false);
     }
 
-    static public void setEventsBlocked(Context context, boolean eventsBlocked)
+    static void setEventsBlocked(Context context, boolean eventsBlocked)
     {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_EVENTS_BLOCKED, eventsBlocked);
-        editor.commit();
+        editor.apply();
     }
 
-    static public boolean getForceRunEventRunning(Context context)
+    static boolean getForceRunEventRunning(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getBoolean(PREF_FORCE_RUN_EVENT_RUNNING, false);
     }
 
-    static public void setForceRunEventRunning(Context context, boolean forceRunEventRunning)
+    static void setForceRunEventRunning(Context context, boolean forceRunEventRunning)
     {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_FORCE_RUN_EVENT_RUNNING, forceRunEventRunning);
-        editor.commit();
+        editor.apply();
     }
 
 }

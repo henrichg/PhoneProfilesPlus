@@ -103,7 +103,7 @@ class EventPreferencesTime extends EventPreferences {
         editor.putLong(PREF_EVENT_TIME_START_TIME, this._startTime - gmtOffset);
         editor.putLong(PREF_EVENT_TIME_END_TIME, this._endTime - gmtOffset);
         //editor.putBoolean(PREF_EVENT_TIME_USE_END_TIME, this._useEndTime);
-        editor.commit();
+        editor.apply();
     }
 
     @Override

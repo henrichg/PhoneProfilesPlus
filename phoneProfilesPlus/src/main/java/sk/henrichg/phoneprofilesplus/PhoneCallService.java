@@ -78,7 +78,7 @@ public class PhoneCallService extends IntentService {
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, eventType);
         editor.putString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
-        editor.commit();
+        editor.apply();
 
         linkUnlinkExecuted = false;
         speakerphoneOnExecuted = false;

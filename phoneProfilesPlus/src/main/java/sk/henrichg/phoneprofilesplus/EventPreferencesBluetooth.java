@@ -64,7 +64,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         editor.putString(PREF_EVENT_BLUETOOTH_ADAPTER_NAME, this._adapterName);
         editor.putString(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, String.valueOf(this._connectionType));
         editor.putString(PREF_EVENT_BLUETOOTH_DEVICES_TYPE, String.valueOf(this._devicesType));
-        editor.commit();
+        editor.apply();
     }
 
     @Override

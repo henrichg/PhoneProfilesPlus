@@ -64,7 +64,7 @@ class EventPreferencesCall extends EventPreferences {
         editor.putString(PREF_EVENT_CALL_CONTACTS, this._contacts);
         editor.putString(PREF_EVENT_CALL_CONTACT_GROUPS, this._contactGroups);
         editor.putString(PREF_EVENT_CALL_CONTACT_LIST_TYPE, String.valueOf(this._contactListType));
-        editor.commit();
+        editor.apply();
     }
 
     @Override

@@ -89,7 +89,7 @@ public class FirstStartService extends IntentService {
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
         editor.putString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, "");
-        editor.commit();
+        editor.apply();
 
         // show info notification
         ImportantInfoNotification.showInfoNotification(context);

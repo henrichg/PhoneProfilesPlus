@@ -492,7 +492,7 @@ public class ScannerService extends IntentService
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_FORCE_ONE_WIFI_SCAN, forceScan);
-        editor.commit();
+        editor.apply();
     }
 
     static public int getForceOneBluetoothScan(Context context)
@@ -506,7 +506,7 @@ public class ScannerService extends IntentService
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_FORCE_ONE_BLUETOOTH_SCAN, forceScan);
-        editor.commit();
+        editor.apply();
     }
 
     static public int getForceOneLEBluetoothScan(Context context)
@@ -520,7 +520,7 @@ public class ScannerService extends IntentService
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, forceScan);
-        editor.commit();
+        editor.apply();
     }
 
     private void lock() {
@@ -986,7 +986,7 @@ public class ScannerService extends IntentService
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_SHOW_ENABLE_LOCATION_NOTIFICATION, show);
-        editor.commit();
+        editor.apply();
     }
 
 

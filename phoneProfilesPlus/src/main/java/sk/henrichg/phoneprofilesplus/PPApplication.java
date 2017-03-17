@@ -89,7 +89,7 @@ public class PPApplication extends Application {
     static final int STARTUP_SOURCE_EXTERNAL_APP = 13;
 
     static final int PREFERENCES_STARTUP_SOURCE_ACTIVITY = 1;
-    static final int PREFERENCES_STARTUP_SOURCE_FRAGMENT = 2;
+    //static final int PREFERENCES_STARTUP_SOURCE_FRAGMENT = 2;
     static final int PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE = 3;
 
     static final int PROFILE_NOTIFICATION_ID = 700420;
@@ -353,7 +353,7 @@ public class PPApplication extends Application {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_APPLICATION_STARTED, appStarted);
-        editor.commit();
+        editor.apply();
     }
 
     static public int getSavedVersionCode(Context context) {
@@ -366,7 +366,7 @@ public class PPApplication extends Application {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_SAVED_VERSION_CODE, version);
-        editor.commit();
+        editor.apply();
     }
 
     static public boolean getActivityLogEnabled(Context context)
@@ -380,7 +380,7 @@ public class PPApplication extends Application {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_ACTIVITY_LOG_ENABLED, enabled);
-        editor.commit();
+        editor.apply();
     }
 
     static public int getDaysAfterFirtsStart(Context context)
@@ -394,7 +394,7 @@ public class PPApplication extends Application {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_DAYS_AFTER_FIRST_START, days);
-        editor.commit();
+        editor.apply();
     }
 
     public static String getNotAllowedPreferenceReasonString(Context context) {
