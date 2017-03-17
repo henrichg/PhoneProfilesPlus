@@ -13,7 +13,6 @@ import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;

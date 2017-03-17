@@ -1,12 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.HashMap;
 
 class RootToolsSmall {

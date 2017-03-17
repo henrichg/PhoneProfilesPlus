@@ -1,15 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
-
-import java.util.Calendar;
 
 public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 

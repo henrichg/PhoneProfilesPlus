@@ -11,7 +11,6 @@ import android.preference.DialogPreference;
 import android.provider.CalendarContract.Calendars;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;

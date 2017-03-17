@@ -25,8 +25,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;

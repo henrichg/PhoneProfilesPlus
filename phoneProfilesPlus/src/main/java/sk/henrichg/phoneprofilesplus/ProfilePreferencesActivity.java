@@ -9,8 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;

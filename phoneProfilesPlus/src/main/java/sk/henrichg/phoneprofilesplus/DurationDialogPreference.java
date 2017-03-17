@@ -8,7 +8,6 @@ import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;

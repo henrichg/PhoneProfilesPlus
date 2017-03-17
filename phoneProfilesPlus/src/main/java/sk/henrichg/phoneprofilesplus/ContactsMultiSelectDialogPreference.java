@@ -11,7 +11,6 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
