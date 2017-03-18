@@ -256,6 +256,7 @@ public class PhoneProfilesService extends Service
         startOrientationScanner();
         ////
 
+        ringingMediaPlayer = null;
     }
 
     @Override
@@ -753,7 +754,7 @@ public class PhoneProfilesService extends Service
     private void doSimulatingRingingCall(Intent intent) {
         if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_RINGING_CALL, false))
         {
-            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "simulate ringing call");
+            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "simulate ringing call");
 
             Context context = getApplicationContext();
 
@@ -779,17 +780,17 @@ public class PhoneProfilesService extends Service
                 newRingtone = "";
             }
 
-            PPApplication.logE("PhoneProfilesService.onStartCommand", "oldRingerMode=" + oldRingerMode);
-            PPApplication.logE("PhoneProfilesService.onStartCommand", "oldSystemRingerMode=" + oldSystemRingerMode);
-            PPApplication.logE("PhoneProfilesService.onStartCommand", "oldZenMode=" + oldZenMode);
-            PPApplication.logE("PhoneProfilesService.onStartCommand", "newRingerMode=" + newRingerMode);
-            PPApplication.logE("PhoneProfilesService.onStartCommand", "newZenMode=" + newZenMode);
-            PPApplication.logE("PhoneProfilesService.onStartCommand", "oldRingtone=" + oldRingtone);
-            PPApplication.logE("PhoneProfilesService.onStartCommand", "newRingtone=" + newRingtone);
+            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingerMode=" + oldRingerMode);
+            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldSystemRingerMode=" + oldSystemRingerMode);
+            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldZenMode=" + oldZenMode);
+            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingerMode=" + newRingerMode);
+            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newZenMode=" + newZenMode);
+            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingtone=" + oldRingtone);
+            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone=" + newRingtone);
 
             if (ActivateProfileHelper.isAudibleRinging(newRingerMode, newZenMode)) {
 
-                PPApplication.logE("PhoneProfilesService.onStartCommand", "ringing is audible");
+                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringing is audible");
 
                 boolean simulateRinging = false;
                 int stream = AudioManager.STREAM_RING;
@@ -806,7 +807,7 @@ public class PhoneProfilesService extends Service
                             // old ringer/zen mode is NONE and ONLY_ALARMS
                             simulateRinging = true;
                             stream = AudioManager.STREAM_MUSIC;
-                            PPApplication.logE("PhoneProfilesService.onStartCommand", "stream=MUSIC");
+                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=MUSIC");
                         }
                     }
 
@@ -821,11 +822,11 @@ public class PhoneProfilesService extends Service
                                 simulateRinging = true;
                                 if (oldSystemRingerMode == AudioManager.RINGER_MODE_SILENT) {
                                     stream = AudioManager.STREAM_MUSIC;
-                                    PPApplication.logE("PhoneProfilesService.onStartCommand", "stream=MUSIC");
+                                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=MUSIC");
                                 }
                                 else {
                                     stream = AudioManager.STREAM_RING;
-                                    PPApplication.logE("PhoneProfilesService.onStartCommand", "stream=RING");
+                                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=RING");
                                 }
                             }
                         }
@@ -835,7 +836,7 @@ public class PhoneProfilesService extends Service
                 if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
                     simulateRinging = true;
 
-                PPApplication.logE("PhoneProfilesService.onStartCommand", "simulateRinging=" + simulateRinging);
+                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "simulateRinging=" + simulateRinging);
 
                 if (simulateRinging)
                     startSimulatingRingingCall(stream);
@@ -925,6 +926,7 @@ public class PhoneProfilesService extends Service
                 if (ringingMediaPlayer.isPlaying())
                     ringingMediaPlayer.stop();
                 ringingMediaPlayer.release();
+                ringingMediaPlayer = null;
 
                 /*if (android.os.Build.VERSION.SDK_INT >= 23)
                     audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, 0);
@@ -967,6 +969,7 @@ public class PhoneProfilesService extends Service
                 if (ringingMediaPlayer.isPlaying())
                     ringingMediaPlayer.stop();
                 ringingMediaPlayer.release();
+                ringingMediaPlayer = null;
             }
             audioManager.abandonAudioFocus(this);
             // Stop playback

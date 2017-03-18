@@ -31,7 +31,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
@@ -41,29 +41,9 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
-                                         //+"|$$$ PhoneProfilesService.onCreate"
-                                         //+"|PhoneProfilesService.onDestroy"
-
-                                         /*+"|##### PackageReplacedReceiver.onReceive"
-                                         +"|ActivateProfileHelper.doExecuteForRadios"
-                                         +"|$$$B ScannerService.onHandleIntent"
-                                         +"|$$$BCL ScannerService.onHandleIntent"
-                                         +"|$$$BLE ScannerService.onHandleIntent"
-                                         +"|BluetoothScanBroadcastReceiver.finishScan"
-                                         +"|@@@ BluetoothStateChangedBroadcastReceiver.onReceive"*/
-                                         +"|BluetoothConnectionBroadcastReceiver"
-
-                                         //+"|PhoneProfilesService.onStartCommand"
-                                         //+"|PhoneProfilesService.startSimulatingRingingCall"
-                                         //+"|PhoneProfilesService.stopSimulatingRingingCall"
-
-                                         //+"|$$$ PhoneProfilesService.setMergedRingNotificationVolumes"
-
-                                         //+"|$$$ WifiStateChangedBroadcastReceiver.onReceive"
-                                         //+"|$$$ WifiConnectionBroadcastReceiver.onReceive"
-                                         //+"|WifiScanBroadcastReceiver.onReceive"
-                                         //+"|#### EventsService.onHandleIntent"
-
+                                         +"|PhoneProfilesService.doSimulatingRingingCall"
+                                         +"|PhoneProfilesService.startSimulatingRingingCall"
+                                         +"|PhoneProfilesService.stopSimulatingRingingCall"
             ;
 
 
