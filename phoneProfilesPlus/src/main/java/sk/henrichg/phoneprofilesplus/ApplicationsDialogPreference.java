@@ -100,6 +100,8 @@ public class ApplicationsDialogPreference  extends DialogPreference {
     @Override
     protected void showDialog(Bundle state) {
 
+        PPApplication.logE("ApplicationsDialogPreference.showDialog","xxx");
+
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
                 .icon(getDialogIcon())
@@ -145,6 +147,13 @@ public class ApplicationsDialogPreference  extends DialogPreference {
             }
         });
 
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                ApplicationsDialogPreference.this.onShow(dialog);
+            }
+        });
+
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
@@ -155,13 +164,6 @@ public class ApplicationsDialogPreference  extends DialogPreference {
         rellaDialog = (RelativeLayout) layout.findViewById(R.id.applications_pref_dlg_rella_dialog);
 
         listAdapter = new ApplicationsPreferenceAdapter(context, this);
-
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                ApplicationsDialogPreference.this.onShow(dialog);
-            }
-        });
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override

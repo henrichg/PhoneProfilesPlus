@@ -116,6 +116,13 @@ public class BrightnessDialogPreference extends
                     }
                 });
 
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                BrightnessDialogPreference.this.onShow(dialog);
+            }
+        });
+
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
@@ -158,13 +165,6 @@ public class BrightnessDialogPreference extends
             noChangeChBox.setChecked(false);
 
         enableViews();
-
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                BrightnessDialogPreference.this.onShow(dialog);
-            }
-        });
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 

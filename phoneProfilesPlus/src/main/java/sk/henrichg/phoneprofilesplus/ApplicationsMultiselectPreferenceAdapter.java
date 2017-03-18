@@ -41,6 +41,8 @@ class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter implements Sc
     
     public View getView(int position, View convertView, ViewGroup parent)
     {
+        PPApplication.logE("ApplicationsMultiselectPreferenceAdapter.getView","xxx");
+
         ApplicationsCache applicationsCahce = EditorProfilesActivity.getApplicationsCache();
 
         // Application to display

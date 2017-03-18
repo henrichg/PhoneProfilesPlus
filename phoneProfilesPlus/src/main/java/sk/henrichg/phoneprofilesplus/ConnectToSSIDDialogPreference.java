@@ -85,6 +85,13 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
             }
         });
 
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                ConnectToSSIDDialogPreference.this.onShow(dialog);
+            }
+        });
+
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
@@ -92,13 +99,6 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
         linlaProgress = (LinearLayout)layout.findViewById(R.id.connect_to_ssid_pref_dlg_linla_progress);
 
         listAdapter = new ConnectToSSIDPreferenceAdapter(context, this);
-
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                ConnectToSSIDDialogPreference.this.onShow(dialog);
-            }
-        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {

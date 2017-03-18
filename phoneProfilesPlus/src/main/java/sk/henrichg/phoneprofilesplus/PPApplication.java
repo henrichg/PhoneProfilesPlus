@@ -41,9 +41,15 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
+                                         +"|ApplicationsMultiSelectDialogPreference"
+                                         +"|ApplicationsMultiselectPreferenceAdapter"
+                                         +"|ApplicationsDialogPreference"
+
+                                         /*
                                          +"|PhoneProfilesService.doSimulatingRingingCall"
                                          +"|PhoneProfilesService.startSimulatingRingingCall"
                                          +"|PhoneProfilesService.stopSimulatingRingingCall"
+                                         */
             ;
 
 

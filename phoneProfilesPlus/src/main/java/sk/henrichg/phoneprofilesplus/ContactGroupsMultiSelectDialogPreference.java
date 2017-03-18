@@ -95,6 +95,13 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                     }
                 });
 
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                ContactGroupsMultiSelectDialogPreference.this.onShow(dialog);
+            }
+        });
+
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
@@ -114,13 +121,6 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 
         listAdapter = new ContactGroupsMultiselectPreferenceAdapter(_context);
         listView.setAdapter(listAdapter);
-
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                ContactGroupsMultiSelectDialogPreference.this.onShow(dialog);
-            }
-        });
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 

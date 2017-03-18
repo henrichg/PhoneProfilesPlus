@@ -109,6 +109,13 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                     }
                 });
 
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                CalendarsMultiSelectDialogPreference.this.onShow(dialog);
+            }
+        });
+
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
@@ -127,13 +134,6 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         });
 
         listAdapter = null;
-
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-            CalendarsMultiSelectDialogPreference.this.onShow(dialog);
-            }
-        });
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 

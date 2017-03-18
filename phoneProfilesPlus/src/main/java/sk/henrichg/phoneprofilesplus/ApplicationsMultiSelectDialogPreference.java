@@ -91,6 +91,8 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     }
 
     protected void showDialog(Bundle state) {
+        PPApplication.logE("ApplicationsMultiSelectDialogPreference.showDialog","xxx");
+
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
                 .icon(getDialogIcon())
@@ -145,6 +147,13 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 .content(getDialogMessage())
                 .customView(R.layout.activity_applications_multiselect_pref_dialog, false);
 
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                ApplicationsMultiSelectDialogPreference.this.onShow(dialog);
+            }
+        });
+
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
@@ -180,13 +189,6 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         quickscroll.setHandlebarColor(colorQSHandlebarInactive, colorQSHandlebarActive, colorQSHandlebarStroke);
         quickscroll.setIndicatorColor(colorQSHandlebarActive, colorQSHandlebarActive, Color.WHITE);
         quickscroll.setFixedSize(1);
-
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                ApplicationsMultiSelectDialogPreference.this.onShow(dialog);
-            }
-        });
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
