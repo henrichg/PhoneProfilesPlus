@@ -3049,11 +3049,24 @@ public class DataWrapper {
                     PPApplication.logE("$$$ restartEvents", "from DataWrapper.restartEventsWithAlert");
                     restartEventsWithRescan(true, true);
 
-                    if (ApplicationPreferences.applicationClose(context) && (!(_activity instanceof EditorProfilesActivity)))
+                    boolean finish = false;
+                    if (_activity instanceof ActivateProfileActivity)
+                        finish = true; /*ApplicationPreferences.applicationClose(context);*/
+                    else
+                        finish = true;
+                    if (finish)
                         _activity.finish();
                 }
             });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    boolean finish = (!(_activity instanceof ActivateProfileActivity)) &&
+                                     (!(_activity instanceof EditorProfilesActivity));
+                    if (finish)
+                        _activity.finish();
+                }
+            });
             dialogBuilder.show();
         }
         else
@@ -3061,7 +3074,12 @@ public class DataWrapper {
             PPApplication.logE("$$$ restartEvents", "from DataWrapper.restartEventsWithAlert");
             restartEventsWithRescan(true, true);
 
-            if (ApplicationPreferences.applicationClose(context))
+            boolean finish = false;
+            if (activity instanceof ActivateProfileActivity)
+                finish = true; /*ApplicationPreferences.applicationClose(context);*/
+            else
+                finish = true;
+            if (finish)
                 activity.finish();
         }
     }

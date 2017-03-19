@@ -1791,6 +1791,7 @@ public class ActivateProfileHelper {
 
             // vytvorenie intentu na restart events
             Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
+            intentRE.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
 
             // vytvorenie samotnej notifikacie
