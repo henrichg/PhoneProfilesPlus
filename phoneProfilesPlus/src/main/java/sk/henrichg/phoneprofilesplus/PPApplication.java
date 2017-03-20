@@ -197,13 +197,6 @@ public class PPApplication extends Application {
 
     }
 
-    @Override
-    public void onTerminate ()
-    {
-        DatabaseHandler.getInstance(this).closeConnection();
-        super.onTerminate();
-    }
-
     //--------------------------------------------------------------
 
     static private void resetLog()

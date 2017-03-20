@@ -336,7 +336,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             writableDb = null;
         }
     }
-    
+
+    /*
     // be sure to call this method by: DatabaseHandler.getInstance().closeConnecion() 
     // when application is closed by somemeans most likely
     // onDestroy method of application
@@ -346,7 +347,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             instance.close();
             instance = null;
         }
-    }    
+    }
+    */
 
     private String profileTableCreationString(String tableName) {
         String idField = KEY_ID + " INTEGER PRIMARY KEY,";
