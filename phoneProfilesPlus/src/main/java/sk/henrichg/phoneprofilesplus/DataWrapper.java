@@ -2461,7 +2461,7 @@ public class DataWrapper {
             ApplicationPreferences.getSharedPreferences(context);
             int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
 
-            if (Permissions.checkEventPhoneBroadcast(context, event) &&
+            if (/*Permissions.checkEventPhoneBroadcast(context, event) &&*/
                 (callEventType != PhoneCallService.CALL_EVENT_UNDEFINED) &&
                 (callEventType != PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) &&
                 (callEventType != PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED)) {
