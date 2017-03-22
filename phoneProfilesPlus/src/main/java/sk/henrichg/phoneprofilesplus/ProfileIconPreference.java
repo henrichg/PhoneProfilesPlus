@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -39,6 +40,8 @@ public class ProfileIconPreference extends DialogPreference {
     private Button colorChooserButton;
 
     static int RESULT_LOAD_IMAGE = 1971;
+
+    private static final String PREF_SHOW_HELP = "profile_icon_pref_show_help";
 
     public ProfileIconPreference(Context context, AttributeSet attrs)
     {
@@ -153,16 +156,34 @@ public class ProfileIconPreference extends DialogPreference {
 
         final TextView helpText = (TextView)layout.findViewById(R.id.profileicon_pref_dlg_helpText);
 
-        ImageView helpIcon = (ImageView)layout.findViewById(R.id.profileicon_pref_dlg_helpIcon);
+        final ImageView helpIcon = (ImageView)layout.findViewById(R.id.profileicon_pref_dlg_helpIcon);
+        ApplicationPreferences.getSharedPreferences(prefContext);
+        if (ApplicationPreferences.preferences.getBoolean(PREF_SHOW_HELP, true)) {
+            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
+            helpText.setVisibility(View.VISIBLE);
+        }
+        else {
+            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
+            helpText.setVisibility(View.GONE);
+        }
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ApplicationPreferences.getSharedPreferences(prefContext);
+                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 int visibility = helpText.getVisibility();
-                if (visibility == View.VISIBLE)
+                if (visibility == View.VISIBLE) {
+                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
                     visibility = View.GONE;
-                else
+                    editor.putBoolean(PREF_SHOW_HELP, false);
+                }
+                else {
+                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
                     visibility = View.VISIBLE;
+                    editor.putBoolean(PREF_SHOW_HELP, true);
+                }
                 helpText.setVisibility(visibility);
+                editor.apply();
             }
         });
 

@@ -45,8 +45,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="5dp"
-                android:text="@string/pref_dlg_info_about_wildcards_1"
-                android:visibility="gone" />
+                android:text="@string/pref_dlg_info_about_wildcards_1" />
 
             <RelativeLayout
                 android:id="@+id/bluetooth_name_pref_dlg_et_btn2"

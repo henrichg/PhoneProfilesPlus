@@ -66,18 +66,6 @@
             android:layout_marginBottom="5dp"
             android:background="?attr/dialogDivider" />
 
-        <!--
-        <TextView
-            android:id="@+id/location_pref_dlg_helpText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/pref_dlg_info_about_wildcards_1"
-            android:visibility="gone" />
-        -->
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

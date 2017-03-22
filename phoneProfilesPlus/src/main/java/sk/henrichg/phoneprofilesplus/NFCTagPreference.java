@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
@@ -50,6 +51,8 @@ public class NFCTagPreference extends DialogPreference {
     private NFCTagPreferenceAdapter listAdapter;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
+
+    private static final String PREF_SHOW_HELP = "nfc_tag_pref_show_help";
 
     public NFCTagPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -157,16 +160,34 @@ public class NFCTagPreference extends DialogPreference {
                             context.getString(R.string.pref_dlg_info_about_wildcards_3);
         helpText.setText(helpString);*/
 
-        ImageView helpIcon = (ImageView)layout.findViewById(R.id.nfc_tag_pref_dlg_helpIcon);
+        final ImageView helpIcon = (ImageView)layout.findViewById(R.id.nfc_tag_pref_dlg_helpIcon);
+        ApplicationPreferences.getSharedPreferences(context);
+        if (ApplicationPreferences.preferences.getBoolean(PREF_SHOW_HELP, true)) {
+            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
+            helpText.setVisibility(View.VISIBLE);
+        }
+        else {
+            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
+            helpText.setVisibility(View.GONE);
+        }
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ApplicationPreferences.getSharedPreferences(context);
+                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 int visibility = helpText.getVisibility();
-                if (visibility == View.VISIBLE)
+                if (visibility == View.VISIBLE) {
+                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
                     visibility = View.GONE;
-                else
+                    editor.putBoolean(PREF_SHOW_HELP, false);
+                }
+                else {
+                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
                     visibility = View.VISIBLE;
+                    editor.putBoolean(PREF_SHOW_HELP, true);
+                }
                 helpText.setVisibility(visibility);
+                editor.apply();
             }
         });
         ImageView changeSelectionIcon = (ImageView)layout.findViewById(R.id.nfc_tag_pref_dlg_changeSelection);
