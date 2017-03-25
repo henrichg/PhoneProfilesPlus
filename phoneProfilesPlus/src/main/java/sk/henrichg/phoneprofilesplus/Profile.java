@@ -10,8 +10,12 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -1593,8 +1597,31 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+            boolean mobileDataSupported = false;
+            if (!context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
+                ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    NetworkInfo[] networkInfos = cm.getAllNetworkInfo();
+                    for (NetworkInfo ni : networkInfos) {
+                        Log.d("Profile.isProfilePreferenceAllowed", "ni.getType()="+ni.getType());
+                        if (ni.getType() == ConnectivityManager.TYPE_MOBILE) {
+                            Log.d("Profile.isProfilePreferenceAllowed", "network type = mobile data");
+                            mobileDataSupported = true;
+                            break;
+                        }
+                    }
+                }
+                else {*/
+                    //noinspection deprecation
+                    NetworkInfo ni = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                    mobileDataSupported = ni != null;
+                //}
+            }
+            else
+                mobileDataSupported = true;
+            if (mobileDataSupported)
             {
+                Log.d("Profile.isProfilePreferenceAllowed", "mobile data supported");
                 if (android.os.Build.VERSION.SDK_INT >= 21)
                 {
                     if (PPApplication.isRooted()) {
@@ -1615,8 +1642,10 @@ public class Profile {
                     }
                 }
             }
-            else
+            else {
+                Log.d("Profile.isProfilePreferenceAllowed", "mobile data not supported");
                 PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            }
         }
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
