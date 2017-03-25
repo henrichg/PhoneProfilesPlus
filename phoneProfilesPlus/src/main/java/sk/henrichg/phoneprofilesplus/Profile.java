@@ -1601,8 +1601,9 @@ public class Profile {
             if (!context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
                 ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    NetworkInfo[] networkInfos = cm.getAllNetworkInfo();
-                    for (NetworkInfo ni : networkInfos) {
+                    Network[] networks = cm.getAllNetworks();
+                    for (Network network : networks) {
+                        NetworkInfo ni = cm.getNetworkInfo(network);
                         Log.d("Profile.isProfilePreferenceAllowed", "ni.getType()="+ni.getType());
                         if (ni.getType() == ConnectivityManager.TYPE_MOBILE) {
                             Log.d("Profile.isProfilePreferenceAllowed", "network type = mobile data");
