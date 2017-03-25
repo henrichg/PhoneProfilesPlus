@@ -32,7 +32,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         Profile profile = dataWrapper.getActivatedProfile();
 
-        // ziskanie vsetkych wigetov tejtor triedy na plochach lauchera
+        // ziskanie vsetkych wigetov tejto triedy na plochach lauchera
         ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
         int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
@@ -104,22 +104,17 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             {
                 remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
             }
-            //if (PPApplication.applicationWidgetListIconColor.equals("1"))
-            //{
-                red = 0xFF;
-                String applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT(context);
-                if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
-                if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
-                if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
-                if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
-                if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
-                green = red; blue = red;
-                remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, red, green, blue));
-            //}
-            //else
-            //{
-            //	remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.parseColor("#33b5e5"));
-            //}
+
+            red = 0xFF;
+            String applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT(context);
+            if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
+            if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
+            if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
+            if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
+            if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
+            green = red; blue = red;
+            remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, red, green, blue));
+
             remoteViews.setTextViewText(R.id.widget_one_row_header_profile_name, profileName);
             if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
             {
@@ -130,13 +125,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             }
 
             monochromeValue = 0xFF;
-            //String applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness(context);
-            if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
-            if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
-            if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
-            if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
-            if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
-
+            if (applicationWidgetListLightnessT.equals("0")) monochromeValue = 0x00;
+            if (applicationWidgetListLightnessT.equals("25")) monochromeValue = 0x40;
+            if (applicationWidgetListLightnessT.equals("50")) monochromeValue = 0x80;
+            if (applicationWidgetListLightnessT.equals("75")) monochromeValue = 0xC0;
+            if (applicationWidgetListLightnessT.equals("100")) monochromeValue = 0xFF;
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_action_events_restart);
             bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
             remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);

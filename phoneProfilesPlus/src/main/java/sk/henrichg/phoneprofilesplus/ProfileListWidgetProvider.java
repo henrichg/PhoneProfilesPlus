@@ -160,22 +160,17 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             {
                 widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, profile._iconBitmap);
             }
-            //if (PPApplication.applicationWidgetListIconColor.equals("1"))
-            //{
-                red = 0xFF;
-                String applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT(context);
-                if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
-                if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
-                if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
-                if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
-                if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
-                green = red; blue = red;
-                widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.argb(0xFF, red, green, blue));
-            //}
-            //else
-            //{
-            //	widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.parseColor("#33b5e5"));
-            //}
+
+            red = 0xFF;
+            String applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT(context);
+            if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
+            if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
+            if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
+            if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
+            if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
+            green = red; blue = red;
+            widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.argb(0xFF, red, green, blue));
+
             widget.setTextViewText(R.id.widget_profile_list_header_profile_name, profileName);
             if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
             {
@@ -193,6 +188,12 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(alpha, red, green, blue));
             }
 
+            monochromeValue = 0xFF;
+            if (applicationWidgetListLightnessT.equals("0")) monochromeValue = 0x00;
+            if (applicationWidgetListLightnessT.equals("25")) monochromeValue = 0x40;
+            if (applicationWidgetListLightnessT.equals("50")) monochromeValue = 0x80;
+            if (applicationWidgetListLightnessT.equals("75")) monochromeValue = 0xC0;
+            if (applicationWidgetListLightnessT.equals("100")) monochromeValue = 0xFF;
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_action_events_restart);
             bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
             widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
