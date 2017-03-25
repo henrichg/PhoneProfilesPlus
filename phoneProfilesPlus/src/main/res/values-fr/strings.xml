@@ -965,10 +965,11 @@
   <string name="event_preferences_radioSwitch_gps">GPS</string>
   <string name="event_preferences_radioSwitch_nfc">NFC</string>
   <string name="event_preferences_radioSwitch_airplaneMode">Mode avion</string>
-  <string name="event_preferences_radioSwitch_info_title">Sensor configuration</string>
-  <string name="event_preferences_radioSwitch_info_summary">State of all radios must by fulfilled to start event. Configure only radios which you needed.</string>
-  <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Just any</string>
-  <string name="profile_preferences_deviceConnectToSSID">Connect to SSID</string>
+  <string name="event_preferences_radioSwitch_info_title">Configuration des capteurs</string>
+  <string name="event_preferences_radioSwitch_info_summary">L\'état de toutes les radios doivent être remplies pour commencer les évènements.
+Configurez uniquement les radios dont vous avez besoin.</string>
+  <string name="connect_to_ssid_pref_dlg_summary_text_just_any">N\'importe lequel</string>
+  <string name="profile_preferences_deviceConnectToSSID">Se connecter au SSID</string>
   <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Set volumes merge</string>
   <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Keep detected</string>
   <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Volumes are merged</string>

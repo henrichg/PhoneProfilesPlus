@@ -931,12 +931,12 @@
   <string name="activator_activity_targetHelps_activateProfile_title">הפעלת פרופיל</string>
   <string name="activator_activity_targetHelps_activateProfile_description">לחצו כאן להפעלת פרופיל.</string>
   <string name="profile_preference_activity_targetHelps_save_title">שמירת פרופיל</string>
-  <string name="profile_preference_activity_targetHelps_save_description">Click this for saving profile preferences changes.</string>
-  <string name="event_preference_activity_targetHelps_save_title">Save event</string>
+  <string name="profile_preference_activity_targetHelps_save_description">לחץ על אפשרות זו עבור שמירת שינויים בהעדפות פרופיל.</string>
+  <string name="event_preference_activity_targetHelps_save_title">שמירת אירוע</string>
   <string name="event_preference_activity_targetHelps_save_description">Click this for saving event preferences changes.</string>
-  <string name="about_application_privacy_policy">Privacy Policy:</string>
-  <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">This profile will be activated if no any event is running.</string>
-  <string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>
+  <string name="about_application_privacy_policy">מדיניות פרטיות</string>
+  <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">פרופיל זה יופעל אם אין אירוע כלשהו פועל.</string>
+  <string name="phone_profiles_pref_applicationAlertSummary">זה משמש עבור הפעלת פרופיל ידנית בלבד.</string>
   <string name="phone_profiles_pref_notificationTheme">Notification theme</string>
   <string name="array_pref_color_native">Native</string>
   <string name="array_pref_color_dark">Dark</string>
@@ -976,5 +976,5 @@
   <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Keep detected</string>
   <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Volumes are merged</string>
   <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Volumes are not merged</string>
-  <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Use this, if detection of volumes merge is wrong.</string>
+  <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">התשמש באפשרות זו אם זיהוי מיזוג עצמת קול שגוי.</string>
 </resources>
