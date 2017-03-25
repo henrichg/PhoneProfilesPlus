@@ -1622,7 +1622,7 @@ public class Profile {
                 mobileDataSupported = true;
             if (mobileDataSupported)
             {
-                Log.d("Profile.isProfilePreferenceAllowed", "mobile data supported");
+                //Log.d("Profile.isProfilePreferenceAllowed", "mobile data supported");
                 if (android.os.Build.VERSION.SDK_INT >= 21)
                 {
                     if (PPApplication.isRooted()) {
@@ -1644,7 +1644,7 @@ public class Profile {
                 }
             }
             else {
-                Log.d("Profile.isProfilePreferenceAllowed", "mobile data not supported");
+                //Log.d("Profile.isProfilePreferenceAllowed", "mobile data not supported");
                 PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
         }
