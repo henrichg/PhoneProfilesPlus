@@ -1564,7 +1564,7 @@ public class Profile {
             {
                 if (PPApplication.isRooted())
                 {
-                    // zariadenie je rootnute
+                    // device is rooted
                     if (PPApplication.settingsBinaryExists())
                         featurePresented = PPApplication.PREFERENCE_ALLOWED;
                     else
@@ -1580,7 +1580,7 @@ public class Profile {
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI))
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
-                // device ma Wifi
+                // device has Wifi
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else
                 PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -1589,7 +1589,7 @@ public class Profile {
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH))
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
-                // device ma bluetooth
+                // device has bluetooth
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else
                 PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -1662,7 +1662,7 @@ public class Profile {
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS))
             {
-                // device ma gps
+                // device has gps
                 /*if (android.os.Build.VERSION.SDK_INT < 17)
                 {
                     if (isRooted(false))
@@ -1671,7 +1671,7 @@ public class Profile {
                 else*/
                 if (PPApplication.isRooted())
                 {
-                    // zariadenie je rootnute
+                    // device is rooted
                     if (PPApplication.settingsBinaryExists())
                         featurePresented = PPApplication.PREFERENCE_ALLOWED;
                     else
@@ -1695,7 +1695,7 @@ public class Profile {
             {
                 PPApplication.logE("PPApplication.hardwareCheck","NFC=presented");
 
-                // device ma nfc
+                // device has nfc
                 if (PPApplication.isRooted())
                     featurePresented = PPApplication.PREFERENCE_ALLOWED;
                 else
@@ -1711,7 +1711,7 @@ public class Profile {
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI)) {
-                // device ma Wifi
+                // device has Wifi
                 if (WifiApManager.canExploitWifiAP(context))
                 {
                     featurePresented = PPApplication.PREFERENCE_ALLOWED;
@@ -1729,7 +1729,7 @@ public class Profile {
         {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
                 if (PPApplication.isRooted()) {
-                    // zariadenie je rootnute
+                    // device is rooted
                     if (PPApplication.settingsBinaryExists())
                         featurePresented = PPApplication.PREFERENCE_ALLOWED;
                     else
@@ -1749,7 +1749,7 @@ public class Profile {
                 {
                     if (PPApplication.isRooted())
                     {
-                        // zariadenie je rootnute
+                        // device is rooted
                         if (PPApplication.settingsBinaryExists())
                             featurePresented = PPApplication.PREFERENCE_ALLOWED;
                         else
@@ -1771,7 +1771,7 @@ public class Profile {
         {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 if (PPApplication.isRooted()) {
-                    // zariadenie je rootnute
+                    // device is rooted
                     if (PPApplication.settingsBinaryExists())
                         featurePresented = PPApplication.PREFERENCE_ALLOWED;
                     else
@@ -1794,7 +1794,7 @@ public class Profile {
                 final int phoneType = telephonyManager.getPhoneType();
                 if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
                     if (PPApplication.isRooted()) {
-                        // zariadenie je rootnute
+                        // device is rooted
                         if (ActivateProfileHelper.telephonyServiceExists(context, Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
                             if (PPApplication.serviceBinaryExists())
                                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
@@ -1823,7 +1823,7 @@ public class Profile {
             int value = Settings.System.getInt(context.getContentResolver(), "notification_light_pulse", -10);
             if ((value != -10) && (android.os.Build.VERSION.SDK_INT >= 23)) {
                 if (PPApplication.isRooted()) {
-                    // zariadenie je rootnute
+                    // device is rooted
                     if (PPApplication.settingsBinaryExists())
                         featurePresented = PPApplication.PREFERENCE_ALLOWED;
                     else
@@ -1860,7 +1860,7 @@ public class Profile {
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
-                // device ma Wifi
+                // device has Wifi
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else
                 PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
