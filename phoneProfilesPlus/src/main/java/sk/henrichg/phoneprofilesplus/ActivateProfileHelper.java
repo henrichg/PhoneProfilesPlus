@@ -776,6 +776,8 @@ public class ActivateProfileHelper {
                         try {
                             Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
                         } catch (Exception ee) {
+                            Log.e("ActivateProfileHelper.setVibrateWhenRinging", ee.toString());
+
                             String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);

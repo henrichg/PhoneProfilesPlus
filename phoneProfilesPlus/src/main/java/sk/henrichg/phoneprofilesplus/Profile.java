@@ -1726,7 +1726,7 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))
         {
-            if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if (android.os.Build.VERSION.SDK_INT == 23) {
                 if (PPApplication.isRooted()) {
                     // device is rooted
                     if (PPApplication.settingsBinaryExists())

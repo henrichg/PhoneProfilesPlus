@@ -235,7 +235,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 preferenceCategory.removePreference(preference);
             }
         }
-        else {
+        if (android.os.Build.VERSION.SDK_INT == 23) {
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
             if (preference != null)
             {
