@@ -13,6 +13,7 @@ import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -56,7 +57,13 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
-        //Log.e(TAG, "**********  onNotificationPosted");
+        super.onNotificationPosted(sbn);
+
+        Log.d(TAG, "**********  onNotificationPosted");
+
+        if (sbn == null)
+            return;
+
         //Log.e(TAG, "ID :" + sbn.getId() + "t" + sbn.getNotification().tickerText + "t" + sbn.getPackageName());
 
         Context context = getApplicationContext();
@@ -88,7 +95,13 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
-        //Log.e(TAG, "********** onNOtificationRemoved");
+        super.onNotificationRemoved(sbn);
+
+        Log.d(TAG, "********** onNOtificationRemoved");
+
+        if (sbn == null)
+            return;
+
         //Log.e(TAG, "ID :" + sbn.getId() + "t" + sbn.getNotification().tickerText + "t" + sbn.getPackageName());
 
         Context context = getApplicationContext();
@@ -113,14 +126,18 @@ public class PPNotificationListenerService extends NotificationListenerService {
     // Android 5.0 Lollipop
 
     @Override public void onListenerConnected() {
+        super.onListenerConnected();
         //Log.e(TAG, "onListenerConnected()");
     }
     @Override public void onListenerHintsChanged(int hints) {
+        super.onListenerHintsChanged(hints);
         //Log.e(TAG, "onListenerHintsChanged(" + hints + ')');
     }
 
     @Override
     public void onInterruptionFilterChanged(int interruptionFilter) {
+        super.onInterruptionFilterChanged(interruptionFilter);
+
         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
         if (((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) || a60) {
             PPApplication.logE(TAG, "onInterruptionFilterChanged(interruptionFilter=" + interruptionFilter + ')');
