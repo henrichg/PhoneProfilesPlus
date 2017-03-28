@@ -413,7 +413,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onSequenceStep(TapTarget lastTarget) {
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
                         //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
                     }
 
