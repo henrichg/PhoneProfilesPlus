@@ -103,7 +103,7 @@ public class EventsService extends IntentService
                 PPApplication.startGeofenceScanner(context);
             // start of CellTowerScanner
             if (!PhoneProfilesService.isPhoneStateStarted()) {
-                PPApplication.logE("EventsService.startPhoneStateScanner", "xxx");
+                PPApplication.logE("EventsService.onHandleIntent", "startPhoneStateScanner");
                 //PPApplication.sendMessageToService(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
                 PPApplication.startPhoneStateScanner(context);
             }

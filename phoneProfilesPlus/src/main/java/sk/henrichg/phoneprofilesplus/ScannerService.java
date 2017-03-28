@@ -134,7 +134,7 @@ public class ScannerService extends IntentService
             if (canScan) {
                 canScan = !WifiApManager.isWifiAPEnabled(context);
                 PPApplication.logE("$$$W ScannerService.onHandleIntent", "canScan=" + canScan);
-                PPApplication.logE("$$$W WifiAP", "ScannerService.onHandleIntent-isWifiAPEnabled="+!canScan);
+                PPApplication.logE("$$$W ScannerService.onHandleIntent", "isWifiAPEnabled="+!canScan);
             }
 
             if (canScan) {
@@ -641,9 +641,9 @@ public class ScannerService extends IntentService
                             wifiBluetoothChangeHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    PPApplication.logE("$$$ ScannerService.onHandleIntent", "before enable wifi");
+                                    PPApplication.logE("$$$ ScannerService.enableWifi", "before enable wifi");
                                     _wifi.setWifiEnabled(true);
-                                    PPApplication.logE("$$$ ScannerService.onHandleIntent", "after enable wifi");
+                                    PPApplication.logE("$$$ ScannerService.enableWifi", "after enable wifi");
                                 }
                             });
                             PPApplication.logE("@@@ ScannerService.enableWifi","set enabled");

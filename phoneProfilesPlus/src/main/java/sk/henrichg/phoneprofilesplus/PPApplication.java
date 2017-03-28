@@ -31,8 +31,8 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static boolean logIntoLogCat = false;
-    private static boolean logIntoFile = false;
+    private static boolean logIntoLogCat = true;
+    private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
@@ -41,9 +41,19 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
-                                         +"|ApplicationsMultiSelectDialogPreference"
-                                         +"|ApplicationsMultiselectPreferenceAdapter"
-                                         +"|ApplicationsDialogPreference"
+                                         +"|WifiScanAlarmBroadcastReceiver.onReceive"
+                                         +"|WifiScanAlarmBroadcastReceiver.setAlarm"
+                                         +"|WifiScanAlarmBroadcastReceiver.removeAlarm"
+                                         +"|WifiScanAlarmBroadcastReceiver.isAlarmSet"
+                                         +"|WifiScanAlarmBroadcastReceiver.startScan"
+                                         +"|WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan"
+                                         +"|WifiScanAlarmBroadcastReceiver.fillScanResults"
+                                         +"|WifiScanBroadcastReceiver.onReceive"
+                                         +"|WifiStateChangedBroadcastReceiver.onReceive"
+                                         +"|$$$W ScannerService.onHandleIntent"
+                                         +"|ScannerService.enableWifi"
+                                         +"|StartEventsServiceBroadcastReceiver.onReceive"
+                                         +"|#### EventsService.onHandleIntent"
 
                                          /*
                                          +"|PhoneProfilesService.doSimulatingRingingCall"
