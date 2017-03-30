@@ -59,7 +59,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
 
-        Log.d(TAG, "**********  onNotificationPosted");
+        //Log.d(TAG, "**********  onNotificationPosted");
 
         if (sbn == null)
             return;
@@ -97,7 +97,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onNotificationRemoved(StatusBarNotification sbn) {
         super.onNotificationRemoved(sbn);
 
-        Log.d(TAG, "********** onNOtificationRemoved");
+        //Log.d(TAG, "********** onNOtificationRemoved");
 
         if (sbn == null)
             return;
