@@ -286,21 +286,23 @@ public class ActivateProfileHelper {
                             wifiInfo = wifiManager.getConnectionInfo();
 
                         List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
-                        for (WifiConfiguration i : list) {
-                            if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {
-                                if (wifiConnected) {
-                                    if (!wifiInfo.getSSID().equals(i.SSID)) {
+                        if (list != null) {
+                            for (WifiConfiguration i : list) {
+                                if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {
+                                    if (wifiConnected) {
+                                        if (!wifiInfo.getSSID().equals(i.SSID)) {
 
-                                        PhoneProfilesService.connectToSSIDStarted = true;
+                                            PhoneProfilesService.connectToSSIDStarted = true;
 
-                                        // conected to another SSID
-                                        wifiManager.disconnect();
+                                            // conected to another SSID
+                                            wifiManager.disconnect();
+                                            wifiManager.enableNetwork(i.networkId, true);
+                                            wifiManager.reconnect();
+                                        }
+                                    } else
                                         wifiManager.enableNetwork(i.networkId, true);
-                                        wifiManager.reconnect();
-                                    }
-                                } else
-                                    wifiManager.enableNetwork(i.networkId, true);
-                                break;
+                                    break;
+                                }
                             }
                         }
                     }

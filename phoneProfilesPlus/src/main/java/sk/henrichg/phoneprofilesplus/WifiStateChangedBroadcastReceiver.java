@@ -38,12 +38,14 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                 if (!PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
                     WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                     List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
-                    for (WifiConfiguration i : list) {
-                        if (i.SSID != null && i.SSID.equals(PhoneProfilesService.connectToSSID)) {
-                            //wifiManager.disconnect();
-                            wifiManager.enableNetwork(i.networkId, true);
-                            //wifiManager.reconnect();
-                            break;
+                    if (list != null) {
+                        for (WifiConfiguration i : list) {
+                            if (i.SSID != null && i.SSID.equals(PhoneProfilesService.connectToSSID)) {
+                                //wifiManager.disconnect();
+                                wifiManager.enableNetwork(i.networkId, true);
+                                //wifiManager.reconnect();
+                                break;
+                            }
                         }
                     }
                 }
