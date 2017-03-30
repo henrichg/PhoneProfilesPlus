@@ -106,6 +106,9 @@
         android:supportsRtl="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
+        <!-- support for 18.5:9 display (Samsung Galaxy S8, LG G6) -->
+        <meta-data android:name="android.max_aspect" android:value="2.1" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
