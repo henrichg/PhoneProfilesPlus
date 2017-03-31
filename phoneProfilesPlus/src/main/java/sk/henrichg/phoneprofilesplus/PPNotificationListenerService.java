@@ -56,7 +56,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
-        super.onNotificationPosted(sbn);
+        //super.onNotificationPosted(sbn);
 
         //Log.d(TAG, "**********  onNotificationPosted");
 
@@ -94,7 +94,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
-        super.onNotificationRemoved(sbn);
+        //super.onNotificationRemoved(sbn);
 
         //Log.d(TAG, "********** onNOtificationRemoved");
 
