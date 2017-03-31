@@ -56,8 +56,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
-        //super.onNotificationPosted(sbn);
-
         //Log.d(TAG, "**********  onNotificationPosted");
 
         if (sbn == null)
@@ -94,8 +92,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
-        //super.onNotificationRemoved(sbn);
-
         //Log.d(TAG, "********** onNOtificationRemoved");
 
         if (sbn == null)
@@ -125,18 +121,14 @@ public class PPNotificationListenerService extends NotificationListenerService {
     // Android 5.0 Lollipop
 
     @Override public void onListenerConnected() {
-        super.onListenerConnected();
         //Log.e(TAG, "onListenerConnected()");
     }
     @Override public void onListenerHintsChanged(int hints) {
-        super.onListenerHintsChanged(hints);
         //Log.e(TAG, "onListenerHintsChanged(" + hints + ')');
     }
 
     @Override
     public void onInterruptionFilterChanged(int interruptionFilter) {
-        super.onInterruptionFilterChanged(interruptionFilter);
-
         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
         if (((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) || a60) {
             PPApplication.logE(TAG, "onInterruptionFilterChanged(interruptionFilter=" + interruptionFilter + ')');
