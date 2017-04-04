@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1860;
+    private static final int DATABASE_VERSION = 1870;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -145,6 +145,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_HIDE_STATUS_BAR_ICON = "hideStatusBarIcon";
     private static final String KEY_LOCK_DEVICE = "lockDevice";
     private static final String KEY_DEVICE_CONNECT_TO_SSID = "deviceConnectToSSID";
+    private static final String KEY_APPLICATION_DISABLE_WIFI_SCANING = "applicationDisableWifiScanning";
+    private static final String KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING = "applicationDisableBluetoothScanning";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -406,7 +408,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_DEVICE_WALLPAPER_FOR + " INTEGER,"
                 + KEY_HIDE_STATUS_BAR_ICON + " INTEGER,"
                 + KEY_LOCK_DEVICE + " INTEGER,"
-                + KEY_DEVICE_CONNECT_TO_SSID + " TEXT"
+                + KEY_DEVICE_CONNECT_TO_SSID + " TEXT,"
+                + KEY_APPLICATION_DISABLE_WIFI_SCANING + " INTEGER,"
+                + KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING + " INTEGER"
                 + ")";
     }
 
@@ -1999,6 +2003,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_CONNECT_TO_SSID + "=\""+Profile.CONNECTTOSSID_JUSTANY+"\"");
         }
 
+        if (oldVersion < 1870)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_APPLICATION_DISABLE_WIFI_SCANING + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_APPLICATION_DISABLE_WIFI_SCANING + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING + "=0");
+        }
+
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -2067,6 +2082,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
         values.put(KEY_LOCK_DEVICE, profile._lockDevice);
         values.put(KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
+        values.put(KEY_APPLICATION_DISABLE_WIFI_SCANING, profile._applicationDisableWifiScanning);
+        values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING, profile._applicationDisableBluetoothScanning);
 
         // Inserting Row
         if (!merged) {
@@ -2140,7 +2157,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DEVICE_WALLPAPER_FOR,
                         KEY_HIDE_STATUS_BAR_ICON,
                         KEY_LOCK_DEVICE,
-                        KEY_DEVICE_CONNECT_TO_SSID
+                        KEY_DEVICE_CONNECT_TO_SSID,
+                        KEY_APPLICATION_DISABLE_WIFI_SCANING,
+                        KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING
                 },
                 KEY_ID + "=?",
                 new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -2203,7 +2222,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                               Integer.parseInt(cursor.getString(48)),
                                               Integer.parseInt(cursor.getString(49)) == 1,
                                               Integer.parseInt(cursor.getString(50)),
-                                              cursor.getString(51)
+                                              cursor.getString(51),
+                                              Integer.parseInt(cursor.getString(52)),
+                                              Integer.parseInt(cursor.getString(53))
                                               );
             }
 
@@ -2272,7 +2293,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                          KEY_DEVICE_WALLPAPER_FOR + "," +
                                          KEY_HIDE_STATUS_BAR_ICON + "," +
                                          KEY_LOCK_DEVICE + "," +
-                                         KEY_DEVICE_CONNECT_TO_SSID +
+                                         KEY_DEVICE_CONNECT_TO_SSID + "," +
+                                         KEY_APPLICATION_DISABLE_WIFI_SCANING + "," +
+                                         KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING +
                              " FROM " + TABLE_PROFILES;
 
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -2335,6 +2358,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 profile._hideStatusBarIcon = (Integer.parseInt(cursor.getString(49)) == 1);
                 profile._lockDevice = Integer.parseInt(cursor.getString(50));
                 profile._deviceConnectToSSID = cursor.getString(51);
+                profile._applicationDisableWifiScanning = Integer.parseInt(cursor.getString(52));
+                profile._applicationDisableBluetoothScanning = Integer.parseInt(cursor.getString(53));
                 // Adding contact to list
                 profileList.add(profile);
             } while (cursor.moveToNext());
@@ -2404,6 +2429,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
         values.put(KEY_LOCK_DEVICE, profile._lockDevice);
         values.put(KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
+        values.put(KEY_APPLICATION_DISABLE_WIFI_SCANING, profile._applicationDisableWifiScanning);
+        values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING, profile._applicationDisableBluetoothScanning);
 
         // updating row
         return db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -2664,7 +2691,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 KEY_DEVICE_WALLPAPER_FOR,
                                                 KEY_HIDE_STATUS_BAR_ICON,
                                                 KEY_LOCK_DEVICE,
-                                                KEY_DEVICE_CONNECT_TO_SSID
+                                                KEY_DEVICE_CONNECT_TO_SSID,
+                                                KEY_APPLICATION_DISABLE_WIFI_SCANING,
+                                                KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING
                                                 },
                                  KEY_CHECKED + "=?",
                                  new String[] { "1" }, null, null, null, null);
@@ -2727,7 +2756,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                               Integer.parseInt(cursor.getString(48)),
                                               Integer.parseInt(cursor.getString(49)) == 1,
                                               Integer.parseInt(cursor.getString(50)),
-                                              cursor.getString(51)
+                                              cursor.getString(51),
+                                              Integer.parseInt(cursor.getString(52)),
+                                              Integer.parseInt(cursor.getString(53))
                                               );
             }
             else
@@ -6720,6 +6751,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             if (exportedDBObj.getVersion() < 1860) {
                                 values.put(KEY_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
                             }
+                            if (exportedDBObj.getVersion() < 1870) {
+                                values.put(KEY_APPLICATION_DISABLE_WIFI_SCANING, 0);
+                                values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING, 0);
+                            }
 
                             ///////////////////////////////////////////////////////
 
@@ -7418,7 +7453,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     KEY_DEVICE_NETWORK_TYPE + "," +
                                                     KEY_NOTIFICATION_LED + "," +
                                                     KEY_VIBRATE_WHEN_RINGING + "," +
-                                                    KEY_DEVICE_CONNECT_TO_SSID +
+                                                    KEY_DEVICE_CONNECT_TO_SSID + "," +
+                                                    KEY_APPLICATION_DISABLE_WIFI_SCANING + "," +
+                                                    KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING +
                                          " FROM " + TABLE_PROFILES;
         final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
                                                     KEY_E_WIFI_ENABLED + "," +
@@ -7603,6 +7640,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                     }
 
+                    if ((Integer.parseInt(cursor.getString(17)) != 0) &&
+                            (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, context) == PPApplication.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_APPLICATION_DISABLE_WIFI_SCANING, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(18)) != 0) &&
+                            (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, context) == PPApplication.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
                 } while (cursor.moveToNext());
             }
 

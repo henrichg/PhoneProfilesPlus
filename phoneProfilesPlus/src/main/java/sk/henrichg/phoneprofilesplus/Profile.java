@@ -73,6 +73,8 @@ public class Profile {
     boolean _hideStatusBarIcon;
     int _lockDevice;
     String _deviceConnectToSSID;
+    int _applicationDisableWifiScanning;
+    int _applicationDisableBluetoothScanning;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -127,6 +129,8 @@ public class Profile {
     static final String PREF_PROFILE_HIDE_STATUS_BAR_ICON = "prf_pref_hideStatusBarIcon";
     static final String PREF_PROFILE_LOCK_DEVICE = "prf_pref_lockDevice";
     static final String PREF_PROFILE_DEVICE_CONNECT_TO_SSID = "prf_pref_deviceConnectToSSID";
+    static final String PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING = "prf_pref_applicationDisableWifiScanning";
+    static final String PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING = "prf_pref_applicationDisableBluetoothScanning";
     // no preferences, but checked from isProfilePreferenceAllowed
     static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
 
@@ -262,7 +266,9 @@ public class Profile {
                    int deviceWallpaperFor,
                    boolean hideStatusBarIcon,
                    int lockDevice,
-                   String deviceConnectToSSID)
+                   String deviceConnectToSSID,
+                   int applicationDisableWifiScanning,
+                   int applicationDisableBluetoothScanning)
     {
         this._id = id;
         this._name = name;
@@ -316,6 +322,8 @@ public class Profile {
         this._hideStatusBarIcon = hideStatusBarIcon;
         this._lockDevice = lockDevice;
         this._deviceConnectToSSID = deviceConnectToSSID;
+        this._applicationDisableWifiScanning = applicationDisableWifiScanning;
+        this._applicationDisableBluetoothScanning = applicationDisableBluetoothScanning;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -371,7 +379,9 @@ public class Profile {
                    int deviceWallpaperFor,
                    boolean hideStatusBarIcon,
                    int lockDevice,
-                   String deviceConnectToSSID)
+                   String deviceConnectToSSID,
+                   int applicationDisableWifiScanning,
+                   int applicationDisableBluetoothScanning)
     {
         this._name = name;
         this._icon = icon;
@@ -423,6 +433,8 @@ public class Profile {
         this._hideStatusBarIcon = hideStatusBarIcon;
         this._lockDevice = lockDevice;
         this._deviceConnectToSSID = deviceConnectToSSID;
+        this._applicationDisableWifiScanning = applicationDisableWifiScanning;
+        this._applicationDisableBluetoothScanning = applicationDisableBluetoothScanning;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -481,6 +493,8 @@ public class Profile {
         this._hideStatusBarIcon = profile._hideStatusBarIcon;
         this._lockDevice = profile._lockDevice;
         this._deviceConnectToSSID = profile._deviceConnectToSSID;
+        this._applicationDisableWifiScanning = profile._applicationDisableWifiScanning;
+        this._applicationDisableBluetoothScanning = profile._applicationDisableBluetoothScanning;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -658,6 +672,10 @@ public class Profile {
                 this._vibrateWhenRinging = withProfile._vibrateWhenRinging;
             if (withProfile._lockDevice != 0)
                 this._lockDevice = withProfile._lockDevice;
+            if (withProfile._applicationDisableWifiScanning != 0)
+                this._applicationDisableWifiScanning = withProfile._applicationDisableWifiScanning;
+            if (withProfile._applicationDisableBluetoothScanning != 0)
+                this._applicationDisableBluetoothScanning = withProfile._applicationDisableBluetoothScanning;
 
             dataWrapper.getDatabaseHandler().activateProfile(withProfile);
             dataWrapper.setProfileActive(withProfile);
@@ -1387,6 +1405,8 @@ public class Profile {
         profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_WALLPAPER_FOR, "0"));
         profile._lockDevice = Integer.parseInt(preferences.getString(PREF_PROFILE_LOCK_DEVICE, "0"));
         profile._deviceConnectToSSID = preferences.getString(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
+        profile._applicationDisableWifiScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, "0"));
+        profile._applicationDisableBluetoothScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, "0"));
 
         return profile;
     }
@@ -1448,7 +1468,9 @@ public class Profile {
                     profile._deviceWallpaperFor,
                     profile._hideStatusBarIcon,
                     profile._lockDevice,
-                    profile._deviceConnectToSSID);
+                    profile._deviceConnectToSSID,
+                    profile._applicationDisableWifiScanning,
+                    profile._applicationDisableBluetoothScanning);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == 99) {
@@ -1542,6 +1564,10 @@ public class Profile {
                 mappedProfile._lockDevice = defaultProfile._lockDevice;
             if ((profile._deviceConnectToSSID != null) && (profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_DEFAULTPROFILE)))
                 mappedProfile._deviceConnectToSSID = defaultProfile._deviceConnectToSSID;
+            if (profile._applicationDisableWifiScanning == 99)
+                mappedProfile._applicationDisableWifiScanning = defaultProfile._applicationDisableWifiScanning;
+            if (profile._applicationDisableBluetoothScanning == 99)
+                mappedProfile._applicationDisableBluetoothScanning = defaultProfile._applicationDisableBluetoothScanning;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;
@@ -1860,6 +1886,24 @@ public class Profile {
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
                 // device has Wifi
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
+                // device has Wifi
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
+                // device has bluetooth
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else
                 PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;

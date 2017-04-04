@@ -975,4 +975,7 @@
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Volumes are merged</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Volumes are not merged</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Use this, if detection of volumes merge is wrong.</string>
+    <string name="profile_preferences_category_application">Application functions</string>
+    <string name="profile_preferences_applicationDisableWifiScanning">Disable Wi-Fi scanning</string>
+    <string name="profile_preferences_applicationDisableBluetoothScanning">Disable Bluetooth scanning</string>
 </resources>

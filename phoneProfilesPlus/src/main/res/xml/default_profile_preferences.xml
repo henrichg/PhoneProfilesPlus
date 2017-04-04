@@ -347,6 +347,27 @@
                 app:useStockLayout="true" />
         </PreferenceScreen>
         <PreferenceScreen
+            android:title="@string/profile_preferences_category_application"
+            android:key="prf_pref_applicationCategory"
+            android:widgetLayout="@layout/start_activity_preference" >
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/profile_preferences_applicationDisableWifiScanning"
+                android:summary="@string/array_pref_no_change"
+                android:key="prf_pref_applicationDisableWifiScanning"
+                android:defaultValue="@string/prf_pref_applicationDisableWifiScanning"
+                android:entries="@array/applicationDisableScanningDPArray"
+                android:entryValues="@array/applicationDisableScanningDPValues"
+                app:useStockLayout="true" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/profile_preferences_applicationDisableBluetoothScanning"
+                android:summary="@string/array_pref_no_change"
+                android:key="prf_pref_applicationDisableBluetoothScanning"
+                android:defaultValue="@string/prf_pref_applicationDisableBluetoothScanning"
+                android:entries="@array/applicationDisableScanningDPArray"
+                android:entryValues="@array/applicationDisableScanningDPValues"
+                app:useStockLayout="true" />
+        </PreferenceScreen>
+        <PreferenceScreen
             android:title="@string/profile_preferences_category_others"
             android:key="prf_pref_othersCategory"
             android:widgetLayout="@layout/start_activity_preference" >

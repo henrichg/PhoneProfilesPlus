@@ -703,6 +703,22 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             preferenceScreen = prefMng.findPreference("prf_pref_othersCategory");
         }
 
+        if (key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING) ||
+            key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING)) {
+            String title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                summary = summary + title;
+            }
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            preferenceScreen = prefMng.findPreference("prf_pref_applicationCategory");
+        }
+
         if (preferenceScreen != null) {
             GlobalGUIRoutines.setPreferenceTitleStyle(preferenceScreen, _bold, false, false, false);
             if (_bold)
@@ -1095,6 +1111,30 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 boolean change = BrightnessDialogPreference.changeEnabled(sValue);
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, change, false, false, false);
                 setCategorySummary(preference, change);
+            }
+        }
+        if (key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING) ||
+            key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING))
+        {
+            ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
+            if (listPreference != null) {
+                int canChange = Profile.isProfilePreferenceAllowed(key, context);
+                if (canChange != PPApplication.PREFERENCE_ALLOWED) {
+                    listPreference.setEnabled(false);
+                    if (canChange == PPApplication.PREFERENCE_NOT_ALLOWED)
+                        listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                                ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
+                    setCategorySummary(listPreference, false);
+                }
+                else {
+                    String sValue = value.toString();
+                    int index = listPreference.findIndexOfValue(sValue);
+                    CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                    listPreference.setSummary(summary);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                    setCategorySummary(listPreference, index > 0);
+                }
             }
         }
 

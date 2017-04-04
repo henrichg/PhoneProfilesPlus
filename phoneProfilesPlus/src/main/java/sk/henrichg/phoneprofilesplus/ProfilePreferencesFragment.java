@@ -115,6 +115,8 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
         setSummary(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
         setSummary(Profile.PREF_PROFILE_LOCK_DEVICE);
         setSummary(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID);
+        setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING);
+        setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING);
 
         //}
     }
