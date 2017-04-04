@@ -825,7 +825,8 @@ public class PhoneProfilesService extends Service
                                     PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=MUSIC");
                                 }
                                 else {
-                                    stream = AudioManager.STREAM_RING;
+                                    //stream = AudioManager.STREAM_RING;
+                                    stream = AudioManager.STREAM_MUSIC;
                                     PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=RING");
                                 }
                             }
