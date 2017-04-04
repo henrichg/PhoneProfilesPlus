@@ -234,6 +234,7 @@ public class ScannerService extends IntentService
                     }
                 }
 
+                /*
                 wifiBluetoothChangeHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -248,7 +249,22 @@ public class ScannerService extends IntentService
                 }, 3000);
                 //try { Thread.sleep(700); } catch (InterruptedException e) { }
                 //SystemClock.sleep(700);
-                //PPApplication.sleep(3000);
+                //PPApplication.sleep(700);*/
+                wifiBluetoothChangeHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)) {
+                            PPApplication.logE("$$$W ScannerService.onHandleIntent", "disable wifi");
+                            WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
+                            WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
+                        }
+                        else
+                            PPApplication.logE("$$$W ScannerService.onHandleIntent", "keep enabled wifi");
+                    }
+                });
+                //try { Thread.sleep(700); } catch (InterruptedException e) { }
+                //SystemClock.sleep(700);
+                PPApplication.sleep(700);
             }
 
             setForceOneWifiScan(context, FORCE_ONE_SCAN_DISABLED);
@@ -441,6 +457,7 @@ public class ScannerService extends IntentService
                         }
                     }
 
+                    /*
                     wifiBluetoothChangeHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -456,6 +473,22 @@ public class ScannerService extends IntentService
                     //try { Thread.sleep(700); } catch (InterruptedException e) { }
                     //SystemClock.sleep(700);
                     //PPApplication.sleep(3000);
+                    */
+                    wifiBluetoothChangeHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)) {
+                                PPApplication.logE("$$$B ScannerService.onHandleIntent", "disable bluetooth");
+                                BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
+                                BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
+                            }
+                            else
+                                PPApplication.logE("$$$B ScannerService.onHandleIntent", "keep enabled bluetooth");
+                        }
+                    });
+                    //try { Thread.sleep(700); } catch (InterruptedException e) { }
+                    //SystemClock.sleep(700);
+                    PPApplication.sleep(700);
                 }
             }
 

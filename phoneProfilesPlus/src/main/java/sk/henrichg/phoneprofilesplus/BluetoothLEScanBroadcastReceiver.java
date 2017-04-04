@@ -1,8 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import java.util.Calendar;
 
 public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
@@ -44,9 +49,9 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                 if (forceOneScan != ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
                     // start service
-                    //setAlarm(context);
-                    Intent _intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
-                    context.sendBroadcast(_intent);
+                    setAlarm(context);
+                    //Intent _intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
+                    //context.sendBroadcast(_intent);
                 }
 
             }
@@ -57,10 +62,9 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
     }
 
-    /*
     private void removeAlarm(Context context)
     {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
 
@@ -81,7 +85,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.SECOND, 3);
@@ -94,6 +98,5 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
         else
             alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
     }
-    */
 
 }
