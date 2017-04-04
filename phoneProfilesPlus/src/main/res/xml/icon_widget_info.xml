@@ -3,8 +3,10 @@
 <!-- old size (70 x n) - 30 --> 
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:minWidth="40dp" 
-    android:minHeight="40dp" 
-    android:initialLayout="@layout/icon_widget" 
-    android:resizeMode="none" 
+    android:minHeight="40dp"
+    android:minResizeWidth="40dp"
+    android:minResizeHeight="40dp"
+    android:initialLayout="@layout/icon_widget"
+    android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="1800000">
 </appwidget-provider>
