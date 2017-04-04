@@ -65,8 +65,12 @@ public class IconWidgetProvider extends AppWidgetProvider {
             RemoteViews remoteViews;
             if (ApplicationPreferences.applicationWidgetIconHideProfileName(context))
                 remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_no_profile_name);
-            else
-                remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget);
+            else {
+                if (profile._duration > 0)
+                    remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget);
+                else
+                    remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_one_line_text);
+            }
 
             // set background
             int red = 0;
