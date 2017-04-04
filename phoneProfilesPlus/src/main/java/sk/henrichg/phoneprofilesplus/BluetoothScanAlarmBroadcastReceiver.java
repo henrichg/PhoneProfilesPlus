@@ -60,7 +60,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         {
             PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.onReceive", "xxx");
 
-            startScanner(context);
+            startScanner(context, false);
         }
 
     }
@@ -457,11 +457,17 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         BluetoothScanAlarmBroadcastReceiver.saveLEScanResults(context, scanResults);
     }
 
-    static public void startScanner(Context context)
+    static public void startScanner(Context context, boolean fromDialog)
     {
-        Intent scanServiceIntent = new Intent(context, ScannerService.class);
-        scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_BLUETOOTH);
-        context.startService(scanServiceIntent);
+        DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+        Profile profile = dataWrapper.getActivatedProfile();
+        profile = Profile.getMappedProfile(profile, context);
+        if (fromDialog || (profile == null) || (profile._applicationDisableBluetoothScanning != 1)) {
+            Intent scanServiceIntent = new Intent(context, ScannerService.class);
+            scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_BLUETOOTH);
+            context.startService(scanServiceIntent);
+        }
+        dataWrapper.invalidateDataWrapper();
     }
 
     /*

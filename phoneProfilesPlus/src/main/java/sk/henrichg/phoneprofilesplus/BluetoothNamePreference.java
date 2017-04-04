@@ -378,7 +378,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 {
                     ScannerService.setForceOneBluetoothScan(context, ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     ScannerService.setForceOneLEBluetoothScan(context, ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
-                    BluetoothScanAlarmBroadcastReceiver.startScanner(context);
+                    BluetoothScanAlarmBroadcastReceiver.startScanner(context, true);
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);

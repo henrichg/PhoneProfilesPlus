@@ -370,7 +370,7 @@ public class WifiSSIDPreference extends DialogPreference {
                 if (_forRescan)
                 {
                     ScannerService.setForceOneWifiScan(context, ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
-                    WifiScanAlarmBroadcastReceiver.startScanner(context);
+                    WifiScanAlarmBroadcastReceiver.startScanner(context, true);
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);

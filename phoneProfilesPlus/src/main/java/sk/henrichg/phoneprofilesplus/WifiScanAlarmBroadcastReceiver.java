@@ -62,7 +62,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         {
             PPApplication.logE("@@@ WifiScanAlarmBroadcastReceiver.onReceive", "xxx");
 
-            startScanner(context);
+            startScanner(context, false);
         }
 
     }
@@ -296,11 +296,17 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         setScanRequest(context, false);
     }
 
-    static public void startScanner(Context context)
+    static public void startScanner(Context context, boolean fromDialog)
     {
-        Intent scanServiceIntent = new Intent(context, ScannerService.class);
-        scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_WIFI);
-        context.startService(scanServiceIntent);
+        DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+        Profile profile = dataWrapper.getActivatedProfile();
+        profile = Profile.getMappedProfile(profile, context);
+        if (fromDialog || (profile == null) || (profile._applicationDisableWifiScanning != 1)) {
+            Intent scanServiceIntent = new Intent(context, ScannerService.class);
+            scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_WIFI);
+            context.startService(scanServiceIntent);
+        }
+        dataWrapper.invalidateDataWrapper();
     }
 
     /*
