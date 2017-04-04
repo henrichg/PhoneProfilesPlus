@@ -558,8 +558,13 @@ class Event {
                 String ringtoneName;
                 if (ringtone == null)
                     ringtoneName = "";
-                else
-                    ringtoneName = ringtone.getTitle(context);
+                else {
+                    try {
+                        ringtoneName = ringtone.getTitle(context);
+                    } catch (SecurityException e) {
+                        ringtoneName = "";
+                    }
+                }
                 preference.setSummary(ringtoneName);
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, false, false, false);
             }

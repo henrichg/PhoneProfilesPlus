@@ -855,8 +855,13 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 String ringtoneName;
                 if (ringtone == null)
                     ringtoneName = "";
-                else
-                    ringtoneName = ringtone.getTitle(context);
+                else {
+                    try {
+                        ringtoneName = ringtone.getTitle(context);
+                    } catch (SecurityException e) {
+                        ringtoneName = "";
+                    }
+                }
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null) {
                     preference.setSummary(ringtoneName);
