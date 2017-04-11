@@ -101,7 +101,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                         ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
                         // send broadcast for one wifi scan
-                        WifiScanAlarmBroadcastReceiver.setAlarm(context, true, true);
+                        WifiScanAlarmBroadcastReceiver.setAlarm(context, true, true, false);
                         //WifiScanAlarmBroadcastReceiver.sendBroadcast(context);
                     }
                 }

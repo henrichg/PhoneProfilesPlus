@@ -881,7 +881,7 @@ public class DataWrapper {
         resetAllEventsInDelayStart(true);
         resetAllEventsInDelayEnd(true);
 
-        WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+        WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
         BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
         GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
         SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
@@ -2989,7 +2989,7 @@ public class DataWrapper {
         {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
                 // rescan wifi
-                WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
         }
         if (ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
                 ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))

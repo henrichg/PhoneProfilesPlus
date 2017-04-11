@@ -817,7 +817,7 @@ public class GrantPermissionActivity extends Activity {
                 Permissions.bluetoothNamePreference.refreshListView(true);
             dataWrapper.restartEvents(false, true, false);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
-                WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
                 BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
@@ -850,7 +850,7 @@ public class GrantPermissionActivity extends Activity {
                 if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
                     permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
-                        WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                        WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
                         BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
@@ -869,7 +869,7 @@ public class GrantPermissionActivity extends Activity {
                 Permissions.locationGeofenceEditorActivity.refreshActivity(true);
             dataWrapper.restartEvents(false, true, false);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
-                WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
                 BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)

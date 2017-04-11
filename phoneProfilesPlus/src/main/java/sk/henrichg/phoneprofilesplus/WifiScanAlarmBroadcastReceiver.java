@@ -47,7 +47,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         //PPApplication.loadPreferences(context);
 
-        setAlarm(context, false, false);
+        setAlarm(context, false, false, false);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED) {
@@ -108,7 +108,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    public static void setAlarm(Context context, boolean shortInterval, boolean forScreenOn)
+    public static void setAlarm(Context context, boolean shortInterval, boolean forScreenOn, boolean afterEnableWifi)
     {
         //PPApplication.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot);
 
@@ -129,6 +129,9 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             //PPApplication.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
             if (shortInterval) {
+                if (afterEnableWifi)
+                    calendar.add(Calendar.SECOND, 2);
+                else
                 if (forScreenOn)
                     calendar.add(Calendar.SECOND, 5);
                 else

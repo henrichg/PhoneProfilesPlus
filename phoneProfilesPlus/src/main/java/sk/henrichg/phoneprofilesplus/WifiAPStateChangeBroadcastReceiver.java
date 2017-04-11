@@ -35,7 +35,7 @@ public class WifiAPStateChangeBroadcastReceiver extends WakefulBroadcastReceiver
                 // send broadcast for one wifi scan
                 DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
-                    WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                    WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, true);
                 dataWrapper.invalidateDataWrapper();
             }
 
