@@ -1,11 +1,16 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
+import android.os.Handler;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver {
@@ -69,10 +74,21 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                 if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                     // start scan
                     if (WifiScanAlarmBroadcastReceiver.getScanRequest(context)) {
+                        final Context _context = context;
+                        new Handler(context.getMainLooper()).postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
+                                WifiScanAlarmBroadcastReceiver.startScan(_context.getApplicationContext());
+                            }
+                        }, 5000);
+
+                        /*
                         PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "before startScan");
                         PPApplication.sleep(5000);
                         WifiScanAlarmBroadcastReceiver.startScan(context.getApplicationContext());
                         PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "after startScan");
+                        */
                     } else if (!WifiScanAlarmBroadcastReceiver.getWaitForResults(context)) {
                         // refresh configured networks list
                         WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
@@ -98,4 +114,5 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
         }
 
     }
+
 }
