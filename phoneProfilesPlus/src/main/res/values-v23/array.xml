@@ -7,7 +7,7 @@
         <item>@string/array_pref_ringerModeArray_ring_and_vibrate</item>
         <item>@string/array_pref_ringerModeArray_vibrate</item>
         <item>@string/array_pref_ringerModeArray_silentM</item>
-        <item>@string/array_pref_ringerModeArray_ZenMode</item>
+        <item>@string/array_pref_ringerModeArray_ZenModeM</item>
     </string-array>
     <string-array name="ringerModeValues" tools:ignore="InconsistentArrays">
         <item>0</item>
@@ -24,7 +24,7 @@
         <item>@string/array_pref_ringerModeArray_ring_and_vibrate</item>
         <item>@string/array_pref_ringerModeArray_vibrate</item>
         <item>@string/array_pref_ringerModeArray_silentM</item>
-        <item>@string/array_pref_ringerModeArray_ZenMode</item>
+        <item>@string/array_pref_ringerModeArray_ZenModeM</item>
     </string-array>
     <string-array name="ringerModeDPValues" tools:ignore="InconsistentArrays">
         <item>0</item>
@@ -38,12 +38,12 @@
     <string-array name="zenModeArray" tools:ignore="InconsistentArrays">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_default_profile</item>
-        <item>@string/array_pref_zenModeArray_all</item>
-        <item>@string/array_pref_zenModeArray_allWithVibration</item>
+        <item>@string/array_pref_zenModeArray_off</item>
+        <item>@string/array_pref_zenModeArray_offButVibration</item>
         <item>@string/array_pref_zenModeArray_priority</item>
         <item>@string/array_pref_zenModeArray_priorityWithVibration</item>
         <item>@string/array_pref_zenModeArray_alarms</item>
-        <item>@string/array_pref_zenModeArray_none</item>
+        <item>@string/array_pref_zenModeArray_totalSilence</item>
     </string-array>
     <string-array name="zenModeValues" tools:ignore="InconsistentArrays">
         <item>0</item>
@@ -57,12 +57,12 @@
     </string-array>
     <string-array name="zenModeDPArray" tools:ignore="InconsistentArrays">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_zenModeArray_all</item>
-        <item>@string/array_pref_zenModeArray_allWithVibration</item>
+        <item>@string/array_pref_zenModeArray_off</item>
+        <item>@string/array_pref_zenModeArray_offButVibration</item>
         <item>@string/array_pref_zenModeArray_priority</item>
         <item>@string/array_pref_zenModeArray_priorityWithVibration</item>
         <item>@string/array_pref_zenModeArray_alarms</item>
-        <item>@string/array_pref_zenModeArray_none</item>
+        <item>@string/array_pref_zenModeArray_totalSilence</item>
     </string-array>
     <string-array name="zenModeDPValues" tools:ignore="InconsistentArrays">
         <item>0</item>
@@ -74,10 +74,10 @@
         <item>3</item>
     </string-array>
     <string-array name="zenModeSummaryArray" tools:ignore="InconsistentArrays">
-        <item>@string/profile_preferences_zenMode_all_summary</item>
+        <item>@string/profile_preferences_zenMode_off_summary</item>
         <item>@string/profile_preferences_zenMode_priority_summary</item>
-        <item>@string/profile_preferences_zenMode_none_summary</item>
-        <item>@string/profile_preferences_zenMode_all_summary</item>
+        <item>@string/profile_preferences_zenMode_totalSilence_summary</item>
+        <item>@string/profile_preferences_zenMode_off_summary</item>
         <item>@string/profile_preferences_zenMode_priority_summary</item>
         <item>@string/profile_preferences_zenMode_alarms_summary</item>
     </string-array>

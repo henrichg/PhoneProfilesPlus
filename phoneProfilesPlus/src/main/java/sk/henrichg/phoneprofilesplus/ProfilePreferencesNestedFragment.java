@@ -140,6 +140,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
             Preference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
             if (zenModePreference != null) {
+                if (android.os.Build.VERSION.SDK_INT >= 23)
+                    zenModePreference.setTitle(R.string.profile_preferences_volumeZenModeM);
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "");
                 zenModePreference.setEnabled((value.equals("5")) && canEnableZenMode);
             }
@@ -391,8 +393,13 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     if (BrightnessDialogPreference.changeEnabled(preferences.getString(preference.getKey(), defaultValue)))
                         title = preference.getTitle().toString();
                 } else {
-                    if (!preferences.getString(preference.getKey(), defaultValue).equals(defaultValue))
-                        title = preference.getTitle().toString();
+                    if (!preferences.getString(preference.getKey(), defaultValue).equals(defaultValue)) {
+                        if (key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE) &&
+                                (android.os.Build.VERSION.SDK_INT >= 23))
+                            title = context.getString(R.string.profile_preferences_volumeZenModeM);
+                        else
+                            title = preference.getTitle().toString();
+                    }
                 }
             }
             if (systemSettings) {
