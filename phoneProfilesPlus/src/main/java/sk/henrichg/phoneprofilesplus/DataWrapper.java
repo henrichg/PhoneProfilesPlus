@@ -2974,36 +2974,41 @@ public class DataWrapper {
 
     void restartEventsWithRescan(boolean showToast, boolean interactive)
     {
-        PPApplication.logE("$$$ restartEvents","in DataWrapper.restartEventsWithRescan");
+        PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","xxx");
 
         // remove all event delay alarms
         resetAllEventsInDelayStart(false);
         resetAllEventsInDelayEnd(false);
         // ignoruj manualnu aktivaciu profilu
         // a odblokuj forceRun eventy
-        PPApplication.logE("$$$ restartEvents","from DataWrapper.restartEventsWithRescan");
         restartEvents(true, false, interactive);
 
         if (ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
                 ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
-            if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
+            if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
                 // rescan wifi
+                PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of wifi scanner");
                 WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
+            }
         }
         if (ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
                 ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
-            if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
+            if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0) {
                 // rescan bluetooth
+                PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of bluetooth scanner");
                 BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+            }
         }
         if (ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
                 ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
-            if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
+            if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
                 // send broadcast for location scan
+                PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of location scanner");
                 GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
+            }
         }
         if (ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
                 ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
@@ -3011,6 +3016,7 @@ public class DataWrapper {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0)
                 // rescan mobile cells
                 if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateStarted()) {
+                    PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of mobile cells scanner");
                     PhoneProfilesService.phoneStateScanner.rescanMobileCells();
                 }
         }

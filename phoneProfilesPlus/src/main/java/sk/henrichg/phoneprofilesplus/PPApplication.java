@@ -54,6 +54,9 @@ public class PPApplication extends Application {
                                          +"|ScannerService.enableWifi"
                                          +"|StartEventsServiceBroadcastReceiver.onReceive"
                                          +"|#### EventsService.onHandleIntent"
+                                         +"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
+                                         +"|$$$ DataWrapper.restartEventsWithRescan"
+
 
                                          /*
                                          +"|PhoneProfilesService.doSimulatingRingingCall"

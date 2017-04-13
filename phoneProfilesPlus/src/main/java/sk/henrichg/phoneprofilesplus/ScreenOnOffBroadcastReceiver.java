@@ -101,6 +101,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                         ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
                         // send broadcast for one wifi scan
+                        PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of wifi scanner");
                         WifiScanAlarmBroadcastReceiver.setAlarm(context, true, true, false);
                         //WifiScanAlarmBroadcastReceiver.sendBroadcast(context);
                     }
@@ -109,6 +110,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                         ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0) {
                         // send broadcast for one bluetooth scan
+                        PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of bluetooth scanner");
                         BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, true);
                         //BluetoothScanAlarmBroadcastReceiver.sendBroadcast(context);
                     }
@@ -117,6 +119,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                         ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
                         // send broadcast for location scan
+                        PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of location scanner");
                         GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, true);
                         //GeofenceScannerAlarmBroadcastReceiver.sendBroadcast(context);
                     }
@@ -126,6 +129,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                         // rescan mobile cells
                         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateStarted()) {
+                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of mobile cells scanner");
                             PhoneProfilesService.phoneStateScanner.rescanMobileCells();
                         }
                     }
