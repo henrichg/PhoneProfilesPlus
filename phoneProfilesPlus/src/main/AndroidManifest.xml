@@ -298,6 +298,7 @@
                   android:theme="@style/LockDeviceActivity" >
         </activity>
 
+        <!-- implicit boradcast receivers, register it in PhoneProfilesService -->
         <receiver
             android:name=".PhoneProfilesInstall"
             android:enabled="true"
@@ -308,48 +309,6 @@
 
                 <data android:scheme="package"/>
             </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".IconWidgetProvider"
-            android:enabled="true"
-            android:exported="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/widget_label_icon">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/icon_widget_info"/>
-        </receiver>
-        <receiver
-            android:name=".OneRowWidgetProvider"
-            android:enabled="true"
-            android:exported="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/widget_label_one_row">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/one_row_widget_info"/>
-        </receiver>
-        <receiver
-            android:name=".ProfileListWidgetProvider"
-            android:enabled="true"
-            android:exported="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/widget_label_list">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/profile_list_widget_info"/>
         </receiver>
         <receiver
             android:name=".LocaleChangedReceiver"
@@ -530,6 +489,62 @@
                 <action android:name="android.location.PROVIDERS_CHANGED"/>
             </intent-filter>
         </receiver>
+        <receiver android:name=".AirplaneModeStateChangedBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".GPSStateChangedBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.location.PROVIDERS_CHANGED"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- widget providers -->
+        <receiver
+            android:name=".IconWidgetProvider"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/widget_label_icon">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/icon_widget_info"/>
+        </receiver>
+        <receiver
+            android:name=".OneRowWidgetProvider"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/widget_label_one_row">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/one_row_widget_info"/>
+        </receiver>
+        <receiver
+            android:name=".ProfileListWidgetProvider"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/widget_label_list">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/profile_list_widget_info"/>
+        </receiver>
+
+        <!-- Device adminstrator receiver -->
         <receiver
             android:name=".PPDeviceAdminReceiver"
             android:description="@string/device_admin_description"
@@ -541,16 +556,6 @@
 
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".AirplaneModeStateChangedBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.AIRPLANE_MODE"/>
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".GPSStateChangedBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.location.PROVIDERS_CHANGED"/>
             </intent-filter>
         </receiver>
 
@@ -663,8 +668,6 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_DASHCLOCK"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
         <receiver
@@ -673,8 +676,6 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_GUI"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
         <receiver
