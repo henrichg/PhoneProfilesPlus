@@ -380,36 +380,6 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".DashClockBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_DASHCLOCK"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".RestartEventsBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".EventTimeBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".RefreshGUIBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_GUI"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </receiver>
-        <receiver
             android:name=".PhoneCallBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
@@ -429,11 +399,6 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".EventCalendarBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
             android:name=".CalendarProviderChangedBroadcastReceiver"
             android:enabled="true"
             android:exported="true"
@@ -444,11 +409,6 @@
                 <data android:scheme="content"/>
                 <data android:host="com.android.calendar"/>
             </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".SearchCalendarEventsBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
         </receiver>
         <receiver
             android:name=".WifiConnectionBroadcastReceiver"
@@ -465,26 +425,6 @@
             <intent-filter>
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
             </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".WifiScanAlarmBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".EventDelayStartBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".EventDelayEndBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".ProfileDurationAlarmBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
         </receiver>
         <receiver
             android:name=".BluetoothConnectionBroadcastReceiver"
@@ -506,16 +446,6 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".BluetoothScanAlarmBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".BluetoothLEScanBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
             android:name=".SMSBroadcastReceiver"
             android:enabled="true"
             android:exported="true"
@@ -528,21 +458,6 @@
 
                 <data android:mimeType="application/vnd.wap.mms-message"/>
             </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".SMSEventEndBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".NotificationCancelAlarmBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".RemoveBrightnessViewBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
         </receiver>
         <receiver
             android:name=".AlarmClockBroadcastReceiver"
@@ -599,50 +514,12 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".NotificationBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".NotificationEventEndBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".PermissionsNotificationDeletedReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="sk.henrichg.phoneprofilesplus.PERMISSIONS_NOTIFICATION_DELETED"/>
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".DeviceIdleModeBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".DisableRingerModeInernalChangeBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".ForegroundApplicationChangedBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
             android:name=".WifiAPStateChangeBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.net.wifi.WIFI_AP_STATE_CHANGED"/>
             </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".GeofenceScannerBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
         </receiver>
         <receiver
             android:name=".LocationModeChangedBroadcastReceiver"
@@ -652,6 +529,96 @@
                 <action android:name="android.location.MODE_CHANGED"/>
                 <action android:name="android.location.PROVIDERS_CHANGED"/>
             </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".PPDeviceAdminReceiver"
+            android:description="@string/device_admin_description"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin"/>
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".AirplaneModeStateChangedBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".GPSStateChangedBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.location.PROVIDERS_CHANGED"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- alarms -->
+        <receiver
+            android:name=".RestartEventsBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".EventTimeBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".EventCalendarBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".SearchCalendarEventsBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".WifiScanAlarmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".EventDelayStartBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".EventDelayEndBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".ProfileDurationAlarmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".BluetoothScanAlarmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".SMSEventEndBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".NotificationCancelAlarmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".NotificationEventEndBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".DisableRingerModeInernalChangeBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
         </receiver>
         <receiver
             android:name=".GeofenceScannerAlarmBroadcastReceiver"
@@ -664,12 +631,87 @@
             android:exported="false">
         </receiver>
         <receiver
-            android:name=".DeviceOrientationBroadcastReceiver"
+            android:name=".StartEventsServiceBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
         <receiver
-            android:name=".StartEventsServiceBroadcastReceiver"
+            android:name=".NFCEventEndBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".AboutApplicationBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".DisableScreenTimeoutInternalChangeReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".DelayedBootUpReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+
+        <!-- use LocalBroadcatManager -->
+        <receiver
+            android:name=".DashClockBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_DASHCLOCK"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".RefreshGUIBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_GUI"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".BluetoothLEScanBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".RemoveBrightnessViewBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".NotificationBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".PermissionsNotificationDeletedReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.PERMISSIONS_NOTIFICATION_DELETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".ForegroundApplicationChangedBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".GeofenceScannerBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".DeviceOrientationBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
@@ -701,52 +743,9 @@
             android:exported="false">
         </receiver>
         <receiver
-            android:name=".NFCEventEndBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".AboutApplicationBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".DisableScreenTimeoutInternalChangeReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".PPDeviceAdminReceiver"
-            android:description="@string/device_admin_description"
-            android:label="@string/app_name"
-            android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data
-                android:name="android.app.device_admin"
-                android:resource="@xml/device_admin"/>
-
-            <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".DelayedBootUpReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
             android:name=".RadioSwitchBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>
-        <receiver android:name=".AirplaneModeStateChangedBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.AIRPLANE_MODE"/>
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".GPSStateChangedBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.location.PROVIDERS_CHANGED"/>
-            </intent-filter>
         </receiver>
         <receiver
             android:name=".MobileDataStateChangedBroadcastReceiver"
