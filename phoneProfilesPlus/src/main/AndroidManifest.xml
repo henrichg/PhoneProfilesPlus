@@ -298,6 +298,19 @@
                   android:theme="@style/LockDeviceActivity" >
         </activity>
 
+        <!-- implicit boradcast receivers, in Android O exception group -->
+        <!-- https://developer.android.com/preview/features/background-broadcasts.html -->
+        <receiver
+            android:name=".BootUpReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
+
         <!-- implicit boradcast receivers, register it in PhoneProfilesService -->
         <receiver
             android:name=".PhoneProfilesInstall"
@@ -311,6 +324,14 @@
             </intent-filter>
         </receiver>
         <receiver
+            android:name=".PackageReplacedReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
             android:name=".LocaleChangedReceiver"
             android:enabled="true"
             android:exported="true">
@@ -318,24 +339,6 @@
                 <action android:name="android.intent.action.LOCALE_CHANGED"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".BootUpReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
-                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".PackageReplacedReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
             </intent-filter>
         </receiver>
         <receiver
