@@ -202,9 +202,6 @@ public class ScannerService extends IntentService
 
                         // enable wifi
                         int wifiState;
-                        //if ((android.os.Build.VERSION.SDK_INT >= 18) && WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable())
-                        //    wifiState = WifiManager.WIFI_STATE_ENABLED;
-                        //else
                         wifiState = enableWifi(dataWrapper, WifiScanAlarmBroadcastReceiver.wifi, wifiBluetoothChangeHandler);
 
                         if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
@@ -647,17 +644,18 @@ public class ScannerService extends IntentService
             if (wifiState != WifiManager.WIFI_STATE_ENABLING)
             {
                 boolean isWifiEnabled = (wifiState == WifiManager.WIFI_STATE_ENABLED);
-                //boolean isScanAlwaysAvailable = false;
-                //if (forceScan != PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+                boolean isScanAlwaysAvailable = false;
+                if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     // from dialog preference wifi must be enabled for saved wifi configuration
                     // (see WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList)
 
                     // this must be disabled because scanning not working, when wifi is disabled after disabled WiFi AP
-                    //if (android.os.Build.VERSION.SDK_INT >= 18)
-                    //    isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
-                //}
-                //PPApplication.logE("@@@ ScannerService.enableWifi","isScanAlwaysAvailable="+isScanAlwaysAvailable);
-                //isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
+                    // Tested and scanning working ;-)
+                    if (android.os.Build.VERSION.SDK_INT >= 18)
+                        isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
+                }
+                PPApplication.logE("@@@ ScannerService.enableWifi","isScanAlwaysAvailable="+isScanAlwaysAvailable);
+                isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
                 if (!isWifiEnabled)
                 {
                     if (ApplicationPreferences.applicationEventWifiEnableWifi(dataWrapper.context) || (forceScan != FORCE_ONE_SCAN_DISABLED))
@@ -695,10 +693,10 @@ public class ScannerService extends IntentService
                 }
                 else
                 {
-                    //if (isScanAlwaysAvailable) {
-                    //    PPApplication.logE("@@@ ScannerService.enableWifi", "already enabled");
-                    //    wifiState =  WifiManager.WIFI_STATE_ENABLED;
-                    //}
+                    if (isScanAlwaysAvailable) {
+                        PPApplication.logE("@@@ ScannerService.enableWifi", "scan always available");
+                        wifiState =  WifiManager.WIFI_STATE_ENABLED;
+                    }
                     return wifiState;
                 }
             }

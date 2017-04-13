@@ -57,10 +57,10 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
             */
 
             boolean scanStarted = (WifiScanAlarmBroadcastReceiver.getWaitForResults(context));
+            PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted="+scanStarted);
 
             if (scanStarted)
             {
-                PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted");
 
                 /*
                 if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))
