@@ -324,14 +324,6 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".PackageReplacedReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
-            </intent-filter>
-        </receiver>
-        <receiver
             android:name=".LocaleChangedReceiver"
             android:enabled="true"
             android:exported="true">
@@ -545,6 +537,16 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/profile_list_widget_info"/>
+        </receiver>
+
+        <!-- no implicit broadcast receivers -->
+        <receiver
+            android:name=".PackageReplacedReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+            </intent-filter>
         </receiver>
 
         <!-- Device adminstrator receiver -->
