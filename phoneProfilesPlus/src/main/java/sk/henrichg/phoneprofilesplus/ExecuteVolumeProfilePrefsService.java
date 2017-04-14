@@ -12,7 +12,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
     private static volatile PowerManager.WakeLock wakeLock = null;
 
     public ExecuteVolumeProfilePrefsService() {
-        super("ExecuteRadioProfilePrefsService");
+        super("ExecuteVolumeProfilePrefsService");
     }
     
     public static synchronized void makeWakeLockBeforeStart(Context context, Intent intent) {
