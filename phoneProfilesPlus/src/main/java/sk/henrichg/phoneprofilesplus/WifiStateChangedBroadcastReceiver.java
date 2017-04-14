@@ -81,7 +81,7 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                                 PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
                                 WifiScanAlarmBroadcastReceiver.startScan(_context.getApplicationContext());
                             }
-                        }, 2000);
+                        }, 5000);
 
                         /*
                         PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "before startScan");
