@@ -4,12 +4,30 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.os.PowerManager;
 
 public class ExecuteVolumeProfilePrefsService extends IntentService
 {
+    private static final String EXTRA_WAKE_LOCK_TAKEN = "wake_lock_taken";
+    private static volatile PowerManager.WakeLock wakeLock = null;
 
     public ExecuteVolumeProfilePrefsService() {
         super("ExecuteRadioProfilePrefsService");
+    }
+    
+    public static synchronized void makeWakeLockBeforeStart(Context context, Intent intent) {
+        if(wakeLock == null) {
+            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ExecuteVolumeProfilePrefsService");
+        }
+        wakeLock.acquire();
+        intent.putExtra(EXTRA_WAKE_LOCK_TAKEN, true);
+    }
+    
+    private static synchronized void releaseWakeLock() {
+        if(wakeLock != null) {
+            wakeLock.release();
+        }
     }
 
     //@Override
@@ -99,6 +117,10 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
         }
 
         dataWrapper.invalidateDataWrapper();
+
+        if(intent.getBooleanExtra(EXTRA_WAKE_LOCK_TAKEN, false)) {
+            releaseWakeLock();
+        }
     }
 
 

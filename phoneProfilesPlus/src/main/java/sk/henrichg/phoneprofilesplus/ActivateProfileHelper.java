@@ -1278,6 +1278,7 @@ public class ActivateProfileHelper {
         volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
         volumeServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
         volumeServiceIntent.putExtra(EXTRA_FOR_PROFILE_ACTIVATION, true);
+        ExecuteVolumeProfilePrefsService.makeWakeLockBeforeStart(context, volumeServiceIntent);
         context.startService(volumeServiceIntent);
         /*AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         // nahodenie ringer modu - aby sa mohli nastavit hlasitosti
@@ -1307,6 +1308,7 @@ public class ActivateProfileHelper {
         Intent radioServiceIntent = new Intent(context, ExecuteRadioProfilePrefsService.class);
         radioServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
         radioServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
+        ExecuteRadioProfilePrefsService.makeWakeLockBeforeStart(context, radioServiceIntent);
         context.startService(radioServiceIntent);
 
         // nahodenie auto-sync
