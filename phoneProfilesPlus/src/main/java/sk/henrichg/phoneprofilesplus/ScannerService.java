@@ -34,7 +34,7 @@ public class ScannerService extends IntentService
     private final BluetoothScanBroadcastReceiver bluetoothScanReceiver = new BluetoothScanBroadcastReceiver();
     private final BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = new BluetoothLEScanBroadcastReceiver();
 
-    public static int wifiScanDuration = 20;      // 20 seconds for wifi scan
+    public static int wifiScanDuration = 22;      // 22 seconds for wifi scan
     public static int classicBTScanDuration = 20; // 20 seconds for classic bluetooth scan
 
     Handler wifiBluetoothChangeHandler;
@@ -222,6 +222,17 @@ public class ScannerService extends IntentService
                             waitForWifiScanEnd(context, null);
 
                             PPApplication.logE("$$$W ScannerService.onHandleIntent", "scan ended");
+
+                            if (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)) {
+                                PPApplication.logE("$$$W ScannerService.onHandleIntent", "no data received from scanner");
+                                if (getForceOneWifiScan(context) != ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
+                                {
+                                    // start service
+                                    //Intent _intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
+                                    //context.sendBroadcast(_intent);
+                                    WifiScanBroadcastReceiver.setAlarm(context);
+                                }
+                            }
                         }
 
                         WifiScanAlarmBroadcastReceiver.unlock();

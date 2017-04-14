@@ -61,19 +61,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
             if (scanStarted)
             {
-
-                /*
-                if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))
-                {
-                    PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive","disable wifi");
-                    WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
-                    // not call this, due WifiConnectionBroadcastReceiver
-                    //WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
-                }
-                */
-
                 WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
-
                 ScannerService.setForceOneWifiScan(context, ScannerService.FORCE_ONE_SCAN_DISABLED);
 
                 if (forceOneScan != ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
@@ -91,7 +79,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
     }
 
-    private void removeAlarm(Context context)
+    private static void removeAlarm(Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -106,7 +94,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint("NewApi")
-    private void setAlarm(Context context)
+    public static void setAlarm(Context context)
     {
         removeAlarm(context);
 
