@@ -41,7 +41,7 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
-                                         +"|WifiScanAlarmBroadcastReceiver.onReceive"
+                                         /*+"|WifiScanAlarmBroadcastReceiver.onReceive"
                                          +"|WifiScanAlarmBroadcastReceiver.setAlarm"
                                          +"|WifiScanAlarmBroadcastReceiver.removeAlarm"
                                          +"|WifiScanAlarmBroadcastReceiver.isAlarmSet"
@@ -55,8 +55,9 @@ public class PPApplication extends Application {
                                          +"|StartEventsServiceBroadcastReceiver.onReceive"
                                          +"|#### EventsService.onHandleIntent"
                                          +"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
-                                         +"|$$$ DataWrapper.restartEventsWithRescan"
+                                         +"|$$$ DataWrapper.restartEventsWithRescan"*/
 
+                                         +"|Profile.convertPercentsToBrightnessManualValue"
 
                                          /*
                                          +"|PhoneProfilesService.doSimulatingRingingCall"

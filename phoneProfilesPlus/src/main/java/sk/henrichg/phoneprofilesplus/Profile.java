@@ -1084,6 +1084,9 @@ public class Profile {
         int maximumValue = getMaximumScreenBrightnessSetting();
         int minimumValue = getMinimumScreenBrightnessSetting();
 
+        PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "maximumValue="+maximumValue);
+        PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "minimumValue="+minimumValue);
+
         if (maximumValue-minimumValue > 255) {
             minimumValue = 0;
             maximumValue = 255;
