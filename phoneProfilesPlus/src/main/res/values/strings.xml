@@ -979,7 +979,7 @@
     <string name="profile_preferences_applicationDisableWifiScanning">Disable Wi-Fi scanning</string>
     <string name="profile_preferences_applicationDisableBluetoothScanning">Disable Bluetooth scanning</string>
     <string name="array_pref_ringerModeArray_ZenModeM">Do not disturb</string>
-    <string name="profile_preferences_volumeZenModeM">Do not disturb type</string>
+    <string name="profile_preferences_volumeZenModeM">\"Do not disturb\" type</string>
     <string name="array_pref_zenModeArray_off">Off</string>
     <string name="array_pref_zenModeArray_offButVibration">Off but vibration</string>
     <string name="array_pref_zenModeArray_totalSilence">Total silence</string>
