@@ -357,8 +357,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             return;
 
         PreferenceScreen preferenceCategoryNotifications = (PreferenceScreen) findPreference("categoryNotifications");
-        if (!(ApplicationPreferences.notificationStatusBar(getActivity()) &&
-                ApplicationPreferences.notificationStatusBarPermanent(getActivity()))) {
+        boolean notificationStatusBar = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true);
+        boolean notificationStatusBarPermanent = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
+        if (!(notificationStatusBar && notificationStatusBarPermanent)) {
             GlobalGUIRoutines.setPreferenceTitleStyle(preferenceCategoryNotifications, true, false, true, false);
             preferenceCategoryNotifications.setSummary(getString(R.string.phone_profiles_pref_notificationStatusBarNotEnabled_summary) + " " +
                                                         getString(R.string.phone_profiles_pref_notificationStatusBarRequired));
@@ -366,6 +367,12 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         else {
             GlobalGUIRoutines.setPreferenceTitleStyle(preferenceCategoryNotifications, false, false, false, false);
             preferenceCategoryNotifications.setSummary(R.string.empty_string);
+        }
+        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR)) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, !notificationStatusBar, false, !notificationStatusBar, false);
+        }
+        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT)) {
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, !notificationStatusBarPermanent, false, !notificationStatusBarPermanent, false);
         }
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
