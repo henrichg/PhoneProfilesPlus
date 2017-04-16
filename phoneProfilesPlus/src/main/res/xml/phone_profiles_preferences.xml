@@ -14,7 +14,7 @@
             android:title="@string/phone_profiles_pref_applicationLanguage"
             android:summary="@string/phone_profiles_pref_applicationLanguage_system"
             android:key="applicationLanguage"
-            android:defaultValue="system"
+            android:defaultValue="@string/array_pref_value_system"
             android:entries="@array/languageArray"
             android:entryValues="@array/languageValues"
             app:useStockLayout="true" />
@@ -52,7 +52,7 @@
             android:title="@string/phone_profiles_pref_applicationTheme"
             android:summary="@string/phone_profiles_pref_applicationTheme_dlight"
             android:key="applicationTheme"
-            android:defaultValue="material"
+            android:defaultValue="@string/array_pref_value_material"
             android:entries="@array/themeArray"
             android:entryValues="@array/themeValues"
             app:useStockLayout="true" />
