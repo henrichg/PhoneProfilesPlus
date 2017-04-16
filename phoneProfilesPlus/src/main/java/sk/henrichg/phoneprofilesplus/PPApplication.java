@@ -57,7 +57,7 @@ public class PPApplication extends Application {
                                          +"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
                                          +"|$$$ DataWrapper.restartEventsWithRescan"*/
 
-                                         +"|Profile.convertPercentsToBrightnessManualValue"
+                                         //+"|Profile.convertPercentsToBrightnessManualValue"
 
                                          /*
                                          +"|PhoneProfilesService.doSimulatingRingingCall"
