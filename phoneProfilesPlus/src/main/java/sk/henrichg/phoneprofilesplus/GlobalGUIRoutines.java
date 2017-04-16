@@ -249,15 +249,12 @@ public class GlobalGUIRoutines {
                 if (!s.contains("(S)"))
                     title = TextUtils.concat("(S) ", title);
             }
-            //PPApplication.logE("GlobalGUIRoutines.setPreferenceTitleStyle","title="+title);
             Spannable sbt = new SpannableString(title);
             Object spansToRemove[] = sbt.getSpans(0, title.length(), Object.class);
-            //PPApplication.logE("GlobalGUIRoutines.setPreferenceTitleStyle","spansToRemove.length="+spansToRemove.length);
             for (Object span : spansToRemove) {
                 if (span instanceof CharacterStyle)
                     sbt.removeSpan(span);
             }
-            //PPApplication.logE("GlobalGUIRoutines.setPreferenceTitleStyle","spansToRemove.length="+spansToRemove.length);
             if (bold || underline || errorColor) {
                 if (bold)
                     sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
