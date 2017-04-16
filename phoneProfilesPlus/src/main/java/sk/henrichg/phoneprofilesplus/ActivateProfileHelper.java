@@ -42,6 +42,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.provider.Settings.Global;
+import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -2115,9 +2116,11 @@ public class ActivateProfileHelper {
         context.sendBroadcast(intent3);
 
         // activities
-        Intent intent5 = new Intent();
+        /*Intent intent5 = new Intent();
         intent5.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
-        context.sendBroadcast(intent5);
+        context.sendBroadcast(intent5);*/
+        Intent intent5 = new Intent("RefreshGUIBroadcastReceiver");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
 
     }
 

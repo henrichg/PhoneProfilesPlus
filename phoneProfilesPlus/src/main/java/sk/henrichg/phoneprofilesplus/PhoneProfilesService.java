@@ -22,6 +22,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
 import java.util.Timer;
@@ -41,6 +42,8 @@ public class PhoneProfilesService extends Service
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
     private NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;
+
+    private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = null;
 
     private static SettingsContentObserver settingsContentObserver = null;
     private static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
@@ -248,6 +251,11 @@ public class PhoneProfilesService extends Service
         else
             getContentResolver().registerContentObserver(Settings.Secure.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
 
+        if (refreshGUIBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(refreshGUIBroadcastReceiver);
+        refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver();
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
+
         //// this not starts for boot, because PPApplication.getApplicationStarted() == false,
         //// but it starts from EventsService
         startGeofenceScanner();
@@ -297,6 +305,9 @@ public class PhoneProfilesService extends Service
 
         if (mobileDataStateChangedContentObserver != null)
             getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
+
+        if (refreshGUIBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(refreshGUIBroadcastReceiver);
 
         stopGeofenceScanner();
         stopOrientationScanner();

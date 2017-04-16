@@ -12,6 +12,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
@@ -129,9 +130,11 @@ class PhoneProfilesHelper {
             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(context);
             databaseHandler.disableNotAllowedPreferences(context);
             // refresh GUI
-            Intent refreshIntent = new Intent();
+            /*Intent refreshIntent = new Intent();
             refreshIntent.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
-            context.sendBroadcast(refreshIntent);
+            context.sendBroadcast(refreshIntent);*/
+            Intent refreshIntent = new Intent("RefreshGUIBroadcastReceiver");
+            LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
         }
 
         return OK;

@@ -16,6 +16,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
@@ -919,10 +920,14 @@ public class GrantPermissionActivity extends Activity {
                 activateProfileHelper.showNotification(profile);
             activateProfileHelper.updateWidget();
 
-            Intent intent5 = new Intent();
+            /*Intent intent5 = new Intent();
             intent5.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
             intent5.putExtra(RefreshGUIBroadcastReceiver.EXTRA_REFRESH_ICONS, true);
-            context.sendBroadcast(intent5);
+            context.sendBroadcast(intent5);*/
+            Intent intent5 = new Intent("RefreshGUIBroadcastReceiver");
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
+
+
         //}
     }
 

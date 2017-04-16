@@ -9,6 +9,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.List;
 
@@ -444,9 +445,12 @@ public class EventsService extends IntentService
         doEndService(intent);
 
         // refresh GUI
-        Intent refreshIntent = new Intent();
+        /*Intent refreshIntent = new Intent();
         refreshIntent.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
-        context.sendBroadcast(refreshIntent);
+        context.sendBroadcast(refreshIntent);*/
+        Intent refreshIntent = new Intent("RefreshGUIBroadcastReceiver");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
+
 
         dataWrapper.invalidateDataWrapper();
 

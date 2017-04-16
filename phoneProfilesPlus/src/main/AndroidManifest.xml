@@ -675,6 +675,7 @@
                 <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_DASHCLOCK"/>
             </intent-filter>
         </receiver>
+        <!--
         <receiver
             android:name=".RefreshGUIBroadcastReceiver"
             android:enabled="true"
@@ -683,6 +684,7 @@
                 <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_GUI"/>
             </intent-filter>
         </receiver>
+        -->
         <receiver
             android:name=".BluetoothLEScanBroadcastReceiver"
             android:enabled="true"
