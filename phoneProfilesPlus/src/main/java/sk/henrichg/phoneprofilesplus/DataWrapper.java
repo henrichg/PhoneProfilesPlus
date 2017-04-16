@@ -3059,9 +3059,9 @@ public class DataWrapper {
 
                     boolean finish = false;
                     if (_activity instanceof ActivateProfileActivity)
-                        finish = true; /*ApplicationPreferences.applicationClose(context);*/
+                        finish = ApplicationPreferences.applicationClose(context);
                     else
-                        finish = true;
+                        finish = false;
                     if (finish)
                         _activity.finish();
                 }
@@ -3082,11 +3082,11 @@ public class DataWrapper {
             PPApplication.logE("$$$ restartEvents", "from DataWrapper.restartEventsWithAlert");
             restartEventsWithRescan(true, true);
 
-            boolean finish = false;
+            boolean finish;
             if (activity instanceof ActivateProfileActivity)
-                finish = true; /*ApplicationPreferences.applicationClose(context);*/
+                finish = ApplicationPreferences.applicationClose(context);
             else
-                finish = true;
+                finish = false;
             if (finish)
                 activity.finish();
         }
