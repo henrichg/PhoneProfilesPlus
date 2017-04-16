@@ -359,7 +359,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         PreferenceScreen preferenceCategoryNotifications = (PreferenceScreen) findPreference("categoryNotifications");
         if (!(ApplicationPreferences.notificationStatusBar(getActivity()) &&
                 ApplicationPreferences.notificationStatusBarPermanent(getActivity()))) {
-            GlobalGUIRoutines.setPreferenceTitleStyle(preferenceCategoryNotifications, false, false, true, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preferenceCategoryNotifications, true, false, true, false);
             preferenceCategoryNotifications.setSummary(getString(R.string.phone_profiles_pref_notificationStatusBarNotEnabled_summary) + " " +
                                                         getString(R.string.phone_profiles_pref_notificationStatusBarRequired));
         }

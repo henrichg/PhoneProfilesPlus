@@ -255,7 +255,7 @@ public class GlobalGUIRoutines {
                 if (span instanceof CharacterStyle)
                     sbt.removeSpan(span);
             }
-            if (bold || underline || errorColor) {
+            if (bold || underline) {
                 if (bold)
                     sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 if (underline)
