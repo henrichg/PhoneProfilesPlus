@@ -49,6 +49,10 @@ public class PhoneProfilesService extends Service
     private ForegroundApplicationChangedBroadcastReceiver foregroundApplicationChangedBroadcastReceiver = null;
     private GeofenceScannerBroadcastReceiver geofenceScannerBroadcastReceiver = null;
     private DeviceOrientationBroadcastReceiver deviceOrientationBroadcastReceiver = null;
+    private PhoneStateChangeBroadcastReceiver phoneStateChangeBroadcastReceiver = null;
+    private NFCBroadcastReceiver nfcBroadcastReceiver = null;
+    private RadioSwitchBroadcastReceiver radioSwitchBroadcastReceiver = null;
+    private MobileDataStateChangedBroadcastReceiver mobileDataStateChangedBroadcastReceiver = null;
 
     private static SettingsContentObserver settingsContentObserver = null;
     private static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
@@ -286,6 +290,26 @@ public class PhoneProfilesService extends Service
         deviceOrientationBroadcastReceiver = new DeviceOrientationBroadcastReceiver();
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(deviceOrientationBroadcastReceiver, new IntentFilter("DeviceOrientationBroadcastReceiver"));
 
+        if (phoneStateChangeBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(phoneStateChangeBroadcastReceiver);
+        phoneStateChangeBroadcastReceiver = new PhoneStateChangeBroadcastReceiver();
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(phoneStateChangeBroadcastReceiver, new IntentFilter("PhoneStateChangeBroadcastReceiver"));
+
+        if (nfcBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(nfcBroadcastReceiver);
+        nfcBroadcastReceiver = new NFCBroadcastReceiver();
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(nfcBroadcastReceiver, new IntentFilter("NFCBroadcastReceiver"));
+
+        if (radioSwitchBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(radioSwitchBroadcastReceiver);
+        radioSwitchBroadcastReceiver = new RadioSwitchBroadcastReceiver();
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(radioSwitchBroadcastReceiver, new IntentFilter("RadioSwitchBroadcastReceiver"));
+
+        if (mobileDataStateChangedBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(mobileDataStateChangedBroadcastReceiver);
+        mobileDataStateChangedBroadcastReceiver = new MobileDataStateChangedBroadcastReceiver();
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mobileDataStateChangedBroadcastReceiver, new IntentFilter("MobileDataStateChangedBroadcastReceiver"));
+
         //// this not starts for boot, because PPApplication.getApplicationStarted() == false,
         //// but it starts from EventsService
         startGeofenceScanner();
@@ -348,6 +372,14 @@ public class PhoneProfilesService extends Service
             LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(geofenceScannerBroadcastReceiver);
         if (deviceOrientationBroadcastReceiver != null)
             LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(deviceOrientationBroadcastReceiver);
+        if (phoneStateChangeBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(phoneStateChangeBroadcastReceiver);
+        if (nfcBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(nfcBroadcastReceiver);
+        if (radioSwitchBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(radioSwitchBroadcastReceiver);
+        if (mobileDataStateChangedBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(mobileDataStateChangedBroadcastReceiver);
 
         stopGeofenceScanner();
         stopOrientationScanner();

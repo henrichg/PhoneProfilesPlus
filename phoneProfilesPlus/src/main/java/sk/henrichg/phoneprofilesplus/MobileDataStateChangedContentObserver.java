@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 
 class MobileDataStateChangedContentObserver extends ContentObserver {
 
@@ -42,9 +43,13 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
         if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
             boolean actualState = ActivateProfileHelper.isMobileData(context);
             if (previousState != actualState) {
-                Intent broadcastIntent = new Intent(context, MobileDataStateChangedBroadcastReceiver.class);
+                /*Intent broadcastIntent = new Intent(context, MobileDataStateChangedBroadcastReceiver.class);
                 broadcastIntent.putExtra(MobileDataStateChangedBroadcastReceiver.EXTRA_STATE, actualState);
-                context.sendBroadcast(broadcastIntent);
+                context.sendBroadcast(broadcastIntent);*/
+                Intent broadcastIntent = new Intent("MobileDataStateChangedBroadcastReceiver");
+                broadcastIntent.putExtra(MobileDataStateChangedBroadcastReceiver.EXTRA_STATE, actualState);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
+
                 previousState = actualState;
             }
         }

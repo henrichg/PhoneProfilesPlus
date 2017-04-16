@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.v4.content.LocalBroadcastManager;
 
 public class EventPreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -231,7 +232,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     {
         preferences.unregisterOnSharedPreferenceChangeListener(this);
         if (phoneStateChangedBroadcastReceiver != null) {
-            getActivity().unregisterReceiver(phoneStateChangedBroadcastReceiver);
+            //getActivity().unregisterReceiver(phoneStateChangedBroadcastReceiver);
+            LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(phoneStateChangedBroadcastReceiver);
             phoneStateChangedBroadcastReceiver = null;
         }
         super.onDestroy();

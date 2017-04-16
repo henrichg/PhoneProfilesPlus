@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.CellIdentityCdma;
 import android.telephony.CellIdentityGsm;
 import android.telephony.CellIdentityLte;
@@ -40,7 +41,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
     static MobileCellsRegistrationService autoRegistrationService = null;
 
-    static String ACTION_PHONE_STATE_CHANGED = "sk.henrichg.phoneprofilesplus.ACTION_PHONE_STATE_CHANGED";
+    //static String ACTION_PHONE_STATE_CHANGED = "sk.henrichg.phoneprofilesplus.ACTION_PHONE_STATE_CHANGED";
 
     PhoneStateScanner(Context context) {
         this.context = context;
@@ -323,13 +324,18 @@ class PhoneStateScanner extends PhoneStateListener {
 
     private void sendBroadcast() {
         // broadcast for start EventsService
-        Intent broadcastIntent = new Intent(context, PhoneStateChangeBroadcastReceiver.class);
-        context.sendBroadcast(broadcastIntent);
+        /*Intent broadcastIntent = new Intent(context, PhoneStateChangeBroadcastReceiver.class);
+        context.sendBroadcast(broadcastIntent);*/
+        Intent broadcastIntent = new Intent("PhoneStateChangeBroadcastReceiver");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
 
         // broadcast for cells editor
-        Intent intent = new Intent(ACTION_PHONE_STATE_CHANGED);
+        /*Intent intent = new Intent(ACTION_PHONE_STATE_CHANGED);
         //intent.putExtra("state", mode);
-        context.sendBroadcast(intent);
+        context.sendBroadcast(intent);*/
+        Intent intent = new Intent("EPNF_PhoneStateChangedBroadcastReceiver");
+        //intent.putExtra("state", mode);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
     private void doAutoRegistration() {

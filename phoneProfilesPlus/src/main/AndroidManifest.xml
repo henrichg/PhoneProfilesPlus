@@ -298,7 +298,7 @@
                   android:theme="@style/LockDeviceActivity" >
         </activity>
 
-        <!-- implicit boradcast receivers, in Android O exception group -->
+        <!-- implicit broadcast receivers, in Android O exception group -->
         <!-- https://developer.android.com/preview/features/background-broadcasts.html -->
         <receiver
             android:name=".BootUpReceiver"
@@ -311,7 +311,7 @@
             </intent-filter>
         </receiver>
 
-        <!-- implicit boradcast receivers, register it in PhoneProfilesService -->
+        <!-- implicit broadcast receivers, register it in PhoneProfilesService -->
         <receiver
             android:name=".PhoneProfilesInstall"
             android:enabled="true"
@@ -549,7 +549,7 @@
             </intent-filter>
         </receiver>
 
-        <!-- Device adminstrator receiver -->
+        <!-- Device administrator receiver -->
         <receiver
             android:name=".PPDeviceAdminReceiver"
             android:description="@string/device_admin_description"
@@ -681,7 +681,7 @@
             </intent-filter>
         </receiver>
 
-        <!-- use LocalBroadcatManager -->
+        <!-- use LocalBroadcastManager -->
         <!--
         <receiver
             android:name=".DashClockBroadcastReceiver"
@@ -736,7 +736,6 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
-        -->
         <receiver
             android:name=".PhoneStateChangeBroadcastReceiver"
             android:enabled="true"
@@ -757,6 +756,7 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+        -->
 
         <service
             android:name=".ProfileListWidgetService"

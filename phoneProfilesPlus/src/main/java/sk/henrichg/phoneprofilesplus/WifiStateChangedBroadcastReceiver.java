@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
+import android.nfc.NfcAdapter;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 import java.util.Calendar;
@@ -100,10 +102,14 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                         (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)))) {
                     // required for Wifi ConnectionType="Not connected"
 
-                    Intent broadcastIntent = new Intent(context, RadioSwitchBroadcastReceiver.class);
+                    /*Intent broadcastIntent = new Intent(context, RadioSwitchBroadcastReceiver.class);
                     broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_WIFI);
                     broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, wifiState == WifiManager.WIFI_STATE_ENABLED);
-                    context.sendBroadcast(broadcastIntent);
+                    context.sendBroadcast(broadcastIntent);*/
+                    Intent broadcastIntent = new Intent("RadioSwitchBroadcastReceiver");
+                    broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_WIFI);
+                    broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, wifiState == WifiManager.WIFI_STATE_ENABLED);
+                    LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
 
                     // start service
                     Intent eventsServiceIntent = new Intent(context, EventsService.class);

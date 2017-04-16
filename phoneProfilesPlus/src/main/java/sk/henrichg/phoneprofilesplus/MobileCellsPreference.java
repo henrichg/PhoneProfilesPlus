@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MenuInflater;
@@ -66,10 +67,10 @@ public class MobileCellsPreference extends DialogPreference {
         //    Log.d("MobileCellsPreference","scanner started");
 
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
+        //intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
         EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver = new PhoneStateChangedBroadcastReceiver(this);
-        context.registerReceiver(EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver, intentFilter);
-
+        //context.registerReceiver(EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver, intentFilter);
+        LocalBroadcastManager.getInstance(context).registerReceiver(EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver, new IntentFilter("EPNF_PhoneStateChangedBroadcastReceiver"));
     }
 
     @Override

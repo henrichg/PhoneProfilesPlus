@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 
 public class MobileDataStateChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -22,10 +23,14 @@ public class MobileDataStateChangedBroadcastReceiver extends BroadcastReceiver {
 
         final boolean state = intent.getBooleanExtra("state", false);
 
-        Intent broadcastIntent = new Intent(context, RadioSwitchBroadcastReceiver.class);
+        /*Intent broadcastIntent = new Intent(context, RadioSwitchBroadcastReceiver.class);
         broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_MOBILE_DATA);
         broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, state);
-        context.sendBroadcast(broadcastIntent);
+        context.sendBroadcast(broadcastIntent);*/
+        Intent broadcastIntent = new Intent("RadioSwitchBroadcastReceiver");
+        broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_MOBILE_DATA);
+        broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, state);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
 
     }
 

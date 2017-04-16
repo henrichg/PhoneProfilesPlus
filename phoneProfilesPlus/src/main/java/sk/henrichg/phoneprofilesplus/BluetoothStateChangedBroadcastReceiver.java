@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastReceiver {
@@ -69,10 +70,15 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
                     // required for Bluetooth ConnectionType="Not connected"
 
                     //if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
-                        Intent broadcastIntent = new Intent(context, RadioSwitchBroadcastReceiver.class);
+                        /*Intent broadcastIntent = new Intent(context, RadioSwitchBroadcastReceiver.class);
                         broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_BLUETOOTH);
                         broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, bluetoothState == BluetoothAdapter.STATE_ON);
-                        context.sendBroadcast(broadcastIntent);
+                        context.sendBroadcast(broadcastIntent);*/
+                        Intent broadcastIntent = new Intent("RadioSwitchBroadcastReceiver");
+                        broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_BLUETOOTH);
+                        broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, bluetoothState == BluetoothAdapter.STATE_ON);
+                        LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
+
                     //}
 
                     /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);

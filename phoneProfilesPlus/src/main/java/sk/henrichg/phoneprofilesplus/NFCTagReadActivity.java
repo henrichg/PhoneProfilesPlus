@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
 public class NFCTagReadActivity extends Activity {
@@ -30,9 +31,11 @@ public class NFCTagReadActivity extends Activity {
             public void onTagRead(String tagRead) {
                 Toast.makeText(NFCTagReadActivity.this, "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_readed)+": "+tagRead, Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(getApplicationContext(), NFCBroadcastReceiver.class);
+                /*Intent intent = new Intent(getApplicationContext(), NFCBroadcastReceiver.class);
                 intent.putExtra(EventsService.EXTRA_EVENT_NFC_TAG_NAME, tagRead);
-                sendBroadcast(intent);
+                sendBroadcast(intent);*/
+                Intent intent = new Intent("NFCBroadcastReceiver");
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
 
                 NFCTagReadActivity.this.finish();
             }
