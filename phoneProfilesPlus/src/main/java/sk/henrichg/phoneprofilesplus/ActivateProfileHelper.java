@@ -2111,9 +2111,11 @@ public class ActivateProfileHelper {
         context.sendBroadcast(intent2);
 
         // dashclock extension
-        Intent intent3 = new Intent();
+        /*Intent intent3 = new Intent();
         intent3.setAction(DashClockBroadcastReceiver.INTENT_REFRESH_DASHCLOCK);
-        context.sendBroadcast(intent3);
+        context.sendBroadcast(intent3);*/
+        Intent intent3 = new Intent("DashClockBroadcastReceiver");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         // activities
         /*Intent intent5 = new Intent();

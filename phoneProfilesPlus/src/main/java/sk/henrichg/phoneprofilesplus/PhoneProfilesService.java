@@ -44,6 +44,11 @@ public class PhoneProfilesService extends Service
     private NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;
 
     private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = null;
+    private DashClockBroadcastReceiver dashClockBroadcastReceiver = null;
+    private NotificationBroadcastReceiver notificationBroadcastReceiver = null;
+    private ForegroundApplicationChangedBroadcastReceiver foregroundApplicationChangedBroadcastReceiver = null;
+    private GeofenceScannerBroadcastReceiver geofenceScannerBroadcastReceiver = null;
+    private DeviceOrientationBroadcastReceiver deviceOrientationBroadcastReceiver = null;
 
     private static SettingsContentObserver settingsContentObserver = null;
     private static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
@@ -256,6 +261,31 @@ public class PhoneProfilesService extends Service
         refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver();
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
 
+        if (dashClockBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(dashClockBroadcastReceiver);
+        dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(dashClockBroadcastReceiver, new IntentFilter("DashClockBroadcastReceiver"));
+
+        if (notificationBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(notificationBroadcastReceiver);
+        notificationBroadcastReceiver = new NotificationBroadcastReceiver();
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(notificationBroadcastReceiver, new IntentFilter("NotificationBroadcastReceiver"));
+
+        if (foregroundApplicationChangedBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(foregroundApplicationChangedBroadcastReceiver);
+        foregroundApplicationChangedBroadcastReceiver = new ForegroundApplicationChangedBroadcastReceiver();
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(foregroundApplicationChangedBroadcastReceiver, new IntentFilter("ForegroundApplicationChangedBroadcastReceiver"));
+
+        if (geofenceScannerBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(geofenceScannerBroadcastReceiver);
+        geofenceScannerBroadcastReceiver = new GeofenceScannerBroadcastReceiver();
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(geofenceScannerBroadcastReceiver, new IntentFilter("GeofenceScannerBroadcastReceiver"));
+
+        if (deviceOrientationBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(deviceOrientationBroadcastReceiver);
+        deviceOrientationBroadcastReceiver = new DeviceOrientationBroadcastReceiver();
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(deviceOrientationBroadcastReceiver, new IntentFilter("DeviceOrientationBroadcastReceiver"));
+
         //// this not starts for boot, because PPApplication.getApplicationStarted() == false,
         //// but it starts from EventsService
         startGeofenceScanner();
@@ -308,6 +338,16 @@ public class PhoneProfilesService extends Service
 
         if (refreshGUIBroadcastReceiver != null)
             LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(refreshGUIBroadcastReceiver);
+        if (dashClockBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(dashClockBroadcastReceiver);
+        if (notificationBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(notificationBroadcastReceiver);
+        if (foregroundApplicationChangedBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(foregroundApplicationChangedBroadcastReceiver);
+        if (geofenceScannerBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(geofenceScannerBroadcastReceiver);
+        if (deviceOrientationBroadcastReceiver != null)
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(deviceOrientationBroadcastReceiver);
 
         stopGeofenceScanner();
         stopOrientationScanner();
@@ -588,8 +628,10 @@ public class PhoneProfilesService extends Service
 
                 if (tmpDeviceDistance != mDeviceDistance) {
                     mDeviceDistance = tmpDeviceDistance;
-                    Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
-                    sendBroadcast(broadcastIntent);
+                    /*Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
+                    sendBroadcast(broadcastIntent);*/
+                    Intent broadcastIntent = new Intent("DeviceOrientationBroadcastReceiver");
+                    LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
                     //setAlarm(this);
                 }
             //}
@@ -694,8 +736,10 @@ public class PhoneProfilesService extends Service
                                             PPApplication.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
                                         */
 
-                                        Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
-                                        sendBroadcast(broadcastIntent);
+                                        /*Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
+                                        sendBroadcast(broadcastIntent);*/
+                                        Intent broadcastIntent = new Intent("DeviceOrientationBroadcastReceiver");
+                                        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
                                         //setAlarm(this);
 
                                     }
@@ -730,8 +774,10 @@ public class PhoneProfilesService extends Service
                                 if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
                                     mDisplayUp = mSideUp;
 
-                                Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
-                                sendBroadcast(broadcastIntent);
+                                /*Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
+                                sendBroadcast(broadcastIntent);*/
+                                Intent broadcastIntent = new Intent("DeviceOrientationBroadcastReceiver");
+                                LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
                                 //setAlarm(this);
                             }
                         } else {

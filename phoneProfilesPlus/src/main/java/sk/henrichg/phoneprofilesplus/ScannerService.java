@@ -21,6 +21,7 @@ import android.os.PowerManager;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 public class ScannerService extends IntentService
@@ -414,8 +415,9 @@ public class ScannerService extends IntentService
 
                             PPApplication.logE("$$$BLE ScannerService","LE devices scan");
 
-                            IntentFilter intentFilter7 = new IntentFilter();
-                            registerReceiver(bluetoothLEScanReceiver, intentFilter7);
+                            /*IntentFilter intentFilter7 = new IntentFilter();
+                            registerReceiver(bluetoothLEScanReceiver, intentFilter7);*/
+                            LocalBroadcastManager.getInstance(this).registerReceiver(bluetoothLEScanReceiver, new IntentFilter("BluetoothLEScanBroadcastReceiver"));
 
                             if (android.os.Build.VERSION.SDK_INT < 21)
                                 // for old BT LE scan must by acquired lock
@@ -446,8 +448,10 @@ public class ScannerService extends IntentService
                                 waitForLEBluetoothScanEnd(context, null);
 
                                 // send broadcast for start EventsService
-                                Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
-                                sendBroadcast(btLEIntent);
+                                /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
+                                sendBroadcast(btLEIntent);*/
+                                Intent btLEIntent = new Intent("BluetoothLEScanBroadcastReceiver");
+                                LocalBroadcastManager.getInstance(context).sendBroadcast(btLEIntent);
 
                                 PPApplication.logE("$$$BLE ScannerService.onHandleIntent", "LE scan ended");
                             }
@@ -455,7 +459,8 @@ public class ScannerService extends IntentService
                             BluetoothScanAlarmBroadcastReceiver.unlock();
                             unlock();
 
-                            unregisterReceiver(bluetoothLEScanReceiver);
+                            //unregisterReceiver(bluetoothLEScanReceiver);
+                            LocalBroadcastManager.getInstance(this).unregisterReceiver(bluetoothLEScanReceiver);
 
                             setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
                             BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);

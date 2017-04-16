@@ -665,8 +665,24 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+        <receiver
+            android:name=".RemoveBrightnessViewBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+
+        <!-- pending intents -->
+        <receiver
+            android:name=".PermissionsNotificationDeletedReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.PERMISSIONS_NOTIFICATION_DELETED"/>
+            </intent-filter>
+        </receiver>
 
         <!-- use LocalBroadcatManager -->
+        <!--
         <receiver
             android:name=".DashClockBroadcastReceiver"
             android:enabled="true"
@@ -675,7 +691,6 @@
                 <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_DASHCLOCK"/>
             </intent-filter>
         </receiver>
-        <!--
         <receiver
             android:name=".RefreshGUIBroadcastReceiver"
             android:enabled="true"
@@ -684,29 +699,10 @@
                 <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_GUI"/>
             </intent-filter>
         </receiver>
-        -->
-        <receiver
-            android:name=".BluetoothLEScanBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".RemoveBrightnessViewBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
         <receiver
             android:name=".NotificationBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".PermissionsNotificationDeletedReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="sk.henrichg.phoneprofilesplus.PERMISSIONS_NOTIFICATION_DELETED"/>
-            </intent-filter>
         </receiver>
         <receiver
             android:name=".ForegroundApplicationChangedBroadcastReceiver"
@@ -723,6 +719,7 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+        -->
         <!--
         <receiver
             android:name=".SIPCallBroadcastReceiver"

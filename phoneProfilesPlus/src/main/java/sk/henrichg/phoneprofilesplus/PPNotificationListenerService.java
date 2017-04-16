@@ -12,6 +12,7 @@ import android.os.Build;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
@@ -82,11 +83,16 @@ public class PPNotificationListenerService extends NotificationListenerService {
         addNotifiedPackage(sbn.getPackageName(), time);
         saveNotifiedPackages(context);
 
-        Intent intent = new Intent(context, NotificationBroadcastReceiver.class);
+        /*Intent intent = new Intent(context, NotificationBroadcastReceiver.class);
         //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
         //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, time);
         intent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
-        context.sendBroadcast(intent);
+        context.sendBroadcast(intent);*/
+        Intent intent = new Intent("NotificationBroadcastReceiver");
+        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
+        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, time);
+        intent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
     }
 
@@ -110,11 +116,16 @@ public class PPNotificationListenerService extends NotificationListenerService {
         removeNotifiedPackage(sbn.getPackageName());
         saveNotifiedPackages(context);
 
-        Intent intent = new Intent(context, NotificationBroadcastReceiver.class);
+        /*Intent intent = new Intent(context, NotificationBroadcastReceiver.class);
         //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
         //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, time);
         intent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
-        context.sendBroadcast(intent);
+        context.sendBroadcast(intent);*/
+        Intent intent = new Intent("NotificationBroadcastReceiver");
+        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
+        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, time);
+        intent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
     }
 
