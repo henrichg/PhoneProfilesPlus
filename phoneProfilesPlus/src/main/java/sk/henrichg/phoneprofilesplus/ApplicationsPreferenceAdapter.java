@@ -54,7 +54,7 @@ class ApplicationsPreferenceAdapter extends BaseAdapter
                     sbt.removeSpan(span);
             }
             if (errorColor) {
-                sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 textView.setText(sbt);
             } else {
                 textView.setText(sbt);

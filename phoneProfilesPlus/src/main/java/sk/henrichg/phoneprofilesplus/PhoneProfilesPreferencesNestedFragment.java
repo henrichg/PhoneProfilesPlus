@@ -336,9 +336,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         if (bold || underline)
         {
             if (bold)
-                sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             if (underline)
-                sbt.setSpan(new UnderlineSpan(), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                sbt.setSpan(new UnderlineSpan(), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             preference.setTitle(sbt);
         }
         else
@@ -355,6 +355,18 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
         if (preference == null)
             return;
+
+        PreferenceScreen preferenceCategoryNotifications = (PreferenceScreen) findPreference("categoryNotifications");
+        if (!(ApplicationPreferences.notificationStatusBar(getActivity()) &&
+                ApplicationPreferences.notificationStatusBarPermanent(getActivity()))) {
+            GlobalGUIRoutines.setPreferenceTitleStyle(preferenceCategoryNotifications, false, false, true, false);
+            preferenceCategoryNotifications.setSummary(getString(R.string.phone_profiles_pref_notificationStatusBarNotEnabled_summary) + " " +
+                                                        getString(R.string.phone_profiles_pref_notificationStatusBarRequired));
+        }
+        else {
+            GlobalGUIRoutines.setPreferenceTitleStyle(preferenceCategoryNotifications, false, false, false, false);
+            preferenceCategoryNotifications.setSummary(R.string.empty_string);
+        }
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR)) {

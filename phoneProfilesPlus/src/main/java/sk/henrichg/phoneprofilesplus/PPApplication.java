@@ -60,6 +60,7 @@ public class PPApplication extends Application {
                                          //+"|Profile.convertPercentsToBrightnessManualValue"
 
                                          //+"|##### RefreshGUIBroadcastReceiver.onReceive"
+                                         +"|GlobalGUIRoutines.setPreferenceTitleStyle"
 
                                          /*
                                          +"|PhoneProfilesService.doSimulatingRingingCall"
