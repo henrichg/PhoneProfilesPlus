@@ -474,6 +474,16 @@ public class GlobalGUIRoutines {
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
+    @SuppressLint("DefaultLocale")
+    static String getEndsAtString(int duration) {
+        Calendar ends = Calendar.getInstance();
+        ends.add(Calendar.SECOND, duration);
+        int hours = ends.get(Calendar.HOUR_OF_DAY);
+        int minutes = ends.get(Calendar.MINUTE);
+        int seconds = ends.get(Calendar.SECOND);
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
     static Point getNavigationBarSize(Context context) {
         Point appUsableSize = getAppUsableScreenSize(context);
         Point realScreenSize = getRealScreenSize(context);
