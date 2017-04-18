@@ -6,12 +6,14 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.os.Process;
 
 import com.google.gson.Gson;
 
@@ -126,6 +128,15 @@ class Permissions {
                 return new PermissionType[size];
             }
         };
+    }
+
+    static boolean hasPermission(Context context, String permission) {
+        return context.checkPermission(permission, Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    static boolean isSystemApp(Context context) {
+        return (context.getApplicationInfo().flags
+                & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
     }
 
     static List<PermissionType> recheckPermissions(Context context, List<PermissionType> _permissions) {

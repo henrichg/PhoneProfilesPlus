@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -40,6 +41,7 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.ServiceManager;
 import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.support.v4.content.LocalBroadcastManager;
@@ -55,12 +57,15 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.RemoteViews;
 
+import com.android.internal.telephony.ISub;
+import com.android.internal.telephony.ITelephony;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.List;
@@ -2143,41 +2148,6 @@ public class ActivateProfileHelper {
             setAirplaneMode_SDK8(context, mode);
     }
 
-    /*
-    private boolean isMobileData(Context context)
-    {
-        if (android.os.Build.VERSION.SDK_INT >= 21)
-        {
-            return Settings.Global.getInt(context.getContentResolver(), "mobile_data", 0) == 1;
-        }
-        else
-        {
-            final ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-            try {
-                final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
-                final Method getMobileDataEnabledMethod = connectivityManagerClass.getDeclaredMethod("getMobileDataEnabled");
-                getMobileDataEnabledMethod.setAccessible(true);
-                return (Boolean)getMobileDataEnabledMethod.invoke(connectivityManager);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                return false;
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-                return false;
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-                return false;
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-                return false;
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-                return false;
-            }
-        }
-    }
-    */
     static boolean isMobileData(Context context)
     {
         if (android.os.Build.VERSION.SDK_INT < 21)
@@ -2248,16 +2218,53 @@ public class ActivateProfileHelper {
 
     static boolean canSetMobileData(Context context)
     {
-        final ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= 22)
+        {
+            Class<?> telephonyManagerClass;
 
-        try {
-            final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
-            final Method getMobileDataEnabledMethod = connectivityManagerClass.getDeclaredMethod("getMobileDataEnabled");
-            getMobileDataEnabledMethod.setAccessible(true);
-            return true;
-        } catch (Exception e) {
-            //e.printStackTrace();
-            return false;
+            TelephonyManager telephonyManager = (TelephonyManager) context
+                    .getSystemService(Context.TELEPHONY_SERVICE);
+
+            try {
+                telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+                Method getDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("getDataEnabled");
+                getDataEnabledMethod.setAccessible(true);
+                return true;
+            } catch (Exception e) {
+                //e.printStackTrace();
+                return false;
+            }
+        }
+        else
+        if (android.os.Build.VERSION.SDK_INT >= 21)
+        {
+            Class<?> telephonyManagerClass;
+
+            TelephonyManager telephonyManager = (TelephonyManager) context
+                    .getSystemService(Context.TELEPHONY_SERVICE);
+
+            try {
+                telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+                Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
+                getITelephonyMethod.setAccessible(true);
+                return true;
+            } catch (Exception e) {
+                //e.printStackTrace();
+                return false;
+            }
+        }
+        else
+        {
+            final ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            try {
+                final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
+                final Method getMobileDataEnabledMethod = connectivityManagerClass.getDeclaredMethod("getMobileDataEnabled");
+                getMobileDataEnabledMethod.setAccessible(true);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
         }
     }
 
@@ -2265,6 +2272,51 @@ public class ActivateProfileHelper {
     {
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
+            if (Permissions.hasPermission(context, Manifest.permission.MODIFY_PHONE_STATE)) {
+                if (android.os.Build.VERSION.SDK_INT == 21)
+                {
+                    Method dataConnSwitchMethod;
+                    Class<?> telephonyManagerClass;
+                    Object ITelephonyStub;
+                    Class<?> ITelephonyClass;
+
+                    TelephonyManager telephonyManager = (TelephonyManager) context
+                            .getSystemService(Context.TELEPHONY_SERVICE);
+
+                    try {
+                        telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+                        Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
+                        getITelephonyMethod.setAccessible(true);
+                        ITelephonyStub = getITelephonyMethod.invoke(telephonyManager);
+                        ITelephonyClass = Class.forName(ITelephonyStub.getClass().getName());
+                        dataConnSwitchMethod = ITelephonyClass.getDeclaredMethod("setDataEnabled", Boolean.TYPE);
+
+                        dataConnSwitchMethod.setAccessible(true);
+                        dataConnSwitchMethod.invoke(ITelephonyStub, enable);
+
+                    } catch (Exception ignored) {
+                    }
+                }
+                else
+                {
+                    Method setDataEnabledMethod;
+                    Class<?> telephonyManagerClass;
+
+                    TelephonyManager telephonyManager = (TelephonyManager) context
+                            .getSystemService(Context.TELEPHONY_SERVICE);
+
+                    try {
+                        telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+                        setDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("setDataEnabled", Boolean.TYPE);
+                        setDataEnabledMethod.setAccessible(true);
+
+                        setDataEnabledMethod.invoke(telephonyManager, enable);
+
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+            else
             if (PPApplication.isRooted()/*PPApplication.isRootGranted()*/)
             {
                 String command1 = "svc data " + (enable ? "enable" : "disable");
@@ -2613,8 +2665,22 @@ public class ActivateProfileHelper {
         PPApplication.logE("ActivateProfileHelper.setGPS", "isEnabled="+isEnabled);
 
         //if(!provider.contains(LocationManager.GPS_PROVIDER) && enable)
-        if ((!isEnabled)  && enable)
+        if ((!isEnabled) && enable)
         {
+            if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                String newSet;
+                if (android.os.Build.VERSION.SDK_INT < 23) {
+                    String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+                    if (provider.equals(""))
+                        newSet = LocationManager.GPS_PROVIDER;
+                    else
+                        newSet = String.format("%s,%s", provider, LocationManager.GPS_PROVIDER);
+                }
+                else
+                    newSet = "+gps";
+                Settings.Secure.putString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
+            }
+            else
             if ((android.os.Build.VERSION.SDK_INT >= 16) && PPApplication.isRooted()/*PPApplication.isRootGranted()*/)
             {
                 // zariadenie je rootnute
@@ -2697,6 +2763,26 @@ public class ActivateProfileHelper {
         //if(provider.contains(LocationManager.GPS_PROVIDER) && (!enable))
         if (isEnabled && (!enable))
         {
+            if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                String newSet = "";
+                if (android.os.Build.VERSION.SDK_INT < 23) {
+                    String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+                    String[] list = provider.split(",");
+                    int j = 0;
+                    for (int i = 0; i < list.length; i++) {
+                        if (!list[i].equals(LocationManager.GPS_PROVIDER)) {
+                            if (j > 0)
+                                newSet += ",";
+                            newSet += list[i];
+                            j++;
+                        }
+                    }
+                }
+                else
+                    newSet = "-gps";
+                Settings.Secure.putString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
+            }
+            else
             if ((android.os.Build.VERSION.SDK_INT >= 16) && PPApplication.isRooted()/*PPApplication.isRootGranted()*/)
             {
                 // zariadenie je rootnute

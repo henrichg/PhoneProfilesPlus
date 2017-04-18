@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.KeyguardManager;
@@ -1652,6 +1653,11 @@ public class Profile {
                 //Log.d("Profile.isProfilePreferenceAllowed", "mobile data supported");
                 if (android.os.Build.VERSION.SDK_INT >= 21)
                 {
+                    if (Permissions.hasPermission(context, Manifest.permission.MODIFY_PHONE_STATE)) {
+                        if (ActivateProfileHelper.canSetMobileData(context))
+                            featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                    }
+                    else
                     if (PPApplication.isRooted()) {
                         // zariadenie je rootnute
                         //if (serviceBinaryExists() && telephonyServiceExists(context, PREF_PROFILE_DEVICE_MOBILE_DATA))
@@ -1691,12 +1697,11 @@ public class Profile {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS))
             {
                 // device has gps
-                /*if (android.os.Build.VERSION.SDK_INT < 17)
-                {
-                    if (isRooted(false))
-                        featurePresented = PREFERENCE_ALLOWED;
+                if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                    if (ActivateProfileHelper.canSetMobileData(context))
+                        featurePresented = PPApplication.PREFERENCE_ALLOWED;
                 }
-                else*/
+                else
                 if (PPApplication.isRooted())
                 {
                     // device is rooted
