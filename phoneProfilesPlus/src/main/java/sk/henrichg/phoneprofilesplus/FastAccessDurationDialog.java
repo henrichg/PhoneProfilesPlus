@@ -16,6 +16,8 @@ import com.afollestad.materialdialogs.internal.MDButton;
 import com.redmadrobot.inputmask.MaskedTextChangedListener;
 
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
@@ -37,6 +39,9 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     private SeekBar mSeekBarHours;
     private SeekBar mSeekBarMinutes;
     private SeekBar mSeekBarSeconds;
+    private TextView mEnds;
+
+    private volatile Timer updateEndsTimer = null;
 
     //private int mColor = 0;
 
@@ -68,6 +73,8 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        updateEndsTimer = null;
+
                         int hours = mSeekBarHours.getProgress();
                         int minutes = mSeekBarMinutes.getProgress();
                         int seconds = mSeekBarSeconds.getProgress();
@@ -86,12 +93,14 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        updateEndsTimer = null;
                         mDataWrapper.finishActivity(mStartupSource, false, mActivity);
                     }
                 })
                 .dismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
+                        updateEndsTimer = null;
                         mDataWrapper.finishActivity(mStartupSource, false, mActivity);
                     }
                 });
@@ -107,6 +116,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mSeekBarHours = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_hours);
         mSeekBarMinutes = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_minutes);
         mSeekBarSeconds = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_seconds);
+        mEnds = (TextView) layout.findViewById(R.id.duration_pref_dlg_ends);
 
         //mSeekBarHours.setRotation(180);
         //mSeekBarMinutes.setRotation(180);
@@ -139,6 +149,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mSeekBarSeconds.setProgress(seconds);
 
         mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
+        mEnds.setText(GlobalGUIRoutines.getEndsAtString(iValue));
 
         final MaskedTextChangedListener listener = new MaskedTextChangedListener(
                 "[00]{:}[00]{:}[00]",
@@ -193,6 +204,8 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         mSeekBarMinutes.setProgress(minutes);
                         mSeekBarSeconds.setProgress(seconds);
 
+                        updateTextFields(false);
+
                     }
                 }
         );
@@ -219,20 +232,57 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             }
         });
 
+        updateEndsTimer = new Timer();
+        updateEndsTimer.schedule(new TimerTask() {
+            private Activity activity;
+            private TimerTask init(Activity a) {
+                activity = a;
+                return this;
+            }
+
+            @Override
+            public void run() {
+                if(updateEndsTimer != null) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(updateEndsTimer != null) {
+                                updateTextFields(false);
+                            }
+                        }
+                    });
+                } else {
+                    this.cancel();
+                }
+            }
+        }.init(activity), 250, 250);
+
     }
 
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
-            int hours = mSeekBarHours.getProgress();
-            int minutes = mSeekBarMinutes.getProgress();
-            int seconds = mSeekBarSeconds.getProgress();
+            updateTextFields(true);
+        }
+    }
 
-            int iValue = (hours * 3600 + minutes * 60 + seconds);
-            if (iValue < mMin) iValue = mMin;
-            if (iValue > mMax) iValue = mMax;
+    private void updateTextFields(boolean updateValueField) {
+        int hours = mSeekBarHours.getProgress();
+        int minutes = mSeekBarMinutes.getProgress();
+        int seconds = mSeekBarSeconds.getProgress();
 
+        int iValue = (hours * 3600 + minutes * 60 + seconds);
+        if (iValue < mMin) iValue = mMin;
+        if (iValue > mMax) iValue = mMax;
+
+        if(mDialog!=null && mDialog.getActionButton(DialogAction.POSITIVE).isEnabled()) {
+            mEnds.setText(GlobalGUIRoutines.getEndsAtString(iValue));
+        } else {
+            mEnds.setText("--");
+        }
+
+        if(updateValueField) {
             mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
         }
     }

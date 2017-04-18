@@ -24,16 +24,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <EditText
-            android:id="@+id/duration_pref_dlg_value"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_horizontal"
-            android:inputType="number"
-            android:digits="0123456789:"
-            android:textSize="20sp" />
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp" >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1" >
+
+                <EditText
+                    android:id="@+id/duration_pref_dlg_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_horizontal"
+                    android:inputType="number"
+                    android:digits="0123456789:"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/duration_pref_dlg_ends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal"
+                android:textSize="20sp" />
+
+        </LinearLayout>
 
         <!--
         <TextView
