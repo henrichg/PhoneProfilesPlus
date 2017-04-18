@@ -476,6 +476,10 @@ public class GlobalGUIRoutines {
 
     @SuppressLint("DefaultLocale")
     static String getEndsAtString(int duration) {
+        if(duration == 0) {
+            return "--";
+        }
+
         Calendar ends = Calendar.getInstance();
         ends.add(Calendar.SECOND, duration);
         int hours = ends.get(Calendar.HOUR_OF_DAY);
