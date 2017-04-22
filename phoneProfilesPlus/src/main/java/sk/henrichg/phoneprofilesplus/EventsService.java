@@ -92,7 +92,7 @@ public class EventsService extends IntentService
             else
                 oldRingtone = "";
         } catch (SecurityException e) {
-            Permissions.grantPlayRingtoneNotificationPermissions(context, true);
+            Permissions.grantPlayRingtoneNotificationPermissions(context, true, false);
             oldRingtone = "";
         } catch (Exception e) {
             oldRingtone = "";

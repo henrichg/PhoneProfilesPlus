@@ -38,6 +38,7 @@ public class GrantPermissionActivity extends Activity {
     private boolean interactive;
     private String applicationDataPath;
     private boolean activateProfile;
+    private boolean grantAlsoContacts;
 
     private Profile profile;
     private Event event;
@@ -80,6 +81,7 @@ public class GrantPermissionActivity extends Activity {
         interactive = intent.getBooleanExtra(Permissions.EXTRA_INTERACTIVE, true);
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
         activateProfile = intent.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, true) && (profile_id != Profile.DEFAULT_PROFILE_ID);
+        grantAlsoContacts = intent.getBooleanExtra(Permissions.EXTRA_GRANT_ALSO_CONTACTS, true);
 
         long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
 
@@ -127,9 +129,11 @@ public class GrantPermissionActivity extends Activity {
             }
             else
             if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION) {
-                boolean granted = Permissions.checkPlayRingtoneNotification(context);
+                boolean granted = Permissions.checkPlayRingtoneNotification(context, grantAlsoContacts);
                 if (!granted) {
                     permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_EXTERNAL_STORAGE));
+                    if (grantAlsoContacts)
+                        permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_CONTACTS));
                 }
                 else {
                     Toast msg = Toast.makeText(context,

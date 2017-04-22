@@ -73,6 +73,7 @@ class Permissions {
     static final String EXTRA_INTERACTIVE = "interactive";
     static final String EXTRA_APPLICATION_DATA_PATH = "application_data_path";
     static final String EXTRA_ACTIVATE_PROFILE = "activate_profile";
+    static final String EXTRA_GRANT_ALSO_CONTACTS = "grant_also_contacts";
 
     static Activity profileActivationActivity = null;
     static ImageViewPreference imageViewPreference = null;
@@ -262,9 +263,13 @@ class Permissions {
             return true;
     }
 
-    static boolean checkPlayRingtoneNotification(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= 23)
-            return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+    static boolean checkPlayRingtoneNotification(Context context, boolean alsoContacts) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+            if (alsoContacts)
+                granted = granted && (ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED);
+            return granted;
+        }
         else
             return true;
     }
@@ -801,12 +806,14 @@ class Permissions {
             return true;
     }
 
-    static boolean grantPlayRingtoneNotificationPermissions(Context context, boolean onlyNotification) {
+    static boolean grantPlayRingtoneNotificationPermissions(Context context, boolean onlyNotification, boolean alsoContacts) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkInstallTone(context);
+            boolean granted = checkPlayRingtoneNotification(context, alsoContacts);
             if (!granted) {
                 List<PermissionType> permissions = new ArrayList<>();
                 permissions.add(new PermissionType(PERMISSION_PLAY_RINGTONE_NOTIFICATION, permission.READ_EXTERNAL_STORAGE));
+                if (alsoContacts)
+                    permissions.add(new PermissionType(PERMISSION_PLAY_RINGTONE_NOTIFICATION, permission.READ_CONTACTS));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -814,6 +821,7 @@ class Permissions {
                 intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION);
                 intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                 intent.putExtra(EXTRA_ONLY_NOTIFICATION, onlyNotification);
+                intent.putExtra(EXTRA_GRANT_ALSO_CONTACTS, alsoContacts);
                 context.startActivity(intent);
             }
             return granted;

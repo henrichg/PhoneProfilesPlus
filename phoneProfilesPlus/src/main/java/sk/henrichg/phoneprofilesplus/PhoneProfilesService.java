@@ -863,15 +863,22 @@ public class PhoneProfilesService extends Service
 
             // get ringtone from contact
             boolean phoneNumberFound = false;
-            Uri contactLookup = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
-            Cursor contactLookupCursor = context.getContentResolver().query(contactLookup,new String[] {ContactsContract.PhoneLookup._ID, ContactsContract.PhoneLookup.CUSTOM_RINGTONE}, null, null, null);
-            if (contactLookupCursor != null) {
-                if (contactLookupCursor.moveToNext()) {
-                    newRingtone = contactLookupCursor.getString(contactLookupCursor.getColumnIndexOrThrow(ContactsContract.PhoneLookup.CUSTOM_RINGTONE));
+            try {
+                Uri contactLookup = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
+                Cursor contactLookupCursor = context.getContentResolver().query(contactLookup, new String[]{ContactsContract.PhoneLookup._ID, ContactsContract.PhoneLookup.CUSTOM_RINGTONE}, null, null, null);
+                if (contactLookupCursor != null) {
+                    if (contactLookupCursor.moveToNext()) {
+                        newRingtone = contactLookupCursor.getString(contactLookupCursor.getColumnIndex(ContactsContract.PhoneLookup.CUSTOM_RINGTONE));
+                        contactLookupCursor.close();
+                        phoneNumberFound = true;
+                    }
                     contactLookupCursor.close();
-                    phoneNumberFound = true;
                 }
-                contactLookupCursor.close();
+            } catch (SecurityException e) {
+                Permissions.grantPlayRingtoneNotificationPermissions(context, true, true);
+                newRingtone = "";
+            } catch (Exception e) {
+                newRingtone = "";
             }
             if (!phoneNumberFound) {
                 try {
@@ -881,7 +888,7 @@ public class PhoneProfilesService extends Service
                     else
                         newRingtone = "";
                 } catch (SecurityException e) {
-                    Permissions.grantPlayRingtoneNotificationPermissions(context, true);
+                    Permissions.grantPlayRingtoneNotificationPermissions(context, true, true);
                     newRingtone = "";
                 } catch (Exception e) {
                     newRingtone = "";
@@ -1013,7 +1020,7 @@ public class PhoneProfilesService extends Service
                         PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "focus not granted");
                 } catch (SecurityException e) {
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", " security exception");
-                    Permissions.grantPlayRingtoneNotificationPermissions(this, true);
+                    Permissions.grantPlayRingtoneNotificationPermissions(this, true, true);
                     ringingMediaPlayer = null;
                     RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
                 } catch (Exception e) {
@@ -1153,7 +1160,7 @@ public class PhoneProfilesService extends Service
 
                 } catch (SecurityException e) {
                     PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "security exception");
-                    Permissions.grantPlayRingtoneNotificationPermissions(this, true);
+                    Permissions.grantPlayRingtoneNotificationPermissions(this, true, false);
                     eventNotificationIsPlayed = false;
                     RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
                 } catch (Exception e) {
