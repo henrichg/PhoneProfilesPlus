@@ -988,4 +988,6 @@
     <string name="array_pref_applicationDisableScanning_disabled">Scanning disabled</string>
     <string name="array_pref_applicationDisableScanning_enabled">Scanning enabled</string>
     <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Status bar notification is not enabled!</string>
+    <string name="duration_pref_dlg_duration_label">Duration:</string>
+    <string name="duration_pref_dlg_activation_end_label">Activation end:</string>
 </resources>

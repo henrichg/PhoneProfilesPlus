@@ -44,12 +44,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="Duration:"/>
+                    android:text="@string/duration_pref_dlg_duration_label"/>
 
                 <EditText
                     android:id="@+id/duration_pref_dlg_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
+                    android:layout_marginStart="-3dp"
+                    android:layout_marginLeft="-3dp"
                     android:gravity="center_horizontal"
                     android:inputType="number"
                     android:digits="0123456789:"
@@ -66,9 +69,8 @@
                     android:id="@+id/duration_pref_dlg_ends_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:textSize="16sp"
-                    android:text="Activation end:"/>
+                    android:text="@string/duration_pref_dlg_activation_end_label"/>
 
                 <TextView
                     android:id="@+id/duration_pref_dlg_ends"
@@ -76,7 +78,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="00:00:00"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText"/>
 
             </LinearLayout>
 
