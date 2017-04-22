@@ -880,7 +880,7 @@ public class PhoneProfilesService extends Service
             } catch (Exception e) {
                 newRingtone = "";
             }
-            if (!phoneNumberFound) {
+            if ((!phoneNumberFound) || newRingtone.isEmpty()) {
                 try {
                     Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
                     if (uri != null)
