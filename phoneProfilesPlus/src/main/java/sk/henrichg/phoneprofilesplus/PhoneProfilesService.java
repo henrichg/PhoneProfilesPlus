@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -21,8 +22,10 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
+import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 
 import java.util.Timer;
@@ -855,18 +858,34 @@ public class PhoneProfilesService extends Service
             String oldRingtone = intent.getStringExtra(EventsService.EXTRA_OLD_RINGTONE);
             int newRingerMode = ActivateProfileHelper.getRingerMode(context);
             int newZenMode = ActivateProfileHelper.getZenMode(context);
-            String newRingtone;
-            try {
-                Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
-                if (uri != null)
-                    newRingtone = uri.getPath();
-                else
+            String newRingtone = "";
+            String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, "");
+
+            // get ringtone from contact
+            boolean phoneNumberFound = false;
+            Uri contactLookup = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
+            Cursor contactLookupCursor = context.getContentResolver().query(contactLookup,new String[] {ContactsContract.PhoneLookup._ID, ContactsContract.PhoneLookup.CUSTOM_RINGTONE}, null, null, null);
+            if (contactLookupCursor != null) {
+                if (contactLookupCursor.moveToNext()) {
+                    newRingtone = contactLookupCursor.getString(contactLookupCursor.getColumnIndexOrThrow(ContactsContract.PhoneLookup.CUSTOM_RINGTONE));
+                    contactLookupCursor.close();
+                    phoneNumberFound = true;
+                }
+                contactLookupCursor.close();
+            }
+            if (!phoneNumberFound) {
+                try {
+                    Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
+                    if (uri != null)
+                        newRingtone = uri.getPath();
+                    else
+                        newRingtone = "";
+                } catch (SecurityException e) {
+                    Permissions.grantPlayRingtoneNotificationPermissions(context, true);
                     newRingtone = "";
-            } catch (SecurityException e) {
-                Permissions.grantPlayRingtoneNotificationPermissions(context, true);
-                newRingtone = "";
-            } catch (Exception e) {
-                newRingtone = "";
+                } catch (Exception e) {
+                    newRingtone = "";
+                }
             }
 
             PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingerMode=" + oldRingerMode);
