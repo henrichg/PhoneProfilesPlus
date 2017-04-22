@@ -869,7 +869,7 @@ public class PhoneProfilesService extends Service
                 if (contactLookupCursor != null) {
                     if (contactLookupCursor.moveToNext()) {
                         newRingtone = contactLookupCursor.getString(contactLookupCursor.getColumnIndex(ContactsContract.PhoneLookup.CUSTOM_RINGTONE));
-                        contactLookupCursor.close();
+                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone="+newRingtone);
                         phoneNumberFound = true;
                     }
                     contactLookupCursor.close();
@@ -955,13 +955,13 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "simulateRinging=" + simulateRinging);
 
                 if (simulateRinging)
-                    startSimulatingRingingCall(stream);
+                    startSimulatingRingingCall(stream, newRingtone);
             }
 
         }
     }
 
-    private void startSimulatingRingingCall(int stream) {
+    private void startSimulatingRingingCall(int stream, String ringtone) {
         if (!ringingCallIsSimulating) {
             PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "stream="+stream);
             if (audioManager == null )
@@ -971,8 +971,7 @@ public class PhoneProfilesService extends Service
                 if (eventNotificationMediaPlayer.isPlaying())
                     eventNotificationMediaPlayer.stop();
 
-            Ringtone ringtone = RingtoneManager.getRingtone(this, Settings.System.DEFAULT_RINGTONE_URI);
-            if (ringtone != null) {
+            if ((ringtone != null) && !ringtone.isEmpty()) {
                 RingerModeChangeReceiver.removeAlarm(this);
                 RingerModeChangeReceiver.internalChange = true;
 
@@ -990,7 +989,7 @@ public class PhoneProfilesService extends Service
                     if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                         ringingMediaPlayer = new MediaPlayer();
                         ringingMediaPlayer.setAudioStreamType(usedStream);
-                        ringingMediaPlayer.setDataSource(this, Settings.System.DEFAULT_RINGTONE_URI);
+                        ringingMediaPlayer.setDataSource(this, Uri.parse(ringtone));
                         ringingMediaPlayer.prepare();
                         ringingMediaPlayer.setLooping(true);
 

@@ -41,6 +41,8 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
+                                         +"|PhoneProfilesService.doSimulatingRingingCall"
+
                                          /*+"|WifiScanAlarmBroadcastReceiver.onReceive"
                                          +"|WifiScanAlarmBroadcastReceiver.setAlarm"
                                          +"|WifiScanAlarmBroadcastReceiver.removeAlarm"
