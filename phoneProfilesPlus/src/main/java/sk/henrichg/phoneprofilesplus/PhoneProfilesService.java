@@ -869,6 +869,8 @@ public class PhoneProfilesService extends Service
                 if (contactLookupCursor != null) {
                     if (contactLookupCursor.moveToNext()) {
                         newRingtone = contactLookupCursor.getString(contactLookupCursor.getColumnIndex(ContactsContract.PhoneLookup.CUSTOM_RINGTONE));
+                        if (newRingtone == null)
+                            newRingtone = "";
                         PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone="+newRingtone);
                         phoneNumberFound = true;
                     }
