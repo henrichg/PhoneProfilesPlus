@@ -1087,7 +1087,7 @@ public class PhoneProfilesService extends Service
             String oldNotificationTone = intent.getStringExtra(EventsService.EXTRA_OLD_NOTIFICATION_TONE);
             int newRingerMode = ActivateProfileHelper.getRingerMode(context);
             int newZenMode = ActivateProfileHelper.getZenMode(context);
-            String newNotificationTone = "";
+            String newNotificationTone;
 
             try {
                 Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION);
