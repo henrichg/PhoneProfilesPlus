@@ -27,6 +27,7 @@ public class EventsService extends IntentService
     public static int oldSystemRingerMode;
     public static int oldZenMode;
     public static String oldRingtone;
+    public static String oldNotificationTone;
 
     static final String EXTRA_BROADCAST_RECEIVER_TYPE = "broadcast_receiver_type";
     static final String EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED = "event_notification_posted_removed";
@@ -41,6 +42,8 @@ public class EventsService extends IntentService
     static final String EXTRA_EVENT_NFC_TAG_NAME = "event_nfc_tag_name";
     static final String EXTRA_EVENT_RADIO_SWITCH_TYPE = "event_radio_switch_type";
     static final String EXTRA_EVENT_RADIO_SWITCH_STATE = "event_radio_switch_state";
+    static final String EXTRA_SIMULATE_NOTIFICATION_TONE = "simulate_notification_tone";
+    static final String EXTRA_OLD_NOTIFICATION_TONE = "old_notification_tone";
 
 
     //public static ArrayList<Profile> mergedProfiles = null;
@@ -96,6 +99,19 @@ public class EventsService extends IntentService
             oldRingtone = "";
         } catch (Exception e) {
             oldRingtone = "";
+        }
+
+        try {
+            Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION);
+            if (uri != null)
+                oldNotificationTone = uri.getPath();
+            else
+                oldNotificationTone = "";
+        } catch (SecurityException e) {
+            Permissions.grantPlayRingtoneNotificationPermissions(context, true, false);
+            oldNotificationTone = "";
+        } catch (Exception e) {
+            oldNotificationTone = "";
         }
 
         if (PhoneProfilesService.instance != null) {
@@ -630,6 +646,21 @@ public class EventsService extends IntentService
                 editor.putInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
                 editor.putString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, "");
                 editor.apply();
+            }
+        }
+
+        if (broadcastReceiverType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+            if ((android.os.Build.VERSION.SDK_INT >= 21) && intent.getStringExtra(EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED).equals("posted")) {
+                // start PhoneProfilesService for notification tone simulation
+                Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+                lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+                lIntent.putExtra(EXTRA_SIMULATE_NOTIFICATION_TONE, true);
+                lIntent.putExtra(EXTRA_OLD_RINGER_MODE, oldRingerMode);
+                lIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+                lIntent.putExtra(EXTRA_OLD_ZEN_MODE, oldZenMode);
+                lIntent.putExtra(EXTRA_OLD_NOTIFICATION_TONE, oldNotificationTone);
+                context.startService(lIntent);
             }
         }
 
