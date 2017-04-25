@@ -325,6 +325,7 @@ public class PhoneProfilesService extends Service
         ////
 
         ringingMediaPlayer = null;
+        notificationMediaPlayer = null;
     }
 
     @Override
