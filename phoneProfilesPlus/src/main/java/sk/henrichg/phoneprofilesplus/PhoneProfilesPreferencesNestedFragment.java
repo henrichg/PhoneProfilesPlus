@@ -361,12 +361,14 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         boolean notificationStatusBarPermanent = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
         if (!(notificationStatusBar && notificationStatusBarPermanent)) {
             GlobalGUIRoutines.setPreferenceTitleStyle(preferenceCategoryNotifications, true, false, true, false);
-            preferenceCategoryNotifications.setSummary(getString(R.string.phone_profiles_pref_notificationStatusBarNotEnabled_summary) + " " +
-                                                        getString(R.string.phone_profiles_pref_notificationStatusBarRequired));
+            if (preferenceCategoryNotifications != null)
+                preferenceCategoryNotifications.setSummary(getString(R.string.phone_profiles_pref_notificationStatusBarNotEnabled_summary) + " " +
+                                                            getString(R.string.phone_profiles_pref_notificationStatusBarRequired));
         }
         else {
             GlobalGUIRoutines.setPreferenceTitleStyle(preferenceCategoryNotifications, false, false, false, false);
-            preferenceCategoryNotifications.setSummary(R.string.empty_string);
+            if (preferenceCategoryNotifications != null)
+                preferenceCategoryNotifications.setSummary(R.string.empty_string);
         }
         if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR)) {
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, !notificationStatusBar, false, !notificationStatusBar, false);

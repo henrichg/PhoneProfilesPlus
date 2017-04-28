@@ -31,7 +31,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
@@ -41,9 +41,9 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
-                                         +"|PhoneProfilesService.doSimulatingRingingCall"
+                                         //+"|PhoneProfilesService.doSimulatingRingingCall"
 
-                                         /*+"|WifiScanAlarmBroadcastReceiver.onReceive"
+                                         +"|WifiScanAlarmBroadcastReceiver.onReceive"
                                          +"|WifiScanAlarmBroadcastReceiver.setAlarm"
                                          +"|WifiScanAlarmBroadcastReceiver.removeAlarm"
                                          +"|WifiScanAlarmBroadcastReceiver.isAlarmSet"
@@ -57,7 +57,7 @@ public class PPApplication extends Application {
                                          +"|StartEventsServiceBroadcastReceiver.onReceive"
                                          +"|#### EventsService.onHandleIntent"
                                          +"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
-                                         +"|$$$ DataWrapper.restartEventsWithRescan"*/
+                                         +"|$$$ DataWrapper.restartEventsWithRescan"
 
                                          //+"|Profile.convertPercentsToBrightnessManualValue"
 
