@@ -93,8 +93,6 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         if (bluetooth == null)
             return;
 
-        unlock();
-
         clearScanResults(context);
 
         /*SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
@@ -207,29 +205,6 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         return (pendingIntent != null);
     }
 
-    public static void lock(Context context)
-    {
-         // initialise the locks - moved to ScannerService
-        /*if (wakeLock == null)
-            wakeLock = ((PowerManager) context.getSystemService(Context.POWER_SERVICE))
-                            .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothScanWakeLock");
-
-        try {
-            if (!wakeLock.isHeld())
-                wakeLock.acquire();
-        //	PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.lock","xxx");
-        } catch(Exception e) {
-            Log.e("BluetoothScanAlarmBroadcastReceiver.lock", "Error getting Lock: "+e.getMessage());
-        }*/
-    }
- 
-    public static void unlock()
-    {
-        /*if ((wakeLock != null) && (wakeLock.isHeld()))
-            wakeLock.release();*/
-        //PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.unlock","xxx");
-    }
-    
     public static void sendBroadcast(Context context)
     {
         Intent broadcastIntent = new Intent(context, BluetoothScanAlarmBroadcastReceiver.class);
@@ -315,14 +290,10 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         BluetoothScanBroadcastReceiver.discoveryStarted = false;
 
         if (Permissions.checkLocation(context)) {
-            lock(context); // lock wakeLock, then scan.
-            // unlock() is then called at the end of the scan from ScannerService
-
             boolean startScan = bluetooth.startDiscovery();
             PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.startScan", "scanStarted=" + startScan);
 
             if (!startScan) {
-                unlock();
                 if (getBluetoothEnabledForScan(context)) {
                     PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.startScan", "disable bluetooth");
                     bluetooth.disable();
@@ -360,9 +331,6 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
                     //ScannerService.leScanner.stopScan(ScannerService.leScanCallback21);
 
-                    lock(context); // lock wakeLock, then scan.
-                    // unlock() is then called at the end of the scan from ScannerService
-
                     ScanSettings.Builder builder = new ScanSettings.Builder();
 
                     tmpScanLEResults = null;
@@ -386,15 +354,11 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
                     //bluetooth.stopLeScan(ScannerService.leScanCallback18);
 
-                    lock(context); // lock wakeLock, then scan.
-                    // unlock() is then called at the end of the scan from ScannerService
-
                     tmpScanLEResults = null;
 
                     boolean startScan = bluetooth.startLeScan(ScannerService.leScanCallback18);
 
                     if (!startScan) {
-                        unlock();
                         if (getBluetoothEnabledForScan(context)) {
                             bluetooth.disable();
                         }

@@ -172,6 +172,7 @@ public class ScannerService extends IntentService
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
+                                lock();
                                 WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
                                 WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
                                 WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
@@ -181,6 +182,7 @@ public class ScannerService extends IntentService
                         //try { Thread.sleep(700); } catch (InterruptedException e) { }
                         //SystemClock.sleep(700);
                         PPApplication.sleep(700);
+                        unlock();
                     }
 
                     if (true /*canScanWifi(dataWrapper)*/) { // scan even if wifi is connected
@@ -264,6 +266,7 @@ public class ScannerService extends IntentService
                     public void run() {
                         if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)) {
                             PPApplication.logE("$$$W ScannerService.onHandleIntent", "disable wifi");
+                            lock();
                             WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
                             WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
                         }
@@ -274,6 +277,7 @@ public class ScannerService extends IntentService
                 //try { Thread.sleep(700); } catch (InterruptedException e) { }
                 //SystemClock.sleep(700);
                 PPApplication.sleep(700);
+                unlock();
             }
 
             setForceOneWifiScan(context, FORCE_ONE_SCAN_DISABLED);
@@ -330,6 +334,7 @@ public class ScannerService extends IntentService
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
+                                lock();
                                 BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
                                 BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
                                 BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
@@ -341,6 +346,7 @@ public class ScannerService extends IntentService
                         //try { Thread.sleep(700); } catch (InterruptedException e) { }
                         //SystemClock.sleep(700);
                         PPApplication.sleep(700);
+                        unlock();
                     }
 
                     if (true /*canScanBluetooth(dataWrapper)*/) {  // scan even if bluetooth is connected
@@ -349,8 +355,6 @@ public class ScannerService extends IntentService
                         BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
                         BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
                         BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
-
-                        BluetoothScanAlarmBroadcastReceiver.unlock();
 
                         //BluetoothScanAlarmBroadcastReceiver.clearScanResults(context);
 
@@ -398,7 +402,6 @@ public class ScannerService extends IntentService
 
                             }
 
-                            BluetoothScanAlarmBroadcastReceiver.unlock();
                             unlock();
 
                             unregisterReceiver(bluetoothScanReceiver);
@@ -456,7 +459,6 @@ public class ScannerService extends IntentService
                                 PPApplication.logE("$$$BLE ScannerService.onHandleIntent", "LE scan ended");
                             }
 
-                            BluetoothScanAlarmBroadcastReceiver.unlock();
                             unlock();
 
                             //unregisterReceiver(bluetoothLEScanReceiver);
@@ -492,6 +494,7 @@ public class ScannerService extends IntentService
                         public void run() {
                             if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)) {
                                 PPApplication.logE("$$$B ScannerService.onHandleIntent", "disable bluetooth");
+                                lock();
                                 BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
                                 BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
                             }
@@ -502,6 +505,7 @@ public class ScannerService extends IntentService
                     //try { Thread.sleep(700); } catch (InterruptedException e) { }
                     //SystemClock.sleep(700);
                     PPApplication.sleep(700);
+                    unlock();
                 }
             }
 
@@ -513,7 +517,6 @@ public class ScannerService extends IntentService
             BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
             BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
 
-            BluetoothScanAlarmBroadcastReceiver.unlock();
             unlock();
         }
 
