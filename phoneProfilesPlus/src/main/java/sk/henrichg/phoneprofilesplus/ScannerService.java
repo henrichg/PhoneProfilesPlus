@@ -587,9 +587,10 @@ public class ScannerService extends IntentService
     }
 
     private void unlock() {
-        PPApplication.logE("$$$ ScannerService.unlock","xxx");
-        if ((wakeLock != null) && (wakeLock.isHeld()))
+        if ((wakeLock != null) && (wakeLock.isHeld())) {
+            PPApplication.logE("$$$ ScannerService.unlock","xxx");
             wakeLock.release();
+        }
     }
 
     /*
@@ -814,6 +815,7 @@ public class ScannerService extends IntentService
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
+                                //lock(); // lock is required for enabling bluetooth
                                 _bluetooth.enable();
                             }
                         });
