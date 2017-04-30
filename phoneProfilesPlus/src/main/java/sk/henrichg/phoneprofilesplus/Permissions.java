@@ -11,9 +11,9 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.Process;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
-import android.os.Process;
 
 import com.google.gson.Gson;
 

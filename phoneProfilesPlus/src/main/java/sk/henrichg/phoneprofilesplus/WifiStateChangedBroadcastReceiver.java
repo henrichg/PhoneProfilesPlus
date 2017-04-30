@@ -1,18 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
-import android.nfc.NfcAdapter;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-import java.util.Calendar;
 import java.util.List;
 
 public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver {

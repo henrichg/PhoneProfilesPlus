@@ -14,7 +14,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
@@ -25,7 +24,6 @@ import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
-import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 
 import java.util.Timer;

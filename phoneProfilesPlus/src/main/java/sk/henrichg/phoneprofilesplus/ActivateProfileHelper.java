@@ -41,7 +41,6 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.os.ServiceManager;
 import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.support.v4.content.LocalBroadcastManager;
@@ -57,15 +56,12 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.RemoteViews;
 
-import com.android.internal.telephony.ISub;
-import com.android.internal.telephony.ITelephony;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.List;
