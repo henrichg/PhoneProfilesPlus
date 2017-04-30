@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageButton
                     android:id="@+id/bluetooth_name_pref_dlg_helpIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -63,16 +63,11 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="50dp"
-                    android:maxWidth="50dp"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_action_profileicon_help"
                     android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
                     android:contentDescription="@string/menu_help"/>
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageButton
                     android:id="@+id/bluetooth_name_pref_dlg_changeSelection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,16 +77,11 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf = "@+id/bluetooth_name_pref_dlg_helpIcon"
                     android:layout_toLeftOf = "@+id/bluetooth_name_pref_dlg_helpIcon"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="50dp"
-                    android:maxWidth="50dp"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_profile_activated"
                     android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
                     android:contentDescription="@string/pref_dlg_change_selection_title"/>
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageButton
                     android:id="@+id/bluetooth_name_pref_dlg_addIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -101,13 +91,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf = "@+id/bluetooth_name_pref_dlg_changeSelection"
                     android:layout_toStartOf = "@+id/bluetooth_name_pref_dlg_changeSelection"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="50dp"
-                    android:maxWidth="50dp"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_action_location_add"
                     android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
                     android:contentDescription="@string/bluetooth_name_pref_dlg_add_bt_name_icon"/>
 
                 <EditText

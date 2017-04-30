@@ -220,11 +220,11 @@ public class MobileCellsPreference extends DialogPreference {
         final ImageView helpIcon = (ImageView)layout.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
         ApplicationPreferences.getSharedPreferences(context);
         if (ApplicationPreferences.preferences.getBoolean(PREF_SHOW_HELP, true)) {
-            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
+            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
             helpText.setVisibility(View.VISIBLE);
         }
         else {
-            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
+            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
             helpText.setVisibility(View.GONE);
         }
         helpIcon.setOnClickListener(new View.OnClickListener() {
@@ -234,12 +234,12 @@ public class MobileCellsPreference extends DialogPreference {
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 int visibility = helpText.getVisibility();
                 if (visibility == View.VISIBLE) {
-                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
+                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
                     visibility = View.GONE;
                     editor.putBoolean(PREF_SHOW_HELP, false);
                 }
                 else {
-                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
+                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
                     visibility = View.VISIBLE;
                     editor.putBoolean(PREF_SHOW_HELP, true);
                 }

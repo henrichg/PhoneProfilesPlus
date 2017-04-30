@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -45,8 +47,9 @@ public class BluetoothNamePreference extends DialogPreference {
     private MaterialDialog mSelectorDialog;
     private LinearLayout progressLinearLayout;
     private RelativeLayout dataRelativeLayout;
+    private ListView bluetoothListView;
     private EditText bluetoothName;
-    private ImageView addIcon;
+    private AppCompatImageButton addIcon;
     private BluetoothNamePreferenceAdapter listAdapter;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
@@ -110,7 +113,7 @@ public class BluetoothNamePreference extends DialogPreference {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (Permissions.grantBluetoothScanDialogPermissions(context, BluetoothNamePreference.this))
-                            refreshListView(true);
+                            refreshListView(true, "");
                     }
                 });
 
@@ -120,7 +123,7 @@ public class BluetoothNamePreference extends DialogPreference {
         progressLinearLayout = (LinearLayout) layout.findViewById(R.id.bluetooth_name_pref_dlg_linla_progress);
         dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.bluetooth_name_pref_dlg_rella_data);
 
-        addIcon = (ImageView)layout.findViewById(R.id.bluetooth_name_pref_dlg_addIcon);
+        addIcon = (AppCompatImageButton) layout.findViewById(R.id.bluetooth_name_pref_dlg_addIcon);
         addIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,7 +142,7 @@ public class BluetoothNamePreference extends DialogPreference {
                     else
                         customBluetoothList.add(new BluetoothDeviceData(btName, "", 0, true, 0));
                 }
-                refreshListView(false);
+                refreshListView(false, btName);
             }
         });
 
@@ -155,17 +158,19 @@ public class BluetoothNamePreference extends DialogPreference {
 
             @Override
             public void afterTextChanged(Editable s) {
-                addIcon.setEnabled(!bluetoothName.getText().toString().isEmpty());
+                GlobalGUIRoutines.setImageButtonEnabled(!bluetoothName.getText().toString().isEmpty(),
+                        addIcon, R.drawable.ic_action_location_add, context.getApplicationContext());
             }
         });
 
-        addIcon.setEnabled(!bluetoothName.getText().toString().isEmpty());
+        GlobalGUIRoutines.setImageButtonEnabled(!bluetoothName.getText().toString().isEmpty(),
+                addIcon, R.drawable.ic_action_location_add, context.getApplicationContext());
 
-        ListView bluetoothListView = (ListView) layout.findViewById(R.id.bluetooth_name_pref_dlg_listview);
+        bluetoothListView = (ListView) layout.findViewById(R.id.bluetooth_name_pref_dlg_listview);
         listAdapter = new BluetoothNamePreferenceAdapter(context, this);
         bluetoothListView.setAdapter(listAdapter);
 
-        refreshListView(false);
+        refreshListView(false, "");
 
         bluetoothListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -201,11 +206,11 @@ public class BluetoothNamePreference extends DialogPreference {
         final ImageView helpIcon = (ImageView)layout.findViewById(R.id.bluetooth_name_pref_dlg_helpIcon);
         ApplicationPreferences.getSharedPreferences(context);
         if (ApplicationPreferences.preferences.getBoolean(PREF_SHOW_HELP, true)) {
-            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
+            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
             helpText.setVisibility(View.VISIBLE);
         }
         else {
-            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
+            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
             helpText.setVisibility(View.GONE);
         }
         helpIcon.setOnClickListener(new View.OnClickListener() {
@@ -215,12 +220,12 @@ public class BluetoothNamePreference extends DialogPreference {
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 int visibility = helpText.getVisibility();
                 if (visibility == View.VISIBLE) {
-                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
+                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
                     visibility = View.GONE;
                     editor.putBoolean(PREF_SHOW_HELP, false);
                 }
                 else {
-                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
+                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
                     visibility = View.VISIBLE;
                     editor.putBoolean(PREF_SHOW_HELP, true);
                 }
@@ -250,7 +255,7 @@ public class BluetoothNamePreference extends DialogPreference {
                                         break;
                                     default:
                                 }
-                                refreshListView(false);
+                                refreshListView(false, "");
                                 return true;
                             }
                         })
@@ -350,7 +355,7 @@ public class BluetoothNamePreference extends DialogPreference {
         return false;
     }
 
-    public void refreshListView(boolean forRescan)
+    public void refreshListView(boolean forRescan, final String scroolToBTName)
     {
         final boolean _forRescan = forRescan;
 
@@ -490,16 +495,15 @@ public class BluetoothNamePreference extends DialogPreference {
                     dataRelativeLayout.setVisibility(View.VISIBLE);
                 }
 
-                /*
+                if (!scroolToBTName.isEmpty())
                 for (int position = 0; position < bluetoothList.size() - 1; position++) {
-                    if (bluetoothList.get(position).getName().equalsIgnoreCase(value)) {
-                        bluetoothListView.setSelection(position);
+                    if (bluetoothList.get(position).getName().equalsIgnoreCase(scroolToBTName)) {
                         bluetoothListView.setItemChecked(position, true);
-                        bluetoothListView.smoothScrollToPosition(position);
+                        bluetoothListView.setSelection(position);
+                        //bluetoothListView.smoothScrollToPosition(position);
                         break;
                     }
                 }
-                */
             }
 
         };
@@ -559,7 +563,7 @@ public class BluetoothNamePreference extends DialogPreference {
                                     break;
                                 }
                             }
-                            refreshListView(false);
+                            refreshListView(false, "");
                         }
                         return true;
                     case R.id.bluetooth_name_pref_dlg_item_menu_delete:
@@ -571,7 +575,7 @@ public class BluetoothNamePreference extends DialogPreference {
                                 break;
                             }
                         }
-                        refreshListView(false);
+                        refreshListView(false, "");
                         return true;
                     default:
                         return false;

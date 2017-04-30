@@ -8,9 +8,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.View;
@@ -44,8 +46,9 @@ public class WifiSSIDPreference extends DialogPreference {
     private MaterialDialog mSelectorDialog;
     private LinearLayout progressLinearLayout;
     private RelativeLayout dataRelativeLayout;
+    private ListView SSIDListView;
     private EditText SSIDName;
-    private ImageView addIcon;
+    private AppCompatImageButton addIcon;
     private WifiSSIDPreferenceAdapter listAdapter;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
@@ -107,7 +110,7 @@ public class WifiSSIDPreference extends DialogPreference {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (Permissions.grantWifiScanDialogPermissions(context, WifiSSIDPreference.this))
-                            refreshListView(true);
+                            refreshListView(true, "");
                     }
                 });
 
@@ -117,7 +120,7 @@ public class WifiSSIDPreference extends DialogPreference {
         progressLinearLayout = (LinearLayout) layout.findViewById(R.id.wifi_ssid_pref_dlg_linla_progress);
         dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.wifi_ssid_pref_dlg_rella_data);
 
-        addIcon = (ImageView)layout.findViewById(R.id.wifi_ssid_pref_dlg_addIcon);
+        addIcon = (AppCompatImageButton) layout.findViewById(R.id.wifi_ssid_pref_dlg_addIcon);
         addIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +135,7 @@ public class WifiSSIDPreference extends DialogPreference {
                 }
                 if (!found)
                     customSSIDList.add(new WifiSSIDData(ssid, "", true));
-                refreshListView(false);
+                refreshListView(false, ssid);
             }
         });
 
@@ -148,17 +151,19 @@ public class WifiSSIDPreference extends DialogPreference {
 
             @Override
             public void afterTextChanged(Editable s) {
-                addIcon.setEnabled(!SSIDName.getText().toString().isEmpty());
+                GlobalGUIRoutines.setImageButtonEnabled(!SSIDName.getText().toString().isEmpty(),
+                        addIcon, R.drawable.ic_action_location_add, context.getApplicationContext());
             }
         });
 
-        addIcon.setEnabled(!SSIDName.getText().toString().isEmpty());
+        GlobalGUIRoutines.setImageButtonEnabled(!SSIDName.getText().toString().isEmpty(),
+                addIcon, R.drawable.ic_action_location_add, context.getApplicationContext());
 
-        ListView SSIDListView = (ListView) layout.findViewById(R.id.wifi_ssid_pref_dlg_listview);
+        SSIDListView = (ListView) layout.findViewById(R.id.wifi_ssid_pref_dlg_listview);
         listAdapter = new WifiSSIDPreferenceAdapter(context, this);
         SSIDListView.setAdapter(listAdapter);
 
-        refreshListView(false);
+        refreshListView(false, "");
 
         SSIDListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -193,11 +198,11 @@ public class WifiSSIDPreference extends DialogPreference {
         final ImageView helpIcon = (ImageView)layout.findViewById(R.id.wifi_ssid_pref_dlg_helpIcon);
         ApplicationPreferences.getSharedPreferences(context);
         if (ApplicationPreferences.preferences.getBoolean(PREF_SHOW_HELP, true)) {
-            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
+            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
             helpText.setVisibility(View.VISIBLE);
         }
         else {
-            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
+            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
             helpText.setVisibility(View.GONE);
         }
         helpIcon.setOnClickListener(new View.OnClickListener() {
@@ -207,12 +212,12 @@ public class WifiSSIDPreference extends DialogPreference {
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 int visibility = helpText.getVisibility();
                 if (visibility == View.VISIBLE) {
-                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
+                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
                     visibility = View.GONE;
                     editor.putBoolean(PREF_SHOW_HELP, false);
                 }
                 else {
-                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
+                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
                     visibility = View.VISIBLE;
                     editor.putBoolean(PREF_SHOW_HELP, true);
                 }
@@ -242,7 +247,7 @@ public class WifiSSIDPreference extends DialogPreference {
                                         break;
                                     default:
                                 }
-                                refreshListView(false);
+                                refreshListView(false, "");
                                 return true;
                             }
                         })
@@ -343,7 +348,7 @@ public class WifiSSIDPreference extends DialogPreference {
         return false;
     }
 
-    public void refreshListView(boolean forRescan)
+    public void refreshListView(boolean forRescan, final String scrollToSSID)
     {
         final boolean _forRescan = forRescan;
 
@@ -473,16 +478,17 @@ public class WifiSSIDPreference extends DialogPreference {
                     dataRelativeLayout.setVisibility(View.VISIBLE);
                 }
 
-                /*
-                for (int position = 0; position < SSIDList.size() - 1; position++) {
-                    if (SSIDList.get(position).ssid.equals(value)) {
-                        SSIDListView.setSelection(position);
-                        SSIDListView.setItemChecked(position, true);
-                        SSIDListView.smoothScrollToPosition(position);
-                        break;
+                if (!scrollToSSID.isEmpty()) {
+                    for (int position = 0; position < SSIDList.size() - 1; position++) {
+                        if (SSIDList.get(position).ssid.equals(scrollToSSID)) {
+                            SSIDListView.setItemChecked(position, true);
+                            SSIDListView.setSelection(position);
+                            //SSIDListView.smoothScrollToPosition(position);
+                            break;
+                        }
                     }
                 }
-                */
+
             }
 
         };
@@ -542,7 +548,7 @@ public class WifiSSIDPreference extends DialogPreference {
                                     break;
                                 }
                             }
-                            refreshListView(false);
+                            refreshListView(false, "");
                         }
                         return true;
                     case R.id.wifi_ssid_pref_dlg_item_menu_delete:
@@ -554,7 +560,7 @@ public class WifiSSIDPreference extends DialogPreference {
                                 break;
                             }
                         }
-                        refreshListView(false);
+                        refreshListView(false, "");
                         return true;
                     default:
                         return false;

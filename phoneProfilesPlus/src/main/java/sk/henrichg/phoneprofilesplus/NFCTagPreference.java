@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -46,8 +48,9 @@ public class NFCTagPreference extends DialogPreference {
     private MaterialDialog mSelectorDialog;
     private LinearLayout progressLinearLayout;
     private RelativeLayout dataRelativeLayout;
+    private ListView nfcTagListView;
     private EditText nfcTagName;
-    private ImageView addIcon;
+    private AppCompatImageButton addIcon;
     private NFCTagPreferenceAdapter listAdapter;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
@@ -108,14 +111,14 @@ public class NFCTagPreference extends DialogPreference {
         progressLinearLayout = (LinearLayout) layout.findViewById(R.id.nfc_tag_pref_dlg_linla_progress);
         dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.nfc_tag_pref_dlg_rella_data);
 
-        addIcon = (ImageView)layout.findViewById(R.id.nfc_tag_pref_dlg_addIcon);
+        addIcon = (AppCompatImageButton) layout.findViewById(R.id.nfc_tag_pref_dlg_addIcon);
         addIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String tag = nfcTagName.getText().toString();
                 addNfcTag(tag);
                 DatabaseHandler.getInstance(context).addNFCTag(tag);
-                refreshListView(false);
+                refreshListView(false, tag);
             }
         });
 
@@ -131,17 +134,19 @@ public class NFCTagPreference extends DialogPreference {
 
             @Override
             public void afterTextChanged(Editable s) {
-                addIcon.setEnabled(!nfcTagName.getText().toString().isEmpty());
+                GlobalGUIRoutines.setImageButtonEnabled(!nfcTagName.getText().toString().isEmpty(),
+                        addIcon, R.drawable.ic_action_location_add, context.getApplicationContext());
             }
         });
 
-        addIcon.setEnabled(!nfcTagName.getText().toString().isEmpty());
+        GlobalGUIRoutines.setImageButtonEnabled(!nfcTagName.getText().toString().isEmpty(),
+                addIcon, R.drawable.ic_action_location_add, context.getApplicationContext());
 
-        ListView nfcTagListView = (ListView) layout.findViewById(R.id.nfc_tag_pref_dlg_listview);
+        nfcTagListView = (ListView) layout.findViewById(R.id.nfc_tag_pref_dlg_listview);
         listAdapter = new NFCTagPreferenceAdapter(context, this);
         nfcTagListView.setAdapter(listAdapter);
 
-        refreshListView(false);
+        refreshListView(false, "");
 
         nfcTagListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -163,11 +168,11 @@ public class NFCTagPreference extends DialogPreference {
         final ImageView helpIcon = (ImageView)layout.findViewById(R.id.nfc_tag_pref_dlg_helpIcon);
         ApplicationPreferences.getSharedPreferences(context);
         if (ApplicationPreferences.preferences.getBoolean(PREF_SHOW_HELP, true)) {
-            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
+            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
             helpText.setVisibility(View.VISIBLE);
         }
         else {
-            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
+            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
             helpText.setVisibility(View.GONE);
         }
         helpIcon.setOnClickListener(new View.OnClickListener() {
@@ -177,12 +182,12 @@ public class NFCTagPreference extends DialogPreference {
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 int visibility = helpText.getVisibility();
                 if (visibility == View.VISIBLE) {
-                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
+                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
                     visibility = View.GONE;
                     editor.putBoolean(PREF_SHOW_HELP, false);
                 }
                 else {
-                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
+                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
                     visibility = View.VISIBLE;
                     editor.putBoolean(PREF_SHOW_HELP, true);
                 }
@@ -212,7 +217,7 @@ public class NFCTagPreference extends DialogPreference {
                                         break;
                                     default:
                                 }
-                                refreshListView(false);
+                                refreshListView(false, "");
                                 return true;
                             }
                         })
@@ -313,7 +318,7 @@ public class NFCTagPreference extends DialogPreference {
         return false;
     }
 
-    public void refreshListView(boolean forRescan)
+    public void refreshListView(boolean forRescan, final String scrollToTag)
     {
         final boolean _forRescan = forRescan;
 
@@ -382,16 +387,16 @@ public class NFCTagPreference extends DialogPreference {
                     dataRelativeLayout.setVisibility(View.VISIBLE);
                 }
 
-                /*
-                for (int position = 0; position < SSIDList.size() - 1; position++) {
-                    if (SSIDList.get(position).ssid.equals(value)) {
-                        SSIDListView.setSelection(position);
-                        SSIDListView.setItemChecked(position, true);
-                        SSIDListView.smoothScrollToPosition(position);
-                        break;
+                if (!scrollToTag.isEmpty()) {
+                    for (int position = 0; position < nfcTagList.size() - 1; position++) {
+                        if (nfcTagList.get(position).name.equals(scrollToTag)) {
+                            nfcTagListView.setItemChecked(position, true);
+                            nfcTagListView.setSelection(position);
+                            //nfcTagListView.smoothScrollToPosition(position);
+                            break;
+                        }
                     }
                 }
-                */
             }
 
         };
@@ -449,13 +454,13 @@ public class NFCTagPreference extends DialogPreference {
                                 value = value + nfcTagName.getText().toString();
                                 DatabaseHandler.getInstance(context).updateNFCTag(tag, nfcTagName.getText().toString());
                             }
-                            refreshListView(false);
+                            refreshListView(false, "");
                         }
                         return true;
                     case R.id.nfc_tag_pref_dlg_item_menu_delete:
                         removeNfcTag(tag);
                         DatabaseHandler.getInstance(context).deleteNFCTag(tag);
-                        refreshListView(false);
+                        refreshListView(false, "");
                         return true;
                     default:
                         return false;
