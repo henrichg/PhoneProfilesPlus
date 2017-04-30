@@ -804,13 +804,13 @@
   <string name="phone_profiles_pref_applicationLanguage_ko">한국어</string>
   <string name="phone_profiles_pref_applicationLanguage_te">తెలుగు</string>
   <string name="phone_profiles_pref_applicationLanguage_ro">Română</string>
-  <string name="phone_profiles_pref_applicationLanguage_pt">Português</string>
+  <string name="phone_profiles_pref_applicationLanguage_pt_PT">Português (Portugal)</string>
   <string name="array_pref_value_fa">fa</string>
   <string name="array_pref_value_ja">ja</string>
   <string name="array_pref_value_ko">ko</string>
   <string name="array_pref_value_te">te</string>
   <string name="array_pref_value_ro">ro</string>
-  <string name="array_pref_value_pt">pt</string>
+  <string name="array_pref_value_pt_PT">pt-PT</string>
   <string name="about_application_releases">Publications</string>
   <string name="permission_group_name_draw_overalys">Dessiner sur les applications</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Vous n’avez pas activé « Dessiner sur les applications ». Ne plus demander à pour cela ?</string>
@@ -990,4 +990,6 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Notification de barre d’État n’est pas activée !</string>
   <string name="duration_pref_dlg_duration_label">Durée :</string>
   <string name="duration_pref_dlg_activation_end_label">Fin d\'activation :</string>
+  <string name="phone_profiles_pref_applicationLanguage_pt_BR">Português (Brasil)</string>
+  <string name="array_pref_value_pt_BR">pt-BR</string>
 </resources>
