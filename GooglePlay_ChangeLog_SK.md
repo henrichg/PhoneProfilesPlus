@@ -1,16 +1,14 @@
-PhoneProfiles Zoznam zmien 
-==========================
+PhoneProfilesPlus Zoznam zmien 
+==============================
 
-Verzia: 3.5
------------
-- Pridané: "Pohľady na cieľ kliknutia". Pomôžu vam s používaním GUI komponentov.
-- Pridané: "Zásady ochrany osobných údajov" do "O aplikácii".
-- Pridané: "Skryť ikonu v stavovom riadku" do parametrov profilu. Môžete skryť aplikačnú ikonu v stavovom riadku pre aktivovaný profil. Prepíše parameter v nastaveniach aplikácie. 
-- Pridané: "Zamknutie zariadenia" do parametrov profilu. Môžete zamknúť zariadenie aktiváciou profilu.
-- Pridané: "Pripojiť k SSID" do parametrov profilu. Môžete pripojit zariadenie do nakonfigurovaného Wi-Fi SSID aktiváciou profilu.
-- Pridané: "Nastavenie zlúčenia hlasitostí" do nastavení aplikácie. Ak detekcia zlúčenia hlasitostí zvonenia a notifikácií je nesprávna, môžete ju opraviť týmto parametrom.
-- Pridané: "Reštart udalostí" do miniaplikácií.
-- Pridané: "Štart pred udalosťou" do senzora udalosti "Parametre kalendára". S týmto môžete nakonfigurovať štart PPP udalosti pred štartom udalosti kalendára.
-- Pridané: "Parametre rádií" - nový senzor udalosti. Použite ho, ak chcete spustiť udalosť na základe zapnutia alebo vypnutia rádia. Podporované rádia: Wi-Fi, Bluetooth, Mobilné dáta, GPS, NFC, Mód lietadlo. 
-- Zmenené: GUI - odstránené "karty" z Aktivátora, Editora.
+Verzia: 3.5.1
+-------------
+- Pridané: Trvanie aktivácie pre miniaplikáciu Ikona.
+- Pridané: "Vypnutie skenovania Wi-Fi" a "Vypnutie skenovania Bluetooth" do profilu.
+- Pridané: Podpora pre grant povolenia WRITE_SECURE_SETTINGS prostredníctvom adb: "adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS".
+- Pridané: zmena veľkosti miniaplikácie Ikona.
+- Pridané: Prehrávanie vyzváňacieho tónu kontaktu počas simulácie zvonenia.
+- Pridané: Simulácia tónu notifikácie, ak je tichý režim zmenený na netichý.
+- Zmenené: "Vyrušenia" na "Nerušiť" pre systém Android 6+.
+- Zmenené: Vibrácie pri zvonení: pre Android 7+, root nie je potrebný (opravené spoločnosťou Google).
 - Opravy chýb.

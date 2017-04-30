@@ -1,16 +1,14 @@
-PhoneProfiles Change Log
-========================
+PhoneProfilesPlus Change Log
+============================
 
-Version: 3.5
-------------
-- Added: "Tap target views". Helps you for using GUI elements.
-- Added: "Privacy Policy" to "About application".
-- Added: "Hide status bar icon" to profile preferences. You can hide application status bar icon for activated profile. Overrides parameter in application settings. 
-- Added: "Lock device" to profile preferences. You can lock device via profile activation.
-- Added: "Connect to SSID" to profile preferences. You can connect device to configured Wi-fi SSID via profile actvation.
-- Added: "Set volume merge" to application settings. If detection of merge of ringer and notification volumes is wrong, you can fix it with this parameter.
-- Added: "Restart events" to widgets.
-- Added: "Start before event" to event sensor "Calendar parameters". With this, you can configure start of PPP event before start of calendar event.
-- Added: "Radios parameters" - new event sensor. Use it if you want start event by switch radio on ot off. Supported radios: Wi-Fi, Bluetooth, Mobile data, GPS, NFC, Airplane mode. 
-- Changed: GUI - Removed "cards" from Activator, Editor.
+Version: 3.5.1
+--------------
+- Added: Activation duration to icon widget.
+- Added: "Disable Wi-Fi scanning" and "Disable Bluetooth scanning" to profile.
+- Added: Support for grant WRITE_SECURE_SETTINGS permission via adb: "adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS".
+- Added: Icon widget resize.
+- Added: Play contact ringtone during ringing simulation.
+- Added: Simulating notification tone if silent ringer mode is changed to non-silent.
+- Changed: "Interruptions" to "Do not disturb" for Android 6+.
+- Changed: Vibrate when ringing: in Android 7+ root is not needed (fixed by Google). 
 - Bug fixes.
