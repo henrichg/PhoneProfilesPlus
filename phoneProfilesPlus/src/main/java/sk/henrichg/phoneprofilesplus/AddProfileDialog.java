@@ -61,7 +61,7 @@ class AddProfileDialog
 
     }
 
-    void doOnItemSelected(int position)
+    private void doOnItemSelected(int position)
     {
         profileListFragment.startProfilePreferencesActivity(null, position);
         mDialog.dismiss();

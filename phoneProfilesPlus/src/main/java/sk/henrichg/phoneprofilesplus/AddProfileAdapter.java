@@ -48,7 +48,6 @@ class AddProfileAdapter extends BaseAdapter {
         ImageView profileIcon;
         TextView profileLabel;
         ImageView profileIndicator;
-        RadioButton radioBtn;
         int position;
     }
 
@@ -60,16 +59,15 @@ class AddProfileAdapter extends BaseAdapter {
         if (convertView == null)
         {
             if (ApplicationPreferences.applicationEditorPrefIndicator(context))
-                vi = inflater.inflate(R.layout.profile_preference_list_item, parent, false);
+                vi = inflater.inflate(R.layout.add_profile_list_item, parent, false);
             else
-                vi = inflater.inflate(R.layout.profile_preference_list_item_no_indicator, parent, false);
+                vi = inflater.inflate(R.layout.add_profile_list_item_no_indicator, parent, false);
 
             holder = new ViewHolder();
             holder.profileIcon = (ImageView)vi.findViewById(R.id.profile_pref_dlg_item_icon);
             holder.profileLabel = (TextView)vi.findViewById(R.id.profile_pref_dlg_item_label);
             if (ApplicationPreferences.applicationEditorPrefIndicator(context))
                 holder.profileIndicator = (ImageView)vi.findViewById(R.id.profile_pref_dlg_item_indicator);
-            holder.radioBtn = (RadioButton)vi.findViewById(R.id.profile_pref_dlg_item_radiobtn);
             vi.setTag(holder);
         }
         else
@@ -80,18 +78,8 @@ class AddProfileAdapter extends BaseAdapter {
         Profile profile;
         profile = profileList.get(position);
 
-        holder.radioBtn.setTag(position);
-        holder.radioBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                RadioButton rb = (RadioButton) v;
-                dialog.doOnItemSelected((Integer)rb.getTag());
-            }
-        });
-
         if (profile != null)
         {
-            holder.radioBtn.setChecked(false);
-
             if (position == 0)
                 holder.profileLabel.setText(context.getString(R.string.new_empty_profile));
             else
@@ -117,7 +105,6 @@ class AddProfileAdapter extends BaseAdapter {
         }
         else
         {
-            holder.radioBtn.setChecked(false);
             holder.profileLabel.setText("");
             holder.profileIcon.setVisibility(View.VISIBLE);
             holder.profileIcon.setImageResource(R.drawable.ic_empty);

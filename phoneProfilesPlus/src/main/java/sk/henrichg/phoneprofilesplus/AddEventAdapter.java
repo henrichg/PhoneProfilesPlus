@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -76,9 +77,9 @@ class AddEventAdapter extends BaseAdapter {
         {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             if (ApplicationPreferences.applicationEditorPrefIndicator(context))
-                vi = inflater.inflate(R.layout.event_preference_list_item, parent, false);
+                vi = inflater.inflate(R.layout.add_event_list_item, parent, false);
             else
-                vi = inflater.inflate(R.layout.event_preference_list_item_no_indicator, parent, false);
+                vi = inflater.inflate(R.layout.add_event_list_item_no_indicator, parent, false);
             holder = new ViewHolder();
             holder.eventName = (TextView)vi.findViewById(R.id.event_pref_dlg_item_event_name);
             holder.profileStartName = (TextView)vi.findViewById(R.id.event_pref_dlg_item_profile_start_name);
@@ -102,6 +103,7 @@ class AddEventAdapter extends BaseAdapter {
 
 
         final Event event = (Event)getItem(position);
+
         if (event != null)
         {
             String eventName = event._name;
