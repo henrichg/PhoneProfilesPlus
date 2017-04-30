@@ -42,7 +42,7 @@ public class PPApplication extends Application {
                                          +"|PPApplication.isRootGranted"
 
                                          //+"|PhoneProfilesService.doSimulatingRingingCall"
-
+                                        /*
                                          +"|WifiScanAlarmBroadcastReceiver.onReceive"
                                          +"|WifiScanAlarmBroadcastReceiver.setAlarm"
                                          +"|WifiScanAlarmBroadcastReceiver.removeAlarm"
@@ -60,7 +60,7 @@ public class PPApplication extends Application {
                                          +"|$$$ DataWrapper.restartEventsWithRescan"
                                          +"|$$$ ScannerService.lock"
                                          +"|$$$ ScannerService.unlock"
-
+                                        */
                                          //+"|Profile.convertPercentsToBrightnessManualValue"
 
                                          //+"|##### RefreshGUIBroadcastReceiver.onReceive"
