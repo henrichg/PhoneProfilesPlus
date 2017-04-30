@@ -72,7 +72,8 @@
     <item>@string/phone_profiles_pref_applicationLanguage_ko</item>
     <item>@string/phone_profiles_pref_applicationLanguage_nl</item>
     <item>@string/phone_profiles_pref_applicationLanguage_pl</item>
-    <item>@string/phone_profiles_pref_applicationLanguage_pt</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_pt_PT</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_pt_BR</item>
     <item>@string/phone_profiles_pref_applicationLanguage_ro</item>
     <item>@string/phone_profiles_pref_applicationLanguage_ru</item>
     <item>@string/phone_profiles_pref_applicationLanguage_sk</item>
@@ -98,7 +99,8 @@
     <item>@string/array_pref_value_ko</item>
     <item>@string/array_pref_value_nl</item>
     <item>@string/array_pref_value_pl</item>
-    <item>@string/array_pref_value_pt</item>
+    <item>@string/array_pref_value_pt_PT</item>
+    <item>@string/array_pref_value_pt_BR</item>
     <item>@string/array_pref_value_ro</item>
     <item>@string/array_pref_value_ru</item>
     <item>@string/array_pref_value_sk</item>

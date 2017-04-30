@@ -19,7 +19,7 @@ android {
         }
 
         resConfigs "en", "ca", "cs", "de", "es", "fa", "fr", "hu", "it", "iw", "ja", "ko", "nl",
-                   "pl", "pt", "ro", "ru", "sk", "sv", "te", "tr", "uk", "zh-rTW"
+                   "pl", "pt-rBR", "pt-rPT", "ro", "ru", "sk", "sv", "te", "tr", "uk", "zh-rTW"
     }
 
     buildTypes {
