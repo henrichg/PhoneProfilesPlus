@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.stericson.RootShell.RootShell;
 import com.stericson.RootTools.RootTools;
 
@@ -26,6 +27,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import io.fabric.sdk.android.Fabric;
 
 public class PPApplication extends Application {
 
@@ -179,9 +182,10 @@ public class PPApplication extends Application {
         } catch (PackageManager.NameNotFoundException e) {
             //e.printStackTrace();
         }*/
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext()/*, actualVersionCode*/));
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext()/*, actualVersionCode*/));
+        Fabric.with(getApplicationContext(), new Crashlytics());
 
-    //	Debug.startMethodTracing("phoneprofiles");
+        //	Debug.startMethodTracing("phoneprofiles");
 
         //resetLog();
 
