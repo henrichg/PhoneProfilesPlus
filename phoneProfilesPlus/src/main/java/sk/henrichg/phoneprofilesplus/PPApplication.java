@@ -184,6 +184,7 @@ public class PPApplication extends Application {
         }*/
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext()/*, actualVersionCode*/));
         Fabric.with(getApplicationContext(), new Crashlytics());
+        // use Crashlytics.logException(exception);
 
         //	Debug.startMethodTracing("phoneprofiles");
 
