@@ -48,14 +48,8 @@
     <uses-permission android:name="android.permission.NFC"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <!-- <uses-permission android:name="android.permission.USE_SIP"/> -->
-
     <uses-permission android:name="com.android.vending.BILLING"/>
-
-    <!--
-    <android:uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
-    -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -125,6 +119,11 @@
         <meta-data
             android:name="com.google.android.backup.api_key"
             android:value="AEdPqrEAAAAIP7KUKJY6Yrqkov5SWxTVUdqPJvIT8OHO5MeQKw"/>
+
+        <!-- Fabric key -->
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="795384c10c1c3eec6489c1d2fcf5e444d013da7d" />
 
         <activity
             android:name=".LauncherActivity"

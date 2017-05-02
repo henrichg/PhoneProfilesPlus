@@ -172,14 +172,14 @@ public class PPApplication extends Application {
     @Override
     public void onCreate()
     {
-        int actualVersionCode = 0;
+        /*int actualVersionCode = 0;/
         try {
             PackageInfo pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             actualVersionCode = pinfo.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             //e.printStackTrace();
-        }
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(actualVersionCode));
+        }*/
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext()/*, actualVersionCode*/));
 
     //	Debug.startMethodTracing("phoneprofiles");
 

@@ -24,3 +24,4 @@ Required external libs
 - input-mask-android - https://github.com/RedMadRobot/input-mask-android
 - RelativePopupWindow - https://github.com/kakajika/RelativePopupWindow
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
+- Crashlytics - https://fabric.io/kits/android/crashlytics
