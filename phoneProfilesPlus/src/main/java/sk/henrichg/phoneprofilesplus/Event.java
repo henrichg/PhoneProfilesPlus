@@ -521,10 +521,12 @@ class Event {
 
     public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        Preference pref = prefMng.findPreference(key);
+        if (pref == null)
+            return;
         if (key.equals(PREF_EVENT_NAME))
         {
             Preference preference = prefMng.findPreference(key);
-            preference.setSummary(value);
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
         }
         if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END)||
