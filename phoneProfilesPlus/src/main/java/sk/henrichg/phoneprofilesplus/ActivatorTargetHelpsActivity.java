@@ -30,6 +30,12 @@ public class ActivatorTargetHelpsActivity extends Activity {
         super.onResume();
 
         GlobalGUIRoutines.setTheme(this, true, true);
+
+        if (activatorActivity == null) {
+            finish();
+            return;
+        }
+
         activatorActivity.showTargetHelps();
     }
 
