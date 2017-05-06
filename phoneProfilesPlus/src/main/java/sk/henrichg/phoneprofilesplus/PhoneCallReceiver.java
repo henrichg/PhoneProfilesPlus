@@ -34,7 +34,10 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
 
             //We listen to two intents.  The new outgoing call only tells us of an outgoing call.  We use it to get the number.
             if (intent.getAction().equals(Intent.ACTION_NEW_OUTGOING_CALL)) {
-                listener.setOutgoingNumber(intent.getExtras().getString(Intent.EXTRA_PHONE_NUMBER));
+                if (intent.getExtras() != null)
+                    listener.setOutgoingNumber(intent.getExtras().getString(Intent.EXTRA_PHONE_NUMBER));
+                else
+                    listener.setOutgoingNumber("");
                 return;
             }
 
