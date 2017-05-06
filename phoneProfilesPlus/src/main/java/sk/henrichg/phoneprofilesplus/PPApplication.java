@@ -449,31 +449,35 @@ public class PPApplication extends Application {
         //if (!rootChecked)
         if (!rooted)
         {
-            PPApplication.logE("PPApplication._isRooted", "start isRootAvailable");
-            //rootChecking = true;
+            try {
+                PPApplication.logE("PPApplication._isRooted", "start isRootAvailable");
+                //rootChecking = true;
             /*try {
                 RootTools.closeAllShells();
             } catch (IOException e) {
                 e.printStackTrace();
             }*/
-            //if (RootTools.isRootAvailable()) {
-            if (RootToolsSmall.isRooted()) {
-                // zariadenie je rootnute
-                PPApplication.logE("PPApplication._isRooted", "root available");
-                //rootChecked = true;
-                rooted = true;
-            } else {
-                PPApplication.logE("PPApplication._isRooted", "root NOT available");
-                //rootChecked = true;
-                rooted = false;
-                settingsBinaryExists = false;
-                //settingsBinaryChecked = false;
-                //isSELinuxEnforcingChecked = false;
-                isSELinuxEnforcing = false;
-                //suVersionChecked = false;
-                //suVersion = null;
-                serviceBinaryExists = false;
-                //serviceBinaryChecked = false;
+                //if (RootTools.isRootAvailable()) {
+                if (RootToolsSmall.isRooted()) {
+                    // zariadenie je rootnute
+                    PPApplication.logE("PPApplication._isRooted", "root available");
+                    //rootChecked = true;
+                    rooted = true;
+                } else {
+                    PPApplication.logE("PPApplication._isRooted", "root NOT available");
+                    //rootChecked = true;
+                    rooted = false;
+                    settingsBinaryExists = false;
+                    //settingsBinaryChecked = false;
+                    //isSELinuxEnforcingChecked = false;
+                    isSELinuxEnforcing = false;
+                    //suVersionChecked = false;
+                    //suVersion = null;
+                    serviceBinaryExists = false;
+                    //serviceBinaryChecked = false;
+                }
+            } catch (Exception e) {
+                Log.e("PPApplication._isRooted", "Error on run su: " + e.toString());
             }
         }
         //if (rooted)
@@ -495,20 +499,25 @@ public class PPApplication extends Application {
         //synchronized (PPApplication.rootMutex) {
 
             if (_isRooted()) {
-                PPApplication.logE("PPApplication.isRootGranted", "start isAccessGiven");
-                //grantChecking = true;
-                /*try {
-                    RootTools.closeAllShells();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }*/
-                if (RootTools.isAccessGiven()) {
-                    // root grantnuty
-                    PPApplication.logE("PPApplication.isRootGranted", "root granted");
-                    return true;
-                } else {
-                    // grant odmietnuty
-                    PPApplication.logE("PPApplication.isRootGranted", "root NOT granted");
+                try {
+                    PPApplication.logE("PPApplication.isRootGranted", "start isAccessGiven");
+                    //grantChecking = true;
+                    /*try {
+                        RootTools.closeAllShells();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }*/
+                    if (RootTools.isAccessGiven()) {
+                        // root grantnuty
+                        PPApplication.logE("PPApplication.isRootGranted", "root granted");
+                        return true;
+                    } else {
+                        // grant odmietnuty
+                        PPApplication.logE("PPApplication.isRootGranted", "root NOT granted");
+                        return false;
+                    }
+                } catch (Exception e) {
+                    Log.e("PPApplication.isRootGranted", "Error on run su: " + e.toString());
                     return false;
                 }
             }
