@@ -907,14 +907,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             int canChange = Profile.isProfilePreferenceAllowed(key, context);
             if (canChange != PPApplication.PREFERENCE_ALLOWED)
             {
-                ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-                if (listPreference != null) {
-                    listPreference.setEnabled(false);
+                Preference preference = prefMng.findPreference(key);
+                if (preference != null) {
+                    preference.setEnabled(false);
                     if (canChange == PPApplication.PREFERENCE_NOT_ALLOWED)
-                        listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
-                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
-                    setCategorySummary(listPreference, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, false, false, false);
+                    setCategorySummary(preference, false);
                 }
             }
             else
