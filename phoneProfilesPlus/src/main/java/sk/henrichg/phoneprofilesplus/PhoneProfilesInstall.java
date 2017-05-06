@@ -10,7 +10,11 @@ public class PhoneProfilesInstall extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String packageName=intent.getData().getEncodedSchemeSpecificPart();
+        String packageName;
+        if (intent.getData() != null)
+            packageName = intent.getData().getEncodedSchemeSpecificPart();
+        else
+            packageName = "";
         PPApplication.logE("PhoneProfilesInstall.onReceive","packageName="+packageName);
 
         if (!intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)) {
