@@ -527,6 +527,7 @@ class Event {
         if (key.equals(PREF_EVENT_NAME))
         {
             Preference preference = prefMng.findPreference(key);
+            preference.setSummary(value);
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
         }
         if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END)||
