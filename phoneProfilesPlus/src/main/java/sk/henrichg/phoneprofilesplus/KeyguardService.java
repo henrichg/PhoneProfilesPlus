@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.app.Service;
@@ -120,14 +121,14 @@ public class KeyguardService extends Service {
     public void disableKeyguard()
     {
         PPApplication.logE("$$$ Keyguard.disable","keyguardLock="+keyguardLock);
-        if (keyguardLock != null)
+        if ((keyguardLock != null) && Permissions.hasPermission(getBaseContext(), Manifest.permission.DISABLE_KEYGUARD))
             keyguardLock.disableKeyguard();
     }
 
     public void reenableKeyguard()
     {
         PPApplication.logE("$$$ Keyguard.reenable","keyguardLock="+keyguardLock);
-        if (keyguardLock != null)
+        if ((keyguardLock != null) && Permissions.hasPermission(getBaseContext(), Manifest.permission.DISABLE_KEYGUARD))
             keyguardLock.reenableKeyguard();
     }
 
