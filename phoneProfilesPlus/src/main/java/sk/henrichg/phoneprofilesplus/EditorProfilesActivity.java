@@ -1912,6 +1912,11 @@ public class EditorProfilesActivity extends AppCompatActivity
     */
 
     private void showTargetHelps() {
+        if (Build.VERSION.SDK_INT <= 19)
+            // TapTarget.forToolbarMenuItem FC :-(
+            // Toolbar.findViewById() returns null
+            return;
+
         ApplicationPreferences.getSharedPreferences(this);
 
         if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
