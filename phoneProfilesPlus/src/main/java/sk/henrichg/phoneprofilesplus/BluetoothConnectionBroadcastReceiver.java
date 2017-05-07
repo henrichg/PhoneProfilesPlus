@@ -43,8 +43,14 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
             if (!action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
                 PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "connected=" + connected);
-                PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getName()=" + device.getName());
-                PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getAddress()=" + device.getAddress());
+                if (device.getName() != null)
+                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getName()=" + device.getName());
+                else
+                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getName()=null");
+                if (device.getAddress() != null)
+                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getAddress()=" + device.getAddress());
+                else
+                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getAddress()=null");
             }
 
             if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED))
