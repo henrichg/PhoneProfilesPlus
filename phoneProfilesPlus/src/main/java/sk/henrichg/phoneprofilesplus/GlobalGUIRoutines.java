@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -40,6 +41,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -552,6 +554,12 @@ public class GlobalGUIRoutines {
             //e.printStackTrace();
             return -1;
         }
+    }
+
+    static boolean activityActionExists(String action, Context context) {
+        final Intent intent = new Intent(action);
+        List<ResolveInfo> activities = context.getApplicationContext().getPackageManager().queryIntentActivities(intent, 0);
+        return activities.size() > 0;
     }
 
 }

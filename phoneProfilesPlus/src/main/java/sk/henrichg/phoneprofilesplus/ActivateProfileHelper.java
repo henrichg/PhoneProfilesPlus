@@ -917,7 +917,7 @@ public class ActivateProfileHelper {
     static boolean canChangeZenMode(Context context, boolean notCheckAccess) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-            if (no60) {
+            if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 if (notCheckAccess)
                     return true;
                 else
@@ -935,7 +935,7 @@ public class ActivateProfileHelper {
     static int getSystemZenMode(Context context, int defaultValue) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-            if (no60) {
+            if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
                 int interuptionFilter = mNotificationManager.getCurrentInterruptionFilter();
                 switch (interuptionFilter) {

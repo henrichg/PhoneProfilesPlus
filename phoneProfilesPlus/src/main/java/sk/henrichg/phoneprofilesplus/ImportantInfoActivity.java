@@ -169,12 +169,15 @@ public class ImportantInfoActivity extends AppCompatActivity {
                 infoText14.setVisibility(View.GONE);
 
                 boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
-                if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60)) {
+                if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                     TextView infoText13 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text13);
                     infoText13.setVisibility(View.GONE);
                 }
                 else {
                     TextView infoText13 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text13);
+                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                        infoText13.setText(R.string.important_info_profile_zenModeM);
                     infoText13.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -191,12 +194,15 @@ public class ImportantInfoActivity extends AppCompatActivity {
             infoText13.setVisibility(View.GONE);
 
             boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
-            if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60)) {
+            if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                    GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 TextView infoText14 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text14);
                 infoText14.setVisibility(View.GONE);
             }
             else {
                 TextView infoText14 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text14);
+                if (android.os.Build.VERSION.SDK_INT >= 23)
+                    infoText14.setText(R.string.important_info_profile_zenModeM);
                 infoText14.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

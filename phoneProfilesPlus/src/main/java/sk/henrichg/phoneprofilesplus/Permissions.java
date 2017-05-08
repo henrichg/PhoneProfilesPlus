@@ -531,7 +531,7 @@ class Permissions {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-            if (no60) {
+            if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 if ((profile._volumeRingerMode != 0) ||
                         profile.getVolumeRingtoneChange() ||
                         profile.getVolumeNotificationChange() ||
@@ -554,7 +554,7 @@ class Permissions {
     static boolean checkAccessNotificationPolicy(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-            if (no60) {
+            if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 boolean granted = mNotificationManager.isNotificationPolicyAccessGranted();
                 if (granted)

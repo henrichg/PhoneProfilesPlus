@@ -149,7 +149,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
             if (notificationAccessPreference != null) {
                 boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
-                if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60)) {
+                if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                     PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_soundProfileCategory");
                     preferenceCategory.removePreference(notificationAccessPreference);
                 } else {
@@ -199,7 +200,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode);
 
                         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
-                        boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60));
+                        boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                                GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                         GlobalGUIRoutines.setPreferenceTitleStyle(zenModePreference, false, false, false, addS);
 
                         return true;
@@ -447,7 +449,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 summary = summary + title;
             }
             boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
-            boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60));
+            boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                    GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
             title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, addS);
             if (!title.isEmpty()) {
                 _bold = true;
@@ -789,7 +792,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+getResources().getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
                         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
-                        boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60));
+                        boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                                GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                         GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, addS);
                         setCategorySummary(listPreference, false);
                     }
@@ -819,7 +823,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
                         if (iRingerMode == 5) {
                             boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
-                            boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60));
+                            boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                                    GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                             GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, addS);
                             setCategorySummary(listPreference, index > 0);
                         }

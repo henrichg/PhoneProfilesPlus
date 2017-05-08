@@ -178,9 +178,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             preference = prefMng.findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
             if (preference != null) {
                 boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
-                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                List<ResolveInfo> activities = getActivity().getApplicationContext().getPackageManager().queryIntentActivities(intent, 0);
-                if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) && (activities.size() > 0)) {
+                if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity())) {
                     //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                     preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                         @Override
