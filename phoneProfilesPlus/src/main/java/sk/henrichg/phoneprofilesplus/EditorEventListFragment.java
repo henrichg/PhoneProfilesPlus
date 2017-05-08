@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -729,6 +730,11 @@ public class EditorEventListFragment extends Fragment {
     }
 
     void showTargetHelps() {
+        if (Build.VERSION.SDK_INT <= 19)
+            // TapTarget.forToolbarMenuItem FC :-(
+            // Toolbar.findViewById() returns null
+            return;
+
         if (getActivity() == null)
             return;
 
@@ -814,6 +820,11 @@ public class EditorEventListFragment extends Fragment {
     }
 
     private void showAdapterTargetHelps() {
+        if (Build.VERSION.SDK_INT <= 19)
+            // TapTarget.forToolbarMenuItem FC :-(
+            // Toolbar.findViewById() returns null
+            return;
+
         if (getActivity() == null)
             return;
 

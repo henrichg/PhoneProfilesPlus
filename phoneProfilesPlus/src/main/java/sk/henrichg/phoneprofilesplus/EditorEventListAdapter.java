@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -560,6 +561,11 @@ class EditorEventListAdapter extends BaseAdapter
     }
 
     void showTargetHelps(Activity activity, EditorEventListFragment fragment, View listItemView) {
+        if (Build.VERSION.SDK_INT <= 19)
+            // TapTarget.forToolbarMenuItem FC :-(
+            // Toolbar.findViewById() returns null
+            return;
+
         if (fragment.targetHelpsSequenceStarted)
             return;
 
