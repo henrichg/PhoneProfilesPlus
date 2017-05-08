@@ -34,68 +34,59 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
         String action = intent.getAction();
         BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
-        if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED) ||
-            action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED) ||
-            action.equals(BluetoothDevice.ACTION_NAME_CHANGED)/* ||
-            action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED)*/)
-        {
-            boolean connected = action.equals(BluetoothDevice.ACTION_ACL_CONNECTED);
+        if (device != null) {
+            if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED) ||
+                action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED) ||
+                action.equals(BluetoothDevice.ACTION_NAME_CHANGED)/* ||
+                action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED)*/) {
 
-            if (!action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
-                PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "connected=" + connected);
-                if (device.getName() != null)
+                boolean connected = action.equals(BluetoothDevice.ACTION_ACL_CONNECTED);
+
+                if (!action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
+                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "connected=" + connected);
                     PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getName()=" + device.getName());
-                else
-                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getName()=null");
-                if (device.getAddress() != null)
                     PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getAddress()=" + device.getAddress());
-                else
-                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getAddress()=null");
-            }
+                }
 
-            if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED))
-                addConnectedDevice(device);
-            else
-            if (action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
-                String deviceName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
-                if (deviceName != null)
-                    changeDeviceName(device, deviceName);
-            }
-            else
-                removeConnectedDevice(device);
+                if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED))
+                    addConnectedDevice(device);
+                else if (action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
+                    String deviceName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
+                    if (deviceName != null)
+                        changeDeviceName(device, deviceName);
+                } else
+                    removeConnectedDevice(device);
 
-            saveConnectedDevices(context);
+                saveConnectedDevices(context);
 
-            if (!PPApplication.getApplicationStarted(context, true))
-                // application is not started
-                return;
+                if (!PPApplication.getApplicationStarted(context, true))
+                    // application is not started
+                    return;
 
-            //PPApplication.loadPreferences(context);
+                //PPApplication.loadPreferences(context);
 
-            /*SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            int lastState = preferences.getInt(PPApplication.PREF_EVENT_BLUETOOTH_LAST_STATE, -1);
-            int currState = -1;
-            if (connected)
-                currState = 1;
-            if (!connected)
-                currState = 0;
-            Editor editor = preferences.edit();
-            editor.putInt(PPApplication.PREF_EVENT_BLUETOOTH_LAST_STATE, currState);
-            editor.commit();*/
+                /*SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+                int lastState = preferences.getInt(PPApplication.PREF_EVENT_BLUETOOTH_LAST_STATE, -1);
+                int currState = -1;
+                if (connected)
+                    currState = 1;
+                if (!connected)
+                    currState = 0;
+                Editor editor = preferences.edit();
+                editor.putInt(PPApplication.PREF_EVENT_BLUETOOTH_LAST_STATE, currState);
+                editor.commit();*/
 
-            if (Event.getGlobalEventsRuning(context))
-            {
+                if (Event.getGlobalEventsRuning(context)) {
 
-                //if (lastState != currState)
-                //{
-                    PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive","connected="+connected);
+                    //if (lastState != currState)
+                    //{
+                    PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive", "connected=" + connected);
 
                     if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
-                         (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
-                         (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
-                         (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context)) ||
-                         (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context))))
-                    {
+                            (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
+                            (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
+                            (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context)) ||
+                            (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)))) {
                         // bluetooth is not scanned
 
                         /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
@@ -106,22 +97,23 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                         {
                             PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive","bluetoothEventsExists="+bluetoothEventsExists);
                         */
-                            // start service
-                            Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                            startWakefulService(context, eventsServiceIntent);
+                        // start service
+                        Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                        startWakefulService(context, eventsServiceIntent);
                         //}
                     }
 
-                //}
+                    //}
+                }
+
+                //if ((!connected) && (lastState != currState))
+                /*if (!connected)
+                {
+                    BluetoothScanAlarmBroadcastReceiver.stopScan(context);
+                }*/
+
             }
-
-            //if ((!connected) && (lastState != currState))
-            /*if (!connected)
-            {
-                BluetoothScanAlarmBroadcastReceiver.stopScan(context);
-            }*/
-
         }
     }
 
