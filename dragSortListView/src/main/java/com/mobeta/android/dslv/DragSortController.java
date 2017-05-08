@@ -378,6 +378,9 @@ public class DragSortController extends SimpleFloatViewManager implements View.O
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
 
+        if ((e1 == null) || (e2 == null))
+            return false;
+
         final int x1 = (int) e1.getX();
         final int y1 = (int) e1.getY();
         final int x2 = (int) e2.getX();
