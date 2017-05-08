@@ -25,16 +25,16 @@ public class ActivateProfileFromExternalApplicationActivity extends Activity {
 
         Intent intent = getIntent();
         String profileName = intent.getStringExtra(EXTRA_PROFILE_NAME);
+
+        dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
+        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
+
         if (profileName != null) {
             profileName = profileName.trim();
             //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "profileName="+profileName);
 
             if (!profileName.isEmpty()) {
                 //PPApplication.loadPreferences(getApplicationContext());
-
-                dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
-                dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
-
                 List<Profile> profileList = dataWrapper.getProfileList();
                 for (Profile profile : profileList) {
                     if (profile._name.trim().equals(profileName)) {
