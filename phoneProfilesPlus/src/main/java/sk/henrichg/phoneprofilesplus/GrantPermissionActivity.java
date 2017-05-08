@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -715,9 +716,10 @@ public class GrantPermissionActivity extends Activity {
             boolean accessNotificationPolicyFound = false;
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             for (Permissions.PermissionType permissionType : permissions) {
-                if (no60 && permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
+                final Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                List<ResolveInfo> activities = getPackageManager().queryIntentActivities(intent, 0);
+                if (no60 && permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY) && (activities.size() > 0)) {
                     accessNotificationPolicyFound = true;
-                    final Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                     startActivityForResult(intent, ACCESS_NOTIFICATION_POLICY_REQUEST_CODE);
                     break;
                 }
