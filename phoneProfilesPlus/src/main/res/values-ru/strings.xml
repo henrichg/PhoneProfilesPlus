@@ -992,4 +992,7 @@
   <string name="duration_pref_dlg_activation_end_label">Окончание активации:</string>
   <string name="phone_profiles_pref_applicationLanguage_pt_BR">Português (Brasil)</string>
   <string name="array_pref_value_pt_BR">pt-BR</string>
+  <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>
+  <string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>
 </resources>

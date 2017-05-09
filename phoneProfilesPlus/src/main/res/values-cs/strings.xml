@@ -991,4 +991,7 @@
   <string name="duration_pref_dlg_activation_end_label">Konec aktivace:</string>
   <string name="phone_profiles_pref_applicationLanguage_pt_BR">Português (Brasil)</string>
   <string name="array_pref_value_pt_BR">pt-BR</string>
+  <string name="important_info_profile_zenModeM">\"Nerušit\" v \"Módu vyzvánění\" profil vyžaduje povolení PhoneProfilesPlus v systémovém nastavení \"Přístup k oznámením\". Klikněte zde a povolte PhoneProfilesPlus.</string>
+  <string name="profile_preferences_zenModeM_alarms_summary">Rušit pouze s budíky</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">V Androidu 6 toto systémové nastavení lze změnit pouze v rootnutých zařízeních. Postižené jsou režimy vyzvánění a typy Nerušit s vibrací.</string>
 </resources>

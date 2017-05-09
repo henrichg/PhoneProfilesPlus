@@ -992,4 +992,7 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="duration_pref_dlg_activation_end_label">Fin d\'activation :</string>
   <string name="phone_profiles_pref_applicationLanguage_pt_BR">Português (Brasil)</string>
   <string name="array_pref_value_pt_BR">pt-BR</string>
+  <string name="important_info_profile_zenModeM">« Ne pas déranger » dans le profil « Mode de sonnerie » nécessite l\'activation de PhoneProfilesPlus dans « Accès de Notification » des paramètres système . Cliquez ici et activez PhoneProfilesPlus.</string>
+  <string name="profile_preferences_zenModeM_alarms_summary">Déranger uniquement avec les alarmes</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Dans Android 6 ce paramètre ne peut être modifié que sur les appareils rootés. Les modes de sonnerie et les notifications de type ne pas déranger avec vibration sont affectés.</string>
 </resources>

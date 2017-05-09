@@ -588,7 +588,7 @@
   <string name="important_info_profile_activation_traffic_light_icon">\"Trafik ışığı\" simgesi:</string>
   <string name="important_info_android_doze_mode">Android 6\'da \"Doze modu\" ve \"Uygulama bekletme\" uygulanmaktadır. Durumlar vasıtasıyla profil etkinleştirmede sorun yaşanırsa șunlara dikkat edin:\nEğer cihazı bir süre şarja takmadan ekranı kapalı bırakıyorsanız, sistem Pil ayarlarında \"Pil\" → \"Pil en iyi duruma getirme\" → \"En iyi duruma getirilmedi\" ayarlarında PhoneProfilesPlus\'ı eklemeniz lazımdır.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Çalarken titret</string>
-  <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">Android 6\'da bu sistem ayarı yalnızca köklü aygıtlarda değiştirilebilir. Etkilenenler zil modları ve titreşimli kesinti türleridir.</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">Android 6\'da bu sistem ayarı yalnızca kök erişimli (root edilmiş) cihazlarda değiştirilebilir. Etkilenenler zil modları ve titreşimli kesinti türleridir.</string>
   <string name="info_notification_event_states">Durum, 5 vaziyette olabilir:</string>
   <string name="info_notification_event_states_running">Çalışıyor: Durum başlamış ve çalışır durumdadır. Durum şartları karşılanmıştır.</string>
   <string name="info_notification_event_states_paused">Fasıla verildi: Durum çalışmıyor. Durum şartları yerine gelmiş değildir. Durum, şartların yerine gelmesini bekliyor.</string>
@@ -945,7 +945,7 @@
   <string name="device_admin_disable_warning_pp">Bunun devre dışı bırakılması, bazı profillerin şartlarının çalışmamasına sebep olabilir.</string>
   <string name="profile_preferences_lockDevice">Cihazı Kilitle</string>
   <string name="array_pref_lockDevice_deviceAdmin">(S) Cihaz Yöneticisi\'ni kullan (parmak izi ile kilit açma çalışmayabilir)</string>
-  <string name="array_pref_lockDevice_root">(R) kök kullanımı (köklü cihaz lüzumludur)</string>
+  <string name="array_pref_lockDevice_root">(R) kök kullanımı (cihaz kök erişimli [root edilmiş] olmalıdır)</string>
   <string name="array_pref_lockDevice_screenOff">Hızlı ekran kapatmayı kullan</string>
   <string name="profile_preferences_lockDevice_deviceAdminSettings_title">Cihaz yöneticisi</string>
   <string name="profile_preferences_lockDevice_deviceAdminSettings_summary">\"Cihaz Yöneticisi Kullanımı\" Kilit usulü için Cihaz Yöneticisinde, \"PhoneProfilesPlus\"a izin verin.</string>
@@ -991,4 +991,7 @@
   <string name="duration_pref_dlg_activation_end_label">Çalıştırdıktan sonra:</string>
   <string name="phone_profiles_pref_applicationLanguage_pt_BR">Português (Brasil)</string>
   <string name="array_pref_value_pt_BR">pt-BR</string>
+  <string name="important_info_profile_zenModeM">\"Zil modu\" profilinde \"Rahatsız Etmeyin\" modu için sistem ayarlarında \"Bildirim erişim\" tercihlerinde PhoneProfilesPlus\'ın seçilmesi lazımdır. Buraya dokunun ve PhoneProfilesPlus\'ı seçin.</string>
+  <string name="profile_preferences_zenModeM_alarms_summary">Sadece alarmlar açık</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Android 6\'da bu sistem ayarı yalnızca kök erişimi olan (root edilmiş) cihazlarda değiştirilebilir. Etkilenenler zil modları ve titreşimli \"rahatsız etmeyin\" türleridir.</string>
 </resources>
