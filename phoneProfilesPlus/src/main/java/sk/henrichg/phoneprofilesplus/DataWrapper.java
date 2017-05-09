@@ -44,7 +44,7 @@ public class DataWrapper {
     private boolean forGUI = false;
     private boolean monochrome = false;
     private int monochromeValue = 0xFF;
-    private Handler toastHandler;
+    private static Handler toastHandler;
 
     private DatabaseHandler databaseHandler = null;
     private ActivateProfileHelper activateProfileHelper = null;
@@ -1236,6 +1236,7 @@ public class DataWrapper {
                     toastHandler.post(new Runnable() {
                         public void run() {
                             showToastAfterActivation(__profile);
+                            toastHandler = null;
                         }
                     });
                 } else

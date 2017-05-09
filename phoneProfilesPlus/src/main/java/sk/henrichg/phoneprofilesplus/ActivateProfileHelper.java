@@ -74,7 +74,7 @@ public class ActivateProfileHelper {
 
     private Context context;
     private NotificationManager notificationManager;
-    private Handler brightnessHandler;
+    private static Handler brightnessHandler;
 
     //private int networkType = -1;
 
@@ -1458,6 +1458,7 @@ public class ActivateProfileHelper {
                     brightnessHandler.post(new Runnable() {
                         public void run() {
                             createBrightnessView(__context);
+                            brightnessHandler = null;
                         }
                     });
                 } else

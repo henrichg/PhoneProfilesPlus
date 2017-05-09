@@ -38,7 +38,7 @@ public class ScannerService extends IntentService
     public static int wifiScanDuration = 25;      // 25 seconds for wifi scan
     public static int classicBTScanDuration = 20; // 20 seconds for classic bluetooth scan
 
-    Handler wifiBluetoothChangeHandler;
+    static Handler wifiBluetoothChangeHandler;
 
     public static BluetoothLeScanner leScanner = null;
     public static BluetoothLEScanCallback18 leScanCallback18 = null;
@@ -525,6 +525,8 @@ public class ScannerService extends IntentService
         }
 
         PPApplication.logE("$$$ ScannerService.onHandleIntent", "after synchronized block - scanType=" + scanType);
+
+        wifiBluetoothChangeHandler = null;
 
         PPApplication.logE("%%%% ScannerService.onHandleIntent", "-- END ------------");
 
