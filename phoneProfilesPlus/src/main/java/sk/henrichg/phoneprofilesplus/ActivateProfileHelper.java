@@ -2096,25 +2096,31 @@ public class ActivateProfileHelper {
             return;
 
         // icon widget
-        Intent intent = new Intent(context, IconWidgetProvider.class);
-        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
-        int ids[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-        context.sendBroadcast(intent);
+        try {
+            Intent intent = new Intent(context, IconWidgetProvider.class);
+            intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+            int ids[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+            context.sendBroadcast(intent);
+        } catch (Exception ignored) {}
 
         // one row widget
-        Intent intent4 = new Intent(context, OneRowWidgetProvider.class);
-        intent4.setAction("android.appwidget.action.APPWIDGET_UPDATE");
-        int ids4[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
-        intent4.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids4);
-        context.sendBroadcast(intent4);
+        try {
+            Intent intent4 = new Intent(context, OneRowWidgetProvider.class);
+            intent4.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+            int ids4[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
+            intent4.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids4);
+            context.sendBroadcast(intent4);
+        } catch (Exception ignored) {}
 
         // list widget
-        Intent intent2 = new Intent(context, ProfileListWidgetProvider.class);
-        intent2.setAction(ProfileListWidgetProvider.INTENT_REFRESH_LISTWIDGET);
-        int ids2[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
-        intent2.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids2);
-        context.sendBroadcast(intent2);
+        try {
+            Intent intent2 = new Intent(context, ProfileListWidgetProvider.class);
+            intent2.setAction(ProfileListWidgetProvider.INTENT_REFRESH_LISTWIDGET);
+            int ids2[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
+            intent2.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids2);
+            context.sendBroadcast(intent2);
+        } catch (Exception ignored) {}
 
         // dashclock extension
         /*Intent intent3 = new Intent();
