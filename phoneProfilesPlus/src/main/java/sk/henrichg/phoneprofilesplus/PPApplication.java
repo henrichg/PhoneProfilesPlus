@@ -701,7 +701,7 @@ public class PPApplication extends Application {
             out.write(cmd.getBytes());
             out.close();*/
 
-            FileOutputStream fos = context.openFileOutput(name, Context.MODE_PRIVATE);
+            FileOutputStream fos = context.getApplicationContext().openFileOutput(name, Context.MODE_PRIVATE);
             fos.write(cmd.getBytes());
             fos.close();
 
