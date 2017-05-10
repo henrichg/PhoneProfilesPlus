@@ -1,59 +1,66 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Environment;
 
 import com.crashlytics.android.Crashlytics;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import io.fabric.sdk.android.Fabric;
 
 public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
     private Thread.UncaughtExceptionHandler defaultUEH;
-    //private int actualVersionCode;
+    private int actualVersionCode;
 
-    //private static final String CRASH_FILENAME = "crash.txt";
+    private static final String CRASH_FILENAME = "crash.txt";
 
-    public TopExceptionHandler(Context applicationContext/*, int actualVersionCode*/) {
+    public TopExceptionHandler(/*Context applicationContext, */int actualVersionCode) {
         this.defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
-        //this.actualVersionCode = actualVersionCode;
-
-        Fabric.with(applicationContext, new Crashlytics());
+        this.actualVersionCode = actualVersionCode;
     }
 
     public void uncaughtException(Thread t, Throwable e)
     {
-        /*
-        StackTraceElement[] arr = e.getStackTrace();
-        String report = e.toString()+"\n\n";
+        if (BuildConfig.DEBUG) {
+            StackTraceElement[] arr = e.getStackTrace();
+            String report = e.toString() + "\n\n";
 
-        report += "----- App version code: " + actualVersionCode + "\n\n";
+            report += "----- App version code: " + actualVersionCode + "\n\n";
 
-        for (StackTraceElement anArr : arr) {
-            report += "    " + anArr.toString() + "\n";
-        }
-        report += "-------------------------------\n\n";
-
-        report += "--------- Stack trace ---------\n\n";
-        for (StackTraceElement anArr : arr) {
-            report += "    " + anArr.toString() + "\n";
-        }
-        report += "-------------------------------\n\n";
-
-        // If the exception was thrown in a background thread inside
-        // AsyncTask, then the actual exception can be found with getCause
-        report += "--------- Cause ---------------\n\n";
-        Throwable cause = e.getCause();
-        if(cause != null) {
-            report += cause.toString() + "\n\n";
-            arr = cause.getStackTrace();
             for (StackTraceElement anArr : arr) {
                 report += "    " + anArr.toString() + "\n";
             }
-        }
-        report += "-------------------------------\n\n";
+            report += "-------------------------------\n\n";
 
-        logIntoFile("E","TopExceptionHandler", report);
-        */
+            report += "--------- Stack trace ---------\n\n";
+            for (StackTraceElement anArr : arr) {
+                report += "    " + anArr.toString() + "\n";
+            }
+            report += "-------------------------------\n\n";
+
+            // If the exception was thrown in a background thread inside
+            // AsyncTask, then the actual exception can be found with getCause
+            report += "--------- Cause ---------------\n\n";
+            Throwable cause = e.getCause();
+            if (cause != null) {
+                report += cause.toString() + "\n\n";
+                arr = cause.getStackTrace();
+                for (StackTraceElement anArr : arr) {
+                    report += "    " + anArr.toString() + "\n";
+                }
+            }
+            report += "-------------------------------\n\n";
+
+            logIntoFile("E", "TopExceptionHandler", report);
+        }
 
         if (defaultUEH != null)
             //Delegates to Android's error handling
@@ -63,7 +70,6 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
             System.exit(2);
     }
 
-    /*
     @SuppressLint("SimpleDateFormat")
     private void logIntoFile(String type, String tag, String text)
     {
@@ -113,6 +119,5 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         //noinspection ResultOfMethodCallIgnored
         logFile.delete();
     }
-    */
 
 }

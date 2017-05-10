@@ -1622,6 +1622,7 @@ public class ActivateProfileHelper {
             }
         }
 
+        //throw new RuntimeException("test Crashlytics + TopExceptionHandler");
     }
 
     void setScreenTimeout(int screenTimeout) {

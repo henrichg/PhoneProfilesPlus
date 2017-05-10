@@ -6,11 +6,14 @@ import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.stericson.RootShell.RootShell;
 import com.stericson.RootTools.RootTools;
 
@@ -173,16 +176,22 @@ public class PPApplication extends Application {
     @Override
     public void onCreate()
     {
-        /*int actualVersionCode = 0;/
+        // Set up Crashlytics, disabled for debug builds
+        Crashlytics crashlyticsKit = new Crashlytics.Builder()
+                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+                .build();
+
+        Fabric.with(getApplicationContext(), crashlyticsKit);
+        // Crashlytics.logException(exception); -- this log will be associated with crash log.
+
+        int actualVersionCode = 0;
         try {
             PackageInfo pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             actualVersionCode = pinfo.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             //e.printStackTrace();
-        }*/
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext()/*, actualVersionCode*/));
-        Fabric.with(getApplicationContext(), new Crashlytics());
-        // use Crashlytics.logException(exception);
+        }
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(/*getApplicationContext(), */actualVersionCode));
 
         //	Debug.startMethodTracing("phoneprofiles");
 

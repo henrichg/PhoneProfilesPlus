@@ -28,6 +28,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
+        debug {
+            // Disable fabric build ID generation for debug builds
+            ext.enableCrashlytics = false
+        }
     }
 
     //noinspection GroovyMissingReturnStatement
