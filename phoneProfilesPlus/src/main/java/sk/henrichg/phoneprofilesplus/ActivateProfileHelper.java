@@ -709,8 +709,12 @@ public class ActivateProfileHelper {
 
         if (forProfileActivation) {
             if (profile.getVolumeMediaChange()) {
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, profile.getVolumeMediaValue(), 0);
-                //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_MUSIC, profile.getVolumeMediaValue());
+                // Fatal Exception: java.lang.SecurityException: Only SystemUI can disable the safe media volume:
+                // Neither user 10118 nor current process has android.permission.STATUS_BAR_SERVICE.
+                try {
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, profile.getVolumeMediaValue(), 0);
+                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_MUSIC, profile.getVolumeMediaValue());
+                } catch (Exception ignored) {}
             }
             if (profile.getVolumeAlarmChange()) {
                 audioManager.setStreamVolume(AudioManager.STREAM_ALARM, profile.getVolumeAlarmValue(), 0);
