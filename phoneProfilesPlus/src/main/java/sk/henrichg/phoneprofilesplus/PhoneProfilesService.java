@@ -1326,6 +1326,7 @@ public class PhoneProfilesService extends Service
             if ((eventNotificationMediaPlayer != null) && eventNotificationIsPlayed) {
                 if (eventNotificationMediaPlayer.isPlaying())
                     eventNotificationMediaPlayer.stop();
+                eventNotificationIsPlayed = true;
                 eventNotificationMediaPlayer = null;
             }
 
@@ -1369,14 +1370,16 @@ public class PhoneProfilesService extends Service
                         @Override
                         public void run() {
 
-                            if (eventNotificationMediaPlayer.isPlaying())
-                                eventNotificationMediaPlayer.stop();
-                            eventNotificationMediaPlayer = null;
+                            if (eventNotificationMediaPlayer != null) {
+                                if (eventNotificationMediaPlayer.isPlaying())
+                                    eventNotificationMediaPlayer.stop();
 
-                            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
-                            PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "event notification stopped");
+                                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
+                                PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "event notification stopped");
+                            }
 
                             eventNotificationIsPlayed = false;
+                            eventNotificationMediaPlayer = null;
 
                             RingerModeChangeReceiver.setAlarmForDisableInternalChange(context);
 
