@@ -237,12 +237,10 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static public void setLEScanRequest(Context context, boolean startScan)
     {
-        if (ScannerService.bluetoothLESupported(context)) {
-            ApplicationPreferences.getSharedPreferences(context);
-            Editor editor = ApplicationPreferences.preferences.edit();
-            editor.putBoolean(PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, startScan);
-            editor.apply();
-        }
+        ApplicationPreferences.getSharedPreferences(context);
+        Editor editor = ApplicationPreferences.preferences.edit();
+        editor.putBoolean(PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, startScan);
+        editor.apply();
     }
 
     static public boolean getWaitForResults(Context context)
