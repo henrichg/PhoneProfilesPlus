@@ -983,6 +983,7 @@ public class PhoneProfilesService extends Service
                 if (eventNotificationMediaPlayer.isPlaying())
                     eventNotificationMediaPlayer.stop();
                 eventNotificationIsPlayed = false;
+                eventNotificationMediaPlayer = null;
             }
 
             if ((ringtone != null) && !ringtone.isEmpty()) {
@@ -1179,6 +1180,7 @@ public class PhoneProfilesService extends Service
                 if (eventNotificationMediaPlayer.isPlaying())
                     eventNotificationMediaPlayer.stop();
                 eventNotificationIsPlayed = false;
+                eventNotificationMediaPlayer = null;
             }
 
             if ((notificationTone != null) && !notificationTone.isEmpty()) {
