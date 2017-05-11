@@ -1,5 +1,5 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus">
+<menu
+    >
 <!-- 	<item android:id="@+id/menu_new_profile"
         android:title="@string/menu_new_profile"
         android:orderInCategory="110"

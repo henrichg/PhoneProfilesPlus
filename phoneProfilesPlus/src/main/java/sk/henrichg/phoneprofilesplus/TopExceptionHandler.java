@@ -1,10 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Environment;
-
-import com.crashlytics.android.Crashlytics;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,8 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import io.fabric.sdk.android.Fabric;
 
 public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
