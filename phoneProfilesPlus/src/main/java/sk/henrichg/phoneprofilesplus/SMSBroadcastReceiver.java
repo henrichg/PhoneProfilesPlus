@@ -35,16 +35,17 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
             smsMmsReceived = true;
 
             Bundle extras = intent.getExtras();
-            Object[] pdus = (Object[]) extras.get("pdus");
-            if (pdus != null) {
-                for (Object pdu : pdus) {
-                    //noinspection deprecation
-                    SmsMessage msg = SmsMessage.createFromPdu((byte[]) pdu);
-                    origin = msg.getOriginatingAddress();
-                    //body = msg.getMessageBody();
+            if (extras != null) {
+                Object[] pdus = (Object[]) extras.get("pdus");
+                if (pdus != null) {
+                    for (Object pdu : pdus) {
+                        //noinspection deprecation
+                        SmsMessage msg = SmsMessage.createFromPdu((byte[]) pdu);
+                        origin = msg.getOriginatingAddress();
+                        //body = msg.getMessageBody();
+                    }
                 }
             }
-
         }
         /*else
         if(intent.getAction().equals("android.provider.Telephony.SMS_SENT"))
