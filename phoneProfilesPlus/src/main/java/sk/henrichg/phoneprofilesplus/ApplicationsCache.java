@@ -84,15 +84,17 @@ public class ApplicationsCache {
             //Log.d("ApplicationsCache.getApplicationsList", "packageName="+shortcutInfo.activityInfo.packageName);
             //Log.d("ApplicationsCache.getApplicationsList", "name="+shortcutInfo.activityInfo.name);
 
-            Application newInfo = new Application();
+            if (packageManager.getLaunchIntentForPackage(shortcutInfo.activityInfo.applicationInfo.packageName) != null) {
+                Application newInfo = new Application();
 
-            newInfo.shortcut = true;
-            newInfo.appLabel = shortcutInfo.loadLabel(packageManager).toString();
-            newInfo.packageName = shortcutInfo.activityInfo.applicationInfo.packageName;
-            newInfo.activityName = shortcutInfo.activityInfo.name;
-            newInfo.icon = shortcutInfo.loadIcon(packageManager);
+                newInfo.shortcut = true;
+                newInfo.appLabel = shortcutInfo.loadLabel(packageManager).toString();
+                newInfo.packageName = shortcutInfo.activityInfo.applicationInfo.packageName;
+                newInfo.activityName = shortcutInfo.activityInfo.name;
+                newInfo.icon = shortcutInfo.loadIcon(packageManager);
 
-            applicationsList.add(newInfo);
+                applicationsList.add(newInfo);
+            }
 
             if (cancelled)
                 return;
