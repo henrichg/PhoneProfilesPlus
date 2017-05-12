@@ -200,7 +200,9 @@ class PhoneStateScanner extends PhoneStateListener {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void getAllCellInfo() {
         if (telephonyManager != null) {
-            List<CellInfo> cellInfo = telephonyManager.getAllCellInfo();
+            List<CellInfo> cellInfo = null;
+            if (Permissions.checkLocation(context.getApplicationContext()))
+                cellInfo = telephonyManager.getAllCellInfo();
             getAllCellInfo(cellInfo);
         }
     }
@@ -277,7 +279,9 @@ class PhoneStateScanner extends PhoneStateListener {
 
     private void getCellLocation() {
         if (telephonyManager != null) {
-            CellLocation location = telephonyManager.getCellLocation();
+            CellLocation location = null;
+            if (Permissions.checkLocation(context.getApplicationContext()))
+                location = telephonyManager.getCellLocation();
             getCellLocation(location);
         }
     }
