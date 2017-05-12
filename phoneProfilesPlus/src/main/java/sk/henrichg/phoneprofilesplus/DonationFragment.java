@@ -253,6 +253,8 @@ public class DonationFragment extends Fragment {
         } catch (IabHelper.IabAsyncInProgressException e) {
             Log.e(TAG, "Error launching purchase flow. Another async operation in progress.");
             //setWaitScreen(false);
+        } catch (Exception e) {
+            Log.e(TAG, "Error launching purchase flow.");
         }
     }
 
