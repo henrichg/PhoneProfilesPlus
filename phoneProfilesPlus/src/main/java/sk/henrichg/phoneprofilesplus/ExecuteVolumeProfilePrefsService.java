@@ -20,12 +20,13 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ExecuteVolumeProfilePrefsService");
         }
-        wakeLock.acquire();
+        if (!wakeLock.isHeld())
+            wakeLock.acquire();
         intent.putExtra(EXTRA_WAKE_LOCK_TAKEN, true);
     }
     
     private static synchronized void releaseWakeLock() {
-        if(wakeLock != null) {
+        if ((wakeLock != null) && wakeLock.isHeld()) {
             wakeLock.release();
         }
     }
