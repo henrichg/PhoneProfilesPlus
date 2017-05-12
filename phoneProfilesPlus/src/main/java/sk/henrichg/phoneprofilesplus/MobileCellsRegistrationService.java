@@ -59,7 +59,8 @@ public class MobileCellsRegistrationService extends Service {
             public void onFinish() {
                 //Log.d("MobileCellsRegistrationService", "Timer finished");
 
-                PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = false;
+                if (PhoneProfilesService.isPhoneStateStarted())
+                    PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = false;
                 setMobileCellsAutoRegistration(context, false);
 
                 // broadcast for application preferences
