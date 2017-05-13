@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -140,4 +141,14 @@ public class ActivityLogActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        Cursor cursor = activityLogAdapter.getCursor();
+        if (cursor != null)
+            cursor.close();
+    }
+
 }

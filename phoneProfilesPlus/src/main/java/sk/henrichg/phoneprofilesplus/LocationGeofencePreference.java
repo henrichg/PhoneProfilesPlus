@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
@@ -197,6 +198,9 @@ public class LocationGeofencePreference extends DialogPreference {
         super.onDismiss(dialog);
         dataWrapper.getDatabaseHandler().checkGeofence("", 0);
         MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        Cursor cursor = listAdapter.getCursor();
+        if (cursor != null)
+            cursor.close();
     }
 
     @Override
