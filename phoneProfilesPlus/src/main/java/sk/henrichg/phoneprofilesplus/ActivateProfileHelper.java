@@ -802,16 +802,18 @@ public class ActivateProfileHelper {
                         } catch (Exception ee) {
                             Log.e("ActivateProfileHelper.setVibrateWhenRinging", ee.toString());
 
-                            String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
-                            //if (PPApplication.isSELinuxEnforcing())
-                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                            Command command = new Command(0, false, command1); //, command2);
-                            try {
-                                //RootTools.closeAllShells();
-                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                commandWait(command);
-                            } catch (Exception e) {
-                                Log.e("ActivateProfileHelper.setVibrateWhenRinging", "Error on run su: " + e.toString());
+                            if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                                String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                //if (PPApplication.isSELinuxEnforcing())
+                                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                Command command = new Command(0, false, command1); //, command2);
+                                try {
+                                    //RootTools.closeAllShells();
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    commandWait(command);
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setVibrateWhenRinging", "Error on run su: " + e.toString());
+                                }
                             }
                         }
                     }
@@ -879,16 +881,18 @@ public class ActivateProfileHelper {
             if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
                 Settings.System.putInt(context.getContentResolver(), "notification_light_pulse", value);
             else {
-                String command1 = "settings put system " + "notification_light_pulse" + " " + value;
-                //if (PPApplication.isSELinuxEnforcing())
-                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                Command command = new Command(0, false, command1); //, command2);
-                try {
-                    //RootTools.closeAllShells();
-                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    commandWait(command);
-                } catch (Exception e) {
-                    Log.e("ActivateProfileHelper.setNotificationLed", "Error on run su: " + e.toString());
+                if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                    String command1 = "settings put system " + "notification_light_pulse" + " " + value;
+                    //if (PPApplication.isSELinuxEnforcing())
+                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                    Command command = new Command(0, false, command1); //, command2);
+                    try {
+                        //RootTools.closeAllShells();
+                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                        commandWait(command);
+                    } catch (Exception e) {
+                        Log.e("ActivateProfileHelper.setNotificationLed", "Error on run su: " + e.toString());
+                    }
                 }
             }
         }
@@ -1442,17 +1446,19 @@ public class ActivateProfileHelper {
                                         ADAPTIVE_BRIGHTNESS_SETTING_NAME,
                                         profile.getDeviceBrightnessAdaptiveValue(context));
                             } catch (Exception ee) {
-                                String command1 = "settings put system " + ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
-                                        Float.toString(profile.getDeviceBrightnessAdaptiveValue(context));
-                                //if (PPApplication.isSELinuxEnforcing())
-                                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                Command command = new Command(0, false, command1); //, command2);
-                                try {
-                                    //RootTools.closeAllShells();
-                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    commandWait(command);
-                                } catch (Exception e) {
-                                    Log.e("ActivateProfileHelper.execute", "Error on run su: " + e.toString());
+                                if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                                    String command1 = "settings put system " + ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
+                                            Float.toString(profile.getDeviceBrightnessAdaptiveValue(context));
+                                    //if (PPApplication.isSELinuxEnforcing())
+                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                    Command command = new Command(0, false, command1); //, command2);
+                                    try {
+                                        //RootTools.closeAllShells();
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        commandWait(command);
+                                    } catch (Exception e) {
+                                        Log.e("ActivateProfileHelper.execute", "Error on run su: " + e.toString());
+                                    }
                                 }
                             }
                         }
@@ -2567,7 +2573,7 @@ public class ActivateProfileHelper {
 
     private void setPreferredNetworkType(Context context, int networkType)
     {
-        if (PPApplication.isRooted()/*PPApplication.isRootGranted()*/)
+        if (PPApplication.isRooted() && PPApplication.serviceBinaryExists())
         {
             try {
                 // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
@@ -2708,7 +2714,7 @@ public class ActivateProfileHelper {
                 Settings.Secure.putString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
             }
             else
-            if ((android.os.Build.VERSION.SDK_INT >= 16) && PPApplication.isRooted()/*PPApplication.isRootGranted()*/)
+            if ((android.os.Build.VERSION.SDK_INT >= 16) && PPApplication.isRooted() && PPApplication.settingsBinaryExists())
             {
                 // zariadenie je rootnute
                 PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
@@ -2810,7 +2816,7 @@ public class ActivateProfileHelper {
                 Settings.Secure.putString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
             }
             else
-            if ((android.os.Build.VERSION.SDK_INT >= 16) && PPApplication.isRooted()/*PPApplication.isRootGranted()*/)
+            if ((android.os.Build.VERSION.SDK_INT >= 16) && PPApplication.isRooted() && PPApplication.settingsBinaryExists())
             {
                 // zariadenie je rootnute
                 PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
@@ -2899,7 +2905,7 @@ public class ActivateProfileHelper {
 
     private void setAirplaneMode_SDK17(/*Context context, */boolean mode)
     {
-        if (PPApplication.isRooted()/*PPApplication.isRootGranted()*/)
+        if (PPApplication.isRooted() && PPApplication.settingsBinaryExists())
         {
             // zariadenie je rootnute
             String command1;
@@ -2947,14 +2953,16 @@ public class ActivateProfileHelper {
     }
 
     private void setPowerSaveMode(boolean enable) {
-        String command1 = "settings put global low_power " + ((enable) ? 1 : 0);
-        Command command = new Command(0, false, command1);
-        try {
-            //RootTools.closeAllShells();
-            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-            commandWait(command);
-        } catch (Exception e) {
-            Log.e("ActivateProfileHelper.setPowerSaveMode", "Error on run su: " + e.toString());
+        if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+            String command1 = "settings put global low_power " + ((enable) ? 1 : 0);
+            Command command = new Command(0, false, command1);
+            try {
+                //RootTools.closeAllShells();
+                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                commandWait(command);
+            } catch (Exception e) {
+                Log.e("ActivateProfileHelper.setPowerSaveMode", "Error on run su: " + e.toString());
+            }
         }
     }
 
@@ -2982,7 +2990,7 @@ public class ActivateProfileHelper {
                         Log.e("ActivateProfileHelper.lockDevice", "Error on run su: " + e.toString());
                     }
                 }*/
-                if (PPApplication.isRooted() && PPApplication.serviceBinaryExists())
+                if (PPApplication.isRooted())
                 {
                     String command1 = PPApplication.getJavaCommandFile(CmdGoToSleep.class, "power", context, 0);
                     if (command1 != null) {
@@ -2996,7 +3004,7 @@ public class ActivateProfileHelper {
                         }
                     }
                 }
-                /*if (PPApplication.isRooted()) {
+                /*if (PPApplication.isRooted() && PPApplication.serviceBinaryExists()) {
                     try {
                         // Get the value of the "TRANSACTION_goToSleep" field.
                         String transactionCode = PPApplication.getTransactionCode("android.os.IPowerManager", "TRANSACTION_goToSleep");

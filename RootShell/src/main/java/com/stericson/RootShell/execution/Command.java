@@ -132,8 +132,8 @@ public class Command {
                     Bundle bundle = new Bundle();
                     bundle.putInt(CommandHandler.ACTION, CommandHandler.COMMAND_COMPLETED);
                     msg.setData(bundle);
-                    //mHandler.sendMessage(msg);
-                    mHandler.dispatchMessage(msg);
+                    mHandler.sendMessage(msg);
+                    //mHandler.dispatchMessage(msg);
                 } else {
                     commandCompleted(id, exitCode);
                 }
@@ -237,8 +237,8 @@ public class Command {
                 bundle.putInt(CommandHandler.ACTION, CommandHandler.COMMAND_TERMINATED);
                 bundle.putString(CommandHandler.TEXT, reason);
                 msg.setData(bundle);
-                //mHandler.sendMessage(msg);
-                mHandler.dispatchMessage(msg);
+                mHandler.sendMessage(msg);
+                //mHandler.dispatchMessage(msg);
             } else {
                 commandTerminated(id, reason);
             }
@@ -259,8 +259,8 @@ public class Command {
             bundle.putInt(CommandHandler.ACTION, CommandHandler.COMMAND_OUTPUT);
             bundle.putString(CommandHandler.TEXT, line);
             msg.setData(bundle);
-            //mHandler.sendMessage(msg);
-            mHandler.dispatchMessage(msg);
+            mHandler.sendMessage(msg);
+            //mHandler.dispatchMessage(msg);
         } else {
             commandOutput(id, line);
         }

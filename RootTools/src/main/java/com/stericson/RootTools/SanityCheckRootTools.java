@@ -420,8 +420,8 @@ public class SanityCheckRootTools extends Activity {
             bundle.putInt(TestHandler.ACTION, action);
             bundle.putString(TestHandler.TEXT, text);
             msg.setData(bundle);
-            //mHandler.sendMessage(msg);
-            mHandler.dispatchMessage(msg);
+            mHandler.sendMessage(msg);
+            //mHandler.dispatchMessage(msg);
         }
     }
 
