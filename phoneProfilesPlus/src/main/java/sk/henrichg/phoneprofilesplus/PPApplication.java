@@ -717,8 +717,8 @@ public class PPApplication extends Application {
             fos.close();
 
             File file = context.getFileStreamPath(name);
-            //noinspection ResultOfMethodCallIgnored
-            file.setExecutable(true);
+            if (!file.setExecutable(true))
+                return null;
 
             return file.getAbsolutePath();
 
