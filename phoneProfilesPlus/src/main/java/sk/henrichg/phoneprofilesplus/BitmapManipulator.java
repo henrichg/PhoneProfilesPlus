@@ -14,7 +14,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 
@@ -44,12 +43,12 @@ class BitmapManipulator {
 
                 if (orientation == 90 || orientation == 270) {
                     //noinspection SuspiciousNameCombination
-                    rotatedWidth = options.outHeight;
+                    rotatedWidth = height;
                     //noinspection SuspiciousNameCombination
-                    rotatedHeight = options.outWidth;
+                    rotatedHeight = width;
                 } else {
-                    rotatedWidth = options.outWidth;
-                    rotatedHeight = options.outHeight;
+                    rotatedWidth = width;
+                    rotatedHeight = height;
                 }
 
                 Bitmap decodedSampleBitmap;
@@ -169,7 +168,6 @@ class BitmapManipulator {
         else
             return null;
     }
-    */
 
     private static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
 
@@ -223,6 +221,7 @@ class BitmapManipulator {
             return null;
         }
     }
+    */
 
     static Bitmap resampleResource(Resources resources, int bitmapResource, int width, int height)
     {

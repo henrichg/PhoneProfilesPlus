@@ -8,8 +8,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
@@ -110,6 +112,15 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, true);
                     editor.apply();
                     */
+
+                    if (actualVersionCode <= 2950) {
+                        DatabaseHandler databaseHandler = DatabaseHandler.getInstance(context);
+                        if (databaseHandler != null) {
+                            List<Profile> profileList = databaseHandler.getAllProfiles();
+                            databaseHandler.changePictureFilePathToUri(profileList);
+                        }
+
+                    }
 
                 }
             } catch (PackageManager.NameNotFoundException e) {

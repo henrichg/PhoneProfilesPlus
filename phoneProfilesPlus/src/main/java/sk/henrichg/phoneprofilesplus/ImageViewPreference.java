@@ -206,21 +206,21 @@ public class ImageViewPreference extends Preference {
 
 //---------------------------------------------------------------------------------------------
 
-    public static Uri getImageContentUri(Context context, File imageFile) {
-        String filePath = imageFile.getAbsolutePath();
-        Cursor cursor = context.getContentResolver().query(
+    static Uri getImageContentUri(Context context, String imageFile) {
+        Cursor cursor = context.getApplicationContext().getContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 new String[] { MediaStore.Images.Media._ID },
                 MediaStore.Images.Media.DATA + "=? ",
-                new String[] { filePath }, null);
+                new String[] { imageFile }, null);
         if (cursor != null && cursor.moveToFirst()) {
             int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
             cursor.close();
             return Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);
         } else {
-            if (imageFile.exists()) {
+            File file = new File(imageFile);
+            if (file.exists()) {
                 ContentValues values = new ContentValues();
-                values.put(MediaStore.Images.Media.DATA, filePath);
+                values.put(MediaStore.Images.Media.DATA, imageFile);
                 return context.getContentResolver().insert(
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
             } else {

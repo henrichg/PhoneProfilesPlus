@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
@@ -2955,6 +2956,53 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         //db.close();
 
+    }
+
+    void changePictureFilePathToUri(List<Profile> list) {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        db.beginTransaction();
+        try {
+
+            for (Profile profile : list)
+            {
+                if (!profile.getIsIconResourceID()) {
+                    Uri imageUri = ImageViewPreference.getImageContentUri(context, profile.getIconIdentifier());
+                    if (imageUri != null)
+                        values.put(KEY_ICON, imageUri.toString()+"|"+
+                                ((profile.getIsIconResourceID()) ? "1" : "0")+"|"+
+                                ((profile.getUseCustomColorForIcon()) ? "1" : "0")+"|"+
+                                Integer.toString(profile.getIconCustomColor()));
+                    else
+                        values.put(KEY_ICON, "ic_profile_default|1|0|0");
+                }
+                if (profile._deviceWallpaperChange == 1) {
+                    try {
+                        String[] splits = profile._deviceWallpaper.split("\\|");
+                        Uri imageUri = ImageViewPreference.getImageContentUri(context, splits[0]);
+                        if (imageUri != null)
+                            values.put(KEY_DEVICE_WALLPAPER, imageUri.toString());
+                    } catch (Exception e) {
+                        values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
+                        values.put(KEY_DEVICE_WALLPAPER, "-");
+                    }
+                }
+
+                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                        new String[] { String.valueOf(profile._id) });
+            }
+
+            db.setTransactionSuccessful();
+        } catch (Exception e){
+            //Error in between database transaction
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close();
     }
 
 // EVENTS --------------------------------------------------------------------------------

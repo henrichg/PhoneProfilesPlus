@@ -729,7 +729,7 @@ public class Profile {
     }
 
     // geting icon custom color
-    private int getIconCustomColor() {
+    int getIconCustomColor() {
         int value;
         try {
             String[] splits = _icon.split("\\|");
