@@ -1383,25 +1383,19 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
         if (requestCode == ImageViewPreference.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
         {
-            try {
-                Uri selectedImage = data.getData();
-                String picturePath = ImageViewPreference.getPath(context, selectedImage);
+            Uri selectedImage = data.getData();
 
-                if (ProfilePreferencesFragment.changedImageViewPreference != null)
-                    // nastavime image identifikatoru na ziskanu cestu ku obrazku
-                    ProfilePreferencesFragment.changedImageViewPreference.setImageIdentifierAndType(picturePath, false);
-            } catch (Exception ignored) {}
+            if (ProfilePreferencesFragment.changedImageViewPreference != null)
+                // nastavime image identifikatoru na ziskanu cestu ku obrazku
+                ProfilePreferencesFragment.changedImageViewPreference.setImageIdentifier(selectedImage.toString());
         }
         if (requestCode == ProfileIconPreference.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
         {
-            try {
-                Uri selectedImage = data.getData();
-                String picturePath = ImageViewPreference.getPath(context, selectedImage);
+            Uri selectedImage = data.getData();
 
-                if (ProfilePreferencesFragment.changedProfileIconPreference != null)
-                    // nastavime image identifikatoru na ziskanu cestu ku obrazku
-                    ProfilePreferencesFragment.changedProfileIconPreference.setImageIdentifierAndType(picturePath, false, true);
-            } catch (Exception ignored) {}
+            if (ProfilePreferencesFragment.changedProfileIconPreference != null)
+                // nastavime image identifikatoru na ziskanu cestu ku obrazku
+                ProfilePreferencesFragment.changedProfileIconPreference.setImageIdentifierAndType(selectedImage.toString(), false, true);
         }
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
             /*final boolean canEnableZenMode =

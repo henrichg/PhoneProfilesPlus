@@ -431,7 +431,7 @@ public class ProfileIconPreference extends DialogPreference {
                 Resources resources = prefContext.getResources();
                 int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
                 int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
-                Bitmap bitmap = BitmapManipulator.resampleBitmap(imageIdentifier, width, height, prefContext);
+                Bitmap bitmap = BitmapManipulator.resampleBitmapUri(imageIdentifier, width, height, prefContext);
 
                 if (bitmap != null)
                     imageView.setImageBitmap(bitmap);

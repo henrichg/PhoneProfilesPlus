@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -14,12 +15,98 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.media.ExifInterface;
+import android.net.Uri;
+import android.provider.MediaStore;
 
-import java.io.File;
+import java.io.InputStream;
 
 class BitmapManipulator {
 
-    static Bitmap resampleBitmap(String bitmapFile, int width, int height, Context context)
+    static Bitmap resampleBitmapUri(String bitmapUri, int width, int height, Context context) {
+        if (bitmapUri == null)
+            return null;
+
+        if (!Permissions.checkGallery(context))
+            return null;
+
+        Uri uri = Uri.parse(bitmapUri);
+        if (uri != null) {
+            try {
+                InputStream inputStream = context.getContentResolver().openInputStream(uri);
+                final BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeStream(inputStream, null, options);
+                //noinspection ConstantConditions
+                inputStream.close();
+
+                int rotatedWidth, rotatedHeight;
+                int orientation = getBitmapUriOrientation(context, uri);
+
+                if (orientation == 90 || orientation == 270) {
+                    //noinspection SuspiciousNameCombination
+                    rotatedWidth = options.outHeight;
+                    //noinspection SuspiciousNameCombination
+                    rotatedHeight = options.outWidth;
+                } else {
+                    rotatedWidth = options.outWidth;
+                    rotatedHeight = options.outHeight;
+                }
+
+                Bitmap decodedSampleBitmap;
+                inputStream = context.getContentResolver().openInputStream(uri);
+
+                // calaculate inSampleSize
+                options.inSampleSize = calculateInSampleSize(options, rotatedWidth, rotatedHeight);
+
+                options.inJustDecodeBounds = false;
+                decodedSampleBitmap = BitmapFactory.decodeStream(inputStream, null, options);
+
+                //noinspection ConstantConditions
+                inputStream.close();
+
+                /*
+                 * if the orientation is not 0 (or -1, which means we don't know), we
+                 * have to do a rotation.
+                 */
+                if (orientation > 0) {
+                    Matrix matrix = new Matrix();
+                    matrix.postRotate(orientation);
+
+                    decodedSampleBitmap = Bitmap.createBitmap(decodedSampleBitmap, 0, 0, decodedSampleBitmap.getWidth(),
+                            decodedSampleBitmap.getHeight(), matrix, true);
+                }
+                return decodedSampleBitmap;
+            } catch (Exception e) {
+                return null;
+            }
+        }
+        else
+            return null;
+    }
+
+    private static int getBitmapUriOrientation(Context context, Uri photoUri) {
+        /* it's on the external media. */
+        Cursor cursor = context.getContentResolver().query(photoUri,
+                new String[] { MediaStore.Images.ImageColumns.ORIENTATION }, null, null, null);
+        if (cursor != null) {
+            if (cursor.getCount() != 1) {
+                cursor.close();
+                return -1;
+            }
+
+            cursor.moveToFirst();
+
+            int orientation = cursor.getInt(0);
+
+            cursor.close();
+            return orientation;
+        }
+        else
+            return -1;
+    }
+
+    /*
+    static Bitmap resampleBitmapFile(String bitmapFile, int width, int height, Context context)
     {
         if (bitmapFile == null)
             return null;
@@ -82,6 +169,7 @@ class BitmapManipulator {
         else
             return null;
     }
+    */
 
     private static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
 

@@ -154,7 +154,7 @@ public class DataWrapper {
                   0,
                   Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET+"|1|1|0",
                   0,
-                  "-|0",
+                  "-",
                   0,
                   0,
                   0,

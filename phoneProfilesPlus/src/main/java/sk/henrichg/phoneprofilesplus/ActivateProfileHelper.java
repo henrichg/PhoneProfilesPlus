@@ -1170,7 +1170,7 @@ public class ActivateProfileHelper {
             if ((android.os.Build.VERSION.SDK_INT < 24) || (profile._deviceWallpaperFor != 2))
                 width = width << 1; // best wallpaper width is twice screen width
 
-            Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmap(profile.getDeviceWallpaperIdentifier(), width, height, context);
+            Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(profile._deviceWallpaper, width, height, context);
             if (decodedSampleBitmap != null)
             {
                 // set wallpaper
@@ -1197,7 +1197,7 @@ public class ActivateProfileHelper {
                     else
                         wallpaperManager.setBitmap(decodedSampleBitmap);
                 } catch (IOException e) {
-                    Log.e("ActivateProfileHelper.executeForWallpaper", "Cannot set wallpaper. Image="+profile.getDeviceWallpaperIdentifier());
+                    Log.e("ActivateProfileHelper.executeForWallpaper", "Cannot set wallpaper. Image="+profile._deviceWallpaper);
                 }
             }
         }

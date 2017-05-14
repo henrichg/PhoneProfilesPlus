@@ -1183,20 +1183,6 @@ public class Profile {
     }
     */
 
-    // getting wallpaper identifikator
-    String getDeviceWallpaperIdentifier()
-    {
-        String value;
-        try {
-            String[] splits = _deviceWallpaper.split("\\|");
-            value = splits[0];
-        } catch (Exception e) {
-            value = "-";
-        }
-        return value;
-    }
-
-
     //----------------------------------
 
     void generateIconBitmap(Context context, boolean monochrome, int monochromeValue)
@@ -1208,7 +1194,7 @@ public class Profile {
             Resources resources = context.getResources();
             int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
             int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
-            _iconBitmap = BitmapManipulator.resampleBitmap(getIconIdentifier(), width, height, context);
+            _iconBitmap = BitmapManipulator.resampleBitmapUri(getIconIdentifier(), width, height, context);
 
             if (_iconBitmap == null)
             {
@@ -1388,7 +1374,7 @@ public class Profile {
         profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "2")); // 30 seconds
         profile._deviceBrightness = preferences.getString(PREF_PROFILE_DEVICE_BRIGHTNESS, Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + "|0|1|0");  // automatic on
         profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
-        profile._deviceWallpaper = preferences.getString(PREF_PROFILE_DEVICE_WALLPAPER, "-|0");
+        profile._deviceWallpaper = preferences.getString(PREF_PROFILE_DEVICE_WALLPAPER, "-");
         profile._deviceMobileData = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_MOBILE_DATA, "1")); //ON
         profile._deviceMobileDataPrefs = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, "0"));
         profile._deviceGPS = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_GPS, "2")); //OFF
