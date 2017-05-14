@@ -15,6 +15,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -1194,6 +1195,7 @@ public class Profile {
             Resources resources = context.getResources();
             int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
             int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+            Log.d("---- Profile.generateIconBitmap","resampleBitmapUri");
             _iconBitmap = BitmapManipulator.resampleBitmapUri(getIconIdentifier(), width, height, context);
 
             if (_iconBitmap == null)

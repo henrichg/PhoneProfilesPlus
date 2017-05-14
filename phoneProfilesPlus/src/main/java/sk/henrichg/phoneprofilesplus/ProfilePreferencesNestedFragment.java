@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -1384,6 +1385,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (requestCode == ImageViewPreference.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
         {
             Uri selectedImage = data.getData();
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                ContentResolver resolver = getActivity().getContentResolver();
+                //noinspection WrongConstant
+                resolver.takePersistableUriPermission(selectedImage, takeFlags);
+            }
 
             if (ProfilePreferencesFragment.changedImageViewPreference != null)
                 // nastavime image identifikatoru na ziskanu cestu ku obrazku
@@ -1392,6 +1399,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (requestCode == ProfileIconPreference.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
         {
             Uri selectedImage = data.getData();
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                ContentResolver resolver = getActivity().getContentResolver();
+                //noinspection WrongConstant
+                resolver.takePersistableUriPermission(selectedImage, takeFlags);
+            }
 
             if (ProfilePreferencesFragment.changedProfileIconPreference != null)
                 // nastavime image identifikatoru na ziskanu cestu ku obrazku

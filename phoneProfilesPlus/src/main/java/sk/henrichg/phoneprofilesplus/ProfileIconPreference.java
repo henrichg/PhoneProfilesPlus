@@ -9,10 +9,12 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -29,6 +31,7 @@ public class ProfileIconPreference extends DialogPreference {
     private boolean isImageResourceID;
     private boolean useCustomColor;
     private int customColor;
+    private Bitmap bitmap;
 
     private MaterialDialog mDialog;
     private ProfileIconColorChooserDialog mColorDialog;
@@ -117,7 +120,7 @@ public class ProfileIconPreference extends DialogPreference {
                     }
                 });
 
-        getValuePIDP();
+        //getValuePIDP();
 
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
@@ -219,6 +222,13 @@ public class ProfileIconPreference extends DialogPreference {
         return a.getString(index);  // ikona bude vratena ako retazec
     }
 
+    private void getBitmap() {
+        Resources resources = prefContext.getResources();
+        int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
+        int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+        bitmap = BitmapManipulator.resampleBitmapUri(imageIdentifier, width, height, prefContext);
+    }
+
     private void getValuePIDP() {
         String value = getPersistedString(imageIdentifier+"|"+((isImageResourceID) ? "1" : "0")+"|"+((useCustomColor) ? "1" : "0")+"|"+customColor);
         String[] splits = value.split("\\|");
@@ -241,6 +251,11 @@ public class ProfileIconPreference extends DialogPreference {
             customColor = Integer.valueOf(splits[3]);
         } catch (Exception e) {
             customColor = ProfileIconPreferenceAdapter.getIconColor(imageIdentifier);
+        }
+
+        if (!isImageResourceID) {
+            Log.d("---- ProfileIconPreference.getValuePIDP","getBitmap");
+            getBitmap();
         }
     }
 
@@ -275,6 +290,10 @@ public class ProfileIconPreference extends DialogPreference {
             } catch (Exception e) {
                 customColor = ProfileIconPreferenceAdapter.getIconColor(imageIdentifier);
             }
+
+            if (!isImageResourceID)
+                getBitmap();
+
             persistString(value);
         }
     }
@@ -366,6 +385,8 @@ public class ProfileIconPreference extends DialogPreference {
                 isImageResourceID = false;
                 useCustomColor = false;
                 customColor = 0;
+                Log.d("---- ProfileIconPreference.setImageIdentifierAndType","getBitmap");
+                getBitmap();
             }
             newValue = imageIdentifier+"|"+((isImageResourceID) ? "1" : "0")+"|"+((useCustomColor) ? "1" : "0")+"|"+customColor;
             if (callChangeListener(newValue)) {
@@ -386,11 +407,17 @@ public class ProfileIconPreference extends DialogPreference {
 
     void startGallery()
     {
-        //Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-        Intent intent = new Intent(Intent.ACTION_PICK);
+        Intent intent;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        }else{
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+        }
+        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
 
         // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
         ProfilePreferencesFragment.setChangedProfileIconPreference(this);
@@ -428,11 +455,6 @@ public class ProfileIconPreference extends DialogPreference {
             else
             {
                 // je to file
-                Resources resources = prefContext.getResources();
-                int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
-                int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
-                Bitmap bitmap = BitmapManipulator.resampleBitmapUri(imageIdentifier, width, height, prefContext);
-
                 if (bitmap != null)
                     imageView.setImageBitmap(bitmap);
                 else

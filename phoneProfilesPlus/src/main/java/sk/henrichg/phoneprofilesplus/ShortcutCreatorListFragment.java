@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -231,6 +232,7 @@ public class ShortcutCreatorListFragment extends Fragment {
             Resources resources = getResources();
             int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
             int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+            Log.d("---- ShortcutCreatorListFragment.generateIconBitmap","resampleBitmapUri");
             profileBitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, getActivity().getApplicationContext());
             if (profileBitmap == null) {
                 int iconResource = R.drawable.ic_profile_default;
