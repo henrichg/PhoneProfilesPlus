@@ -112,16 +112,6 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, true);
                     editor.apply();
                     */
-
-                    if (actualVersionCode <= 2950) {
-                        DatabaseHandler databaseHandler = DatabaseHandler.getInstance(context);
-                        if (databaseHandler != null) {
-                            List<Profile> profileList = databaseHandler.getAllProfiles();
-                            databaseHandler.changePictureFilePathToUri(profileList);
-                        }
-
-                    }
-
                 }
             } catch (PackageManager.NameNotFoundException e) {
                 //e.printStackTrace();

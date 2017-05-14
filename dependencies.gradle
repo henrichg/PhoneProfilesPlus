@@ -3,7 +3,6 @@
 // 2400 = start About application alarm for notification "Please donate me."
 // 2500 = profile notification is required, but if is not enabled, hide it from status bar (default for new apps is "show")
 // 2700 = not show Activator and Editor target helps
-// 2950 = changed picture file path to Uri
 
 
 ext.versions = [
