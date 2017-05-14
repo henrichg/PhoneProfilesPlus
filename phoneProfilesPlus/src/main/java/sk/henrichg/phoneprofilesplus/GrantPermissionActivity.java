@@ -109,6 +109,15 @@ public class GrantPermissionActivity extends Activity {
         if (started) return;
         started = true;
 
+        if ((grantType == Permissions.GRANT_TYPE_PROFILE) && (profile == null)) {
+            finish();
+            return;
+        }
+        if ((grantType == Permissions.GRANT_TYPE_EVENT) && (event == null)) {
+            finish();
+            return;
+        }
+
         final Context context = getApplicationContext();
 
         if (permissions.size() == 0) {
