@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -231,14 +232,28 @@ public class ImageViewPreference extends Preference {
         if (cursor != null && cursor.moveToFirst()) {
             int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
             cursor.close();
-            return Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);
+            Uri uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                ContentResolver resolver = context.getApplicationContext().getContentResolver();
+                //noinspection WrongConstant
+                resolver.takePersistableUriPermission(uri, takeFlags);
+            }
+            return uri;
         } else {
             File file = new File(imageFile);
             if (file.exists()) {
                 ContentValues values = new ContentValues();
                 values.put(MediaStore.Images.Media.DATA, imageFile);
-                return context.getContentResolver().insert(
+                Uri uri = context.getContentResolver().insert(
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                    ContentResolver resolver = context.getApplicationContext().getContentResolver();
+                    //noinspection WrongConstant
+                    resolver.takePersistableUriPermission(uri, takeFlags);
+                }
+                return uri;
             } else {
                 return null;
             }
