@@ -3001,8 +3001,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         String[] splits = icon.split("\\|");
                         String iconIdentifier = splits[0];
                         String isIconResourceId = splits[1];
-                        String useCustomColorForIcon = splits[2];
-                        String iconCustomColor = splits[3];
+                        String useCustomColorForIcon = "0";
+                        String iconCustomColor = "0";
+                        if (splits.length == 4) {
+                            useCustomColorForIcon = splits[2];
+                            iconCustomColor = splits[3];
+                        }
 
                         PPApplication.logE("DatabaseHandler.changePictureFilePathToUri","isIconResourceId="+isIconResourceId);
 
@@ -3038,6 +3042,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             values.put(KEY_DEVICE_WALLPAPER, "-");
                         }
                     }
+                    else
+                        values.put(KEY_DEVICE_WALLPAPER, "-");
 
                     PPApplication.logE("DatabaseHandler.changePictureFilePathToUri","values.size()="+values.size());
                     if (values.size() > 0) {
