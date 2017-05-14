@@ -2027,7 +2027,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         if (oldVersion < 1890) {
-            changePictureFilePathToUri();
+            changePictureFilePathToUri(db);
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -2962,30 +2962,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    void changePictureFilePathToUri() {
-        //SQLiteDatabase db = this.getWritableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
+    private void changePictureFilePathToUri(SQLiteDatabase database) {
+        SQLiteDatabase db;
+        if (database == null) {
+            //SQLiteDatabase db = this.getWritableDatabase();
+            db = getMyWritableDatabase();
+        }
+        else
+            db = database;
 
-        final String selectQuery = "SELECT " + KEY_ID +
+        final String selectQuery = "SELECT " + KEY_ID + "," +
                 KEY_ICON + "," +
                 KEY_DEVICE_WALLPAPER_CHANGE + "," +
                 KEY_DEVICE_WALLPAPER +
                 " FROM " + TABLE_PROFILES;
 
-        ContentValues values = new ContentValues();
-
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        db.beginTransaction();
+        if (database == null)
+            db.beginTransaction();
         try {
 
             if (cursor.moveToFirst()) {
                 do {
                     long id = cursor.getLong(0);
                     String icon = cursor.getString(1);
-
                     int wallpaperChange = cursor.getInt(2);
                     String wallpaper = cursor.getString(3);
+
+                    PPApplication.logE("DatabaseHandler.changePictureFilePathToUri","id="+id);
+                    PPApplication.logE("DatabaseHandler.changePictureFilePathToUri","icon="+icon);
+                    PPApplication.logE("DatabaseHandler.changePictureFilePathToUri","wallpaperChange="+wallpaperChange);
+                    PPApplication.logE("DatabaseHandler.changePictureFilePathToUri","wallpaper="+wallpaper);
+
+                    ContentValues values = new ContentValues();
 
                     try {
                         String[] splits = icon.split("\\|");
@@ -2994,8 +3004,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         String useCustomColorForIcon = splits[2];
                         String iconCustomColor = splits[3];
 
-                        if (isIconResourceId.equals("1")) {
+                        PPApplication.logE("DatabaseHandler.changePictureFilePathToUri","isIconResourceId="+isIconResourceId);
+
+                        if (!isIconResourceId.equals("1")) {
                             Uri imageUri = ImageViewPreference.getImageContentUri(context, iconIdentifier);
+                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri","icon uri="+imageUri);
                             if (imageUri != null)
                                 values.put(KEY_ICON, imageUri.toString()+"|"+
                                         isIconResourceId+"|"+
@@ -3004,30 +3017,45 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             else
                                 values.put(KEY_ICON, "ic_profile_default|1|0|0");
                         }
-                    } catch (Exception ignored) {}
+                    } catch (Exception e) {
+                        PPApplication.logE("DatabaseHandler.changePictureFilePathToUri",e.getMessage());
+                        values.put(KEY_ICON, "ic_profile_default|1|0|0");
+                    }
                     if (wallpaperChange == 1) {
                         try {
                             String[] splits = wallpaper.split("\\|");
                             Uri imageUri = ImageViewPreference.getImageContentUri(context, splits[0]);
+                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri","wallpaper uri="+imageUri);
                             if (imageUri != null)
                                 values.put(KEY_DEVICE_WALLPAPER, imageUri.toString());
+                            else {
+                                values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
+                                values.put(KEY_DEVICE_WALLPAPER, "-");
+                            }
                         } catch (Exception e) {
+                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri",e.getMessage());
                             values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
                             values.put(KEY_DEVICE_WALLPAPER, "-");
                         }
                     }
 
-                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?", new String[] { String.valueOf(id) });
+                    PPApplication.logE("DatabaseHandler.changePictureFilePathToUri","values.size()="+values.size());
+                    if (values.size() > 0) {
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?", new String[]{String.valueOf(id)});
+                    }
 
                 } while (cursor.moveToNext());
             }
 
-            db.setTransactionSuccessful();
+            if (database == null)
+                db.setTransactionSuccessful();
 
         } catch (Exception e){
             //Error in between database transaction
+            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri",e.getMessage());
         } finally {
-            db.endTransaction();
+            if (database == null)
+                db.endTransaction();
             cursor.close();
         }
 
@@ -6855,7 +6883,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if (exportedDBObj.getVersion() < 1890) {
-                        changePictureFilePathToUri();
+                        changePictureFilePathToUri(null);
                     }
 
                     cursorExportedDB.close();

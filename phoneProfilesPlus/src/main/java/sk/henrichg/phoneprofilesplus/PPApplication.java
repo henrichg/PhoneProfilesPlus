@@ -45,6 +45,9 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
+                                         +"|DatabaseHandler.changePictureFilePathToUri"
+                                         +"|ImageViewPreference.getImageContentUri"
+
                                          //+"|PhoneProfilesService.doSimulatingRingingCall"
                                         /*
                                          +"|WifiScanAlarmBroadcastReceiver.onReceive"

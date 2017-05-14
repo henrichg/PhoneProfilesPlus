@@ -229,16 +229,17 @@ public class ImageViewPreference extends Preference {
                 new String[] { MediaStore.Images.Media._ID },
                 MediaStore.Images.Media.DATA + "=? ",
                 new String[] { imageFile }, null);
+        //PPApplication.logE("ImageViewPreference.getImageContentUri","cursor="+cursor);
         if (cursor != null && cursor.moveToFirst()) {
             int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
             cursor.close();
             Uri uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
                 ContentResolver resolver = context.getApplicationContext().getContentResolver();
-                //noinspection WrongConstant
                 resolver.takePersistableUriPermission(uri, takeFlags);
-            }
+            }*/
+            PPApplication.logE("ImageViewPreference.getImageContentUri","uri1="+uri);
             return uri;
         } else {
             File file = new File(imageFile);
@@ -247,12 +248,12 @@ public class ImageViewPreference extends Preference {
                 values.put(MediaStore.Images.Media.DATA, imageFile);
                 Uri uri = context.getContentResolver().insert(
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
                     ContentResolver resolver = context.getApplicationContext().getContentResolver();
-                    //noinspection WrongConstant
                     resolver.takePersistableUriPermission(uri, takeFlags);
-                }
+                }*/
+                PPApplication.logE("ImageViewPreference.getImageContentUri","uri2="+uri);
                 return uri;
             } else {
                 return null;
