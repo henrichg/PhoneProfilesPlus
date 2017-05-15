@@ -1934,7 +1934,7 @@ public class DataWrapper {
 
             wifiPassed = false;
 
-            WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             boolean isWifiEnabled = wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED;
 
             ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -2429,8 +2429,8 @@ public class DataWrapper {
 
             if (!foregroundApplication.isEmpty()) {
                 String[] splits = event._eventPreferencesApplication._applications.split("\\|");
-                for (int i = 0; i < splits.length; i++) {
-                    String packageName = ApplicationsCache.getPackageName(splits[i]);
+                for (String split : splits) {
+                    String packageName = ApplicationsCache.getPackageName(split);
 
                     if (foregroundApplication.equals(packageName)) {
                         applicationPassed = true;
@@ -2660,7 +2660,7 @@ public class DataWrapper {
                         (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)))) {
                     // ignore for wifi scanning
 
-                    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                    WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                     int wifiState = wifiManager.getWifiState();
                     boolean enabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
                     PPApplication.logE("-###- DataWrapper.doEventService", "wifiState=" + enabled);
@@ -3070,7 +3070,7 @@ public class DataWrapper {
                     PPApplication.logE("$$$ restartEvents", "from DataWrapper.restartEventsWithAlert");
                     restartEventsWithRescan(true, true);
 
-                    boolean finish = false;
+                    boolean finish;
                     if (_activity instanceof ActivateProfileActivity)
                         finish = ApplicationPreferences.applicationClose(context);
                     else

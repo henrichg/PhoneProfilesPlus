@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -24,7 +25,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
     private Context context = null;
     //private int appWidgetId;
-    private List<Profile> profileList;
+    private List<Profile> profileList = new ArrayList<>();
 
     ProfileListWidgetFactory(Context ctxt, Intent intent) {
         context = ctxt;
