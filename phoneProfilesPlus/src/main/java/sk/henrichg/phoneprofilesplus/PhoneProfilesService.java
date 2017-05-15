@@ -111,7 +111,6 @@ public class PhoneProfilesService extends Service
     private MediaPlayer notificationMediaPlayer = null;
     private int mediaRingingVolume = 0;
     private int mediaNotificationVolume = 0;
-    private int mediaEventNotificationVolume = 0;
     private int usedRingingStream = AudioManager.STREAM_MUSIC;
     private int usedNotificationStream = AudioManager.STREAM_MUSIC;
 
@@ -1046,7 +1045,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public void stopSimulatingRingingCall(boolean abadonFocus) {
+    public void stopSimulatingRingingCall(boolean abandonFocus) {
         //if (ringingCallIsSimulating) {
             PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "xxx");
             if (audioManager == null )
@@ -1066,7 +1065,7 @@ public class PhoneProfilesService extends Service
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
                 PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "ringing stopped");
             }
-            if (abadonFocus)
+            if (abandonFocus)
                 audioManager.abandonAudioFocus(this);
         //}
         ringingCallIsSimulating = false;
@@ -1278,32 +1277,32 @@ public class PhoneProfilesService extends Service
 
         if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
             // Pause playback
-            if (ringingMediaPlayer != null)
+            if ((ringingMediaPlayer != null) && ringingCallIsSimulating)
                 if (ringingMediaPlayer.isPlaying())
                     ringingMediaPlayer.pause();
-            if (notificationMediaPlayer != null)
+            if ((notificationMediaPlayer != null) && notificationToneIsSimulating)
                 if (notificationMediaPlayer.isPlaying())
                     notificationMediaPlayer.pause();
         }
         if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
             // Lower the volume
-            if (ringingMediaPlayer != null) {
+            if ((ringingMediaPlayer != null) && ringingCallIsSimulating) {
                 if (usedRingingStream == AudioManager.STREAM_MUSIC)
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
             }
-            if (notificationMediaPlayer != null) {
+            if ((notificationMediaPlayer != null) && notificationToneIsSimulating) {
                 if (usedNotificationStream == AudioManager.STREAM_MUSIC)
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
             }
         } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
             // Resume playback
-            if (ringingMediaPlayer != null) {
+            if ((ringingMediaPlayer != null) && ringingCallIsSimulating) {
                 if (usedRingingStream == AudioManager.STREAM_MUSIC)
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaRingingVolume, 0);
                 if (!ringingMediaPlayer.isPlaying())
                     ringingMediaPlayer.start();
             }
-            if (notificationMediaPlayer != null) {
+            if ((notificationMediaPlayer != null) && notificationToneIsSimulating) {
                 if (usedNotificationStream == AudioManager.STREAM_MUSIC)
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaNotificationVolume, 0);
                 if (!notificationMediaPlayer.isPlaying())
@@ -1356,7 +1355,7 @@ public class PhoneProfilesService extends Service
                     int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
                     float percentage = (float) notificationVolume / maximumNotificationValue * 100.0f;
-                    mediaEventNotificationVolume = Math.round(maximumMediaValue / 100.0f * percentage);
+                    int mediaEventNotificationVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
                     PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "mediaEventNotificationVolume=" + mediaEventNotificationVolume);
 
