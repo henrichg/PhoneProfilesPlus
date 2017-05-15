@@ -991,7 +991,7 @@
   <string name="duration_pref_dlg_activation_end_label">Aktivierungs-Ende:</string>
   <string name="phone_profiles_pref_applicationLanguage_pt_BR">Português (Brasil)</string>
   <string name="array_pref_value_pt_BR">pt-BR</string>
-  <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>
-  <string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>
-  <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>
+  <string name="important_info_profile_zenModeM">\"Nicht Stören\" im Klingelmodus von Profilen benötigt Benachrichtigungszugriff für PPP. Klicke hier und erlaube PPP.</string>
+  <string name="profile_preferences_zenModeM_alarms_summary">Nicht Stören, Alarme ausgenommen</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Unter Android 6 kann diese Einstellung nur auf gerooteten Geräten geändert werden. Betroffen sind der Klingel-Modus und die Nicht-Stören-Typen mit Vibration.</string>
 </resources>
