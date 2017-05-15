@@ -14,6 +14,7 @@ import android.widget.RemoteViewsService;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 @SuppressLint("NewApi")
@@ -204,14 +205,13 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
         createProfilesDataWrapper();
 
-        profileList = null;
         dataWrapper.invalidateProfileList();
-        profileList = dataWrapper.getProfileList();
+        List<Profile> newProfileList = dataWrapper.getNewProfileList();
 
         if (!ApplicationPreferences.applicationWidgetListHeader(context))
         {
             // show activated profile in list if is not showed in activator
-            Profile profile = dataWrapper.getActivatedProfile();
+            Profile profile = dataWrapper.getActivatedProfile(newProfileList);
             if ((profile != null) && (!profile._showInActivator))
             {
                 profile._showInActivator = true;
@@ -219,8 +219,9 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             }
         }
 
+        Collections.sort(newProfileList, new ProfileComparator());
 
-        Collections.sort(profileList, new ProfileComparator());
+        profileList.addAll(newProfileList);
     }
 
     private class ProfileComparator implements Comparator<Profile> {

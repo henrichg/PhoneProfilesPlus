@@ -35,6 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -102,19 +103,26 @@ public class DataWrapper {
     {
         if (profileList == null)
         {
-            profileList = getDatabaseHandler().getAllProfiles();
-
-            if (forGUI)
-            {
-                for (Profile profile : profileList)
-                {
-                    profile.generateIconBitmap(context, monochrome, monochromeValue);
-                    //if (generateIndicators)
-                        profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
-                }
-            }
+            profileList = getNewProfileList();
         }
 
+        return profileList;
+    }
+
+    List<Profile> getNewProfileList() {
+        List<Profile> newProfileList = getDatabaseHandler().getAllProfiles();
+
+        if (forGUI)
+        {
+            profileList.addAll(newProfileList);
+
+            for (Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
+                Profile profile = it.next();
+                profile.generateIconBitmap(context, monochrome, monochromeValue);
+                //if (generateIndicators)
+                profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+            }
+        }
         return profileList;
     }
 
@@ -360,12 +368,12 @@ public class DataWrapper {
     {
         if (profileList != null)
         {
-            for (Profile profile : profileList)
-            {
+            for(Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
+                Profile profile = it.next();
                 profile.releaseIconBitmap();
                 profile.releasePreferencesIndicator();
+                it.remove();
             }
-            profileList.clear();
         }
         profileList = null;
     }
@@ -383,6 +391,10 @@ public class DataWrapper {
 
     public Profile getActivatedProfile()
     {
+        return getActivatedProfile(profileList);
+    }
+
+    public Profile getActivatedProfile(List<Profile> profileList) {
         if (profileList == null)
         {
             return getActivatedProfileFromDB();
