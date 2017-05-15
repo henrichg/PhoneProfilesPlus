@@ -114,16 +114,14 @@ public class DataWrapper {
 
         if (forGUI)
         {
-            profileList.addAll(newProfileList);
-
-            for (Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
+            for (Iterator<Profile> it = newProfileList.iterator(); it.hasNext();) {
                 Profile profile = it.next();
                 profile.generateIconBitmap(context, monochrome, monochromeValue);
                 //if (generateIndicators)
                 profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
             }
         }
-        return profileList;
+        return newProfileList;
     }
 
     void setProfileList(List<Profile> profileList, boolean recycleBitmaps)
