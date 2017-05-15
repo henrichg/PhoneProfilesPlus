@@ -105,7 +105,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.SECOND, 3);
+        calendar.add(Calendar.SECOND, 5);
         long alarmTime = calendar.getTimeInMillis();
 
         if (android.os.Build.VERSION.SDK_INT >= 23)
