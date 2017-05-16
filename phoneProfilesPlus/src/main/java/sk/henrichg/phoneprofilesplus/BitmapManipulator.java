@@ -23,7 +23,7 @@ import java.io.InputStream;
 class BitmapManipulator {
 
     static Bitmap resampleBitmapUri(String bitmapUri, int width, int height, Context context) {
-        Log.d("---- BitmapManipulator.resampleBitmapUri", "bitmapUri="+bitmapUri);
+        //Log.d("---- BitmapManipulator.resampleBitmapUri", "bitmapUri="+bitmapUri);
         if (bitmapUri == null)
             return null;
 
@@ -31,7 +31,7 @@ class BitmapManipulator {
             return null;
 
         Uri uri = Uri.parse(bitmapUri);
-        Log.d("---- BitmapManipulator.resampleBitmapUri", "uri="+uri);
+        //Log.d("---- BitmapManipulator.resampleBitmapUri", "uri="+uri);
         if (uri != null) {
             try {
                 InputStream inputStream = context.getContentResolver().openInputStream(uri);
@@ -77,7 +77,7 @@ class BitmapManipulator {
                     decodedSampleBitmap = Bitmap.createBitmap(decodedSampleBitmap, 0, 0, decodedSampleBitmap.getWidth(),
                             decodedSampleBitmap.getHeight(), matrix, true);
                 }
-                Log.d("---- BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap="+decodedSampleBitmap);
+                //Log.d("---- BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap="+decodedSampleBitmap);
                 return decodedSampleBitmap;
             } catch (Exception e) {
                 e.printStackTrace();

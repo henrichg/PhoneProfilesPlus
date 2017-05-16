@@ -1195,7 +1195,7 @@ public class Profile {
             Resources resources = context.getResources();
             int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
             int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
-            Log.d("---- Profile.generateIconBitmap","resampleBitmapUri");
+            //Log.d("---- Profile.generateIconBitmap","resampleBitmapUri");
             _iconBitmap = BitmapManipulator.resampleBitmapUri(getIconIdentifier(), width, height, context);
 
             if (_iconBitmap == null)

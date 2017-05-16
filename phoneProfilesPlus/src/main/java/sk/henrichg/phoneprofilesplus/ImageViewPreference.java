@@ -85,7 +85,7 @@ public class ImageViewPreference extends Preference {
         if (restoreValue) {
             // restore state
             imageIdentifier = getPersistedString(imageIdentifier);
-            Log.d("---- ImageViewPreference.onSetInitialValue","getBitmap");
+            //Log.d("---- ImageViewPreference.onSetInitialValue","getBitmap");
             getBitmap();
         }
         else {
@@ -147,7 +147,7 @@ public class ImageViewPreference extends Preference {
         }
 
         imageIdentifier = newImageIdentifier;
-        Log.d("---- ImageViewPreference.setImageIdentifier","getBitmap");
+        //Log.d("---- ImageViewPreference.setImageIdentifier","getBitmap");
         getBitmap();
 
         // zapis do preferences

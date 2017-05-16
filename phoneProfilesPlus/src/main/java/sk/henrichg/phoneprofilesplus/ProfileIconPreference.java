@@ -254,7 +254,7 @@ public class ProfileIconPreference extends DialogPreference {
         }
 
         if (!isImageResourceID) {
-            Log.d("---- ProfileIconPreference.getValuePIDP","getBitmap");
+            //Log.d("---- ProfileIconPreference.getValuePIDP","getBitmap");
             getBitmap();
         }
     }
@@ -385,7 +385,7 @@ public class ProfileIconPreference extends DialogPreference {
                 isImageResourceID = false;
                 useCustomColor = false;
                 customColor = 0;
-                Log.d("---- ProfileIconPreference.setImageIdentifierAndType","getBitmap");
+                //Log.d("---- ProfileIconPreference.setImageIdentifierAndType","getBitmap");
                 getBitmap();
             }
             newValue = imageIdentifier+"|"+((isImageResourceID) ? "1" : "0")+"|"+((useCustomColor) ? "1" : "0")+"|"+customColor;
