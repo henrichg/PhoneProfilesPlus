@@ -971,6 +971,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void startSimulatingRingingCall(int stream, String ringtone) {
+        stopSimulatingRingingCall(true);
         if (!ringingCallIsSimulating) {
             PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "stream="+stream);
             if (audioManager == null )
@@ -1052,8 +1053,10 @@ public class PhoneProfilesService extends Service
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
             if (ringingMediaPlayer != null) {
-                if (ringingMediaPlayer.isPlaying())
-                    ringingMediaPlayer.stop();
+                try {
+                    if (ringingMediaPlayer.isPlaying())
+                        ringingMediaPlayer.stop();
+                } catch (Exception ignored) {};
                 ringingMediaPlayer.release();
                 ringingMediaPlayer = null;
 
@@ -1170,6 +1173,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void startSimulatingNotificationTone(int stream, String notificationTone) {
+        stopSimulatingNotificationTone(true);
         if ((!ringingCallIsSimulating) && (!notificationToneIsSimulating)) {
             PPApplication.logE("PhoneProfilesService.startSimulatingNotificationTone", "stream="+stream);
             if (audioManager == null )
@@ -1250,8 +1254,10 @@ public class PhoneProfilesService extends Service
             audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
         if (notificationMediaPlayer != null) {
-            if (notificationMediaPlayer.isPlaying())
-                notificationMediaPlayer.stop();
+            try {
+                if (notificationMediaPlayer.isPlaying())
+                    notificationMediaPlayer.stop();
+            } catch (Exception ignored) {};
             notificationMediaPlayer.release();
             notificationMediaPlayer = null;
 
