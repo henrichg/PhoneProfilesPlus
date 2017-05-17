@@ -422,6 +422,8 @@ class EditorEventListAdapter extends BaseAdapter
                     //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                     if (holder.profileStartIndicator != null)
                         holder.profileStartIndicator.setImageBitmap(profile._preferencesIndicator);
+                    else
+                        holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
                 }
             }
             else
@@ -480,6 +482,8 @@ class EditorEventListAdapter extends BaseAdapter
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                         if (holder.profileEndIndicator != null)
                             holder.profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
+                        else
+                            holder.profileEndIndicator.setImageResource(R.drawable.ic_empty);
                     }
                 } else {
                     String profileName = "";

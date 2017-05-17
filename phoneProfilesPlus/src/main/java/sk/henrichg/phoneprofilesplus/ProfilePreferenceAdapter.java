@@ -140,7 +140,10 @@ class ProfilePreferenceAdapter extends BaseAdapter {
                 holder.profileIcon.setImageBitmap(profile._iconBitmap);
             if (ApplicationPreferences.applicationEditorPrefIndicator(context)) {
                 holder.profileIndicator.setVisibility(View.VISIBLE);
-                holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+                if (profile._preferencesIndicator != null)
+                    holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+                else
+                    holder.profileIndicator.setImageResource(R.drawable.ic_empty);
             }
         }
         else

@@ -225,10 +225,14 @@ class ActivateProfileListAdapter extends BaseAdapter
             }
 
             if ((ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity())) && (!ApplicationPreferences.applicationActivatorGridLayout(fragment.getActivity()))) {
-                //profilePrefIndicatorImageView.setImageBitmap(null);
-                //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
-                //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+                if (profile._preferencesIndicator != null) {
+                    //profilePrefIndicatorImageView.setImageBitmap(null);
+                    //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
+                    //profilePrefIndicatorImageView.setImageBitmap(bitmap);
+                    holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+                }
+                else
+                    holder.profileIndicator.setImageResource(R.drawable.ic_empty);
             }
         }
 

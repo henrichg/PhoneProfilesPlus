@@ -136,6 +136,8 @@ public class ProfileDetailsFragment extends Fragment {
                 //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                 if (profileIndicator != null)
                     profileIndicator.setImageBitmap(profile._preferencesIndicator);
+                else
+                    profileIndicator.setImageResource(R.drawable.ic_empty);
             //}
 
             profileItemEdit.setOnClickListener(new View.OnClickListener() {

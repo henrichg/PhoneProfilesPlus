@@ -197,11 +197,14 @@ class ProfilePreferencesIndicator {
         {
             if (countDrawables > 0)
             {
-                indicatorBitmap = createIndicatorBitmap(context, countDrawables);
-                Canvas canvas = new Canvas(indicatorBitmap);
-
-                for (int i = 0; i < countDrawables; i++)
-                    addIndicator(drawables[i], i, context, canvas);
+                try {
+                    indicatorBitmap = createIndicatorBitmap(context, countDrawables);
+                    Canvas canvas = new Canvas(indicatorBitmap);
+                    for (int i = 0; i < countDrawables; i++)
+                        addIndicator(drawables[i], i, context, canvas);
+                } catch (Exception e) {
+                    indicatorBitmap = null;
+                }
             }
             else
                 indicatorBitmap = createIndicatorBitmap(context, 1);

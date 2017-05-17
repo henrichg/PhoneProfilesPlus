@@ -165,8 +165,12 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
             }
             if (!ApplicationPreferences.applicationWidgetListGridLayout(context)) {
-                if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
-                    row.setImageViewBitmap(R.id.widget_profile_list_profile_pref_indicator, profile._preferencesIndicator);
+                if (ApplicationPreferences.applicationWidgetListPrefIndicator(context)) {
+                    if (profile._preferencesIndicator != null)
+                        row.setImageViewBitmap(R.id.widget_profile_list_profile_pref_indicator, profile._preferencesIndicator);
+                    else
+                        row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
+                }
                 else
                     row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
             }

@@ -174,7 +174,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             widget.setTextViewText(R.id.widget_profile_list_header_profile_name, profileName);
             if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
             {
-                widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_pref_indicator, profile._preferencesIndicator);
+                if (profile._preferencesIndicator != null)
+                    widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_pref_indicator, profile._preferencesIndicator);
+                else
+                    widget.setImageViewResource(R.id.widget_profile_list_header_profile_pref_indicator, R.drawable.ic_empty);
             }
             if (largeLayout)
             {

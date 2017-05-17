@@ -357,8 +357,12 @@ public class ActivateProfileListFragment extends Fragment {
             {
                 if (profile == null)
                     profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
-                else
-                    profilePrefIndicatorImageView.setImageBitmap(profile._preferencesIndicator);
+                else {
+                    if (profile._preferencesIndicator != null)
+                        profilePrefIndicatorImageView.setImageBitmap(profile._preferencesIndicator);
+                    else
+                        profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
+                }
             }
         }
     }

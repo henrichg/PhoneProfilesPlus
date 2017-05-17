@@ -227,6 +227,8 @@ public class EventDetailsFragment extends Fragment {
                     //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                     if (profileStartIndicator != null)
                         profileStartIndicator.setImageBitmap(profile._preferencesIndicator);
+                    else
+                        profileStartIndicator.setImageResource(R.drawable.ic_empty);
                 //}
             }
             else
@@ -285,6 +287,8 @@ public class EventDetailsFragment extends Fragment {
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                         if (profileEndIndicator != null)
                             profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
+                        else
+                            profileEndIndicator.setImageResource(R.drawable.ic_empty);
                     //}
                 } else {
                     String profileName = "";

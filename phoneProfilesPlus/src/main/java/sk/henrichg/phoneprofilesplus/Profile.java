@@ -1249,10 +1249,10 @@ public class Profile {
         releasePreferencesIndicator();
 
         _preferencesIndicator = ProfilePreferencesIndicator.paint(this, context);
-
-        if (monochrome)
-            _preferencesIndicator = BitmapManipulator.monochromeBitmap(_preferencesIndicator, monochromeValue/*, context*/);
-
+        if (_preferencesIndicator != null) {
+            if (monochrome)
+                _preferencesIndicator = BitmapManipulator.monochromeBitmap(_preferencesIndicator, monochromeValue/*, context*/);
+        }
     }
 
     void releaseIconBitmap()

@@ -760,8 +760,12 @@ public class EditorProfileListFragment extends Fragment {
                 //profilePrefIndicatorImageView.setImageBitmap(ProfilePreferencesIndicator.paint(profile, getActivity().getBaseContext()));
                 if (profile == null)
                     profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
-                else
-                    profilePrefIndicatorImageView.setImageBitmap(profile._preferencesIndicator);
+                else {
+                    if (profile._preferencesIndicator != null)
+                        profilePrefIndicatorImageView.setImageBitmap(profile._preferencesIndicator);
+                    else
+                        profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
+                }
             }
         }
     }
