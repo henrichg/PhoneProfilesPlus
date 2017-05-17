@@ -197,8 +197,10 @@ public class EditorEventListFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_add_event:
-                        ((EditorProfilesActivity)getActivity()).addEventDialog = new AddEventDialog(activity, fragment);
-                        ((EditorProfilesActivity)getActivity()).addEventDialog.show();
+                        if (eventListAdapter != null) {
+                            ((EditorProfilesActivity) getActivity()).addEventDialog = new AddEventDialog(activity, fragment);
+                            ((EditorProfilesActivity) getActivity()).addEventDialog.show();
+                        }
                         return true;
                     case R.id.menu_delete_all_events:
                         deleteAllEvents();
@@ -563,25 +565,27 @@ public class EditorEventListFragment extends Fragment {
 
     private void deleteAllEvents()
     {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(getResources().getString(R.string.alert_title_delete_all_events));
-        dialogBuilder.setMessage(getResources().getString(R.string.alert_message_delete_all_events));
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+        if (eventListAdapter != null) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+            dialogBuilder.setTitle(getResources().getString(R.string.alert_title_delete_all_events));
+            dialogBuilder.setMessage(getResources().getString(R.string.alert_message_delete_all_events));
+            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
+                public void onClick(DialogInterface dialog, int which) {
 
-                dataWrapper.stopAllEvents(true, false);
+                    dataWrapper.stopAllEvents(true, false);
 
-                databaseHandler.deleteAllEvents();
-                eventListAdapter.clear();
+                    databaseHandler.deleteAllEvents();
+                    eventListAdapter.clear();
 
-                onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
+                    onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
 
-            }
-        });
-        dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-        dialogBuilder.show();
+                }
+            });
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+            dialogBuilder.show();
+        }
     }
 
     public void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition)

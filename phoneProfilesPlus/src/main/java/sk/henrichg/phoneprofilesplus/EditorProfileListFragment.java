@@ -203,8 +203,10 @@ public class EditorProfileListFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_add_profile:
-                        ((EditorProfilesActivity)getActivity()).addProfileDialog = new AddProfileDialog(activity, fragment);
-                        ((EditorProfilesActivity)getActivity()).addProfileDialog.show();
+                        if (profileListAdapter != null) {
+                            ((EditorProfilesActivity) getActivity()).addProfileDialog = new AddProfileDialog(activity, fragment);
+                            ((EditorProfilesActivity) getActivity()).addProfileDialog.show();
+                        }
                         return true;
                     case R.id.menu_delete_all_profiles:
                         deleteAllProfiles();
@@ -618,16 +620,17 @@ public class EditorProfileListFragment extends Fragment {
 
     private void deleteAllProfiles()
     {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(R.string.alert_title_delete_all_profiles);
-        dialogBuilder.setMessage(R.string.alert_message_delete_all_profiles);
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+        if (profileListAdapter != null) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+            dialogBuilder.setTitle(R.string.alert_title_delete_all_profiles);
+            dialogBuilder.setMessage(R.string.alert_message_delete_all_profiles);
+            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
-        //final Activity activity = getActivity();
+            //final Activity activity = getActivity();
 
-        dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
+                public void onClick(DialogInterface dialog, int which) {
 
                 /*
                 class DeleteAsyncTask extends AsyncTask<Void, Integer, Integer>
@@ -690,30 +693,31 @@ public class EditorProfileListFragment extends Fragment {
                 new DeleteAsyncTask().execute();
                 */
 
-                // remove alarm for profile duration
-                ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
-                Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
+                    // remove alarm for profile duration
+                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
+                    Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
 
-                dataWrapper.stopAllEvents(true, false);
-                dataWrapper.unlinkAllEvents();
-                profileListAdapter.clearNoNotify();
-                databaseHandler.deleteAllProfiles();
-                databaseHandler.unlinkAllEvents();
+                    dataWrapper.stopAllEvents(true, false);
+                    dataWrapper.unlinkAllEvents();
+                    profileListAdapter.clearNoNotify();
+                    databaseHandler.deleteAllProfiles();
+                    databaseHandler.unlinkAllEvents();
 
-                profileListAdapter.notifyDataSetChanged();
-                // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
-                //Profile profile = databaseHandler.getActivatedProfile();
-                //Profile profile = profileListAdapter.getActivatedProfile();
-                updateHeader(null);
-                activateProfileHelper.removeNotification();
-                activateProfileHelper.updateWidget();
+                    profileListAdapter.notifyDataSetChanged();
+                    // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
+                    //Profile profile = databaseHandler.getActivatedProfile();
+                    //Profile profile = profileListAdapter.getActivatedProfile();
+                    updateHeader(null);
+                    activateProfileHelper.removeNotification();
+                    activateProfileHelper.updateWidget();
 
-                onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
+                    onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
 
-            }
-        });
-        dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-        dialogBuilder.show();
+                }
+            });
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+            dialogBuilder.show();
+        }
     }
 
     public void updateHeader(Profile profile)
