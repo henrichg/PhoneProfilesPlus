@@ -103,16 +103,16 @@ public class PhoneProfilesService extends Service
 
     private AudioManager audioManager = null;
     private boolean ringingCallIsSimulating = false;
-    private boolean notificationToneIsSimulating = false;
+    //private boolean notificationToneIsSimulating = false;
     public static int ringingVolume = 0;
-    public static int notificationVolume = 0;
+    //public static int notificationVolume = 0;
     private int oldMediaVolume = 0;
     private MediaPlayer ringingMediaPlayer = null;
-    private MediaPlayer notificationMediaPlayer = null;
+    //private MediaPlayer notificationMediaPlayer = null;
     private int mediaRingingVolume = 0;
-    private int mediaNotificationVolume = 0;
+    //private int mediaNotificationVolume = 0;
     private int usedRingingStream = AudioManager.STREAM_MUSIC;
-    private int usedNotificationStream = AudioManager.STREAM_MUSIC;
+    //private int usedNotificationStream = AudioManager.STREAM_MUSIC;
 
     private MediaPlayer eventNotificationMediaPlayer = null;
     private boolean eventNotificationIsPlayed = false;
@@ -325,7 +325,7 @@ public class PhoneProfilesService extends Service
         ////
 
         ringingMediaPlayer = null;
-        notificationMediaPlayer = null;
+        //notificationMediaPlayer = null;
     }
 
     @Override
@@ -393,7 +393,7 @@ public class PhoneProfilesService extends Service
         stopPhoneStateScanner();
 
         stopSimulatingRingingCall(true);
-        stopSimulatingNotificationTone(true);
+        //stopSimulatingNotificationTone(true);
 
         instance = null;
 
@@ -433,8 +433,8 @@ public class PhoneProfilesService extends Service
             if (intent != null) {
                 if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_RINGING_CALL, false))
                     doSimulatingRingingCall(intent);
-                if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_NOTIFICATION_TONE, false))
-                    doSimulatingNotificationTone(intent);
+                //if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_NOTIFICATION_TONE, false))
+                //    doSimulatingNotificationTone(intent);
 
                 if (intent.getBooleanExtra(EXTRA_START_STOP_SCANNER, false)) {
                     switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
@@ -893,7 +893,7 @@ public class PhoneProfilesService extends Service
                 try {
                     Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
                     if (uri != null)
-                        newRingtone = uri.getPath();
+                        newRingtone = uri.toString();
                     else
                         newRingtone = "";
                 } catch (SecurityException e) {
@@ -977,7 +977,7 @@ public class PhoneProfilesService extends Service
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
-            stopSimulatingNotificationTone(true);
+            //stopSimulatingNotificationTone(true);
 
             if ((eventNotificationMediaPlayer != null) && eventNotificationIsPlayed) {
                 if (eventNotificationMediaPlayer.isPlaying())
@@ -1075,7 +1075,7 @@ public class PhoneProfilesService extends Service
         RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
     }
 
-    private void doSimulatingNotificationTone(Intent intent) {
+    /*private void doSimulatingNotificationTone(Intent intent) {
         if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_NOTIFICATION_TONE, false) &&
                 !ringingCallIsSimulating)
         {
@@ -1096,7 +1096,7 @@ public class PhoneProfilesService extends Service
             try {
                 Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION);
                 if (uri != null)
-                    newNotificationTone = uri.getPath();
+                    newNotificationTone = uri.toString();
                 else
                     newNotificationTone = "";
             } catch (SecurityException e) {
@@ -1221,16 +1221,21 @@ public class PhoneProfilesService extends Service
 
                         PPApplication.logE("PhoneProfilesService.startSimulatingNotificationTone", "mediaNotificationVolume=" + mediaNotificationVolume);
 
-                        /*if (android.os.Build.VERSION.SDK_INT >= 23)
-                            audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
-                        else
-                            audioManager.setStreamMute(AudioManager.STREAM_RING, true);*/
                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaNotificationVolume, 0);
 
                         notificationMediaPlayer.start();
 
                         notificationToneIsSimulating = true;
                         PPApplication.logE("PhoneProfilesService.startSimulatingNotificationTone", "notification played");
+
+                        final Context context = this;
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                stopSimulatingNotificationTone(true);
+                            }
+                        }, notificationMediaPlayer.getDuration());
+
                     } else
                         PPApplication.logE("PhoneProfilesService.startSimulatingNotificationTone", "focus not granted");
                 } catch (SecurityException e) {
@@ -1261,20 +1266,15 @@ public class PhoneProfilesService extends Service
             notificationMediaPlayer.release();
             notificationMediaPlayer = null;
 
-                /*if (android.os.Build.VERSION.SDK_INT >= 23)
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, 0);
-                else
-                    audioManager.setStreamMute(AudioManager.STREAM_RING, false);*/
-
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
-            PPApplication.logE("PhoneProfilesService.stopSimulatingNotificationTone", "ringing stopped");
+            PPApplication.logE("PhoneProfilesService.stopSimulatingNotificationTone", "notification stopped");
         }
         if (abadonFocus)
             audioManager.abandonAudioFocus(this);
         //}
         notificationToneIsSimulating = false;
         RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
-    }
+    }*/
 
     @Override
     public void onAudioFocusChange(int focusChange) {
@@ -1283,49 +1283,56 @@ public class PhoneProfilesService extends Service
 
         if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
             // Pause playback
-            if ((ringingMediaPlayer != null) && ringingCallIsSimulating)
+            PPApplication.logE("PhoneProfilesService.onAudioFocusChange","AUDIOFOCUS_LOSS_TRANSIENT");
+            /*if ((ringingMediaPlayer != null) && ringingCallIsSimulating)
                 if (ringingMediaPlayer.isPlaying())
                     ringingMediaPlayer.pause();
             if ((notificationMediaPlayer != null) && notificationToneIsSimulating)
                 if (notificationMediaPlayer.isPlaying())
-                    notificationMediaPlayer.pause();
+                    notificationMediaPlayer.pause();*/
+            stopSimulatingRingingCall(false);
+            //stopSimulatingNotificationTone(false);
+            audioManager.abandonAudioFocus(this);
         }
         if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
             // Lower the volume
+            PPApplication.logE("PhoneProfilesService.onAudioFocusChange","AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK");
             if ((ringingMediaPlayer != null) && ringingCallIsSimulating) {
                 if (usedRingingStream == AudioManager.STREAM_MUSIC)
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
             }
-            if ((notificationMediaPlayer != null) && notificationToneIsSimulating) {
+            /*if ((notificationMediaPlayer != null) && notificationToneIsSimulating) {
                 if (usedNotificationStream == AudioManager.STREAM_MUSIC)
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
-            }
+            }*/
         } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
             // Resume playback
+            PPApplication.logE("PhoneProfilesService.onAudioFocusChange","AUDIOFOCUS_GAIN");
             if ((ringingMediaPlayer != null) && ringingCallIsSimulating) {
                 if (usedRingingStream == AudioManager.STREAM_MUSIC)
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaRingingVolume, 0);
                 if (!ringingMediaPlayer.isPlaying())
                     ringingMediaPlayer.start();
             }
-            if ((notificationMediaPlayer != null) && notificationToneIsSimulating) {
+            /*if ((notificationMediaPlayer != null) && notificationToneIsSimulating) {
                 if (usedNotificationStream == AudioManager.STREAM_MUSIC)
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaNotificationVolume, 0);
                 if (!notificationMediaPlayer.isPlaying())
                     notificationMediaPlayer.start();
-            }
+            }*/
         } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
-            stopSimulatingRingingCall(false);
-            stopSimulatingNotificationTone(false);
-            audioManager.abandonAudioFocus(this);
             // Stop playback
+            PPApplication.logE("PhoneProfilesService.onAudioFocusChange","AUDIOFOCUS_LOSS");
+            stopSimulatingRingingCall(false);
+            //stopSimulatingNotificationTone(false);
+            audioManager.abandonAudioFocus(this);
         }
     }
 
     //---------------------------
 
     public void playEventNotificationSound (final String eventNotificationSound) {
-        if ((!ringingCallIsSimulating) && (!notificationToneIsSimulating)) {
+        if ((!ringingCallIsSimulating)/* && (!notificationToneIsSimulating)*/) {
 
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -1372,7 +1379,6 @@ public class PhoneProfilesService extends Service
                     eventNotificationIsPlayed = true;
 
                     final Context context = this;
-                    //Thread.sleep(eventNotificationMediaPlayer.getDuration());
                     new Timer().schedule(new TimerTask() {
                         @Override
                         public void run() {

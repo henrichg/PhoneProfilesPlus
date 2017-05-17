@@ -609,7 +609,7 @@ public class ActivateProfileHelper {
                             try {
                                 audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
                                 PhoneProfilesService.ringingVolume = volume;
-                                PhoneProfilesService.notificationVolume = volume;
+                                //PhoneProfilesService.notificationVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                                 audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
@@ -637,7 +637,7 @@ public class ActivateProfileHelper {
                             //Log.e("ActivateProfileHelper","setVolumes set notification volume="+volume);
                             try {
                                 audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
-                                PhoneProfilesService.notificationVolume = volume;
+                                //PhoneProfilesService.notificationVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                             } catch (Exception ignored) { }
                         }
@@ -659,7 +659,7 @@ public class ActivateProfileHelper {
                         if (volume != -999) {
                             try {
                                 audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
-                                PhoneProfilesService.notificationVolume = volume;
+                                //PhoneProfilesService.notificationVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
                                 //correctVolume0(audioManager);
                             } catch (Exception ignored) { }
@@ -685,7 +685,7 @@ public class ActivateProfileHelper {
                         if (volume != -999) {
                             try {
                                 audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
-                                PhoneProfilesService.notificationVolume = volume;
+                                //PhoneProfilesService.notificationVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
                                 //correctVolume0(audioManager);
                             } catch (Exception ignored) { }

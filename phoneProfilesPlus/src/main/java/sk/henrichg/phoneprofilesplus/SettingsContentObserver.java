@@ -63,7 +63,7 @@ class SettingsContentObserver  extends ContentObserver {
                 }
                 if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
                     ActivateProfileHelper.setNotificationVolume(context, currentVolume);
-                    PhoneProfilesService.notificationVolume = currentVolume;
+                    //PhoneProfilesService.notificationVolume = currentVolume;
                 }
             }
         }
@@ -77,7 +77,7 @@ class SettingsContentObserver  extends ContentObserver {
                 }
                 if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
                     ActivateProfileHelper.setNotificationVolume(context, currentVolume);
-                    PhoneProfilesService.notificationVolume = currentVolume;
+                    //PhoneProfilesService.notificationVolume = currentVolume;
                 }
             }
         }

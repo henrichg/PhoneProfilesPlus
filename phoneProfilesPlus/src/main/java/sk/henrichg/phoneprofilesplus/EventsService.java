@@ -91,7 +91,7 @@ public class EventsService extends IntentService
         try {
             Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
             if (uri != null)
-                oldRingtone = uri.getPath();
+                oldRingtone = uri.toString();
             else
                 oldRingtone = "";
         } catch (SecurityException e) {
@@ -104,7 +104,7 @@ public class EventsService extends IntentService
         try {
             Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION);
             if (uri != null)
-                oldNotificationTone = uri.getPath();
+                oldNotificationTone = uri.toString();
             else
                 oldNotificationTone = "";
         } catch (SecurityException e) {
@@ -648,7 +648,20 @@ public class EventsService extends IntentService
                 editor.apply();
             }
         }
-
+        /*else
+        if (broadcastReceiverType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+            // start PhoneProfilesService for notification tone simulation
+            Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+            lIntent.putExtra(EXTRA_SIMULATE_NOTIFICATION_TONE, true);
+            lIntent.putExtra(EXTRA_OLD_RINGER_MODE, oldRingerMode);
+            lIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+            lIntent.putExtra(EXTRA_OLD_ZEN_MODE, oldZenMode);
+            lIntent.putExtra(EXTRA_OLD_NOTIFICATION_TONE, oldNotificationTone);
+            context.startService(lIntent);
+        }
+        else
         if (broadcastReceiverType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
             if ((android.os.Build.VERSION.SDK_INT >= 21) && intent.getStringExtra(EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED).equals("posted")) {
                 // start PhoneProfilesService for notification tone simulation
@@ -662,7 +675,7 @@ public class EventsService extends IntentService
                 lIntent.putExtra(EXTRA_OLD_NOTIFICATION_TONE, oldNotificationTone);
                 context.startService(lIntent);
             }
-        }
+        }*/
 
         // completting wake
         if (broadcastReceiverType.equals(BatteryEventBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //batteryEvent
