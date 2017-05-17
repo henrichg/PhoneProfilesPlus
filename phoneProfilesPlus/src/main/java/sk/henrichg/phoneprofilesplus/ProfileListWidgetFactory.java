@@ -209,7 +209,6 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
         createProfilesDataWrapper();
 
-        dataWrapper.invalidateProfileList();
         List<Profile> newProfileList = dataWrapper.getNewProfileList();
 
         if (!ApplicationPreferences.applicationWidgetListHeader(context))
@@ -225,7 +224,9 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
         Collections.sort(newProfileList, new ProfileComparator());
 
-        profileList.addAll(newProfileList);
+        dataWrapper.invalidateProfileList();
+        dataWrapper.setProfileList(newProfileList, false);
+        profileList = newProfileList;
     }
 
     private class ProfileComparator implements Comparator<Profile> {
