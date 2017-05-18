@@ -1218,8 +1218,11 @@ public class Profile {
         else
         if (monochrome)
         {
-            int iconResource = context.getResources().getIdentifier(getIconIdentifier(), "drawable", context.getPackageName());
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
+            Resources resources = context.getResources();
+            int iconResource = resources.getIdentifier(getIconIdentifier(), "drawable", context.getPackageName());
+            int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
+            int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+            Bitmap bitmap = BitmapManipulator.resampleResource(resources, iconResource, width, height);
             _iconBitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue/*, context*/);
             // getIsIconResourceID must return false
             //_icon = getIconIdentifier() + "|0";
@@ -1234,8 +1237,11 @@ public class Profile {
         }
         else
         if (getUseCustomColorForIcon()) {
-            int iconResource = context.getResources().getIdentifier(getIconIdentifier(), "drawable", context.getPackageName());
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
+            Resources resources = context.getResources();
+            int iconResource = resources.getIdentifier(getIconIdentifier(), "drawable", context.getPackageName());
+            int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
+            int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+            Bitmap bitmap = BitmapManipulator.resampleResource(resources, iconResource, width, height);
             _iconBitmap = BitmapManipulator.recolorBitmap(bitmap, getIconCustomColor()/*, context*/);
             // getIsIconResourceID must return false
             //_icon = getIconIdentifier() + "|0";
