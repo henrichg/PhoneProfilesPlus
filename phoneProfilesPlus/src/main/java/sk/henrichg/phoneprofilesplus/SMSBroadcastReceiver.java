@@ -53,34 +53,36 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
             PPApplication.logE("SMSBroadcastReceiver.onReceive","sent");
         }*/
         else
-        if (intent.getAction().equals("android.provider.Telephony.WAP_PUSH_RECEIVED") &&
-            intent.getType().equals("application/vnd.wap.mms-message"))
-        {
-            PPApplication.logE("SMSBroadcastReceiver.onReceive","MMS received");
+        if (intent.getAction().equals("android.provider.Telephony.WAP_PUSH_RECEIVED")) {
+            String type = intent.getType();
 
-            smsMmsReceived = true;
+            if ((type != null) && type.equals("application/vnd.wap.mms-message")) {
 
-            Bundle bundle = intent.getExtras();
-            if (bundle != null)
-            {
-                byte[] buffer = bundle.getByteArray("data");
-                if (buffer != null) {
-                    String incomingNumber = new String(buffer);
-                    int indx = incomingNumber.indexOf("/TYPE");
+                PPApplication.logE("SMSBroadcastReceiver.onReceive", "MMS received");
 
-                    if (indx > 0 && (indx - 15) > 0) {
-                        int newIndx = indx - 15;
-                        incomingNumber = incomingNumber.substring(newIndx, indx);
-                        indx = incomingNumber.indexOf("+");
-                        if (indx > 0) {
-                            origin = incomingNumber.substring(indx);
+                smsMmsReceived = true;
+
+                Bundle bundle = intent.getExtras();
+                if (bundle != null) {
+                    byte[] buffer = bundle.getByteArray("data");
+                    if (buffer != null) {
+                        String incomingNumber = new String(buffer);
+                        int indx = incomingNumber.indexOf("/TYPE");
+
+                        if (indx > 0 && (indx - 15) > 0) {
+                            int newIndx = indx - 15;
+                            incomingNumber = incomingNumber.substring(newIndx, indx);
+                            indx = incomingNumber.indexOf("+");
+                            if (indx > 0) {
+                                origin = incomingNumber.substring(indx);
+                            }
                         }
                     }
-                }
                 /*int transactionId = bundle.getInt("transactionId");
                 int pduType = bundle.getInt("pduType");
                 byte[] buffer2 = bundle.getByteArray("header");      
                 String header = new String(buffer2);*/
+                }
             }
         }
 
