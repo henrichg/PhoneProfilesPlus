@@ -45,7 +45,7 @@ public class DataWrapper {
     private boolean forGUI = false;
     private boolean monochrome = false;
     private int monochromeValue = 0xFF;
-    private static Handler toastHandler;
+    private Handler toastHandler;
 
     private DatabaseHandler databaseHandler = null;
     private ActivateProfileHelper activateProfileHelper = null;

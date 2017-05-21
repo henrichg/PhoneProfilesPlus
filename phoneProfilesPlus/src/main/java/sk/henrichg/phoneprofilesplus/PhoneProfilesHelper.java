@@ -262,9 +262,9 @@ class PhoneProfilesHelper {
         //50+100+200+400+800+1600+3200+6400
 
         OK = true;
-        
-        while (!cmd.isFinished() && waitTill<=waitTillLimit) {
-            synchronized (cmd) {
+
+        synchronized (cmd) {
+            while (!cmd.isFinished() && waitTill<=waitTillLimit) {
                 try {
                     if (!cmd.isFinished()) {
                         cmd.wait(waitTill);
