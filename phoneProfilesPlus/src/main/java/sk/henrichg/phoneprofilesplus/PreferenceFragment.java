@@ -86,13 +86,17 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PPApplication.logE("PreferenceFragment.onCreate","xxx");
         if ((!nested) && (addPreferencesFromResource() != -1)) {
             addPreferencesFromResource(addPreferencesFromResource());
         }
 
         //If we need to restore the state after a configuration change
+        PPApplication.logE("PreferenceFragment.onCreate","savedInstanceState="+savedInstanceState);
+        PPApplication.logE("PreferenceFragment.onCreate","getPreferenceScreen()="+getPreferenceScreen());
         if (savedInstanceState != null) {
             if (getPreferenceScreen() != null) { //Main fragment will fill the HashMap
+                PPApplication.logE("PreferenceFragment.onCreate","put preferenceScreenHashMap");
                 ArrayList<Preference> preferences =  getAllPreferenceScreen(getPreferenceScreen(),
                         new ArrayList<Preference>());
                 for(Preference preference: preferences){
@@ -103,6 +107,7 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
                 PreferenceScreen preferenceScreen = preferenceScreenHashMap
                         .get(savedInstanceState
                                 .getString("sk.henrichg.phoneprofilesplus.nestedFragment"));
+                PPApplication.logE("PreferenceFragment.onCreate","preferenceScreenHashMap.preferenceScreen="+preferenceScreen);
                 if (preferenceScreen != null) {
                     this.setPreferenceScreen(preferenceScreen);
                 }
@@ -136,8 +141,12 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
                              Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
         if (v != null) {
+            PPApplication.logE("PreferenceFragment.onCreateView","mPreferenceScreen="+mPreferenceScreen);
+            PPApplication.logE("PreferenceFragment.onCreateView","getPreferenceScreen()="+getPreferenceScreen());
+
             if (mPreferenceScreen != null && getPreferenceScreen() == null) {
                 super.setPreferenceScreen(mPreferenceScreen);
+                PPApplication.logE("PreferenceFragment.onCreateView","setPreferenceScreen");
             }
             ListView lv = (ListView) v.findViewById(android.R.id.list);
             lv.setPadding(0, 0, 0, 0);
@@ -201,6 +210,7 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
     @Override
     public void onDestroy() {
         super.onDestroy();
+        PPApplication.logE("PreferenceFragment.onDestroy","xxx");
         if (preferenceScreenHashMap.size() > 0) {
             preferenceScreenHashMap.clear();
         }
