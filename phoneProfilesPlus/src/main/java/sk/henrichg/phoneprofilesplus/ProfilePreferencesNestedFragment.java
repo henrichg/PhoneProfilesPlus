@@ -1389,8 +1389,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             Uri selectedImage = Uri.parse(d);
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 try {
-                    final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                    final int takeFlags = data.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION;
                     ContentResolver resolver = getActivity().getContentResolver();
+                    //noinspection WrongConstant
                     resolver.takePersistableUriPermission(selectedImage, takeFlags);
                 } catch (Exception ignored) {}
             }
@@ -1406,8 +1407,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             Uri selectedImage = Uri.parse(d);
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 try {
-                    final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                    final int takeFlags = data.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION;
                     ContentResolver resolver = getActivity().getContentResolver();
+                    //noinspection WrongConstant
                     resolver.takePersistableUriPermission(selectedImage, takeFlags);
                 } catch (Exception ignored) {}
             }
