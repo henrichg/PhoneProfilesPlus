@@ -310,10 +310,16 @@ public class ActivateProfileActivity extends AppCompatActivity {
     {
         setEventsRunStopIndicator();
 
-        Fragment fragment = getFragmentManager().findFragmentById(R.id.activate_profile_list);
+        final Fragment fragment = getFragmentManager().findFragmentById(R.id.activate_profile_list);
+        final boolean _refreshIcons = refreshIcons;
         if (fragment != null)
         {
-            ((ActivateProfileListFragment)fragment).refreshGUI(refreshIcons);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ((ActivateProfileListFragment)fragment).refreshGUI(_refreshIcons);
+                }
+            });
         }
     }
 

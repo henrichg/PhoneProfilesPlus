@@ -1875,13 +1875,20 @@ public class EditorProfilesActivity extends AppCompatActivity
     {
         setEventsRunStopIndicator();
 
-        Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
+        final Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
+        final boolean _refreshIcons = refreshIcons;
+        final boolean _setPosition = setPosition;
         if (fragment != null)
         {
-            if (fragment instanceof EditorProfileListFragment)
-                ((EditorProfileListFragment)fragment).refreshGUI(refreshIcons, setPosition);
-            else
-                ((EditorEventListFragment)fragment).refreshGUI(refreshIcons, setPosition);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (fragment instanceof EditorProfileListFragment)
+                        ((EditorProfileListFragment)fragment).refreshGUI(_refreshIcons, _setPosition);
+                    else
+                        ((EditorEventListFragment)fragment).refreshGUI(_refreshIcons, _setPosition);
+                }
+            });
         }
     }
 
