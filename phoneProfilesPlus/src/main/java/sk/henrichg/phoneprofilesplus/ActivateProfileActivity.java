@@ -307,19 +307,21 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     public void refreshGUI(boolean refreshIcons)
     {
-        setEventsRunStopIndicator();
-
-        final Fragment fragment = getFragmentManager().findFragmentById(R.id.activate_profile_list);
         final boolean _refreshIcons = refreshIcons;
-        if (fragment != null)
-        {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setEventsRunStopIndicator();
+
+                Fragment fragment = getFragmentManager().findFragmentById(R.id.activate_profile_list);
+
+                if (fragment != null)
+                {
                     ((ActivateProfileListFragment)fragment).refreshGUI(_refreshIcons);
                 }
-            });
-        }
+            }
+        });
     }
 
     private DataWrapper getDataWrapper()

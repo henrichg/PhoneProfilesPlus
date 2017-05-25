@@ -590,50 +590,49 @@ public class EditorEventListFragment extends Fragment {
 
     public void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition)
     {
-        if (listView != null)
-            listView.cancelDrag();
+        synchronized (PPApplication.refreshEditorEventsListMutex) {
+            if (listView != null)
+                listView.cancelDrag();
 
-        if (eventListAdapter != null)
-        {
-            if ((newEvent) && (event != null))
-                // add event into listview
-                eventListAdapter.addItem(event, false);
-        }
-
-        if (eventList != null)
-        {
-            // sort list
-            sortList(eventList, orderType, dataWrapper);
-        }
-
-        if (eventListAdapter != null)
-        {
-            int eventPos;
-
-            if (event != null)
-                eventPos = eventListAdapter.getItemPosition(event);
-            else
-                eventPos = listView.getCheckedItemPosition();
-
-            eventListAdapter.notifyDataSetChanged(refreshIcons);
-
-            if (setPosition || newEvent) {
-                if (eventPos != ListView.INVALID_POSITION) {
-                    // set event visible in list
-                    listView.setItemChecked(eventPos, true);
-                    int last = listView.getLastVisiblePosition();
-                    int first = listView.getFirstVisiblePosition();
-                    if ((eventPos <= first) || (eventPos >= last)) {
-                        listView.setSelection(eventPos);
-                        //listView.smoothScrollToPosition(profilePos);
-                    }
-                }
+            if (eventListAdapter != null) {
+                if ((newEvent) && (event != null))
+                    // add event into listview
+                    eventListAdapter.addItem(event, false);
             }
 
-            boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
-            if (startTargetHelps)
-                showAdapterTargetHelps();
+            if (eventList != null) {
+                // sort list
+                sortList(eventList, orderType, dataWrapper);
+            }
 
+            if (eventListAdapter != null) {
+                int eventPos;
+
+                if (event != null)
+                    eventPos = eventListAdapter.getItemPosition(event);
+                else
+                    eventPos = listView.getCheckedItemPosition();
+
+                eventListAdapter.notifyDataSetChanged(refreshIcons);
+
+                if (setPosition || newEvent) {
+                    if (eventPos != ListView.INVALID_POSITION) {
+                        // set event visible in list
+                        listView.setItemChecked(eventPos, true);
+                        int last = listView.getLastVisiblePosition();
+                        int first = listView.getFirstVisiblePosition();
+                        if ((eventPos <= first) || (eventPos >= last)) {
+                            listView.setSelection(eventPos);
+                            //listView.smoothScrollToPosition(profilePos);
+                        }
+                    }
+                }
+
+                boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+                if (startTargetHelps)
+                    showAdapterTargetHelps();
+
+            }
         }
     }
 

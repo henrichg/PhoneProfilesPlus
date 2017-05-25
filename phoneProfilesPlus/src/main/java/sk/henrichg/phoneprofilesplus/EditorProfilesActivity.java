@@ -1873,23 +1873,23 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     public void refreshGUI(boolean refreshIcons, boolean setPosition)
     {
-        setEventsRunStopIndicator();
-
-        final Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
         final boolean _refreshIcons = refreshIcons;
         final boolean _setPosition = setPosition;
-        if (fragment != null)
-        {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setEventsRunStopIndicator();
+
+                Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment != null) {
                     if (fragment instanceof EditorProfileListFragment)
-                        ((EditorProfileListFragment)fragment).refreshGUI(_refreshIcons, _setPosition);
+                        ((EditorProfileListFragment) fragment).refreshGUI(_refreshIcons, _setPosition);
                     else
-                        ((EditorEventListFragment)fragment).refreshGUI(_refreshIcons, _setPosition);
+                        ((EditorEventListFragment) fragment).refreshGUI(_refreshIcons, _setPosition);
                 }
-            });
-        }
+            }
+        });
     }
 
     /*

@@ -831,27 +831,27 @@ public class EditorProfileListFragment extends Fragment {
 
     public void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition)
     {
-        if (listView != null)
-            listView.cancelDrag();
+        synchronized (PPApplication.refreshEditorProfilesListMutex) {
+            if (listView != null)
+                listView.cancelDrag();
 
-        if (profileListAdapter != null)
-        {
-            if ((newProfile) && (profile != null))
-                // add profile into listview
-                profileListAdapter.addItem(profile, false);
+            if (profileListAdapter != null) {
+                if ((newProfile) && (profile != null))
+                    // add profile into listview
+                    profileListAdapter.addItem(profile, false);
+            }
+
+            if (profileList != null) {
+                // sort list
+                if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
+                    sortAlphabetically(profileList);
+                else
+                    sortByPOrder(profileList);
+            }
+
+            if (setPosition || newProfile)
+                setProfileSelection(profile, refreshIcons);
         }
-
-        if (profileList != null)
-        {
-            // sort list
-            if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
-                sortAlphabetically(profileList);
-            else
-                sortByPOrder(profileList);
-        }
-
-        if (setPosition || newProfile)
-            setProfileSelection(profile, refreshIcons);
     }
 
     /*
