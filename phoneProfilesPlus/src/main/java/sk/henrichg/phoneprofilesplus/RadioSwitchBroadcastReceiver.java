@@ -18,13 +18,15 @@ public class RadioSwitchBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.logE("##### RadioSwitchBroadcastReceiver.onReceive", "xxx");
 
+        Context appContext = context.getApplicationContext();
+
         int radioSwitchType = intent.getIntExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, 0);
         boolean radioSwitchState = intent.getBooleanExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, false);
 
         PPApplication.logE("  RadioSwitchBroadcastReceiver.onReceive", "radioSwitchType="+radioSwitchType);
         PPApplication.logE("  RadioSwitchBroadcastReceiver.onReceive", "radioSwitchState="+radioSwitchState);
 
-        startService(context, radioSwitchType, radioSwitchState);
+        startService(appContext, radioSwitchType, radioSwitchState);
     }
 
     private static void startService(Context context, int radioSwitchType, boolean radioSwitchState)

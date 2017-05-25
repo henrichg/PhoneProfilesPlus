@@ -1948,14 +1948,16 @@ public class DataWrapper {
                 PPApplication.logE("%%%% DataWrapper.doEventService","wifiStateEnabled=true");
 
                 PPApplication.logE("@@@ DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
-                //if (networkInfo.isConnected())
+
+                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                NetworkInfo.DetailedState detailedState = WifiInfo.getDetailedStateOf(wifiInfo.getSupplicantState());
+                PPApplication.logE("----- DataWrapper.doEventService","detailedState="+detailedState);
+
                 if ((activeNetwork != null) &&
                     (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
-                    activeNetwork.isConnected())
+                    (detailedState == NetworkInfo.DetailedState.CONNECTED))
                 {
                     PPApplication.logE("%%%% DataWrapper.doEventService","wifi connected");
-
-                    WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 
                     PPApplication.logE("%%%% DataWrapper.doEventService","wifiSSID="+WifiScanAlarmBroadcastReceiver.getSSID(wifiInfo, wifiConfigurationList));
                     PPApplication.logE("@@@ DataWrapper.doEventService","wifiBSSID="+wifiInfo.getBSSID());

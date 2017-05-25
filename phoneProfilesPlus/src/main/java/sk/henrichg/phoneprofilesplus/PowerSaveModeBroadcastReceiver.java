@@ -18,22 +18,24 @@ public class PowerSaveModeBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.logE("##### PowerSaveModeBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        Context appContext = context.getApplicationContext();
+
+        if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return;
 
-        //PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(appContext);
 
         boolean oldPowerSaveMode = PPApplication.isPowerSaveMode;
         PPApplication.isPowerSaveMode = false;
-        if (ApplicationPreferences.applicationPowerSaveModeInternal(context).equals("3")) {
-            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if (ApplicationPreferences.applicationPowerSaveModeInternal(appContext).equals("3")) {
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             PPApplication.isPowerSaveMode = powerManager.isPowerSaveMode();
         }
         else
             PPApplication.isPowerSaveMode = oldPowerSaveMode;
 
-        if (Event.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(appContext))
         {
             if (PhoneProfilesService.instance != null) {
                 if (PhoneProfilesService.isGeofenceScannerStarted())
@@ -46,9 +48,9 @@ public class PowerSaveModeBroadcastReceiver extends WakefulBroadcastReceiver {
             //if (!powerSaveMode)
             //{
                 // start service
-                Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                startWakefulService(context, eventsServiceIntent);
+                startWakefulService(appContext, eventsServiceIntent);
             //}
         }
     }

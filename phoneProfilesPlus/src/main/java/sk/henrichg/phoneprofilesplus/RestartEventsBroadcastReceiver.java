@@ -15,16 +15,18 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.logE("##### RestartEventsBroadcastReceiver.onReceive", "xxx");
 
+        Context appContext = context.getApplicationContext();
+
         PPApplication.logE("@@@ RestartEventsBroadcastReceiver.onReceive","####");
 
-        //PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(appContext);
 
-        if (Event.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(appContext))
         {
             boolean unblockEventsRun = intent.getBooleanExtra(DataWrapper.EXTRA_UNBLOCKEVENTSRUN, false);
             boolean interactive = intent.getBooleanExtra(DataWrapper.EXTRA_INTERACTIVE, false);
 
-            if (Event.getEventsBlocked(context) && (!unblockEventsRun))
+            if (Event.getEventsBlocked(appContext) && (!unblockEventsRun))
                 return;
 
             PPApplication.logE("$$$ restartEvents","in RestartEventsBroadcastReceiver, unblockEventsRun="+unblockEventsRun);
@@ -32,24 +34,24 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
             /*if (unblockEventsRun)
             {
                 // remove alarm for profile duration
-                ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-                PPApplication.setActivatedProfileForDuration(context, 0);
+                ProfileDurationAlarmBroadcastReceiver.removeAlarm(appContext);
+                PPApplication.setActivatedProfileForDuration(appContext, 0);
 
-                DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+                DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
 
-                PPApplication.setEventsBlocked(context, false);
+                PPApplication.setEventsBlocked(appContext, false);
                 dataWrapper.getDatabaseHandler().unblockAllEvents();
-                PPApplication.setForceRunEventRunning(context, false);
+                PPApplication.setForceRunEventRunning(appContext, false);
 
                 dataWrapper.invalidateDataWrapper();
             }*/
 
             // start service
-            Intent eventsServiceIntent = new Intent(context, EventsService.class);
+            Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
             eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
             eventsServiceIntent.putExtra(DataWrapper.EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);
             eventsServiceIntent.putExtra(DataWrapper.EXTRA_INTERACTIVE, interactive);
-            startWakefulService(context, eventsServiceIntent);
+            startWakefulService(appContext, eventsServiceIntent);
         }
     }
 }

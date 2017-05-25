@@ -14,19 +14,21 @@ public class NotificationBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.logE("##### NotificationBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        Context appContext = context.getApplicationContext();
+
+        if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return;
 
-        //PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(appContext);
 
-        if (Event.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(appContext))
         {
             //PPApplication.logE("@@@ NotificationBroadcastReceiver.onReceive","packageName="+intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
 
             /*boolean notificationEventsExists = false;
 
-            DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+            DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
             notificationEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_NOTIFICATION) > 0;
             PPApplication.logE("NotificationBroadcastReceiver.onReceive","notificationEventsExists="+notificationEventsExists);
             dataWrapper.invalidateDataWrapper();
@@ -34,12 +36,12 @@ public class NotificationBroadcastReceiver extends WakefulBroadcastReceiver {
             if (notificationEventsExists)
             {*/
                 // start service
-                Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
                 //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));
                 eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, intent.getStringExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED));
-                startWakefulService(context, eventsServiceIntent);
+                startWakefulService(appContext, eventsServiceIntent);
             //}
         }
     }

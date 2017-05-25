@@ -17,11 +17,13 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.logE("##### WifiConnectionBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        Context appContext = context.getApplicationContext();
+
+        if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return;
 
-        //PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(appContext);
 
         NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
 
@@ -33,7 +35,7 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
                 // connect to SSID is not started
 
                 if (info.getState() == NetworkInfo.State.CONNECTED) {
-                    WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                    WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                     WifiInfo wifiInfo = wifiManager.getConnectionInfo();
                     PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifiInfo.getSSID()="+wifiInfo.getSSID());
                     PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "PhoneProfilesService.connectToSSID="+PhoneProfilesService.connectToSSID);
@@ -43,14 +45,14 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
                 }
             }
 
-            if (Event.getGlobalEventsRuning(context))
+            if (Event.getGlobalEventsRuning(appContext))
             {
                 if ((info.getState() == NetworkInfo.State.CONNECTED) ||
                     (info.getState() == NetworkInfo.State.DISCONNECTED))
                 {
-                    if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
-                            (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
-                            (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)))) {
+                    if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(appContext)) ||
+                            (WifiScanAlarmBroadcastReceiver.getWaitForResults(appContext)) ||
+                            (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(appContext)))) {
                         // wifi is not scanned
 
                         PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is not scanned");
@@ -59,9 +61,9 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
                             // connect to SSID is not started
 
                             // start service
-                            Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                            Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
                             eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                            startWakefulService(context, eventsServiceIntent);
+                            startWakefulService(appContext, eventsServiceIntent);
 
                         }
                     } else

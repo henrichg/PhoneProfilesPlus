@@ -28,6 +28,8 @@ public class HeadsetConnectionBroadcastReceiver extends WakefulBroadcastReceiver
 
         PPApplication.logE("##### HeadsetConnectionBroadcastReceiver.onReceive","xxx");
 
+        Context appContext = context.getApplicationContext();
+
         boolean broadcast = false;
 
         boolean connectedHeadphones = false;
@@ -69,7 +71,7 @@ public class HeadsetConnectionBroadcastReceiver extends WakefulBroadcastReceiver
         {
             PPApplication.logE("@@@ HeadsetConnectionBroadcastReceiver.onReceive","xxx");
 
-            ApplicationPreferences.getSharedPreferences(context);
+            ApplicationPreferences.getSharedPreferences(appContext);
             Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(PREF_EVENT_HEADSET_CONNECTED, connectedHeadphones);
             editor.putBoolean(PREF_EVENT_HEADSET_MICROPHONE, connectedMicrophone);
@@ -77,28 +79,28 @@ public class HeadsetConnectionBroadcastReceiver extends WakefulBroadcastReceiver
             editor.apply();
         }
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return;
 
-        //PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(appContext);
         
-        if (Event.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(appContext))
         {
             if (broadcast)
             {
                 PPApplication.logE("@@@ HeadsetConnectionBroadcastReceiver.onReceive","xxx");
 
-                /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+                /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                 boolean peripheralEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL) > 0;
                 dataWrapper.invalidateDataWrapper();
 
                 if (peripheralEventsExists)
                 {*/
                     // start service
-                    Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                    Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
                     eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                    startWakefulService(context, eventsServiceIntent);
+                    startWakefulService(appContext, eventsServiceIntent);
                 //}
             }
 

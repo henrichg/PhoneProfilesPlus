@@ -17,20 +17,22 @@ public class StartEventsServiceBroadcastReceiver extends WakefulBroadcastReceive
 
         PPApplication.logE("##### StartEventsServiceBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        Context appContext = context.getApplicationContext();
+
+        if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return;
 
-        //PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(appContext);
 
-        if (Event.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(appContext))
         {
             PPApplication.logE("@@@ StartEventsServiceBroadcastReceiver.onReceive","xxx");
 
             // start service
-            Intent eventsServiceIntent = new Intent(context, EventsService.class);
+            Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
             eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-            startWakefulService(context, eventsServiceIntent);
+            startWakefulService(appContext, eventsServiceIntent);
         }
     }
 }

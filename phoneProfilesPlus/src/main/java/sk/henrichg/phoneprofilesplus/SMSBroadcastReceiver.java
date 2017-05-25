@@ -23,6 +23,8 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.logE("##### SMSBroadcastReceiver.onReceive", "xxx");
 
+        Context appContext = context.getApplicationContext();
+
         boolean smsMmsReceived = false;
 
         String origin = "";
@@ -95,7 +97,7 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
             int gmtOffset = TimeZone.getDefault().getRawOffset();
             long time = now.getTimeInMillis() + gmtOffset;
 
-            startService(context, origin, time);
+            startService(appContext, origin, time);
         }
     }
 

@@ -19,39 +19,41 @@ public class DeviceIdleModeBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.logE("##### DeviceIdleModeBroadcastReceiver.onReceive","xxx");
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        Context appContext = context.getApplicationContext();
+
+        if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return;
 
-        //PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(appContext);
 
-        if (Event.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(appContext))
         {
-            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             // isLightDeviceIdleMode() is @hide :-(
             if (!powerManager.isDeviceIdleMode() /*&& !powerManager.isLightDeviceIdleMode()*/)
             {
                 // start service
-                Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                startWakefulService(context, eventsServiceIntent);
+                startWakefulService(appContext, eventsServiceIntent);
 
                 // rescan
-                DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+                DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
                     // send broadcast for one wifi scan
-                    WifiScanAlarmBroadcastReceiver.setAlarm(context, true, true, false);
-                    //WifiScanAlarmBroadcastReceiver.sendBroadcast(context);
+                    WifiScanAlarmBroadcastReceiver.setAlarm(appContext, true, true, false);
+                    //WifiScanAlarmBroadcastReceiver.sendBroadcast(appContext);
                 }
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0) {
                     // send broadcast for one bluetooth scan
-                    BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, true);
-                    //BluetoothScanAlarmBroadcastReceiver.sendBroadcast(context);
+                    BluetoothScanAlarmBroadcastReceiver.setAlarm(appContext, true, true);
+                    //BluetoothScanAlarmBroadcastReceiver.sendBroadcast(appContext);
                 }
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
                     // send broadcast for location scan
-                    GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, true);
-                    //GeofenceScannerAlarmBroadcastReceiver.sendBroadcast(context);
+                    GeofenceScannerAlarmBroadcastReceiver.setAlarm(appContext, true, true);
+                    //GeofenceScannerAlarmBroadcastReceiver.sendBroadcast(appContext);
                 }
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                     // rescan mobile cells

@@ -21,13 +21,15 @@ public class NFCBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.logE("##### NFCBroadcastReceiver.onReceive", "xxx");
 
+        Context appContext = context.getApplicationContext();
+
         String tagName = intent.getStringExtra(EventsService.EXTRA_EVENT_NFC_TAG_NAME);
 
         Calendar now = Calendar.getInstance();
         int gmtOffset = TimeZone.getDefault().getRawOffset();
         long time = now.getTimeInMillis() + gmtOffset;
 
-        startService(context, tagName, time);
+        startService(appContext, tagName, time);
     }
 
     private static void startService(Context context, String tagName, long time)

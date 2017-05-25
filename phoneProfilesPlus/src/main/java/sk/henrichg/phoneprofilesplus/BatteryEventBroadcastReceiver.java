@@ -18,7 +18,9 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.logE("##### BatteryEventBroadcastReceiver.onReceive","xxx");
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        Context appContext = context.getApplicationContext();
+
+        if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return;
 
@@ -54,8 +56,8 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
                 boolean oldPowerSaveMode = PPApplication.isPowerSaveMode;
                 PPApplication.isPowerSaveMode = false;
                 if ((!isCharging) &&
-                    ((ApplicationPreferences.applicationPowerSaveModeInternal(context).equals("1") && (batteryPct <= 5)) ||
-                     (ApplicationPreferences.applicationPowerSaveModeInternal(context).equals("2") && (batteryPct <= 15))))
+                    ((ApplicationPreferences.applicationPowerSaveModeInternal(appContext).equals("1") && (batteryPct <= 5)) ||
+                     (ApplicationPreferences.applicationPowerSaveModeInternal(appContext).equals("2") && (batteryPct <= 15))))
                     PPApplication.isPowerSaveMode = true;
                 else {
                     if (isCharging)
@@ -64,7 +66,7 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
                         PPApplication.isPowerSaveMode = oldPowerSaveMode;
                 }
 
-                if (Event.getGlobalEventsRuning(context)) {
+                if (Event.getGlobalEventsRuning(appContext)) {
 
                     if (PhoneProfilesService.instance != null) {
                         if (PhoneProfilesService.isGeofenceScannerStarted())
@@ -74,16 +76,16 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
                             PhoneProfilesService.phoneStateScanner.resetListening(oldPowerSaveMode, false);
                     }
 
-                    /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+                    /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                     batteryEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BATTERY) > 0;
                     dataWrapper.invalidateDataWrapper();
 
                     if (batteryEventsExists)
                     {*/
                     // start service
-                    Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                    Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
                     eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                    startWakefulService(context, eventsServiceIntent);
+                    startWakefulService(appContext, eventsServiceIntent);
                     //}
                 }
             }

@@ -29,6 +29,8 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
         PPApplication.logE("##### BluetoothConnectionBroadcastReceiver.onReceive", "xxx");
 
+        Context appContext = context.getApplicationContext();
+
         getConnectedDevices(context);
 
         String action = intent.getAction();
@@ -57,15 +59,15 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                 } else
                     removeConnectedDevice(device);
 
-                saveConnectedDevices(context);
+                saveConnectedDevices(appContext);
 
-                if (!PPApplication.getApplicationStarted(context, true))
+                if (!PPApplication.getApplicationStarted(appContext, true))
                     // application is not started
                     return;
 
-                //PPApplication.loadPreferences(context);
+                //PPApplication.loadPreferences(appContext);
 
-                /*SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+                /*SharedPreferences preferences = appContext.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
                 int lastState = preferences.getInt(PPApplication.PREF_EVENT_BLUETOOTH_LAST_STATE, -1);
                 int currState = -1;
                 if (connected)
@@ -76,20 +78,20 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                 editor.putInt(PPApplication.PREF_EVENT_BLUETOOTH_LAST_STATE, currState);
                 editor.commit();*/
 
-                if (Event.getGlobalEventsRuning(context)) {
+                if (Event.getGlobalEventsRuning(appContext)) {
 
                     //if (lastState != currState)
                     //{
                     PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive", "connected=" + connected);
 
-                    if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
-                            (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
-                            (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
-                            (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context)) ||
-                            (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)))) {
+                    if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(appContext)) ||
+                            (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(appContext)) ||
+                            (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(appContext)) ||
+                            (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(appContext)) ||
+                            (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(appContext)))) {
                         // bluetooth is not scanned
 
-                        /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+                        /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                         boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED) > 0;
                         dataWrapper.invalidateDataWrapper();
 
@@ -98,9 +100,9 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                             PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive","bluetoothEventsExists="+bluetoothEventsExists);
                         */
                         // start service
-                        Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                        Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
                         eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                        startWakefulService(context, eventsServiceIntent);
+                        startWakefulService(appContext, eventsServiceIntent);
                         //}
                     }
 
@@ -110,7 +112,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                 //if ((!connected) && (lastState != currState))
                 /*if (!connected)
                 {
-                    BluetoothScanAlarmBroadcastReceiver.stopScan(context);
+                    BluetoothScanAlarmBroadcastReceiver.stopScan(appContext);
                 }*/
 
             }

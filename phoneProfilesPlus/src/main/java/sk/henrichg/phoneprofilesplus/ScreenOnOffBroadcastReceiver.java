@@ -16,6 +16,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
         PPApplication.logE("##### ScreenOnOffBroadcastReceiver.onReceive", "xxx");
 
         Context appContext = context.getApplicationContext();
+
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return;
@@ -27,7 +28,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             PPApplication.lockDeviceActivity.overridePendingTransition(0, 0);
         }
 
-        //PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(appContext);
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
@@ -79,7 +80,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
 
         if (Event.getGlobalEventsRuning(appContext)) {
 
-            /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0); */
+            /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0); */
 
             /*boolean screenEventsExists = false;
 
@@ -113,7 +114,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                         // send broadcast for one bluetooth scan
                         PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of bluetooth scanner");
                         BluetoothScanAlarmBroadcastReceiver.setAlarm(appContext, true, true);
-                        //BluetoothScanAlarmBroadcastReceiver.sendBroadcast(context);
+                        //BluetoothScanAlarmBroadcastReceiver.sendBroadcast(appContext);
                     }
                 }
                 if (ApplicationPreferences.applicationEventLocationRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
@@ -122,7 +123,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                         // send broadcast for location scan
                         PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of location scanner");
                         GeofenceScannerAlarmBroadcastReceiver.setAlarm(appContext, true, true);
-                        //GeofenceScannerAlarmBroadcastReceiver.sendBroadcast(context);
+                        //GeofenceScannerAlarmBroadcastReceiver.sendBroadcast(appContext);
                     }
                 }
                 if (ApplicationPreferences.applicationEventMobileCellsRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||

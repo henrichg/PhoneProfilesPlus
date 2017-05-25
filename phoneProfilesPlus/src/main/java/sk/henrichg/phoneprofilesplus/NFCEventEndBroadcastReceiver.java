@@ -14,19 +14,21 @@ public class NFCEventEndBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.logE("##### NFCEventEndBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        Context appContext = context.getApplicationContext();
+
+        if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return;
 
-        //PPApplication.loadPreferences(context);
+        //PPApplication.loadPreferences(appContext);
 
-        if (Event.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRuning(appContext))
         {
             PPApplication.logE("@@@ NFCEventEndBroadcastReceiver.onReceive","xxx");
 
             /*boolean smsEventsExists = false;
 
-            DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+            DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
             smsEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_SMS) > 0;
             PPApplication.logE("SMSEventEndBroadcastReceiver.onReceive","smsEventsExists="+smsEventsExists);
             dataWrapper.invalidateDataWrapper();
@@ -34,9 +36,9 @@ public class NFCEventEndBroadcastReceiver extends WakefulBroadcastReceiver {
             if (smsEventsExists)
             {*/
                 // start service
-                Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                startWakefulService(context, eventsServiceIntent);
+                startWakefulService(appContext, eventsServiceIntent);
             //}
 
         }
