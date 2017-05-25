@@ -811,10 +811,11 @@ public class PPApplication extends Application {
     // others ------------------------------------------------------------------
 
     public static void sleep(long ms) {
-        long start = SystemClock.uptimeMillis();
+        /*long start = SystemClock.uptimeMillis();
         do {
             SystemClock.sleep(100);
-        } while (SystemClock.uptimeMillis() - start < ms);
+        } while (SystemClock.uptimeMillis() - start < ms);*/
+        SystemClock.sleep(ms);
     }
 
     public static String getROMManufacturer() {
