@@ -1935,9 +1935,10 @@ public class DataWrapper {
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             boolean isWifiEnabled = wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED;
 
-            ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            //ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            //NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
+
             //NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
 
             List<WifiSSIDData> wifiConfigurationList = WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
 
@@ -1953,9 +1954,11 @@ public class DataWrapper {
                 NetworkInfo.DetailedState detailedState = WifiInfo.getDetailedStateOf(wifiInfo.getSupplicantState());
                 PPApplication.logE("----- DataWrapper.doEventService","detailedState="+detailedState);
 
-                if ((activeNetwork != null) &&
-                    (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
-                    (detailedState == NetworkInfo.DetailedState.CONNECTED))
+                if (/*(activeNetwork != null) &&
+                    (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&*/
+                    ((detailedState == NetworkInfo.DetailedState.CONNECTED) ||
+                     (detailedState == NetworkInfo.DetailedState.OBTAINING_IPADDR))
+                   )
                 {
                     PPApplication.logE("%%%% DataWrapper.doEventService","wifi connected");
 
