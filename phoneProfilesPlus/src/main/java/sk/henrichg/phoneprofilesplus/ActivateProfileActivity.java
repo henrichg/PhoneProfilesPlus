@@ -286,7 +286,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 // a odblokuj forceRun eventy
                 PPApplication.logE("$$$ restartEvents", "from ActivateProfileActivity.onOptionsItemSelected menu_restart_events");
                 dataWrapper.restartEventsWithAlert(this);
-                dataWrapper.invalidateDataWrapper();
             }
             return true;
         default:
