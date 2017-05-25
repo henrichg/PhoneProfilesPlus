@@ -321,6 +321,9 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 bluetooth = getBluetoothAdapter(context);
 
             if (Permissions.checkLocation(context)) {
+
+                boolean startScan = false;
+
                 if ((android.os.Build.VERSION.SDK_INT >= 21)) {
                     if (ScannerService.leScanner == null)
                         ScannerService.leScanner = bluetooth.getBluetoothLeScanner();
@@ -344,7 +347,10 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                     ScanSettings settings = builder.build();
 
                     List<ScanFilter> filters = new ArrayList<>();
-                    ScannerService.leScanner.startScan(filters, settings, ScannerService.leScanCallback21);
+                    try {
+                        ScannerService.leScanner.startScan(filters, settings, ScannerService.leScanCallback21);
+                        startScan = true;
+                    } catch (Exception ignored) {}
                 }
                 else {
                     if (ScannerService.leScanCallback18 == null)
@@ -354,7 +360,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
                     tmpScanLEResults = null;
 
-                    boolean startScan = bluetooth.startLeScan(ScannerService.leScanCallback18);
+                    startScan = bluetooth.startLeScan(ScannerService.leScanCallback18);
 
                     if (!startScan) {
                         if (getBluetoothEnabledForScan(context)) {
@@ -363,7 +369,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
 
-                setWaitForLEResults(context, true); //startScan);
+                setWaitForLEResults(context, startScan);
             }
             setLEScanRequest(context, false);
         }
