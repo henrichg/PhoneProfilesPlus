@@ -884,7 +884,7 @@ public class GrantPermissionActivity extends Activity {
                 @Override
                 protected Void doInBackground(Void... params) {
                     if (!(PhoneProfilesService.isGeofenceScannerStarted() && PhoneProfilesService.geofencesScanner.isConnected())) {
-                        PPApplication.startGeofenceScanner(getApplicationContext());
+                        PPApplication.startGeofenceScanner(context);
                         PPApplication.sleep(1000);
                     }
                     return null;
