@@ -553,7 +553,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             {
                 for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
                 {
-                    if (wifiConfiguration.bssid.equals(wifiInfo.getBSSID()))
+                    if ((wifiConfiguration.bssid != null) &&
+                            (wifiConfiguration.bssid.equals(wifiInfo.getBSSID())))
                         return wifiConfiguration.ssid.replace("\"", "");
                 }
             }
