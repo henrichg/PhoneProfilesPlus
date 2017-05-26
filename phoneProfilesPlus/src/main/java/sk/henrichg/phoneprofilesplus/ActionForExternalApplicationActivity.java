@@ -43,36 +43,40 @@ public class ActionForExternalApplicationActivity extends Activity {
 
         if (action.equals(ACTION_ACTIVATE_PROFILE)) {
             String profileName = intent.getStringExtra(ActivateProfileFromExternalApplicationActivity.EXTRA_PROFILE_NAME);
-            profileName = profileName.trim();
-            //Log.d("ActionForExternalApplicationActivity.onCreate", "profileName="+profileName);
+            if (profileName != null) {
+                profileName = profileName.trim();
+                //Log.d("ActionForExternalApplicationActivity.onCreate", "profileName="+profileName);
 
-            if (!profileName.isEmpty()) {
-                dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
+                if (!profileName.isEmpty()) {
+                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
 
-                List<Profile> profileList = dataWrapper.getProfileList();
-                for (Profile profile : profileList) {
-                    if (profile._name.trim().equals(profileName)) {
-                        profile_id = profile._id;
-                        break;
+                    List<Profile> profileList = dataWrapper.getProfileList();
+                    for (Profile profile : profileList) {
+                        if (profile._name.trim().equals(profileName)) {
+                            profile_id = profile._id;
+                            break;
+                        }
                     }
+                    //Log.d("ActionForExternalApplicationActivity.onCreate", "profile_id="+profile_id);
                 }
-                //Log.d("ActionForExternalApplicationActivity.onCreate", "profile_id="+profile_id);
             }
         }
         else if (!action.equals(ACTION_RESTART_EVENTS)) {
             String eventName = intent.getStringExtra(EXTRA_EVENT_NAME);
-            eventName = eventName.trim();
-            //Log.d("ActionForExternalApplicationActivity.onCreate", "eventName=" + eventName);
+            if (eventName != null) {
+                eventName = eventName.trim();
+                //Log.d("ActionForExternalApplicationActivity.onCreate", "eventName=" + eventName);
 
-            if (!eventName.isEmpty()) {
-                List<Event> eventList = dataWrapper.getEventList();
-                for (Event event : eventList) {
-                    if (event._name.trim().equals(eventName)) {
-                        event_id = event._id;
-                        break;
+                if (!eventName.isEmpty()) {
+                    List<Event> eventList = dataWrapper.getEventList();
+                    for (Event event : eventList) {
+                        if (event._name.trim().equals(eventName)) {
+                            event_id = event._id;
+                            break;
+                        }
                     }
+                    //Log.d("ActionForExternalApplicationActivity.onCreate", "event_id=" + event_id);
                 }
-                //Log.d("ActionForExternalApplicationActivity.onCreate", "event_id=" + event_id);
             }
         }
     }
