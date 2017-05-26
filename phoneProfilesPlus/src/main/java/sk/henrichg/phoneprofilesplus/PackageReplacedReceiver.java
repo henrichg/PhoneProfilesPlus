@@ -20,6 +20,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
         PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
 
+        final Context appContext = context.getApplicationContext();
+
         //int intentUid = intent.getExtras().getInt("android.intent.extra.UID");
         //int myUid = android.os.Process.myUid();
         //if (intentUid == myUid)
@@ -27,54 +29,54 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             // start delayed bootup broadcast
             PPApplication.startedOnBoot = true;
-            AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-            Intent delayedBootUpIntent = new Intent(context, DelayedBootUpReceiver.class);
-            PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, delayedBootUpIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            AlarmManager alarmMgr = (AlarmManager)appContext.getSystemService(Context.ALARM_SERVICE);
+            Intent delayedBootUpIntent = new Intent(appContext, DelayedBootUpReceiver.class);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(appContext, 0, delayedBootUpIntent, PendingIntent.FLAG_CANCEL_CURRENT);
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.SECOND, 10);
             alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmIntent);
 
-            Permissions.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
-            Permissions.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
-            ScannerService.setShowEnableLocationNotification(context.getApplicationContext(), true);
-            ActivateProfileHelper.setScreenUnlocked(context.getApplicationContext(), true);
+            Permissions.setShowRequestAccessNotificationPolicyPermission(appContext, true);
+            Permissions.setShowRequestWriteSettingsPermission(appContext, true);
+            ScannerService.setShowEnableLocationNotification(appContext, true);
+            ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
-            int oldVersionCode = PPApplication.getSavedVersionCode(context.getApplicationContext());
+            int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
             PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "oldVersionCode="+oldVersionCode);
             int actualVersionCode;
             try {
-                PackageInfo pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+                PackageInfo pinfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
                 actualVersionCode = pinfo.versionCode;
                 PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "actualVersionCode=" + actualVersionCode);
 
                 if (oldVersionCode < actualVersionCode) {
                     if (actualVersionCode <= 2322) {
                         // for old packages use Priority in events
-                        ApplicationPreferences.getSharedPreferences(context);
+                        ApplicationPreferences.getSharedPreferences(appContext);
                         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                         PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "applicationEventUsePriority=true");
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
                         editor.apply();
-                        //PPApplication.loadPreferences(context);
+                        //PPApplication.loadPreferences(appContext);
                     }
                     if (actualVersionCode <= 2400) {
                         PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "donation alarm restart");
-                        PPApplication.setDaysAfterFirstStart(context, 0);
-                        AboutApplicationBroadcastReceiver.setAlarm(context);
+                        PPApplication.setDaysAfterFirstStart(appContext, 0);
+                        AboutApplicationBroadcastReceiver.setAlarm(appContext);
                     }
                     if (actualVersionCode <= 2500) {
                         // for old packages hide profile notification from status bar if notification is disabled
-                        ApplicationPreferences.getSharedPreferences(context);
+                        ApplicationPreferences.getSharedPreferences(appContext);
                         if (!ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true)) {
                             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                             PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "notificationShowInStatusBar=false");
                             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
                             editor.apply();
-                            //PPApplication.loadPreferences(context);
+                            //PPApplication.loadPreferences(appContext);
                         }
                     }
                     if (actualVersionCode <= 2700) {
-                        ApplicationPreferences.getSharedPreferences(context);
+                        ApplicationPreferences.getSharedPreferences(appContext);
                         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
 
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
@@ -95,7 +97,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     }
 
                     /*
-                    ApplicationPreferences.getSharedPreferences(context);
+                    ApplicationPreferences.getSharedPreferences(appContext);
                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                     editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, true);
                     editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true);
@@ -118,23 +120,23 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             PPApplication.logE("PackageReplacedReceiver.onReceive","PhoneProfilesService.instance="+PhoneProfilesService.instance);
 
-            if (PPApplication.getApplicationStarted(context, false))
+            if (PPApplication.getApplicationStarted(appContext, false))
             {
                 PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "start PhoneProfilesService");
 
                 if (PhoneProfilesService.instance != null) {
                     // stop PhoneProfilesService
-                    context.stopService(new Intent(context.getApplicationContext(), PhoneProfilesService.class));
+                    appContext.stopService(new Intent(appContext, PhoneProfilesService.class));
                     Handler handler = new Handler();
                     Runnable r = new Runnable() {
                         public void run() {
-                            startService(context);
+                            startService(appContext);
                         }
                     };
                     handler.postDelayed(r, 2000);
                 }
                 else
-                    startService(context);
+                    startService(appContext);
             }
         //}
 

@@ -10,17 +10,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
+import android.widget.AbsListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GrantPermissionActivity extends Activity {
@@ -777,7 +781,7 @@ public class GrantPermissionActivity extends Activity {
     }
 
     private void finishGrant() {
-        Context context = getApplicationContext();
+        final Context context = getApplicationContext();
 
         ActivateProfileHelper activateProfileHelper = dataWrapper.getActivateProfileHelper();
         activateProfileHelper.initialize(dataWrapper, context);
@@ -876,20 +880,35 @@ public class GrantPermissionActivity extends Activity {
         }
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
-            if (!(PhoneProfilesService.isGeofenceScannerStarted() && PhoneProfilesService.geofencesScanner.isConnected())) {
-                PPApplication.startGeofenceScanner(getApplicationContext());
-                PPApplication.sleep(1000);
-            }
-            if (Permissions.locationGeofenceEditorActivity != null)
-                Permissions.locationGeofenceEditorActivity.refreshActivity(true);
-            dataWrapper.restartEvents(false, true, false);
-            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
-                WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
-            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
-                BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
-            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
-                GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false, false);
-            finish();
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... params) {
+                    if (!(PhoneProfilesService.isGeofenceScannerStarted() && PhoneProfilesService.geofencesScanner.isConnected())) {
+                        PPApplication.startGeofenceScanner(getApplicationContext());
+                        PPApplication.sleep(1000);
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void response) {
+                    super.onPostExecute(response);
+
+                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
+                        WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
+                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
+                        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+
+                    if (Permissions.locationGeofenceEditorActivity != null)
+                        Permissions.locationGeofenceEditorActivity.refreshActivity(true);
+                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
+                        GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false, false);
+
+                    dataWrapper.restartEvents(false, true, false);
+
+                    finish();
+                }
+            }.execute();
         }
         else
         if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG) {
@@ -945,4 +964,7 @@ public class GrantPermissionActivity extends Activity {
         //}
     }
 
+    private void finishGrantForLocation() {
+
+    }
 }
