@@ -390,7 +390,7 @@ public class WifiSSIDPreference extends DialogPreference {
                 {
                     for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
                     {
-                        if (wifiConfiguration.ssid != null)
+                        if ((wifiConfiguration.bssid != null) && (wifiConfiguration.ssid != null))
                             _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), wifiConfiguration.bssid, false));
                     }
                 }

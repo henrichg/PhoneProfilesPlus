@@ -145,7 +145,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
                 {
                     for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
                     {
-                        if (wifiConfiguration.ssid != null)
+                        if ((wifiConfiguration.ssid != null) && (wifiConfiguration.bssid != null))
                             _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid/*.replace("\"", "")*/, wifiConfiguration.bssid, false));
                     }
                 }
