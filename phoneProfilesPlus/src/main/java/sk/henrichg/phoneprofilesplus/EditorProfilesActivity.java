@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -631,7 +632,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         ActivateProfileHelper.setScreenUnlocked(context, true);
 
         if (activity != null) {
-            Handler handler = new Handler();
+            Handler handler = new Handler(Looper.getMainLooper());
             Runnable r = new Runnable() {
                 public void run() {
                     activity.finish();

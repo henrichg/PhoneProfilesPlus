@@ -74,7 +74,7 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                     // start scan
                     if (WifiScanAlarmBroadcastReceiver.getScanRequest(appContext)) {
                         final Context _context = appContext;
-                        new Handler(context.getMainLooper()).postDelayed(new Runnable() {
+                        new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
