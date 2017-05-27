@@ -815,7 +815,8 @@ public class PPApplication extends Application {
         do {
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < ms);*/
-        SystemClock.sleep(ms);
+        //SystemClock.sleep(ms);
+        try{ Thread.sleep(ms); }catch(InterruptedException ignored){ }
     }
 
     public static String getROMManufacturer() {
