@@ -803,16 +803,18 @@ public class ActivateProfileHelper {
                             Log.e("ActivateProfileHelper.setVibrateWhenRinging", ee.toString());
 
                             if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
-                                String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
-                                //if (PPApplication.isSELinuxEnforcing())
-                                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                Command command = new Command(0, false, command1); //, command2);
-                                try {
-                                    //RootTools.closeAllShells();
-                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    commandWait(command);
-                                } catch (Exception e) {
-                                    Log.e("ActivateProfileHelper.setVibrateWhenRinging", "Error on run su: " + e.toString());
+                                synchronized (PPApplication.startRootCommandMutex) {
+                                    String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                    //if (PPApplication.isSELinuxEnforcing())
+                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                    Command command = new Command(0, false, command1); //, command2);
+                                    try {
+                                        //RootTools.closeAllShells();
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        commandWait(command);
+                                    } catch (Exception e) {
+                                        Log.e("ActivateProfileHelper.setVibrateWhenRinging", "Error on run su: " + e.toString());
+                                    }
                                 }
                             }
                         }
@@ -882,16 +884,18 @@ public class ActivateProfileHelper {
                 Settings.System.putInt(context.getContentResolver(), "notification_light_pulse", value);
             else {
                 if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
-                    String command1 = "settings put system " + "notification_light_pulse" + " " + value;
-                    //if (PPApplication.isSELinuxEnforcing())
-                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                    Command command = new Command(0, false, command1); //, command2);
-                    try {
-                        //RootTools.closeAllShells();
-                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                        commandWait(command);
-                    } catch (Exception e) {
-                        Log.e("ActivateProfileHelper.setNotificationLed", "Error on run su: " + e.toString());
+                    synchronized (PPApplication.startRootCommandMutex) {
+                        String command1 = "settings put system " + "notification_light_pulse" + " " + value;
+                        //if (PPApplication.isSELinuxEnforcing())
+                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                        Command command = new Command(0, false, command1); //, command2);
+                        try {
+                            //RootTools.closeAllShells();
+                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                            commandWait(command);
+                        } catch (Exception e) {
+                            Log.e("ActivateProfileHelper.setNotificationLed", "Error on run su: " + e.toString());
+                        }
                     }
                 }
             }
@@ -1447,17 +1451,19 @@ public class ActivateProfileHelper {
                                         profile.getDeviceBrightnessAdaptiveValue(context));
                             } catch (Exception ee) {
                                 if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
-                                    String command1 = "settings put system " + ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
-                                            Float.toString(profile.getDeviceBrightnessAdaptiveValue(context));
-                                    //if (PPApplication.isSELinuxEnforcing())
-                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                    Command command = new Command(0, false, command1); //, command2);
-                                    try {
-                                        //RootTools.closeAllShells();
-                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        commandWait(command);
-                                    } catch (Exception e) {
-                                        Log.e("ActivateProfileHelper.execute", "Error on run su: " + e.toString());
+                                    synchronized (PPApplication.startRootCommandMutex) {
+                                        String command1 = "settings put system " + ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
+                                                Float.toString(profile.getDeviceBrightnessAdaptiveValue(context));
+                                        //if (PPApplication.isSELinuxEnforcing())
+                                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                        Command command = new Command(0, false, command1); //, command2);
+                                        try {
+                                            //RootTools.closeAllShells();
+                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                            commandWait(command);
+                                        } catch (Exception e) {
+                                            Log.e("ActivateProfileHelper.execute", "Error on run su: " + e.toString());
+                                        }
                                     }
                                 }
                             }
@@ -2349,9 +2355,10 @@ public class ActivateProfileHelper {
             else
             if (PPApplication.isRooted()/*PPApplication.isRootGranted()*/)
             {
-                String command1 = "svc data " + (enable ? "enable" : "disable");
-                PPApplication.logE("ActivateProfileHelper.setMobileData","command="+command1);
-                Command command = new Command(0, false, command1)/* {
+                synchronized (PPApplication.startRootCommandMutex) {
+                    String command1 = "svc data " + (enable ? "enable" : "disable");
+                    PPApplication.logE("ActivateProfileHelper.setMobileData", "command=" + command1);
+                    Command command = new Command(0, false, command1)/* {
                     @Override
                     public void commandOutput(int id, String line) {
                         super.commandOutput(id, line);
@@ -2369,15 +2376,16 @@ public class ActivateProfileHelper {
                         super.commandCompleted(id, exitcode);
                         PPApplication.logE("ActivateProfileHelper.setMobileData","completed="+exitcode);
                     }
-                }*/;
-                try {
-                    //RootTools.closeAllShells();
-                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                    commandWait(command);
-                    //RootToolsSmall.runSuCommand(command1);
-                    PPApplication.logE("ActivateProfileHelper.setMobileData","after wait");
-                } catch (Exception e) {
-                    Log.e("ActivateProfileHelper.setMobileData", "Error on run su");
+                    }*/;
+                    try {
+                        //RootTools.closeAllShells();
+                        RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+                        commandWait(command);
+                        //RootToolsSmall.runSuCommand(command1);
+                        PPApplication.logE("ActivateProfileHelper.setMobileData", "after wait");
+                    } catch (Exception e) {
+                        Log.e("ActivateProfileHelper.setMobileData", "Error on run su");
+                    }
                 }
 
                 /*
@@ -2590,14 +2598,16 @@ public class ActivateProfileHelper {
                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                                 if (subscriptionInfo != null) {
                                     int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                    String command1 = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + networkType;
-                                    Command command = new Command(0, false, command1);
-                                    try {
-                                        //RootTools.closeAllShells();
-                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        commandWait(command);
-                                    } catch (Exception e) {
-                                        Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                                    synchronized (PPApplication.startRootCommandMutex) {
+                                        String command1 = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + networkType;
+                                        Command command = new Command(0, false, command1);
+                                        try {
+                                            //RootTools.closeAllShells();
+                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                            commandWait(command);
+                                        } catch (Exception e) {
+                                            Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                                        }
                                     }
                                 }
                             }
@@ -2605,14 +2615,16 @@ public class ActivateProfileHelper {
                     }
                 } else  {
                     if (transactionCode.length() > 0) {
-                        String command1 = "service call phone " + transactionCode + " i32 " + networkType;
-                        Command command = new Command(0, false, command1);
-                        try {
-                            //RootTools.closeAllShells();
-                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                            commandWait(command);
-                        } catch (Exception e) {
-                            Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                        synchronized (PPApplication.startRootCommandMutex) {
+                            String command1 = "service call phone " + transactionCode + " i32 " + networkType;
+                            Command command = new Command(0, false, command1);
+                            try {
+                                //RootTools.closeAllShells();
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                commandWait(command);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                            }
                         }
                     }
                 }
@@ -2635,21 +2647,23 @@ public class ActivateProfileHelper {
         }
         else */
         if (PPApplication.isRooted()/*PPApplication.isRootGranted()*/) {
-            String command1 = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
-            //Log.e("ActivateProfileHelper.setNFC", "command1="+command1);
-            if (command1 != null) {
-                Command command = new Command(0, false, command1);
-                try {
-                    //RootTools.closeAllShells();
-                    RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
-                    commandWait(command);
-                } catch (Exception e) {
-                    Log.e("ActivateProfileHelper.setNFC", "Error on run su");
+            synchronized (PPApplication.startRootCommandMutex) {
+                String command1 = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
+                //Log.e("ActivateProfileHelper.setNFC", "command1="+command1);
+                if (command1 != null) {
+                    Command command = new Command(0, false, command1);
+                    try {
+                        //RootTools.closeAllShells();
+                        RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
+                        commandWait(command);
+                    } catch (Exception e) {
+                        Log.e("ActivateProfileHelper.setNFC", "Error on run su");
+                    }
                 }
+                //String command = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
+                //if (command != null)
+                //  RootToolsSmall.runSuCommand(command);
             }
-            //String command = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
-            //if (command != null)
-            //  RootToolsSmall.runSuCommand(command);
         }
     }
 
@@ -2733,33 +2747,37 @@ public class ActivateProfileHelper {
                         newSet = String.format("%s,%s", provider, LocationManager.GPS_PROVIDER);
                     PPApplication.logE("ActivateProfileHelper.setGPS", "newSet="+newSet);
 
-                    command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
-                    //if (PPApplication.isSELinuxEnforcing())
-                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                    synchronized (PPApplication.startRootCommandMutex) {
+                        command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
+                        //if (PPApplication.isSELinuxEnforcing())
+                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
 
-                    //command2 = "am broadcast -a android.location.GPS_ENABLED_CHANGE --ez state true";
-                    Command command = new Command(0, false, command1); //, command2);
-                    try {
-                        //RootTools.closeAllShells();
-                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                        commandWait(command);
-                    } catch (Exception e) {
-                        //Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
-                        PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                        //command2 = "am broadcast -a android.location.GPS_ENABLED_CHANGE --ez state true";
+                        Command command = new Command(0, false, command1); //, command2);
+                        try {
+                            //RootTools.closeAllShells();
+                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                            commandWait(command);
+                        } catch (Exception e) {
+                            //Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                            PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                        }
                     }
                 }
                 else {
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
 
-                    command1 = "settings put secure location_providers_allowed +gps";
-                    Command command = new Command(0, false, command1);
-                    try {
-                        //RootTools.closeAllShells();
-                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                        commandWait(command);
-                    } catch (Exception e) {
-                        PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                    synchronized (PPApplication.startRootCommandMutex) {
+                        command1 = "settings put secure location_providers_allowed +gps";
+                        Command command = new Command(0, false, command1);
+                        try {
+                            //RootTools.closeAllShells();
+                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                            commandWait(command);
+                        } catch (Exception e) {
+                            PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                        }
                     }
                 }
             }
@@ -2843,32 +2861,36 @@ public class ActivateProfileHelper {
                     }
                     PPApplication.logE("ActivateProfileHelper.setGPS", "newSet="+newSet);
 
-                    command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
-                    //if (PPApplication.isSELinuxEnforcing())
-                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                    //command2 = "am broadcast -a android.location.GPS_ENABLED_CHANGE --ez state false";
-                    Command command = new Command(0, false, command1);//, command2);
-                    try {
-                        //RootTools.closeAllShells();
-                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                        commandWait(command);
-                    } catch (Exception e) {
-                        //Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
-                        PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                    synchronized (PPApplication.startRootCommandMutex) {
+                        command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
+                        //if (PPApplication.isSELinuxEnforcing())
+                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                        //command2 = "am broadcast -a android.location.GPS_ENABLED_CHANGE --ez state false";
+                        Command command = new Command(0, false, command1);//, command2);
+                        try {
+                            //RootTools.closeAllShells();
+                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                            commandWait(command);
+                        } catch (Exception e) {
+                            //Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                            PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                        }
                     }
                 }
                 else {
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
 
-                    command1 = "settings put secure location_providers_allowed -gps";
-                    Command command = new Command(0, false, command1);
-                    try {
-                        //RootTools.closeAllShells();
-                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                        commandWait(command);
-                    } catch (Exception e) {
-                        PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                    synchronized (PPApplication.startRootCommandMutex) {
+                        command1 = "settings put secure location_providers_allowed -gps";
+                        Command command = new Command(0, false, command1);
+                        try {
+                            //RootTools.closeAllShells();
+                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                            commandWait(command);
+                        } catch (Exception e) {
+                            PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                        }
                     }
                 }
             }
@@ -2908,30 +2930,29 @@ public class ActivateProfileHelper {
         if (PPApplication.isRooted() && PPApplication.settingsBinaryExists())
         {
             // zariadenie je rootnute
-            String command1;
-            String command2;
-            if (mode)
-            {
-                command1 = "settings put global airplane_mode_on 1";
-                command2 = "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state true";
-            }
-            else
-            {
-                command1 = "settings put global airplane_mode_on 0";
-                command2 = "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state false";
-            }
-            //if (PPApplication.isSELinuxEnforcing())
-            //{
-            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-            //	command2 = PPApplication.getSELinuxEnforceCommand(command2, Shell.ShellContext.SYSTEM_APP);
-            //}
-            Command command = new Command(0, false, command1, command2);
-            try {
-                //RootTools.closeAllShells();
-                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                commandWait(command);
-            } catch (Exception e) {
-                Log.e("AirPlaneMode_SDK17.setAirplaneMode", "Error on run su");
+            synchronized (PPApplication.startRootCommandMutex) {
+                String command1;
+                String command2;
+                if (mode) {
+                    command1 = "settings put global airplane_mode_on 1";
+                    command2 = "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state true";
+                } else {
+                    command1 = "settings put global airplane_mode_on 0";
+                    command2 = "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state false";
+                }
+                //if (PPApplication.isSELinuxEnforcing())
+                //{
+                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                //	command2 = PPApplication.getSELinuxEnforceCommand(command2, Shell.ShellContext.SYSTEM_APP);
+                //}
+                Command command = new Command(0, false, command1, command2);
+                try {
+                    //RootTools.closeAllShells();
+                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                    commandWait(command);
+                } catch (Exception e) {
+                    Log.e("AirPlaneMode_SDK17.setAirplaneMode", "Error on run su");
+                }
             }
         }
         //else
@@ -2954,14 +2975,16 @@ public class ActivateProfileHelper {
 
     private void setPowerSaveMode(boolean enable) {
         if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
-            String command1 = "settings put global low_power " + ((enable) ? 1 : 0);
-            Command command = new Command(0, false, command1);
-            try {
-                //RootTools.closeAllShells();
-                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                commandWait(command);
-            } catch (Exception e) {
-                Log.e("ActivateProfileHelper.setPowerSaveMode", "Error on run su: " + e.toString());
+            synchronized (PPApplication.startRootCommandMutex) {
+                String command1 = "settings put global low_power " + ((enable) ? 1 : 0);
+                Command command = new Command(0, false, command1);
+                try {
+                    //RootTools.closeAllShells();
+                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                    commandWait(command);
+                } catch (Exception e) {
+                    Log.e("ActivateProfileHelper.setPowerSaveMode", "Error on run su: " + e.toString());
+                }
             }
         }
     }
@@ -2992,15 +3015,17 @@ public class ActivateProfileHelper {
                 }*/
                 if (PPApplication.isRooted())
                 {
-                    String command1 = PPApplication.getJavaCommandFile(CmdGoToSleep.class, "power", context, 0);
-                    if (command1 != null) {
-                        Command command = new Command(0, false, command1);
-                        try {
-                            //RootTools.closeAllShells();
-                            RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
-                            commandWait(command);
-                        } catch (Exception e) {
-                            Log.e("ActivateProfileHelper.lockDevice", "Error on run su");
+                    synchronized (PPApplication.startRootCommandMutex) {
+                        String command1 = PPApplication.getJavaCommandFile(CmdGoToSleep.class, "power", context, 0);
+                        if (command1 != null) {
+                            Command command = new Command(0, false, command1);
+                            try {
+                                //RootTools.closeAllShells();
+                                RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
+                                commandWait(command);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.lockDevice", "Error on run su");
+                            }
                         }
                     }
                 }

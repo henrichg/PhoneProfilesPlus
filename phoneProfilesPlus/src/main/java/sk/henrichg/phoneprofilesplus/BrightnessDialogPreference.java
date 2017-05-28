@@ -464,17 +464,19 @@ public class BrightnessDialogPreference extends
                         ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, value);
             else {
                 if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
-                    String command1 = "settings put system " + ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
-                            Float.toString(value);
-                    //if (PPApplication.isSELinuxEnforcing())
-                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                    Command command = new Command(0, false, command1); //, command2);
-                    try {
-                        //RootTools.closeAllShells();
-                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                        //commandWait(command);
-                    } catch (Exception e) {
-                        Log.e("BrightnessDialogPreference.setAdaptiveBrightness", "Error on run su: " + e.toString());
+                    synchronized (PPApplication.startRootCommandMutex) {
+                        String command1 = "settings put system " + ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
+                                Float.toString(value);
+                        //if (PPApplication.isSELinuxEnforcing())
+                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                        Command command = new Command(0, false, command1); //, command2);
+                        try {
+                            //RootTools.closeAllShells();
+                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                            //commandWait(command);
+                        } catch (Exception e) {
+                            Log.e("BrightnessDialogPreference.setAdaptiveBrightness", "Error on run su: " + e.toString());
+                        }
                     }
                 }
             }
