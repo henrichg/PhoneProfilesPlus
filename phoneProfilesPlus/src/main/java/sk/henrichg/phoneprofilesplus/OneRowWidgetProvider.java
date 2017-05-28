@@ -145,7 +145,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header, pendingIntent);
 
             // aktualizacia widgetu
-            appWidgetManager.updateAppWidget(widgetId, remoteViews);
+            try {
+                appWidgetManager.updateAppWidget(widgetId, remoteViews);
+            } catch (Exception ignored) {}
         }
 
         dataWrapper.invalidateDataWrapper();

@@ -127,7 +127,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
             remoteViews.setOnClickPendingIntent(R.id.icon_widget_name, pendingIntent);
 
             // aktualizacia widgetu
-            appWidgetManager.updateAppWidget(widgetId, remoteViews);
+            try {
+                appWidgetManager.updateAppWidget(widgetId, remoteViews);
+            } catch (Exception ignored) {}
         }
 
         dataWrapper.invalidateDataWrapper();
