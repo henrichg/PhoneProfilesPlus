@@ -31,7 +31,7 @@
             android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
             android:inputType="number"
-            android:digits="0123456789:"
+            android:digits="0123456789 :"
             android:textSize="20sp" />
 
         <!--
