@@ -760,16 +760,18 @@ public class ActivateProfileHelper {
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(context, zenMode);
                 }
             } else {
-                switch (zenMode) {
-                    case ZENMODE_SILENT:
-                        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(1000);
-                        PPApplication.sleep(1000);
-                        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                        break;
-                    default:
-                        audioManager.setRingerMode(ringerMode);
+                if (canChangeZenMode(context, false)) {
+                    switch (zenMode) {
+                        case ZENMODE_SILENT:
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(1000);
+                            PPApplication.sleep(1000);
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                            break;
+                        default:
+                            audioManager.setRingerMode(ringerMode);
+                    }
                 }
             }
         }
