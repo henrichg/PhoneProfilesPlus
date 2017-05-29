@@ -66,7 +66,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                 Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
             int screenTimeout = ActivateProfileHelper.getActivatedProfileScreenTimeout(appContext);
             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screenTimeout="+screenTimeout);
-            if (screenTimeout > 0)
+            if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(context)))
                 dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
 
             dataWrapper.invalidateDataWrapper();
