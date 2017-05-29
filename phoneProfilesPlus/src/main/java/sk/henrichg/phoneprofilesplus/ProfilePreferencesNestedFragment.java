@@ -926,10 +926,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             else
             if (key.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID)) {
                 Preference preference = prefMng.findPreference(key);
-                String sValue = value.toString();
-                boolean bold = !sValue.equals(Profile.CONNECTTOSSID_JUSTANY);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, bold, false, false, false);
-                setCategorySummary(preference, bold);
+                if (preference != null) {
+                    String sValue = value.toString();
+                    boolean bold = !sValue.equals(Profile.CONNECTTOSSID_JUSTANY);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, bold, false, false, false);
+                    setCategorySummary(preference, bold);
+                }
             }
             else
             {
