@@ -508,7 +508,7 @@ public class PhoneProfilesService extends Service
         }
 
         if (PPApplication.getApplicationStarted(this, false)) {
-            geofencesScanner = new GeofencesScanner(this);
+            geofencesScanner = new GeofencesScanner(getApplicationContext());
             geofencesScanner.connect();
         }
     }
@@ -578,7 +578,7 @@ public class PhoneProfilesService extends Service
 
         if (PPApplication.getApplicationStarted(this, false)) {
             if (phoneStateScanner == null)
-                phoneStateScanner = new PhoneStateScanner(this);
+                phoneStateScanner = new PhoneStateScanner(getApplicationContext());
             phoneStateScanner.connect();
         }
     }
@@ -606,22 +606,22 @@ public class PhoneProfilesService extends Service
                 // start scanning in power save mode is not allowed
                 return;
 
-            DataWrapper dataWrapper = new DataWrapper(this, false, false, 0);
+            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) == 0)
                 return;
 
             int interval = ApplicationPreferences.applicationEventOrientationScanInterval(this);
             if (PPApplication.isPowerSaveMode && ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode(this).equals("1"))
                 interval *= 2;
-            Sensor accelerometer = getAccelerometerSensor(this);
+            Sensor accelerometer = getAccelerometerSensor(getApplicationContext());
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","accelerometer="+accelerometer);
             if (accelerometer != null)
                 mSensorManager.registerListener(this, accelerometer, 1000000 * interval);
-            Sensor magneticField = getMagneticFieldSensor(this);
+            Sensor magneticField = getMagneticFieldSensor(getApplicationContext());
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","magneticField="+magneticField);
             if (magneticField != null)
                 mSensorManager.registerListener(this, magneticField, 1000000 * interval);
-            Sensor proximity = getProximitySensor(this);
+            Sensor proximity = getProximitySensor(getApplicationContext());
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","proximity="+proximity);
             if (proximity != null) {
                 mMaxProximityDistance = proximity.getMaximumRange();
