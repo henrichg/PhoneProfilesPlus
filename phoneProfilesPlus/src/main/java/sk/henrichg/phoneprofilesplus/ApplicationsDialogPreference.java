@@ -575,7 +575,9 @@ public class ApplicationsDialogPreference  extends DialogPreference {
 
             listAdapter.notifyDataSetChanged();
 
-            if (editedApplication.shortcut) {
+            if (editedApplication.shortcut &&
+                (editedApplication.packageName != null) &&
+                (editedApplication.activityName != null)) {
                 Intent intent = new Intent(context, LaunchShortcutActivity.class);
                 intent.putExtra(LaunchShortcutActivity.EXTRA_PACKAGE_NAME, editedApplication.packageName);
                 intent.putExtra(LaunchShortcutActivity.EXTRA_ACTIVITY_NAME, editedApplication.activityName);
