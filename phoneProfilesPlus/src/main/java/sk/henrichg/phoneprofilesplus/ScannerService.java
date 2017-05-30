@@ -132,6 +132,8 @@ public class ScannerService extends IntentService
         {
             PPApplication.logE("$$$W ScannerService.onHandleIntent", "start wifi scan");
 
+            WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
+
             boolean canScan = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED;
             if (canScan) {
                 canScan = !WifiApManager.isWifiAPEnabled(context);

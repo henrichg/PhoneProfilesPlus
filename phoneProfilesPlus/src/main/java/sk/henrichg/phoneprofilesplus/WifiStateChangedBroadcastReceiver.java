@@ -90,7 +90,14 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                         */
                     } else if (!WifiScanAlarmBroadcastReceiver.getWaitForResults(appContext)) {
                         // refresh configured networks list
-                        WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(appContext);
+                        final Context _context = appContext;
+                        new Handler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
+                                WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(_context);
+                            }
+                        });
                     }
                 }
 

@@ -39,7 +39,6 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
             //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "resultsUpdated="+intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false));
 
-            WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
             //if ((android.os.Build.VERSION.SDK_INT < 23) || (intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)))
                 WifiScanAlarmBroadcastReceiver.fillScanResults(context);
             //WifiScanAlarmBroadcastReceiver.unlock();
