@@ -52,7 +52,8 @@ public class ApplicationsCache {
         {
             ResolveInfo applicationInfo = applications.get(i);
 
-            if (packageManager.getLaunchIntentForPackage(applicationInfo.activityInfo.applicationInfo.packageName) != null)
+            if ((applicationInfo.activityInfo.applicationInfo.packageName != null) &&
+                    (packageManager.getLaunchIntentForPackage(applicationInfo.activityInfo.applicationInfo.packageName) != null))
             {
                 Application newInfo = new Application();
 
@@ -84,7 +85,8 @@ public class ApplicationsCache {
             //Log.d("ApplicationsCache.getApplicationsList", "packageName="+shortcutInfo.activityInfo.packageName);
             //Log.d("ApplicationsCache.getApplicationsList", "name="+shortcutInfo.activityInfo.name);
 
-            if (packageManager.getLaunchIntentForPackage(shortcutInfo.activityInfo.applicationInfo.packageName) != null) {
+            if ((shortcutInfo.activityInfo.applicationInfo.packageName != null) &&
+                    (packageManager.getLaunchIntentForPackage(shortcutInfo.activityInfo.applicationInfo.packageName) != null)) {
                 Application newInfo = new Application();
 
                 newInfo.shortcut = true;
