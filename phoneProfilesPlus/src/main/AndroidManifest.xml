@@ -3,6 +3,7 @@
           xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           android:installLocation="internalOnly">
+
     <!-- android:installLocation="internalOnly" is needed for working BOOT_COMPLETED broadcast -->
 
     <supports-screens
@@ -49,7 +50,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <!-- <uses-permission android:name="android.permission.USE_SIP"/> -->
     <uses-permission android:name="com.android.vending.BILLING"/>
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -89,7 +90,7 @@
         android:required="false"/>
 
     <application
-        android:name="sk.henrichg.phoneprofilesplus.PPApplication"
+        android:name=".PPApplication"
         android:allowBackup="true"
         android:backupAgent=".PhoneProfilesBackupAgent"
         android:fullBackupContent="@xml/phoneprofiles_backup_scheme"
@@ -101,7 +102,9 @@
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <!-- support for 18.5:9 display (Samsung Galaxy S8, LG G6) -->
-        <meta-data android:name="android.max_aspect" android:value="2.1" />
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1"/>
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -123,7 +126,7 @@
         <!-- Fabric key -->
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="795384c10c1c3eec6489c1d2fcf5e444d013da7d" />
+            android:value="795384c10c1c3eec6489c1d2fcf5e444d013da7d"/>
 
         <activity
             android:name=".LauncherActivity"
@@ -174,25 +177,27 @@
             android:theme="@style/PopupTheme_material">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".BackgroundActivateProfileActivity"
             android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.shortcut"
             android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.shortcut"
             android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".ActivateProfileFromExternalApplicationActivity"
             android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
             android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
             android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -203,8 +208,8 @@
         <activity
             android:name=".ActionForExternalApplicationActivity"
             android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
             android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
             android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.ACTION_ACTIVATE_PROFILE"/>
@@ -234,8 +239,8 @@
         <activity
             android:name=".GrantPermissionActivity"
             android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -245,15 +250,15 @@
         <activity
             android:name=".GeofenceScannerErrorActivity"
             android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
             android:name=".LaunchShortcutActivity"
             android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -272,8 +277,8 @@
         <activity
             android:name=".NFCTagReadActivity"
             android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
@@ -292,9 +297,10 @@
             android:excludeFromRecents="true"
             android:theme="@style/EmptyTargetHelpsActivity">
         </activity>
-        <activity android:name=".LockDeviceActivity"
-                  android:excludeFromRecents="true"
-                  android:theme="@style/LockDeviceActivity" >
+        <activity
+            android:name=".LockDeviceActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/LockDeviceActivity">
         </activity>
 
         <!-- implicit broadcast receivers, in Android O exception group -->
@@ -815,7 +821,7 @@
             android:exported="false">
         </service>
         <service
-            android:name="sk.henrichg.phoneprofilesplus.PPNotificationListenerService"
+            android:name=".PPNotificationListenerService"
             android:enabled="@bool/api_v18"
             android:exported="@bool/api_v18"
             android:label="@string/app_name"
@@ -851,7 +857,10 @@
             android:name=".MobileCellsRegistrationService"
             android:enabled="true">
         </service>
-
+        <service
+            android:name=".ScreenOnOffService"
+            android:exported="false">
+        </service>
     </application>
 
 </manifest>

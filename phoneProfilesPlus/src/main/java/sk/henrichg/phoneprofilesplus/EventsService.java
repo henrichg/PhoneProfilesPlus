@@ -734,9 +734,9 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(RestartEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //restartEvents
             RestartEventsBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(ScreenOnOffBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //screenOnOff
-            ScreenOnOffBroadcastReceiver.completeWakefulIntent(intent);
+        //else
+        //if (broadcastReceiverType.equals(ScreenOnOffBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //screenOnOff
+        //    ScreenOnOffBroadcastReceiver.completeWakefulIntent(intent);
         else
         if (broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //searchCalendarEvents
             SearchCalendarEventsBroadcastReceiver.completeWakefulIntent(intent);
