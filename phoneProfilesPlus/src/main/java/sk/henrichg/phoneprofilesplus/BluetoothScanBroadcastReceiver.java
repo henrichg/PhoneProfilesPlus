@@ -68,9 +68,6 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                         BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
                     }
 
-                    if (tmpScanResults == null)
-                        tmpScanResults = new ArrayList<>();
-
                     BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
                     String btNameD = device.getName();
@@ -84,6 +81,9 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName_d="+btNameD);
                     PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName_e="+btNameE);
                     PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceAddress="+device.getAddress());
+
+                    if (tmpScanResults == null)
+                        tmpScanResults = new ArrayList<>();
 
                     boolean found = false;
                     for (BluetoothDeviceData _device : tmpScanResults)
@@ -132,7 +132,6 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                 for (BluetoothDeviceData device : tmpScanResults) {
                     scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0));
                 }
-                tmpScanResults = null;
             }
 
             /*
@@ -159,6 +158,8 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                 //Intent _intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
                 //context.sendBroadcast(_intent);
             }
+
+            tmpScanResults = null;
         }
     }
 
