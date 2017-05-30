@@ -861,6 +861,10 @@
             android:name=".ScreenOnOffService"
             android:exported="false">
         </service>
+        <service
+            android:name=".ExecuteRootProfilePrefsService"
+            android:exported="false">
+        </service>
     </application>
 
 </manifest>

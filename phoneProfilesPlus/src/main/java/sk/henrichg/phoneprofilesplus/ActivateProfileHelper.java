@@ -1296,6 +1296,25 @@ public class ActivateProfileHelper {
         }
     }
 
+    void executeRootForAdaptiveBrightness(Profile profile) {
+        if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+            synchronized (PPApplication.startRootCommandMutex) {
+                String command1 = "settings put system " + ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
+                        Float.toString(profile.getDeviceBrightnessAdaptiveValue(context));
+                //if (PPApplication.isSELinuxEnforcing())
+                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                Command command = new Command(0, false, command1); //, command2);
+                try {
+                    //RootTools.closeAllShells();
+                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                    commandWait(command);
+                } catch (Exception e) {
+                    Log.e("ActivateProfileHelper.execute", "Error on run su: " + e.toString());
+                }
+            }
+        }
+    }
+
     public void execute(Profile _profile, boolean merged, boolean _interactive)
     {
         // rozdelit zvonenie a notifikacie - zial je to oznacene ako @Hide :-(
@@ -1452,22 +1471,12 @@ public class ActivateProfileHelper {
                                         ADAPTIVE_BRIGHTNESS_SETTING_NAME,
                                         profile.getDeviceBrightnessAdaptiveValue(context));
                             } catch (Exception ee) {
-                                if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
-                                    synchronized (PPApplication.startRootCommandMutex) {
-                                        String command1 = "settings put system " + ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
-                                                Float.toString(profile.getDeviceBrightnessAdaptiveValue(context));
-                                        //if (PPApplication.isSELinuxEnforcing())
-                                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                        Command command = new Command(0, false, command1); //, command2);
-                                        try {
-                                            //RootTools.closeAllShells();
-                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                            commandWait(command);
-                                        } catch (Exception e) {
-                                            Log.e("ActivateProfileHelper.execute", "Error on run su: " + e.toString());
-                                        }
-                                    }
-                                }
+                                // run service for execute radios
+                                Intent rootServiceIntent = new Intent(context, ExecuteRootProfilePrefsService.class);
+                                rootServiceIntent.setAction(ExecuteRootProfilePrefsService.ACTION_ADAPTIVE_BRIGHTNESS);
+                                rootServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                                rootServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
+                                context.startService(rootServiceIntent);
                             }
                         }
                     }
@@ -1556,40 +1565,19 @@ public class ActivateProfileHelper {
         }
 
         // set power save mode
-        if (profile._devicePowerSaveMode != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context) == PPApplication.PREFERENCE_ALLOWED) {
-                PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                boolean _isPowerSaveMode = false;
-                if (Build.VERSION.SDK_INT >= 21)
-                    _isPowerSaveMode = powerManager.isPowerSaveMode();
-                boolean _setPowerSaveMode = false;
-                switch (profile._devicePowerSaveMode) {
-                    case 1:
-                        if (!_isPowerSaveMode) {
-                            _isPowerSaveMode = true;
-                            _setPowerSaveMode = true;
-                        }
-                        break;
-                    case 2:
-                        if (_isPowerSaveMode) {
-                            _isPowerSaveMode = false;
-                            _setPowerSaveMode = true;
-                        }
-                        break;
-                    case 3:
-                        _isPowerSaveMode = !_isPowerSaveMode;
-                        _setPowerSaveMode = true;
-                        break;
-                }
-                if (_setPowerSaveMode) {
-                    setPowerSaveMode(_isPowerSaveMode);
-                }
-            }
-        }
+        Intent rootServiceIntent = new Intent(context, ExecuteRootProfilePrefsService.class);
+        rootServiceIntent.setAction(ExecuteRootProfilePrefsService.ACTION_POWER_SAVE_MODE);
+        rootServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+        rootServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
+        context.startService(rootServiceIntent);
 
         if (Permissions.checkProfileLockDevice(context, profile)) {
             if (profile._lockDevice != 0) {
-                lockDevice(profile);
+                rootServiceIntent = new Intent(context, ExecuteRootProfilePrefsService.class);
+                rootServiceIntent.setAction(ExecuteRootProfilePrefsService.ACTION_LOCK_DEVICE);
+                rootServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                rootServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
+                context.startService(rootServiceIntent);
             }
         }
 
@@ -2975,23 +2963,52 @@ public class ActivateProfileHelper {
         context.sendBroadcast(intent);
     }
 
-    private void setPowerSaveMode(boolean enable) {
-        if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
-            synchronized (PPApplication.startRootCommandMutex) {
-                String command1 = "settings put global low_power " + ((enable) ? 1 : 0);
-                Command command = new Command(0, false, command1);
-                try {
-                    //RootTools.closeAllShells();
-                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    commandWait(command);
-                } catch (Exception e) {
-                    Log.e("ActivateProfileHelper.setPowerSaveMode", "Error on run su: " + e.toString());
+    void setPowerSaveMode(Profile profile) {
+        if (profile._devicePowerSaveMode != 0) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context) == PPApplication.PREFERENCE_ALLOWED) {
+                PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                boolean _isPowerSaveMode = false;
+                if (Build.VERSION.SDK_INT >= 21)
+                    _isPowerSaveMode = powerManager.isPowerSaveMode();
+                boolean _setPowerSaveMode = false;
+                switch (profile._devicePowerSaveMode) {
+                    case 1:
+                        if (!_isPowerSaveMode) {
+                            _isPowerSaveMode = true;
+                            _setPowerSaveMode = true;
+                        }
+                        break;
+                    case 2:
+                        if (_isPowerSaveMode) {
+                            _isPowerSaveMode = false;
+                            _setPowerSaveMode = true;
+                        }
+                        break;
+                    case 3:
+                        _isPowerSaveMode = !_isPowerSaveMode;
+                        _setPowerSaveMode = true;
+                        break;
+                }
+                if (_setPowerSaveMode) {
+                    if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                        synchronized (PPApplication.startRootCommandMutex) {
+                            String command1 = "settings put global low_power " + ((_isPowerSaveMode) ? 1 : 0);
+                            Command command = new Command(0, false, command1);
+                            try {
+                                //RootTools.closeAllShells();
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                commandWait(command);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setPowerSaveMode", "Error on run su: " + e.toString());
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 
-    private void lockDevice(Profile profile) {
+    void lockDevice(Profile profile) {
         if (PPApplication.startedOnBoot)
             // not lock device after boot
             return;
