@@ -260,7 +260,7 @@ public class ActivateProfileHelper {
                             try {
                                 wifiManager.setWifiEnabled(isWifiEnabled);
                             } catch (Exception e) {
-                                wifiManager.setWifiEnabled(isWifiEnabled);
+                                Log.e("ActivateProfileHelper.doExecuteForRadios", e.toString());
                             }
                             //try { Thread.sleep(200); } catch (InterruptedException e) { }
                             //SystemClock.sleep(200);
