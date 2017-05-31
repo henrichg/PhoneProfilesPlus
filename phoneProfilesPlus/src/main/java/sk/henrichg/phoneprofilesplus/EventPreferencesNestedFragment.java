@@ -9,6 +9,7 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.Toolbar;
 
 public class EventPreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -301,6 +302,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         //    showActionMode();
         EventPreferencesActivity activity = (EventPreferencesActivity)getActivity();
         EventPreferencesActivity.showSaveMenu = true;
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.mp_toolbar);
+        toolbar.inflateMenu(R.menu.profile_preferences_action_mode);
         activity.invalidateOptionsMenu();
     }
 

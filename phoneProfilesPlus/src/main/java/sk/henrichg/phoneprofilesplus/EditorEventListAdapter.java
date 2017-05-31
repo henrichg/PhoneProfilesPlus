@@ -565,10 +565,10 @@ class EditorEventListAdapter extends BaseAdapter
     }
 
     void showTargetHelps(Activity activity, EditorEventListFragment fragment, View listItemView) {
-        if (Build.VERSION.SDK_INT <= 19)
+        /*if (Build.VERSION.SDK_INT <= 19)
             // TapTarget.forToolbarMenuItem FC :-(
             // Toolbar.findViewById() returns null
-            return;
+            return;*/
 
         if (fragment.targetHelpsSequenceStarted)
             return;

@@ -287,6 +287,11 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         Profile profile = createProfile(startupSource, getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, false);
 
+        if (showSaveMenu) {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
+            toolbar.inflateMenu(R.menu.profile_preferences_action_mode);
+        }
+
         if (profile != null)
         {
             String PREFS_NAME = ProfilePreferencesNestedFragment.getPreferenceName(startupSource);
@@ -472,10 +477,10 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     }
 
     private void showTargetHelps() {
-        if (Build.VERSION.SDK_INT <= 19)
+        /*if (Build.VERSION.SDK_INT <= 19)
             // TapTarget.forToolbarMenuItem FC :-(
             // Toolbar.findViewById() returns null
-            return;
+            return;*/
 
         if (!showSaveMenu)
             return;

@@ -238,6 +238,11 @@ public class EventPreferencesActivity extends PreferenceActivity
     private void loadPreferences(int new_event_mode, int predefinedEventIndex) {
         Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
 
+        if (showSaveMenu) {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
+            toolbar.inflateMenu(R.menu.profile_preferences_action_mode);
+        }
+
         if (event != null)
         {
             SharedPreferences preferences=getSharedPreferences(EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY), Activity.MODE_PRIVATE);
@@ -336,10 +341,10 @@ public class EventPreferencesActivity extends PreferenceActivity
     }
 
     private void showTargetHelps() {
-        if (Build.VERSION.SDK_INT <= 19)
+        /*if (Build.VERSION.SDK_INT <= 19)
             // TapTarget.forToolbarMenuItem FC :-(
             // Toolbar.findViewById() returns null
-            return;
+            return;*/
 
         if (!showSaveMenu)
             return;

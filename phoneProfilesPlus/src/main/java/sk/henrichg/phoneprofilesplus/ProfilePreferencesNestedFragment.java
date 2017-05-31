@@ -19,6 +19,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
@@ -1358,8 +1359,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         //    showActionMode();
         ProfilePreferencesActivity activity = (ProfilePreferencesActivity)getActivity();
         ProfilePreferencesActivity.showSaveMenu = true;
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.mp_toolbar);
+        toolbar.inflateMenu(R.menu.profile_preferences_action_mode);
         activity.invalidateOptionsMenu();
-
     }
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)

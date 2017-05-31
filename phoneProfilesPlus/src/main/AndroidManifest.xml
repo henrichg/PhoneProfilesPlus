@@ -90,7 +90,7 @@
         android:required="false"/>
 
     <application
-        android:name=".PPApplication"
+        android:name="sk.henrichg.phoneprofilesplus.PPApplication"
         android:allowBackup="true"
         android:backupAgent=".PhoneProfilesBackupAgent"
         android:fullBackupContent="@xml/phoneprofiles_backup_scheme"

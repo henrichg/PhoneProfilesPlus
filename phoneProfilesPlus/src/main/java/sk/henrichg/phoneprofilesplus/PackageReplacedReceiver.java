@@ -96,8 +96,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         editor.apply();
                     }
 
-                    /*
-                    ApplicationPreferences.getSharedPreferences(appContext);
+
+                    /*ApplicationPreferences.getSharedPreferences(appContext);
                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                     editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, true);
                     editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true);
@@ -111,8 +111,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true);
                     editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS, true);
                     editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, true);
-                    editor.apply();
-                    */
+                    editor.apply();*/
+
                 }
             } catch (PackageManager.NameNotFoundException e) {
                 //e.printStackTrace();

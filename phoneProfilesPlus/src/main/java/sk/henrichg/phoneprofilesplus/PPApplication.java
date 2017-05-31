@@ -47,7 +47,8 @@ public class PPApplication extends Application {
 
                                          +"|PreferenceFragment"
 
-                                         +"|----- DataWrapper.doEventService"
+                                         //+"|----- DataWrapper.doEventService"
+                                         +"|@@@ PackageReplacedReceiver.onReceive"
 
                                          /*
                                          +"|PhoneProfilesService.doSimulatingRingingCall"
