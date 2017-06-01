@@ -74,7 +74,6 @@ public class ActivateProfileHelper {
 
     private Context context;
     private NotificationManager notificationManager;
-    private Handler brightnessHandler;
 
     //private int networkType = -1;
 
@@ -126,11 +125,6 @@ public class ActivateProfileHelper {
         dataWrapper = null;
         context = null;
         notificationManager = null;
-    }
-
-    void setBrightnessHandler(Handler handler)
-    {
-        brightnessHandler = handler;
     }
 
     @SuppressWarnings("deprecation")
@@ -1320,7 +1314,7 @@ public class ActivateProfileHelper {
         // rozdelit zvonenie a notifikacie - zial je to oznacene ako @Hide :-(
         //Settings.System.putInt(context.getContentResolver(), Settings.System.NOTIFICATIONS_USE_RING_VOLUME, 0);
 
-        Profile profile = Profile.getMappedProfile(_profile, context);
+        final Profile profile = Profile.getMappedProfile(_profile, context);
 
         // nahodenie volume
         // run service for execute volumes
@@ -1394,7 +1388,14 @@ public class ActivateProfileHelper {
             //noinspection deprecation
             if (pm.isScreenOn()) {
                 //Log.d("ActivateProfileHelper.execute","screen on");
-                setScreenTimeout(profile._deviceScreenTimeout);
+                if (PPApplication.screenTimeoutHandler != null) {
+                    PPApplication.screenTimeoutHandler.post(new Runnable() {
+                        public void run() {
+                            setScreenTimeout(profile._deviceScreenTimeout);
+                        }
+                    });
+                } else
+                    setScreenTimeout(profile._deviceScreenTimeout);
             }
             else {
                 //Log.d("ActivateProfileHelper.execute","screen off");
@@ -1492,12 +1493,11 @@ public class ActivateProfileHelper {
                             Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
                 }
 
-                if (brightnessHandler != null) {
+                if (PPApplication.brightnessHandler != null) {
                     final Context __context = context;
-                    brightnessHandler.post(new Runnable() {
+                    PPApplication.brightnessHandler.post(new Runnable() {
                         public void run() {
                             createBrightnessView(__context);
-                            brightnessHandler = null;
                         }
                     });
                 } else

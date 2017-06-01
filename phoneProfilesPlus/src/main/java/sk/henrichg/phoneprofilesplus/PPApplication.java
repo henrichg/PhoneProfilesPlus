@@ -9,6 +9,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
@@ -172,6 +173,10 @@ public class PPApplication extends Application {
     static final int SCANNER_START_PHONE_STATE_SCANNER = 5;
     static final int SCANNER_STOP_PHONE_STATE_SCANNER = 6;
 
+    public static Handler toastHandler;
+    public static Handler brightnessHandler;
+    public static Handler screenTimeoutHandler;
+
     public static int notAllowedReason;
     public static String notAllowedReasonDetail;
 
@@ -249,6 +254,10 @@ public class PPApplication extends Application {
         //Log.d("PPApplication.onCreate", "memory usage (after create activateProfileHelper)=" + Debug.getNativeHeapAllocatedSize());
 
         //Log.d("PPApplication.onCreate","xxx");
+
+        toastHandler = new Handler(getMainLooper());
+        brightnessHandler = new Handler(getMainLooper());
+        screenTimeoutHandler = new Handler(getMainLooper());
 
     }
 

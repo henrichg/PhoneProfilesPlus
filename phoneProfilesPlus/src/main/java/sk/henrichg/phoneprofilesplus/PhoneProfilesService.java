@@ -1424,7 +1424,15 @@ public class PhoneProfilesService extends Service
     {
         PPApplication.logE("$$$ PhoneProfilesService.onTaskRemoved", "xxxxx");
 
-        ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
+        if (PPApplication.screenTimeoutHandler != null) {
+            PPApplication.screenTimeoutHandler.post(new Runnable() {
+                public void run() {
+                    ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
+                }
+            });
+        } else
+            ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
+
         super.onTaskRemoved(rootIntent);
     }
 

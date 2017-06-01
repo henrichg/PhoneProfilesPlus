@@ -46,7 +46,7 @@ public class ScreenOnOffService extends IntentService {
                 PPApplication.logE("@@@ ScreenOnOffService.onReceive", "screen unlock");
                 ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
-                DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
+                final DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
                 dataWrapper.getActivateProfileHelper().initialize(dataWrapper, appContext);
                 Profile activatedProfile = dataWrapper.getActivatedProfile();
 
@@ -60,12 +60,21 @@ public class ScreenOnOffService extends IntentService {
                 // change screen timeout
                 if (lockDeviceEnabled && Permissions.checkLockDevice(appContext))
                     Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
-                int screenTimeout = ActivateProfileHelper.getActivatedProfileScreenTimeout(appContext);
+                final int screenTimeout = ActivateProfileHelper.getActivatedProfileScreenTimeout(appContext);
                 PPApplication.logE("@@@ ScreenOnOffService.onReceive", "screenTimeout="+screenTimeout);
-                if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext)))
-                    dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
-
-                dataWrapper.invalidateDataWrapper();
+                if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
+                    if (PPApplication.screenTimeoutHandler != null) {
+                        PPApplication.screenTimeoutHandler.post(new Runnable() {
+                            public void run() {
+                                dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
+                                dataWrapper.invalidateDataWrapper();
+                            }
+                        });
+                    } else {
+                        dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
+                        dataWrapper.invalidateDataWrapper();
+                    }
+                }
 
                 // enable/disable keyguard
                 Intent keyguardService = new Intent(appContext, KeyguardService.class);
