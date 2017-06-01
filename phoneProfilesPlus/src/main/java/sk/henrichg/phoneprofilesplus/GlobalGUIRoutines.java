@@ -562,4 +562,9 @@ public class GlobalGUIRoutines {
         return activities.size() > 0;
     }
 
+    static boolean activityIntentExists(Intent intent, Context context) {
+        List<ResolveInfo> activities = context.getApplicationContext().getPackageManager().queryIntentActivities(intent, 0);
+        return activities.size() > 0;
+    }
+
 }

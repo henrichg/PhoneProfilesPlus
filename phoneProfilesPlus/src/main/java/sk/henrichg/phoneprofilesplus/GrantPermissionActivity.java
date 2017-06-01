@@ -710,7 +710,8 @@ public class GrantPermissionActivity extends Activity {
         if (iteration == 1) {
             boolean writeSettingsFound = false;
             for (Permissions.PermissionType permissionType : permissions) {
-                if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
+                if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS) &&
+                        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS, getApplicationContext())) {
                     writeSettingsFound = true;
                     final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
                     startActivityForResult(intent, WRITE_SETTINGS_REQUEST_CODE);
@@ -741,7 +742,8 @@ public class GrantPermissionActivity extends Activity {
             boolean drawOverlaysFound = false;
             //boolean api25 = android.os.Build.VERSION.SDK_INT >= 25;
             for (Permissions.PermissionType permissionType : permissions) {
-                if (/*api25 && */permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+                if (/*api25 && */permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW) &&
+                        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getApplicationContext())) {
                     drawOverlaysFound = true;
                     final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                     startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);

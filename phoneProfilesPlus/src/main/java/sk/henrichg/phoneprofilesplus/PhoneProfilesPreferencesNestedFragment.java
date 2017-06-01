@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -17,6 +18,8 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
 import android.provider.Settings;
+
+import java.util.List;
 
 import static android.app.Activity.RESULT_CANCELED;
 
@@ -89,8 +92,10 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
-                        startActivityForResult(intent, RESULT_LOCALE_SETTINGS);
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCALE_SETTINGS, getActivity().getApplicationContext())) {
+                            Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                            startActivityForResult(intent, RESULT_LOCALE_SETTINGS);
+                        }
                         return false;
                     }
                 });
@@ -114,25 +119,33 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        boolean activityExists = false;
                         Intent intent;
                         if (Build.VERSION.SDK_INT == 21) {
                             intent = new Intent();
                             intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
-                        } else
+                            activityExists = GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext());
+                        } else {
+                            activityExists = GlobalGUIRoutines.activityActionExists(Settings.ACTION_BATTERY_SAVER_SETTINGS, getActivity().getApplicationContext());
                             intent = new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS);
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        try {
-                            startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
-                        } catch (Exception e) {
-                            if (Build.VERSION.SDK_INT > 21) {
-                                intent = new Intent();
-                                intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
-                                try {
-                                    startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
-                                } catch (Exception ignored) {
-                                }
-                            }// else
-                            //    e.printStackTrace();
+                        }
+                        if (activityExists) {
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            try {
+                                startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
+                            } catch (Exception e) {
+                                if (Build.VERSION.SDK_INT > 21) {
+                                    intent = new Intent();
+                                    intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
+                                    if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
+                                        try {
+                                            startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }// else
+                                //    e.printStackTrace();
+                            }
                         }
                         return false;
                     }
@@ -152,9 +165,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
                         intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
-                        startActivityForResult(intent, RESULT_APPLICATION_PERMISSIONS);
+                        if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
+                            startActivityForResult(intent, RESULT_APPLICATION_PERMISSIONS);
+                        }
                         return false;
                     }
                 });
@@ -165,9 +180,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                        intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_WRITE_SETTINGS, getActivity().getApplicationContext())) {
+                            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+                        }
                         return false;
                     }
                 });
@@ -182,7 +199,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
                             Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                            intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
                             return false;
                         }
@@ -199,9 +216,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
-                            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                            intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
+                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getActivity().getApplicationContext())) {
+                                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
+                            }
                             return false;
                         }
                     });
@@ -224,9 +243,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
                             //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
+                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getActivity().getApplicationContext())) {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
+                            }
                             return false;
                         }
                     });
@@ -246,9 +267,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
+                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getActivity().getApplicationContext())) {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
+                            }
                             return false;
                         }
                     });
@@ -269,7 +292,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     public boolean onPreferenceClick(Preference preference) {
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity())) {
                             Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-                            intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
                         }
                         return false;
@@ -311,9 +334,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                    startActivityForResult(intent, RESULT_LOCATION_SYSTEM_SETTINGS);
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getActivity().getApplicationContext())) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_LOCATION_SYSTEM_SETTINGS);
+                    }
                     return false;
                 }
             });
