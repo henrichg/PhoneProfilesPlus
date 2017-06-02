@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
 import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 
 import java.util.List;
 
@@ -96,6 +97,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                             Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
                             startActivityForResult(intent, RESULT_LOCALE_SETTINGS);
                         }
+                        else {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            dialogBuilder.show();
+                        }
                         return false;
                     }
                 });
@@ -137,7 +145,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                 if (Build.VERSION.SDK_INT > 21) {
                                     intent = new Intent();
                                     intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
-                                    if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
+                                    activityExists = GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext());
+                                    if (activityExists) {
                                         try {
                                             startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
                                         } catch (Exception ignored) {
@@ -146,6 +155,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                 }// else
                                 //    e.printStackTrace();
                             }
+                        }
+                        if (!activityExists) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            dialogBuilder.show();
                         }
                         return false;
                     }
@@ -170,6 +186,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
                             startActivityForResult(intent, RESULT_APPLICATION_PERMISSIONS);
                         }
+                        else {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            dialogBuilder.show();
+                        }
                         return false;
                     }
                 });
@@ -184,6 +207,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                             Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+                        }
+                        else {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            dialogBuilder.show();
                         }
                         return false;
                     }
@@ -221,6 +251,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
                             }
+                            else {
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                dialogBuilder.show();
+                            }
                             return false;
                         }
                     });
@@ -248,6 +285,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
                             }
+                            else {
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                dialogBuilder.show();
+                            }
                             return false;
                         }
                     });
@@ -272,6 +316,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
                             }
+                            else {
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                dialogBuilder.show();
+                            }
                             return false;
                         }
                     });
@@ -294,6 +345,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                             Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
+                        }
+                        else {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            dialogBuilder.show();
                         }
                         return false;
                     }
@@ -338,6 +396,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
                         startActivityForResult(intent, RESULT_LOCATION_SYSTEM_SETTINGS);
+                    }
+                    else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        dialogBuilder.show();
                     }
                     return false;
                 }

@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +33,8 @@ public class ImportantInfoActivity extends AppCompatActivity {
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
         super.onCreate(savedInstanceState);
+
+        final Activity activity = this;
 
         setContentView(R.layout.activity_important_info);
 
@@ -109,6 +113,13 @@ public class ImportantInfoActivity extends AppCompatActivity {
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivity(intent);
                         }
+                        else {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            dialogBuilder.show();
+                        }
                     }
                 });
                 TextView infoText20 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text20);
@@ -121,6 +132,13 @@ public class ImportantInfoActivity extends AppCompatActivity {
                             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivity(intent);
+                        }
+                        else {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            dialogBuilder.show();
                         }
                     }
                 });
@@ -145,6 +163,13 @@ public class ImportantInfoActivity extends AppCompatActivity {
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
                         startActivity(intent);
                     }
+                    else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        dialogBuilder.show();
+                    }
                 }
             });
             TextView infoText21 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text21);
@@ -158,6 +183,13 @@ public class ImportantInfoActivity extends AppCompatActivity {
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
                         startActivity(intent);
                     }
+                    else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        dialogBuilder.show();
+                    }
                 }
             });
             TextView infoText10a = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text10a);
@@ -168,6 +200,13 @@ public class ImportantInfoActivity extends AppCompatActivity {
                         Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
                         startActivity(intent);
+                    }
+                    else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        dialogBuilder.show();
                     }
                 }
             });
@@ -195,6 +234,13 @@ public class ImportantInfoActivity extends AppCompatActivity {
                                 Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                                 startActivity(intent);
                             }
+                            else {
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                dialogBuilder.show();
+                            }
                         }
                     });
                     news = true;
@@ -221,6 +267,13 @@ public class ImportantInfoActivity extends AppCompatActivity {
                         if (GlobalGUIRoutines.activityActionExists("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", getApplicationContext())) {
                             Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                             startActivity(intent);
+                        }
+                        else {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            dialogBuilder.show();
                         }
                     }
                 });
