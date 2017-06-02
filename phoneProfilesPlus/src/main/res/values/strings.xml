@@ -996,4 +996,7 @@
     <string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>
     <string name="setting_screen_not_found_alert">Setting screen not found.</string>
+    <string name="action_for_external_application_notification_title">External app. support (Tasker)</string>
+    <string name="action_for_external_application_notification_no_profile_text">Parameter profile_name is missing or empty.</string>
+    <string name="action_for_external_application_notification_no_event_text">Parameter event_name is missing or empty.</string>
 </resources>

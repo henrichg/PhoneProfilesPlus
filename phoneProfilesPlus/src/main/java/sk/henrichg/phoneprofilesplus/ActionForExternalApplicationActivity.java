@@ -1,8 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 
 import java.util.List;
 
@@ -102,8 +106,12 @@ public class ActionForExternalApplicationActivity extends Activity {
                     dataWrapper._activateProfile(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, true, this);
                 }
             }
-            else
+            else {
+                showNotification(getString(R.string.action_for_external_application_notification_title),
+                        getString(R.string.action_for_external_application_notification_no_profile_text));
+
                 dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+            }
         }
         else if (action.equals(ACTION_RESTART_EVENTS)) {
             dataWrapper.restartEventsWithRescan(true, true);
@@ -118,8 +126,12 @@ public class ActionForExternalApplicationActivity extends Activity {
                     dataWrapper.restartEvents(false, true, true);
                 }
                 dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
-            } else
+            } else {
+                showNotification(getString(R.string.action_for_external_application_notification_title),
+                        getString(R.string.action_for_external_application_notification_no_event_text));
+
                 dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+            }
         }
         else if (action.equals(ACTION_PAUSE_EVENT)) {
             if (event_id != 0) {
@@ -130,8 +142,12 @@ public class ActionForExternalApplicationActivity extends Activity {
                     //dataWrapper.restartEvents(false, true, true);
                 }
                 dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
-            } else
+            } else {
+                showNotification(getString(R.string.action_for_external_application_notification_title),
+                        getString(R.string.action_for_external_application_notification_no_event_text));
+
                 dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+            }
         }
         else if (action.equals(ACTION_STOP_EVENT)) {
             if (event_id != 0) {
@@ -142,8 +158,12 @@ public class ActionForExternalApplicationActivity extends Activity {
                     dataWrapper.restartEvents(false, true, true);
                 }
                 dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
-            } else
+            } else {
+                showNotification(getString(R.string.action_for_external_application_notification_title),
+                        getString(R.string.action_for_external_application_notification_no_event_text));
+
                 dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+            }
         }
         else {
             if (event_id != 0) {
@@ -151,8 +171,12 @@ public class ActionForExternalApplicationActivity extends Activity {
                 //Log.d("ActionForExternalApplicationActivity.onCreate", "event=" + event);
 
                 dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
-            } else
+            } else {
+                showNotification(getString(R.string.action_for_external_application_notification_title),
+                        getString(R.string.action_for_external_application_notification_no_event_text));
+
                 dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+            }
         }
     }
 
@@ -163,6 +187,34 @@ public class ActionForExternalApplicationActivity extends Activity {
 
         dataWrapper.invalidateDataWrapper();
         dataWrapper = null;
+    }
+
+    private void showNotification(String title, String text) {
+        String ntitle = title;
+        String ntext = text;
+        if (android.os.Build.VERSION.SDK_INT < 24) {
+            ntitle = getString(R.string.app_name);
+            ntext = title+": "+text;
+        }
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext())
+                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setContentTitle(ntitle) // title for notification
+                .setContentText(ntext) // message for notification
+                .setAutoCancel(true); // clear notification after click
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(ntext));
+        /*Intent intent = new Intent(context, ImportantInfoActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pi);*/
+        if (android.os.Build.VERSION.SDK_INT >= 16)
+            mBuilder.setPriority(Notification.PRIORITY_MAX);
+        if (android.os.Build.VERSION.SDK_INT >= 21)
+        {
+            mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
+            mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
+        }
+        NotificationManager mNotificationManager = (NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
     }
 
 }
