@@ -1959,8 +1959,8 @@ public class DataWrapper {
                     }
                 }
                 else {
-                    NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-                    wifiConnected = (mWifi != null) && mWifi.isConnected();
+                    NetworkInfo ntkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                    wifiConnected = (ntkInfo != null) && ntkInfo.isConnected();
                 }
 
                 if (wifiConnected)
