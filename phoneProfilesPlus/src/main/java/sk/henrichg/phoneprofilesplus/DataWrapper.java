@@ -15,6 +15,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.LocationManager;
 import android.media.AudioManager;
+import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -1920,17 +1922,12 @@ public class DataWrapper {
         {
             ignoreWifi = false;
 
-            PPApplication.logE("%%%% DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
+            PPApplication.logE("----- DataWrapper.doEventService","-------- eventSSID="+event._eventPreferencesWifi._SSID);
 
             wifiPassed = false;
 
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             boolean isWifiEnabled = wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED;
-
-            //ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            //NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
-
-            //NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
             List<WifiSSIDData> wifiConfigurationList = WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
 
@@ -1938,26 +1935,42 @@ public class DataWrapper {
 
             if (isWifiEnabled)
             {
-                PPApplication.logE("%%%% DataWrapper.doEventService","wifiStateEnabled=true");
+                PPApplication.logE("----- DataWrapper.doEventService","wifiStateEnabled=true");
 
-                PPApplication.logE("@@@ DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
+                //PPApplication.logE("----- DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
 
                 WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                NetworkInfo.DetailedState detailedState = WifiInfo.getDetailedStateOf(wifiInfo.getSupplicantState());
-                PPApplication.logE("----- DataWrapper.doEventService","detailedState="+detailedState);
 
-                if (/*(activeNetwork != null) &&
-                    (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&*/
-                    ((detailedState == NetworkInfo.DetailedState.CONNECTED) ||
-                     (detailedState == NetworkInfo.DetailedState.OBTAINING_IPADDR))
-                   )
+                boolean wifiConnected = false;
+
+                ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                if (android.os.Build.VERSION.SDK_INT >= 21) {
+                    Network[] networks = connManager.getAllNetworks();
+                    if ((networks != null) && (networks.length > 0)) {
+                        for (Network ntk : networks) {
+                            NetworkInfo ntkInfo = connManager.getNetworkInfo(ntk);
+                            if (ntkInfo.getType() == ConnectivityManager.TYPE_WIFI && ntkInfo.isConnected()) {
+                                if (wifiInfo != null) {
+                                    wifiConnected = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                else {
+                    NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                    wifiConnected = (mWifi != null) && mWifi.isConnected();
+                }
+
+                if (wifiConnected)
                 {
-                    PPApplication.logE("%%%% DataWrapper.doEventService","wifi connected");
+                    PPApplication.logE("----- DataWrapper.doEventService","wifi connected");
 
-                    PPApplication.logE("%%%% DataWrapper.doEventService","wifiSSID="+WifiScanAlarmBroadcastReceiver.getSSID(wifiInfo, wifiConfigurationList));
-                    PPApplication.logE("@@@ DataWrapper.doEventService","wifiBSSID="+wifiInfo.getBSSID());
+                    PPApplication.logE("----- DataWrapper.doEventService","wifiSSID="+WifiScanAlarmBroadcastReceiver.getSSID(wifiInfo, wifiConfigurationList));
+                    PPApplication.logE("----- DataWrapper.doEventService","wifiBSSID="+wifiInfo.getBSSID());
 
-                    PPApplication.logE("@@@ DataWrapper.doEventService","SSID="+event._eventPreferencesWifi._SSID);
+                    //PPApplication.logE("----- DataWrapper.doEventService","SSID="+event._eventPreferencesWifi._SSID);
 
                     String[] splits = event._eventPreferencesWifi._SSID.split("\\|");
                     for (String _ssid : splits) {
@@ -1978,7 +1991,7 @@ public class DataWrapper {
                             break;
                     }
 
-                    PPApplication.logE("@@@ DataWrapper.doEventService","wifiPassed="+wifiPassed);
+                    //PPApplication.logE("----- DataWrapper.doEventService","wifiPassed="+wifiPassed);
 
                     if (wifiPassed)
                     {
@@ -1989,13 +2002,13 @@ public class DataWrapper {
                             (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))
                             // for this connectionTypes, wifi must not be connected to event SSID
                             wifiPassed = false;
+                        //PPApplication.logE("----- DataWrapper.doEventService","wifiPassed="+wifiPassed);
                     }
 
-                    PPApplication.logE("@@@ DataWrapper.doEventService","wifiPassed="+wifiPassed);
                 }
                 else
                 {
-                    PPApplication.logE("@@@ DataWrapper.doEventService", "wifi not connected");
+                    PPApplication.logE("----- DataWrapper.doEventService", "wifi not connected");
 
                     if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED) {
                         // for this connectionTypes, wifi must not be connected to event SSID
@@ -2006,7 +2019,7 @@ public class DataWrapper {
 
             }
             else {
-                PPApplication.logE("%%%% DataWrapper.doEventService", "wifiStateEnabled=false");
+                PPApplication.logE("----- DataWrapper.doEventService", "wifiStateEnabled=false");
                 if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
                     (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED)) {
                     // for this connectionTypes, wifi must not be connected to event SSID
@@ -2015,7 +2028,7 @@ public class DataWrapper {
                 }
             }
 
-            PPApplication.logE("@@@ DataWrapper.doEventService","wifiPassed="+wifiPassed);
+            PPApplication.logE("----- DataWrapper.doEventService","wifiPassed="+wifiPassed);
 
             if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT) ||
                 (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))
@@ -2026,33 +2039,33 @@ public class DataWrapper {
 
                     List<WifiSSIDData> scanResults = WifiScanAlarmBroadcastReceiver.getScanResults(context);
 
-                    PPApplication.logE("%%%% DataWrapper.doEventService","scanResults="+scanResults);
+                    //PPApplication.logE("----- DataWrapper.doEventService","scanResults="+scanResults);
 
                     //if (WifiScanAlarmBroadcastReceiver.scanResults != null)
                     if (scanResults != null)
                     {
-                        PPApplication.logE("@@@ DataWrapper.doEventService","scanResults != null");
-                        PPApplication.logE("@@@ DataWrapper.doEventService","scanResults.size="+scanResults.size());
-                        PPApplication.logE("@@@ DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
+                        PPApplication.logE("----- DataWrapper.doEventService","scanResults != null");
+                        PPApplication.logE("----- DataWrapper.doEventService","scanResults.size="+scanResults.size());
+                        //PPApplication.logE("----- DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
 
                         for (WifiSSIDData result : scanResults)
                         {
-                            PPApplication.logE("%%%% DataWrapper.doEventService","wifiSSID="+result.ssid);
-                            //PPApplication.logE("@@@ DataWrapper.doEventService","wifiBSSID="+result.bssid);
+                            PPApplication.logE("----- DataWrapper.doEventService","scanSSID="+result.ssid);
+                            PPApplication.logE("----- DataWrapper.doEventService","scanBSSID="+result.bssid);
                             String[] splits = event._eventPreferencesWifi._SSID.split("\\|");
                             for (String _ssid : splits) {
                                 if (_ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
+                                    PPApplication.logE("----- DataWrapper.doEventService","all ssids");
                                     wifiPassed = true;
                                     break;
                                 }
                                 else
                                 if (_ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE)) {
-                                    //PPApplication.logE("@@@x DataWrapper.doEventService","scanned SSID="+result.ssid);
-                                    //PPApplication.logE("@@@x DataWrapper.doEventService", "all configured");
+                                    PPApplication.logE("----- DataWrapper.doEventService","configured ssids");
                                     for (WifiSSIDData data : wifiConfigurationList) {
-                                        //PPApplication.logE("@@@x DataWrapper.doEventService","configured SSID="+data.ssid.replace("\"", ""));
+                                        PPApplication.logE("----- DataWrapper.doEventService","configured SSID="+data.ssid.replace("\"", ""));
                                         if (WifiScanAlarmBroadcastReceiver.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
-                                            PPApplication.logE("@@@ DataWrapper.doEventService", "wifi found");
+                                            PPApplication.logE("----- DataWrapper.doEventService", "wifi found");
                                             wifiPassed = true;
                                             break;
                                         }
@@ -2060,10 +2073,9 @@ public class DataWrapper {
                                     if (wifiPassed)
                                         break;
                                 } else {
-                                    //PPApplication.logE("@@@x DataWrapper.doEventService","scanned SSID="+result.ssid);
-                                    //PPApplication.logE("@@@x DataWrapper.doEventService","event SSID="+event._eventPreferencesWifi._SSID);
+                                    PPApplication.logE("----- DataWrapper.doEventService","event SSID="+event._eventPreferencesWifi._SSID);
                                     if (WifiScanAlarmBroadcastReceiver.compareSSID(result, _ssid, wifiConfigurationList)) {
-                                        PPApplication.logE("%%%% DataWrapper.doEventService", "wifi found");
+                                        PPApplication.logE("----- DataWrapper.doEventService", "wifi found");
                                         wifiPassed = true;
                                         break;
                                     }
@@ -2073,25 +2085,22 @@ public class DataWrapper {
                                 break;
                         }
 
-                        PPApplication.logE("@@@ DataWrapper.doEventService","wifiPassed="+wifiPassed);
-
-                        if (!wifiPassed)
-                            PPApplication.logE("%%%% DataWrapper.doEventService","wifi not found");
+                        PPApplication.logE("----- DataWrapper.doEventService","wifiPassed="+wifiPassed);
 
                         if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT)
                             // if wifi is not in front of event SSID, then passed
                             wifiPassed = !wifiPassed;
 
-                        PPApplication.logE("@@@ DataWrapper.doEventService","wifiPassed="+wifiPassed);
+                        PPApplication.logE("----- DataWrapper.doEventService","wifiPassed="+wifiPassed);
 
                     }
                     else
-                        PPApplication.logE("@@@ DataWrapper.doEventService","scanResults == null");
+                        PPApplication.logE("----- DataWrapper.doEventService","scanResults == null");
 
                 }
             }
 
-            PPApplication.logE("%%%% DataWrapper.doEventService","wifiPassed="+wifiPassed);
+            PPApplication.logE("----- DataWrapper.doEventService","------- wifiPassed="+wifiPassed);
 
             //eventStart = eventStart && wifiPassed;
         }
