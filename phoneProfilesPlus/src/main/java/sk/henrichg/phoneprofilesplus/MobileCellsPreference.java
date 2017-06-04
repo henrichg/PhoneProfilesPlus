@@ -66,7 +66,7 @@ public class MobileCellsPreference extends DialogPreference {
         //else
         //    Log.d("MobileCellsPreference","scanner started");
 
-        IntentFilter intentFilter = new IntentFilter();
+        //IntentFilter intentFilter = new IntentFilter();
         //intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
         EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver = new PhoneStateChangedBroadcastReceiver(this);
         //context.registerReceiver(EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver, intentFilter);
@@ -383,18 +383,20 @@ public class MobileCellsPreference extends DialogPreference {
                 DatabaseHandler db = DatabaseHandler.getInstance(context);
                 db.addMobileCellsToList(_cellsList);
 
-                // add registered cell
                 boolean found = false;
-                for (MobileCellsData cell : _cellsList) {
-                    if (cell.cellId == PhoneProfilesService.phoneStateScanner.registeredCell) {
-                        cell.connected = true;
-                        found = true;
-                        break;
+                if (PhoneProfilesService.isPhoneStateStarted()) {
+                    // add registered cell
+                    for (MobileCellsData cell : _cellsList) {
+                        if (cell.cellId == PhoneProfilesService.phoneStateScanner.registeredCell) {
+                            cell.connected = true;
+                            found = true;
+                            break;
+                        }
                     }
+                    if (!found)
+                        _cellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
+                                _cellName, true, true, PhoneProfilesService.phoneStateScanner.lastConnectedTime));
                 }
-                if (!found)
-                    _cellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
-                            _cellName, true, true, PhoneProfilesService.phoneStateScanner.lastConnectedTime));
 
                 // add all from value
                 String[] splits = value.split("\\|");
