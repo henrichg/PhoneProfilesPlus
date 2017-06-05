@@ -301,8 +301,8 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceWiFi"
                 android:defaultValue="@string/prf_pref_deviceWiFi"
-                android:entries="@array/hardwareModeArray"
-                android:entryValues="@array/hardwareModeValues"
+                android:entries="@array/wifiModeArray"
+                android:entryValues="@array/wifiModeValues"
                 app:useStockLayout="true" />
             <sk.henrichg.phoneprofilesplus.ConnectToSSIDDialogPreference
                 android:key="prf_pref_deviceConnectToSSID"

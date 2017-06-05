@@ -123,7 +123,7 @@ class ProfilePreferencesIndicator {
             if (profile._deviceMobileDataPrefs == 1)
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_pref;
             // wifi
-            if ((profile._deviceWiFi == 1) || (profile._deviceWiFi == 3))
+            if ((profile._deviceWiFi == 1) || (profile._deviceWiFi == 3) || (profile._deviceWiFi == 4) || (profile._deviceWiFi == 5))
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi;
             if (profile._deviceWiFi == 2)
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_off;

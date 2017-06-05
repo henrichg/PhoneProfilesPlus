@@ -223,7 +223,7 @@ public class ActivateProfileHelper {
             if (profile._deviceWiFi != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, context) == PPApplication.PREFERENCE_ALLOWED) {
                     boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
-                    if (!isWifiAPEnabled) { // only when wifi AP is not enabled, change wifi
+                    if ((!isWifiAPEnabled) || (profile._deviceWiFi == 4)) { // only when wifi AP is not enabled, change wifi
                         PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled=false");
                         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                         int wifiState = wifiManager.getWifiState();
@@ -231,6 +231,7 @@ public class ActivateProfileHelper {
                         boolean setWifiState = false;
                         switch (profile._deviceWiFi) {
                             case 1:
+                            case 4:
                                 if (!isWifiEnabled) {
                                     isWifiEnabled = true;
                                     setWifiState = true;
@@ -243,6 +244,7 @@ public class ActivateProfileHelper {
                                 }
                                 break;
                             case 3:
+                            case 5:
                                 isWifiEnabled = !isWifiEnabled;
                                 setWifiState = true;
                                 break;

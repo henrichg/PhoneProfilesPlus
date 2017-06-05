@@ -181,7 +181,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             if (profile._deviceMobileDataPrefs == 1)
                 indicator1 = addIntoIndicator(indicator1, "mdP");
             // wifi
-            if ((profile._deviceWiFi == 1) || (profile._deviceWiFi == 3))
+            if ((profile._deviceWiFi == 1) || (profile._deviceWiFi == 3) || (profile._deviceWiFi == 4) || (profile._deviceWiFi == 5))
                 indicator1 = addIntoIndicator(indicator1, "wf1");
             if (profile._deviceWiFi == 2)
                 indicator1 = addIntoIndicator(indicator1, "wf0");

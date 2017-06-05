@@ -999,4 +999,6 @@
     <string name="action_for_external_application_notification_title">External app. support (Tasker)</string>
     <string name="action_for_external_application_notification_no_profile_text">Parameter profile_name is missing or empty.</string>
     <string name="action_for_external_application_notification_no_event_text">Parameter event_name is missing or empty.</string>
+    <string name="array_pref_wifiModeArray_on_ignoreHotspot">On (ignore hotspot)</string>
+    <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Toggle (ignore hotspot)</string>
 </resources>

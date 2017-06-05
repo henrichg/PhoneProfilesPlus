@@ -981,5 +981,38 @@
     <item>1</item>
     <item>2</item>
 </string-array>
-
+<string-array name="wifiModeArray">
+    <item>@string/array_pref_no_change</item>
+    <item>@string/array_pref_default_profile</item>
+    <item>@string/array_pref_hardwareModeArray_on</item>
+    <item>@string/array_pref_wifiModeArray_on_ignoreHotspot</item>
+    <item>@string/array_pref_hardwareModeArray_off</item>
+    <item>@string/array_pref_hardwareModeArray_toggle</item>
+    <item>@string/array_pref_wifiModeArray_toggle_ignoreHotspot</item>
+</string-array>
+<string-array name="wifiModeValues">
+    <item>0</item>
+    <item>99</item>
+    <item>1</item>
+    <item>4</item>
+    <item>2</item>
+    <item>3</item>
+    <item>5</item>
+</string-array>
+<string-array name="wifiModeDPArray">
+    <item>@string/array_pref_no_change</item>
+    <item>@string/array_pref_hardwareModeArray_on</item>
+    <item>@string/array_pref_wifiModeArray_on_ignoreHotspot</item>
+    <item>@string/array_pref_hardwareModeArray_off</item>
+    <item>@string/array_pref_hardwareModeArray_toggle</item>
+    <item>@string/array_pref_wifiModeArray_toggle_ignoreHotspot</item>
+</string-array>
+<string-array name="wifiModeDPValues">
+    <item>0</item>
+    <item>1</item>
+    <item>4</item>
+    <item>2</item>
+    <item>3</item>
+    <item>5</item>
+</string-array>
 </resources>
