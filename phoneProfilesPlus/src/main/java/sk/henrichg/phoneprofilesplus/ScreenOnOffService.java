@@ -31,7 +31,7 @@ public class ScreenOnOffService extends IntentService {
             else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                 PPApplication.logE("@@@ ScreenOnOffService.onReceive", "screen off");
 
-                ActivateProfileHelper.setScreenUnlocked(appContext, false);
+                //ActivateProfileHelper.setScreenUnlocked(appContext, false);
                 if (!Event.getGlobalEventsRuning(appContext)) {
                     DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
                     dataWrapper.getActivateProfileHelper().initialize(dataWrapper, appContext);
@@ -44,7 +44,7 @@ public class ScreenOnOffService extends IntentService {
             }
             else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
                 PPApplication.logE("@@@ ScreenOnOffService.onReceive", "screen unlock");
-                ActivateProfileHelper.setScreenUnlocked(appContext, true);
+                //ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
                 final DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
                 dataWrapper.getActivateProfileHelper().initialize(dataWrapper, appContext);

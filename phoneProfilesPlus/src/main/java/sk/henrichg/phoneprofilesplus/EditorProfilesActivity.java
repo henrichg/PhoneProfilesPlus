@@ -630,7 +630,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         Permissions.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
         Permissions.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
         ScannerService.setShowEnableLocationNotification(context.getApplicationContext(), true);
-        ActivateProfileHelper.setScreenUnlocked(context, true);
+        //ActivateProfileHelper.setScreenUnlocked(context, true);
 
         if (activity != null) {
             Handler handler = new Handler(Looper.getMainLooper());
@@ -1246,7 +1246,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         Permissions.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
                         Permissions.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
                         ScannerService.setShowEnableLocationNotification(getApplicationContext(), true);
-                        ActivateProfileHelper.setScreenUnlocked(getApplicationContext(), true);
+                        //ActivateProfileHelper.setScreenUnlocked(getApplicationContext(), true);
 
                         // restart events
                         // startneme eventy

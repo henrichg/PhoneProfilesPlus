@@ -1867,7 +1867,9 @@ public class ActivateProfileHelper {
 
             if (Build.VERSION.SDK_INT >= 16) {
                 if (notificationShowInStatusBar) {
-                    boolean screenUnlocked = getScreenUnlocked(context);
+                    KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+                    boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
+                    //boolean screenUnlocked = getScreenUnlocked(context);
                     if ((ApplicationPreferences.notificationHideInLockscreen(context) && (!screenUnlocked)) ||
                             ((profile != null) && profile._hideStatusBarIcon))
                         notificationBuilder.setPriority(Notification.PRIORITY_MIN);
@@ -3167,6 +3169,7 @@ public class ActivateProfileHelper {
         editor.apply();
     }
 
+    /*
     private static boolean getScreenUnlocked(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
@@ -3180,6 +3183,7 @@ public class ActivateProfileHelper {
         editor.putBoolean(PREF_SCREEN_UNLOCKED, unlocked);
         editor.apply();
     }
+    */
 
     static int getActivatedProfileScreenTimeout(Context context)
     {
