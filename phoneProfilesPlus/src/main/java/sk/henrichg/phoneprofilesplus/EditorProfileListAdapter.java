@@ -376,8 +376,6 @@ class EditorProfileListAdapter extends BaseAdapter
                 //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                 if (holder.profileIndicator != null)
                     holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
-                else
-                    holder.profileIndicator.setImageResource(R.drawable.ic_empty);
             }
 
             holder.profileItemEditMenu.setTag(profile);
