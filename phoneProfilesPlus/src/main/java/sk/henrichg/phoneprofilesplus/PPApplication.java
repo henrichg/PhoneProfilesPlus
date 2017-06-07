@@ -35,7 +35,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static boolean logIntoLogCat = true;
+    private static boolean logIntoLogCat = false;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags = "##### PPApplication.onCreate"
@@ -49,11 +49,13 @@ public class PPApplication extends Application {
 
                                          //+"|PreferenceFragment"
 
+                                         +"|ScreenOnOffBroadcastReceiver.onReceive"
+
                                          //+"|----- DataWrapper.doEventService"
                                          //+"|@@@ PackageReplacedReceiver.onReceive"
 
-                                         +"|ActivateProfileHelper.getMergedRingNotificationVolumes"
-                                         +"|ActivateProfileHelper.setMergedRingNotificationVolumes"
+                                         //+"|ActivateProfileHelper.getMergedRingNotificationVolumes"
+                                         //+"|ActivateProfileHelper.setMergedRingNotificationVolumes"
 
                                          /*
                                          +"|PhoneProfilesService.doSimulatingRingingCall"
