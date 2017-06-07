@@ -34,6 +34,8 @@ public class RestartEventsFromNotificationActivity extends Activity
 
         PPApplication.logE("$$$ restartEvents", "from RestartEventsFromNotificationActivity.onStart");
         dataWrapper.restartEventsWithAlert(this);
+
+        finish();
     }
 
     @Override
