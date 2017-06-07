@@ -3078,6 +3078,9 @@ public class DataWrapper {
                     if (_activity instanceof ActivateProfileActivity)
                         finish = ApplicationPreferences.applicationClose(context);
                     else
+                    if (_activity instanceof RestartEventsFromNotificationActivity)
+                        finish = true;
+                    else
                         finish = false;
                     if (finish)
                         _activity.finish();
@@ -3102,6 +3105,9 @@ public class DataWrapper {
             boolean finish;
             if (activity instanceof ActivateProfileActivity)
                 finish = ApplicationPreferences.applicationClose(context);
+            else
+            if (activity instanceof RestartEventsFromNotificationActivity)
+                finish = true;
             else
                 finish = false;
             if (finish)
