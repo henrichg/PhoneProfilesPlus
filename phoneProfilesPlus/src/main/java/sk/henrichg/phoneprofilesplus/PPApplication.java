@@ -35,20 +35,25 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
-    public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
-                                         +"|PhoneProfilesHelper.isPPHelperInstalled"
+    public static String logFilterTags = "##### PPApplication.onCreate"
+
+                                         //+"PhoneProfilesHelper.doUninstallPPHelper"
+                                         //+"|PhoneProfilesHelper.isPPHelperInstalled"
 
                                          //+"|##### PPApplication.onCreate"
-                                         +"|PPApplication._isRooted"
-                                         +"|PPApplication.isRootGranted"
+                                         //+"|PPApplication._isRooted"
+                                         //+"|PPApplication.isRootGranted"
 
-                                         +"|PreferenceFragment"
+                                         //+"|PreferenceFragment"
 
-                                         +"|----- DataWrapper.doEventService"
+                                         //+"|----- DataWrapper.doEventService"
                                          //+"|@@@ PackageReplacedReceiver.onReceive"
+
+                                         +"|ActivateProfileHelper.getMergedRingNotificationVolumes"
+                                         +"|ActivateProfileHelper.setMergedRingNotificationVolumes"
 
                                          /*
                                          +"|PhoneProfilesService.doSimulatingRingingCall"

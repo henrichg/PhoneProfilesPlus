@@ -1001,4 +1001,6 @@
     <string name="action_for_external_application_notification_no_event_text">Parameter event_name is missing or empty.</string>
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">On (ignore hotspot)</string>
     <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Toggle (ignore hotspot)</string>
+    <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Volume merge detection</string>
+    <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Your device has not merged volume for call ringing and notifications.</string>
 </resources>

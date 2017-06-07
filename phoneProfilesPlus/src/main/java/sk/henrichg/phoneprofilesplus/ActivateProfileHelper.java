@@ -99,7 +99,7 @@ public class ActivateProfileHelper {
     private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
     private static final String PREF_SCREEN_UNLOCKED = "screen_unlocked";
     private static final String PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT = "activated_profile_screen_timeout";
-    private static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
+    static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
 
 
     public ActivateProfileHelper()
@@ -502,6 +502,8 @@ public class ActivateProfileHelper {
 
     static boolean getMergedRingNotificationVolumes(Context context) {
         ApplicationPreferences.getSharedPreferences(context);
+        PPApplication.logE("ActivateProfileHelper.getMergedRingNotificationVolumes", "force set="+ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context));
+        PPApplication.logE("ActivateProfileHelper.getMergedRingNotificationVolumes", "merged="+ApplicationPreferences.preferences.getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true));
         if (ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context) > 0)
             return ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context) == 1;
         else
@@ -512,7 +514,17 @@ public class ActivateProfileHelper {
     static void setMergedRingNotificationVolumes(Context context, boolean force) {
         ApplicationPreferences.getSharedPreferences(context);
 
-        PPApplication.logE("$$$ PhoneProfilesService.setMergedRingNotificationVolumes", "xxx");
+        PPApplication.logE("ActivateProfileHelper.setMergedRingNotificationVolumes", "xxx");
+
+        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+        setMergedRingNotificationVolumes(context, force, editor);
+        editor.apply();
+    }
+
+    static void setMergedRingNotificationVolumes(Context context, boolean force, SharedPreferences.Editor editor) {
+        ApplicationPreferences.getSharedPreferences(context);
+
+        PPApplication.logE("ActivateProfileHelper.setMergedRingNotificationVolumes", "xxx");
 
         if (!ApplicationPreferences.preferences.contains(PREF_MERGED_RING_NOTIFICATION_VOLUMES) || force) {
             try {
@@ -539,12 +551,10 @@ public class ActivateProfileHelper {
                 audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, oldNotificationVolume, 0);
                 audioManager.setRingerMode(ringerMode);
 
-                //Log.d("PPApplication.setMergedRingNotificationVolumes", "merged="+merged);
+                PPApplication.logE("ActivateProfileHelper.setMergedRingNotificationVolumes", "merged="+merged);
 
-                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
-                editor.apply();
-            } catch (Exception ignored) { }
+            } catch (Exception ignored) {}
         }
     }
 

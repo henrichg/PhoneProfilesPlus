@@ -19,6 +19,7 @@ import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import java.util.List;
 
@@ -82,6 +83,18 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
         preferences = prefMng.getSharedPreferences();
         preferences.registerOnSharedPreferenceChangeListener(this);
+
+        PreferenceScreen systemCategory = (PreferenceScreen) findPreference("categorySystem");
+        if (!ActivateProfileHelper.getMergedRingNotificationVolumes(getActivity().getApplicationContext())) {
+            Preference preference = findPreference(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
+            if (preference != null)
+                systemCategory.removePreference(preference);
+        }
+        else {
+            Preference preference = findPreference(ApplicationPreferences.PREF_APPLICATION_RINGER_NOTIFICATION_VOLUMES_UNLINKED_INFO);
+            if (preference != null)
+                systemCategory.removePreference(preference);
+        }
 
         if (Build.VERSION.SDK_INT >= 24) {
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("applicationInterfaceCategory");
@@ -543,7 +556,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             }
 
         }*/
-         else {
+        else {
             // For all other preferences, set the summary to the value's
             // simple string representation.
             //preference.setSummary(preference.toString());

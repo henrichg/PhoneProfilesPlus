@@ -1125,6 +1125,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             if (v.equals("light"))
                                 prefEdit.putString(key, "material");
                         }
+                        if (key.equals(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES))
+                            ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), true, prefEdit);
                     }
                 }
                 prefEdit.commit();
