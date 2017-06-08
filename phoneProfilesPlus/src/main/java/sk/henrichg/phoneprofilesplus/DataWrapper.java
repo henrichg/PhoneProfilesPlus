@@ -2588,15 +2588,17 @@ public class DataWrapper {
             if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateStarted()) {
 
                 String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
-                String registeredCell = Integer.toString(PhoneProfilesService.phoneStateScanner.registeredCell);
-                boolean found = false;
-                for (String cell : splits) {
-                    if (cell.equals(registeredCell)) {
-                        found = true;
-                        break;
+                if (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE) {
+                    String registeredCell = Integer.toString(PhoneProfilesService.phoneStateScanner.registeredCell);
+                    boolean found = false;
+                    for (String cell : splits) {
+                        if (cell.equals(registeredCell)) {
+                            found = true;
+                            break;
+                        }
                     }
+                    mobileCellPassed = found;
                 }
-                mobileCellPassed = found;
 
                 if (event._eventPreferencesMobileCells._whenOutside)
                     mobileCellPassed = !mobileCellPassed;

@@ -219,8 +219,10 @@ class PhoneStateScanner extends PhoneStateListener {
         else
             getAllCellInfo(cellInfo);
 
-        DatabaseHandler db = DatabaseHandler.getInstance(context);
-        db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
+        if (registeredCell != Integer.MAX_VALUE) {
+            DatabaseHandler db = DatabaseHandler.getInstance(context);
+            db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
+        }
 
         doAutoRegistration();
         sendBroadcast();
@@ -230,12 +232,14 @@ class PhoneStateScanner extends PhoneStateListener {
     public void onServiceStateChanged (ServiceState serviceState) {
         super.onServiceStateChanged(serviceState);
 
-        PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "telephonyManager="+telephonyManager);
+        PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "telephonyManager=" + telephonyManager);
 
         getRegisteredCell();
 
-        DatabaseHandler db = DatabaseHandler.getInstance(context);
-        db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
+        if (registeredCell != Integer.MAX_VALUE) {
+            DatabaseHandler db = DatabaseHandler.getInstance(context);
+            db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
+        }
 
         doAutoRegistration();
         sendBroadcast();
@@ -250,7 +254,7 @@ class PhoneStateScanner extends PhoneStateListener {
                 if (location instanceof GsmCellLocation) {
                     GsmCellLocation gcLoc = (GsmCellLocation) location;
                     //PPApplication.logE("PhoneStateScanner.getCellLocation", "gsm location="+gcLoc);
-                    if (gcLoc.getCid() != Integer.MAX_VALUE) {
+                    if (gcLoc.getCid() != -1) {
                         //PPApplication.logE("PhoneStateScanner.getCellLocation", "gsm mCid="+gcLoc.getCid());
                         registeredCell = gcLoc.getCid();
                         lastConnectedTime = Calendar.getInstance().getTimeInMillis();
@@ -258,7 +262,7 @@ class PhoneStateScanner extends PhoneStateListener {
                 } else if (location instanceof CdmaCellLocation) {
                     CdmaCellLocation ccLoc = (CdmaCellLocation) location;
                     //PPApplication.logE("PhoneStateScanner.getCellLocation", "cdma location="+ccLoc);
-                    if (ccLoc.getBaseStationId() != Integer.MAX_VALUE) {
+                    if (ccLoc.getBaseStationId() != -1) {
                         //PPApplication.logE("PhoneStateScanner.getCellLocation", "cdma mCid="+ccLoc.getBaseStationId());
                         registeredCell = ccLoc.getBaseStationId();
                         lastConnectedTime = Calendar.getInstance().getTimeInMillis();
@@ -297,8 +301,10 @@ class PhoneStateScanner extends PhoneStateListener {
         else
             getCellLocation(location);
 
-        DatabaseHandler db = DatabaseHandler.getInstance(context);
-        db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
+        if (registeredCell != Integer.MAX_VALUE) {
+            DatabaseHandler db = DatabaseHandler.getInstance(context);
+            db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
+        }
 
         doAutoRegistration();
         sendBroadcast();
@@ -350,7 +356,8 @@ class PhoneStateScanner extends PhoneStateListener {
         if (enabledAutoRegistration) {
             //Log.d("PhoneStateScanner.doAutoRegistration", "xxx");
             List<MobileCellsData> localCellsList = new ArrayList<>();
-            localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false, lastConnectedTime));
+            if (registeredCell != Integer.MAX_VALUE)
+                localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false, lastConnectedTime));
             DatabaseHandler db = DatabaseHandler.getInstance(context);
             db.saveMobileCellsList(localCellsList, true, true);
         }

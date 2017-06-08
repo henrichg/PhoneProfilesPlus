@@ -393,7 +393,7 @@ public class MobileCellsPreference extends DialogPreference {
                             break;
                         }
                     }
-                    if (!found)
+                    if (!found && (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE))
                         _cellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
                                 _cellName, true, true, PhoneProfilesService.phoneStateScanner.lastConnectedTime));
                 }
@@ -524,12 +524,12 @@ public class MobileCellsPreference extends DialogPreference {
             if ((preference.mDialog != null) && preference.mDialog.isShowing()) {
                 // save new registered cell
                 List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();
-                localCellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
-                        preference.cellName.getText().toString(), true, false,
-                        PhoneProfilesService.phoneStateScanner.lastConnectedTime));
+                if (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE)
+                    localCellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
+                            preference.cellName.getText().toString(), true, false,
+                            PhoneProfilesService.phoneStateScanner.lastConnectedTime));
                 DatabaseHandler db = DatabaseHandler.getInstance(context);
                 db.saveMobileCellsList(localCellsList, true, false);
-
                 preference.refreshListView(false);
             }
         }
