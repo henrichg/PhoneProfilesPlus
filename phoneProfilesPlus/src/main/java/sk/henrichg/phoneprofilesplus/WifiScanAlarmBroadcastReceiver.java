@@ -283,20 +283,28 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     {
         lock(context); // lock wakeLock and wifiLock, then scan.
                     // unlock() is then called at the end of the onReceive function of WifiScanBroadcastReceiver
-        boolean startScan = wifi.startScan();
-        PPApplication.logE("$$$ WifiScanAlarmBroadcastReceiver.startScan","scanStarted="+startScan);
-        PPApplication.logE("$$$ WifiAP", "WifiScanAlarmBroadcastReceiver.startScan-startScan="+startScan);
-        if (!startScan)
-        {
-            if (getWifiEnabledForScan(context))
-            {
-                PPApplication.logE("$$$ WifiScanAlarmBroadcastReceiver.startScan","disable wifi");
+        try {
+            boolean startScan = wifi.startScan();
+            PPApplication.logE("$$$ WifiScanAlarmBroadcastReceiver.startScan", "scanStarted=" + startScan);
+            PPApplication.logE("$$$ WifiAP", "WifiScanAlarmBroadcastReceiver.startScan-startScan=" + startScan);
+            if (!startScan) {
+                if (getWifiEnabledForScan(context)) {
+                    PPApplication.logE("$$$ WifiScanAlarmBroadcastReceiver.startScan", "disable wifi");
+                    wifi.setWifiEnabled(false);
+                }
+                unlock();
+            }
+            setWaitForResults(context, startScan);
+            setScanRequest(context, false);
+        } catch (Exception e) {
+            if (getWifiEnabledForScan(context)) {
+                PPApplication.logE("$$$ WifiScanAlarmBroadcastReceiver.startScan", "disable wifi");
                 wifi.setWifiEnabled(false);
             }
             unlock();
+            setWaitForResults(context, false);
+            setScanRequest(context, false);
         }
-        setWaitForResults(context, startScan);
-        setScanRequest(context, false);
     }
 
     static public void startScanner(Context context, boolean fromDialog)
