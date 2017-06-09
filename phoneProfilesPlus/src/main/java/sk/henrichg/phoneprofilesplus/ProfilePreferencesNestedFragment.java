@@ -1467,4 +1467,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         doOnActivityResult(requestCode, resultCode, data);
     }
 
+    protected String getSavedInstanceStateKeyName() {
+        //Log.d("------ ProfilePreferencesFragment.addPreferencesFromResource", "startupSource="+startupSource);
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+            return getClass().getName() + ".DEFAULT";
+        else
+            return getClass().getName();
+    }
+
 }
