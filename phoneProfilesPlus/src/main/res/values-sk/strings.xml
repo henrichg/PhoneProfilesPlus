@@ -994,4 +994,14 @@
   <string name="important_info_profile_zenModeM">\"Nerušiť\" v \"Móde zvonenia\" profilu vyžaduje povolenie PhoneProfilesPlus v systémovom nastavení \"Prístup k upozorneniam\". Kliknite sem a povoľte PhoneProfilesPlus.</string>
   <string name="profile_preferences_zenModeM_alarms_summary">Rušiť iba s budíkmi</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">V Android 6 toto systémové nastavenie je možné zmeniť len v rootnutých zariadeniach. Postihnuté sú režimy zvonenia a typy Nerušiť s vybráciou.</string>
+  <string name="setting_screen_not_found_alert">Obrazovka nastavenia nebola nájdená.</string>
+  <string name="action_for_external_application_notification_title">Podpora externých apl. (Tasker)</string>
+  <string name="action_for_external_application_notification_no_profile_text">Parameter profile_name chýba alebo je prázdny.</string>
+  <string name="action_for_external_application_notification_no_event_text">Parameter event_name je chýba alebo je prázdny.</string>
+  <string name="array_pref_wifiModeArray_on_ignoreHotspot">Zapnúť (ignorovať hotspot)</string>
+  <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Prepnúť stav (ignorovať hotspot)</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Detekcie zlúčenia hlasitosti</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Zariadenie nemá zlúčenú hlasitosť zvonenia a upozornení.</string>
+  <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
+  <string name="array_pref_value_el">el</string>
 </resources>
