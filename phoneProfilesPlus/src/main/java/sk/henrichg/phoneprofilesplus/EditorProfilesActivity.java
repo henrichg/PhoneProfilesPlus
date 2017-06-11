@@ -616,8 +616,23 @@ public class EditorProfilesActivity extends AppCompatActivity
             PPApplication.stopPhoneStateScanner(context);
         }
 
-        ActivateProfileHelper.screenTimeoutUnlock(context);
-        ActivateProfileHelper.removeBrightnessView(context);
+        if (PPApplication.brightnessHandler != null) {
+            PPApplication.brightnessHandler.post(new Runnable() {
+                public void run() {
+                    ActivateProfileHelper.removeBrightnessView(context);
+
+                }
+            });
+        }
+        if (PPApplication.screenTimeoutHandler != null) {
+            PPApplication.screenTimeoutHandler.post(new Runnable() {
+                public void run() {
+                    ActivateProfileHelper.screenTimeoutUnlock(context);
+                    ActivateProfileHelper.removeBrightnessView(context);
+
+                }
+            });
+        }
 
         PPApplication.initRoot();
 

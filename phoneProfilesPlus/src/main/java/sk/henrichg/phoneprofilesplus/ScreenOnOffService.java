@@ -70,10 +70,10 @@ public class ScreenOnOffService extends IntentService {
                                 dataWrapper.invalidateDataWrapper();
                             }
                         });
-                    } else {
+                    }/* else {
                         dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
                         dataWrapper.invalidateDataWrapper();
-                    }
+                    }*/
                 }
 
                 // enable/disable keyguard

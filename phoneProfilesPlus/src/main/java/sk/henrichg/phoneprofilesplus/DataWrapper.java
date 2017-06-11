@@ -1243,8 +1243,8 @@ public class DataWrapper {
                             showToastAfterActivation(__profile);
                         }
                     });
-                } else
-                    showToastAfterActivation(profile);
+                }// else
+                //    showToastAfterActivation(profile);
             }
         }
 

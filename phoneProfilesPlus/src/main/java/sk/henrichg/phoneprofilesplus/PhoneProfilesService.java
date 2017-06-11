@@ -1430,8 +1430,8 @@ public class PhoneProfilesService extends Service
                     ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
                 }
             });
-        } else
-            ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
+        }// else
+        //    ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
 
         super.onTaskRemoved(rootIntent);
     }
