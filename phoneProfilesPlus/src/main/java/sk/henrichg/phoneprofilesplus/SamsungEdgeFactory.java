@@ -37,7 +37,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         //PPApplication.loadPreferences(context);
 
         int monochromeValue = 0xFF;
-        String applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness(context);
+        String applicationWidgetListIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness(context);
         if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
         if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
         if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
@@ -46,11 +46,11 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
         if (dataWrapper == null)
         {
-            dataWrapper = new DataWrapper(context, true, ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"), monochromeValue);
+            dataWrapper = new DataWrapper(context, true, ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"), monochromeValue);
         }
         else
         {
-            dataWrapper.setParameters(true, ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"), monochromeValue);
+            dataWrapper.setParameters(true, ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"), monochromeValue);
         }
     }
 
@@ -103,7 +103,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
     public RemoteViews getViewAt(int position) {
 
         RemoteViews row;
-        //if (!ApplicationPreferences.applicationWidgetListGridLayout(context))
+        //if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
         //    row=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_item);
         //else
             row=new RemoteViews(context.getPackageName(), R.layout.profile_grid_widget_item);
@@ -125,7 +125,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             int red = 0xFF;
             int green;
             int blue;
-            String applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT(context);
+            String applicationWidgetListLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT(context);
             if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
             if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
             if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
@@ -133,7 +133,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
             green = red;
             blue = red;
-            if (!ApplicationPreferences.applicationWidgetListHeader(context)) {
+            if (!ApplicationPreferences.applicationSamsungEdgeHeader(context)) {
                 if (profile._checked) {
                     if (android.os.Build.VERSION.SDK_INT >= 16)
                         row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_SP, 17);
@@ -154,20 +154,20 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             } else {
                 row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
             }
-            if ((!ApplicationPreferences.applicationWidgetListHeader(context)) && (profile._checked)) {
+            if ((!ApplicationPreferences.applicationSamsungEdgeHeader(context)) && (profile._checked)) {
                 // hm, interesting, how to set bold style for RemoteView text ;-)
-                //String profileName = dataWrapper.getProfileNameWithManualIndicator(profile, !ApplicationPreferences.applicationWidgetListGridLayout(context), true, ApplicationPreferences.applicationWidgetListGridLayout(context));
+                //String profileName = dataWrapper.getProfileNameWithManualIndicator(profile, !ApplicationPreferences.applicationSamsungEdgeGridLayout(context), true, ApplicationPreferences.applicationSamsungEdgeGridLayout(context));
                 String profileName = dataWrapper.getProfileNameWithManualIndicator(profile, false, true, true);
                 Spannable sb = new SpannableString(profileName);
                 sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
             } else {
-                //String profileName = profile.getProfileNameWithDuration(ApplicationPreferences.applicationWidgetListGridLayout(context), dataWrapper.context);
+                //String profileName = profile.getProfileNameWithDuration(ApplicationPreferences.applicationSamsungEdgeGridLayout(context), dataWrapper.context);
                 String profileName = profile.getProfileNameWithDuration(true, dataWrapper.context);
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
             }
-            /*if (!ApplicationPreferences.applicationWidgetListGridLayout(context)) {
-                if (ApplicationPreferences.applicationWidgetListPrefIndicator(context)) {
+            /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context)) {
+                if (ApplicationPreferences.applicationSamsungEdgePrefIndicator(context)) {
                     if (profile._preferencesIndicator != null)
                         row.setImageViewBitmap(R.id.widget_profile_list_profile_pref_indicator, profile._preferencesIndicator);
                     else
@@ -213,7 +213,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
         List<Profile> newProfileList = dataWrapper.getNewProfileList();
 
-        if (!ApplicationPreferences.applicationWidgetListHeader(context))
+        if (!ApplicationPreferences.applicationSamsungEdgeHeader(context))
         {
             // show activated profile in list if is not showed in activator
             Profile profile = dataWrapper.getActivatedProfile(newProfileList);
