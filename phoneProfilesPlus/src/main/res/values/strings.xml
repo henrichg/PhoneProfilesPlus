@@ -1005,4 +1005,6 @@
     <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Your device has not merged volume for call ringing and notifications.</string>
     <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
     <string name="array_pref_value_el">el</string>
+    <string name="samsung_edge_name">PhoneProfilesPlus</string>
+    <string name="samsung_edge_description">Activator as edge panel</string>
 </resources>

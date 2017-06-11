@@ -766,6 +766,19 @@
         </receiver>
         -->
 
+        <!-- Samsung Edge Look provider -->
+        <receiver android:name=".SamsungEdgeProvider"
+                  android:enabled="true"
+                  android:exported="false" >
+            <intent-filter>
+                <action android:name=
+                            "com.samsung.android.cocktail.v2.action.COCKTAIL_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="com.samsung.android.cocktail.provider"
+                android:resource="@xml/samsung_edge" />
+        </receiver>
+
         <service
             android:name=".ProfileListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
@@ -868,6 +881,9 @@
             android:name=".ExecuteRootProfilePrefsService"
             android:exported="false">
         </service>
+        <service
+            android:name=".SamsungEdgeService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
 </manifest>

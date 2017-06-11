@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cocktail-provider
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    label="@string/samsung_edge_name"
+    decription="@string/samsung_edge_description"
+    previewImage="@drawable/ic_empty"
+    updatePeriodMills="0"
+    configure="sk.henrichg.phoneprofilesplus.EditorProfilesActivity"
+    cocktailWidth="550" >
+</cocktail-provider>
