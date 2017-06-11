@@ -14,6 +14,8 @@ import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.samsung.android.sdk.SsdkUnsupportedException;
+import com.samsung.android.sdk.look.Slook;
 import com.stericson.RootShell.RootShell;
 import com.stericson.RootTools.RootTools;
 
@@ -207,6 +209,11 @@ public class PPApplication extends Application {
     public static LockDeviceActivity lockDeviceActivity = null;
     public static int screenTimeoutBeforeDeviceLock = 0;
 
+    // Samsung Look instance
+    public static Slook sLook = null;
+    public static boolean sLookCocktailPanelEnabled = false;
+    public static boolean sLookCocktailBarEnabled = false;
+
     @Override
     public void onCreate()
     {
@@ -267,6 +274,17 @@ public class PPApplication extends Application {
         brightnessHandler = new Handler(getMainLooper());
         screenTimeoutHandler = new Handler(getMainLooper());
 
+        // Samsung Look initialization
+        sLook = new Slook();
+        try {
+            sLook.initialize(this);
+            // true = The Device supports Edge Single Mode, Edge Single Plus Mode, and Edge Feeds Mode.
+            sLookCocktailPanelEnabled = sLook.isFeatureEnabled(Slook.COCKTAIL_PANEL);
+            // true = The Device supports Edge Immersive Mode feature.
+            sLookCocktailBarEnabled = sLook.isFeatureEnabled(Slook.COCKTAIL_BAR);
+        } catch (SsdkUnsupportedException e) {
+            sLook = null;
+        }
     }
 
     //--------------------------------------------------------------
