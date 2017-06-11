@@ -14,6 +14,8 @@ public class RestartEventsFromNotificationActivity extends Activity
 
         super.onCreate(savedInstanceState);
 
+        PPApplication.logE("RestartEventsFromNotificationActivity.onCreate", "xxx");
+
         //PPApplication.loadPreferences(getApplicationContext());
 
         dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
@@ -32,7 +34,7 @@ public class RestartEventsFromNotificationActivity extends Activity
 
         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
-        PPApplication.logE("$$$ restartEvents", "from RestartEventsFromNotificationActivity.onStart");
+        PPApplication.logE("RestartEventsFromNotificationActivity.onStart", "xxx");
         dataWrapper.restartEventsWithAlert(this);
     }
 

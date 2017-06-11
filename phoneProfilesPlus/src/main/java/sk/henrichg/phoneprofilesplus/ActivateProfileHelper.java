@@ -2169,6 +2169,15 @@ public class ActivateProfileHelper {
         Intent intent5 = new Intent("RefreshGUIBroadcastReceiver");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
 
+        // Samsung edge panel
+        if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
+            try {
+                Intent intent2 = new Intent(context, SamsungEdgeProvider.class);
+                intent2.setAction(SamsungEdgeProvider.INTENT_REFRESH_EDGEPANEL);
+                context.sendBroadcast(intent2);
+            } catch (Exception ignored) {
+            }
+        }
     }
 
     static boolean isAirplaneMode(Context context)
