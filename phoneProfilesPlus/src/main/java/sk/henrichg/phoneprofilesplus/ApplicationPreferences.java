@@ -376,7 +376,7 @@ class ApplicationPreferences {
     }
 
     static String applicationSamsungEdgeIconColor(Context context) {
-        return getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, "1");
+        return getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, "0");
     }
 
     static String applicationSamsungEdgeIconLightness(Context context) {

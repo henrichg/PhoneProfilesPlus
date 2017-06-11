@@ -646,4 +646,69 @@
             app:useStockLayout="true" />
     </PreferenceScreen>
 
-</PreferenceScreen>    
+    <PreferenceScreen
+        android:title="@string/phone_profiles_pref_category_samsung_edge_panel"
+        android:key="categorySamsungEdgePanel"
+        android:widgetLayout="@layout/start_activity_preference">
+        <!--
+        <CheckBoxPreference
+            android:key="applicationSamsungEdgePrefIndicator"
+            android:title="@string/phone_profiles_pref_applicationPrefIndicator"
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
+        -->
+        <CheckBoxPreference
+            android:key="applicationSamsungEdgeHeader"
+            android:title="@string/phone_profiles_pref_applicationHeader"
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
+        <!--
+        <CheckBoxPreference
+            android:key="applicationSamsungEdgeGridLayout"
+            android:title="@string/phone_profiles_pref_applicationGridLayout"
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
+        -->
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetBackground"
+            android:summary="0%"
+            android:key="applicationSamsungEdgeBackground"
+            android:defaultValue="0"
+            android:entries="@array/widgetBackgroundArray"
+            android:entryValues="@array/widgetBackgroundValues"
+            app:useStockLayout="true" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
+            android:summary="0"
+            android:key="applicationSamsungEdgeLightnessB"
+            android:defaultValue="0"
+            android:entries="@array/widgetLightnessArray"
+            android:entryValues="@array/widgetLightnessValues"
+            app:useStockLayout="true" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
+            android:summary="100"
+            android:key="applicationSamsungEdgeLightnessT"
+            android:defaultValue="100"
+            android:entries="@array/widgetLightnessArray"
+            android:entryValues="@array/widgetLightnessValues"
+            app:useStockLayout="true" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetIconColor"
+            android:summary="0"
+            android:key="applicationSamsungEdgeIconColor"
+            android:defaultValue="0"
+            android:entries="@array/widgetColorArray"
+            android:entryValues="@array/widgetColorValues"
+            app:useStockLayout="true" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
+            android:summary="100"
+            android:key="applicationSamsungEdgeIconLightness"
+            android:defaultValue="100"
+            android:entries="@array/widgetLightnessArray"
+            android:entryValues="@array/widgetLightnessValues"
+            app:useStockLayout="true" />
+    </PreferenceScreen>
+
+</PreferenceScreen>

@@ -582,6 +582,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             boolean colorful = preferences.getString(key, "0").equals("1");
             _preference.setEnabled(colorful);
         }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS);
+            boolean colorful = preferences.getString(key, "0").equals("1");
+            _preference.setEnabled(colorful);
+        }
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,

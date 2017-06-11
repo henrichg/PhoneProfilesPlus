@@ -23,7 +23,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     @SuppressWarnings("deprecation")
     private RemoteViews buildLayout(Context context, SlookCocktailManager cocktailBarManager, int appWidgetId)
     {
-        Intent svcIntent=new Intent(context, ProfileListWidgetService.class);
+        Intent svcIntent=new Intent(context, SamsungEdgeService.class);
         svcIntent.setData(Uri.parse(svcIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
         RemoteViews widget;
