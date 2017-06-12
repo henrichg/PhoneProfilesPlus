@@ -426,6 +426,12 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (preference != null)
                 preferenceCategory.removePreference(preference);
         }
+        if ((PPApplication.sLook == null) || (!PPApplication.sLookCocktailPanelEnabled)) {
+            PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("rootScreen");
+            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categorySamsungEdgePanel");
+            if (preferenceCategory != null)
+                preferenceScreen.removePreference(preferenceCategory);
+        }
     }
 
     /*
@@ -584,8 +590,10 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS);
-            boolean colorful = preferences.getString(key, "0").equals("1");
-            _preference.setEnabled(colorful);
+            if (_preference != null) {
+                boolean colorful = preferences.getString(key, "0").equals("1");
+                _preference.setEnabled(colorful);
+            }
         }
     }
 
