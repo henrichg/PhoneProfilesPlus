@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     label="@string/samsung_edge_name"
     decription="@string/samsung_edge_description"
-    previewImage="@drawable/ic_empty"
+    previewImage="@drawable/samsung_edge_panel"
     updatePeriodMills="0"
     configure="sk.henrichg.phoneprofilesplus.EditorProfilesActivity"
     cocktailWidth="550" >
