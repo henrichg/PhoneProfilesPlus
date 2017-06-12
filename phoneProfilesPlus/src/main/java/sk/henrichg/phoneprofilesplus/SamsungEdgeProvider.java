@@ -159,7 +159,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
             if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
             green = red; blue = red;
-            widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(alpha, red, green, blue));
+            widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, red, green, blue));
 
             monochromeValue = 0xFF;
             if (applicationWidgetListLightnessT.equals("0")) monochromeValue = 0x00;
