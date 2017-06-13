@@ -334,29 +334,6 @@ public class EditorEventListFragment extends Fragment {
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.fragment_editor_event_list, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-        /*case R.id.menu_new_event:
-            startEventPreferencesActivity(null);
-
-            return true;*/
-        /*case R.id.menu_delete_all_events:
-            deleteAllEvents();
-
-            return true;*/
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
     public void startEventPreferencesActivity(Event event, int predefinedEventIndex)
     {
         int editMode;
