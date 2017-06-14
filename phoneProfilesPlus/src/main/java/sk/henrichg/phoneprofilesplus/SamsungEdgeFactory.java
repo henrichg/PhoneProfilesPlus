@@ -107,7 +107,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         //if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
         //    row=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_item);
         //else
-            row=new RemoteViews(context.getPackageName(), R.layout.profile_grid_widget_item);
+            row=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_item);
 
         //Log.e("SamsungEdgeFactory.getViewAt", "applicationSamsungEdgeHeader=true");
 

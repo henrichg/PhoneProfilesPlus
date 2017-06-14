@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_profile_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/widget_profile_list_item_profile_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="@integer/profilePrefIndicatorScaleType"
+        android:src="@drawable/ic_profile_default" 
+        android:contentDescription="@string/profile_preferences_profileIcon"/>
+
+    <TextView
+        android:id="@+id/widget_profile_list_item_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_gravity="center_vertical"
+        android:shadowColor="#ffffffff"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="3"
+        android:text="@string/profile_name_default"
+        android:textSize="13sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#ffffffff" />
+        
+</LinearLayout>
+
