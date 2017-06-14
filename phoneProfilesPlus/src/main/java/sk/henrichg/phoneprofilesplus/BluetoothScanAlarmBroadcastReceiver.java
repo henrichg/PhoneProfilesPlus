@@ -484,10 +484,11 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         Set<BluetoothDevice> boundedDevices = BluetoothScanAlarmBroadcastReceiver.bluetooth.getBondedDevices();
         boundedDevicesList.clear();
-        for (BluetoothDevice device : boundedDevices)
-        {
-            boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
-                    BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false, 0));
+        if (boundedDevices != null) {
+            for (BluetoothDevice device : boundedDevices) {
+                boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
+                        BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false, 0));
+            }
         }
         saveBoundedDevicesList(context, boundedDevicesList);
     }
