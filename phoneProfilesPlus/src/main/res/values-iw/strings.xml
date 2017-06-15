@@ -997,4 +997,17 @@
   <string name="important_info_profile_zenModeM">\"נא לא להפריע\" פרופיל \"הצלצול מצב\" דורש הפעלת PhoneProfilesPlus בהגדרות המערכת \"הודעה על גישה\". לחץ כאן ולאפשר PhoneProfilesPlus.</string>
   <string name="profile_preferences_zenModeM_alarms_summary">להפריע רק עם אזעקות</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">באנדרואיד 6 הגדרת מערכת זו מערכת מחייבת הרשאות ROOT. ההשפעה היא על מצבי הצלצול וסוגי הפרעה עם רטט.</string>
+  <string name="setting_screen_not_found_alert">מסך ההגדרות לא נמצא.</string>
+  <string name="action_for_external_application_notification_title">תמיכה ביישום חיצוני (Tasker)</string>
+  <string name="action_for_external_application_notification_no_profile_text">הפרמטר profile_name חסר או ריק.</string>
+  <string name="action_for_external_application_notification_no_event_text">הפרמטר event_name חסר או ריק.</string>
+  <string name="array_pref_wifiModeArray_on_ignoreHotspot">מופעל (התעלם מ-hotspot)</string>
+  <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">שינוי מצב הפעלה (התעלם מ-hotspot)</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">אתר מיזוג עוצמות קול</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">במכשירך לא מוזגו עוצמות הקול עבור שיחות נכנסות והודעות.</string>
+  <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
+  <string name="array_pref_value_el">el</string>
+  <string name="samsung_edge_name">PhoneProfilesPlus</string>
+  <string name="samsung_edge_description">Activator כחלונית-קצה</string>
+  <string name="phone_profiles_pref_category_samsung_edge_panel">חלונית-קצה של סמסונג</string>
 </resources>

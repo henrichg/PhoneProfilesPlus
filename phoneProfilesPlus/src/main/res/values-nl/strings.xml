@@ -994,4 +994,17 @@
   <string name="important_info_profile_zenModeM">\"Niet storen\" in profiel \"Beltoonmodus\" vereist het autoriseren van PhoneProfilesPlus bij \"Toegang tot notificaties\" in systeem instellingen. Klik hier en schakel PhoneProfiles in.</string>
   <string name="profile_preferences_zenModeM_alarms_summary">Stoor alleen bij alarmen</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6 kan deze systeeminstelling alleen gewijzigd worden op geroote apparaten. Dit betreft bel modes met trillen.</string>
+  <string name="setting_screen_not_found_alert">Instellen scherm niet gevonden.</string>
+  <string name="action_for_external_application_notification_title">Externe app. ondersteuning (Tasker)</string>
+  <string name="action_for_external_application_notification_no_profile_text">Parameter profle_name ontbreekt of is leeg.</string>
+  <string name="action_for_external_application_notification_no_event_text">Parameter event_name ontbreekt of is leeg.</string>
+  <string name="array_pref_wifiModeArray_on_ignoreHotspot">Aan (negeer hotspot)</string>
+  <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Wisselknop (negeer hotspot)</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Volume samenvoegen detectie</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Je apparaat heeft volume voor beltoon en meldingen niet samengevoegd.</string>
+  <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
+  <string name="array_pref_value_el">el</string>
+  <string name="samsung_edge_name">PhoneProfilesPlus</string>
+  <string name="samsung_edge_description">Activator als edge-venster</string>
+  <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung edge venster</string>
 </resources>

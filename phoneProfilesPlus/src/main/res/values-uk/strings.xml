@@ -710,7 +710,7 @@
   <string name="permissions_access_notification_policy_not_allowed_confirm">Ви не дозволили «Не запитувати доступ». Більше не питати?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Не запитувати доступ</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Будь ласка, знайдіть додаток «PhoneProfilesPlus» та увімкніть його.</string>
-  <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Add PhoneProfilesPlus to \"Not optimized\", when you encountered problems with profile activation from events, if you leaves a device unplugged and stationary for a period of time, with the screen off.</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Додайте PhoneProfilesPlus до категорії «Не заощаджують батарею», якщо виникли проблеми з активацію профілів, після блокування пристрою з вимкненим екраном.</string>
   <string name="profile_preferences_deviceWallpaperFor">Змінити шпалери для</string>
   <string name="array_pref_device_wallpaper_homescreen">Домашній екран</string>
   <string name="array_pref_device_wallpaper_lockscreen">Екран блокування</string>
@@ -774,14 +774,14 @@
   <string name="event_preferences_category_eventNFCParameters">Параметри NFC</string>
   <string name="event_preferences_nfc_nfcTags">NFC теги</string>
   <string name="nfc_tag_pref_dlg_hint">Назва теґу</string>
-  <string name="nfc_tag_pref_dlg_help">You must write tag name into NFC tag. \"Write to NFC Tag\" is in menu for each tag name.</string>
-  <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">Write to NFC Tag</string>
+  <string name="nfc_tag_pref_dlg_help">Ви мусите присвоїти ім\'я мітці. \" Запис NFC мітки\" знаходиться в меню для кожної мітки.</string>
+  <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">Записати NFC-мітку</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Attach your phone to a NFC tag. Write will be started.</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC must be enabled. Please enable it and try again.</string>
   <string name="nfc_tag_pref_dlg_writeTagTitle">Write to NFC Tag</string>
-  <string name="write_nfc_tag_writed">Tag written</string>
-  <string name="write_nfc_tag_error">Tag write ERROR</string>
-  <string name="read_nfc_tag_readed">Tag readed</string>
+  <string name="write_nfc_tag_writed">Мітку записано</string>
+  <string name="write_nfc_tag_error">Помилка запису мітки</string>
+  <string name="read_nfc_tag_readed">Мітку прочитано</string>
   <string name="read_nfc_tag_error">Read tag ERROR</string>
   <string name="pref_event_permanentRun">Permanent run</string>
   <string name="pref_event_permanentRun_summary">Pause event after manual profile activation and restart events</string>
@@ -862,7 +862,7 @@
   <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>
   <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For notification volume = 0 configure notification tone to \"PhoneProfiles Silent\" for true silent notifications.</string>
   <string name="profile_preferences_volumeNotificationVolume0_question">Configure notification tone to \"PhoneProfiles Silent\"?</string>
-  <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it from Editor menu a try again.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it from Editor menu and try again.</string>
   <string name="info_notification_unlink_ringer_notification_volumes">Your device has merged volume for call ringing and notifications. You can use \"Unlink ringer and notif. volumes\". Click here to configure it.</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has merged volume for call ringing and notifications. If you want unlink volumes, check this parameter.</string>
   <string name="phone_profiles_pref_eventUsePriorityAppSettings">Use priority</string>
@@ -966,7 +966,7 @@
   <string name="event_preferences_radioSwitch_nfc">NFC</string>
   <string name="event_preferences_radioSwitch_airplaneMode">Airplane mode</string>
   <string name="event_preferences_radioSwitch_info_title">Sensor configuration</string>
-  <string name="event_preferences_radioSwitch_info_summary">State of all radios must by fulfilled to start event. Configure only radios which you needed.</string>
+  <string name="event_preferences_radioSwitch_info_summary">State of all radios must by fulfilled to start event. Configure only radios which you need.</string>
   <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Just any</string>
   <string name="profile_preferences_deviceConnectToSSID">Connect to SSID</string>
   <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Set volumes merge</string>
@@ -994,4 +994,17 @@
   <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>
   <string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>
+  <string name="setting_screen_not_found_alert">Setting screen not found.</string>
+  <string name="action_for_external_application_notification_title">External app. support (Tasker)</string>
+  <string name="action_for_external_application_notification_no_profile_text">Parameter profile_name is missing or empty.</string>
+  <string name="action_for_external_application_notification_no_event_text">Parameter event_name is missing or empty.</string>
+  <string name="array_pref_wifiModeArray_on_ignoreHotspot">On (ignore hotspot)</string>
+  <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Toggle (ignore hotspot)</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Volume merge detection</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Your device has not merged volume for call ringing and notifications.</string>
+  <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
+  <string name="array_pref_value_el">el</string>
+  <string name="samsung_edge_name">PhoneProfilesPlus</string>
+  <string name="samsung_edge_description">Activator as edge panel</string>
+  <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung edge panel</string>
 </resources>

@@ -994,4 +994,17 @@
   <string name="important_info_profile_zenModeM">\"Zil modu\" profilinde \"Rahatsız Etmeyin\" modu için sistem ayarlarında \"Bildirim erişim\" tercihlerinde PhoneProfilesPlus\'ın seçilmesi lazımdır. Buraya dokunun ve PhoneProfilesPlus\'ı seçin.</string>
   <string name="profile_preferences_zenModeM_alarms_summary">Sadece alarmlar açık</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Android 6\'da bu sistem ayarı yalnızca kök erişimi olan (root edilmiş) cihazlarda değiştirilebilir. Etkilenenler zil modları ve titreşimli \"rahatsız etmeyin\" türleridir.</string>
+  <string name="setting_screen_not_found_alert">Ayar ekranı bulunamadı.</string>
+  <string name="action_for_external_application_notification_title">Dış uygulama desteği (Tasker)</string>
+  <string name="action_for_external_application_notification_no_profile_text">Parametre profile_name eksik veya boş.</string>
+  <string name="action_for_external_application_notification_no_event_text">Parametre event_name eksik veya boş.</string>
+  <string name="array_pref_wifiModeArray_on_ignoreHotspot">Açık (Hot-spot\'u ihmal et)</string>
+  <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Değiştir (Hot-spot\'u ihmal et)</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Ses hacmi birleştirmeyi farket</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Cihazınızın zil ve bildirim ses hacimleri birleştirilmiş değil.</string>
+  <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
+  <string name="array_pref_value_el">el</string>
+  <string name="samsung_edge_name">PhoneProfilesPlus</string>
+  <string name="samsung_edge_description">Kenar paneli olarak bașlatıcı</string>
+  <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung kenar paneli</string>
 </resources>

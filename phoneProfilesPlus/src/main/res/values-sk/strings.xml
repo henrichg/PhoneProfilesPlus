@@ -870,7 +870,7 @@
   <string name="phone_profiles_pref_notificationStatusBarNew">Notifikácia v stavovom riadku</string>
   <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Aktuálne nakonfigurovaný:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Hlasitosť zvonenia = 0</string>
-  <string name="profile_preferences_volumeRingtone0Info_summary">Hlasitosť zvonenia = 0 nakonfiguruje zariadenie na tichého režimu. Hlasitosť notifikácie sa ignoruje.</string>
+  <string name="profile_preferences_volumeRingtone0Info_summary">Hlasitosť zvonenia = 0 nakonfiguruje zariadenie do tichého režimu. Hlasitosť notifikácie sa ignoruje.</string>
   <string name="phone_profiles_pref_notificationStatusBarInfo_title">Dôležitá informácia!</string>
   <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Prebiehajúca notifikácia je vyžadovaná pre službu PhoneProfilesService. S notifikáciou sa PhoneProfilesService zmení na \"služba v popredí\". A tento typ služby nie je zabíjaný Androidom. PhoneProfilesService musí stále bežať.</string>
   <string name="phone_profiles_pref_notificationStatusBarRequired">Vyžadované pre službu v pozadí PhoneProfilesService</string>
@@ -997,11 +997,14 @@
   <string name="setting_screen_not_found_alert">Obrazovka nastavenia nebola nájdená.</string>
   <string name="action_for_external_application_notification_title">Podpora externých apl. (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">Parameter profile_name chýba alebo je prázdny.</string>
-  <string name="action_for_external_application_notification_no_event_text">Parameter event_name je chýba alebo je prázdny.</string>
+  <string name="action_for_external_application_notification_no_event_text">Parameter event_name chýba alebo je prázdny.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">Zapnúť (ignorovať hotspot)</string>
   <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Prepnúť stav (ignorovať hotspot)</string>
   <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Detekcie zlúčenia hlasitosti</string>
-  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Zariadenie nemá zlúčenú hlasitosť zvonenia a upozornení.</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Zariadenie nemá zlúčenú hlasitosť zvonenia a notifikácií.</string>
   <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
   <string name="array_pref_value_el">el</string>
+  <string name="samsung_edge_name">PhoneProfilesPlus</string>
+  <string name="samsung_edge_description">Aktivátor ako bočný panel</string>
+  <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung bočný panel</string>
 </resources>

@@ -948,7 +948,7 @@
   <string name="array_pref_lockDevice_root">(R) Benutze Root (Gerät muss gerootet sein)</string>
   <string name="array_pref_lockDevice_screenOff">Benutze schnelle Bildschirmabschaltung</string>
   <string name="profile_preferences_lockDevice_deviceAdminSettings_title">Geräteadministrator</string>
-  <string name="profile_preferences_lockDevice_deviceAdminSettings_summary">Aktiviere \"PhoneProfilesPlus\" als Geräteadministrator und \"Nutze Geräteadministrator\" als Sperrmethode.</string>
+  <string name="profile_preferences_lockDevice_deviceAdminSettings_summary">Für das Sperren aktiviere \"PhoneProfilesPlus\" als Geräteadministrator.</string>
   <string name="profile_preferences_lockDevice_deviceAdminSettings_summary_activated">Bereits aktiviert</string>
   <string name="lockDevice_screenOff_text">Schnelle Bildschirmabschaltung mit Sperre</string>
   <string name="event_preferences_calendar_start_before_event">Starte vor dem Event</string>
@@ -994,4 +994,17 @@
   <string name="important_info_profile_zenModeM">\"Nicht Stören\" im Klingelmodus von Profilen benötigt Benachrichtigungszugriff für PPP. Klicke hier und erlaube PPP.</string>
   <string name="profile_preferences_zenModeM_alarms_summary">Nicht Stören, Alarme ausgenommen</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Unter Android 6 kann diese Einstellung nur auf gerooteten Geräten geändert werden. Betroffen sind der Klingel-Modus und die Nicht-Stören-Typen mit Vibration.</string>
+  <string name="setting_screen_not_found_alert">Setting screen not found.</string>
+  <string name="action_for_external_application_notification_title">External app. support (Tasker)</string>
+  <string name="action_for_external_application_notification_no_profile_text">Parameter profile_name is missing or empty.</string>
+  <string name="action_for_external_application_notification_no_event_text">Parameter event_name is missing or empty.</string>
+  <string name="array_pref_wifiModeArray_on_ignoreHotspot">On (ignore hotspot)</string>
+  <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Toggle (ignore hotspot)</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Volume merge detection</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Your device has not merged volume for call ringing and notifications.</string>
+  <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
+  <string name="array_pref_value_el">el</string>
+  <string name="samsung_edge_name">PhoneProfilesPlus</string>
+  <string name="samsung_edge_description">Activator as edge panel</string>
+  <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung edge panel</string>
 </resources>

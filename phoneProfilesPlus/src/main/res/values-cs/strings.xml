@@ -994,4 +994,17 @@
   <string name="important_info_profile_zenModeM">\"Nerušit\" v \"Módu vyzvánění\" profil vyžaduje povolení PhoneProfilesPlus v systémovém nastavení \"Přístup k oznámením\". Klikněte zde a povolte PhoneProfilesPlus.</string>
   <string name="profile_preferences_zenModeM_alarms_summary">Rušit pouze s budíky</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">V Androidu 6 toto systémové nastavení lze změnit pouze v rootnutých zařízeních. Postižené jsou režimy vyzvánění a typy Nerušit s vibrací.</string>
+  <string name="setting_screen_not_found_alert">Obrazovka nastavení nebyla nalezena.</string>
+  <string name="action_for_external_application_notification_title">Podpora externích apl. (Tasker)</string>
+  <string name="action_for_external_application_notification_no_profile_text">Parametr profile_name chybí nebo je prázdný.</string>
+  <string name="action_for_external_application_notification_no_event_text">Parametr event_name chybí nebo je prázdný.</string>
+  <string name="array_pref_wifiModeArray_on_ignoreHotspot">Zapnout (ignorovat hotspot)</string>
+  <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Přepnout stav (ignorovat hotspot)</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Detekce sloučení hlasitosti</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Zařízení nemá sloučenou hlasitost vyzvánění a oznámení.</string>
+  <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
+  <string name="array_pref_value_el">el</string>
+  <string name="samsung_edge_name">PhoneProfilesPlus</string>
+  <string name="samsung_edge_description">Aktivátor jako boční panel</string>
+  <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung boční panel</string>
 </resources>

@@ -995,4 +995,17 @@
   <string name="important_info_profile_zenModeM">Для установки значения \"Режимы оповещения\" в разделе \"Режим звонка\" необходимо включить службу PhoneProfilesPlus в настройках системы \"Доступ к уведомлениям\". Нажмите здесь, чтобы включить службу PhoneProfilesPlus.</string>
   <string name="profile_preferences_zenModeM_alarms_summary">Беспокоить только оповещениями</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">В Android 6 системные параметры, такие как режим звонка и вибрация, могут быть изменены только на разблокированных устройствах, имеющих права Суперпользователя.</string>
+  <string name="setting_screen_not_found_alert">Настройки экрана не найдены.</string>
+  <string name="action_for_external_application_notification_title">Поддержка внешних app. (Tasker)</string>
+  <string name="action_for_external_application_notification_no_profile_text">Параметр profile_name отсутствует или является пустым.</string>
+  <string name="action_for_external_application_notification_no_event_text">Параметр event_name отсутствует или является пустым.</string>
+  <string name="array_pref_wifiModeArray_on_ignoreHotspot">Включить (игнорировать точку доступа)</string>
+  <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Переключить (игнорировать точку доступа)</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Volume merge detection</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">В Вашем устройстве не объединены мелодии звонка и уведомлений.</string>
+  <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
+  <string name="array_pref_value_el">el</string>
+  <string name="samsung_edge_name">PhoneProfilesPlus</string>
+  <string name="samsung_edge_description">Активатор как панель</string>
+  <string name="phone_profiles_pref_category_samsung_edge_panel">Панель Samsung</string>
 </resources>

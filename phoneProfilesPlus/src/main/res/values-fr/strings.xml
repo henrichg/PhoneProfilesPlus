@@ -995,4 +995,17 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="important_info_profile_zenModeM">« Ne pas déranger » dans le profil « Mode de sonnerie » nécessite l\'activation de PhoneProfilesPlus dans « Accès de Notification » des paramètres système . Cliquez ici et activez PhoneProfilesPlus.</string>
   <string name="profile_preferences_zenModeM_alarms_summary">Déranger uniquement avec les alarmes</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Dans Android 6 ce paramètre ne peut être modifié que sur les appareils rootés. Les modes de sonnerie et les notifications de type ne pas déranger avec vibration sont affectés.</string>
+  <string name="setting_screen_not_found_alert">Écran de paramétrage introuvable.</string>
+  <string name="action_for_external_application_notification_title">Support pour les app. extérieurs</string>
+  <string name="action_for_external_application_notification_no_profile_text">Le paramètre profile_name est manquant ou vide.</string>
+  <string name="action_for_external_application_notification_no_event_text">Le paramètre event_name est manquant ou vide.</string>
+  <string name="array_pref_wifiModeArray_on_ignoreHotspot">Activer (ignorer le hotspot)</string>
+  <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Activer/désactiver (ignorer le hotspot)</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Détection de fusion des volumes</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Votre appareil n’a pas fusionné les volumes de sonnerie d’appel et de notification.</string>
+  <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
+  <string name="array_pref_value_el">el</string>
+  <string name="samsung_edge_name">PhoneProfilesPlus</string>
+  <string name="samsung_edge_description">Activator comme panneau de contrôle</string>
+  <string name="phone_profiles_pref_category_samsung_edge_panel">Panneau de contrôle de Samsung</string>
 </resources>
