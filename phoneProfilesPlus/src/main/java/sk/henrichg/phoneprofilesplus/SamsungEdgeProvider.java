@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailManager;
