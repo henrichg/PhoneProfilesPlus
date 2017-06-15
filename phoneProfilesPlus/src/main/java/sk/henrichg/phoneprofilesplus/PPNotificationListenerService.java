@@ -275,24 +275,26 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public static void requestInterruptionFilter(Context context, final int zenMode) {
         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
         if (((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) || a60) {
-            int interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
-            switch (zenMode) {
-                case ActivateProfileHelper.ZENMODE_ALL:
-                    interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
-                    break;
-                case ActivateProfileHelper.ZENMODE_PRIORITY:
-                    interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_PRIORITY;
-                    break;
-                case ActivateProfileHelper.ZENMODE_NONE:
-                    interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_NONE;
-                    break;
-                case ActivateProfileHelper.ZENMODE_ALARMS:
-                    interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALARMS;
-                    break;
+            if (isNotificationListenerServiceEnabled(context)) {
+                int interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
+                switch (zenMode) {
+                    case ActivateProfileHelper.ZENMODE_ALL:
+                        interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
+                        break;
+                    case ActivateProfileHelper.ZENMODE_PRIORITY:
+                        interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_PRIORITY;
+                        break;
+                    case ActivateProfileHelper.ZENMODE_NONE:
+                        interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_NONE;
+                        break;
+                    case ActivateProfileHelper.ZENMODE_ALARMS:
+                        interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALARMS;
+                        break;
+                }
+                //Log.e(TAG, "requestInterruptionFilter(" + interruptionFilter + ')');
+                Intent request = getInterruptionFilterRequestIntent(interruptionFilter);
+                context.sendBroadcast(request);
             }
-            //Log.e(TAG, "requestInterruptionFilter(" + interruptionFilter + ')');
-            Intent request = getInterruptionFilterRequestIntent(interruptionFilter);
-            context.sendBroadcast(request);
         }
     }
 
