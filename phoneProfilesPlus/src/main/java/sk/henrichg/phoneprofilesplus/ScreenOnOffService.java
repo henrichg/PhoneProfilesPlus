@@ -15,7 +15,7 @@ public class ScreenOnOffService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
 
-            Context appContext = getApplicationContext();
+            final Context appContext = getApplicationContext();
             
             boolean lockDeviceEnabled = false;
             if (PPApplication.lockDeviceActivity != null) {
@@ -66,7 +66,7 @@ public class ScreenOnOffService extends IntentService {
                     if (PPApplication.screenTimeoutHandler != null) {
                         PPApplication.screenTimeoutHandler.post(new Runnable() {
                             public void run() {
-                                dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
+                                dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout, appContext);
                                 dataWrapper.invalidateDataWrapper();
                             }
                         });

@@ -185,9 +185,9 @@ public class PPApplication extends Application {
     static final int SCANNER_START_PHONE_STATE_SCANNER = 5;
     static final int SCANNER_STOP_PHONE_STATE_SCANNER = 6;
 
-    public static Handler toastHandler;
-    public static Handler brightnessHandler;
-    public static Handler screenTimeoutHandler;
+    public static HandlerWithContext toastHandler;
+    public static HandlerWithContext brightnessHandler;
+    public static HandlerWithContext screenTimeoutHandler;
 
     public static int notAllowedReason;
     public static String notAllowedReasonDetail;
@@ -272,9 +272,9 @@ public class PPApplication extends Application {
 
         //Log.d("PPApplication.onCreate","xxx");
 
-        toastHandler = new Handler(getMainLooper());
-        brightnessHandler = new Handler(getMainLooper());
-        screenTimeoutHandler = new Handler(getMainLooper());
+        toastHandler = new HandlerWithContext(getMainLooper(), getApplicationContext());
+        brightnessHandler = new HandlerWithContext(getMainLooper(), getApplicationContext());
+        screenTimeoutHandler = new HandlerWithContext(getMainLooper(), getApplicationContext());
 
         // Samsung Look initialization
         sLook = new Slook();
