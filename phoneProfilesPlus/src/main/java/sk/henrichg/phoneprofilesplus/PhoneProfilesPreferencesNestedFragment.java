@@ -565,14 +565,16 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
-            boolean enabled;
-            String value = preferences.getString(key, "0");
-            if (!value.equals("0"))
-                enabled = value.equals("1");
-            else
-                enabled = ActivateProfileHelper.getMergedRingNotificationVolumes(getActivity().getApplicationContext());
-            //Log.d("PhoneProfilesPreferencesNestedFragment.setSummary","enabled="+enabled);
-            _preference.setEnabled(enabled);
+            if (_preference != null) {
+                boolean enabled;
+                String value = preferences.getString(key, "0");
+                if (!value.equals("0"))
+                    enabled = value.equals("1");
+                else
+                    enabled = ActivateProfileHelper.getMergedRingNotificationVolumes(getActivity().getApplicationContext());
+                //Log.d("PhoneProfilesPreferencesNestedFragment.setSummary","enabled="+enabled);
+                _preference.setEnabled(enabled);
+            }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS);
