@@ -1840,6 +1840,7 @@ public class ActivateProfileHelper {
             Intent intentRE = new Intent(context, RestartEventsFromNotificationBroadcastReceiver.class);
             PendingIntent pIntentRE = PendingIntent.getBroadcast(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
 
+
             // vytvorenie samotnej notifikacie
 
             Notification.Builder notificationBuilder;
