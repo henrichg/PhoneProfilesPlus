@@ -1,6 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 public class RestartEventsFromNotificationActivity extends Activity
@@ -18,9 +21,11 @@ public class RestartEventsFromNotificationActivity extends Activity
 
         //PPApplication.loadPreferences(getApplicationContext());
 
-        dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
-        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
+        // close notification drawer - broadcast pending intent not close it :-/
+        Intent it = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+        sendBroadcast(it);
 
+        dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
     }
 
     @Override

@@ -23,6 +23,7 @@ import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.BatteryManager;
 import android.os.Build;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.provider.Settings;
@@ -3075,7 +3076,6 @@ public class DataWrapper {
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     PPApplication.logE("DataWrapper.restartEventsWithAlert", "restart");
-                    restartEventsWithRescan(true, true);
 
                     boolean finish;
                     if (_activity instanceof ActivateProfileActivity)
@@ -3087,6 +3087,16 @@ public class DataWrapper {
                         finish = false;
                     if (finish)
                         _activity.finish();
+
+                    restartEventsWithRescan(true, true);
+
+                    /*final Handler handler = new Handler(context.getMainLooper());
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            restartEventsWithRescan(true, true);
+                        }
+                    }, 3000);*/
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
@@ -3094,6 +3104,7 @@ public class DataWrapper {
                 public void onClick(DialogInterface dialogInterface, int i) {
                     boolean finish = (!(_activity instanceof ActivateProfileActivity)) &&
                                      (!(_activity instanceof EditorProfilesActivity));
+
                     if (finish)
                         _activity.finish();
                 }
@@ -3103,7 +3114,6 @@ public class DataWrapper {
         else
         {
             PPApplication.logE("DataWrapper.restartEventsWithAlert", "restart");
-            restartEventsWithRescan(true, true);
 
             boolean finish;
             if (activity instanceof ActivateProfileActivity)
@@ -3117,6 +3127,16 @@ public class DataWrapper {
             PPApplication.logE("DataWrapper.restartEventsWithAlert", "finish="+finish);
             if (finish)
                 activity.finish();
+
+            restartEventsWithRescan(true, true);
+
+            /*final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    restartEventsWithRescan(true, true);
+                }
+            }, 3000);*/
         }
     }
 

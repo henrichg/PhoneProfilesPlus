@@ -671,6 +671,11 @@
                 <action android:name="sk.henrichg.phoneprofilesplus.PERMISSIONS_NOTIFICATION_DELETED"/>
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".RestartEventsFromNotificationBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
 
         <!-- use LocalBroadcastManager -->
         <!--

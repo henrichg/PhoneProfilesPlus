@@ -1834,10 +1834,11 @@ public class ActivateProfileHelper {
             PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
             // vytvorenie intentu na restart events
-            Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
-            //Intent intentRE = new Intent(context, BackgroundActivateProfileActivity.class);
+            /*Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
             intentRE.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-            PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);*/
+            Intent intentRE = new Intent(context, RestartEventsFromNotificationBroadcastReceiver.class);
+            PendingIntent pIntentRE = PendingIntent.getBroadcast(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
 
             // vytvorenie samotnej notifikacie
 
@@ -2029,6 +2030,7 @@ public class ActivateProfileHelper {
             //else
             //noinspection deprecation
             notificationBuilder.setContent(contentView);
+            //notificationBuilder.setAutoCancel(true);
 
             PPApplication.phoneProfilesNotification = notificationBuilder.build();
 

@@ -52,8 +52,8 @@ public class PPApplication extends Application {
                                          //+"|PreferenceFragment"
 
                                          +"|RestartEventsFromNotificationActivity"
+                                         +"|RestartEventsFromNotificationBroadcastReceiver"
                                          +"|DataWrapper.restartEventsWithAlert"
-                                         +"|BackgroundActivateProfileActivity"
 
                                          //+"|ScreenOnOffBroadcastReceiver.onReceive"
 
