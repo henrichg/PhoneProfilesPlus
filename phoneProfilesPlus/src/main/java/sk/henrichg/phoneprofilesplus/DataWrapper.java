@@ -3062,7 +3062,7 @@ public class DataWrapper {
             return;
         */
 
-        PPApplication.logE("$$$ restartEvents", "in DataWrapper.restartEventsWithAlert");
+        PPApplication.logE("DataWrapper.restartEventsWithAlert", "xxx");
 
         if (ApplicationPreferences.applicationActivateWithAlert(context) || (activity instanceof EditorProfilesActivity))
         {
@@ -3074,7 +3074,7 @@ public class DataWrapper {
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    PPApplication.logE("$$$ restartEvents", "from DataWrapper.restartEventsWithAlert");
+                    PPApplication.logE("DataWrapper.restartEventsWithAlert", "restart");
                     restartEventsWithRescan(true, true);
 
                     boolean finish;
@@ -3102,17 +3102,19 @@ public class DataWrapper {
         }
         else
         {
-            PPApplication.logE("$$$ restartEvents", "from DataWrapper.restartEventsWithAlert");
+            PPApplication.logE("DataWrapper.restartEventsWithAlert", "restart");
             restartEventsWithRescan(true, true);
 
             boolean finish;
             if (activity instanceof ActivateProfileActivity)
                 finish = ApplicationPreferences.applicationClose(context);
             else
-            if (activity instanceof RestartEventsFromNotificationActivity)
+            if (activity instanceof RestartEventsFromNotificationActivity) {
                 finish = true;
+            }
             else
                 finish = false;
+            PPApplication.logE("DataWrapper.restartEventsWithAlert", "finish="+finish);
             if (finish)
                 activity.finish();
         }

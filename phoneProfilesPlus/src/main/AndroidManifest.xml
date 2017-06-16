@@ -139,7 +139,6 @@
             android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -167,7 +166,6 @@
             android:label="@string/title_activity_phone_profiles_preferences">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
             </intent-filter>
         </activity>
@@ -180,7 +178,6 @@
             android:theme="@style/PopupTheme_material">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -192,7 +189,6 @@
             android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -204,7 +200,6 @@
             android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -220,7 +215,6 @@
                 <action android:name="sk.henrichg.phoneprofilesplus.ACTION_ENABLE_RUN_FOR_EVENT"/>
                 <action android:name="sk.henrichg.phoneprofilesplus.ACTION_PAUSE_EVENT"/>
                 <action android:name="sk.henrichg.phoneprofilesplus.ACTION_STOP_EVENT"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -273,7 +267,6 @@
             android:label="@string/nfc_tag_pref_dlg_writeTagTitle">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -285,9 +278,7 @@
             android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
-
                 <data android:mimeType="application/vnd.phoneprofilesplus.events"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -327,7 +318,6 @@
             <intent-filter android:priority="100">
                 <action android:name="android.intent.action.PACKAGE_INSTALL"/>
                 <action android:name="android.intent.action.PACKAGE_ADDED"/>
-
                 <data android:scheme="package"/>
             </intent-filter>
         </receiver>
@@ -337,7 +327,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -367,7 +356,6 @@
             android:priority="1000">
             <intent-filter>
                 <action android:name="android.intent.action.PROVIDER_CHANGED"/>
-
                 <data android:scheme="content"/>
                 <data android:host="com.android.calendar"/>
             </intent-filter>
@@ -417,7 +405,6 @@
             </intent-filter>
             <intent-filter android:priority="1000">
                 <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVED"/>
-
                 <data android:mimeType="application/vnd.wap.mms-message"/>
             </intent-filter>
         </receiver>
@@ -513,7 +500,6 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/icon_widget_info"/>
@@ -527,7 +513,6 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/one_row_widget_info"/>
@@ -541,7 +526,6 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/profile_list_widget_info"/>
@@ -566,7 +550,6 @@
             <meta-data
                 android:name="android.app.device_admin"
                 android:resource="@xml/device_admin"/>
-
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
             </intent-filter>
@@ -792,7 +775,6 @@
             <intent-filter>
                 <action android:name="com.google.android.apps.dashclock.Extension"/>
             </intent-filter>
-
             <meta-data
                 android:name="protocolVersion"
                 android:value="2"/>
@@ -861,7 +843,6 @@
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService"/>
             </intent-filter>
-
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibilityservice"/>
