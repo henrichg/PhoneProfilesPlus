@@ -18,6 +18,8 @@ public class BackgroundActivateProfileActivity extends Activity {
 
         super.onCreate(savedInstanceState);
 
+        PPApplication.logE("BackgroundActivateProfileActivity.onCreate", "xxx");
+
         Intent intent = getIntent();
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
         profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
@@ -46,8 +48,9 @@ public class BackgroundActivateProfileActivity extends Activity {
         }
 
         if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT))
+            (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT)) {
             dataWrapper.activateProfile(profile_id, startupSource, this/*, ""*/);
+        }
     }
 
     @Override

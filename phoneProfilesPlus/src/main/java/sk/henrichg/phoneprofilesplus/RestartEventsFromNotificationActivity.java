@@ -18,7 +18,8 @@ public class RestartEventsFromNotificationActivity extends Activity
 
         //PPApplication.loadPreferences(getApplicationContext());
 
-        dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
+        dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
+        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
 
     }
 
