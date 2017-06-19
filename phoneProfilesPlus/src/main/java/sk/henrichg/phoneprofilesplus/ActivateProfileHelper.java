@@ -720,6 +720,7 @@ public class ActivateProfileHelper {
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, profile.getVolumeMediaValue(), 0);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_MUSIC, profile.getVolumeMediaValue());
                 } catch (SecurityException e) {
+                    // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
                     if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                         try {
                             Settings.Global.putInt(context.getContentResolver(), "audio_safe_volume_state", 2);
@@ -2344,6 +2345,8 @@ public class ActivateProfileHelper {
     {
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
+            // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.MODIFY_PHONE_STATE
+            // not working :-/
             if (Permissions.hasPermission(context, Manifest.permission.MODIFY_PHONE_STATE)) {
                 if (android.os.Build.VERSION.SDK_INT == 21)
                 {
@@ -2750,6 +2753,7 @@ public class ActivateProfileHelper {
         //if(!provider.contains(LocationManager.GPS_PROVIDER) && enable)
         if ((!isEnabled) && enable)
         {
+            // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 String newSet;
                 if (android.os.Build.VERSION.SDK_INT < 23) {
@@ -2850,6 +2854,7 @@ public class ActivateProfileHelper {
         //if(provider.contains(LocationManager.GPS_PROVIDER) && (!enable))
         if (isEnabled && (!enable))
         {
+            // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 String newSet = "";
                 if (android.os.Build.VERSION.SDK_INT < 23) {
