@@ -161,19 +161,21 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
             ListView lv = (ListView) v.findViewById(android.R.id.list);
             lv.setPadding(0, 0, 0, 0);
 
-            //Override PreferenceScreen click and preferences style
-            for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
-                Preference preference = getPreferenceScreen().getPreference(i);
+            if (getPreferenceScreen() != null) {
+                //Override PreferenceScreen click and preferences style
+                for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
+                    Preference preference = getPreferenceScreen().getPreference(i);
 
-                if (preference instanceof PreferenceCategory) {
-                    for (int j = 0; j < ((PreferenceCategory) preference).getPreferenceCount();
-                         j++) {
-                        preferenceToMaterialPreference(((PreferenceCategory) preference)
-                                .getPreference(j));
+                    if (preference instanceof PreferenceCategory) {
+                        for (int j = 0; j < ((PreferenceCategory) preference).getPreferenceCount();
+                             j++) {
+                            preferenceToMaterialPreference(((PreferenceCategory) preference)
+                                    .getPreference(j));
+                        }
                     }
-                }
 
-                preferenceToMaterialPreference(preference);
+                    preferenceToMaterialPreference(preference);
+                }
             }
         }
         return v;
