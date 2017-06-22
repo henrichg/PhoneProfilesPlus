@@ -11,6 +11,6 @@ ext.versions = [
         compileSdk: 25,
         buildTools: '26.0.0',
         publishVersion: '3.5.2.1',
-        publishVersionCode: 3052,
+        publishVersionCode: 3064,
         supportLib: '25.4.0'
 ]

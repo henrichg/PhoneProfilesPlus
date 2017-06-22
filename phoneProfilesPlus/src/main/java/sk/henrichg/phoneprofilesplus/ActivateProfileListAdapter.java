@@ -311,6 +311,8 @@ class ActivateProfileListAdapter extends BaseAdapter
                     }, 500);
                 }
             });
+            sequence.continueOnCancel(true)
+                    .considerOuterCircleCanceled(true);
             //targetHelpsSequenceStarted = true;
             sequence.start();
         }

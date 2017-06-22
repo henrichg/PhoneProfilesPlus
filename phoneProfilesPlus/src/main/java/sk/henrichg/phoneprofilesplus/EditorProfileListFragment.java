@@ -969,6 +969,8 @@ public class EditorProfileListFragment extends Fragment {
                                 editor.apply();
                             }
                         });
+                sequence.continueOnCancel(true)
+                        .considerOuterCircleCanceled(true);
                 targetHelpsSequenceStarted = true;
                 sequence.start();
             }

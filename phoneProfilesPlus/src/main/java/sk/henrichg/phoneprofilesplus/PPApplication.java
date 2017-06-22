@@ -51,14 +51,15 @@ public class PPApplication extends Application {
 
                                          //+"|PreferenceFragment"
 
-                                         +"|RestartEventsFromNotificationActivity"
+                                         /*+"|RestartEventsFromNotificationActivity"
                                          +"|RestartEventsFromNotificationBroadcastReceiver"
-                                         +"|DataWrapper.restartEventsWithAlert"
+                                         +"|DataWrapper.restartEventsWithAlert"*/
 
                                          //+"|ScreenOnOffBroadcastReceiver.onReceive"
 
                                          //+"|----- DataWrapper.doEventService"
-                                         //+"|@@@ PackageReplacedReceiver.onReceive"
+                                         +"|@@@ PackageReplacedReceiver.onReceive"
+                                         +"|$$$ PhoneProfilesService.onCreate"
 
                                          //+"|ActivateProfileHelper.getMergedRingNotificationVolumes"
                                          //+"|ActivateProfileHelper.setMergedRingNotificationVolumes"

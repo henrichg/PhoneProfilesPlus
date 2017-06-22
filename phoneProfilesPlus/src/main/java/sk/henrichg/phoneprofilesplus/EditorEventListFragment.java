@@ -781,6 +781,8 @@ public class EditorEventListFragment extends Fragment {
                                 editor.apply();
                             }
                         });
+                sequence.continueOnCancel(true)
+                        .considerOuterCircleCanceled(true);
                 targetHelpsSequenceStarted = true;
                 sequence.start();
             }

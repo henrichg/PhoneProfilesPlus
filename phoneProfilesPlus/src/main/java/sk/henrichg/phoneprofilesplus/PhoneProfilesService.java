@@ -254,7 +254,7 @@ public class PhoneProfilesService extends Service
                 nfcStateChangedBroadcastReceiver = new NFCStateChangedBroadcastReceiver();
                 IntentFilter intentFilter20 = new IntentFilter(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED);
                 getApplicationContext().registerReceiver(nfcStateChangedBroadcastReceiver, intentFilter20);
-                PPApplication.logE("$$$ PhoneProfilesService.onCreate", "registered");
+                //PPApplication.logE("$$$ PhoneProfilesService.onCreate", "registered");
             }
         }
 

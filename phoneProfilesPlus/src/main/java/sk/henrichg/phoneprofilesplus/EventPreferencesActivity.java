@@ -395,6 +395,8 @@ public class EventPreferencesActivity extends PreferenceActivity
                     targetHelpsSequenceStarted = false;
                 }
             });
+            sequence.continueOnCancel(true)
+                    .considerOuterCircleCanceled(true);
             targetHelpsSequenceStarted = true;
             sequence.start();
         }

@@ -478,6 +478,8 @@ class EditorProfileListAdapter extends BaseAdapter
                         targetHelpsSequenceStarted = false;
                     }
                 });
+                sequence.continueOnCancel(true)
+                        .considerOuterCircleCanceled(true);
                 targetHelpsSequenceStarted = true;
                 sequence.start();
             }
@@ -514,6 +516,8 @@ class EditorProfileListAdapter extends BaseAdapter
                             targetHelpsSequenceStarted = false;
                         }
                     });
+                    sequence.continueOnCancel(true)
+                            .considerOuterCircleCanceled(true);
                     targetHelpsSequenceStarted = true;
                     sequence.start();
                 }
