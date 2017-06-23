@@ -3156,25 +3156,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 if (cursor.getCount() > 0) {
 
-                    event = new Event(Long.parseLong(cursor.getString(0)),
-                            cursor.getString(1),
-                            Integer.parseInt(cursor.getString(2)),
-                            Long.parseLong(cursor.getString(3)),
-                            Long.parseLong(cursor.getString(4)),
-                            Integer.parseInt(cursor.getString(5)),
-                            cursor.getString(6),
-                            Integer.parseInt(cursor.getString(7)) == 1,
-                            Integer.parseInt(cursor.getString(8)) == 1,
-                            Integer.parseInt(cursor.getString(9)),
-                            Integer.parseInt(cursor.getString(10)),
-                            Integer.parseInt(cursor.getString(11)) == 1,
-                            Integer.parseInt(cursor.getString(12)),
-                            Integer.parseInt(cursor.getString(13)) == 1,
-                            Long.parseLong(cursor.getString(14)),
-                            Integer.parseInt(cursor.getString(15)),
-                            Integer.parseInt(cursor.getString(16)) == 1,
-                            Long.parseLong(cursor.getString(17)),
-                            Long.parseLong(cursor.getString(18))
+                    event = new Event(Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_ID))),
+                            cursor.getString(cursor.getColumnIndex(KEY_E_NAME)),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_START_ORDER))),
+                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_START))),
+                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_END))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_STATUS))),
+                            cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND)),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_FORCE_RUN))) == 1,
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLOCKED))) == 1,
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_PRIORITY))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_DELAY_START))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_START))) == 1,
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_AT_END_DO))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_MANUAL_PROFILE_ACTIVATION))) == 1,
+                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_DELAY_END))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_END))) == 1,
+                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_START_STATUS_TIME))),
+                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_PAUSE_STATUS_TIME)))
                     );
                 }
 
