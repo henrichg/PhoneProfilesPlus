@@ -3524,9 +3524,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesTime eventPreferences = event._eventPreferencesTime;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_TIME_ENABLED))) == 1);
 
-                String daysOfWeek = cursor.getString(1);
+                String daysOfWeek = cursor.getString(cursor.getColumnIndex(KEY_E_DAYS_OF_WEEK));
 
                 if (daysOfWeek != null)
                 {
@@ -3562,9 +3562,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
                 }
                 }
-                eventPreferences._startTime = Long.parseLong(cursor.getString(2));
-                eventPreferences._endTime = Long.parseLong(cursor.getString(3));
-                //eventPreferences._useEndTime = (Integer.parseInt(cursor.getString(4)) == 1) ? true : false;
+                eventPreferences._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_START_TIME)));
+                eventPreferences._endTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_END_TIME)));
+                //eventPreferences._useEndTime = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_USE_END_TIME))) == 1) ? true : false;
             }
             cursor.close();
         }
@@ -3588,11 +3588,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesBattery eventPreferences = event._eventPreferencesBattery;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._levelLow = Integer.parseInt(cursor.getString(1));
-                eventPreferences._levelHight = Integer.parseInt(cursor.getString(2));
-                eventPreferences._charging = (Integer.parseInt(cursor.getString(3)) == 1);
-                eventPreferences._powerSaveMode = (Integer.parseInt(cursor.getString(4)) == 1);
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BATTERY_ENABLED))) == 1);
+                eventPreferences._levelLow = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BATTERY_LEVEL_LOW)));
+                eventPreferences._levelHight = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BATTERY_LEVEL_HIGHT)));
+                eventPreferences._charging = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BATTERY_CHARGING))) == 1);
+                eventPreferences._powerSaveMode = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BATTERY_POWER_SAVE_MODE))) == 1);
             }
             cursor.close();
         }
@@ -3616,11 +3616,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesCall eventPreferences = event._eventPreferencesCall;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._callEvent = Integer.parseInt(cursor.getString(1));
-                eventPreferences._contacts = cursor.getString(2);
-                eventPreferences._contactListType = Integer.parseInt(cursor.getString(3));
-                eventPreferences._contactGroups = cursor.getString(4);
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALL_ENABLED))) == 1);
+                eventPreferences._callEvent = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALL_EVENT)));
+                eventPreferences._contacts = cursor.getString(cursor.getColumnIndex(KEY_E_CALL_CONTACTS));
+                eventPreferences._contactListType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALL_CONTACT_LIST_TYPE)));
+                eventPreferences._contactGroups = cursor.getString(cursor.getColumnIndex(KEY_E_CALL_CONTACT_GROUPS));
             }
             cursor.close();
         }
@@ -3641,8 +3641,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesPeripherals eventPreferences = event._eventPreferencesPeripherals;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._peripheralType = Integer.parseInt(cursor.getString(1));
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_PERIPHERAL_ENABLED))) == 1);
+                eventPreferences._peripheralType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_PERIPHERAL_TYPE)));
             }
             cursor.close();
         }
@@ -3671,16 +3671,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesCalendar eventPreferences = event._eventPreferencesCalendar;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._calendars = cursor.getString(1);
-                eventPreferences._searchField = Integer.parseInt(cursor.getString(2));
-                eventPreferences._searchString = cursor.getString(3);
-                eventPreferences._startTime = Long.parseLong(cursor.getString(4));
-                eventPreferences._endTime = Long.parseLong(cursor.getString(5));
-                eventPreferences._eventFound = (Integer.parseInt(cursor.getString(6)) == 1);
-                eventPreferences._availability = Integer.parseInt(cursor.getString(7));
-                eventPreferences._ignoreAllDayEvents = (Integer.parseInt(cursor.getString(8)) == 1);
-                eventPreferences._startBeforeEvent = Integer.parseInt(cursor.getString(9));
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_ENABLED))) == 1);
+                eventPreferences._calendars = cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_CALENDARS));
+                eventPreferences._searchField = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_SEARCH_FIELD)));
+                eventPreferences._searchString = cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_SEARCH_STRING));
+                eventPreferences._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_START_TIME)));
+                eventPreferences._endTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_END_TIME)));
+                eventPreferences._eventFound = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_FOUND))) == 1);
+                eventPreferences._availability = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_AVAILABILITY)));
+                eventPreferences._ignoreAllDayEvents = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS))) == 1);
+                eventPreferences._startBeforeEvent = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_START_BEFORE_EVENT)));
             }
             cursor.close();
         }
@@ -3702,9 +3702,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesWifi eventPreferences = event._eventPreferencesWifi;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._SSID = cursor.getString(1);
-                eventPreferences._connectionType = Integer.parseInt(cursor.getString(2));
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_WIFI_ENABLED))) == 1);
+                eventPreferences._SSID = cursor.getString(cursor.getColumnIndex(KEY_E_WIFI_SSID));
+                eventPreferences._connectionType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_WIFI_CONNECTION_TYPE)));
             }
             cursor.close();
         }
@@ -3726,9 +3726,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesScreen eventPreferences = event._eventPreferencesScreen;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._eventType = Integer.parseInt(cursor.getString(1));
-                eventPreferences._whenUnlocked = (Integer.parseInt(cursor.getString(2)) == 1);
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_SCREEN_ENABLED))) == 1);
+                eventPreferences._eventType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_SCREEN_EVENT_TYPE)));
+                eventPreferences._whenUnlocked = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_SCREEN_WHEN_UNLOCKED))) == 1);
             }
             cursor.close();
         }
@@ -3751,10 +3751,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesBluetooth eventPreferences = event._eventPreferencesBluetooth;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._adapterName = cursor.getString(1);
-                eventPreferences._connectionType = Integer.parseInt(cursor.getString(2));
-                eventPreferences._devicesType = Integer.parseInt(cursor.getString(3));
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_ENABLED))) == 1);
+                eventPreferences._adapterName = cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_ADAPTER_NAME));
+                eventPreferences._connectionType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_CONNECTION_TYPE)));
+                eventPreferences._devicesType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_DEVICES_TYPE)));
             }
             cursor.close();
         }
@@ -3781,14 +3781,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesSMS eventPreferences = event._eventPreferencesSMS;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                //eventPreferences._smsEvent = Integer.parseInt(cursor.getString(1));
-                eventPreferences._contacts = cursor.getString(1);
-                eventPreferences._contactListType = Integer.parseInt(cursor.getString(2));
-                eventPreferences._startTime = Long.parseLong(cursor.getString(3));
-                eventPreferences._contactGroups = cursor.getString(4);
-                eventPreferences._duration = cursor.getInt(5);
-                eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(6)) == 1);
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_SMS_ENABLED))) == 1);
+                //eventPreferences._smsEvent = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_SMS_EVENT)));
+                eventPreferences._contacts = cursor.getString(cursor.getColumnIndex(KEY_E_SMS_CONTACTS));
+                eventPreferences._contactListType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_SMS_CONTACT_LIST_TYPE)));
+                eventPreferences._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_SMS_START_TIME)));
+                eventPreferences._contactGroups = cursor.getString(cursor.getColumnIndex(KEY_E_SMS_CONTACT_GROUPS));
+                eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_SMS_DURATION));
+                eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_SMS_PERMANENT_RUN))) == 1);
             }
             cursor.close();
         }
@@ -3813,12 +3813,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesNotification eventPreferences = event._eventPreferencesNotification;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._applications = cursor.getString(1);
-                eventPreferences._startTime = Long.parseLong(cursor.getString(2));
-                eventPreferences._duration = cursor.getInt(3);
-                eventPreferences._endWhenRemoved = (Integer.parseInt(cursor.getString(4)) == 1);
-                eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(5)) == 1);
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_ENABLED))) == 1);
+                eventPreferences._applications = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_APPLICATIONS));
+                eventPreferences._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_START_TIME)));
+                eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_DURATION));
+                eventPreferences._endWhenRemoved = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_END_WHEN_REMOVED))) == 1);
+                eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_PERMANENT_RUN))) == 1);
             }
             cursor.close();
         }
@@ -3827,9 +3827,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private void getEventPreferencesApplication(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(TABLE_EVENTS,
                 new String[]{KEY_E_APPLICATION_ENABLED,
-                        KEY_E_APPLICATION_APPLICATIONS /*,
-                        KEY_E_NOTIFICATION_START_TIME,
-                        KEY_E_NOTIFICATION_DURATION*/
+                        KEY_E_APPLICATION_APPLICATIONS
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -3841,10 +3839,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesApplication eventPreferences = event._eventPreferencesApplication;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._applications = cursor.getString(1);
-                //eventPreferences._startTime = Long.parseLong(cursor.getString(2));
-                //eventPreferences._duration = cursor.getInt(3);
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_APPLICATION_ENABLED))) == 1);
+                eventPreferences._applications = cursor.getString(cursor.getColumnIndex(KEY_E_APPLICATION_APPLICATIONS));
             }
             cursor.close();
         }
@@ -3866,9 +3862,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesLocation eventPreferences = event._eventPreferencesLocation;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._geofences = cursor.getString(1);
-                eventPreferences._whenOutside = cursor.getInt(2) == 1;
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_LOCATION_ENABLED))) == 1);
+                eventPreferences._geofences = cursor.getString(cursor.getColumnIndex(KEY_E_LOCATION_GEOFENCES));
+                eventPreferences._whenOutside = cursor.getInt(cursor.getColumnIndex(KEY_E_LOCATION_WHEN_OUTSIDE)) == 1;
 
             }
             cursor.close();
@@ -3893,11 +3889,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesOrientation eventPreferences = event._eventPreferencesOrientation;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._sides = cursor.getString(1);
-                eventPreferences._distance = cursor.getInt(2);
-                eventPreferences._display = cursor.getString(3);
-                eventPreferences._ignoredApplications = cursor.getString(4);
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_ORIENTATION_ENABLED))) == 1);
+                eventPreferences._sides = cursor.getString(cursor.getColumnIndex(KEY_E_ORIENTATION_SIDES));
+                eventPreferences._distance = cursor.getInt(cursor.getColumnIndex(KEY_E_ORIENTATION_DISTANCE));
+                eventPreferences._display = cursor.getString(cursor.getColumnIndex(KEY_E_ORIENTATION_DISPLAY));
+                eventPreferences._ignoredApplications = cursor.getString(cursor.getColumnIndex(KEY_E_ORIENTATION_IGNORE_APPLICATIONS));
             }
             cursor.close();
         }
@@ -3919,9 +3915,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesMobileCells eventPreferences = event._eventPreferencesMobileCells;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._cells = cursor.getString(1);
-                eventPreferences._whenOutside = cursor.getInt(2) == 1;
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_MOBILE_CELLS_ENABLED))) == 1);
+                eventPreferences._cells = cursor.getString(cursor.getColumnIndex(KEY_E_MOBILE_CELLS_CELLS));
+                eventPreferences._whenOutside = cursor.getInt(cursor.getColumnIndex(KEY_E_MOBILE_CELLS_WHEN_OUTSIDE)) == 1;
 
             }
             cursor.close();
@@ -3946,11 +3942,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesNFC eventPreferences = event._eventPreferencesNFC;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._nfcTags = cursor.getString(1);
-                eventPreferences._duration = cursor.getInt(2);
-                eventPreferences._startTime = Long.parseLong(cursor.getString(3));
-                eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(4)) == 1);
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NFC_ENABLED))) == 1);
+                eventPreferences._nfcTags = cursor.getString(cursor.getColumnIndex(KEY_E_NFC_NFC_TAGS));
+                eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_NFC_DURATION));
+                eventPreferences._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_NFC_START_TIME)));
+                eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NFC_PERMANENT_RUN))) == 1);
             }
             cursor.close();
         }
@@ -3976,13 +3972,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 EventPreferencesRadioSwitch eventPreferences = event._eventPreferencesRadioSwitch;
 
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._wifi = Integer.parseInt(cursor.getString(1));
-                eventPreferences._bluetooth = Integer.parseInt(cursor.getString(2));
-                eventPreferences._mobileData = Integer.parseInt(cursor.getString(3));
-                eventPreferences._gps = Integer.parseInt(cursor.getString(4));
-                eventPreferences._nfc = Integer.parseInt(cursor.getString(5));
-                eventPreferences._airplaneMode = Integer.parseInt(cursor.getString(6));
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_ENABLED))) == 1);
+                eventPreferences._wifi = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_WIFI)));
+                eventPreferences._bluetooth = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_BLUETOOTH)));
+                eventPreferences._mobileData = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_MOBILE_DATA)));
+                eventPreferences._gps = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_GPS)));
+                eventPreferences._nfc = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_NFC)));
+                eventPreferences._airplaneMode = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_AIRPLANE_MODE)));
             }
             cursor.close();
         }
@@ -4653,7 +4649,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.moveToFirst();
 
                 if (cursor.getCount() > 0) {
-                    eventInDelay = Integer.parseInt(cursor.getString(0));
+                    eventInDelay = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_START)));
                 }
 
                 cursor.close();
@@ -4751,7 +4747,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.moveToFirst();
 
                 if (cursor.getCount() > 0) {
-                    eventInDelay = Integer.parseInt(cursor.getString(0));
+                    eventInDelay = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_END)));
                 }
 
                 cursor.close();
