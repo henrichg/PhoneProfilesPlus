@@ -1127,8 +1127,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 if (cursor.moveToFirst()) {
                     do {
-                        long id = Long.parseLong(cursor.getString(0));
-                        String brightness = cursor.getString(1);
+                        long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                        String brightness = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BRIGHTNESS));
 
                         //value|noChange|automatic|defaultProfile
                         String[] splits = brightness.split("\\|");
@@ -1178,8 +1178,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.moveToFirst()) {
                 do {
-                    long id = Long.parseLong(cursor.getString(0));
-                    String brightness = cursor.getString(1);
+                    long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                    String brightness = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BRIGHTNESS));
 
                     //value|noChange|automatic|defaultProfile
                     String[] splits = brightness.split("\\|");
@@ -1213,8 +1213,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.moveToFirst()) {
                 do {
-                    long id = Long.parseLong(cursor.getString(0));
-                    int delayStart = cursor.getInt(1) * 60;  // conversiont to seconds
+                    long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_ID)));
+                    int delayStart = cursor.getInt(cursor.getColumnIndex(KEY_E_DELAY_START)) * 60;  // conversiont to seconds
 
                     db.execSQL("UPDATE " + TABLE_EVENTS +
                                  " SET " + KEY_E_DELAY_START + "=" + delayStart + " " +
@@ -1240,8 +1240,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 // looping through all rows and adding to list
                 if (cursor.moveToFirst()) {
                     do {
-                        long id = Long.parseLong(cursor.getString(0));
-                        String brightness = cursor.getString(1);
+                        long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                        String brightness = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BRIGHTNESS));
 
                         //value|noChange|automatic|defaultProfile
                         String[] splits = brightness.split("\\|");
@@ -1318,10 +1318,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.moveToFirst()) {
                 do {
-                    long id = Long.parseLong(cursor.getString(0));
-                    long startTime = cursor.getLong(2);
+                    long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_ID)));
+                    long startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_START_TIME));
 
-                    if (cursor.getInt(1) != 1)
+                    if (cursor.getInt(cursor.getColumnIndex(KEY_E_USE_END_TIME)) != 1)
                         db.execSQL("UPDATE " + TABLE_EVENTS +
                                      " SET " + KEY_E_END_TIME + "=" + (startTime+5000) + ", "
                                              + KEY_E_USE_END_TIME + "=1" +
@@ -1346,10 +1346,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.moveToFirst()) {
                 do {
-                    long id = Long.parseLong(cursor.getString(0));
+                    long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_ID)));
                     int atEndDo;
 
-                    if (cursor.isNull(1) || (cursor.getInt(1) == 0))
+                    if (cursor.isNull(cursor.getColumnIndex(KEY_E_UNDONE_PROFILE)) || (cursor.getInt(cursor.getColumnIndex(KEY_E_UNDONE_PROFILE)) == 0))
                         atEndDo = Event.EATENDDO_NONE;
                     else
                         atEndDo = Event.EATENDDO_UNDONE_PROFILE;
@@ -1419,8 +1419,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.moveToFirst()) {
                 do {
-                    long id = Long.parseLong(cursor.getString(0));
-                    int delayStart = cursor.getInt(1) * 60;  // conversiont to seconds
+                    long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                    int delayStart = cursor.getInt(cursor.getColumnIndex(KEY_DURATION)) * 60;  // conversiont to seconds
 
                     db.execSQL("UPDATE " + TABLE_PROFILES +
                             " SET " + KEY_DURATION + "=" + delayStart + " " +
@@ -1456,10 +1456,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.moveToFirst()) {
                 do {
-                    long id = Long.parseLong(cursor.getString(0));
-                    String calendarSearchString = cursor.getString(1).replace("%", "\\%").replace("_", "\\_");
-                    String wifiSSID = cursor.getString(2).replace("%", "\\%").replace("_", "\\_");
-                    String bluetoothAdapterName = cursor.getString(3).replace("%", "\\%").replace("_", "\\_");
+                    long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_ID)));
+                    String calendarSearchString = cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_SEARCH_STRING)).replace("%", "\\%").replace("_", "\\_");
+                    String wifiSSID = cursor.getString(cursor.getColumnIndex(KEY_E_WIFI_SSID)).replace("%", "\\%").replace("_", "\\_");
+                    String bluetoothAdapterName = cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_ADAPTER_NAME)).replace("%", "\\%").replace("_", "\\_");
 
                     db.execSQL("UPDATE " + TABLE_EVENTS +
                                  " SET " + KEY_E_CALENDAR_SEARCH_STRING + "=\"" + calendarSearchString + "\"," +
@@ -1506,8 +1506,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.moveToFirst()) {
                 do {
-                    long id = Long.parseLong(cursor.getString(0));
-                    int zenMode = cursor.getInt(1);
+                    long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                    int zenMode = cursor.getInt(cursor.getColumnIndex(KEY_VOLUME_ZEN_MODE));
 
                     if ((zenMode == 6) && (android.os.Build.VERSION.SDK_INT < 23)) // Alarms only zen mode is supported from Android 6.0
                         db.execSQL("UPDATE " + TABLE_PROFILES +
@@ -1822,18 +1822,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.moveToFirst()) {
                 do {
-                    long geofenceId = cursor.getLong(1);
+                    long geofenceId = cursor.getLong(cursor.getColumnIndex(KEY_E_LOCATION_FK_GEOFENCE));
 
                     // updatneme zaznam
                     ContentValues values = new ContentValues();
 
                     if (geofenceId > 0) {
                         values.put(KEY_E_LOCATION_GEOFENCES, String.valueOf(geofenceId));
-                        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(0)});
+                        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
                     }
                     else {
                         values.put(KEY_E_LOCATION_GEOFENCES, "");
-                        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(0)});
+                        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
                     }
 
                 } while (cursor.moveToNext());
@@ -1864,10 +1864,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int startOrder = 0;
             if (cursor.moveToFirst()) {
                 do {
-                    //long id = cursor.getLong(0);
+                    //long id = cursor.getLong(cursor.getColumnIndex(KEY_E_ID));
                     ContentValues values = new ContentValues();
                     values.put(KEY_E_START_ORDER, ++startOrder);
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(0)});
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
                 } while (cursor.moveToNext());
             }
 
@@ -2188,59 +2188,59 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.moveToFirst();
 
                 if (cursor.getCount() > 0) {
-                    profile = new Profile(Long.parseLong(cursor.getString(0)),
-                            cursor.getString(1),
-                            cursor.getString(2),
-                            Integer.parseInt(cursor.getString(3)) == 1,
-                            Integer.parseInt(cursor.getString(4)),
-                            Integer.parseInt(cursor.getString(5)),
-                            cursor.getString(6),
-                            cursor.getString(7),
-                            cursor.getString(8),
-                            cursor.getString(9),
-                            cursor.getString(10),
-                            cursor.getString(11),
-                            Integer.parseInt(cursor.getString(12)),
-                            cursor.getString(13),
-                            Integer.parseInt(cursor.getString(14)),
-                            cursor.getString(15),
-                            Integer.parseInt(cursor.getString(16)),
-                            cursor.getString(17),
-                            Integer.parseInt(cursor.getString(18)),
-                            Integer.parseInt(cursor.getString(19)),
-                            Integer.parseInt(cursor.getString(20)),
-                            Integer.parseInt(cursor.getString(21)),
-                            cursor.getString(22),
-                            Integer.parseInt(cursor.getString(23)),
-                            cursor.getString(24),
-                            Integer.parseInt(cursor.getString(25)),
-                            Integer.parseInt(cursor.getString(26)),
-                            Integer.parseInt(cursor.getString(27)),
-                            Integer.parseInt(cursor.getString(28)),
-                            cursor.getString(29),
-                            Integer.parseInt(cursor.getString(30)),
-                            cursor.isNull(31) || (Integer.parseInt(cursor.getString(31)) == 1),
-                            Integer.parseInt(cursor.getString(32)),
-                            Integer.parseInt(cursor.getString(33)),
-                            Integer.parseInt(cursor.getString(34)),
-                            Integer.parseInt(cursor.getString(35)),
-                            Integer.parseInt(cursor.getString(36)),
-                            Integer.parseInt(cursor.getString(37)),
-                            Integer.parseInt(cursor.getString(38)),
-                            Integer.parseInt(cursor.getString(39)),
-                            Integer.parseInt(cursor.getString(40)),
-                            Integer.parseInt(cursor.getString(41)),
-                            Integer.parseInt(cursor.getString(42)),
-                            Integer.parseInt(cursor.getString(44)) == 1,
-                            Integer.parseInt(cursor.getString(45)),
-                            Integer.parseInt(cursor.getString(46)),
-                            Integer.parseInt(cursor.getString(47)),
-                            Integer.parseInt(cursor.getString(48)),
-                            Integer.parseInt(cursor.getString(49)) == 1,
-                            Integer.parseInt(cursor.getString(50)),
-                            cursor.getString(51),
-                            Integer.parseInt(cursor.getString(52)),
-                            Integer.parseInt(cursor.getString(53))
+                    profile = new Profile(Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID))),
+                            cursor.getString(cursor.getColumnIndex(KEY_NAME)),
+                            cursor.getString(cursor.getColumnIndex(KEY_ICON)),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_CHECKED))) == 1,
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_PORDER))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_RINGER_MODE))),
+                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_RINGTONE)),
+                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_NOTIFICATION)),
+                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_MEDIA)),
+                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ALARM)),
+                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_SYSTEM)),
+                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_VOICE)),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE_CHANGE))),
+                            cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE)),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE))),
+                            cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION)),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM_CHANGE))),
+                            cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM)),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AIRPLANE_MODE))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BLUETOOTH))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_SCREEN_TIMEOUT))),
+                            cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BRIGHTNESS)),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE))),
+                            cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER)),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_PREFS))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_GPS))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_CHANGE))),
+                            cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME)),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOSYNC))),
+                            cursor.isNull(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR)) || (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR))) == 1),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOROTATE))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LOCATION_SERVICE_PREFS))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_SPEAKER_PHONE))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NFC))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DURATION))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_AFTER_DURATION_DO))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ZEN_MODE))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_KEYGUARD))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_ON_TOUCH))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ASK_FOR_DURATION))) == 1,
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_NOTIFICATION_LED))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_WHEN_RINGING))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOR))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HIDE_STATUS_BAR_ICON))) == 1,
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_LOCK_DEVICE))),
+                            cursor.getString(cursor.getColumnIndex(KEY_DEVICE_CONNECT_TO_SSID)),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_WIFI_SCANING))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING)))
                     );
                 }
 
@@ -2810,7 +2810,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 int rc = cursor.getCount();
 
                 if (rc == 1) {
-                    id = Long.parseLong(cursor.getString(0));
+                    id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID)));
                 }
 
                 cursor.close();
@@ -2933,7 +2933,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor != null) {
                 if (cursor.moveToFirst())
-                    profile._icon = cursor.getString(0);
+                    profile._icon = cursor.getString(cursor.getColumnIndex(KEY_ICON));
                 cursor.close();
             }
 
@@ -4313,7 +4313,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.moveToFirst();
 
                 if (cursor.getCount() > 0) {
-                    eventStatus = Integer.parseInt(cursor.getString(0));
+                    eventStatus = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_STATUS)));
                 }
 
                 cursor.close();
@@ -4584,9 +4584,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.moveToFirst();
 
                 if (cursor.getCount() > 0) {
-                    event._eventPreferencesCalendar._startTime = Long.parseLong(cursor.getString(0));
-                    event._eventPreferencesCalendar._endTime = Long.parseLong(cursor.getString(1));
-                    event._eventPreferencesCalendar._eventFound = (Integer.parseInt(cursor.getString(2)) == 1);
+                    event._eventPreferencesCalendar._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_START_TIME)));
+                    event._eventPreferencesCalendar._endTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_END_TIME)));
+                    event._eventPreferencesCalendar._eventFound = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_FOUND))) == 1);
                 }
 
                 cursor.close();
@@ -4914,7 +4914,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.moveToFirst();
 
                 if (cursor.getCount() > 0) {
-                    event._eventPreferencesSMS._startTime = Long.parseLong(cursor.getString(0));
+                    event._eventPreferencesSMS._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_SMS_START_TIME)));
                 }
 
                 cursor.close();
@@ -4974,7 +4974,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.moveToFirst();
 
                 if (cursor.getCount() > 0) {
-                    event._eventPreferencesNotification._startTime = Long.parseLong(cursor.getString(0));
+                    event._eventPreferencesNotification._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_START_TIME)));
                 }
 
                 cursor.close();
@@ -5073,7 +5073,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.moveToFirst();
 
                 if (cursor.getCount() > 0) {
-                    event._eventPreferencesNFC._startTime = Long.parseLong(cursor.getString(0));
+                    event._eventPreferencesNFC._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_NFC_START_TIME)));
                 }
 
                 cursor.close();
@@ -5426,11 +5426,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 if (cursor.getCount() > 0) {
                     geofence = new Geofence();
-                    geofence._id = Long.parseLong(cursor.getString(0));
-                    geofence._name = cursor.getString(1);
-                    geofence._latitude = cursor.getDouble(2);
-                    geofence._longitude = cursor.getDouble(3);
-                    geofence._radius = cursor.getFloat(4);
+                    geofence._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_G_ID)));
+                    geofence._name = cursor.getString(cursor.getColumnIndex(KEY_G_NAME));
+                    geofence._latitude = cursor.getDouble(cursor.getColumnIndex(KEY_G_LATITUDE));
+                    geofence._longitude = cursor.getDouble(cursor.getColumnIndex(KEY_G_LONGITUDE));
+                    geofence._radius = cursor.getFloat(cursor.getColumnIndex(KEY_G_RADIUS));
                 }
 
                 cursor.close();
@@ -5610,7 +5610,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             // unlink geofence from events
                             ContentValues values = new ContentValues();
                             values.put(KEY_E_LOCATION_GEOFENCES, geofences);
-                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{String.valueOf(cursor.getString(0))});
+                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{String.valueOf(cursor.getString(cursor.getColumnIndex(KEY_E_ID)))});
                         }
                     } while (cursor.moveToNext());
                 }
@@ -5751,7 +5751,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor != null) {
                 if (cursor.moveToFirst())
-                    r = cursor.getString(0);
+                    r = cursor.getString(cursor.getColumnIndex(KEY_G_NAME));
                 cursor.close();
             }
 
@@ -5869,7 +5869,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             // looping through all rows and adding to list
             if (cursor.moveToFirst()) {
                 do {
-                    String geofences = cursor.getString(0);
+                    String geofences = cursor.getString(cursor.getColumnIndex(KEY_E_LOCATION_GEOFENCES));
                     String[] splits = geofences.split("\\|");
                     for (String geofence : splits) {
                         if (!geofence.isEmpty()) {
@@ -5906,7 +5906,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor != null) {
                 if (cursor.moveToFirst())
-                    r = cursor.getInt(0);
+                    r = cursor.getInt(cursor.getColumnIndex(KEY_G_TRANSITION));
                 cursor.close();
             }
 
@@ -5967,9 +5967,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 if (cursor.getCount() > 0) {
                     shortcut = new Shortcut();
-                    shortcut._id = Long.parseLong(cursor.getString(0));
-                    shortcut._intent = cursor.getString(1);
-                    shortcut._name = cursor.getString(2);
+                    shortcut._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_S_ID)));
+                    shortcut._intent = cursor.getString(cursor.getColumnIndex(KEY_S_INTENT));
+                    shortcut._name = cursor.getString(cursor.getColumnIndex(KEY_S_NAME));
                 }
 
                 cursor.close();
@@ -6243,11 +6243,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 long foundedLastConnectedTime = 0;
                 if (cursor.moveToFirst()) {
                     do {
-                        String dbCellId = Integer.toString(cursor.getInt(1));
+                        String dbCellId = Integer.toString(cursor.getInt(cursor.getColumnIndex(KEY_MC_CELL_ID)));
                         if (dbCellId.equals(Integer.toString(cell.cellId))) {
-                            foundedDbId = cursor.getLong(0);
-                            foundedCellName = cursor.getString(2);
-                            foundedLastConnectedTime = cursor.getLong(3);
+                            foundedDbId = cursor.getLong(cursor.getColumnIndex(KEY_MC_ID));
+                            foundedCellName = cursor.getString(cursor.getColumnIndex(KEY_MC_NAME));
+                            foundedLastConnectedTime = cursor.getLong(cursor.getColumnIndex(KEY_MC_LAST_CONNECTED_TIME));
                             found = true;
                             break;
                         }
@@ -6301,9 +6301,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 long foundedDbId = 0;
                 if (cursor.moveToFirst()) {
                     do {
-                        String dbCellId = Integer.toString(cursor.getInt(1));
+                        String dbCellId = Integer.toString(cursor.getInt(cursor.getColumnIndex(KEY_MC_CELL_ID)));
                         if (dbCellId.equals(Integer.toString(cell.cellId))) {
-                            foundedDbId = cursor.getLong(0);
+                            foundedDbId = cursor.getLong(cursor.getColumnIndex(KEY_MC_ID));
                             found = true;
                             break;
                         }
@@ -7370,7 +7370,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     do {
                                         ContentValues _values = new ContentValues();
                                         _values.put(KEY_E_START_ORDER, ++startOrder);
-                                        db.update(TABLE_EVENTS, _values, KEY_E_ID + " = ?", new String[]{cursor.getString(0)});
+                                        db.update(TABLE_EVENTS, _values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
                                     } while (cursor.moveToNext());
                                 }
 
