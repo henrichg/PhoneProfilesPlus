@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp"
+    android:padding="8dp"
     android:background="@color/notificationBackground_dark" >
 
     <RelativeLayout
@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:padding="1dp" >
+        android:layout_marginBottom="3dp" >
 
         <ImageView
             android:id="@+id/notification_activated_app_icon"
@@ -21,10 +20,9 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/about_application_application_icon"
-            android:maxHeight="18dp"
-            android:maxWidth="18dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="3dp"
+            android:maxHeight="16dp"
+            android:maxWidth="16dp"
+            android:layout_marginStart="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_notification_dark" />
 
@@ -34,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/notification_activated_app_icon"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="8dp"
             android:text="@string/app_name"
             android:textAppearance="@style/android:TextAppearance.Material.Notification.Line2"
             android:textColor="@color/notificationTextColor_dark"
@@ -44,9 +42,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="1dp"
-        android:layout_marginBottom="3dp" >
+        android:layout_height="wrap_content" >
 
         <ImageView
             android:id="@+id/notification_activated_profile_restart_events"
@@ -76,8 +72,8 @@
                     android:layout_centerVertical="true"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/profile_preferences_profileIcon"
-                    android:maxHeight="45dp"
-                    android:maxWidth="45dp"
+                    android:maxHeight="40dp"
+                    android:maxWidth="40dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:scaleType="centerCrop"

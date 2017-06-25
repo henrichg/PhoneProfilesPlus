@@ -38,10 +38,12 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
-            android:maxHeight="48dp"
-            android:maxWidth="48dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
+            android:maxHeight="40dp"
+            android:maxWidth="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_profile_default" />
 
@@ -50,13 +52,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="3dp"
-            android:layout_marginStart="3dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/notification_activated_profile_icon"
             android:layout_toEndOf="@+id/notification_activated_profile_icon"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:text="@string/profile_name_default"
             android:textAppearance="@style/NotificationTitle"
             android:textColor="@color/notificationTextColor_light"
@@ -66,17 +66,15 @@
             android:id="@+id/notification_activated_profile_pref_indicator"
             android:layout_width="match_parent"
             android:layout_height="15dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginStart="3dp"
             android:layout_below="@+id/notification_activated_profile_name"
             android:layout_toRightOf="@+id/notification_activated_profile_icon"
             android:layout_toEndOf="@+id/notification_activated_profile_icon"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/empty_string"
             android:scaleType="@integer/profilePrefIndicatorScaleType"
-            android:src="@drawable/ic_profile_pref_volume_on"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:src="@drawable/ic_profile_pref_volume_on" />
 
     </RelativeLayout>
 

@@ -34,10 +34,10 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
-            android:maxHeight="48dp"
-            android:maxWidth="48dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
+            android:maxHeight="40dp"
+            android:maxWidth="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="6dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_profile_default" />
 
