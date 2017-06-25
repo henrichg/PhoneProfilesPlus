@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -407,20 +408,33 @@ public class ProfileIconPreference extends DialogPreference {
     void startGallery()
     {
         Intent intent;
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
-            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-        }else{
-            intent = new Intent(Intent.ACTION_GET_CONTENT);
-        }
-        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.setType("image/*");
+        try {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+                intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            }else{
+                intent = new Intent(Intent.ACTION_GET_CONTENT);
+            }
+            intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setType("image/*");
 
-        // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
-        ProfilePreferencesFragment.setChangedProfileIconPreference(this);
-        ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
+            // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
+            ProfilePreferencesFragment.setChangedProfileIconPreference(this);
+            ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
+        } catch (ActivityNotFoundException e) {
+            try {
+                intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setType("image/*");
+
+                // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
+                ProfilePreferencesFragment.setChangedProfileIconPreference(this);
+                ((Activity) prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
+            } catch (Exception ignored) {}
+        }
     }
 
     private void showCustomColorChooser() {
