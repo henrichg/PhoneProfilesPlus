@@ -910,6 +910,11 @@ public class ActivateProfileHelper {
             if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
                 Settings.System.putInt(context.getContentResolver(), "notification_light_pulse", value);
             else {
+                /* not working (private secure settings) :-/
+                if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                    Settings.System.putInt(context.getContentResolver(), "notification_light_pulse", value);
+                }
+                else*/
                 if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
                     synchronized (PPApplication.startRootCommandMutex) {
                         String command1 = "settings put system " + "notification_light_pulse" + " " + value;
@@ -1322,22 +1327,29 @@ public class ActivateProfileHelper {
     }
 
     void executeRootForAdaptiveBrightness(Profile profile) {
-        if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
-            synchronized (PPApplication.startRootCommandMutex) {
-                String command1 = "settings put system " + ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
-                        Float.toString(profile.getDeviceBrightnessAdaptiveValue(context));
-                //if (PPApplication.isSELinuxEnforcing())
-                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                Command command = new Command(0, false, command1); //, command2);
-                try {
-                    //RootTools.closeAllShells();
-                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    commandWait(command);
-                } catch (Exception e) {
-                    Log.e("ActivateProfileHelper.execute", "Error on run su: " + e.toString());
+        /* not working (private secure settings) :-/
+        if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+            Settings.System.putFloat(context.getContentResolver(), ADAPTIVE_BRIGHTNESS_SETTING_NAME,
+                    profile.getDeviceBrightnessAdaptiveValue(context));
+        }
+        else {*/
+            if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                synchronized (PPApplication.startRootCommandMutex) {
+                    String command1 = "settings put system " + ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
+                            Float.toString(profile.getDeviceBrightnessAdaptiveValue(context));
+                    //if (PPApplication.isSELinuxEnforcing())
+                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                    Command command = new Command(0, false, command1); //, command2);
+                    try {
+                        //RootTools.closeAllShells();
+                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                        commandWait(command);
+                    } catch (Exception e) {
+                        Log.e("ActivateProfileHelper.execute", "Error on run su: " + e.toString());
+                    }
                 }
             }
-        }
+        //}
     }
 
     public void execute(Profile _profile, boolean merged, boolean _interactive)
@@ -3041,6 +3053,11 @@ public class ActivateProfileHelper {
                         break;
                 }
                 if (_setPowerSaveMode) {
+                    if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                        if (android.os.Build.VERSION.SDK_INT >= 21)
+                            Settings.Global.putInt(context.getContentResolver(), "low_power", ((_isPowerSaveMode) ? 1 : 0));
+                    }
+                    else
                     if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
                         synchronized (PPApplication.startRootCommandMutex) {
                             String command1 = "settings put global low_power " + ((_isPowerSaveMode) ? 1 : 0);

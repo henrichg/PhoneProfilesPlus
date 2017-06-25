@@ -1778,16 +1778,20 @@ public class Profile {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 if (android.os.Build.VERSION.SDK_INT >= 23)
                 {
-                    if (PPApplication.isRooted())
-                    {
-                        // device is rooted
-                        if (PPApplication.settingsBinaryExists())
-                            featurePresented = PPApplication.PREFERENCE_ALLOWED;
-                        else
-                            PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                    /* not working (private secure settings) :-/
+                    if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                        featurePresented = PPApplication.PREFERENCE_ALLOWED;
                     }
-                    else
-                        PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    else {*/
+                        if (PPApplication.isRooted()) {
+                            // device is rooted
+                            if (PPApplication.settingsBinaryExists())
+                                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                            else
+                                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                        } else
+                            PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    //}
                 }
                 else
                     featurePresented = PPApplication.PREFERENCE_ALLOWED;
@@ -1801,6 +1805,10 @@ public class Profile {
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE))
         {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
+                if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                    featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                }
+                else
                 if (PPApplication.isRooted()) {
                     // device is rooted
                     if (PPApplication.settingsBinaryExists())
@@ -1853,6 +1861,11 @@ public class Profile {
         {
             int value = Settings.System.getInt(context.getContentResolver(), "notification_light_pulse", -10);
             if ((value != -10) && (android.os.Build.VERSION.SDK_INT >= 23)) {
+                /* not working (private secure settings) :-/
+                if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                    featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                }
+                else*/
                 if (PPApplication.isRooted()) {
                     // device is rooted
                     if (PPApplication.settingsBinaryExists())
