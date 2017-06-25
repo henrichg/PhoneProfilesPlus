@@ -1948,15 +1948,17 @@ public class DataWrapper {
                     Network[] networks = connManager.getAllNetworks();
                     if ((networks != null) && (networks.length > 0)) {
                         for (Network ntk : networks) {
-                            NetworkInfo ntkInfo = connManager.getNetworkInfo(ntk);
-                            if (ntkInfo != null) {
-                                if (ntkInfo.getType() == ConnectivityManager.TYPE_WIFI && ntkInfo.isConnected()) {
-                                    if (wifiInfo != null) {
-                                        wifiConnected = true;
-                                        break;
+                            try {
+                                NetworkInfo ntkInfo = connManager.getNetworkInfo(ntk);
+                                if (ntkInfo != null) {
+                                    if (ntkInfo.getType() == ConnectivityManager.TYPE_WIFI && ntkInfo.isConnected()) {
+                                        if (wifiInfo != null) {
+                                            wifiConnected = true;
+                                            break;
+                                        }
                                     }
                                 }
-                            }
+                            } catch (Exception ignored) {}
                         }
                     }
                 }
