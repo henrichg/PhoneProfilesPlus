@@ -2229,7 +2229,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ZEN_MODE))),
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_KEYGUARD))),
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_ON_TOUCH))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP))),
+                            cursor.isNull(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP)) ? 0 : Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP))),
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE))),
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ASK_FOR_DURATION))) == 1,
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE))),
@@ -2366,7 +2366,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     profile._volumeZenMode = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ZEN_MODE)));
                     profile._deviceKeyguard = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_KEYGUARD)));
                     profile._vibrationOnTouch = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_ON_TOUCH)));
-                    profile._deviceWiFiAP = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP)));
+                    profile._deviceWiFiAP = cursor.isNull(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP)) ? 0 : Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP)));
                     profile._devicePowerSaveMode = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE)));
                     profile._askForDuration = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ASK_FOR_DURATION))) == 1;
                     profile._deviceNetworkType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE)));
@@ -2765,7 +2765,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ZEN_MODE))),
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_KEYGUARD))),
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_ON_TOUCH))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP))),
+                            cursor.isNull(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP)) ? 0 : Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP))),
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE))),
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ASK_FOR_DURATION))) == 1,
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE))),
