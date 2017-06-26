@@ -154,7 +154,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onCreate - setContnetView");
 
         toolbar = (Toolbar)findViewById(R.id.act_prof_tollbar);
-        toolbar.inflateMenu(R.menu.activity_activate_profile);
+        //toolbar.inflateMenu(R.menu.activity_activate_profile);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null)
@@ -246,8 +246,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_activate_profile, menu);
+        //MenuInflater inflater = getMenuInflater();
+        //inflater.inflate(R.menu.activity_activate_profile, menu);
+        toolbar.inflateMenu(R.menu.activity_activate_profile);
         return true;
     }
 

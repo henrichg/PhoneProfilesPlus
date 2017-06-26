@@ -354,7 +354,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
 
         editorToolbar = (Toolbar)findViewById(R.id.editor_tollbar);
-        editorToolbar.inflateMenu(R.menu.activity_editor_profiles);
+        //editorToolbar.inflateMenu(R.menu.activity_editor_profiles);
         setSupportActionBar(editorToolbar);
 
         // Enable ActionBar app icon to behave as action to toggle nav drawer
@@ -540,7 +540,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_editor_profiles, menu);
+        //inflater.inflate(R.menu.activity_editor_profiles, menu);
+        editorToolbar.inflateMenu(R.menu.activity_editor_profiles);
         return true;
     }
 
