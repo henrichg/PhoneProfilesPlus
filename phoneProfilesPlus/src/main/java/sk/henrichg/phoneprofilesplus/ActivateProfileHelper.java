@@ -2065,23 +2065,25 @@ public class ActivateProfileHelper {
             notificationBuilder.setContent(contentView);
             //notificationBuilder.setAutoCancel(true);
 
-            PPApplication.phoneProfilesNotification = notificationBuilder.build();
-
-
-            if (notificationStatusBarPermanent)
-            {
-                //notification.flags |= Notification.FLAG_NO_CLEAR;
-                PPApplication.phoneProfilesNotification.flags |= Notification.FLAG_ONGOING_EVENT;
-            }
-            else
-            {
-                setAlarmForNotificationCancel();
+            try {
+                PPApplication.phoneProfilesNotification = notificationBuilder.build();
+            } catch (Exception e) {
+                PPApplication.phoneProfilesNotification = null;
             }
 
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.startForeground(PPApplication.PROFILE_NOTIFICATION_ID, PPApplication.phoneProfilesNotification);
-            else
-                notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_ID, PPApplication.phoneProfilesNotification);
+            if (PPApplication.phoneProfilesNotification != null) {
+                if (notificationStatusBarPermanent) {
+                    //notification.flags |= Notification.FLAG_NO_CLEAR;
+                    PPApplication.phoneProfilesNotification.flags |= Notification.FLAG_ONGOING_EVENT;
+                } else {
+                    setAlarmForNotificationCancel();
+                }
+
+                if (PhoneProfilesService.instance != null)
+                    PhoneProfilesService.instance.startForeground(PPApplication.PROFILE_NOTIFICATION_ID, PPApplication.phoneProfilesNotification);
+                else
+                    notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_ID, PPApplication.phoneProfilesNotification);
+            }
         }
         else
         {
