@@ -330,8 +330,6 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         //    showActionMode();
         EventPreferencesActivity activity = (EventPreferencesActivity)getActivity();
         EventPreferencesActivity.showSaveMenu = true;
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.mp_toolbar);
-        toolbar.inflateMenu(R.menu.profile_preferences_action_mode);
         activity.invalidateOptionsMenu();
     }
 

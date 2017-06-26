@@ -138,8 +138,10 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         // Inflate the menu; this adds items to the action bar if it is present.
 
         if (showSaveMenu) {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.profile_preferences_action_mode, menu);
+            //MenuInflater inflater = getMenuInflater();
+            //inflater.inflate(R.menu.profile_preferences_action_mode, menu);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
+            toolbar.inflateMenu(R.menu.profile_preferences_action_mode);
         }
         return true;
     }
@@ -286,11 +288,6 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
 
         Profile profile = createProfile(startupSource, getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, false);
-
-        if (showSaveMenu) {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
-            toolbar.inflateMenu(R.menu.profile_preferences_action_mode);
-        }
 
         if (profile != null)
         {

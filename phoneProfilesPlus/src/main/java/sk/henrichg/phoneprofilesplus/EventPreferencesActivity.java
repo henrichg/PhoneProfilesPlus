@@ -139,8 +139,10 @@ public class EventPreferencesActivity extends PreferenceActivity
         // Inflate the menu; this adds items to the action bar if it is present.
 
         if (showSaveMenu) {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.profile_preferences_action_mode, menu);
+            //MenuInflater inflater = getMenuInflater();
+            //inflater.inflate(R.menu.profile_preferences_action_mode, menu);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
+            toolbar.inflateMenu(R.menu.profile_preferences_action_mode);
         }
         return true;
     }
@@ -237,11 +239,6 @@ public class EventPreferencesActivity extends PreferenceActivity
 
     private void loadPreferences(int new_event_mode, int predefinedEventIndex) {
         Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
-
-        if (showSaveMenu) {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
-            toolbar.inflateMenu(R.menu.profile_preferences_action_mode);
-        }
 
         if (event != null)
         {
