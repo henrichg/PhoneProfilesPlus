@@ -52,6 +52,12 @@ public class EventsService extends IntentService
 
     public EventsService() {
         super("EventsService");
+
+        // if enabled is true, onStartCommand(Intent, int, int) will return START_REDELIVER_INTENT,
+        // so if this process dies before onHandleIntent(Intent) returns, the process will be restarted
+        // and the intent redelivered. If multiple Intents have been sent, only the most recent one
+        // is guaranteed to be redelivered.
+        setIntentRedelivery(true);
     }
 
     @Override
