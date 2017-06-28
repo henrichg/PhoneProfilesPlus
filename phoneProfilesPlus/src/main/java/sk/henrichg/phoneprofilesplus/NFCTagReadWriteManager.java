@@ -91,9 +91,9 @@ class NFCTagReadWriteManager {
     void onActivityResume() {
         if (nfcAdapter != null) {
             nfcAdapter.enableForegroundDispatch(activity, pendingIntent, null, null);
-        }
-        //if (writeText == null)
+            //if (writeText == null)
             readTagFromIntent(activity.getIntent());
+        }
     }
 
     /*
@@ -110,20 +110,22 @@ class NFCTagReadWriteManager {
      * @param intent x
      */
     void onActivityNewIntent(Intent intent) {
-        // activity.setIntent(intent);
+        if (nfcAdapter != null) {
+            // activity.setIntent(intent);
 
-        //if (writeText == null)
+            //if (writeText == null)
             readTagFromIntent(intent);
-        //else {
-        if (writeText != null)/* && NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()))*/ {
-            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            try {
-                writeTag(activity, tag, writeText);
-                onTagWriteListener.onTagWritten();
-            } catch (NFCTagWriteException exception) {
-                onTagWriteErrorListener.onTagWriteError(exception);
-            } finally {
-                writeText = null;
+            //else {
+            if (writeText != null)/* && NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()))*/ {
+                Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+                try {
+                    writeTag(activity, tag, writeText);
+                    onTagWriteListener.onTagWritten();
+                } catch (NFCTagWriteException exception) {
+                    onTagWriteErrorListener.onTagWriteError(exception);
+                } finally {
+                    writeText = null;
+                }
             }
         }
     }
