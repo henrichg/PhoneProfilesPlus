@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -59,6 +60,17 @@ public class LockDeviceActivity extends AppCompatActivity {
             windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
             windowManager.addView(view, params);
         }
+
+        Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if (PPApplication.lockDeviceActivity != null) {
+                    PPApplication.lockDeviceActivity.finish();
+                    PPApplication.lockDeviceActivity.overridePendingTransition(0, 0);
+                }
+            }
+        }, 20000);
     }
 
     @Override
