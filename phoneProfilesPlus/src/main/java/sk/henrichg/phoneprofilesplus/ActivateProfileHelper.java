@@ -1696,23 +1696,38 @@ public class ActivateProfileHelper {
         switch (screenTimeout) {
             case 1:
                 screenTimeoutUnlock(context);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+                if (PPApplication.lockDeviceActivity != null)
+                    PPApplication.screenTimeoutBeforeDeviceLock = 15000;
+                else
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
                 break;
             case 2:
                 screenTimeoutUnlock(context);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
+                if (PPApplication.lockDeviceActivity != null)
+                    PPApplication.screenTimeoutBeforeDeviceLock = 30000;
+                else
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
                 break;
             case 3:
                 screenTimeoutUnlock(context);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
+                if (PPApplication.lockDeviceActivity != null)
+                    PPApplication.screenTimeoutBeforeDeviceLock = 60000;
+                else
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
                 break;
             case 4:
                 screenTimeoutUnlock(context);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
+                if (PPApplication.lockDeviceActivity != null)
+                    PPApplication.screenTimeoutBeforeDeviceLock = 120000;
+                else
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
                 break;
             case 5:
                 screenTimeoutUnlock(context);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
+                if (PPApplication.lockDeviceActivity != null)
+                    PPApplication.screenTimeoutBeforeDeviceLock = 600000;
+                else
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
                 break;
             case 6:
                 //2147483647 = Integer.MAX_VALUE
@@ -1720,18 +1735,22 @@ public class ActivateProfileHelper {
                 //86400000   = 24 hounrs
                 //43200000   = 12 hours
                 screenTimeoutUnlock(context);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 86400000); //18000000);
+                if (PPApplication.lockDeviceActivity != null)
+                    PPApplication.screenTimeoutBeforeDeviceLock = 86400000;
+                else
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 86400000); //18000000);
                 break;
             case 7:
                 screenTimeoutUnlock(context);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
+                if (PPApplication.lockDeviceActivity != null)
+                    PPApplication.screenTimeoutBeforeDeviceLock = 300000;
+                else
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
                 break;
             case 8:
                 screenTimeoutUnlock(context);
-                //if (android.os.Build.VERSION.SDK_INT < 19)  // not working in Sony
-                //    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
-                //else
-                screenTimeoutLock(context);
+                if (PPApplication.lockDeviceActivity == null)
+                    screenTimeoutLock(context);
                 break;
         }
         setActivatedProfileScreenTimeout(context, 0);

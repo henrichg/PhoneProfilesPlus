@@ -62,6 +62,7 @@ public class PPApplication extends Application {
                                          //+"|$$$ PhoneProfilesService.onCreate"
 
                                          +"|---$$$ ActivateProfileHelper.execute"
+                                         +"|LockDeviceActivity"
 
                                          //+"|ActivateProfileHelper.getMergedRingNotificationVolumes"
                                          //+"|ActivateProfileHelper.setMergedRingNotificationVolumes"

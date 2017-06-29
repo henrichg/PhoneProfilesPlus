@@ -19,6 +19,8 @@ public class LockDeviceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        PPApplication.logE("LockDeviceActivity.onCreate", "xxx");
+
         PPApplication.lockDeviceActivity = this;
 
         /*
@@ -34,6 +36,7 @@ public class LockDeviceActivity extends AppCompatActivity {
         */
 
         PPApplication.screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+        ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
         Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
 
 
@@ -63,6 +66,7 @@ public class LockDeviceActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             public void run() {
                 if (PPApplication.lockDeviceActivity != null) {
+                    PPApplication.logE("LockDeviceActivity.handler", "xxx");
                     PPApplication.lockDeviceActivity.finish();
                     PPApplication.lockDeviceActivity.overridePendingTransition(0, 0);
                 }
@@ -73,6 +77,8 @@ public class LockDeviceActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        PPApplication.logE("LockDeviceActivity.onDestroy", "xxx");
 
         if (view != null)
             windowManager.removeViewImmediate(view);

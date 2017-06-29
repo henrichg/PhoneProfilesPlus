@@ -17,13 +17,6 @@ public class ScreenOnOffService extends IntentService {
 
             final Context appContext = getApplicationContext();
             
-            boolean lockDeviceEnabled = false;
-            if (PPApplication.lockDeviceActivity != null) {
-                lockDeviceEnabled = true;
-                PPApplication.lockDeviceActivity.finish();
-                PPApplication.lockDeviceActivity.overridePendingTransition(0, 0);
-            }
-
             //PPApplication.loadPreferences(appContext);
 
             if (intent.getAction() != null) {
@@ -31,6 +24,13 @@ public class ScreenOnOffService extends IntentService {
                     PPApplication.logE("@@@ ScreenOnOffService.onReceive", "screen on");
                 else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                     PPApplication.logE("@@@ ScreenOnOffService.onReceive", "screen off");
+
+                    //boolean lockDeviceEnabled = false;
+                    if (PPApplication.lockDeviceActivity != null) {
+                        //lockDeviceEnabled = true;
+                        PPApplication.lockDeviceActivity.finish();
+                        PPApplication.lockDeviceActivity.overridePendingTransition(0, 0);
+                    }
 
                     //ActivateProfileHelper.setScreenUnlocked(appContext, false);
                     if (!Event.getGlobalEventsRuning(appContext)) {
@@ -58,8 +58,8 @@ public class ScreenOnOffService extends IntentService {
                     }
 
                     // change screen timeout
-                    if (lockDeviceEnabled && Permissions.checkLockDevice(appContext))
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
+                    /*if (lockDeviceEnabled && Permissions.checkLockDevice(appContext))
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);*/
                     final int screenTimeout = ActivateProfileHelper.getActivatedProfileScreenTimeout(appContext);
                     PPApplication.logE("@@@ ScreenOnOffService.onReceive", "screenTimeout=" + screenTimeout);
                     if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
@@ -71,9 +71,9 @@ public class ScreenOnOffService extends IntentService {
                                 }
                             });
                         }/* else {
-                        dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
-                        dataWrapper.invalidateDataWrapper();
-                    }*/
+                            dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
+                            dataWrapper.invalidateDataWrapper();
+                        }*/
                     }
 
                     // enable/disable keyguard
