@@ -88,12 +88,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
     }
 
     private void setBackgroundCompat(View view, Drawable d) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            view.setBackground(d);
-        } else {
-            //noinspection deprecation
-            view.setBackgroundDrawable(d);
-        }
+        view.setBackground(d);
     }
 
     private int shiftColor(int color) {

@@ -1480,12 +1480,9 @@ public class ActivateProfileHelper {
             isScreenOn = pm.isScreenOn();
             //}
             PPApplication.logE("$$$ ActivateProfileHelper.execute","isScreenOn="+isScreenOn);
-            boolean keyguardShowing = false;
+            boolean keyguardShowing;
             KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-            if (android.os.Build.VERSION.SDK_INT >= 16)
-                keyguardShowing = kgMgr.isKeyguardLocked();
-            //else
-            //    keyguardShowing = kgMgr.inKeyguardRestrictedInputMode();
+            keyguardShowing = kgMgr.isKeyguardLocked();
             PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguardShowing="+keyguardShowing);
 
             if (isScreenOn && !keyguardShowing) {
@@ -1617,12 +1614,9 @@ public class ActivateProfileHelper {
 
         if (Permissions.checkProfileLockDevice(context, profile)) {
             if (profile._lockDevice != 0) {
-                boolean keyguardLocked = false;
+                boolean keyguardLocked;
                 KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-                if (android.os.Build.VERSION.SDK_INT >= 16)
-                    keyguardLocked = kgMgr.isKeyguardLocked();
-                //else
-                //    keyguardShowing = kgMgr.inKeyguardRestrictedInputMode();
+                keyguardLocked = kgMgr.isKeyguardLocked();
                 PPApplication.logE("---$$$ ActivateProfileHelper.execute","keyguardLocked="+keyguardLocked);
                 if (!keyguardLocked) {
                     rootServiceIntent = new Intent(context, ExecuteRootProfilePrefsService.class);
@@ -1921,22 +1915,20 @@ public class ActivateProfileHelper {
             notificationBuilder = new Notification.Builder(context)
                     .setContentIntent(pIntent);
 
-            if (Build.VERSION.SDK_INT >= 16) {
-                if (notificationShowInStatusBar) {
-                    KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-                    //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
-                    boolean screenUnlocked = !myKM.isKeyguardLocked();
-                    //boolean screenUnlocked = getScreenUnlocked(context);
-                    if ((ApplicationPreferences.notificationHideInLockscreen(context) && (!screenUnlocked)) ||
-                            ((profile != null) && profile._hideStatusBarIcon))
-                        notificationBuilder.setPriority(Notification.PRIORITY_MIN);
-                    else
-                        notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
-                }
-                else
+            if (notificationShowInStatusBar) {
+                KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+                //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
+                boolean screenUnlocked = !myKM.isKeyguardLocked();
+                //boolean screenUnlocked = getScreenUnlocked(context);
+                if ((ApplicationPreferences.notificationHideInLockscreen(context) && (!screenUnlocked)) ||
+                        ((profile != null) && profile._hideStatusBarIcon))
                     notificationBuilder.setPriority(Notification.PRIORITY_MIN);
-                //notificationBuilder.setPriority(Notification.PRIORITY_HIGH); // for heads-up in Android 5.0
+                else
+                    notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
             }
+            else
+                notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+            //notificationBuilder.setPriority(Notification.PRIORITY_HIGH); // for heads-up in Android 5.0
             if (Build.VERSION.SDK_INT >= 21)
             {
                 notificationBuilder.setCategory(Notification.CATEGORY_STATUS);
@@ -2792,7 +2784,7 @@ public class ActivateProfileHelper {
                 Settings.Secure.putString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
             }
             else
-            if ((android.os.Build.VERSION.SDK_INT >= 16) && PPApplication.isRooted() && PPApplication.settingsBinaryExists())
+            if (PPApplication.isRooted() && PPApplication.settingsBinaryExists())
             {
                 // zariadenie je rootnute
                 PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
@@ -2899,7 +2891,7 @@ public class ActivateProfileHelper {
                 Settings.Secure.putString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
             }
             else
-            if ((android.os.Build.VERSION.SDK_INT >= 16) && PPApplication.isRooted() && PPApplication.settingsBinaryExists())
+            if (PPApplication.isRooted() && PPApplication.settingsBinaryExists())
             {
                 // zariadenie je rootnute
                 PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");

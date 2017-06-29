@@ -74,22 +74,11 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_THEME);
 
-        if (android.os.Build.VERSION.SDK_INT >= 16) {
-            setSummary(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
-                Preference preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
-                if (preference != null) {
-                    preference.setTitle(R.string.phone_profiles_pref_notificationShowInStatusBarAndLockscreen);
-                }
-            }
-        }
-        else {
+        setSummary(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
             Preference preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
             if (preference != null) {
-                preference.setEnabled(false);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, true);
-                editor.apply();
+                preference.setTitle(R.string.phone_profiles_pref_notificationShowInStatusBarAndLockscreen);
             }
         }
 

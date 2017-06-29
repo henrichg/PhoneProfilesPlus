@@ -64,8 +64,6 @@ public class MaterialMultiSelectListPreference extends MultiSelectListPreference
     private void init(Context context, AttributeSet attrs) {
         this.context = context;
         MaterialDialogsPrefUtil.setLayoutResource(context, this, attrs);
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1)
-            setWidgetLayoutResource(0);
     }
 
     @Override

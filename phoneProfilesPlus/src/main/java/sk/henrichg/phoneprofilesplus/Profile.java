@@ -1889,10 +1889,7 @@ public class Profile {
         {
             boolean secureKeyguard = false;
             KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Activity.KEYGUARD_SERVICE);
-            if (android.os.Build.VERSION.SDK_INT >= 16)
-                secureKeyguard = keyguardManager.isKeyguardSecure();
-            //else
-            //    secureKeyguard = keyguardManager.inKeyguardRestrictedInputMode();
+            secureKeyguard = keyguardManager.isKeyguardSecure();
             if (secureKeyguard) {
                 PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION;
                 PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_secure_lock);

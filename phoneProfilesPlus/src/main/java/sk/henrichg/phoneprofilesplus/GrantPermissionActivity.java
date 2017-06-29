@@ -371,8 +371,7 @@ public class GrantPermissionActivity extends Activity {
 
                 PendingIntent pi = PendingIntent.getActivity(context, grantType, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
-                if (android.os.Build.VERSION.SDK_INT >= 16)
-                    mBuilder.setPriority(Notification.PRIORITY_MAX);
+                mBuilder.setPriority(Notification.PRIORITY_MAX);
                 if (android.os.Build.VERSION.SDK_INT >= 21)
                 {
                     mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);

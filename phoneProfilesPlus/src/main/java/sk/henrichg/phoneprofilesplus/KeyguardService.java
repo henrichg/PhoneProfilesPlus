@@ -64,10 +64,7 @@ public class KeyguardService extends Service {
         //}
 
         boolean secureKeyguard = false;
-        if (android.os.Build.VERSION.SDK_INT >= 16)
-            secureKeyguard = keyguardManager.isKeyguardSecure();
-        //else
-        //    secureKeyguard = keyguardManager.inKeyguardRestrictedInputMode();
+        secureKeyguard = keyguardManager.isKeyguardSecure();
         PPApplication.logE("$$$ KeyguardService.onStartCommand","secureKeyguard="+secureKeyguard);
         if (!secureKeyguard)
         {

@@ -135,16 +135,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             blue = red;
             if (!ApplicationPreferences.applicationWidgetListHeader(context)) {
                 if (profile._checked) {
-                    if (android.os.Build.VERSION.SDK_INT >= 16)
-                        row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_SP, 17);
+                    row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_SP, 17);
 
                     //if (PPApplication.applicationWidgetListIconColor.equals("1"))
                     row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
                     //else
                     //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.parseColor("#33b5e5"));
                 } else {
-                    if (android.os.Build.VERSION.SDK_INT >= 16)
-                        row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_SP, 15);
+                    row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_SP, 15);
 
                     //if (PPApplication.applicationWidgetListIconColor.equals("1"))
                     row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xCC, red, green, blue));
