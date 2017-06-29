@@ -1480,12 +1480,12 @@ public class ActivateProfileHelper {
             isScreenOn = pm.isScreenOn();
             //}
             PPApplication.logE("$$$ ActivateProfileHelper.execute","isScreenOn="+isScreenOn);
-            boolean keyguardShowing;
+            boolean keyguardShowing = false;
             KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
             if (android.os.Build.VERSION.SDK_INT >= 16)
                 keyguardShowing = kgMgr.isKeyguardLocked();
-            else
-                keyguardShowing = kgMgr.inKeyguardRestrictedInputMode();
+            //else
+            //    keyguardShowing = kgMgr.inKeyguardRestrictedInputMode();
             PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguardShowing="+keyguardShowing);
 
             if (isScreenOn && !keyguardShowing) {
@@ -1617,11 +1617,20 @@ public class ActivateProfileHelper {
 
         if (Permissions.checkProfileLockDevice(context, profile)) {
             if (profile._lockDevice != 0) {
-                rootServiceIntent = new Intent(context, ExecuteRootProfilePrefsService.class);
-                rootServiceIntent.setAction(ExecuteRootProfilePrefsService.ACTION_LOCK_DEVICE);
-                rootServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                rootServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
-                context.startService(rootServiceIntent);
+                boolean keyguardLocked = false;
+                KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+                if (android.os.Build.VERSION.SDK_INT >= 16)
+                    keyguardLocked = kgMgr.isKeyguardLocked();
+                //else
+                //    keyguardShowing = kgMgr.inKeyguardRestrictedInputMode();
+                PPApplication.logE("---$$$ ActivateProfileHelper.execute","keyguardLocked="+keyguardLocked);
+                if (!keyguardLocked) {
+                    rootServiceIntent = new Intent(context, ExecuteRootProfilePrefsService.class);
+                    rootServiceIntent.setAction(ExecuteRootProfilePrefsService.ACTION_LOCK_DEVICE);
+                    rootServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                    rootServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
+                    context.startService(rootServiceIntent);
+                }
             }
         }
 
@@ -1915,7 +1924,8 @@ public class ActivateProfileHelper {
             if (Build.VERSION.SDK_INT >= 16) {
                 if (notificationShowInStatusBar) {
                     KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-                    boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
+                    //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
+                    boolean screenUnlocked = !myKM.isKeyguardLocked();
                     //boolean screenUnlocked = getScreenUnlocked(context);
                     if ((ApplicationPreferences.notificationHideInLockscreen(context) && (!screenUnlocked)) ||
                             ((profile != null) && profile._hideStatusBarIcon))
@@ -3136,11 +3146,13 @@ public class ActivateProfileHelper {
                 */
                 break;
             case 1:
-                Intent intent = new Intent(context, LockDeviceActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                context.startActivity(intent);
+                if (Permissions.checkLockDevice(context) && (PPApplication.lockDeviceActivity == null)) {
+                    Intent intent = new Intent(context, LockDeviceActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    context.startActivity(intent);
+                }
                 break;
         }
     }

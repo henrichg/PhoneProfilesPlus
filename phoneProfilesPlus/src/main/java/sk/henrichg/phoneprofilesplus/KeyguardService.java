@@ -63,11 +63,11 @@ public class KeyguardService extends Service {
             isScreenOn = pm.isScreenOn();
         //}
 
-        boolean secureKeyguard;
+        boolean secureKeyguard = false;
         if (android.os.Build.VERSION.SDK_INT >= 16)
             secureKeyguard = keyguardManager.isKeyguardSecure();
-        else
-            secureKeyguard = keyguardManager.inKeyguardRestrictedInputMode();
+        //else
+        //    secureKeyguard = keyguardManager.inKeyguardRestrictedInputMode();
         PPApplication.logE("$$$ KeyguardService.onStartCommand","secureKeyguard="+secureKeyguard);
         if (!secureKeyguard)
         {
