@@ -121,15 +121,16 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
             //If we need to restore the state after a configuration change
             PPApplication.logE("PreferenceFragment.onCreateView","savedInstanceState="+savedInstanceState);
             PPApplication.logE("PreferenceFragment.onCreateView","getPreferenceScreen()="+getPreferenceScreen());
+
+            if (getPreferenceScreen() != null) { //Main fragment will fill the HashMap
+                PPApplication.logE("PreferenceFragment.onCreateView", "put preferenceScreenHashMap");
+                ArrayList<Preference> preferences = getAllPreferenceScreen(getPreferenceScreen(), new ArrayList<Preference>());
+                for (Preference preference : preferences) {
+                    preferenceScreenHashMap.put(preference.getKey(), (PreferenceScreen) preference);
+                }
+            }
+
             if (savedInstanceState != null) {
-                /*if (getPreferenceScreen() != null) { //Main fragment will fill the HashMap
-                    PPApplication.logE("PreferenceFragment.onCreateView", "put preferenceScreenHashMap");
-                    ArrayList<Preference> preferences = getAllPreferenceScreen(getPreferenceScreen(),
-                            new ArrayList<Preference>());
-                    for (Preference preference : preferences) {
-                        preferenceScreenHashMap.put(preference.getKey(), (PreferenceScreen) preference);
-                    }
-                }*/
                 if (getPreferenceScreen() == null) { //Nested fragments will use the HashMap to set their PreferenceScreen
                     PPApplication.logE("PreferenceFragment.onCreateView", "get screen from preferenceScreenHashMap="+getSavedInstanceStateKeyName());
                     PreferenceScreen preferenceScreen = preferenceScreenHashMap
@@ -137,16 +138,6 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
                     PPApplication.logE("PreferenceFragment.onCreateView","preferenceScreenHashMap.preferenceScreen="+preferenceScreen);
                     if (preferenceScreen != null) {
                         this.setPreferenceScreen(preferenceScreen);
-                    }
-                }
-            }
-            else {
-                if (getPreferenceScreen() != null) { //Main fragment will fill the HashMap
-                    PPApplication.logE("PreferenceFragment.onCreateView", "put preferenceScreenHashMap");
-                    ArrayList<Preference> preferences = getAllPreferenceScreen(getPreferenceScreen(),
-                            new ArrayList<Preference>());
-                    for (Preference preference : preferences) {
-                        preferenceScreenHashMap.put(preference.getKey(), (PreferenceScreen) preference);
                     }
                 }
             }
@@ -161,21 +152,19 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
             ListView lv = (ListView) v.findViewById(android.R.id.list);
             lv.setPadding(0, 0, 0, 0);
 
-            if (getPreferenceScreen() != null) {
-                //Override PreferenceScreen click and preferences style
-                for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
-                    Preference preference = getPreferenceScreen().getPreference(i);
+            //Override PreferenceScreen click and preferences style
+            for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
+                Preference preference = getPreferenceScreen().getPreference(i);
 
-                    if (preference instanceof PreferenceCategory) {
-                        for (int j = 0; j < ((PreferenceCategory) preference).getPreferenceCount();
-                             j++) {
-                            preferenceToMaterialPreference(((PreferenceCategory) preference)
-                                    .getPreference(j));
-                        }
+                if (preference instanceof PreferenceCategory) {
+                    for (int j = 0; j < ((PreferenceCategory) preference).getPreferenceCount();
+                         j++) {
+                        preferenceToMaterialPreference(((PreferenceCategory) preference)
+                                .getPreference(j));
                     }
-
-                    preferenceToMaterialPreference(preference);
                 }
+
+                preferenceToMaterialPreference(preference);
             }
         }
         return v;
