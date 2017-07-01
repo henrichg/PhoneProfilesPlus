@@ -1469,9 +1469,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     protected String getSavedInstanceStateKeyName() {
         //Log.d("------ ProfilePreferencesFragment.addPreferencesFromResource", "startupSource="+startupSource);
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
-            return getClass().getName() + ".DEFAULT";
+            return "DefaultProfilePreferencesFragment_PreferenceScreenKey";
         else
-            return getClass().getName();
+            return "ProfilePreferencesFragment_PreferenceScreenKey";
     }
 
 }

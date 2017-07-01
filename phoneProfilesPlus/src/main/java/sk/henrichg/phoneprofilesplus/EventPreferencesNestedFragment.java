@@ -333,4 +333,9 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         activity.invalidateOptionsMenu();
     }
 
+    @Override
+    protected String getSavedInstanceStateKeyName() {
+        return "EventPreferencesFragment_PreferenceScreenKey";
+    }
+
 }

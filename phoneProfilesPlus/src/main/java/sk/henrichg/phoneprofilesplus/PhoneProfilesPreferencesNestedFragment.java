@@ -687,4 +687,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         doOnActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    protected String getSavedInstanceStateKeyName() {
+        return "PhoneProfilesPreferencesFragment_PreferenceScreenKey";
+    }
+
 }
