@@ -1499,6 +1499,9 @@ public class ActivateProfileHelper {
 
                 if (profile.getDeviceBrightnessAutomatic()) {
                     Settings.System.putInt(context.getContentResolver(),
+                            Settings.System.SCREEN_BRIGHTNESS_MODE,
+                            Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+                    Settings.System.putInt(context.getContentResolver(),
                             Settings.System.SCREEN_BRIGHTNESS,
                             profile.getDeviceBrightnessManualValue(context));
                     if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, context)
@@ -1522,16 +1525,13 @@ public class ActivateProfileHelper {
                             }
                         }
                     }
-                    Settings.System.putInt(context.getContentResolver(),
-                            Settings.System.SCREEN_BRIGHTNESS_MODE,
-                            Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                 } else {
-                    Settings.System.putInt(context.getContentResolver(),
-                            Settings.System.SCREEN_BRIGHTNESS,
-                            profile.getDeviceBrightnessManualValue(context));
                     Settings.System.putInt(context.getContentResolver(),
                             Settings.System.SCREEN_BRIGHTNESS_MODE,
                             Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+                    Settings.System.putInt(context.getContentResolver(),
+                            Settings.System.SCREEN_BRIGHTNESS,
+                            profile.getDeviceBrightnessManualValue(context));
                 }
 
                 if (PPApplication.brightnessHandler != null) {
