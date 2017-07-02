@@ -1526,6 +1526,18 @@ public class DataWrapper {
 
     }
 
+    void activateProfileAfterDuration(long profile_id)
+    {
+        int startupSource = PPApplication.STARTUP_SOURCE_SERVICE_MANUAL;
+        Profile profile = getProfileById(profile_id, false);
+        if (Permissions.grantProfilePermissions(context, profile, false, true,
+                forGUI, monochrome, monochromeValue,
+                startupSource, true, null, true)) {
+            getActivateProfileHelper().initialize(this, context);
+            _activateProfile(profile, false, startupSource, true, null);
+        }
+    }
+
     @SuppressWarnings("deprecation")
     @SuppressLint({ "NewApi", "SimpleDateFormat" })
     void doEventService(Event event, boolean statePause,
