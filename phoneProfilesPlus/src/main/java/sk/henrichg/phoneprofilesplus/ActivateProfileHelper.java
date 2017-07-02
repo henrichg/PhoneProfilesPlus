@@ -1815,14 +1815,14 @@ public class ActivateProfileHelper {
         //{
 
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-            if (GlobalGUIRoutines.brightneesView != null)
+            if (GlobalGUIRoutines.brightnessView != null)
             {
-                //Log.d("ActivateProfileHelper.createBrightnessView","GlobalGUIRoutines.brightneesView != null");
+                //Log.d("ActivateProfileHelper.createBrightnessView","GlobalGUIRoutines.brightnessView != null");
                 try {
-                    windowManager.removeView(GlobalGUIRoutines.brightneesView);
+                    windowManager.removeView(GlobalGUIRoutines.brightnessView);
                 } catch (Exception ignored) {
                 }
-                GlobalGUIRoutines.brightneesView = null;
+                GlobalGUIRoutines.brightnessView = null;
             }
             int type;
             if (android.os.Build.VERSION.SDK_INT < 25)
@@ -1835,11 +1835,11 @@ public class ActivateProfileHelper {
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE /*| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE*/,
                         PixelFormat.TRANSLUCENT
                     );
-            GlobalGUIRoutines.brightneesView = new BrightnessView(context);
+            GlobalGUIRoutines.brightnessView = new BrightnessView(context);
             try {
-                windowManager.addView(GlobalGUIRoutines.brightneesView, params);
+                windowManager.addView(GlobalGUIRoutines.brightnessView, params);
             } catch (Exception e) {
-                GlobalGUIRoutines.brightneesView = null;
+                GlobalGUIRoutines.brightnessView = null;
                 //e.printStackTrace();
             }
 
@@ -1851,14 +1851,14 @@ public class ActivateProfileHelper {
     }
 
     static void removeBrightnessView(Context context) {
-        if (GlobalGUIRoutines.brightneesView != null)
+        if (GlobalGUIRoutines.brightnessView != null)
         {
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
             try {
-                windowManager.removeView(GlobalGUIRoutines.brightneesView);
+                windowManager.removeView(GlobalGUIRoutines.brightnessView);
             } catch (Exception ignored) {
             }
-            GlobalGUIRoutines.brightneesView = null;
+            GlobalGUIRoutines.brightnessView = null;
         }
     }
 

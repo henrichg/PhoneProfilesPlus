@@ -47,7 +47,7 @@ import java.util.TimeZone;
 
 public class GlobalGUIRoutines {
 
-    static BrightnessView brightneesView = null;
+    static BrightnessView brightnessView = null;
     static BrightnessView keepScreenOnView = null;
     static Collator collator = null;
 
@@ -60,7 +60,7 @@ public class GlobalGUIRoutines {
     @SuppressWarnings("deprecation")
     public static void setLanguage(Context context)//, boolean restart)
     {
-        if (android.os.Build.VERSION.SDK_INT < 24) {
+        //if (android.os.Build.VERSION.SDK_INT < 24) {
 
             // jazyk na aky zmenit
             String lang = ApplicationPreferences.applicationLanguage(context);
@@ -91,17 +91,15 @@ public class GlobalGUIRoutines {
             //    Context context  = context.createConfigurationContext(appConfig);
             //else
                 context.getResources().updateConfiguration(appConfig, context.getResources().getDisplayMetrics());
-        }
+        //}
 
         // collator for application locale sorting
         collator = getCollator(context);
-
-        //languageChanged = restart;
     }
 
     private static Collator getCollator(Context context)
     {
-        if (android.os.Build.VERSION.SDK_INT < 24) {
+        //if (android.os.Build.VERSION.SDK_INT < 24) {
             // get application Locale
             String lang = ApplicationPreferences.applicationLanguage(context);
             Locale appLocale;
@@ -121,11 +119,11 @@ public class GlobalGUIRoutines {
             }
             // get collator for application locale
             return Collator.getInstance(appLocale);
-        }
+        /*}
         else {
             //Log.d("GlobalGUIRoutines.getCollator", java.util.Locale.getDefault().toString());
             return Collator.getInstance();
-        }
+        }*/
     }
 
     public static void setTheme(Activity activity, boolean forPopup, boolean withToolbar)

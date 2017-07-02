@@ -22,15 +22,15 @@ public class RemoveBrightnessViewBroadcastReceiver extends BroadcastReceiver
         PPApplication.logE("##### RemoveBrightnessViewBroadcastReceiver.onReceive", "xxx");
 
         WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-        if (GlobalGUIRoutines.brightneesView != null)
+        if (GlobalGUIRoutines.brightnessView != null)
         {
             try {
                 PPApplication.logE("##### RemoveBrightnessViewBroadcastReceiver.onReceive", "before removeView");
-                windowManager.removeView(GlobalGUIRoutines.brightneesView);
+                windowManager.removeView(GlobalGUIRoutines.brightnessView);
                 PPApplication.logE("##### RemoveBrightnessViewBroadcastReceiver.onReceive", "after removeView");
             } catch (Exception ignored) {
             }
-            GlobalGUIRoutines.brightneesView = null;
+            GlobalGUIRoutines.brightnessView = null;
         }
     }
 
