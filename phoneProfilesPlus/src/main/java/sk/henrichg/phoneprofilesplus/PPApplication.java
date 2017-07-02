@@ -225,6 +225,9 @@ public class PPApplication extends Application {
     @Override
     public void onCreate()
     {
+        if (checkAppReplacingState())
+            return;
+
         // Set up Crashlytics, disabled for debug builds
         Crashlytics crashlyticsKit = new Crashlytics.Builder()
                 .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
@@ -293,6 +296,18 @@ public class PPApplication extends Application {
         } catch (SsdkUnsupportedException e) {
             sLook = null;
         }
+    }
+
+    // workaround for: java.lang.NullPointerException: Attempt to invoke virtual method
+    // 'android.content.res.AssetManager android.content.res.Resources.getAssets()' on a null object reference
+    // https://issuetracker.google.com/issues/36972466
+    private boolean checkAppReplacingState() {
+        if (getResources() == null) {
+            Log.w("PPApplication.onCreate", "app is replacing...kill");
+            android.os.Process.killProcess(android.os.Process.myPid());
+            return true;
+        }
+        return false;
     }
 
     //--------------------------------------------------------------
@@ -867,7 +882,7 @@ public class PPApplication extends Application {
         String line;
         BufferedReader input = null;
         try {
-            Process p = Runtime.getRuntime().exec("getprop ro.product.brand");
+            java.lang.Process p = Runtime.getRuntime().exec("getprop ro.product.brand");
             input = new BufferedReader(new InputStreamReader(p.getInputStream()), 1024);
             line = input.readLine();
             input.close();
