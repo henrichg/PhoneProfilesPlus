@@ -111,7 +111,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
         long alarmTime = calendar.getTimeInMillis();
 
         AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+        alarmMgr.set(AlarmManager.RTC, alarmTime, alarmIntent);
     }
 
 }

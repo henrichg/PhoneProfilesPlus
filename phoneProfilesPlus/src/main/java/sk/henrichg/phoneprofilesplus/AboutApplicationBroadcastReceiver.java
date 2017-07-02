@@ -93,12 +93,12 @@ public class AboutApplicationBroadcastReceiver extends BroadcastReceiver {
 
         if (android.os.Build.VERSION.SDK_INT >= 23)
             //alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            alarmMgr.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            alarmMgr.setAndAllowWhileIdle(AlarmManager.RTC, alarmTime, alarmIntent);
         else if (android.os.Build.VERSION.SDK_INT >= 19)
             //alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            alarmMgr.set(AlarmManager.RTC, alarmTime, alarmIntent);
         else
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            alarmMgr.set(AlarmManager.RTC, alarmTime, alarmIntent);
 
         PPApplication.logE("@@@ AboutApplicationBroadcastReceiver.setAlarm", "alarm is set");
 
