@@ -1417,6 +1417,7 @@ public class DataWrapper {
             (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
             (startupSource == PPApplication.STARTUP_SOURCE_SERVICE) ||
+            (startupSource == PPApplication.STARTUP_SOURCE_SERVICE_MANUAL) ||
             (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER))
         {
             // aktivacia spustena z shortcutu, widgetu, aktivatora, editora, zo service, profil aktivujeme
