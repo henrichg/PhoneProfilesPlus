@@ -7,33 +7,12 @@ import android.os.PowerManager;
 
 public class ExecuteRadioProfilePrefsService extends IntentService 
 {
-    private static final String EXTRA_WAKE_LOCK_TAKEN = "wake_lock_taken";
-    private static volatile PowerManager.WakeLock wakeLock = null;
-
     public ExecuteRadioProfilePrefsService() {
         super("ExecuteRadioProfilePrefsService");
     }
 
-    public static synchronized void makeWakeLockBeforeStart(Context context, Intent intent) {
-        if(wakeLock == null) {
-            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ExecuteRadioProfilePrefsService");
-        }
-        if (!wakeLock.isHeld())
-            wakeLock.acquire();
-        intent.putExtra(EXTRA_WAKE_LOCK_TAKEN, true);
-    }
-    
-    private static synchronized void releaseWakeLock() {
-        if ((wakeLock != null) && wakeLock.isHeld()) {
-            wakeLock.release();
-        }
-    }
-
     @Override
     protected void onHandleIntent(Intent intent) {
-
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         PPApplication.logE("ExecuteRadioProfilePrefsService.onHandleIntent","-- START ----------");
 
@@ -85,10 +64,10 @@ public class ExecuteRadioProfilePrefsService extends IntentService
 
         PPApplication.sleep(500);
 
+        ActivateProfileHelper.ExecuteRadioProfilePrefsBroadcastReceiver.completeWakefulIntent(intent);
+
         PPApplication.logE("ExecuteRadioProfilePrefsService.onHandleIntent","-- END ----------");
 
-        if(intent.getBooleanExtra(EXTRA_WAKE_LOCK_TAKEN, false)) {
-            releaseWakeLock();
-        }
     }
+
 }

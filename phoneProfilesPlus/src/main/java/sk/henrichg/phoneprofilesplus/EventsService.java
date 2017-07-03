@@ -84,6 +84,7 @@ public class EventsService extends IntentService
         //PPApplication.loadPreferences(context);
 
         dataWrapper = new DataWrapper(context, true, false, 0);
+        ActivateProfileHelper.initializeBroadcastReceivers(context);
 
         ApplicationPreferences.getSharedPreferences(context);
         callEventType = ApplicationPreferences.preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
@@ -600,10 +601,11 @@ public class EventsService extends IntentService
                     profile = Profile.getMappedProfile(profile, context);
                     if (profile != null) {
                         PPApplication.logE("EventsService.doEndService", "callEventType=" + callEventType);
-                        Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
-                        volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                        volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_FOR_PROFILE_ACTIVATION, false);
-                        context.startService(volumeServiceIntent);
+                        Intent startExecuteVolumeProfilePrefsIntent = new Intent("ExecuteVolumeProfilePrefsBroadcastReceiver");
+                        startExecuteVolumeProfilePrefsIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                        startExecuteVolumeProfilePrefsIntent.putExtra(ActivateProfileHelper.EXTRA_MERGED_PROFILE, false);
+                        startExecuteVolumeProfilePrefsIntent.putExtra(ActivateProfileHelper.EXTRA_FOR_PROFILE_ACTIVATION, false);
+                        LocalBroadcastManager.getInstance(context).sendBroadcast(startExecuteVolumeProfilePrefsIntent);
                         // wait for link/unlink
                         //try { Thread.sleep(500); } catch (InterruptedException e) { }
                         //SystemClock.sleep(500);

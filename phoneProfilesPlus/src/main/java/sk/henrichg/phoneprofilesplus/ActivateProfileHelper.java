@@ -17,6 +17,7 @@ import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
@@ -43,6 +44,7 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.content.WakefulBroadcastReceiver;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -78,6 +80,9 @@ public class ActivateProfileHelper {
 
     static boolean lockRefresh = false;
 
+    private static ExecuteRadioProfilePrefsBroadcastReceiver executeRadioProfilePrefsBroadcastReceiver = new ExecuteRadioProfilePrefsBroadcastReceiver();
+    private static ExecuteVolumeProfilePrefsBroadcastReceiver executeVolumeProfilePrefsBroadcastReceiver = new ExecuteVolumeProfilePrefsBroadcastReceiver();
+
     static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
 
     // Setting.Global "zen_mode"
@@ -110,6 +115,8 @@ public class ActivateProfileHelper {
     {
         this.dataWrapper = dataWrapper;
 
+        initializeBroadcastReceivers(c);
+
         initializeNoNotificationManager(c);
         notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
@@ -117,6 +124,11 @@ public class ActivateProfileHelper {
     private void initializeNoNotificationManager(Context c)
     {
         context = c;
+    }
+
+    static void initializeBroadcastReceivers(Context c) {
+        LocalBroadcastManager.getInstance(c).registerReceiver(executeRadioProfilePrefsBroadcastReceiver, new IntentFilter("ExecuteRadioProfilePrefsBroadcastReceiver"));
+        LocalBroadcastManager.getInstance(c).registerReceiver(executeVolumeProfilePrefsBroadcastReceiver, new IntentFilter("ExecuteVolumeProfilePrefsBroadcastReceiver"));
     }
 
     void deinitialize()
@@ -1362,18 +1374,11 @@ public class ActivateProfileHelper {
         // nahodenie volume
         // run service for execute volumes
         PPApplication.logE("ActivateProfileHelper.execute", "ExecuteVolumeProfilePrefsService");
-        Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
-        volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-        volumeServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
-        volumeServiceIntent.putExtra(EXTRA_FOR_PROFILE_ACTIVATION, true);
-        ExecuteVolumeProfilePrefsService.makeWakeLockBeforeStart(context, volumeServiceIntent);
-        context.startService(volumeServiceIntent);
-        /*AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-        // nahodenie ringer modu - aby sa mohli nastavit hlasitosti
-        setRingerMode(profile, audioManager);
-        setVolumes(profile, audioManager);
-        // nahodenie ringer modu - hlasitosti zmenia silent/vibrate
-        setRingerMode(profile, audioManager);*/
+        Intent startExecuteVolumeProfilePrefsIntent = new Intent("ExecuteVolumeProfilePrefsBroadcastReceiver");
+        startExecuteVolumeProfilePrefsIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+        startExecuteVolumeProfilePrefsIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
+        startExecuteVolumeProfilePrefsIntent.putExtra(EXTRA_FOR_PROFILE_ACTIVATION, true);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(startExecuteVolumeProfilePrefsIntent);
 
         // set vibration on touch
         if (Permissions.checkProfileVibrationOnTouch(context, profile)) {
@@ -1393,11 +1398,10 @@ public class ActivateProfileHelper {
 
         //// nahodenie radio preferences
         // run service for execute radios
-        Intent radioServiceIntent = new Intent(context, ExecuteRadioProfilePrefsService.class);
-        radioServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-        radioServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
-        ExecuteRadioProfilePrefsService.makeWakeLockBeforeStart(context, radioServiceIntent);
-        context.startService(radioServiceIntent);
+        Intent startExecuteRadioProfilePrefsIntent = new Intent("ExecuteRadioProfilePrefsBroadcastReceiver");
+        startExecuteRadioProfilePrefsIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+        startExecuteRadioProfilePrefsIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(startExecuteRadioProfilePrefsIntent);
 
         // nahodenie auto-sync
         boolean _isAutosync = ContentResolver.getMasterSyncAutomatically();
@@ -3288,6 +3292,39 @@ public class ActivateProfileHelper {
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT, timeout);
         editor.apply();
+    }
+
+    static class ExecuteRadioProfilePrefsBroadcastReceiver extends WakefulBroadcastReceiver {
+
+        public static final String BROADCAST_RECEIVER_TYPE = "executeRadioProfilePrefs";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            PPApplication.logE("##### ExecuteRadioProfilePrefsBroadcastReceiver.onReceive", "wifi");
+
+            Intent radioServiceIntent = new Intent(context, ExecuteRadioProfilePrefsService.class);
+            radioServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0));
+            radioServiceIntent.putExtra(EXTRA_MERGED_PROFILE, intent.getBooleanExtra(EXTRA_MERGED_PROFILE, false));
+            startWakefulService(context, radioServiceIntent);
+        }
+
+    }
+
+    static class ExecuteVolumeProfilePrefsBroadcastReceiver extends WakefulBroadcastReceiver {
+
+        public static final String BROADCAST_RECEIVER_TYPE = "executeVolumeProfilePrefs";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            PPApplication.logE("##### ExecuteVolumeProfilePrefsBroadcastReceiver.onReceive", "wifi");
+
+            Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
+            volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0));
+            volumeServiceIntent.putExtra(EXTRA_MERGED_PROFILE, intent.getBooleanExtra(EXTRA_MERGED_PROFILE, false));
+            volumeServiceIntent.putExtra(EXTRA_FOR_PROFILE_ACTIVATION, true);
+            startWakefulService(context, volumeServiceIntent);
+        }
+
     }
 
 }
