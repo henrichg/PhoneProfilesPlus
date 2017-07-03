@@ -211,20 +211,14 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static void lock(Context context)
     {
-        //PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-
         //if (android.os.Build.VERSION.SDK_INT >= 23)
         //    PPApplication.logE("$$$ WifiScanAlarmBroadcastReceiver.lock","idleMode="+powerManager.isDeviceIdleMode());
 
          // initialise the locks
         if (wifiLock == null)
             wifiLock = wifi.createWifiLock(WifiManager.WIFI_MODE_SCAN_ONLY , "WifiScanWifiLock");
-        //if (wakeLock == null) - moved to ScannerService
-        //    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiScanWakeLock");
 
         try {
-        //    if (!wakeLock.isHeld())
-        //        wakeLock.acquire();
             if (!wifiLock.isHeld())
                 wifiLock.acquire();
             PPApplication.logE("$$$ WifiScanAlarmBroadcastReceiver.lock","xxx");
@@ -236,8 +230,6 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
  
     public static void unlock()
     {
-        //if ((wakeLock != null) && (wakeLock.isHeld()))
-        //    wakeLock.release();
         if ((wifiLock != null) && (wifiLock.isHeld()))
             wifiLock.release();
         PPApplication.logE("$$$ WifiScanAlarmBroadcastReceiver.unlock", "xxx");
