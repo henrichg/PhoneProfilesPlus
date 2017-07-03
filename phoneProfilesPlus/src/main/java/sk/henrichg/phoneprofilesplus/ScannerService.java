@@ -38,8 +38,6 @@ public class ScannerService extends IntentService
     public static int wifiScanDuration = 25;      // 25 seconds for wifi scan
     public static int classicBTScanDuration = 20; // 20 seconds for classic bluetooth scan
 
-    private Handler wifiBluetoothChangeHandler;
-
     public static BluetoothLeScanner leScanner = null;
     public static BluetoothLEScanCallback18 leScanCallback18 = null;
     public static BluetoothLEScanCallback21 leScanCallback21 = null;
@@ -88,6 +86,7 @@ public class ScannerService extends IntentService
         if (android.os.Build.VERSION.SDK_INT >= 17) {
             if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0) {
                 PPApplication.logE("%%%% ScannerService.onHandleIntent", "-- END - airplane mode ON -------");
+                doEndService(intent, scanType);
                 return;
             }
         }
@@ -95,6 +94,7 @@ public class ScannerService extends IntentService
             //noinspection deprecation
             if (Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0) {
                 PPApplication.logE("%%%% ScannerService.onHandleIntent", "-- END - airplane mode ON -------");
+                doEndService(intent, scanType);
                 return;
             }
         }
@@ -108,19 +108,21 @@ public class ScannerService extends IntentService
                         ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("2")) {
                     // not scan wi-fi in power save mode
                     PPApplication.logE("%%%% ScannerService.onHandleIntent", "-- END - power save mode ON -------");
+                    doEndService(intent, scanType);
                     return;
                 }
                 if (scanType.equals(SCANNER_TYPE_BLUETOOTH) &&
                         ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context).equals("2")) {
                     // not scan bluetooth in power save mode
                     PPApplication.logE("%%%% ScannerService.onHandleIntent", "-- END - power save mode ON -------");
+                    doEndService(intent, scanType);
                     return;
                 }
             }
         }
 
         //wifiBluetoothChangeHandler = new Handler(getMainLooper());
-        wifiBluetoothChangeHandler = new Handler();
+        Handler wifiBluetoothChangeHandler = new Handler();
 
         PPApplication.logE("$$$ ScannerService.onHandleIntent", "before synchronized block - scanType=" + scanType);
 
@@ -146,9 +148,9 @@ public class ScannerService extends IntentService
                 dataWrapper = new DataWrapper(context, false, false, 0);
 
                 // check if wifi scan events exists
-                lock();
+                //lock();
                 boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
-                unlock();
+                //unlock();
                 int forceScan = getForceOneWifiScan(context);
                 boolean scan = (wifiEventsExists || (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                 if (scan) {
@@ -175,7 +177,7 @@ public class ScannerService extends IntentService
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                lock();
+                                //lock();
                                 WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
                                 WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
                                 WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
@@ -185,7 +187,7 @@ public class ScannerService extends IntentService
                         //try { Thread.sleep(700); } catch (InterruptedException e) { }
                         //SystemClock.sleep(700);
                         PPApplication.sleep(700);
-                        unlock();
+                        //unlock();
                     }
 
                     if (true /*canScanWifi(dataWrapper)*/) { // scan even if wifi is connected
@@ -200,7 +202,7 @@ public class ScannerService extends IntentService
 
                         // start scan
 
-                        lock();
+                        //lock();
 
                         IntentFilter intentFilter4 = new IntentFilter();
                         intentFilter4.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
@@ -248,7 +250,7 @@ public class ScannerService extends IntentService
                         }
 
                         WifiScanAlarmBroadcastReceiver.unlock();
-                        unlock();
+                        //unlock();
 
                         unregisterReceiver(wifiScanReceiver);
                     }
@@ -275,7 +277,7 @@ public class ScannerService extends IntentService
                     public void run() {
                         if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)) {
                             PPApplication.logE("$$$W ScannerService.onHandleIntent", "disable wifi");
-                            lock();
+                            //lock();
                             WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
                             WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
                         }
@@ -286,7 +288,7 @@ public class ScannerService extends IntentService
                 //try { Thread.sleep(700); } catch (InterruptedException e) { }
                 //SystemClock.sleep(700);
                 PPApplication.sleep(700);
-                unlock();
+                //unlock();
             }
 
             setForceOneWifiScan(context, FORCE_ONE_SCAN_DISABLED);
@@ -295,7 +297,7 @@ public class ScannerService extends IntentService
             WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
 
             WifiScanAlarmBroadcastReceiver.unlock();
-            unlock();
+            //unlock();
 
         }
         else
@@ -308,7 +310,7 @@ public class ScannerService extends IntentService
                 dataWrapper = new DataWrapper(context, false, false, 0);
 
                 // check if bluetooth scan events exists
-                lock();
+                //lock();
                 boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0;
                 int forceScan = getForceOneBluetoothScan(dataWrapper.context);
                 int forceScanLE = getForceOneLEBluetoothScan(context);
@@ -318,7 +320,7 @@ public class ScannerService extends IntentService
                     leDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_LE, forceScanLE) > 0;
                 else
                     leDevicesScan = false;
-                unlock();
+                //unlock();
                 boolean scan = (bluetoothEventsExists || (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG) ||
                                                          (forceScanLE == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                 if (scan) {
@@ -343,7 +345,7 @@ public class ScannerService extends IntentService
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                lock();
+                                //lock();
                                 BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
                                 BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
                                 BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
@@ -355,7 +357,7 @@ public class ScannerService extends IntentService
                         //try { Thread.sleep(700); } catch (InterruptedException e) { }
                         //SystemClock.sleep(700);
                         PPApplication.sleep(700);
-                        unlock();
+                        //unlock();
                     }
 
                     if (true /*canScanBluetooth(dataWrapper)*/) {  // scan even if bluetooth is connected
@@ -374,7 +376,7 @@ public class ScannerService extends IntentService
 
                             PPApplication.logE("$$$BCL ScannerService.onHandleIntent","classic devices scan");
 
-                            lock();
+                            //lock();
 
                             IntentFilter intentFilter6 = new IntentFilter();
                             intentFilter6.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
@@ -411,7 +413,7 @@ public class ScannerService extends IntentService
 
                             }
 
-                            unlock();
+                            //unlock();
 
                             unregisterReceiver(bluetoothScanReceiver);
 
@@ -431,9 +433,9 @@ public class ScannerService extends IntentService
                             registerReceiver(bluetoothLEScanReceiver, intentFilter7);*/
                             LocalBroadcastManager.getInstance(this).registerReceiver(bluetoothLEScanReceiver, new IntentFilter("BluetoothLEScanBroadcastReceiver"));
 
-                            if (android.os.Build.VERSION.SDK_INT < 21)
+                            /*if (android.os.Build.VERSION.SDK_INT < 21)
                                 // for old BT LE scan must by acquired lock
-                                lock();
+                                lock();*/
 
                             // enable bluetooth
                             bluetoothState = enableBluetooth(dataWrapper,
@@ -468,7 +470,7 @@ public class ScannerService extends IntentService
                                 PPApplication.logE("$$$BLE ScannerService.onHandleIntent", "LE scan ended");
                             }
 
-                            unlock();
+                            //unlock();
 
                             //unregisterReceiver(bluetoothLEScanReceiver);
                             LocalBroadcastManager.getInstance(this).unregisterReceiver(bluetoothLEScanReceiver);
@@ -503,7 +505,7 @@ public class ScannerService extends IntentService
                         public void run() {
                             if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)) {
                                 PPApplication.logE("$$$B ScannerService.onHandleIntent", "disable bluetooth");
-                                lock();
+                                //lock();
                                 BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
                                 BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
                             }
@@ -514,7 +516,7 @@ public class ScannerService extends IntentService
                     //try { Thread.sleep(700); } catch (InterruptedException e) { }
                     //SystemClock.sleep(700);
                     PPApplication.sleep(700);
-                    unlock();
+                    //unlock();
                 }
             }
 
@@ -526,7 +528,7 @@ public class ScannerService extends IntentService
             BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
             BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
 
-            unlock();
+            //unlock();
         }
 
         PPApplication.logE("$$$ ScannerService.onHandleIntent", "in synchronized block - end - scanType=" + scanType);
@@ -535,7 +537,7 @@ public class ScannerService extends IntentService
 
         PPApplication.logE("$$$ ScannerService.onHandleIntent", "after synchronized block - scanType=" + scanType);
 
-        wifiBluetoothChangeHandler = null;
+        doEndService(intent, scanType);
 
         PPApplication.logE("%%%% ScannerService.onHandleIntent", "-- END ------------");
 
@@ -583,6 +585,7 @@ public class ScannerService extends IntentService
         editor.apply();
     }
 
+    /*
     private void lock() {
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         if (wakeLock == null)
@@ -603,6 +606,7 @@ public class ScannerService extends IntentService
             wakeLock.release();
         }
     }
+    */
 
     /*
     private boolean canScanWifi(DataWrapper dataWrapper)
@@ -1051,5 +1055,13 @@ public class ScannerService extends IntentService
         editor.apply();
     }
 
+    private void doEndService(Intent intent, String scanType) {
+        // completting wake
+        if (scanType.equals(SCANNER_TYPE_WIFI))
+            WifiScanAlarmBroadcastReceiver.StartScannerBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (scanType.equals(SCANNER_TYPE_BLUETOOTH))
+            BluetoothScanAlarmBroadcastReceiver.StartScannerBroadcastReceiver.completeWakefulIntent(intent);
+    }
 
 }

@@ -712,8 +712,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
             Intent scanServiceIntent = new Intent(context, ScannerService.class);
             scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_BLUETOOTH);
-            context.startService(scanServiceIntent);
-
+            startWakefulService(context, scanServiceIntent);
         }
 
     }

@@ -624,8 +624,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
             Intent scanServiceIntent = new Intent(context, ScannerService.class);
             scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_WIFI);
-            context.startService(scanServiceIntent);
-
+            startWakefulService(context, scanServiceIntent);
         }
 
     }
