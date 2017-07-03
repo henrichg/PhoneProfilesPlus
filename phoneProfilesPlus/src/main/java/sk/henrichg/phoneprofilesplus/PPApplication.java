@@ -56,6 +56,12 @@ public class PPApplication extends Application {
                                          +"|##### StartScannerBroadcastReceiver.onReceive"
                                          +"|ScannerService.onHandleIntent"
 
+                                         +"|##### ActivateProfileHelper.execute"
+                                         +"|##### ExecuteVolumeProfilePrefsBroadcastReceiver.onReceive"
+                                         +"|##### ExecuteVolumeProfilePrefsService.onHandleIntent"
+                                         +"|##### ExecuteRadioProfilePrefsBroadcastReceiver.onReceive"
+                                         +"|##### ExecuteRadioProfilePrefsService.onHandleIntent"
+
                                          /*+"|RestartEventsFromNotificationActivity"
                                          +"|RestartEventsFromNotificationBroadcastReceiver"
                                          +"|DataWrapper.restartEventsWithAlert"*/

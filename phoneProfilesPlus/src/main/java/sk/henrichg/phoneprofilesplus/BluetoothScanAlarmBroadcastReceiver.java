@@ -83,8 +83,6 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static void initialize(Context context)
     {
-        LocalBroadcastManager.getInstance(context).registerReceiver(startScannerBroadcastReceiver, new IntentFilter("BluetoothStartScannerBroadcastReceiver"));
-
         setScanRequest(context, false);
         setLEScanRequest(context, false);
         setWaitForResults(context, false);
@@ -438,6 +436,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         Profile profile = dataWrapper.getActivatedProfile();
         profile = Profile.getMappedProfile(profile, context);
         if (fromDialog || (profile == null) || (profile._applicationDisableBluetoothScanning != 1)) {
+            LocalBroadcastManager.getInstance(context).registerReceiver(startScannerBroadcastReceiver, new IntentFilter("BluetoothStartScannerBroadcastReceiver"));
             Intent startScannerIntent = new Intent("BluetoothStartScannerBroadcastReceiver");
             LocalBroadcastManager.getInstance(context).sendBroadcast(startScannerIntent);
         }
@@ -706,9 +705,9 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
             PPApplication.logE("##### StartScannerBroadcastReceiver.onReceive", "bluetooth");
+
+            LocalBroadcastManager.getInstance(context.getApplicationContext()).unregisterReceiver(startScannerBroadcastReceiver);
 
             Intent scanServiceIntent = new Intent(context, ScannerService.class);
             scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_BLUETOOTH);

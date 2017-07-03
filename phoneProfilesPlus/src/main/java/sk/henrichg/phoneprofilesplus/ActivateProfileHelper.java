@@ -81,7 +81,7 @@ public class ActivateProfileHelper {
     static boolean lockRefresh = false;
 
     private static ExecuteRadioProfilePrefsBroadcastReceiver executeRadioProfilePrefsBroadcastReceiver = new ExecuteRadioProfilePrefsBroadcastReceiver();
-    private static ExecuteVolumeProfilePrefsBroadcastReceiver executeVolumeProfilePrefsBroadcastReceiver = new ExecuteVolumeProfilePrefsBroadcastReceiver();
+    static ExecuteVolumeProfilePrefsBroadcastReceiver executeVolumeProfilePrefsBroadcastReceiver = new ExecuteVolumeProfilePrefsBroadcastReceiver();
 
     static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
 
@@ -115,8 +115,6 @@ public class ActivateProfileHelper {
     {
         this.dataWrapper = dataWrapper;
 
-        initializeBroadcastReceivers(c);
-
         initializeNoNotificationManager(c);
         notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
@@ -124,11 +122,6 @@ public class ActivateProfileHelper {
     private void initializeNoNotificationManager(Context c)
     {
         context = c;
-    }
-
-    static void initializeBroadcastReceivers(Context c) {
-        LocalBroadcastManager.getInstance(c).registerReceiver(executeRadioProfilePrefsBroadcastReceiver, new IntentFilter("ExecuteRadioProfilePrefsBroadcastReceiver"));
-        LocalBroadcastManager.getInstance(c).registerReceiver(executeVolumeProfilePrefsBroadcastReceiver, new IntentFilter("ExecuteVolumeProfilePrefsBroadcastReceiver"));
     }
 
     void deinitialize()
@@ -1366,6 +1359,8 @@ public class ActivateProfileHelper {
 
     public void execute(Profile _profile, boolean merged, boolean _interactive)
     {
+        PPApplication.logE("##### ActivateProfileHelper.execute", "xxx");
+
         // rozdelit zvonenie a notifikacie - zial je to oznacene ako @Hide :-(
         //Settings.System.putInt(context.getContentResolver(), Settings.System.NOTIFICATIONS_USE_RING_VOLUME, 0);
 
@@ -1374,6 +1369,7 @@ public class ActivateProfileHelper {
         // nahodenie volume
         // run service for execute volumes
         PPApplication.logE("ActivateProfileHelper.execute", "ExecuteVolumeProfilePrefsService");
+        LocalBroadcastManager.getInstance(context).registerReceiver(executeVolumeProfilePrefsBroadcastReceiver, new IntentFilter("ExecuteVolumeProfilePrefsBroadcastReceiver"));
         Intent startExecuteVolumeProfilePrefsIntent = new Intent("ExecuteVolumeProfilePrefsBroadcastReceiver");
         startExecuteVolumeProfilePrefsIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
         startExecuteVolumeProfilePrefsIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
@@ -1398,6 +1394,7 @@ public class ActivateProfileHelper {
 
         //// nahodenie radio preferences
         // run service for execute radios
+        LocalBroadcastManager.getInstance(context).registerReceiver(executeRadioProfilePrefsBroadcastReceiver, new IntentFilter("ExecuteRadioProfilePrefsBroadcastReceiver"));
         Intent startExecuteRadioProfilePrefsIntent = new Intent("ExecuteRadioProfilePrefsBroadcastReceiver");
         startExecuteRadioProfilePrefsIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
         startExecuteRadioProfilePrefsIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
@@ -3300,7 +3297,9 @@ public class ActivateProfileHelper {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            PPApplication.logE("##### ExecuteRadioProfilePrefsBroadcastReceiver.onReceive", "wifi");
+            PPApplication.logE("##### ExecuteRadioProfilePrefsBroadcastReceiver.onReceive", "xxx");
+
+            LocalBroadcastManager.getInstance(context.getApplicationContext()).unregisterReceiver(executeRadioProfilePrefsBroadcastReceiver);
 
             Intent radioServiceIntent = new Intent(context, ExecuteRadioProfilePrefsService.class);
             radioServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0));
@@ -3316,7 +3315,9 @@ public class ActivateProfileHelper {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            PPApplication.logE("##### ExecuteVolumeProfilePrefsBroadcastReceiver.onReceive", "wifi");
+            PPApplication.logE("##### ExecuteVolumeProfilePrefsBroadcastReceiver.onReceive", "xxx");
+
+            LocalBroadcastManager.getInstance(context.getApplicationContext()).unregisterReceiver(executeVolumeProfilePrefsBroadcastReceiver);
 
             Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
             volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0));

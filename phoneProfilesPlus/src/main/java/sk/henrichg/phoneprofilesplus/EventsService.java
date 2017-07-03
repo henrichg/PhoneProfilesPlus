@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
@@ -84,7 +85,6 @@ public class EventsService extends IntentService
         //PPApplication.loadPreferences(context);
 
         dataWrapper = new DataWrapper(context, true, false, 0);
-        ActivateProfileHelper.initializeBroadcastReceivers(context);
 
         ApplicationPreferences.getSharedPreferences(context);
         callEventType = ApplicationPreferences.preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
@@ -601,6 +601,8 @@ public class EventsService extends IntentService
                     profile = Profile.getMappedProfile(profile, context);
                     if (profile != null) {
                         PPApplication.logE("EventsService.doEndService", "callEventType=" + callEventType);
+                        LocalBroadcastManager.getInstance(context).registerReceiver(ActivateProfileHelper.executeVolumeProfilePrefsBroadcastReceiver,
+                                new IntentFilter("ExecuteVolumeProfilePrefsBroadcastReceiver"));
                         Intent startExecuteVolumeProfilePrefsIntent = new Intent("ExecuteVolumeProfilePrefsBroadcastReceiver");
                         startExecuteVolumeProfilePrefsIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                         startExecuteVolumeProfilePrefsIntent.putExtra(ActivateProfileHelper.EXTRA_MERGED_PROFILE, false);

@@ -14,7 +14,7 @@ public class ExecuteRadioProfilePrefsService extends IntentService
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        PPApplication.logE("ExecuteRadioProfilePrefsService.onHandleIntent","-- START ----------");
+        PPApplication.logE("##### ExecuteRadioProfilePrefsService.onHandleIntent","-- START ----------");
 
         Context context = getApplicationContext();
 
