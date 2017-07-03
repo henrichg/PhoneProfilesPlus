@@ -40,7 +40,7 @@ public class PPApplication extends Application {
     static String PACKAGE_NAME;
 
     private static boolean logIntoLogCat = true;
-    private static boolean logIntoFile = true;
+    private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags = "##### PPApplication.onCreate"
 
@@ -53,14 +53,14 @@ public class PPApplication extends Application {
 
                                          //+"|PreferenceFragment"
 
-                                         +"|##### StartScannerBroadcastReceiver.onReceive"
-                                         +"|ScannerService.onHandleIntent"
-
-                                         +"|##### ActivateProfileHelper.execute"
-                                         +"|##### ExecuteVolumeProfilePrefsBroadcastReceiver.onReceive"
-                                         +"|##### ExecuteVolumeProfilePrefsService.onHandleIntent"
-                                         +"|##### ExecuteRadioProfilePrefsBroadcastReceiver.onReceive"
-                                         +"|##### ExecuteRadioProfilePrefsService.onHandleIntent"
+                                         //+"|##### StartScannerBroadcastReceiver.onReceive"
+                                         //+"|ScannerService.onHandleIntent"
+                                         //+"|##### ActivateProfileHelper.execute"
+                                         //+"|##### ExecuteVolumeProfilePrefsBroadcastReceiver.onReceive"
+                                         //+"|##### ExecuteVolumeProfilePrefsService.onHandleIntent"
+                                         //+"|##### ExecuteRadioProfilePrefsBroadcastReceiver.onReceive"
+                                         //+"|##### ExecuteRadioProfilePrefsService.onHandleIntent"
+                                         //+"|EventsService.doEndService"
 
                                          /*+"|RestartEventsFromNotificationActivity"
                                          +"|RestartEventsFromNotificationBroadcastReceiver"
@@ -243,7 +243,6 @@ public class PPApplication extends Application {
     public static NFCBroadcastReceiver nfcBroadcastReceiver = new NFCBroadcastReceiver();
     public static RadioSwitchBroadcastReceiver radioSwitchBroadcastReceiver = new RadioSwitchBroadcastReceiver();
     public static MobileDataStateChangedBroadcastReceiver mobileDataStateChangedBroadcastReceiver = new MobileDataStateChangedBroadcastReceiver();
-
     public static StartEventsServiceBroadcastReceiver startEventsServiceBroadcastReceiver = new StartEventsServiceBroadcastReceiver();
 
     @Override

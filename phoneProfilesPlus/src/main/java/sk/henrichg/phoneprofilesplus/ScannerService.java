@@ -29,8 +29,6 @@ public class ScannerService extends IntentService
     Context context;
     DataWrapper dataWrapper;
 
-    private PowerManager.WakeLock wakeLock = null;
-
     private final WifiScanBroadcastReceiver wifiScanReceiver = new WifiScanBroadcastReceiver();
     private final BluetoothScanBroadcastReceiver bluetoothScanReceiver = new BluetoothScanBroadcastReceiver();
     private final BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = new BluetoothLEScanBroadcastReceiver();

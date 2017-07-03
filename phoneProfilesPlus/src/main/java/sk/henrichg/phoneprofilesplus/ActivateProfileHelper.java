@@ -40,6 +40,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.provider.Settings.Global;
@@ -3324,7 +3325,7 @@ public class ActivateProfileHelper {
             Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
             volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0));
             volumeServiceIntent.putExtra(EXTRA_MERGED_PROFILE, intent.getBooleanExtra(EXTRA_MERGED_PROFILE, false));
-            volumeServiceIntent.putExtra(EXTRA_FOR_PROFILE_ACTIVATION, true);
+            volumeServiceIntent.putExtra(EXTRA_FOR_PROFILE_ACTIVATION, intent.getBooleanExtra(EXTRA_FOR_PROFILE_ACTIVATION, true));
             startWakefulService(context, volumeServiceIntent);
         }
 

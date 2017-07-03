@@ -602,17 +602,16 @@ public class EventsService extends IntentService
                     profile = Profile.getMappedProfile(profile, context);
                     if (profile != null) {
                         PPApplication.logE("EventsService.doEndService", "callEventType=" + callEventType);
-                        LocalBroadcastManager.getInstance(context).registerReceiver(ActivateProfileHelper.executeVolumeProfilePrefsBroadcastReceiver,
-                                new IntentFilter("ExecuteVolumeProfilePrefsBroadcastReceiver"));
-                        Intent startExecuteVolumeProfilePrefsIntent = new Intent("ExecuteVolumeProfilePrefsBroadcastReceiver");
-                        startExecuteVolumeProfilePrefsIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                        startExecuteVolumeProfilePrefsIntent.putExtra(ActivateProfileHelper.EXTRA_MERGED_PROFILE, false);
-                        startExecuteVolumeProfilePrefsIntent.putExtra(ActivateProfileHelper.EXTRA_FOR_PROFILE_ACTIVATION, false);
-                        LocalBroadcastManager.getInstance(context).sendBroadcast(startExecuteVolumeProfilePrefsIntent);
+                        // EventsService is wakefull
+                        Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
+                        volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                        volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_MERGED_PROFILE, false);
+                        volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_FOR_PROFILE_ACTIVATION, false);
+                        context.startService(volumeServiceIntent);
                         // wait for link/unlink
-                        //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(500);
-                        PPApplication.sleep(500);
+                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(1000);
+                        PPApplication.sleep(1000);
                     }
                 }
             } else
