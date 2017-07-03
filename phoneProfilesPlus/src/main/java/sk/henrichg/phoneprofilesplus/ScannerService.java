@@ -234,9 +234,15 @@ public class ScannerService extends IntentService
                                 if (getForceOneWifiScan(context) != ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                 {
                                     // start service
-                                    //Intent _intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
-                                    //context.sendBroadcast(_intent);
-                                    WifiScanBroadcastReceiver.setAlarm(context);
+                                    final Context _context = context.getApplicationContext();
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent _intent = new Intent(_context, StartEventsServiceBroadcastReceiver.class);
+                                            _context.sendBroadcast(_intent);
+                                        }
+                                    }, 5000);
+                                    //WifiScanBroadcastReceiver.setAlarm(context);
                                 }
                             }
                         }

@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 
 import java.util.Calendar;
 
@@ -49,9 +50,15 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                 if (forceOneScan != ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
                     // start service
-                    setAlarm(context);
-                    //Intent _intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
-                    //context.sendBroadcast(_intent);
+                    final Context _context = context.getApplicationContext();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent _intent = new Intent(_context, StartEventsServiceBroadcastReceiver.class);
+                            _context.sendBroadcast(_intent);
+                        }
+                    }, 5000);
+                    //setAlarm(context);
                 }
 
             }
@@ -62,6 +69,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
     }
 
+    /*
     private void removeAlarm(Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -98,5 +106,6 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
         else
             alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
     }
+    */
 
 }
