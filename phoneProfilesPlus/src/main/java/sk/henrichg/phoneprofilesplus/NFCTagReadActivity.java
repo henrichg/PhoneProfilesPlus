@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class NFCTagReadActivity extends Activity {
                 /*Intent intent = new Intent(getApplicationContext(), NFCBroadcastReceiver.class);
                 intent.putExtra(EventsService.EXTRA_EVENT_NFC_TAG_NAME, tagRead);
                 sendBroadcast(intent);*/
+                LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.nfcBroadcastReceiver, new IntentFilter("NFCBroadcastReceiver"));
                 Intent intent = new Intent("NFCBroadcastReceiver");
                 LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
 

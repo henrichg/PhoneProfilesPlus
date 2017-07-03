@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -955,6 +956,7 @@ public class GrantPermissionActivity extends Activity {
             intent5.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
             intent5.putExtra(RefreshGUIBroadcastReceiver.EXTRA_REFRESH_ICONS, true);
             context.sendBroadcast(intent5);*/
+            LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
             Intent intent5 = new Intent("RefreshGUIBroadcastReceiver");
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
 

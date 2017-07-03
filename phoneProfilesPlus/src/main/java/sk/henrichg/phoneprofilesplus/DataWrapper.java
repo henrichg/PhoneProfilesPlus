@@ -2968,6 +2968,7 @@ public class DataWrapper {
         PPApplication.logE("$$$ restartEvents", "in DataWrapper.restartEvents");
 
         if (Event.getEventsBlocked(context) && (!unblockEventsRun)) {
+            LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.startEventsServiceBroadcastReceiver, new IntentFilter("StartEventsServiceBroadcastReceiver"));
             Intent startEventsServiceIntent = new Intent("StartEventsServiceBroadcastReceiver");
             LocalBroadcastManager.getInstance(context).sendBroadcast(startEventsServiceIntent);
             return;

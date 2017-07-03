@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class GeofenceScannerBroadcastReceiver extends WakefulBroadcastReceiver {
@@ -10,12 +11,11 @@ public class GeofenceScannerBroadcastReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### GeofenceScannerBroadcastReceiver.onReceive", "xxx");
 
         Context appContext = context.getApplicationContext();
+
+        LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.geofenceScannerBroadcastReceiver);
 
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started

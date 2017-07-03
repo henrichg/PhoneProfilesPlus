@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 
@@ -98,6 +99,7 @@ public class ScreenOnOffService extends IntentService {
                     //if (screenEventsExists*/)
                     //{
                     // start service
+                    LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.startEventsServiceBroadcastReceiver, new IntentFilter("StartEventsServiceBroadcastReceiver"));
                     Intent startEventsServiceIntent = new Intent("StartEventsServiceBroadcastReceiver");
                     LocalBroadcastManager.getInstance(appContext).sendBroadcast(startEventsServiceIntent);
                     //}

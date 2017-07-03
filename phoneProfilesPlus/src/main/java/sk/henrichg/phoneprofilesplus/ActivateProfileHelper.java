@@ -2219,6 +2219,7 @@ public class ActivateProfileHelper {
         /*Intent intent3 = new Intent();
         intent3.setAction(DashClockBroadcastReceiver.INTENT_REFRESH_DASHCLOCK);
         context.sendBroadcast(intent3);*/
+        LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.dashClockBroadcastReceiver, new IntentFilter("DashClockBroadcastReceiver"));
         Intent intent3 = new Intent("DashClockBroadcastReceiver");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
@@ -2226,6 +2227,7 @@ public class ActivateProfileHelper {
         /*Intent intent5 = new Intent();
         intent5.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
         context.sendBroadcast(intent5);*/
+        LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
         Intent intent5 = new Intent("RefreshGUIBroadcastReceiver");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
 

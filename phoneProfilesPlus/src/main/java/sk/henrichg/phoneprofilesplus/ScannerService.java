@@ -240,6 +240,7 @@ public class ScannerService extends IntentService
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
+                                            LocalBroadcastManager.getInstance(_context).registerReceiver(PPApplication.startEventsServiceBroadcastReceiver, new IntentFilter("StartEventsServiceBroadcastReceiver"));
                                             Intent startEventsServiceIntent = new Intent("StartEventsServiceBroadcastReceiver");
                                             LocalBroadcastManager.getInstance(_context).sendBroadcast(startEventsServiceIntent);
                                         }

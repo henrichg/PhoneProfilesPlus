@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.content.LocalBroadcastManager;
@@ -336,6 +337,7 @@ class PhoneStateScanner extends PhoneStateListener {
         // broadcast for start EventsService
         /*Intent broadcastIntent = new Intent(context, PhoneStateChangeBroadcastReceiver.class);
         context.sendBroadcast(broadcastIntent);*/
+        LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.phoneStateChangeBroadcastReceiver, new IntentFilter("PhoneStateChangeBroadcastReceiver"));
         Intent broadcastIntent = new Intent("PhoneStateChangeBroadcastReceiver");
         LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
 

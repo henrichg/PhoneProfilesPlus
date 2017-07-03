@@ -233,7 +233,18 @@ public class PPApplication extends Application {
     public static boolean sLookCocktailPanelEnabled = false;
     public static boolean sLookCocktailBarEnabled = false;
 
-    private static StartEventsServiceBroadcastReceiver startEventsServiceBroadcastReceiver = new StartEventsServiceBroadcastReceiver();
+    public static RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver();
+    public static DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
+    public static NotificationBroadcastReceiver notificationBroadcastReceiver = new NotificationBroadcastReceiver();
+    public static ForegroundApplicationChangedBroadcastReceiver foregroundApplicationChangedBroadcastReceiver = new ForegroundApplicationChangedBroadcastReceiver();
+    public static GeofenceScannerBroadcastReceiver geofenceScannerBroadcastReceiver = new GeofenceScannerBroadcastReceiver();
+    public static DeviceOrientationBroadcastReceiver deviceOrientationBroadcastReceiver = new DeviceOrientationBroadcastReceiver();
+    public static PhoneStateChangeBroadcastReceiver phoneStateChangeBroadcastReceiver = new PhoneStateChangeBroadcastReceiver();
+    public static NFCBroadcastReceiver nfcBroadcastReceiver = new NFCBroadcastReceiver();
+    public static RadioSwitchBroadcastReceiver radioSwitchBroadcastReceiver = new RadioSwitchBroadcastReceiver();
+    public static MobileDataStateChangedBroadcastReceiver mobileDataStateChangedBroadcastReceiver = new MobileDataStateChangedBroadcastReceiver();
+
+    public static StartEventsServiceBroadcastReceiver startEventsServiceBroadcastReceiver = new StartEventsServiceBroadcastReceiver();
 
     @Override
     public void onCreate()
@@ -297,8 +308,6 @@ public class PPApplication extends Application {
         toastHandler = new HandlerWithContext(getMainLooper(), getApplicationContext());
         brightnessHandler = new HandlerWithContext(getMainLooper(), getApplicationContext());
         screenTimeoutHandler = new HandlerWithContext(getMainLooper(), getApplicationContext());
-
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(startEventsServiceBroadcastReceiver, new IntentFilter("StartEventsServiceBroadcastReceiver"));
 
         // Samsung Look initialization
         sLook = new Slook();

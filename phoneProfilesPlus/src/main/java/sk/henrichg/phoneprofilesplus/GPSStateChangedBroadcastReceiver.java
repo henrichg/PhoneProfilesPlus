@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.LocationManager;
 import android.support.v4.content.LocalBroadcastManager;
 
@@ -31,10 +32,11 @@ public class GPSStateChangedBroadcastReceiver extends BroadcastReceiver {
             broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_GPS);
             broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, isGpsEnabled);
             context.sendBroadcast(broadcastIntent);*/
+            LocalBroadcastManager.getInstance(context.getApplicationContext()).registerReceiver(PPApplication.radioSwitchBroadcastReceiver, new IntentFilter("RadioSwitchBroadcastReceiver"));
             Intent broadcastIntent = new Intent("RadioSwitchBroadcastReceiver");
             broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_GPS);
             broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, isGpsEnabled);
-            LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
+            LocalBroadcastManager.getInstance(context.getApplicationContext()).sendBroadcast(broadcastIntent);
 
         }
     }

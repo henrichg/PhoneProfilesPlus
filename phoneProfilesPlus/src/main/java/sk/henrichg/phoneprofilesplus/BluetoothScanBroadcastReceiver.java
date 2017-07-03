@@ -8,6 +8,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 
@@ -160,6 +161,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        LocalBroadcastManager.getInstance(_context).registerReceiver(PPApplication.startEventsServiceBroadcastReceiver, new IntentFilter("StartEventsServiceBroadcastReceiver"));
                         Intent startEventsServiceIntent = new Intent("StartEventsServiceBroadcastReceiver");
                         LocalBroadcastManager.getInstance(_context).sendBroadcast(startEventsServiceIntent);
                     }

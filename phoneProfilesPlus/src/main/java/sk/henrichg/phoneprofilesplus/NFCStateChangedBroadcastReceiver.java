@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
 import android.support.v4.content.LocalBroadcastManager;
 
@@ -30,10 +31,11 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
                 broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_NFC);
                 broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, state == NfcAdapter.STATE_ON);
                 context.sendBroadcast(broadcastIntent);*/
+                LocalBroadcastManager.getInstance(context.getApplicationContext()).registerReceiver(PPApplication.radioSwitchBroadcastReceiver, new IntentFilter("RadioSwitchBroadcastReceiver"));
                 Intent broadcastIntent = new Intent("RadioSwitchBroadcastReceiver");
                 broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_NFC);
                 broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, state == NfcAdapter.STATE_ON);
-                LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
+                LocalBroadcastManager.getInstance(context.getApplicationContext()).sendBroadcast(broadcastIntent);
             }
         }
     }

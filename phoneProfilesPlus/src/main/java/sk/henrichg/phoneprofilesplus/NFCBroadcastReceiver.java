@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 import java.util.Calendar;
@@ -17,11 +18,11 @@ public class NFCBroadcastReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### NFCBroadcastReceiver.onReceive", "xxx");
 
         Context appContext = context.getApplicationContext();
+
+        LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.nfcBroadcastReceiver);
 
         String tagName = intent.getStringExtra(EventsService.EXTRA_EVENT_NFC_TAG_NAME);
 

@@ -464,6 +464,7 @@ public class EventsService extends IntentService
         /*Intent refreshIntent = new Intent();
         refreshIntent.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
         context.sendBroadcast(refreshIntent);*/
+        LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
         Intent refreshIntent = new Intent("RefreshGUIBroadcastReceiver");
         LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
 

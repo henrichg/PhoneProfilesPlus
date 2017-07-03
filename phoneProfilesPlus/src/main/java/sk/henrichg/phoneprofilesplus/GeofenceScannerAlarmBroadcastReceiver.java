@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.Calendar;
@@ -59,6 +60,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
                     // send broadcast for calling EventsService
                     /*Intent broadcastIntent = new Intent(context, GeofenceScannerBroadcastReceiver.class);
                     context.sendBroadcast(broadcastIntent);*/
+                    LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.geofenceScannerBroadcastReceiver, new IntentFilter("GeofenceScannerBroadcastReceiver"));
                     Intent broadcastIntent = new Intent("GeofenceScannerBroadcastReceiver");
                     LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
                 } else

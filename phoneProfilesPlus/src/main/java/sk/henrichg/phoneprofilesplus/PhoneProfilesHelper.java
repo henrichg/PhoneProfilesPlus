@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -133,6 +134,7 @@ class PhoneProfilesHelper {
             /*Intent refreshIntent = new Intent();
             refreshIntent.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
             context.sendBroadcast(refreshIntent);*/
+            LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
             Intent refreshIntent = new Intent("RefreshGUIBroadcastReceiver");
             LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
         }

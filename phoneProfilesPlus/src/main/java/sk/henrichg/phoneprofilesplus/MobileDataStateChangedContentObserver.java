@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.os.Handler;
@@ -46,6 +47,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
                 /*Intent broadcastIntent = new Intent(context, MobileDataStateChangedBroadcastReceiver.class);
                 broadcastIntent.putExtra(MobileDataStateChangedBroadcastReceiver.EXTRA_STATE, actualState);
                 context.sendBroadcast(broadcastIntent);*/
+                LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.mobileDataStateChangedBroadcastReceiver, new IntentFilter("MobileDataStateChangedBroadcastReceiver"));
                 Intent broadcastIntent = new Intent("MobileDataStateChangedBroadcastReceiver");
                 broadcastIntent.putExtra(MobileDataStateChangedBroadcastReceiver.EXTRA_STATE, actualState);
                 LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);

@@ -5,6 +5,7 @@ import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -63,6 +64,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
                     /*Intent intent = new Intent(context, ForegroundApplicationChangedBroadcastReceiver.class);
                     context.sendBroadcast(intent);*/
+                    LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.foregroundApplicationChangedBroadcastReceiver, new IntentFilter("ForegroundApplicationChangedBroadcastReceiver"));
                     Intent intent = new Intent("ForegroundApplicationChangedBroadcastReceiver");
                     LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
                 }
@@ -94,6 +96,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
         /*Intent bintent = new Intent(context, ForegroundApplicationChangedBroadcastReceiver.class);
         context.sendBroadcast(bintent);*/
+        LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.foregroundApplicationChangedBroadcastReceiver, new IntentFilter("ForegroundApplicationChangedBroadcastReceiver"));
         Intent bintent = new Intent("ForegroundApplicationChangedBroadcastReceiver");
         LocalBroadcastManager.getInstance(context).sendBroadcast(bintent);
 

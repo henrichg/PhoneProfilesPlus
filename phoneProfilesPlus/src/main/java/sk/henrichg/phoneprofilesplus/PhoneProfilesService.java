@@ -44,17 +44,6 @@ public class PhoneProfilesService extends Service
     private InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
     private NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;
 
-    private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = null;
-    private DashClockBroadcastReceiver dashClockBroadcastReceiver = null;
-    private NotificationBroadcastReceiver notificationBroadcastReceiver = null;
-    private ForegroundApplicationChangedBroadcastReceiver foregroundApplicationChangedBroadcastReceiver = null;
-    private GeofenceScannerBroadcastReceiver geofenceScannerBroadcastReceiver = null;
-    private DeviceOrientationBroadcastReceiver deviceOrientationBroadcastReceiver = null;
-    private PhoneStateChangeBroadcastReceiver phoneStateChangeBroadcastReceiver = null;
-    private NFCBroadcastReceiver nfcBroadcastReceiver = null;
-    private RadioSwitchBroadcastReceiver radioSwitchBroadcastReceiver = null;
-    private MobileDataStateChangedBroadcastReceiver mobileDataStateChangedBroadcastReceiver = null;
-
     private static SettingsContentObserver settingsContentObserver = null;
     private static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
 
@@ -266,56 +255,6 @@ public class PhoneProfilesService extends Service
         else
             getContentResolver().registerContentObserver(Settings.Secure.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
 
-        if (refreshGUIBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(refreshGUIBroadcastReceiver);
-        refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver();
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
-
-        if (dashClockBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(dashClockBroadcastReceiver);
-        dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(dashClockBroadcastReceiver, new IntentFilter("DashClockBroadcastReceiver"));
-
-        if (notificationBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(notificationBroadcastReceiver);
-        notificationBroadcastReceiver = new NotificationBroadcastReceiver();
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(notificationBroadcastReceiver, new IntentFilter("NotificationBroadcastReceiver"));
-
-        if (foregroundApplicationChangedBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(foregroundApplicationChangedBroadcastReceiver);
-        foregroundApplicationChangedBroadcastReceiver = new ForegroundApplicationChangedBroadcastReceiver();
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(foregroundApplicationChangedBroadcastReceiver, new IntentFilter("ForegroundApplicationChangedBroadcastReceiver"));
-
-        if (geofenceScannerBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(geofenceScannerBroadcastReceiver);
-        geofenceScannerBroadcastReceiver = new GeofenceScannerBroadcastReceiver();
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(geofenceScannerBroadcastReceiver, new IntentFilter("GeofenceScannerBroadcastReceiver"));
-
-        if (deviceOrientationBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(deviceOrientationBroadcastReceiver);
-        deviceOrientationBroadcastReceiver = new DeviceOrientationBroadcastReceiver();
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(deviceOrientationBroadcastReceiver, new IntentFilter("DeviceOrientationBroadcastReceiver"));
-
-        if (phoneStateChangeBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(phoneStateChangeBroadcastReceiver);
-        phoneStateChangeBroadcastReceiver = new PhoneStateChangeBroadcastReceiver();
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(phoneStateChangeBroadcastReceiver, new IntentFilter("PhoneStateChangeBroadcastReceiver"));
-
-        if (nfcBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(nfcBroadcastReceiver);
-        nfcBroadcastReceiver = new NFCBroadcastReceiver();
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(nfcBroadcastReceiver, new IntentFilter("NFCBroadcastReceiver"));
-
-        if (radioSwitchBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(radioSwitchBroadcastReceiver);
-        radioSwitchBroadcastReceiver = new RadioSwitchBroadcastReceiver();
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(radioSwitchBroadcastReceiver, new IntentFilter("RadioSwitchBroadcastReceiver"));
-
-        if (mobileDataStateChangedBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(mobileDataStateChangedBroadcastReceiver);
-        mobileDataStateChangedBroadcastReceiver = new MobileDataStateChangedBroadcastReceiver();
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mobileDataStateChangedBroadcastReceiver, new IntentFilter("MobileDataStateChangedBroadcastReceiver"));
-
         //// this not starts for boot, because PPApplication.getApplicationStarted() == false,
         //// but it starts from EventsService
         startGeofenceScanner();
@@ -366,27 +305,6 @@ public class PhoneProfilesService extends Service
 
         if (mobileDataStateChangedContentObserver != null)
             getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
-
-        if (refreshGUIBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(refreshGUIBroadcastReceiver);
-        if (dashClockBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(dashClockBroadcastReceiver);
-        if (notificationBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(notificationBroadcastReceiver);
-        if (foregroundApplicationChangedBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(foregroundApplicationChangedBroadcastReceiver);
-        if (geofenceScannerBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(geofenceScannerBroadcastReceiver);
-        if (deviceOrientationBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(deviceOrientationBroadcastReceiver);
-        if (phoneStateChangeBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(phoneStateChangeBroadcastReceiver);
-        if (nfcBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(nfcBroadcastReceiver);
-        if (radioSwitchBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(radioSwitchBroadcastReceiver);
-        if (mobileDataStateChangedBroadcastReceiver != null)
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(mobileDataStateChangedBroadcastReceiver);
 
         stopGeofenceScanner();
         stopOrientationScanner();
@@ -672,6 +590,7 @@ public class PhoneProfilesService extends Service
                     mDeviceDistance = tmpDeviceDistance;
                     /*Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
                     sendBroadcast(broadcastIntent);*/
+                    LocalBroadcastManager.getInstance(this).registerReceiver(PPApplication.deviceOrientationBroadcastReceiver, new IntentFilter("DeviceOrientationBroadcastReceiver"));
                     Intent broadcastIntent = new Intent("DeviceOrientationBroadcastReceiver");
                     LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
                     //setAlarm(this);
@@ -780,6 +699,7 @@ public class PhoneProfilesService extends Service
 
                                         /*Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
                                         sendBroadcast(broadcastIntent);*/
+                                        LocalBroadcastManager.getInstance(this).registerReceiver(PPApplication.deviceOrientationBroadcastReceiver, new IntentFilter("DeviceOrientationBroadcastReceiver"));
                                         Intent broadcastIntent = new Intent("DeviceOrientationBroadcastReceiver");
                                         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
                                         //setAlarm(this);
@@ -818,6 +738,7 @@ public class PhoneProfilesService extends Service
 
                                 /*Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
                                 sendBroadcast(broadcastIntent);*/
+                                LocalBroadcastManager.getInstance(this).registerReceiver(PPApplication.deviceOrientationBroadcastReceiver, new IntentFilter("DeviceOrientationBroadcastReceiver"));
                                 Intent broadcastIntent = new Intent("DeviceOrientationBroadcastReceiver");
                                 LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
                                 //setAlarm(this);

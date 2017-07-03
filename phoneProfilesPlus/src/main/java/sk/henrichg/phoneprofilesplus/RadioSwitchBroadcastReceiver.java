@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class RadioSwitchBroadcastReceiver extends WakefulBroadcastReceiver {
@@ -14,11 +15,11 @@ public class RadioSwitchBroadcastReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### RadioSwitchBroadcastReceiver.onReceive", "xxx");
 
         Context appContext = context.getApplicationContext();
+
+        LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.radioSwitchBroadcastReceiver);
 
         int radioSwitchType = intent.getIntExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, 0);
         boolean radioSwitchState = intent.getBooleanExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, false);

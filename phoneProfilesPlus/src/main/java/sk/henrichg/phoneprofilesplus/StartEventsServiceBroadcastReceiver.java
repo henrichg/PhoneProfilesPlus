@@ -2,6 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class StartEventsServiceBroadcastReceiver extends WakefulBroadcastReceiver {
@@ -13,11 +15,11 @@ public class StartEventsServiceBroadcastReceiver extends WakefulBroadcastReceive
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### StartEventsServiceBroadcastReceiver.onReceive", "xxx");
 
         Context appContext = context.getApplicationContext();
+
+        LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.startEventsServiceBroadcastReceiver);
 
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
