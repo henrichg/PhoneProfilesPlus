@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.wifi.ScanResult;
@@ -14,6 +15,8 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -29,10 +32,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static WifiManager wifi = null;
     private static WifiLock wifiLock = null;
-    //private static PowerManager.WakeLock wakeLock = null;
 
-    //public static List<WifiSSIDData> scanResults = null;
-    //public static List<WifiSSIDData> wifiConfigurationList = null;
+    private static StartScannerBroadcastReceiver startScannerBroadcastReceiver = new StartScannerBroadcastReceiver();
 
     static final String PREF_EVENT_WIFI_SCAN_REQUEST = "eventWifiScanRequest";
     static final String PREF_EVENT_WIFI_WAIT_FOR_RESULTS = "eventWifiWaitForResults";
@@ -69,6 +70,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static void initialize(Context context)
     {
+        LocalBroadcastManager.getInstance(context).registerReceiver(startScannerBroadcastReceiver, new IntentFilter("WifiStartScannerBroadcastReceiver"));
+
         setScanRequest(context, false);
         setWaitForResults(context, false);
         setWifiEnabledForScan(context, false);
@@ -305,9 +308,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         Profile profile = dataWrapper.getActivatedProfile();
         profile = Profile.getMappedProfile(profile, context);
         if (fromDialog || (profile == null) || (profile._applicationDisableWifiScanning != 1)) {
-            Intent scanServiceIntent = new Intent(context, ScannerService.class);
-            scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_WIFI);
-            context.startService(scanServiceIntent);
+            Intent startScannerIntent = new Intent("WifiStartScannerBroadcastReceiver");
+            LocalBroadcastManager.getInstance(context).sendBroadcast(startScannerIntent);
         }
         dataWrapper.invalidateDataWrapper();
     }
@@ -606,6 +608,24 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         //return (getSSID(result).equals(SSID) || getSSID(result).equals(ssid2));
         return (Wildcard.match(wifiInfoSSID, SSID, '_', '%', true) || Wildcard.match(wifiInfoSSID, ssid2, '_', '%', true));
+    }
+
+    static class StartScannerBroadcastReceiver extends WakefulBroadcastReceiver {
+
+        public static final String BROADCAST_RECEIVER_TYPE = "wifiStartScanner";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
+            PPApplication.logE("##### StartScannerBroadcastReceiver.onReceive", "wifi");
+
+            Intent scanServiceIntent = new Intent(context, ScannerService.class);
+            scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_BLUETOOTH);
+            context.startService(scanServiceIntent);
+
+        }
+
     }
 
 }

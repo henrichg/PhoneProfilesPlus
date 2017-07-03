@@ -51,6 +51,8 @@ public class PPApplication extends Application {
 
                                          +"|PreferenceFragment"
 
+                                         +"|##### StartScannerBroadcastReceiver.onReceive"
+
                                          /*+"|RestartEventsFromNotificationActivity"
                                          +"|RestartEventsFromNotificationBroadcastReceiver"
                                          +"|DataWrapper.restartEventsWithAlert"*/

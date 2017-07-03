@@ -12,8 +12,11 @@ import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.content.WakefulBroadcastReceiver;
 
 import com.google.gson.Gson;
 
@@ -30,6 +33,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     public static BluetoothAdapter bluetooth = null;
 
     private static List<BluetoothDeviceData> tmpScanLEResults = null;
+
+    private static StartScannerBroadcastReceiver startScannerBroadcastReceiver = new StartScannerBroadcastReceiver();
 
     static final String PREF_EVENT_BLUETOOTH_SCAN_REQUEST = "eventBluetoothScanRequest";
     static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS = "eventBluetoothWaitForResults";
@@ -78,6 +83,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static void initialize(Context context)
     {
+        LocalBroadcastManager.getInstance(context).registerReceiver(startScannerBroadcastReceiver, new IntentFilter("BluetoothStartScannerBroadcastReceiver"));
+
         setScanRequest(context, false);
         setLEScanRequest(context, false);
         setWaitForResults(context, false);
@@ -431,9 +438,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         Profile profile = dataWrapper.getActivatedProfile();
         profile = Profile.getMappedProfile(profile, context);
         if (fromDialog || (profile == null) || (profile._applicationDisableBluetoothScanning != 1)) {
-            Intent scanServiceIntent = new Intent(context, ScannerService.class);
-            scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_BLUETOOTH);
-            context.startService(scanServiceIntent);
+            Intent startScannerIntent = new Intent("BluetoothStartScannerBroadcastReceiver");
+            LocalBroadcastManager.getInstance(context).sendBroadcast(startScannerIntent);
         }
         dataWrapper.invalidateDataWrapper();
     }
@@ -692,6 +698,24 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         if (!found) {
             tmpScanLEResults.add(new BluetoothDeviceData(device.name, device.address, device.type, false, 0));
         }
+    }
+
+    static class StartScannerBroadcastReceiver extends WakefulBroadcastReceiver {
+
+        public static final String BROADCAST_RECEIVER_TYPE = "bluetoothStartScanner";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
+            PPApplication.logE("##### StartScannerBroadcastReceiver.onReceive", "bluetooth");
+
+            Intent scanServiceIntent = new Intent(context, ScannerService.class);
+            scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_BLUETOOTH);
+            context.startService(scanServiceIntent);
+
+        }
+
     }
 
 }
