@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
+import android.support.v4.content.LocalBroadcastManager;
 
 public class ScreenOnOffService extends IntentService {
 
@@ -97,8 +98,8 @@ public class ScreenOnOffService extends IntentService {
                     //if (screenEventsExists*/)
                     //{
                     // start service
-                    Intent receiverIntent = new Intent(appContext, StartEventsServiceBroadcastReceiver.class);
-                    appContext.sendBroadcast(receiverIntent);
+                    Intent startEventsServiceIntent = new Intent("StartEventsServiceBroadcastReceiver");
+                    LocalBroadcastManager.getInstance(appContext).sendBroadcast(startEventsServiceIntent);
                     //}
 
                     if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {

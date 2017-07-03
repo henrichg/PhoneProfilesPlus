@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.Calendar;
 
@@ -71,8 +72,8 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Intent _intent = new Intent(_context, StartEventsServiceBroadcastReceiver.class);
-                            _context.sendBroadcast(_intent);
+                            Intent startEventsServiceIntent = new Intent("StartEventsServiceBroadcastReceiver");
+                            LocalBroadcastManager.getInstance(_context).sendBroadcast(startEventsServiceIntent);
                         }
                     }, 5000);
                     //setAlarm(context);
@@ -84,44 +85,5 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive","----- end");
 
     }
-
-    /*
-    private static void removeAlarm(Context context)
-    {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        Intent intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
-        if (pendingIntent != null)
-        {
-            alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
-        }
-    }
-
-    @SuppressLint("NewApi")
-    public static void setAlarm(Context context)
-    {
-        removeAlarm(context);
-
-        Intent intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.SECOND, 5);
-        long alarmTime = calendar.getTimeInMillis();
-
-        if (android.os.Build.VERSION.SDK_INT >= 23)
-            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-        else if (android.os.Build.VERSION.SDK_INT >= 19)
-            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-        else
-            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-    }
-    */
 
 }

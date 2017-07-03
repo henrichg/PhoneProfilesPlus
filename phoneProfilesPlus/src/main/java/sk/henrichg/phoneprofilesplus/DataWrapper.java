@@ -27,6 +27,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
@@ -2967,10 +2968,8 @@ public class DataWrapper {
         PPApplication.logE("$$$ restartEvents", "in DataWrapper.restartEvents");
 
         if (Event.getEventsBlocked(context) && (!unblockEventsRun)) {
-
-            Intent intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
-            context.sendBroadcast(intent);
-
+            Intent startEventsServiceIntent = new Intent("StartEventsServiceBroadcastReceiver");
+            LocalBroadcastManager.getInstance(context).sendBroadcast(startEventsServiceIntent);
             return;
         }
 

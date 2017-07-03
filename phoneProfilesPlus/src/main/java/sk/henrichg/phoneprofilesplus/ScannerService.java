@@ -240,8 +240,8 @@ public class ScannerService extends IntentService
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Intent _intent = new Intent(_context, StartEventsServiceBroadcastReceiver.class);
-                                            _context.sendBroadcast(_intent);
+                                            Intent startEventsServiceIntent = new Intent("StartEventsServiceBroadcastReceiver");
+                                            LocalBroadcastManager.getInstance(_context).sendBroadcast(startEventsServiceIntent);
                                         }
                                     }, 5000);
                                     //WifiScanBroadcastReceiver.setAlarm(context);

@@ -5,11 +5,13 @@ import android.app.Application;
 import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
@@ -38,7 +40,7 @@ public class PPApplication extends Application {
     static String PACKAGE_NAME;
 
     private static boolean logIntoLogCat = true;
-    private static boolean logIntoFile = false;
+    private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags = "##### PPApplication.onCreate"
 
@@ -49,7 +51,7 @@ public class PPApplication extends Application {
                                          //+"|PPApplication._isRooted"
                                          //+"|PPApplication.isRootGranted"
 
-                                         +"|PreferenceFragment"
+                                         //+"|PreferenceFragment"
 
                                          +"|##### StartScannerBroadcastReceiver.onReceive"
                                          +"|ScannerService.onHandleIntent"
@@ -225,6 +227,8 @@ public class PPApplication extends Application {
     public static boolean sLookCocktailPanelEnabled = false;
     public static boolean sLookCocktailBarEnabled = false;
 
+    private static StartEventsServiceBroadcastReceiver startEventsServiceBroadcastReceiver = new StartEventsServiceBroadcastReceiver();
+
     @Override
     public void onCreate()
     {
@@ -287,6 +291,8 @@ public class PPApplication extends Application {
         toastHandler = new HandlerWithContext(getMainLooper(), getApplicationContext());
         brightnessHandler = new HandlerWithContext(getMainLooper(), getApplicationContext());
         screenTimeoutHandler = new HandlerWithContext(getMainLooper(), getApplicationContext());
+
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(startEventsServiceBroadcastReceiver, new IntentFilter("StartEventsServiceBroadcastReceiver"));
 
         // Samsung Look initialization
         sLook = new Slook();
