@@ -378,7 +378,7 @@ public class WifiSSIDPreference extends DialogPreference {
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);
-                    PPApplication.sleep(200);
+                    //PPApplication.sleep(200);
                     ScannerService.waitForWifiScanEnd(context, this);
                 }
 
