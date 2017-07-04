@@ -318,8 +318,13 @@ public class VolumeDialogPreference extends
     {
         super.onDismiss(dialog);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, defaultValueMusic, 0);
-        if (mediaPlayer != null)
+        if (mediaPlayer != null) {
+            try {
+                if (mediaPlayer.isPlaying())
+                    mediaPlayer.stop();
+            } catch (Exception ignored) {};
             mediaPlayer.release();
+        }
         MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
     }
 
