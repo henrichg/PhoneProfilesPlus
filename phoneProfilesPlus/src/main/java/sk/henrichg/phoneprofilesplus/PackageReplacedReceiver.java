@@ -29,12 +29,14 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             // start delayed bootup broadcast
             PPApplication.startedOnBoot = true;
-            AlarmManager alarmMgr = (AlarmManager)appContext.getSystemService(Context.ALARM_SERVICE);
-            Intent delayedBootUpIntent = new Intent(appContext, DelayedBootUpReceiver.class);
-            PendingIntent alarmIntent = PendingIntent.getBroadcast(appContext, 0, delayedBootUpIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.SECOND, 10);
-            alarmMgr.set(AlarmManager.RTC, calendar.getTimeInMillis(), alarmIntent);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("PackageReplacedReceiver.onReceive", "delayed boot up");
+                    PPApplication.startedOnBoot = false;
+                }
+            }, 10000);
 
             Permissions.setShowRequestAccessNotificationPolicyPermission(appContext, true);
             Permissions.setShowRequestWriteSettingsPermission(appContext, true);
@@ -128,13 +130,13 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 if (PhoneProfilesService.instance != null) {
                     // stop PhoneProfilesService
                     appContext.stopService(new Intent(appContext, PhoneProfilesService.class));
-                    Handler handler = new Handler();
+                    Handler _handler = new Handler();
                     Runnable r = new Runnable() {
                         public void run() {
                             startService(appContext);
                         }
                     };
-                    handler.postDelayed(r, 2000);
+                    _handler.postDelayed(r, 2000);
                 }
                 else
                     startService(appContext);

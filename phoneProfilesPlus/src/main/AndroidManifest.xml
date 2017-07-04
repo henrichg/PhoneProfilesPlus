@@ -634,11 +634,6 @@
             android:exported="false">
         </receiver>
         <receiver
-            android:name=".DisableRingerModeInernalChangeBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
             android:name=".GeofenceScannerAlarmBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
@@ -655,21 +650,6 @@
         </receiver>
         <receiver
             android:name=".AboutApplicationBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".DisableScreenTimeoutInternalChangeReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".DelayedBootUpReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".RemoveBrightnessViewBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>

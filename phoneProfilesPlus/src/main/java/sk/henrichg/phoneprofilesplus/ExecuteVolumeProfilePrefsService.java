@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.os.Handler;
 import android.os.PowerManager;
 
 public class ExecuteVolumeProfilePrefsService extends IntentService
@@ -47,6 +48,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
         long profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
         boolean merged = intent.getBooleanExtra(ActivateProfileHelper.EXTRA_MERGED_PROFILE, false);
+        boolean startedFromBroadcast = intent.getBooleanExtra(ActivateProfileHelper.EXTRA_STARTED_FROM_BROADCAST, true);
         Profile profile = dataWrapper.getProfileById(profile_id, merged);
         profile = Profile.getMappedProfile(profile, context);
 
@@ -73,7 +75,6 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                 aph.changeRingerModeForVolumeEqual0(profile);
                 aph.changeNotificationVolumeForVolumeEqual0(profile);
 
-                RingerModeChangeReceiver.removeAlarm(context);
                 RingerModeChangeReceiver.internalChange = true;
 
                 final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -89,7 +90,14 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                 //SystemClock.sleep(500);
                 PPApplication.sleep(500);
 
-                RingerModeChangeReceiver.setAlarmForDisableInternalChange(context);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        PPApplication.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "disable ringer mode change internal change");
+                        RingerModeChangeReceiver.internalChange = false;
+                    }
+                }, 3000);
 
             }
 
@@ -98,7 +106,8 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
         dataWrapper.invalidateDataWrapper();
 
-        ActivateProfileHelper.ExecuteVolumeProfilePrefsBroadcastReceiver.completeWakefulIntent(intent);
+        if (startedFromBroadcast)
+            ActivateProfileHelper.ExecuteVolumeProfilePrefsBroadcastReceiver.completeWakefulIntent(intent);
 
     }
 

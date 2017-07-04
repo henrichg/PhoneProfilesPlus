@@ -80,6 +80,7 @@ public class ActivateProfileHelper {
     //private int networkType = -1;
 
     static boolean lockRefresh = false;
+    static boolean disableScreenTimeoutInternalChange = false;
 
     private static ExecuteRadioProfilePrefsBroadcastReceiver executeRadioProfilePrefsBroadcastReceiver = new ExecuteRadioProfilePrefsBroadcastReceiver();
     static ExecuteVolumeProfilePrefsBroadcastReceiver executeVolumeProfilePrefsBroadcastReceiver = new ExecuteVolumeProfilePrefsBroadcastReceiver();
@@ -96,6 +97,7 @@ public class ActivateProfileHelper {
 
     static final String EXTRA_MERGED_PROFILE = "merged_profile";
     static final String EXTRA_FOR_PROFILE_ACTIVATION = "for_profile_activation";
+    static final String EXTRA_STARTED_FROM_BROADCAST = "started_from_broadcast";
 
     private static final String PREF_RINGER_VOLUME = "ringer_volume";
     private static final String PREF_NOTIFICATION_VOLUME = "notification_volume";
@@ -1693,7 +1695,8 @@ public class ActivateProfileHelper {
     }
 
     void setScreenTimeout(int screenTimeout, Context context) {
-        DisableScreenTimeoutInternalChangeReceiver.internalChange = true;
+        PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "xxx");
+        disableScreenTimeoutInternalChange = true;
         //Log.d("ActivateProfileHelper.setScreenTimeout", "current="+Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 0));
         switch (screenTimeout) {
             case 1:
@@ -1756,7 +1759,14 @@ public class ActivateProfileHelper {
                 break;
         }
         setActivatedProfileScreenTimeout(context, 0);
-        DisableScreenTimeoutInternalChangeReceiver.setAlarm(context);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "disable screen timeout internal change");
+                disableScreenTimeoutInternalChange = false;
+            }
+        }, 3000);
     }
 
     private static void screenTimeoutLock(Context context)
@@ -1811,7 +1821,7 @@ public class ActivateProfileHelper {
     @SuppressLint("RtlHardcoded")
     private void createBrightnessView(Context context)
     {
-        //Log.d("ActivateProfileHelper.createBrightnessView","xxx");
+        PPApplication.logE("ActivateProfileHelper.createBrightnessView", "xxx");
 
         //if (dataWrapper.context != null)
         //{
@@ -1845,7 +1855,24 @@ public class ActivateProfileHelper {
                 //e.printStackTrace();
             }
 
-            RemoveBrightnessViewBroadcastReceiver.setAlarm(context);
+            final Handler handler = new Handler();
+            final Context _context = context;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("ActivateProfileHelper.createBrightnessView", "remove brightness view");
+
+                    WindowManager windowManager = (WindowManager)_context.getSystemService(Context.WINDOW_SERVICE);
+                    if (GlobalGUIRoutines.brightnessView != null)
+                    {
+                        try {
+                            windowManager.removeView(GlobalGUIRoutines.brightnessView);
+                        } catch (Exception ignored) {
+                        }
+                        GlobalGUIRoutines.brightnessView = null;
+                    }
+                }
+            }, 5000);
 
         //Log.d("ActivateProfileHelper.createBrightnessView","-- end");
 
@@ -2144,15 +2171,11 @@ public class ActivateProfileHelper {
         long time = now.getTimeInMillis() + notificationStatusBarCancel * 1000;
         // not needed exact for removing notification
         /*if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC, time, pendingIntent);
         if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC, time, pendingIntent);
         else*/
-            alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
-
-        //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
-        //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
-
+            alarmManager.set(AlarmManager.RTC, time, pendingIntent);
     }
 
     void setAlarmForRecreateNotification()
@@ -2165,7 +2188,7 @@ public class ActivateProfileHelper {
 
         Calendar now = Calendar.getInstance();
         long time = now.getTimeInMillis() + 500;
-        alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+        alarmManager.set(AlarmManager.RTC, time, pendingIntent);
     }
 
     private void removeAlarmForRecreateNotification() {
@@ -3326,6 +3349,7 @@ public class ActivateProfileHelper {
             volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0));
             volumeServiceIntent.putExtra(EXTRA_MERGED_PROFILE, intent.getBooleanExtra(EXTRA_MERGED_PROFILE, false));
             volumeServiceIntent.putExtra(EXTRA_FOR_PROFILE_ACTIVATION, intent.getBooleanExtra(EXTRA_FOR_PROFILE_ACTIVATION, true));
+            volumeServiceIntent.putExtra(EXTRA_STARTED_FROM_BROADCAST, intent.getBooleanExtra(EXTRA_STARTED_FROM_BROADCAST, true));
             startWakefulService(context, volumeServiceIntent);
         }
 

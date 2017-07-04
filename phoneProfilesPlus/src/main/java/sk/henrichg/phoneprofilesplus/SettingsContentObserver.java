@@ -108,7 +108,7 @@ class SettingsContentObserver  extends ContentObserver {
 
         ////// screen timeout change
         int screenTimeout = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 0);
-        if (!DisableScreenTimeoutInternalChangeReceiver.internalChange) {
+        if (!ActivateProfileHelper.disableScreenTimeoutInternalChange) {
             if (previousScreenTimeout != screenTimeout) {
                 if (Permissions.checkScreenTimeout(context)) {
                     ActivateProfileHelper.setActivatedProfileScreenTimeout(context, 0);

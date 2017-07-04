@@ -908,7 +908,6 @@ public class PhoneProfilesService extends Service
             }
 
             if ((ringtone != null) && !ringtone.isEmpty()) {
-                RingerModeChangeReceiver.removeAlarm(this);
                 RingerModeChangeReceiver.internalChange = true;
 
                 usedRingingStream = stream;
@@ -957,11 +956,25 @@ public class PhoneProfilesService extends Service
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", " security exception");
                     Permissions.grantPlayRingtoneNotificationPermissions(this, true, true);
                     ringingMediaPlayer = null;
-                    RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "disable ringer mode change internal change");
+                            RingerModeChangeReceiver.internalChange = false;
+                        }
+                    }, 3000);
                 } catch (Exception e) {
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "exception");
                     ringingMediaPlayer = null;
-                    RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "disable ringer mode change internal change");
+                            RingerModeChangeReceiver.internalChange = false;
+                        }
+                    }, 3000);
                 }
             }
         }
@@ -993,7 +1006,14 @@ public class PhoneProfilesService extends Service
                 audioManager.abandonAudioFocus(this);
         //}
         ringingCallIsSimulating = false;
-        RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "disable ringer mode change internal change");
+                RingerModeChangeReceiver.internalChange = false;
+            }
+        }, 3000);
     }
 
     /*private void doSimulatingNotificationTone(Intent intent) {
@@ -1270,7 +1290,6 @@ public class PhoneProfilesService extends Service
                 Uri notificationUri = Uri.parse(eventNotificationSound);
 
                 try {
-                    RingerModeChangeReceiver.removeAlarm(this);
                     RingerModeChangeReceiver.internalChange = true;
 
                     eventNotificationMediaPlayer = new MediaPlayer();
@@ -1315,7 +1334,14 @@ public class PhoneProfilesService extends Service
                             eventNotificationIsPlayed = false;
                             eventNotificationMediaPlayer = null;
 
-                            RingerModeChangeReceiver.setAlarmForDisableInternalChange(context);
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "disable ringer mode change internal change");
+                                    RingerModeChangeReceiver.internalChange = false;
+                                }
+                            }, 3000);
 
                         }
                     }, eventNotificationMediaPlayer.getDuration());
@@ -1325,13 +1351,27 @@ public class PhoneProfilesService extends Service
                     Permissions.grantPlayRingtoneNotificationPermissions(this, true, false);
                     eventNotificationMediaPlayer = null;
                     eventNotificationIsPlayed = false;
-                    RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "disable ringer mode change internal change");
+                            RingerModeChangeReceiver.internalChange = false;
+                        }
+                    }, 3000);
                 } catch (Exception e) {
                     PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "exception");
                     //e.printStackTrace();
                     eventNotificationMediaPlayer = null;
                     eventNotificationIsPlayed = false;
-                    RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "disable ringer mode change internal change");
+                            RingerModeChangeReceiver.internalChange = false;
+                        }
+                    }, 3000);
                 }
 
             }

@@ -607,6 +607,7 @@ public class EventsService extends IntentService
                         volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                         volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_MERGED_PROFILE, false);
                         volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_FOR_PROFILE_ACTIVATION, false);
+                        volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_STARTED_FROM_BROADCAST, false);
                         context.startService(volumeServiceIntent);
                         // wait for link/unlink
                         //try { Thread.sleep(1000); } catch (InterruptedException e) { }

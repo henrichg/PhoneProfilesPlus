@@ -40,7 +40,7 @@ public class PPApplication extends Application {
     static String PACKAGE_NAME;
 
     private static boolean logIntoLogCat = true;
-    private static boolean logIntoFile = false;
+    private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags = "##### PPApplication.onCreate"
 
@@ -52,15 +52,6 @@ public class PPApplication extends Application {
                                          //+"|PPApplication.isRootGranted"
 
                                          //+"|PreferenceFragment"
-
-                                         //+"|##### StartScannerBroadcastReceiver.onReceive"
-                                         //+"|ScannerService.onHandleIntent"
-                                         //+"|##### ActivateProfileHelper.execute"
-                                         //+"|##### ExecuteVolumeProfilePrefsBroadcastReceiver.onReceive"
-                                         //+"|##### ExecuteVolumeProfilePrefsService.onHandleIntent"
-                                         //+"|##### ExecuteRadioProfilePrefsBroadcastReceiver.onReceive"
-                                         //+"|##### ExecuteRadioProfilePrefsService.onHandleIntent"
-                                         //+"|EventsService.doEndService"
 
                                          /*+"|RestartEventsFromNotificationActivity"
                                          +"|RestartEventsFromNotificationBroadcastReceiver"
