@@ -39,7 +39,6 @@ public class LockDeviceActivity extends AppCompatActivity {
         ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
         Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
 
-
         WindowManager.LayoutParams params = new WindowManager.LayoutParams();
         params.flags = 1808;
         params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
@@ -61,6 +60,13 @@ public class LockDeviceActivity extends AppCompatActivity {
 
         windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
         windowManager.addView(view, params);
+
+        /*
+        WindowManager.LayoutParams aParams = getWindow().getAttributes();
+        aParams.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+        aParams.screenBrightness = 0;
+        getWindow().setAttributes(aParams);
+        */
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
