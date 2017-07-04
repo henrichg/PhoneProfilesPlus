@@ -1,7 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Environment;
+import android.provider.Settings;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,17 +15,24 @@ import java.util.Calendar;
 public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
     private Thread.UncaughtExceptionHandler defaultUEH;
+    private Context applicationContext;
     private int actualVersionCode;
 
     private static final String CRASH_FILENAME = "crash.txt";
 
-    public TopExceptionHandler(/*Context applicationContext, */int actualVersionCode) {
+    public TopExceptionHandler(Context applicationContext, int actualVersionCode) {
         this.defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
+        this.applicationContext = applicationContext;
         this.actualVersionCode = actualVersionCode;
     }
 
     public void uncaughtException(Thread t, Throwable e)
     {
+        try {
+            if ((PPApplication.lockDeviceActivity != null) && (Permissions.checkLockDevice(applicationContext)))
+                Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
+        } catch (Exception ignored) {}
+
         if (BuildConfig.DEBUG) {
             StackTraceElement[] arr = e.getStackTrace();
             String report = e.toString() + "\n\n";

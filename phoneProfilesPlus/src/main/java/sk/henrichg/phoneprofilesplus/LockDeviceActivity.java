@@ -37,7 +37,7 @@ public class LockDeviceActivity extends AppCompatActivity {
 
         PPApplication.screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
         ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
-        Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+        Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
 
         WindowManager.LayoutParams params = new WindowManager.LayoutParams();
         params.flags = 1808;
