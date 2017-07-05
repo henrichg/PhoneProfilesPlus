@@ -193,8 +193,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         /*
          * The desired interval for location updates. Inexact. Updates may be more or less frequent.
          */
-        //int interval = PPApplication.applicationEventLocationUpdateInterval * 60;
-        int interval = 5;
+        int interval = 25;
         if (powerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("1"))
             interval = 2 * interval;
         final long UPDATE_INTERVAL_IN_MILLISECONDS = interval * 1000;

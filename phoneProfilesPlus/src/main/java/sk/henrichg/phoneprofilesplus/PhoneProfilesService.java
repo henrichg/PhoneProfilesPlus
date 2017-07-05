@@ -1005,7 +1005,7 @@ public class PhoneProfilesService extends Service
                 try {
                     if (ringingMediaPlayer.isPlaying())
                         ringingMediaPlayer.stop();
-                } catch (Exception ignored) {};
+                } catch (Exception ignored) {}
                 ringingMediaPlayer.release();
                 ringingMediaPlayer = null;
 
@@ -1333,7 +1333,7 @@ public class PhoneProfilesService extends Service
 
                     eventNotificationIsPlayed = true;
 
-                    final Context context = this;
+                    //final Context context = this;
                     new Timer().schedule(new TimerTask() {
                         @Override
                         public void run() {
