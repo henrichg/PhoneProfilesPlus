@@ -1691,7 +1691,7 @@ public class ActivateProfileHelper {
             }
         }
 
-        //throw new RuntimeException("test Crashlytics + TopExceptionHandler");
+//        throw new RuntimeException("test Crashlytics + TopExceptionHandler");
     }
 
     void setScreenTimeout(int screenTimeout, Context context) {
