@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
@@ -444,6 +445,34 @@ public class PhoneProfilesService extends Service
 
     //--------------------------------------------------------------------------
 
+    // Phone state ----------------------------------------------------------------
+
+    private void startPhoneStateScanner() {
+        if (phoneStateScanner != null) {
+            phoneStateScanner.disconnect();
+            //phoneStateScanner = null;
+        }
+
+        if (PPApplication.getApplicationStarted(this, false)) {
+            if (phoneStateScanner == null)
+                phoneStateScanner = new PhoneStateScanner(getApplicationContext());
+            phoneStateScanner.connect();
+        }
+    }
+
+    private void stopPhoneStateScanner() {
+        if (phoneStateScanner != null) {
+            phoneStateScanner.disconnect();
+            //phoneStateScanner = null;
+        }
+    }
+
+    public static boolean isPhoneStateStarted() {
+        return (phoneStateScanner != null);
+    }
+
+    //--------------------------------------------------------------------------
+
     // Device orientation ----------------------------------------------------------------
 
     private void startOrientationScanner() {
@@ -484,36 +513,7 @@ public class PhoneProfilesService extends Service
         return mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
     }*/
 
-    //--------------------------------------------------------------------------
-
-    // Phone state ----------------------------------------------------------------
-
-    private void startPhoneStateScanner() {
-        if (phoneStateScanner != null) {
-            phoneStateScanner.disconnect();
-            //phoneStateScanner = null;
-        }
-
-        if (PPApplication.getApplicationStarted(this, false)) {
-            if (phoneStateScanner == null)
-                phoneStateScanner = new PhoneStateScanner(getApplicationContext());
-            phoneStateScanner.connect();
-        }
-    }
-
-    private void stopPhoneStateScanner() {
-        if (phoneStateScanner != null) {
-            phoneStateScanner.disconnect();
-            //phoneStateScanner = null;
-        }
-    }
-
-    public static boolean isPhoneStateStarted() {
-        return (phoneStateScanner != null);
-    }
-
-    //--------------------------------------------------------------------------
-
+    @SuppressLint("NewApi")
     public void startListeningOrientationSensors() {
         if (mSensorManager == null)
             mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -533,17 +533,28 @@ public class PhoneProfilesService extends Service
                 interval *= 2;
             Sensor accelerometer = getAccelerometerSensor(getApplicationContext());
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","accelerometer="+accelerometer);
-            if (accelerometer != null)
-                mSensorManager.registerListener(this, accelerometer, 1000000 * interval);
+            if (accelerometer != null) {
+                if ((android.os.Build.VERSION.SDK_INT >= 19) && (accelerometer.getFifoMaxEventCount() > 0))
+                    mSensorManager.registerListener(this, accelerometer, 200000, 1000000 * interval);
+                else
+                    mSensorManager.registerListener(this, accelerometer, 1000000 * interval);
+            }
             Sensor magneticField = getMagneticFieldSensor(getApplicationContext());
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","magneticField="+magneticField);
-            if (magneticField != null)
-                mSensorManager.registerListener(this, magneticField, 1000000 * interval);
+            if (magneticField != null) {
+                if ((android.os.Build.VERSION.SDK_INT >= 19) && (magneticField.getFifoMaxEventCount() > 0))
+                    mSensorManager.registerListener(this, magneticField, 200000, 1000000 * interval);
+                else
+                    mSensorManager.registerListener(this, magneticField, 1000000 * interval);
+            }
             Sensor proximity = getProximitySensor(getApplicationContext());
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","proximity="+proximity);
             if (proximity != null) {
                 mMaxProximityDistance = proximity.getMaximumRange();
-                mSensorManager.registerListener(this, proximity, 1000000 * interval);
+                if ((android.os.Build.VERSION.SDK_INT >= 19) && (proximity.getFifoMaxEventCount() > 0))
+                    mSensorManager.registerListener(this, proximity, 200000, 1000000 * interval);
+                else
+                    mSensorManager.registerListener(this, proximity, 1000000 * interval);
             }
             //Sensor orientation = PPApplication.getOrientationSensor(this);
             //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","orientation="+orientation);
@@ -587,6 +598,7 @@ public class PhoneProfilesService extends Service
                     tmpDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_FAR;
 
                 if (tmpDeviceDistance != mDeviceDistance) {
+                    PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity - send broadcast");
                     mDeviceDistance = tmpDeviceDistance;
                     /*Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
                     sendBroadcast(broadcastIntent);*/
@@ -673,6 +685,7 @@ public class PhoneProfilesService extends Service
                                 if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
 
                                     if (tmpSideUp != mSideUp) {
+                                        PPApplication.logE("PhoneProfilesService.onSensorChanged", "magnetic+accelerometer - send broadcast");
 
                                         mSideUp = tmpSideUp;
 
@@ -722,14 +735,16 @@ public class PhoneProfilesService extends Service
                         if ((mGravityZ * gravityZ) < 0) {
                             mEventCountSinceGZChanged++;
                             if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
+                                PPApplication.logE("PhoneProfilesService.onSensorChanged", "accelerometer - send broadcast");
+
                                 mGravityZ = gravityZ;
                                 mEventCountSinceGZChanged = 0;
 
                                 if (gravityZ > 0) {
-                                    PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
+                                    //PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
                                     mSideUp = DEVICE_ORIENTATION_DISPLAY_UP;
                                 } else if (gravityZ < 0) {
-                                    PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
+                                    //PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
                                     mSideUp = DEVICE_ORIENTATION_DISPLAY_DOWN;
                                 }
 

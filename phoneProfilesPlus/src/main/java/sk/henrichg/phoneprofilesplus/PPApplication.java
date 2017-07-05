@@ -53,64 +53,7 @@ public class PPApplication extends Application {
 
                                          //+"|PreferenceFragment"
 
-                                         /*+"|RestartEventsFromNotificationActivity"
-                                         +"|RestartEventsFromNotificationBroadcastReceiver"
-                                         +"|DataWrapper.restartEventsWithAlert"*/
-
-                                         //+"|ScreenOnOffBroadcastReceiver.onReceive"
-
-                                         //+"|----- DataWrapper.doEventService"
-                                         //+"|@@@ PackageReplacedReceiver.onReceive"
-                                         //+"|$$$ PhoneProfilesService.onCreate"
-
-                                         //+"|---$$$ ActivateProfileHelper.execute"
-                                         //+"|LockDeviceActivity"
-
-                                         //+"|ActivateProfileHelper.getMergedRingNotificationVolumes"
-                                         //+"|ActivateProfileHelper.setMergedRingNotificationVolumes"
-
-                                         /*
-                                         +"|PhoneProfilesService.doSimulatingRingingCall"
-                                         +"|PhoneProfilesService.startSimulatingRingingCall"
-                                         +"|PhoneProfilesService.stopSimulatingRingingCall"
-                                         +"|PhoneProfilesService.onAudioFocusChange"
-                                         +"|PhoneProfilesService.doSimulatingNotificationTone"
-                                         +"|PhoneProfilesService.startSimulatingNotificationTone"
-                                         +"|PhoneProfilesService.stopSimulatingNotificationTone"
-                                         */
-
-                                         //+"|DatabaseHandler.changePictureFilePathToUri"
-                                         //+"|ImageViewPreference.getImageContentUri"
-
-                                         //+"|PhoneProfilesService.doSimulatingRingingCall"
-                                        /*
-                                         +"|WifiScanAlarmBroadcastReceiver.onReceive"
-                                         +"|WifiScanAlarmBroadcastReceiver.setAlarm"
-                                         +"|WifiScanAlarmBroadcastReceiver.removeAlarm"
-                                         +"|WifiScanAlarmBroadcastReceiver.isAlarmSet"
-                                         +"|WifiScanAlarmBroadcastReceiver.startScan"
-                                         +"|WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan"
-                                         +"|WifiScanAlarmBroadcastReceiver.fillScanResults"
-                                         +"|WifiScanBroadcastReceiver.onReceive"
-                                         +"|WifiStateChangedBroadcastReceiver.onReceive"
-                                         +"|$$$W ScannerService.onHandleIntent"
-                                         +"|ScannerService.enableWifi"
-                                         +"|StartEventsServiceBroadcastReceiver.onReceive"
-                                         +"|#### EventsService.onHandleIntent"
-                                         +"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
-                                         +"|$$$ DataWrapper.restartEventsWithRescan"
-                                         +"|$$$ ScannerService.lock"
-                                         +"|$$$ ScannerService.unlock"
-                                        */
-                                         //+"|Profile.convertPercentsToBrightnessManualValue"
-
-                                         //+"|##### RefreshGUIBroadcastReceiver.onReceive"
-
-                                         /*
-                                         +"|PhoneProfilesService.doSimulatingRingingCall"
-                                         +"|PhoneProfilesService.startSimulatingRingingCall"
-                                         +"|PhoneProfilesService.stopSimulatingRingingCall"
-                                         */
+                                         +"|PhoneProfilesService.onSensorChanged"
             ;
 
 
