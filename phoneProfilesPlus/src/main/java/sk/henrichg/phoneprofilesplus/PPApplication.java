@@ -178,6 +178,7 @@ public class PPApplication extends Application {
     public static RadioSwitchBroadcastReceiver radioSwitchBroadcastReceiver = new RadioSwitchBroadcastReceiver();
     public static MobileDataStateChangedBroadcastReceiver mobileDataStateChangedBroadcastReceiver = new MobileDataStateChangedBroadcastReceiver();
     public static StartEventsServiceBroadcastReceiver startEventsServiceBroadcastReceiver = new StartEventsServiceBroadcastReceiver();
+    public static RestartEventsBroadcastReceiver restartEventsBroadcastReceiver = new RestartEventsBroadcastReceiver();
 
     @Override
     public void onCreate()
@@ -429,7 +430,7 @@ public class PPApplication extends Application {
         editor.apply();
     }
 
-    static public int getDaysAfterFirtsStart(Context context)
+    static public int getDaysAfterFirstStart(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getInt(PREF_DAYS_AFTER_FIRST_START, 0);

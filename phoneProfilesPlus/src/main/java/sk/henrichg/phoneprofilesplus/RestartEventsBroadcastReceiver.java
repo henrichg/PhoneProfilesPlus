@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
@@ -16,6 +17,8 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
         PPApplication.logE("##### RestartEventsBroadcastReceiver.onReceive", "xxx");
 
         Context appContext = context.getApplicationContext();
+
+        LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.restartEventsBroadcastReceiver);
 
         PPApplication.logE("@@@ RestartEventsBroadcastReceiver.onReceive","####");
 

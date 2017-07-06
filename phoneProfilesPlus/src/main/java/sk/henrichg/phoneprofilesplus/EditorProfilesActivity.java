@@ -1269,11 +1269,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                         // restart events
                         // startneme eventy
                         if (Event.getGlobalEventsRuning(getApplicationContext())) {
-                        /*
-                        Intent intent = new Intent();
-                        intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
-                        getBaseContext().sendBroadcast(intent);
-                        */
                             PPApplication.logE("$$$ restartEvents", "from EditorProfilesActivity.doImportData.onPostExecute");
                             dataWrapper.restartEventsWithDelay(1, false, false);
                         }

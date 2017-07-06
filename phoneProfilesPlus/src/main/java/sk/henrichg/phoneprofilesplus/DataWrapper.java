@@ -40,6 +40,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.RunnableFuture;
 
 public class DataWrapper {
 
@@ -894,10 +895,11 @@ public class DataWrapper {
 
         if (!getIsManualProfileActivation()) {
             PPApplication.logE("DataWrapper.firstStartEvents", "no manual profile activation, restart events");
-            Intent intent = new Intent(context, RestartEventsBroadcastReceiver.class);
-            intent.putExtra(EXTRA_UNBLOCKEVENTSRUN, false);
-            intent.putExtra(EXTRA_INTERACTIVE, false);
-            context.sendBroadcast(intent);
+            LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.restartEventsBroadcastReceiver, new IntentFilter("RestartEventsBroadcastReceiver"));
+            Intent restartEventsIntent = new Intent("RestartEventsBroadcastReceiver");
+            restartEventsIntent.putExtra(EXTRA_UNBLOCKEVENTSRUN, false);
+            restartEventsIntent.putExtra(EXTRA_INTERACTIVE, false);
+            LocalBroadcastManager.getInstance(context).sendBroadcast(restartEventsIntent);
         }
         else
         {
@@ -2996,13 +2998,11 @@ public class DataWrapper {
             setProfileActive(null);
         }
 
-        //Intent intent = new Intent();
-        //intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
-        Intent intent = new Intent(context, RestartEventsBroadcastReceiver.class);
-        intent.putExtra(EXTRA_UNBLOCKEVENTSRUN, false);
-        intent.putExtra(EXTRA_INTERACTIVE, interactive);
-        context.sendBroadcast(intent);
-
+        LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.restartEventsBroadcastReceiver, new IntentFilter("RestartEventsBroadcastReceiver"));
+        Intent restartEventsIntent = new Intent("RestartEventsBroadcastReceiver");
+        restartEventsIntent.putExtra(EXTRA_UNBLOCKEVENTSRUN, false);
+        restartEventsIntent.putExtra(EXTRA_INTERACTIVE, interactive);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(restartEventsIntent);
     }
 
     void restartEventsWithRescan(boolean showToast, boolean interactive)
@@ -3157,28 +3157,20 @@ public class DataWrapper {
     {
         PPApplication.logE("$$$ restartEvents","in DataWrapper.restartEventsWithDelay");
 
-        AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, RestartEventsBroadcastReceiver.class);
-        intent.putExtra(EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);
-        intent.putExtra(EXTRA_INTERACTIVE, interactive);
+        final boolean _unblockEventsRun = unblockEventsRun;
+        final boolean _interactive = interactive;
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.SECOND, delay);
-        long alarmTime = calendar.getTimeInMillis();
-
-        //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-        //PPApplication.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
-
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        if (android.os.Build.VERSION.SDK_INT >= 23)
-            //alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            alarmMgr.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-        else
-        if (android.os.Build.VERSION.SDK_INT >= 19)
-            //alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-        else
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.restartEventsBroadcastReceiver, new IntentFilter("RestartEventsBroadcastReceiver"));
+                Intent restartEventsIntent = new Intent("RestartEventsBroadcastReceiver");
+                restartEventsIntent.putExtra(EXTRA_UNBLOCKEVENTSRUN, _unblockEventsRun);
+                restartEventsIntent.putExtra(EXTRA_INTERACTIVE, _interactive);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(restartEventsIntent);
+            }
+        }, delay * 1000);
     }
 
     void setEventBlocked(Event event, boolean blocked)

@@ -26,7 +26,7 @@ public class AboutApplicationBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        int daysAfterFirstStart = PPApplication.getDaysAfterFirtsStart(context)+1;
+        int daysAfterFirstStart = PPApplication.getDaysAfterFirstStart(context)+1;
         PPApplication.logE("@@@ AboutApplicationBroadcastReceiver.onReceive", "daysAfterFirstStart="+daysAfterFirstStart);
 
         if (daysAfterFirstStart == 7) {
@@ -71,7 +71,7 @@ public class AboutApplicationBroadcastReceiver extends BroadcastReceiver {
     public static void setAlarm(Context context) {
         PPApplication.logE("@@@ AboutApplicationBroadcastReceiver.setAlarm","xxx");
 
-        int daysAfterFirstStart = PPApplication.getDaysAfterFirtsStart(context);
+        int daysAfterFirstStart = PPApplication.getDaysAfterFirstStart(context);
         if (daysAfterFirstStart >= 7)
             return;
 

@@ -502,6 +502,16 @@
                 <action android:name="android.location.PROVIDERS_CHANGED"/>
             </intent-filter>
         </receiver>
+        <!--
+        <receiver
+            android:name=".SIPCallBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.INCOMING_SIPCALL"/>
+            </intent-filter>
+        </receiver>
+        -->
 
         <!-- widget providers -->
         <receiver
@@ -573,11 +583,6 @@
         </receiver>
 
         <!-- alarms -->
-        <receiver
-            android:name=".RestartEventsBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
         <receiver
             android:name=".EventTimeBroadcastReceiver"
             android:enabled="true"
@@ -707,18 +712,6 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
-        -->
-        <!--
-        <receiver
-            android:name=".SIPCallBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="sk.henrichg.phoneprofilesplus.INCOMING_SIPCALL"/>
-            </intent-filter>
-        </receiver>
-        -->
-        <!--
         <receiver
             android:name=".InterruptionFilterChangedBroadcastReceiver"
             android:enabled="true"
@@ -741,6 +734,11 @@
         </receiver>
         <receiver
             android:name=".MobileDataStateChangedBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".RestartEventsBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
