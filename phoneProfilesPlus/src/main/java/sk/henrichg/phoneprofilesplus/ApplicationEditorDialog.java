@@ -22,14 +22,12 @@ class ApplicationEditorDialog
     MaterialDialog mDialog;
 
     Application application;
-    private int dialogPrefPosition;
 
     ApplicationEditorDialog(Context context, ApplicationsDialogPreference preference,
-                                        Application application, int dialogPrefPosition)
+                                        Application application)
     {
         this.preference = preference;
         this.application = application;
-        this.dialogPrefPosition = dialogPrefPosition;
 
         MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                 .title(R.string.applications_editor_dialog_title)
@@ -99,7 +97,7 @@ class ApplicationEditorDialog
     void doOnItemSelected(int position)
     {
         if (cachedApplicationList != null) {
-            preference.updateApplication(application, dialogPrefPosition, position);
+            preference.updateApplication(application, position);
         }
         mDialog.dismiss();
     }

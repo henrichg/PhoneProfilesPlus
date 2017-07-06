@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:dslv="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -75,29 +74,12 @@
                 android:layout_height="1dp"
                 android:background="?attr/dialogDivider" />
 
-            <com.mobeta.android.dslv.DragSortListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/applications_pref_dlg_listview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:clipToPadding="false"
-                android:choiceMode="singleChoice"
-                android:scrollbarStyle="outsideOverlay"
-                android:divider="@android:color/transparent"
-                dslv:drag_enabled="true"
-                dslv:collapsed_height="2dp"
-                dslv:drag_scroll_start="0.33"
-                dslv:max_drag_scroll_speed="0.5"
-                dslv:float_background_color="#00000000"
-                dslv:float_alpha="0.6"
-                dslv:slide_shuffle_speed="0.3"
-                dslv:track_drag_sort="false"
-                dslv:use_default_controller="true"
-                dslv:drag_handle_id="@+id/applications_pref_dlg_item_drag_handle"
-                dslv:sort_enabled="true"
-                dslv:remove_enabled="false"
-                dslv:drag_start_mode="onMove"
-                dslv:remove_mode="flingRemove" />
+                android:clipToPadding="false" />
 
         </LinearLayout>
 

@@ -13,7 +13,11 @@ import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.View;
@@ -30,7 +34,8 @@ import com.mobeta.android.dslv.DragSortListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApplicationsDialogPreference  extends DialogPreference {
+public class ApplicationsDialogPreference  extends DialogPreference
+                                            implements OnStartDragItemListener {
 
     Context context;
 
@@ -41,11 +46,13 @@ public class ApplicationsDialogPreference  extends DialogPreference {
     private MaterialDialog mDialog;
     private ApplicationEditorDialog mEditorDialog;
 
-    private DragSortListView applicationsListView;
+    private RecyclerView applicationsListView;
+    private ItemTouchHelper itemTouchHelper;
+
     private LinearLayout linlaProgress;
     private RelativeLayout rellaDialog;
 
-    private ApplicationsPreferenceAdapter listAdapter;
+    private ApplicationsDialogPreferenceAdapter listAdapter;
 
     private ImageView packageIcon;
     private RelativeLayout packageIcons;
@@ -63,9 +70,9 @@ public class ApplicationsDialogPreference  extends DialogPreference {
 
         /*
         TypedArray applicationsType = context.obtainStyledAttributes(attrs,
-                R.styleable.ApplicationsDialogPreference, 0, 0);
+                R.styleable.ApplicationsPreference, 0, 0);
 
-        orderHandler = applicationsType.getBoolean(R.styleable.ApplicationsDialogPreference_orderHandler, false);
+        onlyEdit = applicationsType.getInt(R.styleable.ApplicationsPreference_onlyEdit, 0);
 
         applicationsType.recycle();
         */
@@ -100,8 +107,6 @@ public class ApplicationsDialogPreference  extends DialogPreference {
     @Override
     protected void showDialog(Bundle state) {
 
-        PPApplication.logE("ApplicationsDialogPreference.showDialog","xxx");
-
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
                 .icon(getDialogIcon())
@@ -132,6 +137,8 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                                 value = value + "#" + application.shortcutId;
                         }
                     }
+
+                    Log.d("----- ApplicationsDialogPreference.onPositive","value="+value);
                     persistString(value);
 
                     setIcons();
@@ -159,28 +166,25 @@ public class ApplicationsDialogPreference  extends DialogPreference {
 
         AppCompatImageButton addButton = (AppCompatImageButton)layout.findViewById(R.id.applications_pref_dlg_add);
 
-        applicationsListView = (DragSortListView) layout.findViewById(R.id.applications_pref_dlg_listview);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        applicationsListView = (RecyclerView) layout.findViewById(R.id.applications_pref_dlg_listview);
+        applicationsListView.setLayoutManager(layoutManager);
+        applicationsListView.setHasFixedSize(true);
+
         linlaProgress = (LinearLayout)layout.findViewById(R.id.applications_pref_dlg_linla_progress);
         rellaDialog = (RelativeLayout) layout.findViewById(R.id.applications_pref_dlg_rella_dialog);
 
-        listAdapter = new ApplicationsPreferenceAdapter(context, this);
+        listAdapter = new ApplicationsDialogPreferenceAdapter(context, this, this);
+
+        // added touch helper for drag and drop items
+        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(listAdapter, false, false);
+        itemTouchHelper = new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(applicationsListView);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startEditor(-1);
-            }
-        });
-
-        applicationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                startEditor(position);
-            }
-
-        });
-        applicationsListView.setDropListener(new DragSortListView.DropListener() {
-            public void drop(int from, int to) {
-                listAdapter.changeItemOrder(from, to); // swap profiles
+                startEditor(null);
             }
         });
 
@@ -229,6 +233,11 @@ public class ApplicationsDialogPreference  extends DialogPreference {
             }
 
         }.execute();
+    }
+
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        itemTouchHelper.startDrag(viewHolder);
     }
 
     @Override
@@ -402,27 +411,40 @@ public class ApplicationsDialogPreference  extends DialogPreference {
 
         String[] splits = value.split("\\|");
 
-        if (splits.length == 1) {
-            packageIcon.setVisibility(View.VISIBLE);
-            packageIcons.setVisibility(View.GONE);
+        if (!value.isEmpty() && !value.equals("-")) {
+            if (splits.length == 1) {
+                packageIcon.setVisibility(View.VISIBLE);
+                packageIcon1.setImageResource(R.drawable.ic_empty);
+                packageIcon2.setImageResource(R.drawable.ic_empty);
+                packageIcon3.setImageResource(R.drawable.ic_empty);
+                packageIcon4.setImageResource(R.drawable.ic_empty);
+                packageIcons.setVisibility(View.GONE);
 
-            if (!ApplicationsCache.isShortcut(splits[0])) {
-                if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
-                    try {
-                        app = packageManager.getApplicationInfo(splits[0], 0);
-                        if (app != null) {
-                            Drawable icon = packageManager.getApplicationIcon(app);
-                            //CharSequence name = packageManager.getApplicationLabel(app);
-                            packageIcon.setImageDrawable(icon);
-                        } else {
+                if (!ApplicationsCache.isShortcut(splits[0])) {
+                    if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
+                        try {
+                            app = packageManager.getApplicationInfo(splits[0], 0);
+                            if (app != null) {
+                                Drawable icon = packageManager.getApplicationIcon(app);
+                                //CharSequence name = packageManager.getApplicationLabel(app);
+                                packageIcon.setImageDrawable(icon);
+                            } else {
+                                packageIcon.setImageResource(R.drawable.ic_empty);
+                            }
+                        } catch (PackageManager.NameNotFoundException e) {
+                            //e.printStackTrace();
                             packageIcon.setImageResource(R.drawable.ic_empty);
                         }
-                    } catch (PackageManager.NameNotFoundException e) {
-                        //e.printStackTrace();
-                        packageIcon.setImageResource(R.drawable.ic_empty);
+                    } else {
+                        Intent intent = new Intent();
+                        intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
+                        ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                        if (info != null)
+                            packageIcon.setImageDrawable(info.loadIcon(packageManager));
+                        else
+                            packageIcon.setImageResource(R.drawable.ic_empty);
                     }
-                }
-                else {
+                } else {
                     Intent intent = new Intent();
                     intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
                     ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
@@ -431,48 +453,50 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                     else
                         packageIcon.setImageResource(R.drawable.ic_empty);
                 }
-            }
-            else {
-                Intent intent = new Intent();
-                intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
-                ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-                if (info != null)
-                    packageIcon.setImageDrawable(info.loadIcon(packageManager));
-                else
-                    packageIcon.setImageResource(R.drawable.ic_empty);
-            }
-        }
-        else {
-            packageIcon.setVisibility(View.GONE);
-            packageIcons.setVisibility(View.VISIBLE);
-            packageIcon.setImageResource(R.drawable.ic_empty);
+            } else {
+                packageIcons.setVisibility(View.VISIBLE);
+                packageIcon.setVisibility(View.GONE);
+                packageIcon.setImageResource(R.drawable.ic_empty);
 
-            ImageView packIcon = packageIcon1;
-            for (int i = 0; i < 4; i++)
-            {
-                if (i == 0) packIcon = packageIcon1;
-                if (i == 1) packIcon = packageIcon2;
-                if (i == 2) packIcon = packageIcon3;
-                if (i == 3) packIcon = packageIcon4;
-                if (i < splits.length) {
+                ImageView packIcon = packageIcon1;
+                for (int i = 0; i < 4; i++) {
+                    if (i == 0) packIcon = packageIcon1;
+                    if (i == 1) packIcon = packageIcon2;
+                    if (i == 2) packIcon = packageIcon3;
+                    if (i == 3) packIcon = packageIcon4;
+                    if (i < splits.length) {
+                        Log.d("----- ApplicationsDialogPreference.setIcons", "splits[i]=" + splits[i]);
+                        if (!ApplicationsCache.isShortcut(splits[i])) {
+                            Log.d("----- ApplicationsDialogPreference.setIcons", "not shortcut");
+                            if (ApplicationsCache.getActivityName(splits[i]).isEmpty()) {
+                                Log.d("----- ApplicationsDialogPreference.setIcons", "activity name is empty");
+                                try {
+                                    app = packageManager.getApplicationInfo(splits[i], 0);
+                                    if (app != null) {
+                                        Drawable icon = packageManager.getApplicationIcon(app);
+                                        //CharSequence name = packageManager.getApplicationLabel(app);
+                                        packIcon.setImageDrawable(icon);
+                                    } else {
+                                        packIcon.setImageResource(R.drawable.ic_empty);
+                                    }
+                                } catch (PackageManager.NameNotFoundException e) {
+                                    //e.printStackTrace();
+                                    packIcon.setImageResource(R.drawable.ic_empty);
+                                }
+                            } else {
+                                Log.d("----- ApplicationsDialogPreference.setIcons", "activity name is not empty");
+                                Intent intent = new Intent();
+                                intent.setClassName(ApplicationsCache.getPackageName(splits[i]), ApplicationsCache.getActivityName(splits[i]));
+                                ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
 
-                    if (!ApplicationsCache.isShortcut(splits[i])) {
-                        if (ApplicationsCache.getActivityName(splits[i]).isEmpty()) {
-                            try {
-                                app = packageManager.getApplicationInfo(splits[i], 0);
-                                if (app != null) {
-                                    Drawable icon = packageManager.getApplicationIcon(app);
-                                    //CharSequence name = packageManager.getApplicationLabel(app);
-                                    packIcon.setImageDrawable(icon);
+                                if (info != null) {
+                                    packIcon.setImageDrawable(info.loadIcon(packageManager));
                                 } else {
                                     packIcon.setImageResource(R.drawable.ic_empty);
                                 }
-                            } catch (PackageManager.NameNotFoundException e) {
-                                //e.printStackTrace();
-                                packIcon.setImageResource(R.drawable.ic_empty);
                             }
-                        }
-                        else {
+                        } else {
+                            Log.d("----- ApplicationsDialogPreference.setIcons", "shortcut");
                             Intent intent = new Intent();
                             intent.setClassName(ApplicationsCache.getPackageName(splits[i]), ApplicationsCache.getActivityName(splits[i]));
                             ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
@@ -483,26 +507,19 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                                 packIcon.setImageResource(R.drawable.ic_empty);
                             }
                         }
-                    }
-                    else {
-                        Intent intent = new Intent();
-                        intent.setClassName(ApplicationsCache.getPackageName(splits[i]), ApplicationsCache.getActivityName(splits[i]));
-                        ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-
-                        if (info != null) {
-                            packIcon.setImageDrawable(info.loadIcon(packageManager));
-                        } else {
-                            packIcon.setImageResource(R.drawable.ic_empty);
-                        }
-                    }
+                    } else
+                        packIcon.setImageResource(R.drawable.ic_empty);
                 }
-                else
-                    packIcon.setImageResource(R.drawable.ic_empty);
             }
+        }
+        else {
+            packageIcon.setVisibility(View.VISIBLE);
+            packageIcons.setVisibility(View.GONE);
+            packageIcon.setImageResource(R.drawable.ic_empty);
         }
     }
 
-    public void showEditMenu(View view)
+    void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context context = view.getContext();
@@ -513,17 +530,17 @@ public class ApplicationsDialogPreference  extends DialogPreference {
             popup = new PopupMenu(context, view);
         new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
 
-        final int position = (int)view.getTag();
+        final Application application = (Application) view.getTag();
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.applications_pref_dlg_item_menu_edit:
-                        startEditor(position);
+                        startEditor(application);
                         return true;
                     case R.id.applications_pref_dlg_item_menu_delete:
-                        deleteApplication(position);
+                        deleteApplication(application);
                         return true;
                     default:
                         return false;
@@ -531,33 +548,28 @@ public class ApplicationsDialogPreference  extends DialogPreference {
             }
         });
 
-
         popup.show();
     }
 
-    private void startEditor(int position) {
-        Application application = null;
-        if (position > -1)
-            application = applicationsList.get(position);
-        mEditorDialog = new ApplicationEditorDialog(context, this, application, position);
+    void startEditor(Application application) {
+        mEditorDialog = new ApplicationEditorDialog(context, this, application);
         mEditorDialog.show();
     }
 
-    private void deleteApplication(int position) {
-        Application application = applicationsList.get(position);
+    private void deleteApplication(Application application) {
 
         if (application.shortcutId > 0)
             dataWrapper.getDatabaseHandler().deleteShortcut(application.shortcutId);
 
-        applicationsList.remove(position);
+        applicationsList.remove(application);
         listAdapter.notifyDataSetChanged();
     }
 
-    void updateApplication(Application application, int position, int positionInCache) {
+    void updateApplication(Application application, int positionInEditor) {
         List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(false);
         if (cachedApplicationList != null) {
-            int _position = position;
-            Application cachedApplication = cachedApplicationList.get(positionInCache);
+            int _position = applicationsList.indexOf(application);
+            Application cachedApplication = cachedApplicationList.get(positionInEditor);
             Application editedApplication = application;
             if (editedApplication == null) {
                 //Log.d("ApplicationsDialogPreference.updateApplication", "add");
