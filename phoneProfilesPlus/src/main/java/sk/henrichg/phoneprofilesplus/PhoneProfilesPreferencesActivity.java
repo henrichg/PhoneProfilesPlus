@@ -145,7 +145,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         dataWrapper.getActivateProfileHelper().removeNotification();
         dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
         //dataWrapper.getActivateProfileHelper().showNotification(dataWrapper.getActivatedProfileFromDB(), "");
-        dataWrapper.getActivateProfileHelper().updateWidget();
+        dataWrapper.getActivateProfileHelper().updateWidget(true);
         dataWrapper.invalidateDataWrapper();
     }
 

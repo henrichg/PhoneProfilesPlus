@@ -3,14 +3,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/profile_list_item_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingStart="1dp"
     android:paddingEnd="1dp"
     android:paddingLeft="1dp"
     android:paddingRight="1dp"
     android:paddingTop="6dp"
     android:paddingBottom="6dp"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground" >
 
     <LinearLayout 
             android:id="@+id/profile_list_item_buttons_root"

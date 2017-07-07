@@ -1,34 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:dslv="http://schemas.android.com/apk/res-auto"
               android:id="@+id/layout_profiles_list_fragment"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.mobeta.android.dslv.DragSortListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/editor_profiles_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dip"
-        android:drawSelectorOnTop="true"
-        android:choiceMode="singleChoice"
-        android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay"
-        dslv:drag_enabled="true"
-        dslv:collapsed_height="2dp"
-        dslv:drag_scroll_start="0.33"
-        dslv:max_drag_scroll_speed="0.5"
-        dslv:float_background_color="#00000000"
-        dslv:float_alpha="0.6"
-        dslv:slide_shuffle_speed="0.3"
-        dslv:track_drag_sort="false"
-        dslv:use_default_controller="true"
-        dslv:drag_handle_id="@+id/profile_list_drag_handle"
-        dslv:sort_enabled="true"
-        dslv:remove_enabled="false"
-        dslv:drag_start_mode="onMove"
-        dslv:remove_mode="flingRemove" />
+        android:padding="10dp"
+        android:clipToPadding="false" />
 
     <TextView
         android:id="@+id/editor_profiles_list_empty"

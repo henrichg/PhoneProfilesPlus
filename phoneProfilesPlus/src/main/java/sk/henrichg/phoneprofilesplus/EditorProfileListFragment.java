@@ -250,7 +250,7 @@ public class EditorProfileListFragment extends Fragment {
             public void drop(int from, int to) {
                 profileListAdapter.changeItemOrder(from, to); // swap profiles
                 databaseHandler.setProfileOrder(profileList);  // set profiles _porder and write it into db
-                activateProfileHelper.updateWidget();
+                activateProfileHelper.updateWidget(true);
             }
         });
 
@@ -335,7 +335,7 @@ public class EditorProfileListFragment extends Fragment {
 
                 if (defaultProfilesGenerated)
                 {
-                    fragment.activateProfileHelper.updateWidget();
+                    fragment.activateProfileHelper.updateWidget(true);
                     Toast msg = Toast.makeText(fragment.getActivity(),
                             fragment.getResources().getString(R.string.toast_default_profiles_generated),
                             Toast.LENGTH_SHORT);
@@ -532,7 +532,7 @@ public class EditorProfileListFragment extends Fragment {
         Profile _profile = profileListAdapter.getActivatedProfile();
         updateHeader(_profile);
         activateProfileHelper.showNotification(_profile);
-        activateProfileHelper.updateWidget();
+        activateProfileHelper.updateWidget(true);
 
         onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
 
@@ -684,7 +684,7 @@ public class EditorProfileListFragment extends Fragment {
                     //Profile profile = profileListAdapter.getActivatedProfile();
                     updateHeader(null);
                     activateProfileHelper.removeNotification();
-                    activateProfileHelper.updateWidget();
+                    activateProfileHelper.updateWidget(true);
 
                     onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
 

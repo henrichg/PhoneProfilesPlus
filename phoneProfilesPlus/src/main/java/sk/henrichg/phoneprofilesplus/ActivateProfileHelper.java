@@ -2206,7 +2206,7 @@ public class ActivateProfileHelper {
 
     }
 
-    void updateWidget()
+    void updateWidget(boolean alsoEditor)
     {
         if (lockRefresh)
             // no refres widgets
@@ -2240,19 +2240,14 @@ public class ActivateProfileHelper {
         } catch (Exception ignored) {}
 
         // dashclock extension
-        /*Intent intent3 = new Intent();
-        intent3.setAction(DashClockBroadcastReceiver.INTENT_REFRESH_DASHCLOCK);
-        context.sendBroadcast(intent3);*/
         LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.dashClockBroadcastReceiver, new IntentFilter("DashClockBroadcastReceiver"));
         Intent intent3 = new Intent("DashClockBroadcastReceiver");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         // activities
-        /*Intent intent5 = new Intent();
-        intent5.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
-        context.sendBroadcast(intent5);*/
         LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
         Intent intent5 = new Intent("RefreshGUIBroadcastReceiver");
+        intent5.putExtra(RefreshGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
 
         // Samsung edge panel

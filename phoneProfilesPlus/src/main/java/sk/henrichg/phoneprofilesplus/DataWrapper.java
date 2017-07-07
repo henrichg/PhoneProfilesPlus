@@ -484,7 +484,7 @@ public class DataWrapper {
     {
         getActivateProfileHelper().initialize(this, context);
         getActivateProfileHelper().showNotification(profile);
-        getActivateProfileHelper().updateWidget();
+        getActivateProfileHelper().updateWidget(true);
     }
 
     /*
@@ -1226,7 +1226,7 @@ public class DataWrapper {
 
         activatedProfile = getActivatedProfile();
         activateProfileHelper.showNotification(activatedProfile);
-        activateProfileHelper.updateWidget();
+        activateProfileHelper.updateWidget(true);
 
         if ((profile != null) && (!merged)) {
             addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
@@ -1513,7 +1513,7 @@ public class DataWrapper {
         else
         {
             activateProfileHelper.showNotification(profile);
-            activateProfileHelper.updateWidget();
+            activateProfileHelper.updateWidget(true);
 
             // for startActivityForResult
             if (activity != null)

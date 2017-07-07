@@ -950,7 +950,7 @@ public class GrantPermissionActivity extends Activity {
             Profile activatedProfile = dataWrapper.getActivatedProfile();
             if ((activatedProfile == null) || (activatedProfile._id == profile_id))
                 activateProfileHelper.showNotification(profile);
-            activateProfileHelper.updateWidget();
+            activateProfileHelper.updateWidget(true);
 
             /*Intent intent5 = new Intent();
             intent5.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);

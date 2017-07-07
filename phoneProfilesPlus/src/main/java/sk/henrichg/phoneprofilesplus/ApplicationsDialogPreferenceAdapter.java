@@ -18,6 +18,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Collections;
+
 class ApplicationsDialogPreferenceAdapter extends RecyclerView.Adapter<ApplicationsDialogPreferenceViewHolder>
                                             implements ItemTouchHelperAdapter
 {
@@ -77,16 +79,15 @@ class ApplicationsDialogPreferenceAdapter extends RecyclerView.Adapter<Applicati
         Log.d("----- ApplicationsDialogPreferenceAdapter.onItemMove", "fromPosition="+fromPosition);
         Log.d("----- ApplicationsDialogPreferenceAdapter.onItemMove", "toPosition="+toPosition);
 
-        /*
-        //noinspection SuspiciousMethodCalls
-        int plFrom = preference.applicationsList.indexOf(getItem(from));
-        //noinspection SuspiciousMethodCalls
-        int plTo = preference.applicationsList.indexOf(getItem(to));
-        */
-
-        Application application = preference.applicationsList.get(fromPosition);
-        preference.applicationsList.remove(fromPosition);
-        preference.applicationsList.add(toPosition, application);
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(preference.applicationsList, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(preference.applicationsList, i, i - 1);
+            }
+        }
 
         notifyItemMoved(fromPosition, toPosition);
         return true;

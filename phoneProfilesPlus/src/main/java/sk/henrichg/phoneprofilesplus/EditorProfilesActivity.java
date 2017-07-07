@@ -1706,7 +1706,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             Profile activeProfile = fragment.dataWrapper.getActivatedProfile();
             fragment.updateHeader(activeProfile);
             fragment.dataWrapper.getActivateProfileHelper().showNotification(activeProfile);
-            fragment.dataWrapper.getActivateProfileHelper().updateWidget();
+            fragment.dataWrapper.getActivateProfileHelper().updateWidget(true);
 
         }
         redrawProfilePreferences(profile, newProfileMode, predefinedProfileIndex, startTargetHelps);
