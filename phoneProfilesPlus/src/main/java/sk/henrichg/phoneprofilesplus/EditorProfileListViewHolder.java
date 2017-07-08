@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -25,13 +26,17 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
     private Context context;
 
-    EditorProfileListViewHolder(View itemView, EditorProfileListFragment editorFragment, Context context) {
+    EditorProfileListViewHolder(View itemView, EditorProfileListFragment editorFragment, Context context, int filterType) {
         super(itemView);
 
         this.context = context;
         this.editorFragment = editorFragment;
 
-        dragHandle = (ImageView) itemView.findViewById(R.id.profile_list_drag_handle);
+        if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
+            dragHandle = (ImageView) itemView.findViewById(R.id.profile_list_drag_handle);
+        else
+            dragHandle = null;
+
         //listItemRoot = (RelativeLayout)itemView.findViewById(R.id.profile_list_item_root);
         profileName = (TextView)itemView.findViewById(R.id.profile_list_item_profile_name);
         profileIcon = (ImageView)itemView.findViewById(R.id.profile_list_item_profile_icon);
@@ -62,11 +67,11 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         }
 
         String _profileName = editorFragment.dataWrapper.getProfileNameWithManualIndicator(profile,
-                profile._checked &&
+                                    profile._checked &&
                         (!ApplicationPreferences.applicationEditorHeader(context)), true, false);
-
+        Log.d("EditorProfileListViewHolder.bindProfile","_profileName="+_profileName);
         if (profile._showInActivator)
-            _profileName = "[A] " + profileName;
+            _profileName = "[A] " + _profileName;
 
         profileName.setText(_profileName);
 

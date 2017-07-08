@@ -9,7 +9,7 @@ class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     private boolean mAllowSwipe;
     private boolean mLogPressDrag;
 
-    public ItemTouchHelperCallback(ItemTouchHelperAdapter adapter, boolean allowSwipe, boolean longPressDrag) {
+    ItemTouchHelperCallback(ItemTouchHelperAdapter adapter, boolean allowSwipe, boolean longPressDrag) {
         mAdapter = adapter;
         mAllowSwipe = allowSwipe;
         mLogPressDrag = longPressDrag;

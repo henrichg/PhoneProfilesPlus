@@ -11,7 +11,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,17 +40,23 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class EditorProfileListFragment extends Fragment {
+public class EditorProfileListFragment extends Fragment
+                                        implements OnStartDragItemListener {
 
     public DataWrapper dataWrapper;
-    private ActivateProfileHelper activateProfileHelper;
+    ActivateProfileHelper activateProfileHelper;
+    DatabaseHandler databaseHandler;
+
     private List<Profile> profileList;
-    private EditorProfileListAdapter profileListAdapter;
-    private DragSortListView listView;
+
+    private RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
     private Toolbar bottomToolbar;
-    private DatabaseHandler databaseHandler;
+    TextView textViewNoData;
+
+    private EditorProfileListAdapter profileListAdapter;
+    private ItemTouchHelper itemTouchHelper;
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 
@@ -180,14 +189,12 @@ public class EditorProfileListFragment extends Fragment {
     */
         activeProfileName = (TextView)view.findViewById(R.id.activated_profile_name);
         activeProfileIcon = (ImageView)view.findViewById(R.id.activated_profile_icon);
-        listView = (DragSortListView)view.findViewById(R.id.editor_profiles_list);
-        listView.setEmptyView(view.findViewById(R.id.editor_profiles_list_empty));
 
-        /*
-        View footerView =  ((LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-                .inflate(R.layout.editor_list_footer, null, false);
-        listView.addFooterView(footerView, null, false);
-        */
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        listView = (RecyclerView) view.findViewById(R.id.editor_profiles_list);
+        listView.setLayoutManager(layoutManager);
+        listView.setHasFixedSize(true);
+        textViewNoData = (TextView)view.findViewById(R.id.editor_profiles_list_empty);
 
         final Activity activity = getActivity();
         final EditorProfileListFragment fragment = this;
@@ -229,31 +236,6 @@ public class EditorProfileListFragment extends Fragment {
         LinearLayout orderLayout = (LinearLayout)getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
         orderLayout.setVisibility(View.GONE);
         
-        listView.setOnItemClickListener(new OnItemClickListener() {
-
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startProfilePreferencesActivity((Profile)profileListAdapter.getItem(position), 0);
-            }
-
-        });
-
-        listView.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                activateProfile((Profile) profileListAdapter.getItem(position)/*, true*/);
-                return true;
-            }
-
-        });
-
-        listView.setDropListener(new DragSortListView.DropListener() {
-            public void drop(int from, int to) {
-                profileListAdapter.changeItemOrder(from, to); // swap profiles
-                databaseHandler.setProfileOrder(profileList);  // set profiles _porder and write it into db
-                activateProfileHelper.updateWidget(true);
-            }
-        });
-
         if (profileList == null)
         {
             LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this, filterType);
@@ -324,7 +306,13 @@ public class EditorProfileListFragment extends Fragment {
                 // set reference of profile list from dataWrapper
                 fragment.profileList = fragment.dataWrapper.getProfileList();
 
-                fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.dataWrapper, fragment.filterType);
+                fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.dataWrapper, fragment.filterType, fragment);
+
+                // added touch helper for drag and drop items
+                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.profileListAdapter, false, false);
+                fragment.itemTouchHelper = new ItemTouchHelper(callback);
+                fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+
                 fragment.listView.setAdapter(fragment.profileListAdapter);
 
                 // pre profil, ktory je prave aktivny, treba aktualizovat aktivitu
@@ -388,6 +376,11 @@ public class EditorProfileListFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        itemTouchHelper.startDrag(viewHolder);
+    }
+
     public void startProfilePreferencesActivity(Profile profile, int predefinedProfileIndex)
     {
         int editMode;
@@ -396,13 +389,14 @@ public class EditorProfileListFragment extends Fragment {
         {
             // editacia profilu
             int profilePos = profileListAdapter.getItemPosition(profile);
-            listView.setItemChecked(profilePos, true);
+            /*listView.setItemChecked(profilePos, true);
             int last = listView.getLastVisiblePosition();
             int first = listView.getFirstVisiblePosition();
             if ((profilePos <= first) || (profilePos >= last)) {
                 listView.setSelection(profilePos);
                 //listView.smoothScrollToPosition(profilePos);
-            }
+            }*/
+            listView.getLayoutManager().scrollToPosition(profilePos);
 
             boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
             if (startTargetHelps)
@@ -777,25 +771,26 @@ public class EditorProfileListFragment extends Fragment {
     private void setProfileSelection(Profile profile, boolean refreshIcons) {
         if (profileListAdapter != null)
         {
-            int profilePos;
+            int profilePos = 0;
 
             if (profile != null)
                 profilePos = profileListAdapter.getItemPosition(profile);
-            else
-                profilePos = listView.getCheckedItemPosition();
+            //else
+            //    profilePos = listView.getCheckedItemPosition();
 
             profileListAdapter.notifyDataSetChanged(refreshIcons);
 
             if ((!ApplicationPreferences.applicationEditorHeader(dataWrapper.context)) && (profilePos != ListView.INVALID_POSITION))
             {
                 // set profile visible in list
-                listView.setItemChecked(profilePos, true);
+                /*listView.setItemChecked(profilePos, true);
                 int last = listView.getLastVisiblePosition();
                 int first = listView.getFirstVisiblePosition();
                 if ((profilePos <= first) || (profilePos >= last)) {
                     listView.setSelection(profilePos);
                     //listView.smoothScrollToPosition(profilePos);
-                }
+                }*/
+                listView.getLayoutManager().scrollToPosition(profilePos);
             }
         }
 
@@ -807,8 +802,8 @@ public class EditorProfileListFragment extends Fragment {
     public void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition)
     {
         synchronized (PPApplication.refreshEditorProfilesListMutex) {
-            if (listView != null)
-                listView.cancelDrag();
+            /*if (listView != null)
+                listView.cancelDrag();*/
 
             if (profileListAdapter != null) {
                 if ((newProfile) && (profile != null))
