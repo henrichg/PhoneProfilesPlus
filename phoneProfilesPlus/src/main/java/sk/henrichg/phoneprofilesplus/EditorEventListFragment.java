@@ -10,7 +10,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +25,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
@@ -32,14 +36,20 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class EditorEventListFragment extends Fragment {
+public class EditorEventListFragment extends Fragment
+                                        implements OnStartDragItemListener {
 
     public DataWrapper dataWrapper;
+    DatabaseHandler databaseHandler;
+
     private List<Event> eventList;
-    private EditorEventListAdapter eventListAdapter;
-    private DragSortListView listView;
-    private DatabaseHandler databaseHandler;
+
+    private RecyclerView listView;
     private Toolbar bottomToolbar;
+    TextView textViewNoData;
+
+    private EditorEventListAdapter eventListAdapter;
+    private ItemTouchHelper itemTouchHelper;
 
     private WeakReference<LoadEventListAsyncTask> asyncTaskContext;
 
@@ -174,8 +184,11 @@ public class EditorEventListFragment extends Fragment {
         //super.onActivityCreated(savedInstanceState);
 
         // az tu mame layout, tak mozeme ziskat view-y
-        listView = (DragSortListView) view.findViewById(R.id.editor_events_list);
-        listView.setEmptyView(view.findViewById(R.id.editor_events_list_empty));
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        listView = (RecyclerView) view.findViewById(R.id.editor_events_list);
+        listView.setLayoutManager(layoutManager);
+        listView.setHasFixedSize(true);
+        textViewNoData = (TextView)view.findViewById(R.id.editor_events_list_empty);
 
         /*
         View footerView =  ((LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
@@ -217,21 +230,6 @@ public class EditorEventListFragment extends Fragment {
             orderLayout.setVisibility(View.GONE);
         else
             orderLayout.setVisibility(View.VISIBLE);
-
-        listView.setOnItemClickListener(new OnItemClickListener() {
-
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startEventPreferencesActivity((Event) eventListAdapter.getItem(position), 0);
-            }
-
-        });
-
-        listView.setDropListener(new DragSortListView.DropListener() {
-            public void drop(int from, int to) {
-                eventListAdapter.changeItemOrder(from, to); // swap profiles
-                databaseHandler.setEventStartOrder(eventList);  // set events _startOrder and write it into db
-            }
-        });
 
         if (eventList == null)
         {
@@ -292,7 +290,13 @@ public class EditorEventListFragment extends Fragment {
                 // set reference of profile list from dataWrapper
                 fragment.eventList = fragment.dataWrapper.getEventList();
 
-                fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.dataWrapper, fragment.filterType);
+                fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.dataWrapper, fragment.filterType, fragment);
+
+                // added touch helper for drag and drop items
+                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.eventListAdapter, false, false);
+                fragment.itemTouchHelper = new ItemTouchHelper(callback);
+                fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+
                 fragment.listView.setAdapter(fragment.eventListAdapter);
 
             }
@@ -333,6 +337,11 @@ public class EditorEventListFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        itemTouchHelper.startDrag(viewHolder);
+    }
+
     public void startEventPreferencesActivity(Event event, int predefinedEventIndex)
     {
         int editMode;
@@ -341,13 +350,14 @@ public class EditorEventListFragment extends Fragment {
         {
             // editacia udalosti
             int eventPos = eventListAdapter.getItemPosition(event);
-            listView.setItemChecked(eventPos, true);
+            /*listView.setItemChecked(eventPos, true);
             int last = listView.getLastVisiblePosition();
             int first = listView.getFirstVisiblePosition();
             if ((eventPos <= first) || (eventPos >= last)) {
                 listView.setSelection(eventPos);
                 //listView.smoothScrollToPosition(eventPos);
-            }
+            }*/
+            listView.getLayoutManager().scrollToPosition(eventPos);
 
             boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
             if (startTargetHelps)
@@ -566,8 +576,8 @@ public class EditorEventListFragment extends Fragment {
     public void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition)
     {
         synchronized (PPApplication.refreshEditorEventsListMutex) {
-            if (listView != null)
-                listView.cancelDrag();
+            /*if (listView != null)
+                listView.cancelDrag();*/
 
             if (eventListAdapter != null) {
                 if ((newEvent) && (event != null))
@@ -581,25 +591,26 @@ public class EditorEventListFragment extends Fragment {
             }
 
             if (eventListAdapter != null) {
-                int eventPos;
+                int eventPos = 0;
 
                 if (event != null)
                     eventPos = eventListAdapter.getItemPosition(event);
-                else
-                    eventPos = listView.getCheckedItemPosition();
+                /*else
+                    eventPos = listView.getCheckedItemPosition();*/
 
                 eventListAdapter.notifyDataSetChanged(refreshIcons);
 
                 if (setPosition || newEvent) {
                     if (eventPos != ListView.INVALID_POSITION) {
                         // set event visible in list
-                        listView.setItemChecked(eventPos, true);
+                        /*listView.setItemChecked(eventPos, true);
                         int last = listView.getLastVisiblePosition();
                         int first = listView.getFirstVisiblePosition();
                         if ((eventPos <= first) || (eventPos >= last)) {
                             listView.setSelection(eventPos);
                             //listView.smoothScrollToPosition(profilePos);
-                        }
+                        }*/
+                        listView.getLayoutManager().scrollToPosition(eventPos);
                     }
                 }
 

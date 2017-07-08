@@ -7,7 +7,11 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.support.v4.view.MotionEventCompat;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -20,9 +24,11 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 
+import java.util.Collections;
 import java.util.List;
 
-class EditorEventListAdapter extends BaseAdapter
+class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHolder>
+                                 implements ItemTouchHelperAdapter
 {
 
     private EditorEventListFragment fragment;
@@ -32,16 +38,61 @@ class EditorEventListAdapter extends BaseAdapter
     boolean released = false;
     //private int defaultColor;
 
+    private final OnStartDragItemListener mDragStartListener;
+
     public boolean targetHelpsSequenceStarted;
     static final String PREF_START_TARGET_HELPS = "editor_event_list_adapter_start_target_helps";
     static final String PREF_START_TARGET_HELPS_ORDER = "editor_event_list_adapter_start_target_helps_order";
 
-    EditorEventListAdapter(EditorEventListFragment f, DataWrapper pdw, int filterType)
+    EditorEventListAdapter(EditorEventListFragment f, DataWrapper pdw, int filterType,
+                           OnStartDragItemListener dragStartListener)
     {
         fragment = f;
         dataWrapper = pdw;
         eventList = dataWrapper.getEventList();
         this.filterType = filterType;
+        this.mDragStartListener = dragStartListener;
+    }
+
+    @Override
+    public EditorEventListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
+        if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
+            if (ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity()))
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.editor_event_list_item_with_order, parent, false);
+            else
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.editor_event_list_item_no_indicator_with_order, parent, false);
+        }
+        else {
+            if (ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity()))
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.editor_event_list_item, parent, false);
+            else
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.editor_event_list_item_no_indicator, parent, false);
+        }
+
+        return new EditorEventListViewHolder(view, fragment, fragment.getActivity(), filterType);
+    }
+
+    @Override
+    public void onBindViewHolder(final EditorEventListViewHolder holder, int position) {
+        Event event = getItem(position);
+        holder.bindEvent(event);
+
+        if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
+            holder.dragHandle.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                        mDragStartListener.onStartDrag(holder);
+                    }
+                    return false;
+                }
+            });
+        }
     }
 
     public void release()
@@ -53,8 +104,11 @@ class EditorEventListAdapter extends BaseAdapter
         dataWrapper = null;
     }
 
-    public int getCount()
-    {
+    @Override
+    public int getItemCount() {
+        fragment.textViewNoData.setVisibility(
+                ((eventList != null) && (eventList.size() > 0)) ? View.GONE : View.VISIBLE);
+
         if (eventList == null)
             return 0;
 
@@ -84,13 +138,12 @@ class EditorEventListAdapter extends BaseAdapter
         return count;
     }
 
-    public Object getItem(int position)
+    public Event getItem(int position)
     {
-        if (getCount() == 0)
+        if (getItemCount() == 0)
             return null;
         else
         {
-
             if ((filterType == EditorEventListFragment.FILTER_TYPE_ALL) ||
                     (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER))
                 return eventList.get(position);
@@ -124,24 +177,6 @@ class EditorEventListAdapter extends BaseAdapter
 
             return _event;
         }
-    }
-
-    public long getItemId(int position)
-    {
-        return position;
-    }
-
-    public int getItemId(Event event)
-    {
-        if (eventList == null)
-            return -1;
-
-        for (int i = 0; i < eventList.size(); i++)
-        {
-            if (eventList.get(i)._id == event._id)
-                return i;
-        }
-        return -1;
     }
 
     int getItemPosition(Event event)
@@ -206,14 +241,6 @@ class EditorEventListAdapter extends BaseAdapter
         eventList.remove(event);
     }
 
-    /*
-    public void deleteItem(Event event)
-    {
-        deleteItemNoNotify(event);
-        notifyDataSetChanged();
-    }
-    */
-
     public void clear()
     {
         if (eventList == null)
@@ -235,328 +262,38 @@ class EditorEventListAdapter extends BaseAdapter
         notifyDataSetChanged();
     }
 
-    void changeItemOrder(int from, int to)
-    {
-        if (eventList == null)
-            return;
-
-        // convert positions from adapter into eventList
-        int plFrom = eventList.indexOf(getItem(from));
-        int plTo = eventList.indexOf(getItem(to));
-
-        Event event = eventList.get(plFrom);
-        eventList.remove(plFrom);
-        eventList.add(plTo, event);
-        notifyDataSetChanged();
+    @Override
+    public void onItemDismiss(int position) {
+        eventList.remove(position);
+        notifyItemRemoved(position);
     }
 
-    static class ViewHolder {
-          RelativeLayout listItemRoot;
-          TextView eventName;
-          TextView eventPreferencesDescription;
-          ImageView eventStatus;
-          ImageView profileStartIcon;
-          TextView profileStartName;
-          ImageView profileStartIndicator;
-          ImageView profileEndIcon;
-          TextView profileEndName;
-          ImageView profileEndIndicator;
-          ImageView eventItemEditMenu;
-          int position;
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        if (eventList == null)
+            return false;
+
+        Log.d("----- EditorEventListAdapter.onItemMove", "fromPosition="+fromPosition);
+        Log.d("----- EditorEventListAdapter.onItemMove", "toPosition="+toPosition);
+
+        // convert positions from adapter into profileList
+        int plFrom = eventList.indexOf(getItem(fromPosition));
+        int plTo = eventList.indexOf(getItem(toPosition));
+
+        if (plFrom < plTo) {
+            for (int i = plFrom; i < plTo; i++) {
+                Collections.swap(eventList, i, i + 1);
+            }
+        } else {
+            for (int i = plFrom; i > plTo; i--) {
+                Collections.swap(eventList, i, i - 1);
+            }
         }
 
-    @SuppressLint("SimpleDateFormat")
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
-        ViewHolder holder;
+        fragment.databaseHandler.setEventStartOrder(eventList);  // set events _startOrder and write it into db
 
-        View vi = convertView;
-        if (convertView == null)
-        {
-            LayoutInflater inflater = LayoutInflater.from(fragment.getActivity());
-            if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
-                if (ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity()))
-                    vi = inflater.inflate(R.layout.editor_event_list_item_with_order, parent, false);
-                else
-                    vi = inflater.inflate(R.layout.editor_event_list_item_no_indicator_with_order, parent, false);
-            }
-            else {
-                if (ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity()))
-                    vi = inflater.inflate(R.layout.editor_event_list_item, parent, false);
-                else
-                    vi = inflater.inflate(R.layout.editor_event_list_item_no_indicator, parent, false);
-            }
-            holder = new ViewHolder();
-            holder.listItemRoot = (RelativeLayout)vi.findViewById(R.id.event_list_item_root);
-            holder.eventName = (TextView) vi.findViewById(R.id.event_list_item_event_name);
-            holder.eventStatus = (ImageView)vi.findViewById(R.id.event_list_item_status);
-            holder.eventItemEditMenu = (ImageView)vi.findViewById(R.id.event_list_item_edit_menu);
-            holder.profileStartName = (TextView)vi.findViewById(R.id.event_list_item_profile_start_name);
-            holder.profileStartIcon = (ImageView)vi.findViewById(R.id.event_list_item_profile_start_icon);
-            holder.profileEndName = (TextView)vi.findViewById(R.id.event_list_item_profile_end_name);
-            holder.profileEndIcon = (ImageView)vi.findViewById(R.id.event_list_item_profile_end_icon);
-            if (ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity()))
-            {
-                holder.eventPreferencesDescription  = (TextView)vi.findViewById(R.id.event_list_item_preferences_description);
-                //holder.eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
-                holder.profileStartIndicator = (ImageView)vi.findViewById(R.id.event_list_item_profile_start_pref_indicator);
-                holder.profileEndIndicator = (ImageView)vi.findViewById(R.id.event_list_item_profile_end_pref_indicator);
-            }
-            vi.setTag(holder);
-            //defaultColor = holder.eventName.getTextColors().getDefaultColor();
-        }
-        else
-        {
-            holder = (ViewHolder)vi.getTag();
-        }
-        
-
-        final Event event = (Event)getItem(position);
-        if (event != null)
-        {
-            int eventStatus = event.getStatusFromDB(dataWrapper);
-
-            boolean isRunnable = event.isRunnable(dataWrapper.context);
-            int statusRes = R.drawable.ic_event_status_stop_not_runnable;
-            switch (eventStatus)
-            {
-                case Event.ESTATUS_RUNNING:
-                    if (event._isInDelayEnd)
-                        statusRes = R.drawable.ic_event_status_running_delay;
-                    else
-                        statusRes = R.drawable.ic_event_status_running;
-                    break;
-                case Event.ESTATUS_PAUSE:
-                    if (event._isInDelayStart)
-                        statusRes = R.drawable.ic_event_status_pause_delay;
-                    else
-                        statusRes = R.drawable.ic_event_status_pause;
-                    break;
-                case Event.ESTATUS_STOP:
-                    if (isRunnable)
-                        statusRes = R.drawable.ic_event_status_stop;
-                    else
-                        statusRes = R.drawable.ic_event_status_stop_not_runnable;
-                    break;
-            }
-            holder.eventStatus.setImageResource(statusRes);
-
-            if (eventStatus == Event.ESTATUS_RUNNING) {
-                holder.eventName.setTypeface(null, Typeface.BOLD);
-                holder.eventName.setTextSize(16);
-                holder.eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
-            }
-            else
-            if (!isRunnable) {
-                holder.eventName.setTypeface(null, Typeface.NORMAL);
-                holder.eventName.setTextSize(15);
-                holder.eventName.setTextColor(Color.RED);
-            }
-            else {
-                holder.eventName.setTypeface(null, Typeface.NORMAL);
-                holder.eventName.setTextSize(15);
-                holder.eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(fragment.getActivity()));
-            }
-
-            String eventName = event._name;
-            String eventStartOrder = "[O:" + event._startOrder + "] ";
-            if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
-                eventStartOrder = "";
-            String eventPriority = "";
-            if (ApplicationPreferences.applicationEventUsePriority(fragment.getActivity()))
-                eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
-            //else
-            //    eventPriority = "[P:" + "5" + "] ";
-            if (event._forceRun) {
-                eventName = eventStartOrder + eventPriority + "[\u00BB] " + eventName;
-            } else
-                eventName = eventStartOrder + eventPriority + eventName;
-            if (event._fkProfileStartWhenActivated > 0) {
-                Profile profile =  dataWrapper.getProfileById(event._fkProfileStartWhenActivated, false);
-                if (profile != null)
-                    eventName = eventName + "\n" + "[#] " + profile._name;
-            }
-            if (!isRunnable)
-                eventName = eventName + "\n\n" + vi.getResources().getString(R.string.event_preferences_error);
-            holder.eventName.setText(eventName);
-
-            if (ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity()))
-            {
-                if (holder.eventPreferencesDescription != null) {
-                    String eventPrefDescription = event.getPreferencesDescription(vi.getContext());
-                    holder.eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription));
-                }
-            }
-
-            // profile start
-            Profile profile =  dataWrapper.getProfileById(event._fkProfileStart, false);
-            if (profile != null)
-            {
-                String profileName = profile._name;
-                if (event._manualProfileActivation)
-                    profileName = "[M] " + profileName;
-                if (event._delayStart > 0)
-                    profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayStart) + "] " + profileName;
-                holder.profileStartName.setText(profileName);
-                if (profile.getIsIconResourceID())
-                {
-                    if (profile._iconBitmap != null)
-                        holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
-                    else {
-                        //holder.profileStartIcon.setImageBitmap(null);
-                        int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                                vi.getContext().getPackageName());
-                        holder.profileStartIcon.setImageResource(res); // resource na ikonu
-                    }
-                }
-                else
-                {
-                    holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
-                }
-
-                if (ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity()))
-                {
-                    //profilePrefIndicatorImageView.setImageBitmap(null);
-                    //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
-                    //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                    if (holder.profileStartIndicator != null)
-                        holder.profileStartIndicator.setImageBitmap(profile._preferencesIndicator);
-                }
-            }
-            else
-            {
-                holder.profileStartName.setText(R.string.profile_preference_profile_not_set);
-                holder.profileStartIcon.setImageResource(R.drawable.ic_profile_default);
-                if (ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity()))
-                {
-                    //profilePrefIndicatorImageView.setImageBitmap(null);
-                    //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
-                    //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                    if (holder.profileStartIndicator != null)
-                        holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
-                }
-            }
-
-            // profile end
-            if (event._manualProfileActivation) {
-                holder.profileEndIcon.setVisibility(View.GONE);
-                holder.profileEndName.setVisibility(View.GONE);
-                if (holder.profileEndIndicator != null)
-                    holder.profileEndIndicator.setVisibility(View.GONE);
-            }
-            else {
-                holder.profileEndIcon.setVisibility(View.VISIBLE);
-                holder.profileEndName.setVisibility(View.VISIBLE);
-                if (holder.profileEndIndicator != null)
-                    holder.profileEndIndicator.setVisibility(View.VISIBLE);
-
-                profile = dataWrapper.getProfileById(event._fkProfileEnd, false);
-                if (profile != null) {
-                    String profileName = profile._name;
-                    if (event._delayEnd > 0)
-                        profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] " + profileName;
-                    if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                        profileName = profileName + " + " + vi.getResources().getString(R.string.event_prefernce_profile_undone);
-                    else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
-                        profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
-                    holder.profileEndName.setText(profileName);
-                    if (profile.getIsIconResourceID()) {
-                        if (profile._iconBitmap != null)
-                            holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
-                        else {
-                            //holder.profileEndIcon.setImageBitmap(null);
-                            int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                                    vi.getContext().getPackageName());
-                            holder.profileEndIcon.setImageResource(res); // resource na ikonu
-                        }
-                    } else {
-                        holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
-                    }
-
-                    if (ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity())) {
-                        //profilePrefIndicatorImageView.setImageBitmap(null);
-                        //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
-                        //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                        if (holder.profileEndIndicator != null)
-                            holder.profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
-                    }
-                } else {
-                    String profileName = "";
-                    if (event._delayEnd > 0)
-                        profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] ";
-                    if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                        profileName = profileName + vi.getResources().getString(R.string.event_prefernce_profile_undone);
-                    else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
-                        profileName = profileName + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
-                    else {
-                        if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
-                            profileName = profileName + vi.getResources().getString(R.string.profile_preference_profile_end_no_activate);
-                        else
-                            profileName = profileName + vi.getResources().getString(R.string.profile_preference_profile_not_set);
-                    }
-                    holder.profileEndName.setText(profileName);
-                    holder.profileEndIcon.setImageResource(R.drawable.ic_empty);
-                    if (ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity())) {
-                        //profilePrefIndicatorImageView.setImageBitmap(null);
-                        //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
-                        //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                        if (holder.profileEndIndicator != null)
-                            //holder.profileEndIndicator.setImageResource(R.drawable.ic_empty);
-                            holder.profileEndIndicator.setVisibility(View.GONE);
-                    }
-                }
-            }
-
-            holder.eventItemEditMenu.setTag(event);
-            final ImageView eventItemEditMenu = holder.eventItemEditMenu;
-            holder.eventItemEditMenu.setOnClickListener(new OnClickListener() {
-
-                    public void onClick(View v) {
-                        fragment.showEditMenu(eventItemEditMenu);
-                    }
-                });
-
-            final ImageView _eventStatus = holder.eventStatus;
-            holder.eventStatus.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    EventStatusPopupWindow popup = new EventStatusPopupWindow(fragment, event);
-
-                    View contentView = popup.getContentView();
-                    contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                    int measuredW = contentView.getMeasuredWidth();
-                    int measuredH = contentView.getMeasuredHeight();
-                    //Log.d("EditorEventListAdapter.eventsRunStopIndicator.onClick","measuredW="+measuredW);
-                    //Log.d("EditorEventListAdapter.eventsRunStopIndicator.onClick","measuredH="+measuredH);
-
-                    Point screenSize = GlobalGUIRoutines.getRealScreenSize(fragment.getActivity());
-
-                    int[] location = new int[2];
-                    _eventStatus.getLocationOnScreen(location);
-                    int x = 0;
-                    int y = 0;
-
-                    int statusBarHeight = (int) (24 * fragment.getResources().getDisplayMetrics().density + 0.5f);
-
-                    if ((location[0] + measuredW) > screenSize.x)
-                        x = -(location[0]
-                                - (screenSize.x - measuredW));
-
-                    if ((location[1] + _eventStatus.getHeight() + measuredH) > screenSize.y)
-                        y = -(location[1] - _eventStatus.getHeight()
-                                - (screenSize.y - measuredH)
-                                + GlobalGUIRoutines.getNavigationBarSize(fragment.getActivity()).y
-                                + statusBarHeight);
-
-                    popup.setClippingEnabled(false);
-                    popup.showOnAnchor(_eventStatus, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
-                            RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y);
-                }
-            });
-
-        }
-        
-        return vi;
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
     }
 
     void showTargetHelps(Activity activity, EditorEventListFragment fragment, View listItemView) {

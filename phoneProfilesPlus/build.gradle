@@ -47,7 +47,6 @@ android {
 }
 
 dependencies {
-    compile project(':dragSortListView')
     compile project(':RootShell')
     compile project(':RootTools')
     compile project(':QuickScroll')
