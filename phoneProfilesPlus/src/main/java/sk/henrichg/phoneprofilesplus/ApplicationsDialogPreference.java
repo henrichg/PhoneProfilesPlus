@@ -29,7 +29,6 @@ import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.mobeta.android.dslv.DragSortListView;
 
 import java.util.ArrayList;
 import java.util.List;
