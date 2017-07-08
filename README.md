@@ -14,7 +14,7 @@ Android application - manualy and event triggered change of device settings like
 Required external libs
 ----------------------
 
-- Android support library: core, appcomapt, gridlayout, cardview
+- Android support library: core, appcomapt, gridlayout, cardview, recyclerview
 - Google Play services library (GMS): location, maps
 - RootTools - https://github.com/Stericson/RootTools
 - DashClock API - https://github.com/romannurik/dashclock/wiki/API
