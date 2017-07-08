@@ -29,7 +29,6 @@ import android.widget.TextView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.mobeta.android.dslv.DragSortListView;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
