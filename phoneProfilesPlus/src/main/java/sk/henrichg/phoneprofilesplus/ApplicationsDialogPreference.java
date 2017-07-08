@@ -168,7 +168,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         applicationsListView = (RecyclerView) layout.findViewById(R.id.applications_pref_dlg_listview);
-        applicationsListView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        //applicationsListView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         applicationsListView.setLayoutManager(layoutManager);
         applicationsListView.setHasFixedSize(true);
 
