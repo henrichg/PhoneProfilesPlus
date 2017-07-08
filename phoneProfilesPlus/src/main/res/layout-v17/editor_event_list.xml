@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dip"
-        android:clipToPadding="false" />
+        android:scrollbars="vertical" />
 
     <TextView
         android:id="@+id/editor_events_list_empty"

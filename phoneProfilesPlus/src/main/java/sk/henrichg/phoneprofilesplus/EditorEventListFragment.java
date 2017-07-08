@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -185,6 +186,7 @@ public class EditorEventListFragment extends Fragment
         // az tu mame layout, tak mozeme ziskat view-y
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listView = (RecyclerView) view.findViewById(R.id.editor_events_list);
+        listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
         textViewNoData = (TextView)view.findViewById(R.id.editor_events_list_empty);

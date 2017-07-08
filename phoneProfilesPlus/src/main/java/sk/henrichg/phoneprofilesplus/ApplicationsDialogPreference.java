@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -167,6 +168,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         applicationsListView = (RecyclerView) layout.findViewById(R.id.applications_pref_dlg_listview);
+        applicationsListView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         applicationsListView.setLayoutManager(layoutManager);
         applicationsListView.setHasFixedSize(true);
 

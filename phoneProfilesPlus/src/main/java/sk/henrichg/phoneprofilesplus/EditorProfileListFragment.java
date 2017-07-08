@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -191,6 +192,7 @@ public class EditorProfileListFragment extends Fragment
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listView = (RecyclerView) view.findViewById(R.id.editor_profiles_list);
+        listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
         textViewNoData = (TextView)view.findViewById(R.id.editor_profiles_list_empty);
