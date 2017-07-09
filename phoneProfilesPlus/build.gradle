@@ -19,14 +19,14 @@ android {
             targetCompatibility JavaVersion.VERSION_1_7
         }
 
-        resConfigs "en", "ca", "cs", "de", "es", "fa", "fr", "hu", "it", "iw", "ja", "ko", "nl",
-                   "pl", "pt-rBR", "pt-rPT", "ro", "ru", "sk", "sv", "te", "tr", "uk", "zh-rTW"
+        resConfigs "en", "ca", "cs", "de", "el", "es", "fa", "fr", "hu", "it", "iw", "ja", "ko", "nl",
+                   "pl", "pt-rBR", "pt-rPT", "ro", "ru", "sk", "sv", "te", "tr", "uk", "zh-rCN", "zh-rTW"
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             // Disable fabric build ID generation for debug builds
