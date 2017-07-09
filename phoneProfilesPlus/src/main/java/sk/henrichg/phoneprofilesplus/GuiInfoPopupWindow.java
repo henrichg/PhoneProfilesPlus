@@ -39,19 +39,17 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
     public void showOnAnchor(@NonNull View anchor, int vertPos, int horizPos, int x, int y) {
         super.showOnAnchor(anchor, vertPos, horizPos, x, y);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            try {
-                circularReveal(anchor);
-            } catch (Exception ignored) {}
+            circularReveal(anchor);
         }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void circularReveal(@NonNull final View anchor) {
         final View contentView = getContentView();
-        if (ViewCompat.isAttachedToWindow(anchor)) {
-            contentView.post(new Runnable() {
-                @Override
-                public void run() {
+        contentView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (ViewCompat.isAttachedToWindow(anchor)) {
                     final int[] myLocation = new int[2];
                     final int[] anchorLocation = new int[2];
                     contentView.getLocationOnScreen(myLocation);
@@ -67,8 +65,8 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
                     animator.setDuration(500);
                     animator.start();
                 }
-            });
-        }
+            }
+        });
     }
 
 }
