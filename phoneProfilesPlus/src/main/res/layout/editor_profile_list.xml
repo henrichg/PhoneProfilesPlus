@@ -75,7 +75,10 @@
             android:id="@+id/editor_profiles_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:scrollbars="vertical"
             android:scrollbarStyle="outsideOverlay" />
 
