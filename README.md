@@ -19,9 +19,10 @@ Required external libs
 - RootTools - https://github.com/Stericson/RootTools
 - DashClock API - https://github.com/romannurik/dashclock/wiki/API
 - SystemBarTint - https://github.com/jgilfelt/SystemBarTint
-- GSon - https://code.google.com/p/google-gson/
-- Material Dialogs - https://github.com/afollestad/material-dialogs
+- google-gson - https://code.google.com/p/google-gson/
+- material-dialogs - https://github.com/afollestad/material-dialogs
 - input-mask-android - https://github.com/RedMadRobot/input-mask-android
 - RelativePopupWindow - https://github.com/kakajika/RelativePopupWindow
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
-- Crashlytics - https://fabric.io/kits/android/crashlytics
+- crashlytics - https://fabric.io/kits/android/crashlytics
+- quickscroll - https://github.com/andraskindler/quickscroll
