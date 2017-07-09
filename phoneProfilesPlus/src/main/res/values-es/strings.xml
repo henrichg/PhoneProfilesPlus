@@ -578,7 +578,7 @@
   <string name="important_info_profile_activation_text2">1. manual activation - activated in Activator, Editor, notification, widget, shortcut. Manually activated profile is indicated with \"[M]\" in front of the profile name.</string>
   <string name="important_info_profile_activation_text3">2. activación evento - activada por evento.</string>
   <string name="important_info_profile_activation_text4">La activación manual pausa todos los eventos y éstos nunca serán iniciados. Debes Reiniciar los eventos para hacer que se inicien.</string>
-  <string name="important_info_profile_activation_text5">Exceptions to this rule is if the event has set preference \"Ignore manual activation\".</string>
+  <string name="important_info_profile_activation_text5">Exception to this rule is if the event has set preference \"Ignore manual activation\".</string>
   <string name="important_info_profile_activation_text6">Reiniciar eventos puede ser invocado desde Activador, Editor y Notificación.</string>
   <string name="important_info_profile_activation_text8">En el título del activador y del Editor es un \"semáforo\".</string>
   <string name="important_info_profile_activation_text9">- color verde: los eventos pueden ser iniciados.</string>
@@ -597,7 +597,7 @@
   <string name="event_preferences_calendar_ignore_all_day_events">Ignorar eventos \"Todo el día\"</string>
   <string name="important_info_default_profile">When not any event is running, activated is \"Default profile\", when is configured. You can configure default profile in application settings in \"Profile activation\". Click here, to configure it.</string>
   <string name="info_notification_unlink_ringer_notification_volumes2">If your device has not separated volume for ringer and notifications, keep enabled volumes separation.</string>
-  <string name="important_info_how_does_volume_separation_work">How \"volume separation\" works: Profile activation adjust the device volume by profile notifications volume level. When call ringing is detected, ringing volume level from profile is adjusted. After end of call, notification volume level from profile is back adjusted.</string>
+  <string name="important_info_how_does_volume_separation_work">How \"volume separation\" works: Profile activation adjust the device volume by profile notifications volume level. When call ringing is detected, ringing volume level from profile is adjusted. At the end of the call, the notification volume level from profile is restored.</string>
   <string name="event_type_locations">Localización</string>
   <string name="event_preferences_category_eventLocationsParameters">Parámetros de localización</string>
   <string name="event_preferences_locations_location">Localización</string>

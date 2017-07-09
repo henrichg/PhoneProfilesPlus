@@ -176,14 +176,14 @@
   <string name="event_preferences_time_timeDays">Haftanın günleri</string>
   <string name="event_preferences_time_startTime">Başlangıç zamanı</string>
   <string name="event_preferences_time_endTime">Bitiş zamanı</string>
-  <string name="array_pref_event_all">Tam hafta</string>
+  <string name="array_pref_event_all">Tamamı</string>
   <string name="editor_drawer_open">Düzenleyici ekranınını aç</string>
   <string name="editor_drawer_title_profiles">Profiller</string>
   <string name="editor_drawer_title_events">Durumlar</string>
   <string name="editor_drawer_list_item_profiles_all">Tamamı</string>
   <string name="editor_drawer_list_item_profiles_show_in_activator">Başlatıcı içinde görünen</string>
   <string name="editor_drawer_list_item_profiles_no_show_in_activator">Başlatıcı içinde görünmeyen</string>
-  <string name="editor_drawer_list_item_events_all">Tam hafta</string>
+  <string name="editor_drawer_list_item_events_all">Tamamı</string>
   <string name="editor_drawer_list_item_events_running">Çalışan</string>
   <string name="editor_drawer_list_item_events_paused">Fasılada</string>
   <string name="editor_drawer_list_item_events_stopped">Durduruldu</string>

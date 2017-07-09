@@ -82,6 +82,7 @@
     <item>@string/phone_profiles_pref_applicationLanguage_te</item>
     <item>@string/phone_profiles_pref_applicationLanguage_tr</item>
     <item>@string/phone_profiles_pref_applicationLanguage_uk</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_zh_CN</item>
     <item>@string/phone_profiles_pref_applicationLanguage_zh_TW</item>
 </string-array>
 <string-array name="languageValues">
@@ -110,6 +111,7 @@
     <item>@string/array_pref_value_te</item>
     <item>@string/array_pref_value_tr</item>
     <item>@string/array_pref_value_uk</item>
+    <item>@string/array_pref_value_zh_CN</item>
     <item>@string/array_pref_value_zh_TW</item>
 </string-array>
 <string-array name="notificationIconStyleArray">

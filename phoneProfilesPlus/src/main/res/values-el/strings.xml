@@ -450,7 +450,7 @@
   <string name="important_info_profile_root">Some profile preferences requires ROOT privileges. These preferences are marked with \"(R)\".</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Start only when activ. profile</string>
   <string name="profile_preference_do_not_apply">Να μην εφαρμοστεί</string>
-  <string name="pref_dlg_info_about_wildcards_1">You can use wildcards: \"%\"=some characters, \"_\"=some one character.</string>
+  <string name="pref_dlg_info_about_wildcards_1">You can use wildcards: \"%\"=multiple characters, \"_\"=one character.</string>
   <string name="pref_dlg_info_about_wildcards_2">Αν έχετε «%» ή «_»</string>
   <string name="wifi_ssid_pref_dlg_info_about_wildcards">στο όνομα SSID,</string>
   <string name="bluetooth_name_pref_dlg_info_about_wildcards">στο όνομα bluetooth,</string>
@@ -566,7 +566,7 @@
   <string name="phone_profiles_pref_applicationLanguage_tr">Türk</string>
   <string name="array_pref_value_tr">tr</string>
   <string name="accessibility_service_name">PhoneProfilesPlus</string>
-  <string name="accessibility_service_description">Allow PhoneProfilesPlus detect what application is in the foreground. This is necessary for events with enabled \"Applications parameters\".</string>
+  <string name="accessibility_service_description">Allow PhoneProfilesPlus to detect which application is in the foreground. This is necessary for events with \"Applications parameters\" enabled.</string>
   <string name="event_type_applications">Applications</string>
   <string name="event_preferences_category_eventApplicationsParameters">Applications parameters</string>
   <string name="event_preferences_applications_applications">Applications</string>
@@ -578,7 +578,7 @@
   <string name="important_info_profile_activation_text2">1. manual activation - activated in Activator, Editor, notification, widget, shortcut. Manually activated profile is indicated with \"[M]\" in front of the profile name.</string>
   <string name="important_info_profile_activation_text3">2. event activation - activated by event.</string>
   <string name="important_info_profile_activation_text4">Manual activation pauses all events and events will be never started. You must Restart events to resume the events start.</string>
-  <string name="important_info_profile_activation_text5">Exceptions to this rule is if the event has set preference \"Ignore manual activation\".</string>
+  <string name="important_info_profile_activation_text5">Exception to this rule is if the event has set preference \"Ignore manual activation\".</string>
   <string name="important_info_profile_activation_text6">Restart events can be invoked from Activator, Editor and notification.</string>
   <string name="important_info_profile_activation_text8">In title of Activator and Editor is \"traffic light\".</string>
   <string name="important_info_profile_activation_text9">- green color: events can be started.</string>
@@ -597,7 +597,7 @@
   <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>
   <string name="important_info_default_profile">When not any event is running, activated is \"Default profile\", when is configured. You can configure default profile in application settings in \"Profile activation\". Click here, to configure it.</string>
   <string name="info_notification_unlink_ringer_notification_volumes2">If your device has not separated volume for ringer and notifications, keep enabled volumes separation.</string>
-  <string name="important_info_how_does_volume_separation_work">How \"volume separation\" works: Profile activation adjust the device volume by profile notifications volume level. When call ringing is detected, ringing volume level from profile is adjusted. After end of call, notification volume level from profile is back adjusted.</string>
+  <string name="important_info_how_does_volume_separation_work">How \"volume separation\" works: Profile activation adjust the device volume by profile notifications volume level. When call ringing is detected, ringing volume level from profile is adjusted. At the end of the call, the notification volume level from profile is restored.</string>
   <string name="event_type_locations">Location</string>
   <string name="event_preferences_category_eventLocationsParameters">Location parameters</string>
   <string name="event_preferences_locations_location">Location</string>
