@@ -36,22 +36,29 @@ class WifiScanJob extends Job {
         if (!shortInterval) {
             JobManager jobManager = JobManager.instance();
             jobManager.cancelAllForTag(JOB_TAG_SHORT);
-            int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
-            PPApplication.logE("WifiScanJob.scheduleJob", "requestsForTagSize="+requestsForTagSize);
-            if (requestsForTagSize == 0) {
-                jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-                int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
-                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
-                if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("1"))
-                    interval = 2 * interval;
-                if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL)
-                    jobBuilder.setPeriodic(JobRequest.MIN_INTERVAL);
-                else
-                    jobBuilder.setPeriodic(TimeUnit.MINUTES.toMillis(interval));
+            int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
+            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
+            if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("1"))
+                interval = 2 * interval;
+
+            jobBuilder = new JobRequest.Builder(JOB_TAG);
+
+            if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL) {
+                jobManager.cancelAllForTag(JOB_TAG);
+                jobBuilder.setExact(TimeUnit.MINUTES.toMillis(interval));
             }
-            else
-                return;
+            else {
+                int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+                PPApplication.logE("WifiScanJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
+                if (requestsForTagSize == 0) {
+                    if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL)
+                        jobBuilder.setPeriodic(JobRequest.MIN_INTERVAL);
+                    else
+                        jobBuilder.setPeriodic(TimeUnit.MINUTES.toMillis(interval));
+                } else
+                    return;
+            }
         }
         else {
             cancelJob();
