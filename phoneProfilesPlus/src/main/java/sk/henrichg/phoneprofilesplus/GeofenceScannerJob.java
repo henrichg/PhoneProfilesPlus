@@ -57,7 +57,7 @@ class GeofenceScannerJob extends Job {
 
                 if (TimeUnit.SECONDS.toMillis(interval) < JobRequest.MIN_INTERVAL) {
                     jobManager.cancelAllForTag(JOB_TAG);
-                    jobBuilder.setExact(TimeUnit.MINUTES.toMillis(interval));
+                    jobBuilder.setExact(TimeUnit.SECONDS.toMillis(interval));
                 } else {
                     int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
                     PPApplication.logE("GeofenceScannerJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
