@@ -48,7 +48,8 @@ public class DeviceIdleModeBroadcastReceiver extends WakefulBroadcastReceiver {
                 }
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0) {
                     // send broadcast for one bluetooth scan
-                    BluetoothScanAlarmBroadcastReceiver.setAlarm(appContext, true, true);
+                    BluetoothScanJob.scheduleJob(context, true, true);
+                    //BluetoothScanAlarmBroadcastReceiver.setAlarm(appContext, true, true);
                     //BluetoothScanAlarmBroadcastReceiver.sendBroadcast(appContext);
                 }
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {

@@ -28,7 +28,7 @@ import java.util.Set;
 public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "bluetoothScanAlarm";
-    public static final String EXTRA_ONESHOT = "oneshot";
+    //public static final String EXTRA_ONESHOT = "oneshot";
 
     public static BluetoothAdapter bluetooth = null;
 
@@ -50,11 +50,15 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         //PPApplication.loadPreferences(context);
 
-        setAlarm(context, false, false);
+        BluetoothScanJob.unregisterReceiver(context.getApplicationContext());
+
+        BluetoothScanJob.scheduleJob(context, false, false);
+        //setAlarm(context, false, false);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED) {
-            removeAlarm(context);
+            BluetoothScanJob.cancelJob();
+            //removeAlarm(context);
             return;
         }
 
@@ -112,6 +116,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     }
 
+    /*
     @SuppressLint("NewApi")
     public static void setAlarm(Context context, boolean shortInterval, boolean forScreenOn)
     {
@@ -167,7 +172,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("BluetoothScanAlarmBroadcastReceiver.setAlarm","BluetoothHardware=false");
     }
 
-    public static void removeAlarm(Context context/*, boolean oneshot*/)
+    public static void removeAlarm(Context context)
     {
         //PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm", "oneshot=" + oneshot);
 
@@ -191,7 +196,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","alarm not found");
     }
 
-    public static boolean isAlarmSet(Context context/*, boolean oneshot*/)
+    public static boolean isAlarmSet(Context context)
     {
         Intent intent = new Intent(context, BluetoothScanAlarmBroadcastReceiver.class);
         PendingIntent pendingIntent;
@@ -209,13 +214,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         return (pendingIntent != null);
     }
+    */
 
-    public static void sendBroadcast(Context context)
-    {
-        Intent broadcastIntent = new Intent(context, BluetoothScanAlarmBroadcastReceiver.class);
-        context.sendBroadcast(broadcastIntent);
-    }
-    
     static public boolean getScanRequest(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);

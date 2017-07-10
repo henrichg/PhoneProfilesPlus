@@ -281,8 +281,10 @@ class EventPreferencesBluetooth extends EventPreferences {
     {
         if (_enabled &&
             ((_connectionType == CTYPE_INFRONT) || (_connectionType == CTYPE_NOTINFRONT)) &&
-            (!BluetoothScanAlarmBroadcastReceiver.isAlarmSet(context/*, false*/)))
-            BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+            (!BluetoothScanJob.isJobScheduled()))
+            //(!BluetoothScanAlarmBroadcastReceiver.isAlarmSet(context/*, false*/)))
+            BluetoothScanJob.scheduleJob(context, true, false);
+            //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
     }
 
     @Override

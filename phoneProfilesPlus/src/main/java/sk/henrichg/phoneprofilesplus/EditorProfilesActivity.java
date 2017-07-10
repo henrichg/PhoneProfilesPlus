@@ -604,7 +604,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         SearchCalendarEventsJob.cancelJob();
         //WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
         WifiScanJob.cancelJob();
-        BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+        //BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+        BluetoothScanJob.cancelJob();
         GeofenceScannerAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
 
 

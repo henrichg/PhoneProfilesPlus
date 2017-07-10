@@ -121,7 +121,8 @@ public class ScreenOnOffService extends IntentService {
                             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0) {
                                 // send broadcast for one bluetooth scan
                                 PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of bluetooth scanner");
-                                BluetoothScanAlarmBroadcastReceiver.setAlarm(appContext, true, true);
+                                BluetoothScanJob.scheduleJob(appContext, true, true);
+                                //BluetoothScanAlarmBroadcastReceiver.setAlarm(appContext, true, true);
                                 //BluetoothScanAlarmBroadcastReceiver.sendBroadcast(appContext);
                             }
                         }

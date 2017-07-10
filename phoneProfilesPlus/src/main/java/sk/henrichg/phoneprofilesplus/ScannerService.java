@@ -330,7 +330,8 @@ public class ScannerService extends IntentService
                 if (!scan) {
                     // bluetooth scan events not exists
                     PPApplication.logE("$$$B ScannerService.onHandleIntent", "no bt scan events");
-                    BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+                    BluetoothScanJob.cancelJob();
+                    //BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
                     //BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, true*/);
                 }
                 else {

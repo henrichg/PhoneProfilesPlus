@@ -192,7 +192,8 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         if (bluetoothScanInterval != ApplicationPreferences.applicationEventBluetoothScanInterval(getApplicationContext()))
         {
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
-                BluetoothScanAlarmBroadcastReceiver.setAlarm(getApplicationContext(), true, false);
+                BluetoothScanJob.scheduleJob(getApplicationContext(), true, false);
+                //BluetoothScanAlarmBroadcastReceiver.setAlarm(getApplicationContext(), true, false);
         }
         if (locationScanInterval != ApplicationPreferences.applicationEventLocationUpdateInterval(getApplicationContext()))
         {

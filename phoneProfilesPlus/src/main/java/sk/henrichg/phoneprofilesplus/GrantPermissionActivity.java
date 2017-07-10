@@ -838,7 +838,8 @@ public class GrantPermissionActivity extends Activity {
                 WifiScanJob.scheduleJob(context, true, false, false);
                 //WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
-                BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                BluetoothScanJob.scheduleJob(context, true, false);
+                //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
                 GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false, false);
             finish();
@@ -872,7 +873,8 @@ public class GrantPermissionActivity extends Activity {
                         WifiScanJob.scheduleJob(context, true, false, false);
                         //WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
-                        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                        BluetoothScanJob.scheduleJob(context, true, false);
+                        //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
                         GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false, false);
                     break;
@@ -899,7 +901,8 @@ public class GrantPermissionActivity extends Activity {
                         WifiScanJob.scheduleJob(context, true, false, false);
                         //WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
-                        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                        BluetoothScanJob.scheduleJob(context, true, false);
+                        //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
 
                     if (Permissions.locationGeofenceEditorActivity != null)
                         Permissions.locationGeofenceEditorActivity.refreshActivity(true);

@@ -639,7 +639,7 @@
             android:exported="false">
         </receiver>
 
-        <!-- will be changed to JobScheduler -->
+        <!-- Changed to JobScheduler -->
         <!--
         <receiver
             android:name=".SearchCalendarEventsBroadcastReceiver"
@@ -651,12 +651,12 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
-        -->
         <receiver
             android:name=".BluetoothScanAlarmBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
+        -->
         <receiver
             android:name=".GeofenceScannerAlarmBroadcastReceiver"
             android:enabled="true"

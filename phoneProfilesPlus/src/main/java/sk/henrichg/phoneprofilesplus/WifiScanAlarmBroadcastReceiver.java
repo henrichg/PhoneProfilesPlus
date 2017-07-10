@@ -28,7 +28,7 @@ import java.util.List;
 public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "wifiScanAlarm";
-    public static final String EXTRA_ONESHOT = "oneshot";
+    //public static final String EXTRA_ONESHOT = "oneshot";
 
     public static WifiManager wifi = null;
     private static WifiLock wifiLock = null;

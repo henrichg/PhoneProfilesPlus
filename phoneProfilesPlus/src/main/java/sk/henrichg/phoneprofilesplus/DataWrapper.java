@@ -890,7 +890,8 @@ public class DataWrapper {
 
         //WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
         WifiScanJob.scheduleJob(context, true, false, false);
-        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+        //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+        BluetoothScanJob.scheduleJob(context, true, false);
         GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
         //SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
         SearchCalendarEventsJob.scheduleJob(true);
@@ -3034,7 +3035,8 @@ public class DataWrapper {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0) {
                 // rescan bluetooth
                 PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of bluetooth scanner");
-                BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                BluetoothScanJob.scheduleJob(context, true, false);
+                //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
             }
         }
         if (ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
@@ -3380,7 +3382,8 @@ public class DataWrapper {
             //WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
             // stop bluetooth scanner
             BluetoothScanAlarmBroadcastReceiver.initialize(context);
-            BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+            BluetoothScanJob.cancelJob();
+            //BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
             // stop geofences scanner
             GeofenceScannerAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
             if (PhoneProfilesService.instance != null) {
