@@ -111,7 +111,8 @@ public class ScreenOnOffService extends IntentService {
                             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
                                 // send broadcast for one wifi scan
                                 PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of wifi scanner");
-                                WifiScanAlarmBroadcastReceiver.setAlarm(appContext, true, true, false);
+                                WifiScanJob.scheduleJob(appContext, true, true, false);
+                                //WifiScanAlarmBroadcastReceiver.setAlarm(appContext, true, true, false);
                                 //WifiScanAlarmBroadcastReceiver.sendBroadcast(appContext);
                             }
                         }

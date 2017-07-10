@@ -42,7 +42,8 @@ public class DeviceIdleModeBroadcastReceiver extends WakefulBroadcastReceiver {
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
                     // send broadcast for one wifi scan
-                    WifiScanAlarmBroadcastReceiver.setAlarm(appContext, true, true, false);
+                    WifiScanJob.scheduleJob(context, true, true, false);
+                    //WifiScanAlarmBroadcastReceiver.setAlarm(appContext, true, true, false);
                     //WifiScanAlarmBroadcastReceiver.sendBroadcast(appContext);
                 }
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0) {

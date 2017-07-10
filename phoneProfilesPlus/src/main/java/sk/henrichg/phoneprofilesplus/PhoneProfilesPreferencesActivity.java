@@ -186,7 +186,8 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         if (wifiScanInterval != ApplicationPreferences.applicationEventWifiScanInterval(getApplicationContext()))
         {
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
-                WifiScanAlarmBroadcastReceiver.setAlarm(getApplicationContext(), true, false, false);
+                WifiScanJob.scheduleJob(getApplicationContext(), true, false, false);
+                //WifiScanAlarmBroadcastReceiver.setAlarm(getApplicationContext(), true, false, false);
         }
         if (bluetoothScanInterval != ApplicationPreferences.applicationEventBluetoothScanInterval(getApplicationContext()))
         {

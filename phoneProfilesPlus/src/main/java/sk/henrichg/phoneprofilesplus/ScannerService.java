@@ -160,7 +160,8 @@ public class ScannerService extends IntentService
                 if (!scan) {
                    // wifi scan events not exists
                    PPApplication.logE("$$$W ScannerService.onHandleIntent","alarms removed");
-                   WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+                   WifiScanJob.cancelJob();
+                   //WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
                    //WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, true*/);
                 }
                 else {

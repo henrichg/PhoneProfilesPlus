@@ -601,10 +601,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         Permissions.removeNotifications(context);
 
         //SearchCalendarEventsBroadcastReceiver.removeAlarm(context);
-        WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+        SearchCalendarEventsJob.cancelJob();
+        //WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+        WifiScanJob.cancelJob();
         BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
         GeofenceScannerAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
-        SearchCalendarEventsJob.cancelJob();
+
 
         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 

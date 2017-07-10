@@ -48,11 +48,15 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         //PPApplication.loadPreferences(context);
 
-        setAlarm(context, false, false, false);
+        WifiScanJob.unregisterReceiver(context.getApplicationContext());
+
+        WifiScanJob.scheduleJob(context, false, false, false);
+        //setAlarm(context, false, false, false);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED) {
-            removeAlarm(context);
+            WifiScanJob.cancelJob();
+            //removeAlarm(context);
             return;
         }
 
@@ -108,6 +112,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         fillWifiConfigurationList(context);
     }
 
+    /*
     @SuppressLint({"SimpleDateFormat", "NewApi"})
     public static void setAlarm(Context context, boolean shortInterval, boolean forScreenOn, boolean afterEnableWifi)
     {
@@ -167,7 +172,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("WifiScanAlarmBroadcastReceiver.setAlarm","WifiHardware=false");
     }
 
-    public static void removeAlarm(Context context/*, boolean oneshot*/)
+    public static void removeAlarm(Context context)
     {
         //PPApplication.logE("@@@ WifiScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot);
 
@@ -191,7 +196,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("@@@ WifiScanAlarmBroadcastReceiver.removeAlarm","alarm not found");
     }
 
-    public static boolean isAlarmSet(Context context/*, boolean oneshot*/)
+    public static boolean isAlarmSet(Context context)
     {
         Intent intent = new Intent(context, WifiScanAlarmBroadcastReceiver.class);
         PendingIntent pendingIntent;
@@ -209,6 +214,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         return (pendingIntent != null);
     }
+    */
 
     public static void lock(Context context)
     {
@@ -234,12 +240,6 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         if ((wifiLock != null) && (wifiLock.isHeld()))
             wifiLock.release();
         PPApplication.logE("$$$ WifiScanAlarmBroadcastReceiver.unlock", "xxx");
-    }
-    
-    public static void sendBroadcast(Context context)
-    {
-        Intent broadcastIntent = new Intent(context, WifiScanAlarmBroadcastReceiver.class);
-        context.sendBroadcast(broadcastIntent);
     }
     
     static public boolean getScanRequest(Context context)

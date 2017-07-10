@@ -1,0 +1,112 @@
+package sk.henrichg.phoneprofilesplus;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.annotation.NonNull;
+import android.support.v4.content.LocalBroadcastManager;
+
+import com.evernote.android.job.Job;
+import com.evernote.android.job.JobManager;
+import com.evernote.android.job.JobRequest;
+
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
+class WifiScanJob extends Job {
+
+    static final String JOB_TAG  = "WifiScanJob";
+    static final String JOB_TAG_SHORT  = "WifiScanJob_short";
+    static WifiScanAlarmBroadcastReceiver broadcastReceiver = new WifiScanAlarmBroadcastReceiver();
+    private static boolean isBroadcastSend = false;
+
+    @NonNull
+    @Override
+    protected Result onRunJob(Params params) {
+        PPApplication.logE("WifiScanJob.onRunJob", "xxx");
+
+        sendBroadcast(getContext());
+        return Result.SUCCESS;
+    }
+
+    static void scheduleJob(Context context, boolean shortInterval, boolean forScreenOn, boolean afterEnableWifi) {
+        PPApplication.logE("WifiScanJob.scheduleJob", "shortInterval="+shortInterval);
+
+        JobRequest.Builder jobBuilder;
+        if (!shortInterval) {
+            JobManager jobManager = JobManager.instance();
+            jobManager.cancelAllForTag(JOB_TAG_SHORT);
+            int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+            PPApplication.logE("WifiScanJob.scheduleJob", "requestsForTagSize="+requestsForTagSize);
+            if (requestsForTagSize == 0) {
+                jobBuilder = new JobRequest.Builder(JOB_TAG);
+
+                int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
+                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
+                if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("1"))
+                    interval = 2 * interval;
+                if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL)
+                    jobBuilder.setPeriodic(JobRequest.MIN_INTERVAL);
+                else
+                    jobBuilder.setPeriodic(TimeUnit.MINUTES.toMillis(interval));
+            }
+            else
+                return;
+        }
+        else {
+            cancelJob();
+            jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
+            if (afterEnableWifi)
+                jobBuilder.setExact(TimeUnit.SECONDS.toMillis(2));
+            else
+            if (forScreenOn)
+                jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+            else
+                jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+        }
+
+        PPApplication.logE("WifiScanJob.scheduleJob", "build and schedule");
+
+        jobBuilder
+                .setPersisted(false)
+                .setUpdateCurrent(true)
+                .build()
+                .schedule();
+    }
+
+    static void cancelJob() {
+        PPApplication.logE("WifiScanJob.cancelJob", "xxx");
+
+        JobManager jobManager = JobManager.instance();
+        jobManager.cancelAllForTag(JOB_TAG_SHORT);
+        jobManager.cancelAllForTag(JOB_TAG);
+    }
+
+    static boolean isJobScheduled() {
+        PPApplication.logE("WifiScanJob.isJobScheduled", "xxx");
+
+        JobManager jobManager = JobManager.instance();
+        return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0) ||
+               (jobManager.getAllJobRequestsForTag(JOB_TAG_SHORT).size() != 0);
+    }
+
+    static void sendBroadcast(Context context)
+    {
+        PPApplication.logE("WifiScanJob.sendBroadcast", "xxx");
+
+        if (!isBroadcastSend) {
+            isBroadcastSend = true;
+            LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, new IntentFilter("WifiScanAlarmBroadcastReceiver"));
+            Intent intent = new Intent("WifiScanAlarmBroadcastReceiver");
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+        }
+    }
+
+    static void unregisterReceiver(Context context) {
+        PPApplication.logE("WifiScanJob.unregisterReceiver", "xxx");
+
+        LocalBroadcastManager.getInstance(context.getApplicationContext()).unregisterReceiver(WifiScanJob.broadcastReceiver);
+        isBroadcastSend = false;
+    }
+
+}

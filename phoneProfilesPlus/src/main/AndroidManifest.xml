@@ -646,12 +646,12 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
-        -->
         <receiver
             android:name=".WifiScanAlarmBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
+        -->
         <receiver
             android:name=".BluetoothScanAlarmBroadcastReceiver"
             android:enabled="true"

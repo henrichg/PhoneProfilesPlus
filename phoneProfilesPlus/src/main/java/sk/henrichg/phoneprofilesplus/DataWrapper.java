@@ -888,7 +888,8 @@ public class DataWrapper {
         resetAllEventsInDelayStart(true);
         resetAllEventsInDelayEnd(true);
 
-        WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
+        //WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
+        WifiScanJob.scheduleJob(context, true, false, false);
         BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
         GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
         //SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
@@ -3023,7 +3024,8 @@ public class DataWrapper {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
                 // rescan wifi
                 PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of wifi scanner");
-                WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
+                //WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
+                WifiScanJob.scheduleJob(context, true, false, false);
             }
         }
         if (ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
@@ -3374,7 +3376,8 @@ public class DataWrapper {
             Event.setGlobalEventsRuning(context, false);
             // stop Wifi scanner
             WifiScanAlarmBroadcastReceiver.initialize(context);
-            WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+            WifiScanJob.cancelJob();
+            //WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
             // stop bluetooth scanner
             BluetoothScanAlarmBroadcastReceiver.initialize(context);
             BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);

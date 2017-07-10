@@ -10,6 +10,7 @@ import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 class SearchCalendarEventsJob extends Job {
 
@@ -40,14 +41,15 @@ class SearchCalendarEventsJob extends Job {
             if (requestsForTagSize == 0) {
                 jobBuilder = new JobRequest.Builder(JOB_TAG);
                 // each 24 hours
-                jobBuilder.setPeriodic(24 * 60 * 60 * 1000);
+                jobBuilder.setPeriodic(TimeUnit.HOURS.toMillis(24));
             }
             else
                 return;
         }
         else {
+            cancelJob();
             jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
-            jobBuilder.setExact(5 * 1000);
+            jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
         }
 
         PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "build and schedule");
@@ -66,4 +68,5 @@ class SearchCalendarEventsJob extends Job {
         jobManager.cancelAllForTag(JOB_TAG_SHORT);
         jobManager.cancelAllForTag(JOB_TAG);
     }
+
 }
