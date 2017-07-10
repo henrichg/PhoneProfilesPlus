@@ -24,30 +24,36 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
         PPApplication.logE("##### GeofenceScannerAlarmBroadcastReceiver.onReceive", "xxx");
 
+        GeofenceScannerJob.unregisterReceiver(context.getApplicationContext());
+
         //PPApplication.loadPreferences(context);
 
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
         if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
             //int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
             //if (oneshot == 0)
-            setAlarm(context, false, false);
+            GeofenceScannerJob.scheduleJob(context, false, false);
+            //setAlarm(context, false, false);
             dataWrapper.invalidateDataWrapper();
         }
         else {
-            removeAlarm(context);
+            //removeAlarm(context);
+            GeofenceScannerJob.cancelJob();
             dataWrapper.invalidateDataWrapper();
             return;
         }
 
         if (!PhoneProfilesService.isGeofenceScannerStarted()) {
-            removeAlarm(context/*, false*/);
+            GeofenceScannerJob.cancelJob();
+            //removeAlarm(context/*, false*/);
             //removeAlarm(context/*, true*/);
             return;
         }
 
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
-            removeAlarm(context/*, false*/);
+            GeofenceScannerJob.cancelJob();
+            //removeAlarm(context/*, false*/);
             //removeAlarm(context/*, true*/);
             return;
         }
@@ -70,17 +76,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
     }
 
-    public static void sendBroadcast(Context context)
-    {
-        if (PhoneProfilesService.instance != null) {
-            if (PhoneProfilesService.isGeofenceScannerStarted()) {
-                PhoneProfilesService.geofencesScanner.mUpdatesStarted = false;
-                Intent broadcastIntent = new Intent(context, GeofenceScannerAlarmBroadcastReceiver.class);
-                context.sendBroadcast(broadcastIntent);
-            }
-        }
-    }
-
+    /*
     @SuppressLint("NewApi")
     public static void setAlarm(Context context, boolean startScanning, boolean forScreenOn)
     {
@@ -144,7 +140,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm", "alarm is set");
     }
 
-    public static void removeAlarm(Context context/*, boolean oneshot*/)
+    public static void removeAlarm(Context context)
     {
         //PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm", "oneshot=" + oneshot);
 
@@ -168,7 +164,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm","alarm not found");
     }
 
-    public static boolean isAlarmSet(Context context/*, boolean oneshot*/)
+    public static boolean isAlarmSet(Context context)
     {
         Intent intent = new Intent(context, GeofenceScannerAlarmBroadcastReceiver.class);
         PendingIntent pendingIntent;
@@ -186,5 +182,5 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
         return (pendingIntent != null);
     }
-
+    */
 }

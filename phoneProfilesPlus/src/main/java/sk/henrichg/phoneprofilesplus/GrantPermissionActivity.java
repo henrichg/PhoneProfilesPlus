@@ -841,7 +841,8 @@ public class GrantPermissionActivity extends Activity {
                 BluetoothScanJob.scheduleJob(context, true, false);
                 //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
-                GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false, false);
+                GeofenceScannerJob.scheduleJob(context, false, false);
+                //GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false, false);
             finish();
         }
         else
@@ -876,7 +877,8 @@ public class GrantPermissionActivity extends Activity {
                         BluetoothScanJob.scheduleJob(context, true, false);
                         //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
-                        GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false, false);
+                        GeofenceScannerJob.scheduleJob(context, false, false);
+                        //GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false, false);
                     break;
                 }
             }
@@ -907,7 +909,8 @@ public class GrantPermissionActivity extends Activity {
                     if (Permissions.locationGeofenceEditorActivity != null)
                         Permissions.locationGeofenceEditorActivity.refreshActivity(true);
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
-                        GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false, false);
+                        GeofenceScannerJob.scheduleJob(context, false, false);
+                        //GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false, false);
 
                     dataWrapper.restartEvents(false, true, false);
 

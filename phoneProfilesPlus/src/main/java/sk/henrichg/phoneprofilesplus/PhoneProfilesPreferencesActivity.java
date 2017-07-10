@@ -198,7 +198,8 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         if (locationScanInterval != ApplicationPreferences.applicationEventLocationUpdateInterval(getApplicationContext()))
         {
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
-                GeofenceScannerAlarmBroadcastReceiver.setAlarm(getApplicationContext(), true, false);
+                GeofenceScannerJob.scheduleJob(getApplicationContext(), true, false);
+                //GeofenceScannerAlarmBroadcastReceiver.setAlarm(getApplicationContext(), true, false);
         }
         dataWrapper.invalidateDataWrapper();
 

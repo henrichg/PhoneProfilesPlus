@@ -57,6 +57,8 @@ public class PPApplication extends Application {
                                          +"|##### WifiScanAlarmBroadcastReceiver.onReceive"
                                          +"|BluetoothScanJob"
                                          +"|##### BluetoothScanAlarmBroadcastReceiver.onReceive"
+                                         +"|GeofenceScannerJob"
+                                         +"|##### GeofenceScannerAlarmBroadcastReceiver.onReceive"
 
             ;
 
