@@ -594,16 +594,6 @@
             android:exported="false">
         </receiver>
         <receiver
-            android:name=".SearchCalendarEventsBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".WifiScanAlarmBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
             android:name=".EventDelayStartBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
@@ -615,11 +605,6 @@
         </receiver>
         <receiver
             android:name=".ProfileDurationAlarmBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".BluetoothScanAlarmBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
@@ -639,17 +624,34 @@
             android:exported="false">
         </receiver>
         <receiver
-            android:name=".GeofenceScannerAlarmBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
             android:name=".RecreateNotificationBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
         <receiver
             android:name=".NFCEventEndBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+
+        <!-- will be changed to JobScheduler -->
+        <receiver
+            android:name=".SearchCalendarEventsBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".WifiScanAlarmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".BluetoothScanAlarmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".GeofenceScannerAlarmBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
