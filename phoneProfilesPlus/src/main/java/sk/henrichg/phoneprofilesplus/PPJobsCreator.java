@@ -21,9 +21,9 @@ class PPJobsCreator implements JobCreator {
             case BluetoothScanJob.JOB_TAG_SHORT:
                 return new BluetoothScanJob();
             case GeofenceScannerJob.JOB_TAG:
-                return new BluetoothScanJob();
+                return new GeofenceScannerJob();
             case GeofenceScannerJob.JOB_TAG_START:
-                return new BluetoothScanJob();
+                return new GeofenceScannerJob();
             default:
                 return null;
         }
