@@ -82,7 +82,7 @@ class GeofenceScannerJob extends Job {
 
             jobBuilder
                     .setPersisted(false)
-                    .setUpdateCurrent(true)
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
                     .build()
                     .schedule();
 
