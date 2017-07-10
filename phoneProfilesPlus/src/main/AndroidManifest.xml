@@ -656,12 +656,12 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
-        -->
         <receiver
             android:name=".GeofenceScannerAlarmBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
+        -->
 
         <!-- pending intents -->
         <receiver
