@@ -5,17 +5,15 @@ import android.app.Application;
 import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.os.Handler;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.evernote.android.job.JobManager;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.RootShell.RootShell;
@@ -53,7 +51,9 @@ public class PPApplication extends Application {
 
                                          //+"|PreferenceFragment"
 
-                                         //+"|PhoneProfilesService.onSensorChanged"
+                                         +"|SearchCalendarEventsJob"
+                                         +"|##### SearchCalendarEventsBroadcastReceiver.onReceive"
+
             ;
 
 
@@ -219,6 +219,7 @@ public class PPApplication extends Application {
 
         // initialization
         //loadPreferences(this);
+        JobManager.create(this).addJobCreator(new PPJobsCreator());
 
         PPApplication.initRoot();
 

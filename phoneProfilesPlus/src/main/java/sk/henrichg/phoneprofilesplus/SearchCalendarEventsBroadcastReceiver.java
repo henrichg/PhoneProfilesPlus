@@ -6,6 +6,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 import java.util.Calendar;
@@ -22,7 +23,10 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
 
         Context appContext = context.getApplicationContext();
 
-        setAlarm(appContext, false);
+        LocalBroadcastManager.getInstance(context.getApplicationContext()).unregisterReceiver(SearchCalendarEventsJob.broadcastReceiver);
+
+        SearchCalendarEventsJob.scheduleJob(false);
+        //setAlarm(appContext, false);
 
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
@@ -53,6 +57,7 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
 
     }
 
+    /*
     @SuppressLint("NewApi")
     public static void setAlarm(Context context, boolean shortInterval)
     {
@@ -98,5 +103,6 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
             pendingIntent.cancel();
         }
     }
+    */
 
 }

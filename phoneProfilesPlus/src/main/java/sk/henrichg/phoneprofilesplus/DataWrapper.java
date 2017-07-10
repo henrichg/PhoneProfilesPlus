@@ -891,7 +891,8 @@ public class DataWrapper {
         WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
         BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
         GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
-        SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
+        //SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
+        SearchCalendarEventsJob.scheduleJob(true);
 
         if (!getIsManualProfileActivation()) {
             PPApplication.logE("DataWrapper.firstStartEvents", "no manual profile activation, restart events");

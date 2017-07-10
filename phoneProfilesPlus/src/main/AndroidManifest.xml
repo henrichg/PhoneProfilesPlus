@@ -633,13 +633,20 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+        <receiver
+            android:name=".AboutApplicationBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
 
         <!-- will be changed to JobScheduler -->
+        <!--
         <receiver
             android:name=".SearchCalendarEventsBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
+        -->
         <receiver
             android:name=".WifiScanAlarmBroadcastReceiver"
             android:enabled="true"
@@ -652,11 +659,6 @@
         </receiver>
         <receiver
             android:name=".GeofenceScannerAlarmBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".AboutApplicationBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
