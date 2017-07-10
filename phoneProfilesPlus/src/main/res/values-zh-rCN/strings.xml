@@ -987,7 +987,7 @@
   <string name="array_pref_applicationDisableScanning_disabled">Scanning disabled</string>
   <string name="array_pref_applicationDisableScanning_enabled">Scanning enabled</string>
   <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Status bar notification is not enabled!</string>
-  <string name="duration_pref_dlg_duration_label">Duration:</string>
+  <string name="duration_pref_dlg_duration_label">持续时间︰</string>
   <string name="duration_pref_dlg_activation_end_label">Activation end:</string>
   <string name="phone_profiles_pref_applicationLanguage_pt_BR">Português (Brasil)</string>
   <string name="array_pref_value_pt_BR">pt-BR</string>
