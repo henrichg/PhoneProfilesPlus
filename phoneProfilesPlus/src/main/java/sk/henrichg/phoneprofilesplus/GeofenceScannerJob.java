@@ -22,14 +22,14 @@ class GeofenceScannerJob extends Job {
     @NonNull
     @Override
     protected Result onRunJob(Params params) {
-        PPApplication.logE("----- GeofenceScannerJob.onRunJob", "xxx");
+        PPApplication.logE("GeofenceScannerJob.onRunJob", "xxx");
 
         sendBroadcast(getContext());
         return Result.SUCCESS;
     }
 
     static void scheduleJob(Context context, boolean startScanning, boolean forScreenOn) {
-        PPApplication.logE("----- GeofenceScannerJob.scheduleJob", "startScanning="+startScanning);
+        PPApplication.logE("GeofenceScannerJob.scheduleJob", "startScanning="+startScanning);
 
         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
 
@@ -60,7 +60,7 @@ class GeofenceScannerJob extends Job {
                     jobBuilder.setExact(TimeUnit.SECONDS.toMillis(interval));
                 } else {
                     int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
-                    PPApplication.logE("----- GeofenceScannerJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
+                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
                     if (requestsForTagSize == 0) {
                         if (TimeUnit.SECONDS.toMillis(interval) < JobRequest.MIN_INTERVAL)
                             jobBuilder.setPeriodic(JobRequest.MIN_INTERVAL);
@@ -78,7 +78,7 @@ class GeofenceScannerJob extends Job {
                     jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
             }
 
-            PPApplication.logE("----- GeofenceScannerJob.scheduleJob", "build and schedule");
+            PPApplication.logE("GeofenceScannerJob.scheduleJob", "build and schedule");
 
             jobBuilder
                     .setPersisted(false)
@@ -88,11 +88,11 @@ class GeofenceScannerJob extends Job {
 
         }
         else
-            PPApplication.logE("----- GeofenceScannerJob.scheduleJob", "scanner is not started");
+            PPApplication.logE("GeofenceScannerJob.scheduleJob", "scanner is not started");
     }
 
     static void cancelJob() {
-        PPApplication.logE("----- GeofenceScannerJob.cancelJob", "xxx");
+        PPApplication.logE("GeofenceScannerJob.cancelJob", "xxx");
 
         JobManager jobManager = JobManager.instance();
         jobManager.cancelAllForTag(JOB_TAG_START);
@@ -100,7 +100,7 @@ class GeofenceScannerJob extends Job {
     }
 
     static boolean isJobScheduled() {
-        PPApplication.logE("----- GeofenceScannerJob.isJobScheduled", "xxx");
+        PPApplication.logE("GeofenceScannerJob.isJobScheduled", "xxx");
 
         JobManager jobManager = JobManager.instance();
         return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0) ||
@@ -109,7 +109,7 @@ class GeofenceScannerJob extends Job {
 
     static void sendBroadcast(Context context)
     {
-        PPApplication.logE("----- GeofenceScannerJob.sendBroadcast", "xxx");
+        PPApplication.logE("GeofenceScannerJob.sendBroadcast", "xxx");
 
         if (!isBroadcastSend) {
             isBroadcastSend = true;
@@ -120,7 +120,7 @@ class GeofenceScannerJob extends Job {
     }
 
     static void unregisterReceiver(Context context) {
-        PPApplication.logE("----- GeofenceScannerJob.unregisterReceiver", "xxx");
+        PPApplication.logE("GeofenceScannerJob.unregisterReceiver", "xxx");
 
         LocalBroadcastManager.getInstance(context.getApplicationContext()).unregisterReceiver(broadcastReceiver);
         isBroadcastSend = false;
