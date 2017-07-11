@@ -197,9 +197,11 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         }
         if (locationScanInterval != ApplicationPreferences.applicationEventLocationUpdateInterval(getApplicationContext()))
         {
-            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
+            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
+                PPApplication.logE("GeofenceScannerJob.scheduleJob", "from PhoneProfilesPreferenceActivity.finish");
                 GeofenceScannerJob.scheduleJob(getApplicationContext(), true, false);
                 //GeofenceScannerAlarmBroadcastReceiver.setAlarm(getApplicationContext(), true, false);
+            }
         }
         dataWrapper.invalidateDataWrapper();
 

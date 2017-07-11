@@ -54,6 +54,7 @@ public class DeviceIdleModeBroadcastReceiver extends WakefulBroadcastReceiver {
                 }
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
                     // send broadcast for location scan
+                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "from DeviceIdleModeBroadcastReceiver.onReceive");
                     GeofenceScannerJob.scheduleJob(context, true, true);
                     //GeofenceScannerAlarmBroadcastReceiver.setAlarm(appContext, true, true);
                     //GeofenceScannerAlarmBroadcastReceiver.sendBroadcast(appContext);

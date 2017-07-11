@@ -87,7 +87,9 @@ public class LockDeviceActivity extends AppCompatActivity {
         PPApplication.logE("LockDeviceActivity.onDestroy", "xxx");
 
         if (view != null)
-            windowManager.removeViewImmediate(view);
+            try {
+                windowManager.removeViewImmediate(view);
+            } catch (Exception ignored) {}
 
         PPApplication.lockDeviceActivity = null;
         if (Permissions.checkLockDevice(getApplicationContext()))

@@ -51,12 +51,12 @@ public class PPApplication extends Application {
 
                                          //+"|PreferenceFragment"
 
-                                         +"|SearchCalendarEventsJob"
-                                         +"|##### SearchCalendarEventsBroadcastReceiver.onReceive"
-                                         +"|WifiScanJob"
-                                         +"|##### WifiScanAlarmBroadcastReceiver.onReceive"
-                                         +"|BluetoothScanJob"
-                                         +"|##### BluetoothScanAlarmBroadcastReceiver.onReceive"
+                                         //+"|SearchCalendarEventsJob"
+                                         //+"|##### SearchCalendarEventsBroadcastReceiver.onReceive"
+                                         //+"|WifiScanJob"
+                                         //+"|##### WifiScanAlarmBroadcastReceiver.onReceive"
+                                         //+"|BluetoothScanJob"
+                                         //+"|##### BluetoothScanAlarmBroadcastReceiver.onReceive"
                                          +"|GeofenceScannerJob"
                                          +"|##### GeofenceScannerAlarmBroadcastReceiver.onReceive"
 
@@ -158,6 +158,7 @@ public class PPApplication extends Application {
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
     public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
     public static final ScanResultsMutex scanResultsMutex = new ScanResultsMutex();
+    public static final GeofenceScannerLastLocationMutex geofenceScannerLastLocationMutex = new GeofenceScannerLastLocationMutex();
 
     public static boolean isPowerSaveMode = false;
 

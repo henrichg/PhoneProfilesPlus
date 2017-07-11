@@ -83,7 +83,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         if (mGoogleApiClient.isConnected()) {
             clearAllEventGeofences();
             if (PPApplication.getApplicationStarted(context, true)) {
+                PPApplication.logE("GeofenceScannerJob.mUpdatesStarted=false", "from GeofenceScanner.onConnected");
                 mUpdatesStarted = false;
+                PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GeofenceScanner.onConnected");
                 GeofenceScannerJob.scheduleJob(context, true, false);
                 //GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
             }
@@ -133,39 +135,43 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     public void onLocationChanged(Location location) {
         PPApplication.logE("##### GeofenceScanner.onLocationChanged", "location=" + location);
 
-        lastLocation.set(location);
-        //updateGeofencesInDB();
+        synchronized (PPApplication.geofenceScannerLastLocationMutex) {
+            lastLocation.set(location);
+            //updateGeofencesInDB();
+        }
     }
 
     void updateGeofencesInDB() {
-        List<Geofence> geofences = dataWrapper.getDatabaseHandler().getAllGeofences();
+        synchronized (PPApplication.geofenceScannerLastLocationMutex) {
+            List<Geofence> geofences = dataWrapper.getDatabaseHandler().getAllGeofences();
 
-        //boolean change = false;
+            //boolean change = false;
 
-        for (Geofence geofence : geofences) {
+            for (Geofence geofence : geofences) {
 
-            Location geofenceLocation = new Location("GL");
-            geofenceLocation.setLatitude(geofence._latitude);
-            geofenceLocation.setLongitude(geofence._longitude);
+                Location geofenceLocation = new Location("GL");
+                geofenceLocation.setLatitude(geofence._latitude);
+                geofenceLocation.setLongitude(geofence._longitude);
 
-            float distance = lastLocation.distanceTo(geofenceLocation);
-            float radius = lastLocation.getAccuracy()+geofence._radius;
+                float distance = lastLocation.distanceTo(geofenceLocation);
+                float radius = lastLocation.getAccuracy() + geofence._radius;
 
-            int transitionType;
-            if (distance <= radius)
-                transitionType = com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER;
-            else
-                transitionType = com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT;
+                int transitionType;
+                if (distance <= radius)
+                    transitionType = com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER;
+                else
+                    transitionType = com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT;
 
-            int savedTransition = dataWrapper.getDatabaseHandler().getGeofenceTransition(geofence._id);
+                int savedTransition = dataWrapper.getDatabaseHandler().getGeofenceTransition(geofence._id);
 
-            if (savedTransition != transitionType) {
-                PPApplication.logE("GeofenceScanner.updateGeofencesInDB", "geofence._name="+geofence._name);
-                PPApplication.logE("GeofenceScanner.updateGeofencesInDB", "transitionType="+transitionType);
-                PPApplication.logE("GeofenceScanner.updateGeofencesInDB", "savedTransition="+savedTransition);
+                if (savedTransition != transitionType) {
+                    PPApplication.logE("GeofenceScanner.updateGeofencesInDB", "geofence._name=" + geofence._name);
+                    PPApplication.logE("GeofenceScanner.updateGeofencesInDB", "transitionType=" + transitionType);
+                    PPApplication.logE("GeofenceScanner.updateGeofencesInDB", "savedTransition=" + savedTransition);
 
-                dataWrapper.getDatabaseHandler().updateGeofenceTransition(geofence._id, transitionType);
-                //change = true;
+                    dataWrapper.getDatabaseHandler().updateGeofenceTransition(geofence._id, transitionType);
+                    //change = true;
+                }
             }
         }
     }
@@ -240,9 +246,11 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 try {
                     PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "xxx");
                     LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+                    PPApplication.logE("GeofenceScannerJob.mUpdatesStarted=true", "from GeofenceScanner.startLocationUpdates");
                     mUpdatesStarted = true;
                 } catch (SecurityException securityException) {
                     // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+                    PPApplication.logE("GeofenceScannerJob.mUpdatesStarted=false", "from GeofenceScanner.startLocationUpdates");
                     mUpdatesStarted = false;
                     //return;
                 }
@@ -265,6 +273,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
             PPApplication.logE("##### GeofenceScanner.stopLocationUpdates", "xxx");
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            PPApplication.logE("GeofenceScannerJob.mUpdatesStarted=false", "from GeofenceScanner.stopLocationUpdates");
             mUpdatesStarted = false;
         }
     }
@@ -273,6 +282,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         if ((forceReset) || (PPApplication.isPowerSaveMode != oldPowerSaveMode)) {
             stopLocationUpdates();
             createLocationRequest();
+            PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GeofenceScanner.resetLocationUpdates");
             GeofenceScannerJob.scheduleJob(context, true, false);
             //GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
         }

@@ -32,6 +32,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
         if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
             //int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
             //if (oneshot == 0)
+            PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GeofenceScannerAlarmBroadcastReceiver.onReceive");
             GeofenceScannerJob.scheduleJob(context, false, false);
             //setAlarm(context, false, false);
             dataWrapper.invalidateDataWrapper();
@@ -61,7 +62,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRuning(context)) {
             if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.geofencesScanner != null)) {
                 if (PhoneProfilesService.geofencesScanner.mUpdatesStarted) {
-                    PhoneProfilesService.geofencesScanner.stopLocationUpdates();
+                    //PhoneProfilesService.geofencesScanner.stopLocationUpdates();
 
                     // send broadcast for calling EventsService
                     /*Intent broadcastIntent = new Intent(context, GeofenceScannerBroadcastReceiver.class);

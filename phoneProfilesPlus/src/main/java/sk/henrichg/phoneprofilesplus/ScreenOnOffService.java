@@ -131,6 +131,7 @@ public class ScreenOnOffService extends IntentService {
                             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
                                 // send broadcast for location scan
                                 PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of location scanner");
+                                PPApplication.logE("GeofenceScannerJob.scheduleJob", "from ScreenOnOffService.onHandleIntent");
                                 GeofenceScannerJob.scheduleJob(appContext, true, true);
                                 //GeofenceScannerAlarmBroadcastReceiver.setAlarm(appContext, true, true);
                                 //GeofenceScannerAlarmBroadcastReceiver.sendBroadcast(appContext);

@@ -893,6 +893,7 @@ public class DataWrapper {
         //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
         BluetoothScanJob.scheduleJob(context, true, false);
         //GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
+        PPApplication.logE("GeofenceScannerJob.scheduleJob", "from DataWrapper.firstStartEvents");
         GeofenceScannerJob.scheduleJob(context, true, false);
         //SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
         SearchCalendarEventsJob.scheduleJob(true);
@@ -3046,6 +3047,7 @@ public class DataWrapper {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
                 // send broadcast for location scan
                 PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of location scanner");
+                PPApplication.logE("GeofenceScannerJob.scheduleJob", "from DataWrapper.restartEventsWithRescan");
                 GeofenceScannerJob.scheduleJob(context, true, false);
                 //GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
             }
