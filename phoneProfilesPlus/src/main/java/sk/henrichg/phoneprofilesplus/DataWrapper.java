@@ -1943,7 +1943,7 @@ public class DataWrapper {
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             boolean isWifiEnabled = wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED;
 
-            List<WifiSSIDData> wifiConfigurationList = WifiScanJobBroadcastReceiver.getWifiConfigurationList(context);
+            List<WifiSSIDData> wifiConfigurationList = WifiScanJob.getWifiConfigurationList(context);
 
             boolean done = false;
 
@@ -1985,7 +1985,7 @@ public class DataWrapper {
                 {
                     PPApplication.logE("----- DataWrapper.doEventService","wifi connected");
 
-                    PPApplication.logE("----- DataWrapper.doEventService","wifiSSID="+ WifiScanJobBroadcastReceiver.getSSID(wifiInfo, wifiConfigurationList));
+                    PPApplication.logE("----- DataWrapper.doEventService","wifiSSID="+ WifiScanJob.getSSID(wifiInfo, wifiConfigurationList));
                     PPApplication.logE("----- DataWrapper.doEventService","wifiBSSID="+wifiInfo.getBSSID());
 
                     //PPApplication.logE("----- DataWrapper.doEventService","SSID="+event._eventPreferencesWifi._SSID);
@@ -1998,13 +1998,13 @@ public class DataWrapper {
                         else
                         if (_ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE)){
                             for (WifiSSIDData data : wifiConfigurationList) {
-                                wifiPassed = WifiScanJobBroadcastReceiver.compareSSID(wifiInfo, data.ssid.replace("\"", ""), wifiConfigurationList);
+                                wifiPassed = WifiScanJob.compareSSID(wifiInfo, data.ssid.replace("\"", ""), wifiConfigurationList);
                                 if (wifiPassed)
                                     break;
                             }
                         }
                         else
-                            wifiPassed = WifiScanJobBroadcastReceiver.compareSSID(wifiInfo, _ssid, wifiConfigurationList);
+                            wifiPassed = WifiScanJob.compareSSID(wifiInfo, _ssid, wifiConfigurationList);
                         if (wifiPassed)
                             break;
                     }
@@ -2055,7 +2055,7 @@ public class DataWrapper {
                 {
                     wifiPassed = false;
 
-                    List<WifiSSIDData> scanResults = WifiScanJobBroadcastReceiver.getScanResults(context);
+                    List<WifiSSIDData> scanResults = WifiScanJob.getScanResults(context);
 
                     //PPApplication.logE("----- DataWrapper.doEventService","scanResults="+scanResults);
 
@@ -2081,7 +2081,7 @@ public class DataWrapper {
                                     PPApplication.logE("----- DataWrapper.doEventService","configured ssids");
                                     for (WifiSSIDData data : wifiConfigurationList) {
                                         PPApplication.logE("----- DataWrapper.doEventService","configured SSID="+data.ssid.replace("\"", ""));
-                                        if (WifiScanJobBroadcastReceiver.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
+                                        if (WifiScanJob.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
                                             PPApplication.logE("----- DataWrapper.doEventService", "wifi found");
                                             wifiPassed = true;
                                             break;
@@ -2091,7 +2091,7 @@ public class DataWrapper {
                                         break;
                                 } else {
                                     PPApplication.logE("----- DataWrapper.doEventService","event SSID="+event._eventPreferencesWifi._SSID);
-                                    if (WifiScanJobBroadcastReceiver.compareSSID(result, _ssid, wifiConfigurationList)) {
+                                    if (WifiScanJob.compareSSID(result, _ssid, wifiConfigurationList)) {
                                         PPApplication.logE("----- DataWrapper.doEventService", "wifi found");
                                         wifiPassed = true;
                                         break;
@@ -2172,9 +2172,9 @@ public class DataWrapper {
 
             bluetoothPassed = false;
 
-            List<BluetoothDeviceData> boundedDevicesList = BluetoothScanJobBroadcastReceiver.getBoundedDevicesList(context);
+            List<BluetoothDeviceData> boundedDevicesList = BluetoothScanJob.getBoundedDevicesList(context);
 
-            BluetoothAdapter bluetooth = BluetoothScanJobBroadcastReceiver.getBluetoothAdapter(context);
+            BluetoothAdapter bluetooth = BluetoothScanJob.getBluetoothAdapter(context);
             boolean isBluetoothEnabled = bluetooth.isEnabled();
 
             boolean done = false;
@@ -2255,7 +2255,7 @@ public class DataWrapper {
                 {
                     bluetoothPassed = false;
 
-                    List<BluetoothDeviceData> scanResults = BluetoothScanJobBroadcastReceiver.getScanResults(context);
+                    List<BluetoothDeviceData> scanResults = BluetoothScanJob.getScanResults(context);
 
                     if (scanResults != null)
                     {
@@ -2675,9 +2675,9 @@ public class DataWrapper {
             if ((event._eventPreferencesRadioSwitch._wifi == 1 || event._eventPreferencesRadioSwitch._wifi == 2)
                     && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI)) {
 
-                if (!((WifiScanJobBroadcastReceiver.getScanRequest(context)) ||
-                        (WifiScanJobBroadcastReceiver.getWaitForResults(context)) ||
-                        (WifiScanJobBroadcastReceiver.getWifiEnabledForScan(context)))) {
+                if (!((WifiScanJob.getScanRequest(context)) ||
+                        (WifiScanJob.getWaitForResults(context)) ||
+                        (WifiScanJob.getWifiEnabledForScan(context)))) {
                     // ignore for wifi scanning
 
                     WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -2697,15 +2697,15 @@ public class DataWrapper {
             if ((event._eventPreferencesRadioSwitch._bluetooth == 1 || event._eventPreferencesRadioSwitch._bluetooth == 2)
                     && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH)) {
 
-                if (!((BluetoothScanJobBroadcastReceiver.getScanRequest(context)) ||
-                        (BluetoothScanJobBroadcastReceiver.getLEScanRequest(context)) ||
-                        (BluetoothScanJobBroadcastReceiver.getWaitForResults(context)) ||
-                        (BluetoothScanJobBroadcastReceiver.getWaitForLEResults(context)) ||
-                        (BluetoothScanJobBroadcastReceiver.getBluetoothEnabledForScan(context)))) {
+                if (!((BluetoothScanJob.getScanRequest(context)) ||
+                        (BluetoothScanJob.getLEScanRequest(context)) ||
+                        (BluetoothScanJob.getWaitForResults(context)) ||
+                        (BluetoothScanJob.getWaitForLEResults(context)) ||
+                        (BluetoothScanJob.getBluetoothEnabledForScan(context)))) {
                     // ignore for bluetooth scanning
 
 
-                    BluetoothAdapter bluetoothAdapter = BluetoothScanJobBroadcastReceiver.getBluetoothAdapter(context);
+                    BluetoothAdapter bluetoothAdapter = BluetoothScanJob.getBluetoothAdapter(context);
                     if (bluetoothAdapter != null) {
                         boolean enabled = bluetoothAdapter.isEnabled();
                         PPApplication.logE("-###- DataWrapper.doEventService", "bluetoothState=" + enabled);
@@ -3370,10 +3370,10 @@ public class DataWrapper {
             pauseAllEvents(true, false/*, false*/);
             Event.setGlobalEventsRuning(context, false);
             // stop Wifi scanner
-            WifiScanJobBroadcastReceiver.initialize(context);
+            WifiScanJob.initialize(context);
             WifiScanJob.cancelJob();
             // stop bluetooth scanner
-            BluetoothScanJobBroadcastReceiver.initialize(context);
+            BluetoothScanJob.initialize(context);
             BluetoothScanJob.cancelJob();
             // stop geofences scanner
             GeofenceScannerJob.cancelJob();

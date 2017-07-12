@@ -17,8 +17,8 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("##### WifiScanBroadcastReceiver.onReceive","xxx");
         //PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");
 
-        if (WifiScanJobBroadcastReceiver.wifi == null)
-            WifiScanJobBroadcastReceiver.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (WifiScanJob.wifi == null)
+            WifiScanJob.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
@@ -38,7 +38,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
             //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "resultsUpdated="+intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false));
 
             //if ((android.os.Build.VERSION.SDK_INT < 23) || (intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)))
-                WifiScanJobBroadcastReceiver.fillScanResults(context);
+                WifiScanJob.fillScanResults(context);
             //WifiScanJobBroadcastReceiver.unlock();
 
             /*
@@ -53,12 +53,12 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults=null");
             */
 
-            boolean scanStarted = (WifiScanJobBroadcastReceiver.getWaitForResults(context));
+            boolean scanStarted = (WifiScanJob.getWaitForResults(context));
             PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted="+scanStarted);
 
             if (scanStarted)
             {
-                WifiScanJobBroadcastReceiver.setWaitForResults(context, false);
+                WifiScanJob.setWaitForResults(context, false);
                 ScannerService.setForceOneWifiScan(context, ScannerService.FORCE_ONE_SCAN_DISABLED);
 
                 if (forceOneScan != ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan

@@ -29,15 +29,15 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRuning(context) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
         {
 
-            boolean scanStarted = (BluetoothScanJobBroadcastReceiver.getWaitForLEResults(context));
+            boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(context));
 
             if (scanStarted)
             {
                 PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive","xxx");
 
-                BluetoothScanJobBroadcastReceiver.fillBoundedDevicesList(context);
+                BluetoothScanJob.fillBoundedDevicesList(context);
 
-                BluetoothScanJobBroadcastReceiver.setWaitForLEResults(context, false);
+                BluetoothScanJob.setWaitForLEResults(context, false);
 
                 ScannerService.setForceOneLEBluetoothScan(context, ScannerService.FORCE_ONE_SCAN_DISABLED);
 

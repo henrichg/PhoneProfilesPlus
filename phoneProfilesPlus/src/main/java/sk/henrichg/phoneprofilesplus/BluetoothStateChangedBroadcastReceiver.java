@@ -44,32 +44,32 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
                 {
                     //if ((!dataWrapper.getIsManualProfileActivation()) || PPApplication.getForceOneBluetoothScan(appContext))
                     //{
-                        if (BluetoothScanJobBroadcastReceiver.getScanRequest(appContext))
+                        if (BluetoothScanJob.getScanRequest(appContext))
                         {
                             PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start classic scan");
-                            BluetoothScanJobBroadcastReceiver.startCLScan(appContext);
+                            BluetoothScanJob.startCLScan(appContext);
                         }
                         else
-                        if (BluetoothScanJobBroadcastReceiver.getLEScanRequest(appContext))
+                        if (BluetoothScanJob.getLEScanRequest(appContext))
                         {
                             PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start LE scan");
-                            BluetoothScanJobBroadcastReceiver.startLEScan(appContext);
+                            BluetoothScanJob.startLEScan(appContext);
                         }
                         else
-                        if (!(BluetoothScanJobBroadcastReceiver.getWaitForResults(appContext) ||
-                              BluetoothScanJobBroadcastReceiver.getWaitForLEResults(appContext)))
+                        if (!(BluetoothScanJob.getWaitForResults(appContext) ||
+                              BluetoothScanJob.getWaitForLEResults(appContext)))
                         {
                             // refresh bounded devices
-                            BluetoothScanJobBroadcastReceiver.fillBoundedDevicesList(appContext);
+                            BluetoothScanJob.fillBoundedDevicesList(appContext);
                         }
                     //}
                 }
 
-                if (!((BluetoothScanJobBroadcastReceiver.getScanRequest(appContext)) ||
-                        (BluetoothScanJobBroadcastReceiver.getLEScanRequest(appContext)) ||
-                        (BluetoothScanJobBroadcastReceiver.getWaitForResults(appContext)) ||
-                        (BluetoothScanJobBroadcastReceiver.getWaitForLEResults(appContext)) ||
-                        (BluetoothScanJobBroadcastReceiver.getBluetoothEnabledForScan(appContext)))) {
+                if (!((BluetoothScanJob.getScanRequest(appContext)) ||
+                        (BluetoothScanJob.getLEScanRequest(appContext)) ||
+                        (BluetoothScanJob.getWaitForResults(appContext)) ||
+                        (BluetoothScanJob.getWaitForLEResults(appContext)) ||
+                        (BluetoothScanJob.getBluetoothEnabledForScan(appContext)))) {
                     // required for Bluetooth ConnectionType="Not connected"
 
                     //if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {

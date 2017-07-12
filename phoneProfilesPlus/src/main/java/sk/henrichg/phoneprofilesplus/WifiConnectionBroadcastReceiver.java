@@ -50,9 +50,9 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
                 if ((info.getState() == NetworkInfo.State.CONNECTED) ||
                     (info.getState() == NetworkInfo.State.DISCONNECTED))
                 {
-                    if (!((WifiScanJobBroadcastReceiver.getScanRequest(appContext)) ||
-                            (WifiScanJobBroadcastReceiver.getWaitForResults(appContext)) ||
-                            (WifiScanJobBroadcastReceiver.getWifiEnabledForScan(appContext)))) {
+                    if (!((WifiScanJob.getScanRequest(appContext)) ||
+                            (WifiScanJob.getWaitForResults(appContext)) ||
+                            (WifiScanJob.getWifiEnabledForScan(appContext)))) {
                         // wifi is not scanned
 
                         PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is not scanned");

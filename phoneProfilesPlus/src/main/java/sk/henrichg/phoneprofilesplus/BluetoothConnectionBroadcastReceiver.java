@@ -86,11 +86,11 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                     //{
                     PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive", "connected=" + connected);
 
-                    if (!((BluetoothScanJobBroadcastReceiver.getScanRequest(appContext)) ||
-                            (BluetoothScanJobBroadcastReceiver.getLEScanRequest(appContext)) ||
-                            (BluetoothScanJobBroadcastReceiver.getWaitForResults(appContext)) ||
-                            (BluetoothScanJobBroadcastReceiver.getWaitForLEResults(appContext)) ||
-                            (BluetoothScanJobBroadcastReceiver.getBluetoothEnabledForScan(appContext)))) {
+                    if (!((BluetoothScanJob.getScanRequest(appContext)) ||
+                            (BluetoothScanJob.getLEScanRequest(appContext)) ||
+                            (BluetoothScanJob.getWaitForResults(appContext)) ||
+                            (BluetoothScanJob.getWaitForLEResults(appContext)) ||
+                            (BluetoothScanJob.getBluetoothEnabledForScan(appContext)))) {
                         // bluetooth is not scanned
 
                         /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
@@ -198,7 +198,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                 Calendar now = Calendar.getInstance();
                 long timestamp = now.getTimeInMillis() - gmtOffset;
                 connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
-                        BluetoothScanJobBroadcastReceiver.getBluetoothType(device), false, timestamp));
+                        BluetoothScanJob.getBluetoothType(device), false, timestamp));
             }
         }
     }

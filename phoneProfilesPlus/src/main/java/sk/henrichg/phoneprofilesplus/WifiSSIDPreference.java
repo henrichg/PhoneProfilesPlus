@@ -374,7 +374,7 @@ public class WifiSSIDPreference extends DialogPreference {
                 if (_forRescan)
                 {
                     ScannerService.setForceOneWifiScan(context, ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
-                    WifiScanJobBroadcastReceiver.startScanner(context, true);
+                    WifiScanJob.startScanner(context, true);
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);
@@ -385,7 +385,7 @@ public class WifiSSIDPreference extends DialogPreference {
                 _SSIDList.add(new WifiSSIDData(EventPreferencesWifi.ALL_SSIDS_VALUE, "", false));
                 _SSIDList.add(new WifiSSIDData(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE, "", false));
 
-                List<WifiSSIDData> wifiConfigurationList = WifiScanJobBroadcastReceiver.getWifiConfigurationList(context);
+                List<WifiSSIDData> wifiConfigurationList = WifiScanJob.getWifiConfigurationList(context);
                 if (wifiConfigurationList != null)
                 {
                     for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
@@ -395,20 +395,20 @@ public class WifiSSIDPreference extends DialogPreference {
                     }
                 }
 
-                List<WifiSSIDData> scanResults = WifiScanJobBroadcastReceiver.getScanResults(context);
+                List<WifiSSIDData> scanResults = WifiScanJob.getScanResults(context);
                 if (scanResults != null)
                 {
                     for (WifiSSIDData scanResult : scanResults)
                     {
                         //Log.d("WifiSSIDPreference.refreshListView","scanResult.ssid="+scanResult.ssid);
-                        if (!WifiScanJobBroadcastReceiver.getSSID(scanResult, wifiConfigurationList).isEmpty())
+                        if (!WifiScanJob.getSSID(scanResult, wifiConfigurationList).isEmpty())
                         {
                             //Log.d("WifiSSIDPreference.refreshListView","not empty");
                             boolean exists = false;
                             for (WifiSSIDData ssidData : _SSIDList)
                             {
                                 if (!ssidData.ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
-                                    if (WifiScanJobBroadcastReceiver.compareSSID(scanResult, ssidData.ssid, wifiConfigurationList)) {
+                                    if (WifiScanJob.compareSSID(scanResult, ssidData.ssid, wifiConfigurationList)) {
                                         //Log.d("WifiSSIDPreference.refreshListView", "exists");
                                         exists = true;
                                         break;
@@ -417,7 +417,7 @@ public class WifiSSIDPreference extends DialogPreference {
                             }
                             if (!exists) {
                                 //Log.d("WifiSSIDPreference.refreshListView","not exists");
-                                _SSIDList.add(new WifiSSIDData(WifiScanJobBroadcastReceiver.getSSID(scanResult, wifiConfigurationList), scanResult.bssid, false));
+                                _SSIDList.add(new WifiSSIDData(WifiScanJob.getSSID(scanResult, wifiConfigurationList), scanResult.bssid, false));
                             }
                         }
                     }

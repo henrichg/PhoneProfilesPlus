@@ -1,10 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class WifiAPStateChangeBroadcastReceiver extends WakefulBroadcastReceiver {
+public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {

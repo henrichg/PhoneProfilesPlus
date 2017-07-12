@@ -19,7 +19,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
     }
 
     public void onScanResult(int callbackType, ScanResult result) {
-        boolean scanStarted = (BluetoothScanJobBroadcastReceiver.getWaitForLEResults(context));
+        boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(context));
 
         if (scanStarted) {
             //PPApplication.logE("BluetoothLEScanCallback21", "onScanResult - callbackType=" + callbackType);
@@ -30,14 +30,14 @@ class BluetoothLEScanCallback21 extends ScanCallback {
             PPApplication.logE("BluetoothLEScanCallback21", "onScanResult - deviceName=" + btName);
 
             BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
-                    BluetoothScanJobBroadcastReceiver.getBluetoothType(device), false, 0);
+                    BluetoothScanJob.getBluetoothType(device), false, 0);
 
-            BluetoothScanJobBroadcastReceiver.addLEScanResult(context, deviceData);
+            BluetoothScanJob.addLEScanResult(deviceData);
         }
     }
 
     public void onBatchScanResults(List<ScanResult> results) {
-        boolean scanStarted = (BluetoothScanJobBroadcastReceiver.getWaitForLEResults(context));
+        boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(context));
 
         if (scanStarted) {
             for (ScanResult result : results) {
@@ -48,9 +48,9 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                 PPApplication.logE("BluetoothLEScanCallback21", "onBatchScanResults - deviceName=" + btName);
 
                 BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
-                        BluetoothScanJobBroadcastReceiver.getBluetoothType(device), false, 0);
+                        BluetoothScanJob.getBluetoothType(device), false, 0);
 
-                BluetoothScanJobBroadcastReceiver.addLEScanResult(context, deviceData);
+                BluetoothScanJob.addLEScanResult(deviceData);
             }
         }
     }

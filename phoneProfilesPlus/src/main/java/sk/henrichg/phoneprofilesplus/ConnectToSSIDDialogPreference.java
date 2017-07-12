@@ -139,8 +139,8 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
             protected Void doInBackground(Void... params) {
                 //Log.d("ConnectToSSIDDialogPreference.onShow","doInBackground");
 
-                WifiScanJobBroadcastReceiver.fillWifiConfigurationList(context);
-                List<WifiSSIDData> wifiConfigurationList = WifiScanJobBroadcastReceiver.getWifiConfigurationList(context);
+                WifiScanJob.fillWifiConfigurationList(context);
+                List<WifiSSIDData> wifiConfigurationList = WifiScanJob.getWifiConfigurationList(context);
                 if (wifiConfigurationList != null)
                 {
                     for (WifiSSIDData wifiConfiguration : wifiConfigurationList)

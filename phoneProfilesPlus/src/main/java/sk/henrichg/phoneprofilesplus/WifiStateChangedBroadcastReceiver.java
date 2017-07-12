@@ -23,8 +23,8 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
 
         Context appContext = context.getApplicationContext();
 
-        if (WifiScanJobBroadcastReceiver.wifi == null)
-            WifiScanJobBroadcastReceiver.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+        if (WifiScanJob.wifi == null)
+            WifiScanJob.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
 
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
@@ -35,9 +35,9 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
         int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
 
         if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-            if (!((WifiScanJobBroadcastReceiver.getScanRequest(appContext)) ||
-                    (WifiScanJobBroadcastReceiver.getWaitForResults(appContext)) ||
-                    (WifiScanJobBroadcastReceiver.getWifiEnabledForScan(appContext)))) {
+            if (!((WifiScanJob.getScanRequest(appContext)) ||
+                    (WifiScanJob.getWaitForResults(appContext)) ||
+                    (WifiScanJob.getWifiEnabledForScan(appContext)))) {
                 // ignore for wifi scanning
 
                 if (!PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
@@ -73,13 +73,13 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
             {
                 if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                     // start scan
-                    if (WifiScanJobBroadcastReceiver.getScanRequest(appContext)) {
+                    if (WifiScanJob.getScanRequest(appContext)) {
                         final Context _context = appContext;
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
-                                WifiScanJobBroadcastReceiver.startScan(_context);
+                                WifiScanJob.startScan(_context);
                             }
                         }, 5000);
 
@@ -89,22 +89,22 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                         WifiScanJobBroadcastReceiver.startScan(appContext);
                         PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "after startScan");
                         */
-                    } else if (!WifiScanJobBroadcastReceiver.getWaitForResults(appContext)) {
+                    } else if (!WifiScanJob.getWaitForResults(appContext)) {
                         // refresh configured networks list
                         final Context _context = appContext;
                         new Handler().post(new Runnable() {
                             @Override
                             public void run() {
                                 PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
-                                WifiScanJobBroadcastReceiver.fillWifiConfigurationList(_context);
+                                WifiScanJob.fillWifiConfigurationList(_context);
                             }
                         });
                     }
                 }
 
-                if (!((WifiScanJobBroadcastReceiver.getScanRequest(appContext)) ||
-                        (WifiScanJobBroadcastReceiver.getWaitForResults(appContext)) ||
-                        (WifiScanJobBroadcastReceiver.getWifiEnabledForScan(appContext)))) {
+                if (!((WifiScanJob.getScanRequest(appContext)) ||
+                        (WifiScanJob.getWaitForResults(appContext)) ||
+                        (WifiScanJob.getWifiEnabledForScan(appContext)))) {
                     // required for Wifi ConnectionType="Not connected"
 
                     /*Intent broadcastIntent = new Intent(appContext, RadioSwitchBroadcastReceiver.class);

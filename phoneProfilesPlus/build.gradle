@@ -72,6 +72,7 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;
     }
+    compile 'com.commonsware.cwac:wakeful:1.1.0'
 }
 
 

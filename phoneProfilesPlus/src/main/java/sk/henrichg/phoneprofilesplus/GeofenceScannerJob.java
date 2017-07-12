@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 
@@ -73,7 +74,16 @@ class GeofenceScannerJob extends Job {
                     LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
                 } else
                     PPApplication.logE("GeofenceScannerJob.onRunJob", "loaction updates not started - start it");
-                    PhoneProfilesService.geofencesScanner.startLocationUpdates();
+                    // Fixed: java.lang.NullPointerException: Calling thread must be a prepared Looper thread.
+                    //        com.google.android.gms.internal.zzccb.requestLocationUpdates(Unknown Source)
+                    Handler handler = new Handler(context.getMainLooper());
+                    handler.post(new Runnable() {
+                                     @Override
+                                     public void run() {
+                                         PhoneProfilesService.geofencesScanner.startLocationUpdates();
+                                     }
+                                 }
+                    );
             }
         }
 
