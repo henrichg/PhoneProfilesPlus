@@ -93,7 +93,7 @@
         android:required="false"/>
 
     <application
-        android:name="sk.henrichg.phoneprofilesplus.PPApplication"
+        android:name=".PPApplication"
         android:allowBackup="true"
         android:backupAgent=".PhoneProfilesBackupAgent"
         android:fullBackupContent="@xml/phoneprofiles_backup_scheme"
@@ -513,6 +513,7 @@
         </receiver>
         -->
 
+
         <!-- widget providers -->
         <receiver
             android:name=".IconWidgetProvider"
@@ -773,6 +774,10 @@
         <service
             android:name=".SamsungEdgeService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
+        <service
+            android:name=".ProfileDurationService"
+            android:exported="false">
+        </service>
     </application>
 
 </manifest>
