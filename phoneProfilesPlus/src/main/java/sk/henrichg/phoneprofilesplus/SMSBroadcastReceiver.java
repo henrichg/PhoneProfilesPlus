@@ -1,15 +1,18 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.telephony.SmsMessage;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
+public class SMSBroadcastReceiver extends BroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "SMS";
 
@@ -127,7 +130,7 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
                 eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_SMS_PHONE_NUMBER, origin);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_SMS_DATE, time);
-                startWakefulService(context, eventsServiceIntent);
+                WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
             //}
         }
     }

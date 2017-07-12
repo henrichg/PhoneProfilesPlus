@@ -7,7 +7,9 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.SystemClock;
 
-public class PhoneCallService extends IntentService {
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
+public class PhoneCallService extends WakefulIntentService {
 
     private Context context;
     private static AudioManager audioManager = null;
@@ -38,9 +40,7 @@ public class PhoneCallService extends IntentService {
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
+    protected void doWakefulWork(Intent intent) {
         if (intent != null) {
 
             context = getApplicationContext();
@@ -67,9 +67,6 @@ public class PhoneCallService extends IntentService {
             Thread.sleep(1000); // // 1 second for EventsService
         } catch (InterruptedException e) {
         }*/
-
-        if (intent != null)
-            PhoneCallBroadcastReceiver.completeWakefulIntent(intent);
     }
 
     private void doCallEvent(int eventType, String phoneNumber)
@@ -86,8 +83,7 @@ public class PhoneCallService extends IntentService {
         // start service
         Intent eventsServiceIntent = new Intent(context, EventsService.class);
         eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
-        context.startService(eventsServiceIntent);
-
+        WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
     }
 
     private void callStarted(boolean incoming, String phoneNumber)

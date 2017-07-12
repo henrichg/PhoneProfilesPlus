@@ -1,11 +1,14 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class RadioSwitchBroadcastReceiver extends WakefulBroadcastReceiver {
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
+public class RadioSwitchBroadcastReceiver extends BroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "radioSwitch";
 
@@ -56,7 +59,7 @@ public class RadioSwitchBroadcastReceiver extends WakefulBroadcastReceiver {
                 eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, radioSwitchType);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, radioSwitchState);
-                startWakefulService(context, eventsServiceIntent);
+                WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
             //}
         }
     }

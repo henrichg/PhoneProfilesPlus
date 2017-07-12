@@ -1,13 +1,16 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastReceiver {
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
+public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "bluetoothState";
 
@@ -95,7 +98,7 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
                         // start service
                         Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
                         eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                        startWakefulService(appContext, eventsServiceIntent);
+                        WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
                         //}
                 }
 

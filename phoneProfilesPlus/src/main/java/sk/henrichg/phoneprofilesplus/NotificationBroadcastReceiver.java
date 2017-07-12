@@ -1,11 +1,14 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class NotificationBroadcastReceiver extends WakefulBroadcastReceiver {
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
+public class NotificationBroadcastReceiver extends BroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "Notification";
 
@@ -43,7 +46,7 @@ public class NotificationBroadcastReceiver extends WakefulBroadcastReceiver {
                 //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
                 //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));
                 eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, intent.getStringExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED));
-                startWakefulService(appContext, eventsServiceIntent);
+                WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
             //}
         }
     }

@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.NetworkInfo;
@@ -7,7 +8,9 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
+public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "wifiConnection";
 
@@ -63,7 +66,7 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
                             // start service
                             Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
                             eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                            startWakefulService(appContext, eventsServiceIntent);
+                            WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
 
                         }
                     } else

@@ -2,6 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Intent;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
 import java.util.Date;
 
 public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
@@ -37,7 +39,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         intent.putExtra(EXTRA_SERVICE_PHONE_EVENT, phoneEvent);
         intent.putExtra(EXTRA_SERVICE_PHONE_INCOMING, incoming);
         intent.putExtra(EXTRA_SERVICE_PHONE_NUMBER, number);
-        startWakefulService(savedContext, intent);
+        WakefulIntentService.sendWakefulWork(savedContext, intent);
     }
 
     protected void onIncomingCallStarted(String number, Date start)

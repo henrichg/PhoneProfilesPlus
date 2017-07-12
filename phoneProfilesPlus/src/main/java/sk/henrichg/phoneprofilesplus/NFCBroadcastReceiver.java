@@ -1,14 +1,17 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class NFCBroadcastReceiver extends WakefulBroadcastReceiver {
+public class NFCBroadcastReceiver extends BroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "NFC";
 
@@ -59,7 +62,7 @@ public class NFCBroadcastReceiver extends WakefulBroadcastReceiver {
                 eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NFC_TAG_NAME, tagName);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NFC_DATE, time);
-                startWakefulService(context, eventsServiceIntent);
+                WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
             //}
         }
     }

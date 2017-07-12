@@ -1,11 +1,14 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
+public class RestartEventsBroadcastReceiver extends BroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "restartEvents";
     //public static final String INTENT_RESTART_EVENTS = "sk.henrichg.phoneprofilesplus.RESTART_EVENTS";
@@ -54,7 +57,7 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
             eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
             eventsServiceIntent.putExtra(DataWrapper.EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);
             eventsServiceIntent.putExtra(DataWrapper.EXTRA_INTERACTIVE, interactive);
-            startWakefulService(appContext, eventsServiceIntent);
+            WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
         }
     }
 }

@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
@@ -7,7 +8,7 @@ import android.telephony.TelephonyManager;
 
 import java.util.Date;
 
-public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
+public abstract class PhoneCallReceiver extends BroadcastReceiver {
 
     static TelephonyManager telephony;
     //The receiver will be recreated whenever android feels like it.
@@ -19,8 +20,6 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         savedContext = context.getApplicationContext();
         
         if (onStartReceive())
