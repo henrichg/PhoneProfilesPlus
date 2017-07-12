@@ -4,15 +4,17 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
 
-public class ProfileDurationService extends IntentService {
+
+public class ProfileDurationService extends WakefulIntentService {
 
     public ProfileDurationService() {
         super("ProfileDurationService");
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void doWakefulWork(Intent intent) {
         if (intent != null) {
             PPApplication.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
 
