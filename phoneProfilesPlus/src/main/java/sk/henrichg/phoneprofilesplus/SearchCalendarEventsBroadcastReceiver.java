@@ -1,18 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.content.WakefulBroadcastReceiver;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
-
-import java.util.Calendar;
 
 public class SearchCalendarEventsBroadcastReceiver extends BroadcastReceiver {
 

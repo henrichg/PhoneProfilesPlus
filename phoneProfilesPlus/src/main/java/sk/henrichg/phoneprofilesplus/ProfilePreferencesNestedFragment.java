@@ -20,7 +20,6 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;

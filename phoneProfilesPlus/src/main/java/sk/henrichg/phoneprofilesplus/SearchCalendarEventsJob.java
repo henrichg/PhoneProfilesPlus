@@ -9,7 +9,6 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 
-import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 class SearchCalendarEventsJob extends Job {

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Environment;
 import android.provider.Settings;
-import android.util.Log;
 
 import java.io.BufferedWriter;
 import java.io.File;

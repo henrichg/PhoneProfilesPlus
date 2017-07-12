@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.support.v4.content.WakefulBroadcastReceiver;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
