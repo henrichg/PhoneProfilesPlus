@@ -110,13 +110,6 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
                     //}
                 }
-
-                //if ((!connected) && (lastState != currState))
-                /*if (!connected)
-                {
-                    BluetoothScanJobBroadcastReceiver.stopScan(appContext);
-                }*/
-
             }
         }
     }

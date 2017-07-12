@@ -101,13 +101,5 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
 
             }
         }
-
-        /*
-        if (bluetoothState == BluetoothAdapter.STATE_OFF)
-        {
-            BluetoothScanJobBroadcastReceiver.stopScan(appContext);
-        }
-        */
-
     }
 }

@@ -41,23 +41,17 @@ public class DeviceIdleModeBroadcastReceiver extends WakefulBroadcastReceiver {
                 // rescan
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
-                    // send broadcast for one wifi scan
+                    // schedule job for one wifi scan
                     WifiScanJob.scheduleJob(context, true, true, false);
-                    //WifiScanJobBroadcastReceiver.setAlarm(appContext, true, true, false);
-                    //WifiScanJobBroadcastReceiver.sendBroadcast(appContext);
                 }
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0) {
-                    // send broadcast for one bluetooth scan
+                    // schedule job for one bluetooth scan
                     BluetoothScanJob.scheduleJob(context, true, true);
-                    //BluetoothScanJobBroadcastReceiver.setAlarm(appContext, true, true);
-                    //BluetoothScanJobBroadcastReceiver.sendBroadcast(appContext);
                 }
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
-                    // send broadcast for location scan
+                    // schedule job for location scan
                     PPApplication.logE("GeofenceScannerJob.scheduleJob", "from DeviceIdleModeBroadcastReceiver.onReceive");
                     GeofenceScannerJob.scheduleJob(context, true, true);
-                    //GeofenceScannerJobBroadcastReceiver.setAlarm(appContext, true, true);
-                    //GeofenceScannerJobBroadcastReceiver.sendBroadcast(appContext);
                 }
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                     // rescan mobile cells

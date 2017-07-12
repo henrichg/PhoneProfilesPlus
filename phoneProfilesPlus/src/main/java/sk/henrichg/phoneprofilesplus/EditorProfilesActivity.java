@@ -600,13 +600,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         ImportantInfoNotification.removeNotification(context);
         Permissions.removeNotifications(context);
 
-        //SearchCalendarEventsBroadcastReceiver.removeAlarm(context);
         SearchCalendarEventsJob.cancelJob();
-        //WifiScanJobBroadcastReceiver.removeAlarm(context/*, false*/);
         WifiScanJob.cancelJob();
-        //BluetoothScanJobBroadcastReceiver.removeAlarm(context/*, false*/);
         BluetoothScanJob.cancelJob();
-        //GeofenceScannerJobBroadcastReceiver.removeAlarm(context/*, false*/);
         GeofenceScannerJob.cancelJob();
 
 

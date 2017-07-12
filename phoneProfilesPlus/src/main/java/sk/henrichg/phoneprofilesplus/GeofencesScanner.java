@@ -87,7 +87,6 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 mUpdatesStarted = false;
                 PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GeofenceScanner.onConnected");
                 GeofenceScannerJob.scheduleJob(context, true, false);
-                //GeofenceScannerJobBroadcastReceiver.setAlarm(context, true, false);
             }
         }
     }
@@ -284,7 +283,6 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             createLocationRequest();
             PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GeofenceScanner.resetLocationUpdates");
             GeofenceScannerJob.scheduleJob(context, true, false);
-            //GeofenceScannerJobBroadcastReceiver.setAlarm(context, true, false);
         }
     }
 

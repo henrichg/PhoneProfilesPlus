@@ -885,14 +885,10 @@ public class DataWrapper {
         resetAllEventsInDelayStart(true);
         resetAllEventsInDelayEnd(true);
 
-        //WifiScanJobBroadcastReceiver.setAlarm(context, true, false, false);
         WifiScanJob.scheduleJob(context, true, false, false);
-        //BluetoothScanJobBroadcastReceiver.setAlarm(context, true, false);
         BluetoothScanJob.scheduleJob(context, true, false);
-        //GeofenceScannerJobBroadcastReceiver.setAlarm(context, true, false);
         PPApplication.logE("GeofenceScannerJob.scheduleJob", "from DataWrapper.firstStartEvents");
         GeofenceScannerJob.scheduleJob(context, true, false);
-        //SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
         SearchCalendarEventsJob.scheduleJob(true);
 
         if (!getIsManualProfileActivation()) {
@@ -2063,7 +2059,6 @@ public class DataWrapper {
 
                     //PPApplication.logE("----- DataWrapper.doEventService","scanResults="+scanResults);
 
-                    //if (WifiScanJobBroadcastReceiver.scanResults != null)
                     if (scanResults != null)
                     {
                         PPApplication.logE("----- DataWrapper.doEventService","scanResults != null");
@@ -3024,7 +3019,6 @@ public class DataWrapper {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
                 // rescan wifi
                 PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of wifi scanner");
-                //WifiScanJobBroadcastReceiver.setAlarm(context, true, false, false);
                 WifiScanJob.scheduleJob(context, true, false, false);
             }
         }
@@ -3035,7 +3029,6 @@ public class DataWrapper {
                 // rescan bluetooth
                 PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of bluetooth scanner");
                 BluetoothScanJob.scheduleJob(context, true, false);
-                //BluetoothScanJobBroadcastReceiver.setAlarm(context, true, false);
             }
         }
         if (ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
@@ -3046,7 +3039,6 @@ public class DataWrapper {
                 PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of location scanner");
                 PPApplication.logE("GeofenceScannerJob.scheduleJob", "from DataWrapper.restartEventsWithRescan");
                 GeofenceScannerJob.scheduleJob(context, true, false);
-                //GeofenceScannerJobBroadcastReceiver.setAlarm(context, true, false);
             }
         }
         if (ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
@@ -3380,14 +3372,11 @@ public class DataWrapper {
             // stop Wifi scanner
             WifiScanJobBroadcastReceiver.initialize(context);
             WifiScanJob.cancelJob();
-            //WifiScanJobBroadcastReceiver.removeAlarm(context/*, false*/);
             // stop bluetooth scanner
             BluetoothScanJobBroadcastReceiver.initialize(context);
             BluetoothScanJob.cancelJob();
-            //BluetoothScanJobBroadcastReceiver.removeAlarm(context/*, false*/);
             // stop geofences scanner
             GeofenceScannerJob.cancelJob();
-            //GeofenceScannerJobBroadcastReceiver.removeAlarm(context/*, false*/);
             if (PhoneProfilesService.instance != null) {
                 PPApplication.stopGeofenceScanner(context);
                 PPApplication.stopOrientationScanner(context);

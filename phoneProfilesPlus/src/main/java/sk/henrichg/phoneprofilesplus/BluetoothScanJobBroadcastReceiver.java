@@ -49,12 +49,10 @@ public class BluetoothScanJobBroadcastReceiver extends BroadcastReceiver {
         BluetoothScanJob.unregisterReceiver(context.getApplicationContext());
 
         BluetoothScanJob.scheduleJob(context, false, false);
-        //setAlarm(context, false, false);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED) {
             BluetoothScanJob.cancelJob();
-            //removeAlarm(context);
             return;
         }
 
@@ -111,106 +109,6 @@ public class BluetoothScanJobBroadcastReceiver extends BroadcastReceiver {
         }
 
     }
-
-    /*
-    @SuppressLint("NewApi")
-    public static void setAlarm(Context context, boolean shortInterval, boolean forScreenOn)
-    {
-        //PPApplication.logE("@@@ BluetoothScanJobBroadcastReceiver.setAlarm", "oneshot=" + oneshot);
-
-        if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
-                == PPApplication.PREFERENCE_ALLOWED)
-        {
-            PPApplication.logE("BluetoothScanJobBroadcastReceiver.setAlarm","BluetoothHardware=true");
-
-            AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-
-            Intent intent = new Intent(context, BluetoothScanJobBroadcastReceiver.class);
-
-            removeAlarm(context);
-
-            Calendar calendar = Calendar.getInstance();
-
-            //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            //PPApplication.logE("@@@ BluetoothScanJobBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
-
-            if (shortInterval) {
-                if (forScreenOn)
-                    calendar.add(Calendar.SECOND, 5);
-                else
-                    calendar.add(Calendar.SECOND, 5);
-            }
-            else {
-                int interval = ApplicationPreferences.applicationEventBluetoothScanInterval(context);
-                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
-                if (isPowerSaveMode && ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context).equals("1"))
-                    interval = 2 * interval;
-                calendar.add(Calendar.MINUTE, interval);
-            }
-            long alarmTime = calendar.getTimeInMillis();
-
-            intent.putExtra(EXTRA_ONESHOT, 0);
-            PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-            if (android.os.Build.VERSION.SDK_INT >= 23)
-                //alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                alarmMgr.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            else if (android.os.Build.VERSION.SDK_INT >= 19)
-                //alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            else
-                alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-
-            PPApplication.logE("@@@ BluetoothScanJobBroadcastReceiver.setAlarm", "alarm is set");
-
-        }
-        else
-            PPApplication.logE("BluetoothScanJobBroadcastReceiver.setAlarm","BluetoothHardware=false");
-    }
-
-    public static void removeAlarm(Context context)
-    {
-        //PPApplication.logE("@@@ BluetoothScanJobBroadcastReceiver.removeAlarm", "oneshot=" + oneshot);
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-        Intent intent = new Intent(context, BluetoothScanJobBroadcastReceiver.class);
-        PendingIntent pendingIntent;
-        //if (oneshot)
-        //    pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
-        //else
-            pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
-        if (pendingIntent != null)
-        {
-            //PPApplication.logE("@@@ BluetoothScanJobBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm found");
-            PPApplication.logE("@@@ BluetoothScanJobBroadcastReceiver.removeAlarm","alarm found");
-
-            alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
-        }
-        else
-            //PPApplication.logE("@@@ BluetoothScanJobBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm not found");
-            PPApplication.logE("@@@ BluetoothScanJobBroadcastReceiver.removeAlarm","alarm not found");
-    }
-
-    public static boolean isAlarmSet(Context context)
-    {
-        Intent intent = new Intent(context, BluetoothScanJobBroadcastReceiver.class);
-        PendingIntent pendingIntent;
-        //if (oneshot)
-        //    pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
-        //else
-            pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
-
-        if (pendingIntent != null)
-            //PPApplication.logE("@@@ BluetoothScanJobBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm found");
-            PPApplication.logE("@@@ BluetoothScanJobBroadcastReceiver.isAlarmSet","alarm found");
-        else
-            //PPApplication.logE("@@@ BluetoothScanJobBroadcastReceiver.isAlarmSet", "oneshot=" + oneshot + "; alarm not found");
-            PPApplication.logE("@@@ BluetoothScanJobBroadcastReceiver.isAlarmSet", "alarm not found");
-
-        return (pendingIntent != null);
-    }
-    */
 
     static public boolean getScanRequest(Context context)
     {
@@ -410,17 +308,6 @@ public class BluetoothScanJobBroadcastReceiver extends BroadcastReceiver {
                 scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0));
             }
             tmpScanLEResults = null;
-
-            /*
-            if (BluetoothScanJobBroadcastReceiver.scanResults != null)
-            {
-                for (BluetoothDevice device : BluetoothScanJobBroadcastReceiver.scanResults)
-                {
-                    PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive","device.name="+device.getName());
-                }
-            }
-            */
-
         }
 
         BluetoothScanJobBroadcastReceiver.saveLEScanResults(context, scanResults);

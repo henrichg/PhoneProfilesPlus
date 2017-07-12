@@ -166,9 +166,7 @@ public class EventsService extends IntentService
 
         List<Event> eventList = dataWrapper.getEventList();
 
-        boolean isRestart = (broadcastReceiverType.equals(RestartEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)/* ||
-                             broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE) ||
-                             broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)*/);
+        boolean isRestart = broadcastReceiverType.equals(RestartEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
 
         boolean interactive = (!isRestart) || intent.getBooleanExtra(DataWrapper.EXTRA_INTERACTIVE, false);
 
@@ -272,9 +270,6 @@ public class EventsService extends IntentService
 
         // no refresh notification and widgets
         ActivateProfileHelper.lockRefresh = true;
-
-        //BluetoothScanJobBroadcastReceiver.getBoundedDevicesList(context);
-        //BluetoothScanJobBroadcastReceiver.getScanResults(context);
 
         Profile mergedProfile = DataWrapper.getNoinitializedProfile("", "", 0);
         //mergedProfiles = new ArrayList<>();

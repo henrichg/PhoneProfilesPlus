@@ -187,20 +187,17 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         {
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
                 WifiScanJob.scheduleJob(getApplicationContext(), true, false, false);
-                //WifiScanJobBroadcastReceiver.setAlarm(getApplicationContext(), true, false, false);
         }
         if (bluetoothScanInterval != ApplicationPreferences.applicationEventBluetoothScanInterval(getApplicationContext()))
         {
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
                 BluetoothScanJob.scheduleJob(getApplicationContext(), true, false);
-                //BluetoothScanJobBroadcastReceiver.setAlarm(getApplicationContext(), true, false);
         }
         if (locationScanInterval != ApplicationPreferences.applicationEventLocationUpdateInterval(getApplicationContext()))
         {
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
                 PPApplication.logE("GeofenceScannerJob.scheduleJob", "from PhoneProfilesPreferenceActivity.finish");
                 GeofenceScannerJob.scheduleJob(getApplicationContext(), true, false);
-                //GeofenceScannerJobBroadcastReceiver.setAlarm(getApplicationContext(), true, false);
             }
         }
         dataWrapper.invalidateDataWrapper();

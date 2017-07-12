@@ -16,15 +16,67 @@ class GeofenceScannerJob extends Job {
 
     static final String JOB_TAG  = "GeofenceScannerJob";
     static final String JOB_TAG_START  = "GeofenceScannerJob_start";
-    private static GeofenceScannerJobBroadcastReceiver broadcastReceiver = new GeofenceScannerJobBroadcastReceiver();
-    private static boolean isBroadcastSend = false;
 
     @NonNull
     @Override
     protected Result onRunJob(Params params) {
         PPApplication.logE("GeofenceScannerJob.onRunJob", "xxx");
 
-        sendBroadcast(getContext());
+        Context context = getContext();
+
+        DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+        if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
+            PPApplication.logE("GeofenceScannerJob.onRunJob", "any events exists = schedule job");
+            //int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
+            //if (oneshot == 0)
+            GeofenceScannerJob.scheduleJob(context, false, false);
+            //setAlarm(context, false, false);
+            dataWrapper.invalidateDataWrapper();
+        }
+        else {
+            PPApplication.logE("GeofenceScannerJob.onRunJob", "events not exists = cancel job");
+            //removeAlarm(context);
+            GeofenceScannerJob.cancelJob();
+            dataWrapper.invalidateDataWrapper();
+            return Result.SUCCESS;
+        }
+
+        if (!PhoneProfilesService.isGeofenceScannerStarted()) {
+            PPApplication.logE("GeofenceScannerJob.onRunJob", "geofence scanner is not started = cancel job");
+            GeofenceScannerJob.cancelJob();
+            //removeAlarm(context/*, false*/);
+            //removeAlarm(context/*, true*/);
+            return Result.SUCCESS;
+        }
+
+        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
+        if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
+            PPApplication.logE("GeofenceScannerJob.onRunJob", "update in power save mode is not allowed = cancel job");
+            GeofenceScannerJob.cancelJob();
+            //removeAlarm(context/*, false*/);
+            //removeAlarm(context/*, true*/);
+            return Result.SUCCESS;
+        }
+
+        if (Event.getGlobalEventsRuning(context)) {
+            if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.geofencesScanner != null)) {
+                if (PhoneProfilesService.geofencesScanner.mUpdatesStarted) {
+                    PPApplication.logE("GeofenceScannerJob.onRunJob", "loaction updates started - send GeofenceScannerBroadcastReceiver");
+
+                    //PhoneProfilesService.geofencesScanner.stopLocationUpdates();
+
+                    // send broadcast for calling EventsService
+                    /*Intent broadcastIntent = new Intent(context, GeofenceScannerBroadcastReceiver.class);
+                    context.sendBroadcast(broadcastIntent);*/
+                    LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.geofenceScannerBroadcastReceiver, new IntentFilter("GeofenceScannerBroadcastReceiver"));
+                    Intent broadcastIntent = new Intent("GeofenceScannerBroadcastReceiver");
+                    LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
+                } else
+                    PPApplication.logE("GeofenceScannerJob.onRunJob", "loaction updates not started - start it");
+                    PhoneProfilesService.geofencesScanner.startLocationUpdates();
+            }
+        }
+
         return Result.SUCCESS;
     }
 
@@ -110,25 +162,6 @@ class GeofenceScannerJob extends Job {
         JobManager jobManager = JobManager.instance();
         return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0) ||
                 (jobManager.getAllJobRequestsForTag(JOB_TAG_START).size() != 0);
-    }
-
-    static void sendBroadcast(Context context)
-    {
-        PPApplication.logE("GeofenceScannerJob.sendBroadcast", "xxx");
-
-        if (!isBroadcastSend) {
-            isBroadcastSend = true;
-            LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, new IntentFilter("GeofenceScannerJobBroadcastReceiver"));
-            Intent intent = new Intent("GeofenceScannerJobBroadcastReceiver");
-            LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-        }
-    }
-
-    static void unregisterReceiver(Context context) {
-        PPApplication.logE("GeofenceScannerJob.unregisterReceiver", "xxx");
-
-        LocalBroadcastManager.getInstance(context.getApplicationContext()).unregisterReceiver(broadcastReceiver);
-        isBroadcastSend = false;
     }
 
 }

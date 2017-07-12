@@ -18,9 +18,6 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
         PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive", "----- start");
 
-        //if (BluetoothScanJobBroadcastReceiver.bluetooth == null)
-        //    BluetoothScanJobBroadcastReceiver.bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
-
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
@@ -56,7 +53,6 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                             LocalBroadcastManager.getInstance(_context).sendBroadcast(startEventsServiceIntent);
                         }
                     }, 5000);
-                    //setAlarm(context);
                 }
 
             }

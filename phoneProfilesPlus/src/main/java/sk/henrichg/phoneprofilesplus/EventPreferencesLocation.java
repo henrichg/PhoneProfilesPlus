@@ -203,11 +203,9 @@ class EventPreferencesLocation extends EventPreferences {
     @Override
     public void setSystemEventForStart(Context context)
     {
-        //if (_enabled && (!GeofenceScannerJobBroadcastReceiver.isAlarmSet(context/*, false*/)))
         if (_enabled && (!GeofenceScannerJob.isJobScheduled())) {
             PPApplication.logE("GeofenceScannerJob.scheduleJob", "from EventPreferencesLocation.setSystemEventForStart");
             GeofenceScannerJob.scheduleJob(context, true, false);
-            //GeofenceScannerJobBroadcastReceiver.setAlarm(context, true, false);
         }
     }
 

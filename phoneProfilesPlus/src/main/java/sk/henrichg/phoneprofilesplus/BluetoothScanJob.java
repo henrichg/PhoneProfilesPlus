@@ -96,7 +96,7 @@ class BluetoothScanJob extends Job {
                 (jobManager.getAllJobRequestsForTag(JOB_TAG_SHORT).size() != 0);
     }
 
-    static void sendBroadcast(Context context)
+    private static void sendBroadcast(Context context)
     {
         PPApplication.logE("BluetoothScanJob.sendBroadcast", "xxx");
 

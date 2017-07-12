@@ -133,16 +133,6 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                 }
             }
 
-            /*
-            if (BluetoothScanJobBroadcastReceiver.scanResults != null)
-            {
-                for (BluetoothDevice device : BluetoothScanJobBroadcastReceiver.scanResults)
-                {
-                    PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive","device.name="+device.getName());
-                }
-            }
-            */
-
             BluetoothScanJobBroadcastReceiver.saveCLScanResults(context, scanResults);
 
             BluetoothScanJobBroadcastReceiver.setWaitForResults(context, false);
