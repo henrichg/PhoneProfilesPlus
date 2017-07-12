@@ -180,7 +180,7 @@ public class EventsService extends WakefulIntentService {
         }
 
         if (broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE) ||
-                broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+                broadcastReceiverType.equals(SearchCalendarEventsJob.BROADCAST_RECEIVER_TYPE)) {
             // search for calendar events
             PPApplication.logE("EventsService.onHandleIntent", "search for calendar events");
             for (Event _event : eventList) {
@@ -524,7 +524,7 @@ public class EventsService extends WakefulIntentService {
         if (broadcastReceiverType.equals(ScreenOnOffBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_SCREEN;*/
         else
-        if (broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(SearchCalendarEventsJob.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_CALENDAR;
         else
         if (broadcastReceiverType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE))

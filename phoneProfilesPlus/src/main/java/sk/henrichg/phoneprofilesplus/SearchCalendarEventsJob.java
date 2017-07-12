@@ -1,10 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
@@ -15,16 +17,44 @@ class SearchCalendarEventsJob extends Job {
 
     static final String JOB_TAG  = "SearchCalendarEventsJob";
     static final String JOB_TAG_SHORT  = "SearchCalendarEventsJob_short";
-    static SearchCalendarEventsBroadcastReceiver broadcastReceiver = new SearchCalendarEventsBroadcastReceiver();
+
+    public static final String BROADCAST_RECEIVER_TYPE = "searchCalendarEvents";
 
     @NonNull
     @Override
     protected Result onRunJob(Params params) {
         PPApplication.logE("SearchCalendarEventsJob.onRunJob", "xxx");
 
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, new IntentFilter("SearchCalendarEventsBroadcastReceiver"));
-        Intent intent = new Intent("SearchCalendarEventsBroadcastReceiver");
-        LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
+        Context appContext = getContext().getApplicationContext();
+
+        SearchCalendarEventsJob.scheduleJob(false);
+        //setAlarm(appContext, false);
+
+        if (!PPApplication.getApplicationStarted(appContext, true))
+            // application is not started
+            return Result.SUCCESS;
+
+        //PPApplication.loadPreferences(appContext);
+
+        if (Event.getGlobalEventsRuning(appContext))
+        {
+            /*boolean calendarEventsExists = false;
+
+            DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
+            calendarEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR) > 0;
+            PPApplication.logE("SearchCalendarEventsBroadcastReceiver.onReceive", "calendarEventsExists=" + calendarEventsExists);
+            dataWrapper.invalidateDataWrapper();
+
+            if (calendarEventsExists)
+            {*/
+            // start service
+            Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
+            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+            WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+            //}
+
+        }
+
         return Result.SUCCESS;
     }
 
