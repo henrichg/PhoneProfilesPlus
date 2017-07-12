@@ -133,7 +133,7 @@ public class PhoneProfilesService extends Service
             //e.printStackTrace();
         }
 
-        AboutApplicationBroadcastReceiver.setAlarm(this);
+        AboutApplicationJob.scheduleJob();
 
         //PPApplication.loadPreferences(getApplicationContext());
 

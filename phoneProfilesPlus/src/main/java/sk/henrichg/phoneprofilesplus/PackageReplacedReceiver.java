@@ -60,7 +60,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     if (actualVersionCode <= 2400) {
                         PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "donation alarm restart");
                         PPApplication.setDaysAfterFirstStart(appContext, 0);
-                        AboutApplicationBroadcastReceiver.setAlarm(appContext);
+                        AboutApplicationJob.scheduleJob();
                     }
                     if (actualVersionCode <= 2500) {
                         // for old packages hide profile notification from status bar if notification is disabled
