@@ -625,11 +625,6 @@
             android:exported="false">
         </receiver>
         <receiver
-            android:name=".RecreateNotificationBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
             android:name=".NFCEventEndBroadcastReceiver"
             android:enabled="true"
             android:exported="false">

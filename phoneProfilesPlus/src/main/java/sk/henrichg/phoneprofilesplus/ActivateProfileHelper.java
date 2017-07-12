@@ -2142,7 +2142,6 @@ public class ActivateProfileHelper {
 
     void removeNotification()
     {
-        removeAlarmForRecreateNotification();
         if (PhoneProfilesService.instance != null)
             PhoneProfilesService.instance.stopForeground(true);
         else
@@ -2172,34 +2171,6 @@ public class ActivateProfileHelper {
             alarmManager.setExact(AlarmManager.RTC, time, pendingIntent);
         else*/
             alarmManager.set(AlarmManager.RTC, time, pendingIntent);
-    }
-
-    void setAlarmForRecreateNotification()
-    {
-        Intent intent = new Intent(context, RecreateNotificationBroadcastReceiver.class);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-
-        Calendar now = Calendar.getInstance();
-        long time = now.getTimeInMillis() + 500;
-        alarmManager.set(AlarmManager.RTC, time, pendingIntent);
-    }
-
-    private void removeAlarmForRecreateNotification() {
-        Intent intent = new Intent(context, RecreateNotificationBroadcastReceiver.class);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-
-        if (pendingIntent != null)
-        {
-            alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
-        }
-
     }
 
     void updateWidget(boolean alsoEditor)

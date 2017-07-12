@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -140,13 +141,18 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     {
         super.onStop();
 
-        DataWrapper dataWrapper =  new DataWrapper(getApplicationContext(), true, false, 0);
+        final DataWrapper dataWrapper =  new DataWrapper(getApplicationContext(), true, false, 0);
         dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
         dataWrapper.getActivateProfileHelper().removeNotification();
-        dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
-        //dataWrapper.getActivateProfileHelper().showNotification(dataWrapper.getActivatedProfileFromDB(), "");
+        Handler handler = new Handler(getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Profile activatedProfile = dataWrapper.getActivatedProfile();
+                dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
+            }
+        }, 500);
         dataWrapper.getActivateProfileHelper().updateWidget(true);
-        dataWrapper.invalidateDataWrapper();
     }
 
     @Override
