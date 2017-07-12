@@ -251,7 +251,7 @@ public class ActivateProfileListFragment extends Fragment {
 
                 fragment.doOnStart();
 
-                final Handler handler = new Handler();
+                final Handler handler = new Handler(fragment.getActivity().getMainLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -475,7 +475,7 @@ public class ActivateProfileListFragment extends Fragment {
             }
             else {
                 //Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
-                final Handler handler = new Handler();
+                final Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -485,7 +485,7 @@ public class ActivateProfileListFragment extends Fragment {
             }
         }
         else {
-            final Handler handler = new Handler();
+            final Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -528,7 +528,7 @@ public class ActivateProfileListFragment extends Fragment {
         if ((profileListAdapter != null) && (itemView != null))
             profileListAdapter.showTargetHelps(getActivity(), this, itemView);
         else {
-            final Handler handler = new Handler();
+            final Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {

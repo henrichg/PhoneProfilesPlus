@@ -29,7 +29,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             // start delayed bootup broadcast
             PPApplication.startedOnBoot = true;
-            final Handler handler = new Handler();
+            final Handler handler = new Handler(appContext.getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -130,7 +130,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 if (PhoneProfilesService.instance != null) {
                     // stop PhoneProfilesService
                     appContext.stopService(new Intent(appContext, PhoneProfilesService.class));
-                    Handler _handler = new Handler();
+                    Handler _handler = new Handler(appContext.getMainLooper());
                     Runnable r = new Runnable() {
                         public void run() {
                             startService(appContext);

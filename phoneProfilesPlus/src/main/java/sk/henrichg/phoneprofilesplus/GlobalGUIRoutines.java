@@ -222,7 +222,7 @@ public class GlobalGUIRoutines {
         if (newIntent)
         {
             final Activity _activity = activity;
-            new Handler().post(new Runnable() {
+            new Handler(activity.getMainLooper()).post(new Runnable() {
 
                 @Override
                 public void run() {

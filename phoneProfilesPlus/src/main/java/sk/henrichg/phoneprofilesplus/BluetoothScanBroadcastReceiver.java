@@ -144,7 +144,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
             {
                 // start service
                 final Context _context = context.getApplicationContext();
-                new Handler().postDelayed(new Runnable() {
+                new Handler(context.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         LocalBroadcastManager.getInstance(_context).registerReceiver(PPApplication.startEventsServiceBroadcastReceiver, new IntentFilter("StartEventsServiceBroadcastReceiver"));

@@ -68,7 +68,7 @@ public class LockDeviceActivity extends AppCompatActivity {
         getWindow().setAttributes(aParams);
         */
 
-        Handler handler = new Handler();
+        Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
             public void run() {
                 if (PPApplication.lockDeviceActivity != null) {

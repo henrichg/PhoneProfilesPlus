@@ -22,6 +22,7 @@ import android.nfc.NfcAdapter;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.provider.Settings;
@@ -3153,15 +3154,16 @@ public class DataWrapper {
     @SuppressLint("NewApi")
     void restartEventsWithDelay(int delay, boolean unblockEventsRun, boolean interactive)
     {
-        PPApplication.logE("$$$ restartEvents","in DataWrapper.restartEventsWithDelay");
+        PPApplication.logE("DataWrapper.restartEventsWithDelay","xxx");
 
         final boolean _unblockEventsRun = unblockEventsRun;
         final boolean _interactive = interactive;
 
-        final Handler handler = new Handler();
+        final Handler handler = new Handler(context.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("DataWrapper.restartEventsWithDelay","restart");
                 LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.restartEventsBroadcastReceiver, new IntentFilter("RestartEventsBroadcastReceiver"));
                 Intent restartEventsIntent = new Intent("RestartEventsBroadcastReceiver");
                 restartEventsIntent.putExtra(EXTRA_UNBLOCKEVENTSRUN, _unblockEventsRun);

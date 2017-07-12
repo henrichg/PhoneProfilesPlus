@@ -113,7 +113,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_location_geofence_editor);
 
-        mResultReceiver = new AddressResultReceiver(new Handler());
+        mResultReceiver = new AddressResultReceiver(new Handler(getMainLooper()));
 
         // Create a GoogleApiClient instance
         mGoogleApiClient = new GoogleApiClient.Builder(this)

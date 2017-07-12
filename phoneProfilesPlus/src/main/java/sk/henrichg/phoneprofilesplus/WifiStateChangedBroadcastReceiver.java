@@ -75,7 +75,7 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                     // start scan
                     if (WifiScanJob.getScanRequest(appContext)) {
                         final Context _context = appContext;
-                        new Handler().postDelayed(new Runnable() {
+                        new Handler(context.getMainLooper()).postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
@@ -92,7 +92,7 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                     } else if (!WifiScanJob.getWaitForResults(appContext)) {
                         // refresh configured networks list
                         final Context _context = appContext;
-                        new Handler().post(new Runnable() {
+                        new Handler(context.getMainLooper()).post(new Runnable() {
                             @Override
                             public void run() {
                                 PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");

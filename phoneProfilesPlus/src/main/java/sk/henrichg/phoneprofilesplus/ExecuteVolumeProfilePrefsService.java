@@ -91,7 +91,7 @@ public class ExecuteVolumeProfilePrefsService extends WakefulIntentService
                 //SystemClock.sleep(500);
                 PPApplication.sleep(500);
 
-                final Handler handler = new Handler();
+                final Handler handler = new Handler(context.getMainLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {

@@ -16,7 +16,7 @@ public class ProfileDurationService extends WakefulIntentService {
     @Override
     protected void doWakefulWork(Intent intent) {
         if (intent != null) {
-            PPApplication.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
+            PPApplication.logE("##### ProfileDurationService.doWakefulWork", "xxx");
 
             Context context = getApplicationContext();
 
@@ -67,7 +67,7 @@ public class ProfileDurationService extends WakefulIntentService {
 
                                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
-                                PPApplication.logE("$$$ ProfileDurationAlarmBroadcastReceiver.onReceive", "restart events");
+                                PPApplication.logE("ProfileDurationService.doWakefulWork", "restart events");
                                 dataWrapper.restartEventsWithDelay(3, true, false);
                             }
                             else

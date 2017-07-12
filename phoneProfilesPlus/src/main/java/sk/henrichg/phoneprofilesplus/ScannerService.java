@@ -114,8 +114,7 @@ public class ScannerService extends WakefulIntentService
             }
         }
 
-        //wifiBluetoothChangeHandler = new Handler(getMainLooper());
-        Handler wifiBluetoothChangeHandler = new Handler();
+        Handler wifiBluetoothChangeHandler = new Handler(getMainLooper());
 
         PPApplication.logE("$$$ ScannerService.onHandleIntent", "before synchronized block - scanType=" + scanType);
 
@@ -229,7 +228,7 @@ public class ScannerService extends WakefulIntentService
                                 {
                                     // start service
                                     final Context _context = context.getApplicationContext();
-                                    new Handler().postDelayed(new Runnable() {
+                                    new Handler(context.getMainLooper()).postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
                                             LocalBroadcastManager.getInstance(_context).registerReceiver(PPApplication.startEventsServiceBroadcastReceiver, new IntentFilter("StartEventsServiceBroadcastReceiver"));

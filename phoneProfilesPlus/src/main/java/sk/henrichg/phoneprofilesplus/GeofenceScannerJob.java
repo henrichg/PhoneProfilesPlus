@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 
@@ -78,11 +79,11 @@ class GeofenceScannerJob extends Job {
                     //        com.google.android.gms.internal.zzccb.requestLocationUpdates(Unknown Source)
                     Handler handler = new Handler(context.getMainLooper());
                     handler.post(new Runnable() {
-                                     @Override
-                                     public void run() {
-                                         PhoneProfilesService.geofencesScanner.startLocationUpdates();
-                                     }
-                                 }
+                             @Override
+                             public void run() {
+                                 PhoneProfilesService.geofencesScanner.startLocationUpdates();
+                             }
+                         }
                     );
             }
         }

@@ -150,7 +150,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean ret = super.onPrepareOptionsMenu(menu);
 
-        final Handler handler = new Handler();
+        final Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

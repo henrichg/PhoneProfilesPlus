@@ -277,7 +277,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                 @Override
                 public void onSequenceFinish() {
                     //targetHelpsSequenceStarted = false;
-                    final Handler handler = new Handler();
+                    final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -298,7 +298,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                 @Override
                 public void onSequenceCanceled(TapTarget lastTarget) {
                     //targetHelpsSequenceStarted = false;
-                    final Handler handler = new Handler();
+                    final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -317,7 +317,7 @@ class ActivateProfileListAdapter extends BaseAdapter
             sequence.start();
         }
         else {
-            final Handler handler = new Handler();
+            final Handler handler = new Handler(activity.getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {

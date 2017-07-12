@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -439,7 +440,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
                         targetHelpsSequenceStarted = false;
-                        final Handler handler = new Handler();
+                        final Handler handler = new Handler(getMainLooper());
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -464,7 +465,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             }
             else {
                 //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=false");
-                final Handler handler = new Handler();
+                final Handler handler = new Handler(getMainLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {

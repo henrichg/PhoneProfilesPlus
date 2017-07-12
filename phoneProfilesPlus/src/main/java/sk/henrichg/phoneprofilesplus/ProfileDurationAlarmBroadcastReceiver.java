@@ -15,6 +15,7 @@ import java.util.Calendar;
 public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
+        PPApplication.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
         Intent profileDurationServiceIntent = new Intent(context, ProfileDurationService.class);
         profileDurationServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0));
         WakefulIntentService.sendWakefulWork(context, profileDurationServiceIntent);

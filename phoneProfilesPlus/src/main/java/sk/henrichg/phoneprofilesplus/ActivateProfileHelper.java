@@ -1755,7 +1755,7 @@ public class ActivateProfileHelper {
                 break;
         }
         setActivatedProfileScreenTimeout(context, 0);
-        final Handler handler = new Handler();
+        final Handler handler = new Handler(context.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -1851,7 +1851,7 @@ public class ActivateProfileHelper {
                 //e.printStackTrace();
             }
 
-            final Handler handler = new Handler();
+            final Handler handler = new Handler(context.getMainLooper());
             final Context _context = context;
             handler.postDelayed(new Runnable() {
                 @Override

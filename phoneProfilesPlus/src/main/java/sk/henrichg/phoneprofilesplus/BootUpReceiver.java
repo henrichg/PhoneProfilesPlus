@@ -24,7 +24,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
         // start delayed bootup broadcast
         PPApplication.startedOnBoot = true;
-        final Handler handler = new Handler();
+        final Handler handler = new Handler(context.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

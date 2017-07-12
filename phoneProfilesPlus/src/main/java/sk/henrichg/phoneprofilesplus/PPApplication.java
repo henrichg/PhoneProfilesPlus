@@ -57,6 +57,11 @@ public class PPApplication extends Application {
                                          +"|BluetoothScanJob"
                                          +"|GeofenceScannerJob"
 
+                                         +"|ProfileDurationAlarmBroadcastReceiver"
+                                         +"|ProfileDurationService"
+                                         +"|DataWrapper.restartEventsWithDelay"
+                                         +"|RestartEventsBroadcastReceiver"
+
             ;
 
 
