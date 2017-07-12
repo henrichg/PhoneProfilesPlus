@@ -53,10 +53,8 @@ public class PPApplication extends Application {
 
                                          //+"|SearchCalendarEventsJob"
                                          //+"|##### SearchCalendarEventsBroadcastReceiver.onReceive"
-                                         //+"|WifiScanJob"
-                                         //+"|##### WifiScanJobBroadcastReceiver.onReceive"
-                                         //+"|BluetoothScanJob"
-                                         //+"|##### BluetoothScanJobBroadcastReceiver.onReceive"
+                                         +"|WifiScanJob"
+                                         +"|BluetoothScanJob"
                                          +"|GeofenceScannerJob"
 
             ;

@@ -58,6 +58,7 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.RemoteViews;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
@@ -81,9 +82,6 @@ public class ActivateProfileHelper {
 
     static boolean lockRefresh = false;
     static boolean disableScreenTimeoutInternalChange = false;
-
-    private static ExecuteRadioProfilePrefsBroadcastReceiver executeRadioProfilePrefsBroadcastReceiver = new ExecuteRadioProfilePrefsBroadcastReceiver();
-    static ExecuteVolumeProfilePrefsBroadcastReceiver executeVolumeProfilePrefsBroadcastReceiver = new ExecuteVolumeProfilePrefsBroadcastReceiver();
 
     static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
 
@@ -1372,12 +1370,11 @@ public class ActivateProfileHelper {
         // nahodenie volume
         // run service for execute volumes
         PPApplication.logE("ActivateProfileHelper.execute", "ExecuteVolumeProfilePrefsService");
-        LocalBroadcastManager.getInstance(context).registerReceiver(executeVolumeProfilePrefsBroadcastReceiver, new IntentFilter("ExecuteVolumeProfilePrefsBroadcastReceiver"));
-        Intent startExecuteVolumeProfilePrefsIntent = new Intent("ExecuteVolumeProfilePrefsBroadcastReceiver");
-        startExecuteVolumeProfilePrefsIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-        startExecuteVolumeProfilePrefsIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
-        startExecuteVolumeProfilePrefsIntent.putExtra(EXTRA_FOR_PROFILE_ACTIVATION, true);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(startExecuteVolumeProfilePrefsIntent);
+        Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
+        volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+        volumeServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
+        volumeServiceIntent.putExtra(EXTRA_FOR_PROFILE_ACTIVATION, true);
+        WakefulIntentService.sendWakefulWork(context, volumeServiceIntent);
 
         // set vibration on touch
         if (Permissions.checkProfileVibrationOnTouch(context, profile)) {
@@ -1397,11 +1394,10 @@ public class ActivateProfileHelper {
 
         //// nahodenie radio preferences
         // run service for execute radios
-        LocalBroadcastManager.getInstance(context).registerReceiver(executeRadioProfilePrefsBroadcastReceiver, new IntentFilter("ExecuteRadioProfilePrefsBroadcastReceiver"));
-        Intent startExecuteRadioProfilePrefsIntent = new Intent("ExecuteRadioProfilePrefsBroadcastReceiver");
-        startExecuteRadioProfilePrefsIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-        startExecuteRadioProfilePrefsIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(startExecuteRadioProfilePrefsIntent);
+        Intent radioServiceIntent = new Intent(context, ExecuteRadioProfilePrefsService.class);
+        radioServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+        radioServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
+        WakefulIntentService.sendWakefulWork(context, radioServiceIntent);
 
         // nahodenie auto-sync
         boolean _isAutosync = ContentResolver.getMasterSyncAutomatically();
@@ -3310,44 +3306,6 @@ public class ActivateProfileHelper {
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT, timeout);
         editor.apply();
-    }
-
-    static class ExecuteRadioProfilePrefsBroadcastReceiver extends WakefulBroadcastReceiver {
-
-        public static final String BROADCAST_RECEIVER_TYPE = "executeRadioProfilePrefs";
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            PPApplication.logE("##### ExecuteRadioProfilePrefsBroadcastReceiver.onReceive", "xxx");
-
-            LocalBroadcastManager.getInstance(context.getApplicationContext()).unregisterReceiver(executeRadioProfilePrefsBroadcastReceiver);
-
-            Intent radioServiceIntent = new Intent(context, ExecuteRadioProfilePrefsService.class);
-            radioServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0));
-            radioServiceIntent.putExtra(EXTRA_MERGED_PROFILE, intent.getBooleanExtra(EXTRA_MERGED_PROFILE, false));
-            startWakefulService(context, radioServiceIntent);
-        }
-
-    }
-
-    static class ExecuteVolumeProfilePrefsBroadcastReceiver extends WakefulBroadcastReceiver {
-
-        public static final String BROADCAST_RECEIVER_TYPE = "executeVolumeProfilePrefs";
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            PPApplication.logE("##### ExecuteVolumeProfilePrefsBroadcastReceiver.onReceive", "xxx");
-
-            LocalBroadcastManager.getInstance(context.getApplicationContext()).unregisterReceiver(executeVolumeProfilePrefsBroadcastReceiver);
-
-            Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
-            volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0));
-            volumeServiceIntent.putExtra(EXTRA_MERGED_PROFILE, intent.getBooleanExtra(EXTRA_MERGED_PROFILE, false));
-            volumeServiceIntent.putExtra(EXTRA_FOR_PROFILE_ACTIVATION, intent.getBooleanExtra(EXTRA_FOR_PROFILE_ACTIVATION, true));
-            volumeServiceIntent.putExtra(EXTRA_STARTED_FROM_BROADCAST, intent.getBooleanExtra(EXTRA_STARTED_FROM_BROADCAST, true));
-            startWakefulService(context, volumeServiceIntent);
-        }
-
     }
 
 }

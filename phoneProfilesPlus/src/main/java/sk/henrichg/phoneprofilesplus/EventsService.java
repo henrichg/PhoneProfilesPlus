@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
 import java.util.List;
 
 public class EventsService extends IntentService
@@ -597,13 +599,12 @@ public class EventsService extends IntentService
                     profile = Profile.getMappedProfile(profile, context);
                     if (profile != null) {
                         PPApplication.logE("EventsService.doEndService", "callEventType=" + callEventType);
-                        // EventsService is wakefull
                         Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
                         volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                         volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_MERGED_PROFILE, false);
                         volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_FOR_PROFILE_ACTIVATION, false);
                         volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_STARTED_FROM_BROADCAST, false);
-                        context.startService(volumeServiceIntent);
+                        WakefulIntentService.sendWakefulWork(context, volumeServiceIntent);
                         // wait for link/unlink
                         //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                         //SystemClock.sleep(1000);

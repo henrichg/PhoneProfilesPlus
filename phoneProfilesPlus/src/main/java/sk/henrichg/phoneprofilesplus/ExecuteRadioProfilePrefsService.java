@@ -5,15 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 
-public class ExecuteRadioProfilePrefsService extends IntentService 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
+public class ExecuteRadioProfilePrefsService extends WakefulIntentService
 {
     public ExecuteRadioProfilePrefsService() {
         super("ExecuteRadioProfilePrefsService");
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
-
+    protected void doWakefulWork(Intent intent) {
         PPApplication.logE("##### ExecuteRadioProfilePrefsService.onHandleIntent","-- START ----------");
 
         Context context = getApplicationContext();
@@ -64,10 +65,7 @@ public class ExecuteRadioProfilePrefsService extends IntentService
 
         PPApplication.sleep(500);
 
-        ActivateProfileHelper.ExecuteRadioProfilePrefsBroadcastReceiver.completeWakefulIntent(intent);
-
         PPApplication.logE("ExecuteRadioProfilePrefsService.onHandleIntent","-- END ----------");
-
     }
 
 }

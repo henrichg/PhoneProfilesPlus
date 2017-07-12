@@ -7,15 +7,16 @@ import android.media.AudioManager;
 import android.os.Handler;
 import android.os.PowerManager;
 
-public class ExecuteVolumeProfilePrefsService extends IntentService
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
+public class ExecuteVolumeProfilePrefsService extends WakefulIntentService
 {
     public ExecuteVolumeProfilePrefsService() {
         super("ExecuteVolumeProfilePrefsService");
     }
-    
-    //@Override
-    protected void onHandleIntent(Intent intent) {
 
+    @Override
+    protected void doWakefulWork(Intent intent) {
         PPApplication.logE("##### ExecuteVolumeProfilePrefsService.onHandleIntent", "xxx");
 
         final Context context = getApplicationContext();
@@ -105,11 +106,6 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
         }
 
         dataWrapper.invalidateDataWrapper();
-
-        if (startedFromBroadcast)
-            ActivateProfileHelper.ExecuteVolumeProfilePrefsBroadcastReceiver.completeWakefulIntent(intent);
-
     }
-
 
 }
