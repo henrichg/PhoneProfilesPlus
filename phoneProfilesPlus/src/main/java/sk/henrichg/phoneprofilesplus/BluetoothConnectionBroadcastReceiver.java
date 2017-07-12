@@ -86,11 +86,11 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                     //{
                     PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive", "connected=" + connected);
 
-                    if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(appContext)) ||
-                            (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(appContext)) ||
-                            (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(appContext)) ||
-                            (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(appContext)) ||
-                            (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(appContext)))) {
+                    if (!((BluetoothScanJobBroadcastReceiver.getScanRequest(appContext)) ||
+                            (BluetoothScanJobBroadcastReceiver.getLEScanRequest(appContext)) ||
+                            (BluetoothScanJobBroadcastReceiver.getWaitForResults(appContext)) ||
+                            (BluetoothScanJobBroadcastReceiver.getWaitForLEResults(appContext)) ||
+                            (BluetoothScanJobBroadcastReceiver.getBluetoothEnabledForScan(appContext)))) {
                         // bluetooth is not scanned
 
                         /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
@@ -114,7 +114,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                 //if ((!connected) && (lastState != currState))
                 /*if (!connected)
                 {
-                    BluetoothScanAlarmBroadcastReceiver.stopScan(appContext);
+                    BluetoothScanJobBroadcastReceiver.stopScan(appContext);
                 }*/
 
             }
@@ -205,7 +205,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                 Calendar now = Calendar.getInstance();
                 long timestamp = now.getTimeInMillis() - gmtOffset;
                 connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
-                        BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false, timestamp));
+                        BluetoothScanJobBroadcastReceiver.getBluetoothType(device), false, timestamp));
             }
         }
     }

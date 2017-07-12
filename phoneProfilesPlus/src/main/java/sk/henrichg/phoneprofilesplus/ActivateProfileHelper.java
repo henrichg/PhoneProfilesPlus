@@ -258,7 +258,7 @@ public class ActivateProfileHelper {
                         }
                         if (isWifiEnabled)
                             // when wifi is enabled from profile, no disable wifi after scan
-                            WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
+                            WifiScanJobBroadcastReceiver.setWifiEnabledForScan(context, false);
                         if (setWifiState) {
                             try {
                                 wifiManager.setWifiEnabled(isWifiEnabled);
@@ -328,7 +328,7 @@ public class ActivateProfileHelper {
         if (profile._deviceBluetooth != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, context) == PPApplication.PREFERENCE_ALLOWED) {
                 PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","setBluetooth");
-                BluetoothAdapter bluetoothAdapter = BluetoothScanAlarmBroadcastReceiver.getBluetoothAdapter(context);
+                BluetoothAdapter bluetoothAdapter = BluetoothScanJobBroadcastReceiver.getBluetoothAdapter(context);
                 if (bluetoothAdapter != null) {
                     boolean isBluetoothEnabled = bluetoothAdapter.isEnabled();
                     boolean setBluetoothState = false;
@@ -355,7 +355,7 @@ public class ActivateProfileHelper {
                     if (isBluetoothEnabled) {
                         // when bluetooth is enabled from profile, no disable bluetooth after scan
                         PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "isBluetoothEnabled=true; setBluetoothEnabledForScan=false");
-                        BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
+                        BluetoothScanJobBroadcastReceiver.setBluetoothEnabledForScan(context, false);
                     }
                     if (setBluetoothState) {
                         if (isBluetoothEnabled)

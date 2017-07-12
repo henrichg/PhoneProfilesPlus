@@ -16,7 +16,7 @@ class BluetoothScanJob extends Job {
 
     static final String JOB_TAG  = "BluetoothScanJob";
     static final String JOB_TAG_SHORT  = "BluetoothScanJob_short";
-    private static BluetoothScanAlarmBroadcastReceiver broadcastReceiver = new BluetoothScanAlarmBroadcastReceiver();
+    private static BluetoothScanJobBroadcastReceiver broadcastReceiver = new BluetoothScanJobBroadcastReceiver();
     private static boolean isBroadcastSend = false;
 
     @NonNull
@@ -102,8 +102,8 @@ class BluetoothScanJob extends Job {
 
         if (!isBroadcastSend) {
             isBroadcastSend = true;
-            LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, new IntentFilter("BluetoothScanAlarmBroadcastReceiver"));
-            Intent intent = new Intent("BluetoothScanAlarmBroadcastReceiver");
+            LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, new IntentFilter("BluetoothScanJobBroadcastReceiver"));
+            Intent intent = new Intent("BluetoothScanJobBroadcastReceiver");
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         }
     }

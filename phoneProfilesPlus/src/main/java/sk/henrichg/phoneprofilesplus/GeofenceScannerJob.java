@@ -16,7 +16,7 @@ class GeofenceScannerJob extends Job {
 
     static final String JOB_TAG  = "GeofenceScannerJob";
     static final String JOB_TAG_START  = "GeofenceScannerJob_start";
-    private static GeofenceScannerAlarmBroadcastReceiver broadcastReceiver = new GeofenceScannerAlarmBroadcastReceiver();
+    private static GeofenceScannerJobBroadcastReceiver broadcastReceiver = new GeofenceScannerJobBroadcastReceiver();
     private static boolean isBroadcastSend = false;
 
     @NonNull
@@ -118,8 +118,8 @@ class GeofenceScannerJob extends Job {
 
         if (!isBroadcastSend) {
             isBroadcastSend = true;
-            LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, new IntentFilter("GeofenceScannerAlarmBroadcastReceiver"));
-            Intent intent = new Intent("GeofenceScannerAlarmBroadcastReceiver");
+            LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, new IntentFilter("GeofenceScannerJobBroadcastReceiver"));
+            Intent intent = new Intent("GeofenceScannerJobBroadcastReceiver");
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         }
     }

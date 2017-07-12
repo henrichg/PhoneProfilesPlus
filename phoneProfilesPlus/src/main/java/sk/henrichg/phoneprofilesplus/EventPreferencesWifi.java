@@ -237,9 +237,9 @@ class EventPreferencesWifi extends EventPreferences {
         if (_enabled &&
             ((_connectionType == CTYPE_INFRONT) || (_connectionType == CTYPE_NOTINFRONT)) &&
             (!WifiScanJob.isJobScheduled()))
-            //(!WifiScanAlarmBroadcastReceiver.isAlarmSet(context/*, false*/)))
+            //(!WifiScanJobBroadcastReceiver.isAlarmSet(context/*, false*/)))
             WifiScanJob.scheduleJob(context, true, false, false);
-            //WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, false);
+            //WifiScanJobBroadcastReceiver.setAlarm(context, true, false, false);
     }
 
     @Override
@@ -247,8 +247,8 @@ class EventPreferencesWifi extends EventPreferences {
     {
         /*
         if (((_connectionType == CTYPE_INFRONT) || (_connectionType == CTYPE_NOTINFRONT)) &&
-            (!WifiScanAlarmBroadcastReceiver.isAlarmSet(context, false)))
-            WifiScanAlarmBroadcastReceiver.setAlarm(context, false, true);
+            (!WifiScanJobBroadcastReceiver.isAlarmSet(context, false)))
+            WifiScanJobBroadcastReceiver.setAlarm(context, false, true);
         */
     }
 

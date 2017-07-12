@@ -85,7 +85,7 @@ public class AboutApplicationBroadcastReceiver extends BroadcastReceiver {
         calendar.add(Calendar.DAY_OF_YEAR, 1);
 
         //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-        //PPApplication.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
+        //PPApplication.logE("@@@ WifiScanJobBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
         long alarmTime = calendar.getTimeInMillis();
 

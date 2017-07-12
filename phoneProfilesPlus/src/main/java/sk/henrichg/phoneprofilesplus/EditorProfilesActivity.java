@@ -602,11 +602,11 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         //SearchCalendarEventsBroadcastReceiver.removeAlarm(context);
         SearchCalendarEventsJob.cancelJob();
-        //WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+        //WifiScanJobBroadcastReceiver.removeAlarm(context/*, false*/);
         WifiScanJob.cancelJob();
-        //BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+        //BluetoothScanJobBroadcastReceiver.removeAlarm(context/*, false*/);
         BluetoothScanJob.cancelJob();
-        //GeofenceScannerAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+        //GeofenceScannerJobBroadcastReceiver.removeAlarm(context/*, false*/);
         GeofenceScannerJob.cancelJob();
 
 

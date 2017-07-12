@@ -112,8 +112,8 @@ public class ScreenOnOffService extends IntentService {
                                 // send broadcast for one wifi scan
                                 PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of wifi scanner");
                                 WifiScanJob.scheduleJob(appContext, true, true, false);
-                                //WifiScanAlarmBroadcastReceiver.setAlarm(appContext, true, true, false);
-                                //WifiScanAlarmBroadcastReceiver.sendBroadcast(appContext);
+                                //WifiScanJobBroadcastReceiver.setAlarm(appContext, true, true, false);
+                                //WifiScanJobBroadcastReceiver.sendBroadcast(appContext);
                             }
                         }
                         if (ApplicationPreferences.applicationEventBluetoothRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
@@ -122,8 +122,8 @@ public class ScreenOnOffService extends IntentService {
                                 // send broadcast for one bluetooth scan
                                 PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of bluetooth scanner");
                                 BluetoothScanJob.scheduleJob(appContext, true, true);
-                                //BluetoothScanAlarmBroadcastReceiver.setAlarm(appContext, true, true);
-                                //BluetoothScanAlarmBroadcastReceiver.sendBroadcast(appContext);
+                                //BluetoothScanJobBroadcastReceiver.setAlarm(appContext, true, true);
+                                //BluetoothScanJobBroadcastReceiver.sendBroadcast(appContext);
                             }
                         }
                         if (ApplicationPreferences.applicationEventLocationRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
@@ -133,8 +133,8 @@ public class ScreenOnOffService extends IntentService {
                                 PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of location scanner");
                                 PPApplication.logE("GeofenceScannerJob.scheduleJob", "from ScreenOnOffService.onHandleIntent");
                                 GeofenceScannerJob.scheduleJob(appContext, true, true);
-                                //GeofenceScannerAlarmBroadcastReceiver.setAlarm(appContext, true, true);
-                                //GeofenceScannerAlarmBroadcastReceiver.sendBroadcast(appContext);
+                                //GeofenceScannerJobBroadcastReceiver.setAlarm(appContext, true, true);
+                                //GeofenceScannerJobBroadcastReceiver.sendBroadcast(appContext);
                             }
                         }
                         if (ApplicationPreferences.applicationEventMobileCellsRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||

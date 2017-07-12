@@ -647,17 +647,17 @@
             android:exported="false">
         </receiver>
         <receiver
-            android:name=".WifiScanAlarmBroadcastReceiver"
+            android:name=".WifiScanJobBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
         <receiver
-            android:name=".BluetoothScanAlarmBroadcastReceiver"
+            android:name=".BluetoothScanJobBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
         <receiver
-            android:name=".GeofenceScannerAlarmBroadcastReceiver"
+            android:name=".GeofenceScannerJobBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>

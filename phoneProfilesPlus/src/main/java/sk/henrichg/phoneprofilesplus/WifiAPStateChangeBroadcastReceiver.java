@@ -29,7 +29,7 @@ public class WifiAPStateChangeBroadcastReceiver extends WakefulBroadcastReceiver
                 PPApplication.logE("WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP enabled");
                 // remove broadcast for one wifi scan
                 WifiScanJob.cancelJob();
-                //WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, true*/);
+                //WifiScanJobBroadcastReceiver.removeAlarm(context/*, true*/);
             }
             else {
                 PPApplication.logE("WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP disabled");
@@ -37,7 +37,7 @@ public class WifiAPStateChangeBroadcastReceiver extends WakefulBroadcastReceiver
                 DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
                     WifiScanJob.scheduleJob(context, true, false, true);
-                    //WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false, true);
+                    //WifiScanJobBroadcastReceiver.setAlarm(context, true, false, true);
                 dataWrapper.invalidateDataWrapper();
             }
 

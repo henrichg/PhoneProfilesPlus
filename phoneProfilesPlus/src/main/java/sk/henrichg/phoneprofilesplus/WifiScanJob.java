@@ -10,14 +10,13 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 
-import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 class WifiScanJob extends Job {
 
     static final String JOB_TAG  = "WifiScanJob";
     static final String JOB_TAG_SHORT  = "WifiScanJob_short";
-    private static WifiScanAlarmBroadcastReceiver broadcastReceiver = new WifiScanAlarmBroadcastReceiver();
+    private static WifiScanJobBroadcastReceiver broadcastReceiver = new WifiScanJobBroadcastReceiver();
     private static boolean isBroadcastSend = false;
 
     @NonNull
@@ -105,8 +104,8 @@ class WifiScanJob extends Job {
 
         if (!isBroadcastSend) {
             isBroadcastSend = true;
-            LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, new IntentFilter("WifiScanAlarmBroadcastReceiver"));
-            Intent intent = new Intent("WifiScanAlarmBroadcastReceiver");
+            LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, new IntentFilter("WifiScanJobBroadcastReceiver"));
+            Intent intent = new Intent("WifiScanJobBroadcastReceiver");
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         }
     }

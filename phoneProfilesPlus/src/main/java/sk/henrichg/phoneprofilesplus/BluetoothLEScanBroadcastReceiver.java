@@ -1,16 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
-
-import java.util.Calendar;
 
 public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
@@ -23,8 +18,8 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
         PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive", "----- start");
 
-        //if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
-        //    BluetoothScanAlarmBroadcastReceiver.bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
+        //if (BluetoothScanJobBroadcastReceiver.bluetooth == null)
+        //    BluetoothScanJobBroadcastReceiver.bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
 
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
@@ -37,15 +32,15 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRuning(context) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
         {
 
-            boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context));
+            boolean scanStarted = (BluetoothScanJobBroadcastReceiver.getWaitForLEResults(context));
 
             if (scanStarted)
             {
                 PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive","xxx");
 
-                BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
+                BluetoothScanJobBroadcastReceiver.fillBoundedDevicesList(context);
 
-                BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
+                BluetoothScanJobBroadcastReceiver.setWaitForLEResults(context, false);
 
                 ScannerService.setForceOneLEBluetoothScan(context, ScannerService.FORCE_ONE_SCAN_DISABLED);
 

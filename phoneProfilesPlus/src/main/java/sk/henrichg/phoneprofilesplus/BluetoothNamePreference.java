@@ -382,7 +382,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 {
                     ScannerService.setForceOneBluetoothScan(context, ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     ScannerService.setForceOneLEBluetoothScan(context, ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
-                    BluetoothScanAlarmBroadcastReceiver.startScanner(context, true);
+                    BluetoothScanJobBroadcastReceiver.startScanner(context, true);
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);
@@ -399,7 +399,7 @@ public class BluetoothNamePreference extends DialogPreference {
                     _bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", 0, false, 0));
                 }
 
-                List<BluetoothDeviceData> boundedDevicesList = BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
+                List<BluetoothDeviceData> boundedDevicesList = BluetoothScanJobBroadcastReceiver.getBoundedDevicesList(context);
                 if (boundedDevicesList != null)
                 {
                     for (BluetoothDeviceData device : boundedDevicesList)
@@ -408,7 +408,7 @@ public class BluetoothNamePreference extends DialogPreference {
                     }
                 }
 
-                List<BluetoothDeviceData> scanResults = BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
+                List<BluetoothDeviceData> scanResults = BluetoothScanJobBroadcastReceiver.getScanResults(context);
                 if (scanResults != null)
                 {
                     for (BluetoothDeviceData device : scanResults)

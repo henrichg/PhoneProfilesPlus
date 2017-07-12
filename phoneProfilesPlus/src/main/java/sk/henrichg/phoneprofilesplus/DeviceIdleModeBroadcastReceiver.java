@@ -43,21 +43,21 @@ public class DeviceIdleModeBroadcastReceiver extends WakefulBroadcastReceiver {
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
                     // send broadcast for one wifi scan
                     WifiScanJob.scheduleJob(context, true, true, false);
-                    //WifiScanAlarmBroadcastReceiver.setAlarm(appContext, true, true, false);
-                    //WifiScanAlarmBroadcastReceiver.sendBroadcast(appContext);
+                    //WifiScanJobBroadcastReceiver.setAlarm(appContext, true, true, false);
+                    //WifiScanJobBroadcastReceiver.sendBroadcast(appContext);
                 }
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0) {
                     // send broadcast for one bluetooth scan
                     BluetoothScanJob.scheduleJob(context, true, true);
-                    //BluetoothScanAlarmBroadcastReceiver.setAlarm(appContext, true, true);
-                    //BluetoothScanAlarmBroadcastReceiver.sendBroadcast(appContext);
+                    //BluetoothScanJobBroadcastReceiver.setAlarm(appContext, true, true);
+                    //BluetoothScanJobBroadcastReceiver.sendBroadcast(appContext);
                 }
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
                     // send broadcast for location scan
                     PPApplication.logE("GeofenceScannerJob.scheduleJob", "from DeviceIdleModeBroadcastReceiver.onReceive");
                     GeofenceScannerJob.scheduleJob(context, true, true);
-                    //GeofenceScannerAlarmBroadcastReceiver.setAlarm(appContext, true, true);
-                    //GeofenceScannerAlarmBroadcastReceiver.sendBroadcast(appContext);
+                    //GeofenceScannerJobBroadcastReceiver.setAlarm(appContext, true, true);
+                    //GeofenceScannerJobBroadcastReceiver.sendBroadcast(appContext);
                 }
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                     // rescan mobile cells

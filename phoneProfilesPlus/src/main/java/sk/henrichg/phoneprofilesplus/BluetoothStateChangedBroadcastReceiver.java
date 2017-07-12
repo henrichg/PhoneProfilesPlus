@@ -44,32 +44,32 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
                 {
                     //if ((!dataWrapper.getIsManualProfileActivation()) || PPApplication.getForceOneBluetoothScan(appContext))
                     //{
-                        if (BluetoothScanAlarmBroadcastReceiver.getScanRequest(appContext))
+                        if (BluetoothScanJobBroadcastReceiver.getScanRequest(appContext))
                         {
                             PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start classic scan");
-                            BluetoothScanAlarmBroadcastReceiver.startCLScan(appContext);
+                            BluetoothScanJobBroadcastReceiver.startCLScan(appContext);
                         }
                         else
-                        if (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(appContext))
+                        if (BluetoothScanJobBroadcastReceiver.getLEScanRequest(appContext))
                         {
                             PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start LE scan");
-                            BluetoothScanAlarmBroadcastReceiver.startLEScan(appContext);
+                            BluetoothScanJobBroadcastReceiver.startLEScan(appContext);
                         }
                         else
-                        if (!(BluetoothScanAlarmBroadcastReceiver.getWaitForResults(appContext) ||
-                              BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(appContext)))
+                        if (!(BluetoothScanJobBroadcastReceiver.getWaitForResults(appContext) ||
+                              BluetoothScanJobBroadcastReceiver.getWaitForLEResults(appContext)))
                         {
                             // refresh bounded devices
-                            BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(appContext);
+                            BluetoothScanJobBroadcastReceiver.fillBoundedDevicesList(appContext);
                         }
                     //}
                 }
 
-                if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(appContext)) ||
-                        (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(appContext)) ||
-                        (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(appContext)) ||
-                        (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(appContext)) ||
-                        (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(appContext)))) {
+                if (!((BluetoothScanJobBroadcastReceiver.getScanRequest(appContext)) ||
+                        (BluetoothScanJobBroadcastReceiver.getLEScanRequest(appContext)) ||
+                        (BluetoothScanJobBroadcastReceiver.getWaitForResults(appContext)) ||
+                        (BluetoothScanJobBroadcastReceiver.getWaitForLEResults(appContext)) ||
+                        (BluetoothScanJobBroadcastReceiver.getBluetoothEnabledForScan(appContext)))) {
                     // required for Bluetooth ConnectionType="Not connected"
 
                     //if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
@@ -105,7 +105,7 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
         /*
         if (bluetoothState == BluetoothAdapter.STATE_OFF)
         {
-            BluetoothScanAlarmBroadcastReceiver.stopScan(appContext);
+            BluetoothScanJobBroadcastReceiver.stopScan(appContext);
         }
         */
 

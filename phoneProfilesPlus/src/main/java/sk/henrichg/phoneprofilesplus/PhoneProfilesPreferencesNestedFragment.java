@@ -277,10 +277,10 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
             int locationMode = Settings.Secure.getInt(getActivity().getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
 
-            if (WifiScanAlarmBroadcastReceiver.wifi == null)
-                WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            if (WifiScanJobBroadcastReceiver.wifi == null)
+                WifiScanJobBroadcastReceiver.wifi = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-            if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable())) {
+            if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!WifiScanJobBroadcastReceiver.wifi.isScanAlwaysAvailable())) {
                 preference = prefMng.findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
                 if (preference != null) {
                     //preference.setWidgetLayoutResource(R.layout.start_activity_preference);

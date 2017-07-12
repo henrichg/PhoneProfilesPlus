@@ -1,8 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +7,6 @@ import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
-
-import java.util.Calendar;
 
 public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
@@ -22,8 +17,8 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("##### WifiScanBroadcastReceiver.onReceive","xxx");
         //PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");
 
-        if (WifiScanAlarmBroadcastReceiver.wifi == null)
-            WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (WifiScanJobBroadcastReceiver.wifi == null)
+            WifiScanJobBroadcastReceiver.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
@@ -43,11 +38,11 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
             //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "resultsUpdated="+intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false));
 
             //if ((android.os.Build.VERSION.SDK_INT < 23) || (intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)))
-                WifiScanAlarmBroadcastReceiver.fillScanResults(context);
-            //WifiScanAlarmBroadcastReceiver.unlock();
+                WifiScanJobBroadcastReceiver.fillScanResults(context);
+            //WifiScanJobBroadcastReceiver.unlock();
 
             /*
-            List<WifiSSIDData> scanResults = WifiScanAlarmBroadcastReceiver.getScanResults(context);
+            List<WifiSSIDData> scanResults = WifiScanJobBroadcastReceiver.getScanResults(context);
             if (scanResults != null) {
                 PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults.size="+scanResults.size());
                 //for (WifiSSIDData result : scanResults) {
@@ -58,12 +53,12 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults=null");
             */
 
-            boolean scanStarted = (WifiScanAlarmBroadcastReceiver.getWaitForResults(context));
+            boolean scanStarted = (WifiScanJobBroadcastReceiver.getWaitForResults(context));
             PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted="+scanStarted);
 
             if (scanStarted)
             {
-                WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+                WifiScanJobBroadcastReceiver.setWaitForResults(context, false);
                 ScannerService.setForceOneWifiScan(context, ScannerService.FORCE_ONE_SCAN_DISABLED);
 
                 if (forceOneScan != ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan

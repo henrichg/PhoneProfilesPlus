@@ -12,7 +12,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.Calendar;
 
-public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
+public class GeofenceScannerJobBroadcastReceiver extends BroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "geofenceScannerAlarm";
     //public static final String EXTRA_ONESHOT = "oneshot";
@@ -22,7 +22,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        PPApplication.logE("##### GeofenceScannerAlarmBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### GeofenceScannerJobBroadcastReceiver.onReceive", "xxx");
 
         GeofenceScannerJob.unregisterReceiver(context.getApplicationContext());
 
@@ -32,7 +32,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
         if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
             //int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
             //if (oneshot == 0)
-            PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GeofenceScannerAlarmBroadcastReceiver.onReceive");
+            PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GeofenceScannerJobBroadcastReceiver.onReceive");
             GeofenceScannerJob.scheduleJob(context, false, false);
             //setAlarm(context, false, false);
             dataWrapper.invalidateDataWrapper();
@@ -81,13 +81,13 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
     @SuppressLint("NewApi")
     public static void setAlarm(Context context, boolean startScanning, boolean forScreenOn)
     {
-        PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm", "xxx");
+        PPApplication.logE("@@@ GeofenceScannerJobBroadcastReceiver.setAlarm", "xxx");
 
         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
 
             AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-            Intent intent = new Intent(context, GeofenceScannerAlarmBroadcastReceiver.class);
+            Intent intent = new Intent(context, GeofenceScannerJobBroadcastReceiver.class);
 
             removeAlarm(context);
 
@@ -97,7 +97,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             Calendar calendar = Calendar.getInstance();
 
             //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            //PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
+            //PPApplication.logE("@@@ GeofenceScannerJobBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
             int updateDuration = 30;
             int interval;
@@ -138,15 +138,15 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
                 alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
         }
 
-        PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm", "alarm is set");
+        PPApplication.logE("@@@ GeofenceScannerJobBroadcastReceiver.setAlarm", "alarm is set");
     }
 
     public static void removeAlarm(Context context)
     {
-        //PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm", "oneshot=" + oneshot);
+        //PPApplication.logE("@@@ GeofenceScannerJobBroadcastReceiver.removeAlarm", "oneshot=" + oneshot);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-        Intent intent = new Intent(context, GeofenceScannerAlarmBroadcastReceiver.class);
+        Intent intent = new Intent(context, GeofenceScannerJobBroadcastReceiver.class);
         PendingIntent pendingIntent;
         //if (oneshot)
         //    pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
@@ -154,20 +154,20 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
         {
-            //PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm found");
-            PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm","alarm found");
+            //PPApplication.logE("@@@ GeofenceScannerJobBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm found");
+            PPApplication.logE("@@@ GeofenceScannerJobBroadcastReceiver.removeAlarm","alarm found");
 
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
         }
         else
-            //PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm not found");
-            PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm","alarm not found");
+            //PPApplication.logE("@@@ GeofenceScannerJobBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm not found");
+            PPApplication.logE("@@@ GeofenceScannerJobBroadcastReceiver.removeAlarm","alarm not found");
     }
 
     public static boolean isAlarmSet(Context context)
     {
-        Intent intent = new Intent(context, GeofenceScannerAlarmBroadcastReceiver.class);
+        Intent intent = new Intent(context, GeofenceScannerJobBroadcastReceiver.class);
         PendingIntent pendingIntent;
         //if (oneshot)
         //    pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
@@ -175,11 +175,11 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
 
         if (pendingIntent != null)
-            //PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm found");
-            PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.isAlarmSet","alarm found");
+            //PPApplication.logE("@@@ GeofenceScannerJobBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm found");
+            PPApplication.logE("@@@ GeofenceScannerJobBroadcastReceiver.isAlarmSet","alarm found");
         else
-            //PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.isAlarmSet", "oneshot=" + oneshot + "; alarm not found");
-            PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.isAlarmSet", "alarm not found");
+            //PPApplication.logE("@@@ GeofenceScannerJobBroadcastReceiver.isAlarmSet", "oneshot=" + oneshot + "; alarm not found");
+            PPApplication.logE("@@@ GeofenceScannerJobBroadcastReceiver.isAlarmSet", "alarm not found");
 
         return (pendingIntent != null);
     }

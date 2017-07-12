@@ -103,8 +103,8 @@ public class FirstStartService extends IntentService {
         // zrusenie notifikacie
         //dataWrapper.getActivateProfileHelper().removeNotification();
 
-        WifiScanAlarmBroadcastReceiver.initialize(context);
-        BluetoothScanAlarmBroadcastReceiver.initialize(context);
+        WifiScanJobBroadcastReceiver.initialize(context);
+        BluetoothScanJobBroadcastReceiver.initialize(context);
 
         MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, true);
 
