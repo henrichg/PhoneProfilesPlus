@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+// Delete button (X) or "clear all" in notification
 public class PermissionsNotificationDeletedReceiver extends BroadcastReceiver {
 
     @Override

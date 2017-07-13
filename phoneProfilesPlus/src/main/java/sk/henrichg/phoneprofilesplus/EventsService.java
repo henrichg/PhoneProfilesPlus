@@ -98,6 +98,10 @@ public class EventsService extends WakefulIntentService {
     protected void doWakefulWork(Intent intent) {
         context = getApplicationContext();
 
+        if (!PPApplication.getApplicationStarted(context, true))
+            // application is not started
+            return;
+
         PPApplication.logE("#### EventsService.onHandleIntent", "-- start --------------------------------");
 
         broadcastReceiverType = intent.getStringExtra(EXTRA_BROADCAST_RECEIVER_TYPE);

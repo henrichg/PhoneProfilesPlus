@@ -780,6 +780,18 @@
             android:name=".PhoneStateService"
             android:exported="false">
         </service>
+        <service
+            android:name=".DashClockService"
+            android:exported="false">
+        </service>
+        <service
+            android:name=".PackageReplacedService"
+            android:exported="false">
+        </service>
+        <service
+            android:name=".WifiAPStateChangeService"
+            android:exported="false">
+        </service>
     </application>
 
 </manifest>

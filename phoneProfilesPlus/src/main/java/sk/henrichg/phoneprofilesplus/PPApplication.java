@@ -38,9 +38,10 @@ public class PPApplication extends Application {
     static String PACKAGE_NAME;
 
     private static boolean logIntoLogCat = true;
-    private static boolean logIntoFile = true;
+    private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags = "##### PPApplication.onCreate"
+                                         +"|PackageReplacedService"
 
                                          //+"PhoneProfilesHelper.doUninstallPPHelper"
                                          //+"|PhoneProfilesHelper.isPPHelperInstalled"
@@ -51,15 +52,10 @@ public class PPApplication extends Application {
 
                                          //+"|PreferenceFragment"
 
-                                         //+"|SearchCalendarEventsJob"
-                                         //+"|##### SearchCalendarEventsBroadcastReceiver.onReceive"
+                                         +"|SearchCalendarEventsJob"
                                          +"|WifiScanJob"
                                          +"|BluetoothScanJob"
                                          +"|GeofenceScannerJob"
-
-                                         +"|ProfileDurationAlarmBroadcastReceiver"
-                                         +"|ProfileDurationService"
-                                         +"|DataWrapper.restartEventsWithDelay"
 
             ;
 

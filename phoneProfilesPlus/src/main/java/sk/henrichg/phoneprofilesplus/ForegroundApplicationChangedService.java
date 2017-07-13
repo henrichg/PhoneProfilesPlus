@@ -44,9 +44,15 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+        Context context = getApplicationContext();
 
-            Context context = getApplicationContext();
+        if (!PPApplication.getApplicationStarted(context, true))
+            // application is not started
+            return;
+
+        //PPApplication.loadPreferences(appContext);
+
+        if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
 
             try {
                 ComponentName componentName = new ComponentName(
@@ -63,9 +69,11 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
                     //Log.d("ForegroundApplicationChangedService", "packageInForeground="+packageInForeground);
                     setApplicationInForeground(context, packageInForeground);
 
-                    Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_APPLICATION);
-                    WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
+                    if (Event.getGlobalEventsRuning(context)) {
+                        Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_APPLICATION);
+                        WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
+                    }
                 }
             } catch (Exception e) {
                 Log.e("ForegroundApplicationChangedService.onAccessibilityEvent", e.toString());

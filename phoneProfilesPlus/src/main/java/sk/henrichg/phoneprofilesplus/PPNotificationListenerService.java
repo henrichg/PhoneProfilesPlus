@@ -84,12 +84,20 @@ public class PPNotificationListenerService extends NotificationListenerService {
         addNotifiedPackage(sbn.getPackageName(), time);
         saveNotifiedPackages(context);
 
-        Intent eventsServiceIntent = new Intent(context, EventsService.class);
-        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_NOTIFICATION);
-        //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
-        //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));
-        eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
-        WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
+        if (!PPApplication.getApplicationStarted(context, true))
+            // application is not started
+            return;
+
+        //PPApplication.loadPreferences(appContext);
+
+        if (Event.getGlobalEventsRuning(context)) {
+            Intent eventsServiceIntent = new Intent(context, EventsService.class);
+            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_NOTIFICATION);
+            //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
+            //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));
+            eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
+            WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
+        }
     }
 
     @Override
@@ -112,12 +120,20 @@ public class PPNotificationListenerService extends NotificationListenerService {
         removeNotifiedPackage(sbn.getPackageName());
         saveNotifiedPackages(context);
 
-        Intent eventsServiceIntent = new Intent(context, EventsService.class);
-        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_NOTIFICATION);
-        //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
-        //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));
-        eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
-        WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
+        if (!PPApplication.getApplicationStarted(context, true))
+            // application is not started
+            return;
+
+        //PPApplication.loadPreferences(appContext);
+
+        if (Event.getGlobalEventsRuning(context)) {
+            Intent eventsServiceIntent = new Intent(context, EventsService.class);
+            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_NOTIFICATION);
+            //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
+            //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));
+            eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
+            WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
+        }
     }
 
     // Android 5.0 Lollipop
