@@ -8,6 +8,8 @@ import android.database.ContentObserver;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
 class MobileDataStateChangedContentObserver extends ContentObserver {
 
     //public static boolean internalChange = false;
@@ -44,13 +46,11 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
         if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
             boolean actualState = ActivateProfileHelper.isMobileData(context);
             if (previousState != actualState) {
-                /*Intent broadcastIntent = new Intent(context, MobileDataStateChangedBroadcastReceiver.class);
-                broadcastIntent.putExtra(MobileDataStateChangedBroadcastReceiver.EXTRA_STATE, actualState);
-                context.sendBroadcast(broadcastIntent);*/
-                LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.mobileDataStateChangedBroadcastReceiver, new IntentFilter("MobileDataStateChangedBroadcastReceiver"));
-                Intent broadcastIntent = new Intent("MobileDataStateChangedBroadcastReceiver");
-                broadcastIntent.putExtra(MobileDataStateChangedBroadcastReceiver.EXTRA_STATE, actualState);
-                LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
+                Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RADIO_SWITCH);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_MOBILE_DATA);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, actualState);
+                WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
 
                 previousState = actualState;
             }

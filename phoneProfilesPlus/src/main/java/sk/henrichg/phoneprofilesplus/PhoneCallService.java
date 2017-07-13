@@ -81,7 +81,7 @@ public class PhoneCallService extends WakefulIntentService {
 
         // start service
         Intent eventsServiceIntent = new Intent(context, EventsService.class);
-        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
+        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_PHONE_CALL);
         WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
     }
 

@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
+import java.util.Calendar;
+import java.util.TimeZone;
+
 public class NFCTagReadActivity extends Activity {
 
     //private String tagName;
@@ -32,12 +37,15 @@ public class NFCTagReadActivity extends Activity {
             public void onTagRead(String tagRead) {
                 Toast.makeText(NFCTagReadActivity.this, "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_readed)+": "+tagRead, Toast.LENGTH_LONG).show();
 
-                /*Intent intent = new Intent(getApplicationContext(), NFCBroadcastReceiver.class);
-                intent.putExtra(EventsService.EXTRA_EVENT_NFC_TAG_NAME, tagRead);
-                sendBroadcast(intent);*/
-                LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.nfcBroadcastReceiver, new IntentFilter("NFCBroadcastReceiver"));
-                Intent intent = new Intent("NFCBroadcastReceiver");
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+                Calendar now = Calendar.getInstance();
+                int gmtOffset = TimeZone.getDefault().getRawOffset();
+                long time = now.getTimeInMillis() + gmtOffset;
+
+                Intent eventsServiceIntent = new Intent(getApplicationContext(), EventsService.class);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_NFC_TAG);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NFC_TAG_NAME, tagRead);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NFC_DATE, time);
+                WakefulIntentService.sendWakefulWork(getApplicationContext(), eventsServiceIntent);
 
                 NFCTagReadActivity.this.finish();
             }

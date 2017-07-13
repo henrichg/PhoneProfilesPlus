@@ -19,8 +19,6 @@ import java.util.TimeZone;
 
 public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "bluetoothConnection";
-
     private static List<BluetoothDeviceData> connectedDevices = null;
 
     @Override
@@ -104,7 +102,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                         */
                         // start service
                         Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_CONNECTION);
                         WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
                         //}
                     }

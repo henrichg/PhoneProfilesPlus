@@ -8,8 +8,6 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "SMSAlarm";
-
     @Override
     public void onReceive(Context context, Intent intent) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
@@ -39,7 +37,7 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
             {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_SMS_EVENT_END);
                 WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
             //}
 

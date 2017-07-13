@@ -8,8 +8,6 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 public class EventTimeBroadcastReceiver extends BroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "eventTimeStart";
-
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -40,7 +38,7 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
             {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_TIME);
             WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
             //}
 

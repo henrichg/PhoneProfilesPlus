@@ -45,6 +45,39 @@ public class EventsService extends WakefulIntentService {
     static final String EXTRA_SIMULATE_NOTIFICATION_TONE = "simulate_notification_tone";
     static final String EXTRA_OLD_NOTIFICATION_TONE = "old_notification_tone";
 
+    static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
+    static final String SENSOR_TYPE_RESTART_EVENTS = "restartEvents";
+    static final String SENSOR_TYPE_START_EVENTS_SERVICE = "startEventsService";
+    static final String SENSOR_TYPE_PHONE_CALL = "phoneCall";
+    static final String SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED = "calendarProviderChanged";
+    static final String SENSOR_TYPE_SEARCH_CALENDAR_EVENTS = "searchCalendarEvents";
+    static final String SENSOR_TYPE_SMS = "sms";
+    static final String SENSOR_TYPE_NOTIFICATION = "notification";
+    static final String SENSOR_TYPE_NFC_TAG = "nfcTag";
+    static final String SENSOR_TYPE_EVENT_DELAY_START = "eventDelayStart";
+    static final String SENSOR_TYPE_EVENT_DELAY_END = "eventDelayEnd";
+    static final String SENSOR_TYPE_BATTERY = "battery";
+    static final String SENSOR_TYPE_BLUETOOTH_CONNECTION = "bluetoothConnection";
+    static final String SENSOR_TYPE_BLUETOOTH_STATE = "bluetoothState";
+    static final String SENSOR_TYPE_DOCK_CONNECTION = "dockConnection";
+    static final String SENSOR_TYPE_CALENDAR = "calendar";
+    static final String SENSOR_TYPE_TIME = "time";
+    static final String SENSOR_TYPE_APPLICATION = "application";
+    static final String SENSOR_TYPE_HEADSET_CONNECTION = "headsetConnection";
+    static final String SENSOR_TYPE_NOTIFICATION_EVENT_END = "notificationEventEnd";
+    static final String SENSOR_TYPE_SMS_EVENT_END = "smsEventEnd";
+    static final String SENSOR_TYPE_WIFI_CONNECTION = "wifiConnection";
+    static final String SENSOR_TYPE_WIFI_STATE = "wifiState";
+    static final String SENSOR_TYPE_POWER_SAVE_MODE = "powerSaveMode";
+    static final String SENSOR_TYPE_GEOFENCES_SCANNER = "geofenceScanner";
+    static final String SENSOR_TYPE_LOCATION_MODE = "locationMode";
+    static final String SENSOR_TYPE_DEVICE_ORIENTATION = "deviceOrientation";
+    static final String SENSOR_TYPE_PHONE_STATE = "phoneState";
+    static final String SENSOR_TYPE_NFC_EVENT_END = "nfcEventEnd";
+    static final String SENSOR_TYPE_WIFI_SCANNER = "wifiScanner";
+    static final String SENSOR_TYPE_BLUETOOTH_SCANNER = "bluetoothScanner";
+    static final String SENSOR_TYPE_SCREEN = "screen";
+    static final String SENSOR_TYPE_DEVICE_IDLE_MODE = "deviceIdleMode";
 
     //public static ArrayList<Profile> mergedProfiles = null;
     //public static Profile oldActivatedProfile = null;
@@ -163,24 +196,12 @@ public class EventsService extends WakefulIntentService {
 
         List<Event> eventList = dataWrapper.getEventList();
 
-        boolean isRestart = broadcastReceiverType.equals(RestartEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
+        boolean isRestart = broadcastReceiverType.equals(EventsService.SENSOR_TYPE_RESTART_EVENTS);
 
         boolean interactive = (!isRestart) || intent.getBooleanExtra(DataWrapper.EXTRA_INTERACTIVE, false);
 
-        if (isRestart) {
-            if (intent.getBooleanExtra(DataWrapper.EXTRA_UNBLOCKEVENTSRUN, false)) {
-                // remove alarm for profile duration
-                ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-                Profile.setActivatedProfileForDuration(context, 0);
-
-                Event.setEventsBlocked(context, false);
-                dataWrapper.getDatabaseHandler().unblockAllEvents();
-                Event.setForceRunEventRunning(context, false);
-            }
-        }
-
-        if (broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE) ||
-                broadcastReceiverType.equals(SearchCalendarEventsJob.BROADCAST_RECEIVER_TYPE)) {
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED) ||
+                broadcastReceiverType.equals(EventsService.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS)) {
             // search for calendar events
             PPApplication.logE("EventsService.onHandleIntent", "search for calendar events");
             for (Event _event : eventList) {
@@ -205,7 +226,7 @@ public class EventsService extends WakefulIntentService {
         }
         else {
             // for no-restart events, stet startTime to actual time
-            if (broadcastReceiverType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+            if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_SMS)) {
                 // search for sms events, save start time
                 PPApplication.logE("EventsService.onHandleIntent", "search for sms events");
                 for (Event _event : eventList) {
@@ -220,7 +241,7 @@ public class EventsService extends WakefulIntentService {
                 }
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                if (broadcastReceiverType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+                if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_NOTIFICATION)) {
                     // search for notification events, save start time
                     PPApplication.logE("EventsService.onHandleIntent", "search for notification events");
                     for (Event _event : eventList) {
@@ -238,7 +259,7 @@ public class EventsService extends WakefulIntentService {
                     }
                 }
             }
-            if (broadcastReceiverType.equals(NFCBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+            if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_NFC_TAG)) {
                 // search for nfc events, save start time
                 PPApplication.logE("EventsService.onHandleIntent", "search for nfc events");
                 for (Event _event : eventList) {
@@ -254,8 +275,8 @@ public class EventsService extends WakefulIntentService {
             }
         }
 
-        boolean forDelayStartAlarm = broadcastReceiverType.equals(EventDelayStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
-        boolean forDelayEndAlarm = broadcastReceiverType.equals(EventDelayEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
+        boolean forDelayStartAlarm = broadcastReceiverType.equals(EventsService.SENSOR_TYPE_EVENT_DELAY_START);
+        boolean forDelayEndAlarm = broadcastReceiverType.equals(EventsService.SENSOR_TYPE_EVENT_DELAY_END);
 
         //PPApplication.logE("@@@ EventsService.onHandleIntent","isRestart="+isRestart);
         PPApplication.logE("@@@ EventsService.onHandleIntent","forDelayStartAlarm="+forDelayStartAlarm);
@@ -469,104 +490,101 @@ public class EventsService extends WakefulIntentService {
 
     private boolean eventsExists(String broadcastReceiverType) {
         int eventType = 0;
-        if (broadcastReceiverType.equals(BatteryEventBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_BATTERY))
             eventType = DatabaseHandler.ETYPE_BATTERY;
         else
-        if (broadcastReceiverType.equals(BluetoothConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            eventType = DatabaseHandler.ETYPE_BLUETOOTHCONNECTED;
-        /*else
-        if (broadcastReceiverType.equals(BluetoothLEScanBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            eventType = DatabaseHandler.ETYPE_????;*/
-        /*else
-        if (broadcastReceiverType.equals(BluetoothScanBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            eventType = DatabaseHandler.ETYPE_????;*/
-        else
-        if (broadcastReceiverType.equals(BluetoothStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_BLUETOOTH_CONNECTION))
             eventType = DatabaseHandler.ETYPE_BLUETOOTHCONNECTED;
         else
-        if (broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_BLUETOOTH_SCANNER))
+            eventType = DatabaseHandler.ETYPE_BLUETOOTHINFRONT;
+        else
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_BLUETOOTH_STATE))
+            eventType = DatabaseHandler.ETYPE_BLUETOOTHCONNECTED;
+        else
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED))
             eventType = DatabaseHandler.ETYPE_CALENDAR;
         else
-        if (broadcastReceiverType.equals(DockConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_DOCK_CONNECTION))
             eventType = DatabaseHandler.ETYPE_PERIPHERAL;
-        /*else
-        if (broadcastReceiverType.equals(EventDelayStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            eventType = DatabaseHandler.ETYPE_????;*/
-        /*else
-        if (broadcastReceiverType.equals(EventDelayEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            eventType = DatabaseHandler.ETYPE_????;*/
         else
-        if (broadcastReceiverType.equals(EventCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        /*if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_EVENT_DELAY_START))
+            eventType = DatabaseHandler.ETYPE_????;
+        else*/
+        /*if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_EVENT_DELAY_END))
+            eventType = DatabaseHandler.ETYPE_????;
+        else*/
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_CALENDAR))
             eventType = DatabaseHandler.ETYPE_CALENDAR;
         else
-        if (broadcastReceiverType.equals(EventTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_TIME))
             eventType = DatabaseHandler.ETYPE_TIME;
         else
-        if (broadcastReceiverType.equals(ForegroundApplicationChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_APPLICATION))
             eventType = DatabaseHandler.ETYPE_APPLICATION;
         else
-        if (broadcastReceiverType.equals(HeadsetConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_HEADSET_CONNECTION))
             eventType = DatabaseHandler.ETYPE_PERIPHERAL;
         else
-        if (broadcastReceiverType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_NOTIFICATION))
             eventType = DatabaseHandler.ETYPE_NOTIFICATION;
         else
-        if (broadcastReceiverType.equals(NotificationEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_NOTIFICATION_EVENT_END))
             eventType = DatabaseHandler.ETYPE_NOTIFICATION;
         else
-        if (broadcastReceiverType.equals(PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_PHONE_CALL))
             eventType = DatabaseHandler.ETYPE_CALL;
-        /*else
-        if (broadcastReceiverType.equals(RestartEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            eventType = DatabaseHandler.ETYPE_???;*/
-        /*else
-        // call doEventService for all screen on/off changes
-        if (broadcastReceiverType.equals(ScreenOnOffBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            eventType = DatabaseHandler.ETYPE_SCREEN;*/
         else
-        if (broadcastReceiverType.equals(SearchCalendarEventsJob.BROADCAST_RECEIVER_TYPE))
+        /*if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_RESTART_EVENTS))
+            eventType = DatabaseHandler.ETYPE_???;
+        else*/
+        // call doEventService for all screen on/off changes
+        /*if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_SCREEN))
+            eventType = DatabaseHandler.ETYPE_SCREEN;
+        else*/
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS))
             eventType = DatabaseHandler.ETYPE_CALENDAR;
         else
-        if (broadcastReceiverType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_SMS))
             eventType = DatabaseHandler.ETYPE_SMS;
         else
-        if (broadcastReceiverType.equals(SMSEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_SMS_EVENT_END))
             eventType = DatabaseHandler.ETYPE_SMS;
         else
-        if (broadcastReceiverType.equals(WifiConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_WIFI_CONNECTION))
             eventType = DatabaseHandler.ETYPE_WIFICONNECTED;
-        /*else
-        if (broadcastReceiverType.equals(WifiScanBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            eventType = DatabaseHandler.ETYPE_????;*/
         else
-        if (broadcastReceiverType.equals(WifiStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_WIFI_SCANNER))
+            eventType = DatabaseHandler.ETYPE_WIFIINFRONT;
+        else
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_WIFI_STATE))
             eventType = DatabaseHandler.ETYPE_WIFICONNECTED;
-        /*else
-        if (broadcastReceiverType.equals(DeviceIdleModeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            eventType = DatabaseHandler.ETYPE_????;*/
         else
-        if (broadcastReceiverType.equals(PowerSaveModeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        /*if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_DEVICE_IDLE_MODE))
+            eventType = DatabaseHandler.ETYPE_????;
+        else*/
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_POWER_SAVE_MODE))
             eventType = DatabaseHandler.ETYPE_BATTERY;
         else
-        if (broadcastReceiverType.equals(GeofenceScannerBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_GEOFENCES_SCANNER))
             eventType = DatabaseHandler.ETYPE_LOCATION;
         else
-        if (broadcastReceiverType.equals(LocationModeChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_LOCATION_MODE))
             eventType = DatabaseHandler.ETYPE_LOCATION;
         else
-        if (broadcastReceiverType.equals(DeviceOrientationBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_DEVICE_ORIENTATION))
             eventType = DatabaseHandler.ETYPE_ORIENTATION;
         else
-        if (broadcastReceiverType.equals(PhoneStateChangeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_PHONE_STATE))
             eventType = DatabaseHandler.ETYPE_MOBILE_CELLS;
         else
-        if (broadcastReceiverType.equals(NFCBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_NFC_TAG))
             eventType = DatabaseHandler.ETYPE_NFC;
         else
-        if (broadcastReceiverType.equals(NFCEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_NFC_EVENT_END))
             eventType = DatabaseHandler.ETYPE_NFC;
         else
-        if (broadcastReceiverType.equals(RadioSwitchBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_RADIO_SWITCH))
             eventType = DatabaseHandler.ETYPE_RADIO_SWITCH;
 
         if (eventType > 0)
@@ -579,7 +597,7 @@ public class EventsService extends WakefulIntentService {
         PPApplication.logE("EventsService.doEndService","broadcastReceiverType="+broadcastReceiverType);
         PPApplication.logE("EventsService.doEndService","callEventType="+callEventType);
 
-        if (broadcastReceiverType.equals(PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_PHONE_CALL)) {
 
             if (!PhoneCallService.linkUnlinkExecuted) {
                 // no profile is activated from EventsService
@@ -644,7 +662,7 @@ public class EventsService extends WakefulIntentService {
             }
         }
         /*else
-        if (broadcastReceiverType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_SMS)) {
             // start PhoneProfilesService for notification tone simulation
             Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -657,7 +675,7 @@ public class EventsService extends WakefulIntentService {
             context.startService(lIntent);
         }
         else
-        if (broadcastReceiverType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+        if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_NOTIFICATION)) {
             if ((android.os.Build.VERSION.SDK_INT >= 21) && intent.getStringExtra(EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED).equals("posted")) {
                 // start PhoneProfilesService for notification tone simulation
                 Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);

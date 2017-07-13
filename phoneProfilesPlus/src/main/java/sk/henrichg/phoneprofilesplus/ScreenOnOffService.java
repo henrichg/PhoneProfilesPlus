@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
 public class ScreenOnOffService extends IntentService {
 
     public ScreenOnOffService() {
@@ -98,9 +100,9 @@ public class ScreenOnOffService extends IntentService {
                     //if (screenEventsExists*/)
                     //{
                     // start service
-                    LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.startEventsServiceBroadcastReceiver, new IntentFilter("StartEventsServiceBroadcastReceiver"));
-                    Intent startEventsServiceIntent = new Intent("StartEventsServiceBroadcastReceiver");
-                    LocalBroadcastManager.getInstance(appContext).sendBroadcast(startEventsServiceIntent);
+                    Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
+                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_SCREEN);
+                    WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
                     //}
 
                     if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {

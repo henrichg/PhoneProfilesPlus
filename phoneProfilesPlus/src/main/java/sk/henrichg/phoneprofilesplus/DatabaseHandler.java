@@ -57,7 +57,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_CALENDAR = 5;
     static final int ETYPE_WIFICONNECTED = 6;
     static final int ETYPE_WIFIINFRONT = 7;
-    private static final int ETYPE_SCREEN = 8;
+    static final int ETYPE_SCREEN = 8;
     static final int ETYPE_BLUETOOTHCONNECTED = 9;
     static final int ETYPE_BLUETOOTHINFRONT = 10;
     static final int ETYPE_SMS = 11;

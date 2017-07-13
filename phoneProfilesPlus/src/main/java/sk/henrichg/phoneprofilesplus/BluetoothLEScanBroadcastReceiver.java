@@ -7,6 +7,8 @@ import android.content.IntentFilter;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
 public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
@@ -48,9 +50,9 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                     new Handler(context.getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            LocalBroadcastManager.getInstance(_context).registerReceiver(PPApplication.startEventsServiceBroadcastReceiver, new IntentFilter("StartEventsServiceBroadcastReceiver"));
-                            Intent startEventsServiceIntent = new Intent("StartEventsServiceBroadcastReceiver");
-                            LocalBroadcastManager.getInstance(_context).sendBroadcast(startEventsServiceIntent);
+                            Intent eventsServiceIntent = new Intent(_context, EventsService.class);
+                            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_SCANNER);
+                            WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
                         }
                     }, 5000);
                 }

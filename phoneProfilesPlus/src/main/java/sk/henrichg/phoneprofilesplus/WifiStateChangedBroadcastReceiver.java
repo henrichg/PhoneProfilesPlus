@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
+import android.nfc.NfcAdapter;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 
@@ -14,8 +15,6 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 import java.util.List;
 
 public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
-
-    public static final String BROADCAST_RECEIVER_TYPE = "wifiState";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -109,20 +108,16 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                         (WifiScanJob.getWifiEnabledForScan(appContext)))) {
                     // required for Wifi ConnectionType="Not connected"
 
-                    /*Intent broadcastIntent = new Intent(appContext, RadioSwitchBroadcastReceiver.class);
-                    broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_WIFI);
-                    broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, wifiState == WifiManager.WIFI_STATE_ENABLED);
-                    appContext.sendBroadcast(broadcastIntent);*/
-                    LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.radioSwitchBroadcastReceiver, new IntentFilter("RadioSwitchBroadcastReceiver"));
-                    Intent broadcastIntent = new Intent("RadioSwitchBroadcastReceiver");
-                    broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_WIFI);
-                    broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, wifiState == WifiManager.WIFI_STATE_ENABLED);
-                    LocalBroadcastManager.getInstance(appContext).sendBroadcast(broadcastIntent);
+                    Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RADIO_SWITCH);
+                    eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_WIFI);
+                    eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, wifiState == WifiManager.WIFI_STATE_ENABLED);
+                    WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
 
                     // start service
-                    Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                    WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                    Intent eventsServiceIntent2 = new Intent(appContext, EventsService.class);
+                    eventsServiceIntent2.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_WIFI_STATE);
+                    WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent2);
                 }
             }
         }

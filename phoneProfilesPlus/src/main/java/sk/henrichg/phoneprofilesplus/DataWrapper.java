@@ -31,6 +31,8 @@ import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
@@ -51,7 +53,6 @@ public class DataWrapper {
     private List<Profile> profileList = null;
     private List<Event> eventList = null;
 
-    static final String EXTRA_UNBLOCKEVENTSRUN = "unblock_events_run";
     static final String EXTRA_INTERACTIVE = "interactive";
 
     DataWrapper(Context c,
@@ -875,13 +876,6 @@ public class DataWrapper {
             Event.setForceRunEventRunning(context, false);
         }
 
-        /*
-        if (startedFromService) {
-            // deactivate profile, profile will by activated in call of RestartEventsBroadcastReceiver
-            getDatabaseHandler().deactivateProfile();
-        }
-        */
-
         resetAllEventsInDelayStart(true);
         resetAllEventsInDelayEnd(true);
 
@@ -893,11 +887,7 @@ public class DataWrapper {
 
         if (!getIsManualProfileActivation()) {
             PPApplication.logE("DataWrapper.firstStartEvents", "no manual profile activation, restart events");
-            LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.restartEventsBroadcastReceiver, new IntentFilter("RestartEventsBroadcastReceiver"));
-            Intent restartEventsIntent = new Intent("RestartEventsBroadcastReceiver");
-            restartEventsIntent.putExtra(EXTRA_UNBLOCKEVENTSRUN, false);
-            restartEventsIntent.putExtra(EXTRA_INTERACTIVE, false);
-            LocalBroadcastManager.getInstance(context).sendBroadcast(restartEventsIntent);
+            restartEvents(false, false, false);
         }
         else
         {
@@ -1601,16 +1591,12 @@ public class DataWrapper {
             long endAlarmTime;
 
             startAlarmTime = event._eventPreferencesTime.computeAlarm(true);
-            //if (broadcastType.equals(EventTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            //    startAlarmTime -= 30 * 1000;
 
             String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
                                 " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
             PPApplication.logE("%%% DataWrapper.doEventService","startAlarmTime="+alarmTimeS);
 
             endAlarmTime = event._eventPreferencesTime.computeAlarm(false);
-            //if (broadcastType.equals(EventTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            //    endAlarmTime += 60 * 1000;
 
             alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
                          " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
@@ -1901,16 +1887,12 @@ public class DataWrapper {
             if (event._eventPreferencesCalendar._eventFound)
             {
                 startAlarmTime = event._eventPreferencesCalendar.computeAlarm(true);
-                //if (broadcastType.equals(EventCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                //    startAlarmTime -= 30 * 1000;
 
                 String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
                                     " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
                 PPApplication.logE("DataWrapper.doEventService","startAlarmTime="+alarmTimeS);
 
                 endAlarmTime = event._eventPreferencesCalendar.computeAlarm(false);
-                //if (broadcastType.equals(EventCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                //    endAlarmTime += 60 * 1000;
 
                 alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
                              " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
@@ -2363,10 +2345,10 @@ public class DataWrapper {
                 alarmTimeS = sdf.format(nowAlarmTime);
                 PPApplication.logE("DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
 
-                if (broadcastType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                if (broadcastType.equals(EventsService.SENSOR_TYPE_SMS))
                     smsPassed = true;
                 else if (!event._eventPreferencesSMS._permanentRun) {
-                    if (broadcastType.equals(SMSEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    if (broadcastType.equals(EventsService.SENSOR_TYPE_SMS_EVENT_END))
                         smsPassed = false;
                     else
                         smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
@@ -2411,10 +2393,10 @@ public class DataWrapper {
                         alarmTimeS = sdf.format(nowAlarmTime);
                         PPApplication.logE("DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
 
-                        if (broadcastType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                        if (broadcastType.equals(EventsService.SENSOR_TYPE_NOTIFICATION))
                             notificationPassed = true;
                         else if (!event._eventPreferencesNotification._permanentRun) {
-                            if (broadcastType.equals(NotificationEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                            if (broadcastType.equals(EventsService.SENSOR_TYPE_NOTIFICATION_EVENT_END))
                                 notificationPassed = false;
                             else
                                 notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
@@ -2644,10 +2626,10 @@ public class DataWrapper {
                 alarmTimeS = sdf.format(nowAlarmTime);
                 PPApplication.logE("DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
 
-                if (broadcastType.equals(NFCBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                if (broadcastType.equals(EventsService.SENSOR_TYPE_NFC_TAG))
                     nfcPassed = true;
                 else if (!event._eventPreferencesNFC._permanentRun) {
-                    if (broadcastType.equals(NFCEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    if (broadcastType.equals(EventsService.SENSOR_TYPE_NFC_EVENT_END))
                         nfcPassed = false;
                     else
                         nfcPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
@@ -2958,7 +2940,7 @@ public class DataWrapper {
         PPApplication.logE("%%% DataWrapper.doEventService","--- end --------------------------");
     }
 
-    public void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile, boolean interactive)
+    void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile, boolean interactive)
     {
         if (!Event.getGlobalEventsRuning(context))
             // events are globally stopped
@@ -2967,9 +2949,9 @@ public class DataWrapper {
         PPApplication.logE("$$$ restartEvents", "in DataWrapper.restartEvents");
 
         if (Event.getEventsBlocked(context) && (!unblockEventsRun)) {
-            LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.startEventsServiceBroadcastReceiver, new IntentFilter("StartEventsServiceBroadcastReceiver"));
-            Intent startEventsServiceIntent = new Intent("StartEventsServiceBroadcastReceiver");
-            LocalBroadcastManager.getInstance(context).sendBroadcast(startEventsServiceIntent);
+            Intent eventsServiceIntent = new Intent(context, EventsService.class);
+            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_START_EVENTS_SERVICE);
+            WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
             return;
         }
 
@@ -2979,7 +2961,10 @@ public class DataWrapper {
 
         if (unblockEventsRun)
         {
-            PPApplication.logE("$$$ setEventsBlocked", "DataWrapper.restartEvents, false");
+            // remove alarm for profile duration
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+            Profile.setActivatedProfileForDuration(context, 0);
+
             Event.setEventsBlocked(context, false);
             for (Event event : getEventList())
             {
@@ -2995,11 +2980,10 @@ public class DataWrapper {
             setProfileActive(null);
         }
 
-        LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.restartEventsBroadcastReceiver, new IntentFilter("RestartEventsBroadcastReceiver"));
-        Intent restartEventsIntent = new Intent("RestartEventsBroadcastReceiver");
-        restartEventsIntent.putExtra(EXTRA_UNBLOCKEVENTSRUN, false);
-        restartEventsIntent.putExtra(EXTRA_INTERACTIVE, interactive);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(restartEventsIntent);
+        Intent eventsServiceIntent = new Intent(context, EventsService.class);
+        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RESTART_EVENTS);
+        eventsServiceIntent.putExtra(DataWrapper.EXTRA_INTERACTIVE, interactive);
+        WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
     }
 
     void restartEventsWithRescan(boolean showToast, boolean interactive)
@@ -3163,11 +3147,7 @@ public class DataWrapper {
             @Override
             public void run() {
                 PPApplication.logE("DataWrapper.restartEventsWithDelay","restart");
-                LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.restartEventsBroadcastReceiver, new IntentFilter("RestartEventsBroadcastReceiver"));
-                Intent restartEventsIntent = new Intent("RestartEventsBroadcastReceiver");
-                restartEventsIntent.putExtra(EXTRA_UNBLOCKEVENTSRUN, _unblockEventsRun);
-                restartEventsIntent.putExtra(EXTRA_INTERACTIVE, _interactive);
-                LocalBroadcastManager.getInstance(context).sendBroadcast(restartEventsIntent);
+                restartEvents(_unblockEventsRun, false, _interactive);
             }
         }, delay * 1000);
     }

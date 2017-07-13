@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
 public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
@@ -25,15 +27,11 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
         if (action.equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)) {
             final boolean state = intent.getBooleanExtra("state", false);
 
-            /*Intent broadcastIntent = new Intent(context, RadioSwitchBroadcastReceiver.class);
-            broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_AIRPLANE_MODE);
-            broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, state);
-            context.sendBroadcast(broadcastIntent);*/
-            LocalBroadcastManager.getInstance(context.getApplicationContext()).registerReceiver(PPApplication.radioSwitchBroadcastReceiver, new IntentFilter("RadioSwitchBroadcastReceiver"));
-            Intent broadcastIntent = new Intent("RadioSwitchBroadcastReceiver");
-            broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_AIRPLANE_MODE);
-            broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, state);
-            LocalBroadcastManager.getInstance(context.getApplicationContext()).sendBroadcast(broadcastIntent);
+            Intent eventsServiceIntent = new Intent(context, EventsService.class);
+            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RADIO_SWITCH);
+            eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_AIRPLANE_MODE);
+            eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, state);
+            WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
 
         }
     }

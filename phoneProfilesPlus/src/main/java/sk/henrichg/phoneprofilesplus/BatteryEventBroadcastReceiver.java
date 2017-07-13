@@ -9,8 +9,6 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 public class BatteryEventBroadcastReceiver extends BroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "batteryEvent";
-
     private static boolean isCharging = false;
     private static int batteryPct = -100;
 
@@ -87,7 +85,7 @@ public class BatteryEventBroadcastReceiver extends BroadcastReceiver {
                     {*/
                     // start service
                     Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BATTERY);
                     WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
                     //}
                 }

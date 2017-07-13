@@ -13,8 +13,6 @@ import java.util.TimeZone;
 
 public class SMSBroadcastReceiver extends BroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "SMS";
-
     //private static ContentObserver smsObserver;
     //private static ContentObserver mmsObserver;
     //private static int mmsCount;
@@ -126,7 +124,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
             {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_SMS);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_SMS_PHONE_NUMBER, origin);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_SMS_DATE, time);
                 WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);

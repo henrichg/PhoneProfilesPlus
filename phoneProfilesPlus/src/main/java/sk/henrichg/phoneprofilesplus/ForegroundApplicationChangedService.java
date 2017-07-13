@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
 import java.util.List;
 
 public class ForegroundApplicationChangedService extends AccessibilityService {
@@ -61,11 +63,9 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
                     //Log.d("ForegroundApplicationChangedService", "packageInForeground="+packageInForeground);
                     setApplicationInForeground(context, packageInForeground);
 
-                    /*Intent intent = new Intent(context, ForegroundApplicationChangedBroadcastReceiver.class);
-                    context.sendBroadcast(intent);*/
-                    LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.foregroundApplicationChangedBroadcastReceiver, new IntentFilter("ForegroundApplicationChangedBroadcastReceiver"));
-                    Intent intent = new Intent("ForegroundApplicationChangedBroadcastReceiver");
-                    LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                    Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_APPLICATION);
+                    WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
                 }
             } catch (Exception e) {
                 Log.e("ForegroundApplicationChangedService.onAccessibilityEvent", e.toString());
@@ -93,11 +93,9 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
         setApplicationInForeground(context, "");
 
-        /*Intent bintent = new Intent(context, ForegroundApplicationChangedBroadcastReceiver.class);
-        context.sendBroadcast(bintent);*/
-        LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.foregroundApplicationChangedBroadcastReceiver, new IntentFilter("ForegroundApplicationChangedBroadcastReceiver"));
-        Intent bintent = new Intent("ForegroundApplicationChangedBroadcastReceiver");
-        LocalBroadcastManager.getInstance(context).sendBroadcast(bintent);
+        Intent eventsServiceIntent = new Intent(context, EventsService.class);
+        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_APPLICATION);
+        WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
 
         return super.onUnbind(intent);
     }

@@ -23,6 +23,8 @@ import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -334,18 +336,15 @@ class PhoneStateScanner extends PhoneStateListener {
     }
 
     private void sendBroadcast() {
-        // broadcast for start EventsService
-        /*Intent broadcastIntent = new Intent(context, PhoneStateChangeBroadcastReceiver.class);
-        context.sendBroadcast(broadcastIntent);*/
-        LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.phoneStateChangeBroadcastReceiver, new IntentFilter("PhoneStateChangeBroadcastReceiver"));
-        Intent broadcastIntent = new Intent("PhoneStateChangeBroadcastReceiver");
-        LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
+        // start service for call EventsService
+        Intent serviceIntent = new Intent(context, PhoneStateService.class);
+        WakefulIntentService.sendWakefulWork(context, serviceIntent);
 
         // broadcast for cells editor
         /*Intent intent = new Intent(ACTION_PHONE_STATE_CHANGED);
         //intent.putExtra("state", mode);
         context.sendBroadcast(intent);*/
-        Intent intent = new Intent("EPNF_PhoneStateChangedBroadcastReceiver");
+        Intent intent = new Intent("PhoneStateChangedBroadcastReceiver");
         //intent.putExtra("state", mode);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }

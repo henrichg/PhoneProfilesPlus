@@ -27,6 +27,8 @@ import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -260,7 +262,7 @@ public class PhoneProfilesService extends Service
         //// but it starts from EventsService
         startGeofenceScanner();
         startPhoneStateScanner();
-        // this will be stopped latter in DeviceOrientationBroadcastReceiver, if events not exists
+        // this will be stopped latter in DeviceOrientationService, if events not exists
         startOrientationScanner();
         ////
 
@@ -600,12 +602,8 @@ public class PhoneProfilesService extends Service
                 if (tmpDeviceDistance != mDeviceDistance) {
                     PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity - send broadcast");
                     mDeviceDistance = tmpDeviceDistance;
-                    /*Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
-                    sendBroadcast(broadcastIntent);*/
-                    LocalBroadcastManager.getInstance(this).registerReceiver(PPApplication.deviceOrientationBroadcastReceiver, new IntentFilter("DeviceOrientationBroadcastReceiver"));
-                    Intent broadcastIntent = new Intent("DeviceOrientationBroadcastReceiver");
-                    LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
-                    //setAlarm(this);
+                    Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
+                    WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
                 }
             //}
             return;
@@ -710,12 +708,8 @@ public class PhoneProfilesService extends Service
                                             PPApplication.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
                                         */
 
-                                        /*Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
-                                        sendBroadcast(broadcastIntent);*/
-                                        LocalBroadcastManager.getInstance(this).registerReceiver(PPApplication.deviceOrientationBroadcastReceiver, new IntentFilter("DeviceOrientationBroadcastReceiver"));
-                                        Intent broadcastIntent = new Intent("DeviceOrientationBroadcastReceiver");
-                                        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
-                                        //setAlarm(this);
+                                        Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
+                                        WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
 
                                     }
                                 }
@@ -751,12 +745,8 @@ public class PhoneProfilesService extends Service
                                 if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
                                     mDisplayUp = mSideUp;
 
-                                /*Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
-                                sendBroadcast(broadcastIntent);*/
-                                LocalBroadcastManager.getInstance(this).registerReceiver(PPApplication.deviceOrientationBroadcastReceiver, new IntentFilter("DeviceOrientationBroadcastReceiver"));
-                                Intent broadcastIntent = new Intent("DeviceOrientationBroadcastReceiver");
-                                LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
-                                //setAlarm(this);
+                                Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
+                                WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
                             }
                         } else {
                             if (mEventCountSinceGZChanged > 0) {

@@ -229,9 +229,9 @@ public class ScannerService extends WakefulIntentService
                                     new Handler(context.getMainLooper()).postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
-                                            LocalBroadcastManager.getInstance(_context).registerReceiver(PPApplication.startEventsServiceBroadcastReceiver, new IntentFilter("StartEventsServiceBroadcastReceiver"));
-                                            Intent startEventsServiceIntent = new Intent("StartEventsServiceBroadcastReceiver");
-                                            LocalBroadcastManager.getInstance(_context).sendBroadcast(startEventsServiceIntent);
+                                            Intent eventsServiceIntent = new Intent(_context, EventsService.class);
+                                            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_WIFI_SCANNER);
+                                            WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
                                         }
                                     }, 5000);
                                     //WifiScanBroadcastReceiver.setAlarm(context);

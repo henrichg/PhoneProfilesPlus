@@ -11,8 +11,6 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "headsetConnection";
-
     static final String PREF_EVENT_HEADSET_CONNECTED = "eventHeadsetConnected";
     static final String PREF_EVENT_HEADSET_MICROPHONE = "eventHeadsetMicrophone";
     static final String PREF_EVENT_HEADSET_BLUETOOTH = "eventHeadsetBluetooth";
@@ -101,7 +99,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                 {*/
                     // start service
                     Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_HEADSET_CONNECTION);
                 WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
                 //}
             }

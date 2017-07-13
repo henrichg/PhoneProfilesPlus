@@ -70,7 +70,7 @@ public class MobileCellsPreference extends DialogPreference {
         //intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
         EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver = new PhoneStateChangedBroadcastReceiver(this);
         //context.registerReceiver(EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver, intentFilter);
-        LocalBroadcastManager.getInstance(context).registerReceiver(EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver, new IntentFilter("EPNF_PhoneStateChangedBroadcastReceiver"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver, new IntentFilter("PhoneStateChangedBroadcastReceiver"));
     }
 
     @Override

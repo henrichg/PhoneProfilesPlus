@@ -1,11 +1,14 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.LocationManager;
 import android.support.v4.content.LocalBroadcastManager;
+
+import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 public class GPSStateChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -28,15 +31,11 @@ public class GPSStateChangedBroadcastReceiver extends BroadcastReceiver {
             boolean isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             //boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-            /*Intent broadcastIntent = new Intent(context, RadioSwitchBroadcastReceiver.class);
-            broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_GPS);
-            broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, isGpsEnabled);
-            context.sendBroadcast(broadcastIntent);*/
-            LocalBroadcastManager.getInstance(context.getApplicationContext()).registerReceiver(PPApplication.radioSwitchBroadcastReceiver, new IntentFilter("RadioSwitchBroadcastReceiver"));
-            Intent broadcastIntent = new Intent("RadioSwitchBroadcastReceiver");
-            broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_GPS);
-            broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, isGpsEnabled);
-            LocalBroadcastManager.getInstance(context.getApplicationContext()).sendBroadcast(broadcastIntent);
+            Intent eventsServiceIntent = new Intent(context, EventsService.class);
+            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RADIO_SWITCH);
+            eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_GPS);
+            eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, isGpsEnabled);
+            WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
 
         }
     }

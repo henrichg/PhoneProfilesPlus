@@ -11,8 +11,6 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "bluetoothState";
-
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -75,15 +73,12 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                     // required for Bluetooth ConnectionType="Not connected"
 
                     //if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
-                        /*Intent broadcastIntent = new Intent(appContext, RadioSwitchBroadcastReceiver.class);
-                        broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_BLUETOOTH);
-                        broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, bluetoothState == BluetoothAdapter.STATE_ON);
-                        appContext.sendBroadcast(broadcastIntent);*/
-                        LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.radioSwitchBroadcastReceiver, new IntentFilter("RadioSwitchBroadcastReceiver"));
-                        Intent broadcastIntent = new Intent("RadioSwitchBroadcastReceiver");
-                        broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_BLUETOOTH);
-                        broadcastIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, bluetoothState == BluetoothAdapter.STATE_ON);
-                        LocalBroadcastManager.getInstance(appContext).sendBroadcast(broadcastIntent);
+
+                        Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RADIO_SWITCH);
+                        eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_BLUETOOTH);
+                        eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, bluetoothState == BluetoothAdapter.STATE_ON);
+                        WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
 
                     //}
 
@@ -95,9 +90,9 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                         PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "bluetoothEventsExists=" + bluetoothEventsExists);
                     */
                         // start service
-                        Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                        WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                        Intent eventsServiceIntent2 = new Intent(appContext, EventsService.class);
+                        eventsServiceIntent2.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RADIO_SWITCH);
+                        WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent2);
                         //}
                 }
 

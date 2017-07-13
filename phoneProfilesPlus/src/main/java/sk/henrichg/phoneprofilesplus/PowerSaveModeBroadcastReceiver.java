@@ -11,8 +11,6 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "powerSaveMode";
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -51,7 +49,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
             //{
                 // start service
                 Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_POWER_SAVE_MODE);
                 WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
             //}
         }

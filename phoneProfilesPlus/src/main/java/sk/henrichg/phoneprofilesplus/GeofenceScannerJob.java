@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
@@ -62,16 +63,13 @@ class GeofenceScannerJob extends Job {
         if (Event.getGlobalEventsRuning(context)) {
             if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.geofencesScanner != null)) {
                 if (PhoneProfilesService.geofencesScanner.mUpdatesStarted) {
-                    PPApplication.logE("GeofenceScannerJob.onRunJob", "loaction updates started - send GeofenceScannerBroadcastReceiver");
+                    PPApplication.logE("GeofenceScannerJob.onRunJob", "loaction updates started - start GeofencesService");
 
                     //PhoneProfilesService.geofencesScanner.stopLocationUpdates();
 
-                    // send broadcast for calling EventsService
-                    /*Intent broadcastIntent = new Intent(context, GeofenceScannerBroadcastReceiver.class);
-                    context.sendBroadcast(broadcastIntent);*/
-                    LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.geofenceScannerBroadcastReceiver, new IntentFilter("GeofenceScannerBroadcastReceiver"));
-                    Intent broadcastIntent = new Intent("GeofenceScannerBroadcastReceiver");
-                    LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
+                    // start service
+                    Intent serviceIntent = new Intent(context, GeofencesService.class);
+                    WakefulIntentService.sendWakefulWork(context, serviceIntent);
                 } else
                     PPApplication.logE("GeofenceScannerJob.onRunJob", "loaction updates not started - start it");
                     // Fixed: java.lang.NullPointerException: Calling thread must be a prepared Looper thread.

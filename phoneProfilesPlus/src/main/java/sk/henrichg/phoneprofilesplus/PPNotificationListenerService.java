@@ -15,6 +15,7 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -83,18 +84,12 @@ public class PPNotificationListenerService extends NotificationListenerService {
         addNotifiedPackage(sbn.getPackageName(), time);
         saveNotifiedPackages(context);
 
-        /*Intent intent = new Intent(context, NotificationBroadcastReceiver.class);
-        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
-        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, time);
-        intent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
-        context.sendBroadcast(intent);*/
-        LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.notificationBroadcastReceiver, new IntentFilter("NotificationBroadcastReceiver"));
-        Intent intent = new Intent("NotificationBroadcastReceiver");
-        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
-        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, time);
-        intent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-
+        Intent eventsServiceIntent = new Intent(context, EventsService.class);
+        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_NOTIFICATION);
+        //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
+        //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));
+        eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
+        WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
     }
 
     @Override
@@ -117,18 +112,12 @@ public class PPNotificationListenerService extends NotificationListenerService {
         removeNotifiedPackage(sbn.getPackageName());
         saveNotifiedPackages(context);
 
-        /*Intent intent = new Intent(context, NotificationBroadcastReceiver.class);
-        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
-        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, time);
-        intent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
-        context.sendBroadcast(intent);*/
-        LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.notificationBroadcastReceiver, new IntentFilter("NotificationBroadcastReceiver"));
-        Intent intent = new Intent("NotificationBroadcastReceiver");
-        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
-        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, time);
-        intent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-
+        Intent eventsServiceIntent = new Intent(context, EventsService.class);
+        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_NOTIFICATION);
+        //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
+        //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));
+        eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
+        WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
     }
 
     // Android 5.0 Lollipop
