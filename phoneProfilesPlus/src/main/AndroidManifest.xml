@@ -792,6 +792,10 @@
             android:name=".WifiAPStateChangeService"
             android:exported="false">
         </service>
+        <service
+            android:name=".WifiService"
+            android:exported="false">
+        </service>
     </application>
 
 </manifest>

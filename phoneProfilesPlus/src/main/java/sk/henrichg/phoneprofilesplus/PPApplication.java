@@ -52,10 +52,11 @@ public class PPApplication extends Application {
 
                                          //+"|PreferenceFragment"
 
-                                         +"|SearchCalendarEventsJob"
+                                         //+"|SearchCalendarEventsJob"
+                                         +"|WifiService"
                                          +"|WifiScanJob"
-                                         +"|BluetoothScanJob"
-                                         +"|GeofenceScannerJob"
+                                         //+"|BluetoothScanJob"
+                                         //+"|GeofenceScannerJob"
 
             ;
 

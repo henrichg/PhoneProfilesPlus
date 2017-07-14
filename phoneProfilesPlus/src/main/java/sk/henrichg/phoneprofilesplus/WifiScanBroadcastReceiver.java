@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 
@@ -19,69 +20,16 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("##### WifiScanBroadcastReceiver.onReceive","xxx");
         //PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");
 
-        if (WifiScanJob.wifi == null)
-            WifiScanJob.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        //PPApplication.loadPreferences(context);
-
-        int forceOneScan = ScannerService.getForceOneWifiScan(context);
-        PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan="+forceOneScan);
-
-        if (Event.getGlobalEventsRuning(context) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
-        {
-
-            //boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
-            //PPApplication.logE("$$$ WifiAP", "WifiScanBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
-
-            //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "resultsUpdated="+intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false));
-
-            //if ((android.os.Build.VERSION.SDK_INT < 23) || (intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)))
-                WifiScanJob.fillScanResults(context);
-            //WifiScanJobBroadcastReceiver.unlock();
-
-            /*
-            List<WifiSSIDData> scanResults = WifiScanJobBroadcastReceiver.getScanResults(context);
-            if (scanResults != null) {
-                PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults.size="+scanResults.size());
-                //for (WifiSSIDData result : scanResults) {
-                //    PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "result.SSID=" + result.ssid);
-                //}
-            }
-            else
-                PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults=null");
-            */
-
-            boolean scanStarted = (WifiScanJob.getWaitForResults(context));
-            PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted="+scanStarted);
-
-            if (scanStarted)
-            {
-                WifiScanJob.setWaitForResults(context, false);
-                ScannerService.setForceOneWifiScan(context, ScannerService.FORCE_ONE_SCAN_DISABLED);
-
-                if (forceOneScan != ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
-                {
-                    // start service
-                    final Context _context = context.getApplicationContext();
-                    new Handler(context.getMainLooper()).postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent eventsServiceIntent = new Intent(_context, EventsService.class);
-                            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_WIFI_SCANNER);
-                            WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
-                        }
-                    }, 5000);
-                    //setAlarm(context);
-                }
-            }
-
+        Intent serviceIntent = new Intent(context, WifiService.class);
+        serviceIntent.setAction(intent.getAction());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            serviceIntent.putExtra(WifiManager.EXTRA_RESULTS_UPDATED, intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, true));
         }
-
-        PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive","----- end");
+        WakefulIntentService.sendWakefulWork(context, serviceIntent);
 
     }
 
