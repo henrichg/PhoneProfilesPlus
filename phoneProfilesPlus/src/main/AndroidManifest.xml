@@ -800,6 +800,18 @@
             android:name=".BluetoothService"
             android:exported="false">
         </service>
+        <service
+            android:name=".BatteryService"
+            android:exported="false">
+        </service>
+        <service
+            android:name=".HeadsetConnectionService"
+            android:exported="false">
+        </service>
+        <service
+            android:name=".PowerSaveModeService"
+            android:exported="false">
+        </service>
     </application>
 
 </manifest>

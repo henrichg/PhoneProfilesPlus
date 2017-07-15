@@ -29,7 +29,6 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
         serviceIntent.putExtra(BluetoothDevice.EXTRA_DEVICE, intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE));
         serviceIntent.putExtra(BluetoothDevice.EXTRA_NAME, intent.getStringExtra(BluetoothDevice.EXTRA_NAME));
         WakefulIntentService.sendWakefulWork(context, serviceIntent);
-
     }
 
 }

@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -24,7 +25,6 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.provider.Settings;
-import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
@@ -39,7 +39,7 @@ public class PhoneProfilesService extends Service
 {
     public static PhoneProfilesService instance = null;
 
-    private BatteryEventBroadcastReceiver batteryEventReceiver = null;
+    private BatteryBroadcastReceiver batteryEventReceiver = null;
     private HeadsetConnectionBroadcastReceiver headsetPlugReceiver = null;
     private ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
@@ -143,7 +143,7 @@ public class PhoneProfilesService extends Service
 
         if (batteryEventReceiver != null)
             getApplicationContext().unregisterReceiver(batteryEventReceiver);
-        batteryEventReceiver = new BatteryEventBroadcastReceiver();
+        batteryEventReceiver = new BatteryBroadcastReceiver();
         IntentFilter intentFilter1 = new IntentFilter();
         intentFilter1.addAction(Intent.ACTION_BATTERY_CHANGED);
         getApplicationContext().registerReceiver(batteryEventReceiver, intentFilter1);
@@ -152,9 +152,9 @@ public class PhoneProfilesService extends Service
             getApplicationContext().unregisterReceiver(headsetPlugReceiver);
         headsetPlugReceiver = new HeadsetConnectionBroadcastReceiver();
         IntentFilter intentFilter2 = new IntentFilter();
-        for (String action : HeadsetConnectionBroadcastReceiver.HEADPHONE_ACTIONS) {
-            intentFilter2.addAction(action);
-        }
+        intentFilter2.addAction(Intent.ACTION_HEADSET_PLUG);
+        intentFilter2.addAction(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED);
+        intentFilter2.addAction(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED);
         getApplicationContext().registerReceiver(headsetPlugReceiver, intentFilter2);
 
         if (screenOnOffReceiver != null)

@@ -19,11 +19,15 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### SMSBroadcastReceiver.onReceive", "xxx");
 
         Context appContext = context.getApplicationContext();
+
+        if (!PPApplication.getApplicationStarted(context, true))
+            // application is not started
+            return;
+
+        //PPApplication.loadPreferences(context);
 
         boolean smsMmsReceived = false;
 
@@ -97,42 +101,21 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
             int gmtOffset = TimeZone.getDefault().getRawOffset();
             long time = now.getTimeInMillis() + gmtOffset;
 
-            startService(appContext, origin, time);
-        }
-    }
+            if (Event.getGlobalEventsRuning(context))
+            {
+                PPApplication.logE("@@@ SMSBroadcastReceiver.onReceive","start service");
 
-    private static void startService(Context context, String origin, long time)
-    {
-        if (!PPApplication.getApplicationStarted(context, true))
-            // application is not started
-            return;
-
-        //PPApplication.loadPreferences(context);
-
-        if (Event.getGlobalEventsRuning(context))
-        {
-            PPApplication.logE("@@@ SMSBroadcastReceiver.startService","xxx");
-
-            /*boolean smsEventsExists = false;
-
-            DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-            smsEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_SMS) > 0;
-            PPApplication.logE("SMSBroadcastReceiver.onReceive","smsEventsExists="+smsEventsExists);
-            dataWrapper.invalidateDataWrapper();
-
-            if (smsEventsExists)
-            {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_SMS);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_SMS_PHONE_NUMBER, origin);
                 eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_SMS_DATE, time);
                 WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
-            //}
+            }
         }
     }
 
-/*	
+/*
     private static final String CONTENT_SMS = "content://sms";
     // Constant from Android SDK
     private static final int MESSAGE_TYPE_SENT = 2;

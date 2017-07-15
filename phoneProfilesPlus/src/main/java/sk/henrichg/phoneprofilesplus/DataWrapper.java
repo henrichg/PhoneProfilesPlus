@@ -1851,9 +1851,9 @@ public class DataWrapper {
                 (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_HEADPHONES))
             {
                 ApplicationPreferences.getSharedPreferences(context);
-                boolean headsetConnected = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_CONNECTED, false);
-                boolean headsetMicrophone = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_MICROPHONE, false);
-                boolean bluetoothHeadset = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_BLUETOOTH, false);
+                boolean headsetConnected = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionService.PREF_EVENT_HEADSET_CONNECTED, false);
+                boolean headsetMicrophone = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionService.PREF_EVENT_HEADSET_MICROPHONE, false);
+                boolean bluetoothHeadset = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionService.PREF_EVENT_HEADSET_BLUETOOTH, false);
 
                 if (headsetConnected)
                 {
