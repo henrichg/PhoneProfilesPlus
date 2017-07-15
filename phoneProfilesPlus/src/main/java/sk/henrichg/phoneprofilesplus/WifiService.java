@@ -28,7 +28,9 @@ public class WifiService extends WakefulIntentService {
 
             //PPApplication.loadPreferences(appContext);
 
-            if (intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
+            String action = intent.getAction();
+
+            if (action.equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
                 // WifiConnectionBroadcastReceiver
 
                 NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
@@ -76,7 +78,7 @@ public class WifiService extends WakefulIntentService {
                 }
             }
             else
-            if (intent.getAction().equals(WifiManager.WIFI_STATE_CHANGED_ACTION)) {
+            if (action.equals(WifiManager.WIFI_STATE_CHANGED_ACTION)) {
                 // WifiStateChangedBroadcastReceiver
 
                 if (WifiScanJob.wifi == null)
@@ -173,7 +175,7 @@ public class WifiService extends WakefulIntentService {
                 }
             }
             else
-            if (intent.getAction().equals(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)) {
+            if (action.equals(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)) {
                 // WifiScanBroadcastReceiver
 
                 if (WifiScanJob.wifi == null)

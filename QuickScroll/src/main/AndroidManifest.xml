@@ -1,5 +1,10 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.andraskindler.quickscroll"
-    android:versionCode="2"
-    android:versionName="0.8.1" >
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.andraskindler.quickscroll"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          android:versionCode="2"
+          android:versionName="0.8.1">
+
+    <application>
+    </application>
+
 </manifest>

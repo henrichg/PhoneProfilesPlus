@@ -209,7 +209,7 @@ class BluetoothScanJob extends Job {
         editor.apply();
     }
 
-    static public boolean getWaitForResults(Context context)
+    static boolean getWaitForResults(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getBoolean(PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS, false);
@@ -251,7 +251,7 @@ class BluetoothScanJob extends Job {
         if (bluetooth.isDiscovering())
             bluetooth.cancelDiscovery();
 
-        BluetoothScanBroadcastReceiver.discoveryStarted = false;
+        BluetoothService.discoveryStarted = false;
 
         if (Permissions.checkLocation(context)) {
             boolean startScan = bluetooth.startDiscovery();
@@ -365,7 +365,7 @@ class BluetoothScanJob extends Job {
     }
 
     static void finishLEScan(Context context) {
-        PPApplication.logE("BluetoothScanBroadcastReceiver.finishLEScan","xxx");
+        PPApplication.logE("BluetoothScanJob.finishLEScan","xxx");
 
         List<BluetoothDeviceData> scanResults = new ArrayList<>();
 

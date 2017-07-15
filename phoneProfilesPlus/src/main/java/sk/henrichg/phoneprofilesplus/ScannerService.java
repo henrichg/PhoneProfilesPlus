@@ -726,7 +726,7 @@ public class ScannerService extends WakefulIntentService
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
 
-        BluetoothScanBroadcastReceiver.finishScan(context);
+        BluetoothService.finishScan(context);
         BluetoothScanJob.stopCLScan(context);
     }
 
@@ -766,7 +766,7 @@ public class ScannerService extends WakefulIntentService
             //try { Thread.sleep(100); } catch (InterruptedException e) { }
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
-        BluetoothScanBroadcastReceiver.finishScan(context);
+        BluetoothService.finishScan(context);
         BluetoothScanJob.stopCLScan(context);
 
         if (asyncTask != null)

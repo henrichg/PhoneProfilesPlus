@@ -796,6 +796,10 @@
             android:name=".WifiService"
             android:exported="false">
         </service>
+        <service
+            android:name=".BluetoothService"
+            android:exported="false">
+        </service>
     </application>
 
 </manifest>
