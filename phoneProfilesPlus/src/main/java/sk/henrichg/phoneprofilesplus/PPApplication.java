@@ -58,6 +58,8 @@ public class PPApplication extends Application {
                                          +"|BluetoothService"
                                          +"|BluetoothScanJob"
                                          //+"|GeofenceScannerJob"
+                                         +"|BatteryService"
+                                         +"|HeadsetConnectionService"
 
             ;
 
