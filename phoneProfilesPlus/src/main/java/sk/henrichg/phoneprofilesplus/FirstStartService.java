@@ -16,13 +16,15 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.commonsware.cwac.wakeful.WakefulIntentService;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 
-public class FirstStartService extends IntentService {
+public class FirstStartService extends WakefulIntentService {
 
     public static final int TONE_ID = R.raw.phoneprofiles_silent;
     public static final String TONE_NAME = "PhoneProfiles Silent";
@@ -33,13 +35,10 @@ public class FirstStartService extends IntentService {
     }
 
     @Override
-    protected void onHandleIntent(Intent intent)
-    {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
+    protected void doWakefulWork(Intent intent) {
         Context context = getApplicationContext();
 
-        PPApplication.logE("$$$ FirstStartService.onHandleIntent","--- START");
+        PPApplication.logE("$$$ FirstStartService.doWakefulWork","--- START");
 
         PPApplication.initRoot();
         // grant root
@@ -53,21 +52,22 @@ public class FirstStartService extends IntentService {
             }
         //}
 
+        //PPApplication.loadPreferences(context);
+        GlobalGUIRoutines.setLanguage(context);
+
+        // this scanner must be started, used is for mobile cells registration, events existence is not needed
+        PPApplication.startPhoneStateScanner(context);
+
         if (PPApplication.getApplicationStarted(getApplicationContext(), false)) {
-            PPApplication.logE("$$$ FirstStartService.onHandleIntent","application already started");
+            PPApplication.logE("$$$ FirstStartService.doWakefulWork","application already started");
             return;
         }
 
-        PPApplication.logE("$$$ FirstStartService.onHandleIntent","application not started, start it");
+        PPApplication.logE("$$$ FirstStartService.doWakefulWork","application not started, start it");
 
         boolean startOnBoot = intent.getBooleanExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
 
         Permissions.clearMergedPermissions(context);
-
-        //int startType = intent.getStringExtra(PPApplication.EXTRA_FIRST_START_TYPE);
-
-        //PPApplication.loadPreferences(context);
-        GlobalGUIRoutines.setLanguage(context);
 
         installTone(TONE_ID, TONE_NAME, context, false);
 
@@ -100,12 +100,6 @@ public class FirstStartService extends IntentService {
         dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
         dataWrapper.getDatabaseHandler().deleteAllEventTimelines(true);
 
-        // zrusenie notifikacie
-        //dataWrapper.getActivateProfileHelper().removeNotification();
-
-        WifiScanJob.initialize(context);
-        BluetoothScanJob.initialize(context);
-
         MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, true);
 
         PPApplication.setApplicationStarted(context, true);
@@ -114,20 +108,17 @@ public class FirstStartService extends IntentService {
         else
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 
-        PPApplication.logE("$$$ FirstStartService.onHandleIntent","application started");
-
-        // this scanner must be started, used is for mobile cells registration, events existence is not needed
-        PPApplication.startPhoneStateScanner(context);
+        PPApplication.logE("$$$ FirstStartService.doWakefulWork","application started");
 
         // startneme eventy
         if (Event.getGlobalEventsRuning(context))
         {
-            PPApplication.logE("$$$ FirstStartService.onHandleIntent","global event run is enabled, first start events");
+            PPApplication.logE("$$$ FirstStartService.doWakefulWork","global event run is enabled, first start events");
             dataWrapper.firstStartEvents(true);
         }
         else
         {
-            PPApplication.logE("$$$ FirstStartService.onHandleIntent","global event run is not enabled, manually activate profile");
+            PPApplication.logE("$$$ FirstStartService.doWakefulWork","global event run is not enabled, manually activate profile");
             //PPApplication.setApplicationStarted(context, true);
             dataWrapper.activateProfileOnBoot();
         }

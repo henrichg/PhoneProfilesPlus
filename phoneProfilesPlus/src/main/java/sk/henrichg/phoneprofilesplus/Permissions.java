@@ -135,10 +135,12 @@ class Permissions {
         return context.checkPermission(permission, Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED;
     }
 
+    /*
     static boolean isSystemApp(Context context) {
         return (context.getApplicationInfo().flags
                 & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
     }
+    */
 
     static List<PermissionType> recheckPermissions(Context context, List<PermissionType> _permissions) {
         List<PermissionType>  permissions = new ArrayList<>();
@@ -1247,7 +1249,7 @@ class Permissions {
         return permissions;
     }
 
-    static void addMergedPermissions(Context context, List<Permissions.PermissionType> permissions)
+    private static void addMergedPermissions(Context context, List<Permissions.PermissionType> permissions)
     {
         List<Permissions.PermissionType> savedPermissions = getMergedPermissions(context);
 

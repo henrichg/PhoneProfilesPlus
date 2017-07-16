@@ -135,8 +135,6 @@ public class PhoneProfilesService extends Service
             //e.printStackTrace();
         }
 
-        AboutApplicationJob.scheduleJob();
-
         //PPApplication.loadPreferences(getApplicationContext());
 
         //PPApplication.initPhoneProfilesServiceMessenger(getApplicationContext());
@@ -258,13 +256,19 @@ public class PhoneProfilesService extends Service
         else
             getContentResolver().registerContentObserver(Settings.Secure.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
 
-        //// this not starts for boot, because PPApplication.getApplicationStarted() == false,
-        //// but it starts from EventsService
+        WifiScanJob.initialize(getApplicationContext());
+        BluetoothScanJob.initialize(getApplicationContext());
+
+        WifiScanJob.scheduleJob(getApplicationContext(), true, false, false);
+        BluetoothScanJob.scheduleJob(getApplicationContext(), true, false);
+        GeofenceScannerJob.scheduleJob(getApplicationContext(), true, false);
+        SearchCalendarEventsJob.scheduleJob(true);
+
         startGeofenceScanner();
         startPhoneStateScanner();
-        // this will be stopped latter in DeviceOrientationService, if events not exists
         startOrientationScanner();
-        ////
+
+        AboutApplicationJob.scheduleJob();
 
         ringingMediaPlayer = null;
         //notificationMediaPlayer = null;
@@ -333,7 +337,7 @@ public class PhoneProfilesService extends Service
         }
 
         if (onlyStart) {
-            getApplicationContext().startService(serviceIntent);
+            WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
 
             ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), false);
         }

@@ -879,12 +879,6 @@ public class DataWrapper {
         resetAllEventsInDelayStart(true);
         resetAllEventsInDelayEnd(true);
 
-        WifiScanJob.scheduleJob(context, true, false, false);
-        BluetoothScanJob.scheduleJob(context, true, false);
-        PPApplication.logE("GeofenceScannerJob.scheduleJob", "from DataWrapper.firstStartEvents");
-        GeofenceScannerJob.scheduleJob(context, true, false);
-        SearchCalendarEventsJob.scheduleJob(true);
-
         if (!getIsManualProfileActivation()) {
             PPApplication.logE("DataWrapper.firstStartEvents", "no manual profile activation, restart events");
             restartEvents(false, false, false);
