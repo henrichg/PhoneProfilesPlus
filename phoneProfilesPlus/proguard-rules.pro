@@ -15,3 +15,8 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+# TabTargetView
+-keep class android.support.v7.widget.Toolbar { *** mMenuView; }
+-keep class android.support.v7.widget.ActionMenuView { *** mPresenter; }
+-keep class android.support.v7.widget.ActionMenuPresenter { *** mOverflowButton; }

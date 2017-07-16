@@ -41,6 +41,7 @@ public class PPApplication extends Application {
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags = "##### PPApplication.onCreate"
+                                         +"|PhoneProfilesService.onCreate"
                                          +"|PackageReplacedService"
 
                                          //+"PhoneProfilesHelper.doUninstallPPHelper"
