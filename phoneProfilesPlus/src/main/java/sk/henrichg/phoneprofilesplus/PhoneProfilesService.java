@@ -125,75 +125,76 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT=" + android.os.Build.VERSION.SDK_INT);
 
         instance = this;
+        Context appContext = getApplicationContext();
 
         // save version code (is used in PackageReplacedReceiver)
         try {
             PackageInfo pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             int actualVersionCode = pinfo.versionCode;
-            PPApplication.setSavedVersionCode(getApplicationContext(), actualVersionCode);
+            PPApplication.setSavedVersionCode(appContext, actualVersionCode);
         } catch (PackageManager.NameNotFoundException e) {
             //e.printStackTrace();
         }
 
-        //PPApplication.loadPreferences(getApplicationContext());
+        //PPApplication.loadPreferences(appContext);
 
-        //PPApplication.initPhoneProfilesServiceMessenger(getApplicationContext());
+        //PPApplication.initPhoneProfilesServiceMessenger(appContext);
 
         if (batteryEventReceiver != null)
-            getApplicationContext().unregisterReceiver(batteryEventReceiver);
+            appContext.unregisterReceiver(batteryEventReceiver);
         batteryEventReceiver = new BatteryBroadcastReceiver();
         IntentFilter intentFilter1 = new IntentFilter();
         intentFilter1.addAction(Intent.ACTION_BATTERY_CHANGED);
-        getApplicationContext().registerReceiver(batteryEventReceiver, intentFilter1);
+        appContext.registerReceiver(batteryEventReceiver, intentFilter1);
 
         if (headsetPlugReceiver != null)
-            getApplicationContext().unregisterReceiver(headsetPlugReceiver);
+            appContext.unregisterReceiver(headsetPlugReceiver);
         headsetPlugReceiver = new HeadsetConnectionBroadcastReceiver();
         IntentFilter intentFilter2 = new IntentFilter();
         intentFilter2.addAction(Intent.ACTION_HEADSET_PLUG);
         intentFilter2.addAction(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED);
         intentFilter2.addAction(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED);
-        getApplicationContext().registerReceiver(headsetPlugReceiver, intentFilter2);
+        appContext.registerReceiver(headsetPlugReceiver, intentFilter2);
 
         if (screenOnOffReceiver != null)
-            getApplicationContext().unregisterReceiver(screenOnOffReceiver);
+            appContext.unregisterReceiver(screenOnOffReceiver);
         screenOnOffReceiver = new ScreenOnOffBroadcastReceiver();
         IntentFilter intentFilter5 = new IntentFilter();
         intentFilter5.addAction(Intent.ACTION_SCREEN_ON);
         intentFilter5.addAction(Intent.ACTION_SCREEN_OFF);
         intentFilter5.addAction(Intent.ACTION_USER_PRESENT);
-        getApplicationContext().registerReceiver(screenOnOffReceiver, intentFilter5);
+        appContext.registerReceiver(screenOnOffReceiver, intentFilter5);
 
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             if (deviceIdleModeReceiver != null)
-                getApplicationContext().unregisterReceiver(deviceIdleModeReceiver);
+                appContext.unregisterReceiver(deviceIdleModeReceiver);
             deviceIdleModeReceiver = new DeviceIdleModeBroadcastReceiver();
             IntentFilter intentFilter9 = new IntentFilter();
             intentFilter9.addAction(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED);
             // is @hide :-(
             //if (android.os.Build.VERSION.SDK_INT >= 24)
             //    intentFilter9.addAction(PowerManager.ACTION_LIGHT_DEVICE_IDLE_MODE_CHANGED);
-            getApplicationContext().registerReceiver(deviceIdleModeReceiver, intentFilter9);
+            appContext.registerReceiver(deviceIdleModeReceiver, intentFilter9);
         }
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             if (powerSaveModeReceiver != null)
-                getApplicationContext().unregisterReceiver(powerSaveModeReceiver);
+                appContext.unregisterReceiver(powerSaveModeReceiver);
             powerSaveModeReceiver = new PowerSaveModeBroadcastReceiver();
             IntentFilter intentFilter10 = new IntentFilter();
             intentFilter10.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
-            getApplicationContext().registerReceiver(powerSaveModeReceiver, intentFilter10);
+            appContext.registerReceiver(powerSaveModeReceiver, intentFilter10);
         }
 
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-            if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getApplicationContext())) {
+            if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, appContext)) {
                 if (interruptionFilterChangedReceiver != null)
-                    getApplicationContext().unregisterReceiver(interruptionFilterChangedReceiver);
+                    appContext.unregisterReceiver(interruptionFilterChangedReceiver);
                 interruptionFilterChangedReceiver = new InterruptionFilterChangedBroadcastReceiver();
                 IntentFilter intentFilter11 = new IntentFilter();
                 intentFilter11.addAction(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED);
-                getApplicationContext().registerReceiver(interruptionFilterChangedReceiver, intentFilter11);
+                appContext.registerReceiver(interruptionFilterChangedReceiver, intentFilter11);
             }
         }
 
@@ -203,21 +204,21 @@ public class PhoneProfilesService extends Service
         IntentFilter intentFilter99 = new IntentFilter();
         intentFilter99.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         intentFilter99.addAction(Intent.ACTION_TIME_CHANGED);
-        getApplicationContext().registerReceiver(restartEventsReceiver, intentFilter99);
+        appContext.registerReceiver(restartEventsReceiver, intentFilter99);
         */
 
-        //SMSBroadcastReceiver.registerSMSContentObserver(this);
-        //SMSBroadcastReceiver.registerMMSContentObserver(this);
+        //SMSBroadcastReceiver.registerSMSContentObserver(appContext);
+        //SMSBroadcastReceiver.registerMMSContentObserver(appContext);
 
         if (settingsContentObserver != null)
-            getContentResolver().unregisterContentObserver(settingsContentObserver);
+            appContext.getContentResolver().unregisterContentObserver(settingsContentObserver);
         //settingsContentObserver = new SettingsContentObserver(this, new Handler(getMainLooper()));
-        settingsContentObserver = new SettingsContentObserver(this, new Handler());
-        getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver);
+        settingsContentObserver = new SettingsContentObserver(appContext, new Handler());
+        appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver);
 
         /*
         if (mSipManager != null) {
-            mSipManager = SipManager.newInstance(getApplicationContext());
+            mSipManager = SipManager.newInstance(appContext);
 
             SipProfile sipProfile = null;
             try {
@@ -227,7 +228,7 @@ public class PhoneProfilesService extends Service
 
                 Intent intent = new Intent();
                 intent.setAction("sk.henrichg.phoneprofilesplus.INCOMING_SIPCALL");
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, Intent.FILL_IN_DATA);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, intent, Intent.FILL_IN_DATA);
                 mSipManager.open(sipProfile, pendingIntent, null);
 
             } catch (Exception e) {
@@ -240,28 +241,28 @@ public class PhoneProfilesService extends Service
         if (android.os.Build.VERSION.SDK_INT >= 18) {
             if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC)) {
                 if (nfcStateChangedBroadcastReceiver != null)
-                    getApplicationContext().unregisterReceiver(nfcStateChangedBroadcastReceiver);
+                    appContext.unregisterReceiver(nfcStateChangedBroadcastReceiver);
                 nfcStateChangedBroadcastReceiver = new NFCStateChangedBroadcastReceiver();
                 IntentFilter intentFilter20 = new IntentFilter(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED);
-                getApplicationContext().registerReceiver(nfcStateChangedBroadcastReceiver, intentFilter20);
+                appContext.registerReceiver(nfcStateChangedBroadcastReceiver, intentFilter20);
                 //PPApplication.logE("$$$ PhoneProfilesService.onCreate", "registered");
             }
         }
 
         if (mobileDataStateChangedContentObserver != null)
-            getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
-        mobileDataStateChangedContentObserver = new MobileDataStateChangedContentObserver(this, new Handler());
+            appContext.getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
+        mobileDataStateChangedContentObserver = new MobileDataStateChangedContentObserver(appContext, new Handler());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-            getContentResolver().registerContentObserver(Settings.Global.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
+            appContext.getContentResolver().registerContentObserver(Settings.Global.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
         else
-            getContentResolver().registerContentObserver(Settings.Secure.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
+            appContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
 
-        WifiScanJob.initialize(getApplicationContext());
-        BluetoothScanJob.initialize(getApplicationContext());
+        WifiScanJob.initialize(appContext);
+        BluetoothScanJob.initialize(appContext);
 
-        WifiScanJob.scheduleJob(getApplicationContext(), true, false, false);
-        BluetoothScanJob.scheduleJob(getApplicationContext(), true, false);
-        GeofenceScannerJob.scheduleJob(getApplicationContext(), true, false);
+        WifiScanJob.scheduleJob(appContext, true, false, false);
+        BluetoothScanJob.scheduleJob(appContext, true, false);
+        GeofenceScannerJob.scheduleJob(appContext, true, false);
         SearchCalendarEventsJob.scheduleJob(true);
 
         startGeofenceScanner();
@@ -279,39 +280,41 @@ public class PhoneProfilesService extends Service
     {
         PPApplication.logE("PhoneProfilesService.onDestroy", "xxxxx");
 
+        Context appContext = getApplicationContext();
+
         if (batteryEventReceiver != null)
-            getApplicationContext().unregisterReceiver(batteryEventReceiver);
+            appContext.unregisterReceiver(batteryEventReceiver);
         if (headsetPlugReceiver != null)
-            getApplicationContext().unregisterReceiver(headsetPlugReceiver);
+            appContext.unregisterReceiver(headsetPlugReceiver);
         if (screenOnOffReceiver != null)
-            getApplicationContext().unregisterReceiver(screenOnOffReceiver);
+            appContext.unregisterReceiver(screenOnOffReceiver);
         if (android.os.Build.VERSION.SDK_INT >= 23)
             if (deviceIdleModeReceiver != null)
-                getApplicationContext().unregisterReceiver(deviceIdleModeReceiver);
+                appContext.unregisterReceiver(deviceIdleModeReceiver);
         if (android.os.Build.VERSION.SDK_INT >= 21)
             if (powerSaveModeReceiver != null)
-                getApplicationContext().unregisterReceiver(powerSaveModeReceiver);
+                appContext.unregisterReceiver(powerSaveModeReceiver);
         if (android.os.Build.VERSION.SDK_INT >= 23)
             if (interruptionFilterChangedReceiver != null)
-                getApplicationContext().unregisterReceiver(interruptionFilterChangedReceiver);
+                appContext.unregisterReceiver(interruptionFilterChangedReceiver);
 
-        //SMSBroadcastReceiver.unregisterSMSContentObserver(this);
-        //SMSBroadcastReceiver.unregisterMMSContentObserver(this);
+        //SMSBroadcastReceiver.unregisterSMSContentObserver(appContext);
+        //SMSBroadcastReceiver.unregisterMMSContentObserver(appContext);
 
 
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC))
             if (nfcStateChangedBroadcastReceiver != null) {
                 //try {
-                    getApplicationContext().unregisterReceiver(nfcStateChangedBroadcastReceiver);
+                appContext.unregisterReceiver(nfcStateChangedBroadcastReceiver);
                 //} catch (Exception ignored) {
                 //}
             }
 
         if (settingsContentObserver != null)
-            getContentResolver().unregisterContentObserver(settingsContentObserver);
+            appContext.getContentResolver().unregisterContentObserver(settingsContentObserver);
 
         if (mobileDataStateChangedContentObserver != null)
-            getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
+            appContext.getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
 
         stopGeofenceScanner();
         stopOrientationScanner();
@@ -329,7 +332,9 @@ public class PhoneProfilesService extends Service
     private boolean doForFirstStart(Intent intent, int flags, int startId) {
         boolean onlyStart = true;
 
-        Intent serviceIntent = new Intent(getApplicationContext(), FirstStartService.class);
+        Context appContext = getApplicationContext();
+
+        Intent serviceIntent = new Intent(appContext, FirstStartService.class);
 
         if (intent != null) {
             onlyStart = intent.getBooleanExtra(EXTRA_ONLY_START, true);
@@ -337,9 +342,9 @@ public class PhoneProfilesService extends Service
         }
 
         if (onlyStart) {
-            WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
+            WakefulIntentService.sendWakefulWork(appContext, serviceIntent);
 
-            ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), false);
+            ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, false);
         }
 
         return onlyStart;
