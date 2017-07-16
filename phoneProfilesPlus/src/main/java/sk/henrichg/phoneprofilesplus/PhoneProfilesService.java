@@ -269,6 +269,8 @@ public class PhoneProfilesService extends Service
         startPhoneStateScanner();
         startOrientationScanner();
 
+        PPApplication.startPhoneStateScanner(appContext);
+
         AboutApplicationJob.scheduleJob();
 
         ringingMediaPlayer = null;

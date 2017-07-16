@@ -55,9 +55,6 @@ public class FirstStartService extends WakefulIntentService {
         //PPApplication.loadPreferences(context);
         GlobalGUIRoutines.setLanguage(context);
 
-        // this scanner must be started, used is for mobile cells registration, events existence is not needed
-        PPApplication.startPhoneStateScanner(context);
-
         if (PPApplication.getApplicationStarted(getApplicationContext(), false)) {
             PPApplication.logE("$$$ FirstStartService.doWakefulWork","application already started");
             return;
