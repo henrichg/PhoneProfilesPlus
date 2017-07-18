@@ -100,6 +100,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        PPApplication.logE("ProfilePreferencesNestedFragment.onActivityCreated","startupSource="+startupSource);
+
         setPreferencesManager();
         preferences = prefMng.getSharedPreferences();
         preferences.registerOnSharedPreferenceChangeListener(this);

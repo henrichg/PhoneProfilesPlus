@@ -54,14 +54,16 @@ public class PPApplication extends Application {
                                          //+"|PreferenceFragment"
 
                                          //+"|SearchCalendarEventsJob"
-                                         +"|WifiService"
-                                         +"|WifiScanJob"
-                                         +"|BluetoothService"
-                                         +"|BluetoothScanJob"
+                                         //+"|WifiService"
+                                         //+"|WifiScanJob"
+                                         //+"|BluetoothService"
+                                         //+"|BluetoothScanJob"
                                          //+"|GeofenceScannerJob"
                                          //+"|BatteryBroadcastReceiver"
-                                         +"|BatteryService"
-                                         +"|HeadsetConnectionService"
+                                         //+"|BatteryService"
+                                         //+"|HeadsetConnectionService"
+
+                                         +"|ProfilePreferencesNestedFragment.onActivityCreated"
 
             ;
 
