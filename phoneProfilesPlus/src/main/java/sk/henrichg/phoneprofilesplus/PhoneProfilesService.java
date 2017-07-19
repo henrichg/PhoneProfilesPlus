@@ -29,6 +29,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.provider.Telephony;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
@@ -61,6 +62,8 @@ public class PhoneProfilesService extends Service
     private WifiAPStateChangeBroadcastReceiver wifiAPStateChangeBroadcastReceiver = null;
     private LocationModeChangedBroadcastReceiver locationModeChangedBroadcastReceiver = null;
     private AirplaneModeStateChangedBroadcastReceiver airplaneModeStateChangedBroadcastReceiver = null;
+    private SMSBroadcastReceiver smsBroadcastReceiver = null;
+    private SMSBroadcastReceiver mmsBroadcastReceiver = null;
 
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
@@ -336,6 +339,33 @@ public class PhoneProfilesService extends Service
             intentFilter18.addAction(LocationManager.MODE_CHANGED_ACTION);
         appContext.registerReceiver(locationModeChangedBroadcastReceiver, intentFilter18);
 
+        // required for sms event
+        if (smsBroadcastReceiver != null)
+            appContext.unregisterReceiver(smsBroadcastReceiver);
+        smsBroadcastReceiver = new SMSBroadcastReceiver();
+        IntentFilter intentFilter21 = new IntentFilter();
+        if (android.os.Build.VERSION.SDK_INT >= 19)
+            intentFilter21.addAction(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
+        else
+            intentFilter21.addAction("android.provider.Telephony.SMS_RECEIVED");
+        appContext.registerReceiver(smsBroadcastReceiver, intentFilter21);
+
+        // required for sms event
+        if (mmsBroadcastReceiver != null)
+            appContext.unregisterReceiver(mmsBroadcastReceiver);
+        mmsBroadcastReceiver = new SMSBroadcastReceiver();
+        IntentFilter intentFilter22 = new IntentFilter();
+        if (android.os.Build.VERSION.SDK_INT >= 19)
+            intentFilter22.addAction(Telephony.Sms.Intents.WAP_PUSH_RECEIVED_ACTION);
+        else
+            intentFilter22.addAction("android.provider.Telephony.WAP_PUSH_RECEIVED");
+        try {
+            intentFilter22.addDataType("application/vnd.wap.mms-message");
+            appContext.registerReceiver(mmsBroadcastReceiver, intentFilter22);
+        } catch (IntentFilter.MalformedMimeTypeException e) {
+            e.printStackTrace();
+        }
+
         // required for all scanner events (wifi, bluetooth, location, mobile cells, device orientation)
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             if (powerSaveModeReceiver != null)
@@ -478,6 +508,10 @@ public class PhoneProfilesService extends Service
             appContext.unregisterReceiver(locationModeChangedBroadcastReceiver);
         if (airplaneModeStateChangedBroadcastReceiver != null)
             appContext.unregisterReceiver(airplaneModeStateChangedBroadcastReceiver);
+        if (smsBroadcastReceiver != null)
+            appContext.unregisterReceiver(smsBroadcastReceiver);
+        if (mmsBroadcastReceiver != null)
+            appContext.unregisterReceiver(mmsBroadcastReceiver);
 
         if (settingsContentObserver != null)
             appContext.getContentResolver().unregisterContentObserver(settingsContentObserver);

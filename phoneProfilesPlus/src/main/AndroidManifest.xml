@@ -352,6 +352,7 @@
                 <data android:host="com.android.calendar"/>
             </intent-filter>
         </receiver>
+        <!--
         <receiver
             android:name=".SMSBroadcastReceiver"
             android:enabled="true"
@@ -366,6 +367,7 @@
                 <data android:mimeType="application/vnd.wap.mms-message"/>
             </intent-filter>
         </receiver>
+        -->
 
         <!-- widget providers -->
         <receiver
