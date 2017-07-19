@@ -341,14 +341,6 @@
 
         <!-- implicit broadcast receivers, register it in PhoneProfilesService -->
         <receiver
-            android:name=".DockConnectionBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.ACTION_DOCK_EVENT"/>
-            </intent-filter>
-        </receiver>
-        <receiver
             android:name=".CalendarProviderChangedBroadcastReceiver"
             android:enabled="true"
             android:exported="true"
@@ -358,33 +350,6 @@
 
                 <data android:scheme="content"/>
                 <data android:host="com.android.calendar"/>
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".WifiConnectionBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.net.wifi.STATE_CHANGE"/>
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".BluetoothConnectionBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.bluetooth.device.action.ACL_CONNECTED"/>
-                <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED"/>
-                <action android:name="android.bluetooth.device.action.ACL_DISCONNECT_REQUESTED"/>
-                <action android:name="android.bluetooth.device.action.NAME_CHANGED"/>
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".BluetoothStateChangedBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED"/>
             </intent-filter>
         </receiver>
         <receiver
@@ -474,17 +439,6 @@
                 <action android:name="android.location.PROVIDERS_CHANGED"/>
             </intent-filter>
         </receiver>
-        <!--
-        <receiver
-            android:name=".SIPCallBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="sk.henrichg.phoneprofilesplus.INCOMING_SIPCALL"/>
-            </intent-filter>
-        </receiver>
-        -->
-
 
         <!-- widget providers -->
         <receiver
@@ -606,6 +560,16 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+        <!--
+        <receiver
+            android:name=".SIPCallBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.INCOMING_SIPCALL"/>
+            </intent-filter>
+        </receiver>
+        -->
 
         <!-- Samsung Edge Look provider -->
         <receiver

@@ -3,6 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
 import android.content.Intent;
@@ -49,9 +51,14 @@ public class PhoneProfilesService extends Service
 
     private BatteryBroadcastReceiver batteryEventReceiver = null;
     private HeadsetConnectionBroadcastReceiver headsetPlugReceiver = null;
-    private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
-    private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;
+    private DockConnectionBroadcastReceiver dockConnectionBroadcastReceiver = null;
+    private WifiConnectionBroadcastReceiver wifiConnectionBroadcastReceiver = null;
+    private BluetoothConnectionBroadcastReceiver bluetoothConnectionBroadcastReceiver = null;
+    private BluetoothStateChangedBroadcastReceiver bluetoothStateChangedBroadcastReceiver = null;
+
+    private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
+    private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
 
     private static SettingsContentObserver settingsContentObserver = null;
     private static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
@@ -252,6 +259,38 @@ public class PhoneProfilesService extends Service
         else
             appContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
 
+        if (dockConnectionBroadcastReceiver != null)
+            appContext.unregisterReceiver(dockConnectionBroadcastReceiver);
+        dockConnectionBroadcastReceiver = new DockConnectionBroadcastReceiver();
+        IntentFilter intentFilter12 = new IntentFilter();
+        intentFilter12.addAction(Intent.ACTION_DOCK_EVENT);
+        intentFilter12.addAction("android.intent.action.ACTION_DOCK_EVENT");
+        appContext.registerReceiver(dockConnectionBroadcastReceiver, intentFilter12);
+
+        if (wifiConnectionBroadcastReceiver != null)
+            appContext.unregisterReceiver(wifiConnectionBroadcastReceiver);
+        wifiConnectionBroadcastReceiver = new WifiConnectionBroadcastReceiver();
+        IntentFilter intentFilter13 = new IntentFilter();
+        intentFilter13.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        appContext.registerReceiver(wifiConnectionBroadcastReceiver, intentFilter13);
+
+        if (bluetoothConnectionBroadcastReceiver != null)
+            appContext.unregisterReceiver(bluetoothConnectionBroadcastReceiver);
+        bluetoothConnectionBroadcastReceiver = new BluetoothConnectionBroadcastReceiver();
+        IntentFilter intentFilter14 = new IntentFilter();
+        intentFilter14.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
+        intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+        intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
+        intentFilter14.addAction(BluetoothDevice.ACTION_NAME_CHANGED);
+        appContext.registerReceiver(bluetoothConnectionBroadcastReceiver, intentFilter14);
+
+        if (bluetoothStateChangedBroadcastReceiver != null)
+            appContext.unregisterReceiver(bluetoothStateChangedBroadcastReceiver);
+        bluetoothStateChangedBroadcastReceiver = new BluetoothStateChangedBroadcastReceiver();
+        IntentFilter intentFilter15 = new IntentFilter();
+        intentFilter15.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        appContext.registerReceiver(bluetoothStateChangedBroadcastReceiver, intentFilter15);
+
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             // required for all scanner events (wifi, bluetooth, location, mobile cells, device orientation)
             if (powerSaveModeReceiver != null)
@@ -325,11 +364,6 @@ public class PhoneProfilesService extends Service
         if (android.os.Build.VERSION.SDK_INT >= 23)
             if (interruptionFilterChangedReceiver != null)
                 appContext.unregisterReceiver(interruptionFilterChangedReceiver);
-
-        //SMSBroadcastReceiver.unregisterSMSContentObserver(appContext);
-        //SMSBroadcastReceiver.unregisterMMSContentObserver(appContext);
-
-
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC))
             if (nfcStateChangedBroadcastReceiver != null) {
                 //try {
@@ -337,12 +371,29 @@ public class PhoneProfilesService extends Service
                 //} catch (Exception ignored) {
                 //}
             }
+        if (phoneCallBroadcastReceiver != null)
+            appContext.unregisterReceiver(phoneCallBroadcastReceiver);
+        if (ringerModeChangeReceiver != null)
+            appContext.unregisterReceiver(ringerModeChangeReceiver);
+        if (wifiStateChangedBroadcastReceiver != null)
+            appContext.unregisterReceiver(wifiStateChangedBroadcastReceiver);
+        if (dockConnectionBroadcastReceiver != null)
+            appContext.unregisterReceiver(dockConnectionBroadcastReceiver);
+        if (wifiConnectionBroadcastReceiver != null)
+            appContext.unregisterReceiver(wifiConnectionBroadcastReceiver);
+        if (bluetoothConnectionBroadcastReceiver != null)
+            appContext.unregisterReceiver(bluetoothConnectionBroadcastReceiver);
+        if (bluetoothStateChangedBroadcastReceiver != null)
+            appContext.unregisterReceiver(bluetoothStateChangedBroadcastReceiver);
 
         if (settingsContentObserver != null)
             appContext.getContentResolver().unregisterContentObserver(settingsContentObserver);
 
         if (mobileDataStateChangedContentObserver != null)
             appContext.getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
+
+        //SMSBroadcastReceiver.unregisterSMSContentObserver(appContext);
+        //SMSBroadcastReceiver.unregisterMMSContentObserver(appContext);
 
         stopGeofenceScanner();
         stopOrientationScanner();
