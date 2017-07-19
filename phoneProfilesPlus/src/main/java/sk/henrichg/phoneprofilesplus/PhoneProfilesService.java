@@ -18,6 +18,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
@@ -39,12 +41,16 @@ public class PhoneProfilesService extends Service
 {
     public static PhoneProfilesService instance = null;
 
+    private ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
+    private InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
+    private PhoneCallBroadcastReceiver phoneCallBroadcastReceiver = null;
+    private RingerModeChangeReceiver ringerModeChangeReceiver = null;
+    private WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
+
     private BatteryBroadcastReceiver batteryEventReceiver = null;
     private HeadsetConnectionBroadcastReceiver headsetPlugReceiver = null;
-    private ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
-    private InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
     private NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;
 
     private static SettingsContentObserver settingsContentObserver = null;
@@ -140,6 +146,55 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.initPhoneProfilesServiceMessenger(appContext);
 
+        // --- receivers for profiles/events -- must be registered permanently
+
+        if (screenOnOffReceiver != null)
+            appContext.unregisterReceiver(screenOnOffReceiver);
+        screenOnOffReceiver = new ScreenOnOffBroadcastReceiver();
+        IntentFilter intentFilter5 = new IntentFilter();
+        intentFilter5.addAction(Intent.ACTION_SCREEN_ON);
+        intentFilter5.addAction(Intent.ACTION_SCREEN_OFF);
+        intentFilter5.addAction(Intent.ACTION_USER_PRESENT);
+        appContext.registerReceiver(screenOnOffReceiver, intentFilter5);
+
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
+            if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, appContext)) {
+                if (interruptionFilterChangedReceiver != null)
+                    appContext.unregisterReceiver(interruptionFilterChangedReceiver);
+                interruptionFilterChangedReceiver = new InterruptionFilterChangedBroadcastReceiver();
+                IntentFilter intentFilter11 = new IntentFilter();
+                intentFilter11.addAction(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED);
+                appContext.registerReceiver(interruptionFilterChangedReceiver, intentFilter11);
+            }
+        }
+
+        if (phoneCallBroadcastReceiver != null)
+            appContext.unregisterReceiver(phoneCallBroadcastReceiver);
+        phoneCallBroadcastReceiver = new PhoneCallBroadcastReceiver();
+        IntentFilter intentFilter6 = new IntentFilter();
+        intentFilter6.addAction(Intent.ACTION_NEW_OUTGOING_CALL);
+        intentFilter6.addAction(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
+        appContext.registerReceiver(phoneCallBroadcastReceiver, intentFilter6);
+
+        if (ringerModeChangeReceiver != null)
+            appContext.unregisterReceiver(ringerModeChangeReceiver);
+        ringerModeChangeReceiver = new RingerModeChangeReceiver();
+        IntentFilter intentFilter7 = new IntentFilter();
+        intentFilter7.addAction(AudioManager.RINGER_MODE_CHANGED_ACTION);
+        appContext.registerReceiver(ringerModeChangeReceiver, intentFilter7);
+
+        if (wifiStateChangedBroadcastReceiver != null)
+            appContext.unregisterReceiver(wifiStateChangedBroadcastReceiver);
+        wifiStateChangedBroadcastReceiver = new WifiStateChangedBroadcastReceiver();
+        IntentFilter intentFilter8 = new IntentFilter();
+        intentFilter8.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        appContext.registerReceiver(wifiStateChangedBroadcastReceiver, intentFilter8);
+
+        // --------------------------------
+
+        // --- receivers for events -- register it only if any event exists
+
         if (batteryEventReceiver != null)
             appContext.unregisterReceiver(batteryEventReceiver);
         batteryEventReceiver = new BatteryBroadcastReceiver();
@@ -156,16 +211,24 @@ public class PhoneProfilesService extends Service
         intentFilter2.addAction(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED);
         appContext.registerReceiver(headsetPlugReceiver, intentFilter2);
 
-        if (screenOnOffReceiver != null)
-            appContext.unregisterReceiver(screenOnOffReceiver);
-        screenOnOffReceiver = new ScreenOnOffBroadcastReceiver();
-        IntentFilter intentFilter5 = new IntentFilter();
-        intentFilter5.addAction(Intent.ACTION_SCREEN_ON);
-        intentFilter5.addAction(Intent.ACTION_SCREEN_OFF);
-        intentFilter5.addAction(Intent.ACTION_USER_PRESENT);
-        appContext.registerReceiver(screenOnOffReceiver, intentFilter5);
+
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            // required for power save event type + all scanner events (wifi, bluetooth, location, mobile cells
+            if (powerSaveModeReceiver != null)
+                appContext.unregisterReceiver(powerSaveModeReceiver);
+            powerSaveModeReceiver = new PowerSaveModeBroadcastReceiver();
+            IntentFilter intentFilter10 = new IntentFilter();
+            intentFilter10.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
+            appContext.registerReceiver(powerSaveModeReceiver, intentFilter10);
+        }
+
+        // ----------------------------------------------
+
+        // --- other receivers -- register it permanently ------
 
         if (android.os.Build.VERSION.SDK_INT >= 23) {
+            // needed for
             if (deviceIdleModeReceiver != null)
                 appContext.unregisterReceiver(deviceIdleModeReceiver);
             deviceIdleModeReceiver = new DeviceIdleModeBroadcastReceiver();
@@ -177,26 +240,7 @@ public class PhoneProfilesService extends Service
             appContext.registerReceiver(deviceIdleModeReceiver, intentFilter9);
         }
 
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            if (powerSaveModeReceiver != null)
-                appContext.unregisterReceiver(powerSaveModeReceiver);
-            powerSaveModeReceiver = new PowerSaveModeBroadcastReceiver();
-            IntentFilter intentFilter10 = new IntentFilter();
-            intentFilter10.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
-            appContext.registerReceiver(powerSaveModeReceiver, intentFilter10);
-        }
-
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-            if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, appContext)) {
-                if (interruptionFilterChangedReceiver != null)
-                    appContext.unregisterReceiver(interruptionFilterChangedReceiver);
-                interruptionFilterChangedReceiver = new InterruptionFilterChangedBroadcastReceiver();
-                IntentFilter intentFilter11 = new IntentFilter();
-                intentFilter11.addAction(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED);
-                appContext.registerReceiver(interruptionFilterChangedReceiver, intentFilter11);
-            }
-        }
+        // ------------------------------------
 
         /*
         // receivers for system date and time change
