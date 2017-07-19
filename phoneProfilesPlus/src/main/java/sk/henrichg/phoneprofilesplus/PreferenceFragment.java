@@ -109,7 +109,8 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         PPApplication.logE("PreferenceFragment.onSaveInstanceState", getSavedInstanceStateKeyName());
-        savedInstanceState.putString(getSavedInstanceStateKeyName(), getPreferenceScreen().getKey());
+        if (getPreferenceScreen() != null)
+            savedInstanceState.putString(getSavedInstanceStateKeyName(), getPreferenceScreen().getKey());
         super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -154,19 +155,21 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
             ListView lv = (ListView) v.findViewById(android.R.id.list);
             lv.setPadding(0, 0, 0, 0);
 
-            //Override PreferenceScreen click and preferences style
-            for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
-                Preference preference = getPreferenceScreen().getPreference(i);
+            if (getPreferenceScreen() != null) {
+                //Override PreferenceScreen click and preferences style
+                for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
+                    Preference preference = getPreferenceScreen().getPreference(i);
 
-                if (preference instanceof PreferenceCategory) {
-                    for (int j = 0; j < ((PreferenceCategory) preference).getPreferenceCount();
-                         j++) {
-                        preferenceToMaterialPreference(((PreferenceCategory) preference)
-                                .getPreference(j));
+                    if (preference instanceof PreferenceCategory) {
+                        for (int j = 0; j < ((PreferenceCategory) preference).getPreferenceCount();
+                             j++) {
+                            preferenceToMaterialPreference(((PreferenceCategory) preference)
+                                    .getPreference(j));
+                        }
                     }
-                }
 
-                preferenceToMaterialPreference(preference);
+                    preferenceToMaterialPreference(preference);
+                }
             }
         }
         return v;
@@ -223,10 +226,12 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //Title of each fragment will be specified in the android:title tag of each PreferenceScreen
-        //in the preferences xml file
-        ((PreferenceActivity) getActivity()).getSupportActionBar()
-                .setTitle(getPreferenceScreen().getTitle());
+        if (getPreferenceScreen() != null) {
+            //Title of each fragment will be specified in the android:title tag of each PreferenceScreen
+            //in the preferences xml file
+            ((PreferenceActivity) getActivity()).getSupportActionBar()
+                    .setTitle(getPreferenceScreen().getTitle());
+        }
     }
 
     public boolean onPreferenceScreenClick(@NonNull PreferenceScreen preference) {

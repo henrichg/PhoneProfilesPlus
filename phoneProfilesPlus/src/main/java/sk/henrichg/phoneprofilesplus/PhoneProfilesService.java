@@ -363,7 +363,8 @@ public class PhoneProfilesService extends Service
             intentFilter22.addDataType("application/vnd.wap.mms-message");
             appContext.registerReceiver(mmsBroadcastReceiver, intentFilter22);
         } catch (IntentFilter.MalformedMimeTypeException e) {
-            e.printStackTrace();
+            mmsBroadcastReceiver = null;
+            PPApplication.logE("$$$ PhoneProfilesService.onCreate", "mmsBroadcastReceiver exception=" + e.toString());
         }
 
         // required for all scanner events (wifi, bluetooth, location, mobile cells, device orientation)
@@ -455,6 +456,8 @@ public class PhoneProfilesService extends Service
 
         ringingMediaPlayer = null;
         //notificationMediaPlayer = null;
+
+        PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OK created");
     }
 
     @Override
