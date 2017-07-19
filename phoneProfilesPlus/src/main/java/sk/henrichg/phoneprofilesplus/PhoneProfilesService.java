@@ -61,7 +61,6 @@ public class PhoneProfilesService extends Service
     private WifiAPStateChangeBroadcastReceiver wifiAPStateChangeBroadcastReceiver = null;
     private LocationModeChangedBroadcastReceiver locationModeChangedBroadcastReceiver = null;
     private AirplaneModeStateChangedBroadcastReceiver airplaneModeStateChangedBroadcastReceiver = null;
-    private GPSStateChangedBroadcastReceiver gpsStateChangedBroadcastReceiver = null;
 
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
@@ -210,7 +209,7 @@ public class PhoneProfilesService extends Service
         appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver);
 
         // required for Connect to SSIS profile preference +
-        // wifi connection type = (dis)connected and radio switch event +
+        // wifi connection type = (dis)connected, radio switch event +
         // wifi scanner
         if (wifiStateChangedBroadcastReceiver != null)
             appContext.unregisterReceiver(wifiStateChangedBroadcastReceiver);
@@ -291,14 +290,6 @@ public class PhoneProfilesService extends Service
         appContext.registerReceiver(airplaneModeStateChangedBroadcastReceiver, intentFilter19);
 
         // required for radio switch event
-        if (gpsStateChangedBroadcastReceiver != null)
-            appContext.unregisterReceiver(gpsStateChangedBroadcastReceiver);
-        gpsStateChangedBroadcastReceiver = new GPSStateChangedBroadcastReceiver();
-        IntentFilter intentFilter20 = new IntentFilter();
-        intentFilter20.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
-        appContext.registerReceiver(gpsStateChangedBroadcastReceiver, intentFilter20);
-
-        // required for radio switch event
         if (android.os.Build.VERSION.SDK_INT >= 18) {
             if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC)) {
                 if (nfcStateChangedBroadcastReceiver != null)
@@ -335,7 +326,7 @@ public class PhoneProfilesService extends Service
         intentFilter17.addAction("android.net.wifi.WIFI_AP_STATE_CHANGED");
         appContext.registerReceiver(wifiAPStateChangeBroadcastReceiver, intentFilter17);
 
-        // required for loaction event
+        // required for loaction and radio switch event
         if (locationModeChangedBroadcastReceiver != null)
             appContext.unregisterReceiver(locationModeChangedBroadcastReceiver);
         locationModeChangedBroadcastReceiver = new LocationModeChangedBroadcastReceiver();
@@ -487,8 +478,6 @@ public class PhoneProfilesService extends Service
             appContext.unregisterReceiver(locationModeChangedBroadcastReceiver);
         if (airplaneModeStateChangedBroadcastReceiver != null)
             appContext.unregisterReceiver(airplaneModeStateChangedBroadcastReceiver);
-        if (gpsStateChangedBroadcastReceiver != null)
-            appContext.unregisterReceiver(gpsStateChangedBroadcastReceiver);
 
         if (settingsContentObserver != null)
             appContext.getContentResolver().unregisterContentObserver(settingsContentObserver);

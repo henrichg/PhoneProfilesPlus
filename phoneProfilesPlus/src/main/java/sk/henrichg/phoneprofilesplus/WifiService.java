@@ -39,7 +39,7 @@ public class WifiService extends WakefulIntentService {
                     PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiConnectionBroadcastReceiver: state=" + info.getState());
 
                     if (PhoneProfilesService.connectToSSIDStarted) {
-                        // connect to SSID is not started
+                        // connect to SSID is started
 
                         if (info.getState() == NetworkInfo.State.CONNECTED) {
                             WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
