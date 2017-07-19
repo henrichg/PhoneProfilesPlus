@@ -186,7 +186,7 @@ public class BluetoothService extends WakefulIntentService {
 
                             // start service
                             Intent eventsServiceIntent2 = new Intent(appContext, EventsService.class);
-                            eventsServiceIntent2.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RADIO_SWITCH);
+                            eventsServiceIntent2.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_STATE);
                             WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent2);
                             //}
                         }
