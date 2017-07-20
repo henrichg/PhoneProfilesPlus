@@ -195,6 +195,7 @@ public class GrantPermissionActivity extends Activity {
         boolean showRequestReadContacts = false;
         boolean showRequestReceiveSMS = false;
         boolean showRequestReadSMS = false;
+        boolean showRequestReceiveMMS = false;
         boolean showRequestAccessCoarseLocation = false;
         boolean showRequestAccessFineLocation = false;
 
@@ -226,6 +227,8 @@ public class GrantPermissionActivity extends Activity {
                 showRequestReceiveSMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_SMS);
             if (permissionType.permission.equals(Manifest.permission.READ_SMS))
                 showRequestReadSMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_SMS);
+            if (permissionType.permission.equals(Manifest.permission.RECEIVE_MMS))
+                showRequestReceiveMMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_MMS);
             if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION))
                 showRequestAccessCoarseLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION);
             if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION))
@@ -255,6 +258,7 @@ public class GrantPermissionActivity extends Activity {
                 showRequestReadContacts ||
                 showRequestReceiveSMS ||
                 showRequestReadSMS ||
+                showRequestReceiveMMS ||
                 showRequestAccessCoarseLocation ||
                 showRequestAccessFineLocation ||
                 showRequestAccessNotificationPolicy ||
@@ -462,7 +466,7 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_contacts) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
-                if (showRequestReceiveSMS || showRequestReadSMS) {
+                if (showRequestReceiveSMS || showRequestReadSMS || showRequestReceiveMMS) {
                     //Log.e("GrantPermissionActivity", "onStart - showRequestReceiveSMS");
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_sms) + "</b>";
                     showRequestString = showRequestString + "<br>";

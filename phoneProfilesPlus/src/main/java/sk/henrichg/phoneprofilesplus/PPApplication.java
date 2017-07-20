@@ -62,6 +62,7 @@ public class PPApplication extends Application {
                                          //+"|BatteryBroadcastReceiver"
                                          //+"|BatteryService"
                                          //+"|HeadsetConnectionService"
+                                         +"|SMSBroadcastReceiver"
 
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
 

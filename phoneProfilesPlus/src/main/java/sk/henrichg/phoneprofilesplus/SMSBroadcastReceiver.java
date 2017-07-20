@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.telephony.SmsMessage;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
@@ -34,7 +35,14 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
         String origin = "";
         //String body = "";
 
-        if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED"))
+        String smsAction = "android.provider.Telephony.SMS_RECEIVED";
+        String mmsAction = "android.provider.Telephony.WAP_PUSH_RECEIVED";
+        if (android.os.Build.VERSION.SDK_INT >= 19) {
+            smsAction = Telephony.Sms.Intents.SMS_RECEIVED_ACTION;
+            mmsAction = Telephony.Sms.Intents.WAP_PUSH_RECEIVED_ACTION;
+        }
+
+        if (intent.getAction().equals(smsAction))
         {
             PPApplication.logE("SMSBroadcastReceiver.onReceive","SMS received");
 
@@ -59,12 +67,13 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("SMSBroadcastReceiver.onReceive","sent");
         }*/
         else
-        if (intent.getAction().equals("android.provider.Telephony.WAP_PUSH_RECEIVED")) {
+        if (intent.getAction().equals(mmsAction)) {
             String type = intent.getType();
 
-            if ((type != null) && type.equals("application/vnd.wap.mms-message")) {
+            PPApplication.logE("SMSBroadcastReceiver.onReceive", "MMS received");
+            PPApplication.logE("SMSBroadcastReceiver.onReceive", "type="+type);
 
-                PPApplication.logE("SMSBroadcastReceiver.onReceive", "MMS received");
+            if ((type != null) && type.equals("application/vnd.wap.mms-message")) {
 
                 smsMmsReceived = true;
 
@@ -91,6 +100,8 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         }
+
+        PPApplication.logE("@@@ SMSBroadcastReceiver.onReceive","smsMmsReceived="+smsMmsReceived);
 
         if (smsMmsReceived)
         {

@@ -348,24 +348,20 @@ public class PhoneProfilesService extends Service
             intentFilter21.addAction(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
         else
             intentFilter21.addAction("android.provider.Telephony.SMS_RECEIVED");
+        intentFilter21.setPriority(Integer.MAX_VALUE);
         appContext.registerReceiver(smsBroadcastReceiver, intentFilter21);
 
         // required for sms event
         if (mmsBroadcastReceiver != null)
             appContext.unregisterReceiver(mmsBroadcastReceiver);
         mmsBroadcastReceiver = new SMSBroadcastReceiver();
-        IntentFilter intentFilter22 = new IntentFilter();
+        IntentFilter intentFilter22;
         if (android.os.Build.VERSION.SDK_INT >= 19)
-            intentFilter22.addAction(Telephony.Sms.Intents.WAP_PUSH_RECEIVED_ACTION);
+            intentFilter22 = IntentFilter.create(Telephony.Sms.Intents.WAP_PUSH_RECEIVED_ACTION, "application/vnd.wap.mms-message");
         else
-            intentFilter22.addAction("android.provider.Telephony.WAP_PUSH_RECEIVED");
-        try {
-            intentFilter22.addDataType("application/vnd.wap.mms-message");
-            appContext.registerReceiver(mmsBroadcastReceiver, intentFilter22);
-        } catch (IntentFilter.MalformedMimeTypeException e) {
-            mmsBroadcastReceiver = null;
-            PPApplication.logE("$$$ PhoneProfilesService.onCreate", "mmsBroadcastReceiver exception=" + e.toString());
-        }
+            intentFilter22 = IntentFilter.create("android.provider.Telephony.WAP_PUSH_RECEIVED", "application/vnd.wap.mms-message");
+        intentFilter22.setPriority(Integer.MAX_VALUE);
+        appContext.registerReceiver(mmsBroadcastReceiver, intentFilter22);
 
         // required for all scanner events (wifi, bluetooth, location, mobile cells, device orientation)
         if (android.os.Build.VERSION.SDK_INT >= 21) {
