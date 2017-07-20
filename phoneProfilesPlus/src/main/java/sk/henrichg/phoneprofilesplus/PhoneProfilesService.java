@@ -64,6 +64,7 @@ public class PhoneProfilesService extends Service
     private AirplaneModeStateChangedBroadcastReceiver airplaneModeStateChangedBroadcastReceiver = null;
     private SMSBroadcastReceiver smsBroadcastReceiver = null;
     private SMSBroadcastReceiver mmsBroadcastReceiver = null;
+    private CalendarProviderChangedBroadcastReceiver calendarProviderChangedBroadcastReceiver = null;
 
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
@@ -363,6 +364,17 @@ public class PhoneProfilesService extends Service
         intentFilter22.setPriority(Integer.MAX_VALUE);
         appContext.registerReceiver(mmsBroadcastReceiver, intentFilter22);
 
+        // required for calendar event
+        if (calendarProviderChangedBroadcastReceiver != null)
+            appContext.unregisterReceiver(calendarProviderChangedBroadcastReceiver);
+        calendarProviderChangedBroadcastReceiver = new CalendarProviderChangedBroadcastReceiver();
+        IntentFilter intentFilter23 = new IntentFilter();
+        intentFilter23.addAction(Intent.ACTION_PROVIDER_CHANGED);
+        intentFilter23.addDataScheme("content");
+        intentFilter23.addDataAuthority("com.android.calendar", null);
+        intentFilter23.setPriority(Integer.MAX_VALUE);
+        appContext.registerReceiver(calendarProviderChangedBroadcastReceiver, intentFilter23);
+
         // required for all scanner events (wifi, bluetooth, location, mobile cells, device orientation)
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             if (powerSaveModeReceiver != null)
@@ -511,6 +523,8 @@ public class PhoneProfilesService extends Service
             appContext.unregisterReceiver(smsBroadcastReceiver);
         if (mmsBroadcastReceiver != null)
             appContext.unregisterReceiver(mmsBroadcastReceiver);
+        if (calendarProviderChangedBroadcastReceiver != null)
+            appContext.unregisterReceiver(calendarProviderChangedBroadcastReceiver);
 
         if (settingsContentObserver != null)
             appContext.getContentResolver().unregisterContentObserver(settingsContentObserver);
