@@ -216,17 +216,17 @@
     <string name="array_pref_value_180_degrees" formatted="false">180°</string>
     <string name="array_pref_value_270_degrees" formatted="false">270°</string>
     <string name="array_pref_value_auto_rotate">Auto. rotate</string>
-    <string name="default_profile_name">Source profile</string>
-    <string name="brightness_pref_dialog_default_profile_chb">Source profile</string>
-    <string name="preference_profile_default_profile">Source profile</string>
-    <string name="volume_pref_dialog_default_profile_chb">Source profile</string>
-    <string name="array_pref_default_profile">Source profile</string>
+    <string name="default_profile_name">Shared profile</string>
+    <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string>
+    <string name="preference_profile_default_profile">Shared profile</string>
+    <string name="volume_pref_dialog_default_profile_chb">Shared profile</string>
+    <string name="array_pref_default_profile">Shared profile</string>
     <string name="array_pref_change">Change</string>
     <string name="array_pref_no_show">Don\'t show</string>
     <string name="array_pref_show">Show</string>
     <string name="array_pref_no_run">Don\'t run</string>
     <string name="array_pref_run">Run</string>
-    <string name="title_activity_default_profile_preferences">Source profile</string>
+    <string name="title_activity_default_profile_preferences">Shared profile</string>
     <string name="profile_list_item_menu_activate">Activate</string>
     <string name="profile_list_item_menu_duplicate">Duplicate</string>
     <string name="profile_list_item_menu_delete">Delete</string>
@@ -834,7 +834,7 @@
     <string name="editor_event_list_item_event_status">Event status indicator</string>
     <string name="editor_event_list_item_profile_start_icon">Start of event profile icon</string>
     <string name="editor_event_list_item_profile_end_icon">End of event profile icon</string>
-    <string name="profile_preferences_sourceProfileInfo_summary">For each profile parameter can be set that it is used Source profile. Click here to configure the Source profile parameters.</string>
+    <string name="profile_preferences_sourceProfileInfo_summary">For each profile parameter can be set that it is used Shared profile. Click here to configure the Shared profile parameters.</string>
     <string name="run_stop_events_indicator">Enable/stop events run indicator</string>
     <string name="run_stop_indicator_popup_window_important_infos">For more information look at \"Important info\" (question mark icon in Editor bottom toolbar).</string>
     <string name="important_info_how_to_show_ppp">This important info can be viewed In Editor through the question mark icon in the bottom toolbar.</string>
