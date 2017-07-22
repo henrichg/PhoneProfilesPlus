@@ -4,7 +4,7 @@
           android:title="@string/default_profile_name"
           android:orderInCategory="99"
           app:showAsAction="always"
-          android:icon="?attr/actionSourceProfileIcon" />
+          android:icon="?attr/actionSharedProfileIcon" />
     <item android:id="@+id/profile_preferences_save"
           android:title="@string/phone_preferences_actionmode_save"
           android:orderInCategory="100"

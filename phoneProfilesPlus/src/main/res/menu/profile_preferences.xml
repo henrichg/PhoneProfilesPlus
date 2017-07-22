@@ -4,5 +4,5 @@
           android:title="@string/default_profile_name"
           android:orderInCategory="99"
           app:showAsAction="always"
-          android:icon="?attr/actionSourceProfileIcon" />
+          android:icon="?attr/actionSharedProfileIcon" />
 </menu>
