@@ -92,6 +92,12 @@ public class PackageReplacedService extends WakefulIntentService {
                         editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, false);
                         editor.apply();
                     }
+                    if (actualVersionCode <= 3200) {
+                        ApplicationPreferences.getSharedPreferences(appContext);
+                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                        editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS, true);
+                        editor.apply();
+                    }
                 }
             } catch (PackageManager.NameNotFoundException e) {
                 //e.printStackTrace();
