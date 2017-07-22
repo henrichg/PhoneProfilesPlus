@@ -29,8 +29,9 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
     public static boolean showSaveMenu = false;
 
-    public boolean targetHelpsSequenceStarted;
+    //public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "profile_preferences_activity_start_target_helps";
+    public static final String PREF_START_TARGET_HELPS_SAVE = "profile_preferences_activity_start_target_helps_save";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -137,10 +138,22 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         // Inflate the menu; this adds items to the action bar if it is present.
 
         if (showSaveMenu) {
-            //MenuInflater inflater = getMenuInflater();
-            //inflater.inflate(R.menu.profile_preferences_save, menu);
-            Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
-            toolbar.inflateMenu(R.menu.profile_preferences_save);
+            // for shared profile is not needed, for shared profile is used PPApplication.DEFAULT_PROFILE_PREFS_NAME
+            // and this is used in Profile.getDefaultProfile()
+            if (profile_id != Profile.DEFAULT_PROFILE_ID) {
+                //MenuInflater inflater = getMenuInflater();
+                //inflater.inflate(R.menu.profile_preferences_save, menu);
+                Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
+                toolbar.inflateMenu(R.menu.profile_preferences_save);
+            }
+        }
+        else {
+            if (profile_id != Profile.DEFAULT_PROFILE_ID) {
+                //MenuInflater inflater = getMenuInflater();
+                //inflater.inflate(R.menu.profile_preferences, menu);
+                Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
+                toolbar.inflateMenu(R.menu.profile_preferences);
+            }
         }
         return true;
     }
@@ -163,6 +176,14 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.profile_preferences_shared_profile:
+                // start preferences activity for default profile
+                Intent intent = new Intent(this, ProfilePreferencesActivity.class);
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.DEFAULT_PROFILE_ID);
+                intent.putExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+                intent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+                startActivityForResult(intent, EditorProfilesActivity.REQUEST_CODE_PROFILE_PREFERENCES);
+                return true;
             case R.id.profile_preferences_save:
                 savePreferences(newProfileMode, predefinedProfileIndex);
                 resultCode = RESULT_OK;
@@ -478,59 +499,109 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             // Toolbar.findViewById() returns null
             return;*/
 
-        if (!showSaveMenu)
-            return;
-
         ApplicationPreferences.getSharedPreferences(this);
 
-        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
-            //Log.d("ProfilePreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+        if (!showSaveMenu) {
+            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+                //Log.d("ProfilePreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-            editor.putBoolean(PREF_START_TARGET_HELPS, false);
-            editor.apply();
+                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.apply();
 
-            Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
+                Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
 
-            //TypedValue tv = new TypedValue();
-            //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+                //TypedValue tv = new TypedValue();
+                //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
 
-            //final Display display = getWindowManager().getDefaultDisplay();
+                //final Display display = getWindowManager().getDefaultDisplay();
 
-            int circleColor = 0xFFFFFF;
-            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
-                circleColor = 0x7F7F7F;
+                int circleColor = 0xFFFFFF;
+                if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
+                    circleColor = 0x7F7F7F;
 
-            final TapTargetSequence sequence = new TapTargetSequence(this);
-            sequence.targets(
-                    TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
-                            .targetCircleColorInt(circleColor)
-                            .textColorInt(0xFFFFFF)
-                            .drawShadow(true)
-                            .id(1)
-            );
-            sequence.listener(new TapTargetSequence.Listener() {
-                // This listener will tell us when interesting(tm) events happen in regards
-                // to the sequence
-                @Override
-                public void onSequenceFinish() {
-                    targetHelpsSequenceStarted = false;
-                }
+                final TapTargetSequence sequence = new TapTargetSequence(this);
+                sequence.targets(
+                        TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_shared_profile, getString(R.string.title_activity_default_profile_preferences), getString(R.string.profile_preferences_sourceProfileInfo_summary))
+                                .targetCircleColorInt(circleColor)
+                                .textColorInt(0xFFFFFF)
+                                .drawShadow(true)
+                                .id(1)
+                );
+                sequence.listener(new TapTargetSequence.Listener() {
+                    // This listener will tell us when interesting(tm) events happen in regards
+                    // to the sequence
+                    @Override
+                    public void onSequenceFinish() {
+                        //targetHelpsSequenceStarted = false;
+                    }
 
-                @Override
-                public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-                    //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
-                }
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                        //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                    }
 
-                @Override
-                public void onSequenceCanceled(TapTarget lastTarget) {
-                    targetHelpsSequenceStarted = false;
-                }
-            });
-            sequence.continueOnCancel(true)
-                    .considerOuterCircleCanceled(true);
-            targetHelpsSequenceStarted = true;
-            sequence.start();
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                        //targetHelpsSequenceStarted = false;
+                    }
+                });
+                sequence.continueOnCancel(true)
+                        .considerOuterCircleCanceled(true);
+                //targetHelpsSequenceStarted = true;
+                sequence.start();
+            }
+        }
+        else {
+            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_SAVE, true)) {
+                //Log.d("ProfilePreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_SAVE=true");
+
+                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                editor.putBoolean(PREF_START_TARGET_HELPS_SAVE, false);
+                editor.apply();
+
+                Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
+
+                //TypedValue tv = new TypedValue();
+                //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+
+                //final Display display = getWindowManager().getDefaultDisplay();
+
+                int circleColor = 0xFFFFFF;
+                if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
+                    circleColor = 0x7F7F7F;
+
+                final TapTargetSequence sequence = new TapTargetSequence(this);
+                sequence.targets(
+                        TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
+                                .targetCircleColorInt(circleColor)
+                                .textColorInt(0xFFFFFF)
+                                .drawShadow(true)
+                                .id(1)
+                );
+                sequence.listener(new TapTargetSequence.Listener() {
+                    // This listener will tell us when interesting(tm) events happen in regards
+                    // to the sequence
+                    @Override
+                    public void onSequenceFinish() {
+                        //targetHelpsSequenceStarted = false;
+                    }
+
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                        //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                    }
+
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                        //targetHelpsSequenceStarted = false;
+                    }
+                });
+                sequence.continueOnCancel(true)
+                        .considerOuterCircleCanceled(true);
+                //targetHelpsSequenceStarted = true;
+                sequence.start();
+            }
         }
     }
 

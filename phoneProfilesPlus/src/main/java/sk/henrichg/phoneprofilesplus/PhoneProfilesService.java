@@ -9,6 +9,7 @@ import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -157,6 +158,23 @@ public class PhoneProfilesService extends Service
         } catch (PackageManager.NameNotFoundException e) {
             //e.printStackTrace();
         }
+
+        /*ApplicationPreferences.getSharedPreferences(appContext);
+        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+        editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, true);
+        editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true);
+        editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true);
+        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, true);
+        editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true);
+        editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true);
+        editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true);
+        editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, true);
+        editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true);
+        editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true);
+        editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS, true);
+        editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS_SAVE, true);
+        editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, true);
+        editor.apply();*/
 
         //PPApplication.loadPreferences(appContext);
 

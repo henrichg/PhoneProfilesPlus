@@ -309,21 +309,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             String value = preferences.getString(Profile.PREF_PROFILE_DURATION, "");
             setSummary(Profile.PREF_PROFILE_DURATION, value);
         }
-        preference = prefMng.findPreference("prf_pref_sourceProfileInfo");
-        if (preference != null) {
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    // start preferences activity for default profile
-                    Intent intent = new Intent(getActivity().getBaseContext(), ProfilePreferencesActivity.class);
-                    intent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.DEFAULT_PROFILE_ID);
-                    intent.putExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                    intent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-                    getActivity().startActivityForResult(intent, EditorProfilesActivity.REQUEST_CODE_PROFILE_PREFERENCES);
-                    return false;
-                }
-            });
-        }
         if (!ActivateProfileHelper.getMergedRingNotificationVolumes(context)) {
             preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
             if (preference != null) {

@@ -88,28 +88,10 @@ public class PackageReplacedService extends WakefulIntentService {
                         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
                         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                         editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS_SAVE, false);
                         editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, false);
                         editor.apply();
                     }
-
-                    /*
-                    ApplicationPreferences.getSharedPreferences(appContext);
-                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                    editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, true);
-                    editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true);
-                    editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true);
-                    editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, true);
-                    editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true);
-                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true);
-                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true);
-                    editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, true);
-                    editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true);
-                    editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true);
-                    editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS, true);
-                    editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, true);
-                    editor.apply();
-                    */
-
                 }
             } catch (PackageManager.NameNotFoundException e) {
                 //e.printStackTrace();
