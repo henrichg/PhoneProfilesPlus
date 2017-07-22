@@ -112,6 +112,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         Bundle args = new Bundle();
         args.putString(EXTRA_SCROLL_TO, extraScrollTo);
         //args.putString(EXTRA_SCROLL_TO_TYPE, extraScrollToType);
+        args.putBoolean(PreferenceFragment.EXTRA_NESTED, nested);
         fragment.setArguments(args);
 
         return fragment;

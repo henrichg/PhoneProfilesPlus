@@ -4,6 +4,8 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -16,8 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public abstract class PreferenceFragment extends android.preference.PreferenceFragment {
@@ -28,7 +33,7 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
 
     private PreferenceScreen mPreferenceScreen;
 
-    public boolean nested = false;
+    public static final String EXTRA_NESTED = "nested";
 
     /**
      * The fragment's current callback objects
@@ -53,10 +58,6 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
             return null;
         }
     };
-
-    public PreferenceFragment() {
-        nested = false;
-    }
 
     public void savePreferenceScreen(PreferenceScreen preferenceScreen) {
         mPreferenceScreen = preferenceScreen;
@@ -87,7 +88,9 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PPApplication.logE("PreferenceFragment.onCreate","xxx");
-        if ((!nested) && (addPreferencesFromResource() != -1)) {
+
+        Bundle bundle = this.getArguments();
+        if ((!bundle.getBoolean(EXTRA_NESTED, false)) && (addPreferencesFromResource() != -1)) {
             addPreferencesFromResource(addPreferencesFromResource());
         }
     }
@@ -123,7 +126,8 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
             PPApplication.logE("PreferenceFragment.onCreateView","savedInstanceState="+savedInstanceState);
             PPApplication.logE("PreferenceFragment.onCreateView","getPreferenceScreen()="+getPreferenceScreen());
 
-            if ((!nested) && (getPreferenceScreen() != null)) { //Main fragment will fill the HashMap
+            Bundle bundle = this.getArguments();
+            if ((!bundle.getBoolean(EXTRA_NESTED, false)) && (getPreferenceScreen() != null)) { //Main fragment will fill the HashMap
                 PPApplication.logE("PreferenceFragment.onCreateView", "put preferenceScreenHashMap");
                 ArrayList<Preference> preferences = getAllPreferenceScreen(getPreferenceScreen(), new ArrayList<Preference>());
                 for (Preference preference : preferences) {

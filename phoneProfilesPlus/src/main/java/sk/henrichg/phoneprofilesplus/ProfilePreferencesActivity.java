@@ -110,6 +110,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         else
             arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
         arguments.putInt(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
+        arguments.putBoolean(PreferenceFragment.EXTRA_NESTED, nested);
         fragment.setArguments(arguments);
 
         return fragment;

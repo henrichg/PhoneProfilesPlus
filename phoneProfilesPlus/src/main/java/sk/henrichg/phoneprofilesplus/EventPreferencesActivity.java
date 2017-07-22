@@ -102,6 +102,7 @@ public class EventPreferencesActivity extends PreferenceActivity
         arguments.putInt(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, newEventMode);
         arguments.putInt(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
         arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
+        arguments.putBoolean(PreferenceFragment.EXTRA_NESTED, nested);
         fragment.setArguments(arguments);
 
         return fragment;
