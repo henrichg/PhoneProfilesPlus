@@ -471,6 +471,7 @@
         </receiver>
         -->
 
+
         <!-- Samsung Edge Look provider -->
         <receiver
             android:name=".SamsungEdgeProvider"
@@ -636,6 +637,10 @@
         </service>
         <service
             android:name=".PowerSaveModeService"
+            android:exported="false">
+        </service>
+        <service
+            android:name=".DeviceIdleModeService"
             android:exported="false">
         </service>
     </application>
