@@ -67,8 +67,8 @@ class ApplicationsDialogPreferenceAdapter extends RecyclerView.Adapter<Applicati
         if (preference.applicationsList == null)
             return false;
 
-        Log.d("----- ApplicationsDialogPreferenceAdapter.onItemMove", "fromPosition="+fromPosition);
-        Log.d("----- ApplicationsDialogPreferenceAdapter.onItemMove", "toPosition="+toPosition);
+        //Log.d("----- ApplicationsDialogPreferenceAdapter.onItemMove", "fromPosition="+fromPosition);
+        //Log.d("----- ApplicationsDialogPreferenceAdapter.onItemMove", "toPosition="+toPosition);
 
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {

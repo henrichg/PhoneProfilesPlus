@@ -136,7 +136,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
                         }
                     }
 
-                    Log.d("----- ApplicationsDialogPreference.onPositive","value="+value);
+                    //Log.d("----- ApplicationsDialogPreference.onPositive","value="+value);
                     persistString(value);
 
                     setIcons();
@@ -464,11 +464,11 @@ public class ApplicationsDialogPreference  extends DialogPreference
                     if (i == 2) packIcon = packageIcon3;
                     if (i == 3) packIcon = packageIcon4;
                     if (i < splits.length) {
-                        Log.d("----- ApplicationsDialogPreference.setIcons", "splits[i]=" + splits[i]);
+                        //Log.d("----- ApplicationsDialogPreference.setIcons", "splits[i]=" + splits[i]);
                         if (!ApplicationsCache.isShortcut(splits[i])) {
-                            Log.d("----- ApplicationsDialogPreference.setIcons", "not shortcut");
+                            //Log.d("----- ApplicationsDialogPreference.setIcons", "not shortcut");
                             if (ApplicationsCache.getActivityName(splits[i]).isEmpty()) {
-                                Log.d("----- ApplicationsDialogPreference.setIcons", "activity name is empty");
+                                //Log.d("----- ApplicationsDialogPreference.setIcons", "activity name is empty");
                                 try {
                                     app = packageManager.getApplicationInfo(splits[i], 0);
                                     if (app != null) {
@@ -483,7 +483,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
                                     packIcon.setImageResource(R.drawable.ic_empty);
                                 }
                             } else {
-                                Log.d("----- ApplicationsDialogPreference.setIcons", "activity name is not empty");
+                                //Log.d("----- ApplicationsDialogPreference.setIcons", "activity name is not empty");
                                 Intent intent = new Intent();
                                 intent.setClassName(ApplicationsCache.getPackageName(splits[i]), ApplicationsCache.getActivityName(splits[i]));
                                 ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
@@ -495,7 +495,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
                                 }
                             }
                         } else {
-                            Log.d("----- ApplicationsDialogPreference.setIcons", "shortcut");
+                            //Log.d("----- ApplicationsDialogPreference.setIcons", "shortcut");
                             Intent intent = new Intent();
                             intent.setClassName(ApplicationsCache.getPackageName(splits[i]), ApplicationsCache.getActivityName(splits[i]));
                             ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
