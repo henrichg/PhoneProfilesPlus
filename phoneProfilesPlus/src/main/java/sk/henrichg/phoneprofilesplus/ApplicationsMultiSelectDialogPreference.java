@@ -31,16 +31,16 @@ import java.util.List;
 public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 {
 
-    Context _context = null;
-    String value = "";
+    private Context _context = null;
+    private String value = "";
 
-    MaterialDialog mDialog;
+    private MaterialDialog mDialog;
 
     private int addShortcuts;
     private String systemSettings;
 
     // Layout widgets.
-    ListView listView = null;
+    private ListView listView = null;
     private LinearLayout linlaProgress;
     private LinearLayout linlaListView;
 
@@ -199,7 +199,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         mDialog.show();
     }
 
-    public void refreshListView(final boolean notForUnselect) {
+    private void refreshListView(final boolean notForUnselect) {
         new AsyncTask<Void, Integer, Void>() {
 
             @Override
@@ -240,7 +240,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         }.execute();
     }
 
-    public void onShow(DialogInterface dialog) {
+    private void onShow(DialogInterface dialog) {
         refreshListView(true);
     }
 

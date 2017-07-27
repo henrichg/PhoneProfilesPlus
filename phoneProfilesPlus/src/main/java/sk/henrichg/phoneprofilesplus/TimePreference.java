@@ -22,7 +22,7 @@ public class TimePreference extends DialogPreference {
     private Context context;
     private AttributeSet attributeSet;
     private Calendar calendar;
-    MaterialDialog mDialog;
+    private MaterialDialog mDialog;
     private TimePicker picker = null;
 
     public TimePreference(Context ctxt, AttributeSet attrs) {

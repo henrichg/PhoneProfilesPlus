@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -19,12 +20,13 @@ public class NFCTagWriteActivity extends AppCompatActivity {
 
     private String tagName;
 
-    NFCTagReadWriteManager nfcManager;
+    private NFCTagReadWriteManager nfcManager;
 
-    TextView writableTextView;
+    private TextView writableTextView;
 
     public static final String EXTRA_TAG_NAME = "tag_name";
 
+    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity

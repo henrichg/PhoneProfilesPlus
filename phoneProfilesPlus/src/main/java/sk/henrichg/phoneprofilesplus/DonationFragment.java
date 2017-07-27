@@ -29,13 +29,13 @@ public class DonationFragment extends Fragment {
 
     private Spinner mGoogleSpinner;
 
-    protected boolean mDebug = false;
+    private boolean mDebug = false;
 
     // The helper object
-    IabHelper mHelper;
+    private IabHelper mHelper;
 
     // Debug tag, for logging
-    static final String TAG = "DonationFragment";
+    private static final String TAG = "DonationFragment";
 
     public static DonationFragment newInstance() {
         return new DonationFragment();
@@ -123,7 +123,7 @@ public class DonationFragment extends Fragment {
     }
 
     /** Verifies the developer payload of a purchase. */
-    boolean verifyDeveloperPayload(Purchase p) {
+    private boolean verifyDeveloperPayload(Purchase p) {
         String payload = p.getDeveloperPayload();
 
         /*
@@ -153,7 +153,7 @@ public class DonationFragment extends Fragment {
     }
 
     // Callback for when a purchase is finished
-    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
+    private IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
             if (mDebug) Log.d(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
 
@@ -190,7 +190,7 @@ public class DonationFragment extends Fragment {
     };
 
     // Called when consumption is complete
-    IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
+    private IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
         public void onConsumeFinished(Purchase purchase, IabResult result) {
             if (mDebug) Log.d(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
 
@@ -236,7 +236,7 @@ public class DonationFragment extends Fragment {
     /**
      * Donate button executes donations based on selection in spinner
      */
-    public void donateGoogleOnClick(View view) {
+    private void donateGoogleOnClick(View view) {
         final int index;
         index = mGoogleSpinner.getSelectedItemPosition();
         if (mDebug) Log.d(TAG, "selected item in spinner: " + index);
@@ -261,7 +261,7 @@ public class DonationFragment extends Fragment {
     /**
      * Open dialog
      */
-    void openDialog(int title, String message) {
+    private void openDialog(int title, String message) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         dialog.setTitle(title);
         dialog.setMessage(message);

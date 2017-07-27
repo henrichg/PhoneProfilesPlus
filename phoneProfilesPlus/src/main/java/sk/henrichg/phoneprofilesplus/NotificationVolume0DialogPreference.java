@@ -13,7 +13,7 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
 
     private Context _context;
 
-    AlertDialog mDialog;
+    private AlertDialog mDialog;
 
     public NotificationVolume0DialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

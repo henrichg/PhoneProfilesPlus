@@ -15,8 +15,8 @@ public class MobileCellsRegistrationService extends Service {
     public static String ACTION_COUNT_DOWN_TICK = "sk.henrichg.phoneprofilesplus.ACTION_COUNT_DOWN_TICK";
     public static String EXTRA_COUNTDOWN = "countdown";
 
-    CountDownTimer countDownTimer = null;
-    Notification notification = null;
+    private CountDownTimer countDownTimer = null;
+    private Notification notification = null;
 
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION = "mobile_cells_autoregistration_duration";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION = "mobile_cells_autoregistration_remaining_duration";
@@ -153,7 +153,7 @@ public class MobileCellsRegistrationService extends Service {
         }
     }
 
-    static public int getMobileCellsAutoRegistrationRemainingDuration(Context context) {
+    static private int getMobileCellsAutoRegistrationRemainingDuration(Context context) {
         if (PhoneProfilesService.isPhoneStateStarted()) {
             ApplicationPreferences.getSharedPreferences(context);
             return ApplicationPreferences.preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, 0);

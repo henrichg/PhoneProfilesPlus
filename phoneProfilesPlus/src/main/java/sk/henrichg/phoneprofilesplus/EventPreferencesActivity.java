@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,15 +31,16 @@ public class EventPreferencesActivity extends PreferenceActivity
     private int newEventMode = EditorEventListFragment.EDIT_MODE_UNDEFINED;
     private int predefinedEventIndex = 0;
 
-    EventPreferencesNestedFragment fragment;
+    private EventPreferencesNestedFragment fragment;
 
     private int resultCode = RESULT_CANCELED;
 
     public static boolean showSaveMenu = false;
 
-    public boolean targetHelpsSequenceStarted;
+    private boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
 
+    @SuppressLint("InlinedApi")
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -185,7 +187,7 @@ public class EventPreferencesActivity extends PreferenceActivity
             ((EventPreferencesNestedFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
     }
 
-    public Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex,
+    private Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex,
                              boolean leaveSaveMenu) {
         Event event;
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);

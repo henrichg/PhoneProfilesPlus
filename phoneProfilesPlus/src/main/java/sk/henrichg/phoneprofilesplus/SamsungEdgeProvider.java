@@ -210,7 +210,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         return widget;
     }
 
-    public void createProfilesDataWrapper(Context context)
+    private void createProfilesDataWrapper(Context context)
     {
         if (dataWrapper == null)
         {

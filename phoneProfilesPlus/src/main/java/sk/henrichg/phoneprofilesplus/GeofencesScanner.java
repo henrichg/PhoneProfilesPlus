@@ -25,7 +25,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     private GoogleApiClient mGoogleApiClient;
     private Context context;
-    DataWrapper dataWrapper;
+    private DataWrapper dataWrapper;
 
     private Location lastLocation;
 
@@ -259,7 +259,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     /**
      * Removes location updates from the FusedLocationApi.
      */
-    void stopLocationUpdates() {
+    private void stopLocationUpdates() {
         // It is a good practice to remove location requests when the activity is in a paused or
         // stopped state. Doing so helps battery performance and is especially
         // recommended in applications that request frequent location updates.

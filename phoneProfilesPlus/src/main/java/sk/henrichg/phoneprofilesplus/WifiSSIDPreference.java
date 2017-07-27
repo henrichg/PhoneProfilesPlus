@@ -39,7 +39,7 @@ public class WifiSSIDPreference extends DialogPreference {
     List<WifiSSIDData> SSIDList = null;
     private List<WifiSSIDData> customSSIDList = null;
 
-    Context context;
+    private Context context;
 
     private MaterialDialog mDialog;
     private MaterialDialog mSelectorDialog;

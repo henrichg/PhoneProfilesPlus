@@ -155,7 +155,7 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)) {
@@ -347,7 +347,7 @@ class EventPreferencesNotification extends EventPreferences {
         PPApplication.logE("EventPreferencesNotification.removeSystemEvent", "xxx");
     }
 
-    public void removeAlarm(Context context)
+    private void removeAlarm(Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 

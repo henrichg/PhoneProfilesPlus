@@ -40,7 +40,7 @@ public class BluetoothNamePreference extends DialogPreference {
     List<BluetoothDeviceData> bluetoothList = null;
     private List<BluetoothDeviceData> customBluetoothList = null;
 
-    Context context;
+    private Context context;
 
     private MaterialDialog mDialog;
     private MaterialDialog mSelectorDialog;

@@ -38,7 +38,7 @@ public class MobileCellsPreference extends DialogPreference {
     String persistedValue;
     List<MobileCellsData> cellsList = null;
 
-    Context context;
+    private Context context;
 
     private MaterialDialog mDialog;
     private MaterialDialog mRenameDialog;

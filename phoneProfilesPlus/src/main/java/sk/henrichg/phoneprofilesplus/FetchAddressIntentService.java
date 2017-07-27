@@ -17,7 +17,7 @@ import java.util.Locale;
 
 public class FetchAddressIntentService extends IntentService {
 
-    protected ResultReceiver mReceiver;
+    private ResultReceiver mReceiver;
     private boolean updateName;
 
     public FetchAddressIntentService() {

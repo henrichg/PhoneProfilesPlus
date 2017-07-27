@@ -20,8 +20,8 @@ import sk.henrichg.phoneprofilesplus.NFCTagWriteException.NFCErrorType;
 
 class NFCTagReadWriteManager {
     private NfcAdapter nfcAdapter;
-    Activity activity;
-    PendingIntent pendingIntent;
+    private Activity activity;
+    private PendingIntent pendingIntent;
 
     boolean tagReaded = false;
 

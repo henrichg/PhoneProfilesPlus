@@ -40,7 +40,7 @@ public class PPApplication extends Application {
     private static boolean logIntoLogCat = false;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
-    public static String logFilterTags = "##### PPApplication.onCreate"
+    private static String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
                                          +"|PackageReplacedService"
 
@@ -74,7 +74,7 @@ public class PPApplication extends Application {
 
 
     public static final String EXPORT_PATH = "/PhoneProfilesPlus";
-    public static final String LOG_FILENAME = "log.txt";
+    private static final String LOG_FILENAME = "log.txt";
 
     static final String EXTRA_PROFILE_ID = "profile_id";
     static final String EXTRA_EVENT_ID = "event_id";

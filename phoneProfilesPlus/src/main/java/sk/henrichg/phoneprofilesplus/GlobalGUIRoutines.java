@@ -45,7 +45,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class GlobalGUIRoutines {
+class GlobalGUIRoutines {
 
     static BrightnessView brightnessView = null;
     static BrightnessView keepScreenOnView = null;

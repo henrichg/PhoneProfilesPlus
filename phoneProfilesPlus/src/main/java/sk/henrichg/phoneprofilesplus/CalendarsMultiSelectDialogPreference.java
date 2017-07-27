@@ -25,11 +25,11 @@ import java.util.List;
 public class CalendarsMultiSelectDialogPreference extends DialogPreference
 {
 
-    Context _context = null;
-    String value = "";
+    private Context _context = null;
+    private String value = "";
 
     private List<CalendarEvent> calendarList = null;
-    MaterialDialog mDialog;
+    private MaterialDialog mDialog;
 
     // Layout widgets.
     private ListView listView = null;
@@ -232,7 +232,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         }.execute();
     }
 
-    public void onShow(DialogInterface dialog) {
+    private void onShow(DialogInterface dialog) {
         if (Permissions.grantCalendarDialogPermissions(_context, this))
             refreshListView(true);
     }

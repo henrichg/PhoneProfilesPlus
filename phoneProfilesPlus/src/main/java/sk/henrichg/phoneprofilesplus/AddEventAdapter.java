@@ -19,7 +19,7 @@ class AddEventAdapter extends BaseAdapter {
     private int[] profileIconsArray;
     private int defaultColor;
 
-    AddEventDialog dialog;
+    private AddEventDialog dialog;
 
     private Context context;
 

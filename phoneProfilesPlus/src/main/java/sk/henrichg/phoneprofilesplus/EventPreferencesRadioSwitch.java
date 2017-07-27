@@ -146,7 +146,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     }
 
     @Override
-    public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (key.equals(PREF_EVENT_RADIO_SWITCH_WIFI) ||
             key.equals(PREF_EVENT_RADIO_SWITCH_BLUETOOTH) ||

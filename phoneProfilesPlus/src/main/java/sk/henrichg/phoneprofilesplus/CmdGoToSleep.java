@@ -12,7 +12,7 @@ public class CmdGoToSleep {
         }
     }
 
-    public static boolean run() {
+    private static boolean run() {
         try {
             IPowerManager adapter = IPowerManager.Stub.asInterface(ServiceManager.getService("power"));
             adapter.goToSleep(SystemClock.uptimeMillis(), 0, 0);

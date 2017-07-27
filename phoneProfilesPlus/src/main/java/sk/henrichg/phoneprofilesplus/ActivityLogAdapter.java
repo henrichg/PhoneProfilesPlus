@@ -1,7 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +22,9 @@ class ActivityLogAdapter extends CursorAdapter {
     //private final int KEY_AL_PROFILE_ICON;
     //private final int KEY_AL_DURATION_DELAY;
 
+    @SuppressLint("UseSparseArrays")
     private HashMap<Integer, Integer> activityTypeStrings = new HashMap<>();
+    @SuppressLint("UseSparseArrays")
     private HashMap<Integer, Integer> activityTypeColors = new HashMap<>();
 
     ActivityLogAdapter(Context context, Cursor cursor) {
@@ -98,7 +102,7 @@ class ActivityLogAdapter extends CursorAdapter {
         //rowData.profileIcon  = (ImageView) view.findViewById(R.id.activity_log_row_profile_icon);
         //rowData.durationDelay  = (TextView) view.findViewById(R.id.activity_log_row_duration_delay);
 
-        rowData.logTypeColor.setBackgroundColor(context.getResources().getColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
+        rowData.logTypeColor.setBackgroundColor(ContextCompat.getColor(context, activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
         rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
@@ -115,7 +119,7 @@ class ActivityLogAdapter extends CursorAdapter {
 
         MyRowViewHolder rowData = (MyRowViewHolder) view.getTag();
 
-        rowData.logTypeColor.setBackgroundColor(context.getResources().getColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
+        rowData.logTypeColor.setBackgroundColor(ContextCompat.getColor(context, activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
         rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));

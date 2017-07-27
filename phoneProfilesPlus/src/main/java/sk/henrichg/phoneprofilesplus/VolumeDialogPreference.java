@@ -24,8 +24,8 @@ public class VolumeDialogPreference extends
         DialogPreference implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
     // Layout widgets.
 
-    Context _context;
-    MaterialDialog mDialog;
+    private Context _context;
+    private MaterialDialog mDialog;
     private SeekBar seekBar = null;
     private TextView valueText = null;
     private CheckBox noChangeChBox = null;
@@ -322,7 +322,7 @@ public class VolumeDialogPreference extends
             try {
                 if (mediaPlayer.isPlaying())
                     mediaPlayer.stop();
-            } catch (Exception ignored) {};
+            } catch (Exception ignored) {}
             mediaPlayer.release();
         }
         MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);

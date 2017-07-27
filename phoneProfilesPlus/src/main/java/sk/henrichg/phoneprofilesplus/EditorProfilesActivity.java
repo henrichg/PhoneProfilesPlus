@@ -87,8 +87,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static final String SP_DATA_DETAILS_PREDEFINED_PROFILE_INDEX = "data_detail_predefined_profile_index";
     private static final String SP_DATA_DETAILS_PREDEFINED_EVENT_INDEX = "data_detail_predefined_event_index";
 
-    public static final String SP_EDITOR_DRAWER_SELECTED_ITEM = "editor_drawer_selected_item";
-    public static final String SP_EDITOR_ORDER_SELECTED_ITEM = "editor_order_selected_item";
+    private static final String SP_EDITOR_DRAWER_SELECTED_ITEM = "editor_drawer_selected_item";
+    private static final String SP_EDITOR_ORDER_SELECTED_ITEM = "editor_order_selected_item";
 
     private static final int DSI_PROFILES_ALL = 1;
     private static final int DSI_PROFILES_SHOW_IN_ACTIVATOR = 2;
@@ -122,23 +122,23 @@ public class EditorProfilesActivity extends AppCompatActivity
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
-    public static boolean mTwoPane;
+    private static boolean mTwoPane;
 
-    Toolbar editorToolbar;
-    DrawerLayout drawerLayout;
-    ScrimInsetsFrameLayout drawerRoot;
-    ListView drawerListView;
-    ActionBarDrawerToggle drawerToggle;
-    TextView filterStatusbarTitle;
-    Spinner orderSpinner;
-    ImageView drawerHeaderFilterImage;
-    TextView drawerHeaderFilterTitle;
-    TextView drawerHeaderFilterSubtitle;
+    private Toolbar editorToolbar;
+    private DrawerLayout drawerLayout;
+    private ScrimInsetsFrameLayout drawerRoot;
+    private ListView drawerListView;
+    private ActionBarDrawerToggle drawerToggle;
+    private TextView filterStatusbarTitle;
+    private Spinner orderSpinner;
+    private ImageView drawerHeaderFilterImage;
+    private TextView drawerHeaderFilterTitle;
+    private TextView drawerHeaderFilterSubtitle;
 
-    String[] drawerItemsTitle;
-    String[] drawerItemsSubtitle;
-    Integer[] drawerItemsIcon;
-    EditorDrawerListAdapter drawerAdapter;
+    private String[] drawerItemsTitle;
+    private String[] drawerItemsSubtitle;
+    private Integer[] drawerItemsIcon;
+    private EditorDrawerListAdapter drawerAdapter;
 
     private int drawerSelectedItem = 1;
     private int orderSelectedItem = 0;
@@ -288,6 +288,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             drawerLayout.setStatusBarBackground(R.color.profile_all_primaryDark_dark);
 
         drawerListView = (ListView) findViewById(R.id.editor_drawer_list);
+        @SuppressLint("InflateParams")
         View headerView =  ((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.editor_drawer_list_header, null, false);
         drawerListView.addHeaderView(headerView, null, false);
         drawerHeaderFilterImage = (ImageView) findViewById(R.id.editor_drawer_list_header_icon);
@@ -1658,7 +1659,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         startProfilePreferenceActivity(profile, EditorProfileListFragment.EDIT_MODE_EDIT, 0);
     }
 
-    public void redrawProfilePreferences(Profile profile, int newProfileMode, int predefinedProfileIndex, boolean startTargetHelps) {
+    private void redrawProfilePreferences(Profile profile, int newProfileMode, int predefinedProfileIndex, boolean startTargetHelps) {
         if (mTwoPane) {
             if (profile != null)
             {
@@ -1685,7 +1686,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
-    public void redrawProfileListFragment(Profile profile, int newProfileMode, int predefinedProfileIndex, boolean startTargetHelps) {
+    private void redrawProfileListFragment(Profile profile, int newProfileMode, int predefinedProfileIndex, boolean startTargetHelps) {
         // redraw headeru list fragmentu, notifikacie a widgetov
 
         EditorProfileListFragment fragment = (EditorProfileListFragment)getFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1767,7 +1768,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         startEventPreferenceActivity(event, EditorEventListFragment.EDIT_MODE_EDIT, 0);
     }
 
-    public void redrawEventListFragment(Event event, int newEventMode, int predefinedEventIndex, boolean startTargetHelps) {
+    private void redrawEventListFragment(Event event, int newEventMode, int predefinedEventIndex, boolean startTargetHelps) {
         // redraw headeru list fragmentu, notifikacie a widgetov
         EditorEventListFragment fragment = (EditorEventListFragment)getFragmentManager().findFragmentById(R.id.editor_list_container);
         if (fragment != null)
@@ -1782,7 +1783,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         redrawEventPreferences(event, newEventMode, predefinedEventIndex, startTargetHelps);
     }
 
-    public void redrawEventPreferences(Event event, int newEventMode, int predefinedEventIndex, boolean startTargetHelps) {
+    private void redrawEventPreferences(Event event, int newEventMode, int predefinedEventIndex, boolean startTargetHelps) {
         if (mTwoPane) {
             if (event != null)
             {
@@ -1868,7 +1869,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             return null;
     }
 
-    public void setEventsRunStopIndicator()
+    private void setEventsRunStopIndicator()
     {
         if (Event.getGlobalEventsRuning(getApplicationContext()))
         {

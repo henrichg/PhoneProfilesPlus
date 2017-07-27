@@ -30,7 +30,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
     private int mMin, mMax;
 
-    MaterialDialog mDialog;
+    private MaterialDialog mDialog;
     private EditText mValue;
     private SeekBar mSeekBarHours;
     private SeekBar mSeekBarMinutes;

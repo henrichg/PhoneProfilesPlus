@@ -89,7 +89,7 @@ class EventPreferencesMobileCells extends EventPreferences {
     }
 
     @Override
-    public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (key.equals(PREF_EVENT_MOBILE_CELLS_CELLS)) {
             Preference preference = prefMng.findPreference(key);

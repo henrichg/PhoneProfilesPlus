@@ -23,11 +23,11 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
     private EditorProfileListFragment fragment;
     private DataWrapper dataWrapper;
     private int filterType;
-    List<Profile> profileList;
+    private List<Profile> profileList;
 
     private final OnStartDragItemListener mDragStartListener;
 
-    public boolean targetHelpsSequenceStarted;
+    private boolean targetHelpsSequenceStarted;
     static final String PREF_START_TARGET_HELPS = "editor_profile_list_adapter_start_target_helps";
     static final String PREF_START_TARGET_HELPS_ORDER = "editor_profile_list_adapter_start_target_helps_order";
 
@@ -120,7 +120,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         return count;
     }
 
-    public Profile getItem(int position)
+    private Profile getItem(int position)
     {
         if (getItemCount() == 0)
             return null;

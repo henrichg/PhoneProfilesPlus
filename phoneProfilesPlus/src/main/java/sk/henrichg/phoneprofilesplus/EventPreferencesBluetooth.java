@@ -136,7 +136,7 @@ class EventPreferencesBluetooth extends EventPreferences {
     }
 
     @Override
-    public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         /*if (key.equals(PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);

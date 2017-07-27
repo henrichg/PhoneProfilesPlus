@@ -519,7 +519,7 @@ class Event {
             this._status = ESTATUS_STOP;
     }
 
-    public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         Preference pref = prefMng.findPreference(key);
         if (pref == null)

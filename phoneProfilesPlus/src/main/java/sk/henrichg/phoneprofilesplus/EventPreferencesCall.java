@@ -105,7 +105,7 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     @Override
-    public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (key.equals(PREF_EVENT_CALL_EVENT) || key.equals(PREF_EVENT_CALL_CONTACT_LIST_TYPE))
         {

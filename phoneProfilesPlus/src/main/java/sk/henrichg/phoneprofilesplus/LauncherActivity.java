@@ -6,8 +6,8 @@ import android.os.Bundle;
 
 public class LauncherActivity extends Activity {
 
-    int startupSource;
-    DataWrapper dataWrapper;
+    private int startupSource;
+    private DataWrapper dataWrapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -10,7 +10,7 @@ import android.os.Build;
 
 public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceiver {
 
-    public static final String TAG = InterruptionFilterChangedBroadcastReceiver.class.getSimpleName();
+    private static final String TAG = InterruptionFilterChangedBroadcastReceiver.class.getSimpleName();
 
     @Override
     public void onReceive(Context context, Intent intent) {

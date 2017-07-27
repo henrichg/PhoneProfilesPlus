@@ -95,7 +95,7 @@ class EventPreferencesScreen extends EventPreferences {
     }
 
     @Override
-    public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (key.equals(PREF_EVENT_SCREEN_EVENT_TYPE))
         {

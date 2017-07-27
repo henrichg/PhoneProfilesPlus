@@ -21,7 +21,7 @@ public class DurationDialogPreference extends DialogPreference {
 
     private int mMin, mMax;
 
-    MaterialDialog mDialog;
+    private MaterialDialog mDialog;
     private NumberPicker mNumberPickerHours;
     private NumberPicker mNumberPickerMinutes;
     private NumberPicker mNumberPickerSeconds;

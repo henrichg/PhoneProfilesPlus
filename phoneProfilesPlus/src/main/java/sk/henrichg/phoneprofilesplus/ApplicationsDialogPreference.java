@@ -34,9 +34,9 @@ import java.util.List;
 public class ApplicationsDialogPreference  extends DialogPreference
                                             implements OnStartDragItemListener {
 
-    Context context;
+    private Context context;
 
-    String value = "";
+    private String value = "";
 
     List<Application> applicationsList = null;
 
@@ -195,7 +195,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
         mDialog.show();
     }
 
-    public void onShow(DialogInterface dialog) {
+    private void onShow(DialogInterface dialog) {
 
         new AsyncTask<Void, Integer, Void>() {
 

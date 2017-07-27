@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -16,6 +17,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class DonationActivity extends AppCompatActivity {
 
+    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity

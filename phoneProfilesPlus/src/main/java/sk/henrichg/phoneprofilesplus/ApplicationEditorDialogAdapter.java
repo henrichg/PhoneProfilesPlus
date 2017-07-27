@@ -17,8 +17,8 @@ class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
     private LayoutInflater inflater;
     private Context context;
 
-    ApplicationEditorDialog dialog;
-    Application application;
+    private ApplicationEditorDialog dialog;
+    private Application application;
     private int selectedPosition;
 
     ApplicationEditorDialogAdapter(ApplicationEditorDialog dialog, Context context,

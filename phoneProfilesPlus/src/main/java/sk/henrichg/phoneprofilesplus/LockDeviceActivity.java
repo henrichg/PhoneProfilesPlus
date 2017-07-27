@@ -13,8 +13,8 @@ import android.view.WindowManager;
 
 public class LockDeviceActivity extends AppCompatActivity {
 
-    WindowManager windowManager;
-    View view = null;
+    private WindowManager windowManager;
+    private View view = null;
 
     @SuppressLint("InflateParams")
     @Override

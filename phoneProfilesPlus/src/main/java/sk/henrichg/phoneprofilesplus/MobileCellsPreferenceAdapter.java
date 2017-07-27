@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 class MobileCellsPreferenceAdapter extends BaseAdapter
 {
-    MobileCellsPreference preference;
+    private MobileCellsPreference preference;
     //private RadioButton selectedRB;
     //int selectedRBIndex = -1;
 

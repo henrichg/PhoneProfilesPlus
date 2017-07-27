@@ -25,7 +25,7 @@ public class ActionForExternalApplicationActivity extends Activity {
     private static final String ACTION_PAUSE_EVENT = "sk.henrichg.phoneprofilesplus.ACTION_PAUSE_EVENT";
     private static final String ACTION_STOP_EVENT = "sk.henrichg.phoneprofilesplus.ACTION_STOP_EVENT";
 
-    static final String EXTRA_EVENT_NAME = "event_name";
+    private static final String EXTRA_EVENT_NAME = "event_name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

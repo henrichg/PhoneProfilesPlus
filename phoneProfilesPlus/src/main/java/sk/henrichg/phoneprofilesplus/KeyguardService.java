@@ -13,7 +13,7 @@ import android.os.PowerManager;
 
 public class KeyguardService extends Service {
 
-    static final String KEYGUARD_LOCK = "phoneProfilesPlus.keyguardLock";
+    private final String KEYGUARD_LOCK = "phoneProfilesPlus.keyguardLock";
 
     private KeyguardManager keyguardManager;
     @SuppressWarnings("deprecation")
@@ -111,14 +111,14 @@ public class KeyguardService extends Service {
         return null;
     }
 
-    public void disableKeyguard()
+    private void disableKeyguard()
     {
         PPApplication.logE("$$$ Keyguard.disable","keyguardLock="+keyguardLock);
         if ((keyguardLock != null) && Permissions.hasPermission(getBaseContext(), Manifest.permission.DISABLE_KEYGUARD))
             keyguardLock.disableKeyguard();
     }
 
-    public void reenableKeyguard()
+    private void reenableKeyguard()
     {
         PPApplication.logE("$$$ Keyguard.reenable","keyguardLock="+keyguardLock);
         if ((keyguardLock != null) && Permissions.hasPermission(getBaseContext(), Manifest.permission.DISABLE_KEYGUARD))

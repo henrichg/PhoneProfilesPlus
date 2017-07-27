@@ -22,12 +22,12 @@ public class DaysOfWeekPreference extends DialogPreference {
 
     static final String allValue = "#ALL#";
 
-    Context _context;
-    String value = "";
+    private Context _context;
+    private String value = "";
 
     private List<DayOfWeek> daysOfWeekList = null;
 
-    MaterialDialog mDialog;
+    private MaterialDialog mDialog;
     private DaysOfWeekPreferenceAdapter listAdapter;
 
 

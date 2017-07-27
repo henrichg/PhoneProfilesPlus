@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 class NFCTagPreferenceAdapter extends BaseAdapter
 {
-    NFCTagPreference preference;
+    private NFCTagPreference preference;
     //private RadioButton selectedRB;
     //int selectedRBIndex = -1;
 

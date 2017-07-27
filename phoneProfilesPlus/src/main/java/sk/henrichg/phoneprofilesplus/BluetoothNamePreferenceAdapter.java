@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,8 +13,8 @@ import android.widget.TextView;
 
 class BluetoothNamePreferenceAdapter extends BaseAdapter
 {
-    BluetoothNamePreference preference;
-    Context context;
+    private BluetoothNamePreference preference;
+    private Context context;
 
     private LayoutInflater inflater;
     //private Context context;
@@ -47,6 +48,7 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
         int position;
     }
 
+    @SuppressLint("SetTextI18n")
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         // BluetoothDevice to display

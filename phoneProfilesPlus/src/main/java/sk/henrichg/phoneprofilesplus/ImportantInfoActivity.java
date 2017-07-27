@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class ImportantInfoActivity extends AppCompatActivity {
 
+    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity

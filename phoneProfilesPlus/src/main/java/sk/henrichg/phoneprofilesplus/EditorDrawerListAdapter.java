@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 class EditorDrawerListAdapter extends BaseAdapter {
 
-    Context context;
-    ListView listView;
+    private Context context;
+    private ListView listView;
     private String[] drawerItemsTitle;
     private String[] drawerItemsSubtitle;
     private Integer[] drawerItemsIcon;

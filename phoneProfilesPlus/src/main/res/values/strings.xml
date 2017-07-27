@@ -3,6 +3,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
     <string name="empty_string" translatable="false"></string>
+    <string name="dash_string" translatable="false">-</string>
+    <string name="activator_string" translatable="false">activator</string>
     <string name="app_name">PhoneProfilesPlus</string>
     <string name="menu_edit_profiles">Editor</string>
     <string name="menu_settings">Settings</string>

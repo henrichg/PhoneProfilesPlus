@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -22,8 +23,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                         implements PreferenceFragment.OnCreateNestedPreferenceFragment
 {
     private long profile_id = 0;
-    int newProfileMode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
-    int predefinedProfileIndex = 0;
+    private int newProfileMode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
+    private int predefinedProfileIndex = 0;
 
     private int resultCode = RESULT_CANCELED;
 
@@ -33,6 +34,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     public static final String PREF_START_TARGET_HELPS = "profile_preferences_activity_start_target_helps";
     public static final String PREF_START_TARGET_HELPS_SAVE = "profile_preferences_activity_start_target_helps_save";
 
+    @SuppressLint("InlinedApi")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity

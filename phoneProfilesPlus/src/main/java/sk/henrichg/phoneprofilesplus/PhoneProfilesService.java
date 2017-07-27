@@ -81,8 +81,8 @@ public class PhoneProfilesService extends Service
 
     public static GeofencesScanner geofencesScanner = null;
 
-    public static SensorManager mSensorManager = null;
-    public static boolean mStartedSensors = false;
+    private static SensorManager mSensorManager = null;
+    private static boolean mStartedSensors = false;
 
     private int mEventCountSinceGZChanged = 0;
     private static final int MAX_COUNT_GZ_CHANGE = 5;
@@ -755,7 +755,7 @@ public class PhoneProfilesService extends Service
     }*/
 
     @SuppressLint("NewApi")
-    public void startListeningOrientationSensors() {
+    private void startListeningOrientationSensors() {
         if (mSensorManager == null)
             mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
@@ -803,7 +803,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public void stopListeningOrientationSensors() {
+    private void stopListeningOrientationSensors() {
         if (mSensorManager != null) {
             mSensorManager.unregisterListener(this);
             mSensorManager = null;

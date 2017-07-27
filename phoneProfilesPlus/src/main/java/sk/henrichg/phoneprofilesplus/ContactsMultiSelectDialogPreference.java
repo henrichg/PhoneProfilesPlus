@@ -25,10 +25,10 @@ import java.util.List;
 public class ContactsMultiSelectDialogPreference extends DialogPreference
 {
 
-    Context _context = null;
-    String value = "";
+    private Context _context = null;
+    private String value = "";
 
-    MaterialDialog mDialog;
+    private MaterialDialog mDialog;
 
     // Layout widgets.
     private LinearLayout linlaProgress;
@@ -192,7 +192,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         }.execute();
     }
 
-    public void onShow(DialogInterface dialog) {
+    private void onShow(DialogInterface dialog) {
         if (Permissions.grantContactsDialogPermissions(_context, this))
             refreshListView(true);
     }

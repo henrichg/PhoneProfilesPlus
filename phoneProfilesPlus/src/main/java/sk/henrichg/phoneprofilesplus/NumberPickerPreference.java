@@ -22,7 +22,7 @@ public class NumberPickerPreference extends DialogPreference {
     
     private String mMaxExternalKey, mMinExternalKey;
 
-    MaterialDialog mDialog;
+    private MaterialDialog mDialog;
     private NumberPicker mNumberPicker;
 
     //private int mColor = 0;

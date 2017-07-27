@@ -63,7 +63,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     public static final int SUCCESS_RESULT = 0;
     public static final int FAILURE_RESULT = 1;
-    public static final String PACKAGE_NAME = "sk.henrichg.phoneprofilesplus";
+    private static final String PACKAGE_NAME = "sk.henrichg.phoneprofilesplus";
     public static final String RECEIVER = PACKAGE_NAME + ".RECEIVER";
     public static final String RESULT_DATA_KEY = PACKAGE_NAME + ".RESULT_DATA_KEY";
     public static final String LOCATION_DATA_EXTRA = PACKAGE_NAME + ".LOCATION_DATA_EXTRA";
@@ -72,17 +72,17 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
      */
-    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
+    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
 
     /**
      * The fastest rate for active location updates. Exact. Updates will never be more frequent
      * than this value.
      */
-    public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
+    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
 
     private Location mLastLocation;
     private Location mLocation;
-    protected LocationRequest mLocationRequest;
+    private LocationRequest mLocationRequest;
 
     private long geofenceId;
     private Geofence geofence;
@@ -90,12 +90,12 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     private AddressResultReceiver mResultReceiver;
     //private boolean mAddressRequested = false;
 
-    DataWrapper dataWrapper;
+    private DataWrapper dataWrapper;
 
-    EditText geofenceNameEditText;
-    AppCompatImageButton addressButton;
-    TextView addressText;
-    Button okButton;
+    private EditText geofenceNameEditText;
+    private AppCompatImageButton addressButton;
+    private TextView addressText;
+    private Button okButton;
     private TextView radiusLabel;
 
     @Override
@@ -464,7 +464,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         }
     }
 
-    protected void createLocationRequest() {
+    private void createLocationRequest() {
         mLocationRequest = new LocationRequest();
 
         // Sets the desired interval for active location updates. This interval is
@@ -484,7 +484,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     /**
      * Requests location updates from the FusedLocationApi.
      */
-    protected void startLocationUpdates() {
+    private void startLocationUpdates() {
         // The final argument to {@code requestLocationUpdates()} is a LocationListener
         // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
         if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this)) {
@@ -499,7 +499,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     /**
      * Removes location updates from the FusedLocationApi.
      */
-    protected void stopLocationUpdates() {
+    private void stopLocationUpdates() {
         // It is a good practice to remove location requests when the activity is in a paused or
         // stopped state. Doing so helps battery performance and is especially
         // recommended in applications that request frequent location updates.
@@ -523,7 +523,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         //mAddressRequested = true;
     }
 
-    protected void startIntentService(boolean updateName) {
+    private void startIntentService(boolean updateName) {
         Intent intent = new Intent(this, FetchAddressIntentService.class);
         intent.putExtra(RECEIVER, mResultReceiver);
         intent.putExtra(LOCATION_DATA_EXTRA, mLocation);

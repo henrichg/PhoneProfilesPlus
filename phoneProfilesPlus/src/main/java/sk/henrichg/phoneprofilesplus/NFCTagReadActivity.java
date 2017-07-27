@@ -14,7 +14,7 @@ public class NFCTagReadActivity extends Activity {
 
     //private String tagName;
 
-    NFCTagReadWriteManager nfcManager;
+    private NFCTagReadWriteManager nfcManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

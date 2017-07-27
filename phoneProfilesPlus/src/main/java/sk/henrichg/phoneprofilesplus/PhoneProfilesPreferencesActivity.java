@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,7 +16,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 public class PhoneProfilesPreferencesActivity extends PreferenceActivity
                         implements PreferenceFragment.OnCreateNestedPreferenceFragment
 {
-    String extraScrollTo;
+    private String extraScrollTo;
     //String extraScrollToType = "";
 
     private boolean showEditorPrefIndicator;
@@ -29,12 +30,13 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
     private boolean invalidateEditor = false;
 
-    PhoneProfilesPreferencesNestedFragment fragment;
+    private PhoneProfilesPreferencesNestedFragment fragment;
 
     public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
     public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
     public static final String EXTRA_RESET_EDITOR = "reset_editor";
 
+    @SuppressLint("InlinedApi")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity

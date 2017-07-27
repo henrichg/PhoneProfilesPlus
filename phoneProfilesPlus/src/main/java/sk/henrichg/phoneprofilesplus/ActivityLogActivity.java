@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -19,10 +20,11 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class ActivityLogActivity extends AppCompatActivity {
 
-    DataWrapper dataWrapper;
-    ListView listView;
-    ActivityLogAdapter activityLogAdapter;
+    private DataWrapper dataWrapper;
+    private ListView listView;
+    private ActivityLogAdapter activityLogAdapter;
 
+    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity

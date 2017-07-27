@@ -16,12 +16,12 @@ import java.util.List;
 class ApplicationEditorDialog
 {
 
-    public ApplicationsDialogPreference preference;
+    private ApplicationsDialogPreference preference;
     private List<Application> cachedApplicationList;
 
     MaterialDialog mDialog;
 
-    Application application;
+    private Application application;
 
     ApplicationEditorDialog(Context context, ApplicationsDialogPreference preference,
                                         Application application)

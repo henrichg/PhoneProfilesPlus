@@ -127,7 +127,7 @@ class EventPreferencesApplication extends EventPreferences {
     }
 
     @Override
-    public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             if (key.equals(PREF_EVENT_APPLICATION_APPLICATIONS)) {

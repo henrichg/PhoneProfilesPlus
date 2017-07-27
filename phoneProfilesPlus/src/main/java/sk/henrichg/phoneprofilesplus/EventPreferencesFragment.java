@@ -8,8 +8,6 @@ import android.os.Bundle;
 public class EventPreferencesFragment extends EventPreferencesNestedFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {
-    protected int startupSource;
-
     private Context context;
 
     public static LocationGeofencePreference changedLocationGeofencePreference;
@@ -46,7 +44,7 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
         return R.xml.event_preferences;
     }
 
-    public void updateSharedPreference()
+    private void updateSharedPreference()
     {
         // updating activity with selected event preferences
 

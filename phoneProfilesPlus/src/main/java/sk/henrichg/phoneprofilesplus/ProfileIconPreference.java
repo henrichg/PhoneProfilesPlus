@@ -37,7 +37,7 @@ public class ProfileIconPreference extends DialogPreference {
     private ProfileIconColorChooserDialog mColorDialog;
 
     private ImageView imageView;
-    ProfileIconPreferenceAdapter adapter;
+    private ProfileIconPreferenceAdapter adapter;
     private ImageView dialogIcon;
     private Context prefContext;
     private Button colorChooserButton;

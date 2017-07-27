@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 class WifiSSIDPreferenceAdapter extends BaseAdapter
 {
-    WifiSSIDPreference preference;
+    private WifiSSIDPreference preference;
     //private RadioButton selectedRB;
     //int selectedRBIndex = -1;
 

@@ -188,7 +188,7 @@ class EventPreferencesCalendar extends EventPreferences {
     }
 
     @Override
-    public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (key.equals(PREF_EVENT_CALENDAR_CALENDARS))
         {
@@ -367,7 +367,7 @@ class EventPreferencesCalendar extends EventPreferences {
         PPApplication.logE("EventPreferencesCalendar.removeSystemEvent", "xxx");
     }
 
-    public void removeAlarm(/*boolean startEvent, */Context context)
+    private void removeAlarm(/*boolean startEvent, */Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 

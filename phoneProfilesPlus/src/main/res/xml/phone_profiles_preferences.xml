@@ -28,7 +28,7 @@
             android:title="@string/phone_profiles_pref_applicationHomeLauncher"
             android:summary="@string/array_pref_launcher_activator"
             android:key="applicationHomeLauncher"
-            android:defaultValue="activator"
+            android:defaultValue="@string/activator_string"
             android:entries="@array/laucherArray"
             android:entryValues="@array/launcherValues"
             app:useStockLayout="true" />
@@ -36,7 +36,7 @@
             android:title="@string/phone_profiles_pref_applicationWidgetLauncher"
             android:summary="@string/array_pref_launcher_activator"
             android:key="applicationWidgetLauncher"
-            android:defaultValue="activator"
+            android:defaultValue="@string/activator_string"
             android:entries="@array/laucherArray"
             android:entryValues="@array/launcherValues"
             app:useStockLayout="true" />
@@ -44,7 +44,7 @@
             android:title="@string/phone_profiles_pref_notificationLauncher"
             android:summary="@string/array_pref_launcher_activator"
             android:key="applicationNotificationLauncher"
-            android:defaultValue="activator"
+            android:defaultValue="@string/activator_string"
             android:entries="@array/laucherArray"
             android:entryValues="@array/launcherValues"
             app:useStockLayout="true" />

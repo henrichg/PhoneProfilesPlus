@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.ComponentName;
@@ -30,27 +31,27 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
     public static MobileCellsRegistrationDialogPreference.MobileCellsRegistrationBroadcastReceiver mobileCellsRegistrationBroadcastReceiver;
 
-    static final String PREF_APPLICATION_PERMISSIONS = "permissionsApplicationPermissions";
-    static final int RESULT_APPLICATION_PERMISSIONS = 1990;
-    static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS = "permissionsWriteSystemSettingsPermissions";
-    static final int RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS = 1991;
-    static final String PREF_WIFI_SCANNING_SYSTEM_SETTINGS = "applicationEventWiFiScanningSystemSettings";
-    static final String PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS = "applicationEventBluetoothScanningSystemSettings";
-    static final int RESULT_SCANNING_SYSTEM_SETTINGS = 1992;
-    static final String PREF_POWER_SAVE_MODE_SETTINGS = "applicationPowerSaveMode";
-    static final int RESULT_POWER_SAVE_MODE_SETTINGS = 1993;
+    private static final String PREF_APPLICATION_PERMISSIONS = "permissionsApplicationPermissions";
+    private static final int RESULT_APPLICATION_PERMISSIONS = 1990;
+    private static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS = "permissionsWriteSystemSettingsPermissions";
+    private static final int RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS = 1991;
+    private static final String PREF_WIFI_SCANNING_SYSTEM_SETTINGS = "applicationEventWiFiScanningSystemSettings";
+    private static final String PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS = "applicationEventBluetoothScanningSystemSettings";
+    private static final int RESULT_SCANNING_SYSTEM_SETTINGS = 1992;
+    private static final String PREF_POWER_SAVE_MODE_SETTINGS = "applicationPowerSaveMode";
+    private static final int RESULT_POWER_SAVE_MODE_SETTINGS = 1993;
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
-    static final String PREF_LOCATION_SYSTEM_SETTINGS = "applicationEventLocationSystemSettings";
-    static final int RESULT_LOCATION_SYSTEM_SETTINGS = 1994;
+    private static final String PREF_LOCATION_SYSTEM_SETTINGS = "applicationEventLocationSystemSettings";
+    private static final int RESULT_LOCATION_SYSTEM_SETTINGS = 1994;
     static final String PREF_LOCATION_EDITOR = "applicationEventLocationsEditor";
-    static final String PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = "applicationBatteryOptimization";
-    static final int RESULT_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = 1995;
-    static final String PREF_APPLICATION_LANGUAGE_24 = "applicationLanguage24";
+    private static final String PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = "applicationBatteryOptimization";
+    private static final int RESULT_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = 1995;
+    private static final String PREF_APPLICATION_LANGUAGE_24 = "applicationLanguage24";
     static final int RESULT_LOCALE_SETTINGS = 1996;
-    static final String PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = "permissionsAccessNotificationPolicyPermissions";
-    static final int RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = 1997;
-    static final String PREF_DRAW_OVERLAYS_PERMISSIONS = "permissionsDrawOverlaysPermissions";
-    static final int RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS = 1998;
+    private static final String PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = "permissionsAccessNotificationPolicyPermissions";
+    private static final int RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = 1997;
+    private static final String PREF_DRAW_OVERLAYS_PERMISSIONS = "permissionsDrawOverlaysPermissions";
+    private static final int RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS = 1998;
 
 
     @Override
@@ -133,6 +134,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (preference != null) {
                 //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @SuppressLint("InlinedApi")
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         boolean activityExists = false;
@@ -212,6 +214,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_WRITE_SETTINGS, getActivity().getApplicationContext())) {
+                            @SuppressLint("InlinedApi")
                             Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
@@ -236,6 +239,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
+                            @SuppressLint("InlinedApi")
                             Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
@@ -255,6 +259,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
                             if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getActivity().getApplicationContext())) {
+                                @SuppressLint("InlinedApi")
                                 Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
@@ -350,6 +355,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity())) {
+                            @SuppressLint("InlinedApi")
                             Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
@@ -455,7 +461,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     }
     */
 
-    public void setSummary(String key)
+    void setSummary(String key)
     {
 
         Preference preference = prefMng.findPreference(key);

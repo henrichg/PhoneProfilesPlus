@@ -25,7 +25,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 public class LocationGeofencePreference extends DialogPreference {
 
-    Context context;
+    private Context context;
 
     int onlyEdit;
 

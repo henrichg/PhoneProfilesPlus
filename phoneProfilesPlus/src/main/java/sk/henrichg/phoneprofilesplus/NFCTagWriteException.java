@@ -10,7 +10,7 @@ class NFCTagWriteException extends Exception {
         ReadOnly, NoEnoughSpace, tagLost, formattingError, noNdefError, unknownError
     }
 
-    NFCErrorType type;
+    private NFCErrorType type;
 
     NFCTagWriteException(NFCErrorType type) {
         super();

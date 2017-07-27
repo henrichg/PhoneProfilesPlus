@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 class ConnectToSSIDPreferenceAdapter extends BaseAdapter
 {
-    ConnectToSSIDDialogPreference preference;
+    private ConnectToSSIDDialogPreference preference;
 
     private LayoutInflater inflater;
 

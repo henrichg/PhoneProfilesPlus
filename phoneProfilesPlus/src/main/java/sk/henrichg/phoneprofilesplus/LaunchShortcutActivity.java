@@ -12,9 +12,9 @@ public class LaunchShortcutActivity extends Activity {
     public static final String EXTRA_ACTIVITY_NAME = "activityName";
     public static final String EXTRA_DIALOG_PREFERENCE_POSITION = "dialogPreferencePosition";
 
-    String packageName;
-    String activityName;
-    int dialogPreferencePosition;
+    private String packageName;
+    private String activityName;
+    private int dialogPreferencePosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

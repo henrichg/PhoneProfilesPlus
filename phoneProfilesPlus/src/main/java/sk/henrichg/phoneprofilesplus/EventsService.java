@@ -15,20 +15,20 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 import java.util.List;
 
 public class EventsService extends WakefulIntentService {
-    Context context;
-    DataWrapper dataWrapper;
-    String broadcastReceiverType;
+    private Context context;
+    private DataWrapper dataWrapper;
+    private String broadcastReceiverType;
 
     //public static boolean restartAtEndOfEvent = false;
-    public static boolean eventsProcessed;
+    private static boolean eventsProcessed;
 
     private int callEventType;
-    public static int oldRingerMode;
-    public static int oldSystemRingerMode;
-    public static int oldZenMode;
-    public static String oldRingtone;
-    public static String oldNotificationTone;
-    public static int oldSystemRingerVolume;
+    private static int oldRingerMode;
+    private static int oldSystemRingerMode;
+    private static int oldZenMode;
+    private static String oldRingtone;
+    private static String oldNotificationTone;
+    private static int oldSystemRingerVolume;
 
     static final String EXTRA_BROADCAST_RECEIVER_TYPE = "broadcast_receiver_type";
     static final String EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED = "event_notification_posted_removed";

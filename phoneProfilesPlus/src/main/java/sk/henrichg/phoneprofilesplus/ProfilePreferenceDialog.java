@@ -23,7 +23,7 @@ class ProfilePreferenceDialog implements PreferenceManager.OnActivityDestroyList
     int showDuration;
     private ProfilePreferenceAdapter profilePreferenceAdapter;
 
-    List<Profile> profileList;
+    private List<Profile> profileList;
 
     private MaterialDialog mDialog;
 

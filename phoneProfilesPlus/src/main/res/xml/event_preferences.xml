@@ -131,7 +131,7 @@
                 android:widgetLayout="@layout/mp_preference_switch" />
             <sk.henrichg.phoneprofilesplus.DaysOfWeekPreference
                 android:key="eventTimeDays"
-                android:defaultValue=""
+                android:defaultValue="@string/empty_string"
                 android:title="@string/event_preferences_time_timeDays"
                 android:dependency="eventTimeEnabled" />
             <sk.henrichg.phoneprofilesplus.TimePreference
@@ -170,7 +170,7 @@
                 android:widgetLayout="@layout/mp_preference_switch" />
             <sk.henrichg.phoneprofilesplus.CalendarsMultiSelectDialogPreference
                 android:key="eventCalendarCalendars"
-                android:defaultValue=""
+                android:defaultValue="@string/empty_string"
                 android:title="@string/event_preferences_calendar_calendars"
                 android:dependency="eventCalendarEnabled" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
@@ -273,12 +273,12 @@
                 app:useStockLayout="true" />
             <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
                 android:key="eventCallContactGroups"
-                android:defaultValue=""
+                android:defaultValue="@string/empty_string"
                 android:title="@string/event_preferences_call_contact_groups"
                 android:dependency="eventCallEnabled" />
             <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
                 android:key="eventCallContacts"
-                android:defaultValue=""
+                android:defaultValue="@string/empty_string"
                 android:title="@string/event_preferences_call_contacts"
                 android:dependency="eventCallEnabled" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
@@ -310,12 +310,12 @@
                 android:dependency="eventSMSEnabled" />  -->
             <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
                 android:key="eventSMSContactGroups"
-                android:defaultValue=""
+                android:defaultValue="@string/empty_string"
                 android:title="@string/event_preferences_sms_contact_groups"
                 android:dependency="eventSMSEnabled" />
             <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
                 android:key="eventSMSContacts"
-                android:defaultValue=""
+                android:defaultValue="@string/empty_string"
                 android:title="@string/event_preferences_sms_contacts"
                 android:dependency="eventSMSEnabled" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
@@ -323,8 +323,8 @@
                 android:summary="@string/array_event_pref_contact_list_type_white_list"
                 android:key="eventSMSContactListType"
                 android:defaultValue="0"
-                android:entries="@array/eventCallContactListTypeArray"
-                android:entryValues="@array/eventCallContactListTypeValues"
+                android:entries="@array/eventSMSContactListTypeArray"
+                android:entryValues="@array/eventSMSContactListTypeValues"
                 android:dependency="eventSMSEnabled"
                 app:useStockLayout="true" />
             <CheckBoxPreference
@@ -609,7 +609,7 @@
                 android:widgetLayout="@layout/start_activity_preference" >
             </Preference>
             <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
-                android:defaultValue="-"
+                android:defaultValue="@string/dash_string"
                 android:key="eventNotificationApplications"
                 android:title="@string/event_preferences_notifications_applications"
                 app:addShortcuts="0"
@@ -655,7 +655,7 @@
                 android:widgetLayout="@layout/start_activity_preference" >
             </Preference>
             <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
-                android:defaultValue="-"
+                android:defaultValue="@string/dash_string"
                 android:key="eventApplicationApplications"
                 android:title="@string/event_preferences_applications_applications"
                 app:addShortcuts="0"
@@ -712,7 +712,7 @@
                 android:widgetLayout="@layout/start_activity_preference" >
             </Preference>
             <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
-                android:defaultValue="-"
+                android:defaultValue="@string/dash_string"
                 android:key="eventOrientationIgnoredApplications"
                 android:title="@string/event_preferences_orientation_ignoreForApplications"
                 app:addShortcuts="0"
@@ -730,7 +730,7 @@
                 android:defaultValue="false"
                 android:widgetLayout="@layout/mp_preference_switch" />
             <sk.henrichg.phoneprofilesplus.NFCTagPreference
-                android:defaultValue=""
+                android:defaultValue="@string/empty_string"
                 android:key="eventNFCTags"
                 android:title="@string/event_preferences_nfc_nfcTags"
                 app:addShortcuts="0"

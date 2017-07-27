@@ -199,7 +199,7 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     @Override
-    public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (key.equals(PREF_EVENT_ORIENTATION_DISPLAY)) {
             Preference preference = prefMng.findPreference(key);

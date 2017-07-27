@@ -1,13 +1,16 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+      xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto" >
     <item android:id="@+id/menu_restart_events"
-        android:title="@string/menu_restart_events"
-        android:orderInCategory="100"
-        app:showAsAction="always"
-        android:icon="?attr/actionEventsRestartIcon" />
+          android:title="@string/menu_restart_events"
+          android:orderInCategory="100"
+          app:showAsAction="always"
+          android:icon="?attr/actionEventsRestartIcon"
+          tools:ignore="AlwaysShowAction"/>
     <item android:id="@+id/menu_edit_profiles"
-        android:title="@string/menu_edit_profiles"
-        android:orderInCategory="110"
-        app:showAsAction="always"
-        android:icon="?attr/actionEditProfilesIcon" />
+          android:title="@string/menu_edit_profiles"
+          android:orderInCategory="110"
+          app:showAsAction="always"
+          android:icon="?attr/actionEditProfilesIcon"
+          tools:ignore="AlwaysShowAction" />
 </menu>

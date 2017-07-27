@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 class AboutApplicationJob extends Job {
 
-    static final String JOB_TAG  = "AboutApplicationJob";
+    private static final String JOB_TAG  = "AboutApplicationJob";
 
     @NonNull
     @Override

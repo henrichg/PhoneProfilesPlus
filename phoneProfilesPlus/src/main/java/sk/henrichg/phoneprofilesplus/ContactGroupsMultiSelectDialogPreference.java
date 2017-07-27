@@ -22,10 +22,10 @@ import java.util.List;
 public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 {
 
-    Context _context = null;
-    String value = "";
+    private Context _context = null;
+    private String value = "";
 
-    MaterialDialog mDialog;
+    private MaterialDialog mDialog;
 
     // Layout widgets.
     private LinearLayout linlaProgress;
@@ -174,7 +174,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         }.execute();
     }
 
-    public void onShow(DialogInterface dialog) {
+    private void onShow(DialogInterface dialog) {
         if (Permissions.grantContactGroupsDialogPermissions(_context, this))
             refreshListView(true);
     }

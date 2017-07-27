@@ -26,9 +26,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     private static ActivateProfileActivity instance;
 
-    float popupWidth;
-    float popupHeight;
-
     private Toolbar toolbar;
     private ImageView eventsRunStopIndicator;
 
@@ -60,9 +57,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
         int actionBarHeight;
 
         // display dimensions
-        popupWidth = display.getWidth();
+        float popupWidth = display.getWidth();
         popupMaxHeight = display.getHeight();
-        popupHeight = 0;
+        float popupHeight = 0;
         actionBarHeight = 0;
 
         // action bar height

@@ -41,7 +41,7 @@ public class NFCTagPreference extends DialogPreference {
     private String value;
     List<NFCTagData> nfcTagList = null;
 
-    Context context;
+    private Context context;
 
     private MaterialDialog mDialog;
     private MaterialDialog mSelectorDialog;
@@ -317,7 +317,7 @@ public class NFCTagPreference extends DialogPreference {
         return false;
     }
 
-    public void refreshListView(boolean forRescan, final String scrollToTag)
+    private void refreshListView(boolean forRescan, final String scrollToTag)
     {
         final boolean _forRescan = forRescan;
 

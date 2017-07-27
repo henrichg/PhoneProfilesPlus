@@ -175,9 +175,7 @@ public class EditorEventListFragment extends Fragment
             showTargetHelps();
     }
 
-    //@Override
-    //public void onActivityCreated(Bundle savedInstanceState)
-    public void doOnViewCreated(View view, Bundle savedInstanceState)
+    private void doOnViewCreated(View view, Bundle savedInstanceState)
     {
         //super.onActivityCreated(savedInstanceState);
 
@@ -421,7 +419,7 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
-    public void duplicateEvent(Event origEvent)
+    private void duplicateEvent(Event origEvent)
     {
         /*
         Event newEvent = new Event(
@@ -453,7 +451,7 @@ public class EditorEventListFragment extends Fragment
 
     }
 
-    public void deleteEvent(Event event)
+    private void deleteEvent(Event event)
     {
         if (dataWrapper.getEventById(event._id) == null)
             // event not exists
@@ -530,7 +528,7 @@ public class EditorEventListFragment extends Fragment
         popup.show();
     }
 
-    public void deleteEventWithAlert(Event event)
+    private void deleteEventWithAlert(Event event)
     {
         final Event _event = event;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());

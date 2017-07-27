@@ -35,7 +35,7 @@ public class ActivateProfileListFragment extends Fragment {
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 
-    public static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
+    private  static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
@@ -89,15 +89,14 @@ public class ActivateProfileListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        doOnViewCreated(view/*, savedInstanceState*/);
+        doOnViewCreated(view, savedInstanceState);
 
         boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
         if (startTargetHelps)
             showTargetHelps();
     }
 
-    //@Override
-    public void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
+    private void doOnViewCreated(View view, Bundle savedInstanceState)
     {
         activeProfileName = (TextView)view.findViewById(R.id.act_prof_activated_profile_name);
         activeProfileIcon = (ImageView)view.findViewById(R.id.act_prof_activated_profile_icon);
@@ -366,7 +365,7 @@ public class ActivateProfileListFragment extends Fragment {
         }
     }
 
-    public void activateProfile(Profile profile, int startupSource)
+    private void activateProfile(Profile profile, int startupSource)
     {
         if ((dataWrapper == null) || (profile == null))
             return;

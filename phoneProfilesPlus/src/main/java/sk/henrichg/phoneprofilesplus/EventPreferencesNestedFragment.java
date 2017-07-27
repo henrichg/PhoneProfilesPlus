@@ -24,26 +24,26 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
 
     public static MobileCellsPreference.PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver;
 
-    static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
+    private static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
     //static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
 
-    static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
-    static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
-    static final String PREF_APPLICATIONS_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
-    static final int RESULT_ACCESSIBILITY_SETTINGS = 1982;
-    static final String PREF_LOCATION_SETTINGS = "eventLocationScanningSystemSettings";
-    static final int RESULT_LOCATION_SETTINGS = 1983;
-    static final String PREF_WIFI_SCANNING_APP_SETTINGS = "eventEnableWiFiScaningAppSettings";
-    static final int RESULT_WIFI_SCANNING_SETTINGS = 1984;
-    static final String PREF_BLUETOOTH_SCANNING_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
-    static final int RESULT_BLUETOOTH_SCANNING_SETTINGS = 1985;
-    static final String PREF_ORIENTATION_ACCESSIBILITY_SETTINGS = "eventOrientationAccessibilitySettings";
-    static final String PREF_ORIENTATION_SCANNING_APP_SETTINGS = "eventEnableOrientationScanningAppSettings";
-    static final int RESULT_ORIENTATION_SCANNING_SETTINGS = 1986;
-    static final String PREF_MOBILE_CELLS_SCANNING_APP_SETTINGS = "eventMobileCellsScaningAppSettings";
-    static final int RESULT_MOBILE_CELLS_SCANNING_SETTINGS = 1987;
-    static final String PREF_USE_PRIORITY_APP_SETTINGS = "eventUsePriorityAppSettings";
-    static final int RESULT_USE_PRIORITY_SETTINGS = 1988;
+    private static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
+    private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
+    private static final String PREF_APPLICATIONS_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
+    private static final int RESULT_ACCESSIBILITY_SETTINGS = 1982;
+    private static final String PREF_LOCATION_SETTINGS = "eventLocationScanningSystemSettings";
+    private static final int RESULT_LOCATION_SETTINGS = 1983;
+    private static final String PREF_WIFI_SCANNING_APP_SETTINGS = "eventEnableWiFiScaningAppSettings";
+    private static final int RESULT_WIFI_SCANNING_SETTINGS = 1984;
+    private static final String PREF_BLUETOOTH_SCANNING_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
+    private static final int RESULT_BLUETOOTH_SCANNING_SETTINGS = 1985;
+    private static final String PREF_ORIENTATION_ACCESSIBILITY_SETTINGS = "eventOrientationAccessibilitySettings";
+    private static final String PREF_ORIENTATION_SCANNING_APP_SETTINGS = "eventEnableOrientationScanningAppSettings";
+    private static final int RESULT_ORIENTATION_SCANNING_SETTINGS = 1986;
+    private static final String PREF_MOBILE_CELLS_SCANNING_APP_SETTINGS = "eventMobileCellsScaningAppSettings";
+    private static final int RESULT_MOBILE_CELLS_SCANNING_SETTINGS = 1987;
+    private static final String PREF_USE_PRIORITY_APP_SETTINGS = "eventUsePriorityAppSettings";
+    private static final int RESULT_USE_PRIORITY_SETTINGS = 1988;
 
     @Override
     public int addPreferencesFromResource() {

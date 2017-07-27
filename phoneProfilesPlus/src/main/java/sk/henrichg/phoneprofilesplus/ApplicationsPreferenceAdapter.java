@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.Spannable;
@@ -78,6 +79,7 @@ class ApplicationsPreferenceAdapter extends BaseAdapter
         notifyDataSetChanged();
     }
 
+    @SuppressLint("SetTextI18n")
     public View getView(int position, View convertView, ViewGroup parent)
     {
         // Application to display

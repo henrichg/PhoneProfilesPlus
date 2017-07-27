@@ -13,7 +13,7 @@ import java.util.List;
 
 class AddProfileDialog
 {
-    public List<Profile> profileList;
+    private List<Profile> profileList;
 
     private EditorProfileListFragment profileListFragment;
 

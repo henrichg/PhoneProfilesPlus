@@ -61,8 +61,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         doOnViewCreated(view, savedInstanceState);
     }
 
-    //@Override
-    public void doOnViewCreated(View view, Bundle savedInstanceState)
+    private void doOnViewCreated(View view, Bundle savedInstanceState)
     {
         listView = (ListView)view.findViewById(R.id.shortcut_profiles_list);
 

@@ -34,19 +34,19 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     protected SharedPreferences preferences;
     protected Context context;
 
-    static final String PREFS_NAME_ACTIVITY = "profile_preferences_activity";
+    private static final String PREFS_NAME_ACTIVITY = "profile_preferences_activity";
     //static final String PREFS_NAME_FRAGMENT = "profile_preferences_fragment";
-    static final String PREFS_NAME_DEFAULT_PROFILE = PPApplication.DEFAULT_PROFILE_PREFS_NAME;
+    private static final String PREFS_NAME_DEFAULT_PROFILE = PPApplication.DEFAULT_PROFILE_PREFS_NAME;
 
-    static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
-    static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
+    private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
+    private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
 
-    static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 1981;
+    private static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 1981;
 
-    static final String PREF_VOLUME_NOTIFICATION_VOLUME0 = "prf_pref_volumeNotificationVolume0";
+    private static final String PREF_VOLUME_NOTIFICATION_VOLUME0 = "prf_pref_volumeNotificationVolume0";
 
     static final String PREF_DEVICE_ADMINISTRATOR_SETTINGS = "prf_pref_lockDevice_deviceAdminSettings";
-    static final int RESULT_DEVICE_ADMINISTRATOR_SETTINGS = 1982;
+    private static final int RESULT_DEVICE_ADMINISTRATOR_SETTINGS = 1982;
 
     @Override
     public int addPreferencesFromResource() {
@@ -1162,7 +1162,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
     }
 
-    public void setSummary(String key) {
+    void setSummary(String key) {
         String value;
         if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
             key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||

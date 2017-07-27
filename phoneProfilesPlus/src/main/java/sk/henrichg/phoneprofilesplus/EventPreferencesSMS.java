@@ -140,7 +140,7 @@ class EventPreferencesSMS extends EventPreferences {
     }
 
     @Override
-    public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (/*key.equals(PREF_EVENT_SMS_EVENT) ||*/ key.equals(PREF_EVENT_SMS_CONTACT_LIST_TYPE))
         {
@@ -300,7 +300,7 @@ class EventPreferencesSMS extends EventPreferences {
         PPApplication.logE("EventPreferencesSMS.removeSystemEvent", "xxx");
     }
 
-    public void removeAlarm(Context context)
+    private void removeAlarm(Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 

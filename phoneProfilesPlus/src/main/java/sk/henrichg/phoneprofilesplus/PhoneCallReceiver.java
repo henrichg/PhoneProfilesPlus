@@ -9,10 +9,10 @@ import java.util.Date;
 
 public abstract class PhoneCallReceiver extends BroadcastReceiver {
 
-    static TelephonyManager telephony;
+    private static TelephonyManager telephony;
     //The receiver will be recreated whenever android feels like it.
     //We need a static variable to remember data between instantiations
-    static PhoneCallStartEndDetector listener;
+    private static PhoneCallStartEndDetector listener;
     //String outgoingSavedNumber;
     protected Context savedContext;
 

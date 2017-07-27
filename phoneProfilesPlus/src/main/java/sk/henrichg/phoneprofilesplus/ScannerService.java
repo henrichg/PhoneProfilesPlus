@@ -25,15 +25,15 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 public class ScannerService extends WakefulIntentService
 {
-    Context context;
-    DataWrapper dataWrapper;
+    private Context context;
+    private DataWrapper dataWrapper;
 
     private final WifiScanBroadcastReceiver wifiScanReceiver = new WifiScanBroadcastReceiver();
     private final BluetoothScanBroadcastReceiver bluetoothScanReceiver = new BluetoothScanBroadcastReceiver();
     private final BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = new BluetoothLEScanBroadcastReceiver();
 
-    public static int wifiScanDuration = 25;      // 25 seconds for wifi scan
-    public static int classicBTScanDuration = 20; // 20 seconds for classic bluetooth scan
+    private static int wifiScanDuration = 25;      // 25 seconds for wifi scan
+    private static int classicBTScanDuration = 20; // 20 seconds for classic bluetooth scan
 
     public static BluetoothLeScanner leScanner = null;
     public static BluetoothLEScanCallback18 leScanCallback18 = null;
@@ -707,7 +707,7 @@ public class ScannerService extends WakefulIntentService
         } while (SystemClock.uptimeMillis() - start < wifiScanDuration * 1000);
     }
 
-    public static void waitForBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
+    private static void waitForBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
     {
         long start = SystemClock.uptimeMillis();
         do {
@@ -728,7 +728,7 @@ public class ScannerService extends WakefulIntentService
         BluetoothScanJob.stopCLScan(context);
     }
 
-    public static void waitForLEBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
+    private static void waitForLEBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
     {
         if (bluetoothLESupported(context)) {
             long start = SystemClock.uptimeMillis();
@@ -789,6 +789,7 @@ public class ScannerService extends WakefulIntentService
         BluetoothScanJob.stopLEScan(context);
     }
 
+    @SuppressLint("InlinedApi")
     public static boolean bluetoothLESupported(Context context) {
         return ((android.os.Build.VERSION.SDK_INT >= 18) &&
                 context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE));
@@ -878,7 +879,7 @@ public class ScannerService extends WakefulIntentService
         }
     }
 
-    static public boolean getShowEnableLocationNotification(Context context)
+    static private boolean getShowEnableLocationNotification(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getBoolean(PREF_SHOW_ENABLE_LOCATION_NOTIFICATION, true);
