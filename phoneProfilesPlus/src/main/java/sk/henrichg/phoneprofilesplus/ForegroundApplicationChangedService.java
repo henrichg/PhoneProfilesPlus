@@ -45,8 +45,6 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
             // application is not started
             return;
 
-        //PPApplication.loadPreferences(appContext);
-
         if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
 
             try {

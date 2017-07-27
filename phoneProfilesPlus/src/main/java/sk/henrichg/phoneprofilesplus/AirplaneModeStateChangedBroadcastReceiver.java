@@ -17,9 +17,6 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
             return;
 
         if (Event.getGlobalEventsRuning(context)) {
-
-            //PPApplication.loadPreferences(context);
-
             final String action = intent.getAction();
 
             if (action.equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)) {

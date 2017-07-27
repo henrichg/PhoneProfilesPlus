@@ -28,8 +28,6 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //PPApplication.loadPreferences(context);
-
         boolean smsMmsReceived = false;
 
         String origin = "";

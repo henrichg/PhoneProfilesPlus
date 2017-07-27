@@ -51,7 +51,6 @@ public class FirstStartService extends WakefulIntentService {
             }
         //}
 
-        //PPApplication.loadPreferences(context);
         GlobalGUIRoutines.setLanguage(context);
 
         if (PPApplication.getApplicationStarted(getApplicationContext(), false)) {

@@ -21,8 +21,6 @@ public class DeviceIdleModeService extends WakefulIntentService {
 
             Context appContext = getApplicationContext();
 
-            //PPApplication.loadPreferences(appContext);
-
             if (Event.getGlobalEventsRuning(appContext))
             {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);

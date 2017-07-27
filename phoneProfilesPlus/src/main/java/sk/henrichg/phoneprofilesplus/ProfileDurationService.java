@@ -19,8 +19,6 @@ public class ProfileDurationService extends WakefulIntentService {
 
             Context context = getApplicationContext();
 
-            //PPApplication.loadPreferences(context);
-
             long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
             if (profileId != 0)
             {

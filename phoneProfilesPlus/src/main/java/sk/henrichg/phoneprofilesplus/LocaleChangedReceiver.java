@@ -11,8 +11,6 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### LocaleChangedReceiver.onReceive","xxx");
 
-        //PPApplication.loadPreferences(context);
-
         if (ApplicationPreferences.applicationLanguage(context).equals("system"))
         {
             if (PhoneProfilesService.instance != null)

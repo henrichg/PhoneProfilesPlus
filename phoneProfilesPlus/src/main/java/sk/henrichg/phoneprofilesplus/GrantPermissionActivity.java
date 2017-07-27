@@ -59,8 +59,6 @@ public class GrantPermissionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //PPApplication.loadPreferences(getApplicationContext());
-
         Intent intent = getIntent();
         grantType = intent.getIntExtra(Permissions.EXTRA_GRANT_TYPE, 0);
         onlyNotification = intent.getBooleanExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);

@@ -62,8 +62,6 @@ public class BluetoothNamePreference extends DialogPreference {
         
         bluetoothList = new ArrayList<>();
         customBluetoothList = new ArrayList<>();
-
-        //PPApplication.loadPreferences(context);
     }
 
     @Override

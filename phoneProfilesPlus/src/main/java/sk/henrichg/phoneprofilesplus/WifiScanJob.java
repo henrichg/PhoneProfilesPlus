@@ -39,8 +39,6 @@ class WifiScanJob extends Job {
 
         Context context = getContext();
 
-        //PPApplication.loadPreferences(context);
-
         WifiScanJob.scheduleJob(context, false, false, false);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) !=

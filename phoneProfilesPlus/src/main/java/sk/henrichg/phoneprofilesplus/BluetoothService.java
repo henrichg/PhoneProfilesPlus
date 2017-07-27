@@ -33,8 +33,6 @@ public class BluetoothService extends WakefulIntentService {
         if (intent != null) {
             Context appContext = getApplicationContext();
 
-            //PPApplication.loadPreferences(appContext);
-
             String action = intent.getAction();
 
             if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED) ||
@@ -123,8 +121,6 @@ public class BluetoothService extends WakefulIntentService {
                     clearConnectedDevices(appContext, false);
                     saveConnectedDevices(appContext);
                 }
-
-                //PPApplication.loadPreferences(appContext);
 
                 if (Event.getGlobalEventsRuning(appContext))
                 {

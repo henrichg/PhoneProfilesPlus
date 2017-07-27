@@ -13,8 +13,6 @@ public class BootUpReceiver extends BroadcastReceiver {
 
         //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 
-        //PPApplication.loadPreferences(context);
-
         // start delayed bootup broadcast
         PPApplication.startedOnBoot = true;
         final Handler handler = new Handler(context.getMainLooper());

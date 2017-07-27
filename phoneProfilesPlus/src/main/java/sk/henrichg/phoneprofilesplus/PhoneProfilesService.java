@@ -173,8 +173,6 @@ public class PhoneProfilesService extends Service
         editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, true);
         editor.apply();*/
 
-        //PPApplication.loadPreferences(appContext);
-
         //PPApplication.initPhoneProfilesServiceMessenger(appContext);
 
         // --- receivers and content observers for profiles/events -- must be registered permanently

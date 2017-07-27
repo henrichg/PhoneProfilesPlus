@@ -20,8 +20,6 @@ public class ExecuteRootProfilePrefsService extends IntentService {
 
         Context context = getApplicationContext();
 
-        //PPApplication.loadPreferences(context);
-
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 
         long profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);

@@ -16,7 +16,6 @@ public class DashClockService extends WakefulIntentService {
             PhoneProfilesDashClockExtension dashClockExtension = PhoneProfilesDashClockExtension.getInstance();
             if (dashClockExtension != null)
             {
-                //PPApplication.loadPreferences(context);
                 dashClockExtension.updateExtension();
             }
         }

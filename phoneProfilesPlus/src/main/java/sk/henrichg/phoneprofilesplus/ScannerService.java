@@ -75,8 +75,6 @@ public class ScannerService extends WakefulIntentService
         String scanType = intent.getStringExtra(EXTRA_SCANNER_TYPE);
         PPApplication.logE("%%%% ScannerService.onHandleIntent", "scanType="+scanType);
 
-        //PPApplication.loadPreferences(context);
-
         // for Airplane mode ON, no scan
         if (android.os.Build.VERSION.SDK_INT >= 17) {
             if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0) {

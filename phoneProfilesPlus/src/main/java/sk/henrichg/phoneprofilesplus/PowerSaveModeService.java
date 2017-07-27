@@ -22,8 +22,6 @@ public class PowerSaveModeService extends WakefulIntentService {
 
             Context appContext = getApplicationContext();
 
-            //PPApplication.loadPreferences(appContext);
-
             boolean oldPowerSaveMode = PPApplication.isPowerSaveMode;
             PPApplication.isPowerSaveMode = false;
             if (ApplicationPreferences.applicationPowerSaveModeInternal(appContext).equals("3")) {

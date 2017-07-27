@@ -18,8 +18,6 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //PPApplication.loadPreferences(appContext);
-
         if (Event.getGlobalEventsRuning(appContext))
         {
             PPApplication.logE("@@@ EventDelayEndBroadcastReceiver.onReceive","xxx");

@@ -18,8 +18,6 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //PPApplication.loadPreferences(appContext);
-
         if (Event.getGlobalEventsRuning(appContext))
         {
             PPApplication.logE("@@@ EventTimeBroadcastReceiver.onReceive","xxx");

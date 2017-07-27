@@ -162,9 +162,6 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
     @Override
     public void finish() {
-
-        //PPApplication.loadPreferences(getApplicationContext());
-
         if (!activeLanguage.equals(ApplicationPreferences.applicationLanguage(getApplicationContext())))
         {
             GlobalGUIRoutines.setLanguage(getBaseContext());

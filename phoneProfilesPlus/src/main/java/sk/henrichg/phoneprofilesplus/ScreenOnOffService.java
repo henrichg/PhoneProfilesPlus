@@ -18,8 +18,6 @@ public class ScreenOnOffService extends IntentService {
 
             final Context appContext = getApplicationContext();
             
-            //PPApplication.loadPreferences(appContext);
-
             if (intent.getAction() != null) {
                 if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
                     PPApplication.logE("@@@ ScreenOnOffService.onReceive", "screen on");

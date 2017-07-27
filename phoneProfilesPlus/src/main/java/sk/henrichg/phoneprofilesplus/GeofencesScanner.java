@@ -183,8 +183,6 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     //-------------------------------------------
 
     private void createLocationRequest() {
-        //PPApplication.loadPreferences(context);
-
         //Log.d("GeofenceScanner.createLocationRequest", "xxx");
 
         // check power save mode

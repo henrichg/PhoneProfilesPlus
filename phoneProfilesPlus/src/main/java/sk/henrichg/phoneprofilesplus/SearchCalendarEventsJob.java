@@ -30,8 +30,6 @@ class SearchCalendarEventsJob extends Job {
             // application is not started
             return Result.SUCCESS;
 
-        //PPApplication.loadPreferences(appContext);
-
         if (Event.getGlobalEventsRuning(appContext))
         {
             /*boolean calendarEventsExists = false;

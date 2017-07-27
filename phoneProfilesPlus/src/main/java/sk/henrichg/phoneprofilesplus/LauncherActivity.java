@@ -13,8 +13,6 @@ public class LauncherActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //PPApplication.loadPreferences(getApplicationContext());
-
         overridePendingTransition(0, 0);
 
         dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);

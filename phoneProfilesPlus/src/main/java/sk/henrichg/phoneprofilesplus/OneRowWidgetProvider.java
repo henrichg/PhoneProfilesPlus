@@ -16,8 +16,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
-        //PPApplication.loadPreferences(context);
-
         int monochromeValue = 0xFF;
         String applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness(context);
         if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;

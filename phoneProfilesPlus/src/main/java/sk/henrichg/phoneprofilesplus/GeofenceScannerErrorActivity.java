@@ -17,11 +17,7 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //PPApplication.loadPreferences(getApplicationContext());
-
         dialogError = getIntent().getIntExtra(GeofencesScanner.DIALOG_ERROR, 0);
-
     }
 
     @Override

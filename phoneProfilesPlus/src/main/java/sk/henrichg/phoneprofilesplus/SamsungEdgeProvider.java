@@ -212,7 +212,6 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     public void createProfilesDataWrapper(Context context)
     {
-        //PPApplication.loadPreferences(context);
         if (dataWrapper == null)
         {
             dataWrapper = new DataWrapper(context, false, false, 0);

@@ -22,8 +22,6 @@ public class PhoneStateService extends WakefulIntentService {
                 // application is not started
                 return;
 
-            //PPApplication.loadPreferences(appContext);
-
             if (Event.getGlobalEventsRuning(appContext))
             {
                 PPApplication.logE("@@@ PhoneStateService.doWakefulWork", "-----------");

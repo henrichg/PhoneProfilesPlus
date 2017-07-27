@@ -52,7 +52,6 @@ public class PackageReplacedService extends WakefulIntentService {
                         PPApplication.logE("@@@ PackageReplacedService.doWakefulWork", "applicationEventUsePriority=true");
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
                         editor.apply();
-                        //PPApplication.loadPreferences(appContext);
                     }
                     if (actualVersionCode <= 2400) {
                         PPApplication.logE("@@@ PackageReplacedService.doWakefulWork", "donation alarm restart");
@@ -67,7 +66,6 @@ public class PackageReplacedService extends WakefulIntentService {
                             PPApplication.logE("@@@ PackageReplacedService.doWakefulWork", "notificationShowInStatusBar=false");
                             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
                             editor.apply();
-                            //PPApplication.loadPreferences(appContext);
                         }
                     }
                     if (actualVersionCode <= 2700) {

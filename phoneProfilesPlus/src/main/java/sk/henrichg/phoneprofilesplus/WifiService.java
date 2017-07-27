@@ -24,8 +24,6 @@ public class WifiService extends WakefulIntentService {
 
             Context appContext = getApplicationContext();
 
-            //PPApplication.loadPreferences(appContext);
-
             String action = intent.getAction();
 
             if (action.equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {

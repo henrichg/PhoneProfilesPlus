@@ -45,8 +45,6 @@ class BluetoothScanJob extends Job {
 
         Context context = getContext();
 
-        //PPApplication.loadPreferences(context);
-
         BluetoothScanJob.scheduleJob(context, false, false);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=

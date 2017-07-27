@@ -19,8 +19,6 @@ public class ExecuteVolumeProfilePrefsService extends WakefulIntentService
 
         final Context context = getApplicationContext();
 
-        //PPApplication.loadPreferences(context);
-
         ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), false);
 
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);

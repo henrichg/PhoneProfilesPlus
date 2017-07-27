@@ -15,8 +15,6 @@ public class RestartEventsFromNotificationActivity extends Activity
 
         PPApplication.logE("RestartEventsFromNotificationActivity.onCreate", "xxx");
 
-        //PPApplication.loadPreferences(getApplicationContext());
-
         // close notification drawer - broadcast pending intent not close it :-/
         Intent it = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         sendBroadcast(it);

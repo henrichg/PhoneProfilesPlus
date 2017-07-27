@@ -34,8 +34,6 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
   
     private void createProfilesDataWrapper()
     {
-        //PPApplication.loadPreferences(context);
-
         int monochromeValue = 0xFF;
         String applicationWidgetListIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness(context);
         if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;

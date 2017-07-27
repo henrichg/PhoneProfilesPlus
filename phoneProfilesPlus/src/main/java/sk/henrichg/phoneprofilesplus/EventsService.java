@@ -118,8 +118,6 @@ public class EventsService extends WakefulIntentService {
 
         //PPApplication.setApplicationStarted(context, true);
 
-        //PPApplication.loadPreferences(context);
-
         dataWrapper = new DataWrapper(context, true, false, 0);
 
         ApplicationPreferences.getSharedPreferences(context);

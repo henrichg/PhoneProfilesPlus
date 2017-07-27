@@ -18,8 +18,6 @@ public class BatteryService extends WakefulIntentService {
 
             Context appContext = getApplicationContext();
 
-            //PPApplication.loadPreferences(context);
-
             boolean isCharging = intent.getBooleanExtra(BatteryBroadcastReceiver.EXTRA_IS_CHARGING, false);
             int batteryPct = intent.getIntExtra(BatteryBroadcastReceiver.EXTRA_BATTERY_PCT, -100);
 

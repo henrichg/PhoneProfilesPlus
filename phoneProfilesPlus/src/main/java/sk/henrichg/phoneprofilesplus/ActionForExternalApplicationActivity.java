@@ -33,8 +33,6 @@ public class ActionForExternalApplicationActivity extends Activity {
 
         //Log.d("ActionForExternalApplicationActivity.onCreate", "xxx");
 
-        //PPApplication.loadPreferences(getApplicationContext());
-
         Intent intent = getIntent();
 
         action = intent.getAction();

@@ -24,8 +24,6 @@ public class BackgroundActivateProfileActivity extends Activity {
         if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
             (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT)) {
 
-            //PPApplication.loadPreferences(getApplicationContext());
-
             dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 
             dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());

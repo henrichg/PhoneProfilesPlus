@@ -1238,8 +1238,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                     unlockScreenOrientation();
 
                     if (result == 1) {
-                        //PPApplication.loadPreferences(getApplicationContext());
-
                         dataWrapper.invalidateProfileList();
                         dataWrapper.invalidateEventList();
 

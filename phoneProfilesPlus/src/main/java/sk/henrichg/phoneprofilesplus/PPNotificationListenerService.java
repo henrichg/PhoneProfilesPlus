@@ -85,8 +85,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
             // application is not started
             return;
 
-        //PPApplication.loadPreferences(appContext);
-
         if (Event.getGlobalEventsRuning(context)) {
             Intent eventsServiceIntent = new Intent(context, EventsService.class);
             eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_NOTIFICATION);
@@ -120,8 +118,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
-
-        //PPApplication.loadPreferences(appContext);
 
         if (Event.getGlobalEventsRuning(context)) {
             Intent eventsServiceIntent = new Intent(context, EventsService.class);

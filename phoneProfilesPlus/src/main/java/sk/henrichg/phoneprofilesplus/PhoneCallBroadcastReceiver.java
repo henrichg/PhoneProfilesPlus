@@ -23,8 +23,6 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         if (!PPApplication.getApplicationStarted(savedContext, false))
             return false;
 
-        //PPApplication.loadPreferences(savedContext);
-
         return true;
     }
 

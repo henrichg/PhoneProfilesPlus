@@ -18,8 +18,6 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //PPApplication.loadPreferences(appContext);
-
         if (Event.getGlobalEventsRuning(appContext))
         {
             /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
