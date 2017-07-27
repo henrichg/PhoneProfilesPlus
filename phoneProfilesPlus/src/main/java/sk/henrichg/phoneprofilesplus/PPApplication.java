@@ -51,7 +51,7 @@ public class PPApplication extends Application {
                                          //+"|PPApplication._isRooted"
                                          //+"|PPApplication.isRootGranted"
 
-                                         +"|PreferenceFragment"
+                                         //+"|PreferenceFragment"
 
                                          //+"|SearchCalendarEventsJob"
                                          //+"|WifiService"
@@ -66,6 +66,9 @@ public class PPApplication extends Application {
                                          //+"|CalendarProviderChangedBroadcastReceiver"
 
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
+
+                                         +"|PhoneProfilesService.doSimulatingRingingCall"
+                                         +"|ActivateProfileHelper.setZenMode"
 
             ;
 

@@ -767,6 +767,9 @@ public class ActivateProfileHelper {
     {
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
+            PPApplication.logE("ActivateProfileHelper.setZenMode", "zenMode=" + zenMode);
+            PPApplication.logE("ActivateProfileHelper.setZenMode", "ringerMode=" + ringerMode);
+
             int _zenMode = getSystemZenMode(context, -1);
             PPApplication.logE("ActivateProfileHelper.setZenMode", "_zenMode=" + _zenMode);
             int _ringerMode = audioManager.getRingerMode();
