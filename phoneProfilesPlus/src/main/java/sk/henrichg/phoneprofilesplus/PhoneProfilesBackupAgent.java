@@ -11,8 +11,6 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
     @Override
     public void onRestoreFinished() {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("PhoneProfilesBackupAgent","onRestoreFinished");
 
         // NEZAVRIE APLIKACIU PO RESTORE.

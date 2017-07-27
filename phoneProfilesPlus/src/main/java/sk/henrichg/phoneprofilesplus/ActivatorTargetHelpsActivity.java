@@ -10,9 +10,6 @@ public class ActivatorTargetHelpsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         super.onCreate(savedInstanceState);
 
         activity = this;

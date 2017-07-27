@@ -19,8 +19,6 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
     MobileDataStateChangedContentObserver(Context c, Handler handler) {
         super(handler);
 
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         context=c;
 
         //Log.e("### MobileDataStateChangedContentObserver", "xxx");
@@ -35,8 +33,6 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         super.onChange(selfChange);
 
         PPApplication.logE("##### MobileDataStateChangedContentObserver", "onChange");

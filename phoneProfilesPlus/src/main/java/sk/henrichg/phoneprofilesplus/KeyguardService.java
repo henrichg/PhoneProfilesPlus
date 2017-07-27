@@ -23,8 +23,6 @@ public class KeyguardService extends Service {
     @Override
     public void onCreate()
     {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("$$$ KeyguardService.onStartCommand","onCreate");
         keyguardManager = (KeyguardManager)getBaseContext().getSystemService(Activity.KEYGUARD_SERVICE);
         keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);
@@ -41,8 +39,6 @@ public class KeyguardService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         Context context = getBaseContext();
 
         if (!PPApplication.getApplicationStarted(context, true)) {

@@ -16,8 +16,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         //PPApplication.loadPreferences(context);
 
         int monochromeValue = 0xFF;

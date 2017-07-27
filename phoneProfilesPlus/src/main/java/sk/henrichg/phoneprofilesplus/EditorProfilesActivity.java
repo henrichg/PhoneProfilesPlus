@@ -152,9 +152,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         //Log.e("$$$ PPP","EditorProfilesActivity.onCreate");
 
         GlobalGUIRoutines.setTheme(this, false, true);

@@ -16,8 +16,6 @@ public class ExecuteRootProfilePrefsService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("$$$ ExecuteRootProfilePrefsService.onHandleIntent", "-- START ----------");
 
         Context context = getApplicationContext();

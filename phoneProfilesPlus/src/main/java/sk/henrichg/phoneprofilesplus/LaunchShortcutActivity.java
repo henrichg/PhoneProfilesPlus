@@ -18,8 +18,6 @@ public class LaunchShortcutActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         super.onCreate(savedInstanceState);
 
         packageName = getIntent().getStringExtra(EXTRA_PACKAGE_NAME);

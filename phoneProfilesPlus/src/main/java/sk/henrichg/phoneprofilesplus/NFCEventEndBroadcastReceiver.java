@@ -10,8 +10,6 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### NFCEventEndBroadcastReceiver.onReceive", "xxx");
 
         Context appContext = context.getApplicationContext();

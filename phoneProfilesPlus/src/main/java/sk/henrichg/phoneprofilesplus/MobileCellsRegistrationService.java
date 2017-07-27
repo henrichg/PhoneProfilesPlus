@@ -26,8 +26,6 @@ public class MobileCellsRegistrationService extends Service {
     @Override
     public void onCreate()
     {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         super.onCreate();
         //Log.d("MobileCellsRegistrationService", "START");
 

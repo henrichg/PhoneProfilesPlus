@@ -10,8 +10,6 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### SMSEventEndBroadcastReceiver.onReceive", "xxx");
 
         Context appContext = context.getApplicationContext();

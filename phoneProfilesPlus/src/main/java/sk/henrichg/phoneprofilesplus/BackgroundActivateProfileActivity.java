@@ -13,9 +13,6 @@ public class BackgroundActivateProfileActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         super.onCreate(savedInstanceState);
 
         PPApplication.logE("BackgroundActivateProfileActivity.onCreate", "xxx");

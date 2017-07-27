@@ -140,8 +140,6 @@ public class PhoneProfilesService extends Service
 
     @Override
     public void onCreate() {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         super.onCreate();
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT=" + android.os.Build.VERSION.SDK_INT);
@@ -590,8 +588,6 @@ public class PhoneProfilesService extends Service
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         super.onStartCommand(intent, flags, startId);
-
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
 

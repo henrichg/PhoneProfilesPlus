@@ -10,8 +10,6 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### NotificationEventEndBroadcastReceiver.onReceive", "xxx");
 
         Context appContext = context.getApplicationContext();

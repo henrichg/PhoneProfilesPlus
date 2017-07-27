@@ -9,9 +9,6 @@ public class BootUpReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### BootUpReceiver.onReceive", "xxx");
 
         //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");

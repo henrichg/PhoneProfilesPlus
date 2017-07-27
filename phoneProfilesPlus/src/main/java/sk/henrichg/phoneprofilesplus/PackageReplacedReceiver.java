@@ -10,8 +10,6 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
 
         //int intentUid = intent.getExtras().getInt("android.intent.extra.UID");

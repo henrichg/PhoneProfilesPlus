@@ -10,9 +10,6 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### EventDelayEndBroadcastReceiver.onReceive", "xxx");
 
         Context appContext = context.getApplicationContext();

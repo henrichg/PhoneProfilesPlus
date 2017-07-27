@@ -10,8 +10,6 @@ public class SIPCallBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         SipAudioCall incomingCall = null;
 
         try {

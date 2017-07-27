@@ -23,9 +23,6 @@ public class ImportantInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         //PPApplication.loadPreferences(getApplicationContext());
 
         // must by called before super.onCreate() for PreferenceActivity

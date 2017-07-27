@@ -10,9 +10,6 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### DockConnectionBroadcastReceiver.onReceive", "xxx");
 
         Context appContext = context.getApplicationContext();

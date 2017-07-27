@@ -35,9 +35,6 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         // must by called before super.onCreate() for PreferenceActivity
         GlobalGUIRoutines.setTheme(this, false, true);
         GlobalGUIRoutines.setLanguage(getBaseContext());

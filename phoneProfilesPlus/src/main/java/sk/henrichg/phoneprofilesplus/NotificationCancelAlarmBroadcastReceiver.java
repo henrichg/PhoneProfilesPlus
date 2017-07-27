@@ -9,8 +9,6 @@ public class NotificationCancelAlarmBroadcastReceiver extends BroadcastReceiver 
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### NotificationCancelAlarmBroadcastReceiver.onReceive", "xxx");
 
         if (PhoneProfilesService.instance != null)

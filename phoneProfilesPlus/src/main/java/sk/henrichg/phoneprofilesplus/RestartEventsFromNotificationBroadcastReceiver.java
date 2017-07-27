@@ -8,8 +8,6 @@ public class RestartEventsFromNotificationBroadcastReceiver extends BroadcastRec
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### RestartEventsFromNotificationBroadcastReceiver.onReceive", "xxx");
 
         //Context appContext = context.getApplicationContext();

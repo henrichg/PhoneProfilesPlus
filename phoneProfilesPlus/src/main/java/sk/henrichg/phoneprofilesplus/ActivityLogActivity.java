@@ -25,9 +25,6 @@ public class ActivityLogActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         // must by called before super.onCreate() for PreferenceActivity
         GlobalGUIRoutines.setTheme(this, false, false); // must by called before super.onCreate()
         GlobalGUIRoutines.setLanguage(getBaseContext());

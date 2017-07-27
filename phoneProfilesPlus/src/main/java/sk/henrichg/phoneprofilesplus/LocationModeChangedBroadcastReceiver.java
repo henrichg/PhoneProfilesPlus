@@ -11,9 +11,6 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 
         Context appContext = context.getApplicationContext();

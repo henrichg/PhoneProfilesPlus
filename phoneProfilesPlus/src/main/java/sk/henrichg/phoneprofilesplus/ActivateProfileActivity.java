@@ -39,9 +39,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
     @SuppressWarnings({ "deprecation" })
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         super.onCreate(savedInstanceState);
 
         instance = this;

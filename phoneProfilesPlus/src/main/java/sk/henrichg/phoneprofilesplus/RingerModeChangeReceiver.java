@@ -11,8 +11,6 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### RingerModeChangeReceiver.onReceive", "xxx");
 
         if (!internalChange) {

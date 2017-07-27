@@ -10,8 +10,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### ScreenOnOffBroadcastReceiver.onReceive", "xxx");
         if (intent != null)
             PPApplication.logE("ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());

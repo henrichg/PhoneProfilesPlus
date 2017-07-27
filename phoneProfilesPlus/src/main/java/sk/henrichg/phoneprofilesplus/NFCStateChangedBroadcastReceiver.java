@@ -14,8 +14,6 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### NFCStateChangedBroadcastReceiver.onReceive", "xxx");
 
         if (!PPApplication.getApplicationStarted(context, true))

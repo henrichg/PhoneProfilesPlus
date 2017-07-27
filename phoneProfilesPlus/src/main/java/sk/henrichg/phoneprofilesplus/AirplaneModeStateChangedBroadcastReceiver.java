@@ -10,8 +10,6 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
-
         PPApplication.logE("##### AirplaneModeStateChangedBroadcastReceiver.onReceive", "xxx");
 
         if (!PPApplication.getApplicationStarted(context, true))
