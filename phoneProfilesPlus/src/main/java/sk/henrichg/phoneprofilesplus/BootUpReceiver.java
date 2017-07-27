@@ -9,41 +9,50 @@ public class BootUpReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### BootUpReceiver.onReceive", "xxx");
+        if (intent == null)
+            return;
 
-        //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
+        String action = intent.getAction();
+        if (action.equals(Intent.ACTION_BOOT_COMPLETED) ||
+                action.equals("android.intent.action.QUICKBOOT_POWERON") ||
+                action.equals("com.htc.intent.action.QUICKBOOT_POWERON")) {
 
-        // start delayed bootup broadcast
-        PPApplication.startedOnBoot = true;
-        final Handler handler = new Handler(context.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                PPApplication.logE("BootUpReceiver.onReceive", "delayed boot up");
-                PPApplication.startedOnBoot = false;
+            PPApplication.logE("##### BootUpReceiver.onReceive", "xxx");
+
+            //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
+
+            // start delayed bootup broadcast
+            PPApplication.startedOnBoot = true;
+            final Handler handler = new Handler(context.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("BootUpReceiver.onReceive", "delayed boot up");
+                    PPApplication.startedOnBoot = false;
+                }
+            }, 10000);
+
+            PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot=" + ApplicationPreferences.applicationStartOnBoot(context));
+            //PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning="+PPApplication.getGlobalEventsRuning(context));
+
+            BluetoothService.clearConnectedDevices(context, true);
+            BluetoothService.saveConnectedDevices(context);
+
+            PPApplication.setApplicationStarted(context, false);
+
+            if (ApplicationPreferences.applicationStartOnBoot(context)) {
+                PPApplication.logE("BootUpReceiver.onReceive", "PhoneProfilesService.instance=" + PhoneProfilesService.instance);
+
+                // start ReceiverService
+                Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, true);
+                context.startService(serviceIntent);
             }
-        }, 10000);
 
-        PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot="+ ApplicationPreferences.applicationStartOnBoot(context));
-        //PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning="+PPApplication.getGlobalEventsRuning(context));
+            //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- end");
 
-        BluetoothService.clearConnectedDevices(context, true);
-        BluetoothService.saveConnectedDevices(context);
-
-        PPApplication.setApplicationStarted(context, false);
-
-        if (ApplicationPreferences.applicationStartOnBoot(context))
-        {
-            PPApplication.logE("BootUpReceiver.onReceive","PhoneProfilesService.instance="+PhoneProfilesService.instance);
-
-            // start ReceiverService
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, true);
-            context.startService(serviceIntent);
         }
-
-        //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- end");
 
     }
 

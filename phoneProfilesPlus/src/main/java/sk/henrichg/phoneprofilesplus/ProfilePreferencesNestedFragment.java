@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
@@ -213,6 +214,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode);
 
                         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                        @SuppressLint("InlinedApi")
                         boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
                                 GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                         GlobalGUIRoutines.setPreferenceTitleStyle(zenModePreference, false, false, false, addS);
@@ -447,6 +449,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 summary = summary + title;
             }
             boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+            @SuppressLint("InlinedApi")
             boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
                     GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
             title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, addS);
@@ -790,6 +793,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+getResources().getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
                         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                        @SuppressLint("InlinedApi")
                         boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
                                 GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                         GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, addS);
@@ -821,6 +825,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
                         if (iRingerMode == 5) {
                             boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                            @SuppressLint("InlinedApi")
                             boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
                                     GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                             GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, addS);

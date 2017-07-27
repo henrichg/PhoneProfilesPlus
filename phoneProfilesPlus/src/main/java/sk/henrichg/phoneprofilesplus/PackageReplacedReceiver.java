@@ -10,15 +10,11 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
-
-        //int intentUid = intent.getExtras().getInt("android.intent.extra.UID");
-        //int myUid = android.os.Process.myUid();
-        //if (intentUid == myUid)
-        //{
-        Intent serviceIntent = new Intent(context.getApplicationContext(), PackageReplacedService.class);
-        WakefulIntentService.sendWakefulWork(context.getApplicationContext(), serviceIntent);
-        //}
+        if ((intent != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
+            PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
+            Intent serviceIntent = new Intent(context.getApplicationContext(), PackageReplacedService.class);
+            WakefulIntentService.sendWakefulWork(context.getApplicationContext(), serviceIntent);
+        }
     }
 
 }

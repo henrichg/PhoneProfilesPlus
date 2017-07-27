@@ -47,6 +47,7 @@ public class BrightnessDialogPreference extends
     private int defaultProfile = 0;
     private int disableDefaultProfile = 0;
 
+    @SuppressWarnings("FieldCanBeLocal")
     private int maximumValue = 100;
     private int minimumValue = 0;
     private int stepSize = 1;

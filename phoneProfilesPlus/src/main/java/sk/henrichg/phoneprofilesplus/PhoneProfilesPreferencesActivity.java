@@ -263,4 +263,11 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     public PreferenceFragment onCreateNestedPreferenceFragment() {
         return createFragment(true);
     }
+
+    // required for fix security vulnerability Fragment Injection
+    @Override
+    protected boolean isValidFragment(String fragmentName) {
+        return PhoneProfilesPreferencesFragment.class.getName().equals(fragmentName) ||
+                PhoneProfilesPreferencesNestedFragment.class.getName().equals(fragmentName);
+    }
 }

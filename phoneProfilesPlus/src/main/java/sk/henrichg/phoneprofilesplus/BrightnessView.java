@@ -5,11 +5,11 @@ import android.view.ViewGroup;
 
 public class BrightnessView extends ViewGroup {
 
-    Context context;
+    //Context context;
 
     public BrightnessView(Context context) {
         super(context);
-        this.context = context;
+        //this.context = context;
     }
 
     @Override

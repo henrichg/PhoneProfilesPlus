@@ -9,15 +9,16 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### LocaleChangedReceiver.onReceive","xxx");
+        if ((intent != null) && intent.getAction().equals(Intent.ACTION_LOCALE_CHANGED)) {
+            PPApplication.logE("##### LocaleChangedReceiver.onReceive", "xxx");
 
-        if (ApplicationPreferences.applicationLanguage(context).equals("system"))
-        {
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.stopForeground(true);
-            else {
-                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+            if (ApplicationPreferences.applicationLanguage(context).equals("system")) {
+                if (PhoneProfilesService.instance != null)
+                    PhoneProfilesService.instance.stopForeground(true);
+                else {
+                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+                }
             }
         }
     }

@@ -12,7 +12,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
     static TelephonyManager telephony;
     //The receiver will be recreated whenever android feels like it.
     //We need a static variable to remember data between instantiations
-    static PhonecallStartEndDetector listener;
+    static PhoneCallStartEndDetector listener;
     //String outgoingSavedNumber;
     protected Context savedContext;
 
@@ -27,7 +27,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
                 telephony = (TelephonyManager)savedContext.getSystemService(Context.TELEPHONY_SERVICE);
 
             if(listener == null){
-                listener = new PhonecallStartEndDetector();
+                listener = new PhoneCallStartEndDetector();
             }
 
             //We listen to two intents.  The new outgoing call only tells us of an outgoing call.  We use it to get the number.
@@ -58,14 +58,14 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
     protected abstract void onEndReceive();
 
     //Deals with actual events
-    private class PhonecallStartEndDetector {
+    private class PhoneCallStartEndDetector {
         int lastState = TelephonyManager.CALL_STATE_IDLE;
         Date callStartTime;
         boolean inCall;
         boolean isIncoming;
         String savedNumber;  //because the passed incoming is only valid in ringing
 
-        PhonecallStartEndDetector() {}
+        PhoneCallStartEndDetector() {}
 
         //The outgoing number is only sent via a separate intent, so we need to store it out of band
         void setOutgoingNumber(String number){

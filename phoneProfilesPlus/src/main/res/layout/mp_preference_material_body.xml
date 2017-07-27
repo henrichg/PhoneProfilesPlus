@@ -10,10 +10,10 @@
         android:id="@android:id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:singleLine="true"
         android:textAppearance="?attr/textAppearanceListItem"
         android:ellipsize="marquee"
-        android:textColor="?android:textColorPrimary" />
+        android:textColor="?android:textColorPrimary"
+        android:maxLines="1"/>
 
     <TextView
         android:id="@android:id/summary"
