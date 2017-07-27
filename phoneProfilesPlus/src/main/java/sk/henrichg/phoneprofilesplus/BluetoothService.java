@@ -1,13 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.app.IntentService;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.Intent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.SystemClock;
 

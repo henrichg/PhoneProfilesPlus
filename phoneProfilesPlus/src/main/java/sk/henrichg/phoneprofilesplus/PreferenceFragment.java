@@ -4,8 +4,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -18,11 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public abstract class PreferenceFragment extends android.preference.PreferenceFragment {

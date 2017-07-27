@@ -5,8 +5,6 @@ import android.bluetooth.BluetoothProfile;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences.Editor;
-import android.os.BatteryManager;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 

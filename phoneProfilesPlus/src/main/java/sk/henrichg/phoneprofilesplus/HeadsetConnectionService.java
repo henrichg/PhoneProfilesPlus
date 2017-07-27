@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.IntentService;
 import android.bluetooth.BluetoothHeadset;
 import android.bluetooth.BluetoothProfile;
 import android.content.Context;

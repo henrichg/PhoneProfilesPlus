@@ -2,10 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.content.LocalBroadcastManager;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 import com.evernote.android.job.Job;

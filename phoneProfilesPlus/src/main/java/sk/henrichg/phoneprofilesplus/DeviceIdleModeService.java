@@ -1,9 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.TargetApi;
-import android.app.IntentService;
-import android.content.Intent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.PowerManager;
 

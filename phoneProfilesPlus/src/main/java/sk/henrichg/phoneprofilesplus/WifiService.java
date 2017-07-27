@@ -1,7 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.IntentService;
-import android.app.usage.NetworkStatsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.NetworkInfo;

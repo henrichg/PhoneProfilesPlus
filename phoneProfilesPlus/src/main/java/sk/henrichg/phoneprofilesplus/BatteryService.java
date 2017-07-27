@@ -1,9 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.IntentService;
-import android.content.Intent;
 import android.content.Context;
-import android.os.BatteryManager;
+import android.content.Intent;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
