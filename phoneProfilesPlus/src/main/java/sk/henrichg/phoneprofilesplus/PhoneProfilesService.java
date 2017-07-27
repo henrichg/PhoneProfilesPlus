@@ -1035,8 +1035,10 @@ public class PhoneProfilesService extends Service
             int oldSystemRingerMode = intent.getIntExtra(EventsService.EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
             int oldZenMode = intent.getIntExtra(EventsService.EXTRA_OLD_ZEN_MODE, 0);
             String oldRingtone = intent.getStringExtra(EventsService.EXTRA_OLD_RINGTONE);
+            int oldSystemRingerVolume = intent.getIntExtra(EventsService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, -1);
             int newRingerMode = ActivateProfileHelper.getRingerMode(context);
             int newZenMode = ActivateProfileHelper.getZenMode(context);
+            int newRingerVolume = ActivateProfileHelper.getRingerVolume(context);
             String newRingtone = "";
             String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, "");
 
@@ -1082,7 +1084,8 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingerMode=" + newRingerMode);
             PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newZenMode=" + newZenMode);
             PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingtone=" + oldRingtone);
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone=" + newRingtone);
+            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldSystemRingerVolume=" + oldSystemRingerVolume);
+            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingerVolume=" + newRingerVolume);
 
             if (ActivateProfileHelper.isAudibleRinging(newRingerMode, newZenMode)) {
 
@@ -1094,7 +1097,7 @@ public class PhoneProfilesService extends Service
                 if ((android.os.Build.VERSION.SDK_INT >= 21)) {
                     if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
                             ((newRingerMode == 5) && ((newZenMode == 3) || (newZenMode == 6))))) {
-                        // actual ringer/zen mode is changed to another then NONE and ONLY_ALARMS
+                        // new ringer/zen mode is changed to another then NONE and ONLY_ALARMS
                         // Android 6 - ringerMode=4 = ONLY_ALARMS
 
                         // test old ringer and zen mode
@@ -1110,7 +1113,7 @@ public class PhoneProfilesService extends Service
                     if (!simulateRinging) {
                         if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT < 23)) ||
                                 ((newRingerMode == 5) && (newZenMode == 2)))) {
-                            // actual ringer/zen mode is changed to another then PRIORITY
+                            // new ringer/zen mode is changed to another then PRIORITY
                             // Android 5 - ringerMode=4 = PRIORITY
                             if (((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT < 23)) ||
                                     ((oldRingerMode == 5) && (oldZenMode == 2))) {
@@ -1124,6 +1127,26 @@ public class PhoneProfilesService extends Service
                                     stream = AudioManager.STREAM_RING;
                                     //stream = AudioManager.STREAM_MUSIC;
                                     PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=RING");
+                                }
+                            }
+                        }
+                    }
+
+                    if (!simulateRinging) {
+                        if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                                ((newRingerMode == 5) && ((newZenMode == 3) || (newZenMode == 6))))) {
+                            // new ringer/zen mode is changed to another then NONE and ONLY_ALARMS
+                            // Android 6 - ringerMode=4 = ONLY_ALARMS
+
+                            // test old ringer and zen mode
+                            if (!(((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                                    ((oldRingerMode == 5) && ((oldZenMode == 3) || (oldZenMode == 6))))) {
+                                // old ringer/zen mode is not NONE and ONLY_ALARMS
+
+                                if ((oldSystemRingerVolume == 0) && (newRingerVolume > 0)) {
+                                    simulateRinging = true;
+                                    stream = AudioManager.STREAM_MUSIC;
+                                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=MUSIC");
                                 }
                             }
                         }

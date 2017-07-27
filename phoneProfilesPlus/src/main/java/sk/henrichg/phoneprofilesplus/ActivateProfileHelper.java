@@ -3178,7 +3178,7 @@ public class ActivateProfileHelper {
     }
 
 
-    private static int getRingerVolume(Context context)
+    static int getRingerVolume(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getInt(PREF_RINGER_VOLUME, -999);

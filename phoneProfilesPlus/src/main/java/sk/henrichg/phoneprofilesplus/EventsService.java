@@ -28,6 +28,7 @@ public class EventsService extends WakefulIntentService {
     public static int oldZenMode;
     public static String oldRingtone;
     public static String oldNotificationTone;
+    public static int oldSystemRingerVolume;
 
     static final String EXTRA_BROADCAST_RECEIVER_TYPE = "broadcast_receiver_type";
     static final String EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED = "event_notification_posted_removed";
@@ -44,6 +45,7 @@ public class EventsService extends WakefulIntentService {
     static final String EXTRA_EVENT_RADIO_SWITCH_STATE = "event_radio_switch_state";
     static final String EXTRA_SIMULATE_NOTIFICATION_TONE = "simulate_notification_tone";
     static final String EXTRA_OLD_NOTIFICATION_TONE = "old_notification_tone";
+    static final String EXTRA_OLD_SYSTEM_RINGER_VOLUME = "old_system_ringer_volume";
 
     static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
     static final String SENSOR_TYPE_RESTART_EVENTS = "restartEvents";
@@ -127,6 +129,7 @@ public class EventsService extends WakefulIntentService {
         oldZenMode = ActivateProfileHelper.getZenMode(context);
         final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         oldSystemRingerMode = audioManager.getRingerMode();
+        oldSystemRingerVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
 
         try {
             Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
@@ -641,6 +644,7 @@ public class EventsService extends WakefulIntentService {
                 lIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
                 lIntent.putExtra(EXTRA_OLD_ZEN_MODE, oldZenMode);
                 lIntent.putExtra(EXTRA_OLD_RINGTONE, oldRingtone);
+                lIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
                 context.startService(lIntent);
             }
 
