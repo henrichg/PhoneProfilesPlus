@@ -215,17 +215,17 @@
   <string name="array_pref_value_180_degrees" formatted="false">180°</string>
   <string name="array_pref_value_270_degrees" formatted="false">270°</string>
   <string name="array_pref_value_auto_rotate">סיבוב אוטומטי</string>
-  <string name="default_profile_name">פרופיל המקור</string>
-  <string name="brightness_pref_dialog_default_profile_chb">פרופיל המקור</string>
-  <string name="preference_profile_default_profile">פרופיל המקור</string>
-  <string name="volume_pref_dialog_default_profile_chb">פרופיל המקור</string>
-  <string name="array_pref_default_profile">פרופיל המקור</string>
+  <string name="default_profile_name">פרופיל משותף</string>
+  <string name="brightness_pref_dialog_default_profile_chb">פרופיל משותף</string>
+  <string name="preference_profile_default_profile">פרופיל משותף</string>
+  <string name="volume_pref_dialog_default_profile_chb">פרופיל משותף</string>
+  <string name="array_pref_default_profile">פרופיל משותף</string>
   <string name="array_pref_change">שינוי</string>
   <string name="array_pref_no_show">לא מוצג</string>
   <string name="array_pref_show">מוצג</string>
   <string name="array_pref_no_run">ללא הפעלה</string>
   <string name="array_pref_run">הפעלה</string>
-  <string name="title_activity_default_profile_preferences">פרופיל המקור</string>
+  <string name="title_activity_default_profile_preferences">פרופיל משותף</string>
   <string name="profile_list_item_menu_activate">הפעלה</string>
   <string name="profile_list_item_menu_duplicate">שכפול</string>
   <string name="profile_list_item_menu_delete">מחיקה</string>
@@ -833,7 +833,7 @@
   <string name="editor_event_list_item_event_status">מחוון מצב אירוע</string>
   <string name="editor_event_list_item_profile_start_icon">סמל פרופיל תחילת אירוע</string>
   <string name="editor_event_list_item_profile_end_icon">סמל פרופיל סיום אירוע</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">לכל פרופיל ניתן להגדיר פרמטר שישמש פרופיל-מקור. לחצו כאן כדי להגדיר את הפרמטרים של פרופיל-המקור.</string>
+  <string name="profile_preferences_sourceProfileInfo_summary">ניתן להגדיר כל פרופיל כמשותף. לחצו כאן כדי להגדיר את מאפייני הפרופיל המשותף.</string>
   <string name="run_stop_events_indicator">הפעלה/הפסקה של מחוון הפעלת האירועים</string>
   <string name="run_stop_indicator_popup_window_important_infos">למידע נוסף ראו \"מידע חשוב\" (סמל סימן השאלה בסרגל הכלים התחתון בעורך).</string>
   <string name="important_info_how_to_show_ppp">ניתן לצפות במידע חשוב זה בעורך דרך סמל סימן השאלה בסרגל הכלים התחתון.</string>
@@ -1012,4 +1012,6 @@
   <string name="phone_profiles_pref_category_samsung_edge_panel">חלונית-קצה של סמסונג</string>
   <string name="phone_profiles_pref_applicationLanguage_zh_CN">简体中文</string>
   <string name="array_pref_value_zh_CN">zh-CN</string>
+  <string name="action_for_external_application_notification_bad_action">Unsupported action is specified.</string>
+  <string name="action_for_external_application_notification_no_action">Action is not specified.</string>
 </resources>

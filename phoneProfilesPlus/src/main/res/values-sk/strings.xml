@@ -215,17 +215,17 @@
   <string name="array_pref_value_180_degrees" formatted="false">180°</string>
   <string name="array_pref_value_270_degrees" formatted="false">270°</string>
   <string name="array_pref_value_auto_rotate">Auto. rotácia</string>
-  <string name="default_profile_name">Zdrojový profil</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Zdrojový profil</string>
-  <string name="preference_profile_default_profile">Zdrojový profil</string>
-  <string name="volume_pref_dialog_default_profile_chb">Zdrojový profil</string>
-  <string name="array_pref_default_profile">Zdrojový profil</string>
+  <string name="default_profile_name">Zdieľaný profil</string>
+  <string name="brightness_pref_dialog_default_profile_chb">Zdieľaný profil</string>
+  <string name="preference_profile_default_profile">Zdieľaný profil</string>
+  <string name="volume_pref_dialog_default_profile_chb">Zdieľaný profil</string>
+  <string name="array_pref_default_profile">Zdieľaný profil</string>
   <string name="array_pref_change">Zmeniť</string>
   <string name="array_pref_no_show">Nezobrazovať</string>
   <string name="array_pref_show">Zobrazovať</string>
   <string name="array_pref_no_run">Nespúšťať</string>
   <string name="array_pref_run">Spúšťať</string>
-  <string name="title_activity_default_profile_preferences">Zdrojový profil</string>
+  <string name="title_activity_default_profile_preferences">Zdieľaný profil</string>
   <string name="profile_list_item_menu_activate">Aktivuj</string>
   <string name="profile_list_item_menu_duplicate">Duplikuj</string>
   <string name="profile_list_item_menu_delete">Zmaž</string>
@@ -833,7 +833,7 @@
   <string name="editor_event_list_item_event_status">Indikátor stavu udalosti</string>
   <string name="editor_event_list_item_profile_start_icon">Ikona profilu začiatku udalosti</string>
   <string name="editor_event_list_item_profile_end_icon">Ikona profilu konca udalosti</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">Pre každý profil je možné nastaviť, že sa má použiť Zdrojový profil. Kliknite sem pre nakonfigurovanie parametrov Zdrojového profilu.</string>
+  <string name="profile_preferences_sourceProfileInfo_summary">Pre každý profil je možné nastaviť, že sa má použiť Zdieľaný profil. Kliknite sem pre nakonfigurovanie parametrov Zdieľaného profilu.</string>
   <string name="run_stop_events_indicator">Povoľ/zastav beh udalostí</string>
   <string name="run_stop_indicator_popup_window_important_infos">Pre viac informácií pozrite \"Dôležité informácie\" (ikona otáznika na spodnej nástrojovej lište editora).</string>
   <string name="important_info_how_to_show_ppp">Tieto dôležité informácie môžete zobraziť v Editore cez ikonu otáznika v spodnej nástrojovej lište.</string>
@@ -1009,4 +1009,6 @@
   <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung bočný panel</string>
   <string name="phone_profiles_pref_applicationLanguage_zh_CN">简体中文</string>
   <string name="array_pref_value_zh_CN">zh-CN</string>
+  <string name="action_for_external_application_notification_bad_action">Je zadaná nepodporovaná akcia.</string>
+  <string name="action_for_external_application_notification_no_action">Akcia nie je zadaná.</string>
 </resources>

@@ -215,17 +215,17 @@
   <string name="array_pref_value_180_degrees" formatted="false">180°</string>
   <string name="array_pref_value_270_degrees" formatted="false">270°</string>
   <string name="array_pref_value_auto_rotate">Autom. draaien</string>
-  <string name="default_profile_name">Basis profiel</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Basis profiel</string>
-  <string name="preference_profile_default_profile">Basis profiel</string>
-  <string name="volume_pref_dialog_default_profile_chb">Basis profiel</string>
-  <string name="array_pref_default_profile">Basis profiel</string>
+  <string name="default_profile_name">Gedeeld profiel</string>
+  <string name="brightness_pref_dialog_default_profile_chb">Gedeeld profiel</string>
+  <string name="preference_profile_default_profile">Gedeeld profiel</string>
+  <string name="volume_pref_dialog_default_profile_chb">Gedeeld profiel</string>
+  <string name="array_pref_default_profile">Gedeeld profiel</string>
   <string name="array_pref_change">Veranderen</string>
   <string name="array_pref_no_show">Niet weergeven</string>
   <string name="array_pref_show">Weergeven</string>
   <string name="array_pref_no_run">Niet uitvoeren</string>
   <string name="array_pref_run">Uitvoeren</string>
-  <string name="title_activity_default_profile_preferences">Basis profiel</string>
+  <string name="title_activity_default_profile_preferences">Gedeeld profiel</string>
   <string name="profile_list_item_menu_activate">Activeren</string>
   <string name="profile_list_item_menu_duplicate">Dupliceren</string>
   <string name="profile_list_item_menu_delete">Verwijderen</string>
@@ -833,7 +833,7 @@
   <string name="editor_event_list_item_event_status">Event status indicator</string>
   <string name="editor_event_list_item_profile_start_icon">Begin van de gebeurtenis profiel icoon</string>
   <string name="editor_event_list_item_profile_end_icon">Einde van de event profiel icoon</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">Voor elke profiel parameter kun je instellen om te gebruiken in het basis profiel. Klik hier om de basis profiel parameters te configureren.</string>
+  <string name="profile_preferences_sourceProfileInfo_summary">Voor elke profiel parameter kun je instellen om die te gebruiken in het gedeelde profiel. Klik hier om de gedeelde profielparameters te configureren.</string>
   <string name="run_stop_events_indicator">Inschakelen/stop event uitvoeren indicator</string>
   <string name="run_stop_indicator_popup_window_important_infos">Voor meer informatie kijk bij de \"Belangrijke informatie\" (vraagteken icoon in de onder werkbalk van de Editor).</string>
   <string name="important_info_how_to_show_ppp">Deze belangrijke informatie kan worden bekeken in de Editor via het vraagteken-icoon in de onder werkbalk.</string>
@@ -1009,4 +1009,6 @@
   <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung edge venster</string>
   <string name="phone_profiles_pref_applicationLanguage_zh_CN">简体中文</string>
   <string name="array_pref_value_zh_CN">zh-CN</string>
+  <string name="action_for_external_application_notification_bad_action">Niet ondersteunde actie is gespecificeerd.</string>
+  <string name="action_for_external_application_notification_no_action">Actie is niet gespecificeerd.</string>
 </resources>

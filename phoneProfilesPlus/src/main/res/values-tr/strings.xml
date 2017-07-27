@@ -215,17 +215,17 @@
   <string name="array_pref_value_180_degrees" formatted="false">180°</string>
   <string name="array_pref_value_270_degrees" formatted="false">270°</string>
   <string name="array_pref_value_auto_rotate">Otomatik döndür</string>
-  <string name="default_profile_name">Kaynak profil</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Kaynak profil</string>
-  <string name="preference_profile_default_profile">Kaynak profil</string>
-  <string name="volume_pref_dialog_default_profile_chb">Kaynak profil</string>
-  <string name="array_pref_default_profile">Kaynak profil</string>
+  <string name="default_profile_name">Paylaşılan profil</string>
+  <string name="brightness_pref_dialog_default_profile_chb">Paylaşılan profil</string>
+  <string name="preference_profile_default_profile">Paylaşılan profil</string>
+  <string name="volume_pref_dialog_default_profile_chb">Paylaşılan profil</string>
+  <string name="array_pref_default_profile">Paylaşılan profil</string>
   <string name="array_pref_change">Değiştir</string>
   <string name="array_pref_no_show">Gösterilmesin</string>
   <string name="array_pref_show">Göster</string>
   <string name="array_pref_no_run">Çalışmasın</string>
   <string name="array_pref_run">Çalştr</string>
-  <string name="title_activity_default_profile_preferences">Kaynak profil</string>
+  <string name="title_activity_default_profile_preferences">Paylaşılan profil</string>
   <string name="profile_list_item_menu_activate">Başlat</string>
   <string name="profile_list_item_menu_duplicate">Kopyasını üret</string>
   <string name="profile_list_item_menu_delete">Sil</string>
@@ -833,7 +833,7 @@
   <string name="editor_event_list_item_event_status">Durum göstergesi</string>
   <string name="editor_event_list_item_profile_start_icon">Durum profil başlatma simgesi</string>
   <string name="editor_event_list_item_profile_end_icon">Durum profil bitirme simgesi</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">Kaynak profilin kullandığı herbir profil şartı için ayarlanabilir. Kaynak profil şartlarını yapılandırmak için burayı dokunun.</string>
+  <string name="profile_preferences_sourceProfileInfo_summary">Her profil parametresi için bu kullanılan Paylaşılan profili ayarlayabilirsiniz. Paylaşılan profil parametrelerini yapılandırmak için buraya dokunun.</string>
   <string name="run_stop_events_indicator">Durumları Çalıştır/Durdur başlatma göstergesi</string>
   <string name="run_stop_indicator_popup_window_important_infos">Daha fazla malumat için \"Mühim malumat\"a bakın (Düzenleyici alt araç çubuğundaki soru işareti simgesine dokunun).</string>
   <string name="important_info_how_to_show_ppp">Bu mühim malumat, Düzenleyici üzerinde araç çubuğundaki soru işareti simgesi vasıtasıyla da görüntülenebilir.</string>
@@ -1009,4 +1009,6 @@
   <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung kenar paneli</string>
   <string name="phone_profiles_pref_applicationLanguage_zh_CN">简体中文</string>
   <string name="array_pref_value_zh_CN">zh-CN</string>
+  <string name="action_for_external_application_notification_bad_action">Desteklenmeyen olay belirtilir.</string>
+  <string name="action_for_external_application_notification_no_action">Olay belirtilmedi.</string>
 </resources>

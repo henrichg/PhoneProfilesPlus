@@ -215,17 +215,17 @@
   <string name="array_pref_value_180_degrees" formatted="false">180°</string>
   <string name="array_pref_value_270_degrees" formatted="false">270°</string>
   <string name="array_pref_value_auto_rotate">Auto. forgatás</string>
-  <string name="default_profile_name">Eredeti profil</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Eredeti profil</string>
-  <string name="preference_profile_default_profile">Eredeti profil</string>
-  <string name="volume_pref_dialog_default_profile_chb">Eredeti profil</string>
-  <string name="array_pref_default_profile">Eredeti profil</string>
+  <string name="default_profile_name">Profil megosztása</string>
+  <string name="brightness_pref_dialog_default_profile_chb">Profil megosztása</string>
+  <string name="preference_profile_default_profile">Profil megosztása</string>
+  <string name="volume_pref_dialog_default_profile_chb">Profil megosztása</string>
+  <string name="array_pref_default_profile">Profil megosztása</string>
   <string name="array_pref_change">Változtatás</string>
   <string name="array_pref_no_show">Ne jelenjen meg</string>
   <string name="array_pref_show">Megjelenít</string>
   <string name="array_pref_no_run">Ne fuss</string>
   <string name="array_pref_run">Fut</string>
-  <string name="title_activity_default_profile_preferences">Eredeti profil</string>
+  <string name="title_activity_default_profile_preferences">Profil megosztása</string>
   <string name="profile_list_item_menu_activate">Aktiválás</string>
   <string name="profile_list_item_menu_duplicate">Duplikálás</string>
   <string name="profile_list_item_menu_delete">Törlés</string>
@@ -833,7 +833,7 @@
   <string name="editor_event_list_item_event_status">Esemény állapot visszajelző</string>
   <string name="editor_event_list_item_profile_start_icon">Esemény kezdés ikon</string>
   <string name="editor_event_list_item_profile_end_icon">Esemény végződés ikon</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">Minden profil paraméter beállítható, a Forrás profil használatával. Kattints ide a Forrás profil paramétereinek beállításához.</string>
+  <string name="profile_preferences_sourceProfileInfo_summary">For each profile parameter can be set that it is used Shared profile. Click here to configure the Shared profile parameters.</string>
   <string name="run_stop_events_indicator">Endegélyezet/álló esemény futási visszajelzését</string>
   <string name="run_stop_indicator_popup_window_important_infos">További információért tekintse meg \"Fontos információk\" (kérdőjel ikon szerkesztő alsó eszköztár).</string>
   <string name="important_info_how_to_show_ppp">Fontos információ megtekinthető a szerkesztőn keresztül, ha a kérdőjel ikonra kattintasz az eszköztáron.</string>
@@ -1009,4 +1009,6 @@
   <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung edge panel</string>
   <string name="phone_profiles_pref_applicationLanguage_zh_CN">简体中文</string>
   <string name="array_pref_value_zh_CN">zh-CN</string>
+  <string name="action_for_external_application_notification_bad_action">Unsupported action is specified.</string>
+  <string name="action_for_external_application_notification_no_action">Action is not specified.</string>
 </resources>

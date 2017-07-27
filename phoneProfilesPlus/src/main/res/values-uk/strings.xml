@@ -215,17 +215,17 @@
   <string name="array_pref_value_180_degrees" formatted="false">180°</string>
   <string name="array_pref_value_270_degrees" formatted="false">270°</string>
   <string name="array_pref_value_auto_rotate">Автоповорот</string>
-  <string name="default_profile_name">Вихідний профіль</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Вихідний профіль</string>
-  <string name="preference_profile_default_profile">Вихідний профіль</string>
-  <string name="volume_pref_dialog_default_profile_chb">Вихідний профіль</string>
-  <string name="array_pref_default_profile">Вихідний профіль</string>
+  <string name="default_profile_name">Shared profile</string>
+  <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string>
+  <string name="preference_profile_default_profile">Shared profile</string>
+  <string name="volume_pref_dialog_default_profile_chb">Shared profile</string>
+  <string name="array_pref_default_profile">Shared profile</string>
   <string name="array_pref_change">Змінити</string>
   <string name="array_pref_no_show">Не показувати</string>
   <string name="array_pref_show">Показати</string>
   <string name="array_pref_no_run">Не запускати</string>
   <string name="array_pref_run">Запускати</string>
-  <string name="title_activity_default_profile_preferences">Вихідний профіль</string>
+  <string name="title_activity_default_profile_preferences">Shared profile</string>
   <string name="profile_list_item_menu_activate">Активувати</string>
   <string name="profile_list_item_menu_duplicate">Створити копію</string>
   <string name="profile_list_item_menu_delete">Видалити</string>
@@ -833,7 +833,7 @@
   <string name="editor_event_list_item_event_status">Індикатор стану події</string>
   <string name="editor_event_list_item_profile_start_icon">Знак початку події</string>
   <string name="editor_event_list_item_profile_end_icon">Знак завершення події</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">Для кожного параметра профіля Ви можете вказати, що він має бути таким же, як у Вихідному профілі. Натисніть тут, щоб налаштувати параметри Вихідного профіля.</string>
+  <string name="profile_preferences_sourceProfileInfo_summary">For each profile parameter can be set that it is used Shared profile. Click here to configure the Shared profile parameters.</string>
   <string name="run_stop_events_indicator">Увімкнути/зупинити індикатор запуску подій</string>
   <string name="run_stop_indicator_popup_window_important_infos">Для отримання додаткової інформації перейдіть у розділ «Важлива інформація» (знак питання в нижній панелі редактора).</string>
   <string name="important_info_how_to_show_ppp">Це важлива інформація може бути переглянута в Редакторі при натисненні на знак питання в нижній панелі інструментів.</string>
@@ -1009,4 +1009,6 @@
   <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung edge panel</string>
   <string name="phone_profiles_pref_applicationLanguage_zh_CN">简体中文</string>
   <string name="array_pref_value_zh_CN">zh-CN</string>
+  <string name="action_for_external_application_notification_bad_action">Unsupported action is specified.</string>
+  <string name="action_for_external_application_notification_no_action">Action is not specified.</string>
 </resources>

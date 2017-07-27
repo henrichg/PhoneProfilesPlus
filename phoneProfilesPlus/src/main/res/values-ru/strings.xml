@@ -215,17 +215,17 @@
   <string name="array_pref_value_180_degrees" formatted="false">180°</string>
   <string name="array_pref_value_270_degrees" formatted="false">270°</string>
   <string name="array_pref_value_auto_rotate">Автоповорот</string>
-  <string name="default_profile_name">Исходный профиль</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Исходный профиль</string>
-  <string name="preference_profile_default_profile">Исходный профиль</string>
-  <string name="volume_pref_dialog_default_profile_chb">Исходный профиль</string>
-  <string name="array_pref_default_profile">Исходный профиль</string>
+  <string name="default_profile_name">Shared profile</string>
+  <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string>
+  <string name="preference_profile_default_profile">Shared profile</string>
+  <string name="volume_pref_dialog_default_profile_chb">Shared profile</string>
+  <string name="array_pref_default_profile">Shared profile</string>
   <string name="array_pref_change">Изменить</string>
   <string name="array_pref_no_show">Не показывать</string>
   <string name="array_pref_show">Показывать</string>
   <string name="array_pref_no_run">Не запускать</string>
   <string name="array_pref_run">Запускать</string>
-  <string name="title_activity_default_profile_preferences">Исходный профиль</string>
+  <string name="title_activity_default_profile_preferences">Shared profile</string>
   <string name="profile_list_item_menu_activate">Активировать</string>
   <string name="profile_list_item_menu_duplicate">Создать копию</string>
   <string name="profile_list_item_menu_delete">Удалить</string>
@@ -834,7 +834,7 @@
   <string name="editor_event_list_item_event_status">Индикатор состояния события</string>
   <string name="editor_event_list_item_profile_start_icon">Значок начала события</string>
   <string name="editor_event_list_item_profile_end_icon">Значок окончания события</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">Для каждого параметра профиля Вы можете указать, что он должен быть таким же, как в Исходном профиле. Нажмите здесь, чтобы настроить параметры Исходного профиля.</string>
+  <string name="profile_preferences_sourceProfileInfo_summary">For each profile parameter can be set that it is used Shared profile. Click here to configure the Shared profile parameters.</string>
   <string name="run_stop_events_indicator">Включить/остановить индикатор запуска событий</string>
   <string name="run_stop_indicator_popup_window_important_infos">Для получения дополнительной информации перейдите в раздел «Важная информация» (вопросительный знак в нижней панели редактора).</string>
   <string name="important_info_how_to_show_ppp">Эта важная информация может быть просмотрена в Редакторе при нажатии на вопросительный знак в нижней панели инструментов.</string>
@@ -1001,7 +1001,7 @@
   <string name="action_for_external_application_notification_no_event_text">Параметр event_name отсутствует или является пустым.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">Включить (игнорировать точку доступа)</string>
   <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Переключить (игнорировать точку доступа)</string>
-  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Volume merge detection</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Обнаружение объёмного слияния</string>
   <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">В Вашем устройстве не объединены мелодии звонка и уведомлений.</string>
   <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
   <string name="array_pref_value_el">el</string>
@@ -1010,4 +1010,6 @@
   <string name="phone_profiles_pref_category_samsung_edge_panel">Панель Samsung</string>
   <string name="phone_profiles_pref_applicationLanguage_zh_CN">简体中文</string>
   <string name="array_pref_value_zh_CN">zh-CN</string>
+  <string name="action_for_external_application_notification_bad_action">Unsupported action is specified.</string>
+  <string name="action_for_external_application_notification_no_action">Action is not specified.</string>
 </resources>
