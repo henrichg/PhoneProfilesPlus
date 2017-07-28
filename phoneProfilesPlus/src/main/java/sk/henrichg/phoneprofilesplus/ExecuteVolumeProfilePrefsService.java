@@ -45,7 +45,7 @@ public class ExecuteVolumeProfilePrefsService extends WakefulIntentService
 
         long profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
         boolean merged = intent.getBooleanExtra(ActivateProfileHelper.EXTRA_MERGED_PROFILE, false);
-        boolean startedFromBroadcast = intent.getBooleanExtra(ActivateProfileHelper.EXTRA_STARTED_FROM_BROADCAST, true);
+        //boolean startedFromBroadcast = intent.getBooleanExtra(ActivateProfileHelper.EXTRA_STARTED_FROM_BROADCAST, true);
         Profile profile = dataWrapper.getProfileById(profile_id, merged);
         profile = Profile.getMappedProfile(profile, context);
 

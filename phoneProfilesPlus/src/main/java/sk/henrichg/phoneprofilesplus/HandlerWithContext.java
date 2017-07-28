@@ -13,7 +13,7 @@ class HandlerWithContext extends Handler {
 
     HandlerWithContext (Looper looper, Context context) {
         super(looper);
-        mContext = new WeakReference<Context>(context);
+        mContext = new WeakReference<>(context);
     }
 
     public Context getContext() {

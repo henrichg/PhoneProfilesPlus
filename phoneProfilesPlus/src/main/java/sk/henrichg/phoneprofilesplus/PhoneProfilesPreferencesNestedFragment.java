@@ -137,7 +137,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     @SuppressLint("InlinedApi")
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        boolean activityExists = false;
+                        boolean activityExists;
                         Intent intent;
                         if (Build.VERSION.SDK_INT == 21) {
                             intent = new Intent();

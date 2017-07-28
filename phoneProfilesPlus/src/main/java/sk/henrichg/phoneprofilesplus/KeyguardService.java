@@ -57,7 +57,7 @@ public class KeyguardService extends Service {
             isScreenOn = pm.isScreenOn();
         //}
 
-        boolean secureKeyguard = false;
+        boolean secureKeyguard;
         secureKeyguard = keyguardManager.isKeyguardSecure();
         PPApplication.logE("$$$ KeyguardService.onStartCommand","secureKeyguard="+secureKeyguard);
         if (!secureKeyguard)

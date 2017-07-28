@@ -525,7 +525,7 @@ public class MobileCellsPreference extends DialogPreference {
             //Log.d("MobileCellsPreference.PhoneStateChangedBroadcastReceiver", "xxx");
             if ((preference.mDialog != null) && preference.mDialog.isShowing()) {
                 // save new registered cell
-                List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();
+                List<MobileCellsData> localCellsList = new ArrayList<>();
                 if (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE)
                     localCellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
                             preference.cellName.getText().toString(), true, false,

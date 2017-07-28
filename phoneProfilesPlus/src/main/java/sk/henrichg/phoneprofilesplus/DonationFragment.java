@@ -160,6 +160,7 @@ public class DonationFragment extends Fragment {
                 //setWaitScreen(false);
                 return;
             }
+            //noinspection ConstantConditions
             if (!verifyDeveloperPayload(purchase)) {
                 Log.e(TAG, "Error purchasing. Authenticity verification failed.");
                 //setWaitScreen(false);

@@ -22,7 +22,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### SMSBroadcastReceiver.onReceive", "xxx");
 
-        Context appContext = context.getApplicationContext();
+        //Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started

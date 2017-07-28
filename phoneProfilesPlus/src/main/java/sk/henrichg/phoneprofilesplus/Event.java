@@ -1134,6 +1134,7 @@ class Event {
         boolean profileActivated = false;
         Profile activatedProfile = dataWrapper.getActivatedProfile();
         // activate profile only when profile not already activated
+        //noinspection ConstantConditions
         if (activateReturnProfile && canActivateReturnProfile())
         {
             long activatedProfileId = 0;

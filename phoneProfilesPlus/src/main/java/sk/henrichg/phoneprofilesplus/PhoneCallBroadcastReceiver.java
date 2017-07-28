@@ -38,37 +38,37 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         WakefulIntentService.sendWakefulWork(savedContext, intent);
     }
 
-    protected void onIncomingCallStarted(String number, Date start)
+    protected void onIncomingCallStarted(String number/*, Date start*/)
     {
         startService(SERVICE_PHONE_EVENT_START, true, number);
     }
 
-    protected void onOutgoingCallStarted(String number, Date start)
+    protected void onOutgoingCallStarted(String number/*, Date start*/)
     {
         startService(SERVICE_PHONE_EVENT_START, false, number);
     }
     
-    protected void onIncomingCallAnswered(String number, Date start)
+    protected void onIncomingCallAnswered(String number/*, Date start*/)
     {
         startService(SERVICE_PHONE_EVENT_ANSWER, true, number);
     }
 
-    protected void onOutgoingCallAnswered(String number, Date start)
+    protected void onOutgoingCallAnswered(String number/*, Date start*/)
     {
         startService(SERVICE_PHONE_EVENT_ANSWER, false, number);
     }
     
-    protected void onIncomingCallEnded(String number, Date start, Date end)
+    protected void onIncomingCallEnded(String number/*, Date start, Date end*/)
     {
         startService(SERVICE_PHONE_EVENT_END, true, number);
     }
 
-    protected void onOutgoingCallEnded(String number, Date start, Date end)
+    protected void onOutgoingCallEnded(String number/*, Date start, Date end*/)
     {
         startService(SERVICE_PHONE_EVENT_END, false, number);
     }
 
-    protected void onMissedCall(String number, Date start)
+    protected void onMissedCall(String number/*, Date start*/)
     {
         startService(SERVICE_PHONE_EVENT_END, true, number);
     }

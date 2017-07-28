@@ -529,7 +529,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
+        //MenuInflater inflater = getMenuInflater();
         //inflater.inflate(R.menu.activity_editor_profiles, menu);
         editorToolbar.inflateMenu(R.menu.activity_editor_profiles);
         return true;

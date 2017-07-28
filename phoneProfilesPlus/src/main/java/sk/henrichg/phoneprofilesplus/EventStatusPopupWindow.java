@@ -22,6 +22,7 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    //noinspection ConstantConditions
                     if (_fragment != null) {
                         _fragment.runStopEvent(_event);
                     }

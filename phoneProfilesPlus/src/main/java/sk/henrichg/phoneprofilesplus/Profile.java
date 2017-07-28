@@ -1620,7 +1620,7 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
         {
-            boolean mobileDataSupported = false;
+            boolean mobileDataSupported;
             if (!context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
                 ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
@@ -1887,7 +1887,7 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD))
         {
-            boolean secureKeyguard = false;
+            boolean secureKeyguard;
             KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Activity.KEYGUARD_SERVICE);
             secureKeyguard = keyguardManager.isKeyguardSecure();
             if (secureKeyguard) {

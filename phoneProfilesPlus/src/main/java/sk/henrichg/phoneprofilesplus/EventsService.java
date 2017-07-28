@@ -171,7 +171,7 @@ public class EventsService extends WakefulIntentService {
         if (!Event.getGlobalEventsRuning(context)) {
             // events are globally stopped
 
-            doEndService(intent);
+            doEndService(/*intent*/);
             dataWrapper.invalidateDataWrapper();
 
             return;
@@ -188,7 +188,7 @@ public class EventsService extends WakefulIntentService {
         if (!eventsExists(broadcastReceiverType)) {
             // events not exists
 
-            doEndService(intent);
+            doEndService(/*intent*/);
             dataWrapper.invalidateDataWrapper();
 
             PPApplication.logE("@@@ EventsService.onHandleIntent", "-- end: not events found --------------------------------");
@@ -352,6 +352,7 @@ public class EventsService extends WakefulIntentService {
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len pauzuj eventy
                     // pauzuj len ak este nie je zapauznuty
+                    //noinspection ConstantConditions
                     dataWrapper.doEventService(_event, true, false, interactive, forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile, broadcastReceiverType);
             }
             //2. start events
@@ -366,6 +367,7 @@ public class EventsService extends WakefulIntentService {
                     // len spustaj eventy
                     // spustaj len ak este nebezi - musi to takto byt, lebo inac to bude furt menit veci v mobile
                     // napr. ked hlasitosti zmenene manualne tlacitkami.
+                    //noinspection ConstantConditions
                     dataWrapper.doEventService(_event, false, false, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, broadcastReceiverType);
             }
         }
@@ -476,7 +478,7 @@ public class EventsService extends WakefulIntentService {
 
         //restartAtEndOfEvent = false;
 
-        doEndService(intent);
+        doEndService(/*intent*/);
 
         // refresh GUI
         /*Intent refreshIntent = new Intent();
@@ -598,7 +600,7 @@ public class EventsService extends WakefulIntentService {
             return true;
     }
 
-    private void doEndService(Intent intent) {
+    private void doEndService(/*Intent intent*/) {
         PPApplication.logE("EventsService.doEndService","broadcastReceiverType="+broadcastReceiverType);
         PPApplication.logE("EventsService.doEndService","callEventType="+callEventType);
 

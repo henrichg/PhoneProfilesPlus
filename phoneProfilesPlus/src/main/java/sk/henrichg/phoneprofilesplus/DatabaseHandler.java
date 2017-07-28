@@ -7802,7 +7802,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 ret = 0;
-                Log.e("DatabaseHandler.disableNotAllowedPreferences", e.getStackTrace().toString());
+                Log.e("DatabaseHandler.disableNotAllowedPreferences", e.toString());
             } finally {
                 db.endTransaction();
                 profilesCursor.close();

@@ -479,7 +479,7 @@ public class ActivateProfileHelper {
                  ));
     }
 
-    private boolean isVibrateRingerMode(int ringerMode, int zenMode) {
+    private boolean isVibrateRingerMode(int ringerMode/*, int zenMode*/) {
         return (ringerMode == 3);
 
     }
@@ -954,7 +954,7 @@ public class ActivateProfileHelper {
                 profile.setVolumeRingtoneValue(1);
 
                 // for profile ringer/zen mode = "only vibrate" do not change ringer mode to Silent
-                if (!isVibrateRingerMode(profile._volumeRingerMode, profile._volumeZenMode)) {
+                if (!isVibrateRingerMode(profile._volumeRingerMode/*, profile._volumeZenMode*/)) {
                     // for ringer mode VIBRATE or SILENT or
                     // for interruption types NONE and ONLY_ALARMS
                     // not change ringer mode
@@ -1046,7 +1046,7 @@ public class ActivateProfileHelper {
     }
 
     @SuppressWarnings("deprecation")
-    static boolean vibrationIsOn(Context context, AudioManager audioManager, boolean testRingerMode) {
+    static boolean vibrationIsOn(/*Context context, */AudioManager audioManager, boolean testRingerMode) {
         int ringerMode = -999;
         if (testRingerMode)
             ringerMode = audioManager.getRingerMode();
@@ -2887,11 +2887,11 @@ public class ActivateProfileHelper {
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     String[] list = provider.split(",");
                     int j = 0;
-                    for (int i = 0; i < list.length; i++) {
-                        if (!list[i].equals(LocationManager.GPS_PROVIDER)) {
+                    for (String aList : list) {
+                        if (!aList.equals(LocationManager.GPS_PROVIDER)) {
                             if (j > 0)
                                 newSet += ",";
-                            newSet += list[i];
+                            newSet += aList;
                             j++;
                         }
                     }
