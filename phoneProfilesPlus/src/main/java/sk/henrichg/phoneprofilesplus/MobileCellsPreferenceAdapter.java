@@ -44,7 +44,7 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
           TextView lastConnectedTime;
           CheckBox checkBox;
           ImageView itemEditMenu;
-          int position;
+          //int position;
         }
 
     public View getView(final int position, View convertView, ViewGroup parent)

@@ -64,7 +64,7 @@ class AddEventAdapter extends BaseAdapter {
         ImageView profileEndIcon;
         TextView profileEndName;
         ImageView profileEndIndicator;
-        int position;
+        //int position;
     }
 
     public View getView(int position, View convertView, ViewGroup parent)

@@ -29,7 +29,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     private final OnStartDragItemListener mDragStartListener;
 
-    private boolean targetHelpsSequenceStarted;
+    //private boolean targetHelpsSequenceStarted;
     static final String PREF_START_TARGET_HELPS = "editor_event_list_adapter_start_target_helps";
     static final String PREF_START_TARGET_HELPS_ORDER = "editor_event_list_adapter_start_target_helps_order";
 
@@ -206,11 +206,13 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         return -1;
     }
 
+    /*
     public void setList(List<Event> el)
     {
         eventList = el;
         notifyDataSetChanged();
     }
+    */
 
     void addItem(Event event, boolean refresh)
     {
@@ -358,7 +360,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     // to the sequence
                     @Override
                     public void onSequenceFinish() {
-                        targetHelpsSequenceStarted = false;
+                        //targetHelpsSequenceStarted = false;
                     }
 
                     @Override
@@ -368,12 +370,12 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
-                        targetHelpsSequenceStarted = false;
+                        //targetHelpsSequenceStarted = false;
                     }
                 });
                 sequence.continueOnCancel(true)
                         .considerOuterCircleCanceled(true);
-                targetHelpsSequenceStarted = true;
+                //targetHelpsSequenceStarted = true;
                 sequence.start();
             }
             else
@@ -397,7 +399,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                         // to the sequence
                         @Override
                         public void onSequenceFinish() {
-                            targetHelpsSequenceStarted = false;
+                            //targetHelpsSequenceStarted = false;
                         }
 
                         @Override
@@ -407,12 +409,12 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
                         @Override
                         public void onSequenceCanceled(TapTarget lastTarget) {
-                            targetHelpsSequenceStarted = false;
+                            //targetHelpsSequenceStarted = false;
                         }
                     });
                     sequence.continueOnCancel(true)
                             .considerOuterCircleCanceled(true);
-                    targetHelpsSequenceStarted = true;
+                    //targetHelpsSequenceStarted = true;
                     sequence.start();
                 }
             }

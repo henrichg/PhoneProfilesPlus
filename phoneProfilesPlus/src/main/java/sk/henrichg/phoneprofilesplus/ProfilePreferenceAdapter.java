@@ -69,7 +69,7 @@ class ProfilePreferenceAdapter extends BaseAdapter {
         TextView profileLabel;
         ImageView profileIndicator;
         RadioButton radioBtn;
-        int position;
+        //int position;
     }
 
     public View getView(int position, View convertView, ViewGroup parent)

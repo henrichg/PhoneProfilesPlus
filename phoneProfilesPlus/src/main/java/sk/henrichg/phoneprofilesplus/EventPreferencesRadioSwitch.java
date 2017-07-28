@@ -269,6 +269,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         return true;
     }
 
+    /*
     @Override
     public void setSystemEventForStart(Context context)
     {
@@ -283,5 +284,5 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     public void removeSystemEvent(Context context)
     {
     }
-
+    */
 }

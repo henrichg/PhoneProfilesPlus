@@ -31,13 +31,11 @@ public class EventPreferencesActivity extends PreferenceActivity
     private int newEventMode = EditorEventListFragment.EDIT_MODE_UNDEFINED;
     private int predefinedEventIndex = 0;
 
-    private EventPreferencesNestedFragment fragment;
-
     private int resultCode = RESULT_CANCELED;
 
     public static boolean showSaveMenu = false;
 
-    private boolean targetHelpsSequenceStarted;
+    //private boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
 
     @SuppressLint("InlinedApi")
@@ -83,7 +81,7 @@ public class EventPreferencesActivity extends PreferenceActivity
         newEventMode = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
         predefinedEventIndex = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
-        fragment = createFragment(false);
+        EventPreferencesNestedFragment fragment = createFragment(false);
 
         if (savedInstanceState == null)
             loadPreferences(newEventMode, predefinedEventIndex);
@@ -108,12 +106,6 @@ public class EventPreferencesActivity extends PreferenceActivity
         fragment.setArguments(arguments);
 
         return fragment;
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
     }
 
     @Override
@@ -381,7 +373,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                 // to the sequence
                 @Override
                 public void onSequenceFinish() {
-                    targetHelpsSequenceStarted = false;
+                    //targetHelpsSequenceStarted = false;
                 }
 
                 @Override
@@ -391,12 +383,12 @@ public class EventPreferencesActivity extends PreferenceActivity
 
                 @Override
                 public void onSequenceCanceled(TapTarget lastTarget) {
-                    targetHelpsSequenceStarted = false;
+                    //targetHelpsSequenceStarted = false;
                 }
             });
             sequence.continueOnCancel(true)
                     .considerOuterCircleCanceled(true);
-            targetHelpsSequenceStarted = true;
+            //targetHelpsSequenceStarted = true;
             sequence.start();
         }
     }

@@ -116,12 +116,6 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     }
 
     @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-    }
-
-    @Override
     public void finish() {
         // for startActivityForResult
         Intent returnIntent = new Intent();

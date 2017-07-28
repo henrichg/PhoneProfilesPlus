@@ -299,9 +299,11 @@ public class MobileCellsPreference extends DialogPreference {
         
     }    
 
+    /*
     public String getCells() {
         return value;
     }
+    */
 
     void addCellId(int cellId) {
         String[] splits = value.split("\\|");

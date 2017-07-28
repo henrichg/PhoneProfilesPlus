@@ -73,12 +73,6 @@ public class DonationActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart()
-    {
-        super.onStart();
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {

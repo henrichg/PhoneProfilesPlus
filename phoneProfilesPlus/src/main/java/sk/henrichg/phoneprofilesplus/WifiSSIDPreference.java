@@ -303,10 +303,12 @@ public class WifiSSIDPreference extends DialogPreference {
         }
     }
 
+    /*
     public String getSSIDs()
     {
         return value;
     }
+    */
 
     void addSSID(String ssid) {
         String[] splits = value.split("\\|");

@@ -126,18 +126,6 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     }
 
     @Override
-    protected void onStart()
-    {
-        super.onStart();
-    }
-
-    @Override
-    protected void onPause()
-    {
-        super.onPause();
-    }
-
-    @Override
     protected void onStop()
     {
         super.onStop();
@@ -154,12 +142,6 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
             }
         }, 500);
         dataWrapper.getActivateProfileHelper().updateWidget(true);
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
     }
 
     @Override

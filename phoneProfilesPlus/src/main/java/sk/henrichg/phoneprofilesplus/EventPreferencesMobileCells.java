@@ -157,10 +157,11 @@ class EventPreferencesMobileCells extends EventPreferences {
         return runable;
     }
 
+    /*
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
     }
-
+    */
     @Override
     public boolean activateReturnProfile()
     {
@@ -177,6 +178,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         }
     }
 
+    /*
     @Override
     public void setSystemEventForPause(Context context)
     {
@@ -186,5 +188,5 @@ class EventPreferencesMobileCells extends EventPreferences {
     public void removeSystemEvent(Context context)
     {
     }
-
+    */
 }

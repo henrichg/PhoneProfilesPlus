@@ -45,7 +45,7 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
         TextView bluetoothName;
         CheckBox checkBox;
         ImageView itemEditMenu;
-        int position;
+        //int position;
     }
 
     @SuppressLint("SetTextI18n")

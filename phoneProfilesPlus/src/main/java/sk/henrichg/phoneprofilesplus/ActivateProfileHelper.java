@@ -101,7 +101,7 @@ public class ActivateProfileHelper {
     private static final String PREF_RINGER_MODE = "ringer_mode";
     private static final String PREF_ZEN_MODE = "zen_mode";
     private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
-    private static final String PREF_SCREEN_UNLOCKED = "screen_unlocked";
+    //private static final String PREF_SCREEN_UNLOCKED = "screen_unlocked";
     private static final String PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT = "activated_profile_screen_timeout";
     static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
 

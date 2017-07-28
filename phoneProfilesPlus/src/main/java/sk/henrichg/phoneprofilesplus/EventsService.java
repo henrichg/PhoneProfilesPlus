@@ -20,14 +20,13 @@ public class EventsService extends WakefulIntentService {
     private String broadcastReceiverType;
 
     //public static boolean restartAtEndOfEvent = false;
-    private static boolean eventsProcessed;
 
     private int callEventType;
     private static int oldRingerMode;
     private static int oldSystemRingerMode;
     private static int oldZenMode;
     private static String oldRingtone;
-    private static String oldNotificationTone;
+    //private static String oldNotificationTone;
     private static int oldSystemRingerVolume;
 
     static final String EXTRA_BROADCAST_RECEIVER_TYPE = "broadcast_receiver_type";
@@ -43,8 +42,8 @@ public class EventsService extends WakefulIntentService {
     static final String EXTRA_EVENT_NFC_TAG_NAME = "event_nfc_tag_name";
     static final String EXTRA_EVENT_RADIO_SWITCH_TYPE = "event_radio_switch_type";
     static final String EXTRA_EVENT_RADIO_SWITCH_STATE = "event_radio_switch_state";
-    static final String EXTRA_SIMULATE_NOTIFICATION_TONE = "simulate_notification_tone";
-    static final String EXTRA_OLD_NOTIFICATION_TONE = "old_notification_tone";
+    //static final String EXTRA_SIMULATE_NOTIFICATION_TONE = "simulate_notification_tone";
+    //static final String EXTRA_OLD_NOTIFICATION_TONE = "old_notification_tone";
     static final String EXTRA_OLD_SYSTEM_RINGER_VOLUME = "old_system_ringer_volume";
 
     static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
@@ -142,6 +141,7 @@ public class EventsService extends WakefulIntentService {
             oldRingtone = "";
         }
 
+        /*
         try {
             Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION);
             if (uri != null)
@@ -154,6 +154,7 @@ public class EventsService extends WakefulIntentService {
         } catch (Exception e) {
             oldNotificationTone = "";
         }
+        */
 
         if (PhoneProfilesService.instance != null) {
             // start of GeofenceScanner
@@ -474,7 +475,6 @@ public class EventsService extends WakefulIntentService {
         //}
 
         //restartAtEndOfEvent = false;
-        eventsProcessed = true;
 
         doEndService(intent);
 

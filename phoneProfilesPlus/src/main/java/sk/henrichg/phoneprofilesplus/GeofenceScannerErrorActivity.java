@@ -28,12 +28,6 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GeofencesScanner.REQUEST_RESOLVE_ERROR) {
             if (PhoneProfilesService.instance != null) {

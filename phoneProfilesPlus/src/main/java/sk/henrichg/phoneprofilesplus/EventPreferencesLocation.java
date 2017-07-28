@@ -209,6 +209,7 @@ class EventPreferencesLocation extends EventPreferences {
         }
     }
 
+    /*
     @Override
     public void setSystemEventForPause(Context context)
     {
@@ -218,7 +219,7 @@ class EventPreferencesLocation extends EventPreferences {
     public void removeSystemEvent(Context context)
     {
     }
-
+    */
     private String getGeofenceName(long geofenceId, Context context) {
         if (dataWrapper == null)
             dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);

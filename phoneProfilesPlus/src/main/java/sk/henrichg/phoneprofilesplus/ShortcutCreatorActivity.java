@@ -89,12 +89,6 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart()
-    {
-        super.onStart();
-    }
-
-    @Override
     protected void onDestroy()
     {
     //	Debug.stopMethodTracing();

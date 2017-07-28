@@ -37,10 +37,12 @@ class SettingsContentObserver  extends ContentObserver {
         //previousVolumeVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
     }
 
+    /*
     @Override
     public boolean deliverSelfNotifications() {
         return super.deliverSelfNotifications();
     }
+    */
 
     private int volumeChangeDetect(int volumeStream, int previousVolume, AudioManager audioManager) {
 

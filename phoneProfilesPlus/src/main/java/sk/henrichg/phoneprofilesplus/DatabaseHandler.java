@@ -2392,7 +2392,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Updating single profile
-    int updateProfile(Profile profile) {
+    void updateProfile(Profile profile) {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
             SQLiteDatabase db = getMyWritableDatabase();
@@ -2453,11 +2453,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING, profile._applicationDisableBluetoothScanning);
 
             // updating row
-            return db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                     new String[]{String.valueOf(profile._id)});
             //db.close();
-
-            //return r;
         }
     }
 
@@ -2855,6 +2853,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    /*
     void setChecked(List<Profile> list)
     {
         synchronized (databaseHandlerMutex) {
@@ -2883,6 +2882,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             //db.close();
         }
     }
+    */
 
     /*
     public int getActiveProfileSpeakerphone()
@@ -3263,7 +3263,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Updating single event
-    int updateEvent(Event event) {
+    void updateEvent(Event event) {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
             SQLiteDatabase db = getMyWritableDatabase();
@@ -3289,13 +3289,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_E_START_STATUS_TIME, event._startStatusTime);
             values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating row
-                r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[]{String.valueOf(event._id)});
                 updateEventPreferences(event, db);
 
@@ -3304,14 +3302,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.updateEvent", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 
@@ -3994,45 +3989,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     */
 
-    private int updateEventPreferences(Event event, SQLiteDatabase db) {
-        int r;
+    private void updateEventPreferences(Event event, SQLiteDatabase db) {
 
-        r = updateEventPreferencesTime(event, db);
-        if (r != 0)
-            r = updateEventPreferencesBattery(event, db);
-        if (r != 0)
-            r = updateEventPreferencesCall(event, db);
-        if (r != 0)
-            r = updateEventPreferencesPeripheral(event, db);
-        if (r != 0)
-            r = updateEventPreferencesCalendar(event, db);
-        if (r != 0)
-            r = updateEventPreferencesWifi(event, db);
-        if (r != 0)
-            r = updateEventPreferencesScreen(event, db);
-        if (r != 0)
-            r = updateEventPreferencesBluetooth(event, db);
-        if (r != 0)
-            r = updateEventPreferencesSMS(event, db);
-        if (r != 0)
-            r = updateEventPreferencesNotification(event, db);
-        if (r != 0)
-            r = updateEventPreferencesApplication(event, db);
-        if (r != 0)
-            r = updateEventPreferencesLocation(event, db);
-        if (r != 0)
-            r = updateEventPreferencesOrientation(event, db);
-        if (r != 0)
-            r = updateEventPreferencesMobileCells(event, db);
-        if (r != 0)
-            r = updateEventPreferencesNFC(event, db);
-        if (r != 0)
-            r = updateEventPreferencesRadioSwitch(event, db);
-
-        return r;
+        updateEventPreferencesTime(event, db);
+        updateEventPreferencesBattery(event, db);
+        updateEventPreferencesCall(event, db);
+        updateEventPreferencesPeripheral(event, db);
+        updateEventPreferencesCalendar(event, db);
+        updateEventPreferencesWifi(event, db);
+        updateEventPreferencesScreen(event, db);
+        updateEventPreferencesBluetooth(event, db);
+        updateEventPreferencesSMS(event, db);
+        updateEventPreferencesNotification(event, db);
+        updateEventPreferencesApplication(event, db);
+        updateEventPreferencesLocation(event, db);
+        updateEventPreferencesOrientation(event, db);
+        updateEventPreferencesMobileCells(event, db);
+        updateEventPreferencesNFC(event, db);
+        updateEventPreferencesRadioSwitch(event, db);
     }
 
-    private int updateEventPreferencesTime(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesTime(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesTime eventPreferences = event._eventPreferencesTime;
@@ -4053,11 +4030,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //values.put(KEY_E_USE_END_TIME, (eventPreferences._useEndTime) ? 1 : 0);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesBattery(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesBattery(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesBattery eventPreferences = event._eventPreferencesBattery;
@@ -4069,11 +4046,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_BATTERY_POWER_SAVE_MODE, eventPreferences._powerSaveMode ? 1 : 0);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesCall(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesCall(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesCall eventPreferences = event._eventPreferencesCall;
@@ -4085,11 +4062,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_CALL_CONTACT_GROUPS, eventPreferences._contactGroups);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesPeripheral(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesPeripheral(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesPeripherals eventPreferences = event._eventPreferencesPeripherals;
@@ -4098,11 +4075,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_PERIPHERAL_TYPE, eventPreferences._peripheralType);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesCalendar(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesCalendar(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesCalendar eventPreferences = event._eventPreferencesCalendar;
@@ -4119,11 +4096,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_CALENDAR_START_BEFORE_EVENT, eventPreferences._startBeforeEvent);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesWifi(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesWifi(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesWifi eventPreferences = event._eventPreferencesWifi;
@@ -4133,11 +4110,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_WIFI_CONNECTION_TYPE, eventPreferences._connectionType);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesScreen(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesScreen(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesScreen eventPreferences = event._eventPreferencesScreen;
@@ -4147,11 +4124,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_SCREEN_WHEN_UNLOCKED, (eventPreferences._whenUnlocked) ? 1 : 0);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesBluetooth(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesBluetooth(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesBluetooth eventPreferences = event._eventPreferencesBluetooth;
@@ -4162,11 +4139,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_BLUETOOTH_DEVICES_TYPE, eventPreferences._devicesType);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesSMS(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesSMS(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesSMS eventPreferences = event._eventPreferencesSMS;
@@ -4181,11 +4158,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_SMS_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesNotification(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesNotification(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesNotification eventPreferences = event._eventPreferencesNotification;
@@ -4198,11 +4175,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_NOTIFICATION_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                 new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesApplication(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesApplication(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesApplication eventPreferences = event._eventPreferencesApplication;
@@ -4213,11 +4190,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //values.put(KEY_E_NOTIFICATION_DURATION, eventPreferences._duration);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                 new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesLocation(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesLocation(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesLocation eventPreferences = event._eventPreferencesLocation;
@@ -4227,11 +4204,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_LOCATION_WHEN_OUTSIDE, (eventPreferences._whenOutside) ? 1 : 0);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                 new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesOrientation(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesOrientation(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesOrientation eventPreferences = event._eventPreferencesOrientation;
@@ -4243,11 +4220,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_ORIENTATION_IGNORE_APPLICATIONS, eventPreferences._ignoredApplications);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                 new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesMobileCells(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesMobileCells(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesMobileCells eventPreferences = event._eventPreferencesMobileCells;
@@ -4257,11 +4234,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_MOBILE_CELLS_WHEN_OUTSIDE, (eventPreferences._whenOutside) ? 1 : 0);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                 new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesNFC(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesNFC(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesNFC eventPreferences = event._eventPreferencesNFC;
@@ -4273,11 +4250,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_NFC_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                 new String[] { String.valueOf(event._id) });
     }
 
-    private int updateEventPreferencesRadioSwitch(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesRadioSwitch(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         EventPreferencesRadioSwitch eventPreferences = event._eventPreferencesRadioSwitch;
@@ -4291,7 +4268,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_RADIO_SWITCH_AIRPLANE_MODE, eventPreferences._airplaneMode);
 
         // updating row
-        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                 new String[] { String.valueOf(event._id) });
     }
 
@@ -4325,7 +4302,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    int updateEventStatus(Event event)
+    void updateEventStatus(Event event)
     {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
@@ -4335,13 +4312,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_E_STATUS, status);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating row
-                r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[]{String.valueOf(event._id)});
 
                 db.setTransactionSuccessful();
@@ -4349,18 +4324,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.updateEventStatus", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 
-    int updateEventBlocked(Event event)
+    void updateEventBlocked(Event event)
     {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
@@ -4369,13 +4341,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating row
-                r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[]{String.valueOf(event._id)});
 
                 db.setTransactionSuccessful();
@@ -4383,18 +4353,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.updateEventBlocked", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 
-    int unblockAllEvents()
+    void unblockAllEvents()
     {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
@@ -4403,31 +4370,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_E_BLOCKED, 0);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating rows
-                r = db.update(TABLE_EVENTS, values, null, null);
+                db.update(TABLE_EVENTS, values, null, null);
 
                 db.setTransactionSuccessful();
 
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.unblockAllEvents", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 
-    private int updateAllEventsStatus(int fromStatus, int toStatus)
+    private void updateAllEventsStatus(int fromStatus, int toStatus)
     {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
@@ -4436,13 +4398,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_E_STATUS, toStatus);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating rows
-                r = db.update(TABLE_EVENTS, values, KEY_E_STATUS + " = ?",
+                db.update(TABLE_EVENTS, values, KEY_E_STATUS + " = ?",
                         new String[]{String.valueOf(fromStatus)});
 
                 db.setTransactionSuccessful();
@@ -4450,14 +4410,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.updateAllEventsStatus", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 
@@ -4530,7 +4487,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    int updateEventCalendarTimes(Event event)
+    void updateEventCalendarTimes(Event event)
     {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
@@ -4541,13 +4498,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_E_CALENDAR_EVENT_END_TIME, event._eventPreferencesCalendar._endTime);
             values.put(KEY_E_CALENDAR_EVENT_FOUND, event._eventPreferencesCalendar._eventFound ? 1 : 0);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating row
-                r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[]{String.valueOf(event._id)});
 
                 db.setTransactionSuccessful();
@@ -4555,14 +4510,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.updateEventCalendarTimes", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 
@@ -4661,7 +4613,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    int updateEventInDelayStart(Event event)
+    void updateEventInDelayStart(Event event)
     {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
@@ -4671,13 +4623,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0);
             values.put(KEY_E_START_STATUS_TIME, event._startStatusTime);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating row
-                r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[]{String.valueOf(event._id)});
 
                 db.setTransactionSuccessful();
@@ -4685,18 +4635,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.updateEventInDelayStart", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 
-    int resetAllEventsInDelayStart()
+    void resetAllEventsInDelayStart()
     {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
@@ -4705,27 +4652,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_E_IS_IN_DELAY_START, 0);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating rows
-                r = db.update(TABLE_EVENTS, values, null, null);
+                db.update(TABLE_EVENTS, values, null, null);
 
                 db.setTransactionSuccessful();
 
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.resetAllEventsInDelayStart", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 
@@ -4759,7 +4701,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    int updateEventInDelayEnd(Event event)
+    void updateEventInDelayEnd(Event event)
     {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
@@ -4769,13 +4711,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0);
             values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating row
-                r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[]{String.valueOf(event._id)});
 
                 db.setTransactionSuccessful();
@@ -4783,14 +4723,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.updateEventInDelayEnd", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 
@@ -4864,7 +4801,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     */
 
-    int updateSMSStartTime(Event event)
+    void updateSMSStartTime(Event event)
     {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
@@ -4873,13 +4810,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_E_SMS_START_TIME, event._eventPreferencesSMS._startTime);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating row
-                r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[]{String.valueOf(event._id)});
 
                 db.setTransactionSuccessful();
@@ -4887,14 +4822,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.updateSMSStartTimes", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 
@@ -4924,7 +4856,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    int updateNotificationStartTime(Event event)
+    void updateNotificationStartTime(Event event)
     {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
@@ -4933,13 +4865,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_E_NOTIFICATION_START_TIME, event._eventPreferencesNotification._startTime);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating row
-                r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[]{String.valueOf(event._id)});
 
                 db.setTransactionSuccessful();
@@ -4947,14 +4877,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.updateNotificationStartTimes", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 
@@ -5023,7 +4950,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    int updateNFCStartTime(Event event)
+    void updateNFCStartTime(Event event)
     {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
@@ -5032,13 +4959,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_E_NFC_START_TIME, event._eventPreferencesNFC._startTime);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating row
-                r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[]{String.valueOf(event._id)});
 
                 db.setTransactionSuccessful();
@@ -5046,14 +4971,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.updateNFCStartTimes", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 
@@ -5482,7 +5404,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Updating single geofence
-    int updateGeofence(Geofence geofence) {
+    void updateGeofence(Geofence geofence) {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
             SQLiteDatabase db = getMyWritableDatabase();
@@ -5494,13 +5416,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_G_RADIUS, geofence._radius);
             values.put(KEY_G_CHECKED, 0);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating row
-                r = db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?",
+                db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?",
                         new String[]{String.valueOf(geofence._id)});
 
                 db.setTransactionSuccessful();
@@ -5508,14 +5428,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.updateEvent", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 
@@ -6117,7 +6034,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     */
 
     // Updating single mobile cell
-    private int updateMobileCell(MobileCell mobileCell) {
+    private void updateMobileCell(MobileCell mobileCell) {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
             SQLiteDatabase db = getMyWritableDatabase();
@@ -6128,13 +6045,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_MC_NEW, mobileCell._new ? 1 : 0);
             values.put(KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating row
-                r = db.update(TABLE_MOBILE_CELLS, values, KEY_MC_ID + " = ?",
+                db.update(TABLE_MOBILE_CELLS, values, KEY_MC_ID + " = ?",
                         new String[]{String.valueOf(mobileCell._id)});
 
                 db.setTransactionSuccessful();
@@ -6142,14 +6057,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.updateMobileCell", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 
@@ -6570,7 +6482,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     */
 
     // Updating single nfc tag
-    int updateNFCTag(String oldNfcTag, String newNfcTag) {
+    void updateNFCTag(String oldNfcTag, String newNfcTag) {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
             SQLiteDatabase db = getMyWritableDatabase();
@@ -6578,13 +6490,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_NT_NAME, newNfcTag);
 
-            int r = 0;
-
             db.beginTransaction();
 
             try {
                 // updating row
-                r = db.update(TABLE_NFC_TAGS, values, KEY_NT_NAME + " = ?",
+                db.update(TABLE_NFC_TAGS, values, KEY_NT_NAME + " = ?",
                         new String[]{oldNfcTag});
 
                 db.setTransactionSuccessful();
@@ -6592,14 +6502,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 Log.e("DatabaseHandler.updateNFCTag", e.toString());
-                r = 0;
             } finally {
                 db.endTransaction();
             }
 
             //db.close();
-
-            return r;
         }
     }
 

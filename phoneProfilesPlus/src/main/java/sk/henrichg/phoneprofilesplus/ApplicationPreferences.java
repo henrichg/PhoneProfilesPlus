@@ -355,9 +355,11 @@ class ApplicationPreferences {
         return Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, "0"));
     }
 
+    /*
     static boolean applicationSamsungEdgePrefIndicator(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_PREF_INDICATOR, false);
     }
+    */
 
     static boolean applicationSamsungEdgeHeader(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_HEADER, true);
@@ -383,8 +385,10 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS, "100");
     }
 
+    /*
     static boolean applicationSamsungEdgeGridLayout(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_GRID_LAYOUT, true);
     }
+    */
 
 }

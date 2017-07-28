@@ -16,7 +16,6 @@ public class MobileCellsRegistrationService extends Service {
     public static String EXTRA_COUNTDOWN = "countdown";
 
     private CountDownTimer countDownTimer = null;
-    private Notification notification = null;
 
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION = "mobile_cells_autoregistration_duration";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION = "mobile_cells_autoregistration_remaining_duration";
@@ -92,11 +91,6 @@ public class MobileCellsRegistrationService extends Service {
         super.onDestroy();
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        return super.onStartCommand(intent, flags, startId);
-    }
-
     private void showNotification(long millisUntilFinished) {
         String text = getString(R.string.mobile_cells_registration_pref_dlg_status_started);
         String time = getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
@@ -124,7 +118,7 @@ public class MobileCellsRegistrationService extends Service {
             mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
         }
 
-        notification = mBuilder.build();
+        Notification notification = mBuilder.build();
         notification.flags |= Notification.FLAG_ONGOING_EVENT;
         startForeground(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID, notification);
     }

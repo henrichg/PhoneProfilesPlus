@@ -244,7 +244,7 @@ class EventPreferencesBattery extends EventPreferences {
     }
 
 
-
+    /*
     @Override
     public void setSystemEventForStart(Context context)
     {
@@ -259,5 +259,5 @@ class EventPreferencesBattery extends EventPreferences {
     public void removeSystemEvent(Context context)
     {
     }
-
+    */
 }

@@ -285,6 +285,7 @@ class EventPreferencesBluetooth extends EventPreferences {
             BluetoothScanJob.scheduleJob(context, true, false);
     }
 
+    /*
     @Override
     public void setSystemEventForPause(Context context)
     {
@@ -294,5 +295,5 @@ class EventPreferencesBluetooth extends EventPreferences {
     public void removeSystemEvent(Context context)
     {
     }
-
+    */
 }

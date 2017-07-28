@@ -47,7 +47,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     private static final String PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = "applicationBatteryOptimization";
     private static final int RESULT_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = 1995;
     private static final String PREF_APPLICATION_LANGUAGE_24 = "applicationLanguage24";
-    static final int RESULT_LOCALE_SETTINGS = 1996;
+    //static final int RESULT_LOCALE_SETTINGS = 1996;
     private static final String PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = "permissionsAccessNotificationPolicyPermissions";
     private static final int RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = 1997;
     private static final String PREF_DRAW_OVERLAYS_PERMISSIONS = "permissionsDrawOverlaysPermissions";

@@ -240,6 +240,7 @@ class EventPreferencesWifi extends EventPreferences {
             WifiScanJob.scheduleJob(context, true, false, false);
     }
 
+    /*
     @Override
     public void setSystemEventForPause(Context context)
     {
@@ -249,5 +250,5 @@ class EventPreferencesWifi extends EventPreferences {
     public void removeSystemEvent(Context context)
     {
     }
-
+    */
 }

@@ -37,7 +37,7 @@ public class ActivateProfileListFragment extends Fragment {
 
     private  static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
-    public boolean targetHelpsSequenceStarted;
+    //public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
 
     public static int PORDER_FOR_IGNORED_PROFILE = 1000000;
@@ -288,12 +288,6 @@ public class ActivateProfileListFragment extends Fragment {
         //PPApplication.setApplicationStarted(getActivity().getApplicationContext(), true);
     }
 
-
-    @Override
-    public void onStart()
-    {
-        super.onStart();
-    }
 
     @Override
     public void onDestroy()

@@ -18,18 +18,15 @@ class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
     private Context context;
 
     private ApplicationEditorDialog dialog;
-    private Application application;
     private int selectedPosition;
 
-    ApplicationEditorDialogAdapter(ApplicationEditorDialog dialog, Context context,
-                                                Application application, int selectedPosition)
+    ApplicationEditorDialogAdapter(ApplicationEditorDialog dialog, Context context, int selectedPosition)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
         this.context = context;
 
         this.dialog = dialog;
-        this.application = application;
         this.selectedPosition = selectedPosition;
     }
 
@@ -61,7 +58,7 @@ class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
         TextView textViewAppName;
         RadioButton radioBtn;
         TextView textViewAppType;
-        int position;
+        //int position;
     }
 
     @SuppressLint("SetTextI18n")

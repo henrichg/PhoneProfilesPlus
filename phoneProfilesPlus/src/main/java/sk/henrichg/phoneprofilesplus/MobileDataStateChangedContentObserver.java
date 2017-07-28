@@ -26,10 +26,12 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
         previousState = ActivateProfileHelper.isMobileData(context);
     }
 
+    /*
     @Override
     public boolean deliverSelfNotifications() {
         return super.deliverSelfNotifications();
     }
+    */
 
     @Override
     public void onChange(boolean selfChange) {

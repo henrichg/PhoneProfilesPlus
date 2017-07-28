@@ -12,7 +12,6 @@ import android.widget.TextView;
 class EditorDrawerListAdapter extends BaseAdapter {
 
     private Context context;
-    private ListView listView;
     private String[] drawerItemsTitle;
     private String[] drawerItemsSubtitle;
     private Integer[] drawerItemsIcon;
@@ -23,7 +22,6 @@ class EditorDrawerListAdapter extends BaseAdapter {
                                     Integer[] itemIcon)
     {
         this.context = context;
-        this.listView = listView;
         this.drawerItemsTitle = itemTitle;
         this.drawerItemsSubtitle = itemSubtitle;
         this.drawerItemsIcon = itemIcon;
@@ -45,7 +43,7 @@ class EditorDrawerListAdapter extends BaseAdapter {
           TextView itemTitle;
           TextView itemSubtitle;
           ImageView itemIcon;
-          int position;
+          //int position;
         }
 
 

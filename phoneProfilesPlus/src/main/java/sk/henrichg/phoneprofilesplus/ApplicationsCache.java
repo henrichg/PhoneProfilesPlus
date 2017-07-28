@@ -144,6 +144,7 @@ public class ApplicationsCache {
             return null;
     }
 
+    /*
     public String getPackageName(int position, boolean noShortcuts)
     {
         if (cached) {
@@ -155,6 +156,7 @@ public class ApplicationsCache {
         else
             return "";
     }
+    */
 
     void clearCache(boolean nullList)
     {

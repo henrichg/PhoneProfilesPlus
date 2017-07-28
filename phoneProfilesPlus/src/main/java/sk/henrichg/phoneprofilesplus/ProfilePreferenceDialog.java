@@ -23,15 +23,13 @@ class ProfilePreferenceDialog implements PreferenceManager.OnActivityDestroyList
     int showDuration;
     private ProfilePreferenceAdapter profilePreferenceAdapter;
 
-    private List<Profile> profileList;
-
     private MaterialDialog mDialog;
 
     ProfilePreferenceDialog(Context context, ProfilePreference preference, String profileId)
     {
         profilePreference = preference;
 
-        profileList = ProfilePreference.dataWrapper.getProfileList();
+        List<Profile> profileList = ProfilePreference.dataWrapper.getProfileList();
         Collections.sort(profileList, new AlphabeticallyComparator());
 
         addNoActivateItem = profilePreference.addNoActivateItem;

@@ -154,17 +154,4 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         //Log.d("NFCTagWriteActivity.onNewIntent", "xxx");
     }
 
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-        //Log.d("NFCTagWriteActivity.onDestroy", "xxx");
-    }
-
 }

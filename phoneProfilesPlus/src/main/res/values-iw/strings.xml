@@ -795,7 +795,7 @@
   <string name="donation_google_android_market_text">גובה הסכום?</string>
   <string name="donation_google_android_market_not_supported_title">לא ניתן לשלם מתוך היישום.</string>
   <string name="donation_google_android_market_not_supported">לא ניתן לשלם מתוך היישום. האם חנות Google Play מותקנת כהלכה?</string>
-  <string name="donation_google_android_market_description">Google לוקחת 30% מכל תרומה.</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google לוקחת 30% מכל תרומה.</string>
   <string name="donation_google_android_market_donate_button">תרומה</string>
   <string name="donation_thanks_dialog_title">תודה רבה</string>
   <string name="donation_thanks_dialog">תודה על תרומתך. \n אני מעריך זאת.</string>

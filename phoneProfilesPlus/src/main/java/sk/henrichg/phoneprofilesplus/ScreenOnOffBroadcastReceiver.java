@@ -6,8 +6,6 @@ import android.content.Intent;
 
 public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "screenOnOff";
-
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### ScreenOnOffBroadcastReceiver.onReceive", "xxx");

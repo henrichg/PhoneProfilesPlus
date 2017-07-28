@@ -37,7 +37,7 @@ class ConnectToSSIDPreferenceAdapter extends BaseAdapter
     static class ViewHolder {
         TextView SSIDName;
         RadioButton radioButton;
-        int position;
+        //int position;
     }
 
     public View getView(final int position, View convertView, ViewGroup parent)

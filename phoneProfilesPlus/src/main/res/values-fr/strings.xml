@@ -795,7 +795,7 @@
   <string name="donation_google_android_market_text">Quel montant?</string>
   <string name="donation_google_android_market_not_supported_title">Les Dons dans l\' application ne sont pas supportés.</string>
   <string name="donation_google_android_market_not_supported">Les Dons dans l\' application ne sont pas supportés. Google play store est-il installé correctement ?</string>
-  <string name="donation_google_android_market_description">Google prend 30 % sur chaque don.</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatInvalid">Google prend 30 % sur chaque don.</string>
   <string name="donation_google_android_market_donate_button">Donner</string>
   <string name="donation_thanks_dialog_title">Merci</string>
   <string name="donation_thanks_dialog">Merci pour le don. \nJ\'apprécie vraiment (la traduction est entièrement gratuite).</string>

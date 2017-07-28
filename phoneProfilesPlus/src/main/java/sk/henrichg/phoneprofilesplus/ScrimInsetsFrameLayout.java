@@ -34,7 +34,7 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
 
     private Rect mInsets;
     private Rect mTempRect = new Rect();
-    private OnInsetsCallback mOnInsetsCallback;
+    //private OnInsetsCallback mOnInsetsCallback;
 
     public ScrimInsetsFrameLayout(Context context) {
         super(context);
@@ -69,9 +69,9 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
         mInsets = new Rect(insets);
         setWillNotDraw(mInsetForeground == null);
         ViewCompat.postInvalidateOnAnimation(this);
-        if (mOnInsetsCallback != null) {
-            mOnInsetsCallback.onInsetsChanged(insets);
-        }
+        //if (mOnInsetsCallback != null) {
+        //    mOnInsetsCallback.onInsetsChanged(insets);
+        //}
         return true; // consume insets
     }
 
@@ -134,8 +134,7 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
     /*public void setOnInsetsCallback(OnInsetsCallback onInsetsCallback) {
         mOnInsetsCallback = onInsetsCallback;
     }*/
-
-    interface OnInsetsCallback {
-        void onInsetsChanged(Rect insets);
-    }
+    //interface OnInsetsCallback {
+    //    void onInsetsChanged(Rect insets);
+    //}
 }

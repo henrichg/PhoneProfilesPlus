@@ -19,4 +19,5 @@ class HandlerWithContext extends Handler {
     public Context getContext() {
         return mContext.get();
     }
+
 }

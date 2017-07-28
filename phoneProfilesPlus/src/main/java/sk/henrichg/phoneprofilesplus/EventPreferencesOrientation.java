@@ -379,6 +379,7 @@ class EventPreferencesOrientation extends EventPreferences {
         }
     }
 
+    /*
     @Override
     public void setSystemEventForPause(Context context)
     {
@@ -388,5 +389,5 @@ class EventPreferencesOrientation extends EventPreferences {
     public void removeSystemEvent(Context context)
     {
     }
-
+    */
 }

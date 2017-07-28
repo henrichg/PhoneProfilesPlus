@@ -13,8 +13,6 @@ import android.os.PowerManager;
 
 public class KeyguardService extends Service {
 
-    private final String KEYGUARD_LOCK = "phoneProfilesPlus.keyguardLock";
-
     private KeyguardManager keyguardManager;
     @SuppressWarnings("deprecation")
     private KeyguardManager.KeyguardLock keyguardLock;
@@ -25,7 +23,7 @@ public class KeyguardService extends Service {
     {
         PPApplication.logE("$$$ KeyguardService.onStartCommand","onCreate");
         keyguardManager = (KeyguardManager)getBaseContext().getSystemService(Activity.KEYGUARD_SERVICE);
-        keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);
+        keyguardLock = keyguardManager.newKeyguardLock("phoneProfilesPlus.keyguardLock");
     }
 
     @Override

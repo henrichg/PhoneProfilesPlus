@@ -925,7 +925,7 @@ class Event {
             return -1;
     }
 
-    private EventTimeline addEventTimeline(DataWrapper dataWrapper,
+    private void addEventTimeline(DataWrapper dataWrapper,
                                             List<EventTimeline> eventTimelineList/*,
                                             Profile mergedProfile*/)
     {
@@ -955,8 +955,6 @@ class Event {
 
         dataWrapper.getDatabaseHandler().addEventTimeline(eventTimeline);
         eventTimelineList.add(eventTimeline);
-
-        return eventTimeline;
     }
 
     void startEvent(DataWrapper dataWrapper,

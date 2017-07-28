@@ -87,18 +87,4 @@ public class NFCTagReadActivity extends Activity {
         //Log.d("NFCTagReadActivity.onNewIntent", "xxx");
     }
 
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-        //Log.d("NFCTagReadActivity.onStart", "xxx");
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-        //Log.d("NFCTagReadActivity.onDestroy", "xxx");
-    }
-
 }

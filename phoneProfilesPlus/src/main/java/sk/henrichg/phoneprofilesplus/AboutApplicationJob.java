@@ -96,11 +96,12 @@ class AboutApplicationJob extends Job {
                 .schedule();
     }
 
+    /*
     static void cancelJob() {
         PPApplication.logE("AboutApplicationJob.cancelJob", "xxx");
 
         JobManager jobManager = JobManager.instance();
         jobManager.cancelAllForTag(JOB_TAG);
     }
-
+    */
 }

@@ -194,21 +194,20 @@ class EventPreferencesCall extends EventPreferences {
         return true;
     }
 
+    /*
     @Override
     public void setSystemEventForStart(Context context)
     {
-        // set alarm for state PAUSE
     }
 
     @Override
     public void setSystemEventForPause(Context context)
     {
-        // set alarm for state RUNNING
     }
 
     @Override
     public void removeSystemEvent(Context context)
     {
     }
-
+    */
 }

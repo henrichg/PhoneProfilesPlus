@@ -193,18 +193,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart()
-    {
-        super.onStart();
-    }
-
-    @Override
-    protected void onPause()
-    {
-        super.onPause();
-    }
-
-    @Override
     protected void onStop()
     {
         super.onStop();

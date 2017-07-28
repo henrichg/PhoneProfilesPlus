@@ -14,12 +14,6 @@ public class HeadsetConnectionService extends WakefulIntentService {
     static final String PREF_EVENT_HEADSET_MICROPHONE = "eventHeadsetMicrophone";
     static final String PREF_EVENT_HEADSET_BLUETOOTH = "eventHeadsetBluetooth";
 
-    public static final String[] HEADPHONE_ACTIONS = {
-            Intent.ACTION_HEADSET_PLUG,
-            BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED,
-            BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED
-    };
-
     public HeadsetConnectionService() {
         super("HeadsetConnectionService");
     }

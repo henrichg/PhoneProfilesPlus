@@ -21,8 +21,10 @@ class PostedNotificationData {
             return "";
     }
 
+    /*
     void setPackageName(String packageName) {
         this.packageName = packageName;
     }
+    */
 
 }

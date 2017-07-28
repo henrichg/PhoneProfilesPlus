@@ -51,12 +51,6 @@ public class LaunchShortcutActivity extends Activity {
     }
 
     @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         if (requestCode == 100) {

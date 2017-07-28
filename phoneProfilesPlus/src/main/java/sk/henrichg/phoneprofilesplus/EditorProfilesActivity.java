@@ -138,7 +138,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     private String[] drawerItemsTitle;
     private String[] drawerItemsSubtitle;
     private Integer[] drawerItemsIcon;
-    private EditorDrawerListAdapter drawerAdapter;
 
     private int drawerSelectedItem = 1;
     private int orderSelectedItem = 0;
@@ -341,7 +340,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         // Pass string arrays to EditorDrawerListAdapter
         // use action bar themed context
         //drawerAdapter = new EditorDrawerListAdapter(drawerListView, getSupportActionBar().getThemedContext(), drawerItemsTitle, drawerItemsSubtitle, drawerItemsIcon);
-        drawerAdapter = new EditorDrawerListAdapter(drawerListView, getBaseContext(), drawerItemsTitle, drawerItemsSubtitle, drawerItemsIcon);
+        EditorDrawerListAdapter drawerAdapter = new EditorDrawerListAdapter(drawerListView, getBaseContext(), drawerItemsTitle, drawerItemsSubtitle, drawerItemsIcon);
         
         // Set the MenuListAdapter to the ListView
         drawerListView.setAdapter(drawerAdapter);
@@ -362,7 +361,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.editor_drawer_open, R.string.editor_drawer_open)
         {
-
+            /*
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
             }
@@ -370,6 +369,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
             }
+            */
             
             // this disable animation 
             @Override
@@ -468,13 +468,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     public static EditorProfilesActivity getInstance()
     {
         return instance;
-    }
-
-    @Override
-    protected void onStart()
-    {
-        //Log.e("$$$ PPP","EditorProfilesActivity.onStart");
-        super.onStart();
     }
 
     @Override

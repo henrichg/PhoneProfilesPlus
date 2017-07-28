@@ -226,123 +226,19 @@ class EventPreferencesApplication extends EventPreferences {
     }
 
     /*
-    public long computeAlarm()
-    {
-        PPApplication.logE("EventPreferencesNotification.computeAlarm","xxx");
-
-        Calendar calEndTime = Calendar.getInstance();
-
-        int gmtOffset = TimeZone.getDefault().getRawOffset();
-
-        calEndTime.setTimeInMillis((_startTime - gmtOffset) + (_duration * 1000));
-        //calEndTime.set(Calendar.SECOND, 0);
-        //calEndTime.set(Calendar.MILLISECOND, 0);
-
-        long alarmTime;
-        alarmTime = calEndTime.getTimeInMillis();
-
-        return alarmTime;
-    }
-    */
-
     @Override
     public void setSystemEventForStart(Context context)
     {
-        // set alarm for state PAUSE
-
-        // this alarm generates broadcast, that change state into RUNNING;
-        // from broadcast will by called EventsService
-
-        //PPApplication.logE("EventPreferencesNotification.setSystemRunningEvent","xxx");
-
-        //removeAlarm(context);
     }
 
     @Override
     public void setSystemEventForPause(Context context)
     {
-        // set alarm for state RUNNING
-
-        // this alarm generates broadcast, that change state into PAUSE;
-        // from broadcast will by called EventsService
-
-        //PPApplication.logE("EventPreferencesNotification.setSystemPauseEvent","xxx");
-
-        //removeAlarm(context);
-
-        //if (!(isRunnable() && _enabled))
-        //    return;
-
-        //setAlarm(computeAlarm(), context);
     }
 
     @Override
     public void removeSystemEvent(Context context)
     {
-        //removeAlarm(context);
-
-        //PPApplication.logE("EventPreferencesNotification.removeSystemEvent", "xxx");
-    }
-
-    /*
-    public void removeAlarm(Context context)
-    {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-
-        Intent intent = new Intent(context, NotificationEventEndBroadcastReceiver.class);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
-        if (pendingIntent != null)
-        {
-            PPApplication.logE("EventPreferencesNotification.removeAlarm","alarm found");
-
-            alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
-        }
-    }
-
-    @SuppressLint({"SimpleDateFormat", "NewApi"})
-    private void setAlarm(long alarmTime, Context context)
-    {
-        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-        String result = sdf.format(alarmTime);
-        PPApplication.logE("EventPreferencesNotification.setAlarm","endTime="+result);
-
-        Intent intent = new Intent(context, NotificationEventEndBroadcastReceiver.class);
-        intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-
-        if (PPApplication.exactAlarms && (Build.VERSION.SDK_INT >= 23))
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-        else
-        if (PPApplication.exactAlarms && (Build.VERSION.SDK_INT >= 19))
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-        else
-            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-
-        //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
-        //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
-
-    }
-
-    public void saveStartTime(DataWrapper dataWrapper, String packageName, long startTime) {
-        if (packageName == null)
-            return;
-
-        String[] splits = this._applications.split("\\|");
-        for (int i = 0; i < splits.length; i++) {
-            if (packageName.equals(splits[i])) {
-                _event._eventPreferencesNotification._startTime = startTime;
-                dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
-                if (_event.getStatus() == Event.ESTATUS_RUNNING)
-                    setSystemPauseEvent(dataWrapper.context);
-                break;
-            }
-        }
     }
     */
-
 }

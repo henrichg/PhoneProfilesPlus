@@ -26,7 +26,6 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 public class ScannerService extends WakefulIntentService
 {
     private Context context;
-    private DataWrapper dataWrapper;
 
     private final WifiScanBroadcastReceiver wifiScanReceiver = new WifiScanBroadcastReceiver();
     private final BluetoothScanBroadcastReceiver bluetoothScanReceiver = new BluetoothScanBroadcastReceiver();
@@ -71,6 +70,8 @@ public class ScannerService extends WakefulIntentService
         context = getApplicationContext();
 
         PPApplication.logE("%%%% ScannerService.onHandleIntent", "-- START ------------");
+
+        DataWrapper dataWrapper;
 
         String scanType = intent.getStringExtra(EXTRA_SCANNER_TYPE);
         PPApplication.logE("%%%% ScannerService.onHandleIntent", "scanType="+scanType);
