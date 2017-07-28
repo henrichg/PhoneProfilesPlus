@@ -3531,7 +3531,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     eventPreferences._sunday = true;
                     eventPreferences._monday = true;
                     eventPreferences._tuesday = true;
-                    eventPreferences._wendesday = true;
+                    eventPreferences._wednesday = true;
                     eventPreferences._thursday = true;
                     eventPreferences._friday = true;
                     eventPreferences._saturday = true;
@@ -3541,7 +3541,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     eventPreferences._sunday = false;
                     eventPreferences._monday = false;
                     eventPreferences._tuesday = false;
-                    eventPreferences._wendesday = false;
+                    eventPreferences._wednesday = false;
                     eventPreferences._thursday = false;
                     eventPreferences._friday = false;
                     eventPreferences._saturday = false;
@@ -3550,7 +3550,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         eventPreferences._sunday = eventPreferences._sunday || value.equals("0");
                         eventPreferences._monday = eventPreferences._monday || value.equals("1");
                         eventPreferences._tuesday = eventPreferences._tuesday || value.equals("2");
-                        eventPreferences._wendesday = eventPreferences._wendesday || value.equals("3");
+                        eventPreferences._wednesday = eventPreferences._wednesday || value.equals("3");
                         eventPreferences._thursday = eventPreferences._thursday || value.equals("4");
                         eventPreferences._friday = eventPreferences._friday || value.equals("5");
                         eventPreferences._saturday = eventPreferences._saturday || value.equals("6");
@@ -4018,7 +4018,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (eventPreferences._sunday) daysOfWeek = daysOfWeek + "0|";
         if (eventPreferences._monday) daysOfWeek = daysOfWeek + "1|";
         if (eventPreferences._tuesday) daysOfWeek = daysOfWeek + "2|";
-        if (eventPreferences._wendesday) daysOfWeek = daysOfWeek + "3|";
+        if (eventPreferences._wednesday) daysOfWeek = daysOfWeek + "3|";
         if (eventPreferences._thursday) daysOfWeek = daysOfWeek + "4|";
         if (eventPreferences._friday) daysOfWeek = daysOfWeek + "5|";
         if (eventPreferences._saturday) daysOfWeek = daysOfWeek + "6|";

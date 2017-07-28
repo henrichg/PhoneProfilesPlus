@@ -948,7 +948,7 @@ public class DataWrapper {
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._monday = true;
                 event._eventPreferencesTime._tuesday = true;
-                event._eventPreferencesTime._wendesday = true;
+                event._eventPreferencesTime._wednesday = true;
                 event._eventPreferencesTime._thursday = true;
                 event._eventPreferencesTime._friday = true;
                 //calendar.clear(Calendar.DATE);
@@ -996,7 +996,7 @@ public class DataWrapper {
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._monday = true;
                 event._eventPreferencesTime._tuesday = true;
-                event._eventPreferencesTime._wendesday = true;
+                event._eventPreferencesTime._wednesday = true;
                 event._eventPreferencesTime._thursday = true;
                 event._eventPreferencesTime._friday = true;
                 //calendar.clear(Calendar.DATE);
@@ -1021,7 +1021,7 @@ public class DataWrapper {
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._monday = true;
                 event._eventPreferencesTime._tuesday = true;
-                event._eventPreferencesTime._wendesday = true;
+                event._eventPreferencesTime._wednesday = true;
                 event._eventPreferencesTime._thursday = true;
                 event._eventPreferencesTime._friday = true;
                 event._eventPreferencesTime._saturday = true;
@@ -1050,7 +1050,7 @@ public class DataWrapper {
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._monday = true;
                 event._eventPreferencesTime._tuesday = true;
-                event._eventPreferencesTime._wendesday = true;
+                event._eventPreferencesTime._wednesday = true;
                 event._eventPreferencesTime._thursday = true;
                 event._eventPreferencesTime._friday = true;
                 event._eventPreferencesTime._saturday = true;
