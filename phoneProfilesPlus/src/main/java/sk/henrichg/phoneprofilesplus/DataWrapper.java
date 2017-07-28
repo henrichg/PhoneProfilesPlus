@@ -1286,22 +1286,22 @@ public class DataWrapper {
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    if (Permissions.grantProfilePermissions(context, _profile, false, false,
-                            forGUI, monochrome, monochromeValue,
-                            _startupSource, true, _activity, true)) {
-                        if (_profile._askForDuration) {
-                            FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper, _startupSource,
-                                    true);
-                            dlg.show();
-                        }
-                        else
-                            _activateProfile(_profile, false, _startupSource, true, _activity);
+                    if (_profile._askForDuration) {
+                        FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper,
+                                monochrome, monochromeValue, _startupSource, true);
+                        dlg.show();
                     }
                     else {
-                        Intent returnIntent = new Intent();
-                        _activity.setResult(Activity.RESULT_CANCELED,returnIntent);
+                        if (Permissions.grantProfilePermissions(context, _profile, false, false,
+                                forGUI, monochrome, monochromeValue,
+                                _startupSource, true, _activity, true))
+                            _activateProfile(_profile, false, _startupSource, true, _activity);
+                        else {
+                            Intent returnIntent = new Intent();
+                            _activity.setResult(Activity.RESULT_CANCELED,returnIntent);
 
-                        finishActivity(_startupSource, false, _activity);
+                            finishActivity(_startupSource, false, _activity);
+                        }
                     }
                 }
             });
@@ -1328,28 +1328,28 @@ public class DataWrapper {
         }
         else
         {
-            boolean granted;
-            if (interactive) {
-                // set theme and language for dialog alert ;-)
-                // not working on Android 2.3.x
-                GlobalGUIRoutines.setTheme(activity, true, false);
-                GlobalGUIRoutines.setLanguage(activity.getBaseContext());
-
-                granted = Permissions.grantProfilePermissions(context, profile, false, false,
-                        forGUI, monochrome, monochromeValue,
-                        startupSource, true, activity, true);
+            if (profile._askForDuration && interactive) {
+                FastAccessDurationDialog dlg = new FastAccessDurationDialog(activity, profile, this,
+                        monochrome, monochromeValue, startupSource, true);
+                dlg.show();
             }
-            else
-                granted = Permissions.grantProfilePermissions(context, profile, false, true,
-                                        forGUI, monochrome, monochromeValue,
-                                        startupSource, false, null, true);
-            if (granted) {
-                if (profile._askForDuration && interactive) {
-                    FastAccessDurationDialog dlg = new FastAccessDurationDialog(activity, profile, this, startupSource,
-                                                            true);
-                    dlg.show();
+            else {
+                boolean granted;
+                if (interactive) {
+                    // set theme and language for dialog alert ;-)
+                    // not working on Android 2.3.x
+                    GlobalGUIRoutines.setTheme(activity, true, false);
+                    GlobalGUIRoutines.setLanguage(activity.getBaseContext());
+
+                    granted = Permissions.grantProfilePermissions(context, profile, false, false,
+                            forGUI, monochrome, monochromeValue,
+                            startupSource, true, activity, true);
                 }
                 else
+                    granted = Permissions.grantProfilePermissions(context, profile, false, true,
+                            forGUI, monochrome, monochromeValue,
+                            startupSource, false, null, true);
+                if (granted)
                     _activateProfile(profile, false, startupSource, interactive, activity);
             }
         }

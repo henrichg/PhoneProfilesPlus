@@ -930,15 +930,9 @@ public class GrantPermissionActivity extends Activity {
             //finishAffinity();
             finish();
             Permissions.removeProfileNotification(context);
-            if (activateProfile) {
-                if ((Permissions.profileActivationActivity != null) && (profile._askForDuration)) {
-                    FastAccessDurationDialog dlg = new FastAccessDurationDialog(Permissions.profileActivationActivity,
-                            profile, dataWrapper, startupSource, interactive);
-                    dlg.show();
-                } else
-                    dataWrapper._activateProfile(profile, mergedProfile, startupSource, interactive,
-                            Permissions.profileActivationActivity);
-            }
+            if (activateProfile)
+                dataWrapper._activateProfile(profile, mergedProfile, startupSource, interactive,
+                        Permissions.profileActivationActivity);
         }
         Permissions.releaseReferences();
         if (mergedNotification)

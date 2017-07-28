@@ -26,6 +26,8 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     private int mAfterDo;
 
     private DataWrapper mDataWrapper;
+    private boolean mMonochrome;
+    private int mMonochromeValue;
     private int mStartupSource;
     private boolean mInteractive;
     private Activity mActivity;
@@ -45,8 +47,9 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
     //private int mColor = 0;
 
-    FastAccessDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper, int startupSource,
-                             boolean interactive) {
+    FastAccessDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper,
+                             boolean monochrome, int monochromeValue,
+                             int startupSource, boolean interactive) {
 
         mMax = 86400;
         mMin = 0;
@@ -56,6 +59,8 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         //mContext = activity.getBaseContext();
         mProfile = profile;
         mDataWrapper = dataWrapper;
+        mMonochrome = monochrome;
+        mMonochromeValue = monochromeValue;
         mStartupSource = startupSource;
         mInteractive = interactive;
 
@@ -87,7 +92,11 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         if (mAfterDo != -1)
                             mProfile._afterDurationDo = mAfterDo;
                         mDataWrapper.getDatabaseHandler().updateProfile(mProfile);
-                        mDataWrapper._activateProfile(mProfile, false, mStartupSource, mInteractive, mActivity);
+
+                        if (Permissions.grantProfilePermissions(mActivity, mProfile, false, false,
+                                true, mMonochrome, mMonochromeValue,
+                                mStartupSource, mInteractive, mActivity, true))
+                            mDataWrapper._activateProfile(mProfile, false, mStartupSource, mInteractive, mActivity);
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
