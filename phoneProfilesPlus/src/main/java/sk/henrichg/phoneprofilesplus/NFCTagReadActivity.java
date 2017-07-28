@@ -34,7 +34,7 @@ public class NFCTagReadActivity extends Activity {
                 Toast.makeText(NFCTagReadActivity.this, "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_readed)+": "+tagRead, Toast.LENGTH_LONG).show();
 
                 Calendar now = Calendar.getInstance();
-                int gmtOffset = TimeZone.getDefault().getRawOffset();
+                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                 long time = now.getTimeInMillis() + gmtOffset;
 
                 Intent eventsServiceIntent = new Intent(getApplicationContext(), EventsService.class);

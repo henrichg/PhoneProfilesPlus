@@ -935,7 +935,7 @@ public class DataWrapper {
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
 
-        int gmtOffset = TimeZone.getDefault().getRawOffset();
+        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
         Event event;
 
@@ -2321,7 +2321,7 @@ public class DataWrapper {
             // compute start time
 
             if (event._eventPreferencesSMS._startTime > 0) {
-                int gmtOffset = TimeZone.getDefault().getRawOffset();
+                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                 long startTime = event._eventPreferencesSMS._startTime - gmtOffset;
 
                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
@@ -2369,7 +2369,7 @@ public class DataWrapper {
 
                     if (event._eventPreferencesNotification._startTime > 0) {
                         // compute start time
-                        int gmtOffset = TimeZone.getDefault().getRawOffset();
+                        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                         long startTime = event._eventPreferencesNotification._startTime - gmtOffset;
 
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
@@ -2602,7 +2602,7 @@ public class DataWrapper {
             // compute start time
 
             if (event._eventPreferencesNFC._startTime > 0) {
-                int gmtOffset = TimeZone.getDefault().getRawOffset();
+                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                 long startTime = event._eventPreferencesNFC._startTime - gmtOffset;
 
                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");

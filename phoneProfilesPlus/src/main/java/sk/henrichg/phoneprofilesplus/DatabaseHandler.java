@@ -30,7 +30,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1890;
+    private static final int DATABASE_VERSION = 1900;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -2029,6 +2029,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1890) {
             changePictureFilePathToUri(db);
+        }
+
+        if (oldVersion < 1900)
+        {
+            // conversion into local time
+            int gmtOffset = TimeZone.getDefault().getRawOffset();
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_START_TIME + "=" + KEY_E_START_TIME + "-" + gmtOffset);
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_END_TIME + "=" + KEY_E_END_TIME + "-" + gmtOffset);
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -7251,6 +7260,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             values.put(KEY_E_RADIO_SWITCH_GPS, 0);
                                             values.put(KEY_E_RADIO_SWITCH_NFC, 0);
                                             values.put(KEY_E_RADIO_SWITCH_AIRPLANE_MODE, 0);
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 1900) {
+                                            int gmtOffset = TimeZone.getDefault().getRawOffset();
+                                            values.put(KEY_E_START_TIME, startTime - gmtOffset);
+                                            values.put(KEY_E_END_TIME, endTime - gmtOffset);
                                         }
 
                                         // Inserting Row do db z SQLiteOpenHelper

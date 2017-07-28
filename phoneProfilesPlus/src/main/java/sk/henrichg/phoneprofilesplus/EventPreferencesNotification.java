@@ -296,7 +296,7 @@ class EventPreferencesNotification extends EventPreferences {
 
         Calendar calEndTime = Calendar.getInstance();
 
-        int gmtOffset = TimeZone.getDefault().getRawOffset();
+        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
         calEndTime.setTimeInMillis((_startTime - gmtOffset) + (_duration * 1000));
         //calEndTime.set(Calendar.SECOND, 0);

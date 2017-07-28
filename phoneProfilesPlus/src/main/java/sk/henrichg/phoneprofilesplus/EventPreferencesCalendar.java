@@ -295,7 +295,7 @@ class EventPreferencesCalendar extends EventPreferences {
         Calendar calStartTime = Calendar.getInstance();
         Calendar calEndTime = Calendar.getInstance();
 
-        int gmtOffset = TimeZone.getDefault().getRawOffset();
+        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
         calStartTime.setTimeInMillis(_startTime - gmtOffset);
         calStartTime.set(Calendar.SECOND, -_startBeforeEvent);
@@ -547,7 +547,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
                 //title = cur.getString(PROJECTION_TITLE_INDEX);
 
-                int gmtOffset = TimeZone.getDefault().getRawOffset();
+                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
                 if ((beginVal <= now) && (endVal > now))
                 {

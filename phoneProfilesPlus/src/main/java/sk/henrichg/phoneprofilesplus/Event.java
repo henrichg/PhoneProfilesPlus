@@ -1516,7 +1516,7 @@ class Event {
             //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
 
             now = Calendar.getInstance();
-            int gmtOffset = TimeZone.getDefault().getRawOffset();
+            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
             this._startStatusTime = now.getTimeInMillis() - gmtOffset;
 
             this._isInDelayStart = true;
@@ -1542,7 +1542,7 @@ class Event {
         }
 
         Calendar now = Calendar.getInstance();
-        int gmtOffset = TimeZone.getDefault().getRawOffset();
+        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
         long nowTime = now.getTimeInMillis() - gmtOffset;
         now.add(Calendar.SECOND, this._delayStart);
         long delayTime = now.getTimeInMillis() - gmtOffset;
@@ -1633,7 +1633,7 @@ class Event {
             //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
 
             now = Calendar.getInstance();
-            int gmtOffset = TimeZone.getDefault().getRawOffset();
+            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
             this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
 
             this._isInDelayEnd = true;
@@ -1663,7 +1663,7 @@ class Event {
         }
 
         Calendar now = Calendar.getInstance();
-        int gmtOffset = TimeZone.getDefault().getRawOffset();
+        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
         long nowTime = now.getTimeInMillis() - gmtOffset;
         now.add(Calendar.SECOND, this._delayEnd);
         long delayTime = now.getTimeInMillis() - gmtOffset;

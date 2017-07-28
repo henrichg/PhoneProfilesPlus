@@ -97,7 +97,7 @@ class EventPreferencesTime extends EventPreferences {
         if (this._friday) sValue = sValue + "5|";
         if (this._saturday) sValue = sValue + "6|";
 
-        int gmtOffset = TimeZone.getDefault().getRawOffset();
+        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
         editor.putString(PREF_EVENT_TIME_DAYS, sValue);
         editor.putLong(PREF_EVENT_TIME_START_TIME, this._startTime - gmtOffset);
@@ -144,7 +144,7 @@ class EventPreferencesTime extends EventPreferences {
             }
         }
 
-        int gmtOffset = TimeZone.getDefault().getRawOffset();
+        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
         this._startTime = preferences.getLong(PREF_EVENT_TIME_START_TIME, System.currentTimeMillis()) + gmtOffset;
         this._endTime = preferences.getLong(PREF_EVENT_TIME_END_TIME, System.currentTimeMillis()) + gmtOffset;
@@ -200,7 +200,7 @@ class EventPreferencesTime extends EventPreferences {
                 }
             }
 
-            int gmtOffset = TimeZone.getDefault().getRawOffset();
+            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
             Calendar calendar = Calendar.getInstance();
 
@@ -351,7 +351,7 @@ class EventPreferencesTime extends EventPreferences {
         Calendar calStartTime = Calendar.getInstance();
         Calendar calEndTime = Calendar.getInstance();
 
-        int gmtOffset = TimeZone.getDefault().getRawOffset();
+        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
         calStartTime.setTimeInMillis(_startTime - gmtOffset);
         calStartTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));

@@ -74,3 +74,30 @@ DevicePolicyManager.PASSWORD_QUALITY_COMPLEX - heslo?
 
 --------------------------------
 
+1. timezone +02, bolo 20:06 na mobile
+2. nastavil som, ze sa ma spustit o 20:10
+3. zmenil som timezone na +01, cas sa zmenil na 19:06
+4. Editor pise, ze sa nastartuje 21:10 casu mobilu, co je zle!!!
+5. 19:10 sa nenstartoval (20:10 mojho casu), co je spravne
+6. cakam kedy sa naozaj udalost spusti, predpokladam ze o 20:10 casu na mobile
+7. tak 20.10 casu na mobile sa nespustil. Takze asi az 21.10 casu na mobile, tak ako pise v Editore.
+
+Cele je to zle. Ako to opravit:
+1. do DabaseHandler.onUpdate() vsetky casy v profiloch a udalostiach prepocitat na lokalny cas. Cize:
+    int gmtOffset = TimeZone.getDefault().getRawOffset();
+    localTimaToDB = timeFromDB - gmtOffset
+2. do db ukladat lokalny cas, ziaden prepocet na UTC nerobit
+3. testnut zmenu timezony, ci sa prejavuje uz v nahodenych alarmoch do AlarmManagera. Podla mna sa musi,
+   ved je blbost znova nahadzovat alarmy, ak sa zmeni timezna.
+
+Po oprave:
+1. timezone +02, bolo 22:22 na mobile
+2. nastavil som, ze sa ma spustit o 22:25
+3. zmenil som timezone na +01, cas sa zmenil na 21:25
+5. Editor pise, ze sa nastartuje 22:25 casu mobilu, co je OK
+6. cakam kedy sa naozaj udalost spusti, predpokladam ze o 22:25 casu na mobile
+
+
+
+
+

@@ -328,7 +328,7 @@ public class BluetoothService extends WakefulIntentService {
 
             Gson gson = new Gson();
 
-            int gmtOffset = TimeZone.getDefault().getRawOffset();
+            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
             for (int i = 0; i < count; i++) {
                 String json = preferences.getString(CONNECTED_DEVICES_DEVICE_PREF + i, "");
                 if (!json.isEmpty()) {
@@ -390,7 +390,7 @@ public class BluetoothService extends WakefulIntentService {
                 }
             }
             if (!found) {
-                int gmtOffset = TimeZone.getDefault().getRawOffset();
+                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                 Calendar now = Calendar.getInstance();
                 long timestamp = now.getTimeInMillis() - gmtOffset;
                 connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
@@ -427,7 +427,7 @@ public class BluetoothService extends WakefulIntentService {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             if (connectedDevices != null) {
                 if (onlyOld) {
-                    int gmtOffset = TimeZone.getDefault().getRawOffset();
+                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                     for (BluetoothDeviceData device : connectedDevices) {
                         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         PPApplication.logE("BluetoothService.clearConnectedDevices","BluetoothConnectionBroadcastReceiver: device.name="+device.name);

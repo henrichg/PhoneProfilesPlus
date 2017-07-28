@@ -107,7 +107,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
             //PPApplication.logE("SMSBroadcastReceiver.onReceive","message="+body);
 
             Calendar now = Calendar.getInstance();
-            int gmtOffset = TimeZone.getDefault().getRawOffset();
+            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
             long time = now.getTimeInMillis() + gmtOffset;
 
             if (Event.getGlobalEventsRunning(context))
