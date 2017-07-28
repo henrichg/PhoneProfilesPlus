@@ -32,7 +32,7 @@ public class ScreenOnOffService extends IntentService {
                     }
 
                     //ActivateProfileHelper.setScreenUnlocked(appContext, false);
-                    if (!Event.getGlobalEventsRuning(appContext)) {
+                    if (!Event.getGlobalEventsRunning(appContext)) {
                         DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
                         dataWrapper.getActivateProfileHelper().initialize(dataWrapper, appContext);
                         //dataWrapper.getActivateProfileHelper().removeNotification();
@@ -50,7 +50,7 @@ public class ScreenOnOffService extends IntentService {
                     Profile activatedProfile = dataWrapper.getActivatedProfile();
 
                     if (ApplicationPreferences.notificationShowInStatusBar(appContext) &&
-                            ApplicationPreferences.notificationHideInLockscreen(appContext)) {
+                            ApplicationPreferences.notificationHideInLockScreen(appContext)) {
                         //dataWrapper.getActivateProfileHelper().removeNotification();
                         //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
                         dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
@@ -82,7 +82,7 @@ public class ScreenOnOffService extends IntentService {
                     return;
                 }
 
-                if (Event.getGlobalEventsRuning(appContext)) {
+                if (Event.getGlobalEventsRunning(appContext)) {
 
                     /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0); */
 
@@ -145,7 +145,7 @@ public class ScreenOnOffService extends IntentService {
 
                 if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
                     if (ApplicationPreferences.notificationShowInStatusBar(appContext) &&
-                            ApplicationPreferences.notificationHideInLockscreen(appContext)) {
+                            ApplicationPreferences.notificationHideInLockScreen(appContext)) {
                         DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
                         dataWrapper.getActivateProfileHelper().initialize(dataWrapper, appContext);
                         //dataWrapper.getActivateProfileHelper().removeNotification();

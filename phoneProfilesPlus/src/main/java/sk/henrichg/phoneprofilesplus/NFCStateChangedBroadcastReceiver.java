@@ -20,7 +20,7 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRuning(context)) {
+        if (Event.getGlobalEventsRunning(context)) {
             final String action = intent.getAction();
 
             if (action.equals(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED)) {

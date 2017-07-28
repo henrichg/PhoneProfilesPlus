@@ -31,7 +31,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
     private LinearLayout linlaProgress;
     private LinearLayout linlaListView;
 
-    private ContactGroupsMultiselectPreferenceAdapter listAdapter;
+    private ContactGroupsMultiSelectPreferenceAdapter listAdapter;
 
     public ContactGroupsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -119,7 +119,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
             }
         });
 
-        listAdapter = new ContactGroupsMultiselectPreferenceAdapter(_context);
+        listAdapter = new ContactGroupsMultiSelectPreferenceAdapter(_context);
         listView.setAdapter(listAdapter);
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);

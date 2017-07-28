@@ -156,7 +156,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 descr = descr + "; " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": " + GlobalGUIRoutines.getDurationString(this._startBeforeEvent);
 
             if (addBullet) {
-                if (Event.getGlobalEventsRuning(context)) {
+                if (Event.getGlobalEventsRunning(context)) {
                     if (_eventFound) {
                         long alarmTime;
                         //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
@@ -273,12 +273,12 @@ class EventPreferencesCalendar extends EventPreferences {
     public boolean isRunnable(Context context)
     {
 
-        boolean runable = super.isRunnable(context);
+        boolean runnable = super.isRunnable(context);
 
-        runable = runable && (!_calendars.isEmpty());
-        runable = runable && (!_searchString.isEmpty());
+        runnable = runnable && (!_calendars.isEmpty());
+        runnable = runnable && (!_searchString.isEmpty());
 
-        return runable;
+        return runnable;
     }
 
     @Override
@@ -500,7 +500,7 @@ class EventPreferencesCalendar extends EventPreferences {
         String[] splits = _calendars.split("\\|");
 
         String searchPattern = _searchString;
-        // when in searchPattern are not widcards add %
+        // when in searchPattern are not wildcards add %
         if (!(searchPattern.contains("%") || searchPattern.contains("_")))
             searchPattern = "%"+searchPattern+"%";
         String[] selectionArgs = new String[] { searchPattern };

@@ -76,7 +76,7 @@ public class HeadsetConnectionService extends WakefulIntentService {
                 editor.apply();
             }
 
-            if (Event.getGlobalEventsRuning(appContext))
+            if (Event.getGlobalEventsRunning(appContext))
             {
                 if (broadcast)
                 {

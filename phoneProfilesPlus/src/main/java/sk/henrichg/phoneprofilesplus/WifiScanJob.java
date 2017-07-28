@@ -50,7 +50,7 @@ class WifiScanJob extends Job {
         if (wifi == null)
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-        if (Event.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRunning(context))
         {
             startScanner(context, false);
         }

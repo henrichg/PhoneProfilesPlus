@@ -120,10 +120,10 @@ public class ApplicationsCache {
             return 0;
     }
 
-    List<Application> getList(boolean noShorcuts)
+    List<Application> getList(boolean noShortcuts)
     {
         if (cached) {
-            if (noShorcuts)
+            if (noShortcuts)
                 return applicationsNoShortcutsList;
             else
                 return applicationsList;

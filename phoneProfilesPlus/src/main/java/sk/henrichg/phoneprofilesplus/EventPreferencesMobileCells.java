@@ -150,11 +150,11 @@ class EventPreferencesMobileCells extends EventPreferences {
     public boolean isRunnable(Context context)
     {
 
-        boolean runable = super.isRunnable(context);
+        boolean runnable = super.isRunnable(context);
 
-        runable = runable && (!_cells.isEmpty());
+        runnable = runnable && (!_cells.isEmpty());
 
-        return runable;
+        return runnable;
     }
 
     /*

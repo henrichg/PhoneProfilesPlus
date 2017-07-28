@@ -73,7 +73,7 @@ public class VolumeDialogPreference extends
 
         audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        // zistima maximalnu hodnotu z audio managera
+        // zistime maximalnu hodnotu z audio managera
         if (volumeType.equalsIgnoreCase("RINGTONE"))
             maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
         else

@@ -352,7 +352,7 @@ public class BluetoothNamePreference extends DialogPreference {
         return false;
     }
 
-    public void refreshListView(boolean forRescan, final String scroolToBTName)
+    public void refreshListView(boolean forRescan, final String scrollToBTName)
     {
         final boolean _forRescan = forRescan;
 
@@ -492,9 +492,9 @@ public class BluetoothNamePreference extends DialogPreference {
                     dataRelativeLayout.setVisibility(View.VISIBLE);
                 }
 
-                if (!scroolToBTName.isEmpty())
+                if (!scrollToBTName.isEmpty())
                 for (int position = 0; position < bluetoothList.size() - 1; position++) {
-                    if (bluetoothList.get(position).getName().equalsIgnoreCase(scroolToBTName)) {
+                    if (bluetoothList.get(position).getName().equalsIgnoreCase(scrollToBTName)) {
                         bluetoothListView.setItemChecked(position, true);
                         bluetoothListView.setSelection(position);
                         //bluetoothListView.smoothScrollToPosition(position);

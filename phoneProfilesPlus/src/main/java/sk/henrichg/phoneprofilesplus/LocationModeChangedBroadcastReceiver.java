@@ -19,7 +19,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRuning(appContext))
+        if (Event.getGlobalEventsRunning(appContext))
         {
             PPApplication.logE("@@@ LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 

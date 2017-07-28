@@ -37,7 +37,7 @@ public class BatteryService extends WakefulIntentService {
                     PPApplication.isPowerSaveMode = oldPowerSaveMode;
             }
 
-            if (Event.getGlobalEventsRuning(appContext)) {
+            if (Event.getGlobalEventsRunning(appContext)) {
 
                 if (PhoneProfilesService.instance != null) {
                     if (PhoneProfilesService.isGeofenceScannerStarted())

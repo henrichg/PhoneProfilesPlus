@@ -296,7 +296,7 @@ class GlobalGUIRoutines {
     */
 
     /**
-     * Sets the specified image buttonto the given state, while modifying or
+     * Sets the specified image button to the given state, while modifying or
      * "graying-out" the icon as well
      *
      * @param enabled The state of the menu item
@@ -544,10 +544,10 @@ class GlobalGUIRoutines {
         return value.data;
     }
 
-    static int getResourceId(String pVariableName, String pResourcename, Context context)
+    static int getResourceId(String pVariableName, String pResourceName, Context context)
     {
         try {
-            return context.getResources().getIdentifier(pVariableName, pResourcename, context.getPackageName());
+            return context.getResources().getIdentifier(pVariableName, pResourceName, context.getPackageName());
         } catch (Exception e) {
             //e.printStackTrace();
             return -1;

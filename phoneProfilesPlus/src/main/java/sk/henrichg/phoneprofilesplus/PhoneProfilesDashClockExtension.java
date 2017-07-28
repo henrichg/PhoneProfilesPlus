@@ -160,9 +160,9 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             if (profile._deviceAirplaneMode == 2)
                 indicator1 = addIntoIndicator(indicator1, "am0");
             // auto-sync
-            if ((profile._deviceAutosync == 1) || (profile._deviceAutosync == 3))
+            if ((profile._deviceAutoSync == 1) || (profile._deviceAutoSync == 3))
                 indicator1 = addIntoIndicator(indicator1, "as1");
-            if (profile._deviceAutosync == 2)
+            if (profile._deviceAutoSync == 2)
                 indicator1 = addIntoIndicator(indicator1, "as0");
             // Network type
             if (profile._deviceNetworkType != 0)
@@ -244,12 +244,12 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             // lock device
             if (profile._lockDevice != 0)
                 indicator1 = addIntoIndicator(indicator1, "lck");
-            // disable wifi scalling
+            // disable wifi scanning
             if ((profile._applicationDisableWifiScanning == 1) || (profile._applicationDisableWifiScanning == 3))
                 indicator1 = addIntoIndicator(indicator1, "ws1");
             if (profile._applicationDisableWifiScanning == 2)
                 indicator1 = addIntoIndicator(indicator1, "ws0");
-            // disable bluetooth scalling
+            // disable bluetooth scanning
             if ((profile._applicationDisableBluetoothScanning == 1) || (profile._applicationDisableBluetoothScanning == 3))
                 indicator1 = addIntoIndicator(indicator1, "bs1");
             if (profile._applicationDisableBluetoothScanning == 2)

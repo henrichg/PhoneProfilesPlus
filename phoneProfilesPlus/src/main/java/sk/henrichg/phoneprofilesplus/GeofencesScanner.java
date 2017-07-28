@@ -287,19 +287,19 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     //-------------------------------------------
 
     private void showErrorNotification(int errorCode) {
-        String ntitle = context.getString(R.string.event_preferences_location_google_api_connection_error_title);
-        String ntext = context.getString(R.string.event_preferences_location_google_api_connection_error_text);
+        String nTitle = context.getString(R.string.event_preferences_location_google_api_connection_error_title);
+        String nText = context.getString(R.string.event_preferences_location_google_api_connection_error_text);
         if (android.os.Build.VERSION.SDK_INT < 24) {
-            ntitle = context.getString(R.string.app_name);
-            ntext = context.getString(R.string.event_preferences_location_google_api_connection_error_title)+": "+
+            nTitle = context.getString(R.string.app_name);
+            nText = context.getString(R.string.event_preferences_location_google_api_connection_error_title)+": "+
                     context.getString(R.string.event_preferences_location_google_api_connection_error_text);
         }
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                .setContentTitle(ntitle) // title for notification
-                .setContentText(ntext) // message for notification
+                .setContentTitle(nTitle) // title for notification
+                .setContentText(nText) // message for notification
                 .setAutoCancel(true); // clear notification after click
-        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(ntext));
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
         Intent intent = new Intent(context, GeofenceScannerErrorActivity.class);
         intent.putExtra(DIALOG_ERROR, errorCode);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

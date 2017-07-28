@@ -48,7 +48,7 @@ public class WifiService extends WakefulIntentService {
                         }
                     }
 
-                    if (Event.getGlobalEventsRuning(appContext)) {
+                    if (Event.getGlobalEventsRunning(appContext)) {
                         if ((info.getState() == NetworkInfo.State.CONNECTED) ||
                                 (info.getState() == NetworkInfo.State.DISCONNECTED)) {
                             if (!((WifiScanJob.getScanRequest(appContext)) ||
@@ -113,7 +113,7 @@ public class WifiService extends WakefulIntentService {
                 int forceOneScan = ScannerService.getForceOneWifiScan(appContext);
                 PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiStateChangedBroadcastReceiver: forceOneScan="+forceOneScan);
 
-                if (Event.getGlobalEventsRuning(appContext) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
                 {
                     PPApplication.logE("$$$ WifiService.doWakefulWork","WifiStateChangedBroadcastReceiver: state="+wifiState);
 
@@ -180,7 +180,7 @@ public class WifiService extends WakefulIntentService {
                 int forceOneScan = ScannerService.getForceOneWifiScan(appContext);
                 PPApplication.logE("%%%% WifiService.doWakefulWork", "WifiScanBroadcastReceiver: forceOneScan="+forceOneScan);
 
-                if (Event.getGlobalEventsRuning(appContext) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
                 {
                     boolean scanStarted = (WifiScanJob.getWaitForResults(appContext));
                     PPApplication.logE("%%%% WifiService.doWakefulWork", "WifiScanBroadcastReceiver: scanStarted="+scanStarted);

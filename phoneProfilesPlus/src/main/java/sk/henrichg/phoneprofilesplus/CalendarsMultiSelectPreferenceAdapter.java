@@ -11,14 +11,14 @@ import android.widget.TextView;
 
 import java.util.List;
 
-class CalendarsMultiselectPreferenceAdapter extends BaseAdapter
+class CalendarsMultiSelectPreferenceAdapter extends BaseAdapter
 {
     private List<CalendarEvent> calendarList = null;
 
     private LayoutInflater inflater;
     //private Context context;
 
-    CalendarsMultiselectPreferenceAdapter(Context context, List<CalendarEvent> calendarList)
+    CalendarsMultiSelectPreferenceAdapter(Context context, List<CalendarEvent> calendarList)
     {
         this.calendarList = calendarList;
 
@@ -99,7 +99,7 @@ class CalendarsMultiselectPreferenceAdapter extends BaseAdapter
         calendarColor.setBackgroundColor(0xff000000 + calendar.color);
         textViewDisplayName.setText(calendar.name);
 
-        //Log.d("CalendarsMultiselectPreferenceAdapter.getView","calendar.checked="+calendar.checked);
+        //Log.d("CalendarsMultiSelectPreferenceAdapter.getView","calendar.checked="+calendar.checked);
         checkBox.setChecked(calendar.checked);
 
         return convertView;

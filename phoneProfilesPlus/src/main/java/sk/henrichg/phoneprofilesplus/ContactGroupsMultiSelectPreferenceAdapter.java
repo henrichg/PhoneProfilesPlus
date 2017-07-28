@@ -8,12 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-class ContactGroupsMultiselectPreferenceAdapter extends BaseAdapter
+class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
     //private Context context;
 
-    ContactGroupsMultiselectPreferenceAdapter(Context context)
+    ContactGroupsMultiSelectPreferenceAdapter(Context context)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
@@ -34,10 +34,10 @@ class ContactGroupsMultiselectPreferenceAdapter extends BaseAdapter
     
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        ContactGroupsCache contactGroupsCahce = EditorProfilesActivity.getContactGroupsCache();
+        ContactGroupsCache contactGroupsCache = EditorProfilesActivity.getContactGroupsCache();
 
         // Contact group to display
-        ContactGroup contactGroup = contactGroupsCahce.getContactGroup(position);
+        ContactGroup contactGroup = contactGroupsCache.getContactGroup(position);
         //System.out.println(String.valueOf(position));
 
         // The child views in each row.

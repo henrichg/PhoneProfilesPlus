@@ -30,7 +30,7 @@ class SearchCalendarEventsJob extends Job {
             // application is not started
             return Result.SUCCESS;
 
-        if (Event.getGlobalEventsRuning(appContext))
+        if (Event.getGlobalEventsRunning(appContext))
         {
             /*boolean calendarEventsExists = false;
 

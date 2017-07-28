@@ -143,7 +143,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_activate_profile);
 
-        //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onCreate - setContnetView");
+        //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onCreate - setContentView");
 
         toolbar = (Toolbar)findViewById(R.id.act_prof_tollbar);
         //toolbar.inflateMenu(R.menu.activity_activate_profile);
@@ -239,7 +239,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         MenuItem menuItem = menu.findItem(R.id.menu_restart_events);
         if (menuItem != null)
         {
-            menuItem.setVisible(Event.getGlobalEventsRuning(getApplicationContext()));
+            menuItem.setVisible(Event.getGlobalEventsRunning(getApplicationContext()));
         }
 
         return super.onPrepareOptionsMenu(menu);
@@ -316,7 +316,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     public void setEventsRunStopIndicator()
     {
-        if (Event.getGlobalEventsRuning(getApplicationContext()))
+        if (Event.getGlobalEventsRunning(getApplicationContext()))
         {
             if (Event.getEventsBlocked(getApplicationContext()))
                 eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation);
@@ -375,7 +375,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                 View editorActionView = toolbar.findViewById(R.id.menu_edit_profiles);
                 final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
-                if (Event.getGlobalEventsRuning(getApplicationContext())) {
+                if (Event.getGlobalEventsRunning(getApplicationContext())) {
                     View restartEventsActionView = toolbar.findViewById(R.id.menu_restart_events);
                     sequence.targets(
                             TapTarget.forView(editorActionView, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))

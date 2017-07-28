@@ -36,7 +36,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
     private LinearLayout linlaProgress;
     private LinearLayout linlaLisView;
 
-    private CalendarsMultiselectPreferenceAdapter listAdapter;
+    private CalendarsMultiSelectPreferenceAdapter listAdapter;
 
     private static final String[] CALENDAR_PROJECTION = new String[] {
         Calendars._ID,                           // 0
@@ -213,12 +213,12 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 super.onPostExecute(result);
 
                 calendarList = new ArrayList<>(_calendarList);
-                //Log.d("CalendarsMultiSelectDialogPreference.refreshListView","caledarList.size()="+calendarList.size());
+                //Log.d("CalendarsMultiSelectDialogPreference.refreshListView","calendarList.size()="+calendarList.size());
 
                 getValueCMSDP(notForUnselect);
 
                 if (listAdapter == null) {
-                    listAdapter = new CalendarsMultiselectPreferenceAdapter(_context, calendarList);
+                    listAdapter = new CalendarsMultiSelectPreferenceAdapter(_context, calendarList);
                     listView.setAdapter(listAdapter);
                 }
                 else
@@ -278,7 +278,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         if (calendarList != null)
         {
             //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","value="+value);
-            //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","caledarList.size()="+calendarList.size());
+            //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","calendarList.size()="+calendarList.size());
             String[] splits = value.split("\\|");
             for (CalendarEvent calendar : calendarList)
             {

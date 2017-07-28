@@ -62,13 +62,13 @@ public class KeyguardService extends Service {
         PPApplication.logE("$$$ KeyguardService.onStartCommand","secureKeyguard="+secureKeyguard);
         if (!secureKeyguard)
         {
-            PPApplication.logE("$$$ KeyguardService.onStartCommand xxx","getLockscreenDisabled="+ ActivateProfileHelper.getLockscreenDisabled(context));
+            PPApplication.logE("$$$ KeyguardService.onStartCommand xxx","getLockScreenDisabled="+ ActivateProfileHelper.getLockScreenDisabled(context));
 
 
             if (isScreenOn) {
                 PPApplication.logE("$$$ KeyguardService.onStartCommand", "screen on");
 
-                if (ActivateProfileHelper.getLockscreenDisabled(context)) {
+                if (ActivateProfileHelper.getLockScreenDisabled(context)) {
                     PPApplication.logE("$$$ KeyguardService.onStartCommand", "Keyguard.disable(), START_STICKY");
                     reenableKeyguard();
                     disableKeyguard();
@@ -83,7 +83,7 @@ public class KeyguardService extends Service {
             /*else {
                 PPApplication.logE("$$$ KeyguardService.onStartCommand", "screen off");
 
-                if (PPApplication.getLockscreenDisabled(context)) {
+                if (PPApplication.getLockScreenDisabled(context)) {
                     PPApplication.logE("$$$ KeyguardService.onStartCommand", "Keyguard.disable(), START_STICKY");
 
                     // renable with old keyguardLock

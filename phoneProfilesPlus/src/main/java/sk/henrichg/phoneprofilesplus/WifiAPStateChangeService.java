@@ -17,7 +17,7 @@ public class WifiAPStateChangeService extends WakefulIntentService {
 
             Context context = getApplicationContext();
 
-            if (Event.getGlobalEventsRuning(context))
+            if (Event.getGlobalEventsRunning(context))
             {
                 if (WifiApManager.isWifiAPEnabled(context)) {
                     // Wifi AP is enabled

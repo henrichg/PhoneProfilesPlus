@@ -57,7 +57,7 @@ public class Profile {
     String _deviceWallpaper;
     int _deviceRunApplicationChange;
     String _deviceRunApplicationPackageName;
-    int _deviceAutosync;
+    int _deviceAutoSync;
     boolean _showInActivator;
     int _deviceAutoRotate;
     int _volumeSpeakerPhone;
@@ -247,7 +247,7 @@ public class Profile {
                    int deviceGPS,
                    int deviceRunApplicationChange,
                    String deviceRunApplicationPackageName,
-                   int deviceAutosync,
+                   int deviceAutoSync,
                    boolean showInActivator,
                    int deviceAutoRotate,
                    int deviceLocationServicePrefs,
@@ -302,7 +302,7 @@ public class Profile {
         this._deviceWallpaper = deviceWallpaper;
         this._deviceRunApplicationChange = deviceRunApplicationChange;
         this._deviceRunApplicationPackageName = deviceRunApplicationPackageName;
-        this._deviceAutosync = deviceAutosync;
+        this._deviceAutoSync = deviceAutoSync;
         this._showInActivator = showInActivator;
         this._deviceAutoRotate = deviceAutoRotate;
         this._deviceLocationServicePrefs = deviceLocationServicePrefs;
@@ -360,7 +360,7 @@ public class Profile {
                    int deviceGPS,
                    int deviceRunApplicationChange,
                    String deviceRunApplicationPackageName,
-                   int deviceAutosync,
+                   int deviceAutoSync,
                    boolean showInActivator,
                    int deviceAutoRotate,
                    int deviceLocationServicePrefs,
@@ -414,7 +414,7 @@ public class Profile {
         this._deviceWallpaper = deviceWallpaper;
         this._deviceRunApplicationChange = deviceRunApplicationChange;
         this._deviceRunApplicationPackageName = deviceRunApplicationPackageName;
-        this._deviceAutosync = deviceAutosync;
+        this._deviceAutoSync = deviceAutoSync;
         this._showInActivator = showInActivator;
         this._deviceAutoRotate = deviceAutoRotate;
         this._deviceLocationServicePrefs = deviceLocationServicePrefs;
@@ -474,7 +474,7 @@ public class Profile {
         this._deviceWallpaper = profile._deviceWallpaper;
         this._deviceRunApplicationChange = profile._deviceRunApplicationChange;
         this._deviceRunApplicationPackageName = profile._deviceRunApplicationPackageName;
-        this._deviceAutosync = profile._deviceAutosync;
+        this._deviceAutoSync = profile._deviceAutoSync;
         this._showInActivator = profile._showInActivator;
         this._deviceAutoRotate = profile._deviceAutoRotate;
         this._deviceLocationServicePrefs = profile._deviceLocationServicePrefs;
@@ -556,14 +556,14 @@ public class Profile {
                         this._deviceAirplaneMode = 1;
                 }
             }
-            if (withProfile._deviceAutosync != 0) {
-                if (withProfile._deviceAutosync != 3) // toggle
-                    this._deviceAutosync = withProfile._deviceAutosync;
+            if (withProfile._deviceAutoSync != 0) {
+                if (withProfile._deviceAutoSync != 3) // toggle
+                    this._deviceAutoSync = withProfile._deviceAutoSync;
                 else {
-                    if (this._deviceAutosync == 1)
-                        this._deviceAutosync = 2;
-                    else if (this._deviceAutosync == 2)
-                        this._deviceAutosync = 1;
+                    if (this._deviceAutoSync == 1)
+                        this._deviceAutoSync = 2;
+                    else if (this._deviceAutoSync == 2)
+                        this._deviceAutoSync = 1;
                 }
             }
             if (withProfile._deviceMobileData != 0) {
@@ -1281,14 +1281,14 @@ public class Profile {
         }
     }
 
-    String getProfileNameWithDuration(boolean multyline, Context context) {
+    String getProfileNameWithDuration(boolean multiLine, Context context) {
         String profileName = _name;
         if ((_duration > 0) && (_afterDurationDo != Profile.AFTERDURATIONDO_NOTHING)) {
             boolean showEndTime = false;
             if (_checked) {
                 long endDurationTime = getActivatedProfileEndDurationTime(context);
                 if (endDurationTime > 0) {
-                    if (multyline)
+                    if (multiLine)
                         profileName = "(de:" + timeDateStringFromTimestamp(context, endDurationTime) + ")\n" + profileName;
                     else
                         profileName = "(de:" + timeDateStringFromTimestamp(context, endDurationTime) + ") " + profileName;
@@ -1297,7 +1297,7 @@ public class Profile {
             }
             if (!showEndTime) {
                 //profileName = "[" + _duration + "] " + profileName;
-                if (multyline)
+                if (multiLine)
                     profileName = "[" + GlobalGUIRoutines.getDurationString(_duration) + "]\n" + profileName;
                 else
                     profileName = "[" + GlobalGUIRoutines.getDurationString(_duration) + "] " + profileName;
@@ -1351,7 +1351,7 @@ public class Profile {
         int	maximumValueMusic = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         int	maximumValueAlarm = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
         int	maximumValueSystem = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
-        int	maximumValueVoicecall = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
+        int	maximumValueVoiceCall = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
 
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.DEFAULT_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
 
@@ -1370,7 +1370,7 @@ public class Profile {
         profile._volumeMedia = preferences.getString(PREF_PROFILE_VOLUME_MEDIA, getVolumeLevelString(80, maximumValueMusic)+"|0|0");
         profile._volumeAlarm = preferences.getString(PREF_PROFILE_VOLUME_ALARM, getVolumeLevelString(100, maximumValueAlarm)+"|0|0");
         profile._volumeSystem = preferences.getString(PREF_PROFILE_VOLUME_SYSTEM, getVolumeLevelString(70, maximumValueSystem)+"|0|0");
-        profile._volumeVoice = preferences.getString(PREF_PROFILE_VOLUME_VOICE, getVolumeLevelString(70, maximumValueVoicecall)+"|0|0");
+        profile._volumeVoice = preferences.getString(PREF_PROFILE_VOLUME_VOICE, getVolumeLevelString(70, maximumValueVoiceCall)+"|0|0");
         profile._soundRingtoneChange = Integer.parseInt(preferences.getString(PREF_PROFILE_SOUND_RINGTONE_CHANGE, "0"));
         profile._soundRingtone = preferences.getString(PREF_PROFILE_SOUND_RINGTONE, Settings.System.DEFAULT_RINGTONE_URI.toString());
         profile._soundNotificationChange = Integer.parseInt(preferences.getString(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0"));
@@ -1389,7 +1389,7 @@ public class Profile {
         profile._deviceGPS = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_GPS, "2")); //OFF
         profile._deviceRunApplicationChange = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, "0"));
         profile._deviceRunApplicationPackageName = preferences.getString(PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, "-");
-        profile._deviceAutosync = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_AUTOSYNC, "1")); // ON
+        profile._deviceAutoSync = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_AUTOSYNC, "1")); // ON
         profile._deviceAutoRotate = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_AUTOROTATE, "1")); // ON
         profile._deviceLocationServicePrefs = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, "0"));
         profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(PREF_PROFILE_VOLUME_SPEAKER_PHONE, "0"));
@@ -1447,7 +1447,7 @@ public class Profile {
                     profile._deviceGPS,
                     profile._deviceRunApplicationChange,
                     profile._deviceRunApplicationPackageName,
-                    profile._deviceAutosync,
+                    profile._deviceAutoSync,
                     profile._showInActivator,
                     profile._deviceAutoRotate,
                     profile._deviceLocationServicePrefs,
@@ -1510,8 +1510,8 @@ public class Profile {
             }
             if (profile._deviceAirplaneMode == 99)
                 mappedProfile._deviceAirplaneMode = defaultProfile._deviceAirplaneMode;
-            if (profile._deviceAutosync == 99)
-                mappedProfile._deviceAutosync = defaultProfile._deviceAutosync;
+            if (profile._deviceAutoSync == 99)
+                mappedProfile._deviceAutoSync = defaultProfile._deviceAutoSync;
             if (profile._deviceMobileData == 99)
                 mappedProfile._deviceMobileData = defaultProfile._deviceMobileData;
             if (profile._deviceMobileDataPrefs == 99)

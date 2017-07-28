@@ -23,7 +23,7 @@ class EventPreferencesTime extends EventPreferences {
     boolean _sunday;
     boolean _monday;
     boolean _tuesday;
-    boolean _wendesday;
+    boolean _wednesday;
     boolean _thursday;
     boolean _friday;
     boolean _saturday;
@@ -44,7 +44,7 @@ class EventPreferencesTime extends EventPreferences {
                                 boolean sunday,
                                 boolean monday,
                                 boolean tuesday,
-                                boolean wendesday,
+                                boolean wednesday,
                                 boolean thursday,
                                 boolean friday,
                                 boolean saturday,
@@ -58,7 +58,7 @@ class EventPreferencesTime extends EventPreferences {
         this._sunday = sunday;
         this._monday = monday;
         this._tuesday = tuesday;
-        this._wendesday = wendesday;
+        this._wednesday = wednesday;
         this._thursday = thursday;
         this._friday = friday;
         this._saturday = saturday;
@@ -74,7 +74,7 @@ class EventPreferencesTime extends EventPreferences {
         this._sunday = fromEvent._eventPreferencesTime._sunday;
         this._monday = fromEvent._eventPreferencesTime._monday;
         this._tuesday = fromEvent._eventPreferencesTime._tuesday;
-        this._wendesday = fromEvent._eventPreferencesTime._wendesday;
+        this._wednesday = fromEvent._eventPreferencesTime._wednesday;
         this._thursday = fromEvent._eventPreferencesTime._thursday;
         this._friday = fromEvent._eventPreferencesTime._friday;
         this._saturday = fromEvent._eventPreferencesTime._saturday;
@@ -92,7 +92,7 @@ class EventPreferencesTime extends EventPreferences {
         if (this._sunday) sValue = sValue + "0|";
         if (this._monday) sValue = sValue + "1|";
         if (this._tuesday) sValue = sValue + "2|";
-        if (this._wendesday) sValue = sValue + "3|";
+        if (this._wednesday) sValue = sValue + "3|";
         if (this._thursday) sValue = sValue + "4|";
         if (this._friday) sValue = sValue + "5|";
         if (this._saturday) sValue = sValue + "6|";
@@ -118,7 +118,7 @@ class EventPreferencesTime extends EventPreferences {
             this._sunday = true;
             this._monday = true;
             this._tuesday = true;
-            this._wendesday = true;
+            this._wednesday = true;
             this._thursday = true;
             this._friday = true;
             this._saturday = true;
@@ -128,7 +128,7 @@ class EventPreferencesTime extends EventPreferences {
             this._sunday = false;
             this._monday = false;
             this._tuesday = false;
-            this._wendesday = false;
+            this._wednesday = false;
             this._thursday = false;
             this._friday = false;
             this._saturday = false;
@@ -137,7 +137,7 @@ class EventPreferencesTime extends EventPreferences {
                 this._sunday = this._sunday || value.equals("0");
                 this._monday = this._monday || value.equals("1");
                 this._tuesday = this._tuesday || value.equals("2");
-                this._wendesday = this._wendesday || value.equals("3");
+                this._wednesday = this._wednesday || value.equals("3");
                 this._thursday = this._thursday || value.equals("4");
                 this._friday = this._friday || value.equals("5");
                 this._saturday = this._saturday || value.equals("6");
@@ -172,7 +172,7 @@ class EventPreferencesTime extends EventPreferences {
             daySet[0] = this._sunday;
             daySet[1] = this._monday;
             daySet[2] = this._tuesday;
-            daySet[3] = this._wendesday;
+            daySet[3] = this._wednesday;
             daySet[4] = this._thursday;
             daySet[5] = this._friday;
             daySet[6] = this._saturday;
@@ -216,7 +216,7 @@ class EventPreferencesTime extends EventPreferences {
 
 
             if (addBullet) {
-                if (Event.getGlobalEventsRuning(context)) {
+                if (Event.getGlobalEventsRunning(context)) {
                     long alarmTime;
                     //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                     String alarmTimeS;
@@ -242,8 +242,8 @@ class EventPreferencesTime extends EventPreferences {
         return descr;
     }
 
-    // dayOfWeek: value are (for exapmple) Calendar.SUNDAY-1
-    // return: value are (for exapmple) Calendar.MONDAY-1
+    // dayOfWeek: value are (for example) Calendar.SUNDAY-1
+    // return: value are (for example) Calendar.MONDAY-1
     static int getDayOfWeekByLocale(int dayOfWeek)
     {
 
@@ -287,7 +287,7 @@ class EventPreferencesTime extends EventPreferences {
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         if (Event.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
-            EventPreferencesTime tmp = new EventPreferencesTime(this._event, this._enabled, this._sunday, this._monday, this._tuesday, this._wendesday,
+            EventPreferencesTime tmp = new EventPreferencesTime(this._event, this._enabled, this._sunday, this._monday, this._tuesday, this._wednesday,
                     this._thursday, this._friday, this._saturday, this._startTime, this._endTime);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -312,18 +312,18 @@ class EventPreferencesTime extends EventPreferences {
     public boolean isRunnable(Context context)
     {
 
-        boolean runable = super.isRunnable(context);
+        boolean runnable = super.isRunnable(context);
 
         boolean dayOfWeek = this._sunday;
         dayOfWeek = dayOfWeek || this._monday;
         dayOfWeek = dayOfWeek || this._tuesday;
-        dayOfWeek = dayOfWeek || this._wendesday;
+        dayOfWeek = dayOfWeek || this._wednesday;
         dayOfWeek = dayOfWeek || this._thursday;
         dayOfWeek = dayOfWeek || this._friday;
         dayOfWeek = dayOfWeek || this._saturday;
-        runable = runable && dayOfWeek;
+        runnable = runnable && dayOfWeek;
 
-        return runable;
+        return runnable;
     }
 
     @Override
@@ -340,7 +340,7 @@ class EventPreferencesTime extends EventPreferences {
         daysOfWeek[Calendar.SUNDAY] = this._sunday;
         daysOfWeek[Calendar.MONDAY] = this._monday;
         daysOfWeek[Calendar.TUESDAY] = this._tuesday;
-        daysOfWeek[Calendar.WEDNESDAY] = this._wendesday;
+        daysOfWeek[Calendar.WEDNESDAY] = this._wednesday;
         daysOfWeek[Calendar.THURSDAY] = this._thursday;
         daysOfWeek[Calendar.FRIDAY] = this._friday;
         daysOfWeek[Calendar.SATURDAY] = this._saturday;

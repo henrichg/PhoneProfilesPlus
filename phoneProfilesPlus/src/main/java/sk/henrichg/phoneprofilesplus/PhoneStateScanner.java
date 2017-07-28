@@ -129,7 +129,7 @@ class PhoneStateScanner extends PhoneStateListener {
     private void getAllCellInfo(List<CellInfo> cellInfo) {
         // only for registered cells is returned identify
         // SlimKat in Galaxy Nexus - returns null :-/
-        // Honor 7 - returns emty list (not null), Dual SIM?
+        // Honor 7 - returns empty list (not null), Dual SIM?
 
         if (cellInfo!=null) {
 

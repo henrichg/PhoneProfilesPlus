@@ -79,7 +79,7 @@ public class BluetoothService extends WakefulIntentService {
                     editor.putInt(PPApplication.PREF_EVENT_BLUETOOTH_LAST_STATE, currState);
                     editor.commit();*/
 
-                    if (Event.getGlobalEventsRuning(appContext)) {
+                    if (Event.getGlobalEventsRunning(appContext)) {
 
                         //if (lastState != currState)
                         //{
@@ -122,7 +122,7 @@ public class BluetoothService extends WakefulIntentService {
                     saveConnectedDevices(appContext);
                 }
 
-                if (Event.getGlobalEventsRuning(appContext))
+                if (Event.getGlobalEventsRunning(appContext))
                 {
                     PPApplication.logE("@@@ BluetoothService.doWakefulWork","BluetoothStateChangedBroadcastReceiver: state="+bluetoothState);
 
@@ -199,7 +199,7 @@ public class BluetoothService extends WakefulIntentService {
 
                 int forceOneScan = ScannerService.getForceOneBluetoothScan(appContext);
 
-                if (Event.getGlobalEventsRuning(appContext) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
                 {
 
                     boolean scanStarted = (BluetoothScanJob.getWaitForResults(appContext));
@@ -276,7 +276,7 @@ public class BluetoothService extends WakefulIntentService {
             if (action.equals("BluetoothLEScanBroadcastReceiver")) {
                 int forceOneScan = ScannerService.getForceOneLEBluetoothScan(appContext);
 
-                if (Event.getGlobalEventsRuning(appContext) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
                 {
 
                     boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(appContext));

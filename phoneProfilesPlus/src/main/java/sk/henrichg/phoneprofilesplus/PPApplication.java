@@ -205,8 +205,8 @@ public class PPApplication extends Application {
         //if (BuildConfig.DEBUG) {
             int actualVersionCode = 0;
             try {
-                PackageInfo pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-                actualVersionCode = pinfo.versionCode;
+                PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                actualVersionCode = pInfo.versionCode;
             } catch (PackageManager.NameNotFoundException e) {
                 //e.printStackTrace();
             }

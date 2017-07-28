@@ -21,7 +21,7 @@ public class DeviceIdleModeService extends WakefulIntentService {
 
             Context appContext = getApplicationContext();
 
-            if (Event.getGlobalEventsRuning(appContext))
+            if (Event.getGlobalEventsRunning(appContext))
             {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 // isLightDeviceIdleMode() is @hide :-(

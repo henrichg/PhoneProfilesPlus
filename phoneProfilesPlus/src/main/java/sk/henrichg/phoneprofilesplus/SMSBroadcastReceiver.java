@@ -110,7 +110,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
             int gmtOffset = TimeZone.getDefault().getRawOffset();
             long time = now.getTimeInMillis() + gmtOffset;
 
-            if (Event.getGlobalEventsRuning(context))
+            if (Event.getGlobalEventsRunning(context))
             {
                 PPApplication.logE("@@@ SMSBroadcastReceiver.onReceive","start service");
 

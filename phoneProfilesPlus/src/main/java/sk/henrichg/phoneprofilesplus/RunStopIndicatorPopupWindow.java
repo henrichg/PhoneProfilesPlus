@@ -20,7 +20,7 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
         final Activity _activity = activity;
 
         SwitchCompat checkBox = (SwitchCompat) view.findViewById(R.id.run_stop_indicator_popup_window_checkbox);
-        checkBox.setChecked(Event.getGlobalEventsRuning(activity.getApplicationContext()));
+        checkBox.setChecked(Event.getGlobalEventsRunning(activity.getApplicationContext()));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {

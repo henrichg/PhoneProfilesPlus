@@ -191,7 +191,7 @@ public class EventPreferencesActivity extends PreferenceActivity
         {
             // create new event - default is TIME
             if (predefinedEventIndex == 0)
-                event = dataWrapper.getNoinitializedEvent(context.getString(R.string.event_name_default), 0);
+                event = dataWrapper.getNonInitializedEvent(context.getString(R.string.event_name_default), 0);
             else
                 event = dataWrapper.getPredefinedEvent(predefinedEventIndex-1, false);
             showSaveMenu = true;
@@ -306,7 +306,7 @@ public class EventPreferencesActivity extends PreferenceActivity
         {
             event.saveSharedPreferences(preferences, dataWrapper.context);
 
-            // udate event in DB
+            // update event in DB
             dataWrapper.getDatabaseHandler().updateEvent(event);
 
             if (event.getStatus() == Event.ESTATUS_STOP)

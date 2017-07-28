@@ -241,11 +241,11 @@ class EventPreferencesNotification extends EventPreferences {
     public boolean isRunnable(Context context)
     {
 
-        boolean runable = super.isRunnable(context);
+        boolean runnable = super.isRunnable(context);
 
-        runable = runable && (!_applications.isEmpty());
+        runnable = runnable && (!_applications.isEmpty());
 
-        return runable;
+        return runnable;
     }
 
     @Override

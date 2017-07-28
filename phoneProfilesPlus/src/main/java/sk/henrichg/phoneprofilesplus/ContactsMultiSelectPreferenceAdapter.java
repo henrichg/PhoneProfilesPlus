@@ -14,12 +14,12 @@ import android.widget.TextView;
 
 import com.andraskindler.quickscroll.Scrollable;
 
-class ContactsMultiselectPreferenceAdapter extends BaseAdapter implements Scrollable
+class ContactsMultiSelectPreferenceAdapter extends BaseAdapter implements Scrollable
 {
     private LayoutInflater inflater;
     //private Context context;
 
-    ContactsMultiselectPreferenceAdapter(Context context)
+    ContactsMultiSelectPreferenceAdapter(Context context)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
@@ -40,10 +40,10 @@ class ContactsMultiselectPreferenceAdapter extends BaseAdapter implements Scroll
     
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        ContactsCache contactsCahce = EditorProfilesActivity.getContactsCache();
+        ContactsCache contactsCache = EditorProfilesActivity.getContactsCache();
 
         // Contact to display
-        Contact contact = contactsCahce.getContact(position);
+        Contact contact = contactsCache.getContact(position);
         //System.out.println(String.valueOf(position));
 
         // The child views in each row.
@@ -137,8 +137,8 @@ class ContactsMultiselectPreferenceAdapter extends BaseAdapter implements Scroll
     }
 
     @Override
-    public String getIndicatorForPosition(int childposition, int groupposition) {
-        Contact contact = EditorProfilesActivity.getContactsCache().getContact(childposition);
+    public String getIndicatorForPosition(int childPosition, int groupPosition) {
+        Contact contact = EditorProfilesActivity.getContactsCache().getContact(childPosition);
         if (contact.checked)
             return "*";
         else
@@ -146,7 +146,7 @@ class ContactsMultiselectPreferenceAdapter extends BaseAdapter implements Scroll
     }
 
     @Override
-    public int getScrollPosition(int childposition, int groupposition) {
-        return childposition;
+    public int getScrollPosition(int childPosition, int groupPosition) {
+        return childPosition;
     }
 }

@@ -12,14 +12,14 @@ import android.widget.TextView;
 
 import com.andraskindler.quickscroll.Scrollable;
 
-class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter implements Scrollable
+class ApplicationsMultiSelectPreferenceAdapter extends BaseAdapter implements Scrollable
 {
     private LayoutInflater inflater;
     private Context context;
 
     private boolean noShortcuts;
 
-    ApplicationsMultiselectPreferenceAdapter(Context context, int addShortcuts)
+    ApplicationsMultiSelectPreferenceAdapter(Context context, int addShortcuts)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
@@ -43,12 +43,12 @@ class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter implements Sc
     @SuppressLint("SetTextI18n")
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        PPApplication.logE("ApplicationsMultiselectPreferenceAdapter.getView","xxx");
+        PPApplication.logE("ApplicationsMultiSelectPreferenceAdapter.getView","xxx");
 
-        ApplicationsCache applicationsCahce = EditorProfilesActivity.getApplicationsCache();
+        ApplicationsCache applicationsCache = EditorProfilesActivity.getApplicationsCache();
 
         // Application to display
-        Application application = applicationsCahce.getApplication(position, noShortcuts);
+        Application application = applicationsCache.getApplication(position, noShortcuts);
         //System.out.println(String.valueOf(position));
 
         // The child views in each row.
@@ -121,8 +121,8 @@ class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter implements Sc
     }
 
     @Override
-    public String getIndicatorForPosition(int childposition, int groupposition) {
-        Application application = (Application) getItem(childposition);
+    public String getIndicatorForPosition(int childPosition, int groupPosition) {
+        Application application = (Application) getItem(childPosition);
         if (application.checked)
             return "*";
         else
@@ -130,7 +130,7 @@ class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter implements Sc
     }
 
     @Override
-    public int getScrollPosition(int childposition, int groupposition) {
-        return childposition;
+    public int getScrollPosition(int childPosition, int groupPosition) {
+        return childPosition;
     }
 }

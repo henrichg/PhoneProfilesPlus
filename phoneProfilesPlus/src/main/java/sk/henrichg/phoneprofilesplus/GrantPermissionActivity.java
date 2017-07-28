@@ -266,62 +266,62 @@ public class GrantPermissionActivity extends Activity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
                 if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE) {
-                    String ntitle = context.getString(R.string.permissions_for_install_tone_text_notification);
-                    String ntext = context.getString(R.string.permissions_for_install_tone_big_text_notification);
+                    String nTitle = context.getString(R.string.permissions_for_install_tone_text_notification);
+                    String nText = context.getString(R.string.permissions_for_install_tone_big_text_notification);
                     if (android.os.Build.VERSION.SDK_INT < 24) {
-                        ntitle = context.getString(R.string.app_name);
-                        ntext = context.getString(R.string.permissions_for_install_tone_text_notification) + ": " +
+                        nTitle = context.getString(R.string.app_name);
+                        nText = context.getString(R.string.permissions_for_install_tone_text_notification) + ": " +
                                 context.getString(R.string.permissions_for_install_tone_big_text_notification);
                     }
                     mBuilder =   new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                            .setContentTitle(ntitle) // title for notification
-                            .setContentText(ntext)
-                            .setStyle(new NotificationCompat.BigTextStyle().bigText(ntext))
+                            .setContentTitle(nTitle) // title for notification
+                            .setContentText(nText)
+                            .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                             .setAutoCancel(true); // clear notification after click
                     notificationID = PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID;
                 }
                 else
                 if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION) {
-                    String ntitle = context.getString(R.string.permissions_for_install_tone_text_notification);
-                    String ntext = context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
+                    String nTitle = context.getString(R.string.permissions_for_install_tone_text_notification);
+                    String nText = context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
                     if (android.os.Build.VERSION.SDK_INT < 24) {
-                        ntitle = context.getString(R.string.app_name);
-                        ntext = context.getString(R.string.permissions_for_install_tone_text_notification) + ": " +
+                        nTitle = context.getString(R.string.app_name);
+                        nText = context.getString(R.string.permissions_for_install_tone_text_notification) + ": " +
                                 context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
                     }
                     mBuilder =   new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                            .setContentTitle(ntitle) // title for notification
-                            .setContentText(ntext)
-                            .setStyle(new NotificationCompat.BigTextStyle().bigText(ntext))
+                            .setContentTitle(nTitle) // title for notification
+                            .setContentText(nText)
+                            .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                             .setAutoCancel(true); // clear notification after click
                     notificationID = PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID;
                 }
                 else
                 if (grantType == Permissions.GRANT_TYPE_EVENT) {
-                    String ntitle = context.getString(R.string.permissions_for_event_text_notification);
-                    String ntext = "";
+                    String nTitle = context.getString(R.string.permissions_for_event_text_notification);
+                    String nText = "";
                     if (android.os.Build.VERSION.SDK_INT < 24) {
-                        ntitle = context.getString(R.string.app_name);
-                        ntext = context.getString(R.string.permissions_for_event_text_notification)+": ";
+                        nTitle = context.getString(R.string.app_name);
+                        nText = context.getString(R.string.permissions_for_event_text_notification)+": ";
                     }
                     if (mergedNotification) {
-                        ntext = ntext + context.getString(R.string.permissions_for_event_text1m) + " " +
+                        nText = nText + context.getString(R.string.permissions_for_event_text1m) + " " +
                                 context.getString(R.string.permissions_for_event_big_text_notification);
                     }
                     else {
-                        ntext = ntext + context.getString(R.string.permissions_for_event_text1) + " ";
+                        nText = nText + context.getString(R.string.permissions_for_event_text1) + " ";
                         if (event != null)
-                            ntext = ntext + "\"" + event._name + "\" ";
-                        ntext = ntext + context.getString(R.string.permissions_for_event_big_text_notification);
+                            nText = nText + "\"" + event._name + "\" ";
+                        nText = nText + context.getString(R.string.permissions_for_event_big_text_notification);
                     }
                     mBuilder =   new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                            .setContentTitle(ntitle) // title for notification
-                            .setContentText(ntext) // message for notification
+                            .setContentTitle(nTitle) // title for notification
+                            .setContentText(nText) // message for notification
                             .setAutoCancel(true); // clear notification after click
-                    mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(ntext));
+                    mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
                     Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
                     PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, 0);
                     mBuilder.setDeleteIntent(deletePendingIntent);
@@ -330,28 +330,28 @@ public class GrantPermissionActivity extends Activity {
                     notificationID = PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID;
                 }
                 else {
-                    String ntitle = context.getString(R.string.permissions_for_profile_text_notification);
-                    String ntext = "";
+                    String nTitle = context.getString(R.string.permissions_for_profile_text_notification);
+                    String nText = "";
                     if (android.os.Build.VERSION.SDK_INT < 24) {
-                        ntitle = context.getString(R.string.app_name);
-                        ntext = context.getString(R.string.permissions_for_profile_text_notification)+": ";
+                        nTitle = context.getString(R.string.app_name);
+                        nText = context.getString(R.string.permissions_for_profile_text_notification)+": ";
                     }
                     if (mergedProfile || mergedNotification) {
-                        ntext = ntext + context.getString(R.string.permissions_for_profile_text1m) + " " +
+                        nText = nText + context.getString(R.string.permissions_for_profile_text1m) + " " +
                                 context.getString(R.string.permissions_for_profile_big_text_notification);
                     }
                     else {
-                        ntext = ntext + context.getString(R.string.permissions_for_profile_text1) + " ";
+                        nText = nText + context.getString(R.string.permissions_for_profile_text1) + " ";
                         if (profile != null)
-                            ntext = ntext + "\"" + profile._name + "\" ";
-                        ntext = ntext + context.getString(R.string.permissions_for_profile_big_text_notification);
+                            nText = nText + "\"" + profile._name + "\" ";
+                        nText = nText + context.getString(R.string.permissions_for_profile_big_text_notification);
                     }
                     mBuilder =   new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                            .setContentTitle(ntitle) // title for notification
-                            .setContentText(ntext) // message for notification
+                            .setContentTitle(nTitle) // title for notification
+                            .setContentText(nText) // message for notification
                             .setAutoCancel(true); // clear notification after click
-                    mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(ntext));
+                    mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
                     Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
                     PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, 0);
                     mBuilder.setDeleteIntent(deletePendingIntent);
@@ -472,7 +472,7 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestAccessNotificationPolicy) {
-                    //Log.e("GrantPermissionActivity", "onStart - showRequestAccesNotificationPolicy");
+                    //Log.e("GrantPermissionActivity", "onStart - showRequestAccessNotificationPolicy");
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_access_notification_policy) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }

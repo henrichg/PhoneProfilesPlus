@@ -128,7 +128,7 @@ public class DataWrapper {
         this.profileList = profileList;
     }
 
-    static Profile getNoinitializedProfile(String name, String icon, int order)
+    static Profile getNonInitializedProfile(String name, String icon, int order)
     {
         return new Profile(
                   name,
@@ -199,13 +199,13 @@ public class DataWrapper {
         int	maximumValueMusic = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         int	maximumValueAlarm = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
         //int	maximumValueSystem = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
-        //int	maximumValueVoicecall = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
+        //int	maximumValueVoiceCall = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
 
         Profile profile;
 
         switch (index) {
             case 0:
-                profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_home), "ic_profile_home_2", 1);
+                profile = getNonInitializedProfile(context.getString(R.string.default_profile_name_home), "ic_profile_home_2", 1);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
@@ -229,7 +229,7 @@ public class DataWrapper {
                 //profile._deviceBrightness = "60|0|0|0";
                 break;
             case 1:
-                profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_outdoor), "ic_profile_outdoors_1", 2);
+                profile = getNonInitializedProfile(context.getString(R.string.default_profile_name_outdoor), "ic_profile_outdoors_1", 2);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
@@ -253,7 +253,7 @@ public class DataWrapper {
                 //profile._deviceBrightness = "255|0|0|0";
                 break;
             case 2:
-                profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_work), "ic_profile_work_5", 3);
+                profile = getNonInitializedProfile(context.getString(R.string.default_profile_name_work), "ic_profile_work_5", 3);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
@@ -277,7 +277,7 @@ public class DataWrapper {
                 //profile._deviceBrightness = "60|0|0|0";
                 break;
             case 3:
-                profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_meeting), "ic_profile_meeting_2", 4);
+                profile = getNonInitializedProfile(context.getString(R.string.default_profile_name_meeting), "ic_profile_meeting_2", 4);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
@@ -301,7 +301,7 @@ public class DataWrapper {
                 //profile._deviceBrightness = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET+"|1|1|0";
                 break;
             case 4:
-                profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_sleep), "ic_profile_sleep", 5);
+                profile = getNonInitializedProfile(context.getString(R.string.default_profile_name_sleep), "ic_profile_sleep", 5);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
@@ -325,9 +325,9 @@ public class DataWrapper {
                 //profile._deviceBrightness = "10|0|0|0";
                 break;
             case 5:
-                profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_battery_low), "ic_profile_battery_1", 6);
+                profile = getNonInitializedProfile(context.getString(R.string.default_profile_name_battery_low), "ic_profile_battery_1", 6);
                 profile._showInActivator = false;
-                profile._deviceAutosync = 2;
+                profile._deviceAutoSync = 2;
                 profile._deviceMobileData = 2;
                 profile._deviceWiFi = 2;
                 profile._deviceBluetooth = 2;
@@ -795,7 +795,7 @@ public class DataWrapper {
     }
 
     // stops all events
-    void stopAllEvents(boolean saveEventStatus, boolean activateRetirnProfile)
+    void stopAllEvents(boolean saveEventStatus, boolean activateReturnProfile)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
@@ -810,7 +810,7 @@ public class DataWrapper {
                 if (event != null)
                 {
                 //if (event.getStatusFromDB(this) != Event.ESTATUS_STOP)
-                    event.stopEvent(this, eventTimelineList, activateRetirnProfile, true, saveEventStatus, false, false);
+                    event.stopEvent(this, eventTimelineList, activateReturnProfile, true, saveEventStatus, false, false);
                 }
             }
         }
@@ -889,7 +889,7 @@ public class DataWrapper {
         }
     }
 
-    Event getNoinitializedEvent(String name, int startOrder)
+    Event getNonInitializedEvent(String name, int startOrder)
     {
         return new Event(name,
                 startOrder,
@@ -941,7 +941,7 @@ public class DataWrapper {
 
         switch (index) {
             case 0:
-                event = getNoinitializedEvent(context.getString(R.string.default_event_name_during_the_week), 5);
+                event = getNonInitializedEvent(context.getString(R.string.default_event_name_during_the_week), 5);
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_home));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_NONE;
@@ -966,7 +966,7 @@ public class DataWrapper {
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 1:
-                event = getNoinitializedEvent(context.getString(R.string.default_event_name_weekend), 5);
+                event = getNonInitializedEvent(context.getString(R.string.default_event_name_weekend), 5);
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_home));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_NONE;
@@ -988,7 +988,7 @@ public class DataWrapper {
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 2:
-                event = getNoinitializedEvent(context.getString(R.string.default_event_name_during_the_work), 8);
+                event = getNonInitializedEvent(context.getString(R.string.default_event_name_during_the_work), 8);
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_work));
                 //event._undoneProfile = true;
                 event._atEndDo = Event.EATENDDO_NONE;
@@ -1014,7 +1014,7 @@ public class DataWrapper {
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 3:
-                event = getNoinitializedEvent(context.getString(R.string.default_event_name_overnight), 5);
+                event = getNonInitializedEvent(context.getString(R.string.default_event_name_overnight), 5);
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_sleep));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
@@ -1041,7 +1041,7 @@ public class DataWrapper {
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 4:
-                event = getNoinitializedEvent(context.getString(R.string.default_event_name_night_call), 10);
+                event = getNonInitializedEvent(context.getString(R.string.default_event_name_night_call), 10);
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_home));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
@@ -1073,7 +1073,7 @@ public class DataWrapper {
                 event._eventPreferencesCall._contactListType = EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST;
                 break;
             case 5:
-                event = getNoinitializedEvent(context.getString(R.string.default_event_name_low_battery), 10);
+                event = getNonInitializedEvent(context.getString(R.string.default_event_name_low_battery), 10);
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_battery_low));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
@@ -1158,7 +1158,7 @@ public class DataWrapper {
             ActivateProfileHelper.lockRefresh = true;
 
             // pause all events
-            // for forcerRun events set system events and block all events
+            // for forceRun events set system events and block all events
             pauseAllEvents(false, true/*, true*/);
 
             ActivateProfileHelper.lockRefresh = false;
@@ -1671,7 +1671,7 @@ public class DataWrapper {
             int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
             String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, "");
 
-            boolean phoneNumberFinded = false;
+            boolean phoneNumberFound = false;
 
             if (callEventType != PhoneCallService.CALL_EVENT_UNDEFINED)
             {
@@ -1698,22 +1698,22 @@ public class DataWrapper {
                                     while (phones.moveToNext()) {
                                         String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                         if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                            phoneNumberFinded = true;
+                                            phoneNumberFound = true;
                                             break;
                                         }
                                     }
                                     phones.close();
                                 }
-                                if (phoneNumberFinded)
+                                if (phoneNumberFound)
                                     break;
                             }
                             mCursor.close();
                         }
-                        if (phoneNumberFinded)
+                        if (phoneNumberFound)
                             break;
                     }
 
-                    if (!phoneNumberFinded) {
+                    if (!phoneNumberFound) {
                         // find phone number in contacts
                         splits = event._eventPreferencesCall._contacts.split("\\|");
                         for (String split : splits) {
@@ -1734,29 +1734,29 @@ public class DataWrapper {
                                         while (phones.moveToNext()) {
                                             String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                             if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                                phoneNumberFinded = true;
+                                                phoneNumberFound = true;
                                                 break;
                                             }
                                         }
                                         phones.close();
                                     }
-                                    if (phoneNumberFinded)
+                                    if (phoneNumberFound)
                                         break;
                                 }
                                 mCursor.close();
                             }
-                            if (phoneNumberFinded)
+                            if (phoneNumberFound)
                                 break;
                         }
                     }
 
                     if (event._eventPreferencesCall._contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
-                        phoneNumberFinded = !phoneNumberFinded;
+                        phoneNumberFound = !phoneNumberFound;
                 }
                 else
-                    phoneNumberFinded = true;
+                    phoneNumberFound = true;
 
-                if (phoneNumberFinded)
+                if (phoneNumberFound)
                 {
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING)
                     {
@@ -2368,7 +2368,7 @@ public class DataWrapper {
                 if (!event._eventPreferencesNotification._endWhenRemoved) {
 
                     if (event._eventPreferencesNotification._startTime > 0) {
-                        // comute start time
+                        // compute start time
                         int gmtOffset = TimeZone.getDefault().getRawOffset();
                         long startTime = event._eventPreferencesNotification._startTime - gmtOffset;
 
@@ -2751,7 +2751,7 @@ public class DataWrapper {
                 ignoreRadioSwitch = false;
 
                 boolean enabled = ActivateProfileHelper.isAirplaneMode(context);
-                PPApplication.logE("-###- DataWrapper.doEventService", "airplanModeState=" + enabled);
+                PPApplication.logE("-###- DataWrapper.doEventService", "airplaneModeState=" + enabled);
                 tested = true;
                 if (event._eventPreferencesRadioSwitch._airplaneMode == 1)
                     radioSwitchPassed = radioSwitchPassed && enabled;
@@ -2794,7 +2794,7 @@ public class DataWrapper {
         PPApplication.logE("DataWrapper.doEventService","ignoreOrientation="+ignoreOrientation);
         PPApplication.logE("DataWrapper.doEventService","ignoreMobileCell="+ignoreMobileCell);
         PPApplication.logE("DataWrapper.doEventService","ignoreNfc="+ignoreNfc);
-        PPApplication.logE("DataWrapper.doEventService","ignoreEadioSwitch="+ignoreRadioSwitch);
+        PPApplication.logE("DataWrapper.doEventService","ignoreRadioSwitch="+ignoreRadioSwitch);
 
         //PPApplication.logE("DataWrapper.doEventService","eventStart="+eventStart);
         PPApplication.logE("DataWrapper.doEventService","restartEvent="+restartEvent);
@@ -2818,7 +2818,7 @@ public class DataWrapper {
               ignoreMobileCell &&
               ignoreNfc &&
               ignoreRadioSwitch)) {
-            // if some sensor is not ignored, do event start/apuse
+            // if some sensor is not ignored, do event start/pause
 
             if (timePassed &&
                 batteryPassed &&
@@ -2935,7 +2935,7 @@ public class DataWrapper {
 
     void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile, boolean interactive)
     {
-        if (!Event.getGlobalEventsRuning(context))
+        if (!Event.getGlobalEventsRunning(context))
             // events are globally stopped
             return;
 
@@ -3041,7 +3041,7 @@ public class DataWrapper {
 
     void restartEventsWithAlert(Activity activity)
     {
-        if (!Event.getGlobalEventsRuning(context))
+        if (!Event.getGlobalEventsRunning(context))
             // events are globally stopped
             return;
 
@@ -3162,14 +3162,14 @@ public class DataWrapper {
             return !Event.getForceRunEventRunning(context);
     }
 
-    private String getProfileNameWithManualIndicator(Profile profile, List<EventTimeline> eventTimelineList, boolean addIndicators, boolean addDuration, boolean multyline, Context context)
+    private String getProfileNameWithManualIndicator(Profile profile, List<EventTimeline> eventTimelineList, boolean addIndicators, boolean addDuration, boolean multiLine, Context context)
     {
         if (profile == null)
             return "";
 
         String name;
         if (addDuration)
-            name = profile.getProfileNameWithDuration(multyline, context);
+            name = profile.getProfileNameWithDuration(multiLine, context);
         else
             name = profile._name;
 
@@ -3198,10 +3198,10 @@ public class DataWrapper {
         return name;
     }
 
-    public String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators, boolean addDuration, boolean multyline) {
+    public String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators, boolean addDuration, boolean multiLine) {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
-        return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration, multyline, context);
+        return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration, multiLine, context);
     }
 
     /*
@@ -3217,7 +3217,7 @@ public class DataWrapper {
     private String getLastStartedEventName(List<EventTimeline> eventTimelineList)
     {
 
-        if (Event.getGlobalEventsRuning(context) && PPApplication.getApplicationStarted(context, false))
+        if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, false))
         {
             if (eventTimelineList.size() > 0)
             {
@@ -3230,7 +3230,7 @@ public class DataWrapper {
                     {
                         Profile profile = getActivatedProfile();
                         if ((profile != null) && (event._fkProfileStart == profile._id))
-                            // last started event activatees activated profile
+                            // last started event activates activated profile
                             return event._name;
                         else
                             return "";
@@ -3332,7 +3332,7 @@ public class DataWrapper {
     }
 
     void runStopEvents() {
-        if (Event.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRunning(context))
         {
             //noinspection ConstantConditions
             addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, null, null, null, 0);
@@ -3342,7 +3342,7 @@ public class DataWrapper {
             resetAllEventsInDelayEnd(false);
             // no set system events, unblock all events, no activate return profile
             pauseAllEvents(true, false/*, false*/);
-            Event.setGlobalEventsRuning(context, false);
+            Event.setGlobalEventsRunning(context, false);
             // stop Wifi scanner
             WifiScanJob.initialize(context);
             WifiScanJob.cancelJob();
@@ -3363,7 +3363,7 @@ public class DataWrapper {
             //noinspection ConstantConditions
             addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, null, null, null, 0);
 
-            Event.setGlobalEventsRuning(context, true);
+            Event.setGlobalEventsRunning(context, true);
 
             if (PhoneProfilesService.instance != null) {
                 PPApplication.startGeofenceScanner(context);

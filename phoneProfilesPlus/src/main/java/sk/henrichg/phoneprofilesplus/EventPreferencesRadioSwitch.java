@@ -230,12 +230,12 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     public boolean isRunnable(Context context)
     {
 
-        boolean runable = super.isRunnable(context);
+        boolean runnable = super.isRunnable(context);
 
-        runable = runable &&
+        runnable = runnable &&
                 ((_wifi != 0) || (_bluetooth != 0) || (_mobileData != 0) || (_gps != 0) || (_nfc != 0) || (_airplaneMode != 0));
 
-        return runable;
+        return runnable;
     }
 
     @Override

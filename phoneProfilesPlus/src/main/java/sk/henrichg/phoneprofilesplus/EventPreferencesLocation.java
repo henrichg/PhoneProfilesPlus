@@ -175,11 +175,11 @@ class EventPreferencesLocation extends EventPreferences {
     public boolean isRunnable(Context context)
     {
 
-        boolean runable = super.isRunnable(context);
+        boolean runnable = super.isRunnable(context);
 
-        runable = runable && (!_geofences.isEmpty());
+        runnable = runnable && (!_geofences.isEmpty());
 
-        return runable;
+        return runnable;
     }
 
     @Override

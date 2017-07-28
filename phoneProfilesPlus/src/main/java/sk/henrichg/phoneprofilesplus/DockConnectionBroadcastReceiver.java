@@ -18,7 +18,7 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRuning(appContext))
+        if (Event.getGlobalEventsRunning(appContext))
         {
             /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
             boolean peripheralEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL) > 0;

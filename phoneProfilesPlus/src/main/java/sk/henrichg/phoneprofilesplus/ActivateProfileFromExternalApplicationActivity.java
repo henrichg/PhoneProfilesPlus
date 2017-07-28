@@ -85,18 +85,18 @@ public class ActivateProfileFromExternalApplicationActivity extends Activity {
     }
 
     private void showNotification(String title, String text) {
-        String ntitle = title;
-        String ntext = text;
+        String nTitle = title;
+        String nText = text;
         if (android.os.Build.VERSION.SDK_INT < 24) {
-            ntitle = getString(R.string.app_name);
-            ntext = title+": "+text;
+            nTitle = getString(R.string.app_name);
+            nText = title+": "+text;
         }
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext())
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                .setContentTitle(ntitle) // title for notification
-                .setContentText(ntext) // message for notification
+                .setContentTitle(nTitle) // title for notification
+                .setContentText(nText) // message for notification
                 .setAutoCancel(true); // clear notification after click
-        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(ntext));
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
         /*Intent intent = new Intent(context, ImportantInfoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);

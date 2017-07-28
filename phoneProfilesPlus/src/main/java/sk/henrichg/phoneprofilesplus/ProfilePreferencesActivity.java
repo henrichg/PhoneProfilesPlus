@@ -215,7 +215,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         {
             // create new profile
             if (predefinedProfileIndex == 0) {
-                profile = DataWrapper.getNoinitializedProfile(
+                profile = DataWrapper.getNonInitializedProfile(
                         context.getResources().getString(R.string.profile_name_default),
                         Profile.PROFILE_ICON_DEFAULT, 0);
             }
@@ -260,7 +260,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                     origProfile._deviceGPS,
                     origProfile._deviceRunApplicationChange,
                     origProfile._deviceRunApplicationPackageName,
-                    origProfile._deviceAutosync,
+                    origProfile._deviceAutoSync,
                     origProfile._showInActivator,
                     origProfile._deviceAutoRotate,
                     origProfile._deviceLocationServicePrefs,
@@ -353,7 +353,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             editor.putString(Profile.PREF_PROFILE_DEVICE_GPS, Integer.toString(profile._deviceGPS));
             editor.putString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, Integer.toString(profile._deviceRunApplicationChange));
             editor.putString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
-            editor.putString(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, Integer.toString(profile._deviceAutosync));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, Integer.toString(profile._deviceAutoSync));
             editor.putString(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, Integer.toString(profile._deviceAutoRotate));
             editor.putString(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, Integer.toString(profile._deviceLocationServicePrefs));
             editor.putString(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, Integer.toString(profile._volumeSpeakerPhone));
@@ -447,7 +447,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             profile._deviceRunApplicationPackageName = preferences.getString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, "-");
         else
             profile._deviceRunApplicationPackageName = "-";
-        profile._deviceAutosync = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, ""));
+        profile._deviceAutoSync = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, ""));
         profile._deviceAutoRotate = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, ""));
         profile._deviceLocationServicePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, ""));
         profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, ""));

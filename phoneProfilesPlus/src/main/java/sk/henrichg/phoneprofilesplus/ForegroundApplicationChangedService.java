@@ -62,7 +62,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
                     //Log.d("ForegroundApplicationChangedService", "packageInForeground="+packageInForeground);
                     setApplicationInForeground(context, packageInForeground);
 
-                    if (Event.getGlobalEventsRuning(context)) {
+                    if (Event.getGlobalEventsRunning(context)) {
                         Intent eventsServiceIntent = new Intent(context, EventsService.class);
                         eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_APPLICATION);
                         WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);

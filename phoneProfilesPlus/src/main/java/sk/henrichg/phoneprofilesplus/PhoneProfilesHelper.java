@@ -42,9 +42,9 @@ class PhoneProfilesHelper {
 
         // get package version
         try {
-            PackageInfo pinfo = context.getPackageManager().getPackageInfo("sk.henrichg.phoneprofileshelper", 0);
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo("sk.henrichg.phoneprofileshelper", 0);
             PPApplication.logE("PhoneProfilesHelper.isPPHelperInstalled", "found");
-            PPHelperVersion = pinfo.versionCode;
+            PPHelperVersion = pInfo.versionCode;
         } catch (NameNotFoundException e) {
             PPApplication.logE("PhoneProfilesHelper.isPPHelperInstalled", "not found");
             //e.printStackTrace();
@@ -279,7 +279,7 @@ class PhoneProfilesHelper {
             }
         }
         if (!cmd.isFinished()){
-            Log.e("PhoneProfilesHelper.commandWaid", "Could not finish root command in " + (waitTill/waitTillMultiplier));
+            Log.e("PhoneProfilesHelper.commandWait", "Could not finish root command in " + (waitTill/waitTillMultiplier));
             OK = false;
         }
         
@@ -332,7 +332,7 @@ class PhoneProfilesHelper {
             synchronized (PPApplication.startRootCommandMutex) {
                 String command1 = "rm " + file;
                 //if (PPApplication.isSELinuxEnforcing())
-                //	command1 = PPApplication.getSELinuxEnforceCommad(command1);
+                //	command1 = PPApplication.getSELinuxEnforceCommand(command1);
                 Command command = new Command(0, false, command1);
                 try {
                     //RootTools.closeAllShells();

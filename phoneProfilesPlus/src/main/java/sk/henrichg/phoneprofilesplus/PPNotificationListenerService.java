@@ -85,7 +85,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRuning(context)) {
+        if (Event.getGlobalEventsRunning(context)) {
             Intent eventsServiceIntent = new Intent(context, EventsService.class);
             eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_NOTIFICATION);
             //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
@@ -97,7 +97,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
-        //Log.d(TAG, "********** onNOtificationRemoved");
+        //Log.d(TAG, "********** onNotificationRemoved");
 
         if (sbn == null)
             return;
@@ -119,7 +119,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRuning(context)) {
+        if (Event.getGlobalEventsRunning(context)) {
             Intent eventsServiceIntent = new Intent(context, EventsService.class);
             eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_NOTIFICATION);
             //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));

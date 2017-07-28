@@ -969,7 +969,7 @@ class Event {
         removeDelayStartAlarm(dataWrapper); // for start delay
         removeDelayEndAlarm(dataWrapper); // for end delay
 
-        if ((!getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
+        if ((!getGlobalEventsRunning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
             return;
 
@@ -1003,7 +1003,7 @@ class Event {
                 return;
         }
 
-        // search for runing event with higher priority
+        // search for running event with higher priority
         for (EventTimeline eventTimeline : eventTimelineList)
         {
             Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
@@ -1145,7 +1145,7 @@ class Event {
             {
                 if (_fkProfileEnd != activatedProfileId)
                 {
-                    PPApplication.logE("Event.pauseEvent","activate end porfile");
+                    PPApplication.logE("Event.pauseEvent","activate end profile");
                     if (mergedProfile == null)
                         dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, false, false);
                     else
@@ -1157,7 +1157,7 @@ class Event {
             // second activate when undone profile is set
             if (_atEndDo == EATENDDO_UNDONE_PROFILE)
             {
-                // when in timeline list is event, get start profile from last event in tlimeline list
+                // when in timeline list is event, get start profile from last event in timeline list
                 // because last event in timeline list may be changed
                 if (eventTimelineList.size() > 0) {
                     EventTimeline _eventTimeline = eventTimelineList.get(eventTimelineList.size() - 1);
@@ -1217,7 +1217,7 @@ class Event {
         removeDelayStartAlarm(dataWrapper); // for start delay
         removeDelayEndAlarm(dataWrapper); // for end delay
 
-        if ((!getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
+        if ((!getGlobalEventsRunning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
             return;
 
@@ -1306,7 +1306,7 @@ class Event {
 
 
         //if (_forceRun)
-        //{ look for forcerun events always, not only when forcerun event is paused
+        //{ look for forceRun events always, not only when forcerun event is paused
             boolean forceRunRunning = false;
             for (EventTimeline _eventTimeline : eventTimelineList)
             {
@@ -1345,7 +1345,7 @@ class Event {
         removeDelayStartAlarm(dataWrapper); // for start delay
         removeDelayEndAlarm(dataWrapper); // for end delay
 
-        if ((!getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
+        if ((!getGlobalEventsRunning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
             return;
 
@@ -1459,7 +1459,7 @@ class Event {
     {
         removeDelayStartAlarm(dataWrapper);
 
-        if (!getGlobalEventsRuning(dataWrapper.context))
+        if (!getGlobalEventsRunning(dataWrapper.context))
             // events are globally stopped
             return;
 
@@ -1576,7 +1576,7 @@ class Event {
     {
         removeDelayEndAlarm(dataWrapper);
 
-        if (!getGlobalEventsRuning(dataWrapper.context))
+        if (!getGlobalEventsRunning(dataWrapper.context))
             // events are globally stopped
             return;
 
@@ -1774,17 +1774,17 @@ class Event {
 
 
 
-    static public boolean getGlobalEventsRuning(Context context)
+    static public boolean getGlobalEventsRunning(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, true);
     }
 
-    static void setGlobalEventsRuning(Context context, boolean globalEventsRuning)
+    static void setGlobalEventsRunning(Context context, boolean globalEventsRunning)
     {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, globalEventsRuning);
+        editor.putBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, globalEventsRunning);
         editor.apply();
     }
 

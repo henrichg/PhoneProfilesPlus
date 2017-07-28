@@ -58,10 +58,10 @@ class GeofenceScannerJob extends Job {
             return Result.SUCCESS;
         }
 
-        if (Event.getGlobalEventsRuning(context)) {
+        if (Event.getGlobalEventsRunning(context)) {
             if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.geofencesScanner != null)) {
                 if (PhoneProfilesService.geofencesScanner.mUpdatesStarted) {
-                    PPApplication.logE("GeofenceScannerJob.onRunJob", "loaction updates started - start GeofencesService");
+                    PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates started - start GeofencesService");
 
                     //PhoneProfilesService.geofencesScanner.stopLocationUpdates();
 
@@ -69,7 +69,7 @@ class GeofenceScannerJob extends Job {
                     Intent serviceIntent = new Intent(context, GeofencesService.class);
                     WakefulIntentService.sendWakefulWork(context, serviceIntent);
                 } else
-                    PPApplication.logE("GeofenceScannerJob.onRunJob", "loaction updates not started - start it");
+                    PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates not started - start it");
                     // Fixed: java.lang.NullPointerException: Calling thread must be a prepared Looper thread.
                     //        com.google.android.gms.internal.zzccb.requestLocationUpdates(Unknown Source)
                     Handler handler = new Handler(context.getMainLooper());

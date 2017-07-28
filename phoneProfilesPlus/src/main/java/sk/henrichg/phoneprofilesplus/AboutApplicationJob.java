@@ -38,18 +38,18 @@ class AboutApplicationJob extends Job {
             NotificationCompat.Builder mBuilder;
             Intent _intent = new Intent(context, AboutApplicationActivity.class);
 
-            String ntitle = context.getString(R.string.about_application_donate_button);
-            String ntext = context.getString(R.string.donation_description);
+            String nTitle = context.getString(R.string.about_application_donate_button);
+            String nText = context.getString(R.string.donation_description);
             if (android.os.Build.VERSION.SDK_INT < 24) {
-                ntitle = context.getString(R.string.app_name);
-                ntext = context.getString(R.string.about_application_donate_button) + ": " +
+                nTitle = context.getString(R.string.app_name);
+                nText = context.getString(R.string.about_application_donate_button) + ": " +
                         context.getString(R.string.donation_description);
             }
             mBuilder =   new NotificationCompat.Builder(context)
                     .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                    .setContentTitle(ntitle) // title for notification
-                    .setContentText(ntext)
-                    .setStyle(new NotificationCompat.BigTextStyle().bigText(ntext))
+                    .setContentTitle(nTitle) // title for notification
+                    .setContentText(nText)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                     .setAutoCancel(true); // clear notification after click
 
             PendingIntent pi = PendingIntent.getActivity(context, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);

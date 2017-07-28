@@ -180,12 +180,12 @@ class EventPreferencesCall extends EventPreferences {
     public boolean isRunnable(Context context)
     {
 
-        boolean runable = super.isRunnable(context);
+        boolean runnable = super.isRunnable(context);
 
-        runable = runable && ((_contactListType == CONTACT_LIST_TYPE_NOT_USE) ||
+        runnable = runnable && ((_contactListType == CONTACT_LIST_TYPE_NOT_USE) ||
                               (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
 
-        return runable;
+        return runnable;
     }
 
     @Override

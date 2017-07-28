@@ -28,7 +28,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -129,7 +128,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     private ScrimInsetsFrameLayout drawerRoot;
     private ListView drawerListView;
     private ActionBarDrawerToggle drawerToggle;
-    private TextView filterStatusbarTitle;
+    private TextView filterStatusBarTitle;
     private Spinner orderSpinner;
     private ImageView drawerHeaderFilterImage;
     private TextView drawerHeaderFilterTitle;
@@ -211,13 +210,13 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
             else
             {
-                // for 7 inch tablets lauout changed:
+                // for 7 inch tablets layout changed:
                 //   - portrait - one pane
                 //   - landscape - two pane
                 // onRestartProfilePreferences is called, when user save/not save profile
                 // preference changes (Back button, or Cancel in ActionMode)
-                // In this method, editmode and profile_id is saved into shared preferences
-                // And when orientaion changed into lanscape mode, profile preferences fragment
+                // In this method, editMode and profile_id is saved into shared preferences
+                // And when orientation changed into landscape mode, profile preferences fragment
                 // must by recreated due profile preference changes
                 ApplicationPreferences.getSharedPreferences(this);
                 int dataType = ApplicationPreferences.preferences.getInt(SP_DATA_DETAILS_DATA_TYPE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
@@ -384,8 +383,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         };
         drawerLayout.addDrawerListener(drawerToggle);
         
-        filterStatusbarTitle = (TextView) findViewById(R.id.editor_filter_title);
-        filterStatusbarTitle.setOnClickListener(new View.OnClickListener() {
+        filterStatusBarTitle = (TextView) findViewById(R.id.editor_filter_title);
+        filterStatusBarTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawerLayout.openDrawer(drawerRoot);
@@ -393,15 +392,15 @@ public class EditorProfilesActivity extends AppCompatActivity
         });
        
         orderSpinner = (Spinner) findViewById(R.id.editor_list_bottom_bar_order);
-        ArrayAdapter<CharSequence> orderSpinneAadapter = ArrayAdapter.createFromResource(
+        ArrayAdapter<CharSequence> orderSpinnerAdapter = ArrayAdapter.createFromResource(
                                     //getSupportActionBar().getThemedContext(),
                                     getBaseContext(),
                                     R.array.drawerOrderEvents,
                                     //android.R.layout.simple_spinner_item);
                                     R.layout.editor_drawer_spinner);
-        //orderSpinneAadapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
-        orderSpinneAadapter.setDropDownViewResource(R.layout.editor_drawer_spinner_dropdown);
-        orderSpinner.setAdapter(orderSpinneAadapter);
+        //orderSpinnerAdapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
+        orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_drawer_spinner_dropdown);
+        orderSpinner.setAdapter(orderSpinnerAdapter);
         orderSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -546,7 +545,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         menuItem = menu.findItem(R.id.menu_run_stop_events);
         if (menuItem != null)
         {
-            if (Event.getGlobalEventsRuning(getApplicationContext()))
+            if (Event.getGlobalEventsRunning(getApplicationContext()))
             {
                 menuItem.setTitle(R.string.menu_stop_events);
             }
@@ -574,7 +573,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         menuItem = menu.findItem(R.id.menu_restart_events);
         if (menuItem != null)
         {
-            menuItem.setVisible(Event.getGlobalEventsRuning(getApplicationContext()));
+            menuItem.setVisible(Event.getGlobalEventsRunning(getApplicationContext()));
         }
 
         return super.onPrepareOptionsMenu(menu);
@@ -711,7 +710,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 startActivity(myIntent);
             } catch (ActivityNotFoundException e) {
                 //Toast.makeText(this, "No application can handle this request."
-                //    + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                //    + " Please install a web browser",  Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
             return true;*/
@@ -1257,7 +1256,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         // restart events
                         // startneme eventy
-                        if (Event.getGlobalEventsRuning(getApplicationContext())) {
+                        if (Event.getGlobalEventsRunning(getApplicationContext())) {
                             PPApplication.logE("$$$ restartEvents", "from EditorProfilesActivity.doImportData.onPostExecute");
                             dataWrapper.restartEventsWithDelay(1, false, false);
                         }
@@ -1344,7 +1343,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         Intent phoneProfiles = packageManager.getLaunchIntentForPackage("sk.henrichg.phoneprofiles");
         if (phoneProfiles != null)
         {
-            // PhoneProfiles is istalled
+            // PhoneProfiles is installed
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.import_profiles_from_phoneprofiles_alert_title);
@@ -1588,7 +1587,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     orderItems[orderSelectedItem];
         }*/
         String text = drawerItemsSubtitle[drawerSelectedItem-1];
-        filterStatusbarTitle.setText(text);
+        filterStatusBarTitle.setText(text);
         drawerHeaderFilterSubtitle.setText(text);
      }
 
@@ -1864,7 +1863,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private void setEventsRunStopIndicator()
     {
-        if (Event.getGlobalEventsRuning(getApplicationContext()))
+        if (Event.getGlobalEventsRunning(getApplicationContext()))
         {
             if (Event.getEventsBlocked(getApplicationContext()))
                 eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation);
@@ -1957,7 +1956,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     circleColor = 0x7F7F7F;
 
                 final TapTargetSequence sequence = new TapTargetSequence(this);
-                if (Event.getGlobalEventsRuning(getApplicationContext()))
+                if (Event.getGlobalEventsRunning(getApplicationContext()))
                     sequence.targets(
                             TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
                                     .targetCircleColorInt(circleColor)

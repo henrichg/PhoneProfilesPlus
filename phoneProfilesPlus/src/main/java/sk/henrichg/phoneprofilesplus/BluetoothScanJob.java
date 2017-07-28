@@ -56,7 +56,7 @@ class BluetoothScanJob extends Job {
         if (bluetooth == null)
             bluetooth = getBluetoothAdapter(context);
 
-        if (Event.getGlobalEventsRuning(context))
+        if (Event.getGlobalEventsRunning(context))
         {
             startScanner(context, false);
         }

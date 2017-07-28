@@ -149,8 +149,8 @@ public class PhoneProfilesService extends Service
 
         // save version code (is used in PackageReplacedReceiver)
         try {
-            PackageInfo pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            int actualVersionCode = pinfo.versionCode;
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            int actualVersionCode = pInfo.versionCode;
             PPApplication.setSavedVersionCode(appContext, actualVersionCode);
         } catch (PackageManager.NameNotFoundException e) {
             //e.printStackTrace();
@@ -343,7 +343,7 @@ public class PhoneProfilesService extends Service
         intentFilter17.addAction("android.net.wifi.WIFI_AP_STATE_CHANGED");
         appContext.registerReceiver(wifiAPStateChangeBroadcastReceiver, intentFilter17);
 
-        // required for loaction and radio switch event
+        // required for location and radio switch event
         if (locationModeChangedBroadcastReceiver != null)
             appContext.unregisterReceiver(locationModeChangedBroadcastReceiver);
         locationModeChangedBroadcastReceiver = new LocationModeChangedBroadcastReceiver();

@@ -21,7 +21,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
             //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 
-            // start delayed bootup broadcast
+            // start delayed boot up broadcast
             PPApplication.startedOnBoot = true;
             final Handler handler = new Handler(context.getMainLooper());
             handler.postDelayed(new Runnable() {
@@ -33,7 +33,7 @@ public class BootUpReceiver extends BroadcastReceiver {
             }, 10000);
 
             PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot=" + ApplicationPreferences.applicationStartOnBoot(context));
-            //PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning="+PPApplication.getGlobalEventsRuning(context));
+            //PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning="+PPApplication.getGlobalEventsRunning(context));
 
             BluetoothService.clearConnectedDevices(context, true);
             BluetoothService.saveConnectedDevices(context);

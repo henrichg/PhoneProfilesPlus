@@ -827,18 +827,18 @@ public class ScannerService extends WakefulIntentService
                         notificationBigText = context.getString(R.string.phone_profiles_pref_eventBluetoothScanningSystemSettings_summary);
                     }
 
-                    String ntitle = notificationText;
-                    String ntext = notificationBigText;
+                    String nTitle = notificationText;
+                    String nText = notificationBigText;
                     if (android.os.Build.VERSION.SDK_INT < 24) {
-                        ntitle = context.getString(R.string.app_name);
-                        ntext = notificationText+": "+notificationBigText;
+                        nTitle = context.getString(R.string.app_name);
+                        nText = notificationText+": "+notificationBigText;
                     }
                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                            .setContentTitle(ntitle) // title for notification
-                            .setContentText(ntext) // message for notification
+                            .setContentTitle(nTitle) // title for notification
+                            .setContentText(nText) // message for notification
                             .setAutoCancel(true); // clear notification after click
-                    mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(ntext));
+                    mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
 
                     int requestCode;
                     if (scanType.equals(SCANNER_TYPE_WIFI)) {

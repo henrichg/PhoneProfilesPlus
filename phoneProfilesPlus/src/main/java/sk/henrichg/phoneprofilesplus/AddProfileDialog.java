@@ -24,7 +24,7 @@ class AddProfileDialog
         List<Profile> profileList = new ArrayList<>();
 
         Profile profile;
-        profile = DataWrapper.getNoinitializedProfile(
+        profile = DataWrapper.getNonInitializedProfile(
                                         context.getResources().getString(R.string.profile_name_default),
                                         Profile.PROFILE_ICON_DEFAULT, 0);
         profile.generateIconBitmap(context, false, 0xFF);

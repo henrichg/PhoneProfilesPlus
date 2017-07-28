@@ -296,7 +296,7 @@ public class ActivateProfileHelper {
 
                                             PhoneProfilesService.connectToSSIDStarted = true;
 
-                                            // conected to another SSID
+                                            // connected to another SSID
                                             wifiManager.disconnect();
                                             wifiManager.enableNetwork(i.networkId, true);
                                             wifiManager.reconnect();
@@ -1001,8 +1001,8 @@ public class ActivateProfileHelper {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                int interuptionFilter = mNotificationManager.getCurrentInterruptionFilter();
-                switch (interuptionFilter) {
+                int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
+                switch (interruptionFilter) {
                     case NotificationManager.INTERRUPTION_FILTER_ALARMS:
                         return ActivateProfileHelper.ZENMODE_ALARMS;
                     case NotificationManager.INTERRUPTION_FILTER_ALL:
@@ -1016,8 +1016,8 @@ public class ActivateProfileHelper {
                 }
             }
             else {
-                int interuptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
-                switch (interuptionFilter) {
+                int interruptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
+                switch (interruptionFilter) {
                     case 0:
                         return ActivateProfileHelper.ZENMODE_ALL;
                     case 1:
@@ -1030,8 +1030,8 @@ public class ActivateProfileHelper {
             }
         }
         if ((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) {
-            int interuptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
-            switch (interuptionFilter) {
+            int interruptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
+            switch (interruptionFilter) {
                 case 0:
                     return ActivateProfileHelper.ZENMODE_ALL;
                 case 1:
@@ -1072,7 +1072,7 @@ public class ActivateProfileHelper {
     @SuppressWarnings("deprecation")
     void setRingerMode(Profile profile, AudioManager audioManager, boolean firstCall, boolean forProfileActivation)
     {
-        //PPApplication.logE("@@@ ActivateProfileHelper.setRingerMode", "andioM.ringerMode=" + audioManager.getRingerMode());
+        //PPApplication.logE("@@@ ActivateProfileHelper.setRingerMode", "audioM.ringerMode=" + audioManager.getRingerMode());
 
         int ringerMode;
         int zenMode;
@@ -1402,30 +1402,30 @@ public class ActivateProfileHelper {
         WakefulIntentService.sendWakefulWork(context, radioServiceIntent);
 
         // nahodenie auto-sync
-        boolean _isAutosync = ContentResolver.getMasterSyncAutomatically();
-        boolean _setAutosync = false;
-        switch (profile._deviceAutosync) {
+        boolean _isAutoSync = ContentResolver.getMasterSyncAutomatically();
+        boolean _setAutoSync = false;
+        switch (profile._deviceAutoSync) {
             case 1:
-                if (!_isAutosync)
+                if (!_isAutoSync)
                 {
-                    _isAutosync = true;
-                    _setAutosync = true;
+                    _isAutoSync = true;
+                    _setAutoSync = true;
                 }
                 break;
             case 2:
-                if (_isAutosync)
+                if (_isAutoSync)
                 {
-                    _isAutosync = false;
-                    _setAutosync = true;
+                    _isAutoSync = false;
+                    _setAutoSync = true;
                 }
                 break;
             case 3:
-                _isAutosync = !_isAutosync;
-                _setAutosync = true;
+                _isAutoSync = !_isAutoSync;
+                _setAutoSync = true;
                 break;
         }
-        if (_setAutosync)
-            ContentResolver.setMasterSyncAutomatically(_isAutosync);
+        if (_setAutoSync)
+            ContentResolver.setMasterSyncAutomatically(_isAutoSync);
 
         // screen timeout
         if (Permissions.checkProfileScreenTimeout(context, profile)) {
@@ -1453,22 +1453,22 @@ public class ActivateProfileHelper {
 
         // zapnutie/vypnutie lockscreenu
         //PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguard");
-        boolean setLockscreen = false;
+        boolean setLockScreen = false;
         switch (profile._deviceKeyguard) {
             case 1:
                 // enable lockscreen
                 PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguard=ON");
-                setLockscreenDisabled(context, false);
-                setLockscreen = true;
+                setLockScreenDisabled(context, false);
+                setLockScreen = true;
                 break;
             case 2:
                 // disable lockscreen
                 PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguard=OFF");
-                setLockscreenDisabled(context, true);
-                setLockscreen = true;
+                setLockScreenDisabled(context, true);
+                setLockScreen = true;
                 break;
         }
-        if (setLockscreen) {
+        if (setLockScreen) {
             boolean isScreenOn;
             //if (android.os.Build.VERSION.SDK_INT >= 20)
             //{
@@ -1735,7 +1735,7 @@ public class ActivateProfileHelper {
             case 6:
                 //2147483647 = Integer.MAX_VALUE
                 //18000000   = 5 hours
-                //86400000   = 24 hounrs
+                //86400000   = 24 hours
                 //43200000   = 12 hours
                 screenTimeoutUnlock(context);
                 if (PPApplication.lockDeviceActivity != null)
@@ -1893,7 +1893,7 @@ public class ActivateProfileHelper {
     public void showNotification(Profile profile)
     {
         if (lockRefresh)
-            // no refres notification
+            // no refresh notification
             return;
 
         if (ApplicationPreferences.notificationStatusBar(context))
@@ -1966,7 +1966,7 @@ public class ActivateProfileHelper {
                 //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
                 boolean screenUnlocked = !myKM.isKeyguardLocked();
                 //boolean screenUnlocked = getScreenUnlocked(context);
-                if ((ApplicationPreferences.notificationHideInLockscreen(context) && (!screenUnlocked)) ||
+                if ((ApplicationPreferences.notificationHideInLockScreen(context) && (!screenUnlocked)) ||
                         ((profile != null) && profile._hideStatusBarIcon))
                     notificationBuilder.setPriority(Notification.PRIORITY_MIN);
                 else
@@ -2178,7 +2178,7 @@ public class ActivateProfileHelper {
     void updateWidget(boolean alsoEditor)
     {
         if (lockRefresh)
-            // no refres widgets
+            // no refresh widgets
             return;
 
         // icon widget
@@ -2735,13 +2735,13 @@ public class ActivateProfileHelper {
     static boolean canExploitGPS(Context context)
     {
         // test expoiting power manager widget
-        PackageManager pacman = context.getPackageManager();
+        PackageManager pacMan = context.getPackageManager();
         try {
-            PackageInfo pacInfo = pacman.getPackageInfo("com.android.settings", PackageManager.GET_RECEIVERS);
+            PackageInfo pacInfo = pacMan.getPackageInfo("com.android.settings", PackageManager.GET_RECEIVERS);
 
             if(pacInfo != null){
                 for(ActivityInfo actInfo : pacInfo.receivers){
-                    //test if recevier is exported. if so, we can toggle GPS.
+                    //test if receiver is exported. if so, we can toggle GPS.
                     if(actInfo.name.equals("com.android.settings.widget.SettingsAppWidgetProvider") && actInfo.exported){
                         return true;
                     }
@@ -3237,13 +3237,13 @@ public class ActivateProfileHelper {
         editor.apply();
     }
 
-    static boolean getLockscreenDisabled(Context context)
+    static boolean getLockScreenDisabled(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getBoolean(PREF_LOCKSCREEN_DISABLED, false);
     }
 
-    static void setLockscreenDisabled(Context context, boolean disabled)
+    static void setLockScreenDisabled(Context context, boolean disabled)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();

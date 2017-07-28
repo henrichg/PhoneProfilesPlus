@@ -43,14 +43,14 @@ class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
     }
 
     @Override
-    public String getIndicatorForPosition(int childposition, int groupposition) {
-        Application application = (Application) getItem(childposition);
+    public String getIndicatorForPosition(int childPosition, int groupPosition) {
+        Application application = (Application) getItem(childPosition);
         return application.appLabel.substring(0, 1);
     }
 
     @Override
-    public int getScrollPosition(int childposition, int groupposition) {
-        return childposition;
+    public int getScrollPosition(int childPosition, int groupPosition) {
+        return childPosition;
     }
 
     static class ViewHolder {
@@ -66,10 +66,10 @@ class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
     {
         ViewHolder holder;
 
-        ApplicationsCache applicationsCahce = EditorProfilesActivity.getApplicationsCache();
+        ApplicationsCache applicationsCache = EditorProfilesActivity.getApplicationsCache();
 
         // Application to display
-        Application application = applicationsCahce.getApplication(position, false);
+        Application application = applicationsCache.getApplication(position, false);
         //System.out.println(String.valueOf(position));
 
         // Create a new row view

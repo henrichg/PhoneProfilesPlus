@@ -277,19 +277,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String KEY_G_CHECKED = "checked";
     private static final String KEY_G_TRANSITION = "transition";
 
-    // Shortcuts Colums names
+    // Shortcuts Columns names
     private static final String KEY_S_ID = "_id";
     private static final String KEY_S_INTENT = "intent";
     private static final String KEY_S_NAME = "name";
 
-    // Mobile cells Colums names
+    // Mobile cells Columns names
     private static final String KEY_MC_ID = "_id";
     private static final String KEY_MC_CELL_ID = "cellId";
     private static final String KEY_MC_NAME = "name";
     private static final String KEY_MC_NEW = "new";
     private static final String KEY_MC_LAST_CONNECTED_TIME = "lastConnectedTime";
 
-    // NFC tags Colums names
+    // NFC tags Columns names
     private static final String KEY_NT_ID = "_id";
     private static final String KEY_NT_NAME = "name";
 
@@ -342,7 +342,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /*
-    // be sure to call this method by: DatabaseHandler.getInstance().closeConnecion() 
+    // be sure to call this method by: DatabaseHandler.getInstance().closeConnection()
     // when application is closed by somemeans most likely
     // onDestroy method of application
     synchronized void closeConnection() {
@@ -2078,7 +2078,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_DEVICE_GPS, profile._deviceGPS);
             values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
             values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
-            values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutosync);
+            values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutoSync);
             values.put(KEY_SHOW_IN_ACTIVATOR, (profile._showInActivator) ? 1 : 0);
             values.put(KEY_DEVICE_AUTOROTATE, profile._deviceAutoRotate);
             values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs);
@@ -2355,7 +2355,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     profile._deviceGPS = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_GPS)));
                     profile._deviceRunApplicationChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_CHANGE)));
                     profile._deviceRunApplicationPackageName = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME));
-                    profile._deviceAutosync = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOSYNC)));
+                    profile._deviceAutoSync = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOSYNC)));
                     profile._showInActivator = cursor.isNull(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR)) || (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR))) == 1);
                     profile._deviceAutoRotate = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOROTATE)));
                     profile._deviceLocationServicePrefs = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LOCATION_SERVICE_PREFS)));
@@ -2428,7 +2428,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_DEVICE_GPS, profile._deviceGPS);
             values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
             values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
-            values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutosync);
+            values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutoSync);
             values.put(KEY_SHOW_IN_ACTIVATOR, (profile._showInActivator) ? 1 : 0);
             values.put(KEY_DEVICE_AUTOROTATE, profile._deviceAutoRotate);
             values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs);
@@ -3257,7 +3257,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.close();
             //db.close();
 
-            // return evemt list
+            // return event list
             return eventList;
         }
     }
@@ -6842,7 +6842,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             int exportedDBObjVersion = 0;
 
                             if (tableExists(TABLE_EVENTS, exportedDBObj)) {
-                                // cusor for events exportedDB
+                                // cursor for events exportedDB
                                 cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_EVENTS, null);
                                 columnNamesExportedDB = cursorExportedDB.getColumnNames();
 
@@ -7287,7 +7287,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             db.execSQL("DELETE FROM " + TABLE_ACTIVITY_LOG);
 
                             if (tableExists(TABLE_ACTIVITY_LOG, exportedDBObj)) {
-                                // cusor for events exportedDB
+                                // cursor for events exportedDB
                                 cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_ACTIVITY_LOG, null);
                                 columnNamesExportedDB = cursorExportedDB.getColumnNames();
 
@@ -7324,7 +7324,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             db.execSQL("DELETE FROM " + TABLE_GEOFENCES);
 
                             if (tableExists(TABLE_GEOFENCES, exportedDBObj)) {
-                                // cusor for events exportedDB
+                                // cursor for events exportedDB
                                 cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_GEOFENCES, null);
                                 columnNamesExportedDB = cursorExportedDB.getColumnNames();
 
@@ -7363,7 +7363,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             db.execSQL("DELETE FROM " + TABLE_SHORTCUTS);
 
                             if (tableExists(TABLE_SHORTCUTS, exportedDBObj)) {
-                                // cusor for events exportedDB
+                                // cursor for events exportedDB
                                 cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_SHORTCUTS, null);
                                 columnNamesExportedDB = cursorExportedDB.getColumnNames();
 
@@ -7402,7 +7402,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             db.execSQL("DELETE FROM " + TABLE_MOBILE_CELLS);
 
                             if (tableExists(TABLE_MOBILE_CELLS, exportedDBObj)) {
-                                // cusor for exportedDB
+                                // cursor for exportedDB
                                 cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_MOBILE_CELLS, null);
                                 columnNamesExportedDB = cursorExportedDB.getColumnNames();
 
@@ -7441,7 +7441,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             db.execSQL("DELETE FROM " + TABLE_NFC_TAGS);
 
                             if (tableExists(TABLE_NFC_TAGS, exportedDBObj)) {
-                                // cusor for events exportedDB
+                                // cursor for events exportedDB
                                 cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_NFC_TAGS, null);
                                 columnNamesExportedDB = cursorExportedDB.getColumnNames();
 

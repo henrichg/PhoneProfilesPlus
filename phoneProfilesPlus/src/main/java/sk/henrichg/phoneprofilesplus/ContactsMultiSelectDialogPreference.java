@@ -34,7 +34,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
     private LinearLayout linlaProgress;
     private LinearLayout linlaListView;
 
-    private ContactsMultiselectPreferenceAdapter listAdapter;
+    private ContactsMultiSelectPreferenceAdapter listAdapter;
 
     public ContactsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -122,7 +122,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             }
         });
 
-        listAdapter = new ContactsMultiselectPreferenceAdapter(_context);
+        listAdapter = new ContactsMultiSelectPreferenceAdapter(_context);
         listView.setAdapter(listAdapter);
 
         TypedValue tv = new TypedValue();

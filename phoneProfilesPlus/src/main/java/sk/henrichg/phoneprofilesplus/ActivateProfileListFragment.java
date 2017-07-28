@@ -198,7 +198,7 @@ public class ActivateProfileListFragment extends Fragment {
                 int modulo = count % 3;
                 if (modulo > 0) {
                     for (int i = 0; i < 3 - modulo; i++) {
-                        Profile profile = DataWrapper.getNoinitializedProfile(
+                        Profile profile = DataWrapper.getNonInitializedProfile(
                                 dataWrapper.context.getResources().getString(R.string.profile_name_default),
                                 Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_IGNORED_PROFILE);
                         profile._showInActivator = true;

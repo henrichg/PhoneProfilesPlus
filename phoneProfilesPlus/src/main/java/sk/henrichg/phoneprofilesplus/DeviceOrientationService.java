@@ -22,7 +22,7 @@ public class DeviceOrientationService extends WakefulIntentService {
                 // application is not started
                 return;
 
-            if (Event.getGlobalEventsRuning(appContext))
+            if (Event.getGlobalEventsRunning(appContext))
             {
                 PPApplication.logE("@@@ DeviceOrientationService.doWakefulWork", "-----------");
 

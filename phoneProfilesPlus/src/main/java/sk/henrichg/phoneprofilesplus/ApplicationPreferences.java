@@ -167,7 +167,7 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getString(PREF_NOTIFICATION_TEXT_COLOR, "0");
     }
 
-    static boolean notificationHideInLockscreen(Context context) {
+    static boolean notificationHideInLockScreen(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN, false);
     }
 

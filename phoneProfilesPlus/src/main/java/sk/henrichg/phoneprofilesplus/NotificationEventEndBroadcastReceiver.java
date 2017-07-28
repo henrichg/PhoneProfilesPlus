@@ -18,7 +18,7 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRuning(appContext))
+        if (Event.getGlobalEventsRunning(appContext))
         {
             PPApplication.logE("@@@ NotificationEventEndBroadcastReceiver.onReceive","xxx");
 

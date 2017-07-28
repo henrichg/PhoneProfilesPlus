@@ -23,8 +23,8 @@ class ImportantInfoNotification {
         int packageVersionCode = 0;
         int savedVersionCode = 0;
         try {
-            PackageInfo pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            packageVersionCode = pinfo.versionCode;
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            packageVersionCode = pInfo.versionCode;
             savedVersionCode = getShowInfoNotificationOnStartVersion(context);
             if (packageVersionCode > savedVersionCode) {
                 //Log.d("ImportantInfoNotification.showInfoNotification","show");
@@ -80,18 +80,18 @@ class ImportantInfoNotification {
     }
 
     static private void showNotification(Context context, String title, String text) {
-        String ntitle = title;
-        String ntext = text;
+        String nTitle = title;
+        String nText = text;
         if (android.os.Build.VERSION.SDK_INT < 24) {
-            ntitle = context.getString(R.string.app_name);
-            ntext = title+": "+text;
+            nTitle = context.getString(R.string.app_name);
+            nText = title+": "+text;
         }
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                .setContentTitle(ntitle) // title for notification
-                .setContentText(ntext) // message for notification
+                .setContentTitle(nTitle) // title for notification
+                .setContentText(nText) // message for notification
                 .setAutoCancel(true); // clear notification after click
-        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(ntext));
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
         Intent intent = new Intent(context, ImportantInfoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);

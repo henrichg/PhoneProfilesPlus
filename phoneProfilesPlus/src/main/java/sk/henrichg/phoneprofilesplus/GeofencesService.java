@@ -22,7 +22,7 @@ public class GeofencesService extends WakefulIntentService {
                 // application is not started
                 return;
 
-            if (Event.getGlobalEventsRuning(appContext))
+            if (Event.getGlobalEventsRunning(appContext))
             {
                 PPApplication.logE("@@@ GeofencesService.doWakefulWork", "xxx");
 

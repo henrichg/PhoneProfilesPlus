@@ -107,9 +107,9 @@ class ProfilePreferencesIndicator {
             if (profile._deviceAirplaneMode == 2)
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode_off;
             // auto-sync
-            if ((profile._deviceAutosync == 1) || (profile._deviceAutosync == 3))
+            if ((profile._deviceAutoSync == 1) || (profile._deviceAutoSync == 3))
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync;
-            if (profile._deviceAutosync == 2)
+            if (profile._deviceAutoSync == 2)
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync_off;
             // network type
             if (profile._deviceNetworkType != 0)

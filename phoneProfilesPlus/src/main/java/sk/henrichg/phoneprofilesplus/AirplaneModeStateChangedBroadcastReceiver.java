@@ -16,7 +16,7 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRuning(context)) {
+        if (Event.getGlobalEventsRunning(context)) {
             final String action = intent.getAction();
 
             if (action.equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)) {

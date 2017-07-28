@@ -370,7 +370,7 @@ public class EditorEventListFragment extends Fragment
 
     void runStopEvent(Event event)
     {
-        if (Event.getGlobalEventsRuning(dataWrapper.context)) {
+        if (Event.getGlobalEventsRunning(dataWrapper.context)) {
             // events are not globally stopped
 
             if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP) {
@@ -483,7 +483,7 @@ public class EditorEventListFragment extends Fragment
         final Event event = (Event)view.getTag();
 
         MenuItem menuItem = menu.findItem(R.id.event_list_item_menu_run_stop);
-        //if (PPApplication.getGlobalEventsRuning(dataWrapper.context))
+        //if (PPApplication.getGlobalEventsRunning(dataWrapper.context))
         //{
             //menuItem.setVisible(true);
 

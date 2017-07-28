@@ -1,7 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 /**
- * Exception thrown when writng nfc tags
+ * Exception thrown when writing nfc tags
  */
 class NFCTagWriteException extends Exception {
     //private static final long serialVersionUID = 4647185067874734143L;

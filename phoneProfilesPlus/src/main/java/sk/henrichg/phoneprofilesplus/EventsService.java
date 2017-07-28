@@ -168,7 +168,7 @@ public class EventsService extends WakefulIntentService {
             }
         }
 
-        if (!Event.getGlobalEventsRuning(context)) {
+        if (!Event.getGlobalEventsRunning(context)) {
             // events are globally stopped
 
             doEndService(/*intent*/);
@@ -295,7 +295,7 @@ public class EventsService extends WakefulIntentService {
         // no refresh notification and widgets
         ActivateProfileHelper.lockRefresh = true;
 
-        Profile mergedProfile = DataWrapper.getNoinitializedProfile("", "", 0);
+        Profile mergedProfile = DataWrapper.getNonInitializedProfile("", "", 0);
         //mergedProfiles = new ArrayList<>();
 
         //Profile activatedProfile0 = null;
