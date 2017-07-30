@@ -115,6 +115,19 @@ public class FirstStartService extends WakefulIntentService {
         {
             PPApplication.logE("$$$ FirstStartService.doWakefulWork","global event run is not enabled, manually activate profile");
             //PPApplication.setApplicationStarted(context, true);
+
+            ////// unblock all events for first start
+            //     that may be blocked in previous application run
+            Event.setEventsBlocked(context, false);
+            for (Event event : dataWrapper.getEventList())
+            {
+                if (event != null)
+                    event._blocked = false;
+            }
+            dataWrapper.getDatabaseHandler().unblockAllEvents();
+            Event.setForceRunEventRunning(context, false);
+            ////////
+
             dataWrapper.activateProfileOnBoot();
         }
 
