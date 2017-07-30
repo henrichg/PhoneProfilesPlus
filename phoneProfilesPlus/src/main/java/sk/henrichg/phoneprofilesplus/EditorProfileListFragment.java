@@ -16,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -761,25 +762,27 @@ public class EditorProfileListFragment extends Fragment
     private void setProfileSelection(Profile profile, boolean refreshIcons) {
         if (profileListAdapter != null)
         {
-            int profilePos = 0;
+            int profilePos = ListView.INVALID_POSITION;
+
+            profileListAdapter.notifyDataSetChanged(refreshIcons);
 
             if (profile != null)
                 profilePos = profileListAdapter.getItemPosition(profile);
             //else
             //    profilePos = listView.getCheckedItemPosition();
 
-            profileListAdapter.notifyDataSetChanged(refreshIcons);
+            //Log.e("------- EditorProfileListFragment.setProfileSelection", "profilePos="+profilePos);
 
-            if ((!ApplicationPreferences.applicationEditorHeader(dataWrapper.context)) && (profilePos != ListView.INVALID_POSITION))
+            if (/*(!ApplicationPreferences.applicationEditorHeader(dataWrapper.context)) && */(profilePos != ListView.INVALID_POSITION))
             {
                 // set profile visible in list
-                /*listView.setItemChecked(profilePos, true);
-                int last = listView.getLastVisiblePosition();
-                int first = listView.getFirstVisiblePosition();
-                if ((profilePos <= first) || (profilePos >= last)) {
-                    listView.setSelection(profilePos);
-                    //listView.smoothScrollToPosition(profilePos);
-                }*/
+                //listView.setItemChecked(profilePos, true);
+                //int last = listView.getLastVisiblePosition();
+                //int first = listView.getFirstVisiblePosition();
+                //if ((profilePos <= first) || (profilePos >= last)) {
+                //    listView.setSelection(profilePos);
+                //    //listView.smoothScrollToPosition(profilePos);
+                //}
                 listView.getLayoutManager().scrollToPosition(profilePos);
             }
         }
@@ -792,6 +795,9 @@ public class EditorProfileListFragment extends Fragment
     public void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition)
     {
         synchronized (PPApplication.refreshEditorProfilesListMutex) {
+
+            //Log.e("------- EditorProfileListFragment.updateListView", "xxx");
+
             /*if (listView != null)
                 listView.cancelDrag();*/
 

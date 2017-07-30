@@ -30,7 +30,8 @@ public class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
             EditorProfilesActivity editorProfilesActivity = EditorProfilesActivity.getInstance();
             if (editorProfilesActivity != null) {
                 PPApplication.logE("$$$ RefreshGUIBroadcastReceiver", "EditorProfilesActivity");
-                editorProfilesActivity.refreshGUI(refreshIcons, true);
+                // not change selection in editor if refresh is outside editor
+                editorProfilesActivity.refreshGUI(refreshIcons, false);
             }
         }
 

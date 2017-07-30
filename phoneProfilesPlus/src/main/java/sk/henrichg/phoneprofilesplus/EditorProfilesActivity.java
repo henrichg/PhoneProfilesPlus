@@ -25,6 +25,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -1684,6 +1685,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         EditorProfileListFragment fragment = (EditorProfileListFragment)getFragmentManager().findFragmentById(R.id.editor_list_container);
         if (fragment != null)
         {
+            //Log.e("EditorProfilesActivity.redrawProfileListFragment","xxx");
+
             // update profile, this rewrite profile in profileList
             fragment.dataWrapper.updateProfile(profile);
 
@@ -1695,7 +1698,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             fragment.updateHeader(activeProfile);
             fragment.dataWrapper.getActivateProfileHelper().showNotification(activeProfile);
             fragment.dataWrapper.getActivateProfileHelper().updateWidget(true);
-
         }
         redrawProfilePreferences(profile, newProfileMode, predefinedProfileIndex, startTargetHelps);
     }
