@@ -582,7 +582,7 @@ public class EditorEventListFragment extends Fragment
             }
 
             if (eventListAdapter != null) {
-                int eventPos = 0;
+                int eventPos = ListView.INVALID_POSITION;
 
                 if (event != null)
                     eventPos = eventListAdapter.getItemPosition(event);
