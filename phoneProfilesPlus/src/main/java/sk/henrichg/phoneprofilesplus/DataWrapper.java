@@ -759,7 +759,7 @@ public class DataWrapper {
     }
 
     // pauses all events
-    private void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/)
+    void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 

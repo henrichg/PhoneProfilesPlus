@@ -11,6 +11,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
@@ -118,15 +119,7 @@ public class FirstStartService extends WakefulIntentService {
 
             ////// unblock all events for first start
             //     that may be blocked in previous application run
-            Event.setEventsBlocked(context, false);
-            for (Event event : dataWrapper.getEventList())
-            {
-                if (event != null)
-                    event._blocked = false;
-            }
-            dataWrapper.getDatabaseHandler().unblockAllEvents();
-            Event.setForceRunEventRunning(context, false);
-            ////////
+            dataWrapper.pauseAllEvents(true, false/*, false*/);
 
             dataWrapper.activateProfileOnBoot();
         }
