@@ -776,7 +776,7 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","accelerometer="+accelerometer);
             if (accelerometer != null) {
                 if ((android.os.Build.VERSION.SDK_INT >= 19) && (accelerometer.getFifoMaxEventCount() > 0))
-                    mSensorManager.registerListener(this, accelerometer, 200000, 1000000 * interval);
+                    mSensorManager.registerListener(this, accelerometer, 200000 * interval, 1000000 * interval);
                 else
                     mSensorManager.registerListener(this, accelerometer, 1000000 * interval);
             }
@@ -784,7 +784,7 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","magneticField="+magneticField);
             if (magneticField != null) {
                 if ((android.os.Build.VERSION.SDK_INT >= 19) && (magneticField.getFifoMaxEventCount() > 0))
-                    mSensorManager.registerListener(this, magneticField, 200000, 1000000 * interval);
+                    mSensorManager.registerListener(this, magneticField, 200000 * interval, 1000000 * interval);
                 else
                     mSensorManager.registerListener(this, magneticField, 1000000 * interval);
             }
@@ -793,7 +793,7 @@ public class PhoneProfilesService extends Service
             if (proximity != null) {
                 mMaxProximityDistance = proximity.getMaximumRange();
                 if ((android.os.Build.VERSION.SDK_INT >= 19) && (proximity.getFifoMaxEventCount() > 0))
-                    mSensorManager.registerListener(this, proximity, 200000, 1000000 * interval);
+                    mSensorManager.registerListener(this, proximity, 200000 * interval, 1000000 * interval);
                 else
                     mSensorManager.registerListener(this, proximity, 1000000 * interval);
             }

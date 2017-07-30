@@ -37,7 +37,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     private static String logFilterTags = "##### PPApplication.onCreate"
@@ -73,6 +73,7 @@ public class PPApplication extends Application {
                                          //+"|EventsService.onHandleIntent"
                                          //+"|EventPreferencesNFC"
 
+                                         +"|##### DeviceOrientationService"
             ;
 
 
