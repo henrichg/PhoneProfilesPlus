@@ -215,17 +215,17 @@
   <string name="array_pref_value_180_degrees" formatted="false">180°</string>
   <string name="array_pref_value_270_degrees" formatted="false">270°</string>
   <string name="array_pref_value_auto_rotate">Автоповорот</string>
-  <string name="default_profile_name">Shared profile</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string>
-  <string name="preference_profile_default_profile">Shared profile</string>
-  <string name="volume_pref_dialog_default_profile_chb">Shared profile</string>
-  <string name="array_pref_default_profile">Shared profile</string>
+  <string name="default_profile_name">Поделиться профилем</string>
+  <string name="brightness_pref_dialog_default_profile_chb">Поделиться профилем</string>
+  <string name="preference_profile_default_profile">Поделиться профилем</string>
+  <string name="volume_pref_dialog_default_profile_chb">Поделиться профилем</string>
+  <string name="array_pref_default_profile">Поделиться профилем</string>
   <string name="array_pref_change">Изменить</string>
   <string name="array_pref_no_show">Не показывать</string>
   <string name="array_pref_show">Показывать</string>
   <string name="array_pref_no_run">Не запускать</string>
   <string name="array_pref_run">Запускать</string>
-  <string name="title_activity_default_profile_preferences">Shared profile</string>
+  <string name="title_activity_default_profile_preferences">Поделиться профилем</string>
   <string name="profile_list_item_menu_activate">Активировать</string>
   <string name="profile_list_item_menu_duplicate">Создать копию</string>
   <string name="profile_list_item_menu_delete">Удалить</string>
@@ -364,7 +364,7 @@
   <string name="wifi_ssid_pref_dlg_rescan_button">Пересканировать</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Список</string>
-  <string name="event_preferences_category_eventSMSParameters">Настройки SMS</string>
+  <string name="event_preferences_category_eventSMSParameters">Настройки SMS/MMS</string>
   <string name="event_preferences_sms_contacts">Контакты</string>
   <string name="toast_events_restarted">События перезапущены</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Показывать уведомление постоянно</string>
@@ -521,7 +521,7 @@
   <string name="permissions_for_event_big_text_notification">требует дополнительные разрешения.</string>
   <string name="permission_group_name_calendar">Календарь</string>
   <string name="permission_group_name_contacts">Контакты</string>
-  <string name="permission_group_name_sms">СМС</string>
+  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Местоположение</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Сканирование Wi-Fi/Bluetooth требует дополнительных разрешений.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Разрешите в следующих диалоговых окнах. Затем будет выполнено сканирование.</string>
@@ -542,8 +542,8 @@
   <string name="event_preferences_battery_power_save_mode">Режим энергосбережения</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Настройки режима энергосбережения</string>
   <string name="array_pref_powerSaveMode_off">Выключить</string>
-  <string name="array_pref_powerSaveMode_5">Включить при 5% заряде батареи</string>
-  <string name="array_pref_powerSaveMode_15">Включить при 15% заряде батареи</string>
+  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Включить при 5% заряде батареи</string>
+  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Включить при 15% заряде батареи</string>
   <string name="important_info_profile_ringerMode_root">В Android 6 (Marshmallow) невозможно изменить системную настройку «Вибрация при звонке» без прав Суперпользователя.</string>
   <string name="important_info_profile_adaptiveBrightness_root">В Android 6 (Marshmallow) невозможно изменить системную настройку «Адаптивная регулировка» без прав Суперпользователя.</string>
   <string name="important_info_profile_wifiScanning_location">В Android 6 (Marshmallow) для Wi-Fi сканирования должен быть включен режим \"По всем источникам\" в настройках \"Местоположение\".</string>
@@ -795,7 +795,7 @@
   <string name="donation_google_android_market_text">Сколько?</string>
   <string name="donation_google_android_market_not_supported_title">В приложении пожертвования не поддерживаются.</string>
   <string name="donation_google_android_market_not_supported">В приложении пожертвования не поддерживаются. Google Play Store установлен правильно?</string>
-  <string name="donation_google_android_market_description">Google отжимает 30% от каждого пожертвования!</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google отжимает 30% от каждого пожертвования!</string>
   <string name="donation_google_android_market_donate_button">Пожертвовать</string>
   <string name="donation_thanks_dialog_title">Спасибо</string>
   <string name="donation_thanks_dialog">Спасибо за помощь.\nЯ действительно ценю это.</string>
@@ -834,7 +834,7 @@
   <string name="editor_event_list_item_event_status">Индикатор состояния события</string>
   <string name="editor_event_list_item_profile_start_icon">Значок начала события</string>
   <string name="editor_event_list_item_profile_end_icon">Значок окончания события</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">For each profile parameter can be set that it is used Shared profile. Click here to configure the Shared profile parameters.</string>
+  <string name="profile_preferences_sourceProfileInfo_summary">Для каждого параметра профиля Вы можете указать, что он должен быть таким же, как в Исходном профиле. Нажмите здесь, чтобы настроить параметры Исходного профиля.</string>
   <string name="run_stop_events_indicator">Включить/остановить индикатор запуска событий</string>
   <string name="run_stop_indicator_popup_window_important_infos">Для получения дополнительной информации перейдите в раздел «Важная информация» (вопросительный знак в нижней панели редактора).</string>
   <string name="important_info_how_to_show_ppp">Эта важная информация может быть просмотрена в Редакторе при нажатии на вопросительный знак в нижней панели инструментов.</string>
@@ -879,16 +879,16 @@
   <string name="profile_preferences_preferenceTypesInfo_title">Тип предпочтений</string>
   <string name="event_preference_bluetooth_bt_types">Типы Bluetooth: [CL] обычный, [LE] с низким энергопотреблением, [DU] двойной.</string>
   <string name="event_preference_sensor_time_summary">Этот датчик предназначен для начала события по времени. Параметры: Время начала, время окончания, дни недели.</string>
-  <string name="event_preference_sensor_calendar_summary">Этот датчик предназначен для запуска события из календаря. Параметры: Календари, поле поиска (имя события, описание,...), Строка поиска, игнорировать события «Весь день», Доступность (Занят, Свободен,...).</string>
+  <string name="event_preference_sensor_calendar_summary">Этот датчик предназначен для запуска события из календаря. Параметры: Календари, поле поиска (имя события, описание,&#8230;), Строка поиска, игнорировать события «Весь день», Доступность (Занят, Свободен,&#8230;).</string>
   <string name="event_preference_sensor_battery_summary">Этот датчик предназначен для событий уровня заряда аккумулятора. Параметры: Низкий уровень, Верхний уровень, зарядка, режим энергосбережения.</string>
-  <string name="event_preference_sensor_call_summary">Этот датчик обрабатывает события вызова контактов. Параметры: Вызов (Звонок, Исходящий звонок,...), Группы контактов, Список контактов, (белый/черный список).</string>
-  <string name="event_preference_sensor_sms_summary">Этот датчик обрабатывает события приема sms от контактов. Параметры: Группы контактов, Контакты, Списки контактов (белый/черный список), Постоянный запуск, Длительность (событие запуска).</string>
+  <string name="event_preference_sensor_call_summary">Этот датчик обрабатывает события вызова контактов. Параметры: Вызов (Звонок, Исходящий звонок,&#8230;), Группы контактов, Список контактов, (белый/черный список).</string>
+  <string name="event_preference_sensor_sms_summary">Этот датчик обрабатывает события приема SMS/MMS от контактов. Параметры: Группы контактов, Контакты, Списки контактов (белый/черный список), Постоянный запуск, Длительность (событие запуска).</string>
   <string name="event_preference_sensor_location_summary">Этот датчик обрабатывает события местоположения устройства. Параметры: Расположение, Начало вне местонахождения.</string>
-  <string name="event_preference_sensor_wifi_summary">Этот датчик обрабатывает события Wi-Fi SSID. Параметры: Тип соединения (вокруг, подключен,...), SSID.</string>
-  <string name="event_preference_sensor_bluetooth_summary">Этот датчик обрабатывает события Bluetooth. Параметры: Тип соединения (вокруг, соединенный,...), Сканорование по типу устройства (классический, низкой энергии,...), имя Bluetooth.</string>
+  <string name="event_preference_sensor_wifi_summary">Этот датчик обрабатывает события Wi-Fi SSID. Параметры: Тип соединения (вокруг, подключен,&#8230;), SSID.</string>
+  <string name="event_preference_sensor_bluetooth_summary">Этот датчик обрабатывает события Bluetooth. Параметры: Тип соединения (вокруг, соединенный,&#8230;), Сканорование по типу устройства (классический, низкой энергии,&#8230;), имя Bluetooth.</string>
   <string name="event_preference_sensor_mobile_cells_summary">Этот датчик обрабатывает события подключенных мобильных сот (вышек). Параметры: Сота, Пуск вне соты.</string>
-  <string name="event_preference_sensor_accessories_summary">Этот датчик обрабатывает события подключенных аксессуаров (автомобиль, проводная гарнитура, наушники,...). Параметры: Тип аксессуаров.</string>
-  <string name="event_preference_sensor_screen_summary">Этот датчик обрабатывает события вкл/выкл экрана. Параметры: Тип события (экран включен, экран выключен,...), Разблокировка экрана (конец события разблокировать устройство).</string>
+  <string name="event_preference_sensor_accessories_summary">Этот датчик обрабатывает события подключенных аксессуаров (автомобиль, проводная гарнитура, наушники,&#8230;). Параметры: Тип аксессуаров.</string>
+  <string name="event_preference_sensor_screen_summary">Этот датчик обрабатывает события вкл/выкл экрана. Параметры: Тип события (экран включен, экран выключен,&#8230;), Разблокировка экрана (конец события разблокировать устройство).</string>
   <string name="event_preference_sensor_notification_summary">Этот датчик обрабатывает события уведомления от приложений. Параметры: Приложения, Окончание удаления (удаление уведомления), Постоянного выполнения, Длительность (продолжительность запуска).</string>
   <string name="event_preference_sensor_application_summary">Этот датчик обрабатывает события приложения на переднем плане. Параметры: приложения.</string>
   <string name="event_preference_sensor_orientation_summary">Этот датчик обрабатывает события ориентации устройства. Параметры: Отображение (вверх, вниз), стороны (горизонтальные, стороной вверх), расстояние (рядом, далеко; используется датчик приближения), Не срабатывает для приложений на переднем плане.</string>
@@ -1010,6 +1010,6 @@
   <string name="phone_profiles_pref_category_samsung_edge_panel">Панель Samsung</string>
   <string name="phone_profiles_pref_applicationLanguage_zh_CN">简体中文</string>
   <string name="array_pref_value_zh_CN">zh-CN</string>
-  <string name="action_for_external_application_notification_bad_action">Unsupported action is specified.</string>
-  <string name="action_for_external_application_notification_no_action">Action is not specified.</string>
+  <string name="action_for_external_application_notification_bad_action">Не поддерживаемое действие.</string>
+  <string name="action_for_external_application_notification_no_action">Действие не определено.</string>
 </resources>

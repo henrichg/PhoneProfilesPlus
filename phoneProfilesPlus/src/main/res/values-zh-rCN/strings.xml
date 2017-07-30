@@ -31,7 +31,7 @@
   <string name="activate_profile_alert_message">确定激活情景？</string>
   <string name="brightness_pref_dialog_no_change_chb">不做更改</string>
   <string name="brightness_pref_dialog_automatic_chb">自动</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">自定义...</string>
+  <string name="imageview_resource_file_pref_dialog_gallery_btn">自定义&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">不要更改</string>
   <string name="phone_profiles_pref_category_activator">激活清单</string>
   <string name="phone_profiles_pref_category_editor">编辑器</string>
@@ -364,7 +364,7 @@
   <string name="wifi_ssid_pref_dlg_rescan_button">重新扫描</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">列表</string>
-  <string name="event_preferences_category_eventSMSParameters">短信参数</string>
+  <string name="event_preferences_category_eventSMSParameters">短信/彩信参数</string>
   <string name="event_preferences_sms_contacts">联系人</string>
   <string name="toast_events_restarted">事件已启动</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">正在显示的通知</string>
@@ -521,7 +521,7 @@
   <string name="permissions_for_event_big_text_notification">需要授予某些权限。</string>
   <string name="permission_group_name_calendar">日历</string>
   <string name="permission_group_name_contacts">联系人</string>
-  <string name="permission_group_name_sms">短信</string>
+  <string name="permission_group_name_sms">短信/彩信</string>
   <string name="permission_group_name_location">定位</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Wi-fi/蓝牙扫描需要某些权限。</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">请在下一个对话框中授权，然后将执行重新扫描。</string>
@@ -542,8 +542,8 @@
   <string name="event_preferences_battery_power_save_mode">省电模式</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">省电模式设置</string>
   <string name="array_pref_powerSaveMode_off">关闭</string>
-  <string name="array_pref_powerSaveMode_5">剩余 5% 电量时启用</string>
-  <string name="array_pref_powerSaveMode_15">剩余 15% 电量时启用</string>
+  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">剩余 5% 电量时启用</string>
+  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">剩余 15% 电量时启用</string>
   <string name="important_info_profile_ringerMode_root">在未 root 的 Android 6 (棉花糖) 设备中，不能更改系统设置“响铃时震动”。</string>
   <string name="important_info_profile_adaptiveBrightness_root">在未 root 的 Android 6 (棉花糖) 设备中，不能更改系统设置“自适应亮度”。</string>
   <string name="important_info_profile_wifiScanning_location">在 Android 6 (棉花糖) 设备中，必须在定位设置中启用定位和“Wi-Fi 扫描”选项以启用 Wi-Fi 扫描。</string>
@@ -795,7 +795,7 @@
   <string name="donation_google_android_market_text">价钱多少？</string>
   <string name="donation_google_android_market_not_supported_title">应用内捐赠不受支持。</string>
   <string name="donation_google_android_market_not_supported">应用内捐赠不受支持，是否正确安装了 Google Play 商店？</string>
-  <string name="donation_google_android_market_description">Google 对每笔捐赠收取 30%。</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google 对每笔捐赠收取 30%。</string>
   <string name="donation_google_android_market_donate_button">捐赠</string>
   <string name="donation_thanks_dialog_title">谢谢你</string>
   <string name="donation_thanks_dialog">感谢您的捐赠。\n我对此很感激。</string>

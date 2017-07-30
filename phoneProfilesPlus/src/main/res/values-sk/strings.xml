@@ -364,7 +364,7 @@
   <string name="wifi_ssid_pref_dlg_rescan_button">Preskenovať</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Zoznam</string>
-  <string name="event_preferences_category_eventSMSParameters">Parametre SMS</string>
+  <string name="event_preferences_category_eventSMSParameters">Parametre SMS/MMS</string>
   <string name="event_preferences_sms_contacts">Kontakty</string>
   <string name="toast_events_restarted">Udalosti reštartované</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Prebiehajúca notifikácia</string>
@@ -521,7 +521,7 @@
   <string name="permissions_for_event_big_text_notification">vyžaduje udelenie niektorých povolení.</string>
   <string name="permission_group_name_calendar">Kalendár</string>
   <string name="permission_group_name_contacts">Kontakty</string>
-  <string name="permission_group_name_sms">SMS</string>
+  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Poloha</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Wi-Fi/Bluetooth skenovanie vyžaduje niektoré povolenia.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa znova vykoná skenovanie.</string>
@@ -542,8 +542,8 @@
   <string name="event_preferences_battery_power_save_mode">Režim Šetrič batérie</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Režim šetrenia batérie</string>
   <string name="array_pref_powerSaveMode_off">Vypnúť</string>
-  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatInvalid">Zapnúť pri 5% batérie</string>
-  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatInvalid">Zapnúť pri 15% batérie</string>
+  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Zapnúť pri 5% batérie</string>
+  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Zapnúť pri 15% batérie</string>
   <string name="important_info_profile_ringerMode_root">V Android 6 (Marshmallow), nie je možné zmeniť nastavenie \"Vibrovať pri zvonení\" ak zariadenie nemá root.</string>
   <string name="important_info_profile_adaptiveBrightness_root">V Android 6 (Marshmallow), nie je možné zmeniť úroveň pre nastavenie \"Prispôsobovať jas\" ak zariadenie nemá root.</string>
   <string name="important_info_profile_wifiScanning_location">V Android 6 (Marshmallow), pre skenovanie Wi-fi musí byť povolená Poloha a \"Vyhľadávanie sietí Wi-fi\" na nastaveniach Polohy.</string>
@@ -795,7 +795,7 @@
   <string name="donation_google_android_market_text">Koľko to stojí?</string>
   <string name="donation_google_android_market_not_supported_title">Platby z aplikácií nie sú podporované.</string>
   <string name="donation_google_android_market_not_supported">Platby z aplikácií nie sú podporované. Ste si istý, že je Obchod Play správne nainštalovaný?</string>
-  <string name="donation_google_android_market_description">Google si strháva 30 % z každého príspevku.</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google si strháva 30 % z každého príspevku.</string>
   <string name="donation_google_android_market_donate_button">Prispejte</string>
   <string name="donation_thanks_dialog_title">Ďakujem</string>
   <string name="donation_thanks_dialog">Ďakujem za darovanie.\nNaozaj si to vážim.</string>
@@ -881,7 +881,7 @@
   <string name="event_preference_sensor_calendar_summary">Tento senzor je pre štart udalosti podľa udalosti v kalendári. Parametre: Kalendáre, Hľadať v položke (Názov udalosti, Popis, &#8230;), Hľadaný reťazec, ignoruj \"celodenné\" udalosti, Dostupnosť (Zaneprázdnený, K dispozícii, &#8230;).</string>
   <string name="event_preference_sensor_battery_summary">Tento senzor je pre štart udalosti podľa úrovne spotreby batérie. Parametre: Spodná úroveň, Horná úroveň, Nabíjanie, Režim Šetrič batérie.</string>
   <string name="event_preference_sensor_call_summary">Tento senzor je pre štart udalosti podľa volajúcich kontaktov. Parametre: Udalosti hovoru (Zvoní, Odchodzí hovor začatý, &#8230;), Skupiny kontaktov, Kontakty, Typ zoznamu kontaktov (Biela/Čierna listina).</string>
-  <string name="event_preference_sensor_sms_summary">Tento senzor je pre štart udalosti podľa prijatej Sms z kontaktov. Parametre: Skupiny kontaktov, Kontakty, Typ zoznamu kontaktov (Biela/Čierna listina), Trvalý beh, Trvanie (dĺžka behu udalosti).</string>
+  <string name="event_preference_sensor_sms_summary">Tento senzor je pre štart udalosti podľa prijatej SMS/MMS z kontaktov. Parametre: Skupiny kontaktov, Kontakty, Typ zoznamu kontaktov (Biela/Čierna listina), Trvalý beh, Trvanie (dĺžka behu udalosti).</string>
   <string name="event_preference_sensor_location_summary">Tento senzor je pre štart udalosti podľa polohy zariadenia. Parametre: Poloha, Štart keď je mimo polohy.</string>
   <string name="event_preference_sensor_wifi_summary">Tento senzor je pre štart udalosti podľa Wi-Fi SSID. Parametre: Typ pripojenia (V okolí, Pripojené, &#8230;), SSID.</string>
   <string name="event_preference_sensor_bluetooth_summary">Tento senzor je pre štart udalosti podľa mena Bluetooth. Parametre: Typ pripojenia (V okolí, Pripojené, &#8230;), Skenované typy zariadení (Klasické, Nízkoenergetické, &#8230;), Meno Bluetooth.</string>

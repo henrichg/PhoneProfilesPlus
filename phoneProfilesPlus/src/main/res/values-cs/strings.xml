@@ -521,7 +521,7 @@
   <string name="permissions_for_event_big_text_notification">vyžaduje udělení některých povolení.</string>
   <string name="permission_group_name_calendar">Kalendář</string>
   <string name="permission_group_name_contacts">Kontakty</string>
-  <string name="permission_group_name_sms">SMS</string>
+  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Poloha</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Wi-Fi/Bluetooth skenování vyžaduje některá povolení.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Prosím, povolte je v následujících dialogových oknech. Pak se znovu provede skenování.</string>
@@ -542,8 +542,8 @@
   <string name="event_preferences_battery_power_save_mode">Úsporný režim</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Nastavení Úsporného režimu</string>
   <string name="array_pref_powerSaveMode_off">Vypnout</string>
-  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatInvalid">Zapnout při 5 % baterie</string>
-  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatInvalid">Zapnout při 15 % baterie</string>
+  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Zapnout při 5 % baterie</string>
+  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Zapnout při 15 % baterie</string>
   <string name="important_info_profile_ringerMode_root">V Androidu 6 (Marshmallow) není možné změnit nastavení \"Vibrovat při zvonění\" pokud nemáte práva ROOT.</string>
   <string name="important_info_profile_adaptiveBrightness_root">V Androidu 6 (Marshmallow) není možné měnit úrovně \"Adaptivní jas\" pokud nemáte práva ROOT.</string>
   <string name="important_info_profile_wifiScanning_location">V Android 6 (Marshmallow), pro skenování Wifi musí být povolena Poloha a \"Vyhledávání sítí Wi-fi\" na nastaveních Polohy.</string>
@@ -795,7 +795,7 @@
   <string name="donation_google_android_market_text">Kolik to stojí?</string>
   <string name="donation_google_android_market_not_supported_title">Platby z aplikací nejsou podporovány.</string>
   <string name="donation_google_android_market_not_supported">Platby z aplikací nejsou podporovány. Jste si jistý, že je Obchod Google Play správně nainstalován?</string>
-  <string name="donation_google_android_market_description">Google si strhává 30% z každého příspěvku.</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google si strhává 30% z každého příspěvku.</string>
   <string name="donation_google_android_market_donate_button">Darujte</string>
   <string name="donation_thanks_dialog_title">Děkuji</string>
   <string name="donation_thanks_dialog">Děkuji za darování.\nOpravdu si toho vážím.</string>
@@ -878,16 +878,16 @@
   <string name="profile_preferences_preferenceTypesInfo_title">Typy parametrů</string>
   <string name="event_preference_bluetooth_bt_types">Typy Bluetooth: [CL] klasické, [LE] nízkoenergetické, [DU] duální.</string>
   <string name="event_preference_sensor_time_summary">Tento senzor je pro start události podle času. Parametry: Čas začátku, Čas konce, Dny v týdnu.</string>
-  <string name="event_preference_sensor_calendar_summary">Tento senzor je pro start události podle události v kalendáři. Parametry: Kalendáře, Hledat v položce (Název události, Popis, ...), Hledaný řetězec, ignoruj \"celodenní\" události, Dostupnost (Zaneprázdněný, K dispozici, ...).</string>
+  <string name="event_preference_sensor_calendar_summary">Tento senzor je pro start události podle události v kalendáři. Parametry: Kalendáře, Hledat v položce (Název události, Popis, &#8230;), Hledaný řetězec, ignoruj \"celodenní\" události, Dostupnost (Zaneprázdněný, K dispozici, &#8230;).</string>
   <string name="event_preference_sensor_battery_summary">Tento senzor je pro start události podle úrovně spotřeby baterie. Parametry: Spodní úroveň, Horní úroveň, Nabíjení, Režim Spořič baterie.</string>
-  <string name="event_preference_sensor_call_summary">Tento senzor je pro start události podle volajících kontaktů. Parametry: Události hovoru (Zvoní, Odchozím volání započato, ...), Skupiny kontaktů, Kontakty, Typ seznamu kontaktů (Bílá/Černá listina).</string>
-  <string name="event_preference_sensor_sms_summary">Tento senzor je pro start události podle přijaté Sms z kontaktů. Parametry: Skupiny kontaktů, Kontakty, Typ seznamu kontaktů (Bílá/Černá listina), Trvalý běh, Trvání (délka běhu události).</string>
+  <string name="event_preference_sensor_call_summary">Tento senzor je pro start události podle volajících kontaktů. Parametry: Události hovoru (Zvoní, Odchozím volání započato, &#8230;), Skupiny kontaktů, Kontakty, Typ seznamu kontaktů (Bílá/Černá listina).</string>
+  <string name="event_preference_sensor_sms_summary">Tento senzor je pro start události podle přijaté SMS/MMS z kontaktů. Parametry: Skupiny kontaktů, Kontakty, Typ seznamu kontaktů (Bílá/Černá listina), Trvalý běh, Trvání (délka běhu události).</string>
   <string name="event_preference_sensor_location_summary">Tento senzor je pro start události podle polohy zařízení. Parametry: Poloha, Start když je mimo polohu.</string>
-  <string name="event_preference_sensor_wifi_summary">Tento senzor je pro start události podle Wi-Fi SSID. Parametry: Typ připojení (V okolí, Připojeno, ...), SSID.</string>
-  <string name="event_preference_sensor_bluetooth_summary">Tento senzor je pro start události podle jména Bluetooth. Parametry: Typ připojení (V okolí, Připojeno, ...), Naskenované typy zařízení (Klasické, Nízkoenergetické, ...), Jméno Bluetooth.</string>
+  <string name="event_preference_sensor_wifi_summary">Tento senzor je pro start události podle Wi-Fi SSID. Parametry: Typ připojení (V okolí, Připojeno, &#8230;), SSID.</string>
+  <string name="event_preference_sensor_bluetooth_summary">Tento senzor je pro start události podle jména Bluetooth. Parametry: Typ připojení (V okolí, Připojeno, &#8230;), Naskenované typy zařízení (Klasické, Nízkoenergetické, &#8230;), Jméno Bluetooth.</string>
   <string name="event_preference_sensor_mobile_cells_summary">Tento senzor je pro start události podle připojených mobilních buněk (věží). Parametry: Buňky, Start když je mimo mobilní buňky.</string>
-  <string name="event_preference_sensor_accessories_summary">Tento senzor je pro start události podle připojeného příslušenství (autosada, drátové handsfree, sluchátka, ...). Parametry: Typ příslušenství.</string>
-  <string name="event_preference_sensor_screen_summary">Tento senzor je pro start události podle zapnutí/vypnutí obrazovky. Parametry: Typ události (vypnula se, zapnula se, ...), Konec když je odemčené (událost skončí při odemknutí zařízení).</string>
+  <string name="event_preference_sensor_accessories_summary">Tento senzor je pro start události podle připojeného příslušenství (autosada, drátové handsfree, sluchátka, &#8230;). Parametry: Typ příslušenství.</string>
+  <string name="event_preference_sensor_screen_summary">Tento senzor je pro start události podle zapnutí/vypnutí obrazovky. Parametry: Typ události (vypnula se, zapnula se, &#8230;), Konec když je odemčené (událost skončí při odemknutí zařízení).</string>
   <string name="event_preference_sensor_notification_summary">Tento senzor je pro start události podle oznámení z aplikací. Parametry: Aplikace, Konec, pokud odstraněn (konec události na odstranění oznámení), Trvalý běh, Trvání (délka běhu události).</string>
   <string name="event_preference_sensor_application_summary">Tento senzor je pro start události podle aplikace v popředí. Parametry: Aplikace.</string>
   <string name="event_preference_sensor_orientation_summary">Tento senzor je pro start události podle orientace zařízení. Parametry: Obrazovka (Nahoru, Dolů), Strany (Horizontální, strana nahoře), Přiblížení (V blízkosti, Daleko; použitý je senzor přiblížení), ignorovat pro aplikace (v popředí).</string>
@@ -899,7 +899,7 @@
   <string name="editor_activity_targetHelps_restartEvents_title">Restart událostí</string>
   <string name="editor_activity_targetHelps_restartEvents_description">Klikněte zde pro restartování událostí. Události musíte restartovat, pro nastartování událostí, pokud máte manuálně aktivován profil.</string>
   <string name="editor_activity_targetHelps_activityLog_title">Log aktivity</string>
-  <string name="editor_activity_targetHelps_activityLog_description">Klikněte zde pro otevření logu aktivity. Logované jsou činnosti o startu/pozastavení/stopnutím událostí, aktivaci profilů, spuštění aplikace, ...</string>
+  <string name="editor_activity_targetHelps_activityLog_description">Klikněte zde pro otevření logu aktivity. Logované jsou činnosti o startu/pozastavení/stopnutím událostí, aktivaci profilů, spuštění aplikace, &#8230;</string>
   <string name="editor_activity_targetHelps_newProfileButton_title">Nový profil</string>
   <string name="editor_activity_targetHelps_newProfileButton_description">Klikněte zde pro přidání nového profilu.</string>
   <string name="editor_activity_targetHelps_deleteAllProfilesButton_title">Odstranit všechny profily</string>
@@ -923,8 +923,8 @@
   <string name="editor_activity_targetHelps_eventOrderHandler_title">Obsluhovač pořadí</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Přesuňte nahoru/dolů událost s tímto pro změnu \"Pořadí startu\" události.</string>
   <string name="activator_activity_targetHelps_editor_title">Editor</string>
-  <string name="activator_activity_targetHelps_editor_description_ppp">Klikněte zde pro otevření Editoru. V Editoru můžete nakonfigurovat profily, události, změnit nastavení aplikace...</string>
-  <string name="activator_activity_targetHelps_editor_description_pp">Klikněte zde pro otevření Editoru. V Editoru můžete nakonfigurovat profily, změnit nastavení aplikace...</string>
+  <string name="activator_activity_targetHelps_editor_description_ppp">Klikněte zde pro otevření Editoru. V Editoru můžete nakonfigurovat profily, události, změnit nastavení aplikace&#8230;</string>
+  <string name="activator_activity_targetHelps_editor_description_pp">Klikněte zde pro otevření Editoru. V Editoru můžete nakonfigurovat profily, změnit nastavení aplikace&#8230;</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Aktivovat profil</string>
   <string name="activator_activity_targetHelps_activateProfile_description">Klikněte zde pro aktivaci profilu.</string>
   <string name="profile_preference_activity_targetHelps_save_title">Uložit profil</string>

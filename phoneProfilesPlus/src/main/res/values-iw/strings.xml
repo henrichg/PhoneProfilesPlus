@@ -31,7 +31,7 @@
   <string name="activate_profile_alert_message">להפעיל פרופיל?</string>
   <string name="brightness_pref_dialog_no_change_chb">ללא שינוי</string>
   <string name="brightness_pref_dialog_automatic_chb">אוטומטי</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">התאמה אישית...</string>
+  <string name="imageview_resource_file_pref_dialog_gallery_btn">התאמה אישית&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">ללא שינוי</string>
   <string name="phone_profiles_pref_category_activator">מפעיל</string>
   <string name="phone_profiles_pref_category_editor">עורך</string>
@@ -364,7 +364,7 @@
   <string name="wifi_ssid_pref_dlg_rescan_button">סריקה מחדש</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">רשימה</string>
-  <string name="event_preferences_category_eventSMSParameters">מאפייני SMS</string>
+  <string name="event_preferences_category_eventSMSParameters">פרמטרים SMS/MMS</string>
   <string name="event_preferences_sms_contacts">אנשי קשר</string>
   <string name="toast_events_restarted">אירועים הופעלו מחדש</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">חיווי קבוע</string>
@@ -521,7 +521,7 @@
   <string name="permissions_for_event_big_text_notification">נדרשת התרה של הרשאות מסוימות.</string>
   <string name="permission_group_name_calendar">יומן</string>
   <string name="permission_group_name_contacts">אנשי קשר</string>
-  <string name="permission_group_name_sms">הודעת טקסט</string>
+  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">מיקום</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">סריקה של Wi-fi/Bluetooth דורשת הרשאות מסוימות.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">אנא התירו אותן בתיבות דו-שיח הבאות. לאחר מכן תתבצע סריקה מחדש.</string>
@@ -542,8 +542,8 @@
   <string name="event_preferences_battery_power_save_mode">מצב חיסכון בחשמל</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">הגדרות מצב חיסכון בחשמל</string>
   <string name="array_pref_powerSaveMode_off">כבוי</string>
-  <string name="array_pref_powerSaveMode_5">הפעלה ב- 5% סוללה</string>
-  <string name="array_pref_powerSaveMode_15">הפעלה ב- 15% סוללה</string>
+  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">הפעלה ב- 5% סוללה</string>
+  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">הפעלה ב- 15% סוללה</string>
   <string name="important_info_profile_ringerMode_root">באנדרואיד 6 (מרשמלו), אין אפשרות לשנות את הגדרת \"רטט בעת צלצול\" במכשיר ללא הרשאות ROOT.</string>
   <string name="important_info_profile_adaptiveBrightness_root">באנדרואיד 6 (מרשמלו), אין אפשרות לשנות רמת \"בהירות מסתגלת\" במכשיר ללא הרשאות ROOT.</string>
   <string name="important_info_profile_wifiScanning_location">באנדרואיד 6 (מרשמלו), סריקת Wi-Fi מחייבת אפשור של מיקום וסריקת Wi-Fi בהגדרות המיקום.</string>
@@ -881,16 +881,16 @@
   <string name="profile_preferences_preferenceTypesInfo_title">סוג של העדפות</string>
   <string name="event_preference_bluetooth_bt_types">סוגי Bluetooth: [CL] קלאסי, [LE] אנרגיה נמוכה, [DU] כפול.</string>
   <string name="event_preference_sensor_time_summary">חיישן זה הוא לצורך תחילת האירוע עפ\"י זמן. פרמטרים: שעת התחלה, שעת סיום, ימי השבוע.</string>
-  <string name="event_preference_sensor_calendar_summary">חיישן זה נועד להתחלת אירוע עפ\"י אירוע בלוח שנה. פרמטרים: לוחות שנה, שדה חיפוש (שם האירוע, תיאור,...), מחרוזת החיפוש, להתעלם מאירועי \"כל היום\", זמינות (עסוק, פנוי,...).</string>
+  <string name="event_preference_sensor_calendar_summary">חיישן זה נועד להתחלת אירוע עפ\"י אירוע בלוח שנה. פרמטרים: לוחות שנה, שדה חיפוש (שם האירוע, תיאור,&#8230;), מחרוזת החיפוש, להתעלם מאירועי \"כל היום\", זמינות (עסוק, פנוי,&#8230;).</string>
   <string name="event_preference_sensor_battery_summary">חיישן זה נועד להתחלת אירוע עפ\"י רמת הסוללה. פרמטרים: סף נמוך, סף גבוה, מצב טעינה, מצב חיסכון בחשמל.</string>
-  <string name="event_preference_sensor_call_summary">חיישן זה נועד להתחלת אירוע על-ידי שיחה עם אנשי קשר. פרמטרים: אירוע שיחה (צלצול, שיחה יוצאת התחילה,...), קבוצות אנשי קשר, אנשי קשר, סוג רשימה (רשימה שחורה/מותרת).</string>
-  <string name="event_preference_sensor_sms_summary">חיישן זה נועד לתחילת אירוע ב- sms שהתקבל מאנשי הקשר. פרמטרים: קבוצות אנשי קשר, אנשי קשר, סוג הרשימה (רשימה שחורה/מותרת), הפעלה קבועה, משך הפעלת האירוע.</string>
+  <string name="event_preference_sensor_call_summary">חיישן זה נועד להתחלת אירוע על-ידי שיחה עם אנשי קשר. פרמטרים: אירוע שיחה (צלצול, שיחה יוצאת התחילה,&#8230;), קבוצות אנשי קשר, אנשי קשר, סוג רשימה (רשימה שחורה/מותרת).</string>
+  <string name="event_preference_sensor_sms_summary">חיישן זה נועד לתחילת אירוע ב- SMS/MMS שהתקבל מאנשי הקשר. פרמטרים: קבוצות אנשי קשר, אנשי קשר, סוג הרשימה (רשימה שחורה/מותרת), הפעלה קבועה, משך הפעלת האירוע.</string>
   <string name="event_preference_sensor_location_summary">חיישן זה נועד להפעלה של אירוע על-ידי מיקום המכשיר. פרמטרים: מיקום, הפעלה כאשר מחוץ למיקום.</string>
-  <string name="event_preference_sensor_wifi_summary">חיישן זה נועד להפעלת אירוע על-ידי ה-SSID Wi-Fi. פרמטרים: סוג החיבור (סביב, מחובר,...), מזהה ה-SSID.</string>
-  <string name="event_preference_sensor_bluetooth_summary">חיישן זה נועד להפעלת אירוע עפ\"י שם Bluetooth. פרמטרים: סוג החיבור (סביב, מחובר,..), סוג ההתקן הנסרק (קלאסי, נמוך אנרגיה,...), שם Bluetooth.</string>
+  <string name="event_preference_sensor_wifi_summary">חיישן זה נועד להפעלת אירוע על-ידי ה-SSID Wi-Fi. פרמטרים: סוג החיבור (סביב, מחובר,&#8230;), מזהה ה-SSID.</string>
+  <string name="event_preference_sensor_bluetooth_summary">חיישן זה נועד להפעלת אירוע עפ\"י שם Bluetooth. פרמטרים: סוג החיבור (סביב, מחובר,&#8230;), סוג ההתקן הנסרק (קלאסי, נמוך אנרגיה,&#8230;), שם Bluetooth.</string>
   <string name="event_preference_sensor_mobile_cells_summary">חיישן זה נועד להפעלת אירוע עפ\"י תרנים סלולריים מחוברים (אנטנות). פרמטרים: תרנים סלולריים, הפעלה כאשר מחוץ לאזור הקליטה.</string>
-  <string name="event_preference_sensor_accessories_summary">חיישן זה נועד להפעלת אירוע על-ידי אביזר מחובר (עריסת רכב, דיבורית קווית, אוזניות,...). פרמטרים: סוג אביזרים.</string>
-  <string name="event_preference_sensor_screen_summary">חיישן זה נועד להפעלת אירוע על-ידי כיבוי/הדלקה של המסך. פרמטרים: סוג האירוע (הדלקת המסך, כיבוי המסך...), סיום כאשר נפתחת נעילת המסך (סיום האירוע בעת פתיחת הנעילה).</string>
+  <string name="event_preference_sensor_accessories_summary">חיישן זה נועד להפעלת אירוע על-ידי אביזר מחובר (עריסת רכב, דיבורית קווית, אוזניות,&#8230;). פרמטרים: סוג אביזרים.</string>
+  <string name="event_preference_sensor_screen_summary">חיישן זה נועד להפעלת אירוע על-ידי כיבוי/הדלקה של המסך. פרמטרים: סוג האירוע (הדלקת המסך, כיבוי המסך&#8230;), סיום כאשר נפתחת נעילת המסך (סיום האירוע בעת פתיחת הנעילה).</string>
   <string name="event_preference_sensor_notification_summary">חיישן זה נועד להפעלת אירוע על-ידי הודעה מיישומים. פרמטרים: יישומים, סיום כאשר ההודעה מוסרת (סוף האירוע - הודעה על הסרה), הפעלה קבועה, משך (משך הפעלת האירוע).</string>
   <string name="event_preference_sensor_application_summary">חיישן זה נועד להפעלת אירוע על-ידי יישום בקידמה. פרמטרים: יישומים.</string>
   <string name="event_preference_sensor_orientation_summary">חיישן זה נועד להפעלת אירוע ע\"י כיוון המכשיר. פרמטרים: תצוגה (ישר, הפוך), צדדים (אופקי, על הצד), מרחק (קרוב, רחוק; שימוש בחיישן הקירבה), התעלם מהכיוון עבור יישומים (בקידמה).</string>
@@ -1012,6 +1012,6 @@
   <string name="phone_profiles_pref_category_samsung_edge_panel">חלונית-קצה של סמסונג</string>
   <string name="phone_profiles_pref_applicationLanguage_zh_CN">简体中文</string>
   <string name="array_pref_value_zh_CN">zh-CN</string>
-  <string name="action_for_external_application_notification_bad_action">Unsupported action is specified.</string>
-  <string name="action_for_external_application_notification_no_action">Action is not specified.</string>
+  <string name="action_for_external_application_notification_bad_action">הפעולה שהוגדרה איננה נתמכת.</string>
+  <string name="action_for_external_application_notification_no_action">לא הוגדרה פעולה.</string>
 </resources>

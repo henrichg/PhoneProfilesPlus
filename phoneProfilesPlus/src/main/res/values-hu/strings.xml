@@ -364,7 +364,7 @@
   <string name="wifi_ssid_pref_dlg_rescan_button">Újraellenőrzés</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Lista</string>
-  <string name="event_preferences_category_eventSMSParameters">SMS-paraméterek</string>
+  <string name="event_preferences_category_eventSMSParameters">SMS/MMS-paraméterek</string>
   <string name="event_preferences_sms_contacts">Kapcsolatok</string>
   <string name="toast_events_restarted">Események újra indítása</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Folyamatos jelentés</string>
@@ -521,7 +521,7 @@
   <string name="permissions_for_event_big_text_notification">engedéllyel kell rendelkeznie.</string>
   <string name="permission_group_name_calendar">Naptár</string>
   <string name="permission_group_name_contacts">Kapcsolatok</string>
-  <string name="permission_group_name_sms">SMS</string>
+  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Helyszín</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Wi-Fi/Bluetooth kereséshez engedéllyel kell rendelkeznie.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Add meg az adatokat. Azután újra keresés lesz végrehajtva.</string>
@@ -542,8 +542,8 @@
   <string name="event_preferences_battery_power_save_mode">Energiatakarékos üzemmód</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Energiatakarékos üzemmód beállításai</string>
   <string name="array_pref_powerSaveMode_off">Kikapcsolva</string>
-  <string name="array_pref_powerSaveMode_5">Kapcsolja be ha 5 %-os akkumulátor</string>
-  <string name="array_pref_powerSaveMode_15">Kapcsolja be ha 15 %-os akkumulátor</string>
+  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Kapcsolja be ha 5 %-os akkumulátor</string>
+  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Kapcsolja be ha 15 %-os akkumulátor</string>
   <string name="important_info_profile_ringerMode_root">Android 6 (Marshmallow)-ban nem lehetséges a \"Rezeg amikor cseng\" rendszer beállítás ha nem root-olt a rendszer.</string>
   <string name="important_info_profile_adaptiveBrightness_root">Android 6 (Marshmallow)-ban nincs lehetőség a \"Automatikus fényerő\"-re ha nem root-olt a rendszer.</string>
   <string name="important_info_profile_wifiScanning_location">Android 6 (Marshmallow)-ban Wi-Fi kereséshez engedélyezni kell helyzet és a \"Wi-Fi keresés\" a Hely beállításokban.</string>
@@ -795,7 +795,7 @@
   <string name="donation_google_android_market_text">Mennyit?</string>
   <string name="donation_google_android_market_not_supported_title">In-App adományok nem támogatottak.</string>
   <string name="donation_google_android_market_not_supported">In-App adományok nem támogatottak. A Google Play Áruház telepítve?</string>
-  <string name="donation_google_android_market_description">Google 30 % kedvezmény minden adomány után.</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google 30 % kedvezmény minden adomány után.</string>
   <string name="donation_google_android_market_donate_button">Adomány</string>
   <string name="donation_thanks_dialog_title">Köszönöm</string>
   <string name="donation_thanks_dialog">Köszönöm az adományt. \nI Igazán méltányolom ezt.</string>
@@ -878,16 +878,16 @@
   <string name="profile_preferences_preferenceTypesInfo_title">Beállítási lehetőségek</string>
   <string name="event_preference_bluetooth_bt_types">Bluetooth típusok: [CL] klasszikus, [LE] alacsony energiájú, kettős [DU].</string>
   <string name="event_preference_sensor_time_summary">Esemény idejéhez köti annak kezdését. Paraméterek: Kezdési időpont, befejezési időpont, a hét napjait.</string>
-  <string name="event_preference_sensor_calendar_summary">Naptár történéshez köti az esemény kezdését. Paraméterek: Naptárak, keresési mező (esemény neve, leírás,...), keresési karakterlánc, figyelmen kívül hagyja a \"Egész napos\" eseményeket, elérhetőség (foglalt, szabad,...).</string>
+  <string name="event_preference_sensor_calendar_summary">Naptár történéshez köti az esemény kezdését. Paraméterek: Naptárak, keresési mező (esemény neve, leírás,&#8230;), keresési karakterlánc, figyelmen kívül hagyja a \"Egész napos\" eseményeket, elérhetőség (foglalt, szabad,&#8230;).</string>
   <string name="event_preference_sensor_battery_summary">Az akkumulátor töltöttsége indítja az eseményt. Paraméterek: Alacsony töltöttségű, felső töltöttségi szint, a töltés alatt, energiatakarékos üzemmódban.</string>
-  <string name="event_preference_sensor_call_summary">Telefon hívás hatására induló esemény. Paraméterek: Telefonhívás esemény (csengetés, kimenő hívás kezdett,...), kapcsolattartó csoportok, kapcsolatok, kapcsolattartó lista típusa (fehér/fekete lista).</string>
-  <string name="event_preference_sensor_sms_summary">Az esemény indításához SMS-t kell kapni. Paraméterek: Csoportok, kapcsolatok, kapcsolat típus (fehér/fekete lista), Észrevétlenül futtat, állandó kapcsolat időtartama (esemény időtartama alatt fut).</string>
+  <string name="event_preference_sensor_call_summary">Telefon hívás hatására induló esemény. Paraméterek: Telefonhívás esemény (csengetés, kimenő hívás kezdett,&#8230;), kapcsolattartó csoportok, kapcsolatok, kapcsolattartó lista típusa (fehér/fekete lista).</string>
+  <string name="event_preference_sensor_sms_summary">Az esemény indításához SMS/MMS-t kell kapni. Paraméterek: Csoportok, kapcsolatok, kapcsolat típus (fehér/fekete lista), Észrevétlenül futtat, állandó kapcsolat időtartama (esemény időtartama alatt fut).</string>
   <string name="event_preference_sensor_location_summary">Az esemény indításához a készüléknek adott helyen kell lennie. Paraméterek: Helyzet, Indítás adott helyzet kívül.</string>
-  <string name="event_preference_sensor_wifi_summary">Esemény indításához  WI-FI SSID kell. Paraméterek: Kapcsolat típusa (Körül, csatlakoztatva,...), SSID-t.</string>
-  <string name="event_preference_sensor_bluetooth_summary">Esemény indításához, a Bluetooth-név kell. Paraméterek: Kapcsolat típusa (Körül, Connected,...), Ellenőrzi eszköz típusát (klasszikus, alacsony energia-,...), Bluetooth-név.</string>
+  <string name="event_preference_sensor_wifi_summary">Esemény indításához WI-FI SSID kell. Paraméterek: Kapcsolat típusa (Körül, csatlakoztatva,&#8230;), SSID-t.</string>
+  <string name="event_preference_sensor_bluetooth_summary">Esemény indításához, a Bluetooth-név kell. Paraméterek: Kapcsolat típusa (Körül, Connected,&#8230;), Ellenőrzi eszköz típusát (klasszikus, alacsony energia-,&#8230;), Bluetooth-név.</string>
   <string name="event_preference_sensor_mobile_cells_summary">Esemény indításához csatlakozni kell egy adott mobil cellához (adó torony). Paraméterek: Cellák, Indítás adott cellákon kívül.</string>
-  <string name="event_preference_sensor_accessories_summary">Esemény indításához adott külső tartozékhoz csatlakoztatva (autós tartó, vezetékes fülhallgató, fejhallgató,...). Paraméterek: Tartozék típusa.</string>
-  <string name="event_preference_sensor_screen_summary">Esemény indításához a kijelző be/ki kapcsolt állapota kell. Paraméterek: Esemény típusa (a kijelző be-, a kijelző kikapcsolva,...), véget ér az esemény, amikor a készülék ki van nyitva.</string>
+  <string name="event_preference_sensor_accessories_summary">Esemény indításához adott külső tartozékhoz csatlakoztatva (autós tartó, vezetékes fülhallgató, fejhallgató,&#8230;). Paraméterek: Tartozék típusa.</string>
+  <string name="event_preference_sensor_screen_summary">Esemény indításához a kijelző be/ki kapcsolt állapota kell. Paraméterek: Esemény típusa (a kijelző be-, a kijelző kikapcsolva,&#8230;), véget ér az esemény, amikor a készülék ki van nyitva.</string>
   <string name="event_preference_sensor_notification_summary">Esemény elindul ha egy alkalmazás értesítést küld. Paraméterek: Alkalmazások, vége amikor eltávolították (értesítés eltávolítása a rendezvény végéig), észrevételen futás, időtartama (esemény időtartama alatt fut).</string>
   <string name="event_preference_sensor_application_summary">Az esemény elindul ha egy alkalmazás az előtérbe kerül. Paraméterek: Alkalmazások.</string>
   <string name="event_preference_sensor_orientation_summary">Esemény kezdéséhez a készülék bizonyos pozíciója kell. Paraméterek: Kijelző (fel, le), Oldalak (vízszintes, oldalsó fel), a távolság (közel, távol, használ a közelség érzékelőt), figyelmen kívül hagyása ha az alkalmazások (az előtérben van).</string>

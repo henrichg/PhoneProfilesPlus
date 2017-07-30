@@ -364,7 +364,7 @@
   <string name="wifi_ssid_pref_dlg_rescan_button">Skanuj</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Lista</string>
-  <string name="event_preferences_category_eventSMSParameters">Parametry SMS</string>
+  <string name="event_preferences_category_eventSMSParameters">Parametry SMS/MMS</string>
   <string name="event_preferences_sms_contacts">Kontakty</string>
   <string name="toast_events_restarted">Zdarzenia zrestartowane</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Bieżące powiadomienie</string>
@@ -521,7 +521,7 @@
   <string name="permissions_for_event_big_text_notification">wymaga przyznania pewnych uprawnień.</string>
   <string name="permission_group_name_calendar">Kalendarz</string>
   <string name="permission_group_name_contacts">Kontakty</string>
-  <string name="permission_group_name_sms">Wiadomości SMS</string>
+  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Lokalizacja</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Skanowanie WiFi/Bluetooth wymaga pewnych uprawnień.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Proszę przyznać je w kolejnych oknach. Następnie wykonane zostanie ponowne skanowanie.</string>
@@ -542,8 +542,8 @@
   <string name="event_preferences_battery_power_save_mode">Tryb oszczędzania baterii</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Włącz tryb oszczędzania baterii</string>
   <string name="array_pref_powerSaveMode_off">Nigdy</string>
-  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatInvalid">Włącz przy 5% baterii</string>
-  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatInvalid">Włącz przy 15% baterii</string>
+  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Włącz przy 5% baterii</string>
+  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Włącz przy 15% baterii</string>
   <string name="important_info_profile_ringerMode_root">W Androidzie 6 (Marshmallow) nie jest możliwa zmiana ustawienia systemu \"Wibracje podczas dzwonienia\" na niezrootowanym urządzeniu.</string>
   <string name="important_info_profile_adaptiveBrightness_root">W Androidzie 6 (Marshmallow) nie jest możliwa zmiana automatycznie dopasowywanej jasności ekranu na niezrootowanym urządzeniu.</string>
   <string name="important_info_profile_wifiScanning_location">W Androidzie 6 (Marshmallow), aby działało skanowanie WiFi, należy włączyć \"skanowanie WiFi\" w ustawieniach Lokacji.</string>
@@ -795,7 +795,7 @@
   <string name="donation_google_android_market_text">Ile?</string>
   <string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>
   <string name="donation_google_android_market_not_supported">In-App Donations are not supported. Is Google Play Store installed correctly?</string>
-  <string name="donation_google_android_market_description">Google takes 30 % off every donation.</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30 % off every donation.</string>
   <string name="donation_google_android_market_donate_button">Wesprzyj</string>
   <string name="donation_thanks_dialog_title">Dziękuję</string>
   <string name="donation_thanks_dialog">Thank you for donating.\nI really appreciate this.</string>
@@ -881,7 +881,7 @@
   <string name="event_preference_sensor_calendar_summary">This sensor is for start of event by calendar event. Parameters: Calendars, Search field (Event name, Description, &#8230;), Search string, Ignore \"All day\" events, Availability (Busy, Free, &#8230;).</string>
   <string name="event_preference_sensor_battery_summary">This sensor is for start of event by battery level. Parameters: Lower level, Upper level, Charging, Power save mode.</string>
   <string name="event_preference_sensor_call_summary">This sensor is for start of event by calling contacts. Parameters: Call event (Ringing, Outgoing call started, &#8230;), Contact groups, Contacts, Contact list type (white/black list).</string>
-  <string name="event_preference_sensor_sms_summary">This sensor is for start of event by received sms from contacts. Parameters: Contact groups, Contacts, Contact list type (white/black list), Permanent run, Duration (event running duration).</string>
+  <string name="event_preference_sensor_sms_summary">This sensor is for start of event by received SMS/MMS from contacts. Parameters: Contact groups, Contacts, Contact list type (white/black list), Permanent run, Duration (event running duration).</string>
   <string name="event_preference_sensor_location_summary">This sensor is for start of event by device location. Parameters: Location, Start when outside location.</string>
   <string name="event_preference_sensor_wifi_summary">This sensor is for start of event by Wi-Fi SSID. Parameters: Connection Type (Around, Connected, &#8230;), SSID.</string>
   <string name="event_preference_sensor_bluetooth_summary">This sensor is for start of event by Bluetooth name. Parameters: Connection Type (Around, Connected, &#8230;), Scanned device type (Classic, Low energy, &#8230;), Bluetooth name.</string>

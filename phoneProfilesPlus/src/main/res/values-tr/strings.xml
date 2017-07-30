@@ -364,7 +364,7 @@
   <string name="wifi_ssid_pref_dlg_rescan_button">Tekrar tara</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Liste</string>
-  <string name="event_preferences_category_eventSMSParameters">SMS şartları</string>
+  <string name="event_preferences_category_eventSMSParameters">SMS/MMS şartları</string>
   <string name="event_preferences_sms_contacts">Kişiler</string>
   <string name="toast_events_restarted">Durumlar tekrar başladı</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Kalıcı bildirim</string>
@@ -521,7 +521,7 @@
   <string name="permissions_for_event_big_text_notification">bazı izinlerin verilmiş olması lazımdır.</string>
   <string name="permission_group_name_calendar">Takvim</string>
   <string name="permission_group_name_contacts">Kişiler</string>
-  <string name="permission_group_name_sms">SMS</string>
+  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Konum</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Wi-Fi/Bluetooth tarama için bazı izinler lazımdır.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Lütfen sonraki iletişim kutularında izinleri verin. Ondan sonra tekrar tarama yapılabilecek.</string>
@@ -542,8 +542,8 @@
   <string name="event_preferences_battery_power_save_mode">Güç tasarrufu modu açıkken</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Güç tasarrufu modu ayarları</string>
   <string name="array_pref_powerSaveMode_off">Kapalı</string>
-  <string name="array_pref_powerSaveMode_5">Pil %5 iken aç</string>
-  <string name="array_pref_powerSaveMode_15">Pil %15 iken aç</string>
+  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Pil %5 iken aç</string>
+  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Pil %15 iken aç</string>
   <string name="important_info_profile_ringerMode_root">(Marshmallow) Android 6\'da sistem ayarı olan \"Çalarken titret\"i değiştirmek, kök erişimi olmayan cihazlarda mümkün değildir.</string>
   <string name="important_info_profile_adaptiveBrightness_root">(Marshmallow) Android 6\'da sistem ayarı olan \"Otomatik parlaklık\"ı değiştirmek, kök erişimi olmayan cihazlarda mümkün değildir.</string>
   <string name="important_info_profile_wifiScanning_location">(Marshmallow) Android 6\'da Wi-Fi tarama için Konum ayarlarında Konum ve \"Wi-Fi tarama\" tercihlerinde PhoneProfilesPlus\'a izin verilmelidir.</string>
@@ -795,7 +795,7 @@
   <string name="donation_google_android_market_text">Ne kadar?</string>
   <string name="donation_google_android_market_not_supported_title">Uygulama-içi Bağış mümkün değil.</string>
   <string name="donation_google_android_market_not_supported">Uygulama-içi Bağış mümkün değil. Google Play Mağaza doğru yüklenmiş mi?</string>
-  <string name="donation_google_android_market_description">Google her bağıştan %30 komisyon alır.</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google her bağıştan %30 komisyon alır.</string>
   <string name="donation_google_android_market_donate_button">Bağış Yap</string>
   <string name="donation_thanks_dialog_title">Teşekkür ederiz</string>
   <string name="donation_thanks_dialog">Bağış için teşekkür ederiz.\nGerçekten bunu takdir ediyoruz.</string>
@@ -878,16 +878,16 @@
   <string name="profile_preferences_preferenceTypesInfo_title">Tercihlerin türü</string>
   <string name="event_preference_bluetooth_bt_types">Bluetooth türleri: [CL] klasik, [LE] düşük enerji, [DU] ikisi de.</string>
   <string name="event_preference_sensor_time_summary">Bu sensör zamana göre durumu başlatmak içindir. Parametreler: Başlangıç saati, Bitiş saati, Haftanın günleri.</string>
-  <string name="event_preference_sensor_calendar_summary">Bu sensör, durumun takvim olayı tarafından başlangıcı içindir. Şartlar: Takvimler, Arama alanı (Olay adı, Açıklama,...), Arama kelimesi, \"Tüm gün\" olaylarını ihmal et, Durum (meşgul, serbest,...).</string>
+  <string name="event_preference_sensor_calendar_summary">Bu sensör, durumun takvim olayı tarafından başlangıcı içindir. Şartlar: Takvimler, Arama alanı (Olay adı, Açıklama,&#8230;), Arama kelimesi, \"Tüm gün\" olaylarını ihmal et, Durum (meşgul, serbest,&#8230;).</string>
   <string name="event_preference_sensor_battery_summary">Bu sensör, durumun pil seviyesi tarafından başlangıcı içindir. Şartlar: Alt seviye, Üst seviye, Şarj edilme, Güç tasarrufu modu.</string>
-  <string name="event_preference_sensor_call_summary">Bu sensör, durumun kişilere çağrı yaparken başlangıcı içindir. Şartlar: Çağrı durumu (Çalarken, Giden çağrı başlayınca, ...), Gruplar, Kişiler, Kişi liste türü (beyaz/kara liste).</string>
-  <string name="event_preference_sensor_sms_summary">Bu sensör, durumun kişilerden gelen sms tarafından başlangıcı içindir. Şartlar: Gruplar, Kişiler, Kişi liste türü (beyaz/kara liste), Kalıcı çalışma, Bağlantı süresi (Çalışan durum süresi).</string>
+  <string name="event_preference_sensor_call_summary">Bu sensör, durumun kişilere çağrı yaparken başlangıcı içindir. Şartlar: Çağrı durumu (Çalarken, Giden çağrı başlayınca, &#8230;), Gruplar, Kişiler, Kişi liste türü (beyaz/kara liste).</string>
+  <string name="event_preference_sensor_sms_summary">Bu sensör, durumun kişilerden gelen SMS/MMS tarafından başlangıcı içindir. Şartlar: Gruplar, Kişiler, Kişi liste türü (beyaz/kara liste), Kalıcı çalışma, Bağlantı süresi (Çalışan durum süresi).</string>
   <string name="event_preference_sensor_location_summary">Bu sensör, durumun cihaz konumu tarafından başlangıcı içindir. Şartlar: Konum, Dışarı çıkınca başlama.</string>
-  <string name="event_preference_sensor_wifi_summary">Bu sensör, durumun Wi-Fi SSID tarafından başlangıcı içindir. Şartlar: Bağlantı türü (Civarında iken, Bağlı iken,...), SSID.</string>
-  <string name="event_preference_sensor_bluetooth_summary">Bu sensör, durumun Bluetooth adı tarafından başlangıcı içindir. Şartlar: Bağlantı Türü (Civarında, Bağlı iken, ...), Taranan cihaz türü (Klasik, Düşük enerji, ...), Bluetooth adı.</string>
+  <string name="event_preference_sensor_wifi_summary">Bu sensör, durumun Wi-Fi SSID tarafından başlangıcı içindir. Şartlar: Bağlantı türü (Civarında iken, Bağlı iken,&#8230;), SSID.</string>
+  <string name="event_preference_sensor_bluetooth_summary">Bu sensör, durumun Bluetooth adı tarafından başlangıcı içindir. Şartlar: Bağlantı Türü (Civarında, Bağlı iken, &#8230;), Taranan cihaz türü (Klasik, Düşük enerji, &#8230;), Bluetooth adı.</string>
   <string name="event_preference_sensor_mobile_cells_summary">Bu sensör, durumun bağlı baz istasyonu direği (hücresi) tarafından başlangıcı içindir. Şartlar: Hücreler, Hücre dışında iken başlama.</string>
-  <string name="event_preference_sensor_accessories_summary">Bu sensör, durumun bağlı aksesuarlar (araba yuvası, kablolu eller serbest, kablolu kulaklık, ...) tarafından başlangıcı içindir. Şartlar: Aksesuar türü.</string>
-  <string name="event_preference_sensor_screen_summary">Bu sensör, durumun ekran açık/kapalı tarafından başlangıcı içindir. Şartlar: Olay türü (ekran açık, ekran kapalı, ...), Kilit açıkken bitiş (cihazın kilidi açılırken durumu sonlandırma).</string>
+  <string name="event_preference_sensor_accessories_summary">Bu sensör, durumun bağlı aksesuarlar (araba yuvası, kablolu eller serbest, kablolu kulaklık, &#8230;) tarafından başlangıcı içindir. Şartlar: Aksesuar türü.</string>
+  <string name="event_preference_sensor_screen_summary">Bu sensör, durumun ekran açık/kapalı tarafından başlangıcı içindir. Şartlar: Olay türü (ekran açık, ekran kapalı, &#8230;), Kilit açıkken bitiş (cihazın kilidi açılırken durumu sonlandırma).</string>
   <string name="event_preference_sensor_notification_summary">Bu sensör, durumun uygulamalardan gelen bildirim tarafından başlangıcı içindir. Şartlar: Uygulamalar, Kaldırıldığı zaman bitir (Bildirim kaldırılınca durum sonlandırılır), Kalıcı çalışma, Süre (durum çalışma süresi).</string>
   <string name="event_preference_sensor_application_summary">Bu sensör, durumun ön plandaki uygulama tarafından başlangıcı içindir. Şartlar: Uygulamalar.</string>
   <string name="event_preference_sensor_orientation_summary">Bu sensör, durumun cihazın yönlendirilmesi tarafından başlangıcı içindir. Şartlar: Ekran (Yukarı, Aşağı), İki tarafı (Yatay, yukarı taraf), Yakınlık (Yakın, Uzak; kullanılan yakınlık sensörüdür), İhmal edilen uygulamalar (ön plandaki).</string>
@@ -899,7 +899,7 @@
   <string name="editor_activity_targetHelps_restartEvents_title">Durumları tekrar başlat</string>
   <string name="editor_activity_targetHelps_restartEvents_description">Durumları tekrar başlatmak için buna dokunun. El ile profil başlattıysanız, durumların otomatik başlatılması için, durumları tekrar başlatmanız lazımdır.</string>
   <string name="editor_activity_targetHelps_activityLog_title">Faaliyet kütüğü</string>
-  <string name="editor_activity_targetHelps_activityLog_description">Faaliyet kütüğünü açmak için buna dokunun. Kütüğe kaydedilenler durumların Başlama/duraklama/durma faaliyetleri, profillerin ve uygulamaların başlaması... hakkındadır.</string>
+  <string name="editor_activity_targetHelps_activityLog_description">Faaliyet kütüğünü açmak için buna dokunun. Kütüğe kaydedilenler durumların Başlama/duraklama/durma faaliyetleri, profillerin ve uygulamaların başlaması&#8230; hakkındadır.</string>
   <string name="editor_activity_targetHelps_newProfileButton_title">Yeni profil</string>
   <string name="editor_activity_targetHelps_newProfileButton_description">Yeni profil eklemek için buna dokunun.</string>
   <string name="editor_activity_targetHelps_deleteAllProfilesButton_title">Profillerin tamamını sil</string>
@@ -923,8 +923,8 @@
   <string name="editor_activity_targetHelps_eventOrderHandler_title">Sıra düzenleyici</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Durumun \"Başlatma sırası\"nı değiştirmek için bununla durumu yukarı/aşağı sürükleyin.</string>
   <string name="activator_activity_targetHelps_editor_title">Düzenleyici</string>
-  <string name="activator_activity_targetHelps_editor_description_ppp">Düzenleyici\'yi açmak için buna dokunun. Düzenleyicide profilleri, durumları, uygulama ayarlarını değiştirmeyi... ayarlayabilirsiniz.</string>
-  <string name="activator_activity_targetHelps_editor_description_pp">Düzenleyici\'yi açmak için buna dokunun. Düzenleyicide profilleri, uygulama ayarlarını değiştirmeyi... ayarlayabilirsiniz.</string>
+  <string name="activator_activity_targetHelps_editor_description_ppp">Düzenleyici\'yi açmak için buna dokunun. Düzenleyicide profilleri, durumları, uygulama ayarlarını değiştirmeyi&#8230; ayarlayabilirsiniz.</string>
+  <string name="activator_activity_targetHelps_editor_description_pp">Düzenleyici\'yi açmak için buna dokunun. Düzenleyicide profilleri, uygulama ayarlarını değiştirmeyi&#8230; ayarlayabilirsiniz.</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Profil başlat</string>
   <string name="activator_activity_targetHelps_activateProfile_description">Profili başlatmak için buna dokunun.</string>
   <string name="profile_preference_activity_targetHelps_save_title">Profili Kaydet</string>

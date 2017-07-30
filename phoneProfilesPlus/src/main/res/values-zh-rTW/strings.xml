@@ -31,7 +31,7 @@
   <string name="activate_profile_alert_message">啟用設定檔嗎？</string>
   <string name="brightness_pref_dialog_no_change_chb">不要變更</string>
   <string name="brightness_pref_dialog_automatic_chb">自動</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">自訂...</string>
+  <string name="imageview_resource_file_pref_dialog_gallery_btn">自訂&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">不要變更</string>
   <string name="phone_profiles_pref_category_activator">啟用清單</string>
   <string name="phone_profiles_pref_category_editor">編輯器</string>
@@ -364,7 +364,7 @@
   <string name="wifi_ssid_pref_dlg_rescan_button">重新掃描</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">清單</string>
-  <string name="event_preferences_category_eventSMSParameters">短訊參數</string>
+  <string name="event_preferences_category_eventSMSParameters">短信/彩信參數</string>
   <string name="event_preferences_sms_contacts">聯絡人</string>
   <string name="toast_events_restarted">事件已重新啟動</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">進行中的通知</string>
@@ -525,7 +525,7 @@ Note: \"紅綠燈\" 是在激活器和編輯器的標題中。</string>
   <string name="permissions_for_event_big_text_notification">需要一些要授予的許可權。</string>
   <string name="permission_group_name_calendar">行事曆</string>
   <string name="permission_group_name_contacts">聯絡人</string>
-  <string name="permission_group_name_sms">簡訊</string>
+  <string name="permission_group_name_sms">簡訊/多媒體訊息</string>
   <string name="permission_group_name_location">位置</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Wi-fi/藍牙掃描需要某些許可權。</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">請在下一個對話方塊中授予他們。然後將執行重新掃描。</string>
@@ -546,8 +546,8 @@ Note: \"紅綠燈\" 是在激活器和編輯器的標題中。</string>
   <string name="event_preferences_battery_power_save_mode">省電模式</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">省電模式設定</string>
   <string name="array_pref_powerSaveMode_off">關閉</string>
-  <string name="array_pref_powerSaveMode_5">打開在 5% 的電池</string>
-  <string name="array_pref_powerSaveMode_15">打開在 15% 的電池</string>
+  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">打開在 5% 的電池</string>
+  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">打開在 15% 的電池</string>
   <string name="important_info_profile_ringerMode_root">在 Android 6 (棉花糖)，是不可能改變系統中 \"鈴聲並震動\" 在非 ROOTED 裝置。</string>
   <string name="important_info_profile_adaptiveBrightness_root">在 Android 6 (棉花糖)，是不可能在非 ROOTED 裝置中改變 \"自動調整亮度\" 的級的別。</string>
   <string name="important_info_profile_wifiScanning_location">在 Android 6 (棉花糖)，Wi-Fi 掃描必須在位置設定中啟用位置和\"Wi-Fi 掃描\"。</string>
@@ -799,7 +799,7 @@ Note: \"紅綠燈\" 是在激活器和編輯器的標題中。</string>
   <string name="donation_google_android_market_text">How much?</string>
   <string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>
   <string name="donation_google_android_market_not_supported">In-App Donations are not supported. Is Google Play Store installed correctly?</string>
-  <string name="donation_google_android_market_description">Google takes 30 % off every donation.</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30 % off every donation.</string>
   <string name="donation_google_android_market_donate_button">Donate</string>
   <string name="donation_thanks_dialog_title">Thank you</string>
   <string name="donation_thanks_dialog">Thank you for donating.\nI really appreciate this.</string>
@@ -885,7 +885,7 @@ Note: \"紅綠燈\" 是在激活器和編輯器的標題中。</string>
   <string name="event_preference_sensor_calendar_summary">This sensor is for start of event by calendar event. Parameters: Calendars, Search field (Event name, Description, &#8230;), Search string, Ignore \"All day\" events, Availability (Busy, Free, &#8230;).</string>
   <string name="event_preference_sensor_battery_summary">This sensor is for start of event by battery level. Parameters: Lower level, Upper level, Charging, Power save mode.</string>
   <string name="event_preference_sensor_call_summary">This sensor is for start of event by calling contacts. Parameters: Call event (Ringing, Outgoing call started, &#8230;), Contact groups, Contacts, Contact list type (white/black list).</string>
-  <string name="event_preference_sensor_sms_summary">This sensor is for start of event by received sms from contacts. Parameters: Contact groups, Contacts, Contact list type (white/black list), Permanent run, Duration (event running duration).</string>
+  <string name="event_preference_sensor_sms_summary">This sensor is for start of event by received SMS/MMS from contacts. Parameters: Contact groups, Contacts, Contact list type (white/black list), Permanent run, Duration (event running duration).</string>
   <string name="event_preference_sensor_location_summary">This sensor is for start of event by device location. Parameters: Location, Start when outside location.</string>
   <string name="event_preference_sensor_wifi_summary">This sensor is for start of event by Wi-Fi SSID. Parameters: Connection Type (Around, Connected, &#8230;), SSID.</string>
   <string name="event_preference_sensor_bluetooth_summary">This sensor is for start of event by Bluetooth name. Parameters: Connection Type (Around, Connected, &#8230;), Scanned device type (Classic, Low energy, &#8230;), Bluetooth name.</string>

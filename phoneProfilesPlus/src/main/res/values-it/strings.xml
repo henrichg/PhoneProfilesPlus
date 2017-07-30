@@ -364,7 +364,7 @@
   <string name="wifi_ssid_pref_dlg_rescan_button">Rianalizza</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Elenco</string>
-  <string name="event_preferences_category_eventSMSParameters">Parametri SMS</string>
+  <string name="event_preferences_category_eventSMSParameters">Parametri SMS/MMS</string>
   <string name="event_preferences_sms_contacts">Contatti</string>
   <string name="toast_events_restarted">Eventi riavviati</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Notifica in corso</string>
@@ -521,7 +521,7 @@
   <string name="permissions_for_event_big_text_notification">richiede la concessione di alcune autorizzazioni.</string>
   <string name="permission_group_name_calendar">Calendario</string>
   <string name="permission_group_name_contacts">Contatti</string>
-  <string name="permission_group_name_sms">SMS</string>
+  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Posizione</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">La scansione Wi-Fi/Bluetooth richiede alcune autorizzazioni.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Si prega di concederle nella finestra successiva. Successivamente verrà rieseguita la scansione.</string>
@@ -542,8 +542,8 @@
   <string name="event_preferences_battery_power_save_mode">Modalità di risparmio energetico</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Impostazioni della modalità di risparmio energetico</string>
   <string name="array_pref_powerSaveMode_off">Spento</string>
-  <string name="array_pref_powerSaveMode_5">Attiva con batteria al 5%</string>
-  <string name="array_pref_powerSaveMode_15">Attiva con batteria al 15%</string>
+  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Attiva con batteria al 5%</string>
+  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Attiva con batteria al 15%</string>
   <string name="important_info_profile_ringerMode_root">In Android 6 (Marshmallow), non è possibile cambiare l\'impostazione \"Vibra quando squilla\" senza i privilegi di ROOT.</string>
   <string name="important_info_profile_adaptiveBrightness_root">In Android 6 (Marshmallow), non è possibile cambiare il livello di \"Luminosità adattiva\" senza i privilegi di ROOT.</string>
   <string name="important_info_profile_wifiScanning_location">In Android 6 (Marshmallow), per la scansione Wi-Fi devono essere abilitati Posizione e \"Scansione Wi-Fi\" nelle impostazioni di Posizione.</string>
@@ -796,7 +796,7 @@ Non chiedere nuovamente?</string>
   <string name="donation_google_android_market_text">Quanto?</string>
   <string name="donation_google_android_market_not_supported_title">Donazioni in-App non supportate.</string>
   <string name="donation_google_android_market_not_supported">Donazioni in-App non supportate. Google Play Store è installato correttamente?</string>
-  <string name="donation_google_android_market_description" tools:ignore="StringFormatInvalid">Google trattiene il 30% su ogni donazione.</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google trattiene il 30% su ogni donazione.</string>
   <string name="donation_google_android_market_donate_button">Dona</string>
   <string name="donation_thanks_dialog_title">Grazie</string>
   <string name="donation_thanks_dialog">Grazie per aver donato.\nLo apprezzo veramente.</string>
@@ -879,19 +879,19 @@ Non chiedere nuovamente?</string>
   <string name="profile_preferences_preferenceTypesInfo_title">Tipo di preferenze</string>
   <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>
   <string name="event_preference_sensor_time_summary">Questo sensore serve per avviare eventi legati all\'orologio. Parametri: Giorni della settimana, Ora di inizio, Ora di fine.</string>
-  <string name="event_preference_sensor_calendar_summary">Questo sensore serve per avviare eventi legati al calendario. Parametri: Calendario, Campo di ricerca (Nome dell\'evento, Descrizione, ...), Stringa di ricerca,Ignora gli eventi \"Tutto il giorno\", Disponibilità (Occupato, Libero, ...).</string>
+  <string name="event_preference_sensor_calendar_summary">Questo sensore serve per avviare eventi legati al calendario. Parametri: Calendario, Campo di ricerca (Nome dell\'evento, Descrizione, &#8230;), Stringa di ricerca, Ignora gli eventi \"Tutto il giorno\", Disponibilità (Occupato, Libero, &#8230;).</string>
   <string name="event_preference_sensor_battery_summary">Questo sensore serve per avviare eventi legati allo stato della batteria. Parametri: Livello inferiore, Livello superiore, Ricarica, Modalità di risparmio energetico.</string>
-  <string name="event_preference_sensor_call_summary">Questo sensore serve per avviare eventi legati alle chiamate. Parametri: Evento di chiamata (Squillo, Chiamata in uscita iniziata, ...), Gruppi di contatti, Contatti, Tipo di lista contatti (Lista bianca/Lista nera).</string>
-  <string name="event_preference_sensor_sms_summary">Questo sensore serve per avviare eventi legati alla ricezione di SMS. Parametri: Gruppi di contatti, Contatti, Tipo di lista contatti (Lista bianca/Lista nera), Esecuzione permanente, Durata (durata dell\'evento).</string>
+  <string name="event_preference_sensor_call_summary">Questo sensore serve per avviare eventi legati alle chiamate. Parametri: Evento di chiamata (Squillo, Chiamata in uscita iniziata, &#8230;), Gruppi di contatti, Contatti, Tipo di lista contatti (Lista bianca/Lista nera).</string>
+  <string name="event_preference_sensor_sms_summary">Questo sensore serve per avviare eventi legati alla ricezione di SMS/MMS. Parametri: Gruppi di contatti, Contatti, Tipo di lista contatti (Lista bianca/Lista nera), Esecuzione permanente, Durata (durata dell\'evento).</string>
   <string name="event_preference_sensor_location_summary">Questo sensore serve per avviare eventi legati alla posizione del dispositivo. Parametri: Posizione, Avvia quando si è all\'aperto.</string>
-  <string name="event_preference_sensor_wifi_summary">Questo sensore serve per avviare eventi legati alla connessione Wi-Fi. Parametri: Tipo di connessione (Nelle vicinanze, Collegato, ...), SSID.</string>
-  <string name="event_preference_sensor_bluetooth_summary">Questo sensore serve per avviare eventi legati alle connessioni Bluetooth. Parametri: Tipo di connessione(Collegato, Nelle vicinanze, ...), Tipo di dispositivi rilevati (Normale, Basso consumo energetico), Nome Bluetooth.</string>
+  <string name="event_preference_sensor_wifi_summary">Questo sensore serve per avviare eventi legati alla connessione Wi-Fi. Parametri: Tipo di connessione (Nelle vicinanze, Collegato, &#8230;), SSID.</string>
+  <string name="event_preference_sensor_bluetooth_summary">Questo sensore serve per avviare eventi legati alle connessioni Bluetooth. Parametri: Tipo di connessione(Collegato, Nelle vicinanze, &#8230;), Tipo di dispositivi rilevati (Normale, Basso consumo energetico), Nome Bluetooth.</string>
   <string name="event_preference_sensor_mobile_cells_summary">Questo sensore serve per avviare eventi legati alle cellule mobili. Parametri: Cellule, Avvia quando sei fuori dalla cellula.</string>
-  <string name="event_preference_sensor_accessories_summary">Questo sensore serve per avviare eventi legati agli accessori connessi (Supporto da auto, Vivavoce cablato Cuffie, ...). Parametri: Tipo di accessorio.</string>
+  <string name="event_preference_sensor_accessories_summary">Questo sensore serve per avviare eventi legati agli accessori connessi (Supporto da auto, Vivavoce cablato Cuffie, &#8230;). Parametri: Tipo di accessorio.</string>
   <string name="event_preference_sensor_screen_summary">Questo sensore serve per avviare eventi legati allo stato dello schermo. Parametri: Tipo di evento (Schermo spento, Schermo acceso), Termina quando sbloccato (l\'evento termina quando il dispositivo viene sbloccato).</string>
   <string name="event_preference_sensor_notification_summary">Questo sensore serve per avviare eventi legati a notifiche da parte di applicazioni. Parametri: Applicazioni, Termina quando rimosso (l\'evento termina viene rimossa la notifica), Esecuzione permanente, Durata (durata dell\'evento).</string>
   <string name="event_preference_sensor_application_summary">Questo sensore serve per avviare eventi legati alle applicazioni in primo piano. Parametri: Applicazioni.</string>
-  <string name="event_preference_sensor_orientation_summary">Questo sensore serve per avviare eventi legati all\'orientamento del dispositivo. Parametri: Schermo (su, giù), Lati (Orizzontale, Lato destro su, ...), Distanza (Vicino, Lontano; usa il sensore di prossimità), Ignora per applicazioni (in primo piano).</string>
+  <string name="event_preference_sensor_orientation_summary">Questo sensore serve per avviare eventi legati all\'orientamento del dispositivo. Parametri: Schermo (su, giù), Lati (Orizzontale, Lato destro su,…), Distanza (Vicino, Lontano; usa il sensore di prossimità), Ignora per applicazioni (in primo piano).</string>
   <string name="event_preference_sensor_nfc_summary">Questo sensore serve per avviare eventi legati ai tag NFC. Parametri: Esecuzione permanente, Durata (durata dell\'evento).</string>
   <string name="editor_activity_targetHelps_navigationIcon_title">\"Views\" side panel</string>
   <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe left display side to right, for opening \"Views\" side panel. In this panel you can switch between Profiles and Events views.</string>

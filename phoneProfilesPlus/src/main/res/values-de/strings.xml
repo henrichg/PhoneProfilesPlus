@@ -364,7 +364,7 @@
   <string name="wifi_ssid_pref_dlg_rescan_button">Neu scannen</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Liste</string>
-  <string name="event_preferences_category_eventSMSParameters">SMS-Parameter</string>
+  <string name="event_preferences_category_eventSMSParameters">SMS/MMS-Parameter</string>
   <string name="event_preferences_sms_contacts">Kontakte</string>
   <string name="toast_events_restarted">Ereignisse neu gestartet</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Dauerhafte Benachrichtigung</string>
@@ -443,7 +443,7 @@
   <string name="array_pref_ringerModeArray_silentL">Prioritätsmodus</string>
   <string name="menu_import_export">Importieren/Exportieren</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 Minuten</string>
-  <string name="info_notification_event_not_started">Ereignis wird nicht gestartet, wenn...\n1. ...du das allgemeine Ausführen von Ereignissen angehalten hast (rote \"Ampel\"). Im Editor kannst du es mit dem Menüpunkt \"Laufende Ereignisse aktivieren\" wieder aktivieren.\n2. ...du ein Profil manuell aktiviert hast (gelbe \"Ampel\"). Dann musst du \"Ereignisse neu starten\" im Starter, Editor oder der Benachrichtigung wählen. Ein manuell aktiviertes Profil wird auch mit einem \"[M]\" vor dem Profilnamen angezeigt. Ausnahmen bilden Ereignisse, in denen \"Manuelle Aktivierung ignorieren\" ausgewählt ist.\n3. ...du das Ereignis in den Ereigniseinstellungen angehalten hast. \"Ereignis aktiveren\" muss ausgewählt sein.\nBeachte: Die \"Ampel\" ist oben im Starter und Editor.</string>
+  <string name="info_notification_event_not_started">Ereignis wird nicht gestartet, wenn...\n1.... du das allgemeine Ausführen von Ereignissen angehalten hast (rote \"Ampel\"). Im Editor kannst du es mit dem Menüpunkt \"Laufende Ereignisse aktivieren\" wieder aktivieren.\n2.... du ein Profil manuell aktiviert hast (gelbe \"Ampel\"). Dann musst du \"Ereignisse neu starten\" im Starter, Editor oder der Benachrichtigung wählen. Ein manuell aktiviertes Profil wird auch mit einem \"[M]\" vor dem Profilnamen angezeigt. Ausnahmen bilden Ereignisse, in denen \"Manuelle Aktivierung ignorieren\" ausgewählt ist.\n3.…du das Ereignis in den Ereigniseinstellungen angehalten hast. \"Ereignis aktiveren\" muss ausgewählt sein.\nBeachte: Die \"Ampel\" ist oben im Starter und Editor.</string>
   <string name="important_info_profiles">Profile</string>
   <string name="important_info_events">Ereignisse</string>
   <string name="important_info_system">System</string>
@@ -521,7 +521,7 @@
   <string name="permissions_for_event_big_text_notification">Erfordert die Erteilung einiger Berechtigungen.</string>
   <string name="permission_group_name_calendar">Kalender</string>
   <string name="permission_group_name_contacts">Kontakte</string>
-  <string name="permission_group_name_sms">SMS</string>
+  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Standort</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Die WLAN-/Bluetooth-Suche benötigt einige Berechtigungen.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Bitte erteile sie in den nächsten Dialogen. Dann wird die erneute Überprüfung durchgeführt.</string>
@@ -542,8 +542,8 @@
   <string name="event_preferences_battery_power_save_mode">Energiesparmodus</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Energiesparmodus-Einstellungen</string>
   <string name="array_pref_powerSaveMode_off">Aus</string>
-  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatInvalid">Einschalten bei 5% Akkuleistung</string>
-  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatInvalid">Einschalten bei 15% Akkuleistung</string>
+  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Einschalten bei 5% Akkuleistung</string>
+  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Einschalten bei 15% Akkuleistung</string>
   <string name="important_info_profile_ringerMode_root">In Android 6 (Marshmallow) ist es ohne Root nicht möglich, die Vibration im Stumm-Modus zu ändern.</string>
   <string name="important_info_profile_adaptiveBrightness_root">In Android 6 (Marshmallow) ist es ohne Root nicht möglich, die adaptive Helligkeit zu ändern.</string>
   <string name="important_info_profile_wifiScanning_location">In Android 6 (Marshmallow) müssen GPS und WLAN-Scan in den Standorteinstellungen aktiviert sein, damit WLAN-Scan funktioniert.</string>
@@ -795,7 +795,7 @@
   <string name="donation_google_android_market_text">Wie viel?</string>
   <string name="donation_google_android_market_not_supported_title">In-App-Spenden werden nicht unterstützt.</string>
   <string name="donation_google_android_market_not_supported">In-App-Spenden werden nicht unterstützt. Ist der Google Play Store richtig installiert?</string>
-  <string name="donation_google_android_market_description">Google nimmt 30% jeder Spende.</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google nimmt 30% jeder Spende.</string>
   <string name="donation_google_android_market_donate_button">Spenden</string>
   <string name="donation_thanks_dialog_title">Vielen Dank</string>
   <string name="donation_thanks_dialog">Vielen Dank für Ihre Spende,\nI die ich wirklich zu schätzen weiß.</string>
@@ -881,9 +881,9 @@
   <string name="event_preference_sensor_calendar_summary">Dieser Parameter ist für den Start nach Kalender: Kalender, Suchfeld (Terminname, Beschreibung, &#8230;), Suchbegriff, ganztägige Termine ignorieren, Verfügbarkeit (beschäftigt, verfügbar, &#8230;).</string>
   <string name="event_preference_sensor_battery_summary">Dieser Parameter ist für den Start nach Akkustand: Niedrigster Stand, höchster Stand, ladend, Akkuschonmodus.</string>
   <string name="event_preference_sensor_call_summary">Dieser Parameter ist für den Start nach anrufenden Kontakten: Ereignis (klingelnd, Anruf gestartet, &#8230;), Kontaktgruppen, Kontakte, Kontaktlistentyp (Whitelist/Blacklist).</string>
-  <string name="event_preference_sensor_sms_summary">Dieser Parameter ist für den Start nach SMS von Kontakten: Kontaktgruppen, Kontakte, Kontaktlistentyp (Whitelist/Blacklist), dauerhaft laufen, Dauer für das Ereignis.</string>
+  <string name="event_preference_sensor_sms_summary">Dieser Parameter ist für den Start nach SMS/MMS von Kontakten: Kontaktgruppen, Kontakte, Kontaktlistentyp (Whitelist/Blacklist), dauerhaft laufen, Dauer für das Ereignis.</string>
   <string name="event_preference_sensor_location_summary">Dieser Parameter ist für den Start nach Standort: Standort, Radius, Start wenn innerhalb/außerhalb.</string>
-  <string name="event_preference_sensor_wifi_summary">Dieser Sensor von Wi-Fi SSIDs ist zum Starten von Events. Parameter: Art des Verbindens (in Reichweite, Verbunden, ...), SSID.</string>
+  <string name="event_preference_sensor_wifi_summary">Dieser Sensor von Wi-Fi SSIDs ist zum Starten von Events. Parameter: Art des Verbindens (in Reichweite, Verbunden, &#8230;), SSID.</string>
   <string name="event_preference_sensor_bluetooth_summary">Dieser Parameter ist für den Start nach Bluetooth-Verbindung: Modus (verfügbar, verbunden, &#8230;), Verbindungstyp (Classic, wenig Energie, &#8230;), Gerätename.</string>
   <string name="event_preference_sensor_mobile_cells_summary">Dieser Parameter ist für den Start nach mobilen Daten: Zelle, Start innerhalb/außerhalb.</string>
   <string name="event_preference_sensor_accessories_summary">Dieser Parameter ist für den Start nach verbundenem Gerät: Auto-Dock, Freisprecheinrichtung, Kopfhörer, &#8230;</string>

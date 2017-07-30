@@ -31,7 +31,7 @@
   <string name="activate_profile_alert_message">نمایه فعال گردد؟</string>
   <string name="brightness_pref_dialog_no_change_chb">تغییر نده</string>
   <string name="brightness_pref_dialog_automatic_chb">خودکار</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">سفارشی...</string>
+  <string name="imageview_resource_file_pref_dialog_gallery_btn">سفارشی&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">تغییر نده</string>
   <string name="phone_profiles_pref_category_activator">فعال کننده</string>
   <string name="phone_profiles_pref_category_editor">ویرایشگر</string>
@@ -364,7 +364,7 @@
   <string name="wifi_ssid_pref_dlg_rescan_button">Rescan</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">List</string>
-  <string name="event_preferences_category_eventSMSParameters">SMS parameters</string>
+  <string name="event_preferences_category_eventSMSParameters">SMS/MMS parameters</string>
   <string name="event_preferences_sms_contacts">Contacts</string>
   <string name="toast_events_restarted">Events restarted</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Ongoing notification</string>
@@ -521,7 +521,7 @@
   <string name="permissions_for_event_big_text_notification">requires some permissions to be granted.</string>
   <string name="permission_group_name_calendar">Calendar</string>
   <string name="permission_group_name_contacts">Contacts</string>
-  <string name="permission_group_name_sms">SMS</string>
+  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Location</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Wi-fi/Bluetooth scanning requires some permissions.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Please grant them in next dialogs. Then rescan will be performed.</string>
@@ -542,8 +542,8 @@
   <string name="event_preferences_battery_power_save_mode">Power save mode</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Power save mode settings</string>
   <string name="array_pref_powerSaveMode_off">Off</string>
-  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatInvalid">Turn on at 5% battery</string>
-  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatInvalid">Turn on at 15% battery</string>
+  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Turn on at 5% battery</string>
+  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Turn on at 15% battery</string>
   <string name="important_info_profile_ringerMode_root">In Android 6 (Marshmallow), is not possible to change system setting \"Vibrate when ringing\" in non-rooted device.</string>
   <string name="important_info_profile_adaptiveBrightness_root">In Android 6 (Marshmallow), is not possible to change level of \"Adaptive brightness\" in non-rooted device.</string>
   <string name="important_info_profile_wifiScanning_location">In Android 6 (Marshmallow), for Wi-Fi scanning must be enabled Location and \"Wi-Fi scanning\" in Location settings.</string>
@@ -795,7 +795,7 @@
   <string name="donation_google_android_market_text">How much?</string>
   <string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>
   <string name="donation_google_android_market_not_supported">In-App Donations are not supported. Is Google Play Store installed correctly?</string>
-  <string name="donation_google_android_market_description">Google takes 30 % off every donation.</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30 % off every donation.</string>
   <string name="donation_google_android_market_donate_button">Donate</string>
   <string name="donation_thanks_dialog_title">Thank you</string>
   <string name="donation_thanks_dialog">Thank you for donating.\nI really appreciate this.</string>
@@ -881,7 +881,7 @@
   <string name="event_preference_sensor_calendar_summary">This sensor is for start of event by calendar event. Parameters: Calendars, Search field (Event name, Description, &#8230;), Search string, Ignore \"All day\" events, Availability (Busy, Free, &#8230;).</string>
   <string name="event_preference_sensor_battery_summary">This sensor is for start of event by battery level. Parameters: Lower level, Upper level, Charging, Power save mode.</string>
   <string name="event_preference_sensor_call_summary">This sensor is for start of event by calling contacts. Parameters: Call event (Ringing, Outgoing call started, &#8230;), Contact groups, Contacts, Contact list type (white/black list).</string>
-  <string name="event_preference_sensor_sms_summary">This sensor is for start of event by received sms from contacts. Parameters: Contact groups, Contacts, Contact list type (white/black list), Permanent run, Duration (event running duration).</string>
+  <string name="event_preference_sensor_sms_summary">This sensor is for start of event by received SMS/MMS from contacts. Parameters: Contact groups, Contacts, Contact list type (white/black list), Permanent run, Duration (event running duration).</string>
   <string name="event_preference_sensor_location_summary">This sensor is for start of event by device location. Parameters: Location, Start when outside location.</string>
   <string name="event_preference_sensor_wifi_summary">This sensor is for start of event by Wi-Fi SSID. Parameters: Connection Type (Around, Connected, &#8230;), SSID.</string>
   <string name="event_preference_sensor_bluetooth_summary">This sensor is for start of event by Bluetooth name. Parameters: Connection Type (Around, Connected, &#8230;), Scanned device type (Classic, Low energy, &#8230;), Bluetooth name.</string>

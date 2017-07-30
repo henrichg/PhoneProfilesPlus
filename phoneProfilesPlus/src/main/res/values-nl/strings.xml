@@ -31,7 +31,7 @@
   <string name="activate_profile_alert_message">Profiel activeren?</string>
   <string name="brightness_pref_dialog_no_change_chb">Niet wijzigen</string>
   <string name="brightness_pref_dialog_automatic_chb">Automatisch</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">Aangepast...</string>
+  <string name="imageview_resource_file_pref_dialog_gallery_btn">Aangepast&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">Niet wijzigen</string>
   <string name="phone_profiles_pref_category_activator">Activator</string>
   <string name="phone_profiles_pref_category_editor">Editor</string>
@@ -364,7 +364,7 @@
   <string name="wifi_ssid_pref_dlg_rescan_button">Opnieuw scannen</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Lijst</string>
-  <string name="event_preferences_category_eventSMSParameters">SMS parameters</string>
+  <string name="event_preferences_category_eventSMSParameters">SMS/MMS parameters</string>
   <string name="event_preferences_sms_contacts">Contacten</string>
   <string name="toast_events_restarted">Event opnieuw gestart</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Voortdurende notificatie</string>
@@ -521,7 +521,7 @@
   <string name="permissions_for_event_big_text_notification">vereist dat sommige machtigingen worden verleend.</string>
   <string name="permission_group_name_calendar">Kalender</string>
   <string name="permission_group_name_contacts">Contacten</string>
-  <string name="permission_group_name_sms">SMS</string>
+  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Locatie</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Voor Wi-Fi/Bluetooth scannen zijn machtigingen nodig.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Sta het toe in de volgende schermen. Vervolgens zal opnieuw gescand worden.</string>
@@ -542,8 +542,8 @@
   <string name="event_preferences_battery_power_save_mode">Energiebesparende modus</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Energiebesparende modus instellingen</string>
   <string name="array_pref_powerSaveMode_off">Uit</string>
-  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatInvalid">Inschakelen bij 5% batterij</string>
-  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatInvalid">Inschakelen bij 15% batterij</string>
+  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Inschakelen bij 5% batterij</string>
+  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Inschakelen bij 15% batterij</string>
   <string name="important_info_profile_ringerMode_root">In Android 6 (Marshmallow), is niet mogelijk om de systeem instelling \"Trillen bij oproepen\" te wijzigen in een non-rooted apparaat.</string>
   <string name="important_info_profile_adaptiveBrightness_root">In Android 6 (Marshmallow), is het niet mogelijk om het niveau van \"Aanpasbare helderheid\" in een non-rooted telefoon te wijzigen.</string>
   <string name="important_info_profile_wifiScanning_location">In Android 6 (Marshmallow), moet je voor het scannen van Wi-Fi de locatie modus \"Grote nauwkeurigheid\" kiezen in de locatie-instellingen.</string>
@@ -795,7 +795,7 @@
   <string name="donation_google_android_market_text">Hoeveel?</string>
   <string name="donation_google_android_market_not_supported_title">In-App donaties zijn niet ondersteund.</string>
   <string name="donation_google_android_market_not_supported">In-App donaties zijn niet ondersteund. Is Google Play Store goed geïnstalleerd?</string>
-  <string name="donation_google_android_market_description">Google neemt 30% van elke donatie.</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google neemt 30% van elke donatie.</string>
   <string name="donation_google_android_market_donate_button">Doneer</string>
   <string name="donation_thanks_dialog_title">Dank je</string>
   <string name="donation_thanks_dialog">Dank je voor het doneren. \nIk waardeer dit.</string>
@@ -878,16 +878,16 @@
   <string name="profile_preferences_preferenceTypesInfo_title">Soort voorkeuren</string>
   <string name="event_preference_bluetooth_bt_types">Bluetooth typen: [CL] Klassiek, [LE] Lage Energie, [DU] Dual.</string>
   <string name="event_preference_sensor_time_summary">Deze sensor is voor het starten van een event in de tijd. Parameters: Begintijd, eindtijd, dagen van de week.</string>
-  <string name="event_preference_sensor_calendar_summary">Deze sensor is voor het starten van een event door een agenda event. Parameters: Kalenders, zoekveld (onderwerp, beschrijving, ...), zoek argument, negeren \"Gehele dag\" afspraken, beschikbaarheid (bezet, vrij,...).</string>
+  <string name="event_preference_sensor_calendar_summary">Deze sensor is voor het starten van een event door een agenda event. Parameters: Kalenders, zoekveld (onderwerp, beschrijving, &#8230;), zoek argument, negeren \"Gehele dag\" afspraken, beschikbaarheid (bezet, vrij, &#8230;).</string>
   <string name="event_preference_sensor_battery_summary">Deze sensor is voor het starten van een event door batterijniveau. Parameters: Ondergrens, bovengrens, opladen, modus voor stroombesparing.</string>
-  <string name="event_preference_sensor_call_summary">Deze sensor is voor het starten van een event door bellen naar contactpersonen. Parameters: Bel gebeurtenis (rinkelen, uitgaande oproep begonnen,...), contactgroepen, contactpersonen, contactpersoontype (witte / zwart lijst).</string>
-  <string name="event_preference_sensor_sms_summary">Deze sensor is voor het starten van een event door het ontvangen van een sms van een contactpersoon. Parameters: contactpersoongroepen, contactpersonen, contactpersoontype (witte / zwart lijst), permanent uitvoeren, event looptijd.</string>
+  <string name="event_preference_sensor_call_summary">Deze sensor is voor het starten van een event door bellen naar contactpersonen. Parameters: Bel gebeurtenis (rinkelen, uitgaande oproep begonnen, &#8230;), contactgroepen, contactpersonen, contactpersoontype (witte / zwart lijst).</string>
+  <string name="event_preference_sensor_sms_summary">Deze sensor is voor het starten van een event door het ontvangen van een SMS/MMS van een contactpersoon. Parameters: contactpersoongroepen, contactpersonen, contactpersoontype (witte / zwart lijst), permanent uitvoeren, event looptijd.</string>
   <string name="event_preference_sensor_location_summary">Deze sensor is voor het starten van een event door locatie van het apparaat. Parameters: Locatie, Start wanneer buiten locatie.</string>
-  <string name="event_preference_sensor_wifi_summary">Deze sensor is voor het starten van een event door Wi-Fi SSID. Parameters: Verbindingstype (voorzijde, verbonden, ...), SSID.</string>
-  <string name="event_preference_sensor_bluetooth_summary">Deze sensor is voor het starten van een event door Bluetooth-naam. Parameters: Verbindingstype (voorzijde, verbonden,...), gescand apparaattype (Classic, lage energie [LE], ...), Bluetooth-naam.</string>
+  <string name="event_preference_sensor_wifi_summary">Deze sensor is voor het starten van een event door Wi-Fi SSID. Parameters: Verbindingstype (voorzijde, verbonden, &#8230;), SSID.</string>
+  <string name="event_preference_sensor_bluetooth_summary">Deze sensor is voor het starten van een event door Bluetooth-naam. Parameters: Verbindingstype (voorzijde, verbonden, &#8230;), gescand apparaattype (Classic, lage energie [Le], &#8230;), Bluetooth-naam.</string>
   <string name="event_preference_sensor_mobile_cells_summary">Deze sensor is voor het starten van een event door verbonden mobiele zendmasten. Parameters: Cellen, Start wanneer buiten de cellen.</string>
-  <string name="event_preference_sensor_accessories_summary">Deze sensor is voor het starten van een event door verbonden accessoire (car dock, wired handsfree, koptelefoon,...). Parameters: Accessoire type.</string>
-  <string name="event_preference_sensor_screen_summary">Deze sensor is voor het starten van een event door het scherm aan/uit zetten. Parameters: Gebeurtenistype (scherm aan, scherm uit, ...), eindigen wanneer ontgrendeld.</string>
+  <string name="event_preference_sensor_accessories_summary">Deze sensor is voor het starten van een event door verbonden accessoire (car dock, wired handsfree, koptelefoon, &#8230;). Parameters: Accessoire type.</string>
+  <string name="event_preference_sensor_screen_summary">Deze sensor is voor het starten van een event door het scherm aan/uit zetten. Parameters: Gebeurtenistype (scherm aan, scherm uit, &#8230;), eindigen wanneer ontgrendeld.</string>
   <string name="event_preference_sensor_notification_summary">Deze sensor is voor event start door programmameldingen. Parameters: Programma\'s, Einde als verwijderd (einde event als melding wordt verwijderd), Voortdurend ingeschakeld, Duur (event-inschakelduur).</string>
   <string name="event_preference_sensor_application_summary">Deze sensor is voor event start door programma op de voorgrond. Parameters: Programma.</string>
   <string name="event_preference_sensor_orientation_summary">Deze sensor is voor event start door oriëntatie van apparaat. Parameters: Scherm (Boven, onder), Zijden (Horizontaal, zijkant boven), Afstand (Nabij, veraf; gebruikt de nabijheidssensor), Negeer voor programma\'s (in de voorgrond).</string>
@@ -899,7 +899,7 @@
   <string name="editor_activity_targetHelps_restartEvents_title">Events herstarten</string>
   <string name="editor_activity_targetHelps_restartEvents_description">Klik hierop om events te herstarten. Je moet events herstarten als je events handmatig hebt geselecteerd en terug wilt naar de uitgangssituatie.</string>
   <string name="editor_activity_targetHelps_activityLog_title">Activiteitenlog</string>
-  <string name="editor_activity_targetHelps_activityLog_description">Deze sensor is voor het starten van een event door openen activiteitenlog. Geregistreerd zijn activiteiten over start/pauze/stop gebeurtenissen, profiel activering, programma start...</string>
+  <string name="editor_activity_targetHelps_activityLog_description">Deze sensor is voor het starten van een event door openen activiteitenlog. Geregistreerd zijn activiteiten over start/pauze/stop gebeurtenissen, profiel activering, programma start, &#8230;</string>
   <string name="editor_activity_targetHelps_newProfileButton_title">Nieuw profiel</string>
   <string name="editor_activity_targetHelps_newProfileButton_description">Klik hier om profiel toe te voegen.</string>
   <string name="editor_activity_targetHelps_deleteAllProfilesButton_title">Verwijder alle profielen</string>
