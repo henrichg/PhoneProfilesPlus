@@ -67,8 +67,11 @@ public class PPApplication extends Application {
 
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
 
-                                         +"|PhoneProfilesService.doSimulatingRingingCall"
-                                         +"|ActivateProfileHelper.setZenMode"
+                                         //+"|PhoneProfilesService.doSimulatingRingingCall"
+                                         //+"|ActivateProfileHelper.setZenMode"
+
+                                         //+"|EventsService.onHandleIntent"
+                                         //+"|EventPreferencesNFC"
 
             ;
 

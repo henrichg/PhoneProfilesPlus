@@ -5,7 +5,6 @@
 .DS_Store
 /build
 
-/dragSortListView/build
 /RootShell/build
 /RootTools/build
 /QuickScroll/build

@@ -342,6 +342,8 @@ class EventPreferencesNFC extends EventPreferences {
     }
 
     void saveStartTime(DataWrapper dataWrapper, String tagName, long startTime) {
+        PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagName=" + tagName);
+
         boolean tagFound = false;
 
         String[] splits = this._nfcTags.split("\\|");
@@ -349,6 +351,8 @@ class EventPreferencesNFC extends EventPreferences {
             if (tag.equals(tagName))
                 tagFound = true;
         }
+
+        PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagFound=" + tagFound);
 
         if (tagFound)
             this._startTime = startTime;

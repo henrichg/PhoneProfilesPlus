@@ -12,18 +12,11 @@ import java.util.TimeZone;
 
 public class NFCTagReadActivity extends Activity {
 
-    //private String tagName;
-
     private NFCTagReadWriteManager nfcManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Intent intent = getIntent();
-        //tagName = intent.getStringExtra(EXTRA_TAG_NAME);
-
-        //Log.d("NFCTagReadActivity.onCreate", "tagName="+tagName);
 
         nfcManager = new NFCTagReadWriteManager(this);
         nfcManager.onActivityCreate();
