@@ -8,7 +8,6 @@ import android.widget.Toast;
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 import java.util.Calendar;
-import java.util.TimeZone;
 
 public class NFCTagReadActivity extends Activity {
 

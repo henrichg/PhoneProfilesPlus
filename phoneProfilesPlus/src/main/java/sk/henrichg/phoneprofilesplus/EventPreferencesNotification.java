@@ -18,7 +18,6 @@ import android.preference.PreferenceScreen;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.TimeZone;
 
 class EventPreferencesNotification extends EventPreferences {
 

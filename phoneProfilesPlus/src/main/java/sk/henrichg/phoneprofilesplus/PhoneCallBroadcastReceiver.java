@@ -4,8 +4,6 @@ import android.content.Intent;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
-import java.util.Date;
-
 public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
     public static final String EXTRA_SERVICE_PHONE_EVENT = "service_phone_event";

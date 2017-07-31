@@ -20,7 +20,6 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.TimeZone;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class PPNotificationListenerService extends NotificationListenerService {

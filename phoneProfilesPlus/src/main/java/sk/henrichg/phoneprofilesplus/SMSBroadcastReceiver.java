@@ -10,7 +10,6 @@ import android.telephony.SmsMessage;
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 import java.util.Calendar;
-import java.util.TimeZone;
 
 public class SMSBroadcastReceiver extends BroadcastReceiver {
 

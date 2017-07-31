@@ -20,7 +20,6 @@ import android.preference.PreferenceManager;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 class Event {
 
