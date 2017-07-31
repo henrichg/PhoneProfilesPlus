@@ -833,7 +833,7 @@
   <string name="editor_event_list_item_event_status">Esemény állapot visszajelző</string>
   <string name="editor_event_list_item_profile_start_icon">Esemény kezdés ikon</string>
   <string name="editor_event_list_item_profile_end_icon">Esemény végződés ikon</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">For each profile parameter can be set that it is used Shared profile. Click here to configure the Shared profile parameters.</string>
+  <string name="profile_preferences_sourceProfileInfo_summary">Minden profil paraméter beállítható, használja a profil megosztást. Kattintson ide, hogy a megosztott profil paramétereket beállítsa.</string>
   <string name="run_stop_events_indicator">Endegélyezet/álló esemény futási visszajelzését</string>
   <string name="run_stop_indicator_popup_window_important_infos">További információért tekintse meg \"Fontos információk\" (kérdőjel ikon szerkesztő alsó eszköztár).</string>
   <string name="important_info_how_to_show_ppp">Fontos információ megtekinthető a szerkesztőn keresztül, ha a kérdőjel ikonra kattintasz az eszköztáron.</string>
@@ -1009,6 +1009,6 @@
   <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung edge panel</string>
   <string name="phone_profiles_pref_applicationLanguage_zh_CN">简体中文</string>
   <string name="array_pref_value_zh_CN">zh-CN</string>
-  <string name="action_for_external_application_notification_bad_action">Unsupported action is specified.</string>
-  <string name="action_for_external_application_notification_no_action">Action is not specified.</string>
+  <string name="action_for_external_application_notification_bad_action">Nem támogatott művelet van megadva.</string>
+  <string name="action_for_external_application_notification_no_action">Nincs megadva a művelet.</string>
 </resources>
