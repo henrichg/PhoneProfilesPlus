@@ -43,6 +43,8 @@ public class LockDeviceActivity extends AppCompatActivity {
 
         WindowManager.LayoutParams params = new WindowManager.LayoutParams();
         params.flags = 1808;
+        //TODO Android O - change to TYPE_APPLICATION_OVERLAY, status bar will be visible :-/
+        //TODO             requires Requires SYSTEM_ALERT_WINDOW permission.
         params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
         params.gravity = Gravity.TOP;
         params.width = -1;

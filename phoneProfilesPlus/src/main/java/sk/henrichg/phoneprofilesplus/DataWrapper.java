@@ -1513,6 +1513,7 @@ public class DataWrapper {
     {
         int startupSource = PPApplication.STARTUP_SOURCE_SERVICE_MANUAL;
         Profile profile = getProfileById(profile_id, false);
+        if (profile == null) return;
         if (Permissions.grantProfilePermissions(context, profile, false, true,
                 forGUI, monochrome, monochromeValue,
                 startupSource, true, null, true)) {
