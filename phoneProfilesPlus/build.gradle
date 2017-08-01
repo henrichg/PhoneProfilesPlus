@@ -3,16 +3,16 @@ apply plugin: 'io.fabric'
 apply from: '../dependencies.gradle'
 
 android {
-    compileSdkVersion versions.compileSdk
-    buildToolsVersion versions.buildTools
+    compileSdkVersion ppVersions.compileSdk
+    buildToolsVersion ppVersions.buildTools
 
     //noinspection GroovyMissingReturnStatement
     defaultConfig {
         applicationId "sk.henrichg.phoneprofilesplus"
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
-        versionCode versions.publishVersionCode
-        versionName versions.publishVersion
+        minSdkVersion ppVersions.minSdk
+        targetSdkVersion ppVersions.targetSdk
+        versionCode ppVersions.publishVersionCode
+        versionName ppVersions.publishVersion
 
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7
@@ -54,11 +54,11 @@ dependencies {
     provided files('libs/hidden-apis_2.jar')
     compile files('libs/sdk-v1.0.0.jar')
     compile files('libs/slook_v1.4.0.jar')
-    compile 'com.android.support:support-core-ui:' + versions.supportLib
-    compile 'com.android.support:appcompat-v7:' + versions.supportLib
-    compile 'com.android.support:gridlayout-v7:' + versions.supportLib
-    compile 'com.android.support:cardview-v7:' + versions.supportLib
-    compile 'com.android.support:recyclerview-v7:' + versions.supportLib
+    compile 'com.android.support:support-core-ui:' + ppVersions.supportLib
+    compile 'com.android.support:appcompat-v7:' + ppVersions.supportLib
+    compile 'com.android.support:gridlayout-v7:' + ppVersions.supportLib
+    compile 'com.android.support:cardview-v7:' + ppVersions.supportLib
+    compile 'com.android.support:recyclerview-v7:' + ppVersions.supportLib
     compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
     compile 'com.google.code.gson:gson:2.7'

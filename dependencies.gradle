@@ -6,7 +6,7 @@
 // 3200 = show target helps for shared profile toolbar item
 
 
-ext.versions = [
+ext.ppVersions = [
         minSdk: 16,
         targetSdk: 25,
         compileSdk: 25,
