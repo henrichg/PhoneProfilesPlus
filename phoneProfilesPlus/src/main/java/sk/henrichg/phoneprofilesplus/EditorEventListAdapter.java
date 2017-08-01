@@ -259,36 +259,40 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     @Override
     public void onItemDismiss(int position) {
-        eventList.remove(position);
-        notifyItemRemoved(position);
+        synchronized (PPApplication.refreshEditorEventsListMutex) {
+            eventList.remove(position);
+            notifyItemRemoved(position);
+        }
     }
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-        if (eventList == null)
-            return false;
+        synchronized (PPApplication.refreshEditorEventsListMutex) {
+            if (eventList == null)
+                return false;
 
-        //Log.d("----- EditorEventListAdapter.onItemMove", "fromPosition="+fromPosition);
-        //Log.d("----- EditorEventListAdapter.onItemMove", "toPosition="+toPosition);
+            //Log.d("----- EditorEventListAdapter.onItemMove", "fromPosition="+fromPosition);
+            //Log.d("----- EditorEventListAdapter.onItemMove", "toPosition="+toPosition);
 
-        // convert positions from adapter into profileList
-        int plFrom = eventList.indexOf(getItem(fromPosition));
-        int plTo = eventList.indexOf(getItem(toPosition));
+            // convert positions from adapter into profileList
+            int plFrom = eventList.indexOf(getItem(fromPosition));
+            int plTo = eventList.indexOf(getItem(toPosition));
 
-        if (plFrom < plTo) {
-            for (int i = plFrom; i < plTo; i++) {
-                Collections.swap(eventList, i, i + 1);
+            if (plFrom < plTo) {
+                for (int i = plFrom; i < plTo; i++) {
+                    Collections.swap(eventList, i, i + 1);
+                }
+            } else {
+                for (int i = plFrom; i > plTo; i--) {
+                    Collections.swap(eventList, i, i - 1);
+                }
             }
-        } else {
-            for (int i = plFrom; i > plTo; i--) {
-                Collections.swap(eventList, i, i - 1);
-            }
+
+            fragment.databaseHandler.setEventStartOrder(eventList);  // set events _startOrder and write it into db
+
+            notifyItemMoved(fromPosition, toPosition);
+            return true;
         }
-
-        fragment.databaseHandler.setEventStartOrder(eventList);  // set events _startOrder and write it into db
-
-        notifyItemMoved(fromPosition, toPosition);
-        return true;
     }
 
     void showTargetHelps(Activity activity, EditorEventListFragment fragment, View listItemView) {
