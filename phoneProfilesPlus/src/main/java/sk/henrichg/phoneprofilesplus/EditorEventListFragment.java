@@ -42,7 +42,7 @@ public class EditorEventListFragment extends Fragment
 
     private List<Event> eventList;
 
-    private RecyclerView listView;
+    RecyclerView listView;
     private Toolbar bottomToolbar;
     TextView textViewNoData;
 
@@ -447,24 +447,26 @@ public class EditorEventListFragment extends Fragment
 
     private void deleteEvent(Event event)
     {
-        if (dataWrapper.getEventById(event._id) == null)
-            // event not exists
-            return;
+        synchronized (PPApplication.refreshEditorEventsListMutex) {
+            if (dataWrapper.getEventById(event._id) == null)
+                // event not exists
+                return;
 
-        List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-        event.stopEvent(dataWrapper, eventTimelineList, false, true, true, false, false);
-        // restart events
-        PPApplication.logE("$$$ restartEvents","from EditorEventListFragment.deleteEvent");
-        dataWrapper.restartEvents(false, true, false);
+            List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+            event.stopEvent(dataWrapper, eventTimelineList, false, true, true, false, false);
+            // restart events
+            PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
+            dataWrapper.restartEvents(false, true, false);
 
-        eventListAdapter.deleteItemNoNotify(event);
-        databaseHandler.deleteEvent(event);
+            eventListAdapter.deleteItemNoNotify(event);
+            databaseHandler.deleteEvent(event);
 
-        if (!eventListAdapter.released)
-        {
-            eventListAdapter.notifyDataSetChanged();
+            if (!eventListAdapter.released) {
+                listView.getRecycledViewPool().clear();
+                eventListAdapter.notifyDataSetChanged();
 
-            onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
+                onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
+            }
         }
     }
 
@@ -549,13 +551,14 @@ public class EditorEventListFragment extends Fragment
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
+                    synchronized (PPApplication.refreshEditorEventsListMutex) {
+                        dataWrapper.stopAllEvents(true, false);
 
-                    dataWrapper.stopAllEvents(true, false);
+                        databaseHandler.deleteAllEvents();
+                        eventListAdapter.clear();
 
-                    databaseHandler.deleteAllEvents();
-                    eventListAdapter.clear();
-
-                    onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
+                        onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
+                    }
 
                 }
             });
@@ -626,6 +629,7 @@ public class EditorEventListFragment extends Fragment
         if (eventListAdapter != null)
         {
             sortList(eventList, orderType, dataWrapper);
+            listView.getRecycledViewPool().clear();
             eventListAdapter.notifyDataSetChanged();
         }
     }

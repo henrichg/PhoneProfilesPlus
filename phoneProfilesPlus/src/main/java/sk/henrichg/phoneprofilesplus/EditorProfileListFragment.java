@@ -46,7 +46,7 @@ public class EditorProfileListFragment extends Fragment
 
     private List<Profile> profileList;
 
-    private RecyclerView listView;
+    RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
     private Toolbar bottomToolbar;
@@ -420,106 +420,38 @@ public class EditorProfileListFragment extends Fragment
 
     private void deleteProfile(Profile profile)
     {
-        //final Profile _profile = profile;
-        //final Activity activity = getActivity();
+        synchronized (PPApplication.refreshEditorProfilesListMutex) {
+            //final Profile _profile = profile;
+            //final Activity activity = getActivity();
 
-        if (dataWrapper.getProfileById(profile._id, false) == null)
-            // profile not exists
-            return;
+            if (dataWrapper.getProfileById(profile._id, false) == null)
+                // profile not exists
+                return;
 
-        /*
-        class DeleteAsyncTask extends AsyncTask<Void, Integer, Integer>
-        {
-            private MaterialDialog dialog;
-
-            DeleteAsyncTask()
-            {
-                 this.dialog = new MaterialDialog.Builder(activity)
-                                 .content(getResources().getString(R.string.delete_profile_progress_title) + "...")
-                                 .disableDefaultFonts()
-                                 .progress(true, 0)
-                                 .build();
+            Profile activatedProfile = dataWrapper.getActivatedProfile();
+            if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+                // remove alarm for profile duration
+                ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
+                Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
             }
 
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
+            dataWrapper.stopEventsForProfile(profile, true);
+            dataWrapper.unlinkEventsFromProfile(profile);
+            profileListAdapter.deleteItemNoNotify(profile);
+            databaseHandler.unlinkEventsFromProfile(profile);
+            databaseHandler.deleteProfile(profile);
 
-                try {
-                    this.dialog.show();
-                } catch (Exception e) {
-                }
-            }
+            listView.getRecycledViewPool().clear();
+            profileListAdapter.notifyDataSetChanged();
+            // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
+            //Profile profile = databaseHandler.getActivatedProfile();
+            Profile _profile = profileListAdapter.getActivatedProfile();
+            updateHeader(_profile);
+            activateProfileHelper.showNotification(_profile);
+            activateProfileHelper.updateWidget(true);
 
-            @Override
-            protected Integer doInBackground(Void... params) {
-
-                dataWrapper.stopEventsForProfile(_profile, true);
-                dataWrapper.unlinkEventsFromProfile(_profile);
-                profileListAdapter.deleteItemNoNotify(_profile);
-                databaseHandler.unlinkEventsFromProfile(_profile);
-                databaseHandler.deleteProfile(_profile);
-
-                return 1;
-            }
-
-            @Override
-            protected void onPostExecute(Integer result)
-            {
-                super.onPostExecute(result);
-
-                try {
-                    if (dialog.isShowing())
-                        dialog.dismiss();
-                } catch (Exception e) {
-                }
-
-                if (result == 1)
-                {
-                    if (!profileListAdapter.released)
-                    {
-                        profileListAdapter.notifyDataSetChanged();
-                        // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
-                        //Profile profile = databaseHandler.getActivatedProfile();
-                        Profile profile = profileListAdapter.getActivatedProfile();
-                        updateHeader(profile);
-                        activateProfileHelper.showNotification(profile, "");
-                        activateProfileHelper.updateWidget();
-
-                        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, filterType);
-                    }
-                }
-            }
-
+            onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
         }
-
-        new DeleteAsyncTask().execute();
-        */
-
-        Profile activatedProfile = dataWrapper.getActivatedProfile();
-        if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
-            // remove alarm for profile duration
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
-            Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
-        }
-
-        dataWrapper.stopEventsForProfile(profile, true);
-        dataWrapper.unlinkEventsFromProfile(profile);
-        profileListAdapter.deleteItemNoNotify(profile);
-        databaseHandler.unlinkEventsFromProfile(profile);
-        databaseHandler.deleteProfile(profile);
-
-        profileListAdapter.notifyDataSetChanged();
-        // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
-        //Profile profile = databaseHandler.getActivatedProfile();
-        Profile _profile = profileListAdapter.getActivatedProfile();
-        updateHeader(_profile);
-        activateProfileHelper.showNotification(_profile);
-        activateProfileHelper.updateWidget(true);
-
-        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
-
     }
 
     public void showEditMenu(View view)
@@ -590,87 +522,28 @@ public class EditorProfileListFragment extends Fragment
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
+                    synchronized (PPApplication.refreshEditorProfilesListMutex) {
+                        // remove alarm for profile duration
+                        ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
+                        Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
 
-                /*
-                class DeleteAsyncTask extends AsyncTask<Void, Integer, Integer>
-                {
-                    private MaterialDialog dialog;
-
-                    DeleteAsyncTask()
-                    {
-                         this.dialog = new MaterialDialog.Builder(activity)
-                                         .content(getResources().getString(R.string.delete_profiles_progress_title) + "...")
-                                         .disableDefaultFonts()
-                                         .progress(true, 0)
-                                         .build();
-                    }
-
-                    @Override
-                    protected void onPreExecute()
-                    {
-                        super.onPreExecute();
-
-                        this.dialog.show();
-                    }
-
-                    @Override
-                    protected Integer doInBackground(Void... params) {
-
-                        dataWrapper.stopAllEvents(true);
+                        dataWrapper.stopAllEvents(true, false);
                         dataWrapper.unlinkAllEvents();
                         profileListAdapter.clearNoNotify();
                         databaseHandler.deleteAllProfiles();
                         databaseHandler.unlinkAllEvents();
 
-                        return 1;
+                        listView.getRecycledViewPool().clear();
+                        profileListAdapter.notifyDataSetChanged();
+                        // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
+                        //Profile profile = databaseHandler.getActivatedProfile();
+                        //Profile profile = profileListAdapter.getActivatedProfile();
+                        updateHeader(null);
+                        activateProfileHelper.removeNotification();
+                        activateProfileHelper.updateWidget(true);
+
+                        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
                     }
-
-                    @Override
-                    protected void onPostExecute(Integer result)
-                    {
-                        super.onPostExecute(result);
-
-                        if (dialog.isShowing())
-                            dialog.dismiss();
-
-                        if (result == 1)
-                        {
-                            profileListAdapter.notifyDataSetChanged();
-                            // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
-                            //Profile profile = databaseHandler.getActivatedProfile();
-                            //Profile profile = profileListAdapter.getActivatedProfile();
-                            updateHeader(null);
-                            activateProfileHelper.removeNotification();
-                            activateProfileHelper.updateWidget();
-
-                            onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, filterType);
-                        }
-                    }
-
-                }
-
-                new DeleteAsyncTask().execute();
-                */
-
-                    // remove alarm for profile duration
-                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
-                    Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
-
-                    dataWrapper.stopAllEvents(true, false);
-                    dataWrapper.unlinkAllEvents();
-                    profileListAdapter.clearNoNotify();
-                    databaseHandler.deleteAllProfiles();
-                    databaseHandler.unlinkAllEvents();
-
-                    profileListAdapter.notifyDataSetChanged();
-                    // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
-                    //Profile profile = databaseHandler.getActivatedProfile();
-                    //Profile profile = profileListAdapter.getActivatedProfile();
-                    updateHeader(null);
-                    activateProfileHelper.removeNotification();
-                    activateProfileHelper.updateWidget(true);
-
-                    onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
 
                 }
             });
