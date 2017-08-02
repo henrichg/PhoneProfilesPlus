@@ -157,6 +157,7 @@ public class PhoneProfilesService extends Service
             //e.printStackTrace();
         }
 
+        /*
         ApplicationPreferences.getSharedPreferences(appContext);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, true);
@@ -173,6 +174,7 @@ public class PhoneProfilesService extends Service
         editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS_SAVE, true);
         editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, true);
         editor.apply();
+        */
 
         //PPApplication.initPhoneProfilesServiceMessenger(appContext);
 
