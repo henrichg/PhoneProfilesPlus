@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 public abstract class PreferenceActivity extends AppCompatPreferenceActivity
 {
+    Toolbar toolbar;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void setPreferenceFragment(PreferenceFragment preferenceFragment) {
@@ -38,7 +39,7 @@ public abstract class PreferenceActivity extends AppCompatPreferenceActivity
         // (app compat bug?)
         //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             setContentView(R.layout.mp_activity_settings);
-            Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
+            toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
             setSupportActionBar(toolbar);
         //}
 

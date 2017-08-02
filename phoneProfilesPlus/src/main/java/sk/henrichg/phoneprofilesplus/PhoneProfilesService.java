@@ -9,6 +9,7 @@ import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -156,7 +157,7 @@ public class PhoneProfilesService extends Service
             //e.printStackTrace();
         }
 
-        /*ApplicationPreferences.getSharedPreferences(appContext);
+        ApplicationPreferences.getSharedPreferences(appContext);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, true);
         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true);
@@ -171,7 +172,7 @@ public class PhoneProfilesService extends Service
         editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS, true);
         editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS_SAVE, true);
         editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, true);
-        editor.apply();*/
+        editor.apply();
 
         //PPApplication.initPhoneProfilesServiceMessenger(appContext);
 

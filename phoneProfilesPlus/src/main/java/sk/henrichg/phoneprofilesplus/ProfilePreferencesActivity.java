@@ -12,6 +12,8 @@ import android.os.Handler;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -135,34 +137,55 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             // for shared profile is not needed, for shared profile is used PPApplication.DEFAULT_PROFILE_PREFS_NAME
             // and this is used in Profile.getDefaultProfile()
             if (profile_id != Profile.DEFAULT_PROFILE_ID) {
-                //MenuInflater inflater = getMenuInflater();
-                //inflater.inflate(R.menu.profile_preferences_save, menu);
-                Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
                 toolbar.inflateMenu(R.menu.profile_preferences_save);
             }
         }
         else {
             if (profile_id != Profile.DEFAULT_PROFILE_ID) {
-                //MenuInflater inflater = getMenuInflater();
-                //inflater.inflate(R.menu.profile_preferences, menu);
-                Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
                 toolbar.inflateMenu(R.menu.profile_preferences);
             }
         }
         return true;
     }
 
+    static void onNextLayout(final View view, final Runnable runnable) {
+        final ViewTreeObserver observer = view.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                final ViewTreeObserver trueObserver;
+
+                if (observer.isAlive()) {
+                    trueObserver = observer;
+                } else {
+                    trueObserver = view.getViewTreeObserver();
+                }
+
+                trueObserver.removeOnGlobalLayoutListener(this);
+
+                runnable.run();
+            }
+        });
+    }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean ret = super.onPrepareOptionsMenu(menu);
 
-        final Handler handler = new Handler(getMainLooper());
+        onNextLayout(toolbar, new Runnable() {
+            @Override
+            public void run() {
+                showTargetHelps();
+            }
+        });
+
+        /*final Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 showTargetHelps();
             }
-        }, 1000);
+        }, 1000);*/
 
         return ret;
     }

@@ -14,6 +14,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -133,18 +135,43 @@ public class EventPreferencesActivity extends PreferenceActivity
         // Inflate the menu; this adds items to the action bar if it is present.
 
         if (showSaveMenu) {
-            //MenuInflater inflater = getMenuInflater();
-            //inflater.inflate(R.menu.profile_preferences_save, menu);
-            Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
             toolbar.inflateMenu(R.menu.event_preferences_save);
         }
         return true;
+    }
+
+    static void onNextLayout(final View view, final Runnable runnable) {
+        final ViewTreeObserver observer = view.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                final ViewTreeObserver trueObserver;
+
+                if (observer.isAlive()) {
+                    trueObserver = observer;
+                } else {
+                    trueObserver = view.getViewTreeObserver();
+                }
+
+                trueObserver.removeOnGlobalLayoutListener(this);
+
+                runnable.run();
+            }
+        });
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean ret = super.onPrepareOptionsMenu(menu);
 
+        onNextLayout(toolbar, new Runnable() {
+            @Override
+            public void run() {
+                showTargetHelps();
+            }
+        });
+
+        /*
         final Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
@@ -152,6 +179,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                 showTargetHelps();
             }
         }, 1000);
+        */
 
         return ret;
     }

@@ -30,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -349,7 +350,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
 
         editorToolbar = (Toolbar)findViewById(R.id.editor_tollbar);
-        //editorToolbar.inflateMenu(R.menu.activity_editor_profiles);
         setSupportActionBar(editorToolbar);
 
         // Enable ActionBar app icon to behave as action to toggle nav drawer
@@ -497,6 +497,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             refreshGUI(false, false);
         }
 
+        /*
         final Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
@@ -504,6 +505,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 showTargetHelps();
             }
         }, 1000);
+        */
     }
 
 
@@ -528,14 +530,34 @@ public class EditorProfilesActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.activity_editor_profiles, menu);
         editorToolbar.inflateMenu(R.menu.activity_editor_profiles);
         return true;
     }
 
+    static void onNextLayout(final View view, final Runnable runnable) {
+        final ViewTreeObserver observer = view.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                final ViewTreeObserver trueObserver;
+
+                if (observer.isAlive()) {
+                    trueObserver = observer;
+                } else {
+                    trueObserver = view.getViewTreeObserver();
+                }
+
+                trueObserver.removeOnGlobalLayoutListener(this);
+
+                runnable.run();
+            }
+        });
+    }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean ret = super.onPrepareOptionsMenu(menu);
+
         MenuItem menuItem;
 
         //menuItem = menu.findItem(R.id.menu_import_export);
@@ -576,8 +598,14 @@ public class EditorProfilesActivity extends AppCompatActivity
             menuItem.setVisible(Event.getGlobalEventsRunning(getApplicationContext()));
         }
 
-        return super.onPrepareOptionsMenu(menu);
+        onNextLayout(editorToolbar, new Runnable() {
+            @Override
+            public void run() {
+                showTargetHelps();
+            }
+        });
 
+        return ret;
     }
 
     public static void exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity) {
