@@ -43,11 +43,11 @@ public class LockDeviceActivity extends AppCompatActivity {
 
         WindowManager.LayoutParams params = new WindowManager.LayoutParams();
         params.flags = 1808;
-        if (android.os.Build.VERSION.SDK_INT < 26)
+        //if (android.os.Build.VERSION.SDK_INT < 26)
             //noinspection deprecation
             params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
-        else
-            params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        //else
+        //    params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         params.gravity = Gravity.TOP;
         params.width = -1;
         params.height = -1;

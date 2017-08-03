@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.KeyguardManager;
 import android.app.Notification;
+//import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.WallpaperManager;
@@ -995,6 +996,7 @@ public class ActivateProfileHelper {
         return false;
     }
 
+    @SuppressLint("SwitchIntDef")
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     static int getSystemZenMode(Context context, int defaultValue) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -1779,11 +1781,11 @@ public class ActivateProfileHelper {
             //noinspection deprecation
             type = WindowManager.LayoutParams.TYPE_TOAST;
         else
-        if (android.os.Build.VERSION.SDK_INT < 26)
+        //if (android.os.Build.VERSION.SDK_INT < 26)
             //noinspection deprecation
             type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
-        else
-            type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+        //else
+        //    type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 1, 1,
                 type,
@@ -1844,11 +1846,11 @@ public class ActivateProfileHelper {
                 //noinspection deprecation
                 type = WindowManager.LayoutParams.TYPE_TOAST;
             else
-            if (android.os.Build.VERSION.SDK_INT < 26)
+            //if (android.os.Build.VERSION.SDK_INT < 26)
                 //noinspection deprecation
                 type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
-            else
-                type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+            //else
+            //    type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                         1, 1,
                         type,
@@ -1971,20 +1973,59 @@ public class ActivateProfileHelper {
             notificationBuilder = new Notification.Builder(context)
                     .setContentIntent(pIntent);
 
-            if (notificationShowInStatusBar) {
-                KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-                //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
-                boolean screenUnlocked = !myKM.isKeyguardLocked();
-                //boolean screenUnlocked = getScreenUnlocked(context);
-                if ((ApplicationPreferences.notificationHideInLockScreen(context) && (!screenUnlocked)) ||
-                        ((profile != null) && profile._hideStatusBarIcon))
-                    notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+            /*if (Build.VERSION.SDK_INT >= 26) {
+                // The id of the channel.
+                String channelId = "phoneProfiles_profile_activated";
+                // The user-visible name of the channel.
+                CharSequence name = context.getString(R.string.notification_channel_activated_profile);
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.notification_channel_activated_profile_ppp);
+
+                // no sound
+                int importance = NotificationManager.IMPORTANCE_LOW;
+                if (notificationShowInStatusBar) {
+                    KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+                    //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
+                    boolean screenUnlocked = !myKM.isKeyguardLocked();
+                    //boolean screenUnlocked = getScreenUnlocked(context);
+                    if ((ApplicationPreferences.notificationHideInLockScreen(context) && (!screenUnlocked)) ||
+                            ((profile != null) && profile._hideStatusBarIcon))
+                        importance = NotificationManager.IMPORTANCE_MIN;
+                }
                 else
-                    notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
+                    importance = NotificationManager.IMPORTANCE_MIN;
+
+                NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+
+                // Configure the notification channel.
+                channel.setImportance(importance);
+                channel.setDescription(description);
+                channel.enableLights(false);
+                // Sets the notification light color for notifications posted to this
+                // channel, if the device supports this feature.
+                //channel.setLightColor(Color.RED);
+                channel.enableVibration(false);
+                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+                notificationManager.createNotificationChannel(channel);
+
+                notificationBuilder.setChannelId(channelId);
             }
-            else
-                notificationBuilder.setPriority(Notification.PRIORITY_MIN);
-            //notificationBuilder.setPriority(Notification.PRIORITY_HIGH); // for heads-up in Android 5.0
+            else {*/
+                if (notificationShowInStatusBar) {
+                    KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+                    //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
+                    boolean screenUnlocked = !myKM.isKeyguardLocked();
+                    //boolean screenUnlocked = getScreenUnlocked(context);
+                    if ((ApplicationPreferences.notificationHideInLockScreen(context) && (!screenUnlocked)) ||
+                            ((profile != null) && profile._hideStatusBarIcon))
+                        notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+                    else
+                        notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
+                }
+                else
+                    notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+            //}
             if (Build.VERSION.SDK_INT >= 21)
             {
                 notificationBuilder.setCategory(Notification.CATEGORY_STATUS);
@@ -2130,12 +2171,14 @@ public class ActivateProfileHelper {
             }
 
             if (PPApplication.phoneProfilesNotification != null) {
-                if (notificationStatusBarPermanent) {
-                    //notification.flags |= Notification.FLAG_NO_CLEAR;
-                    PPApplication.phoneProfilesNotification.flags |= Notification.FLAG_ONGOING_EVENT;
-                } else {
-                    setAlarmForNotificationCancel();
-                }
+                //if (Build.VERSION.SDK_INT < 26) {
+                    if (notificationStatusBarPermanent) {
+                        //notification.flags |= Notification.FLAG_NO_CLEAR;
+                        PPApplication.phoneProfilesNotification.flags |= Notification.FLAG_ONGOING_EVENT;
+                    } else {
+                        setAlarmForNotificationCancel();
+                    }
+                //}
 
                 if (PhoneProfilesService.instance != null)
                     PhoneProfilesService.instance.startForeground(PPApplication.PROFILE_NOTIFICATION_ID, PPApplication.phoneProfilesNotification);

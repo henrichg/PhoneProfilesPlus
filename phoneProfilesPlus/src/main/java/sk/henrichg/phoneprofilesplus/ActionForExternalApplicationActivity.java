@@ -92,10 +92,10 @@ public class ActionForExternalApplicationActivity extends Activity {
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
-                if (Build.VERSION.SDK_INT < 26)
+                //if (Build.VERSION.SDK_INT < 26)
                     startService(serviceIntent);
-                else
-                    startForegroundService(serviceIntent);
+                //else
+                //    startForegroundService(serviceIntent);
             }
 
             if (action.equals(ACTION_ACTIVATE_PROFILE)) {

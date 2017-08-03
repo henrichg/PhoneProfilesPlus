@@ -645,10 +645,10 @@ public class EventsService extends WakefulIntentService {
                 lIntent.putExtra(EXTRA_OLD_ZEN_MODE, oldZenMode);
                 lIntent.putExtra(EXTRA_OLD_RINGTONE, oldRingtone);
                 lIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
-                if (Build.VERSION.SDK_INT < 26)
+                //if (Build.VERSION.SDK_INT < 26)
                     context.startService(lIntent);
-                else
-                    context.startForegroundService(lIntent);
+                //else
+                //    context.startForegroundService(lIntent);
             }
 
             if (!PhoneCallService.speakerphoneOnExecuted) {
