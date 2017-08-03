@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
@@ -91,7 +92,10 @@ public class ActionForExternalApplicationActivity extends Activity {
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
-                startService(serviceIntent);
+                if (Build.VERSION.SDK_INT < 26)
+                    startService(serviceIntent);
+                else
+                    startForegroundService(serviceIntent);
             }
 
             if (action.equals(ACTION_ACTIVATE_PROFILE)) {

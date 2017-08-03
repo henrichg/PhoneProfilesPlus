@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
@@ -789,7 +790,10 @@ public class PPApplication extends Application {
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_GEOFENCE_SCANNER);
-        context.startService(lIntent);
+        if (Build.VERSION.SDK_INT < 26)
+            context.startService(lIntent);
+        else
+            context.startForegroundService(lIntent);
     }
 
     public static void stopGeofenceScanner(Context context) {
@@ -798,7 +802,10 @@ public class PPApplication extends Application {
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_GEOFENCE_SCANNER);
-        context.startService(lIntent);
+        if (Build.VERSION.SDK_INT < 26)
+            context.startService(lIntent);
+        else
+            context.startForegroundService(lIntent);
     }
 
     public static void startOrientationScanner(Context context) {
@@ -807,7 +814,10 @@ public class PPApplication extends Application {
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_ORIENTATION_SCANNER);
-        context.startService(lIntent);
+        if (Build.VERSION.SDK_INT < 26)
+            context.startService(lIntent);
+        else
+            context.startForegroundService(lIntent);
     }
 
     public static void stopOrientationScanner(Context context) {
@@ -816,7 +826,10 @@ public class PPApplication extends Application {
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_ORIENTATION_SCANNER);
-        context.startService(lIntent);
+        if (Build.VERSION.SDK_INT < 26)
+            context.startService(lIntent);
+        else
+            context.startForegroundService(lIntent);
     }
 
     public static void startPhoneStateScanner(Context context) {
@@ -825,7 +838,10 @@ public class PPApplication extends Application {
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_PHONE_STATE_SCANNER);
-        context.startService(lIntent);
+        if (Build.VERSION.SDK_INT < 26)
+            context.startService(lIntent);
+        else
+            context.startForegroundService(lIntent);
     }
 
     public static void stopPhoneStateScanner(Context context) {
@@ -834,7 +850,10 @@ public class PPApplication extends Application {
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_PHONE_STATE_SCANNER);
-        context.startService(lIntent);
+        if (Build.VERSION.SDK_INT < 26)
+            context.startService(lIntent);
+        else
+            context.startForegroundService(lIntent);
     }
 
     //---------------------------------------------------------------

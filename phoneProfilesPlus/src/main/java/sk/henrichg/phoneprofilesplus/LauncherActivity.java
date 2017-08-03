@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 public class LauncherActivity extends Activity {
@@ -40,7 +41,10 @@ public class LauncherActivity extends Activity {
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
-            startService(serviceIntent);
+            if (Build.VERSION.SDK_INT < 26)
+                startService(serviceIntent);
+            else
+                startForegroundService(serviceIntent);
         }
         else
         {
@@ -52,7 +56,10 @@ public class LauncherActivity extends Activity {
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
-                startService(serviceIntent);
+                if (Build.VERSION.SDK_INT < 26)
+                    startService(serviceIntent);
+                else
+                    startForegroundService(serviceIntent);
             }
 
             if (startupSource == 0)
