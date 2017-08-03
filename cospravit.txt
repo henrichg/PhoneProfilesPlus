@@ -103,9 +103,10 @@ Android O:
 1. Pouzivat LayoutParams.TYPE_APPLICATION_OVERLAY - uz mam, len je to zapoznamkovane.
 2. Pouzivat Context.startForegroundService() - uz mam, len je to zapoznamkovane.
    Tu je problem, ze to pada, akoby nebolo volane Service.startForeground(). Hlavne, ak servis stopnem.
-3. Pouzivat JobIntentService namiesto WakefulIntentService - servisy nie je mozne startovat, ak je app. na pozadi,
+3. Pouzivat JobIntentService namiesto WakefulIntentService a IntentService - servisy nie je mozne startovat, ak je app. na pozadi,
    treba to preto robit cez JobIntentService. Problem je ale ten, ze na toto sa potom pouziva JobScheduler,
    cize servis sa nespusti hned, ale to riadi JobScheduler (plati len pre Android O). :-/
+   Dobre, ale je, ze to spravi wake, takze v podstate ako WakefulIntentService.
 
 
 
