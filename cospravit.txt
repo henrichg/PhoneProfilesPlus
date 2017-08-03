@@ -97,7 +97,15 @@ Po oprave:
 5. Editor pise, ze sa nastartuje 22:25 casu mobilu, co je OK
 6. cakam kedy sa naozaj udalost spusti, predpokladam ze o 22:25 casu na mobile
 
+---------------------------------
 
+Android O:
+1. pouzivat LayoutParams.TYPE_APPLICATION_OVERLAY - uz mam, len je to zapoznamkovane
+2. pouzivat Context.startForegroundService() - uz mam, len je to zapoznamkovane
+   Tu je problem, ze to pada, akoby nebolo volane Service.startForeground(). Hlavne, ak servis stopnem.
+3. pouzivat JobIntentService namiesto WakefulIntentService - servisy nie je mozne startovat, ak je app. na pozadi,
+   treba to preto robit cez JobIntentService. Problem je ale ten, ze na toto sa potom pouziva JobScheduler,
+   cize servis sa nespusti hned, ale to riadi JobScheduler. :-/
 
 
 
