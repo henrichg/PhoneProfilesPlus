@@ -109,6 +109,6 @@ Android O:
    treba to preto robit cez JobIntentService. Problem je ale ten, ze na toto sa potom pouziva JobScheduler,
    cize servis sa nespusti hned, ale to riadi JobScheduler (plati len pre Android O). :-/
    Dobre, ale je, ze to spravi wake, takze v podstate ako WakefulIntentService.
-
+4. Pouzivat NotificationChannels. Pre hlavnu notifikaciu to uz mam, len je to zapoznamkovane. Treba to spravit pre vsetky notifikacie.
 
 
