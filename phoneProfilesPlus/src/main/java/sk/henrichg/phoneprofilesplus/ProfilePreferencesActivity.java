@@ -444,10 +444,13 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         profile._volumeVoice = preferences.getString(Profile.PREF_PROFILE_VOLUME_VOICE, "");
         profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, ""));
         profile._soundRingtone = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE, "");
+        PPApplication.logE("ProfilePreferencesActivity.savePreferences","profile._soundRingtone="+profile._soundRingtone);
         profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, ""));
         profile._soundNotification = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
+        PPApplication.logE("ProfilePreferencesActivity.savePreferences","profile._soundNotification="+profile._soundNotification);
         profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, ""));
         profile._soundAlarm = preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM, "");
+        PPApplication.logE("ProfilePreferencesActivity.savePreferences","profile._soundAlarm="+profile._soundAlarm);
         profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, ""));
         profile._deviceWiFi = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI, ""));
         profile._deviceBluetooth = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, ""));

@@ -150,13 +150,13 @@
                 android:entries="@array/soundChangeDPArray"
                 android:entryValues="@array/soundChangeDPValues"
                 app:useStockLayout="true" />
-            <RingtonePreference
+            <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="prf_pref_soundRingtone"
                 android:summary="@string/array_pref_no_change"
                 android:title="@string/profile_preferences_soundRingtone"
-                android:ringtoneType="ringtone"
-                android:showSilent="true"
-                android:showDefault="true"
+                app:ringtoneType="ringtone"
+                app:showSilent="true"
+                app:showDefault="true"
                 android:dependency="prf_pref_soundRingtoneChange" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_soundNotificationChange"
@@ -166,13 +166,13 @@
                 android:entries="@array/soundChangeDPArray"
                 android:entryValues="@array/soundChangeDPValues"
                 app:useStockLayout="true" />
-            <RingtonePreference
+            <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="prf_pref_soundNotification"
                 android:summary="@string/array_pref_no_change"
                 android:title="@string/profile_preferences_soundNotification"
-                android:ringtoneType="notification"
-                android:showSilent="true"
-                android:showDefault="true"
+                app:ringtoneType="notification"
+                app:showSilent="true"
+                app:showDefault="true"
                 android:dependency="prf_pref_soundNotificationChange" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_soundAlarmChange"
@@ -182,13 +182,13 @@
                 android:entries="@array/soundChangeDPArray"
                 android:entryValues="@array/soundChangeDPValues"
                 app:useStockLayout="true" />
-            <RingtonePreference
+            <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="prf_pref_soundAlarm"
                 android:summary="@string/array_pref_no_change"
                 android:title="@string/profile_preferences_soundAlarm"
-                android:ringtoneType="alarm"
-                android:showSilent="true"
-                android:showDefault="true"
+                app:ringtoneType="alarm"
+                app:showSilent="true"
+                app:showDefault="true"
                 android:dependency="prf_pref_soundAlarmChange" />
         </PreferenceScreen>
         <PreferenceScreen

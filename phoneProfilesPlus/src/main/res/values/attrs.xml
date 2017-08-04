@@ -49,6 +49,11 @@
     <declare-styleable name="ConnectToSSIDDialogPreference">
         <attr name="ctsdpDisableDefaultProfile" format="integer" />
     </declare-styleable>
+    <declare-styleable name="RingtonePreference">
+        <attr name="ringtoneType" format="string" />
+        <attr name="showSilent" format="boolean" />
+        <attr name="showDefault" format="boolean" />
+    </declare-styleable>
 
     <declare-styleable name="ScrimInsetsView">
         <attr format="reference|color" name="insetForeground" />

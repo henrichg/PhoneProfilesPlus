@@ -71,13 +71,13 @@
                 android:defaultValue="0"
                 henrichg:dMin="0"
                 henrichg:dMax="86400" />
-            <RingtonePreference
+            <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="eventNotificationSound"
                 android:summary="@string/array_pref_no_change"
                 android:title="@string/event_preferences_notificationSound"
-                android:ringtoneType="notification"
-                android:showSilent="true"
-                android:showDefault="true" />
+                app:ringtoneType="notification"
+                app:showSilent="true"
+                app:showDefault="true" />
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory
