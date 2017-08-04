@@ -10,30 +10,27 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 class RingtonePreferenceAdapter extends BaseAdapter {
 
     Map<String, String> toneList;
-    private String ringtone;
-    private RingtonePreferenceDialog dialog;
+    private RingtonePreference preference;
 
     private Context context;
 
     private LayoutInflater inflater = null;
 
-    RingtonePreferenceAdapter(RingtonePreferenceDialog dialog, Context c, String ringtone, Map<String, String> toneList)
+    RadioButton checkedRadioButton = null;
+
+    RingtonePreferenceAdapter(RingtonePreference preference, Context c, Map<String, String> toneList)
     {
         context = c;
 
-        this.dialog = dialog;
+        this.preference = preference;
         this.toneList = toneList;
-
-        if (toneList.isEmpty())
-            this.ringtone = "";
-        else
-            this.ringtone = ringtone;
 
         inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -86,12 +83,19 @@ class RingtonePreferenceAdapter extends BaseAdapter {
         holder.radioBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 RadioButton rb = (RadioButton) v;
-                dialog.doOnItemSelected((Integer)rb.getTag());
+                List<String> uris = new ArrayList(toneList.keySet());
+                preference.setRingtone(uris.get((Integer)rb.getTag()), rb);
             }
         });
 
-        holder.radioBtn.setChecked(this.ringtone.equals(ringtone));
+        PPApplication.logE("RingtonePreferenceAdapter.getView", "ringtone="+ringtone);
+        PPApplication.logE("RingtonePreferenceAdapter.getView", "preference.ringtone="+preference.ringtone);
+
+        holder.radioBtn.setChecked(preference.ringtone.equals(ringtone));
         holder.ringtoneLabel.setText(ringtoneTitle);
+
+        if (holder.radioBtn.isChecked() && (checkedRadioButton == null))
+            checkedRadioButton = holder.radioBtn;
 
         return vi;
     }

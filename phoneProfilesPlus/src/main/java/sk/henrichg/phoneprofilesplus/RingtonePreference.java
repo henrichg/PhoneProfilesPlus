@@ -2,27 +2,48 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.database.Cursor;
+import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.preference.DialogPreference;
 import android.preference.Preference;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RadioButton;
 
-public class RingtonePreference extends Preference {
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
-    private String ringtone;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+public class RingtonePreference extends DialogPreference {
+
+    String ringtone;
 
     String ringtoneType;
     boolean showSilent;
     boolean showDefault;
 
     private Context prefContext;
+    private MaterialDialog mDialog;
+    private ListView listView;
+
+    private RingtonePreferenceAdapter listAdapter;
 
     public RingtonePreference(Context context, AttributeSet attrs)
     {
@@ -49,28 +70,163 @@ public class RingtonePreference extends Preference {
 
     }
 
-    //@Override
-    protected void onBindView(View view)
-    {
-        super.onBindView(view);
+    protected void showDialog(Bundle state) {
+        PPApplication.logE("RingtonePreference.showDialog", "xx");
+
+        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
+                .title(getDialogTitle())
+                .icon(getDialogIcon())
+                //.disableDefaultFonts()
+                .positiveText(getPositiveButtonText())
+                .negativeText(getNegativeButtonText())
+                .content(getDialogMessage())
+                .customView(R.layout.activity_ringtone_pref_dialog, false)
+                .autoDismiss(false)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        if (shouldPersist())
+                        {
+                            // set summary
+                            _setSummary(ringtone);
+
+                            // zapis do preferences
+                            persistString(ringtone);
+
+                            // Data sa zmenili,notifikujeme
+                            notifyChanged();
+
+                            mDialog.dismiss();
+                        }
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        mDialog.dismiss();
+                    }
+                });
+
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                RingtonePreference.this.onShow(dialog);
+            }
+        });
+
+        mDialog = mBuilder.build();
+        View layout = mDialog.getCustomView();
+
+        listView = (ListView)layout.findViewById(R.id.ringtone_pref_dlg_listview);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View item, int position, long id)
+            {
+                RingtonePreferenceAdapter.ViewHolder viewHolder = (RingtonePreferenceAdapter.ViewHolder) item.getTag();
+                setRingtone((String)listAdapter.getItem(position), viewHolder.radioBtn);
+                viewHolder.radioBtn.setChecked(true);
+            }
+        });
+
+        Map<String, String> toneList = new LinkedHashMap<>();
+
+        RingtoneManager manager = new RingtoneManager(prefContext);
+        if (ringtoneType.equals("ringtone")) {
+            manager.setType(RingtoneManager.TYPE_RINGTONE);
+            if (showDefault)
+                toneList.put(Settings.System.DEFAULT_RINGTONE_URI.toString(),
+                        prefContext.getString(R.string.ringtone_preference_dialog_default_ringtone));
+        }
+        else
+        if (ringtoneType.equals("notification")) {
+            manager.setType(RingtoneManager.TYPE_NOTIFICATION);
+            if (showDefault)
+                toneList.put(Settings.System.DEFAULT_NOTIFICATION_URI.toString(),
+                        prefContext.getString(R.string.ringtone_preference_dialog_default_notification));
+        }
+        else
+        if (ringtoneType.equals("alarm")) {
+            manager.setType(RingtoneManager.TYPE_ALARM);
+            if (showDefault)
+                toneList.put(Settings.System.DEFAULT_ALARM_ALERT_URI.toString(),
+                        prefContext.getString(R.string.ringtone_preference_dialog_default_alarm));
+        }
+
+        if (showSilent)
+            toneList.put("", prefContext.getString(R.string.ringtone_preference_dialog_silent));
+
+        Cursor cursor = manager.getCursor();
+
+        /*
+        profile._soundRingtone=content://settings/system/ringtone
+        profile._soundNotification=content://settings/system/notification_sound
+        profile._soundAlarm=content://settings/system/alarm_alert
+        */
+
+        while (cursor.moveToNext()) {
+            String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+            String _title = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
+            String _id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
+            toneList.put(_uri + "/" + _id, _title);
+        }
+
+        listAdapter = new RingtonePreferenceAdapter(this, prefContext, toneList);
+        listView.setAdapter(listAdapter);
+
+        listAdapter.checkedRadioButton = null;
+        String value;
+        try {
+            value = getPersistedString(ringtone);
+        } catch  (Exception e) {
+            value = ringtone;
+        }
+        ringtone = value;
+        PPApplication.logE("RingtonePreference.onShow", "ringtone="+ringtone);
+
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+
+        if (state != null)
+            mDialog.onRestoreInstanceState(state);
+
+        mDialog.setOnDismissListener(this);
+        mDialog.show();
+    }
+
+    private void onShow(DialogInterface dialog) {
+
+        List<String> uris = new ArrayList(listAdapter.toneList.keySet());
+        final int position = uris.indexOf(ringtone);
+
+        /*
+        listView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                listView.requestFocusFromTouch();
+                listView.setSelection(position);
+                listView.setItemChecked(position, true);
+                listView.requestFocus();
+            }
+        }, 1500);*/
+        listView.setSelection(position);
+        listView.setItemChecked(position, true);
+        listView.smoothScrollToPosition(position);
+
         _setSummary(ringtone);
     }
 
-    @Override
-    protected void onClick()
+    public void onDismiss (DialogInterface dialog)
     {
-        // klik na preference
-        final RingtonePreferenceDialog dialog = new RingtonePreferenceDialog(prefContext, this, ringtone);
-        dialog.show();
+        super.onDismiss(dialog);
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index)
-    {
-        super.onGetDefaultValue(a, index);
-
-        return a.getString(index);
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
     }
+
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
@@ -91,75 +247,7 @@ public class RingtonePreference extends Preference {
             ringtone = value;
             persistString(value);
         }
-    }
-
-    @Override
-    protected Parcelable onSaveInstanceState()
-    {
-        // ulozime instance state - napriklad kvoli zmene orientacie
-
-        final Parcelable superState = super.onSaveInstanceState();
-        /*if (isPersistent()) {
-            // netreba ukladat, je ulozene persistentne
-            return superState;
-        }*/
-
-        // ulozenie istance state
-        final SavedState myState = new SavedState(superState);
-        myState.ringtone = ringtone;
-        myState.ringtoneType = ringtoneType;
-        myState.showSilent = showSilent;
-        myState.showDefault = showDefault;
-        return myState;
-
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Parcelable state)
-    {
-        if (!state.getClass().equals(SavedState.class)) {
-            // Didn't save state for us in onSaveInstanceState
-            super.onRestoreInstanceState(state);
-            _setSummary(ringtone);
-            return;
-        }
-
-        // restore instance state
-        SavedState myState = (SavedState)state;
-        super.onRestoreInstanceState(myState.getSuperState());
-        ringtone = myState.ringtone;
-        ringtoneType = myState.ringtoneType;
-        showSilent = myState.showSilent;
-        showDefault = myState.showDefault;
-
         _setSummary(ringtone);
-        notifyChanged();
-    }
-
-    @Override
-    protected void onPrepareForRemoval()
-    {
-        super.onPrepareForRemoval();
-    }
-
-    void setRingtone(String newRingtone)
-    {
-        if (!callChangeListener(newRingtone)) {
-            // nema sa nova hodnota zapisat
-            return;
-        }
-
-        ringtone = newRingtone;
-
-        // set summary
-        _setSummary(ringtone);
-
-        // zapis do preferences
-        persistString(ringtone);
-
-        // Data sa zmenili,notifikujeme
-        notifyChanged();
-
     }
 
     public void _setSummary(String ringtone)
@@ -195,58 +283,21 @@ public class RingtonePreference extends Preference {
             }
         }
 
+        PPApplication.logE("RingtonePreference._setSummary", "ringtoneName="+ringtoneName);
+
         setSummary(ringtoneName);
     }
 
-    // SavedState class
-    private static class SavedState extends BaseSavedState
+    void setRingtone(String newRingtone, RadioButton newCheckedRadioButton)
     {
-        private String ringtone;
-        private String ringtoneType;
-        private boolean showSilent;
-        private boolean showDefault;
+        ringtone = newRingtone;
 
-        SavedState(Parcel source)
-        {
-            super(source);
+        if (listAdapter.checkedRadioButton != null)
+            listAdapter.checkedRadioButton.setChecked(false);
+        listAdapter.checkedRadioButton = newCheckedRadioButton;
 
-            // restore ringtone
-            ringtone = source.readString();
-            ringtoneType = source.readString();
-            showSilent = source.readInt() == 1;
-            showDefault = source.readInt() == 1;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags)
-        {
-            super.writeToParcel(dest, flags);
-
-            // save profileId
-            dest.writeString(ringtone);
-            dest.writeString(ringtoneType);
-            dest.writeInt((showSilent) ? 1 : 0);
-            dest.writeInt((showDefault) ? 1 : 0);
-        }
-
-        SavedState(Parcelable superState)
-        {
-            super(superState);
-        }
-
-        @SuppressWarnings("unused")
-        public static final Creator<SavedState> CREATOR =
-                new Creator<RingtonePreference.SavedState>() {
-            public RingtonePreference.SavedState createFromParcel(Parcel in)
-            {
-                return new RingtonePreference.SavedState(in);
-            }
-            public RingtonePreference.SavedState[] newArray(int size)
-            {
-                return new RingtonePreference.SavedState[size];
-            }
-
-        };
-
+        // set summary
+        //_setSummary(ringtone);
     }
+
 }

@@ -75,7 +75,8 @@ public class PPApplication extends Application {
                                          //+"|EventPreferencesNFC"
 
                                          //+"|##### DeviceOrientationService"
-                                         +"|ProfilePreferencesActivity.savePreferences"
+                                         +"|RingtonePreference"
+                                         +"|RingtonePreferenceAdapter"
             ;
 
 
