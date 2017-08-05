@@ -341,12 +341,10 @@ public class EditorEventListFragment extends Fragment
         {
             // editacia udalosti
             int eventPos = eventListAdapter.getItemPosition(event);
-            /*listView.setItemChecked(eventPos, true);
-            int last = listView.getLastVisiblePosition();
+            /*int last = listView.getLastVisiblePosition();
             int first = listView.getFirstVisiblePosition();
             if ((eventPos <= first) || (eventPos >= last)) {
                 listView.setSelection(eventPos);
-                //listView.smoothScrollToPosition(eventPos);
             }*/
             listView.getLayoutManager().scrollToPosition(eventPos);
 
@@ -597,12 +595,10 @@ public class EditorEventListFragment extends Fragment
                 if (setPosition || newEvent) {
                     if (eventPos != ListView.INVALID_POSITION) {
                         // set event visible in list
-                        //listView.setItemChecked(eventPos, true);
                         //int last = listView.getLastVisiblePosition();
                         //int first = listView.getFirstVisiblePosition();
                         //if ((eventPos <= first) || (eventPos >= last)) {
                         //    listView.setSelection(eventPos);
-                        //    //listView.smoothScrollToPosition(profilePos);
                         //}
                         listView.getLayoutManager().scrollToPosition(eventPos);
                     }

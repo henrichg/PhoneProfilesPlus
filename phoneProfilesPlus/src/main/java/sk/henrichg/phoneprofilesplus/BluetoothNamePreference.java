@@ -495,9 +495,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 if (!scrollToBTName.isEmpty())
                 for (int position = 0; position < bluetoothList.size() - 1; position++) {
                     if (bluetoothList.get(position).getName().equalsIgnoreCase(scrollToBTName)) {
-                        bluetoothListView.setItemChecked(position, true);
                         bluetoothListView.setSelection(position);
-                        //bluetoothListView.smoothScrollToPosition(position);
                         break;
                     }
                 }

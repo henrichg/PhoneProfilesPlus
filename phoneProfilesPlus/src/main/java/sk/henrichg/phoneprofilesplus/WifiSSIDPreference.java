@@ -482,9 +482,7 @@ public class WifiSSIDPreference extends DialogPreference {
                 if (!scrollToSSID.isEmpty()) {
                     for (int position = 0; position < SSIDList.size() - 1; position++) {
                         if (SSIDList.get(position).ssid.equals(scrollToSSID)) {
-                            SSIDListView.setItemChecked(position, true);
                             SSIDListView.setSelection(position);
-                            //SSIDListView.smoothScrollToPosition(position);
                             break;
                         }
                     }

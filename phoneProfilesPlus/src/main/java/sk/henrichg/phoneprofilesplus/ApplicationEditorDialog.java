@@ -81,8 +81,6 @@ class ApplicationEditorDialog
 
         if (position > -1) {
             listView.setSelection(position);
-            listView.setItemChecked(position, true);
-            listView.smoothScrollToPosition(position);
         }
 
         listView.setOnItemClickListener(new OnItemClickListener() {

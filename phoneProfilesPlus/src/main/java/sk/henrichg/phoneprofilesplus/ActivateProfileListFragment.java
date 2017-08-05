@@ -393,7 +393,6 @@ public class ActivateProfileListFragment extends Fragment {
                     int first = listView.getFirstVisiblePosition();
                     if ((profilePos <= first) || (profilePos >= last)) {
                         listView.setSelection(profilePos);
-                        //listView.smoothScrollToPosition(profilePos);
                     }
                 }
                 else {
@@ -402,7 +401,6 @@ public class ActivateProfileListFragment extends Fragment {
                     int first = gridView.getFirstVisiblePosition();
                     if ((profilePos <= first) || (profilePos >= last)) {
                         gridView.setSelection(profilePos);
-                        //listView.smoothScrollToPosition(profilePos);
                     }
                 }
             }

@@ -439,8 +439,6 @@ public class MobileCellsPreference extends DialogPreference {
                 for (int position = 0; position < cellsList.size() - 1; position++) {
                     if (Integer.toString(cellsList.get(position).cellId).equals(value)) {
                         cellsListView.setSelection(position);
-                        cellsListView.setItemChecked(position, true);
-                        cellsListView.smoothScrollToPosition(position);
                         break;
                     }
                 }

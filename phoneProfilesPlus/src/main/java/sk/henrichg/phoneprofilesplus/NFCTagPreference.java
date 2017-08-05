@@ -389,9 +389,7 @@ public class NFCTagPreference extends DialogPreference {
                 if (!scrollToTag.isEmpty()) {
                     for (int position = 0; position < nfcTagList.size() - 1; position++) {
                         if (nfcTagList.get(position).name.equals(scrollToTag)) {
-                            nfcTagListView.setItemChecked(position, true);
                             nfcTagListView.setSelection(position);
-                            //nfcTagListView.smoothScrollToPosition(position);
                             break;
                         }
                     }

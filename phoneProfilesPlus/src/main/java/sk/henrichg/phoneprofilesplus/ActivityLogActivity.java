@@ -107,7 +107,6 @@ public class ActivityLogActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_activity_log_reload:
                 activityLogAdapter.reload(dataWrapper);
-                //listView.smoothScrollToPosition(0);
                 listView.setSelection(0);
                 return true;
             case R.id.menu_activity_log_clear:
@@ -131,7 +130,6 @@ public class ActivityLogActivity extends AppCompatActivity {
                 if (!enabled)
                     dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_STARTEDLOGGING, null, null, null, 0);
                 activityLogAdapter.reload(dataWrapper);
-                //listView.smoothScrollToPosition(0);
                 listView.setSelection(0);
                 invalidateOptionsMenu();
                 return true;

@@ -88,8 +88,6 @@ class ProfilePreferenceDialog implements PreferenceManager.OnActivityDestroyList
                 position = 0;
         }
         listView.setSelection(position);
-        listView.setItemChecked(position, true);
-        listView.smoothScrollToPosition(position);
 
         listView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {

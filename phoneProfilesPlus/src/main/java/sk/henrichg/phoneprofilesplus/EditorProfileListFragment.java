@@ -379,12 +379,10 @@ public class EditorProfileListFragment extends Fragment
         {
             // editacia profilu
             int profilePos = profileListAdapter.getItemPosition(profile);
-            /*listView.setItemChecked(profilePos, true);
-            int last = listView.getLastVisiblePosition();
+            /*int last = listView.getLastVisiblePosition();
             int first = listView.getFirstVisiblePosition();
             if ((profilePos <= first) || (profilePos >= last)) {
                 listView.setSelection(profilePos);
-                //listView.smoothScrollToPosition(profilePos);
             }*/
             listView.getLayoutManager().scrollToPosition(profilePos);
 
@@ -648,12 +646,10 @@ public class EditorProfileListFragment extends Fragment
             if (/*(!ApplicationPreferences.applicationEditorHeader(dataWrapper.context)) && */(profilePos != ListView.INVALID_POSITION))
             {
                 // set profile visible in list
-                //listView.setItemChecked(profilePos, true);
                 //int last = listView.getLastVisiblePosition();
                 //int first = listView.getFirstVisiblePosition();
                 //if ((profilePos <= first) || (profilePos >= last)) {
                 //    listView.setSelection(profilePos);
-                //    //listView.smoothScrollToPosition(profilePos);
                 //}
                 listView.getLayoutManager().scrollToPosition(profilePos);
             }
