@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
@@ -31,6 +34,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class RingtonePreference extends DialogPreference {
 
@@ -45,6 +50,9 @@ public class RingtonePreference extends DialogPreference {
     private ListView listView;
 
     private RingtonePreferenceAdapter listAdapter;
+
+    private MediaPlayer mediaPlayer = null;
+    private int oldMediaVolume = -1;
 
     public RingtonePreference(Context context, AttributeSet attrs)
     {
@@ -126,6 +134,7 @@ public class RingtonePreference extends DialogPreference {
                 RingtonePreferenceAdapter.ViewHolder viewHolder = (RingtonePreferenceAdapter.ViewHolder) item.getTag();
                 setRingtone((String)listAdapter.getItem(position), viewHolder.radioBtn);
                 viewHolder.radioBtn.setChecked(true);
+                playRingtone(true);
             }
         });
 
@@ -228,6 +237,7 @@ public class RingtonePreference extends DialogPreference {
     public void onDismiss (DialogInterface dialog)
     {
         super.onDismiss(dialog);
+        playRingtone(false);
         MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
     }
 
@@ -316,6 +326,92 @@ public class RingtonePreference extends DialogPreference {
 
         // set summary
         //_setSummary(ringtone);
+    }
+
+    void playRingtone(boolean play) {
+        final AudioManager audioManager = (AudioManager)prefContext.getSystemService(Context.AUDIO_SERVICE);
+
+        if (mediaPlayer != null) {
+            if (mediaPlayer.isPlaying())
+                mediaPlayer.stop();
+            mediaPlayer = null;
+
+            if (oldMediaVolume > -1)
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
+        }
+
+        if (!play) return;
+
+        Uri ringtoneUri = Uri.parse(ringtone);
+
+        try {
+            RingerModeChangeReceiver.internalChange = true;
+
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setDataSource(prefContext, ringtoneUri);
+            mediaPlayer.prepare();
+            mediaPlayer.setLooping(false);
+
+            oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+            int ringtoneVolume = 0;
+            int maximumRingtoneValue = 0;
+
+            if (ringtoneType.equals("ringtone")) {
+                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+            }
+            else
+            if (ringtoneType.equals("notification")) {
+                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+                maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+            }
+            else
+            if (ringtoneType.equals("alarm")) {
+                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+            }
+
+            PPApplication.logE("RingtonePreference.playRingtone", "ringtoneVolume=" + ringtoneVolume);
+
+            int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+
+            float percentage = (float) ringtoneVolume / maximumRingtoneValue * 100.0f;
+            int mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
+
+            PPApplication.logE("RingtonePreference.playRingtone", "mediaVolume=" + mediaVolume);
+
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaVolume, 0);
+
+            mediaPlayer.start();
+
+            //final Context context = this;
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+
+                    if (mediaPlayer != null) {
+                        if (mediaPlayer.isPlaying())
+                            mediaPlayer.stop();
+
+                        if (oldMediaVolume > -1)
+                            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
+                        PPApplication.logE("RingtonePreference.playRingtone", "play stopped");
+                    }
+
+                    mediaPlayer = null;
+                }
+            }, mediaPlayer.getDuration());
+
+        } catch (SecurityException e) {
+            PPApplication.logE("RingtonePreference.playRingtone", "security exception");
+            mediaPlayer = null;
+        } catch (Exception e) {
+            PPApplication.logE("RingtonePreference.playRingtone", "exception");
+            //e.printStackTrace();
+            mediaPlayer = null;
+        }
     }
 
 }

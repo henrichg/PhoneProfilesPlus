@@ -83,6 +83,7 @@ class RingtonePreferenceAdapter extends BaseAdapter {
                 RadioButton rb = (RadioButton) v;
                 List<String> uris = new ArrayList<>(toneList.keySet());
                 preference.setRingtone(uris.get((Integer)rb.getTag()), rb);
+                preference.playRingtone(true);
             }
         });
 
