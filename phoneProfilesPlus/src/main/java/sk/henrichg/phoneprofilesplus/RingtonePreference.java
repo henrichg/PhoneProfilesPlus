@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -51,9 +52,9 @@ public class RingtonePreference extends DialogPreference {
 
     private RingtonePreferenceAdapter listAdapter;
 
-    private MediaPlayer mediaPlayer = null;
-    private int oldMediaVolume = -1;
-    private Timer playTimer = null;
+    private static MediaPlayer mediaPlayer = null;
+    private static int oldMediaVolume = -1;
+    private static Timer playTimer = null;
 
     public RingtonePreference(Context context, AttributeSet attrs)
     {
@@ -238,6 +239,7 @@ public class RingtonePreference extends DialogPreference {
     public void onDismiss (DialogInterface dialog)
     {
         super.onDismiss(dialog);
+        PPApplication.logE("RingtonePreference.onDismiss", "ringtone="+ringtone);
         playRingtone(false);
         MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
     }
@@ -245,10 +247,45 @@ public class RingtonePreference extends DialogPreference {
     @Override
     public void onActivityDestroy() {
         super.onActivityDestroy();
+        PPApplication.logE("RingtonePreference.onActivityDestroy", "ringtone="+ringtone);
+        playRingtone(false);
         if (mDialog != null && mDialog.isShowing())
             mDialog.dismiss();
     }
 
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        final Parcelable superState = super.onSaveInstanceState();
+        Dialog dialog = getDialog();
+        if (dialog == null || !dialog.isShowing()) {
+            return superState;
+        }
+
+        final SavedState myState = new SavedState(superState);
+        myState.isDialogShowing = true;
+        myState.dialogBundle = dialog.onSaveInstanceState();
+
+        playRingtone(false);
+
+        return myState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        playRingtone(false);
+
+        if (state == null || !state.getClass().equals(SavedState.class)) {
+            // Didn't save state for us in onSaveInstanceState
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        SavedState myState = (SavedState) state;
+        super.onRestoreInstanceState(myState.getSuperState());
+        //if (myState.isDialogShowing) {
+        //    showDialog(myState.dialogBundle);
+        //}
+    }
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
@@ -418,6 +455,40 @@ public class RingtonePreference extends DialogPreference {
             PPApplication.logE("RingtonePreference.playRingtone", "exception");
             //e.printStackTrace();
             mediaPlayer = null;
+        }
+    }
+
+    // From DialogPreference
+    private static class SavedState extends BaseSavedState {
+
+        public static final Creator<SavedState> CREATOR =
+                new Creator<SavedState>() {
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in);
+                    }
+
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
+        boolean isDialogShowing;
+        Bundle dialogBundle;
+
+        SavedState(Parcel source) {
+            super(source);
+            isDialogShowing = source.readInt() == 1;
+            dialogBundle = source.readBundle();
+        }
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        @Override
+        public void writeToParcel(@NonNull Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeInt(isDialogShowing ? 1 : 0);
+            dest.writeBundle(dialogBundle);
         }
     }
 
