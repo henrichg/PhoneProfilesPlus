@@ -131,6 +131,7 @@ public class PhoneProfilesService extends Service
 
     private MediaPlayer eventNotificationMediaPlayer = null;
     private boolean eventNotificationIsPlayed = false;
+    Timer eventNotificationPlayTimer = null;
 
     public static String connectToSSID = Profile.CONNECTTOSSID_JUSTANY;
     public static boolean connectToSSIDStarted = false;
@@ -1173,6 +1174,10 @@ public class PhoneProfilesService extends Service
 
             //stopSimulatingNotificationTone(true);
 
+            if ((eventNotificationPlayTimer != null) && eventNotificationIsPlayed) {
+                eventNotificationPlayTimer.cancel();
+                eventNotificationPlayTimer = null;
+            }
             if ((eventNotificationMediaPlayer != null) && eventNotificationIsPlayed) {
                 if (eventNotificationMediaPlayer.isPlaying())
                     eventNotificationMediaPlayer.stop();
@@ -1393,6 +1398,10 @@ public class PhoneProfilesService extends Service
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
+            if ((eventNotificationPlayTimer != null) && eventNotificationIsPlayed) {
+                eventNotificationPlayTimer.cancel();
+                eventNotificationPlayTimer = null;
+            }
             if ((eventNotificationMediaPlayer != null) && eventNotificationIsPlayed) {
                 if (eventNotificationMediaPlayer.isPlaying())
                     eventNotificationMediaPlayer.stop();
@@ -1551,6 +1560,10 @@ public class PhoneProfilesService extends Service
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
+            if ((eventNotificationPlayTimer != null) && eventNotificationIsPlayed) {
+                eventNotificationPlayTimer.cancel();
+                eventNotificationPlayTimer = null;
+            }
             if ((eventNotificationMediaPlayer != null) && eventNotificationIsPlayed) {
                 if (eventNotificationMediaPlayer.isPlaying())
                     eventNotificationMediaPlayer.stop();
@@ -1592,7 +1605,8 @@ public class PhoneProfilesService extends Service
                     eventNotificationIsPlayed = true;
 
                     //final Context context = this;
-                    new Timer().schedule(new TimerTask() {
+                    eventNotificationPlayTimer = new Timer();
+                    eventNotificationPlayTimer.schedule(new TimerTask() {
                         @Override
                         public void run() {
 
@@ -1606,6 +1620,7 @@ public class PhoneProfilesService extends Service
 
                             eventNotificationIsPlayed = false;
                             eventNotificationMediaPlayer = null;
+                            eventNotificationPlayTimer = null;
 
                             final Handler handler = new Handler(getMainLooper());
                             handler.postDelayed(new Runnable() {

@@ -53,6 +53,7 @@ public class RingtonePreference extends DialogPreference {
 
     private MediaPlayer mediaPlayer = null;
     private int oldMediaVolume = -1;
+    private Timer playTimer = null;
 
     public RingtonePreference(Context context, AttributeSet attrs)
     {
@@ -328,9 +329,13 @@ public class RingtonePreference extends DialogPreference {
         //_setSummary(ringtone);
     }
 
-    void playRingtone(boolean play) {
+    void playRingtone(final boolean play) {
         final AudioManager audioManager = (AudioManager)prefContext.getSystemService(Context.AUDIO_SERVICE);
 
+        if (playTimer != null) {
+            playTimer.cancel();
+            playTimer = null;
+        }
         if (mediaPlayer != null) {
             if (mediaPlayer.isPlaying())
                 mediaPlayer.stop();
@@ -387,7 +392,8 @@ public class RingtonePreference extends DialogPreference {
             mediaPlayer.start();
 
             //final Context context = this;
-            new Timer().schedule(new TimerTask() {
+            playTimer = new Timer();
+            playTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
 
@@ -401,6 +407,7 @@ public class RingtonePreference extends DialogPreference {
                     }
 
                     mediaPlayer = null;
+                    playTimer = null;
                 }
             }, mediaPlayer.getDuration());
 
