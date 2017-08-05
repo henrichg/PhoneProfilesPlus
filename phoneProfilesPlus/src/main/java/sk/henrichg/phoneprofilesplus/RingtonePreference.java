@@ -255,6 +255,8 @@ public class RingtonePreference extends DialogPreference {
 
     @Override
     protected Parcelable onSaveInstanceState() {
+        playRingtone(false);
+
         final Parcelable superState = super.onSaveInstanceState();
         Dialog dialog = getDialog();
         if (dialog == null || !dialog.isShowing()) {
@@ -264,8 +266,6 @@ public class RingtonePreference extends DialogPreference {
         final SavedState myState = new SavedState(superState);
         myState.isDialogShowing = true;
         myState.dialogBundle = dialog.onSaveInstanceState();
-
-        playRingtone(false);
 
         return myState;
     }
