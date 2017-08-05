@@ -19,16 +19,12 @@ class RingtonePreferenceAdapter extends BaseAdapter {
     Map<String, String> toneList;
     private RingtonePreference preference;
 
-    private Context context;
-
     private LayoutInflater inflater = null;
 
     RadioButton checkedRadioButton = null;
 
     RingtonePreferenceAdapter(RingtonePreference preference, Context c, Map<String, String> toneList)
     {
-        context = c;
-
         this.preference = preference;
         this.toneList = toneList;
 
@@ -36,12 +32,11 @@ class RingtonePreferenceAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        int count = toneList.size();
-        return count;
+        return toneList.size();
     }
 
     public Object getItem(int position) {
-        List<String> uris = new ArrayList(toneList.keySet());
+        List<String> uris = new ArrayList<>(toneList.keySet());
         String uri;
         uri = uris.get(position);
         return uri;
@@ -61,6 +56,9 @@ class RingtonePreferenceAdapter extends BaseAdapter {
     {
         ViewHolder holder;
 
+        String ringtone = (new ArrayList<>(toneList.keySet())).get(position);
+        String ringtoneTitle = (new ArrayList<>(toneList.values())).get(position);
+
         View vi = convertView;
         if (convertView == null)
         {
@@ -70,32 +68,26 @@ class RingtonePreferenceAdapter extends BaseAdapter {
             holder.ringtoneLabel = (TextView)vi.findViewById(R.id.ringtone_pref_dlg_item_label);
             holder.radioBtn = (RadioButton)vi.findViewById(R.id.ringtone_pref_dlg_item_radiobtn);
             vi.setTag(holder);
+
+            if (preference.ringtone.equals(ringtone))
+                checkedRadioButton = holder.radioBtn;
         }
         else
         {
             holder = (ViewHolder)vi.getTag();
         }
 
-        String ringtone = (new ArrayList<String>(toneList.keySet())).get(position);
-        String ringtoneTitle = (new ArrayList<String>(toneList.values())).get(position);
-
         holder.radioBtn.setTag(position);
         holder.radioBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 RadioButton rb = (RadioButton) v;
-                List<String> uris = new ArrayList(toneList.keySet());
+                List<String> uris = new ArrayList<>(toneList.keySet());
                 preference.setRingtone(uris.get((Integer)rb.getTag()), rb);
             }
         });
 
-        PPApplication.logE("RingtonePreferenceAdapter.getView", "ringtone="+ringtone);
-        PPApplication.logE("RingtonePreferenceAdapter.getView", "preference.ringtone="+preference.ringtone);
-
         holder.radioBtn.setChecked(preference.ringtone.equals(ringtone));
         holder.ringtoneLabel.setText(ringtoneTitle);
-
-        if (holder.radioBtn.isChecked() && (checkedRadioButton == null))
-            checkedRadioButton = holder.radioBtn;
 
         return vi;
     }

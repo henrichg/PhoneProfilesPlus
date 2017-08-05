@@ -247,7 +247,6 @@
     <string name="event_type_battery">Battery</string>
     <string name="profile_preferences_volumeSpeakerPhone">Speakerphone</string>
     <string name="event_preferences_notificationSound">Notification sound</string>
-    <string name="preferences_notificationSound_None">None</string>
     <string name="event_preferences_battery_level_low">Lower level</string>
     <string name="event_preferences_battery_level_hight">Upper level</string>
     <string name="event_preferences_battery_charging">Charging</string>
@@ -1018,8 +1017,8 @@
     <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
     <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
     <string name="ringtone_preference_not_set">Not set</string>
-    <string name="ringtone_preference_dialog_default_ringtone">Default ringtone</string>
-    <string name="ringtone_preference_dialog_default_notification">Default notification</string>
-    <string name="ringtone_preference_dialog_default_alarm">Default alarm</string>
-    <string name="ringtone_preference_dialog_silent">Silent</string>
+    <string name="ringtone_preference_default_ringtone">Default ringtone</string>
+    <string name="ringtone_preference_default_notification">Default notification</string>
+    <string name="ringtone_preference_default_alarm">Default alarm</string>
+    <string name="ringtone_preference_none">None</string>
 </resources>

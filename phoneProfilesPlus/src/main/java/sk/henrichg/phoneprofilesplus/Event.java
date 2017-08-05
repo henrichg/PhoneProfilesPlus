@@ -549,27 +549,7 @@ class Event {
         if (key.equals(PREF_EVENT_NOTIFICATION_SOUND))
         {
             Preference preference = prefMng.findPreference(key);
-            if (value.isEmpty()) {
-                preference.setSummary(R.string.preferences_notificationSound_None);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, false, false, false);
-            }
-            else
-            {
-                Uri uri = Uri.parse(value);
-                Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
-                String ringtoneName;
-                if (ringtone == null)
-                    ringtoneName = "";
-                else {
-                    try {
-                        ringtoneName = ringtone.getTitle(context);
-                    } catch (SecurityException e) {
-                        ringtoneName = "";
-                    }
-                }
-                preference.setSummary(ringtoneName);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, false, false, false);
-            }
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, !value.isEmpty(), false, false, false);
         }
         if (key.equals(PREF_EVENT_PRIORITY))
         {

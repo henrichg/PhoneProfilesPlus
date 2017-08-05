@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.database.Cursor;
+import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,9 +36,9 @@ public class RingtonePreference extends DialogPreference {
 
     String ringtone;
 
-    String ringtoneType;
-    boolean showSilent;
-    boolean showDefault;
+    private String ringtoneType;
+    private boolean showSilent;
+    private boolean showDefault;
 
     private Context prefContext;
     private MaterialDialog mDialog;
@@ -133,27 +134,51 @@ public class RingtonePreference extends DialogPreference {
         RingtoneManager manager = new RingtoneManager(prefContext);
         if (ringtoneType.equals("ringtone")) {
             manager.setType(RingtoneManager.TYPE_RINGTONE);
-            if (showDefault)
-                toneList.put(Settings.System.DEFAULT_RINGTONE_URI.toString(),
-                        prefContext.getString(R.string.ringtone_preference_dialog_default_ringtone));
+            if (showDefault) {
+                Uri uri = Settings.System.DEFAULT_RINGTONE_URI;
+                Ringtone _ringtone = RingtoneManager.getRingtone(prefContext, uri);
+                String ringtoneName;
+                try {
+                    ringtoneName = _ringtone.getTitle(prefContext);
+                } catch (SecurityException e) {
+                    ringtoneName = prefContext.getString(R.string.ringtone_preference_default_ringtone);
+                }
+                toneList.put(Settings.System.DEFAULT_RINGTONE_URI.toString(), ringtoneName);
+            }
         }
         else
         if (ringtoneType.equals("notification")) {
             manager.setType(RingtoneManager.TYPE_NOTIFICATION);
-            if (showDefault)
-                toneList.put(Settings.System.DEFAULT_NOTIFICATION_URI.toString(),
-                        prefContext.getString(R.string.ringtone_preference_dialog_default_notification));
+            if (showDefault) {
+                Uri uri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                Ringtone _ringtone = RingtoneManager.getRingtone(prefContext, uri);
+                String ringtoneName;
+                try {
+                    ringtoneName = _ringtone.getTitle(prefContext);
+                } catch (SecurityException e) {
+                    ringtoneName = prefContext.getString(R.string.ringtone_preference_default_notification);
+                }
+                toneList.put(Settings.System.DEFAULT_NOTIFICATION_URI.toString(), ringtoneName);
+            }
         }
         else
         if (ringtoneType.equals("alarm")) {
             manager.setType(RingtoneManager.TYPE_ALARM);
-            if (showDefault)
-                toneList.put(Settings.System.DEFAULT_ALARM_ALERT_URI.toString(),
-                        prefContext.getString(R.string.ringtone_preference_dialog_default_alarm));
+            if (showDefault) {
+                Uri uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+                Ringtone _ringtone = RingtoneManager.getRingtone(prefContext, uri);
+                String ringtoneName;
+                try {
+                    ringtoneName = _ringtone.getTitle(prefContext);
+                } catch (SecurityException e) {
+                    ringtoneName = prefContext.getString(R.string.ringtone_preference_default_alarm);
+                }
+                toneList.put(Settings.System.DEFAULT_ALARM_ALERT_URI.toString(), ringtoneName);
+            }
         }
 
         if (showSilent)
-            toneList.put("", prefContext.getString(R.string.ringtone_preference_dialog_silent));
+            toneList.put("", prefContext.getString(R.string.ringtone_preference_none));
 
         Cursor cursor = manager.getCursor();
 
@@ -181,7 +206,7 @@ public class RingtonePreference extends DialogPreference {
             value = ringtone;
         }
         ringtone = value;
-        PPApplication.logE("RingtonePreference.onShow", "ringtone="+ringtone);
+        PPApplication.logE("RingtonePreference.showDialog", "ringtone="+ringtone);
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
@@ -193,23 +218,9 @@ public class RingtonePreference extends DialogPreference {
     }
 
     private void onShow(DialogInterface dialog) {
-
-        List<String> uris = new ArrayList(listAdapter.toneList.keySet());
+        List<String> uris = new ArrayList<>(listAdapter.toneList.keySet());
         final int position = uris.indexOf(ringtone);
-
-        /*
-        listView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                listView.requestFocusFromTouch();
-                listView.setSelection(position);
-                listView.setItemChecked(position, true);
-                listView.requestFocus();
-            }
-        }, 1500);*/
         listView.setSelection(position);
-        listView.setItemChecked(position, true);
-        listView.smoothScrollToPosition(position);
 
         _setSummary(ringtone);
     }
@@ -250,11 +261,11 @@ public class RingtonePreference extends DialogPreference {
         _setSummary(ringtone);
     }
 
-    public void _setSummary(String ringtone)
+    private void _setSummary(String ringtone)
     {
-        String ringtoneName = prefContext.getString(R.string.ringtone_preference_not_set);
+        String ringtoneName;// = prefContext.getString(R.string.ringtone_preference_not_set);
 
-        if (ringtone.equals(Settings.System.DEFAULT_RINGTONE_URI.toString()))
+        /*if (ringtone.equals(Settings.System.DEFAULT_RINGTONE_URI.toString()))
             ringtoneName = prefContext.getString(R.string.ringtone_preference_dialog_default_ringtone);
         else
         if (ringtone.equals(Settings.System.DEFAULT_NOTIFICATION_URI.toString()))
@@ -262,11 +273,11 @@ public class RingtonePreference extends DialogPreference {
         else
         if (ringtone.equals(Settings.System.DEFAULT_ALARM_ALERT_URI.toString()))
             ringtoneName = prefContext.getString(R.string.ringtone_preference_dialog_default_alarm);
-        else
+        else*/
         if (ringtone.isEmpty())
-            ringtoneName = prefContext.getString(R.string.ringtone_preference_dialog_silent);
+            ringtoneName = prefContext.getString(R.string.ringtone_preference_none);
         else {
-            try {
+            /*try {
                 Uri ringtoneUri = Uri.parse(ringtone);
 
                 ContentResolver cr = getContext().getContentResolver();
@@ -280,6 +291,13 @@ public class RingtonePreference extends DialogPreference {
                     cur.close();
                 }
             } catch (Exception ignored) {
+            }*/
+            Uri uri = Uri.parse(ringtone);
+            Ringtone _ringtone = RingtoneManager.getRingtone(prefContext, uri);
+            try {
+                ringtoneName = _ringtone.getTitle(prefContext);
+            } catch (SecurityException e) {
+                ringtoneName = prefContext.getString(R.string.ringtone_preference_not_set);
             }
         }
 
