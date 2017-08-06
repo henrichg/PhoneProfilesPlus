@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.KeyguardManager;
 import android.app.Notification;
-//import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.WallpaperManager;
@@ -70,6 +69,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
+
+//import android.app.NotificationChannel;
 
 public class ActivateProfileHelper {
 

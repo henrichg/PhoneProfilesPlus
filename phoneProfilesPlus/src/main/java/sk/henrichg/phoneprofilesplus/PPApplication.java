@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
@@ -38,7 +37,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static boolean logIntoLogCat = true;
+    private static boolean logIntoLogCat = false;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     private static String logFilterTags = "##### PPApplication.onCreate"
@@ -75,8 +74,8 @@ public class PPApplication extends Application {
                                          //+"|EventPreferencesNFC"
 
                                          //+"|##### DeviceOrientationService"
-                                         +"|RingtonePreference"
-                                         +"|RingtonePreferenceAdapter"
+                                         //+"|RingtonePreference"
+                                         //+"|RingtonePreferenceAdapter"
             ;
 
 
