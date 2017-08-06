@@ -244,7 +244,6 @@
   <string name="event_type_battery">Pil</string>
   <string name="profile_preferences_volumeSpeakerPhone">Hoparlör</string>
   <string name="event_preferences_notificationSound">Bildirim sesi</string>
-  <string name="preferences_notificationSound_None">Hiçbiri</string>
   <string name="event_preferences_battery_level_low">Düşük seviye</string>
   <string name="event_preferences_battery_level_hight">Üst seviye</string>
   <string name="event_preferences_battery_charging">Şarj olurken</string>

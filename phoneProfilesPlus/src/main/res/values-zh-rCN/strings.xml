@@ -244,7 +244,6 @@
   <string name="event_type_battery">电池</string>
   <string name="profile_preferences_volumeSpeakerPhone">免提电话</string>
   <string name="event_preferences_notificationSound">通知铃声</string>
-  <string name="preferences_notificationSound_None">无</string>
   <string name="event_preferences_battery_level_low">较低的水平</string>
   <string name="event_preferences_battery_level_hight">较高的水平</string>
   <string name="event_preferences_battery_charging">正在充电</string>

@@ -244,7 +244,6 @@
   <string name="event_type_battery">배터리</string>
   <string name="profile_preferences_volumeSpeakerPhone">스피커폰</string>
   <string name="event_preferences_notificationSound">알림음</string>
-  <string name="preferences_notificationSound_None">없음</string>
   <string name="event_preferences_battery_level_low">배터리 낮은 수준</string>
   <string name="event_preferences_battery_level_hight">배터리 높은 수준</string>
   <string name="event_preferences_battery_charging">충전 중</string>

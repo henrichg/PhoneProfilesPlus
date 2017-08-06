@@ -244,7 +244,6 @@
   <string name="event_type_battery">Batteria</string>
   <string name="profile_preferences_volumeSpeakerPhone">Vivavoce</string>
   <string name="event_preferences_notificationSound">Suono di notifica</string>
-  <string name="preferences_notificationSound_None">Nessuno</string>
   <string name="event_preferences_battery_level_low">Livello inferiore</string>
   <string name="event_preferences_battery_level_hight">Livello superiore</string>
   <string name="event_preferences_battery_charging">Ricarica</string>

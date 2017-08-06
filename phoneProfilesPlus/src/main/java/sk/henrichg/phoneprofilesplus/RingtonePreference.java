@@ -311,7 +311,7 @@ public class RingtonePreference extends DialogPreference {
 
     private void _setSummary(String ringtone)
     {
-        String ringtoneName;// = prefContext.getString(R.string.ringtone_preference_not_set);
+        String ringtoneName;
 
         /*if (ringtone.equals(Settings.System.DEFAULT_RINGTONE_URI.toString()))
             ringtoneName = prefContext.getString(R.string.ringtone_preference_dialog_default_ringtone);

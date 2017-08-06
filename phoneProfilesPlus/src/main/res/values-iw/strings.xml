@@ -244,7 +244,6 @@
   <string name="event_type_battery">סוללה</string>
   <string name="profile_preferences_volumeSpeakerPhone">רמקול</string>
   <string name="event_preferences_notificationSound">צליל הודעה</string>
-  <string name="preferences_notificationSound_None">ללא</string>
   <string name="event_preferences_battery_level_low">רמה נמוכה</string>
   <string name="event_preferences_battery_level_hight">רמה גבוהה</string>
   <string name="event_preferences_battery_charging">בטעינה</string>

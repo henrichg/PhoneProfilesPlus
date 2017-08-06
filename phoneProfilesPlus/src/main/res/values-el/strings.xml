@@ -244,7 +244,6 @@
   <string name="event_type_battery">Μπαταρία</string>
   <string name="profile_preferences_volumeSpeakerPhone">Μεγάφωνο</string>
   <string name="event_preferences_notificationSound">Ήχος ειδοποίησης</string>
-  <string name="preferences_notificationSound_None">Κανένας</string>
   <string name="event_preferences_battery_level_low">Χαμηλότερο επίπεδο</string>
   <string name="event_preferences_battery_level_hight">Ανώτερο επίπεδο</string>
   <string name="event_preferences_battery_charging">Φόρτιση</string>

@@ -244,7 +244,6 @@
   <string name="event_type_battery">Batería</string>
   <string name="profile_preferences_volumeSpeakerPhone">Manos libres</string>
   <string name="event_preferences_notificationSound">Sonido de notificación</string>
-  <string name="preferences_notificationSound_None">Ninguno</string>
   <string name="event_preferences_battery_level_low">Nivel inferior</string>
   <string name="event_preferences_battery_level_hight">Nivel superior</string>
   <string name="event_preferences_battery_charging">Cargando</string>

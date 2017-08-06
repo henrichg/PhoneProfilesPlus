@@ -244,7 +244,6 @@
   <string name="event_type_battery">Bateria</string>
   <string name="profile_preferences_volumeSpeakerPhone">Viva-voz</string>
   <string name="event_preferences_notificationSound">Som da notificação</string>
-  <string name="preferences_notificationSound_None">Nenhum</string>
   <string name="event_preferences_battery_level_low">Nível baixo</string>
   <string name="event_preferences_battery_level_hight">Nível alto</string>
   <string name="event_preferences_battery_charging">Carregando</string>

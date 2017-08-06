@@ -244,7 +244,6 @@
   <string name="event_type_battery">Batterij</string>
   <string name="profile_preferences_volumeSpeakerPhone">Speakerphone</string>
   <string name="event_preferences_notificationSound">Notificatie geluid</string>
-  <string name="preferences_notificationSound_None">Geen</string>
   <string name="event_preferences_battery_level_low">Lager niveau</string>
   <string name="event_preferences_battery_level_hight">Hoger niveau</string>
   <string name="event_preferences_battery_charging">Opladen</string>

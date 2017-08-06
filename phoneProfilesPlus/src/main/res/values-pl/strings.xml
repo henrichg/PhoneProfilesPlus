@@ -244,7 +244,6 @@
   <string name="event_type_battery">Bateria</string>
   <string name="profile_preferences_volumeSpeakerPhone">Głośnik</string>
   <string name="event_preferences_notificationSound">Dźwięk powiadomienia</string>
-  <string name="preferences_notificationSound_None">Brak</string>
   <string name="event_preferences_battery_level_low">Niższy poziom</string>
   <string name="event_preferences_battery_level_hight">Wyższy poziom</string>
   <string name="event_preferences_battery_charging">Ładowanie</string>

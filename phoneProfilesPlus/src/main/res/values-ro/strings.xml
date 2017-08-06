@@ -244,7 +244,6 @@
   <string name="event_type_battery">Baterie</string>
   <string name="profile_preferences_volumeSpeakerPhone">Difuzor</string>
   <string name="event_preferences_notificationSound">Sunet notificare</string>
-  <string name="preferences_notificationSound_None">Niciunul</string>
   <string name="event_preferences_battery_level_low">Nivel inferior</string>
   <string name="event_preferences_battery_level_hight">Nivelul superior</string>
   <string name="event_preferences_battery_charging">Încărcare</string>
