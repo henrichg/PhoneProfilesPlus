@@ -215,17 +215,17 @@
   <string name="array_pref_value_180_degrees" formatted="false">180°</string>
   <string name="array_pref_value_270_degrees" formatted="false">270°</string>
   <string name="array_pref_value_auto_rotate">Automático. rotar</string>
-  <string name="default_profile_name">Shared profile</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string>
-  <string name="preference_profile_default_profile">Shared profile</string>
-  <string name="volume_pref_dialog_default_profile_chb">Shared profile</string>
-  <string name="array_pref_default_profile">Shared profile</string>
+  <string name="default_profile_name">Perfil compartido</string>
+  <string name="brightness_pref_dialog_default_profile_chb">Perfíl Compartido</string>
+  <string name="preference_profile_default_profile">Perfíl Compartido</string>
+  <string name="volume_pref_dialog_default_profile_chb">Perfíl Compartido</string>
+  <string name="array_pref_default_profile">Perfíl Compartido</string>
   <string name="array_pref_change">Cambiar</string>
   <string name="array_pref_no_show">No mostrar</string>
   <string name="array_pref_show">Mostrar</string>
   <string name="array_pref_no_run">No ejecutar</string>
   <string name="array_pref_run">Ejecutar</string>
-  <string name="title_activity_default_profile_preferences">Shared profile</string>
+  <string name="title_activity_default_profile_preferences">Perfil Compartido</string>
   <string name="profile_list_item_menu_activate">Activar</string>
   <string name="profile_list_item_menu_duplicate">Duplicar</string>
   <string name="profile_list_item_menu_delete">Borrar</string>
@@ -458,11 +458,11 @@
   <string name="important_into_sony_stamina_mode">Cuando tienes un dispositivo Sony y activas el modo \"Stamina\" en \"Administración de energía\", por favor, añade a PhoneProfilesPlus en \"Apps activas en modo de espera\". Si no haces esto, la aplicación no funcionará correctamente.</string>
   <string name="important_info_profile_settings">Algunas preferencias del perfil requieren cambios en los Ajustes del sistema. Estas preferencias están marcadas \"(S)\".</string>
   <string name="profile_preferences_volumeNotificationsAccessSettings_title">Acceso a la notificación</string>
-  <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Allow PhoneProfilesPlus in \"Notification access\" system settings, for enabling \"Interruptions type\" profile preference.</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Permitia que PhoneProfilesPlus tenga \"acceso a las notificaciones\" en los ajustes del sistema, para habilitar el \"Tipo de Interrupción\" en el perfil de preferencia.</string>
   <string name="array_pref_zenModeArray_allWithVibration">Todas con vibración</string>
   <string name="array_pref_zenModeArray_priorityWithVibration">Prioritario con vibración</string>
   <string name="important_info_news">Noticias</string>
-  <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>
+  <string name="important_info_profile_zenMode">\"Interrupciones\" en el perfil \"Modo Timbre\" requiere habilitar \"Acceso a las notificaciones\" a PhoneProfilesPlus enblos ajustes del sistema. Presione aqui y habilite PhoneProfilesPlus.</string>
   <string name="profile_preferences_zenMode_none_summary">Sin interrupciones. Ni siquiera alarmas</string>
   <string name="profile_preferences_zenMode_priority_summary">Sólo interrupciones prioritarias</string>
   <string name="profile_preferences_zenMode_all_summary">Todas las interrupciones</string>
@@ -1010,4 +1010,14 @@
   <string name="array_pref_value_zh_CN">zh-CN</string>
   <string name="action_for_external_application_notification_bad_action">Unsupported action is specified.</string>
   <string name="action_for_external_application_notification_no_action">Action is not specified.</string>
+  <!--
+    <string name="notification_channel_activated_profile">Activated profile</string>
+    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
+    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
+    -->
+  <string name="ringtone_preference_not_set">Not set</string>
+  <string name="ringtone_preference_default_ringtone">Default ringtone</string>
+  <string name="ringtone_preference_default_notification">Default notification</string>
+  <string name="ringtone_preference_default_alarm">Default alarm</string>
+  <string name="ringtone_preference_none">Ninguno</string>
 </resources>

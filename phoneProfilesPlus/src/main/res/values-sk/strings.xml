@@ -1010,4 +1010,14 @@
   <string name="array_pref_value_zh_CN">zh-CN</string>
   <string name="action_for_external_application_notification_bad_action">Je zadaná nepodporovaná akcia.</string>
   <string name="action_for_external_application_notification_no_action">Akcia nie je zadaná.</string>
+  <!--
+    <string name="notification_channel_activated_profile">Activated profile</string>
+    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
+    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
+    -->
+  <string name="ringtone_preference_not_set">Nenastavené</string>
+  <string name="ringtone_preference_default_ringtone">Predvolený vyzváňací tón</string>
+  <string name="ringtone_preference_default_notification">Predvolené zvukové upozornenie</string>
+  <string name="ringtone_preference_default_alarm">Predvolený tón budíka</string>
+  <string name="ringtone_preference_none">Žiadny</string>
 </resources>

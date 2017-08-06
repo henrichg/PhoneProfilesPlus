@@ -1010,4 +1010,14 @@
   <string name="array_pref_value_zh_CN">zh-CN</string>
   <string name="action_for_external_application_notification_bad_action">Unsupported action is specified.</string>
   <string name="action_for_external_application_notification_no_action">Action is not specified.</string>
+  <!--
+    <string name="notification_channel_activated_profile">Activated profile</string>
+    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
+    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
+    -->
+  <string name="ringtone_preference_not_set">Not set</string>
+  <string name="ringtone_preference_default_ringtone">Default ringtone</string>
+  <string name="ringtone_preference_default_notification">Default notification</string>
+  <string name="ringtone_preference_default_alarm">Default alarm</string>
+  <string name="ringtone_preference_none">Niciunul</string>
 </resources>
