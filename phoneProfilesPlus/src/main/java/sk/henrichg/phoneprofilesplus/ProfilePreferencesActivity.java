@@ -140,6 +140,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             }
         }
         else {
+            // no menu for shared profile
             if (profile_id != Profile.DEFAULT_PROFILE_ID) {
                 toolbar.inflateMenu(R.menu.profile_preferences);
             }
@@ -171,12 +172,16 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean ret = super.onPrepareOptionsMenu(menu);
 
-        onNextLayout(toolbar, new Runnable() {
-            @Override
-            public void run() {
-                showTargetHelps();
-            }
-        });
+        if (profile_id != Profile.DEFAULT_PROFILE_ID) {
+            // no menu for shared profile
+
+            onNextLayout(toolbar, new Runnable() {
+                @Override
+                public void run() {
+                    showTargetHelps();
+                }
+            });
+        }
 
         /*final Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
@@ -223,8 +228,11 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         Profile profile;
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 
-        if (!leaveSaveMenu)
-            showSaveMenu = false;
+        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+            // no change this in shared profile
+            if (!leaveSaveMenu)
+                showSaveMenu = false;
+        }
 
         //Log.d("------ ProfilePreferencesActivity.createProfile", "startupSource="+startupSource);
 

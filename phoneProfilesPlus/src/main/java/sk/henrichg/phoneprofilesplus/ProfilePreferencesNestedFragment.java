@@ -1327,14 +1327,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         // disable depended preferences
         disableDependedPref(key, value);
 
-        //Activity activity = getActivity();
-        //boolean canShow = (EditorProfilesActivity.mTwoPane) && (activity instanceof EditorProfilesActivity);
-        //canShow = canShow || ((!EditorProfilesActivity.mTwoPane) && (activity instanceof ProfilePreferencesActivity));
-        //if (canShow)
-        //    showActionMode();
-        ProfilePreferencesActivity activity = (ProfilePreferencesActivity)getActivity();
-        ProfilePreferencesActivity.showSaveMenu = true;
-        activity.invalidateOptionsMenu();
+        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+            // no save menu for shared profile
+            ProfilePreferencesActivity activity = (ProfilePreferencesActivity)getActivity();
+            ProfilePreferencesActivity.showSaveMenu = true;
+            activity.invalidateOptionsMenu();
+        }
     }
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
