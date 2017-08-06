@@ -258,7 +258,9 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     @Override
     public void onDestroy()
     {
-        preferences.unregisterOnSharedPreferenceChangeListener(this);
+        try {
+            preferences.unregisterOnSharedPreferenceChangeListener(this);
+        } catch (Exception ignored) {}
         if (phoneStateChangedBroadcastReceiver != null) {
             //getActivity().unregisterReceiver(phoneStateChangedBroadcastReceiver);
             LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(phoneStateChangedBroadcastReceiver);
