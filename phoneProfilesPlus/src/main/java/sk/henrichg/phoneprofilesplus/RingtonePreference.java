@@ -145,7 +145,7 @@ public class RingtonePreference extends DialogPreference {
                 String ringtoneName;
                 try {
                     ringtoneName = _ringtone.getTitle(prefContext);
-                } catch (SecurityException e) {
+                } catch (Exception e) {
                     ringtoneName = prefContext.getString(R.string.ringtone_preference_default_ringtone);
                 }
                 toneList.put(Settings.System.DEFAULT_RINGTONE_URI.toString(), ringtoneName);
@@ -160,7 +160,7 @@ public class RingtonePreference extends DialogPreference {
                 String ringtoneName;
                 try {
                     ringtoneName = _ringtone.getTitle(prefContext);
-                } catch (SecurityException e) {
+                } catch (Exception e) {
                     ringtoneName = prefContext.getString(R.string.ringtone_preference_default_notification);
                 }
                 toneList.put(Settings.System.DEFAULT_NOTIFICATION_URI.toString(), ringtoneName);
@@ -175,7 +175,7 @@ public class RingtonePreference extends DialogPreference {
                 String ringtoneName;
                 try {
                     ringtoneName = _ringtone.getTitle(prefContext);
-                } catch (SecurityException e) {
+                } catch (Exception e) {
                     ringtoneName = prefContext.getString(R.string.ringtone_preference_default_alarm);
                 }
                 toneList.put(Settings.System.DEFAULT_ALARM_ALERT_URI.toString(), ringtoneName);
@@ -338,7 +338,7 @@ public class RingtonePreference extends DialogPreference {
             Ringtone _ringtone = RingtoneManager.getRingtone(prefContext, uri);
             try {
                 ringtoneName = _ringtone.getTitle(prefContext);
-            } catch (SecurityException e) {
+            } catch (Exception e) {
                 ringtoneName = prefContext.getString(R.string.ringtone_preference_not_set);
             }
         }
