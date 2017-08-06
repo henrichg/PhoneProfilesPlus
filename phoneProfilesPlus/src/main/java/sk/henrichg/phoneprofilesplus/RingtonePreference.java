@@ -134,14 +134,24 @@ public class RingtonePreference extends DialogPreference {
             }
         });
 
+        RingtoneManager manager = new RingtoneManager(prefContext);
+
+        Uri uri = Settings.System.DEFAULT_RINGTONE_URI;
+        Ringtone _ringtone = RingtoneManager.getRingtone(prefContext, uri);
+        if (_ringtone == null) {
+            // ringtone not found
+            View positive = mDialog.getActionButton(DialogAction.POSITIVE);
+            positive.setEnabled(false);
+        }
+
+
         Map<String, String> toneList = new LinkedHashMap<>();
 
-        RingtoneManager manager = new RingtoneManager(prefContext);
         if (ringtoneType.equals("ringtone")) {
             manager.setType(RingtoneManager.TYPE_RINGTONE);
             if (showDefault) {
-                Uri uri = Settings.System.DEFAULT_RINGTONE_URI;
-                Ringtone _ringtone = RingtoneManager.getRingtone(prefContext, uri);
+                uri = Settings.System.DEFAULT_RINGTONE_URI;
+                _ringtone = RingtoneManager.getRingtone(prefContext, uri);
                 String ringtoneName;
                 try {
                     ringtoneName = _ringtone.getTitle(prefContext);
@@ -155,8 +165,8 @@ public class RingtonePreference extends DialogPreference {
         if (ringtoneType.equals("notification")) {
             manager.setType(RingtoneManager.TYPE_NOTIFICATION);
             if (showDefault) {
-                Uri uri = Settings.System.DEFAULT_NOTIFICATION_URI;
-                Ringtone _ringtone = RingtoneManager.getRingtone(prefContext, uri);
+                uri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                _ringtone = RingtoneManager.getRingtone(prefContext, uri);
                 String ringtoneName;
                 try {
                     ringtoneName = _ringtone.getTitle(prefContext);
@@ -170,8 +180,8 @@ public class RingtonePreference extends DialogPreference {
         if (ringtoneType.equals("alarm")) {
             manager.setType(RingtoneManager.TYPE_ALARM);
             if (showDefault) {
-                Uri uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
-                Ringtone _ringtone = RingtoneManager.getRingtone(prefContext, uri);
+                uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+                _ringtone = RingtoneManager.getRingtone(prefContext, uri);
                 String ringtoneName;
                 try {
                     ringtoneName = _ringtone.getTitle(prefContext);
@@ -351,6 +361,9 @@ public class RingtonePreference extends DialogPreference {
     void setRingtone(String newRingtone, RadioButton newCheckedRadioButton)
     {
         ringtone = newRingtone;
+
+        View positive = mDialog.getActionButton(DialogAction.POSITIVE);
+        positive.setEnabled(true);
 
         if (listAdapter.checkedRadioButton != null)
             listAdapter.checkedRadioButton.setChecked(false);
