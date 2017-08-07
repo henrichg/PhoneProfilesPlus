@@ -162,7 +162,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         final MaskedTextChangedListener listener = new MaskedTextChangedListener(
                 "[00]{:}[00]{:}[00]",
-                true,
+                false, // keep false: fix for java.lang.IndexOutOfBoundsException
                 mValue,
                 null,
                 new MaskedTextChangedListener.ValueListener() {

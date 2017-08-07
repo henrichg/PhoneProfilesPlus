@@ -199,7 +199,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         final MaskedTextChangedListener listener = new MaskedTextChangedListener(
                 "[00]{:}[00]{:}[00]",
-                true,
+                false, // keep false: fix for java.lang.IndexOutOfBoundsException
                 mValue,
                 null,
                 new MaskedTextChangedListener.ValueListener() {
