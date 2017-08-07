@@ -28,7 +28,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
-import android.graphics.drawable.Icon;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
@@ -2051,7 +2050,7 @@ public class ActivateProfileHelper {
                                           (android.os.Build.VERSION.SDK_INT == 23);
                         //Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
                         if ((android.os.Build.VERSION.SDK_INT >= 23) && (!isNote4)) {
-                            notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
+                            notificationBuilder.setSmallIcon(ColorNotificationIcon.getFromBitmap(iconBitmap));
                         }
                         else {
                             iconSmallResource = context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", context.getPackageName());
@@ -2108,7 +2107,7 @@ public class ActivateProfileHelper {
                         (android.os.Build.VERSION.SDK_INT == 23);
                 //Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
                 if ((Build.VERSION.SDK_INT >= 23) && (!isNote4) && (iconBitmap != null)) {
-                    notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
+                    notificationBuilder.setSmallIcon(ColorNotificationIcon.getFromBitmap(iconBitmap));
                 }
                 else {
                     int iconSmallResource;
