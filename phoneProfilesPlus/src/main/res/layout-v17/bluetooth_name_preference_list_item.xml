@@ -18,7 +18,7 @@
             android:padding="10dp"
             android:scaleType="center"
             android:clickable="true"
-            android:background="?attr/actionProfileToolBackground"
+            android:background="?attr/selectableItemBackground"
             android:contentDescription="@string/preference_item_edit_menu"
             android:src="?attr/editItemMenuIcon" />
 

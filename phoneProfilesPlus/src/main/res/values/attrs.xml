@@ -68,7 +68,6 @@
     <attr name="dragHandleIcon" format="reference" />
     <attr name="actionProfilePrefSave" format="reference" />
     <attr name="actionProfilePrefCancel" format="reference" />
-    <attr name="actionProfileToolBackground" format="reference" />
     <attr name="actionProfileButtonTextStyle" format="reference" />
     <attr name="navigationDrawerBackground" format="reference" />
     <attr name="navigationDrawerText" format="reference"/>
