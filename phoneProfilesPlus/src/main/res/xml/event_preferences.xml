@@ -78,6 +78,11 @@
                 app:ringtoneType="notification"
                 app:showSilent="true"
                 app:showDefault="true" />
+            <CheckBoxPreference
+                android:key="eventNotificationVibrate"
+                android:title="@string/event_preferences_notificationVibrate"
+                android:defaultValue="false"
+                android:widgetLayout="@layout/mp_preference_switch"/>
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory

@@ -30,7 +30,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1900;
+    private static final int DATABASE_VERSION = 1910;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -252,6 +252,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_RADIO_SWITCH_GPS = "radioSwitchGPS";
     private static final String KEY_E_RADIO_SWITCH_NFC = "radioSwitchNFC";
     private static final String KEY_E_RADIO_SWITCH_AIRPLANE_MODE = "radioSwitchAirplaneMode";
+    private static final String KEY_E_NOTIFICATION_VIBRATE = "notificationVibrate";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -525,7 +526,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_RADIO_SWITCH_MOBILE_DATA + " INTEGER,"
                 + KEY_E_RADIO_SWITCH_GPS + " INTEGER,"
                 + KEY_E_RADIO_SWITCH_NFC + " INTEGER,"
-                + KEY_E_RADIO_SWITCH_AIRPLANE_MODE + " INTEGER"
+                + KEY_E_RADIO_SWITCH_AIRPLANE_MODE + " INTEGER,"
+                + KEY_E_NOTIFICATION_VIBRATE + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -2040,6 +2042,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_END_TIME + "=" + KEY_E_END_TIME + "-" + gmtOffset);
         }
 
+        if (oldVersion < 1910)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_VIBRATE + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_VIBRATE + "=0");
+        }
+
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -3095,7 +3106,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_E_FK_PROFILE_START, event._fkProfileStart); // profile start
             values.put(KEY_E_FK_PROFILE_END, event._fkProfileEnd); // profile end
             values.put(KEY_E_STATUS, event.getStatus()); // event status
-            values.put(KEY_E_NOTIFICATION_SOUND, event._notificationSound); // Event Name
+            values.put(KEY_E_NOTIFICATION_SOUND, event._notificationSound); // notification sound
+            values.put(KEY_E_NOTIFICATION_VIBRATE, event._notificationVibrate); // notification vibrate
             values.put(KEY_E_FORCE_RUN, event._forceRun ? 1 : 0); // force run when manual profile activation
             values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0); // temporary blocked
             values.put(KEY_E_PRIORITY, event._priority); // priority
@@ -3142,6 +3154,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             KEY_E_FK_PROFILE_END,
                             KEY_E_STATUS,
                             KEY_E_NOTIFICATION_SOUND,
+                            KEY_E_NOTIFICATION_VIBRATE,
                             KEY_E_FORCE_RUN,
                             KEY_E_BLOCKED,
                             KEY_E_PRIORITY,
@@ -3183,7 +3196,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_DELAY_END))),
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_END))) == 1,
                             Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_START_STATUS_TIME))),
-                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_PAUSE_STATUS_TIME)))
+                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_PAUSE_STATUS_TIME))),
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE))) == 1
                     );
                 }
 
@@ -3212,6 +3226,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     KEY_E_FK_PROFILE_END + "," +
                     KEY_E_STATUS + "," +
                     KEY_E_NOTIFICATION_SOUND + "," +
+                    KEY_E_NOTIFICATION_VIBRATE + "," +
                     KEY_E_FORCE_RUN + "," +
                     KEY_E_BLOCKED + "," +
                     KEY_E_PRIORITY + "," +
@@ -3243,6 +3258,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     event._fkProfileEnd = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_END)));
                     event.setStatus(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_STATUS))));
                     event._notificationSound = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND));
+                    event._notificationVibrate = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE))) == 1;
                     event._forceRun = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_FORCE_RUN))) == 1;
                     event._blocked = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLOCKED))) == 1;
                     event._priority = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_PRIORITY)));
@@ -3284,6 +3300,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_E_FK_PROFILE_END, event._fkProfileEnd);
             values.put(KEY_E_STATUS, event.getStatus());
             values.put(KEY_E_NOTIFICATION_SOUND, event._notificationSound);
+            values.put(KEY_E_NOTIFICATION_VIBRATE, event._notificationVibrate ? 1 : 0);
             values.put(KEY_E_FORCE_RUN, event._forceRun ? 1 : 0);
             values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0);
             //values.put(KEY_E_UNDONE_PROFILE, 0);
@@ -7266,6 +7283,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             int gmtOffset = TimeZone.getDefault().getRawOffset();
                                             values.put(KEY_E_START_TIME, startTime - gmtOffset);
                                             values.put(KEY_E_END_TIME, endTime - gmtOffset);
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 1910) {
+                                            values.put(KEY_E_NOTIFICATION_VIBRATE, 0);
                                         }
 
                                         // Inserting Row do db z SQLiteOpenHelper

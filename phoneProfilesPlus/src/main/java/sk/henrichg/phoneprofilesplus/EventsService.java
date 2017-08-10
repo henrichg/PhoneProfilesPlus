@@ -432,14 +432,17 @@ public class EventsService extends WakefulIntentService {
             ////////////////
 
             String eventNotificationSound = "";
+            boolean eventNotificationVibrate = false;
 
             if ((!isRestart) && (runningEventCountE > runningEventCount0)) {
                 // only when not restart events and running events is increased, play event notification sound
 
                 EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE - 1);
                 Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
-                if (event != null)
+                if (event != null) {
                     eventNotificationSound = event._notificationSound;
+                    eventNotificationVibrate = event._notificationVibrate;
+                }
             }
 
             PPApplication.logE("$$$ EventsService.onHandleIntent", "mergedProfile=" + mergedProfile);
@@ -455,7 +458,7 @@ public class EventsService extends WakefulIntentService {
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true);
 
                 if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound);
+                    PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound, eventNotificationVibrate);
 
                 // wait for profile activation
                 //try { Thread.sleep(500); } catch (InterruptedException e) { }
@@ -470,7 +473,7 @@ public class EventsService extends WakefulIntentService {
                 dataWrapper.updateNotificationAndWidgets(activatedProfile);
 
                 if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound);
+                    PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound, eventNotificationVibrate);
 
             }
 

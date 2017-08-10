@@ -1023,4 +1023,5 @@
     <string name="ringtone_preference_default_notification">Default notification</string>
     <string name="ringtone_preference_default_alarm">Default alarm</string>
     <string name="ringtone_preference_none">None</string>
+    <string name="event_preferences_notificationVibrate">Notify by vibration</string>
 </resources>

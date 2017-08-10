@@ -1549,7 +1549,22 @@ public class PhoneProfilesService extends Service
 
     //---------------------------
 
-    public void playEventNotificationSound (final String eventNotificationSound) {
+    public void playEventNotificationSound (final String eventNotificationSound, final boolean eventNotificationVibrate) {
+        PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "eventNotificationVibrate=" + eventNotificationVibrate);
+
+        if (eventNotificationVibrate) {
+            Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            if (vibrator.hasVibrator()) {
+                PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "vibration");
+                //TODO Android O
+                //if (Build.VERSION.SDK_INT >= 26) {
+                //    vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                //} else {
+                    vibrator.vibrate(500);
+                //}
+            }
+        }
+
         if ((!ringingCallIsSimulating)/* && (!notificationToneIsSimulating)*/) {
 
             if (audioManager == null )
@@ -1598,14 +1613,6 @@ public class PhoneProfilesService extends Service
                     */
 
                     eventNotificationMediaPlayer.start();
-
-                    // vibrate
-                    //TODO Android O
-                    //if (Build.VERSION.SDK_INT >= 26) {
-                    //    ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(450, VibrationEffect.DEFAULT_AMPLITUDE));
-                    //} else {
-                        ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(450);
-                    //}
 
                     eventNotificationIsPlayed = true;
 
