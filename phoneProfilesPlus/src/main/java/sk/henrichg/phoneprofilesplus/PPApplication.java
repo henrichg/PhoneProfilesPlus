@@ -790,6 +790,7 @@ public class PPApplication extends Application {
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_GEOFENCE_SCANNER);
+        //TODO Android O
         //if (Build.VERSION.SDK_INT < 26)
             context.startService(lIntent);
         //else
@@ -802,6 +803,7 @@ public class PPApplication extends Application {
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_GEOFENCE_SCANNER);
+        //TODO Android O
         //if (Build.VERSION.SDK_INT < 26)
             context.startService(lIntent);
         //else
@@ -814,6 +816,7 @@ public class PPApplication extends Application {
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_ORIENTATION_SCANNER);
+        //TODO Android O
         //if (Build.VERSION.SDK_INT < 26)
             context.startService(lIntent);
         //else
@@ -826,6 +829,7 @@ public class PPApplication extends Application {
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_ORIENTATION_SCANNER);
+        //TODO Android O
         //if (Build.VERSION.SDK_INT < 26)
             context.startService(lIntent);
         //else
@@ -838,6 +842,7 @@ public class PPApplication extends Application {
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_PHONE_STATE_SCANNER);
+        //TODO Android O
         //if (Build.VERSION.SDK_INT < 26)
             context.startService(lIntent);
         //else
@@ -850,6 +855,7 @@ public class PPApplication extends Application {
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_PHONE_STATE_SCANNER);
+        //TODO Android O
         //if (Build.VERSION.SDK_INT < 26)
             context.startService(lIntent);
         //else

@@ -27,6 +27,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.provider.Telephony;
@@ -1271,12 +1272,7 @@ public class PhoneProfilesService extends Service
                 ringingMediaPlayer.release();
                 ringingMediaPlayer = null;
 
-                /*if (android.os.Build.VERSION.SDK_INT >= 23)
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, 0);
-                else
-                    audioManager.setStreamMute(AudioManager.STREAM_RING, false);*/
-
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
+                //audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
                 PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "ringing stopped");
             }
             if (abandonFocus)
@@ -1583,6 +1579,7 @@ public class PhoneProfilesService extends Service
                     eventNotificationMediaPlayer.prepare();
                     eventNotificationMediaPlayer.setLooping(false);
 
+                    /*
                     oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
                     int notificationVolume = ActivateProfileHelper.getNotificationVolume(this);
@@ -1598,8 +1595,17 @@ public class PhoneProfilesService extends Service
                     PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "mediaEventNotificationVolume=" + mediaEventNotificationVolume);
 
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaEventNotificationVolume, 0);
+                    */
 
                     eventNotificationMediaPlayer.start();
+
+                    // vibrate
+                    //TODO Android O
+                    //if (Build.VERSION.SDK_INT >= 26) {
+                    //    ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(450, VibrationEffect.DEFAULT_AMPLITUDE));
+                    //} else {
+                        ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(450);
+                    //}
 
                     eventNotificationIsPlayed = true;
 
@@ -1613,7 +1619,7 @@ public class PhoneProfilesService extends Service
                                 if (eventNotificationMediaPlayer.isPlaying())
                                     eventNotificationMediaPlayer.stop();
 
-                                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
+                                //audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
                                 PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "event notification stopped");
                             }
 

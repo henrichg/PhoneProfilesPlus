@@ -132,6 +132,7 @@ public class PackageReplacedService extends WakefulIntentService {
         Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+        //TODO Android O
         //if (Build.VERSION.SDK_INT < 26)
             context.startService(serviceIntent);
         //else

@@ -91,7 +91,8 @@ public class ActionForExternalApplicationActivity extends Activity {
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
-                //if (Build.VERSION.SDK_INT < 26)
+                //TODO Android O
+                // if (Build.VERSION.SDK_INT < 26)
                     startService(serviceIntent);
                 //else
                 //    startForegroundService(serviceIntent);

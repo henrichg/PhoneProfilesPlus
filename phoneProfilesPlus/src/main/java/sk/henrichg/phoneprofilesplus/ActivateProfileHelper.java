@@ -1781,6 +1781,7 @@ public class ActivateProfileHelper {
             //noinspection deprecation
             type = WindowManager.LayoutParams.TYPE_TOAST;
         else
+            //TODO Android O
         //if (android.os.Build.VERSION.SDK_INT < 26)
             //noinspection deprecation
             type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
@@ -1845,12 +1846,14 @@ public class ActivateProfileHelper {
             if (android.os.Build.VERSION.SDK_INT < 25)
                 //noinspection deprecation
                 type = WindowManager.LayoutParams.TYPE_TOAST;
-            else
-            //if (android.os.Build.VERSION.SDK_INT < 26)
-                //noinspection deprecation
-                type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
-            //else
-            //    type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+            else {
+                //TODO Android O
+                //if (android.os.Build.VERSION.SDK_INT < 26)
+                    //noinspection deprecation
+                    type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+                //else
+                //    type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+            }
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                         1, 1,
                         type,
@@ -1973,6 +1976,7 @@ public class ActivateProfileHelper {
             notificationBuilder = new Notification.Builder(context)
                     .setContentIntent(pIntent);
 
+            //TODO Android O
             /*if (Build.VERSION.SDK_INT >= 26) {
                 // The id of the channel.
                 String channelId = "phoneProfiles_profile_activated";
@@ -2171,6 +2175,7 @@ public class ActivateProfileHelper {
             }
 
             if (PPApplication.phoneProfilesNotification != null) {
+                //TODO Android O
                 //if (Build.VERSION.SDK_INT < 26) {
                     if (notificationStatusBarPermanent) {
                         //notification.flags |= Notification.FLAG_NO_CLEAR;
