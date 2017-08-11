@@ -593,7 +593,7 @@
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and interruption types with vibration.</string>
     <string name="info_notification_event_states">The event may be in 5 states:</string>
     <string name="info_notification_event_states_running">Running: event is started and running. Event parameters are satisfied.</string>
-    <string name="info_notification_event_states_paused">aused: event is not running. Event parameters are not satisfied. Event is waiting for parameters to be satisfied.</string>
+    <string name="info_notification_event_states_paused">Paused: event is not running. Event parameters are not satisfied. Event is waiting for parameters to be satisfied.</string>
     <string name="info_notification_event_states_stopped">Stopped: event is stopped and can not be started. Event parameter \"Enable run\" is not checked.</string>
     <string name="info_notification_event_states_paused_delay">Paused with delay: event is started, but is waiting in the delay. Event parameters are satisfied.</string>
     <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>
