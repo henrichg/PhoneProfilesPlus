@@ -27,15 +27,15 @@
     <string name="toast_profile_activated_0">Profile</string>
     <string name="toast_profile_activated_1">activated</string>
     <string name="title_activity_image_view_preference_dialog">Change icon</string>
-    <string name="preference_profile_no_change">Don\'t change</string>
+    <string name="preference_profile_no_change">Do not change</string>
     <string name="preference_profile_autobrightness">Automatic</string>
     <string name="title_activity_phone_profiles_preferences">Application Settings</string>
     <string name="menu_exit">Exit</string>
     <string name="activate_profile_alert_message">Activate profile?</string>
-    <string name="brightness_pref_dialog_no_change_chb">Don\'t change</string>
+    <string name="brightness_pref_dialog_no_change_chb">Do not change</string>
     <string name="brightness_pref_dialog_automatic_chb">Automatic</string>
     <string name="imageview_resource_file_pref_dialog_gallery_btn">Custom&#8230;</string>
-    <string name="volume_pref_dialog_no_change_chb">Don\'t change</string>
+    <string name="volume_pref_dialog_no_change_chb">Do not change</string>
     <string name="phone_profiles_pref_category_activator">Activator</string>
     <string name="phone_profiles_pref_category_editor">Editor</string>
     <string name="phone_profiles_pref_category_gui">Application interface</string>
@@ -77,7 +77,7 @@
     <string name="profile_preferences_deviceBrightness">Screen brightness</string>
     <string name="profile_preferences_deviceWallpaper">Wallpaper</string>
     <string name="profile_preferences_deviceWallpaperChange">Change wallpaper</string>
-    <string name="array_pref_no_change">Don\'t change</string>
+    <string name="array_pref_no_change">Do not change</string>
     <string name="array_pref_ringerModeArray_ring">Ring</string>
     <string name="array_pref_ringerModeArray_ring_and_vibrate">Ring and Vibrate</string>
     <string name="array_pref_ringerModeArray_vibrate">Vibrate</string>
@@ -127,8 +127,8 @@
     <string name="array_pref_value_hu">hu</string>
     <string name="array_pref_value_zh_TW">zh-TW</string>
     <string name="profile_preferences_device_not_allowed">Not allowed</string>
-    <string name="menu_export">Export app. data</string>
-    <string name="menu_import">Import app. data</string>
+    <string name="menu_export">Backup all settings</string>
+    <string name="menu_import">Restore all settings</string>
     <string name="toast_export_ok">App. data exported</string>
     <string name="toast_import_ok">App. data imported</string>
     <string name="import_profiles_alert_title">Import app. data</string>
@@ -224,9 +224,9 @@
     <string name="volume_pref_dialog_default_profile_chb">Shared profile</string>
     <string name="array_pref_default_profile">Shared profile</string>
     <string name="array_pref_change">Change</string>
-    <string name="array_pref_no_show">Don\'t show</string>
+    <string name="array_pref_no_show">Do not show</string>
     <string name="array_pref_show">Show</string>
-    <string name="array_pref_no_run">Don\'t run</string>
+    <string name="array_pref_no_run">Do not run</string>
     <string name="array_pref_run">Run</string>
     <string name="title_activity_default_profile_preferences">Shared profile</string>
     <string name="profile_list_item_menu_activate">Activate</string>
@@ -269,7 +269,7 @@
     <string name="event_preferences_ccontactListType">Contact list type</string>
     <string name="array_event_pref_contact_list_type_white_list">White list</string>
     <string name="array_event_pref_contact_list_type_black_list">Black list</string>
-    <string name="array_event_pref_contact_list_type_not_use">Don\'t use</string>
+    <string name="array_event_pref_contact_list_type_not_use">Do not use</string>
     <string name="event_type_call">Call</string>
     <string name="pref_event_call_event">Event</string>
     <string name="pref_event_call_contactListType">List</string>
@@ -341,7 +341,7 @@
     <string name="event_preferences_delayStart">Delay (sec)</string>
     <string name="profile_preferences_duration">Duration (sec)</string>
     <string name="profile_preferences_afterDurationDo">After duration do</string>
-    <string name="array_pref_afterProfileDurationDo_nothing">Nothing</string>
+    <string name="array_pref_afterProfileDurationDo_nothing">Do nothing</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">Undo the profile</string>
     <string name="array_pref_afterProfileDurationDo_backgroundProfile">Activate Default profile</string>
     <string name="phone_profiles_pref_applicationGridLayout">Grid layout</string>
@@ -361,7 +361,7 @@
     <string name="array_event_pref_bluetoothConnectionType_inFront">Around</string>
     <string name="event_preferences_bluetooth_connection_type">Connection type</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Bluetooth scan interval (min)</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Enable Bluetooth scan</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Enable Bluetooth scanning</string>
     <string name="bluetooth_name_pref_dlg_rescan_button">Rescan</string>
     <string name="wifi_ssid_pref_dlg_rescan_button">Rescan</string>
     <string name="event_type_sms">SMS</string>
@@ -401,9 +401,9 @@
     <string name="title_activity_activity_log">Activity Log</string>
     <string name="menu_activity_log">Activity Log</string>
     <string name="altype_profileActivation">profile activation</string>
-    <string name="altype_afterDuration_undoProfile">after duration - undo profile</string>
-    <string name="altype_afterDuration_backgroundProfile">after duration - default profile</string>
-    <string name="altype_afterDuration_restartEvents">after duration - restart events</string>
+    <string name="altype_afterDuration_undoProfile">when duration expires - undo profile</string>
+    <string name="altype_afterDuration_backgroundProfile">when duration expires - default profile</string>
+    <string name="altype_afterDuration_restartEvents">when duration expires - restart events</string>
     <string name="altype_eventStart">event start</string>
     <string name="altype_eventStartDelay">event start with delay</string>
     <string name="altype_eventEnd_none">event pause</string>
@@ -443,7 +443,7 @@
     <string name="info_notification_text">Click here to show important info</string>
     <string name="profile_preferences_deviceWiFiAP">Wi-Fi hotspot</string>
     <string name="array_pref_ringerModeArray_silentL">Priority mode</string>
-    <string name="menu_import_export">Import/Export</string>
+    <string name="menu_import_export">Backup/Restore</string>
     <string name="array_pref_screenTimeoutArray_5minutes">5 minutes</string>
     <string name="info_notification_event_not_started">Event is not started when:\n1. You have disabled global events run (red \"traffic light\") - enable it in Editor menu with item \"Enable events run\".\n2. You have manually activated profile (orange \"traffic light\") - you must restart events. Use Restart events icon in title of Activator, Editor or in notification. Manually activated profile is indicated also with \"[M]\" in front of the profile name. Exception from this is, when event has checked preference \"Ignore manual activation\".\n3. You have disabled event run in event preferences - event preference \"Enable run\" must by checked.\nNote: \"Traffic light\" is in title of Activator and Editor.</string>
     <string name="important_info_profiles">Profiles</string>
@@ -574,7 +574,7 @@
     <string name="event_preferences_applications_applications">Applications</string>
     <string name="event_preferences_applications_AccessibilitySettings_title">Accessibility settings</string>
     <string name="event_preferences_applications_AccessibilitySettings_summary">Allow PhoneProfilesPlus in \"Accessibility\" system settings, for enabling Applications parameters.</string>
-    <string name="event_preferences_notifications_end_when_removed">End when removed</string>
+    <string name="event_preferences_notifications_end_when_removed">End when dismissed</string>
     <string name="brightness_pref_dialog_adaptive_level_root_required">For change adaptive level, ROOT is required.</string>
     <string name="important_info_profile_activation_text1">Profile can be activated in two modes:</string>
     <string name="important_info_profile_activation_text2">1. manual activation - activated in Activator, Editor, notification, widget, shortcut. Manually activated profile is indicated with \"[M]\" in front of the profile name.</string>
@@ -593,11 +593,11 @@
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and interruption types with vibration.</string>
     <string name="info_notification_event_states">The event may be in 5 states:</string>
     <string name="info_notification_event_states_running">Running: event is started and running. Event parameters are satisfied.</string>
-    <string name="info_notification_event_states_paused">Paused: event is not running. Event parameters are not satisfied. Event is waiting for parameters satisfaction.</string>
+    <string name="info_notification_event_states_paused">aused: event is not running. Event parameters are not satisfied. Event is waiting for parameters to be satisfied.</string>
     <string name="info_notification_event_states_stopped">Stopped: event is stopped and can not be started. Event parameter \"Enable run\" is not checked.</string>
     <string name="info_notification_event_states_paused_delay">Paused with delay: event is started, but is waiting in the delay. Event parameters are satisfied.</string>
     <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>
-    <string name="important_info_default_profile">When not any event is running, activated is \"Default profile\", when is configured. You can configure default profile in application settings in \"Profile activation\". Click here, to configure it.</string>
+    <string name="important_info_default_profile">When no events are running, the \"Default profile\" is enabled if configured. You can configure a default profile in application settings in \"Profile activation\". Click here to configure it.</string>
     <string name="info_notification_unlink_ringer_notification_volumes2">If your device has not separated volume for ringer and notifications, keep enabled volumes separation.</string>
     <string name="important_info_how_does_volume_separation_work">How \"volume separation\" works: Profile activation adjust the device volume by profile notifications volume level. When call ringing is detected, ringing volume level from profile is adjusted. At the end of the call, the notification volume level from profile is restored.</string>
     <string name="event_type_locations">Location</string>
@@ -686,7 +686,7 @@
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Setup Orientation parameters in application settings.</string>
     <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>
     <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>
-    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">When option \"24 hours\" not working on your device (LG), use option \"Always On\". Option \"Always On\", may encountered troubles on your device (Samsung). Then use option \"24 hours\".</string>
+    <string name="profile_preferences_deviceScreenTimeoutInfo_summary">If option \"24 hours\" is not working on your device (LG), use option \"Always On\". Option \"Always On\" may cause problems with Samsung devices. If so, then use option \"24 hours\".</string>
     <string name="profile_preferences_vibrateWhenRinging">Vibrate when ringing</string>
     <string name="permissions_for_play_ringtone_notification_text1">You have selected ringer/notification tone from sdcard. Tone will not be played, because this requires some permissions.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Please grant them in next dialogs. Then tone will be played.</string>
@@ -847,7 +847,7 @@
     <string name="event_preferences_sensorsInfo_title">Sensors functionality</string>
     <string name="event_preferences_sensorsInfo_summary">Event will be started, if parameters of all sensors with \"Enable sensor\" parameter checked, are fulfilled. Running event will be ended, if some sensor parameter is not fulfilled. Check \"Enable sensor\" only for needed sensors for this event. Sensor name with \"Enable sensor\" checked is marked with bold text.\n\nSome sensor parameters are required. Required parameter name is marked with underline text. If some required parameter is not configured, event will not be started and parameter \"Enable sensor\" is unchecked.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Colorful icon</string>
-    <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Some devices do not supports colorful icons in status bar.</string>
+    <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Some devices do not support colorful icons in status bar.</string>
     <string name="pref_dlg_change_selection_title">Change selection</string>
     <string name="pref_dlg_change_selection_button">Change</string>
     <string name="array_pref_change_selection_unselect_all">Unselect all</string>
@@ -874,7 +874,7 @@
     <string name="profile_preferences_volumeRingtone0Info_title">Ringtone volume = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">Ringtone volume = 0 configures the device to silent mode. Notification volume is ignored.</string>
     <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>
-    <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for service PhoneProfilesService. With notification, PhoneProfilesService is changed to \"foreground service\". And this type of service is not killed by Android. PhoneProfilesService must permanent running.</string>
+    <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for PhoneProfilesService to operate properly. With notification, PhoneProfilesService is changed to \"foreground service\". This type of service is not killed by Android. PhoneProfilesService must run permanently.</string>
     <string name="phone_profiles_pref_notificationStatusBarRequired">Required for background service PhoneProfilesService</string>
     <string name="event_preferences_event_priorityInfo_summary">Priority functionality: Event will not be started, if is running event with higher priority.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Type of preferences</string>
@@ -973,8 +973,8 @@
     <string name="profile_preferences_deviceConnectToSSID">Connect to SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Set volumes merge</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Keep detected</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Volumes are merged</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Volumes are not merged</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Volumes linked</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Volumes not linked</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Use this, if detection of volumes merge is wrong.</string>
     <string name="profile_preferences_category_application">Application functions</string>
     <string name="profile_preferences_applicationDisableWifiScanning">Disable Wi-Fi scanning</string>
@@ -982,7 +982,7 @@
     <string name="array_pref_ringerModeArray_ZenModeM">Do not disturb</string>
     <string name="profile_preferences_volumeZenModeM">\"Do not disturb\" type</string>
     <string name="array_pref_zenModeArray_off">Off</string>
-    <string name="array_pref_zenModeArray_offButVibration">Off but vibration</string>
+    <string name="array_pref_zenModeArray_offButVibration">Off with vibration</string>
     <string name="array_pref_zenModeArray_totalSilence">Total silence</string>
     <string name="profile_preferences_zenMode_off_summary">Disturb with all notifications</string>
     <string name="profile_preferences_zenMode_totalSilence_summary">Silent all notifications</string>
