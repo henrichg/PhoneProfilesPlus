@@ -33,8 +33,10 @@ import android.provider.Settings;
 import android.provider.Telephony;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
+import com.crashlytics.android.Crashlytics;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -148,6 +150,10 @@ public class PhoneProfilesService extends Service
 
         instance = this;
         Context appContext = getApplicationContext();
+
+        Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, ApplicationPreferences.notificationStatusBar(appContext));
+        Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, ApplicationPreferences.notificationStatusBarPermanent(appContext));
+        Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar(appContext));
 
         // save version code (is used in PackageReplacedReceiver)
         try {

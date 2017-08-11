@@ -7,10 +7,12 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.crashlytics.android.Crashlytics;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class PhoneProfilesPreferencesActivity extends PreferenceActivity
@@ -146,6 +148,10 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
     @Override
     public void finish() {
+        Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, ApplicationPreferences.notificationStatusBar(this));
+        Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, ApplicationPreferences.notificationStatusBarPermanent(this));
+        Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar(this));
+
         if (!activeLanguage.equals(ApplicationPreferences.applicationLanguage(getApplicationContext())))
         {
             GlobalGUIRoutines.setLanguage(getBaseContext());
