@@ -124,16 +124,16 @@
   <string name="array_pref_value_hu">hu</string>
   <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Nicht möglich</string>
-  <string name="menu_export">App-Daten sichern</string>
-  <string name="menu_import">Aus Sicherung laden</string>
-  <string name="toast_export_ok">App-Daten gesichert</string>
+  <string name="menu_export">Backup all settings</string>
+  <string name="menu_import">Restore all settings</string>
+  <string name="toast_export_ok">All app settings backed up</string>
   <string name="toast_import_ok">Sicherung geladen</string>
-  <string name="import_profiles_alert_title">Sicherung laden</string>
+  <string name="import_profiles_alert_title">Restore app settings</string>
   <string name="import_profiles_alert_message">Sicher?</string>
-  <string name="import_profiles_alert_error">Fehler beim Laden der Sicherung</string>
-  <string name="export_profiles_alert_title">App-Daten sichern</string>
+  <string name="import_profiles_alert_error">Error during restore app settings</string>
+  <string name="export_profiles_alert_title">Backup app settings</string>
   <string name="export_profiles_alert_message">Sicher?</string>
-  <string name="export_profiles_alert_error">Fehler beim Sichern</string>
+  <string name="export_profiles_alert_error">Error during backup app settings</string>
   <string name="profile_preferences_deviceMobileData">Mobiles Internet</string>
   <string name="profile_preferences_deviceMobileDataPrefs">(I) Einstellungen für mobiles Internet öffnen</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Farbig</string>
@@ -412,7 +412,7 @@
   <string name="altype_runEvents_enable">Laufende Ereignisse aktivieren</string>
   <string name="altype_applicationStart">App starten</string>
   <string name="altype_applicationExit">App beenden</string>
-  <string name="altype_dataImport">Daten importieren</string>
+  <string name="altype_dataImport">restore data</string>
   <string name="array_event_pref_calendarSearchField_location">Standort</string>
   <string name="profile_preferences_vibrationOnTouch">Bei Berührung vibrieren</string>
   <string name="phone_profiles_pref_notificationShowInStatusBar">In Statusleiste anzeigen</string>
@@ -440,7 +440,7 @@
   <string name="info_notification_text">Klicke hier, um wichtige Informationen zu bekommen.</string>
   <string name="profile_preferences_deviceWiFiAP">WLAN-Hotspot</string>
   <string name="array_pref_ringerModeArray_silentL">Prioritätsmodus</string>
-  <string name="menu_import_export">Importieren/Exportieren</string>
+  <string name="menu_import_export">Backup/Restore</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 Minuten</string>
   <string name="info_notification_event_not_started">Ereignis wird nicht gestartet, wenn...\n1.... du das allgemeine Ausführen von Ereignissen angehalten hast (rote \"Ampel\"). Im Editor kannst du es mit dem Menüpunkt \"Laufende Ereignisse aktivieren\" wieder aktivieren.\n2.... du ein Profil manuell aktiviert hast (gelbe \"Ampel\"). Dann musst du \"Ereignisse neu starten\" im Starter, Editor oder der Benachrichtigung wählen. Ein manuell aktiviertes Profil wird auch mit einem \"[M]\" vor dem Profilnamen angezeigt. Ausnahmen bilden Ereignisse, in denen \"Manuelle Aktivierung ignorieren\" ausgewählt ist.\n3.…du das Ereignis in den Ereigniseinstellungen angehalten hast. \"Ereignis aktiveren\" muss ausgewählt sein.\nBeachte: Die \"Ampel\" ist oben im Starter und Editor.</string>
   <string name="important_info_profiles">Profile</string>
@@ -502,10 +502,10 @@
   <string name="permissions_for_wallpaper_text2">Bitte erteile sie in den nächsten Dialogen. Anschließend können Sie das Bild aus der Galerie auswählen.</string>
   <string name="permissions_for_custom_profile_icon_text1">Um ein eigenes Profilsymbol auszuwählen, sind Berechtigungen nötig.</string>
   <string name="permissions_for_custom_profile_icon_text2">Bitte erteile sie in den nächsten Dialogen. Dann können Sie das Symbol aus der Galerie auswählen.</string>
-  <string name="permissions_for_export_app_data_text1">Die App-Daten zu sichern erfordert Berechtigungen.</string>
-  <string name="permissions_for_export_app_data_text2">Bitte erteile sie in den nächsten Dialogen. Dann werden die Daten gesichert.</string>
-  <string name="permissions_for_import_app_data_text1">Die App-Daten zu laden erfordert Berechtigungen.</string>
-  <string name="permissions_for_import_app_data_text2">Bitte erteile sie in den nächsten Dialogen. Dann werden die Daten geladen.</string>
+  <string name="permissions_for_export_app_data_text1">Backup of application settings requires some permissions.</string>
+  <string name="permissions_for_export_app_data_text2">Please grant them in next dialog. Settings will then be backed-up.</string>
+  <string name="permissions_for_import_app_data_text1">Restore of application settings requires some permissions.</string>
+  <string name="permissions_for_import_app_data_text2">Please grant them in next dialog. Data will then be restored.</string>
   <string name="permissions_write_settings_not_allowed_confirm">Sie haben \"Systemeinstellungen ändern\" nicht ausgewählt. Nicht mehr nachfragen?</string>
   <string name="phone_profiles_pref_category_permissions">Berechtigungen</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions">Systemeinstellungen ändern</string>
@@ -832,7 +832,7 @@
   <string name="editor_event_list_item_event_status">Ereignis-Status-Anzeige</string>
   <string name="editor_event_list_item_profile_start_icon">Starte Ereignis-Profil</string>
   <string name="editor_event_list_item_profile_end_icon">Beende Ereignis-Profil</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">For each profile parameter can be set that it is used Shared profile. Click here to configure the Shared profile parameters.</string>
+  <string name="profile_preferences_sourceProfileInfo_summary">You can set each profile parameter to use Shared profile. Click here to configure the Shared profile parameters.</string>
   <string name="run_stop_events_indicator">Indikator für Ereignisse laufend/angehalten</string>
   <string name="run_stop_indicator_popup_window_important_infos">Für mehr Informationen siehe \"Wichtige Informationen\" (Fragezeichen unten im Editor).</string>
   <string name="important_info_how_to_show_ppp">Diese Informationen können im Editor über das Fragezeichen in der unteren Leiste aufgerufen werden.</string>
@@ -877,15 +877,15 @@
   <string name="profile_preferences_preferenceTypesInfo_title">Einstellungsarten</string>
   <string name="event_preference_bluetooth_bt_types">Bluetooth-Typen: [CL]=classic, [LE]=low energy=wenig Energie, [DU]=dual</string>
   <string name="event_preference_sensor_time_summary">Dieser Parameter ist für den Start nach Zeit: Startzeit, Endzeit, Wochentage</string>
-  <string name="event_preference_sensor_calendar_summary">Dieser Parameter ist für den Start nach Kalender: Kalender, Suchfeld (Terminname, Beschreibung, &#8230;), Suchbegriff, ganztägige Termine ignorieren, Verfügbarkeit (beschäftigt, verfügbar, &#8230;).</string>
+  <string name="event_preference_sensor_calendar_summary">Dieser Parameter ist für den Start nach Kalender: Kalender, Suchfeld (Terminname, Beschreibung, …), Suchbegriff, ganztägige Termine ignorieren, Verfügbarkeit (beschäftigt, verfügbar, …).</string>
   <string name="event_preference_sensor_battery_summary">Dieser Parameter ist für den Start nach Akkustand: Niedrigster Stand, höchster Stand, ladend, Akkuschonmodus.</string>
-  <string name="event_preference_sensor_call_summary">Dieser Parameter ist für den Start nach anrufenden Kontakten: Ereignis (klingelnd, Anruf gestartet, &#8230;), Kontaktgruppen, Kontakte, Kontaktlistentyp (Whitelist/Blacklist).</string>
+  <string name="event_preference_sensor_call_summary">Dieser Parameter ist für den Start nach anrufenden Kontakten: Ereignis (klingelnd, Anruf gestartet, …), Kontaktgruppen, Kontakte, Kontaktlistentyp (Whitelist/Blacklist).</string>
   <string name="event_preference_sensor_sms_summary">Dieser Parameter ist für den Start nach SMS/MMS von Kontakten: Kontaktgruppen, Kontakte, Kontaktlistentyp (Whitelist/Blacklist), dauerhaft laufen, Dauer für das Ereignis.</string>
   <string name="event_preference_sensor_location_summary">Dieser Parameter ist für den Start nach Standort: Standort, Radius, Start wenn innerhalb/außerhalb.</string>
-  <string name="event_preference_sensor_wifi_summary">Dieser Sensor von Wi-Fi SSIDs ist zum Starten von Events. Parameter: Art des Verbindens (in Reichweite, Verbunden, &#8230;), SSID.</string>
-  <string name="event_preference_sensor_bluetooth_summary">Dieser Parameter ist für den Start nach Bluetooth-Verbindung: Modus (verfügbar, verbunden, &#8230;), Verbindungstyp (Classic, wenig Energie, &#8230;), Gerätename.</string>
+  <string name="event_preference_sensor_wifi_summary">Dieser Sensor von Wi-Fi SSIDs ist zum Starten von Events. Parameter: Art des Verbindens (in Reichweite, Verbunden, …), SSID.</string>
+  <string name="event_preference_sensor_bluetooth_summary">Dieser Parameter ist für den Start nach Bluetooth-Verbindung: Modus (verfügbar, verbunden, …), Verbindungstyp (Classic, wenig Energie, …), Gerätename.</string>
   <string name="event_preference_sensor_mobile_cells_summary">Dieser Parameter ist für den Start nach mobilen Daten: Zelle, Start innerhalb/außerhalb.</string>
-  <string name="event_preference_sensor_accessories_summary">Dieser Parameter ist für den Start nach verbundenem Gerät: Auto-Dock, Freisprecheinrichtung, Kopfhörer, &#8230;</string>
+  <string name="event_preference_sensor_accessories_summary">Dieser Parameter ist für den Start nach verbundenem Gerät: Auto-Dock, Freisprecheinrichtung, Kopfhörer, …</string>
   <string name="event_preference_sensor_screen_summary">Dieser Parameter ist für den Start nach Bildschirm an/aus: Bildschirm an/aus, beenden wenn entsperrt.</string>
   <string name="event_preference_sensor_notification_summary">Dieser Parameter ist für den Start nach Benachrichtigung: App, beenden wenn entfernt, Ereignis dauerhaft aktivieren, Dauer des Ereignisses.</string>
   <string name="event_preference_sensor_application_summary">Dieser Parameter ist für den Start nach App im Vordergrund.</string>
@@ -898,7 +898,7 @@
   <string name="editor_activity_targetHelps_restartEvents_title">Ereignisse neustarten</string>
   <string name="editor_activity_targetHelps_restartEvents_description">Klicke hier um die Ereignisse neuzustarten. Der Neustart ist nötig, wenn zuvor ein Profil manuell aktiviert wurde.</string>
   <string name="editor_activity_targetHelps_activityLog_title">Aktivitätsprotokoll</string>
-  <string name="editor_activity_targetHelps_activityLog_description">Klicke hier um das Aktivitätsprotokoll zu öffnen. Protokolliert werden alle Start/Pause/Stop Ereignisse, Profilaktivierung, Anwendungsstart, &#8230;</string>
+  <string name="editor_activity_targetHelps_activityLog_description">Klicke hier um das Aktivitätsprotokoll zu öffnen. Protokolliert werden alle Start/Pause/Stop Ereignisse, Profilaktivierung, Anwendungsstart, …</string>
   <string name="editor_activity_targetHelps_newProfileButton_title">Neues Profil</string>
   <string name="editor_activity_targetHelps_newProfileButton_description">Klicke hier um ein neues Profil zu erstellen.</string>
   <string name="editor_activity_targetHelps_deleteAllProfilesButton_title">Alle Profile löschen</string>
@@ -922,8 +922,8 @@
   <string name="editor_activity_targetHelps_eventOrderHandler_title">Festlegung Reihenfolge</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Verschiebe Ereignis auf/ab um die Startreihenfolge zu ändern.</string>
   <string name="activator_activity_targetHelps_editor_title">Editor</string>
-  <string name="activator_activity_targetHelps_editor_description_ppp">Hier klicken um den Editor zu öffnen. Im Editor kannst du Profile, Ereignisse und Anwendungseinstellungen konfigurieren&#8230;</string>
-  <string name="activator_activity_targetHelps_editor_description_pp">Hier klicken um den Editor zu öffnen. Im Editor kannst du Profile, Ereignisse und Anwendungseinstellungen konfigurieren&#8230;</string>
+  <string name="activator_activity_targetHelps_editor_description_ppp">Hier klicken um den Editor zu öffnen. Im Editor kannst du Profile, Ereignisse und Anwendungseinstellungen konfigurieren…</string>
+  <string name="activator_activity_targetHelps_editor_description_pp">Hier klicken um den Editor zu öffnen. Im Editor kannst du Profile, Ereignisse und Anwendungseinstellungen konfigurieren…</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Aktiviere Profil</string>
   <string name="activator_activity_targetHelps_activateProfile_description">Klicke hier um das Profil zu aktivieren.</string>
   <string name="profile_preference_activity_targetHelps_save_title">Speichere das Profil</string>
@@ -994,13 +994,13 @@
   <string name="profile_preferences_zenModeM_alarms_summary">Nicht Stören, Alarme ausgenommen</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Unter Android 6 kann diese Einstellung nur auf gerooteten Geräten geändert werden. Betroffen sind der Klingel-Modus und die Nicht-Stören-Typen mit Vibration.</string>
   <string name="setting_screen_not_found_alert">Setting screen not found.</string>
-  <string name="action_for_external_application_notification_title">External app. support (Tasker)</string>
+  <string name="action_for_external_application_notification_title">External app support (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">Parameter profile_name is missing or empty.</string>
   <string name="action_for_external_application_notification_no_event_text">Parameter event_name is missing or empty.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">On (ignore hotspot)</string>
   <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Toggle (ignore hotspot)</string>
-  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Volume merge detection</string>
-  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Your device has not merged volume for call ringing and notifications.</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Volume link detection</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Your device does not have linked volumes for ringtone and notifications.</string>
   <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
   <string name="array_pref_value_el">el</string>
   <string name="samsung_edge_name">PhoneProfilesPlus</string>
@@ -1008,8 +1008,8 @@
   <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung edge panel</string>
   <string name="phone_profiles_pref_applicationLanguage_zh_CN">简体中文</string>
   <string name="array_pref_value_zh_CN">zh-CN</string>
-  <string name="action_for_external_application_notification_bad_action">Unsupported action is specified.</string>
-  <string name="action_for_external_application_notification_no_action">Action is not specified.</string>
+  <string name="action_for_external_application_notification_bad_action">Unsupported action specified.</string>
+  <string name="action_for_external_application_notification_no_action">Action not specified.</string>
   <!--
     <string name="notification_channel_activated_profile">Activated profile</string>
     <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
@@ -1020,4 +1020,5 @@
   <string name="ringtone_preference_default_notification">Default notification</string>
   <string name="ringtone_preference_default_alarm">Default alarm</string>
   <string name="ringtone_preference_none">Keine</string>
+  <string name="event_preferences_notificationVibrate">Notify by vibration</string>
 </resources>

@@ -124,16 +124,16 @@
   <string name="array_pref_value_hu">hu</string>
   <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Не разрешено</string>
-  <string name="menu_export">Экспорт данных</string>
-  <string name="menu_import">Импорт данных</string>
-  <string name="toast_export_ok">Экспорт данных приложения завершён</string>
+  <string name="menu_export">Резервное копирование всех параметров</string>
+  <string name="menu_import">Восстановление всех параметров</string>
+  <string name="toast_export_ok">All app settings backed up</string>
   <string name="toast_import_ok">Импорт данных приложения завершён</string>
-  <string name="import_profiles_alert_title">Импорт данных</string>
+  <string name="import_profiles_alert_title">Restore app settings</string>
   <string name="import_profiles_alert_message">Вы уверены?</string>
-  <string name="import_profiles_alert_error">Ошибка при импорте данных приложения</string>
-  <string name="export_profiles_alert_title">Экспорт данных</string>
+  <string name="import_profiles_alert_error">Error during restore app settings</string>
+  <string name="export_profiles_alert_title">Backup app settings</string>
   <string name="export_profiles_alert_message">Вы уверены?</string>
-  <string name="export_profiles_alert_error">Ошибка при экспорте данных приложения</string>
+  <string name="export_profiles_alert_error">Error during backup app settings</string>
   <string name="profile_preferences_deviceMobileData">Мобильные данные</string>
   <string name="profile_preferences_deviceMobileDataPrefs">(I) Настройки мобильных данных</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Цветная иконка</string>
@@ -215,17 +215,17 @@
   <string name="array_pref_value_180_degrees" formatted="false">180°</string>
   <string name="array_pref_value_270_degrees" formatted="false">270°</string>
   <string name="array_pref_value_auto_rotate">Автоповорот</string>
-  <string name="default_profile_name">Поделиться профилем</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Поделиться профилем</string>
-  <string name="preference_profile_default_profile">Поделиться профилем</string>
-  <string name="volume_pref_dialog_default_profile_chb">Поделиться профилем</string>
-  <string name="array_pref_default_profile">Поделиться профилем</string>
+  <string name="default_profile_name">Исходный профиль</string>
+  <string name="brightness_pref_dialog_default_profile_chb">Исходный профиль</string>
+  <string name="preference_profile_default_profile">Исходный профиль</string>
+  <string name="volume_pref_dialog_default_profile_chb">Исходный профиль</string>
+  <string name="array_pref_default_profile">Исходный профиль</string>
   <string name="array_pref_change">Изменить</string>
   <string name="array_pref_no_show">Не показывать</string>
   <string name="array_pref_show">Показывать</string>
   <string name="array_pref_no_run">Не запускать</string>
   <string name="array_pref_run">Запускать</string>
-  <string name="title_activity_default_profile_preferences">Поделиться профилем</string>
+  <string name="title_activity_default_profile_preferences">Исходный профиль</string>
   <string name="profile_list_item_menu_activate">Активировать</string>
   <string name="profile_list_item_menu_duplicate">Создать копию</string>
   <string name="profile_list_item_menu_delete">Удалить</string>
@@ -412,7 +412,7 @@
   <string name="altype_runEvents_enable">Разрешить запуск событий</string>
   <string name="altype_applicationStart">Запуск приложения</string>
   <string name="altype_applicationExit">Выход из приложения</string>
-  <string name="altype_dataImport">Импортировать данные</string>
+  <string name="altype_dataImport">restore data</string>
   <string name="array_event_pref_calendarSearchField_location">Местоположение</string>
   <string name="profile_preferences_vibrationOnTouch">Вибрация при нажатии</string>
   <string name="phone_profiles_pref_notificationShowInStatusBar">Показывать в строке состояния</string>
@@ -440,7 +440,7 @@
   <string name="info_notification_text">Нажмите для просмотра важной информации</string>
   <string name="profile_preferences_deviceWiFiAP">Точка доступа Wi-Fi</string>
   <string name="array_pref_ringerModeArray_silentL">Приоритетный</string>
-  <string name="menu_import_export">Импорт/Экспорт</string>
+  <string name="menu_import_export">Резервное копирование/Восстановление</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 минут</string>
   <string name="info_notification_event_not_started">Событие не началось:\n1. Вы отключили запуск всех событий (красный цвет индикатора) - в меню Редактора нажмите \"Разрешить запуск событий\".\n2. Вы вручную активировали профиль (оранжевый цвет индикатора) - необходимо перезапустить все события. В меню Активатора, Редактора или в уведомлении нажмите \"Перезапустить события\". Если профиль активирован вручную, то перед его названием появляется буква \"[M]\" (Manual). Исключение: в настройках события включено \"Игнорировать ручную активацию\".\n3. Вы отключили запуск данного события в его настройках - включите \"Разрешить запуск\" в настройках данного события.\nПримечание: \"цвет индикатора\" отображен в названии события в меню Активатора и Редактора.</string>
   <string name="important_info_profiles">Профили</string>
@@ -502,10 +502,10 @@
   <string name="permissions_for_wallpaper_text2">Разрешите в следующих диалоговых окнах. Затем вы сможете выбрать обои из галереи.</string>
   <string name="permissions_for_custom_profile_icon_text1">Выбор иконки требует дополнительных разрешений.</string>
   <string name="permissions_for_custom_profile_icon_text2">Разрешите в следующих диалоговых окнах. Затем вы сможете выбрать значок из галереи.</string>
-  <string name="permissions_for_export_app_data_text1">Экспорт данных требует дополнительных разрешений.</string>
-  <string name="permissions_for_export_app_data_text2">Разрешите в следующих диалоговых окнах. Затем данные будут экспортированы.</string>
-  <string name="permissions_for_import_app_data_text1">Импорт данных требует дополнительных разрешений.</string>
-  <string name="permissions_for_import_app_data_text2">Разрешите в следующих диалоговых окнах. Затем данные будут импортированы.</string>
+  <string name="permissions_for_export_app_data_text1">Backup of application settings requires some permissions.</string>
+  <string name="permissions_for_export_app_data_text2">Please grant them in next dialog. Settings will then be backed-up.</string>
+  <string name="permissions_for_import_app_data_text1">Restore of application settings requires some permissions.</string>
+  <string name="permissions_for_import_app_data_text2">Please grant them in next dialog. Data will then be restored.</string>
   <string name="permissions_write_settings_not_allowed_confirm">Вы не разрешили «Изменить настройки». Не спрашивать больше?</string>
   <string name="phone_profiles_pref_category_permissions">Разрешения</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions">Системные настройки</string>
@@ -878,16 +878,16 @@
   <string name="profile_preferences_preferenceTypesInfo_title">Тип предпочтений</string>
   <string name="event_preference_bluetooth_bt_types">Типы Bluetooth: [CL] обычный, [LE] с низким энергопотреблением, [DU] двойной.</string>
   <string name="event_preference_sensor_time_summary">Этот датчик предназначен для начала события по времени. Параметры: Время начала, время окончания, дни недели.</string>
-  <string name="event_preference_sensor_calendar_summary">Этот датчик предназначен для запуска события из календаря. Параметры: Календари, поле поиска (имя события, описание,&#8230;), Строка поиска, игнорировать события «Весь день», Доступность (Занят, Свободен,&#8230;).</string>
+  <string name="event_preference_sensor_calendar_summary">Этот датчик предназначен для запуска события из календаря. Параметры: Календари, поле поиска (имя события, описание,…), Строка поиска, игнорировать события «Весь день», Доступность (Занят, Свободен,…).</string>
   <string name="event_preference_sensor_battery_summary">Этот датчик предназначен для событий уровня заряда аккумулятора. Параметры: Низкий уровень, Верхний уровень, зарядка, режим энергосбережения.</string>
-  <string name="event_preference_sensor_call_summary">Этот датчик обрабатывает события вызова контактов. Параметры: Вызов (Звонок, Исходящий звонок,&#8230;), Группы контактов, Список контактов, (белый/черный список).</string>
+  <string name="event_preference_sensor_call_summary">Этот датчик обрабатывает события вызова контактов. Параметры: Вызов (Звонок, Исходящий звонок,…), Группы контактов, Список контактов, (белый/черный список).</string>
   <string name="event_preference_sensor_sms_summary">Этот датчик обрабатывает события приема SMS/MMS от контактов. Параметры: Группы контактов, Контакты, Списки контактов (белый/черный список), Постоянный запуск, Длительность (событие запуска).</string>
   <string name="event_preference_sensor_location_summary">Этот датчик обрабатывает события местоположения устройства. Параметры: Расположение, Начало вне местонахождения.</string>
-  <string name="event_preference_sensor_wifi_summary">Этот датчик обрабатывает события Wi-Fi SSID. Параметры: Тип соединения (вокруг, подключен,&#8230;), SSID.</string>
-  <string name="event_preference_sensor_bluetooth_summary">Этот датчик обрабатывает события Bluetooth. Параметры: Тип соединения (вокруг, соединенный,&#8230;), Сканорование по типу устройства (классический, низкой энергии,&#8230;), имя Bluetooth.</string>
+  <string name="event_preference_sensor_wifi_summary">Этот датчик обрабатывает события Wi-Fi SSID. Параметры: Тип соединения (вокруг, подключен,…), SSID.</string>
+  <string name="event_preference_sensor_bluetooth_summary">Этот датчик обрабатывает события Bluetooth. Параметры: Тип соединения (вокруг, соединенный,…), Сканорование по типу устройства (классический, низкой энергии,…), имя Bluetooth.</string>
   <string name="event_preference_sensor_mobile_cells_summary">Этот датчик обрабатывает события подключенных мобильных сот (вышек). Параметры: Сота, Пуск вне соты.</string>
-  <string name="event_preference_sensor_accessories_summary">Этот датчик обрабатывает события подключенных аксессуаров (автомобиль, проводная гарнитура, наушники,&#8230;). Параметры: Тип аксессуаров.</string>
-  <string name="event_preference_sensor_screen_summary">Этот датчик обрабатывает события вкл/выкл экрана. Параметры: Тип события (экран включен, экран выключен,&#8230;), Разблокировка экрана (конец события разблокировать устройство).</string>
+  <string name="event_preference_sensor_accessories_summary">Этот датчик обрабатывает события подключенных аксессуаров (автомобиль, проводная гарнитура, наушники,…). Параметры: Тип аксессуаров.</string>
+  <string name="event_preference_sensor_screen_summary">Этот датчик обрабатывает события вкл/выкл экрана. Параметры: Тип события (экран включен, экран выключен,…), Разблокировка экрана (конец события разблокировать устройство).</string>
   <string name="event_preference_sensor_notification_summary">Этот датчик обрабатывает события уведомления от приложений. Параметры: Приложения, Окончание удаления (удаление уведомления), Постоянного выполнения, Длительность (продолжительность запуска).</string>
   <string name="event_preference_sensor_application_summary">Этот датчик обрабатывает события приложения на переднем плане. Параметры: приложения.</string>
   <string name="event_preference_sensor_orientation_summary">Этот датчик обрабатывает события ориентации устройства. Параметры: Отображение (вверх, вниз), стороны (горизонтальные, стороной вверх), расстояние (рядом, далеко; используется датчик приближения), Не срабатывает для приложений на переднем плане.</string>
@@ -899,7 +899,7 @@
   <string name="editor_activity_targetHelps_restartEvents_title">Перезапуск событий</string>
   <string name="editor_activity_targetHelps_restartEvents_description">Нажмите кнопку для перезапуска событий. Вы должны перезапустить события, если профиль был активирован вручную.</string>
   <string name="editor_activity_targetHelps_activityLog_title">Журнал активности</string>
-  <string name="editor_activity_targetHelps_activityLog_description">Нажмите здесь для открытия журнала. Журнал деятельности старт/пауза/стоп, активация профилей, запуска приложения &#8230;</string>
+  <string name="editor_activity_targetHelps_activityLog_description">Нажмите здесь для открытия журнала. Журнал деятельности старт/пауза/стоп, активация профилей, запуска приложения …</string>
   <string name="editor_activity_targetHelps_newProfileButton_title">Новый профиль</string>
   <string name="editor_activity_targetHelps_newProfileButton_description">Нажмите здесь для добавления нового профиля.</string>
   <string name="editor_activity_targetHelps_deleteAllProfilesButton_title">Удалить все профили</string>
@@ -924,7 +924,7 @@
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Перетащите вверх/вниз для изменения события «Порядок запуска».</string>
   <string name="activator_activity_targetHelps_editor_title">Редактор</string>
   <string name="activator_activity_targetHelps_editor_description_ppp">Нажмите, чтобы открыть Редактор. В Редакторе Вы можете настроить профили и события, изменить настройки приложения и т.д.</string>
-  <string name="activator_activity_targetHelps_editor_description_pp">Нажмите здесь для открытия Редактора. В редакторе можно настроить профили, изменить параметры приложения&#8230;</string>
+  <string name="activator_activity_targetHelps_editor_description_pp">Нажмите здесь для открытия Редактора. В редакторе можно настроить профили, изменить параметры приложения…</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Активировать профиль</string>
   <string name="activator_activity_targetHelps_activateProfile_description">Нажмите здесь для активации профиля.</string>
   <string name="profile_preference_activity_targetHelps_save_title">Сохранить профиль</string>
@@ -1016,9 +1016,10 @@
     <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
     <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
     -->
-  <string name="ringtone_preference_not_set">Not set</string>
-  <string name="ringtone_preference_default_ringtone">Default ringtone</string>
-  <string name="ringtone_preference_default_notification">Default notification</string>
-  <string name="ringtone_preference_default_alarm">Default alarm</string>
+  <string name="ringtone_preference_not_set">Не задано</string>
+  <string name="ringtone_preference_default_ringtone">Мелодия по умолчанию</string>
+  <string name="ringtone_preference_default_notification">Звук уведомлений по умолчанию</string>
+  <string name="ringtone_preference_default_alarm">Мелодия будильника по умолчанию</string>
   <string name="ringtone_preference_none">Без звука</string>
+  <string name="event_preferences_notificationVibrate">Уведомлять вибрацией</string>
 </resources>
