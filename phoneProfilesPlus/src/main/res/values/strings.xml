@@ -1032,8 +1032,8 @@
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
   <string name="important_info_profile_grant_1_howTo_4">2. Extract zip file.</string>
   <string name="important_info_profile_grant_1_howTo_5">How to grant permission WRITE_SECURE_SETTINGS:</string>
-  <string name="important_info_profile_grant_1_howTo_6">1. In phone, go to Settings > About > Software Information and click on Build Number 10 times, you will now have a Developer Optioins entry in Settings.</string>
-  <string name="important_info_profile_grant_1_howTo_7">2. In phone, go to Settings > Developer Options and enable USB Debugging.</string>
+  <string name="important_info_profile_grant_1_howTo_6">1. In phone, go to Settings &gt; About phone &gt; Software Information and click on Build Number 10 times, you will now have a Developer Optioins entry in Settings.</string>
+  <string name="important_info_profile_grant_1_howTo_7">2. In phone, go to Settings &gt; Developer Options and enable USB Debugging.</string>
   <string name="important_info_profile_grant_1_howTo_8">3. In PC, start CMD (Windows), Terminal (Linux, OSX), go to folder In which adb is installed and start this command:</string>
   <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
   <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
