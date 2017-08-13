@@ -365,6 +365,11 @@ public class ImportantInfoActivity extends AppCompatActivity {
                 " Target:Activity\n" +
                 "]");
 
+        TextView infoTextGrant1Command = (TextView)findViewById(R.id.activity_info_notification_dialog_info_grant_1_command);
+        infoTextGrant1Command.setText(getString(R.string.important_info_profile_grant_1_howTo_9a) + " " +
+                                        getPackageName() + " " +
+                                        getString(R.string.important_info_profile_grant_1_howTo_9b));
+
         if (!news) {
             TextView infoTextNews = (TextView) findViewById(R.id.activity_info_notification_dialog_news);
             infoTextNews.setVisibility(View.GONE);

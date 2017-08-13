@@ -232,6 +232,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
+            android:text="@string/important_info_profile_grant"
+            android:id="@+id/activity_info_notification_dialog_info_text50" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
             android:text="@string/important_info_profile_root"
             android:id="@+id/activity_info_notification_dialog_info_text5" />
         <TextView
@@ -246,6 +252,74 @@
             android:paddingBottom="10dp"
             android:text="@string/important_info_profile_interactive"
             android:id="@+id/activity_info_notification_dialog_info_text47" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/important_info_profile_grant_1_howTo_1"
+            android:id="@+id/activity_info_notification_dialog_info_text51"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/important_info_profile_grant_1_howTo_2"
+            android:id="@+id/activity_info_notification_dialog_info_text52" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/important_info_profile_grant_1_howTo_3"
+            android:id="@+id/activity_info_notification_dialog_info_text53" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:fontFamily="monospace"
+            android:text="@string/important_info_profile_grant_1_howTo_11"
+            android:id="@+id/activity_info_notification_dialog_info_text61"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/important_info_profile_grant_1_howTo_4"
+            android:id="@+id/activity_info_notification_dialog_info_text54" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/important_info_profile_grant_1_howTo_5"
+            android:id="@+id/activity_info_notification_dialog_info_text55"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/important_info_profile_grant_1_howTo_6"
+            android:id="@+id/activity_info_notification_dialog_info_text56" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/important_info_profile_grant_1_howTo_7"
+            android:id="@+id/activity_info_notification_dialog_info_text57" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/important_info_profile_grant_1_howTo_8"
+            android:id="@+id/activity_info_notification_dialog_info_text58" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:fontFamily="monospace"
+            android:text="@string/empty_string"
+            android:id="@+id/activity_info_notification_dialog_info_grant_1_command"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/important_info_profile_grant_1_howTo_10"
+            android:id="@+id/activity_info_notification_dialog_info_text60" />
 
         <TextView
             android:layout_width="wrap_content"

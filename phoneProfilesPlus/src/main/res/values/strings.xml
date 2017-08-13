@@ -71,8 +71,8 @@
   <string name="profile_preferences_deviceAirplaneMode">(R) Airplane mode</string>
   <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
   <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
-  <string name="profile_preferences_deviceGPS">(R) GPS</string>
-  <string name="profile_preferences_deviceNFC">(R) NFC</string>
+  <string name="profile_preferences_deviceGPS">(G1)(R) GPS</string>
+  <string name="profile_preferences_deviceNFC">(G1)(R) NFC</string>
   <string name="profile_preferences_deviceScreenTimeout">Screen timeout</string>
   <string name="profile_preferences_deviceBrightness">Screen brightness</string>
   <string name="profile_preferences_deviceWallpaper">Wallpaper</string>
@@ -550,7 +550,7 @@
   <string name="important_info_profile_adaptiveBrightness_root">In Android 6 (Marshmallow), it is not possible to change the level of \"Adaptive brightness\" on non-rooted devices.</string>
   <string name="important_info_profile_wifiScanning_location">In Android 6 (Marshmallow), for Wi-Fi scanning to work, you must enable Location and Wi-Fi scanning in Location settings.</string>
   <string name="important_info_profile_bluetoothScanning_location">In Android 6 (Marshmallow), for Bluetooth LE scanning to work, you must enable Location and Bluetooth scanning in Location settings.</string>
-  <string name="profile_preferences_devicePowerSaveMode">(R) Power save mode</string>
+  <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Power save mode</string>
   <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>
   <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>
   <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>
@@ -1024,4 +1024,18 @@
   <string name="ringtone_preference_default_alarm">Default alarm</string>
   <string name="ringtone_preference_none">None</string>
   <string name="event_preferences_notificationVibrate">Notify by vibration</string>
+  <string name="important_info_profile_grant">Some profile preferences require permission WRITE_SECURE_SETTINGS. ROOT is not required. These preferences are marked with \"(G1)\".</string>
+  <string name="profile_preferences_typesInfoGrant">For more informations look at \"Important information\", section \"Profiles\".</string>
+  <string name="important_info_profile_grant_1_howTo_1">You can grant permission for PhoneProfilesPlus required for profile parameters marked with (GX). This requires PC with installed adb.</string>
+  <string name="important_info_profile_grant_1_howTo_2">If you do not have installed adb in PC:</string>
+  <string name="important_info_profile_grant_1_howTo_3">1. Download SDK Platform Tools from:</string>
+  <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
+  <string name="important_info_profile_grant_1_howTo_4">2. Extract zip file.</string>
+  <string name="important_info_profile_grant_1_howTo_5">How to grant permission WRITE_SECURE_SETTINGS:</string>
+  <string name="important_info_profile_grant_1_howTo_6">1. In phone, go to Settings > About > Software Information and click on Build Number 10 times, you will now have a Developer Optioins entry in Settings.</string>
+  <string name="important_info_profile_grant_1_howTo_7">2. In phone, go to Settings > Developer Options and enable USB Debugging.</string>
+  <string name="important_info_profile_grant_1_howTo_8">3. In PC, start CMD (Windows), Terminal (Linux, OSX), go to folder In which adb is installed and start this command:</string>
+  <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
+  <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
+  <string name="important_info_profile_grant_1_howTo_10">4. After successful execution, all profile parameters with (G1) mark will be enabled.</string>
 </resources>

@@ -354,6 +354,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         InfoDialogPreference infoDialogPreference = (InfoDialogPreference)prefMng.findPreference("prf_pref_prefernceTypesInfo");
         if (infoDialogPreference != null) {
             infoDialogPreference.setInfoText(
+                    getString(R.string.important_info_profile_grant)+"\n"+
+                    getString(R.string.profile_preferences_typesInfoGrant)+"\n\n"+
                     getString(R.string.important_info_profile_root)+"\n\n"+
                     getString(R.string.important_info_profile_settings)+"\n\n"+
                     getString(R.string.important_info_profile_interactive));
