@@ -127,10 +127,10 @@
   <string name="array_pref_value_hu">hu</string>
   <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Not allowed</string>
-  <string name="menu_export">Backup all settings</string>
-  <string name="menu_import">Restore all settings</string>
+  <string name="menu_export">Backup app settings</string>
+  <string name="menu_import">Restore app settings</string>
   <string name="toast_export_ok">All app settings backed up</string>
-  <string name="toast_import_ok">App. data imported</string>
+  <string name="toast_import_ok">All app settings restored</string>
   <string name="import_profiles_alert_title">Restore app settings</string>
   <string name="import_profiles_alert_message">Are you sure?</string>
   <string name="import_profiles_alert_error">Error during restore app settings</string>
@@ -415,7 +415,7 @@
   <string name="altype_runEvents_enable">enable run events</string>
   <string name="altype_applicationStart">application start</string>
   <string name="altype_applicationExit">application exit</string>
-  <string name="altype_dataImport">restore data</string>
+  <string name="altype_dataImport">restore settings</string>
   <string name="array_event_pref_calendarSearchField_location">Location</string>
   <string name="profile_preferences_vibrationOnTouch">Vibration on touch</string>
   <string name="phone_profiles_pref_notificationShowInStatusBar">Show in status bar</string>

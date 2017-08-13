@@ -124,16 +124,16 @@
   <string name="array_pref_value_hu">hu</string>
   <string name="array_pref_value_zh_TW">סינית (טייוואן)</string>
   <string name="profile_preferences_device_not_allowed">לא מורשה</string>
-  <string name="menu_export">Backup all settings</string>
-  <string name="menu_import">Restore all settings</string>
-  <string name="toast_export_ok">All app settings backed up</string>
+  <string name="menu_export">גיבוי כל ההגדרות</string>
+  <string name="menu_import">שחזור כל ההגדרות</string>
+  <string name="toast_export_ok">כל הגדרות היישום גובו</string>
   <string name="toast_import_ok">נתוני היישום יובאו</string>
-  <string name="import_profiles_alert_title">Restore app settings</string>
+  <string name="import_profiles_alert_title">שחזור הגדרות היישום</string>
   <string name="import_profiles_alert_message">את/ה בטוח/ה?</string>
-  <string name="import_profiles_alert_error">Error during restore app settings</string>
-  <string name="export_profiles_alert_title">Backup app settings</string>
+  <string name="import_profiles_alert_error">שגיאה בעת שחזור הגדרות היישום</string>
+  <string name="export_profiles_alert_title">גיבוי הגדרות היישום</string>
   <string name="export_profiles_alert_message">את/ה בטוח/ה?</string>
-  <string name="export_profiles_alert_error">Error during backup app settings</string>
+  <string name="export_profiles_alert_error">שגיאה בעת גיבוי הגדרות היישום</string>
   <string name="profile_preferences_deviceMobileData">נתונים סלולריים</string>
   <string name="profile_preferences_deviceMobileDataPrefs">(I) הגדרות נתונים סלולריים</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">צבעוני</string>
@@ -412,7 +412,7 @@
   <string name="altype_runEvents_enable">אפשרות הפעלת אירועים</string>
   <string name="altype_applicationStart">הפעלת יישומון</string>
   <string name="altype_applicationExit">יציאה מיישומון</string>
-  <string name="altype_dataImport">restore data</string>
+  <string name="altype_dataImport">שחזור נתונים</string>
   <string name="array_event_pref_calendarSearchField_location">מיקום</string>
   <string name="profile_preferences_vibrationOnTouch">רטט בעת מגע</string>
   <string name="phone_profiles_pref_notificationShowInStatusBar">הצגה בשורת המצב</string>
@@ -440,7 +440,7 @@
   <string name="info_notification_text">לחצו כאן להצגת מידע חשוב</string>
   <string name="profile_preferences_deviceWiFiAP">נקודת גישה Wi-Fi</string>
   <string name="array_pref_ringerModeArray_silentL">מצב עדיפות</string>
-  <string name="menu_import_export">Backup/Restore</string>
+  <string name="menu_import_export">גיבוי/שחזור</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 דקות</string>
   <string name="info_notification_event_not_started">האירוע אינו מתחיל כאשר: /n1. ביטלת הפעלת אירועים גורפת (\"רמזור\" אדום) - יש לאפשר זאת בתפריט העורך עם \"אפשרות להפעלת אירועים\"./n2. You have manually activated profile (orange \"traffic light\") - you must restart events. Use Restart events icon in title of Activator, Editor or in notification. Manually activated profile is indicated also with \"[M]\" in front of the profile name. Exception from this is, when event has checked preference \"Ignore manual activation\".\n3. You have disabled event run in event preferences - event preference \"Enable run\" must by checked.\nNote: \"Traffic light\" is in title of Activator and Editor.</string>
   <string name="important_info_profiles">פרופילים</string>
@@ -502,10 +502,10 @@
   <string name="permissions_for_wallpaper_text2">אנא התירו אותן בתיבות דו-שיח הבאות. לאחר מכן ניתן יהיה לבחור טפט מהגלריה.</string>
   <string name="permissions_for_custom_profile_icon_text1">בחירת סמל הפרופיל המותאם אישית דורשת הרשאות מסוימות.</string>
   <string name="permissions_for_custom_profile_icon_text2">אנא התירו אותן בתיבות דו-שיח הבאות. לאחר מכן ניתן יהיה לבחור סמל מהגלריה.</string>
-  <string name="permissions_for_export_app_data_text1">Backup of application settings requires some permissions.</string>
-  <string name="permissions_for_export_app_data_text2">Please grant them in next dialog. Settings will then be backed-up.</string>
-  <string name="permissions_for_import_app_data_text1">Restore of application settings requires some permissions.</string>
-  <string name="permissions_for_import_app_data_text2">Please grant them in next dialog. Data will then be restored.</string>
+  <string name="permissions_for_export_app_data_text1">גיבוי של הגדרות היישום דורש הרשאות מסוימות.</string>
+  <string name="permissions_for_export_app_data_text2">אנא התירו אותן בחלון הבא. לאחר מכן יתבצע גיבוי הנתונים.</string>
+  <string name="permissions_for_import_app_data_text1">שחזור של הגדרות היישום דורש הרשאות מסוימות.</string>
+  <string name="permissions_for_import_app_data_text2">אנא התירו אותן בחלון הבא. לאחר מכן יתבצע שחזור הנתונים.</string>
   <string name="permissions_write_settings_not_allowed_confirm">לא התרת \"שינוי הגדרות מערכת\". לא לבקש זאת שוב בכלל?</string>
   <string name="phone_profiles_pref_category_permissions">הרשאות</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions">שינוי הגדרות מערכת</string>
@@ -1023,5 +1023,5 @@
   <string name="ringtone_preference_default_notification">הודעה ברירת-מחדל</string>
   <string name="ringtone_preference_default_alarm">מעורר ברירת-מחדל</string>
   <string name="ringtone_preference_none">ללא</string>
-  <string name="event_preferences_notificationVibrate">Notify by vibration</string>
+  <string name="event_preferences_notificationVibrate">הודעה באמצעות רטט</string>
 </resources>

@@ -930,7 +930,7 @@ Non chiedere nuovamente?</string>
   <string name="profile_preference_activity_targetHelps_save_title">Salva profilo</string>
   <string name="profile_preference_activity_targetHelps_save_description">Click this to save profile preference changes.</string>
   <string name="event_preference_activity_targetHelps_save_title">Salva evento</string>
-  <string name="event_preference_activity_targetHelps_save_description">Click this for saving event preferences changes.</string>
+  <string name="event_preference_activity_targetHelps_save_description">Click this to save event preference changes.</string>
   <string name="about_application_privacy_policy">Privacy Policy:</string>
   <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">Questo profilo verrà attivato se non è in esecuzione alcun evento.</string>
   <string name="phone_profiles_pref_applicationAlertSummary">Viene utilizzato solo per l\'attivazione manuale del profilo.</string>
