@@ -16,7 +16,7 @@ public class CmdNfc {
       }
   }
 
-  private static boolean run(boolean newValue) {
+  static boolean run(boolean newValue) {
       try {
           INfcAdapter adapter = INfcAdapter.Stub.asInterface(ServiceManager.getService("nfc"));
           return newValue ? adapter.enable() : adapter.disable(true);
