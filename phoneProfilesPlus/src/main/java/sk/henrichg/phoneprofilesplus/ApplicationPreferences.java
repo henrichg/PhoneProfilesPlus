@@ -316,7 +316,7 @@ class ApplicationPreferences {
     }
 
     static int applicationEventOrientationScanInterval(Context context) {
-        return Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, "5"));
+        return Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, "10"));
     }
 
     static String applicationEventOrientationScanInPowerSaveMode(Context context) {

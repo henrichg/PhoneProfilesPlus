@@ -455,7 +455,7 @@
             android:key="applicationEventOrientationScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
-            android:defaultValue="5"
+            android:defaultValue="10"
             henrichg:min="5"
             henrichg:max="60" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
