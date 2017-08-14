@@ -920,6 +920,12 @@ public class GrantPermissionActivity extends Activity {
             dataWrapper.restartEvents(false, true, false);
             finish();
         }
+        else
+        if (grantType == Permissions.GRANT_TYPE_RINGTONE_PREFERENCE) {
+            if (Permissions.ringtonePreference != null)
+                Permissions.ringtonePreference.refreshListView();
+            finish();
+        }
         else {
             // Profile permission
 
