@@ -130,10 +130,10 @@
   <string name="toast_import_ok">כל הגדרות האפליקציה שוחזרו</string>
   <string name="import_profiles_alert_title">שחזור הגדרות היישום</string>
   <string name="import_profiles_alert_message">את/ה בטוח/ה?</string>
-  <string name="import_profiles_alert_error">Error during restore process</string>
+  <string name="import_profiles_alert_error">שגיאה במהלך השחזור</string>
   <string name="export_profiles_alert_title">גיבוי הגדרות היישום</string>
   <string name="export_profiles_alert_message">את/ה בטוח/ה?</string>
-  <string name="export_profiles_alert_error">Error during backup process</string>
+  <string name="export_profiles_alert_error">שגיאה במהלך הגיבוי</string>
   <string name="profile_preferences_deviceMobileData">נתונים סלולריים</string>
   <string name="profile_preferences_deviceMobileDataPrefs">(I) הגדרות נתונים סלולריים</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">צבעוני</string>
