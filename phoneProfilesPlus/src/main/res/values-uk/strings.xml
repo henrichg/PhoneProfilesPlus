@@ -68,8 +68,8 @@
   <string name="profile_preferences_deviceAirplaneMode">(R) Режим польоту</string>
   <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
   <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
-  <string name="profile_preferences_deviceGPS">(R) GPS</string>
-  <string name="profile_preferences_deviceNFC">(R) NFC</string>
+  <string name="profile_preferences_deviceGPS">(G1)(R) GPS</string>
+  <string name="profile_preferences_deviceNFC">(G1)(R) NFC</string>
   <string name="profile_preferences_deviceScreenTimeout">Тайм-аут екрана</string>
   <string name="profile_preferences_deviceBrightness">Яскравість дисплею</string>
   <string name="profile_preferences_deviceWallpaper">Шпалери</string>
@@ -124,16 +124,16 @@
   <string name="array_pref_value_hu">hu</string>
   <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Не дозволено</string>
-  <string name="menu_export">Backup all settings</string>
-  <string name="menu_import">Restore all settings</string>
-  <string name="toast_export_ok">All app settings backed up</string>
-  <string name="toast_import_ok">Іспорт даних завершено</string>
-  <string name="import_profiles_alert_title">Restore app settings</string>
+  <string name="menu_export">Налаштування резерв. копіюв.</string>
+  <string name="menu_import">Налаштування резервн. відновл.</string>
+  <string name="toast_export_ok">Створено резервну копію налаштувань</string>
+  <string name="toast_import_ok">Відновлено рез. копію налаштувань</string>
+  <string name="import_profiles_alert_title">Налаштування резервн. відновл.</string>
   <string name="import_profiles_alert_message">Ви впевнені?</string>
-  <string name="import_profiles_alert_error">Error during restore app settings</string>
-  <string name="export_profiles_alert_title">Backup app settings</string>
+  <string name="import_profiles_alert_error">Помилка в процесі відновлення</string>
+  <string name="export_profiles_alert_title">Налаштування резерв. копіюв.</string>
   <string name="export_profiles_alert_message">Ви впевнені?</string>
-  <string name="export_profiles_alert_error">Error during backup app settings</string>
+  <string name="export_profiles_alert_error">Помилка в процесі резервного копіювання</string>
   <string name="profile_preferences_deviceMobileData">Передача даних</string>
   <string name="profile_preferences_deviceMobileDataPrefs">(I) Налаштування передачі даних</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Кольорова</string>
@@ -215,7 +215,7 @@
   <string name="array_pref_value_180_degrees" formatted="false">180°</string>
   <string name="array_pref_value_270_degrees" formatted="false">270°</string>
   <string name="array_pref_value_auto_rotate">Автоповорот</string>
-  <string name="default_profile_name">Shared profile</string>
+  <string name="default_profile_name">Спільний профіль</string>
   <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string>
   <string name="preference_profile_default_profile">Shared profile</string>
   <string name="volume_pref_dialog_default_profile_chb">Shared profile</string>
@@ -412,7 +412,7 @@
   <string name="altype_runEvents_enable">Дозволити запуск подій</string>
   <string name="altype_applicationStart">Запуск додатку</string>
   <string name="altype_applicationExit">Вийти з додатку</string>
-  <string name="altype_dataImport">restore data</string>
+  <string name="altype_dataImport">restore settings</string>
   <string name="array_event_pref_calendarSearchField_location">Місцезнаходження</string>
   <string name="profile_preferences_vibrationOnTouch">Вібрація при торканні</string>
   <string name="phone_profiles_pref_notificationShowInStatusBar">Показувати в статус-барі</string>
@@ -547,7 +547,7 @@
   <string name="important_info_profile_adaptiveBrightness_root">В Android 6 (Marshmallow) неможливо змінити системний параметр \"Адаптивне регулювання\" без прав суперкористувача.</string>
   <string name="important_info_profile_wifiScanning_location">В Android 6 (Marshmallow) для Wi-Fi сканування повинен бути увімкнений режим \"По всім джерелам\" в налаштуваннях \"Місцезнаходження\".</string>
   <string name="important_info_profile_bluetoothScanning_location">В Android 6 (Marshmallow) для Bluetooth LE сканування повинен бути увімкнений режим \"По всім джерелам\" в налаштуваннях \"Місцезнаходження\".</string>
-  <string name="profile_preferences_devicePowerSaveMode">(R) Режим енергозбереження</string>
+  <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Режим енергозбереження</string>
   <string name="event_preferences_bluetooth_devices_type">Типи сканованих пристроїв</string>
   <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>
   <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>
@@ -951,7 +951,7 @@
   <string name="profile_preferences_lockDevice_deviceAdminSettings_summary_activated">Вже увімкнено</string>
   <string name="lockDevice_screenOff_text">Quick screen off lock</string>
   <string name="event_preferences_calendar_start_before_event">Почати перед подією</string>
-  <string name="event_preferences_startBeforeEvent">Start before the event (sec.)</string>
+  <string name="event_preferences_startBeforeEvent">Start before the event (seconds)</string>
   <string name="event_preferences_category_eventRadioSwitchParameters">Radio parameters</string>
   <string name="event_preference_sensor_radioSwitch_summary">This sensor will start an event by switching radios (on/off). Parameters: Wi-Fi, Bluetooth, Mobile data, GPS, NFC, Airplane mode.</string>
   <string name="event_type_radioSwitch">Radios</string>
@@ -1021,4 +1021,18 @@
   <string name="ringtone_preference_default_alarm">Default alarm</string>
   <string name="ringtone_preference_none">Відсутній</string>
   <string name="event_preferences_notificationVibrate">Notify by vibration</string>
+  <string name="important_info_profile_grant">Деякі параметри профілів потребуть дозволу WRITE_SECURE_SETTINGS. ROOT не вимагається. Ці параметри позначені \"(G1)\".</string>
+  <string name="profile_preferences_typesInfoGrant">Щоб дізнатися більше відвідайте пункт \"Важлива інформація\"у розділі \"Профілі\".</string>
+  <string name="important_info_profile_grant_1_howTo_1">Ви можете надати дозвіл для PhoneProfilesPlus необхідний для параметрів профіля позначених (GX). Цього потребує ПК із встановленим adb.</string>
+  <string name="important_info_profile_grant_1_howTo_2">Якщо на вашому ПК не встановлено adb:</string>
+  <string name="important_info_profile_grant_1_howTo_3">1. Завантажити інструмент платформи SDK із:</string>
+  <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
+  <string name="important_info_profile_grant_1_howTo_4">2. Розпаковка zip файлу.</string>
+  <string name="important_info_profile_grant_1_howTo_5">Як надати дозвіл WRITE_SECURE_SETTINGS:</string>
+  <string name="important_info_profile_grant_1_howTo_6">1. In phone, go to Settings &gt; About phone &gt; Software Information and click on Build Number 10 times, you will now have a Developer Optioins entry in Settings.</string>
+  <string name="important_info_profile_grant_1_howTo_7">2. In phone, go to Settings &gt; Developer Options and enable USB Debugging.</string>
+  <string name="important_info_profile_grant_1_howTo_8">3. In PC, start CMD (Windows), Terminal (Linux, OSX), go to folder In which adb is installed and start this command:</string>
+  <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
+  <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
+  <string name="important_info_profile_grant_1_howTo_10">4. Після успішної розпаковки, всі параметри із позначкою (G1) будуть увімкнені.</string>
 </resources>
