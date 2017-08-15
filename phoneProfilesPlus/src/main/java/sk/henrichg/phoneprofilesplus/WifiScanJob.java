@@ -318,19 +318,18 @@ class WifiScanJob extends Job {
             wifiConfigurationList.clear();
             for (WifiConfiguration device : _wifiConfigurationList)
             {
-                boolean found = false;
-                for (WifiSSIDData _device : wifiConfigurationList)
-                {
-                    //if (_device.bssid.equals(device.BSSID))
-                    if ((_device.ssid != null) && (_device.ssid.equals(device.SSID)))
-                    {
-                        found = true;
-                        break;
+                if (device.SSID != null) {
+                    boolean found = false;
+                    for (WifiSSIDData _device : wifiConfigurationList) {
+                        //if (_device.bssid.equals(device.BSSID))
+                        if ((_device.ssid != null) && (_device.ssid.equals(device.SSID))) {
+                            found = true;
+                            break;
+                        }
                     }
-                }
-                if (!found)
-                {
-                    wifiConfigurationList.add(new WifiSSIDData(device.SSID, device.BSSID, false));
+                    if (!found) {
+                        wifiConfigurationList.add(new WifiSSIDData(device.SSID, device.BSSID, false));
+                    }
                 }
             }
         }
