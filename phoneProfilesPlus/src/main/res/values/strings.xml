@@ -539,7 +539,7 @@
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Bluetooth scan in Power Save mode</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1x interval</string>
   <string name="array_pref_scanInPowerSaveMode_2xInterval">2x interval</string>
-  <string name="array_pref_scanInPowerSaveMode_noScan">Don't scan</string>
+  <string name="array_pref_scanInPowerSaveMode_noScan">Don\'t scan</string>
   <string name="pref_event_battery_power_save_mode">Power save mode</string>
   <string name="event_preferences_battery_power_save_mode">Power save mode</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Power save mode settings</string>
