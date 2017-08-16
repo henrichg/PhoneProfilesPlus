@@ -112,3 +112,36 @@ Android O:
 4. Pouzivat NotificationChannels. Pre hlavnu notifikaciu to uz mam, len je to zapoznamkovane. Treba to spravit pre vsetky notifikacie.
 
 
+----------------------------------
+
+Kratky manual. Rozmyslaj, kam ho das pre uzivatelov.
+
+PPP has two components.
+1. Profiles: specifies how to change the device settings.
+2. Events: specifies when change device settings.
+
+In profiles you can configure change of device settings. For example ringer mode, volumes, ring and notification sounds, radio switch (wi-fi, bluetooth, mobile data, ...), ...
+Profiles are activated. This is one-shot function. Activation of profile is permanent. If you want change device settings, another profile must be activated.
+
+Profile can be activated manually or by event.
+
+For manual profile activation is in PPP Activator (pop up window with list of profiles). Activator can be invoked from PPP home icon, PPP notification, PPP widgets, DashClock widget, and for Samsung edge devices from Edge panel.
+You can also directly activate profile from PPP 4x4 widget, shortcut to profile, Samsung Edge panel.
+
+In events you can configure when will be profile activated. Events has its own start and end. You can configure which profile will be activated on start of event and what will be do in end of event.
+In events are important sensors. With sensors you can configure when will be event started.
+In one event, all sensors must be passed to start event. If one of sensor in running event is not passed, event will be ended (paused).
+Example of sensors:
+- Time parameters - start and end  in specified day of week + time
+- Wi-Fi parameters - start and end by wi-fi SSID (connected, device is around). Around connection type is useful for detect location of device, for example: start event when device is around of my home wi-fi.
+- Bluetooth parameters - similar to Wi-Fi parameters. Useful for car Bluetooth.
+- Location parameters - start and end event by device Location (GPS). Used is Android Location system.
+- Mobile cells parameters - start and end event by connected mobile cells.
+- Call parameters - start event if configured contacts, for example, ringing.
+- Accessories parameters - start event if, for example, headphones are connected to device.
+- NFC parameters - start event via NFC tags.
+
+If profile is activated manually (not by event), all running events are ended (paused). During manual profile activation events are not started. But you can override this behavior by parameter "Ignore manual activation" in event parameters.
+
+Profiles and events are configured in Editor. Editor can be invoked from Activator. In Editor you can add, duplicate, update, delete profiles and events.
+Editor has left side panel. This panel is for change of view in Editor. Use it to switch between profile and event list.
