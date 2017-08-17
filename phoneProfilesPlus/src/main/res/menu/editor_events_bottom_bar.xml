@@ -13,7 +13,7 @@
         app:showAsAction="always"
         android:icon="?attr/actionDeleteAllIcon" />
     <item android:id="@+id/important_info"
-        android:title="@string/info_notification_title"
+        android:title="@string/important_info_activity_title"
         android:orderInCategory="400"
         app:showAsAction="always"
         android:icon="?attr/actionHelpIcon"/>

@@ -17,7 +17,7 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        GlobalGUIRoutines.setTheme(this, true, false);
+        GlobalGUIRoutines.setTheme(this, true, false, false);
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
         dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);

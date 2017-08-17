@@ -153,7 +153,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         //Log.e("$$$ PPP","EditorProfilesActivity.onCreate");
 
-        GlobalGUIRoutines.setTheme(this, false, true);
+        GlobalGUIRoutines.setTheme(this, false, true, true);
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
         super.onCreate(savedInstanceState);

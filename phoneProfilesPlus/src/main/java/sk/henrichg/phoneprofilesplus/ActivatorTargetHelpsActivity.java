@@ -20,7 +20,7 @@ public class ActivatorTargetHelpsActivity extends Activity {
     {
         super.onResume();
 
-        GlobalGUIRoutines.setTheme(this, true, true);
+        GlobalGUIRoutines.setTheme(this, true, true, false);
 
         if (activatorActivity == null) {
             finish();

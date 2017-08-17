@@ -42,7 +42,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity
-        GlobalGUIRoutines.setTheme(this, false, true);
+        GlobalGUIRoutines.setTheme(this, false, true, false);
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
         super.onCreate(savedInstanceState);

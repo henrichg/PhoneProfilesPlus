@@ -62,13 +62,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/rs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/assets" type="java-test-resource" />
@@ -76,6 +69,13 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/shaders" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
@@ -97,6 +97,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="sdk-v1.0.0" level="project" />
     <orderEntry type="library" exported="" name="inputmask-2.3.0" level="project" />
+    <orderEntry type="library" exported="" name="transition-25.4.0" level="project" />
+    <orderEntry type="library" exported="" name="design-25.4.0" level="project" />
     <orderEntry type="library" exported="" name="support-core-ui-25.4.0" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-25.4.0" level="project" />
     <orderEntry type="library" exported="" name="crashlytics-core-2.3.17" level="project" />
@@ -127,8 +129,8 @@
     <orderEntry type="library" exported="" name="hidden-apis" level="project" />
     <orderEntry type="library" exported="" name="hidden-apis_2" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-25.4.0" level="project" />
-    <orderEntry type="library" exported="" name="android-job-1.1.11" level="project" />
     <orderEntry type="library" exported="" name="crashlytics-2.6.8" level="project" />
+    <orderEntry type="library" exported="" name="android-job-1.1.11" level="project" />
     <orderEntry type="library" exported="" name="kotlin-stdlib-1.1.2-3" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-25.4.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-25.4.0" level="project" />

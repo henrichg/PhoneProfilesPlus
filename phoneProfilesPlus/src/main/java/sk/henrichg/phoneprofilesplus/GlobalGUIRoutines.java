@@ -126,12 +126,12 @@ class GlobalGUIRoutines {
         }*/
     }
 
-    public static void setTheme(Activity activity, boolean forPopup, boolean withToolbar)
+    public static void setTheme(Activity activity, boolean forPopup, boolean withToolbar, boolean withDrawerLayout)
     {
-        activity.setTheme(getTheme(forPopup, withToolbar, activity));
+        activity.setTheme(getTheme(forPopup, withToolbar, withDrawerLayout, activity));
     }
 
-    static int getTheme(boolean forPopup, boolean withToolbar, Context context) {
+    static int getTheme(boolean forPopup, boolean withToolbar, boolean withDrawerLayout, Context context) {
         if (ApplicationPreferences.applicationTheme(context).equals("material"))
         {
             if (forPopup)
@@ -143,8 +143,12 @@ class GlobalGUIRoutines {
             }
             else
             {
-                if (withToolbar)
-                    return R.style.Theme_Phoneprofilestheme_withToolbar_material;
+                if (withToolbar) {
+                    if (withDrawerLayout)
+                        return R.style.Theme_Phoneprofilestheme_withToolbar_withDrawerLayout_material;
+                    else
+                        return R.style.Theme_Phoneprofilestheme_withToolbar_material;
+                }
                 else
                     return R.style.Theme_Phoneprofilestheme_material;
             }
@@ -161,8 +165,12 @@ class GlobalGUIRoutines {
             }
             else
             {
-                if (withToolbar)
-                    return R.style.Theme_Phoneprofilestheme_withToolbar_dark;
+                if (withToolbar) {
+                    if (withDrawerLayout)
+                        return R.style.Theme_Phoneprofilestheme_withToolbar_withDrawerLayout_material;
+                    else
+                        return R.style.Theme_Phoneprofilestheme_withToolbar_dark;
+                }
                 else
                     return R.style.Theme_Phoneprofilestheme_dark;
             }
@@ -179,8 +187,12 @@ class GlobalGUIRoutines {
             }
             else
             {
-                if (withToolbar)
-                    return R.style.Theme_Phoneprofilestheme_withToolbar_dlight;
+                if (withToolbar) {
+                    if (withDrawerLayout)
+                        return R.style.Theme_Phoneprofilestheme_withToolbar_withDrawerLayout_material;
+                    else
+                        return R.style.Theme_Phoneprofilestheme_withToolbar_dlight;
+                }
                 else
                     return R.style.Theme_Phoneprofilestheme_dlight;
             }

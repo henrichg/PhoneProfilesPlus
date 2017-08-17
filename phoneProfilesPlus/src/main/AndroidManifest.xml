@@ -239,7 +239,7 @@
         </activity>
         <activity
             android:name=".ImportantInfoActivity"
-            android:label="@string/info_notification_title">
+            android:label="@string/important_info_activity_title">
         </activity>
         <activity
             android:name=".GrantPermissionActivity"

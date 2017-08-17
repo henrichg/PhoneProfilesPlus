@@ -102,9 +102,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            GlobalGUIRoutines.setTheme(this, false, true);
+            GlobalGUIRoutines.setTheme(this, false, true, false);
         else
-            GlobalGUIRoutines.setTheme(this, false, false);
+            GlobalGUIRoutines.setTheme(this, false, false, false);
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
         super.onCreate(savedInstanceState);

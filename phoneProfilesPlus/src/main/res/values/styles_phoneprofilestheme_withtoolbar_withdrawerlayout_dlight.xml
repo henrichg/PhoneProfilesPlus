@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Phoneprofilestheme_withToolbar_withDrawerLayout_dlight" parent="@style/Base.Theme.Phoneprofilestheme_withToolbar_dlight">
+	</style>
+
+</resources>

@@ -40,7 +40,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         instance = this;
 
-        GlobalGUIRoutines.setTheme(this, true, true);
+        GlobalGUIRoutines.setTheme(this, true, true, false);
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
     // set window dimensions ----------------------------------------------------------

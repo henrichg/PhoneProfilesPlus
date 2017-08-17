@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Phoneprofilestheme_withToolbar_withDrawerLayout_material" parent="@style/Base.Theme.Phoneprofilestheme_withToolbar_material">
+	</style>
+
+</resources>

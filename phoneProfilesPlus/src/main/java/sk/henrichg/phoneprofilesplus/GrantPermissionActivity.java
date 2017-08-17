@@ -513,7 +513,7 @@ public class GrantPermissionActivity extends Activity {
 
                 // set theme and language for dialog alert ;-)
                 // not working on Android 2.3.x
-                GlobalGUIRoutines.setTheme(this, true, false);
+                GlobalGUIRoutines.setTheme(this, true, false, false);
                 GlobalGUIRoutines.setLanguage(this.getBaseContext());
 
                 final boolean _showRequestWriteSettings = showRequestWriteSettings;
