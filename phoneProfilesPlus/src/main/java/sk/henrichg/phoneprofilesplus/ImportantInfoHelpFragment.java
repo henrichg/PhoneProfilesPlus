@@ -54,6 +54,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         if (newsLatest) {
             // empty this, for switch off news
+            news = true;
         }
         else {
             // empty this, for switch off news
