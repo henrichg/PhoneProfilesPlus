@@ -328,7 +328,7 @@
   <string name="pref_event_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_connectionType">Connection</string>
   <string name="array_event_pref_wifiConnectionType_connected">Connected</string>
-  <string name="array_event_pref_wifiConnectionType_inFront">Nearby</string>
+  <string name="array_event_pref_wifiConnectionType_inFront">Nearby (within scanning range)</string>
   <string name="event_preferences_wifi_connection_type">Connection type</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Wi-Fi scan interval (minutes)</string>
   <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Enable Wi-Fi scanning</string>
@@ -358,7 +358,7 @@
   <string name="pref_event_bluetooth_adapterName">BT name</string>
   <string name="pref_event_bluetooth_connectionType">Connection</string>
   <string name="array_event_pref_bluetoothConnectionType_connected">Connected</string>
-  <string name="array_event_pref_bluetoothConnectionType_inFront">Nearby</string>
+  <string name="array_event_pref_bluetoothConnectionType_inFront">Nearby (within scanning range)</string>
   <string name="event_preferences_bluetooth_connection_type">Connection type</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Bluetooth scan interval (minutes)</string>
   <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Enable Bluetooth scanning</string>
@@ -392,9 +392,9 @@
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Hide profile name (widget)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Restart events</string>
   <string name="array_event_pref_wifiConnectionType_notConnected">Not connected</string>
-  <string name="array_event_pref_wifiConnectionType_notInFront">Not nearby</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">Not nearby (not within scanning range)</string>
   <string name="array_event_pref_bluetoothConnectionType_notConnected">Not connected</string>
-  <string name="array_event_pref_bluetoothConnectionType_notInFront">Not nearby</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">Not nearby (not within scanning range)</string>
   <string name="event_preferences_call_contact_groups">Contact groups</string>
   <string name="event_preferences_sms_contact_groups">Contact groups</string>
   <string name="event_preferences_error">Not all underlined parameters are set!</string>
