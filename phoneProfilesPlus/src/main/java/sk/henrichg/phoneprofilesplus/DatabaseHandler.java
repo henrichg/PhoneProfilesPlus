@@ -30,7 +30,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1910;
+    private static final int DATABASE_VERSION = 1920;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -253,6 +253,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_RADIO_SWITCH_NFC = "radioSwitchNFC";
     private static final String KEY_E_RADIO_SWITCH_AIRPLANE_MODE = "radioSwitchAirplaneMode";
     private static final String KEY_E_NOTIFICATION_VIBRATE = "notificationVibrate";
+    private static final String KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -527,7 +528,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_RADIO_SWITCH_GPS + " INTEGER,"
                 + KEY_E_RADIO_SWITCH_NFC + " INTEGER,"
                 + KEY_E_RADIO_SWITCH_AIRPLANE_MODE + " INTEGER,"
-                + KEY_E_NOTIFICATION_VIBRATE + " INTEGER"
+                + KEY_E_NOTIFICATION_VIBRATE + " INTEGER,"
+                + KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -2051,6 +2053,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_VIBRATE + "=0");
         }
 
+        if (oldVersion < 1920)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + "=0");
+        }
+
+
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -3120,6 +3132,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0); // event is in delay after pause
             values.put(KEY_E_START_STATUS_TIME, event._startStatusTime); // time for status RUNNING
             values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime); // time for change status from RUNNING to PAUSE
+            values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0); // no pause event by manual profile activation
 
             db.beginTransaction();
 
@@ -3166,7 +3179,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             KEY_E_DELAY_END,
                             KEY_E_IS_IN_DELAY_END,
                             KEY_E_START_STATUS_TIME,
-                            KEY_E_PAUSE_STATUS_TIME
+                            KEY_E_PAUSE_STATUS_TIME,
+                            KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION
                     },
                     KEY_E_ID + "=?",
                     new String[]{String.valueOf(event_id)}, null, null, null, null);
@@ -3197,7 +3211,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_END))) == 1,
                             Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_START_STATUS_TIME))),
                             Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_PAUSE_STATUS_TIME))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE))) == 1
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE))) == 1,
+                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION))) == 1
                     );
                 }
 
@@ -3239,7 +3254,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     KEY_E_IS_IN_DELAY_END + "," +
                     KEY_E_START_STATUS_TIME + "," +
                     KEY_E_PAUSE_STATUS_TIME + "," +
-                    KEY_E_START_ORDER +
+                    KEY_E_START_ORDER + "," +
+                    KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION +
                     " FROM " + TABLE_EVENTS +
                     " ORDER BY " + KEY_E_ID;
 
@@ -3272,6 +3288,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     event._startStatusTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_START_STATUS_TIME)));
                     event._pauseStatusTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_PAUSE_STATUS_TIME)));
                     event._startOrder = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_START_ORDER)));
+                    event._noPauseByManualActivation = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION))) == 1;
                     event.createEventPreferences();
                     getEventPreferences(event, db);
                     // Adding contact to list
@@ -3314,6 +3331,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0);
             values.put(KEY_E_START_STATUS_TIME, event._startStatusTime);
             values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime);
+            values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0);
 
             db.beginTransaction();
 
@@ -7287,6 +7305,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                         if (exportedDBObj.getVersion() < 1910) {
                                             values.put(KEY_E_NOTIFICATION_VIBRATE, 0);
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 1920) {
+                                            values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, 0);
                                         }
 
                                         // Inserting Row do db z SQLiteOpenHelper

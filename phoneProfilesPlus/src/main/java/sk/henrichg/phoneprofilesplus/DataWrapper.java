@@ -768,23 +768,26 @@ public class DataWrapper {
             {
                 int status = event.getStatusFromDB(this);
 
-                if (status == Event.ESTATUS_RUNNING)
+                if ((status == Event.ESTATUS_RUNNING) && (!event._noPauseByManualActivation))
                     event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, true, null, false);
 
                 setEventBlocked(event, false);
                 if (blockEvents && (status == Event.ESTATUS_RUNNING) && event._forceRun)
                 {
                     // block only running forcerun events
-                    setEventBlocked(event, true);
+                    if (!event._noPauseByManualActivation)
+                        setEventBlocked(event, true);
                 }
 
-                // for "push" events, set startTime to 0
-                event._eventPreferencesSMS._startTime = 0;
-                getDatabaseHandler().updateSMSStartTime(event);
-                event._eventPreferencesNotification._startTime = 0;
-                getDatabaseHandler().updateNotificationStartTime(event);
-                event._eventPreferencesNFC._startTime = 0;
-                getDatabaseHandler().updateNFCStartTime(event);
+                if (!event._noPauseByManualActivation) {
+                    // for "push" events, set startTime to 0
+                    event._eventPreferencesSMS._startTime = 0;
+                    getDatabaseHandler().updateSMSStartTime(event);
+                    event._eventPreferencesNotification._startTime = 0;
+                    getDatabaseHandler().updateNotificationStartTime(event);
+                    event._eventPreferencesNFC._startTime = 0;
+                    getDatabaseHandler().updateNFCStartTime(event);
+                }
             }
         }
 
@@ -908,6 +911,7 @@ public class DataWrapper {
                 false,
                 0,
                 0,
+                false,
                 false
          );
     }
@@ -1047,6 +1051,7 @@ public class DataWrapper {
                 event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
                 event._priority = Event.EPRIORITY_HIGHEST;
                 event._forceRun = true;
+                event._noPauseByManualActivation = false;
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._monday = true;
                 event._eventPreferencesTime._tuesday = true;
@@ -1079,6 +1084,7 @@ public class DataWrapper {
                 event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
                 event._priority = Event.EPRIORITY_HIGHEST;
                 event._forceRun = true;
+                event._noPauseByManualActivation = false;
                 event._eventPreferencesBattery._enabled = true;
                 event._eventPreferencesBattery._levelLow = 0;
                 event._eventPreferencesBattery._levelHight = 10;

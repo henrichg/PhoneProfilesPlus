@@ -48,6 +48,13 @@
             android:defaultValue="false"
             android:summary="@string/event_preferences_ForceRun_summary"
             android:widgetLayout="@layout/mp_preference_switch" />
+        <CheckBoxPreference
+            android:key="eventNoPauseByManualActivation"
+            android:title="@string/event_preferences_noPauseByManualActivation"
+            android:defaultValue="false"
+            android:summary="@string/event_preferences_noPauseByManualActivation_summary"
+            android:dependency="eventForceRun"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <PreferenceScreen
             android:title="@string/event_preferences_category_startofeventOthers"
             android:key="eventStartOthersCategory"
