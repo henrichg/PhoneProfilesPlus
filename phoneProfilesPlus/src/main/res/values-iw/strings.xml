@@ -325,7 +325,7 @@
   <string name="pref_event_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_connectionType">חיבור</string>
   <string name="array_event_pref_wifiConnectionType_connected">מחובר</string>
-  <string name="array_event_pref_wifiConnectionType_inFront">מסביב</string>
+  <string name="array_event_pref_wifiConnectionType_inFront">בקרבת מקום (בטווח סריקה)</string>
   <string name="event_preferences_wifi_connection_type">סוג חיבור</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">מרווח זמן הסריקה Wi-Fi (דקות)</string>
   <string name="phone_profiles_pref_applicationEventWifiEnableWifi">הפעלת סריקת Wi-Fi</string>
@@ -355,7 +355,7 @@
   <string name="pref_event_bluetooth_adapterName">שם BT</string>
   <string name="pref_event_bluetooth_connectionType">חיבור</string>
   <string name="array_event_pref_bluetoothConnectionType_connected">מחובר</string>
-  <string name="array_event_pref_bluetoothConnectionType_inFront">מסביב</string>
+  <string name="array_event_pref_bluetoothConnectionType_inFront">בקרבת מקום (בטווח סריקה)</string>
   <string name="event_preferences_bluetooth_connection_type">סוג חיבור</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">מרווח זמן הסריקה Bluetooth (דקות)</string>
   <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">הפעלת סריקת Bluetooth</string>
@@ -389,9 +389,9 @@
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">הסתרת שם הפרופיל (Widget)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">הפעלת אירועים מחדש</string>
   <string name="array_event_pref_wifiConnectionType_notConnected">לא מחובר</string>
-  <string name="array_event_pref_wifiConnectionType_notInFront">לא בסביבה</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">לא קרוב (לא בטווח סריקה)</string>
   <string name="array_event_pref_bluetoothConnectionType_notConnected">לא מחובר</string>
-  <string name="array_event_pref_bluetoothConnectionType_notInFront">לא בסביבה</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">לא קרוב (לא בטווח סריקה)</string>
   <string name="event_preferences_call_contact_groups">קבוצות אנשי קשר</string>
   <string name="event_preferences_sms_contact_groups">קבוצות אנשי קשר</string>
   <string name="event_preferences_error">לא כל המאפיינים המסומנים בקו תחתון מוגדרים!</string>
@@ -1038,4 +1038,29 @@
   <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
   <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="important_info_profile_grant_1_howTo_10">4. לאחר ביצוע מוצלח, כל הפרמטרים של הפרופיל המסומנים (G1) יהיו מאופשרים.</string>
+  <string name="important_info_activity_title">מידע חשוב</string>
+  <string name="important_info_quick_guide_tab">מדריך מהיר</string>
+  <string name="important_info_important_info_tab">מידע חשוב</string>
+  <string name="important_info_quick_guide_1">PhoneProfilesPlus (PPP) כולל שני רכיבים:</string>
+  <string name="important_info_quick_guide_2">1. <b>פרופילים:</b> מפרט כיצד לשנות את הגדרות המכשיר.</string>
+  <string name="important_info_quick_guide_3">2. <b>אירועים:</b> מפרט מתי לשנות את הגדרות המכשיר.</string>
+  <string name="important_info_quick_guide_profiles_1"><b>פרופילים:</b> מאפשר לך לקבוע תצורה של הגדרות המכשיר כגון מצב צלצול, עוצמת קול, צלילי צלצול והודעות, הפעלה וכיבוי של רדיו (Wi-Fi, Bluetooth, נתונים, וכו\').
+כאשר מופעל פרופיל, נקבעות ההגדרות המתאימות. אם ברצונך לשנות הגדרות, יש להפעיל פרופיל אחר.</string>
+  <string name="important_info_quick_guide_profiles_2">ניתן להפעיל פרופילים באופן ידני או על-ידי אירוע.</string>
+  <string name="important_info_quick_guide_profiles_3">באפשרותך להפעיל באופן ידני פרופיל דרך Activator PPP (חלון מוקפץ עם רשימת פרופילים זמינים). ניתן להציג את ה-Activator באמצעות סמל הבית של PPP, הודעות PPP, ווידג\'טים של PPP, רכיב widget מסוג DashClock, ובמכשירי סמסונג EDGE, מחלונית EDGE. באפשרותך להפעיל פרופיל ישירות באמצעות ווידג\'ט PPP 4x4, באמצעות קיצור דרך לפרופיל או במכשירי סמסונג EDGE, באמצעות חלונית EDGE.</string>
+  <string name="important_info_quick_guide_events_1"><b>אירועים:</b> מאפשרים לך לקבוע את עיתוי הפעלת פרופיל. לאירועים יש התחלה וסיום. ניתן להגדיר מה יקרה בתחילת אירוע ומה יקרה בסיום האירוע.</string>
+  <string name="important_info_quick_guide_events_2">אירועים מכילים פרמטרים חשובים של תצורת חיישנים, אשר חייבים להתקיים כדי להתחיל אירוע. אם לא כל החיישנים עוברים, האירוע יסתיים (השהיה).</string>
+  <string name="important_info_quick_guide_sensors_1">דוגמאות חיישן:</string>
+  <string name="important_info_quick_guide_sensors_2"><b>• פרמטרי זמן:</b> התחלה וסיום ביום מסוים בשבוע, או במועד מוגדר.</string>
+  <string name="important_info_quick_guide_sensors_3"><b>• Wi-Fi parameters:</b> Start and End by Wi-Fi SSID (connected, device nearby). The Nearby feature is useful to detect device location. For example: Start event when the device is within scanning range of your home Wi-Fi network.</string>
+  <string name="important_info_quick_guide_sensors_4"><b>• Bluetooth parameters:</b> Similar to Wi-Fi parameters. Useful for car Bluetooth.</string>
+  <string name="important_info_quick_guide_sensors_5"><b>• Location parameters:</b> Start and End by device location (GPS). You must enable Location Services in device system settings.</string>
+  <string name="important_info_quick_guide_sensors_6"><b>• Mobile cell parameters:</b> Start and End by connection to or disconnection from mobile cell towers.</string>
+  <string name="important_info_quick_guide_sensors_7"><b>• Call parameters:</b> Start and End via configured contacts. For example, when ringing.</string>
+  <string name="important_info_quick_guide_sensors_8"><b>• Accessories parameters:</b> Start an event when, for example, headphones are connected.</string>
+  <string name="important_info_quick_guide_sensors_9"><b>• NFC parameters:</b> Start an event via NFC tags.</string>
+  <string name="important_info_quick_guide_events_3">If you manually activate a profile (not by an event), all running events are ended (paused). Events will not start during manual profile activation. However, you can override this behavior via the \"Ignore manual activation\" setting in event parameters.</string>
+  <string name="important_info_quick_guide_editor_1">Profiles and Events are configured in the Editor, which you can invoke through the Activator. Within the Editor you can add, duplicate, update, and delete profiles and events. The Editor has a left side panel, which allows you to change the Editor view. Use it to switch between profile and event lists.</string>
+  <string name="event_preferences_noPauseByManualActivation">Do not pause by manual activation</string>
+  <string name="event_preferences_noPauseByManualActivation_summary">Do not pause this event by manual profile activation when is running</string>
 </resources>
