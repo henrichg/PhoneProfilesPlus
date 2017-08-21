@@ -673,7 +673,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         if (requestCode == RESULT_LOCATION_SYSTEM_SETTINGS) {
             final boolean enabled = PhoneProfilesService.isLocationEnabled(getActivity().getApplicationContext());
             Preference preference = prefMng.findPreference(PREF_LOCATION_EDITOR);
-            preference.setEnabled(enabled);
+            if (preference != null)
+                preference.setEnabled(enabled);
         }
 
         if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {
