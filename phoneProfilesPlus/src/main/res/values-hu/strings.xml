@@ -1057,6 +1057,6 @@
   <string name="important_info_quick_guide_sensors_9"><b>• NFC paraméterek:</b> Esemény indítása ha NFC címkét erzékel.</string>
   <string name="important_info_quick_guide_events_3">Ha manuálisan aktiválja a profilt (nem az esemény által), minden futó eseményt leallít (felfüggesztett). Események nem indulnak addig amíg manuális profil aktiválva van. Azonban felülírhatja ezt a viselkedést a \"Kézi aktiválás figyelmen kívül hagyása\" paraméter beállításával az eseményekben.</string>
   <string name="important_info_quick_guide_editor_1">Profilok és Események beállítása, a Szerkesztőben, amire a Profilokon keresztül hivatkozhat. A szerkesztőben hozzáadhat, másolhat, frissíthet és törölhet profilokat és eseményeket. A szerkesztő a bal oldali panelen van, amely lehetővé teszi, hogy változtathasson a szerkesztő nézeten. Használhatja ezt a Profilok és Események listájának átváltásához.</string>
-  <string name="event_preferences_noPauseByManualActivation">Do not pause by manual activation</string>
+  <string name="event_preferences_noPauseByManualActivation">Nem szüneteltethető ha kézzel aktiválta</string>
   <string name="event_preferences_noPauseByManualActivation_summary">Do not pause this event by manual profile activation when is running</string>
 </resources>

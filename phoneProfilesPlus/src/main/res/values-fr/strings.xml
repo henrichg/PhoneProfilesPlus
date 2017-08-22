@@ -1058,6 +1058,6 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="important_info_quick_guide_sensors_9"><b>• NFC paramètres :</b> Démarrer un événement via les tags NFC.</string>
   <string name="important_info_quick_guide_events_3">Si vous activez manuellement un profil (et non par un événement), tous les événements en cours sont arrêtés (en pause). Événements ne démarreront pas suite à l’activation manuelle de profil. Toutefois, vous pouvez surclasser ce comportement par le paramètre « Ignorer l’activation manuelle » dans les paramètres de l’événement.</string>
   <string name="important_info_quick_guide_editor_1">Profils et événements sont configurés dans l’éditeur que vous pouvez appeler par le biais de l’activateur. Dans l’éditeur, vous pouvez ajouter, dupliquer, mettre à jour et supprimer des profils et des événements. L’éditeur a un panneau latéral gauche, qui vous permet de modifier l’affichage de l’éditeur. Il permet de commuter entre les profils et les événements.</string>
-  <string name="event_preferences_noPauseByManualActivation">Do not pause by manual activation</string>
-  <string name="event_preferences_noPauseByManualActivation_summary">Do not pause this event by manual profile activation when is running</string>
+  <string name="event_preferences_noPauseByManualActivation">Ne pas mettre en pause lors de l\'activation manuelle</string>
+  <string name="event_preferences_noPauseByManualActivation_summary">Ne pas mettre en pause cet événement lors de l\'activation manuelle d\'un profil</string>
 </resources>

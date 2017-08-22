@@ -1057,6 +1057,6 @@
   <string name="important_info_quick_guide_sensors_9"><b>• Parametry NFC:</b> Start události pomocí NFC Tagů.</string>
   <string name="important_info_quick_guide_events_3">Pokud jste manuálně aktivovali profil (ne událost), všechny běžící události se ukončí (pozastaví). Události se nespustí během manuálně aktivovaného profilu. Nicméně můžete přepsat toto chování prostřednictvím parametru \"Ignoruj manuální aktivaci\" v nastaveních události.</string>
   <string name="important_info_quick_guide_editor_1">Profily a události jsou nakonfigurovány v Editoru, který si můžete vyvolat přes Aktivátor. V Editoru můžete přidat, duplikovat, aktualizovat a odstranit profily a události. Editor má levý boční panel, který vám umožní změnit pohled Editoru. Použijte ho na přepínání mezi seznamy profilů a událostí.</string>
-  <string name="event_preferences_noPauseByManualActivation">Do not pause by manual activation</string>
-  <string name="event_preferences_noPauseByManualActivation_summary">Do not pause this event by manual profile activation when is running</string>
+  <string name="event_preferences_noPauseByManualActivation">Nezastav manuální aktivací</string>
+  <string name="event_preferences_noPauseByManualActivation_summary">Nezastavujte tuto událost ruční aktivací profilu, pokud je spuštěna</string>
 </resources>

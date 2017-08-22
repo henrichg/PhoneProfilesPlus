@@ -1057,6 +1057,6 @@
   <string name="important_info_quick_guide_sensors_9"><b>• NFC parameters:</b> Een event via NFC tags starten.</string>
   <string name="important_info_quick_guide_events_3">Als je handmatig een profiel activeert (niet door een event) stoppen alle events (onderbroken). Events starten niet bij handmatig profiel activeren. Je kunt deze instelling via de \"Handmatig activeren wijzigen bij de event parameters.</string>
   <string name="important_info_quick_guide_editor_1">Profielen en evenementen configureer je in de Editor die je via de Activator kunt starten. Binnen de Editor kun je toevoegen, dupliceren, bijwerken en verwijderen van profielen en evenementen. De Editor heeft links een zijpaneel waarmee je de weergave van de Editor kunt wijzigen. Gebruik dit om te schakelen tussen de profiel- en eventlijsten.</string>
-  <string name="event_preferences_noPauseByManualActivation">Do not pause by manual activation</string>
-  <string name="event_preferences_noPauseByManualActivation_summary">Do not pause this event by manual profile activation when is running</string>
+  <string name="event_preferences_noPauseByManualActivation">Pauzeer niet door handmatige activering</string>
+  <string name="event_preferences_noPauseByManualActivation_summary">Pauzeer dit event niet door handmatige profiel activering tijdens uitvoeren</string>
 </resources>
