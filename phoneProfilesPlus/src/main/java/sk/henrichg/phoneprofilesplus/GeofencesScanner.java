@@ -219,6 +219,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         // application will never receive updates faster than this value.
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
 
+        // batched location (better for Android 8.0)
+        mLocationRequest.setMaxWaitTime(UPDATE_INTERVAL_IN_MILLISECONDS * 4);
+
         if ((!ApplicationPreferences.applicationEventLocationUseGPS(context)) || powerSaveMode) {
             //Log.d("GeofenceScanner.createLocationRequest","PRIORITY_BALANCED_POWER_ACCURACY");
             mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
