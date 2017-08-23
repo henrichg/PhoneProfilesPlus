@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="@string/profile_preferences_typesInfoGrant"
+            android:text="@string/important_info_profile_grant_lookSectionProfiles"
             android:id="@+id/activity_info_notification_dialog_info_text50_profiles_news" />
 
         <!-- SYSTEM -->
