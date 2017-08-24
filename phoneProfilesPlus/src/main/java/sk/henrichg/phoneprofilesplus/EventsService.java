@@ -288,10 +288,6 @@ public class EventsService extends WakefulIntentService {
         PPApplication.logE("@@@ EventsService.onHandleIntent","forDelayStartAlarm="+forDelayStartAlarm);
         PPApplication.logE("@@@ EventsService.onHandleIntent","forDelayEndAlarm="+forDelayEndAlarm);
 
-        // get running events count
-        List<EventTimeline> _etl = dataWrapper.getEventTimelineList();
-        int runningEventCount0 = _etl.size();
-
         // no refresh notification and widgets
         ActivateProfileHelper.lockRefresh = true;
 
@@ -299,6 +295,8 @@ public class EventsService extends WakefulIntentService {
         //mergedProfiles = new ArrayList<>();
 
         //Profile activatedProfile0 = null;
+
+        int runningEventCount0 = 0;
 
         if (isRestart)
         {
@@ -319,6 +317,11 @@ public class EventsService extends WakefulIntentService {
                     // pauzuj aj ked uz je zapauznuty
                     dataWrapper.doEventService(_event, true, true, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, broadcastReceiverType);
             }
+
+            // get running events count
+            List<EventTimeline> _etl = dataWrapper.getEventTimelineList();
+            runningEventCount0 = _etl.size();
+
             // 2. start events
             dataWrapper.sortEventsByStartOrderAsc();
             for (Event _event : eventList)
@@ -355,6 +358,11 @@ public class EventsService extends WakefulIntentService {
                     //noinspection ConstantConditions
                     dataWrapper.doEventService(_event, true, false, interactive, forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile, broadcastReceiverType);
             }
+
+            // get running events count
+            List<EventTimeline> _etl = dataWrapper.getEventTimelineList();
+            runningEventCount0 = _etl.size();
+
             //2. start events
             dataWrapper.sortEventsByStartOrderAsc();
             for (Event _event : eventList)
