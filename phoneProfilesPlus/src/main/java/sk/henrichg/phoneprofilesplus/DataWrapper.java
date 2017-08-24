@@ -936,11 +936,6 @@ public class DataWrapper {
     }
 
     Event getPredefinedEvent(int index, boolean saveToDB) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-
-        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-
         Event event;
 
         switch (index) {
@@ -955,18 +950,8 @@ public class DataWrapper {
                 event._eventPreferencesTime._wednesday = true;
                 event._eventPreferencesTime._thursday = true;
                 event._eventPreferencesTime._friday = true;
-                //calendar.clear(Calendar.DATE);
-                calendar.set(Calendar.HOUR_OF_DAY, 8);
-                calendar.set(Calendar.MINUTE, 0);
-                //calendar.set(Calendar.SECOND, 0);
-                //calendar.set(Calendar.MILLISECOND, 0);
-                event._eventPreferencesTime._startTime = calendar.getTimeInMillis() + gmtOffset;
-                ///calendar.clear(Calendar.DATE);
-                calendar.set(Calendar.HOUR_OF_DAY, 23);
-                calendar.set(Calendar.MINUTE, 0);
-                //calendar.set(Calendar.SECOND, 0);
-                //calendar.set(Calendar.MILLISECOND, 0);
-                event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
+                event._eventPreferencesTime._startTime = 8 * 60;
+                event._eventPreferencesTime._endTime = 23 * 60;
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 1:
@@ -977,18 +962,8 @@ public class DataWrapper {
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._saturday = true;
                 event._eventPreferencesTime._sunday = true;
-                //calendar.clear(Calendar.DATE);
-                calendar.set(Calendar.HOUR_OF_DAY, 8);
-                calendar.set(Calendar.MINUTE, 0);
-                //calendar.set(Calendar.SECOND, 0);
-                //calendar.set(Calendar.MILLISECOND, 0);
-                event._eventPreferencesTime._startTime = calendar.getTimeInMillis() + gmtOffset;
-                //calendar.clear(Calendar.DATE);
-                calendar.set(Calendar.HOUR_OF_DAY, 23);
-                calendar.set(Calendar.MINUTE, 0);
-                //calendar.set(Calendar.SECOND, 0);
-                //calendar.set(Calendar.MILLISECOND, 0);
-                event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
+                event._eventPreferencesTime._startTime = 8 * 60;
+                event._eventPreferencesTime._endTime = 23 * 60;
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 2:
@@ -1003,18 +978,8 @@ public class DataWrapper {
                 event._eventPreferencesTime._wednesday = true;
                 event._eventPreferencesTime._thursday = true;
                 event._eventPreferencesTime._friday = true;
-                //calendar.clear(Calendar.DATE);
-                calendar.set(Calendar.HOUR_OF_DAY, 9);
-                calendar.set(Calendar.MINUTE, 30);
-                //calendar.set(Calendar.SECOND, 0);
-                //calendar.set(Calendar.MILLISECOND, 0);
-                event._eventPreferencesTime._startTime = calendar.getTimeInMillis() + gmtOffset;
-                //calendar.clear(Calendar.DATE);
-                calendar.set(Calendar.HOUR_OF_DAY, 17);
-                calendar.set(Calendar.MINUTE, 30);
-                //calendar.set(Calendar.SECOND, 0);
-                //calendar.set(Calendar.MILLISECOND, 0);
-                event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
+                event._eventPreferencesTime._startTime = 9 * 60 + 30;
+                event._eventPreferencesTime._endTime = 17 * 60 + 30;
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 3:
@@ -1030,18 +995,8 @@ public class DataWrapper {
                 event._eventPreferencesTime._friday = true;
                 event._eventPreferencesTime._saturday = true;
                 event._eventPreferencesTime._sunday = true;
-                //calendar.clear(Calendar.DATE);
-                calendar.set(Calendar.HOUR_OF_DAY, 23);
-                calendar.set(Calendar.MINUTE, 0);
-                //calendar.set(Calendar.SECOND, 0);
-                //calendar.set(Calendar.MILLISECOND, 0);
-                event._eventPreferencesTime._startTime = calendar.getTimeInMillis() + gmtOffset;
-                //calendar.clear(Calendar.DATE);
-                calendar.set(Calendar.HOUR_OF_DAY, 8);
-                calendar.set(Calendar.MINUTE, 0);
-                //calendar.set(Calendar.SECOND, 0);
-                //calendar.set(Calendar.MILLISECOND, 0);
-                event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
+                event._eventPreferencesTime._startTime = 23 * 60;
+                event._eventPreferencesTime._endTime = 8 * 60;
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 4:
@@ -1060,18 +1015,8 @@ public class DataWrapper {
                 event._eventPreferencesTime._friday = true;
                 event._eventPreferencesTime._saturday = true;
                 event._eventPreferencesTime._sunday = true;
-                //calendar.clear(Calendar.DATE);
-                calendar.set(Calendar.HOUR_OF_DAY, 23);
-                calendar.set(Calendar.MINUTE, 0);
-                //calendar.set(Calendar.SECOND, 0);
-                //calendar.set(Calendar.MILLISECOND, 0);
-                event._eventPreferencesTime._startTime = calendar.getTimeInMillis() + gmtOffset;
-                //calendar.clear(Calendar.DATE);
-                calendar.set(Calendar.HOUR_OF_DAY, 8);
-                calendar.set(Calendar.MINUTE, 0);
-                //calendar.set(Calendar.SECOND, 0);
-                //calendar.set(Calendar.MILLISECOND, 0);
-                event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
+                event._eventPreferencesTime._startTime = 23 * 60;
+                event._eventPreferencesTime._endTime = 8 * 60;
                 //event._eventPreferencesTime._useEndTime = true;
                 event._eventPreferencesCall._enabled = true;
                 event._eventPreferencesCall._callEvent = EventPreferencesCall.CALL_EVENT_RINGING;

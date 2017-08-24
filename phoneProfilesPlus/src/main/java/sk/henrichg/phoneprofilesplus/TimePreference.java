@@ -21,7 +21,8 @@ public class TimePreference extends DialogPreference {
     
     private Context context;
     private AttributeSet attributeSet;
-    private Calendar calendar;
+    //private Calendar calendar;
+    private int value;
     private MaterialDialog mDialog;
     private TimePicker picker = null;
 
@@ -34,7 +35,8 @@ public class TimePreference extends DialogPreference {
         setPositiveButtonText(android.R.string.ok);
         setNegativeButtonText(android.R.string.cancel);
 
-        calendar = Calendar.getInstance();
+        Calendar now = Calendar.getInstance();
+        value = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE);
     }
 
     protected void showDialog(Bundle state) {
@@ -52,13 +54,11 @@ public class TimePreference extends DialogPreference {
                             picker.clearFocus();
 
                             //noinspection deprecation
-                            calendar.set(Calendar.HOUR_OF_DAY, picker.getCurrentHour());
-                            //noinspection deprecation
-                            calendar.set(Calendar.MINUTE, picker.getCurrentMinute());
+                            value = picker.getCurrentHour() * 60 + picker.getCurrentMinute();
 
                             setSummary(getSummary());
-                            if (callChangeListener(calendar.getTimeInMillis())) {
-                                persistLong(calendar.getTimeInMillis());
+                            if (callChangeListener(value)) {
+                                persistInt(value);
                                 notifyChanged();
                             }
                         }
@@ -104,9 +104,9 @@ public class TimePreference extends DialogPreference {
     protected void onBindDialogView(View v) {
         super.onBindDialogView(v);
         //noinspection deprecation
-        picker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
+        picker.setCurrentHour(value / 60);
         //noinspection deprecation
-        picker.setCurrentMinute(calendar.get(Calendar.MINUTE));
+        picker.setCurrentMinute(value % 60);
     }
 
     @Override
@@ -117,17 +117,18 @@ public class TimePreference extends DialogPreference {
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
 
+        Calendar now = Calendar.getInstance();
         if (restoreValue) {
             if (defaultValue == null) {
-                calendar.setTimeInMillis(getPersistedLong(System.currentTimeMillis()));
+                value = getPersistedInt(now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE));
             } else {
-                calendar.setTimeInMillis(Long.parseLong(getPersistedString((String) defaultValue)));
+                value = getPersistedInt((int) defaultValue);
             }
         } else {
             if (defaultValue == null) {
-                calendar.setTimeInMillis(System.currentTimeMillis());
+                value = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE);
             } else {
-                calendar.setTimeInMillis(Long.parseLong((String) defaultValue));
+                value = (int) defaultValue;
             }
         }
         setSummary(getSummary());
@@ -135,9 +136,9 @@ public class TimePreference extends DialogPreference {
 
     @Override
     public CharSequence getSummary() {
-        if (calendar == null) {
-            return null;
-        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, value / 60);
+        calendar.set(Calendar.MINUTE, value % 60);
         return DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
     }
 } 

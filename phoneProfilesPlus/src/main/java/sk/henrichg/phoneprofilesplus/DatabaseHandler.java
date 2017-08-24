@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -14,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -30,7 +32,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1920;
+    private static final int DATABASE_VERSION = 1930;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -2062,6 +2064,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + "=0");
         }
 
+        if (oldVersion < 1930)
+        {
+            final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                                                   KEY_E_START_TIME + "," +
+                                                   KEY_E_END_TIME +
+                                        " FROM " + TABLE_EVENTS;
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    ContentValues values = new ContentValues();
+
+                    long startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_START_TIME));
+                    long endTime = cursor.getLong(cursor.getColumnIndex(KEY_E_END_TIME));
+
+                    Calendar calendar = Calendar.getInstance();
+
+                    calendar.setTimeInMillis(startTime);
+                    values.put(KEY_E_START_TIME, calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE));
+                    calendar.setTimeInMillis(endTime);
+                    values.put(KEY_E_END_TIME, calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE));
+
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+        }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
@@ -3569,40 +3600,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 if (daysOfWeek != null)
                 {
-                String[] splits = daysOfWeek.split("\\|");
-                if (splits[0].equals(DaysOfWeekPreference.allValue))
-                {
-                    eventPreferences._sunday = true;
-                    eventPreferences._monday = true;
-                    eventPreferences._tuesday = true;
-                    eventPreferences._wednesday = true;
-                    eventPreferences._thursday = true;
-                    eventPreferences._friday = true;
-                    eventPreferences._saturday = true;
-                }
-                else
-                {
-                    eventPreferences._sunday = false;
-                    eventPreferences._monday = false;
-                    eventPreferences._tuesday = false;
-                    eventPreferences._wednesday = false;
-                    eventPreferences._thursday = false;
-                    eventPreferences._friday = false;
-                    eventPreferences._saturday = false;
-                    for (String value : splits)
+                    String[] splits = daysOfWeek.split("\\|");
+                    if (splits[0].equals(DaysOfWeekPreference.allValue))
                     {
-                        eventPreferences._sunday = eventPreferences._sunday || value.equals("0");
-                        eventPreferences._monday = eventPreferences._monday || value.equals("1");
-                        eventPreferences._tuesday = eventPreferences._tuesday || value.equals("2");
-                        eventPreferences._wednesday = eventPreferences._wednesday || value.equals("3");
-                        eventPreferences._thursday = eventPreferences._thursday || value.equals("4");
-                        eventPreferences._friday = eventPreferences._friday || value.equals("5");
-                        eventPreferences._saturday = eventPreferences._saturday || value.equals("6");
+                        eventPreferences._sunday = true;
+                        eventPreferences._monday = true;
+                        eventPreferences._tuesday = true;
+                        eventPreferences._wednesday = true;
+                        eventPreferences._thursday = true;
+                        eventPreferences._friday = true;
+                        eventPreferences._saturday = true;
+                    }
+                    else
+                    {
+                        eventPreferences._sunday = false;
+                        eventPreferences._monday = false;
+                        eventPreferences._tuesday = false;
+                        eventPreferences._wednesday = false;
+                        eventPreferences._thursday = false;
+                        eventPreferences._friday = false;
+                        eventPreferences._saturday = false;
+                        for (String value : splits)
+                        {
+                            eventPreferences._sunday = eventPreferences._sunday || value.equals("0");
+                            eventPreferences._monday = eventPreferences._monday || value.equals("1");
+                            eventPreferences._tuesday = eventPreferences._tuesday || value.equals("2");
+                            eventPreferences._wednesday = eventPreferences._wednesday || value.equals("3");
+                            eventPreferences._thursday = eventPreferences._thursday || value.equals("4");
+                            eventPreferences._friday = eventPreferences._friday || value.equals("5");
+                            eventPreferences._saturday = eventPreferences._saturday || value.equals("6");
+                        }
                     }
                 }
-                }
-                eventPreferences._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_START_TIME)));
-                eventPreferences._endTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_END_TIME)));
+                eventPreferences._startTime = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_START_TIME)));
+                eventPreferences._endTime = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_END_TIME)));
                 //eventPreferences._useEndTime = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_USE_END_TIME))) == 1) ? true : false;
             }
             cursor.close();
@@ -7309,6 +7340,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                         if (exportedDBObj.getVersion() < 1920) {
                                             values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, 0);
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 1930)
+                                        {
+                                            Calendar calendar = Calendar.getInstance();
+
+                                            calendar.setTimeInMillis(startTime);
+                                            values.put(KEY_E_START_TIME, calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE));
+                                            calendar.setTimeInMillis(endTime);
+                                            values.put(KEY_E_END_TIME, calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE));
                                         }
 
                                         // Inserting Row do db z SQLiteOpenHelper

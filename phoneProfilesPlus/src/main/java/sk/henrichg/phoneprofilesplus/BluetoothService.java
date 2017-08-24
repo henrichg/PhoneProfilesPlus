@@ -336,7 +336,9 @@ public class BluetoothService extends WakefulIntentService {
                     @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                     PPApplication.logE("BluetoothService.getConnectedDevices","BluetoothConnectionBroadcastReceiver: device.name="+device.name);
                     PPApplication.logE("BluetoothService.getConnectedDevices", "BluetoothConnectionBroadcastReceiver: device.timestamp="+sdf.format(device.timestamp));
-                    long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime() - gmtOffset;
+                    //long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime() - gmtOffset;
+                    Calendar calendar = Calendar.getInstance();
+                    long bootTime = calendar.getTimeInMillis() - SystemClock.elapsedRealtime() - gmtOffset;
                     PPApplication.logE("BluetoothService.getConnectedDevices", "BluetoothConnectionBroadcastReceiver: bootTime="+sdf.format(bootTime));
 
                     if (device.timestamp >= bootTime) {
@@ -431,7 +433,9 @@ public class BluetoothService extends WakefulIntentService {
                         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         PPApplication.logE("BluetoothService.clearConnectedDevices","BluetoothConnectionBroadcastReceiver: device.name="+device.name);
                         PPApplication.logE("BluetoothService.clearConnectedDevices", "BluetoothConnectionBroadcastReceiver: device.timestamp="+sdf.format(device.timestamp));
-                        long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime() - gmtOffset;
+                        //long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime() - gmtOffset;
+                        Calendar calendar = Calendar.getInstance();
+                        long bootTime = calendar.getTimeInMillis() - SystemClock.elapsedRealtime() - gmtOffset;
                         PPApplication.logE("BluetoothService.clearConnectedDevices", "BluetoothConnectionBroadcastReceiver: bootTime="+sdf.format(bootTime));
                         if (device.timestamp < bootTime)
                             connectedDevices.remove(device);
