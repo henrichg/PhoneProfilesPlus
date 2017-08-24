@@ -309,7 +309,7 @@
         </activity>
 
         <!-- implicit broadcast receivers, in Android O exception group -->
-        <!-- https://developer.android.com/preview/features/background-broadcasts.html -->
+        <!-- https://developer.android.com/guide/components/broadcast-exceptions.html -->
         <receiver
             android:name=".BootUpReceiver"
             android:enabled="true"
@@ -326,6 +326,17 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".TimeChangedReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.TIME_SET"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
