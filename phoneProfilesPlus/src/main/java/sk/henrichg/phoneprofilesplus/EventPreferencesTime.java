@@ -356,8 +356,8 @@ class EventPreferencesTime extends EventPreferences {
         calStartTime.set(Calendar.SECOND, 0);
         calStartTime.set(Calendar.MILLISECOND, 0);
 
-        calStartTime.set(Calendar.HOUR_OF_DAY, _endTime / 60);
-        calStartTime.set(Calendar.MINUTE, _endTime % 60);
+        calEndTime.set(Calendar.HOUR_OF_DAY, _endTime / 60);
+        calEndTime.set(Calendar.MINUTE, _endTime % 60);
         calEndTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
         calEndTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
         calEndTime.set(Calendar.YEAR,  now.get(Calendar.YEAR));
