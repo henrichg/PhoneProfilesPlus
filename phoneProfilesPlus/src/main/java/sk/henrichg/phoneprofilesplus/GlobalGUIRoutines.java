@@ -167,7 +167,7 @@ class GlobalGUIRoutines {
             {
                 if (withToolbar) {
                     if (withDrawerLayout)
-                        return R.style.Theme_Phoneprofilestheme_withToolbar_withDrawerLayout_material;
+                        return R.style.Theme_Phoneprofilestheme_withToolbar_withDrawerLayout_dark;
                     else
                         return R.style.Theme_Phoneprofilestheme_withToolbar_dark;
                 }
@@ -189,7 +189,7 @@ class GlobalGUIRoutines {
             {
                 if (withToolbar) {
                     if (withDrawerLayout)
-                        return R.style.Theme_Phoneprofilestheme_withToolbar_withDrawerLayout_material;
+                        return R.style.Theme_Phoneprofilestheme_withToolbar_withDrawerLayout_dlight;
                     else
                         return R.style.Theme_Phoneprofilestheme_withToolbar_dlight;
                 }
