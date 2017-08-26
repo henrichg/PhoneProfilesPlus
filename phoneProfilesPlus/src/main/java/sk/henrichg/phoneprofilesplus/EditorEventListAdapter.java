@@ -219,11 +219,11 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         if (eventList == null)
             return;
 
-        eventList.add(event);
-        if (refresh) {
+        if (refresh)
             fragment.listView.getRecycledViewPool().clear();
+        eventList.add(event);
+        if (refresh)
             notifyDataSetChanged();
-        }
     }
 
     void deleteItemNoNotify(Event event)
@@ -239,8 +239,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         if (eventList == null)
             return;
 
-        eventList.clear();
         fragment.listView.getRecycledViewPool().clear();
+        eventList.clear();
         notifyDataSetChanged();
     }
 
@@ -253,7 +253,6 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 dataWrapper.refreshProfileIcon(profile, false, 0);
             }
         }
-        fragment.listView.getRecycledViewPool().clear();
         notifyDataSetChanged();
     }
 

@@ -456,11 +456,13 @@ public class EditorEventListFragment extends Fragment
             PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
             dataWrapper.restartEvents(false, true, false);
 
+            if (!eventListAdapter.released)
+                listView.getRecycledViewPool().clear();
+
             eventListAdapter.deleteItemNoNotify(event);
             databaseHandler.deleteEvent(event);
 
             if (!eventListAdapter.released) {
-                listView.getRecycledViewPool().clear();
                 eventListAdapter.notifyDataSetChanged();
 
                 onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
@@ -571,6 +573,9 @@ public class EditorEventListFragment extends Fragment
             /*if (listView != null)
                 listView.cancelDrag();*/
 
+            if (eventListAdapter != null)
+                listView.getRecycledViewPool().clear();
+
             if (eventListAdapter != null) {
                 if ((newEvent) && (event != null))
                     // add event into listview
@@ -624,8 +629,8 @@ public class EditorEventListFragment extends Fragment
         this.orderType = orderType;
         if (eventListAdapter != null)
         {
-            sortList(eventList, orderType, dataWrapper);
             listView.getRecycledViewPool().clear();
+            sortList(eventList, orderType, dataWrapper);
             eventListAdapter.notifyDataSetChanged();
         }
     }

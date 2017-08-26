@@ -243,6 +243,7 @@ public class EditorProfileListFragment extends Fragment
             listView.setAdapter(profileListAdapter);
         
             // pre profil, ktory je prave aktivny, treba aktualizovat aktivitu
+            fragment.listView.getRecycledViewPool().clear();
             Profile profile;
             profile = dataWrapper.getActivatedProfile();
             updateHeader(profile);
@@ -313,6 +314,7 @@ public class EditorProfileListFragment extends Fragment
                 fragment.listView.setAdapter(fragment.profileListAdapter);
 
                 // pre profil, ktory je prave aktivny, treba aktualizovat aktivitu
+                fragment.listView.getRecycledViewPool().clear();
                 Profile profile;
                 profile = fragment.dataWrapper.getActivatedProfile();
                 fragment.updateHeader(profile);
@@ -435,13 +437,14 @@ public class EditorProfileListFragment extends Fragment
                 Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
             }
 
+            listView.getRecycledViewPool().clear();
+
             dataWrapper.stopEventsForProfile(profile, true);
             dataWrapper.unlinkEventsFromProfile(profile);
             profileListAdapter.deleteItemNoNotify(profile);
             databaseHandler.unlinkEventsFromProfile(profile);
             databaseHandler.deleteProfile(profile);
 
-            listView.getRecycledViewPool().clear();
             profileListAdapter.notifyDataSetChanged();
             // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
             //Profile profile = databaseHandler.getActivatedProfile();
@@ -527,13 +530,14 @@ public class EditorProfileListFragment extends Fragment
                         ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
                         Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
 
+                        listView.getRecycledViewPool().clear();
+
                         dataWrapper.stopAllEvents(true, false);
                         dataWrapper.unlinkAllEvents();
                         profileListAdapter.clearNoNotify();
                         databaseHandler.deleteAllProfiles();
                         databaseHandler.unlinkAllEvents();
 
-                        listView.getRecycledViewPool().clear();
                         profileListAdapter.notifyDataSetChanged();
                         // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
                         //Profile profile = databaseHandler.getActivatedProfile();
@@ -668,6 +672,9 @@ public class EditorProfileListFragment extends Fragment
 
             /*if (listView != null)
                 listView.cancelDrag();*/
+
+            if (profileListAdapter != null)
+                listView.getRecycledViewPool().clear();
 
             if (profileListAdapter != null) {
                 if ((newProfile) && (profile != null))
