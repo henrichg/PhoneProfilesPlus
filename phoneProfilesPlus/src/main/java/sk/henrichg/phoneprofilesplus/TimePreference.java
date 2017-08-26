@@ -122,13 +122,13 @@ public class TimePreference extends DialogPreference {
             if (defaultValue == null) {
                 value = getPersistedInt(now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE));
             } else {
-                value = getPersistedInt((int) defaultValue);
+                value = Integer.parseInt(getPersistedString((String) defaultValue));
             }
         } else {
             if (defaultValue == null) {
                 value = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE);
             } else {
-                value = (int) defaultValue;
+                value = Integer.parseInt((String) defaultValue);
             }
         }
         setSummary(getSummary());
