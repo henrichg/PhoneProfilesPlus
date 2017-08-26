@@ -863,7 +863,7 @@
   <string name="profile_preferences_volumeNotificationVolume0_question">Configure notification tone to \"PhoneProfiles Silent\"?</string>
   <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it from Editor menu and try again.</string>
   <string name="info_notification_unlink_ringer_notification_volumes">Your device has linked volume levels for ringtone and notifications. You can use \"Unlink ringer and notification volumes\". Click here to configure it.</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has linked volumes for ringtone and notifications. If you want unlinked volumes, check this parameter.</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has linked volumes for ringtone and notifications. If you want unlinked volumes, enable this parameter.</string>
   <string name="phone_profiles_pref_eventUsePriorityAppSettings">Use priority</string>
   <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Enable usage of parameter \"Priority\" in application settings.</string>
   <string name="phone_profiles_pref_notificationStatusBarNew">Status bar notification</string>
@@ -1022,6 +1022,7 @@
   <string name="ringtone_preference_none">Відсутній</string>
   <string name="event_preferences_notificationVibrate">Notify by vibration</string>
   <string name="important_info_profile_grant">Деякі параметри профілів потребуть дозволу WRITE_SECURE_SETTINGS. ROOT не вимагається. Ці параметри позначені \"(G1)\".</string>
+  <string name="important_info_profile_grant_lookSectionProfiles">For more information, look at the \"Profiles\" section further below.</string>
   <string name="profile_preferences_typesInfoGrant">Щоб дізнатися більше відвідайте пункт \"Важлива інформація\"у розділі \"Профілі\".</string>
   <string name="important_info_profile_grant_1_howTo_1">Ви можете надати дозвіл для PhoneProfilesPlus необхідний для параметрів профіля позначених (GX). Цього потребує ПК із встановленим adb.</string>
   <string name="important_info_profile_grant_1_howTo_2">Якщо на вашому ПК не встановлено adb:</string>
@@ -1029,9 +1030,9 @@
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
   <string name="important_info_profile_grant_1_howTo_4">2. Розпаковка zip файлу.</string>
   <string name="important_info_profile_grant_1_howTo_5">Як надати дозвіл WRITE_SECURE_SETTINGS:</string>
-  <string name="important_info_profile_grant_1_howTo_6">1. In phone, go to Settings &gt; About phone &gt; Software Information and click on Build Number 10 times, you will now have a Developer Optioins entry in Settings.</string>
-  <string name="important_info_profile_grant_1_howTo_7">2. In phone, go to Settings &gt; Developer Options and enable USB Debugging.</string>
-  <string name="important_info_profile_grant_1_howTo_8">3. In PC, start CMD (Windows), Terminal (Linux, OSX), go to folder In which adb is installed and start this command:</string>
+  <string name="important_info_profile_grant_1_howTo_6">1. On your device, go into Settings &gt; About &gt; Software Information and click on Build Number 7 times. This will unlock and display Developer Options in Settings.</string>
+  <string name="important_info_profile_grant_1_howTo_7">2. Go into Settings &gt; Developer Options and enable USB Debugging.</string>
+  <string name="important_info_profile_grant_1_howTo_8">3. On your PC, open a Command Prompt (Windows), or Terminal (Linux, OSX). Navigate to the folder where you extracted your adb files, and EXACTLY execute the following command:</string>
   <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
   <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="important_info_profile_grant_1_howTo_10">4. Після успішної розпаковки, всі параметри із позначкою (G1) будуть увімкнені.</string>
@@ -1045,7 +1046,7 @@
   <string name="important_info_quick_guide_profiles_2">Profiles can be activated manually, or by an Event.</string>
   <string name="important_info_quick_guide_profiles_3">You can manually activate a profile through the PPP Activator (pop-up window with list of available profiles). The Activator can be displayed via the PPP home icon, the PPP notification, PPP widgets, DashClock widget and, for Samsung Edge devices, from the Edge panel. You can also directly activate a profile through the PPP 4x4 widget, a shortcut to the profile or, on Samsung Edge devices, through the Edge panel.</string>
   <string name="important_info_quick_guide_events_1"><b>EVENTS:</b> Allow you to configure when a profile activates. Events have a start and end. You can configure what will happen at the start of an event, and what will happen when the event ends.</string>
-  <string name="important_info_quick_guide_events_2">Events contain important sensor configuration parameters, which must all be satisfied before an event gets triggered. If some sensor does not pass, the event will end (pause).</string>
+  <string name="important_info_quick_guide_events_2">Events contain important sensor configuration parameters, which must all be satisfied before an event is triggered. If any sensor does not pass, the event will end (pause).</string>
   <string name="important_info_quick_guide_sensors_1">Sensor examples:</string>
   <string name="important_info_quick_guide_sensors_2"><b>• Time parameters:</b> Start and End on a specified day of the week, or at a specified time.</string>
   <string name="important_info_quick_guide_sensors_3"><b>• Wi-Fi parameters:</b> Start and End by Wi-Fi SSID (connected, device nearby). The Nearby feature is useful to detect device location. For example: Start event when the device is within scanning range of your home Wi-Fi network.</string>

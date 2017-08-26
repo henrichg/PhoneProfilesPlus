@@ -1025,6 +1025,7 @@
   <string name="ringtone_preference_none">ללא</string>
   <string name="event_preferences_notificationVibrate">הודעה באמצעות רטט</string>
   <string name="important_info_profile_grant">העדפות פרופיל מסוימות דורשות הרשאת WRITE_SECURE_SETTINGS. אין צורך ברוט (ROOT). העדפות אלה מסומנות \"(G1)\".</string>
+  <string name="important_info_profile_grant_lookSectionProfiles">For more information, look at the \"Profiles\" section further below.</string>
   <string name="profile_preferences_typesInfoGrant">למידע נוסף קראו ב\"מידע חשוב\" בפיסקת \"פרופילים\".</string>
   <string name="important_info_profile_grant_1_howTo_1">באפשרותך להעניק הרשאה ל-PhoneProfilesPlus הדרושה למאפייני פרופיל המסומנים (GX). פעולה זו דורשת מחשב עם adb מותקן.</string>
   <string name="important_info_profile_grant_1_howTo_2">אם אין לך adb מותקן במחשב:</string>
@@ -1032,7 +1033,7 @@
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
   <string name="important_info_profile_grant_1_howTo_4">2. חלצו את קובץ ה-zip.</string>
   <string name="important_info_profile_grant_1_howTo_5">איך להתיר הרשאת WRITE_SECURE_SETTINGS:</string>
-  <string name="important_info_profile_grant_1_howTo_6">1. במכשיר, עברו אל הגדרות &gt; אודות המכשיר &gt; מידע תוכנה והקישו על מספר בנייה 10 פעמים, כעת ייחשפו אפשרויות מפתח בהגדרות.</string>
+  <string name="important_info_profile_grant_1_howTo_6">1. במכשיר, עברו אל הגדרות &gt; אודות המכשיר &gt; מידע תוכנה והקישו על מספר בנייה 7 פעמים, כעת ייחשפו אפשרויות מפתח בהגדרות.</string>
   <string name="important_info_profile_grant_1_howTo_7">2. במכשיר, עברו אל הגדרות &gt; אפשרויות מפתח והתירו איתור באגים ב-USB.</string>
   <string name="important_info_profile_grant_1_howTo_8">3. במחשב, הפעילו חלון פקודה CMD (Windows), או מסוף (לינוקס, OSX), נווטו לתיקיה שבה מותקן adb והפעילו פקודה זו:</string>
   <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
