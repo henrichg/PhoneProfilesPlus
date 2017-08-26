@@ -28,7 +28,7 @@
         android:contentDescription="@string/profile_preferences_profileIcon"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginStart="80dp"
