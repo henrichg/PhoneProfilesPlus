@@ -14,6 +14,7 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
+import com.evernote.android.job.util.JobApi;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.RootShell.RootShell;
@@ -234,8 +235,7 @@ public class PPApplication extends Application {
 
         PACKAGE_NAME = this.getPackageName();
 
-        // initialization
-        //loadPreferences(this);
+        JobApi.setForceAllowApi14(true); // https://github.com/evernote/android-job/issues/197
         JobManager.create(this).addJobCreator(new PPJobsCreator());
 
         PPApplication.initRoot();
