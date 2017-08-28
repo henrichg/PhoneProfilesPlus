@@ -1951,7 +1951,13 @@ public class DataWrapper {
                             wifiPassed = false;
                         //PPApplication.logE("----- DataWrapper.doEventService","wifiPassed="+wifiPassed);
                     }
-
+                    else {
+                        if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED) {
+                            // for this connectionTypes, wifi must not be connected to event SSID
+                            done = true;
+                            wifiPassed = true;
+                        }
+                    }
                 }
                 else
                 {
