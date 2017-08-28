@@ -768,8 +768,10 @@ public class DataWrapper {
             {
                 int status = event.getStatusFromDB(this);
 
-                if ((status == Event.ESTATUS_RUNNING) && (!event._noPauseByManualActivation))
-                    event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, true, null, false);
+                if (status == Event.ESTATUS_RUNNING) {
+                    if (!(event._forceRun && event._noPauseByManualActivation))
+                        event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, true, null, false);
+                }
 
                 setEventBlocked(event, false);
                 if (blockEvents && (status == Event.ESTATUS_RUNNING) && event._forceRun)
@@ -779,7 +781,7 @@ public class DataWrapper {
                         setEventBlocked(event, true);
                 }
 
-                if (!event._noPauseByManualActivation) {
+                if (!(event._forceRun && event._noPauseByManualActivation)) {
                     // for "push" events, set startTime to 0
                     event._eventPreferencesSMS._startTime = 0;
                     getDatabaseHandler().updateSMSStartTime(event);
