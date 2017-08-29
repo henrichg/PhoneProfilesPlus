@@ -1064,4 +1064,12 @@
     <string name="event_preferences_noPauseByManualActivation">Do not pause by manual activation</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Do not pause this event by manual profile activation when is running</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Tag name is not configured.</string>
+    <string name="phone_profiles_pref_applicationLanguage_ar">عربى</string>
+    <string name="phone_profiles_pref_applicationLanguage_bg">Български</string>
+    <string name="phone_profiles_pref_applicationLanguage_hi">हिंदी</string>
+    <string name="phone_profiles_pref_applicationLanguage_id">Bahasa Indonesia</string>
+    <string name="array_pref_value_ar">ar</string>
+    <string name="array_pref_value_bg">bg</string>
+    <string name="array_pref_value_hi">hi</string>
+    <string name="array_pref_value_id">id</string>
 </resources>
