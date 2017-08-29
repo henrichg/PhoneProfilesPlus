@@ -9,6 +9,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
@@ -272,6 +273,12 @@ public class PPApplication extends Application {
         } catch (SsdkUnsupportedException e) {
             sLook = null;
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     // workaround for: java.lang.NullPointerException: Attempt to invoke virtual method

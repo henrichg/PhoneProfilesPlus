@@ -13,6 +13,7 @@ android {
         targetSdkVersion ppVersions.targetSdk
         versionCode ppVersions.publishVersionCode
         versionName ppVersions.publishVersion
+        multiDexEnabled true
 
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7
@@ -54,6 +55,7 @@ dependencies {
     provided files('libs/hidden-apis_2.jar')
     compile files('libs/sdk-v1.0.0.jar')
     compile files('libs/slook_v1.4.0.jar')
+    compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:support-core-ui:' + ppVersions.supportLib
     compile 'com.android.support:appcompat-v7:' + ppVersions.supportLib
     compile 'com.android.support:gridlayout-v7:' + ppVersions.supportLib
