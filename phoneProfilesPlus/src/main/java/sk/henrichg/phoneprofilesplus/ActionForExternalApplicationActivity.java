@@ -38,9 +38,9 @@ public class ActionForExternalApplicationActivity extends Activity {
         action = intent.getAction();
         //Log.d("ActionForExternalApplicationActivity.onCreate", "action="+action);
 
-        if (action != null) {
-            dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
+        dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 
+        if (action != null) {
             if (action.equals(ACTION_ACTIVATE_PROFILE)) {
                 String profileName = intent.getStringExtra(ActivateProfileFromExternalApplicationActivity.EXTRA_PROFILE_NAME);
                 if (profileName != null) {
