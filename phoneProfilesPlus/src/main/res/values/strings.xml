@@ -1063,4 +1063,5 @@
     <string name="important_info_quick_guide_editor_1">Profiles and Events are configured in the Editor, which you can invoke through the Activator. Within the Editor you can add, duplicate, update, and delete profiles and events. The Editor has a left side panel, which allows you to change the Editor view. Use it to switch between profile and event lists.</string>
     <string name="event_preferences_noPauseByManualActivation">Do not pause by manual activation</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Do not pause this event by manual profile activation when is running</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Tag name is not configured.</string>
 </resources>
