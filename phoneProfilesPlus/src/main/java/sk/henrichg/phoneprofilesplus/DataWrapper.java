@@ -906,7 +906,7 @@ public class DataWrapper {
                 Event.EPRIORITY_MEDIUM,
                 0,
                 false,
-                Event.EATENDDO_UNDONE_PROFILE,
+                Event.EATENDDO_RESTART_EVENTS,
                 false,
                 Profile.PROFILE_NO_ACTIVATE,
                 0,
@@ -1028,7 +1028,7 @@ public class DataWrapper {
                 event = getNonInitializedEvent(context.getString(R.string.default_event_name_low_battery), 10);
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_battery_low));
                 //event._undoneProfile = false;
-                event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
+                event._atEndDo = Event.EATENDDO_RESTART_EVENTS;
                 event._priority = Event.EPRIORITY_HIGHEST;
                 event._forceRun = true;
                 event._noPauseByManualActivation = false;

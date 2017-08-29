@@ -103,9 +103,9 @@
             henrichg:addNoActivateItem="1" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/event_preferences_atEndDo"
-            android:summary="@string/event_preferences_undoneProfile"
+            android:summary="@string/array_pref_atEndDo_restartEvents"
             android:key="eventAtEndDo"
-            android:defaultValue="1"
+            android:defaultValue="2"
             android:entries="@array/eventAtEndDoArray"
             android:entryValues="@array/eventAtEndDoValues"
             app:useStockLayout="true" />
