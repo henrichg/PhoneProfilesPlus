@@ -1061,4 +1061,13 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="important_info_quick_guide_editor_1">Profils et événements sont configurés dans l’éditeur que vous pouvez appeler par le biais de l’activateur. Dans l’éditeur, vous pouvez ajouter, dupliquer, mettre à jour et supprimer des profils et des événements. L’éditeur a un panneau latéral gauche, qui vous permet de modifier l’affichage de l’éditeur. Il permet de commuter entre les profils et les événements.</string>
   <string name="event_preferences_noPauseByManualActivation">Ne pas mettre en pause lors de l\'activation manuelle</string>
   <string name="event_preferences_noPauseByManualActivation_summary">Ne pas mettre en pause cet événement lors de l\'activation manuelle d\'un profil</string>
+  <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Le nom de la balise n’est pas configuré.</string>
+  <string name="phone_profiles_pref_applicationLanguage_ar">عربى</string>
+  <string name="phone_profiles_pref_applicationLanguage_bg">Български</string>
+  <string name="phone_profiles_pref_applicationLanguage_hi">हिंदी</string>
+  <string name="phone_profiles_pref_applicationLanguage_id">Bahasa Indonesia</string>
+  <string name="array_pref_value_ar">ar</string>
+  <string name="array_pref_value_bg">bg</string>
+  <string name="array_pref_value_hi">hi</string>
+  <string name="array_pref_value_id">id</string>
 </resources>

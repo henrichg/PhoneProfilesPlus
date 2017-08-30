@@ -1060,4 +1060,13 @@
   <string name="important_info_quick_guide_editor_1">Profilok és Események beállítása, a Szerkesztőben, amire a Profilokon keresztül hivatkozhat. A szerkesztőben hozzáadhat, másolhat, frissíthet és törölhet profilokat és eseményeket. A szerkesztő a bal oldali panelen van, amely lehetővé teszi, hogy változtathasson a szerkesztő nézeten. Használhatja ezt a Profilok és Események listájának átváltásához.</string>
   <string name="event_preferences_noPauseByManualActivation">Nem szüneteltethető ha kézzel aktiválta</string>
   <string name="event_preferences_noPauseByManualActivation_summary">Ez az esemény nem szüneteltethető, ha a profilt kézzel aktiválja az esemény futtatása közben</string>
+  <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Címke neve nincs beállítva.</string>
+  <string name="phone_profiles_pref_applicationLanguage_ar">عربى</string>
+  <string name="phone_profiles_pref_applicationLanguage_bg">Български</string>
+  <string name="phone_profiles_pref_applicationLanguage_hi">हिंदी</string>
+  <string name="phone_profiles_pref_applicationLanguage_id">Bahasa Indonesia</string>
+  <string name="array_pref_value_ar">ar</string>
+  <string name="array_pref_value_bg">bg</string>
+  <string name="array_pref_value_hi">hi</string>
+  <string name="array_pref_value_id">id</string>
 </resources>

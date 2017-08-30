@@ -1060,4 +1060,13 @@
   <string name="important_info_quick_guide_editor_1">Profily a události jsou nakonfigurovány v Editoru, který si můžete vyvolat přes Aktivátor. V Editoru můžete přidat, duplikovat, aktualizovat a odstranit profily a události. Editor má levý boční panel, který vám umožní změnit pohled Editoru. Použijte ho na přepínání mezi seznamy profilů a událostí.</string>
   <string name="event_preferences_noPauseByManualActivation">Nezastav manuální aktivací</string>
   <string name="event_preferences_noPauseByManualActivation_summary">Nezastavujte tuto událost ruční aktivací profilu, pokud je spuštěna</string>
+  <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Název tagu není nakonfigurován.</string>
+  <string name="phone_profiles_pref_applicationLanguage_ar">عربى</string>
+  <string name="phone_profiles_pref_applicationLanguage_bg">Български</string>
+  <string name="phone_profiles_pref_applicationLanguage_hi">हिंदी</string>
+  <string name="phone_profiles_pref_applicationLanguage_id">Bahasa Indonesia</string>
+  <string name="array_pref_value_ar">ar</string>
+  <string name="array_pref_value_bg">bg</string>
+  <string name="array_pref_value_hi">hi</string>
+  <string name="array_pref_value_id">id</string>
 </resources>

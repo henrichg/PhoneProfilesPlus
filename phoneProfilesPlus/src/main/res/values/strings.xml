@@ -1072,4 +1072,6 @@
     <string name="array_pref_value_bg">bg</string>
     <string name="array_pref_value_hi">hi</string>
     <string name="array_pref_value_id">id</string>
+    <string name="phone_profiles_pref_applicationLanguage_sl">Slovenščina</string>
+    <string name="array_pref_value_sl">sl</string>
 </resources>
