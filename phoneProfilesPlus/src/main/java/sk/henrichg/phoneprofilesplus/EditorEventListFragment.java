@@ -626,12 +626,13 @@ public class EditorEventListFragment extends Fragment
 
     public void changeListOrder(int orderType)
     {
-        this.orderType = orderType;
-        if (eventListAdapter != null)
-        {
-            listView.getRecycledViewPool().clear();
-            sortList(eventList, orderType, dataWrapper);
-            eventListAdapter.notifyDataSetChanged();
+        synchronized (PPApplication.refreshEditorEventsListMutex) {
+            this.orderType = orderType;
+            if (eventListAdapter != null) {
+                listView.getRecycledViewPool().clear();
+                sortList(eventList, orderType, dataWrapper);
+                eventListAdapter.notifyDataSetChanged();
+            }
         }
     }
 
