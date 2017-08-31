@@ -159,7 +159,7 @@ public class PhoneProfilesService extends Service
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             int actualVersionCode = pInfo.versionCode;
             PPApplication.setSavedVersionCode(appContext, actualVersionCode);
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             //e.printStackTrace();
         }
 

@@ -64,7 +64,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             text.setText(getString(R.string.about_application_version) + " " + pInfo.versionName + " (" + pInfo.versionCode + ")");
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             text.setText("");
         }
 

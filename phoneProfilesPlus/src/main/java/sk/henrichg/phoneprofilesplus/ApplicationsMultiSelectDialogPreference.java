@@ -363,7 +363,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                             app = packageManager.getApplicationInfo(splits[0], 0);
                             if (app != null)
                                 prefDataSummary = packageManager.getApplicationLabel(app).toString();
-                        } catch (PackageManager.NameNotFoundException e) {
+                        } catch (Exception e) {
                             //e.printStackTrace();
                         }
                     }
@@ -408,7 +408,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         } else {
                             packageIcon.setImageResource(R.drawable.ic_empty);
                         }
-                    } catch (PackageManager.NameNotFoundException e) {
+                    } catch (Exception e) {
                         //e.printStackTrace();
                         packageIcon.setImageResource(R.drawable.ic_empty);
                     }
@@ -458,7 +458,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                                 } else {
                                     packIcon.setImageResource(R.drawable.ic_empty);
                                 }
-                            } catch (PackageManager.NameNotFoundException e) {
+                            } catch (Exception e) {
                                 //e.printStackTrace();
                                 packIcon.setImageResource(R.drawable.ic_empty);
                             }

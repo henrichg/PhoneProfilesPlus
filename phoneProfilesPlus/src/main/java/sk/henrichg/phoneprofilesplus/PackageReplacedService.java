@@ -96,7 +96,7 @@ public class PackageReplacedService extends WakefulIntentService {
                         editor.apply();
                     }
                 }
-            } catch (PackageManager.NameNotFoundException e) {
+            } catch (Exception e) {
                 //e.printStackTrace();
             }
 

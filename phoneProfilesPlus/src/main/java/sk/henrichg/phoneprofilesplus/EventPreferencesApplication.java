@@ -101,7 +101,7 @@ class EventPreferencesApplication extends EventPreferences {
                             app = packageManager.getApplicationInfo(packageName, 0);
                             if (app != null)
                                 selectedApplications = packageManager.getApplicationLabel(app).toString();
-                        } catch (PackageManager.NameNotFoundException e) {
+                        } catch (Exception e) {
                             //e.printStackTrace();
                             selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                         }

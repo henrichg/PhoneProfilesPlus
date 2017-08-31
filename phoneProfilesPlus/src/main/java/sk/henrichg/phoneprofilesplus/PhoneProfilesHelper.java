@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -45,7 +44,7 @@ class PhoneProfilesHelper {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo("sk.henrichg.phoneprofileshelper", 0);
             PPApplication.logE("PhoneProfilesHelper.isPPHelperInstalled", "found");
             PPHelperVersion = pInfo.versionCode;
-        } catch (NameNotFoundException e) {
+        } catch (Exception e) {
             PPApplication.logE("PhoneProfilesHelper.isPPHelperInstalled", "not found");
             //e.printStackTrace();
         }

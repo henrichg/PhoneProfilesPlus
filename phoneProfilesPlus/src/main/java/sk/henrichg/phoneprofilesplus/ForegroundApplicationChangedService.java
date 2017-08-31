@@ -77,7 +77,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
     private ActivityInfo tryGetActivity(ComponentName componentName) {
         try {
             return getPackageManager().getActivityInfo(componentName, 0);
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             return null;
         }
     }

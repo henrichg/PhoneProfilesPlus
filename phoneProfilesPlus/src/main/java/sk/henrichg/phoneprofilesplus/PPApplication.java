@@ -218,7 +218,7 @@ public class PPApplication extends Application {
             try {
                 PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                 actualVersionCode = pInfo.versionCode;
-            } catch (PackageManager.NameNotFoundException e) {
+            } catch (Exception e) {
                 //e.printStackTrace();
             }
             Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
