@@ -1404,30 +1404,30 @@ public class ActivateProfileHelper {
         WakefulIntentService.sendWakefulWork(context, radioServiceIntent);
 
         // nahodenie auto-sync
-        boolean _isAutoSync = ContentResolver.getMasterSyncAutomatically();
-        boolean _setAutoSync = false;
-        switch (profile._deviceAutoSync) {
-            case 1:
-                if (!_isAutoSync)
-                {
-                    _isAutoSync = true;
+        try {
+            boolean _isAutoSync = ContentResolver.getMasterSyncAutomatically();
+            boolean _setAutoSync = false;
+            switch (profile._deviceAutoSync) {
+                case 1:
+                    if (!_isAutoSync) {
+                        _isAutoSync = true;
+                        _setAutoSync = true;
+                    }
+                    break;
+                case 2:
+                    if (_isAutoSync) {
+                        _isAutoSync = false;
+                        _setAutoSync = true;
+                    }
+                    break;
+                case 3:
+                    _isAutoSync = !_isAutoSync;
                     _setAutoSync = true;
-                }
-                break;
-            case 2:
-                if (_isAutoSync)
-                {
-                    _isAutoSync = false;
-                    _setAutoSync = true;
-                }
-                break;
-            case 3:
-                _isAutoSync = !_isAutoSync;
-                _setAutoSync = true;
-                break;
-        }
-        if (_setAutoSync)
-            ContentResolver.setMasterSyncAutomatically(_isAutoSync);
+                    break;
+            }
+            if (_setAutoSync)
+                ContentResolver.setMasterSyncAutomatically(_isAutoSync);
+        } catch (Exception ignored) {} // fixed DeadObjectException
 
         // screen timeout
         if (Permissions.checkProfileScreenTimeout(context, profile)) {
