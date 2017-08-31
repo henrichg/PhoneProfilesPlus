@@ -269,7 +269,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 preferenceCategory.removePreference(preference);
             }
         }
-        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+        if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
         {
             ListPreference networkTypePreference = (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE);
             if (networkTypePreference != null) {

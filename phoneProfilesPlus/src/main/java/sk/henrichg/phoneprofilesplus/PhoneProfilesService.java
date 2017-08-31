@@ -317,7 +317,7 @@ public class PhoneProfilesService extends Service
 
         // required for radio switch event
         if (android.os.Build.VERSION.SDK_INT >= 18) {
-            if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC)) {
+            if (PPApplication.hasSystemFeature(this, PackageManager.FEATURE_NFC)) {
                 if (nfcStateChangedBroadcastReceiver != null)
                     appContext.unregisterReceiver(nfcStateChangedBroadcastReceiver);
                 nfcStateChangedBroadcastReceiver = new NFCStateChangedBroadcastReceiver();
@@ -512,7 +512,7 @@ public class PhoneProfilesService extends Service
         if (android.os.Build.VERSION.SDK_INT >= 23)
             if (interruptionFilterChangedReceiver != null)
                 appContext.unregisterReceiver(interruptionFilterChangedReceiver);
-        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC))
+        if (PPApplication.hasSystemFeature(this, PackageManager.FEATURE_NFC))
             if (nfcStateChangedBroadcastReceiver != null) {
                 //try {
                 appContext.unregisterReceiver(nfcStateChangedBroadcastReceiver);

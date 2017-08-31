@@ -793,7 +793,7 @@ public class ScannerService extends WakefulIntentService
     @SuppressLint("InlinedApi")
     public static boolean bluetoothLESupported(Context context) {
         return ((android.os.Build.VERSION.SDK_INT >= 18) &&
-                context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE));
+                PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH_LE));
     }
 
     private static boolean isLocationEnabled(Context context, String scanType) {

@@ -80,7 +80,7 @@ class PhoneStateScanner extends PhoneStateListener {
             return;
 
         if ((telephonyManager != null) &&
-                context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY) &&
+                PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY) &&
                 Permissions.checkLocation(context.getApplicationContext()))
             telephonyManager.listen(this,
                 //  PhoneStateListener.LISTEN_CALL_STATE
@@ -111,7 +111,7 @@ class PhoneStateScanner extends PhoneStateListener {
     }
 
     void disconnect() {
-        if ((telephonyManager != null) && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+        if ((telephonyManager != null) && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
             telephonyManager.listen(this, PhoneStateListener.LISTEN_NONE);
         /*if ((telephonyManager2 != null) && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
             telephonyManager2.listen(this, PhoneStateListener.LISTEN_NONE);*/

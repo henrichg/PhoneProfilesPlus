@@ -345,7 +345,7 @@ class EventPreferencesOrientation extends EventPreferences {
                         ": "+context.getString(R.string.preference_not_allowed_reason_no_hardware));
             preference.setEnabled(enabledAll);
         }
-        boolean enabled = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY);
+        boolean enabled = PPApplication.hasSystemFeature(context, PackageManager.FEATURE_SENSOR_PROXIMITY);
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
         if (preference != null) {
             if (!enabled)

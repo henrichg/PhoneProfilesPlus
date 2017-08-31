@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.DeadObjectException;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
@@ -17,8 +18,10 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
 
         LocalBroadcastManager.getInstance(context.getApplicationContext()).unregisterReceiver(PPApplication.dashClockBroadcastReceiver);
 
-        Intent serviceIntent = new Intent(context.getApplicationContext(), DashClockService.class);
-        WakefulIntentService.sendWakefulWork(context.getApplicationContext(), serviceIntent);
+        try {
+            Intent serviceIntent = new Intent(context.getApplicationContext(), DashClockService.class);
+            WakefulIntentService.sendWakefulWork(context.getApplicationContext(), serviceIntent);
+        } catch (Exception ignored) {}
 
     }
 

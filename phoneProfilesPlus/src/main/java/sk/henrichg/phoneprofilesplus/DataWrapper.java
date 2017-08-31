@@ -2608,7 +2608,7 @@ public class DataWrapper {
             boolean tested = false;
 
             if ((event._eventPreferencesRadioSwitch._wifi == 1 || event._eventPreferencesRadioSwitch._wifi == 2)
-                    && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI)) {
+                    && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI)) {
 
                 if (!((WifiScanJob.getScanRequest(context)) ||
                         (WifiScanJob.getWaitForResults(context)) ||
@@ -2630,7 +2630,7 @@ public class DataWrapper {
             }
 
             if ((event._eventPreferencesRadioSwitch._bluetooth == 1 || event._eventPreferencesRadioSwitch._bluetooth == 2)
-                    && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH)) {
+                    && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH)) {
 
                 if (!((BluetoothScanJob.getScanRequest(context)) ||
                         (BluetoothScanJob.getLEScanRequest(context)) ||
@@ -2656,7 +2656,7 @@ public class DataWrapper {
             }
 
             if ((event._eventPreferencesRadioSwitch._mobileData == 1 || event._eventPreferencesRadioSwitch._mobileData == 2)
-                    && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
+                    && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
 
                 ignoreRadioSwitch = false;
 
@@ -2670,7 +2670,7 @@ public class DataWrapper {
             }
 
             if ((event._eventPreferencesRadioSwitch._gps == 1 || event._eventPreferencesRadioSwitch._gps == 2)
-                    && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)) {
+                    && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_LOCATION_GPS)) {
 
                 ignoreRadioSwitch = false;
 
@@ -2690,7 +2690,7 @@ public class DataWrapper {
             }
 
             if ((event._eventPreferencesRadioSwitch._nfc == 1 || event._eventPreferencesRadioSwitch._nfc == 2)
-                    && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC)) {
+                    && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_NFC)) {
 
                 ignoreRadioSwitch = false;
 

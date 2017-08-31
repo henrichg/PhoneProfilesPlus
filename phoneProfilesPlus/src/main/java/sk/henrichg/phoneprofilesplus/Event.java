@@ -1721,7 +1721,7 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI))
                 // device has Wifi
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else
@@ -1730,7 +1730,7 @@ class Event {
         else
         if (preferenceKey.equals(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH))
                 // device has bluetooth
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else
@@ -1760,7 +1760,7 @@ class Event {
         else
         if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
                 // device has telephony
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else
@@ -1769,7 +1769,7 @@ class Event {
         else
         if (preferenceKey.equals(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_NFC))
                 // device has nfc
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else

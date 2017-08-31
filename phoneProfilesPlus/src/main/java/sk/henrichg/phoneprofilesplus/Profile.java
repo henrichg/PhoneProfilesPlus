@@ -1602,7 +1602,7 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI))
                 // device has Wifi
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else
@@ -1611,7 +1611,7 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH))
                 // device has bluetooth
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else
@@ -1621,7 +1621,7 @@ public class Profile {
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
         {
             boolean mobileDataSupported;
-            if (!context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
+            if (!PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
                 ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     Network[] networks = cm.getAllNetworks();
@@ -1681,7 +1681,7 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
             {
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             }
@@ -1691,7 +1691,7 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_GPS))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_LOCATION_GPS))
             {
                 // device has gps
                 // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
@@ -1722,7 +1722,7 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NFC))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_NFC))
             {
                 PPApplication.logE("PPApplication.hardwareCheck","NFC=presented");
 
@@ -1745,7 +1745,7 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI)) {
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI)) {
                 // device has Wifi
                 if (WifiApManager.canExploitWifiAP(context))
                 {
@@ -1831,7 +1831,7 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
             {
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 final int phoneType = telephonyManager.getPhoneType();
@@ -1904,7 +1904,7 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI))
                 // device has Wifi
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else
@@ -1913,7 +1913,7 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI))
                 // device has Wifi
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else
@@ -1922,7 +1922,7 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING))
         {
-            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH))
                 // device has bluetooth
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else
