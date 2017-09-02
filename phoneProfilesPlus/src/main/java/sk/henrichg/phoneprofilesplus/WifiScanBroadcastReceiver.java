@@ -19,12 +19,14 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        Intent serviceIntent = new Intent(context, WifiService.class);
-        serviceIntent.setAction(intent.getAction());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            serviceIntent.putExtra(WifiManager.EXTRA_RESULTS_UPDATED, intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, true));
-        }
-        WakefulIntentService.sendWakefulWork(context, serviceIntent);
+        try {
+            Intent serviceIntent = new Intent(context, WifiService.class);
+            serviceIntent.setAction(intent.getAction());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                serviceIntent.putExtra(WifiManager.EXTRA_RESULTS_UPDATED, intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, true));
+            }
+            WakefulIntentService.sendWakefulWork(context, serviceIntent);
+        } catch (Exception ignored) {}
 
     }
 

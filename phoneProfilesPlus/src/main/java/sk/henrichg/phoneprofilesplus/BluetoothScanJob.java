@@ -384,9 +384,11 @@ class BluetoothScanJob extends Job {
         Profile profile = dataWrapper.getActivatedProfile();
         profile = Profile.getMappedProfile(profile, context);
         if (fromDialog || (profile == null) || (profile._applicationDisableBluetoothScanning != 1)) {
-            Intent scanServiceIntent = new Intent(context, ScannerService.class);
-            scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_BLUETOOTH);
-            WakefulIntentService.sendWakefulWork(context, scanServiceIntent);
+            try {
+                Intent scanServiceIntent = new Intent(context, ScannerService.class);
+                scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_BLUETOOTH);
+                WakefulIntentService.sendWakefulWork(context, scanServiceIntent);
+            } catch (Exception ignored) {}
         }
         dataWrapper.invalidateDataWrapper();
     }

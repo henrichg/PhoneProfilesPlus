@@ -19,10 +19,12 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        Intent serviceIntent = new Intent(context, WifiService.class);
-        serviceIntent.setAction(intent.getAction());
-        serviceIntent.putExtra(WifiManager.EXTRA_WIFI_STATE, intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0));
-        WakefulIntentService.sendWakefulWork(context, serviceIntent);
+        try {
+            Intent serviceIntent = new Intent(context, WifiService.class);
+            serviceIntent.setAction(intent.getAction());
+            serviceIntent.putExtra(WifiManager.EXTRA_WIFI_STATE, intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0));
+            WakefulIntentService.sendWakefulWork(context, serviceIntent);
+        } catch (Exception ignored) {}
 
     }
 

@@ -44,9 +44,11 @@ public class PowerSaveModeService extends WakefulIntentService {
                 //if (!powerSaveMode)
                 //{
                 // start service
-                Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_POWER_SAVE_MODE);
-                WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                try {
+                    Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
+                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_POWER_SAVE_MODE);
+                    WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                } catch (Exception ignored) {}
                 //}
             }
         }

@@ -21,7 +21,9 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        Intent serviceIntent = new Intent(context, PowerSaveModeService.class);
-        WakefulIntentService.sendWakefulWork(context, serviceIntent);
+        try {
+            Intent serviceIntent = new Intent(context, PowerSaveModeService.class);
+            WakefulIntentService.sendWakefulWork(context, serviceIntent);
+        } catch (Exception ignored) {}
     }
 }

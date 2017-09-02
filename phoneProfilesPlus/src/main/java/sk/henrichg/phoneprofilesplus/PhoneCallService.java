@@ -80,9 +80,11 @@ public class PhoneCallService extends WakefulIntentService {
         speakerphoneOnExecuted = false;
 
         // start service
-        Intent eventsServiceIntent = new Intent(context, EventsService.class);
-        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_PHONE_CALL);
-        WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
+        try {
+            Intent eventsServiceIntent = new Intent(context, EventsService.class);
+            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_PHONE_CALL);
+            WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
+        } catch (Exception ignored) {}
     }
 
     private void callStarted(boolean incoming, String phoneNumber)

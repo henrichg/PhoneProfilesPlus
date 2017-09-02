@@ -48,11 +48,13 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                 isCharging = _isCharging;
                 batteryPct = pct;
 
-                Intent serviceIntent = new Intent(context, BatteryService.class);
-                serviceIntent.setAction(intent.getAction());
-                serviceIntent.putExtra(EXTRA_IS_CHARGING, isCharging);
-                serviceIntent.putExtra(EXTRA_BATTERY_PCT, batteryPct);
-                WakefulIntentService.sendWakefulWork(context, serviceIntent);
+                try {
+                    Intent serviceIntent = new Intent(context, BatteryService.class);
+                    serviceIntent.setAction(intent.getAction());
+                    serviceIntent.putExtra(EXTRA_IS_CHARGING, isCharging);
+                    serviceIntent.putExtra(EXTRA_BATTERY_PCT, batteryPct);
+                    WakefulIntentService.sendWakefulWork(context, serviceIntent);
+                } catch (Exception ignored) {}
             }
         }
     }

@@ -114,11 +114,13 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.logE("@@@ SMSBroadcastReceiver.onReceive","start service");
 
                 // start service
-                Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_SMS);
-                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_SMS_PHONE_NUMBER, origin);
-                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_SMS_DATE, time);
-                WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
+                try {
+                    Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_SMS);
+                    eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_SMS_PHONE_NUMBER, origin);
+                    eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_SMS_DATE, time);
+                    WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
+                } catch (Exception ignored) {}
             }
         }
     }

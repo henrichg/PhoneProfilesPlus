@@ -12,9 +12,11 @@ public class RestartEventsFromNotificationBroadcastReceiver extends BroadcastRec
 
         //Context appContext = context.getApplicationContext();
 
-        Intent activityIntent = new Intent(context.getApplicationContext(), RestartEventsFromNotificationActivity.class);
-        activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(activityIntent);
+        try {
+            Intent activityIntent = new Intent(context.getApplicationContext(), RestartEventsFromNotificationActivity.class);
+            activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(activityIntent);
+        } catch (Exception ignored) {}
 
     }
 }

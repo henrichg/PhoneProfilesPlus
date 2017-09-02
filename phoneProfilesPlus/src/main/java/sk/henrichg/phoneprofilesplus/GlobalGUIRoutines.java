@@ -238,13 +238,15 @@ class GlobalGUIRoutines {
 
                 @Override
                 public void run() {
-                    Intent intent = _activity.getIntent();
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    _activity.overridePendingTransition(0, 0);
-                    _activity.finish();
+                    try {
+                        Intent intent = _activity.getIntent();
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        _activity.overridePendingTransition(0, 0);
+                        _activity.finish();
 
-                    _activity.overridePendingTransition(0, 0);
-                    _activity.startActivity(intent);
+                        _activity.overridePendingTransition(0, 0);
+                        _activity.startActivity(intent);
+                    } catch (Exception ignored) {}
                 }
             });
         }

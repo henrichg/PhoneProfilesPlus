@@ -228,9 +228,11 @@ public class ScannerService extends WakefulIntentService
                                     new Handler(context.getMainLooper()).postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Intent eventsServiceIntent = new Intent(_context, EventsService.class);
-                                            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_WIFI_SCANNER);
-                                            WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
+                                            try {
+                                                Intent eventsServiceIntent = new Intent(_context, EventsService.class);
+                                                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_WIFI_SCANNER);
+                                                WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
+                                            } catch (Exception ignored) {}
                                         }
                                     }, 5000);
                                     //WifiScanBroadcastReceiver.setAlarm(context);

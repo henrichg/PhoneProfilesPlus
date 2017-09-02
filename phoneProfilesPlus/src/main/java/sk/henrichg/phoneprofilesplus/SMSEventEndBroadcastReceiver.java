@@ -32,9 +32,11 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
             if (smsEventsExists)
             {*/
                 // start service
-                Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_SMS_EVENT_END);
-                WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                try {
+                    Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
+                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_SMS_EVENT_END);
+                    WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                } catch (Exception ignored) {}
             //}
 
         }

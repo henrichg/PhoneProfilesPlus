@@ -19,9 +19,11 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        Intent serviceIntent = new Intent(context, BluetoothService.class);
-        serviceIntent.setAction(intent.getAction());
-        serviceIntent.putExtra(BluetoothAdapter.EXTRA_STATE, intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR));
-        WakefulIntentService.sendWakefulWork(context, serviceIntent);
+        try {
+            Intent serviceIntent = new Intent(context, BluetoothService.class);
+            serviceIntent.setAction(intent.getAction());
+            serviceIntent.putExtra(BluetoothAdapter.EXTRA_STATE, intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR));
+            WakefulIntentService.sendWakefulWork(context, serviceIntent);
+        } catch (Exception ignored) {}
     }
 }

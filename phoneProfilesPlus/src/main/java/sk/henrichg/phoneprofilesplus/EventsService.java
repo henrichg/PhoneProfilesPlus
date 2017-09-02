@@ -630,16 +630,18 @@ public class EventsService extends WakefulIntentService {
                     profile = Profile.getMappedProfile(profile, context);
                     if (profile != null) {
                         PPApplication.logE("EventsService.doEndService", "callEventType=" + callEventType);
-                        Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
-                        volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                        volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_MERGED_PROFILE, false);
-                        volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_FOR_PROFILE_ACTIVATION, false);
-                        volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_STARTED_FROM_BROADCAST, false);
-                        WakefulIntentService.sendWakefulWork(context, volumeServiceIntent);
-                        // wait for link/unlink
-                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(1000);
-                        PPApplication.sleep(1000);
+                        try {
+                            Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
+                            volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                            volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_MERGED_PROFILE, false);
+                            volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_FOR_PROFILE_ACTIVATION, false);
+                            volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_STARTED_FROM_BROADCAST, false);
+                            WakefulIntentService.sendWakefulWork(context, volumeServiceIntent);
+                            // wait for link/unlink
+                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(1000);
+                            PPApplication.sleep(1000);
+                        } catch (Exception ignored) {}
                     }
                 }
             } else
@@ -647,20 +649,22 @@ public class EventsService extends WakefulIntentService {
 
             if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING)) {
                 // start PhoneProfilesService for ringing call simulation
-                Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-                lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
-                lIntent.putExtra(EXTRA_SIMULATE_RINGING_CALL, true);
-                lIntent.putExtra(EXTRA_OLD_RINGER_MODE, oldRingerMode);
-                lIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
-                lIntent.putExtra(EXTRA_OLD_ZEN_MODE, oldZenMode);
-                lIntent.putExtra(EXTRA_OLD_RINGTONE, oldRingtone);
-                lIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
-                //TODO Android O
-                //if (Build.VERSION.SDK_INT < 26)
-                    context.startService(lIntent);
-                //else
-                //    context.startForegroundService(lIntent);
+                try {
+                    Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+                    lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                    lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+                    lIntent.putExtra(EXTRA_SIMULATE_RINGING_CALL, true);
+                    lIntent.putExtra(EXTRA_OLD_RINGER_MODE, oldRingerMode);
+                    lIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+                    lIntent.putExtra(EXTRA_OLD_ZEN_MODE, oldZenMode);
+                    lIntent.putExtra(EXTRA_OLD_RINGTONE, oldRingtone);
+                    lIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
+                    //TODO Android O
+                    //if (Build.VERSION.SDK_INT < 26)
+                        context.startService(lIntent);
+                    //else
+                    //    context.startForegroundService(lIntent);
+                } catch (Exception ignored) {}
             }
 
             if (!PhoneCallService.speakerphoneOnExecuted) {

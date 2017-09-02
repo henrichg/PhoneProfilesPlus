@@ -100,9 +100,11 @@ public class BluetoothService extends WakefulIntentService {
                                 PPApplication.logE("@@@ BluetoothService.doWakefulWork","BluetoothConnectionBroadcastReceiver: bluetoothEventsExists="+bluetoothEventsExists);
                             */
                             // start service
-                            Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_CONNECTION);
-                            WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                            try {
+                                Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
+                                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_CONNECTION);
+                                WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                            } catch (Exception ignored) {}
                             //}
                         }
                         //}
@@ -161,11 +163,13 @@ public class BluetoothService extends WakefulIntentService {
 
                             //if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
 
-                            Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RADIO_SWITCH);
-                            eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_BLUETOOTH);
-                            eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, bluetoothState == BluetoothAdapter.STATE_ON);
-                            WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                            try {
+                                Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
+                                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RADIO_SWITCH);
+                                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_BLUETOOTH);
+                                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, bluetoothState == BluetoothAdapter.STATE_ON);
+                                WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                            } catch (Exception ignored) {}
 
                             //}
 
@@ -178,9 +182,11 @@ public class BluetoothService extends WakefulIntentService {
                             */
 
                             // start service
-                            Intent eventsServiceIntent2 = new Intent(appContext, EventsService.class);
-                            eventsServiceIntent2.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_STATE);
-                            WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent2);
+                            try {
+                                Intent eventsServiceIntent2 = new Intent(appContext, EventsService.class);
+                                eventsServiceIntent2.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_STATE);
+                                WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent2);
+                            } catch (Exception ignored) {}
                             //}
                         }
 
@@ -297,9 +303,11 @@ public class BluetoothService extends WakefulIntentService {
                             new Handler(appContext.getMainLooper()).postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent eventsServiceIntent = new Intent(_context, EventsService.class);
-                                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_SCANNER);
-                                    WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
+                                    try {
+                                        Intent eventsServiceIntent = new Intent(_context, EventsService.class);
+                                        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_SCANNER);
+                                        WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
+                                    } catch (Exception ignored) {}
                                 }
                             }, 5000);
                         }
@@ -531,9 +539,11 @@ public class BluetoothService extends WakefulIntentService {
                 new Handler(context.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent eventsServiceIntent = new Intent(_context, EventsService.class);
-                        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_SCANNER);
-                        WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
+                        try {
+                            Intent eventsServiceIntent = new Intent(_context, EventsService.class);
+                            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_SCANNER);
+                            WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
+                        } catch (Exception ignored) {}
                     }
                 }, 5000);
             }

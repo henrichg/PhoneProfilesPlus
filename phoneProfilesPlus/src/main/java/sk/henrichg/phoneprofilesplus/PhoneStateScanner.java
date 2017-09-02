@@ -338,8 +338,10 @@ class PhoneStateScanner extends PhoneStateListener {
 
     private void sendBroadcast() {
         // start service for call EventsService
-        Intent serviceIntent = new Intent(context, PhoneStateService.class);
-        WakefulIntentService.sendWakefulWork(context, serviceIntent);
+        try {
+            Intent serviceIntent = new Intent(context, PhoneStateService.class);
+            WakefulIntentService.sendWakefulWork(context, serviceIntent);
+        } catch (Exception ignored) {}
 
         // broadcast for cells editor
         /*Intent intent = new Intent(ACTION_PHONE_STATE_CHANGED);
@@ -374,7 +376,9 @@ class PhoneStateScanner extends PhoneStateListener {
         if (enabledAutoRegistration) {
             //Log.d("PhoneStateScanner.startAutoRegistration","xxx");
             stopAutoRegistration();
-            context.startService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
+            try {
+                context.startService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
+            } catch (Exception ignored) {}
         }
     }
 

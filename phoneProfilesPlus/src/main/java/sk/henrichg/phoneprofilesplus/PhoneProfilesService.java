@@ -594,8 +594,6 @@ public class PhoneProfilesService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        super.onStartCommand(intent, flags, startId);
-
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
 
         if (!doForFirstStart(intent, flags, startId)) {
@@ -850,8 +848,10 @@ public class PhoneProfilesService extends Service
                 if (tmpDeviceDistance != mDeviceDistance) {
                     PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity - send broadcast");
                     mDeviceDistance = tmpDeviceDistance;
-                    Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
-                    WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
+                    try {
+                        Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
+                        WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
+                    } catch (Exception ignored) {}
                 }
             //}
             return;
@@ -956,8 +956,10 @@ public class PhoneProfilesService extends Service
                                             PPApplication.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
                                         */
 
-                                        Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
-                                        WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
+                                        try {
+                                            Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
+                                            WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
+                                        } catch (Exception ignored) {}
 
                                     }
                                 }
@@ -993,8 +995,10 @@ public class PhoneProfilesService extends Service
                                 if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
                                     mDisplayUp = mSideUp;
 
-                                Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
-                                WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
+                                try {
+                                    Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
+                                    WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
+                                } catch (Exception ignored) {}
                             }
                         } else {
                             if (mEventCountSinceGZChanged > 0) {

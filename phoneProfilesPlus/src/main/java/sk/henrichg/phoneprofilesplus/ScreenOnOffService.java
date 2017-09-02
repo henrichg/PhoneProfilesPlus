@@ -76,8 +76,10 @@ public class ScreenOnOffService extends IntentService {
                     }
 
                     // enable/disable keyguard
-                    Intent keyguardService = new Intent(appContext, KeyguardService.class);
-                    appContext.startService(keyguardService);
+                    try {
+                        Intent keyguardService = new Intent(appContext, KeyguardService.class);
+                        appContext.startService(keyguardService);
+                    } catch (Exception ignored) {}
 
                     return;
                 }
@@ -96,9 +98,11 @@ public class ScreenOnOffService extends IntentService {
                     //if (screenEventsExists*/)
                     //{
                     // start service
-                    Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_SCREEN);
-                    WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                    try {
+                        Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
+                        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_SCREEN);
+                        WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                    } catch (Exception ignored) {}
                     //}
 
                     if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {

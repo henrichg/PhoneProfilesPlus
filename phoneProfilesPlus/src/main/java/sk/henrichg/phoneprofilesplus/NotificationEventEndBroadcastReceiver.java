@@ -32,9 +32,11 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
             if (notificationEventsExists)
             {*/
                 // start service
-                Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_NOTIFICATION_EVENT_END);
-                WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                try {
+                    Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
+                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_NOTIFICATION_EVENT_END);
+                    WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                } catch (Exception ignored) {}
             //}
 
         }

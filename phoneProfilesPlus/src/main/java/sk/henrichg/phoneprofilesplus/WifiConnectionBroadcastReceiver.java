@@ -19,10 +19,12 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        Intent serviceIntent = new Intent(context, WifiService.class);
-        serviceIntent.setAction(intent.getAction());
-        serviceIntent.putExtra(WifiManager.EXTRA_NETWORK_INFO, intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO));
-        WakefulIntentService.sendWakefulWork(context, serviceIntent);
+        try {
+            Intent serviceIntent = new Intent(context, WifiService.class);
+            serviceIntent.setAction(intent.getAction());
+            serviceIntent.putExtra(WifiManager.EXTRA_NETWORK_INFO, intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO));
+            WakefulIntentService.sendWakefulWork(context, serviceIntent);
+        } catch (Exception ignored) {}
 
     }
 }

@@ -66,8 +66,10 @@ class GeofenceScannerJob extends Job {
                     //PhoneProfilesService.geofencesScanner.stopLocationUpdates();
 
                     // start service
-                    Intent serviceIntent = new Intent(context, GeofencesService.class);
-                    WakefulIntentService.sendWakefulWork(context, serviceIntent);
+                    try {
+                        Intent serviceIntent = new Intent(context, GeofencesService.class);
+                        WakefulIntentService.sendWakefulWork(context, serviceIntent);
+                    } catch (Exception ignored) {}
                 } else
                     PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates not started - start it");
                     // Fixed: java.lang.NullPointerException: Calling thread must be a prepared Looper thread.

@@ -32,9 +32,11 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
             if (calendarEventsExists)
             {*/
                 // start service
-                Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED);
-                WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                try {
+                    Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
+                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED);
+                    WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                } catch (Exception ignored) {}
             //}
 
         }

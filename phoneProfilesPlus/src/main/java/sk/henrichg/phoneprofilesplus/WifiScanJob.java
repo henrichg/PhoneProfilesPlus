@@ -262,9 +262,11 @@ class WifiScanJob extends Job {
             if (fromDialog)
                 setScanRequest(context, true);
 
-            Intent scanServiceIntent = new Intent(context, ScannerService.class);
-            scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_WIFI);
-            WakefulIntentService.sendWakefulWork(context, scanServiceIntent);
+            try {
+                Intent scanServiceIntent = new Intent(context, ScannerService.class);
+                scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, ScannerService.SCANNER_TYPE_WIFI);
+                WakefulIntentService.sendWakefulWork(context, scanServiceIntent);
+            } catch (Exception ignored) {}
         }
         dataWrapper.invalidateDataWrapper();
     }

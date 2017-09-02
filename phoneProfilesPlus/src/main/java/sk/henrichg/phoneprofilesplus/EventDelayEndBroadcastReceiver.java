@@ -23,9 +23,11 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("@@@ EventDelayEndBroadcastReceiver.onReceive","xxx");
 
             // start service
-            Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_EVENT_DELAY_END);
-            WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+            try {
+                Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_EVENT_DELAY_END);
+                WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+            } catch (Exception ignored) {}
         }
 
     }

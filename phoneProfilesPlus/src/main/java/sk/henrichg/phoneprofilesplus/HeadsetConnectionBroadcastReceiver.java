@@ -22,18 +22,20 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
         String action = intent.getAction();
 
-        Intent serviceIntent = new Intent(context, HeadsetConnectionService.class);
-        serviceIntent.setAction(intent.getAction());
-        if (action.equals(Intent.ACTION_HEADSET_PLUG)) {
-            serviceIntent.putExtra("state", intent.getIntExtra("state", -1));
-            serviceIntent.putExtra("microphone", intent.getIntExtra("microphone", -1));
-        }
-        else
-        if (action.equals(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED))
-            serviceIntent.putExtra(BluetoothProfile.EXTRA_STATE, intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothHeadset.STATE_AUDIO_DISCONNECTED));
-        else
-        if (action.equals(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED))
-            serviceIntent.putExtra(BluetoothProfile.EXTRA_STATE, intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED));
-        WakefulIntentService.sendWakefulWork(context, serviceIntent);
+        try {
+            Intent serviceIntent = new Intent(context, HeadsetConnectionService.class);
+            serviceIntent.setAction(intent.getAction());
+            if (action.equals(Intent.ACTION_HEADSET_PLUG)) {
+                serviceIntent.putExtra("state", intent.getIntExtra("state", -1));
+                serviceIntent.putExtra("microphone", intent.getIntExtra("microphone", -1));
+            }
+            else
+            if (action.equals(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED))
+                serviceIntent.putExtra(BluetoothProfile.EXTRA_STATE, intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothHeadset.STATE_AUDIO_DISCONNECTED));
+            else
+            if (action.equals(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED))
+                serviceIntent.putExtra(BluetoothProfile.EXTRA_STATE, intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED));
+            WakefulIntentService.sendWakefulWork(context, serviceIntent);
+        } catch (Exception ignored) {}
     }
 }

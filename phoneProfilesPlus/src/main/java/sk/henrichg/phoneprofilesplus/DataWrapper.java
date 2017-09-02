@@ -2902,9 +2902,11 @@ public class DataWrapper {
         PPApplication.logE("$$$ restartEvents", "in DataWrapper.restartEvents");
 
         if (Event.getEventsBlocked(context) && (!unblockEventsRun)) {
-            Intent eventsServiceIntent = new Intent(context, EventsService.class);
-            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_START_EVENTS_SERVICE);
-            WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
+            try {
+                Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_START_EVENTS_SERVICE);
+                WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
+            } catch (Exception ignored) {}
             return;
         }
 
@@ -2933,10 +2935,12 @@ public class DataWrapper {
             setProfileActive(null);
         }
 
-        Intent eventsServiceIntent = new Intent(context, EventsService.class);
-        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RESTART_EVENTS);
-        eventsServiceIntent.putExtra(DataWrapper.EXTRA_INTERACTIVE, interactive);
-        WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
+        try {
+            Intent eventsServiceIntent = new Intent(context, EventsService.class);
+            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RESTART_EVENTS);
+            eventsServiceIntent.putExtra(DataWrapper.EXTRA_INTERACTIVE, interactive);
+            WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
+        } catch (Exception ignored) {}
     }
 
     void restartEventsWithRescan(boolean showToast, boolean interactive)
