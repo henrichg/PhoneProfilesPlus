@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -60,6 +61,10 @@ public class PhoneProfilesService extends Service
     public static PhoneProfilesService instance = null;
     private static boolean serviceRunning = false;
 
+    private KeyguardManager keyguardManager;
+    @SuppressWarnings("deprecation")
+    private KeyguardManager.KeyguardLock keyguardLock;
+
     private ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
     private InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
     private PhoneCallBroadcastReceiver phoneCallBroadcastReceiver = null;
@@ -93,6 +98,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_ONLY_START = "only_start";
     static final String EXTRA_SET_SERVICE_FOREGROUND = "set_service_foreground";
     static final String EXTRA_CLEAR_SERVICE_FOREGROUND = "clear_service_foreground";
+    static final String EXTRA_SWITCH_KEYGUARD = "switch_keyguard";
 
     //-----------------------
 
@@ -198,6 +204,9 @@ public class PhoneProfilesService extends Service
         */
 
         //PPApplication.initPhoneProfilesServiceMessenger(appContext);
+
+        keyguardManager = (KeyguardManager)appContext.getSystemService(Activity.KEYGUARD_SERVICE);
+        keyguardLock = keyguardManager.newKeyguardLock("phoneProfilesPlus.keyguardLock");
 
         // --- receivers and content observers for profiles/events -- must be registered permanently
 
@@ -579,6 +588,8 @@ public class PhoneProfilesService extends Service
         stopSimulatingRingingCall(true);
         //stopSimulatingNotificationTone(true);
 
+        reenableKeyguard();
+
         removeProfileNotification(this);
 
         instance = null;
@@ -593,6 +604,12 @@ public class PhoneProfilesService extends Service
 
         Context appContext = getApplicationContext();
 
+        // set service foreground
+        final DataWrapper dataWrapper =  new DataWrapper(this, true, false, 0);
+        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
+        Profile activatedProfile = dataWrapper.getActivatedProfile();
+        showProfileNotification(activatedProfile, dataWrapper);
+
         Intent serviceIntent = new Intent(appContext, FirstStartService.class);
 
         if (intent != null) {
@@ -603,12 +620,6 @@ public class PhoneProfilesService extends Service
         }
 
         if (onlyStart) {
-            // set service foreground
-            final DataWrapper dataWrapper =  new DataWrapper(this, true, false, 0);
-            dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
-            Profile activatedProfile = dataWrapper.getActivatedProfile();
-            showProfileNotification(activatedProfile, dataWrapper);
-
             // start FirstStartService
             WakefulIntentService.sendWakefulWork(appContext, serviceIntent);
 
@@ -638,6 +649,45 @@ public class PhoneProfilesService extends Service
                 if (intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_CLEAR_SERVICE_FOREGROUND");
                     removeProfileNotification(this);
+                }
+
+                if (intent.getBooleanExtra(EXTRA_SWITCH_KEYGUARD, false)) {
+                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SWITCH_KEYGUARD");
+
+                    Context appContext = getApplicationContext();
+
+                    boolean isScreenOn;
+                    //if (android.os.Build.VERSION.SDK_INT >= 20)
+                    //{
+                    //    Display display = ((WindowManager)context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+                    //    isScreenOn = display.getState() == Display.STATE_ON;
+                    //}
+                    //else
+                    //{
+                    PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    isScreenOn = pm.isScreenOn();
+                    //}
+
+                    boolean secureKeyguard;
+                    secureKeyguard = keyguardManager.isKeyguardSecure();
+                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand","secureKeyguard="+secureKeyguard);
+                    if (!secureKeyguard)
+                    {
+                        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand xxx","getLockScreenDisabled="+ ActivateProfileHelper.getLockScreenDisabled(appContext));
+
+                        if (isScreenOn) {
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "screen on");
+
+                            if (ActivateProfileHelper.getLockScreenDisabled(appContext)) {
+                                PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "Keyguard.disable(), START_STICKY");
+                                reenableKeyguard();
+                                disableKeyguard();
+                            } else {
+                                PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "Keyguard.reenable(), stopSelf(), START_NOT_STICKY");
+                                reenableKeyguard();
+                            }
+                        }
+                    }
                 }
 
                 if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_RINGING_CALL, false)) {
@@ -1031,6 +1081,24 @@ public class PhoneProfilesService extends Service
 
 
     //--------------------------
+
+    // switch keyguard ------------------------------------
+
+    private void disableKeyguard()
+    {
+        PPApplication.logE("$$$ Keyguard.disable","keyguardLock="+keyguardLock);
+        if ((keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD))
+            keyguardLock.disableKeyguard();
+    }
+
+    private void reenableKeyguard()
+    {
+        PPApplication.logE("$$$ Keyguard.reenable","keyguardLock="+keyguardLock);
+        if ((keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD))
+            keyguardLock.reenableKeyguard();
+    }
+
+    //--------------------------------------
 
     // Location ----------------------------------------------------------------
 

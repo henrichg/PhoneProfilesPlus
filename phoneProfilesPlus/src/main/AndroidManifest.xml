@@ -552,10 +552,6 @@
             android:exported="false">
         </service>
         <service
-            android:name=".KeyguardService"
-            android:exported="false">
-        </service>
-        <service
             android:name=".PPNotificationListenerService"
             android:enabled="@bool/api_v18"
             android:exported="@bool/api_v18"

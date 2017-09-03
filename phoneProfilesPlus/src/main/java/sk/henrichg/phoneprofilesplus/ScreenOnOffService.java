@@ -79,8 +79,16 @@ public class ScreenOnOffService extends IntentService {
 
                     // enable/disable keyguard
                     try {
-                        Intent keyguardService = new Intent(appContext, KeyguardService.class);
-                        appContext.startService(keyguardService);
+                        // start PhoneProfilesService
+                        //PPApplication.firstStartServiceStarted = false;
+                        Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, false);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                        //TODO Android O
+                        //if (Build.VERSION.SDK_INT < 26)
+                        appContext.startService(serviceIntent);
+                        //else
+                        //    startForegroundService(serviceIntent);
                     } catch (Exception ignored) {}
 
                     return;

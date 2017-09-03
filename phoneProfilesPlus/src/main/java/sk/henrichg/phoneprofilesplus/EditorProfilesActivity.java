@@ -655,8 +655,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         PPApplication.initRoot();
 
         //PPApplication.cleanPhoneProfilesServiceMessenger(context);
+
         context.stopService(new Intent(context, PhoneProfilesService.class));
-        context.stopService(new Intent(context, KeyguardService.class));
 
         PPApplication.setApplicationStarted(context, false);
 

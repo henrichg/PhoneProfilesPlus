@@ -1486,8 +1486,16 @@ public class ActivateProfileHelper {
 
             if (isScreenOn && !keyguardShowing) {
                 try {
-                    Intent keyguardService = new Intent(context.getApplicationContext(), KeyguardService.class);
-                    context.startService(keyguardService);
+                    // start PhoneProfilesService
+                    //PPApplication.firstStartServiceStarted = false;
+                    Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, false);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                    //TODO Android O
+                    //if (Build.VERSION.SDK_INT < 26)
+                    context.startService(serviceIntent);
+                    //else
+                    //    startForegroundService(serviceIntent);
                 } catch (Exception ignored) {}
             }
         }
