@@ -946,8 +946,10 @@ public class GrantPermissionActivity extends Activity {
 
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
             Profile activatedProfile = dataWrapper.getActivatedProfile();
-            if ((activatedProfile == null) || (activatedProfile._id == profile_id))
-                activateProfileHelper.showNotification(profile);
+            if ((activatedProfile == null) || (activatedProfile._id == profile_id)) {
+                if (PhoneProfilesService.instance != null)
+                    PhoneProfilesService.instance.showProfileNotification(profile, dataWrapper);
+            }
             activateProfileHelper.updateWidget(true);
 
             /*Intent intent5 = new Intent();

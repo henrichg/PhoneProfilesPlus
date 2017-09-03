@@ -683,7 +683,7 @@ public class Profile {
 
             String profileIcon = withProfile._icon;
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                                    dataWrapper.getProfileNameWithManualIndicator(withProfile, true, false, false),
+                                    DataWrapper.getProfileNameWithManualIndicator(withProfile, true, false, false, dataWrapper),
                                     profileIcon, 0);
         }
     }

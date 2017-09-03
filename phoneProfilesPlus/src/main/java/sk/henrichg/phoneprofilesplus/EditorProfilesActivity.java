@@ -613,7 +613,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         dataWrapper.stopAllEvents(false, false);
 
         // zrusenie notifikacie
-        dataWrapper.getActivateProfileHelper().removeNotification();
         ImportantInfoNotification.removeNotification(context);
         Permissions.removeNotifications(context);
 
@@ -1723,7 +1722,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 Profile activeProfile = fragment.dataWrapper.getActivatedProfile();
                 fragment.updateHeader(activeProfile);
-                fragment.dataWrapper.getActivateProfileHelper().showNotification(activeProfile);
+                if (PhoneProfilesService.instance != null)
+                    PhoneProfilesService.instance.showProfileNotification(activeProfile, fragment.dataWrapper);
                 fragment.dataWrapper.getActivateProfileHelper().updateWidget(true);
             }
             redrawProfilePreferences(profile, newProfileMode, predefinedProfileIndex, startTargetHelps);

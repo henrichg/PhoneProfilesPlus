@@ -1,7 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.KeyguardManager;
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -12,6 +17,9 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,6 +31,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -33,10 +42,13 @@ import android.provider.Settings;
 import android.provider.Telephony;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.RemoteViews;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 import com.crashlytics.android.Crashlytics;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -46,6 +58,7 @@ public class PhoneProfilesService extends Service
                                     AudioManager.OnAudioFocusChangeListener
 {
     public static PhoneProfilesService instance = null;
+    private static boolean serviceRunning = false;
 
     private ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
     private InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
@@ -78,6 +91,8 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_START_STOP_SCANNER_TYPE = "start_stop_scanner_type";
     static final String EXTRA_START_ON_BOOT = "start_on_boot";
     static final String EXTRA_ONLY_START = "only_start";
+    static final String EXTRA_SET_SERVICE_FOREGROUND = "set_service_foreground";
+    static final String EXTRA_CLEAR_SERVICE_FOREGROUND = "clear_service_foreground";
 
     //-----------------------
 
@@ -564,7 +579,10 @@ public class PhoneProfilesService extends Service
         stopSimulatingRingingCall(true);
         //stopSimulatingNotificationTone(true);
 
+        removeProfileNotification(this);
+
         instance = null;
+        serviceRunning = false;
 
         super.onDestroy();
     }
@@ -579,10 +597,19 @@ public class PhoneProfilesService extends Service
 
         if (intent != null) {
             onlyStart = intent.getBooleanExtra(EXTRA_ONLY_START, true);
+            if (onlyStart)
+                PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_ONLY_START");
             serviceIntent.putExtra(EXTRA_START_ON_BOOT, intent.getBooleanExtra(EXTRA_START_ON_BOOT, false));
         }
 
         if (onlyStart) {
+            // set service foreground
+            final DataWrapper dataWrapper =  new DataWrapper(this, true, false, 0);
+            dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
+            Profile activatedProfile = dataWrapper.getActivatedProfile();
+            showProfileNotification(activatedProfile, dataWrapper);
+
+            // start FirstStartService
             WakefulIntentService.sendWakefulWork(appContext, serviceIntent);
 
             ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, false);
@@ -596,14 +623,32 @@ public class PhoneProfilesService extends Service
     {
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
 
+        serviceRunning = true;
+
         if (!doForFirstStart(intent, flags, startId)) {
             if (intent != null) {
-                if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_RINGING_CALL, false))
+                if (intent.getBooleanExtra(EXTRA_SET_SERVICE_FOREGROUND, false)) {
+                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SET_SERVICE_FOREGROUND");
+                    final DataWrapper dataWrapper =  new DataWrapper(this, true, false, 0);
+                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
+                    Profile activatedProfile = dataWrapper.getActivatedProfile();
+                    showProfileNotification(activatedProfile, dataWrapper);
+                }
+
+                if (intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false)) {
+                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_CLEAR_SERVICE_FOREGROUND");
+                    removeProfileNotification(this);
+                }
+
+                if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_RINGING_CALL, false)) {
+                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SIMULATE_RINGING_CALL");
                     doSimulatingRingingCall(intent);
+                }
                 //if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_NOTIFICATION_TONE, false))
                 //    doSimulatingNotificationTone(intent);
 
                 if (intent.getBooleanExtra(EXTRA_START_STOP_SCANNER, false)) {
+                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_START_STOP_SCANNER");
                     switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
                         case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_GEOFENCE_SCANNER");
@@ -646,6 +691,346 @@ public class PhoneProfilesService extends Service
     }
 
     //------------------------
+
+    // profile notification -------------------
+
+    @SuppressLint("NewApi")
+    void showProfileNotification(Profile profile, DataWrapper dataWrapper)
+    {
+        if (ActivateProfileHelper.lockRefresh)
+            // no refresh notification
+            return;
+
+        if (serviceRunning && ApplicationPreferences.notificationStatusBar(dataWrapper.context))
+        {
+            PPApplication.logE("ActivateProfileHelper.showNotification", "show");
+
+            boolean notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar(dataWrapper.context);
+            boolean notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(dataWrapper.context);
+
+            // close showed notification
+            //notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+
+            // vytvorenie intentu na aktivitu, ktora sa otvori na kliknutie na notifikaciu
+            Intent intent = new Intent(dataWrapper.context, LauncherActivity.class);
+            // clear all opened activities
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            // nastavime, ze aktivita sa spusti z notifikacnej listy
+            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
+            PendingIntent pIntent = PendingIntent.getActivity(dataWrapper.context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+            // vytvorenie intentu na restart events
+            /*Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
+            intentRE.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);*/
+            Intent intentRE = new Intent(dataWrapper.context, RestartEventsFromNotificationBroadcastReceiver.class);
+            PendingIntent pIntentRE = PendingIntent.getBroadcast(dataWrapper.context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
+
+
+            // vytvorenie samotnej notifikacie
+
+            Notification.Builder notificationBuilder;
+
+            RemoteViews contentView;
+            if (ApplicationPreferences.notificationTheme(dataWrapper.context).equals("1"))
+                contentView = new RemoteViews(dataWrapper.context.getPackageName(), R.layout.notification_drawer_dark);
+            else
+            if (ApplicationPreferences.notificationTheme(dataWrapper.context).equals("2"))
+                contentView = new RemoteViews(dataWrapper.context.getPackageName(), R.layout.notification_drawer_light);
+            else
+                contentView = new RemoteViews(dataWrapper.context.getPackageName(), R.layout.notification_drawer);
+
+            boolean isIconResourceID;
+            String iconIdentifier;
+            String profileName;
+            Bitmap iconBitmap;
+            Bitmap preferencesIndicator;
+
+            if (profile != null)
+            {
+                isIconResourceID = profile.getIsIconResourceID();
+                iconIdentifier = profile.getIconIdentifier();
+                profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper);
+                iconBitmap = profile._iconBitmap;
+                preferencesIndicator = profile._preferencesIndicator;
+            }
+            else
+            {
+                isIconResourceID = true;
+                iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
+                profileName = dataWrapper.context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                iconBitmap = null;
+                preferencesIndicator = null;
+            }
+
+            notificationBuilder = new Notification.Builder(dataWrapper.context)
+                    .setContentIntent(pIntent);
+
+            //TODO Android O
+            /*if (Build.VERSION.SDK_INT >= 26) {
+                // The id of the channel.
+                String channelId = "phoneProfiles_profile_activated";
+                // The user-visible name of the channel.
+                CharSequence name = context.getString(R.string.notification_channel_activated_profile);
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.notification_channel_activated_profile_ppp);
+
+                // no sound
+                int importance = NotificationManager.IMPORTANCE_LOW;
+                if (notificationShowInStatusBar) {
+                    KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+                    //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
+                    boolean screenUnlocked = !myKM.isKeyguardLocked();
+                    //boolean screenUnlocked = getScreenUnlocked(context);
+                    if ((ApplicationPreferences.notificationHideInLockScreen(context) && (!screenUnlocked)) ||
+                            ((profile != null) && profile._hideStatusBarIcon))
+                        importance = NotificationManager.IMPORTANCE_MIN;
+                }
+                else
+                    importance = NotificationManager.IMPORTANCE_MIN;
+
+                NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+
+                // Configure the notification channel.
+                channel.setImportance(importance);
+                channel.setDescription(description);
+                channel.enableLights(false);
+                // Sets the notification light color for notifications posted to this
+                // channel, if the device supports this feature.
+                //channel.setLightColor(Color.RED);
+                channel.enableVibration(false);
+                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+                notificationManager.createNotificationChannel(channel);
+
+                notificationBuilder.setChannelId(channelId);
+            }
+            else {*/
+            if (notificationShowInStatusBar) {
+                KeyguardManager myKM = (KeyguardManager) dataWrapper.context.getSystemService(Context.KEYGUARD_SERVICE);
+                //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
+                boolean screenUnlocked = !myKM.isKeyguardLocked();
+                //boolean screenUnlocked = getScreenUnlocked(context);
+                if ((ApplicationPreferences.notificationHideInLockScreen(dataWrapper.context) && (!screenUnlocked)) ||
+                        ((profile != null) && profile._hideStatusBarIcon))
+                    notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+                else
+                    notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
+            }
+            else
+                notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+            //}
+            if (Build.VERSION.SDK_INT >= 21)
+            {
+                notificationBuilder.setCategory(Notification.CATEGORY_STATUS);
+                notificationBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
+            }
+
+            notificationBuilder.setTicker(profileName);
+
+            if (isIconResourceID)
+            {
+                int iconSmallResource;
+                if (iconBitmap != null) {
+                    if (ApplicationPreferences.notificationStatusBarStyle(dataWrapper.context).equals("0")) {
+                        // colorful icon
+
+                        // FC in Note 4, 6.0.1 :-/
+                        String manufacturer = PPApplication.getROMManufacturer();
+                        boolean isNote4 = (manufacturer != null) && (manufacturer.compareTo("samsung") == 0) &&
+                                          /*(Build.MODEL.startsWith("SM-N910") ||  // Samsung Note 4
+                                           Build.MODEL.startsWith("SM-G900")     // Samsung Galaxy S5
+                                          ) &&*/
+                                (android.os.Build.VERSION.SDK_INT == 23);
+                        //Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
+                        if ((android.os.Build.VERSION.SDK_INT >= 23) && (!isNote4)) {
+                            notificationBuilder.setSmallIcon(ColorNotificationIcon.getFromBitmap(iconBitmap));
+                        }
+                        else {
+                            iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", dataWrapper.context.getPackageName());
+                            if (iconSmallResource == 0)
+                                iconSmallResource = R.drawable.ic_profile_default;
+                            notificationBuilder.setSmallIcon(iconSmallResource);
+                        }
+                    }
+                    else {
+                        // native icon
+                        iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", dataWrapper.context.getPackageName());
+                        if (iconSmallResource == 0)
+                            iconSmallResource = R.drawable.ic_profile_default_notify;
+                        notificationBuilder.setSmallIcon(iconSmallResource);
+                    }
+
+                    contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                }
+                else {
+                    if (ApplicationPreferences.notificationStatusBarStyle(dataWrapper.context).equals("0")) {
+                        // colorful icon
+                        iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", dataWrapper.context.getPackageName());
+                        if (iconSmallResource == 0)
+                            iconSmallResource = R.drawable.ic_profile_default;
+                        notificationBuilder.setSmallIcon(iconSmallResource);
+
+                        int iconLargeResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier, "drawable", dataWrapper.context.getPackageName());
+                        if (iconLargeResource == 0)
+                            iconLargeResource = R.drawable.ic_profile_default;
+                        Bitmap largeIcon = BitmapFactory.decodeResource(dataWrapper.context.getResources(), iconLargeResource);
+                        contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
+                    } else {
+                        // native icon
+                        iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", dataWrapper.context.getPackageName());
+                        if (iconSmallResource == 0)
+                            iconSmallResource = R.drawable.ic_profile_default_notify;
+                        notificationBuilder.setSmallIcon(iconSmallResource);
+
+                        int iconLargeResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier, "drawable", dataWrapper.context.getPackageName());
+                        if (iconLargeResource == 0)
+                            iconLargeResource = R.drawable.ic_profile_default;
+                        Bitmap largeIcon = BitmapFactory.decodeResource(dataWrapper.context.getResources(), iconLargeResource);
+                        contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
+                    }
+                }
+            }
+            else {
+                // FC in Note 4, 6.0.1 :-/
+                String manufacturer = PPApplication.getROMManufacturer();
+                boolean isNote4 = (manufacturer != null) && (manufacturer.compareTo("samsung") == 0) &&
+                        /*(Build.MODEL.startsWith("SM-N910") ||  // Samsung Note 4
+                         Build.MODEL.startsWith("SM-G900")     // Samsung Galaxy S5
+                        ) &&*/
+                        (android.os.Build.VERSION.SDK_INT == 23);
+                //Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
+                if ((Build.VERSION.SDK_INT >= 23) && (!isNote4) && (iconBitmap != null)) {
+                    notificationBuilder.setSmallIcon(ColorNotificationIcon.getFromBitmap(iconBitmap));
+                }
+                else {
+                    int iconSmallResource;
+                    if (ApplicationPreferences.notificationStatusBarStyle(dataWrapper.context).equals("0"))
+                        iconSmallResource = R.drawable.ic_profile_default;
+                    else
+                        iconSmallResource = R.drawable.ic_profile_default_notify;
+                    notificationBuilder.setSmallIcon(iconSmallResource);
+                }
+
+                if (iconBitmap != null)
+                    contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                else
+                    contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
+            }
+
+            // workaround for LG G4, Android 6.0
+            if (Build.VERSION.SDK_INT < 24)
+                contentView.setInt(R.id.notification_activated_app_root, "setVisibility", View.GONE);
+
+            if (ApplicationPreferences.notificationTextColor(dataWrapper.context).equals("1")) {
+                contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
+                if (Build.VERSION.SDK_INT >= 24)
+                    contentView.setTextColor(R.id.notification_activated_app_name, Color.BLACK);
+            }
+            else
+            if (ApplicationPreferences.notificationTextColor(dataWrapper.context).equals("2")) {
+                contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
+                if (Build.VERSION.SDK_INT >= 24)
+                    contentView.setTextColor(R.id.notification_activated_app_name, Color.WHITE);
+            }
+            contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
+
+            //contentView.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator,
+            //		ProfilePreferencesIndicator.paint(profile, context));
+            if ((preferencesIndicator != null) && (ApplicationPreferences.notificationPrefIndicator(dataWrapper.context)))
+                contentView.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator, preferencesIndicator);
+            else
+                contentView.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
+
+            if (ApplicationPreferences.notificationTextColor(dataWrapper.context).equals("1"))
+                contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_action_events_restart);
+            else
+            if (ApplicationPreferences.notificationTextColor(dataWrapper.context).equals("2"))
+                contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_action_events_restart_dark);
+            contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
+
+            //if (android.os.Build.VERSION.SDK_INT >= 24) {
+            //    notificationBuilder.setStyle(new Notification.DecoratedCustomViewStyle());
+            //    notificationBuilder.setCustomContentView(contentView);
+            //}
+            //else
+            //noinspection deprecation
+            notificationBuilder.setContent(contentView);
+            //notificationBuilder.setAutoCancel(true);
+
+            Notification phoneProfilesNotification;
+            try {
+                phoneProfilesNotification = notificationBuilder.build();
+            } catch (Exception e) {
+                phoneProfilesNotification = null;
+            }
+
+            if (phoneProfilesNotification != null) {
+                //TODO Android O
+                //if (Build.VERSION.SDK_INT < 26) {
+                if (notificationStatusBarPermanent) {
+                    //notification.flags |= Notification.FLAG_NO_CLEAR;
+                    phoneProfilesNotification.flags |= Notification.FLAG_ONGOING_EVENT;
+                } else {
+                    setAlarmForNotificationCancel(dataWrapper.context);
+                }
+                //}
+
+                if (notificationStatusBarPermanent)
+                    startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
+                else {
+                    NotificationManager notificationManager = (NotificationManager) dataWrapper.context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
+                }
+            }
+        }
+        else
+        {
+            if (ApplicationPreferences.notificationStatusBarPermanent(dataWrapper.context))
+                stopForeground(true);
+            else {
+                NotificationManager notificationManager = (NotificationManager) dataWrapper.context.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+            }
+        }
+    }
+
+    private void removeProfileNotification(Context context)
+    {
+        if (ApplicationPreferences.notificationStatusBarPermanent(context))
+            stopForeground(true);
+        else {
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+        }
+    }
+
+    private void setAlarmForNotificationCancel(Context context)
+    {
+        if (ApplicationPreferences.notificationStatusBarCancel(context).isEmpty() || ApplicationPreferences.notificationStatusBarCancel(context).equals("0"))
+            return;
+
+        int notificationStatusBarCancel = Integer.valueOf(ApplicationPreferences.notificationStatusBarCancel(context));
+
+        Intent intent = new Intent(context, NotificationCancelAlarmBroadcastReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+
+        Calendar now = Calendar.getInstance();
+        long time = now.getTimeInMillis() + notificationStatusBarCancel * 1000;
+        // not needed exact for removing notification
+        /*if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC, time, pendingIntent);
+        if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            alarmManager.setExact(AlarmManager.RTC, time, pendingIntent);
+        else*/
+        alarmManager.set(AlarmManager.RTC, time, pendingIntent);
+    }
+
+
+    //--------------------------
 
     // Location ----------------------------------------------------------------
 

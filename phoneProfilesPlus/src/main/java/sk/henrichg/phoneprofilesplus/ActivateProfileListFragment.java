@@ -326,7 +326,7 @@ public class ActivateProfileListFragment extends Fragment {
         }
         else
         {
-            activeProfileName.setText(dataWrapper.getProfileNameWithManualIndicator(profile, true, true, false));
+            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper));
             if (profile.getIsIconResourceID())
             {
                 if (profile._iconBitmap != null)

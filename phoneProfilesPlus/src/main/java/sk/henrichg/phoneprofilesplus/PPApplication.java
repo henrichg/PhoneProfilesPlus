@@ -39,11 +39,12 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     private static String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
+                                         +"|PhoneProfilesService.onStartCommand"
                                          +"|PackageReplacedService"
 
                                          //+"PhoneProfilesHelper.doUninstallPPHelper"
@@ -182,8 +183,6 @@ public class PPApplication extends Application {
     public static final GeofenceScannerLastLocationMutex geofenceScannerLastLocationMutex = new GeofenceScannerLastLocationMutex();
 
     public static boolean isPowerSaveMode = false;
-
-    public static Notification phoneProfilesNotification = null;
 
     public static boolean startedOnBoot = false;
 

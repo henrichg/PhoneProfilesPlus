@@ -133,13 +133,28 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
         final DataWrapper dataWrapper =  new DataWrapper(getApplicationContext(), true, false, 0);
         dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
-        dataWrapper.getActivateProfileHelper().removeNotification();
+
+        Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+        serviceIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true);
+        //TODO Android O
+        // if (Build.VERSION.SDK_INT < 26)
+        startService(serviceIntent);
+        //else
+        //    startForegroundService(serviceIntent);
+
         Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Profile activatedProfile = dataWrapper.getActivatedProfile();
-                dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
+                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_SET_SERVICE_FOREGROUND, true);
+                //TODO Android O
+                // if (Build.VERSION.SDK_INT < 26)
+                startService(serviceIntent);
+                //else
+                //    startForegroundService(serviceIntent);
             }
         }, 500);
         dataWrapper.getActivateProfileHelper().updateWidget(true);

@@ -69,7 +69,8 @@ public class LauncherActivity extends Activity {
 
                 // pre profil, ktory je prave aktivny, treba aktualizovat notifikaciu a widgety
                 Profile profile = dataWrapper.getActivatedProfile();
-                dataWrapper.getActivateProfileHelper().showNotification(profile);
+                if (PhoneProfilesService.instance != null)
+                    PhoneProfilesService.instance.showProfileNotification(profile, dataWrapper);
                 dataWrapper.getActivateProfileHelper().updateWidget(true);
                 startupSource = PPApplication.STARTUP_SOURCE_LAUNCHER;
             }

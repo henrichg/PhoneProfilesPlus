@@ -38,7 +38,8 @@ public class ScreenOnOffService extends IntentService {
                         //dataWrapper.getActivateProfileHelper().removeNotification();
                         //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
                         Profile activatedProfile = dataWrapper.getActivatedProfile();
-                        dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
+                        if (PhoneProfilesService.instance != null)
+                            PhoneProfilesService.instance.showProfileNotification(activatedProfile, dataWrapper);
                         dataWrapper.invalidateDataWrapper();
                     }
                 } else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
@@ -53,7 +54,8 @@ public class ScreenOnOffService extends IntentService {
                             ApplicationPreferences.notificationHideInLockScreen(appContext)) {
                         //dataWrapper.getActivateProfileHelper().removeNotification();
                         //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
-                        dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
+                        if (PhoneProfilesService.instance != null)
+                            PhoneProfilesService.instance.showProfileNotification(activatedProfile, dataWrapper);
                     }
 
                     // change screen timeout
@@ -155,7 +157,8 @@ public class ScreenOnOffService extends IntentService {
                         //dataWrapper.getActivateProfileHelper().removeNotification();
                         //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
                         Profile activatedProfile = dataWrapper.getActivatedProfile();
-                        dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
+                        if (PhoneProfilesService.instance != null)
+                            PhoneProfilesService.instance.showProfileNotification(activatedProfile, dataWrapper);
                         dataWrapper.invalidateDataWrapper();
                     }
                 }

@@ -43,7 +43,7 @@ public class ProfileDurationService extends WakefulIntentService {
                                 activateProfileId = 0;
 
                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_BACKGROUNDPROFILE, null,
-                                    dataWrapper.getProfileNameWithManualIndicator(profile, true, true, false),
+                                    DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper),
                                     profile._icon, 0);
                         }
                         if (profile._afterDurationDo == Profile.AFTERDURATIONDO_UNDOPROFILE)
@@ -51,13 +51,13 @@ public class ProfileDurationService extends WakefulIntentService {
                             activateProfileId = Profile.getActivatedProfileForDuration(context);
 
                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, null,
-                                    dataWrapper.getProfileNameWithManualIndicator(profile, true, true, false),
+                                    DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper),
                                     profile._icon, 0);
                         }
                         if (profile._afterDurationDo == Profile.AFTERDURATIONDO_RESTARTEVENTS)
                         {
                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_RESTARTEVENTS, null,
-                                    dataWrapper.getProfileNameWithManualIndicator(profile, true, true, false),
+                                    DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper),
                                     profile._icon, 0);
 
                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);

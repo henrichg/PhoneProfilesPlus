@@ -479,7 +479,8 @@ public class DataWrapper {
     void updateNotificationAndWidgets(Profile profile)
     {
         getActivateProfileHelper().initialize(this, context);
-        getActivateProfileHelper().showNotification(profile);
+        if (PhoneProfilesService.instance != null)
+            PhoneProfilesService.instance.showProfileNotification(profile, this);
         getActivateProfileHelper().updateWidget(true);
     }
 
@@ -1159,12 +1160,13 @@ public class DataWrapper {
         }
 
         activatedProfile = getActivatedProfile();
-        activateProfileHelper.showNotification(activatedProfile);
+        if (PhoneProfilesService.instance != null)
+            PhoneProfilesService.instance.showProfileNotification(activatedProfile, this);
         activateProfileHelper.updateWidget(true);
 
         if ((profile != null) && (!merged)) {
             addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                    getProfileNameWithManualIndicator(profile, true, profileDuration > 0, false),
+                    getProfileNameWithManualIndicator(profile, true, profileDuration > 0, false, this),
                     profileIcon, profileDuration);
         }
 
@@ -1204,7 +1206,7 @@ public class DataWrapper {
     {
         //Log.d("DataWrapper.showToastAfterActivation", "xxx");
         try {
-            String profileName = getProfileNameWithManualIndicator(profile, true, false, false);
+            String profileName = getProfileNameWithManualIndicator(profile, true, false, false, this);
             Toast msg = Toast.makeText(context,
                     context.getResources().getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
                             context.getResources().getString(R.string.toast_profile_activated_1),
@@ -1446,7 +1448,8 @@ public class DataWrapper {
         }
         else
         {
-            activateProfileHelper.showNotification(profile);
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.showProfileNotification(profile, this);
             activateProfileHelper.updateWidget(true);
 
             // for startActivityForResult
@@ -3126,22 +3129,24 @@ public class DataWrapper {
             return !Event.getForceRunEventRunning(context);
     }
 
-    private String getProfileNameWithManualIndicator(Profile profile, List<EventTimeline> eventTimelineList, boolean addIndicators, boolean addDuration, boolean multiLine, Context context)
+    static private String getProfileNameWithManualIndicator(Profile profile, List<EventTimeline> eventTimelineList,
+                                                            boolean addIndicators, boolean addDuration, boolean multiLine,
+                                                            DataWrapper dataWrapper)
     {
         if (profile == null)
             return "";
 
         String name;
         if (addDuration)
-            name = profile.getProfileNameWithDuration(multiLine, context);
+            name = profile.getProfileNameWithDuration(multiLine, dataWrapper.context);
         else
             name = profile._name;
 
-        if (Event.getEventsBlocked(context))
+        if (Event.getEventsBlocked(dataWrapper.context))
         {
             if (addIndicators)
             {
-                if (Event.getForceRunEventRunning(context))
+                if (Event.getForceRunEventRunning(dataWrapper.context))
                 {
                     name = "[\u00BB] " + name;
                 }
@@ -3154,7 +3159,7 @@ public class DataWrapper {
 
         if (addIndicators)
         {
-            String eventName = getLastStartedEventName(eventTimelineList);
+            String eventName = getLastStartedEventName(eventTimelineList, dataWrapper);
             if (!eventName.isEmpty())
                 name = name + " [" + eventName + "]";
         }
@@ -3162,37 +3167,28 @@ public class DataWrapper {
         return name;
     }
 
-    public String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators, boolean addDuration, boolean multiLine) {
-        List<EventTimeline> eventTimelineList = getEventTimelineList();
+    static String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators, boolean addDuration, boolean multiLine,
+                                                    DataWrapper dataWrapper) {
+        List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
 
-        return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration, multiLine, context);
+        return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration, multiLine, dataWrapper);
     }
 
-    /*
-    public String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators) {
-        List<EventTimeline> eventTimelineList = getEventTimelineList();
-
-        boolean addDuration = (PPApplication.getActivatedProfileForDuration(context) != 0);
-
-        return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration);
-    }
-    */
-
-    private String getLastStartedEventName(List<EventTimeline> eventTimelineList)
+    static private String getLastStartedEventName(List<EventTimeline> eventTimelineList, DataWrapper dataWrapper)
     {
 
-        if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, false))
+        if (Event.getGlobalEventsRunning(dataWrapper.context) && PPApplication.getApplicationStarted(dataWrapper.context, false))
         {
             if (eventTimelineList.size() > 0)
             {
                 EventTimeline eventTimeLine = eventTimelineList.get(eventTimelineList.size()-1);
                 long event_id = eventTimeLine._fkEvent;
-                Event event = getEventById(event_id);
+                Event event = dataWrapper.getEventById(event_id);
                 if (event != null)
                 {
-                    if ((!Event.getEventsBlocked(context)) || (event._forceRun))
+                    if ((!Event.getEventsBlocked(dataWrapper.context)) || (event._forceRun))
                     {
-                        Profile profile = getActivatedProfile();
+                        Profile profile = dataWrapper.getActivatedProfile();
                         if ((profile != null) && (event._fkProfileStart == profile._id))
                             // last started event activates activated profile
                             return event._name;
@@ -3207,12 +3203,12 @@ public class DataWrapper {
             }
             else
             {
-                long profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
-                if ((!Event.getEventsBlocked(context)) && (profileId != Profile.PROFILE_NO_ACTIVATE))
+                long profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(dataWrapper.context));
+                if ((!Event.getEventsBlocked(dataWrapper.context)) && (profileId != Profile.PROFILE_NO_ACTIVATE))
                 {
-                    Profile profile = getActivatedProfile();
+                    Profile profile = dataWrapper.getActivatedProfile();
                     if ((profile != null) && (profile._id == profileId))
-                        return context.getString(R.string.event_name_background_profile);
+                        return dataWrapper.context.getString(R.string.event_name_background_profile);
                     else
                         return "";
                 }
