@@ -2920,6 +2920,8 @@ public class ActivateProfileHelper {
                         waitTill *= waitTillMultiplier;
                     }
                 } catch (Exception ignored) {
+                    Log.e("ActivateProfileHelper", "Exception: Could not finish root command in " + (waitTill/waitTillMultiplier));
+                    return;
                 }
             }
         }
