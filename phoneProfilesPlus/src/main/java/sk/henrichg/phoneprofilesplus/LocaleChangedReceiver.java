@@ -13,11 +13,11 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
             PPApplication.logE("##### LocaleChangedReceiver.onReceive", "xxx");
 
             if (ApplicationPreferences.applicationLanguage(context).equals("system")) {
-                if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.stopForeground(true);
-                else {
-                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+                if (PhoneProfilesService.instance != null) {
+                    DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), true, false, 0);
+                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context.getApplicationContext());
+                    Profile profile = dataWrapper.getActivatedProfile();
+                    PhoneProfilesService.instance.showProfileNotification(profile, dataWrapper);
                 }
             }
         }
