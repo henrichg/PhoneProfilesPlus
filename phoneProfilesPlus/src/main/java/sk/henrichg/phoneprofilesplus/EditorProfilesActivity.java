@@ -1209,6 +1209,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                     this.dialog.setCanceledOnTouchOutside(false);
                     this.dialog.show();
 
+                    if (PhoneProfilesService.instance != null)
+                        PhoneProfilesService.instance.stopSelf();
+
                     Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
                     if (fragment != null) {
                         if (fragment instanceof EditorProfileListFragment)
@@ -1281,11 +1284,20 @@ public class EditorProfilesActivity extends AppCompatActivity
                         ScannerService.setShowEnableLocationNotification(getApplicationContext(), true);
                         //ActivateProfileHelper.setScreenUnlocked(getApplicationContext(), true);
 
+                        Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+                        //TODO Android O
+                        // if (Build.VERSION.SDK_INT < 26)
+                        startService(serviceIntent);
+                        //else
+                        //    startForegroundService(serviceIntent);
+
                         // restart events
                         // startneme eventy
                         if (Event.getGlobalEventsRunning(getApplicationContext())) {
                             PPApplication.logE("$$$ restartEvents", "from EditorProfilesActivity.doImportData.onPostExecute");
-                            dataWrapper.restartEventsWithDelay(1, false, false);
+                            dataWrapper.restartEventsWithDelay(3, false, false);
                         }
 
                         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);
