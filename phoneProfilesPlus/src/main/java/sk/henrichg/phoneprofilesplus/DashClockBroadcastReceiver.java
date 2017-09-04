@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.DeadObjectException;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
