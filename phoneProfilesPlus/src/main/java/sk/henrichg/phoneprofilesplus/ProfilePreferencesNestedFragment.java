@@ -142,10 +142,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     );*/
             final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), true);
 
-            Preference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+            ListPreference zenModePreference = (ListPreference)prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
             if (zenModePreference != null) {
-                if (android.os.Build.VERSION.SDK_INT >= 23)
+                if (android.os.Build.VERSION.SDK_INT >= 23) {
                     zenModePreference.setTitle(R.string.profile_preferences_volumeZenModeM);
+                    zenModePreference.setDialogTitle(R.string.profile_preferences_volumeZenModeM);
+                }
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "");
                 zenModePreference.setEnabled((value.equals("5")) && canEnableZenMode);
             }
@@ -875,16 +877,15 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         {
             if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
                 // set mobile data preference title
-                if (android.os.Build.VERSION.SDK_INT >= 21) {
-                    Preference mobileDataPreference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA);
-                    if (mobileDataPreference != null) {
+                ListPreference mobileDataPreference = (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA);
+                if (mobileDataPreference != null) {
+                    if (android.os.Build.VERSION.SDK_INT >= 21) {
                         mobileDataPreference.setTitle(R.string.profile_preferences_deviceMobileData_21);
+                        mobileDataPreference.setDialogTitle(R.string.profile_preferences_deviceMobileData_21);
                     }
-                }
-                else {
-                    Preference mobileDataPreference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA);
-                    if (mobileDataPreference != null) {
+                    else {
                         mobileDataPreference.setTitle(R.string.profile_preferences_deviceMobileData);
+                        mobileDataPreference.setDialogTitle(R.string.profile_preferences_deviceMobileData);
                     }
                 }
             }
@@ -1017,8 +1018,10 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             if (listPreference != null) {
                 if (android.os.Build.VERSION.SDK_INT >= 23) {
                     listPreference.setTitle(R.string.profile_preferences_notificationLed_23);
+                    listPreference.setDialogTitle(R.string.profile_preferences_notificationLed_23);
                 } else {
                     listPreference.setTitle(R.string.profile_preferences_notificationLed);
+                    listPreference.setDialogTitle(R.string.profile_preferences_notificationLed);
                 }
                 int canChange = Profile.isProfilePreferenceAllowed(key, context);
                 if (canChange != PPApplication.PREFERENCE_ALLOWED) {
