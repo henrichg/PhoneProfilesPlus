@@ -599,6 +599,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @Override
+    public void onDowngrade (SQLiteDatabase db, int oldVersion, int newVersion) {
+        PPApplication.logE("DatabaseHandler.onDowngrade", "oldVersion="+oldVersion);
+        PPApplication.logE("DatabaseHandler.onDowngrade", "newVersion="+newVersion);
+
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MERGED_PROFILE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_TIMELINE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITY_LOG);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_GEOFENCES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHORTCUTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOBILE_CELLS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NFC_TAGS);
+
+        onCreate(db);
+    }
+
+    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "oldVersion="+oldVersion);
