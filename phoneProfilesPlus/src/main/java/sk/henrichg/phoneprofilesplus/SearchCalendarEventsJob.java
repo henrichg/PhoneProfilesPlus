@@ -59,9 +59,15 @@ class SearchCalendarEventsJob extends Job {
 
         JobRequest.Builder jobBuilder;
         if (!shortInterval) {
-            JobManager jobManager = JobManager.instance();
-            jobManager.cancelAllForTag(JOB_TAG_SHORT);
-            int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+            JobManager jobManager = null;
+            try {
+                jobManager = JobManager.instance();
+            } catch (Exception ignored) {}
+            if (jobManager != null)
+                jobManager.cancelAllForTag(JOB_TAG_SHORT);
+            int requestsForTagSize = 0;
+            if (jobManager != null)
+                requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
             PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "requestsForTagSize="+requestsForTagSize);
             if (requestsForTagSize == 0) {
                 jobBuilder = new JobRequest.Builder(JOB_TAG);
@@ -89,9 +95,11 @@ class SearchCalendarEventsJob extends Job {
     static void cancelJob() {
         PPApplication.logE("SearchCalendarEventsJob.cancelJob", "xxx");
 
-        JobManager jobManager = JobManager.instance();
-        jobManager.cancelAllForTag(JOB_TAG_SHORT);
-        jobManager.cancelAllForTag(JOB_TAG);
+        try {
+            JobManager jobManager = JobManager.instance();
+            jobManager.cancelAllForTag(JOB_TAG_SHORT);
+            jobManager.cancelAllForTag(JOB_TAG);
+        } catch (Exception ignored) {}
     }
 
 }

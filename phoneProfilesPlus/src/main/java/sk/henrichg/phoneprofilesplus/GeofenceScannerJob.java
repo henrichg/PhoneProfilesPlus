@@ -98,8 +98,13 @@ class GeofenceScannerJob extends Job {
 
             JobRequest.Builder jobBuilder;
             if (!startScanning) {
-                JobManager jobManager = JobManager.instance();
-                jobManager.cancelAllForTag(JOB_TAG_START);
+                JobManager jobManager = null;
+                try {
+                    jobManager = JobManager.instance();
+                } catch (Exception ignored) {}
+
+                if (jobManager != null)
+                    jobManager.cancelAllForTag(JOB_TAG_START);
 
                 PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted="+PhoneProfilesService.geofencesScanner.mUpdatesStarted);
 
@@ -121,10 +126,13 @@ class GeofenceScannerJob extends Job {
                 jobBuilder = new JobRequest.Builder(JOB_TAG);
 
                 if (TimeUnit.SECONDS.toMillis(interval) < JobRequest.MIN_INTERVAL) {
-                    jobManager.cancelAllForTag(JOB_TAG);
+                    if (jobManager != null)
+                        jobManager.cancelAllForTag(JOB_TAG);
                     jobBuilder.setExact(TimeUnit.SECONDS.toMillis(interval));
                 } else {
-                    int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+                    int requestsForTagSize = 0;
+                    if (jobManager != null)
+                        requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
                     PPApplication.logE("GeofenceScannerJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
                     if (requestsForTagSize == 0) {
                         if (TimeUnit.SECONDS.toMillis(interval) < JobRequest.MIN_INTERVAL)
@@ -159,17 +167,23 @@ class GeofenceScannerJob extends Job {
     static void cancelJob() {
         PPApplication.logE("GeofenceScannerJob.cancelJob", "xxx");
 
-        JobManager jobManager = JobManager.instance();
-        jobManager.cancelAllForTag(JOB_TAG_START);
-        jobManager.cancelAllForTag(JOB_TAG);
+        try {
+            JobManager jobManager = JobManager.instance();
+            jobManager.cancelAllForTag(JOB_TAG_START);
+            jobManager.cancelAllForTag(JOB_TAG);
+        } catch (Exception ignored) {}
     }
 
     static boolean isJobScheduled() {
         PPApplication.logE("GeofenceScannerJob.isJobScheduled", "xxx");
 
-        JobManager jobManager = JobManager.instance();
-        return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0) ||
-                (jobManager.getAllJobRequestsForTag(JOB_TAG_START).size() != 0);
+        try {
+            JobManager jobManager = JobManager.instance();
+            return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0) ||
+                    (jobManager.getAllJobRequestsForTag(JOB_TAG_START).size() != 0);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

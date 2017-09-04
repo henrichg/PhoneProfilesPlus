@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 class AboutApplicationJob extends Job {
 
-    private static final String JOB_TAG  = "AboutApplicationJob";
+    static final String JOB_TAG  = "AboutApplicationJob";
 
     @NonNull
     @Override
@@ -76,8 +76,11 @@ class AboutApplicationJob extends Job {
         PPApplication.logE("AboutApplicationJob.scheduleJob", "xxx");
 
         JobRequest.Builder jobBuilder;
-        JobManager jobManager = JobManager.instance();
-        int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+        int requestsForTagSize = 0;
+        try {
+            JobManager jobManager = JobManager.instance();
+            requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+        } catch (Exception ignored) {}
         PPApplication.logE("AboutApplicationJob.scheduleJob", "requestsForTagSize="+requestsForTagSize);
         if (requestsForTagSize == 0) {
             jobBuilder = new JobRequest.Builder(JOB_TAG);

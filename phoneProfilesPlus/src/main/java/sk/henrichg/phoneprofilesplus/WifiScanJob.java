@@ -65,8 +65,13 @@ class WifiScanJob extends Job {
                 == PPApplication.PREFERENCE_ALLOWED) {
             JobRequest.Builder jobBuilder;
             if (!shortInterval) {
-                JobManager jobManager = JobManager.instance();
-                jobManager.cancelAllForTag(JOB_TAG_SHORT);
+                JobManager jobManager = null;
+                try {
+                    jobManager = JobManager.instance();
+                } catch (Exception ignored) {}
+
+                if (jobManager != null)
+                    jobManager.cancelAllForTag(JOB_TAG_SHORT);
 
                 int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
                 boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
@@ -76,10 +81,13 @@ class WifiScanJob extends Job {
                 jobBuilder = new JobRequest.Builder(JOB_TAG);
 
                 if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL) {
-                    jobManager.cancelAllForTag(JOB_TAG);
+                    if (jobManager != null)
+                        jobManager.cancelAllForTag(JOB_TAG);
                     jobBuilder.setExact(TimeUnit.MINUTES.toMillis(interval));
                 } else {
-                    int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+                    int requestsForTagSize = 0;
+                    if (jobManager != null)
+                        requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
                     PPApplication.logE("WifiScanJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
                     if (requestsForTagSize == 0) {
                         if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL)
@@ -115,17 +123,23 @@ class WifiScanJob extends Job {
     static void cancelJob() {
         PPApplication.logE("WifiScanJob.cancelJob", "xxx");
 
-        JobManager jobManager = JobManager.instance();
-        jobManager.cancelAllForTag(JOB_TAG_SHORT);
-        jobManager.cancelAllForTag(JOB_TAG);
+        try {
+            JobManager jobManager = JobManager.instance();
+            jobManager.cancelAllForTag(JOB_TAG_SHORT);
+            jobManager.cancelAllForTag(JOB_TAG);
+        } catch (Exception ignored) {}
     }
 
     static boolean isJobScheduled() {
         PPApplication.logE("WifiScanJob.isJobScheduled", "xxx");
 
-        JobManager jobManager = JobManager.instance();
-        return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0) ||
-               (jobManager.getAllJobRequestsForTag(JOB_TAG_SHORT).size() != 0);
+        try {
+            JobManager jobManager = JobManager.instance();
+            return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0) ||
+                    (jobManager.getAllJobRequestsForTag(JOB_TAG_SHORT).size() != 0);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     //---------------------------------------------------------------
