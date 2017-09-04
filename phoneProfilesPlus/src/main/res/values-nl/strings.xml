@@ -1060,4 +1060,13 @@
   <string name="important_info_quick_guide_editor_1">Profielen en evenementen configureer je in de Editor die je via de Activator kunt starten. Binnen de Editor kun je toevoegen, dupliceren, bijwerken en verwijderen van profielen en evenementen. De Editor heeft links een zijpaneel waarmee je de weergave van de Editor kunt wijzigen. Gebruik dit om te schakelen tussen de profiel- en eventlijsten.</string>
   <string name="event_preferences_noPauseByManualActivation">Pauzeer niet door handmatige activering</string>
   <string name="event_preferences_noPauseByManualActivation_summary">Pauzeer dit event niet door handmatige profiel activering tijdens uitvoeren</string>
+  <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Tag naam niet geconfigureerd.</string>
+  <string name="phone_profiles_pref_applicationLanguage_ar">عربى</string>
+  <string name="phone_profiles_pref_applicationLanguage_bg">Български</string>
+  <string name="phone_profiles_pref_applicationLanguage_hi">हिंदी</string>
+  <string name="phone_profiles_pref_applicationLanguage_id">Bahasa Indonesia</string>
+  <string name="array_pref_value_ar">ar</string>
+  <string name="array_pref_value_bg">bg</string>
+  <string name="array_pref_value_hi">hi</string>
+  <string name="array_pref_value_id">id</string>
 </resources>
