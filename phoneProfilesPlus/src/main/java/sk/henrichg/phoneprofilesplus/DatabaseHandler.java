@@ -2023,9 +2023,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1880)
         {
-            // pridame nove stlpce
-            db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_APPLICATION_DISABLE_WIFI_SCANING + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING + " INTEGER");
+            if (!mergedTableCreate) {
+                // pridame nove stlpce
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_APPLICATION_DISABLE_WIFI_SCANING + " INTEGER");
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_APPLICATION_DISABLE_BLUETOOTH_SCANING + " INTEGER");
+            }
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_APPLICATION_DISABLE_WIFI_SCANING + "=0");
