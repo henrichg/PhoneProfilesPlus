@@ -20,8 +20,9 @@ android {
             targetCompatibility JavaVersion.VERSION_1_7
         }
 
-        resConfigs "en", "ca", "cs", "de", "el", "es", "fa", "fr", "hu", "it", "iw", "ja", "ko", "nl",
-                "pl", "pt-rBR", "pt-rPT", "ro", "ru", "sk", "sv", "te", "tr", "uk", "zh-rCN", "zh-rTW"
+        resConfigs "en", "ar", "bg", "ca", "cs", "de", "el", "es", "fa", "fr", "hi", "hu", "id", "it",
+                "iw", "ja", "ko", "nl", "pl", "pt-rBR", "pt-rPT", "ro", "ru", "sk", "sl", "sv", "te",
+                "tr", "uk", "zh-rCN", "zh-rTW"
     }
 
     buildTypes {
