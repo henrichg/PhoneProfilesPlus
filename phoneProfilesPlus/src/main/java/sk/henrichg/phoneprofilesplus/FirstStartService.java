@@ -110,9 +110,11 @@ public class FirstStartService extends WakefulIntentService {
         {
             PPApplication.logE("$$$ FirstStartService.doWakefulWork","global event run is enabled, first start events");
 
-            ////// unblock all events for first start
-            //     that may be blocked in previous application run
-            dataWrapper.pauseAllEvents(true, false/*, false*/);
+            if (!dataWrapper.getIsManualProfileActivation()) {
+                ////// unblock all events for first start
+                //     that may be blocked in previous application run
+                dataWrapper.pauseAllEvents(true, false/*, false*/);
+            }
 
             dataWrapper.firstStartEvents(true);
         }
