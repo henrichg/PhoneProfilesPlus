@@ -2444,7 +2444,7 @@ public class ActivateProfileHelper {
 
         //Log.e("ActivateProfileHelper.setNFC", "xxx");
         if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-            Log.e("ActivateProfileHelper.setNFC", "permission granted!!");
+            //Log.e("ActivateProfileHelper.setNFC", "permission granted!!");
             CmdNfc.run(enable);
         }
         else

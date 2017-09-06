@@ -285,7 +285,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (WifiScanJob.wifi == null)
                 WifiScanJob.wifi = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-            if ((locationMode == Settings.Secure.LOCATION_MODE_OFF)/* || (!WifiScanJob.wifi.isScanAlwaysAvailable())*/) {
+            int wifiState = WifiScanJob.wifi.getWifiState();
+            boolean isWifiEnabled = (wifiState == WifiManager.WIFI_STATE_ENABLED);
+            boolean isScanAlwaysAvailable = isWifiEnabled || WifiScanJob.wifi.isScanAlwaysAvailable();
+
+            if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!isScanAlwaysAvailable)) {
                 preference = prefMng.findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
                 if (preference != null) {
                     //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
