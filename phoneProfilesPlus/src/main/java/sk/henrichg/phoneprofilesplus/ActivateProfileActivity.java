@@ -291,6 +291,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             @Override
             public void run() {
                 setEventsRunStopIndicator();
+                invalidateOptionsMenu();
 
                 Fragment fragment = getFragmentManager().findFragmentById(R.id.activate_profile_list);
 

@@ -602,26 +602,36 @@ public class PhoneProfilesService extends Service
     // start service for first start
     private boolean doForFirstStart(Intent intent, int flags, int startId) {
         boolean onlyStart = true;
+        boolean startOnBoot = false;
+
+        if (intent != null) {
+            onlyStart = intent.getBooleanExtra(EXTRA_ONLY_START, true);
+            startOnBoot = intent.getBooleanExtra(EXTRA_START_ON_BOOT, false);
+        }
+
+        if (onlyStart)
+            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_ONLY_START");
 
         Context appContext = getApplicationContext();
 
         // set service foreground
         final DataWrapper dataWrapper =  new DataWrapper(this, true, false, 0);
         dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
-        Profile activatedProfile = dataWrapper.getActivatedProfile();
-        showProfileNotification(activatedProfile, dataWrapper);
-
-        Intent serviceIntent = new Intent(appContext, FirstStartService.class);
-
-        if (intent != null) {
-            onlyStart = intent.getBooleanExtra(EXTRA_ONLY_START, true);
-            if (onlyStart)
-                PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_ONLY_START");
-            serviceIntent.putExtra(EXTRA_START_ON_BOOT, intent.getBooleanExtra(EXTRA_START_ON_BOOT, false));
+        Profile activatedProfile = null;
+        if (onlyStart && startOnBoot) {
+            if (ApplicationPreferences.applicationActivate(this) &&
+                    ApplicationPreferences.applicationStartEvents(this)) {
+                activatedProfile = dataWrapper.getActivatedProfile();
+            }
         }
+        else
+            activatedProfile = dataWrapper.getActivatedProfile();
+        showProfileNotification(activatedProfile, dataWrapper);
 
         if (onlyStart) {
             // start FirstStartService
+            Intent serviceIntent = new Intent(appContext, FirstStartService.class);
+            serviceIntent.putExtra(EXTRA_START_ON_BOOT, startOnBoot);
             WakefulIntentService.sendWakefulWork(appContext, serviceIntent);
 
             ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, false);

@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 public class LauncherActivity extends Activity {
 
@@ -29,7 +30,7 @@ public class LauncherActivity extends Activity {
 
         if (!PPApplication.getApplicationStarted(getApplicationContext(), false))
         {
-            //Log.d("LauncherActivity.onStart","app. not started");
+            Log.e("LauncherActivity.onStart","app. not started");
 
             /*// start service for first start
             Intent firstStartServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
@@ -48,7 +49,7 @@ public class LauncherActivity extends Activity {
         }
         else
         {
-            //Log.d("LauncherActivity.onStart","app. started");
+            Log.e("LauncherActivity.onStart","app. started");
 
             if (PhoneProfilesService.instance == null) {
                 // start PhoneProfilesService

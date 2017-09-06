@@ -30,6 +30,7 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
                         _activity.invalidateOptionsMenu();
                         ((EditorProfilesActivity) _activity).refreshGUI(false, true);
                     } else if (_activity instanceof ActivateProfileActivity) {
+                        _activity.invalidateOptionsMenu();
                         ((ActivateProfileActivity) _activity).refreshGUI(false);
                     }
                 }

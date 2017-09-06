@@ -1935,6 +1935,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             @Override
             public void run() {
                 setEventsRunStopIndicator();
+                invalidateOptionsMenu();
 
                 Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
                 if (fragment != null) {

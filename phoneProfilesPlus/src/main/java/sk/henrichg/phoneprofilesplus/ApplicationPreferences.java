@@ -9,6 +9,7 @@ class ApplicationPreferences {
 
     static final String PREF_APPLICATION_START_ON_BOOT = "applicationStartOnBoot";
     private  static final String PREF_APPLICATION_ACTIVATE = "applicationActivate";
+    private  static final String PREF_APPLICATION_START_EVENTS = "applicationStartEvents";
     static final String PREF_APPLICATION_ALERT = "applicationAlert";
     static final String PREF_APPLICATION_CLOSE = "applicationClose";
     static final String PREF_APPLICATION_LONG_PRESS_ACTIVATION = "applicationLongClickActivation";
@@ -94,6 +95,10 @@ class ApplicationPreferences {
 
     static boolean applicationActivate(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATE, true);
+    }
+
+    static boolean applicationStartEvents(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_START_EVENTS, true);
     }
 
     static boolean applicationActivateWithAlert(Context context) {

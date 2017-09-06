@@ -861,6 +861,23 @@ public class DataWrapper {
             activateProfile(0, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);
     }
 
+    private void startEventsOnBoot(boolean startedFromService)
+    {
+        if (startedFromService) {
+            if (ApplicationPreferences.applicationActivate(context) &&
+                    ApplicationPreferences.applicationStartEvents(context)) {
+                restartEvents(false, false, false);
+            }
+            else {
+                Event.setGlobalEventsRunning(context, false);
+                activateProfileOnBoot();
+            }
+        }
+        else {
+            restartEvents(false, false, false);
+        }
+    }
+
     // this is called in boot or first start application
     void firstStartEvents(boolean startedFromService)
     {
@@ -885,7 +902,7 @@ public class DataWrapper {
 
         if (!getIsManualProfileActivation()) {
             PPApplication.logE("DataWrapper.firstStartEvents", "no manual profile activation, restart events");
-            restartEvents(false, false, false);
+            startEventsOnBoot(startedFromService);
         }
         else
         {
@@ -1401,6 +1418,9 @@ public class DataWrapper {
                     profile = null;
                 }
             }*/
+
+            if (profile_id == 0)
+                profile = null;
         }
         else
         if (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER_START)
@@ -1424,6 +1444,9 @@ public class DataWrapper {
                     profile = null;
                 }
             }*/
+
+            if (profile_id == 0)
+                profile = null;
         }
 
         if ((startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
@@ -1448,6 +1471,9 @@ public class DataWrapper {
         }
         else
         {
+            databaseHandler.activateProfile(profile);
+            setProfileActive(profile);
+
             if (PhoneProfilesService.instance != null)
                 PhoneProfilesService.instance.showProfileNotification(profile, this);
             activateProfileHelper.updateWidget(true);
