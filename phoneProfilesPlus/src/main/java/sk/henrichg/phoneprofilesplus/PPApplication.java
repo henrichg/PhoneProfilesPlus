@@ -57,7 +57,7 @@ public class PPApplication extends Application {
 
                                          //+"|SearchCalendarEventsJob"
                                          //+"|WifiService"
-                                         //+"|WifiScanJob"
+                                         +"|WifiScanJob.fillScanResults"
                                          //+"|BluetoothService"
                                          //+"|BluetoothScanJob"
                                          //+"|GeofenceScannerJob"
@@ -65,9 +65,9 @@ public class PPApplication extends Application {
                                          //+"|BatteryService"
                                          //+"|HeadsetConnectionService"
                                          //+"|SMSBroadcastReceiver"
-                                         +"|CalendarProviderChangedBroadcastReceiver"
-                                         +"|SearchCalendarEventsJob"
-                                         +"|TimeChangedReceiver"
+                                         //+"|CalendarProviderChangedBroadcastReceiver"
+                                         //+"|SearchCalendarEventsJob"
+                                         //+"|TimeChangedReceiver"
 
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
 
