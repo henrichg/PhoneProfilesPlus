@@ -623,6 +623,9 @@ public class PhoneProfilesService extends Service
                     ApplicationPreferences.applicationStartEvents(this)) {
                 activatedProfile = dataWrapper.getActivatedProfile();
             }
+            else
+            if (ApplicationPreferences.applicationActivate(this))
+                activatedProfile = dataWrapper.getActivatedProfile();
         }
         else
             activatedProfile = dataWrapper.getActivatedProfile();

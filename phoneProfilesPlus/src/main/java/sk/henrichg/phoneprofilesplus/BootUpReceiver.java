@@ -21,7 +21,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
             //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 
-            // start delayed boot up broadcast
+            // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
             PPApplication.startedOnBoot = true;
             final Handler handler = new Handler(context.getMainLooper());
             handler.postDelayed(new Runnable() {

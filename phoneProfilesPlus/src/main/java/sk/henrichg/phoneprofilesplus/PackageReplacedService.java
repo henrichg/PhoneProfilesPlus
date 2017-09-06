@@ -19,7 +19,7 @@ public class PackageReplacedService extends WakefulIntentService {
         if (intent != null) {
             final Context appContext = getApplicationContext();
 
-            // start delayed boot up broadcast
+            // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
             PPApplication.startedOnBoot = true;
             final Handler handler = new Handler(appContext.getMainLooper());
             handler.postDelayed(new Runnable() {
