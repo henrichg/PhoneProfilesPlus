@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,6 @@ class RingtonePreferenceAdapter extends BaseAdapter {
     private RingtonePreference preference;
 
     private LayoutInflater inflater = null;
-
-    RadioButton checkedRadioButton = null;
 
     RingtonePreferenceAdapter(RingtonePreference preference, Context c, Map<String, String> toneList)
     {
@@ -58,34 +57,32 @@ class RingtonePreferenceAdapter extends BaseAdapter {
         String ringtoneTitle = (new ArrayList<>(toneList.values())).get(position);
 
         View vi = convertView;
-        if (convertView == null)
-        {
+        if (convertView == null) {
             vi = inflater.inflate(R.layout.ringtone_preference_list_item, parent, false);
 
             holder = new ViewHolder();
-            holder.ringtoneLabel = (TextView)vi.findViewById(R.id.ringtone_pref_dlg_item_label);
-            holder.radioBtn = (RadioButton)vi.findViewById(R.id.ringtone_pref_dlg_item_radiobtn);
+            holder.ringtoneLabel = (TextView) vi.findViewById(R.id.ringtone_pref_dlg_item_label);
+            holder.radioBtn = (RadioButton) vi.findViewById(R.id.ringtone_pref_dlg_item_radiobtn);
             vi.setTag(holder);
-
-            if (preference.ringtone.equals(ringtone))
-                checkedRadioButton = holder.radioBtn;
         }
         else
         {
             holder = (ViewHolder)vi.getTag();
         }
 
-        holder.radioBtn.setTag(position);
+        holder.radioBtn.setTag(ringtone);
+        if (preference.ringtone.equals(ringtone))
+            holder.radioBtn.setChecked(true);
+        else
+            holder.radioBtn.setChecked(false);
         holder.radioBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 RadioButton rb = (RadioButton) v;
-                List<String> uris = new ArrayList<>(toneList.keySet());
-                preference.setRingtone(uris.get((Integer)rb.getTag()), rb);
+                preference.setRingtone((String)rb.getTag(), rb);
                 preference.playRingtone(true);
             }
         });
 
-        holder.radioBtn.setChecked(preference.ringtone.equals(ringtone));
         holder.ringtoneLabel.setText(ringtoneTitle);
 
         return vi;

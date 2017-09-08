@@ -17,6 +17,7 @@ import android.preference.DialogPreference;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -138,7 +139,6 @@ public class RingtonePreference extends DialogPreference {
         listAdapter = new RingtonePreferenceAdapter(this, prefContext, toneList);
         listView.setAdapter(listAdapter);
 
-        listAdapter.checkedRadioButton = null;
         String value;
         try {
             value = getPersistedString(ringtone);
@@ -287,9 +287,7 @@ public class RingtonePreference extends DialogPreference {
         View positive = mDialog.getActionButton(DialogAction.POSITIVE);
         positive.setEnabled(true);
 
-        if (listAdapter.checkedRadioButton != null)
-            listAdapter.checkedRadioButton.setChecked(false);
-        listAdapter.checkedRadioButton = newCheckedRadioButton;
+        listAdapter.notifyDataSetChanged();
 
         // set summary
         //_setSummary(ringtone);
@@ -390,17 +388,21 @@ public class RingtonePreference extends DialogPreference {
     void playRingtone(final boolean play) {
         final AudioManager audioManager = (AudioManager)prefContext.getSystemService(Context.AUDIO_SERVICE);
 
-        if (playTimer != null) {
-            playTimer.cancel();
-            playTimer = null;
-        }
         if (mediaPlayer != null) {
-            if (mediaPlayer.isPlaying())
-                mediaPlayer.stop();
+            try {
+                if (mediaPlayer.isPlaying())
+                    mediaPlayer.stop();
+            } catch (Exception ignored) {}
+            mediaPlayer.release();
             mediaPlayer = null;
 
             if (oldMediaVolume > -1)
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
+        }
+
+        if (playTimer != null) {
+            playTimer.cancel();
+            playTimer = null;
         }
 
         if (!play) return;
@@ -456,8 +458,11 @@ public class RingtonePreference extends DialogPreference {
                 public void run() {
 
                     if (mediaPlayer != null) {
-                        if (mediaPlayer.isPlaying())
-                            mediaPlayer.stop();
+                        try {
+                            if (mediaPlayer.isPlaying())
+                                mediaPlayer.stop();
+                        } catch (Exception ignored) {}
+                        mediaPlayer.release();
 
                         if (oldMediaVolume > -1)
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);

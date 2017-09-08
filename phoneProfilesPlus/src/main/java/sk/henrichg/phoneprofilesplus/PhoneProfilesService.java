@@ -1650,15 +1650,18 @@ public class PhoneProfilesService extends Service
 
             //stopSimulatingNotificationTone(true);
 
-            if ((eventNotificationPlayTimer != null) && eventNotificationIsPlayed) {
-                eventNotificationPlayTimer.cancel();
-                eventNotificationPlayTimer = null;
-            }
             if ((eventNotificationMediaPlayer != null) && eventNotificationIsPlayed) {
-                if (eventNotificationMediaPlayer.isPlaying())
-                    eventNotificationMediaPlayer.stop();
+                try {
+                    if (eventNotificationMediaPlayer.isPlaying())
+                        eventNotificationMediaPlayer.stop();
+                } catch (Exception ignored) {}
+                eventNotificationMediaPlayer.release();
                 eventNotificationIsPlayed = false;
                 eventNotificationMediaPlayer = null;
+            }
+            if (eventNotificationPlayTimer != null) {
+                eventNotificationPlayTimer.cancel();
+                eventNotificationPlayTimer = null;
             }
 
             if ((ringtone != null) && !ringtone.isEmpty()) {
@@ -2046,15 +2049,18 @@ public class PhoneProfilesService extends Service
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
-            if ((eventNotificationPlayTimer != null) && eventNotificationIsPlayed) {
+            if ((eventNotificationMediaPlayer != null) && eventNotificationIsPlayed) {
+                try {
+                    if (eventNotificationMediaPlayer.isPlaying())
+                        eventNotificationMediaPlayer.stop();
+                } catch (Exception ignored) {}
+                eventNotificationMediaPlayer.release();
+                eventNotificationIsPlayed = false;
+                eventNotificationMediaPlayer = null;
+            }
+            if (eventNotificationPlayTimer != null) {
                 eventNotificationPlayTimer.cancel();
                 eventNotificationPlayTimer = null;
-            }
-            if ((eventNotificationMediaPlayer != null) && eventNotificationIsPlayed) {
-                if (eventNotificationMediaPlayer.isPlaying())
-                    eventNotificationMediaPlayer.stop();
-                eventNotificationIsPlayed = true;
-                eventNotificationMediaPlayer = null;
             }
 
             if (!eventNotificationSound.isEmpty())
@@ -2099,8 +2105,11 @@ public class PhoneProfilesService extends Service
                         public void run() {
 
                             if (eventNotificationMediaPlayer != null) {
-                                if (eventNotificationMediaPlayer.isPlaying())
-                                    eventNotificationMediaPlayer.stop();
+                                try {
+                                    if (eventNotificationMediaPlayer.isPlaying())
+                                        eventNotificationMediaPlayer.stop();
+                                } catch (Exception ignored) {}
+                                eventNotificationMediaPlayer.release();
 
                                 //audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
                                 PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "event notification stopped");
