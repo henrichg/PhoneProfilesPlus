@@ -5,6 +5,7 @@
     <color name="profile_all_accent_dark">#DC8160</color>       <!-- A100 -->
 
     <color name="activityTextColor_dark">#FFFFFFFF</color>
+    <color name="activityCommandBackgroundColor_dark">#1FFFFFFF</color>
 
     <color name="activityPopupBackground_phoneprofilestheme_dark">#FF303030</color>
     <color name="navigationDrawerTextColor_phoneprofiletheme_dark">#ffffffff</color>

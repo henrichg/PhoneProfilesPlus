@@ -61,6 +61,7 @@
 
     <!-- theme dependent drawables -->
     <attr name="activityTextColor" format="reference" />
+    <attr name="activityCommandBackgroundColor" format="reference" />
     <attr name="actionNewProfileIcon" format="reference" />
     <attr name="actionDeleteAllIcon" format="reference" />
     <attr name="actionEditProfilesIcon" format="reference" />

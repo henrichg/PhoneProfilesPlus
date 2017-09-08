@@ -5,6 +5,7 @@
     <color name="profile_all_accent">#DC8160</color>       <!-- A400(A200) -->
 
     <color name="activityTextColor">#FF000000</color>
+    <color name="activityCommandBackgroundColor">#1F000000</color>
 
     <color name="activityPopupBackground_phoneprofilestheme">#FFd0d0d0</color>
     <color name="navigationDrawerTextColor_phoneprofiletheme">#ff000000</color>

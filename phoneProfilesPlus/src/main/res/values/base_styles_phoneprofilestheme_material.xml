@@ -9,6 +9,7 @@
         <item name="colorAccent">@color/profile_all_accent</item>
 
         <item name="activityTextColor">@color/activityTextColor</item>
+        <item name="activityCommandBackgroundColor">@color/activityCommandBackgroundColor</item>
 
         <item name="md_widget_color">?attr/colorAccent</item>
 
