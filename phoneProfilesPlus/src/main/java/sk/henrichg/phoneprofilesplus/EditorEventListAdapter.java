@@ -24,7 +24,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     private DataWrapper dataWrapper;
     private int filterType;
     private List<Event> eventList;
-    boolean released = false;
+    //boolean released = false;
     //private int defaultColor;
 
     private final OnStartDragItemListener mDragStartListener;
@@ -86,7 +86,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     public void release()
     {
-        released = true;
+        //released = true;
 
         fragment = null;
         eventList = null;

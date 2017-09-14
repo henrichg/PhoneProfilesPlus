@@ -456,17 +456,17 @@ public class EditorEventListFragment extends Fragment
             PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
             dataWrapper.restartEvents(false, true, false);
 
-            if (!eventListAdapter.released)
+            //if (!eventListAdapter.released)
                 listView.getRecycledViewPool().clear();
 
             eventListAdapter.deleteItemNoNotify(event);
             databaseHandler.deleteEvent(event);
 
-            if (!eventListAdapter.released) {
+            //if (!eventListAdapter.released) {
                 eventListAdapter.notifyDataSetChanged();
 
                 onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
-            }
+            //}
         }
     }
 
