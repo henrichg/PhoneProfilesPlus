@@ -50,20 +50,22 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
             @Override
             public void run() {
                 if (ViewCompat.isAttachedToWindow(anchor)) {
-                    final int[] myLocation = new int[2];
-                    final int[] anchorLocation = new int[2];
-                    contentView.getLocationOnScreen(myLocation);
-                    anchor.getLocationOnScreen(anchorLocation);
-                    final int cx = anchorLocation[0] - myLocation[0] + anchor.getWidth() / 2;
-                    final int cy = anchorLocation[1] - myLocation[1] + anchor.getHeight() / 2;
+                    try {
+                        final int[] myLocation = new int[2];
+                        final int[] anchorLocation = new int[2];
+                        contentView.getLocationOnScreen(myLocation);
+                        anchor.getLocationOnScreen(anchorLocation);
+                        final int cx = anchorLocation[0] - myLocation[0] + anchor.getWidth() / 2;
+                        final int cy = anchorLocation[1] - myLocation[1] + anchor.getHeight() / 2;
 
-                    contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                    final int dx = Math.max(cx, contentView.getMeasuredWidth() - cx);
-                    final int dy = Math.max(cy, contentView.getMeasuredHeight() - cy);
-                    final float finalRadius = (float) Math.hypot(dx, dy);
-                    Animator animator = ViewAnimationUtils.createCircularReveal(contentView, cx, cy, 0f, finalRadius);
-                    animator.setDuration(500);
-                    animator.start();
+                        contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                        final int dx = Math.max(cx, contentView.getMeasuredWidth() - cx);
+                        final int dy = Math.max(cy, contentView.getMeasuredHeight() - cy);
+                        final float finalRadius = (float) Math.hypot(dx, dy);
+                        Animator animator = ViewAnimationUtils.createCircularReveal(contentView, cx, cy, 0f, finalRadius);
+                        animator.setDuration(500);
+                        animator.start();
+                    } catch (Exception ignored) {}
                 }
             }
         });
