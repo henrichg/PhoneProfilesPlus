@@ -65,13 +65,19 @@
 
     <PreferenceScreen
         android:title="@string/phone_profiles_pref_category_start"
-        android:key="categoryAplicationStart"
+        android:key="categoryApplicationStart"
         android:widgetLayout="@layout/start_activity_preference">
         <CheckBoxPreference
             android:key="applicationStartOnBoot"
             android:title="@string/phone_profiles_pref_applicationStartOnBoot"
             android:defaultValue="true"
             android:widgetLayout="@layout/mp_preference_switch" />
+        <Preference
+            android:key="applicationAutoStartMIUI"
+            android:title="@string/phone_profiles_pref_systemAutoStartMIUI"
+            android:summary="@string/phone_profiles_pref_systemAutoStartMIUI_summary"
+            android:widgetLayout="@layout/start_activity_preference">
+        </Preference>
         <CheckBoxPreference
             android:key="applicationActivate"
             android:title="@string/phone_profiles_pref_applicationActivate"

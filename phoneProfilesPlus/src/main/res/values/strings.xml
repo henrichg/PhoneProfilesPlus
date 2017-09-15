@@ -1075,4 +1075,6 @@
     <string name="phone_profiles_pref_applicationLanguage_sl">Slovenščina</string>
     <string name="array_pref_value_sl">sl</string>
     <string name="phone_profiles_pref_applicationStartEvents">Start events on startup</string>
+    <string name="phone_profiles_pref_systemAutoStartMIUI">AutoStart permission</string>
+    <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Click here to enable AutoStart permission for PhoneProfilesPlus</string>
 </resources>
