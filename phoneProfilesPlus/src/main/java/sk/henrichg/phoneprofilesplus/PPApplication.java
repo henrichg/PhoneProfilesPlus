@@ -53,7 +53,7 @@ public class PPApplication extends Application {
                                          //+"|PPApplication._isRooted"
                                          //+"|PPApplication.isRootGranted"
 
-                                         +"|DataWrapper.firstStartEvents"
+                                         //+"|DataWrapper.firstStartEvents"
 
                                          //+"|PreferenceFragment"
 
@@ -67,9 +67,10 @@ public class PPApplication extends Application {
                                          //+"|BatteryService"
                                          //+"|HeadsetConnectionService"
                                          //+"|SMSBroadcastReceiver"
+
                                          //+"|CalendarProviderChangedBroadcastReceiver"
-                                         //+"|SearchCalendarEventsJob"
                                          //+"|TimeChangedReceiver"
+                                         //+"|[CALENDAR] EventsService"
 
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
 

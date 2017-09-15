@@ -209,10 +209,10 @@ public class EventsService extends WakefulIntentService {
         if (broadcastReceiverType.equals(EventsService.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED) ||
                 broadcastReceiverType.equals(EventsService.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS)) {
             // search for calendar events
-            PPApplication.logE("EventsService.onHandleIntent", "search for calendar events");
+            PPApplication.logE("[CALENDAR] EventsService.onHandleIntent", "search for calendar events");
             for (Event _event : eventList) {
                 if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
-                    PPApplication.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
+                    PPApplication.logE("[CALENDAR] EventsService.onHandleIntent", "event._id=" + _event._id);
                     _event._eventPreferencesCalendar.saveStartEndTime(dataWrapper);
                 }
             }
