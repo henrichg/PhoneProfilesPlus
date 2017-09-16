@@ -1753,7 +1753,8 @@ public class PhoneProfilesService extends Service
                 ringingMediaPlayer.release();
                 ringingMediaPlayer = null;
 
-                //audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
+                if (ringingCallIsSimulating)
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
                 PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "ringing stopped");
             }
             if (abandonFocus)
