@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,7 +62,11 @@ public class ApplicationsCache {
                 newInfo.appLabel = applicationInfo.loadLabel(packageManager).toString();
                 newInfo.packageName = applicationInfo.activityInfo.applicationInfo.packageName;
                 newInfo.activityName = applicationInfo.activityInfo.name;
-                newInfo.icon = applicationInfo.loadIcon(packageManager);
+                try {
+                    newInfo.icon = applicationInfo.loadIcon(packageManager);
+                } catch (Exception e) {
+                    newInfo.icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
+                }
 
                 applicationsList.add(newInfo);
                 applicationsNoShortcutsList.add(newInfo);
