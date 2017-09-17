@@ -9,6 +9,8 @@ public class BootUpReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        PPApplication.logE("##### BootUpReceiver.onReceive", "xxx");
+
         if (intent == null)
             return;
 
@@ -17,9 +19,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                 action.equals("android.intent.action.QUICKBOOT_POWERON") ||
                 action.equals("com.htc.intent.action.QUICKBOOT_POWERON")) {
 
-            PPApplication.logE("##### BootUpReceiver.onReceive", "xxx");
-
-            //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
+            PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 
             // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
             PPApplication.startedOnBoot = true;
@@ -33,7 +33,8 @@ public class BootUpReceiver extends BroadcastReceiver {
             }, 10000);
 
             PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot=" + ApplicationPreferences.applicationStartOnBoot(context));
-            //PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning="+PPApplication.getGlobalEventsRunning(context));
+            PPApplication.logE("BootUpReceiver.onReceive", "applicationStartEvents=" + ApplicationPreferences.applicationStartEvents(context));
+            PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning="+Event.getGlobalEventsRunning(context));
 
             BluetoothService.clearConnectedDevices(context, true);
             BluetoothService.saveConnectedDevices(context);

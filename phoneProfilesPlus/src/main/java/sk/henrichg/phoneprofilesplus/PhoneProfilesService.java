@@ -611,6 +611,8 @@ public class PhoneProfilesService extends Service
 
         if (onlyStart)
             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_ONLY_START");
+        if (startOnBoot)
+            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_START_ON_BOOT");
 
         Context appContext = getApplicationContext();
 
@@ -646,7 +648,7 @@ public class PhoneProfilesService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
+        //PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
 
         serviceRunning = true;
 
