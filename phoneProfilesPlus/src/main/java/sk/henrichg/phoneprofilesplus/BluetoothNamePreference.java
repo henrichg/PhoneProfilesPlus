@@ -117,10 +117,10 @@ public class BluetoothNamePreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        progressLinearLayout = (LinearLayout) layout.findViewById(R.id.bluetooth_name_pref_dlg_linla_progress);
-        dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.bluetooth_name_pref_dlg_rella_data);
+        progressLinearLayout = layout.findViewById(R.id.bluetooth_name_pref_dlg_linla_progress);
+        dataRelativeLayout = layout.findViewById(R.id.bluetooth_name_pref_dlg_rella_data);
 
-        addIcon = (AppCompatImageButton) layout.findViewById(R.id.bluetooth_name_pref_dlg_addIcon);
+        addIcon = layout.findViewById(R.id.bluetooth_name_pref_dlg_addIcon);
         addIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +143,7 @@ public class BluetoothNamePreference extends DialogPreference {
             }
         });
 
-        bluetoothName = (EditText) layout.findViewById(R.id.bluetooth_name_pref_dlg_bt_name);
+        bluetoothName = layout.findViewById(R.id.bluetooth_name_pref_dlg_bt_name);
         bluetoothName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -163,7 +163,7 @@ public class BluetoothNamePreference extends DialogPreference {
         GlobalGUIRoutines.setImageButtonEnabled(!bluetoothName.getText().toString().isEmpty(),
                 addIcon, R.drawable.ic_action_location_add, context.getApplicationContext());
 
-        bluetoothListView = (ListView) layout.findViewById(R.id.bluetooth_name_pref_dlg_listview);
+        bluetoothListView = layout.findViewById(R.id.bluetooth_name_pref_dlg_listview);
         listAdapter = new BluetoothNamePreferenceAdapter(context, this);
         bluetoothListView.setAdapter(listAdapter);
 
@@ -192,7 +192,7 @@ public class BluetoothNamePreference extends DialogPreference {
 
         });
 
-        final TextView helpText = (TextView)layout.findViewById(R.id.bluetooth_name_pref_dlg_helpText);
+        final TextView helpText = layout.findViewById(R.id.bluetooth_name_pref_dlg_helpText);
         String helpString = context.getString(R.string.event_preference_bluetooth_bt_types)+"\n\n"+
                 context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
                 context.getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
@@ -200,7 +200,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 context.getString(R.string.pref_dlg_info_about_wildcards_3);
         helpText.setText(helpString);
 
-        final ImageView helpIcon = (ImageView)layout.findViewById(R.id.bluetooth_name_pref_dlg_helpIcon);
+        final ImageView helpIcon = layout.findViewById(R.id.bluetooth_name_pref_dlg_helpIcon);
         ApplicationPreferences.getSharedPreferences(context);
         if (ApplicationPreferences.preferences.getBoolean(PREF_SHOW_HELP, true)) {
             helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
@@ -230,7 +230,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 editor.apply();
             }
         });
-        ImageView changeSelectionIcon = (ImageView)layout.findViewById(R.id.bluetooth_name_pref_dlg_changeSelection);
+        ImageView changeSelectionIcon = layout.findViewById(R.id.bluetooth_name_pref_dlg_changeSelection);
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

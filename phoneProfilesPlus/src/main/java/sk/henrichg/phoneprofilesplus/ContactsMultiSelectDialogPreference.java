@@ -108,9 +108,9 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        linlaProgress = (LinearLayout)layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_progress);
-        linlaListView = (LinearLayout)layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_listview);
-        ListView listView = (ListView)layout.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
+        linlaProgress = layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_progress);
+        linlaListView = layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_listview);
+        ListView listView = layout.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)
@@ -135,7 +135,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarStroke, tv, true);
         int colorQSHandlebarStroke = tv.data;
 
-        final QuickScroll quickscroll = (QuickScroll)layout.findViewById(R.id.contacts_multiselect_pref_dlg_quickscroll);
+        final QuickScroll quickscroll = layout.findViewById(R.id.contacts_multiselect_pref_dlg_quickscroll);
         quickscroll.init(QuickScroll.TYPE_INDICATOR_WITH_HANDLE, listView, listAdapter, QuickScroll.STYLE_HOLO, colorQSScrollbar);
         quickscroll.setHandlebarColor(colorQSHandlebarInactive, colorQSHandlebarActive, colorQSHandlebarStroke);
         quickscroll.setIndicatorColor(colorQSHandlebarActive, colorQSHandlebarActive, Color.WHITE);

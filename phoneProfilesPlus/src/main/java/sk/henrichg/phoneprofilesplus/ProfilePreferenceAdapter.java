@@ -85,11 +85,11 @@ class ProfilePreferenceAdapter extends BaseAdapter {
                 vi = inflater.inflate(R.layout.profile_preference_list_item_no_indicator, parent, false);
 
             holder = new ViewHolder();
-            holder.profileIcon = (ImageView)vi.findViewById(R.id.profile_pref_dlg_item_icon);
-            holder.profileLabel = (TextView)vi.findViewById(R.id.profile_pref_dlg_item_label);
+            holder.profileIcon = vi.findViewById(R.id.profile_pref_dlg_item_icon);
+            holder.profileLabel = vi.findViewById(R.id.profile_pref_dlg_item_label);
             if (ApplicationPreferences.applicationEditorPrefIndicator(context))
-                holder.profileIndicator = (ImageView)vi.findViewById(R.id.profile_pref_dlg_item_indicator);
-            holder.radioBtn = (RadioButton)vi.findViewById(R.id.profile_pref_dlg_item_radiobtn);
+                holder.profileIndicator = vi.findViewById(R.id.profile_pref_dlg_item_indicator);
+            holder.radioBtn = vi.findViewById(R.id.profile_pref_dlg_item_radiobtn);
             vi.setTag(holder);
         }
         else

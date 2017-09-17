@@ -195,7 +195,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
 
         /*
         // scroll to preference
-        ListView listView = (ListView) getActivity().findViewById(android.R.id.list);
+        ListView listView = getActivity().findViewById(android.R.id.list);
         if (listView != null) {
             PreferenceCategory scrollCategory = null;
             CheckBoxPreference scrollCheckBox = null;

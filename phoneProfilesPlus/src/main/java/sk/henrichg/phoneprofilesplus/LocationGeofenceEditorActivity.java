@@ -148,8 +148,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 .findFragmentById(R.id.location_editor_map);
         mapFragment.getMapAsync(this);
 
-        radiusLabel = (TextView)findViewById(R.id.location_pref_dlg_radius_seekbar_label);
-        SeekBar radiusSeekBar = (SeekBar)findViewById(R.id.location_pref_dlg_radius_seekbar);
+        radiusLabel = findViewById(R.id.location_pref_dlg_radius_seekbar_label);
+        SeekBar radiusSeekBar = findViewById(R.id.location_pref_dlg_radius_seekbar);
         radiusSeekBar.setProgress(Math.round(geofence._radius / (float)20.0)-1);
         radiusSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -170,12 +170,12 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             }
         });
 
-        geofenceNameEditText = (EditText)findViewById(R.id.location_editor_geofence_name);
+        geofenceNameEditText = findViewById(R.id.location_editor_geofence_name);
         geofenceNameEditText.setText(geofence._name);
 
-        addressText = (TextView)findViewById(R.id.location_editor_address_text);
+        addressText = findViewById(R.id.location_editor_address_text);
 
-        okButton = (Button)findViewById(R.id.location_editor_ok);
+        okButton = findViewById(R.id.location_editor_ok);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,7 +204,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             }
         });
 
-        Button cancelButton = (Button)findViewById(R.id.location_editor_cancel);
+        Button cancelButton = findViewById(R.id.location_editor_cancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,7 +214,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             }
         });
 
-        AppCompatImageButton myLocationButton = (AppCompatImageButton)findViewById(R.id.location_editor_my_location);
+        AppCompatImageButton myLocationButton = findViewById(R.id.location_editor_my_location);
         myLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -224,7 +224,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             }
         });
 
-        addressButton = (AppCompatImageButton)findViewById(R.id.location_editor_address_btn);
+        addressButton = findViewById(R.id.location_editor_address_btn);
         addressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -66,13 +66,13 @@ class ApplicationsMultiSelectPreferenceAdapter extends BaseAdapter implements Sc
                 convertView = inflater.inflate(R.layout.applications_multiselect_preference_list_item, parent, false);
 
             // Find the child views.
-            imageViewIcon = (ImageView) convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_icon);
-            textViewAppName = (TextView) convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_app_name);
-            checkBox = (CheckBox) convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_checkbox);
+            imageViewIcon = convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_icon);
+            textViewAppName = convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_app_name);
+            checkBox = convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_checkbox);
             if (noShortcuts)
                 textViewAppType = null;
             else
-                textViewAppType = (TextView) convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_app_type);
+                textViewAppType = convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_app_type);
 
             // Optimization: Tag the row with it's child views, so we don't
             // have to

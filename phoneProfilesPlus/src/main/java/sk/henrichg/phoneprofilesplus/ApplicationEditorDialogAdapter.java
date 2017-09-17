@@ -79,10 +79,10 @@ class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
 
             // Find the child views.
             holder = new ViewHolder();
-            holder.imageViewIcon = (ImageView) convertView.findViewById(R.id.applications_editor_dialog_item_icon);
-            holder.textViewAppName = (TextView) convertView.findViewById(R.id.applications_editor_dialog_item_app_name);
-            holder.radioBtn = (RadioButton) convertView.findViewById(R.id.applications_editor_dialog_item_radiobutton);
-            holder.textViewAppType = (TextView) convertView.findViewById(R.id.applications_editor_dialog_item_app_type);
+            holder.imageViewIcon = convertView.findViewById(R.id.applications_editor_dialog_item_icon);
+            holder.textViewAppName = convertView.findViewById(R.id.applications_editor_dialog_item_app_name);
+            holder.radioBtn = convertView.findViewById(R.id.applications_editor_dialog_item_radiobutton);
+            holder.textViewAppType = convertView.findViewById(R.id.applications_editor_dialog_item_app_type);
             convertView.setTag(holder);
         }
         // Reuse existing row view

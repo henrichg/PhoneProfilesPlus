@@ -132,7 +132,7 @@ public class QuickScroll extends View {
             container.addView(scrollIndicatorTextView);
         } else {
             scrollIndicator = createPin();
-            scrollIndicatorTextView = (TextView) scrollIndicator.findViewById(ID_PIN_TEXT);
+            scrollIndicatorTextView = scrollIndicator.findViewById(ID_PIN_TEXT);
             (scrollIndicator.findViewById(ID_PIN)).getLayoutParams().width = 25;
             container.addView(scrollIndicator);
         }

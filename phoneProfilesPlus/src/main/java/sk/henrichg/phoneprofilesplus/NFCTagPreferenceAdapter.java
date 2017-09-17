@@ -59,9 +59,9 @@ class NFCTagPreferenceAdapter extends BaseAdapter
         {
             vi = inflater.inflate(R.layout.nfc_tag_preference_list_item, parent, false);
             holder = new ViewHolder();
-            holder.tagName = (TextView)vi.findViewById(R.id.nfc_tag_pref_dlg_item_label);
-            holder.checkBox = (CheckBox)vi.findViewById(R.id.nfc_tag_pref_dlg_item_checkbox);
-            holder.itemEditMenu = (ImageView)  vi.findViewById(R.id.nfc_tag_pref_dlg_item_edit_menu);
+            holder.tagName = vi.findViewById(R.id.nfc_tag_pref_dlg_item_label);
+            holder.checkBox = vi.findViewById(R.id.nfc_tag_pref_dlg_item_checkbox);
+            holder.itemEditMenu = vi.findViewById(R.id.nfc_tag_pref_dlg_item_edit_menu);
             vi.setTag(holder);
         }
         else

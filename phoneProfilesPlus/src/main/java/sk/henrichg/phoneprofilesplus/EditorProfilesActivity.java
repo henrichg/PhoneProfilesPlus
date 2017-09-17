@@ -273,8 +273,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             fragmentManager.executePendingTransactions();
         }
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.editor_list_drawer_layout);
-        drawerRoot = (ScrimInsetsFrameLayout) findViewById(R.id.editor_drawer_root);
+        drawerLayout = findViewById(R.id.editor_list_drawer_layout);
+        drawerRoot = findViewById(R.id.editor_drawer_root);
 
         // set status bar background for Activity body layout
         if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
@@ -286,13 +286,13 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dlight"))
             drawerLayout.setStatusBarBackground(R.color.profile_all_primaryDark_dark);
 
-        drawerListView = (ListView) findViewById(R.id.editor_drawer_list);
+        drawerListView = findViewById(R.id.editor_drawer_list);
         @SuppressLint("InflateParams")
         View headerView =  ((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.editor_drawer_list_header, null, false);
         drawerListView.addHeaderView(headerView, null, false);
-        drawerHeaderFilterImage = (ImageView) findViewById(R.id.editor_drawer_list_header_icon);
-        drawerHeaderFilterTitle = (TextView) findViewById(R.id.editor_drawer_list_header_title);
-        drawerHeaderFilterSubtitle = (TextView) findViewById(R.id.editor_drawer_list_header_subtitle);
+        drawerHeaderFilterImage = findViewById(R.id.editor_drawer_list_header_icon);
+        drawerHeaderFilterTitle = findViewById(R.id.editor_drawer_list_header_title);
+        drawerHeaderFilterSubtitle = findViewById(R.id.editor_drawer_list_header_subtitle);
 
         int drawerShadowId;
         if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
@@ -349,7 +349,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerListView.setOnItemClickListener(new DrawerItemClickListener());
 
 
-        editorToolbar = (Toolbar)findViewById(R.id.editor_tollbar);
+        editorToolbar = findViewById(R.id.editor_tollbar);
         setSupportActionBar(editorToolbar);
 
         // Enable ActionBar app icon to behave as action to toggle nav drawer
@@ -383,7 +383,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         };
         drawerLayout.addDrawerListener(drawerToggle);
         
-        filterStatusBarTitle = (TextView) findViewById(R.id.editor_filter_title);
+        filterStatusBarTitle = findViewById(R.id.editor_filter_title);
         filterStatusBarTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -391,7 +391,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         });
        
-        orderSpinner = (Spinner) findViewById(R.id.editor_list_bottom_bar_order);
+        orderSpinner = findViewById(R.id.editor_list_bottom_bar_order);
         ArrayAdapter<CharSequence> orderSpinnerAdapter = ArrayAdapter.createFromResource(
                                     //getSupportActionBar().getThemedContext(),
                                     getBaseContext(),
@@ -411,7 +411,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        TextView orderLabel = (TextView)findViewById(R.id.editor_list_bottom_bar_order_title);
+        TextView orderLabel = findViewById(R.id.editor_list_bottom_bar_order_title);
         orderLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -419,7 +419,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         });
 
-        eventsRunStopIndicator = (ImageView)findViewById(R.id.editor_list_run_stop_indicator);
+        eventsRunStopIndicator = findViewById(R.id.editor_list_run_stop_indicator);
         eventsRunStopIndicator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

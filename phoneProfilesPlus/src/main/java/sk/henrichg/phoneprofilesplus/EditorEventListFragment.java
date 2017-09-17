@@ -181,11 +181,11 @@ public class EditorEventListFragment extends Fragment
 
         // az tu mame layout, tak mozeme ziskat view-y
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        listView = (RecyclerView) view.findViewById(R.id.editor_events_list);
+        listView = view.findViewById(R.id.editor_events_list);
         listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
-        textViewNoData = (TextView)view.findViewById(R.id.editor_events_list_empty);
+        textViewNoData = view.findViewById(R.id.editor_events_list_empty);
 
         /*
         View footerView =  ((LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
@@ -196,7 +196,7 @@ public class EditorEventListFragment extends Fragment
         final Activity activity = getActivity();
         final EditorEventListFragment fragment = this;
 
-        bottomToolbar = (Toolbar)getActivity().findViewById(R.id.editor_list_bottom_bar);
+        bottomToolbar = getActivity().findViewById(R.id.editor_list_bottom_bar);
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
@@ -222,7 +222,7 @@ public class EditorEventListFragment extends Fragment
             }
         });
 
-        LinearLayout orderLayout = (LinearLayout)getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
+        LinearLayout orderLayout = getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
             orderLayout.setVisibility(View.GONE);
         else

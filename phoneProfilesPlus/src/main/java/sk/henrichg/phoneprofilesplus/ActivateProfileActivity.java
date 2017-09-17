@@ -145,13 +145,13 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onCreate - setContentView");
 
-        toolbar = (Toolbar)findViewById(R.id.act_prof_tollbar);
+        toolbar = findViewById(R.id.act_prof_tollbar);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle(R.string.title_activity_activator);
 
-        eventsRunStopIndicator = (ImageView)findViewById(R.id.act_prof_run_stop_indicator);
+        eventsRunStopIndicator = findViewById(R.id.act_prof_run_stop_indicator);
         eventsRunStopIndicator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

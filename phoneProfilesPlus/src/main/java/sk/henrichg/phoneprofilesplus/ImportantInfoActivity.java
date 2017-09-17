@@ -44,7 +44,7 @@ public class ImportantInfoActivity extends AppCompatActivity {
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_important_info_toolbar);
+        Toolbar toolbar = findViewById(R.id.activity_important_info_toolbar);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
@@ -53,12 +53,12 @@ public class ImportantInfoActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.important_info_activity_title);
         }
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.activity_important_info_tab_layout);
+        TabLayout tabLayout = findViewById(R.id.activity_important_info_tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.important_info_important_info_tab));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.important_info_quick_guide_tab));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.activity_important_info_pager);
+        final ViewPager viewPager = findViewById(R.id.activity_important_info_pager);
         final PagerAdapter adapter = new HelpActivityFragmentStateAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

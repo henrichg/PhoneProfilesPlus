@@ -98,12 +98,12 @@ public class ActivateProfileListFragment extends Fragment {
 
     private void doOnViewCreated(View view, Bundle savedInstanceState)
     {
-        activeProfileName = (TextView)view.findViewById(R.id.act_prof_activated_profile_name);
-        activeProfileIcon = (ImageView)view.findViewById(R.id.act_prof_activated_profile_icon);
+        activeProfileName = view.findViewById(R.id.act_prof_activated_profile_name);
+        activeProfileIcon = view.findViewById(R.id.act_prof_activated_profile_icon);
         if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
-            listView = (ListView)view.findViewById(R.id.act_prof_profiles_list);
+            listView = view.findViewById(R.id.act_prof_profiles_list);
         else
-            gridView = (GridView)view.findViewById(R.id.act_prof_profiles_grid);
+            gridView = view.findViewById(R.id.act_prof_profiles_grid);
 
         AbsListView absListView;
         if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
@@ -344,7 +344,7 @@ public class ActivateProfileListFragment extends Fragment {
 
         if (ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context))
         {
-            ImageView profilePrefIndicatorImageView = (ImageView)getActivity().findViewById(R.id.act_prof_activated_profile_pref_indicator);
+            ImageView profilePrefIndicatorImageView = getActivity().findViewById(R.id.act_prof_activated_profile_pref_indicator);
             if (profilePrefIndicatorImageView != null)
             {
                 if (profile == null)

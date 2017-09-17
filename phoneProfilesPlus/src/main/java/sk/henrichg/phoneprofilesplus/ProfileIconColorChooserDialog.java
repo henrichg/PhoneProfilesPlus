@@ -49,7 +49,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
             }
         }
         ta.recycle();
-        final GridLayout list = (GridLayout) mDialog.getCustomView().findViewById(R.id.dialog_color_chooser_grid);
+        final GridLayout list = mDialog.getCustomView().findViewById(R.id.dialog_color_chooser_grid);
 
         for (int i = 0; i < list.getChildCount(); i++) {
             FrameLayout child = (FrameLayout) list.getChildAt(i);

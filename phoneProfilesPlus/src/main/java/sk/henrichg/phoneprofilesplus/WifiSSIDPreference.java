@@ -116,10 +116,10 @@ public class WifiSSIDPreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        progressLinearLayout = (LinearLayout) layout.findViewById(R.id.wifi_ssid_pref_dlg_linla_progress);
-        dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.wifi_ssid_pref_dlg_rella_data);
+        progressLinearLayout = layout.findViewById(R.id.wifi_ssid_pref_dlg_linla_progress);
+        dataRelativeLayout = layout.findViewById(R.id.wifi_ssid_pref_dlg_rella_data);
 
-        addIcon = (AppCompatImageButton) layout.findViewById(R.id.wifi_ssid_pref_dlg_addIcon);
+        addIcon = layout.findViewById(R.id.wifi_ssid_pref_dlg_addIcon);
         addIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,7 +138,7 @@ public class WifiSSIDPreference extends DialogPreference {
             }
         });
 
-        SSIDName = (EditText) layout.findViewById(R.id.wifi_ssid_pref_dlg_bt_name);
+        SSIDName = layout.findViewById(R.id.wifi_ssid_pref_dlg_bt_name);
         SSIDName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -158,7 +158,7 @@ public class WifiSSIDPreference extends DialogPreference {
         GlobalGUIRoutines.setImageButtonEnabled(!SSIDName.getText().toString().isEmpty(),
                 addIcon, R.drawable.ic_action_location_add, context.getApplicationContext());
 
-        SSIDListView = (ListView) layout.findViewById(R.id.wifi_ssid_pref_dlg_listview);
+        SSIDListView = layout.findViewById(R.id.wifi_ssid_pref_dlg_listview);
         listAdapter = new WifiSSIDPreferenceAdapter(context, this);
         SSIDListView.setAdapter(listAdapter);
 
@@ -187,14 +187,14 @@ public class WifiSSIDPreference extends DialogPreference {
 
         });
 
-        final TextView helpText = (TextView)layout.findViewById(R.id.wifi_ssid_pref_dlg_helpText);
+        final TextView helpText = layout.findViewById(R.id.wifi_ssid_pref_dlg_helpText);
         String helpString = context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
                             context.getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
                             context.getString(R.string.wifi_ssid_pref_dlg_info_about_wildcards) + " " +
                             context.getString(R.string.pref_dlg_info_about_wildcards_3);
         helpText.setText(helpString);
 
-        final ImageView helpIcon = (ImageView)layout.findViewById(R.id.wifi_ssid_pref_dlg_helpIcon);
+        final ImageView helpIcon = layout.findViewById(R.id.wifi_ssid_pref_dlg_helpIcon);
         ApplicationPreferences.getSharedPreferences(context);
         if (ApplicationPreferences.preferences.getBoolean(PREF_SHOW_HELP, true)) {
             helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
@@ -224,7 +224,7 @@ public class WifiSSIDPreference extends DialogPreference {
                 editor.apply();
             }
         });
-        ImageView changeSelectionIcon = (ImageView)layout.findViewById(R.id.wifi_ssid_pref_dlg_changeSelection);
+        ImageView changeSelectionIcon = layout.findViewById(R.id.wifi_ssid_pref_dlg_changeSelection);
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

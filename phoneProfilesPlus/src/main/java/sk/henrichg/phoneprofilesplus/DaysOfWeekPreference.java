@@ -105,7 +105,7 @@ public class DaysOfWeekPreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        ListView listView = (ListView)layout.findViewById(R.id.days_of_week_pref_dlg_listview);
+        ListView listView = layout.findViewById(R.id.days_of_week_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)

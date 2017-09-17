@@ -81,10 +81,10 @@ public class DurationDialogPreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        TextView mTextViewRange = (TextView) layout.findViewById(R.id.duration_pref_dlg_range);
-        mNumberPickerHours = (NumberPicker) layout.findViewById(R.id.duration_pref_dlg_hours);
-        mNumberPickerMinutes = (NumberPicker) layout.findViewById(R.id.duration_pref_dlg_minutes);
-        mNumberPickerSeconds = (NumberPicker) layout.findViewById(R.id.duration_pref_dlg_seconds);
+        TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
+        mNumberPickerHours = layout.findViewById(R.id.duration_pref_dlg_hours);
+        mNumberPickerMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
+        mNumberPickerSeconds = layout.findViewById(R.id.duration_pref_dlg_seconds);
 
         TypedValue tv = new TypedValue();
         getContext().getTheme().resolveAttribute(R.attr.colorAccent, tv, true);

@@ -80,17 +80,17 @@ class AddEventAdapter extends BaseAdapter {
             else
                 vi = inflater.inflate(R.layout.add_event_list_item_no_indicator, parent, false);
             holder = new ViewHolder();
-            holder.eventName = (TextView)vi.findViewById(R.id.event_pref_dlg_item_event_name);
-            holder.profileStartName = (TextView)vi.findViewById(R.id.event_pref_dlg_item_profile_start_name);
-            holder.profileStartIcon = (ImageView)vi.findViewById(R.id.event_pref_dlg_item_profile_start_icon);
-            holder.profileEndName = (TextView)vi.findViewById(R.id.event_pref_dlg_item_profile_end_name);
-            holder.profileEndIcon = (ImageView)vi.findViewById(R.id.event_pref_dlg_item_profile_end_icon);
+            holder.eventName = vi.findViewById(R.id.event_pref_dlg_item_event_name);
+            holder.profileStartName = vi.findViewById(R.id.event_pref_dlg_item_profile_start_name);
+            holder.profileStartIcon = vi.findViewById(R.id.event_pref_dlg_item_profile_start_icon);
+            holder.profileEndName = vi.findViewById(R.id.event_pref_dlg_item_profile_end_name);
+            holder.profileEndIcon = vi.findViewById(R.id.event_pref_dlg_item_profile_end_icon);
             if (ApplicationPreferences.applicationEditorPrefIndicator(context))
             {
-                holder.eventPreferencesDescription  = (TextView)vi.findViewById(R.id.event_pref_dlg_item_preferences_description);
+                holder.eventPreferencesDescription  = vi.findViewById(R.id.event_pref_dlg_item_preferences_description);
                 //holder.eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
-                holder.profileStartIndicator = (ImageView)vi.findViewById(R.id.event_pref_dlg_item_profile_start_pref_indicator);
-                holder.profileEndIndicator = (ImageView)vi.findViewById(R.id.event_pref_dlg_item_profile_end_pref_indicator);
+                holder.profileStartIndicator = vi.findViewById(R.id.event_pref_dlg_item_profile_start_pref_indicator);
+                holder.profileEndIndicator = vi.findViewById(R.id.event_pref_dlg_item_profile_end_pref_indicator);
             }
             vi.setTag(holder);
             defaultColor = holder.eventName.getTextColors().getDefaultColor();

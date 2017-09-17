@@ -58,9 +58,9 @@ class EditorDrawerListAdapter extends BaseAdapter {
             vi = inflater.inflate(R.layout.editor_drawer_list_item, parent, false); 
 
             holder = new ViewHolder();
-            holder.itemTitle = (TextView)vi.findViewById(R.id.editor_drawer_list_item_title);
-            holder.itemSubtitle = (TextView)vi.findViewById(R.id.editor_drawer_list_item_subtitle);
-            holder.itemIcon = (ImageView)vi.findViewById(R.id.editor_drawer_list_item_icon);
+            holder.itemTitle = vi.findViewById(R.id.editor_drawer_list_item_title);
+            holder.itemSubtitle = vi.findViewById(R.id.editor_drawer_list_item_subtitle);
+            holder.itemIcon = vi.findViewById(R.id.editor_drawer_list_item_icon);
             vi.setTag(holder);        
         }
         else

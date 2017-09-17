@@ -14,10 +14,10 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
             final EditorEventListFragment _fragment = fragment;
             final Event _event = event;
 
-            TextView eventName = (TextView) view.findViewById(R.id.event_status_popup_window_text0);
+            TextView eventName = view.findViewById(R.id.event_status_popup_window_text0);
             eventName.setText(fragment.getString(R.string.event_string_0)+": "+event._name);
 
-            SwitchCompat checkBox = (SwitchCompat) view.findViewById(R.id.event_status_popup_window_checkbox);
+            SwitchCompat checkBox = view.findViewById(R.id.event_status_popup_window_checkbox);
             checkBox.setChecked(event.getStatus() != Event.ESTATUS_STOP);
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

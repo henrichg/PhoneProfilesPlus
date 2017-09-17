@@ -65,27 +65,27 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         if (news2190) {
             // empty this, for switch off news
-            TextView infoText1 = (TextView) view.findViewById(R.id.activity_info_event_start_order1);
+            TextView infoText1 = view.findViewById(R.id.activity_info_event_start_order1);
             infoText1.setVisibility(View.GONE);
-            TextView infoText2 = (TextView) view.findViewById(R.id.activity_info_event_start_order2);
+            TextView infoText2 = view.findViewById(R.id.activity_info_event_start_order2);
             infoText2.setVisibility(View.GONE);
             news = true;
         }
         else {
             // empty this, for switch off news
-            TextView infoText1 = (TextView) view.findViewById(R.id.activity_info_event_start_order1_news);
+            TextView infoText1 = view.findViewById(R.id.activity_info_event_start_order1_news);
             infoText1.setVisibility(View.GONE);
-            TextView infoText2 = (TextView) view.findViewById(R.id.activity_info_event_start_order2_news);
+            TextView infoText2 = view.findViewById(R.id.activity_info_event_start_order2_news);
             infoText2.setVisibility(View.GONE);
         }
 
         if (news1804) {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
-                TextView infoText16 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text16);
+                TextView infoText16 = view.findViewById(R.id.activity_info_notification_dialog_info_text16);
                 infoText16.setVisibility(View.GONE);
-                TextView infoText18 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text18);
+                TextView infoText18 = view.findViewById(R.id.activity_info_notification_dialog_info_text18);
                 infoText18.setVisibility(View.GONE);
-                TextView infoText19 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text19);
+                TextView infoText19 = view.findViewById(R.id.activity_info_notification_dialog_info_text19);
                 infoText19.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -103,9 +103,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                         }
                     }
                 });
-                TextView infoText20 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text20);
+                TextView infoText20 = view.findViewById(R.id.activity_info_notification_dialog_info_text20);
                 infoText20.setVisibility(View.GONE);
-                TextView infoText21 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text21);
+                TextView infoText21 = view.findViewById(R.id.activity_info_notification_dialog_info_text21);
                 infoText21.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -123,19 +123,19 @@ public class ImportantInfoHelpFragment extends Fragment {
                         }
                     }
                 });
-                TextView infoText22 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text22);
+                TextView infoText22 = view.findViewById(R.id.activity_info_notification_dialog_info_text22);
                 infoText22.setVisibility(View.GONE);
                 news = true;
             }
         }
         else {
-            TextView infoText15 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text15);
+            TextView infoText15 = view.findViewById(R.id.activity_info_notification_dialog_info_text15);
             infoText15.setVisibility(View.GONE);
-            TextView infoText17 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text17);
+            TextView infoText17 = view.findViewById(R.id.activity_info_notification_dialog_info_text17);
             infoText17.setVisibility(View.GONE);
-            TextView infoText19 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text19);
+            TextView infoText19 = view.findViewById(R.id.activity_info_notification_dialog_info_text19);
             infoText19.setVisibility(View.GONE);
-            TextView infoText20 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text20);
+            TextView infoText20 = view.findViewById(R.id.activity_info_notification_dialog_info_text20);
             infoText20.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -153,9 +153,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                     }
                 }
             });
-            TextView infoText21 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text21);
+            TextView infoText21 = view.findViewById(R.id.activity_info_notification_dialog_info_text21);
             infoText21.setVisibility(View.GONE);
-            TextView infoText22 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text22);
+            TextView infoText22 = view.findViewById(R.id.activity_info_notification_dialog_info_text22);
             infoText22.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -173,7 +173,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     }
                 }
             });
-            TextView infoText10a = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text10a);
+            TextView infoText10a = view.findViewById(R.id.activity_info_notification_dialog_info_text10a);
             infoText10a.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -195,17 +195,17 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         if (news1772) {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
-                TextView infoText14 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text14);
+                TextView infoText14 = view.findViewById(R.id.activity_info_notification_dialog_info_text14);
                 infoText14.setVisibility(View.GONE);
 
                 boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
                 if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
                         GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
-                    TextView infoText13 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text13);
+                    TextView infoText13 = view.findViewById(R.id.activity_info_notification_dialog_info_text13);
                     infoText13.setVisibility(View.GONE);
                 }
                 else {
-                    TextView infoText13 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text13);
+                    TextView infoText13 = view.findViewById(R.id.activity_info_notification_dialog_info_text13);
                     if (android.os.Build.VERSION.SDK_INT >= 23)
                         infoText13.setText(R.string.important_info_profile_zenModeM);
                     infoText13.setOnClickListener(new View.OnClickListener() {
@@ -229,17 +229,17 @@ public class ImportantInfoHelpFragment extends Fragment {
             }
         }
         else {
-            TextView infoText13 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text13);
+            TextView infoText13 = view.findViewById(R.id.activity_info_notification_dialog_info_text13);
             infoText13.setVisibility(View.GONE);
 
             boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
             if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
                     GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
-                TextView infoText14 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text14);
+                TextView infoText14 = view.findViewById(R.id.activity_info_notification_dialog_info_text14);
                 infoText14.setVisibility(View.GONE);
             }
             else {
-                TextView infoText14 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text14);
+                TextView infoText14 = view.findViewById(R.id.activity_info_notification_dialog_info_text14);
                 if (android.os.Build.VERSION.SDK_INT >= 23)
                     infoText14.setText(R.string.important_info_profile_zenModeM);
                 infoText14.setOnClickListener(new View.OnClickListener() {
@@ -262,35 +262,35 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
 
         if (android.os.Build.VERSION.SDK_INT < 23) {
-            TextView infoText15 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text15);
+            TextView infoText15 = view.findViewById(R.id.activity_info_notification_dialog_info_text15);
             infoText15.setVisibility(View.GONE);
-            TextView infoText16 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text16);
+            TextView infoText16 = view.findViewById(R.id.activity_info_notification_dialog_info_text16);
             infoText16.setVisibility(View.GONE);
-            TextView infoText17 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text17);
+            TextView infoText17 = view.findViewById(R.id.activity_info_notification_dialog_info_text17);
             infoText17.setVisibility(View.GONE);
-            TextView infoText18 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text18);
+            TextView infoText18 = view.findViewById(R.id.activity_info_notification_dialog_info_text18);
             infoText18.setVisibility(View.GONE);
-            TextView infoText19 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text19);
+            TextView infoText19 = view.findViewById(R.id.activity_info_notification_dialog_info_text19);
             infoText19.setVisibility(View.GONE);
-            TextView infoText20 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text20);
+            TextView infoText20 = view.findViewById(R.id.activity_info_notification_dialog_info_text20);
             infoText20.setVisibility(View.GONE);
-            TextView infoText21 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text21);
+            TextView infoText21 = view.findViewById(R.id.activity_info_notification_dialog_info_text21);
             infoText21.setVisibility(View.GONE);
-            TextView infoText22 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text22);
+            TextView infoText22 = view.findViewById(R.id.activity_info_notification_dialog_info_text22);
             infoText22.setVisibility(View.GONE);
-            TextView infoText10a = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text10a);
+            TextView infoText10a = view.findViewById(R.id.activity_info_notification_dialog_info_text10a);
             infoText10a.setVisibility(View.GONE);
         }
 
         if (android.os.Build.VERSION.SDK_INT < 21) {
-            TextView infoText13 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text13);
+            TextView infoText13 = view.findViewById(R.id.activity_info_notification_dialog_info_text13);
             infoText13.setVisibility(View.GONE);
-            TextView infoText14 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text14);
+            TextView infoText14 = view.findViewById(R.id.activity_info_notification_dialog_info_text14);
             infoText14.setVisibility(View.GONE);
         }
 
         if (ActivateProfileHelper.getMergedRingNotificationVolumes(context)) {
-            TextView infoText3 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text3);
+            TextView infoText3 = view.findViewById(R.id.activity_info_notification_dialog_info_text3);
             infoText3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -303,11 +303,11 @@ public class ImportantInfoHelpFragment extends Fragment {
             });
         }
         else {
-            TextView infoText3 = (TextView) view.findViewById(R.id.activity_info_notification_dialog_info_text3);
+            TextView infoText3 = view.findViewById(R.id.activity_info_notification_dialog_info_text3);
             infoText3.setVisibility(View.GONE);
         }
 
-        TextView infoText40 = (TextView) view.findViewById(R.id.activity_info_default_profile);
+        TextView infoText40 = view.findViewById(R.id.activity_info_default_profile);
         infoText40.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -319,7 +319,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             }
         });
 
-        TextView infoText41 = (TextView)view.findViewById(R.id.activity_info_activate_profile_from_tasker_params);
+        TextView infoText41 = view.findViewById(R.id.activity_info_activate_profile_from_tasker_params);
         String str = "Send Intent [\n" +
                 " Action:sk.henrichg.phoneprofilesplus.ACTION_ACTIVATE_PROFILE\n" +
                 " Extra:profile_name:profile name\n" +
@@ -329,7 +329,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(getActivity())), 0, str.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoText41.setText(spannable);
-        TextView infoText42 = (TextView)view.findViewById(R.id.activity_info_manage_events_from_tasker_params_restart_events);
+        TextView infoText42 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_restart_events);
         str = "Send Intent [\n" +
                 " Action:sk.henrichg.phoneprofilesplus.ACTION_RESTART_EVENTS\n" +
                 " Target:Activity\n" +
@@ -338,7 +338,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(getActivity())), 0, str.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoText42.setText(spannable);
-        TextView infoText43 = (TextView)view.findViewById(R.id.activity_info_manage_events_from_tasker_params_enable_run_for_event);
+        TextView infoText43 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_enable_run_for_event);
         str = "Send Intent [\n" +
                 " Action:sk.henrichg.phoneprofilesplus.ACTION_ENABLE_RUN_FOR_EVENT\n" +
                 " Extra:event_name:event name\n" +
@@ -348,7 +348,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(getActivity())), 0, str.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoText43.setText(spannable);
-        TextView infoText44 = (TextView)view.findViewById(R.id.activity_info_manage_events_from_tasker_params_pause_event);
+        TextView infoText44 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_pause_event);
         str = "Send Intent [\n" +
                 " Action:sk.henrichg.phoneprofilesplus.ACTION_PAUSE_EVENT\n" +
                 " Extra:event_name:event name\n" +
@@ -358,7 +358,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(getActivity())), 0, str.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoText44.setText(spannable);
-        TextView infoText45 = (TextView)view.findViewById(R.id.activity_info_manage_events_from_tasker_params_stop_event);
+        TextView infoText45 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_stop_event);
         str = "Send Intent [\n" +
                 " Action:sk.henrichg.phoneprofilesplus.ACTION_STOP_EVENT\n" +
                 " Extra:event_name:event name\n" +
@@ -369,14 +369,14 @@ public class ImportantInfoHelpFragment extends Fragment {
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoText45.setText(spannable);
 
-        TextView infoTextADBDownload = (TextView)view.findViewById(R.id.activity_info_notification_dialog_info_text61);
+        TextView infoTextADBDownload = view.findViewById(R.id.activity_info_notification_dialog_info_text61);
         str = getString(R.string.important_info_profile_grant_1_howTo_11);
         spannable = new SpannableString(str);
         spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(getActivity())), 0, str.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoTextADBDownload.setText(spannable);
 
-        TextView infoTextGrant1Command = (TextView)view.findViewById(R.id.activity_info_notification_dialog_info_grant_1_command);
+        TextView infoTextGrant1Command = view.findViewById(R.id.activity_info_notification_dialog_info_grant_1_command);
         str = getString(R.string.important_info_profile_grant_1_howTo_9a) + "\u00A0" +
                 context.getPackageName() + "\u00A0" +
                 getString(R.string.important_info_profile_grant_1_howTo_9b);
@@ -386,7 +386,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoTextGrant1Command.setText(spannable);
 
         if (!news) {
-            TextView infoTextNews = (TextView) view.findViewById(R.id.activity_info_notification_dialog_news);
+            TextView infoTextNews = view.findViewById(R.id.activity_info_notification_dialog_news);
             infoTextNews.setVisibility(View.GONE);
         }
 

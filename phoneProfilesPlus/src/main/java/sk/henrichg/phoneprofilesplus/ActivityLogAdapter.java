@@ -94,13 +94,13 @@ class ActivityLogAdapter extends CursorAdapter {
 
         MyRowViewHolder rowData  = new MyRowViewHolder();
 
-        rowData.logTypeColor = (FrameLayout) view.findViewById(R.id.activity_log_row_color);
-        rowData.logDateTime  = (TextView) view.findViewById(R.id.activity_log_row_log_date_time);
-        rowData.logType  = (TextView) view.findViewById(R.id.activity_log_row_log_type);
-        rowData.eventName  = (TextView) view.findViewById(R.id.activity_log_row_event_name);
-        rowData.profileName  = (TextView) view.findViewById(R.id.activity_log_row_profile_name);
-        //rowData.profileIcon  = (ImageView) view.findViewById(R.id.activity_log_row_profile_icon);
-        //rowData.durationDelay  = (TextView) view.findViewById(R.id.activity_log_row_duration_delay);
+        rowData.logTypeColor = view.findViewById(R.id.activity_log_row_color);
+        rowData.logDateTime  = view.findViewById(R.id.activity_log_row_log_date_time);
+        rowData.logType  = view.findViewById(R.id.activity_log_row_log_type);
+        rowData.eventName  = view.findViewById(R.id.activity_log_row_event_name);
+        rowData.profileName  = view.findViewById(R.id.activity_log_row_profile_name);
+        //rowData.profileIcon  = view.findViewById(R.id.activity_log_row_profile_icon);
+        //rowData.durationDelay  = view.findViewById(R.id.activity_log_row_duration_delay);
 
         rowData.logTypeColor.setBackgroundColor(ContextCompat.getColor(context, activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
         rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));

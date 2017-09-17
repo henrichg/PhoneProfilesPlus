@@ -43,24 +43,24 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
         this.filterType = filterType;
 
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
-            dragHandle = (ImageView) itemView.findViewById(R.id.event_list_drag_handle);
+            dragHandle = itemView.findViewById(R.id.event_list_drag_handle);
         else
             dragHandle = null;
 
-        //listItemRoot = (RelativeLayout)vi.findViewById(R.id.event_list_item_root);
-        eventName = (TextView) itemView.findViewById(R.id.event_list_item_event_name);
-        eventStatus = (ImageView)itemView.findViewById(R.id.event_list_item_status);
-        eventItemEditMenu = (ImageView)itemView.findViewById(R.id.event_list_item_edit_menu);
-        profileStartName = (TextView)itemView.findViewById(R.id.event_list_item_profile_start_name);
-        profileStartIcon = (ImageView)itemView.findViewById(R.id.event_list_item_profile_start_icon);
-        profileEndName = (TextView)itemView.findViewById(R.id.event_list_item_profile_end_name);
-        profileEndIcon = (ImageView)itemView.findViewById(R.id.event_list_item_profile_end_icon);
+        //listItemRoot = vi.findViewById(R.id.event_list_item_root);
+        eventName = itemView.findViewById(R.id.event_list_item_event_name);
+        eventStatus = itemView.findViewById(R.id.event_list_item_status);
+        eventItemEditMenu = itemView.findViewById(R.id.event_list_item_edit_menu);
+        profileStartName = itemView.findViewById(R.id.event_list_item_profile_start_name);
+        profileStartIcon = itemView.findViewById(R.id.event_list_item_profile_start_icon);
+        profileEndName = itemView.findViewById(R.id.event_list_item_profile_end_name);
+        profileEndIcon = itemView.findViewById(R.id.event_list_item_profile_end_icon);
         if (ApplicationPreferences.applicationEditorPrefIndicator(context))
         {
-            eventPreferencesDescription  = (TextView)itemView.findViewById(R.id.event_list_item_preferences_description);
+            eventPreferencesDescription  = itemView.findViewById(R.id.event_list_item_preferences_description);
             //eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
-            profileStartIndicator = (ImageView)itemView.findViewById(R.id.event_list_item_profile_start_pref_indicator);
-            profileEndIndicator = (ImageView)itemView.findViewById(R.id.event_list_item_profile_end_pref_indicator);
+            profileStartIndicator = itemView.findViewById(R.id.event_list_item_profile_start_pref_indicator);
+            profileEndIndicator = itemView.findViewById(R.id.event_list_item_profile_end_pref_indicator);
         }
 
         itemView.setOnClickListener(this);

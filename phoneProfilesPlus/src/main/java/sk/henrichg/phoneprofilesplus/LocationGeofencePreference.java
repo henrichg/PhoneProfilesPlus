@@ -110,15 +110,15 @@ public class LocationGeofencePreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        //progressLinearLayout = (LinearLayout) layout.findViewById(R.id.location_pref_dlg_linla_progress);
-        //dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.location_pref_dlg_rella_data);
+        //progressLinearLayout = layout.findViewById(R.id.location_pref_dlg_linla_progress);
+        //dataRelativeLayout = layout.findViewById(R.id.location_pref_dlg_rella_data);
 
-        //geofenceName = (TextView) layout.findViewById(R.id.location_pref_dlg_geofence_name);
+        //geofenceName = layout.findViewById(R.id.location_pref_dlg_geofence_name);
         //updateGUIWithGeofence(dataWrapper.getDatabaseHandler().getCheckedGeofences());
 
-        AppCompatImageButton addButton = (AppCompatImageButton)layout.findViewById(R.id.location_pref_dlg_add);
+        AppCompatImageButton addButton = layout.findViewById(R.id.location_pref_dlg_add);
 
-        ListView geofencesListView = (ListView) layout.findViewById(R.id.location_pref_dlg_listview);
+        ListView geofencesListView = layout.findViewById(R.id.location_pref_dlg_listview);
 
         listAdapter = new LocationGeofencesPreferenceAdapter(context, dataWrapper.getDatabaseHandler().getGeofencesCursor(), this);
         geofencesListView.setAdapter(listAdapter);
@@ -155,14 +155,14 @@ public class LocationGeofencePreference extends DialogPreference {
         });
 
         /*
-        final TextView helpText = (TextView)layout.findViewById(R.id.wifi_ssid_pref_dlg_helpText);
+        final TextView helpText = layout.findViewById(R.id.wifi_ssid_pref_dlg_helpText);
         String helpString = context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
                             context.getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
                             context.getString(R.string.wifi_ssid_pref_dlg_info_about_wildcards) + " " +
                             context.getString(R.string.pref_dlg_info_about_wildcards_3);
         helpText.setText(helpString);
 
-        ImageView helpIcon = (ImageView)layout.findViewById(R.id.wifi_ssid_pref_dlg_helpIcon);
+        ImageView helpIcon = layout.findViewById(R.id.wifi_ssid_pref_dlg_helpIcon);
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -62,9 +62,9 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
         {
             vi = inflater.inflate(R.layout.bluetooth_name_preference_list_item, parent, false);
             holder = new ViewHolder();
-            holder.bluetoothName = (TextView)vi.findViewById(R.id.bluetooth_name_pref_dlg_item_label);
-            holder.checkBox = (CheckBox) vi.findViewById(R.id.bluetooth_name_pref_dlg_item_checkbox);
-            holder.itemEditMenu = (ImageView)  vi.findViewById(R.id.bluetooth_name_pref_dlg_item_edit_menu);
+            holder.bluetoothName = vi.findViewById(R.id.bluetooth_name_pref_dlg_item_label);
+            holder.checkBox = vi.findViewById(R.id.bluetooth_name_pref_dlg_item_checkbox);
+            holder.itemEditMenu = vi.findViewById(R.id.bluetooth_name_pref_dlg_item_edit_menu);
             vi.setTag(holder);
         }
         else

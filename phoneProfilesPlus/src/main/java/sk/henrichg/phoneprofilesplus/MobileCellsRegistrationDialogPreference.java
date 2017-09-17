@@ -138,14 +138,14 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        TextView mTextViewRange = (TextView) layout.findViewById(R.id.duration_pref_dlg_range);
-        mValue = (EditText) layout.findViewById(R.id.duration_pref_dlg_value);
-        mSeekBarHours = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_hours);
-        mSeekBarMinutes = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_minutes);
-        mSeekBarSeconds = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_seconds);
-        mCellsName = (EditText)  layout.findViewById(R.id.mobile_cells_registration_cells_name);
-        mStatus = (TextView)  layout.findViewById(R.id.mobile_cells_registration_status);
-        mRemainingTime = (TextView)  layout.findViewById(R.id.mobile_cells_registration_remaining_time);
+        TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
+        mValue = layout.findViewById(R.id.duration_pref_dlg_value);
+        mSeekBarHours = layout.findViewById(R.id.duration_pref_dlg_hours);
+        mSeekBarMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
+        mSeekBarSeconds = layout.findViewById(R.id.duration_pref_dlg_seconds);
+        mCellsName = layout.findViewById(R.id.mobile_cells_registration_cells_name);
+        mStatus = layout.findViewById(R.id.mobile_cells_registration_status);
+        mRemainingTime = layout.findViewById(R.id.mobile_cells_registration_remaining_time);
 
         mCellsName.addTextChangedListener(new TextWatcher() {
             @Override

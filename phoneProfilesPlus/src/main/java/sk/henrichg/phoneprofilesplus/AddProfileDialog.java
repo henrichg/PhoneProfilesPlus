@@ -45,7 +45,7 @@ class AddProfileDialog
 
         mDialog = dialogBuilder.build();
 
-        ListView listView = (ListView)mDialog.getCustomView().findViewById(R.id.profile_pref_dlg_listview);
+        ListView listView = mDialog.getCustomView().findViewById(R.id.profile_pref_dlg_listview);
 
         AddProfileAdapter addProfileAdapter = new AddProfileAdapter(context, profileList);
         listView.setAdapter(addProfileAdapter);

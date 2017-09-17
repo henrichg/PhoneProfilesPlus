@@ -85,7 +85,7 @@ public class NumberPickerPreference extends DialogPreference {
             mMin = getSharedPreferences().getInt(mMinExternalKey, mMin);
         }
 
-        mNumberPicker = (NumberPicker) layout.findViewById(R.id.number_picker);
+        mNumberPicker = layout.findViewById(R.id.number_picker);
 
         // Initialize state
         mNumberPicker.setMaxValue(mMax);

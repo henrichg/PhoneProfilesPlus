@@ -51,11 +51,11 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         ViewHolder rowData  = new ViewHolder();
 
         if (preference.onlyEdit == 0)
-            rowData.checkBox = (CheckBox) view.findViewById(R.id.location_pref_dlg_item_checkBox);
+            rowData.checkBox = view.findViewById(R.id.location_pref_dlg_item_checkBox);
         else
             rowData.checkBox = null;
-        rowData.name  = (TextView) view.findViewById(R.id.location_pref_dlg_item_name);
-        rowData.itemEditMenu = (ImageView) view.findViewById(R.id.location_pref_dlg_item_edit_menu);
+        rowData.name  = view.findViewById(R.id.location_pref_dlg_item_name);
+        rowData.itemEditMenu = view.findViewById(R.id.location_pref_dlg_item_edit_menu);
 
         getView(rowData, context, cursor, true);
 

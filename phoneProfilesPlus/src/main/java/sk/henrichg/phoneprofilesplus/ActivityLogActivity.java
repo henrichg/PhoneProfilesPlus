@@ -59,7 +59,7 @@ public class ActivityLogActivity extends AppCompatActivity {
 
         dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 
-        listView = (ListView) findViewById(R.id.activity_log_list);
+        listView = findViewById(R.id.activity_log_list);
 
         // Setup cursor adapter using cursor from last step
         activityLogAdapter = new ActivityLogAdapter(getBaseContext(), dataWrapper.getDatabaseHandler().getActivityLogCursor());

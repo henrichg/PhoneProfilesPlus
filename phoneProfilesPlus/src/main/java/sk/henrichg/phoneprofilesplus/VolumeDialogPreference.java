@@ -133,10 +133,10 @@ public class VolumeDialogPreference extends
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        seekBar = (SeekBar)layout.findViewById(R.id.volumePrefDialogSeekbar);
-        valueText = (TextView)layout.findViewById(R.id.volumePrefDialogValueText);
-        noChangeChBox = (CheckBox)layout.findViewById(R.id.volumePrefDialogNoChange);
-        defaultProfileChBox = (CheckBox)layout.findViewById(R.id.volumePrefDialogDefaultProfile);
+        seekBar = layout.findViewById(R.id.volumePrefDialogSeekbar);
+        valueText = layout.findViewById(R.id.volumePrefDialogValueText);
+        noChangeChBox = layout.findViewById(R.id.volumePrefDialogNoChange);
+        defaultProfileChBox = layout.findViewById(R.id.volumePrefDialogDefaultProfile);
 
         seekBar.setOnSeekBarChangeListener(this);
         seekBar.setKeyProgressIncrement(stepSize);

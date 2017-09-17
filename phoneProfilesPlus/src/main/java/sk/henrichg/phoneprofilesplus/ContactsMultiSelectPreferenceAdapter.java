@@ -58,10 +58,10 @@ class ContactsMultiSelectPreferenceAdapter extends BaseAdapter implements Scroll
             convertView = inflater.inflate(R.layout.contacts_multiselect_preference_list_item, parent, false);
 
             // Find the child views.
-            imageViewPhoto = (ImageView) convertView.findViewById(R.id.contacts_multiselect_pref_dlg_item_icon);
-            textViewDisplayName = (TextView) convertView.findViewById(R.id.contacts_multiselect_pref_dlg_item_display_name);
-            textViewPhoneNumber = (TextView) convertView.findViewById(R.id.contacts_multiselect_pref_dlg_item_phone_number);
-            checkBox = (CheckBox) convertView.findViewById(R.id.contacts_multiselect_pref_dlg_item_checkbox);
+            imageViewPhoto = convertView.findViewById(R.id.contacts_multiselect_pref_dlg_item_icon);
+            textViewDisplayName = convertView.findViewById(R.id.contacts_multiselect_pref_dlg_item_display_name);
+            textViewPhoneNumber = convertView.findViewById(R.id.contacts_multiselect_pref_dlg_item_phone_number);
+            checkBox = convertView.findViewById(R.id.contacts_multiselect_pref_dlg_item_checkbox);
 
             // Optimization: Tag the row with it's child views, so we don't
             // have to

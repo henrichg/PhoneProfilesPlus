@@ -49,8 +49,8 @@ class AddEventDialog
 
         mDialog = dialogBuilder.build();
 
-        ListView listView = (ListView)mDialog.getCustomView().findViewById(R.id.event_pref_dlg_listview);
-        TextView help = (TextView)mDialog.getCustomView().findViewById(R.id.event_pref_dlg_help);
+        ListView listView = mDialog.getCustomView().findViewById(R.id.event_pref_dlg_listview);
+        TextView help = mDialog.getCustomView().findViewById(R.id.event_pref_dlg_help);
         if (!profileNotExists)
             help.setVisibility(View.GONE);
 

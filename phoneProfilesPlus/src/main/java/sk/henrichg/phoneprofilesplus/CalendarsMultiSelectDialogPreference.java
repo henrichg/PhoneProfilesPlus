@@ -119,9 +119,9 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        linlaProgress = (LinearLayout)layout.findViewById(R.id.calendars_multiselect_pref_dlg_linla_progress);
-        linlaLisView = (LinearLayout)layout.findViewById(R.id.calendars_multiselect_pref_dlg_linla_listview);
-        listView = (ListView)layout.findViewById(R.id.calendars_multiselect_pref_dlg_listview);
+        linlaProgress = layout.findViewById(R.id.calendars_multiselect_pref_dlg_linla_progress);
+        linlaLisView = layout.findViewById(R.id.calendars_multiselect_pref_dlg_linla_listview);
+        listView = layout.findViewById(R.id.calendars_multiselect_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)

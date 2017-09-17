@@ -37,7 +37,7 @@ class ApplicationEditorDialog
 
         mDialog = dialogBuilder.build();
 
-        ListView listView = (ListView)mDialog.getCustomView().findViewById(R.id.applications_editor_dialog_listview);
+        ListView listView = mDialog.getCustomView().findViewById(R.id.applications_editor_dialog_listview);
 
         if (EditorProfilesActivity.getApplicationsCache() == null)
             EditorProfilesActivity.createApplicationsCache();
@@ -73,7 +73,7 @@ class ApplicationEditorDialog
         preference.getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarStroke, tv, true);
         int colorQSHandlebarStroke = tv.data;
 
-        final QuickScroll quickscroll = (QuickScroll) mDialog.getCustomView().findViewById(R.id.applications_editor_dialog_quickscroll);
+        final QuickScroll quickscroll = mDialog.getCustomView().findViewById(R.id.applications_editor_dialog_quickscroll);
         quickscroll.init(QuickScroll.TYPE_INDICATOR_WITH_HANDLE, listView, listAdapter, QuickScroll.STYLE_HOLO, colorQSScrollbar);
         quickscroll.setHandlebarColor(colorQSHandlebarInactive, colorQSHandlebarActive, colorQSHandlebarStroke);
         quickscroll.setIndicatorColor(colorQSHandlebarActive, colorQSHandlebarActive, Color.WHITE);

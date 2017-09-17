@@ -59,9 +59,9 @@ class WifiSSIDPreferenceAdapter extends BaseAdapter
         {
             vi = inflater.inflate(R.layout.wifi_ssid_preference_list_item, parent, false);
             holder = new ViewHolder();
-            holder.SSIDName = (TextView)vi.findViewById(R.id.wifi_ssid_pref_dlg_item_label);
-            holder.checkBox = (CheckBox)vi.findViewById(R.id.wifi_ssid_pref_dlg_item_checkbox);
-            holder.itemEditMenu = (ImageView)  vi.findViewById(R.id.wifi_ssid_pref_dlg_item_edit_menu);
+            holder.SSIDName = vi.findViewById(R.id.wifi_ssid_pref_dlg_item_label);
+            holder.checkBox = vi.findViewById(R.id.wifi_ssid_pref_dlg_item_checkbox);
+            holder.itemEditMenu = vi.findViewById(R.id.wifi_ssid_pref_dlg_item_edit_menu);
             vi.setTag(holder);
         }
         else

@@ -157,18 +157,18 @@ class ActivateProfileListAdapter extends BaseAdapter
                     vi = inflater.inflate(R.layout.activate_profile_list_item, parent, false);
                 else
                     vi = inflater.inflate(R.layout.activate_profile_list_item_no_indicator, parent, false);
-                //holder.listItemRoot = (RelativeLayout)vi.findViewById(R.id.act_prof_list_item_root);
-                holder.profileName = (TextView) vi.findViewById(R.id.act_prof_list_item_profile_name);
-                holder.profileIcon = (ImageView)vi.findViewById(R.id.act_prof_list_item_profile_icon);
+                //holder.listItemRoot = vi.findViewById(R.id.act_prof_list_item_root);
+                holder.profileName = vi.findViewById(R.id.act_prof_list_item_profile_name);
+                holder.profileIcon = vi.findViewById(R.id.act_prof_list_item_profile_icon);
                 if (ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity()))
-                    holder.profileIndicator = (ImageView)vi.findViewById(R.id.act_prof_list_profile_pref_indicator);
+                    holder.profileIndicator = vi.findViewById(R.id.act_prof_list_profile_pref_indicator);
             }
             else
             {
                 vi = inflater.inflate(R.layout.activate_profile_grid_item, parent, false);
-                //holder.listItemRoot = (LinearLayout)vi.findViewById(R.id.act_prof_list_item_root);
-                holder.profileName = (TextView) vi.findViewById(R.id.act_prof_list_item_profile_name);
-                holder.profileIcon = (ImageView)vi.findViewById(R.id.act_prof_list_item_profile_icon);
+                //holder.listItemRoot = vi.findViewById(R.id.act_prof_list_item_root);
+                holder.profileName = vi.findViewById(R.id.act_prof_list_item_profile_name);
+                holder.profileIcon = vi.findViewById(R.id.act_prof_list_item_profile_icon);
             }
             vi.setTag(holder);
         }

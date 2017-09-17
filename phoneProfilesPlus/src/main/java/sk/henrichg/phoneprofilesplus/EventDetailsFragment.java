@@ -105,19 +105,19 @@ public class EventDetailsFragment extends Fragment {
         ImageView profileEndIndicator;
         ImageView eventItemEdit;
 
-        eventName = (TextView)view.findViewById(R.id.event_detail_event_name);
-        eventStatus = (ImageView)view.findViewById(R.id.event_detail_status);
-        eventItemEdit = (ImageView)view.findViewById(R.id.event_detail_edit);
-        profileStartName = (TextView)view.findViewById(R.id.event_detail_profile_start_name);
-        profileStartIcon = (ImageView)view.findViewById(R.id.event_detail_profile_start_icon);
-        profileEndName = (TextView)view.findViewById(R.id.event_detail_profile_end_name);
-        profileEndIcon = (ImageView)view.findViewById(R.id.event_detail_profile_end_icon);
+        eventName = view.findViewById(R.id.event_detail_event_name);
+        eventStatus = view.findViewById(R.id.event_detail_status);
+        eventItemEdit = view.findViewById(R.id.event_detail_edit);
+        profileStartName = view.findViewById(R.id.event_detail_profile_start_name);
+        profileStartIcon = view.findViewById(R.id.event_detail_profile_start_icon);
+        profileEndName = view.findViewById(R.id.event_detail_profile_end_name);
+        profileEndIcon = view.findViewById(R.id.event_detail_profile_end_icon);
         //if (PPApplication.applicationEditorPrefIndicator)
         //{
-            eventPreferencesDescription  = (TextView)view.findViewById(R.id.event_detail_preferences_description);
+            eventPreferencesDescription  = view.findViewById(R.id.event_detail_preferences_description);
             //holder.eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
-            profileStartIndicator = (ImageView)view.findViewById(R.id.event_detail_profile_start_pref_indicator);
-            profileEndIndicator = (ImageView)view.findViewById(R.id.event_detail_profile_end_pref_indicator);
+            profileStartIndicator = view.findViewById(R.id.event_detail_profile_start_pref_indicator);
+            profileEndIndicator = view.findViewById(R.id.event_detail_profile_end_pref_indicator);
         //}
         int defaultColor = eventName.getTextColors().getDefaultColor();
 

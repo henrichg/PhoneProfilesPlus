@@ -149,7 +149,7 @@ public class MaterialEditTextPreference extends EditTextPreference {
 
         MDTintHelper.setTint(editText, color);
 
-        TextView message = (TextView) layout.findViewById(android.R.id.message);
+        TextView message = layout.findViewById(android.R.id.message);
         if (getDialogMessage() != null && getDialogMessage().toString().length() > 0) {
             message.setVisibility(View.VISIBLE);
             message.setText(getDialogMessage());

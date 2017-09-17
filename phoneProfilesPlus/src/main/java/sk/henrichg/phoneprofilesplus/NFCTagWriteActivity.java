@@ -65,7 +65,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         if ((tagName == null) || tagName.isEmpty()) {
             nfcManager = null;
 
-            writableTextView = (TextView) NFCTagWriteActivity.this.findViewById(R.id.write_nfc_tag_writable);
+            writableTextView = findViewById(R.id.write_nfc_tag_writable);
             writableTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_emptyTagName);
         }
         else {
@@ -75,7 +75,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             nfcManager = new NFCTagReadWriteManager(this);
             nfcManager.onActivityCreate();
 
-            writableTextView = (TextView) NFCTagWriteActivity.this.findViewById(R.id.write_nfc_tag_writable);
+            writableTextView = findViewById(R.id.write_nfc_tag_writable);
             writableTextView.setText(R.string.empty_string);
 
             nfcManager.setOnTagReadListener(new NFCTagReadWriteManager.TagReadListener() {
@@ -130,7 +130,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             });
         }
 
-        Button button = (Button)findViewById(R.id.write_nfc_tag_button);
+        Button button = findViewById(R.id.write_nfc_tag_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

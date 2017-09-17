@@ -35,11 +35,11 @@ class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder imp
 
         dataWrapper = new DataWrapper(context, false, false, 0);
 
-        dragHandle = (ImageView) itemView.findViewById(R.id.applications_pref_dlg_item_drag_handle);
-        imageViewIcon = (ImageView) itemView.findViewById(R.id.applications_pref_dlg_item_icon);
-        textViewAppName = (TextView) itemView.findViewById(R.id.applications_pref_dlg_item_app_name);
-        textViewAppType = (TextView) itemView.findViewById(R.id.applications_pref_dlg_item_app_type);
-        imageViewMenu = (ImageView) itemView.findViewById(R.id.applications_pref_dlg_item_edit_menu);
+        dragHandle = itemView.findViewById(R.id.applications_pref_dlg_item_drag_handle);
+        imageViewIcon = itemView.findViewById(R.id.applications_pref_dlg_item_icon);
+        textViewAppName = itemView.findViewById(R.id.applications_pref_dlg_item_app_name);
+        textViewAppType = itemView.findViewById(R.id.applications_pref_dlg_item_app_type);
+        imageViewMenu = itemView.findViewById(R.id.applications_pref_dlg_item_edit_menu);
 
         itemView.setOnClickListener(this);
     }

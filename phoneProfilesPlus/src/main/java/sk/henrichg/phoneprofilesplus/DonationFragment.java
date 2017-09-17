@@ -51,7 +51,7 @@ public class DonationFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // choose donation amount
-        mGoogleSpinner = (Spinner) getActivity().findViewById(
+        mGoogleSpinner = getActivity().findViewById(
                 R.id.donation_google_android_market_spinner);
         ArrayAdapter<CharSequence> adapter;
         if (mDebug) {
@@ -64,7 +64,7 @@ public class DonationFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mGoogleSpinner.setAdapter(adapter);
 
-        Button btGoogle = (Button) getActivity().findViewById(
+        Button btGoogle = getActivity().findViewById(
                 R.id.donation_google_android_market_donate_button);
         btGoogle.setOnClickListener(new View.OnClickListener() {
 

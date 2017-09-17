@@ -91,12 +91,12 @@ public class ApplicationsDialogPreference  extends DialogPreference
     {
         super.onBindView(view);
 
-        packageIcon = (ImageView)view.findViewById(R.id.applications_pref_icon);
-        packageIcons = (RelativeLayout)view.findViewById(R.id.applications_pref_icons);
-        packageIcon1 = (ImageView)view.findViewById(R.id.applications_pref_icon1);
-        packageIcon2 = (ImageView)view.findViewById(R.id.applications_pref_icon2);
-        packageIcon3 = (ImageView)view.findViewById(R.id.applications_pref_icon3);
-        packageIcon4 = (ImageView)view.findViewById(R.id.applications_pref_icon4);
+        packageIcon = view.findViewById(R.id.applications_pref_icon);
+        packageIcons = view.findViewById(R.id.applications_pref_icons);
+        packageIcon1 = view.findViewById(R.id.applications_pref_icon1);
+        packageIcon2 = view.findViewById(R.id.applications_pref_icon2);
+        packageIcon3 = view.findViewById(R.id.applications_pref_icon3);
+        packageIcon4 = view.findViewById(R.id.applications_pref_icon4);
 
         setIcons();
     }
@@ -161,16 +161,16 @@ public class ApplicationsDialogPreference  extends DialogPreference
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        AppCompatImageButton addButton = (AppCompatImageButton)layout.findViewById(R.id.applications_pref_dlg_add);
+        AppCompatImageButton addButton = layout.findViewById(R.id.applications_pref_dlg_add);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        applicationsListView = (RecyclerView) layout.findViewById(R.id.applications_pref_dlg_listview);
+        applicationsListView = layout.findViewById(R.id.applications_pref_dlg_listview);
         //applicationsListView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         applicationsListView.setLayoutManager(layoutManager);
         applicationsListView.setHasFixedSize(true);
 
-        linlaProgress = (LinearLayout)layout.findViewById(R.id.applications_pref_dlg_linla_progress);
-        rellaDialog = (RelativeLayout) layout.findViewById(R.id.applications_pref_dlg_rella_dialog);
+        linlaProgress = layout.findViewById(R.id.applications_pref_dlg_linla_progress);
+        rellaDialog = layout.findViewById(R.id.applications_pref_dlg_rella_dialog);
 
         listAdapter = new ApplicationsDialogPreferenceAdapter(context, this, this);
 

@@ -39,7 +39,7 @@ public abstract class PreferenceActivity extends AppCompatPreferenceActivity
         // (app compat bug?)
         //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             setContentView(R.layout.mp_activity_settings);
-            toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
+            toolbar = findViewById(R.id.mp_toolbar);
             setSupportActionBar(toolbar);
         //}
 

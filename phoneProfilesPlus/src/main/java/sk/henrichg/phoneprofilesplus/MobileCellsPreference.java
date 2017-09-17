@@ -131,15 +131,15 @@ public class MobileCellsPreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        //progressLinearLayout = (LinearLayout) layout.findViewById(R.id.mobile_cells_pref_dlg_linla_progress);
-        //dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.mobile_cells_pref_dlg_rella_data);
+        //progressLinearLayout = layout.findViewById(R.id.mobile_cells_pref_dlg_linla_progress);
+        //dataRelativeLayout = layout.findViewById(R.id.mobile_cells_pref_dlg_rella_data);
 
-        cellName = (EditText) layout.findViewById(R.id.mobile_cells_pref_dlg_cells_name);
+        cellName = layout.findViewById(R.id.mobile_cells_pref_dlg_cells_name);
         SharedPreferences sharedPreferences = getSharedPreferences();
                 //context.getSharedPreferences(EventPreferencesFragment.getPreferenceName(), Context.MODE_PRIVATE);
         cellName.setText(sharedPreferences.getString(Event.PREF_EVENT_NAME, ""));
 
-        ListView cellsListView = (ListView) layout.findViewById(R.id.mobile_cells_pref_dlg_listview);
+        ListView cellsListView = layout.findViewById(R.id.mobile_cells_pref_dlg_listview);
         listAdapter = new MobileCellsPreferenceAdapter(context, this);
         cellsListView.setAdapter(listAdapter);
 
@@ -164,7 +164,7 @@ public class MobileCellsPreference extends DialogPreference {
 
         });
 
-        final ImageView editIcon = (ImageView)layout.findViewById(R.id.mobile_cells_pref_dlg_rename);
+        final ImageView editIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_rename);
         editIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,7 +184,7 @@ public class MobileCellsPreference extends DialogPreference {
                         .show();
             }
         });
-        ImageView changeSelectionIcon = (ImageView)layout.findViewById(R.id.mobile_cells_pref_dlg_changeSelection);
+        ImageView changeSelectionIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_changeSelection);
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -215,9 +215,9 @@ public class MobileCellsPreference extends DialogPreference {
             }
         });
 
-        final TextView helpText = (TextView)layout.findViewById(R.id.mobile_cells_pref_dlg_helpText);
+        final TextView helpText = layout.findViewById(R.id.mobile_cells_pref_dlg_helpText);
 
-        final ImageView helpIcon = (ImageView)layout.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
+        final ImageView helpIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
         ApplicationPreferences.getSharedPreferences(context);
         if (ApplicationPreferences.preferences.getBoolean(PREF_SHOW_HELP, true)) {
             helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);

@@ -61,9 +61,9 @@ class CalendarsMultiSelectPreferenceAdapter extends BaseAdapter
             convertView = inflater.inflate(R.layout.calendars_multiselect_preference_list_item, parent, false);
 
             // Find the child views.
-            calendarColor = (LinearLayout) convertView.findViewById(R.id.calendars_multiselect_pref_dlg_item_color);
-            textViewDisplayName = (TextView) convertView.findViewById(R.id.calendars_multiselect_pref_dlg_item_display_name);
-            checkBox = (CheckBox) convertView.findViewById(R.id.calendars_multiselect_pref_dlg_item_checkbox);
+            calendarColor = convertView.findViewById(R.id.calendars_multiselect_pref_dlg_item_color);
+            textViewDisplayName = convertView.findViewById(R.id.calendars_multiselect_pref_dlg_item_display_name);
+            checkBox = convertView.findViewById(R.id.calendars_multiselect_pref_dlg_item_checkbox);
 
             // Optimization: Tag the row with it's child views, so we don't
             // have to

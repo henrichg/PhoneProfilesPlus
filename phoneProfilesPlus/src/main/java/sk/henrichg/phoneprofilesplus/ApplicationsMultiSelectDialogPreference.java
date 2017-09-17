@@ -79,12 +79,12 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     {
         super.onBindView(view);
 
-        packageIcon = (ImageView)view.findViewById(R.id.applications_pref_icon);
-        packageIcons = (RelativeLayout)view.findViewById(R.id.applications_pref_icons);
-        packageIcon1 = (ImageView)view.findViewById(R.id.applications_pref_icon1);
-        packageIcon2 = (ImageView)view.findViewById(R.id.applications_pref_icon2);
-        packageIcon3 = (ImageView)view.findViewById(R.id.applications_pref_icon3);
-        packageIcon4 = (ImageView)view.findViewById(R.id.applications_pref_icon4);
+        packageIcon = view.findViewById(R.id.applications_pref_icon);
+        packageIcons = view.findViewById(R.id.applications_pref_icons);
+        packageIcon1 = view.findViewById(R.id.applications_pref_icon1);
+        packageIcon2 = view.findViewById(R.id.applications_pref_icon2);
+        packageIcon3 = view.findViewById(R.id.applications_pref_icon3);
+        packageIcon4 = view.findViewById(R.id.applications_pref_icon4);
 
         setIcons();
     }
@@ -156,9 +156,9 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        linlaProgress = (LinearLayout)layout.findViewById(R.id.applications_multiselect_pref_dlg_linla_progress);
-        linlaListView = (LinearLayout)layout.findViewById(R.id.applications_multiselect_pref_dlg_linla_listview);
-        ListView listView = (ListView)layout.findViewById(R.id.applications_multiselect_pref_dlg_listview);
+        linlaProgress = layout.findViewById(R.id.applications_multiselect_pref_dlg_linla_progress);
+        linlaListView = layout.findViewById(R.id.applications_multiselect_pref_dlg_linla_listview);
+        ListView listView = layout.findViewById(R.id.applications_multiselect_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)
@@ -183,7 +183,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarStroke, tv, true);
         int colorQSHandlebarStroke = tv.data;
 
-        final QuickScroll quickscroll = (QuickScroll)layout.findViewById(R.id.applications_pref_dlg_quickscroll);
+        final QuickScroll quickscroll = layout.findViewById(R.id.applications_pref_dlg_quickscroll);
         quickscroll.init(QuickScroll.TYPE_INDICATOR_WITH_HANDLE, listView, listAdapter, QuickScroll.STYLE_HOLO, colorQSScrollbar);
         quickscroll.setHandlebarColor(colorQSHandlebarInactive, colorQSHandlebarActive, colorQSHandlebarStroke);
         quickscroll.setIndicatorColor(colorQSHandlebarActive, colorQSHandlebarActive, Color.WHITE);

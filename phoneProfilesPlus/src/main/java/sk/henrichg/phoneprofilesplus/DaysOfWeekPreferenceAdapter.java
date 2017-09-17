@@ -55,8 +55,8 @@ class DaysOfWeekPreferenceAdapter extends BaseAdapter
             convertView = inflater.inflate(R.layout.days_of_week_preference_list_item, parent, false);
 
             // Find the child views.
-            textViewDisplayName = (TextView) convertView.findViewById(R.id.days_of_week_pref_dlg_item_display_name);
-            checkBox = (CheckBox) convertView.findViewById(R.id.days_of_week_pref_dlg_item_checkbox);
+            textViewDisplayName = convertView.findViewById(R.id.days_of_week_pref_dlg_item_display_name);
+            checkBox = convertView.findViewById(R.id.days_of_week_pref_dlg_item_checkbox);
 
             // Optimization: Tag the row with it's child views, so we don't
             // have to

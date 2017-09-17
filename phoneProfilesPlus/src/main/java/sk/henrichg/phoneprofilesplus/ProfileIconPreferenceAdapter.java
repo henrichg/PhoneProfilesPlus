@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,10 +66,14 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
         }
 
         if (Profile.profileIconId[position].equals(imageIdentifier) && isImageResourceID) {
-            if (ApplicationPreferences.applicationTheme(context).equals("dark"))
-                holder.icon.setBackgroundResource(R.drawable.abc_list_pressed_holo_dark);
-            else
-                holder.icon.setBackgroundResource(R.drawable.abc_list_pressed_holo_light);
+            if (Build.VERSION.SDK_INT >= 21)
+                holder.icon.setBackgroundColor(GlobalGUIRoutines.getThemeColorControlHighlight(context));
+            else {
+                if (ApplicationPreferences.applicationTheme(context).equals("dark"))
+                    holder.icon.setBackgroundResource(R.drawable.abc_list_selector_background_transition_holo_dark);
+                else
+                    holder.icon.setBackgroundResource(R.drawable.abc_list_selector_background_transition_holo_light);
+            }
         }
         else
             holder.icon.setBackgroundResource(0);

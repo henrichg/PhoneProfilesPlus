@@ -31,16 +31,16 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         this.editorFragment = editorFragment;
 
         if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
-            dragHandle = (ImageView) itemView.findViewById(R.id.profile_list_drag_handle);
+            dragHandle = itemView.findViewById(R.id.profile_list_drag_handle);
         else
             dragHandle = null;
 
-        //listItemRoot = (RelativeLayout)itemView.findViewById(R.id.profile_list_item_root);
-        profileName = (TextView)itemView.findViewById(R.id.profile_list_item_profile_name);
-        profileIcon = (ImageView)itemView.findViewById(R.id.profile_list_item_profile_icon);
-        profileItemEditMenu = (ImageView)itemView.findViewById(R.id.profile_list_item_edit_menu);
+        //listItemRoot = itemView.findViewById(R.id.profile_list_item_root);
+        profileName = itemView.findViewById(R.id.profile_list_item_profile_name);
+        profileIcon = itemView.findViewById(R.id.profile_list_item_profile_icon);
+        profileItemEditMenu = itemView.findViewById(R.id.profile_list_item_edit_menu);
         if (ApplicationPreferences.applicationEditorPrefIndicator(context))
-            profileIndicator = (ImageView)itemView.findViewById(R.id.profile_list_profile_pref_indicator);
+            profileIndicator = itemView.findViewById(R.id.profile_list_profile_pref_indicator);
 
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);

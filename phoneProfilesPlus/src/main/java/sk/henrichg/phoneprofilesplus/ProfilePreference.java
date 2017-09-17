@@ -48,10 +48,10 @@ public class ProfilePreference extends Preference {
     {
         super.onBindView(view);
 
-        //preferenceTitleView = (TextView)view.findViewById(R.id.applications_pref_label);  // resource na title
+        //preferenceTitleView = view.findViewById(R.id.applications_pref_label);  // resource na title
         //preferenceTitleView.setText(preferenceTitle);
 
-        ImageView profileIcon = (ImageView)view.findViewById(R.id.profile_pref_icon); // resource na ImageView v custom preference layoute
+        ImageView profileIcon = view.findViewById(R.id.profile_pref_icon); // resource na ImageView v custom preference layoute
 
         if (profileIcon != null)
         {

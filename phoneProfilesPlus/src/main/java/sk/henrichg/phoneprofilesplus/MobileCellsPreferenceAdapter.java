@@ -63,10 +63,10 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
         {
             vi = inflater.inflate(R.layout.mobile_cells_preference_list_item, parent, false);
             holder = new ViewHolder();
-            holder.cellId = (TextView)vi.findViewById(R.id.mobile_cells_pref_dlg_item_label);
-            holder.lastConnectedTime = (TextView)vi.findViewById(R.id.mobile_cells_pref_dlg_item_lastConnectedTime);
-            holder.checkBox = (CheckBox) vi.findViewById(R.id.mobile_cells_pref_dlg_item_checkbox);
-            holder.itemEditMenu = (ImageView)  vi.findViewById(R.id.mobile_cells_pref_dlg_item_edit_menu);
+            holder.cellId = vi.findViewById(R.id.mobile_cells_pref_dlg_item_label);
+            holder.lastConnectedTime = vi.findViewById(R.id.mobile_cells_pref_dlg_item_lastConnectedTime);
+            holder.checkBox = vi.findViewById(R.id.mobile_cells_pref_dlg_item_checkbox);
+            holder.itemEditMenu = vi.findViewById(R.id.mobile_cells_pref_dlg_item_edit_menu);
             vi.setTag(holder);
         }
         else

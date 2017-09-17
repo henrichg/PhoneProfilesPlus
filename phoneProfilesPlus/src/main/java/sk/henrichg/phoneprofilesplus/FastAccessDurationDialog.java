@@ -119,13 +119,13 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         View layout = mDialog.getCustomView();
 
-        TextView mTextViewRange = (TextView) layout.findViewById(R.id.duration_pref_dlg_range);
+        TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
 
-        mValue = (EditText) layout.findViewById(R.id.duration_pref_dlg_value);
-        mSeekBarHours = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_hours);
-        mSeekBarMinutes = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_minutes);
-        mSeekBarSeconds = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_seconds);
-        mEnds = (TextView) layout.findViewById(R.id.duration_pref_dlg_ends);
+        mValue = layout.findViewById(R.id.duration_pref_dlg_value);
+        mSeekBarHours = layout.findViewById(R.id.duration_pref_dlg_hours);
+        mSeekBarMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
+        mSeekBarSeconds = layout.findViewById(R.id.duration_pref_dlg_seconds);
+        mEnds = layout.findViewById(R.id.duration_pref_dlg_ends);
 
         //mSeekBarHours.setRotation(180);
         //mSeekBarMinutes.setRotation(180);
@@ -228,7 +228,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         mTextViewRange.setText(sMin + " - " + sMax);
 
-        Spinner afterDoSpinner = (Spinner) layout.findViewById(R.id.fast_access_duration_dlg_after_do_spinner);
+        Spinner afterDoSpinner = layout.findViewById(R.id.fast_access_duration_dlg_after_do_spinner);
         afterDoValues = mActivity.getResources().getStringArray(R.array.afterProfileDurationDoValues);
         afterDoSpinner.setSelection(Arrays.asList(afterDoValues).indexOf(String.valueOf(mProfile._afterDurationDo)));
         afterDoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

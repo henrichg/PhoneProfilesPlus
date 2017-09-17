@@ -61,8 +61,8 @@ class RingtonePreferenceAdapter extends BaseAdapter {
             vi = inflater.inflate(R.layout.ringtone_preference_list_item, parent, false);
 
             holder = new ViewHolder();
-            holder.ringtoneLabel = (TextView) vi.findViewById(R.id.ringtone_pref_dlg_item_label);
-            holder.radioBtn = (RadioButton) vi.findViewById(R.id.ringtone_pref_dlg_item_radiobtn);
+            holder.ringtoneLabel = vi.findViewById(R.id.ringtone_pref_dlg_item_label);
+            holder.radioBtn = vi.findViewById(R.id.ringtone_pref_dlg_item_radiobtn);
             vi.setTag(holder);
         }
         else

@@ -78,7 +78,7 @@ public class ProfileIconPreference extends DialogPreference {
     {
         super.onBindView(view);
 
-        imageView = (ImageView)view.findViewById(R.id.profileicon_pref_imageview); // resource na Textview v custom preference layoute
+        imageView = view.findViewById(R.id.profileicon_pref_imageview); // resource na Textview v custom preference layoute
         updateIcon(false);
     }
 
@@ -125,7 +125,7 @@ public class ProfileIconPreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        GridView gridView = (GridView)layout.findViewById(R.id.profileicon_pref_dlg_gridview);
+        GridView gridView = layout.findViewById(R.id.profileicon_pref_dlg_gridview);
         adapter = new ProfileIconPreferenceAdapter(prefContext, imageIdentifier, isImageResourceID, useCustomColor, customColor);
         gridView.setAdapter(adapter);
         gridView.setSelection(ProfileIconPreferenceAdapter.getImageResourcePosition(imageIdentifier));
@@ -142,10 +142,10 @@ public class ProfileIconPreference extends DialogPreference {
             }
         });
 
-        dialogIcon = (ImageView)layout.findViewById(R.id.profileicon_pref_dlg_icon);
+        dialogIcon = layout.findViewById(R.id.profileicon_pref_dlg_icon);
         updateIcon(true);
 
-        colorChooserButton = (Button)layout.findViewById(R.id.profileicon_pref_dlg_change_color);
+        colorChooserButton = layout.findViewById(R.id.profileicon_pref_dlg_change_color);
         colorChooserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,9 +157,9 @@ public class ProfileIconPreference extends DialogPreference {
         else
             colorChooserButton.setVisibility(View.GONE);
 
-        final TextView helpText = (TextView)layout.findViewById(R.id.profileicon_pref_dlg_helpText);
+        final TextView helpText = layout.findViewById(R.id.profileicon_pref_dlg_helpText);
 
-        final ImageView helpIcon = (ImageView)layout.findViewById(R.id.profileicon_pref_dlg_helpIcon);
+        final ImageView helpIcon = layout.findViewById(R.id.profileicon_pref_dlg_helpIcon);
         ApplicationPreferences.getSharedPreferences(prefContext);
         if (ApplicationPreferences.preferences.getBoolean(PREF_SHOW_HELP, true)) {
             helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);

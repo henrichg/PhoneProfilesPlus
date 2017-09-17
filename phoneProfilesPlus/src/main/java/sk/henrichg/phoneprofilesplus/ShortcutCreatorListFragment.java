@@ -63,7 +63,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
     private void doOnViewCreated(View view, Bundle savedInstanceState)
     {
-        listView = (ListView)view.findViewById(R.id.shortcut_profiles_list);
+        listView = view.findViewById(R.id.shortcut_profiles_list);
 
         listView.setOnItemClickListener(new OnItemClickListener() {
 

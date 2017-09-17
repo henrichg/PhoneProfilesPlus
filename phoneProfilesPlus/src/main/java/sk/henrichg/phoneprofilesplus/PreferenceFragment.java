@@ -151,7 +151,7 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
                 super.setPreferenceScreen(mPreferenceScreen);
                 PPApplication.logE("PreferenceFragment.onCreateView","setPreferenceScreen");
             }
-            ListView lv = (ListView) v.findViewById(android.R.id.list);
+            ListView lv = v.findViewById(android.R.id.list);
             lv.setPadding(0, 0, 0, 0);
 
             if (getPreferenceScreen() != null) {

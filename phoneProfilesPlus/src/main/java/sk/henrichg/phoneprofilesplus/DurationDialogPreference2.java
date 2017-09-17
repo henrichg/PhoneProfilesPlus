@@ -81,11 +81,11 @@ public class DurationDialogPreference2 extends DialogPreference
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        TextView mTextViewRange = (TextView) layout.findViewById(R.id.duration_pref_dlg_range);
-        mValue = (EditText) layout.findViewById(R.id.duration_pref_dlg_value);
-        mSeekBarHours = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_hours);
-        mSeekBarMinutes = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_minutes);
-        mSeekBarSeconds = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_seconds);
+        TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
+        mValue = layout.findViewById(R.id.duration_pref_dlg_value);
+        mSeekBarHours = layout.findViewById(R.id.duration_pref_dlg_hours);
+        mSeekBarMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
+        mSeekBarSeconds = layout.findViewById(R.id.duration_pref_dlg_seconds);
 
         //mSeekBarHours.setRotation(180);
         //mSeekBarMinutes.setRotation(180);

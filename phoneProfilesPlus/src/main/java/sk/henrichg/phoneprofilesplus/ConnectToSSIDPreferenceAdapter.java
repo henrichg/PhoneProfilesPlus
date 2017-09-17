@@ -53,8 +53,8 @@ class ConnectToSSIDPreferenceAdapter extends BaseAdapter
         {
             vi = inflater.inflate(R.layout.connect_to_ssid_preference_list_item, parent, false);
             holder = new ViewHolder();
-            holder.SSIDName = (TextView)vi.findViewById(R.id.connect_to_ssid_pref_dlg_item_label);
-            holder.radioButton = (RadioButton) vi.findViewById(R.id.connect_to_ssid_pref_dlg_item_radiobutton);
+            holder.SSIDName = vi.findViewById(R.id.connect_to_ssid_pref_dlg_item_label);
+            holder.radioButton = vi.findViewById(R.id.connect_to_ssid_pref_dlg_item_radiobutton);
             vi.setTag(holder);
         }
         else

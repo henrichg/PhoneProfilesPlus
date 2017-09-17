@@ -53,7 +53,7 @@ class ProfilePreferenceDialog implements PreferenceManager.OnActivityDestroyList
 
         mDialog = dialogBuilder.build();
 
-        ListView listView = (ListView)mDialog.getCustomView().findViewById(R.id.profile_pref_dlg_listview);
+        ListView listView = mDialog.getCustomView().findViewById(R.id.profile_pref_dlg_listview);
 
         profilePreferenceAdapter = new ProfilePreferenceAdapter(this, context, profileId, profileList);
         listView.setAdapter(profilePreferenceAdapter);

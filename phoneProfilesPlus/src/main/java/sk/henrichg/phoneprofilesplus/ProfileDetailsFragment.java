@@ -95,11 +95,11 @@ public class ProfileDetailsFragment extends Fragment {
         ImageView profileIndicator;
         ImageView profileItemEdit;
 
-        profileName = (TextView)view.findViewById(R.id.profile_detail_profile_name);
-        profileIcon = (ImageView)view.findViewById(R.id.profile_detail_profile_icon);
-        profileItemEdit = (ImageView)view.findViewById(R.id.profile_detail_edit);
+        profileName = view.findViewById(R.id.profile_detail_profile_name);
+        profileIcon = view.findViewById(R.id.profile_detail_profile_icon);
+        profileItemEdit = view.findViewById(R.id.profile_detail_edit);
         //if (PPApplication.applicationEditorPrefIndicator)
-            profileIndicator = (ImageView)view.findViewById(R.id.profile_detail_profile_pref_indicator);
+            profileIndicator = view.findViewById(R.id.profile_detail_profile_pref_indicator);
         //else
         //    profileIndicator = null;
 

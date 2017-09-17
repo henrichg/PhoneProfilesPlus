@@ -124,7 +124,7 @@ public class RingtonePreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        listView = (ListView)layout.findViewById(R.id.ringtone_pref_dlg_listview);
+        listView = layout.findViewById(R.id.ringtone_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)

@@ -49,10 +49,10 @@ public class ImageViewPreference extends Preference {
     {
         super.onBindView(view);
 
-        //imageTitle = (TextView)view.findViewById(R.id.imageview_pref_label);  // resource na image title
+        //imageTitle = view.findViewById(R.id.imageview_pref_label);  // resource na image title
         //imageTitle.setText(preferenceTitle);
 
-        ImageView imageView = (ImageView)view.findViewById(R.id.imageview_pref_imageview); // resource na Textview v custom preference layoute
+        ImageView imageView = view.findViewById(R.id.imageview_pref_imageview); // resource na Textview v custom preference layoute
 
         if (imageView != null)
         {
