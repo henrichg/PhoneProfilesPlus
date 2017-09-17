@@ -75,28 +75,30 @@ class AboutApplicationJob extends Job {
     static void scheduleJob() {
         PPApplication.logE("AboutApplicationJob.scheduleJob", "xxx");
 
-        JobRequest.Builder jobBuilder;
-        int requestsForTagSize = 0;
+        JobManager jobManager = null;
         try {
-            JobManager jobManager = JobManager.instance();
-            requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
-        } catch (Exception ignored) {}
-        PPApplication.logE("AboutApplicationJob.scheduleJob", "requestsForTagSize="+requestsForTagSize);
-        if (requestsForTagSize == 0) {
-            jobBuilder = new JobRequest.Builder(JOB_TAG);
-            // each 24 hours
-            jobBuilder.setPeriodic(TimeUnit.DAYS.toMillis(1));
+            jobManager = JobManager.instance();
+        } catch (Exception ignored) { }
+
+        if (jobManager != null) {
+            JobRequest.Builder jobBuilder;
+            int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+            PPApplication.logE("AboutApplicationJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
+            if (requestsForTagSize == 0) {
+                jobBuilder = new JobRequest.Builder(JOB_TAG);
+                // each 24 hours
+                jobBuilder.setPeriodic(TimeUnit.DAYS.toMillis(1));
+            } else
+                return;
+
+            PPApplication.logE("AboutApplicationJob.scheduleJob", "build and schedule");
+
+            jobBuilder
+                    .setPersisted(false)
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .build()
+                    .schedule();
         }
-        else
-            return;
-
-        PPApplication.logE("AboutApplicationJob.scheduleJob", "build and schedule");
-
-        jobBuilder
-                .setPersisted(false)
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .build()
-                .schedule();
     }
 
     /*

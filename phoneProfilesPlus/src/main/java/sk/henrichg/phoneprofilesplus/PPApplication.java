@@ -203,6 +203,10 @@ public class PPApplication extends Application {
     @Override
     public void onCreate()
     {
+        super.onCreate();
+
+        PPApplication.logE("##### PPApplication.onCreate", "xxx");
+
         if (checkAppReplacingState())
             return;
 
@@ -215,23 +219,19 @@ public class PPApplication extends Application {
         // Crashlytics.logException(exception); -- this log will be associated with crash log.
 
         //if (BuildConfig.DEBUG) {
-            int actualVersionCode = 0;
-            try {
-                PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-                actualVersionCode = pInfo.versionCode;
-            } catch (Exception e) {
-                //e.printStackTrace();
-            }
-            Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
+        int actualVersionCode = 0;
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            actualVersionCode = pInfo.versionCode;
+        } catch (Exception e) {
+            //e.printStackTrace();
+        }
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
         //}
 
         //	Debug.startMethodTracing("phoneprofiles");
 
         //resetLog();
-
-        super.onCreate();
-
-        PPApplication.logE("##### PPApplication.onCreate", "xxx");
 
         //firstStartServiceStarted = false;
 

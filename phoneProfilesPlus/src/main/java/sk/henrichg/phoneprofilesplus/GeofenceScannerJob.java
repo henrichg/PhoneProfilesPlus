@@ -96,69 +96,73 @@ class GeofenceScannerJob extends Job {
             if (startScanning)
                 PhoneProfilesService.geofencesScanner.mUpdatesStarted = false;
 
-            JobRequest.Builder jobBuilder;
-            if (!startScanning) {
-                JobManager jobManager = null;
-                try {
-                    jobManager = JobManager.instance();
-                } catch (Exception ignored) {}
+            JobManager jobManager = null;
+            try {
+                jobManager = JobManager.instance();
+            } catch (Exception ignored) { }
 
-                if (jobManager != null)
-                    jobManager.cancelAllForTag(JOB_TAG_START);
+            if (jobManager != null) {
 
-                PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted="+PhoneProfilesService.geofencesScanner.mUpdatesStarted);
+                if (DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
 
-                // look at GeofenceScanner:UPDATE_INTERVAL_IN_MILLISECONDS
-                int updateDuration = 30;
+                    JobRequest.Builder jobBuilder;
+                    if (!startScanning) {
 
-                int interval;
-                if (PhoneProfilesService.geofencesScanner.mUpdatesStarted) {
-                    interval = ApplicationPreferences.applicationEventLocationUpdateInterval(context) * 60;
-                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "interval="+interval);
-                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
-                    if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("1"))
-                        interval = 2 * interval;
-                    //interval = interval - updateDuration;
-                } else {
-                    interval = updateDuration;
-                }
+                        jobManager.cancelAllForTag(JOB_TAG_START);
 
-                jobBuilder = new JobRequest.Builder(JOB_TAG);
+                        PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=" + PhoneProfilesService.geofencesScanner.mUpdatesStarted);
 
-                if (TimeUnit.SECONDS.toMillis(interval) < JobRequest.MIN_INTERVAL) {
-                    if (jobManager != null)
-                        jobManager.cancelAllForTag(JOB_TAG);
-                    jobBuilder.setExact(TimeUnit.SECONDS.toMillis(interval));
-                } else {
-                    int requestsForTagSize = 0;
-                    if (jobManager != null)
-                        requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
-                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
-                    if (requestsForTagSize == 0) {
-                        if (TimeUnit.SECONDS.toMillis(interval) < JobRequest.MIN_INTERVAL)
-                            jobBuilder.setPeriodic(JobRequest.MIN_INTERVAL);
+                        // look at GeofenceScanner:UPDATE_INTERVAL_IN_MILLISECONDS
+                        int updateDuration = 30;
+
+                        int interval;
+                        if (PhoneProfilesService.geofencesScanner.mUpdatesStarted) {
+                            interval = ApplicationPreferences.applicationEventLocationUpdateInterval(context) * 60;
+                            PPApplication.logE("GeofenceScannerJob.scheduleJob", "interval=" + interval);
+                            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
+                            if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("1"))
+                                interval = 2 * interval;
+                            //interval = interval - updateDuration;
+                        } else {
+                            interval = updateDuration;
+                        }
+
+                        jobBuilder = new JobRequest.Builder(JOB_TAG);
+
+                        if (TimeUnit.SECONDS.toMillis(interval) < JobRequest.MIN_INTERVAL) {
+                            jobManager.cancelAllForTag(JOB_TAG);
+                            jobBuilder.setExact(TimeUnit.SECONDS.toMillis(interval));
+                        } else {
+                            int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+                            PPApplication.logE("GeofenceScannerJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
+                            if (requestsForTagSize == 0) {
+                                if (TimeUnit.SECONDS.toMillis(interval) < JobRequest.MIN_INTERVAL)
+                                    jobBuilder.setPeriodic(JobRequest.MIN_INTERVAL);
+                                else
+                                    jobBuilder.setPeriodic(TimeUnit.SECONDS.toMillis(interval));
+                            } else
+                                return;
+                        }
+                    } else {
+                        cancelJob();
+                        jobBuilder = new JobRequest.Builder(JOB_TAG_START);
+                        if (forScreenOn)
+                            jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
                         else
-                            jobBuilder.setPeriodic(TimeUnit.SECONDS.toMillis(interval));
-                    } else
-                        return;
+                            jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+                    }
+
+                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "build and schedule");
+
+                    jobBuilder
+                            .setPersisted(false)
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .build()
+                            .schedule();
                 }
-            } else {
-                cancelJob();
-                jobBuilder = new JobRequest.Builder(JOB_TAG_START);
-                if (forScreenOn)
-                    jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
                 else
-                    jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+                    cancelJob();
             }
-
-            PPApplication.logE("GeofenceScannerJob.scheduleJob", "build and schedule");
-
-            jobBuilder
-                    .setPersisted(false)
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .build()
-                    .schedule();
-
         }
         else
             PPApplication.logE("GeofenceScannerJob.scheduleJob", "scanner is not started");

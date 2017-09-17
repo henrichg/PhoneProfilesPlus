@@ -57,39 +57,37 @@ class SearchCalendarEventsJob extends Job {
     static void scheduleJob(boolean shortInterval) {
         PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "shortInterval="+shortInterval);
 
-        JobRequest.Builder jobBuilder;
-        if (!shortInterval) {
-            JobManager jobManager = null;
-            try {
-                jobManager = JobManager.instance();
-            } catch (Exception ignored) {}
-            if (jobManager != null)
+        JobManager jobManager = null;
+        try {
+            jobManager = JobManager.instance();
+        } catch (Exception ignored) { }
+
+        if (jobManager != null) {
+            JobRequest.Builder jobBuilder;
+            if (!shortInterval) {
                 jobManager.cancelAllForTag(JOB_TAG_SHORT);
-            int requestsForTagSize = 0;
-            if (jobManager != null)
-                requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
-            PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "requestsForTagSize="+requestsForTagSize);
-            if (requestsForTagSize == 0) {
-                jobBuilder = new JobRequest.Builder(JOB_TAG);
-                // each 24 hours
-                jobBuilder.setPeriodic(TimeUnit.HOURS.toMillis(24));
+                int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+                PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
+                if (requestsForTagSize == 0) {
+                    jobBuilder = new JobRequest.Builder(JOB_TAG);
+                    // each 24 hours
+                    jobBuilder.setPeriodic(TimeUnit.HOURS.toMillis(24));
+                } else
+                    return;
+            } else {
+                cancelJob();
+                jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
+                jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
             }
-            else
-                return;
-        }
-        else {
-            cancelJob();
-            jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
-            jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
-        }
 
-        PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "build and schedule");
+            PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "build and schedule");
 
-        jobBuilder
-                .setPersisted(false)
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .build()
-                .schedule();
+            jobBuilder
+                    .setPersisted(false)
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .build()
+                    .schedule();
+        }
     }
 
     static void cancelJob() {
