@@ -102,7 +102,7 @@ class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
         });
 
         // Display Application data
-        holder.imageViewIcon.setImageDrawable(application.icon);
+        holder.imageViewIcon.setImageBitmap(applicationsCache.getApplicationIcon(application, false));
         holder.textViewAppName.setText(application.appLabel);
         if (application.shortcut)
             holder.textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_shortcut));

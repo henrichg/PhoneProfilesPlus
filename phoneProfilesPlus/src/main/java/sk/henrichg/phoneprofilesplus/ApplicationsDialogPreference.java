@@ -346,7 +346,6 @@ public class ApplicationsDialogPreference  extends DialogPreference
                     newInfo.appLabel = _application.appLabel;
                     newInfo.packageName = _application.packageName;
                     newInfo.activityName = _application.activityName;
-                    newInfo.icon = _application.icon;
                     newInfo.shortcutId = _application.shortcutId;
 
                     //Log.d("ApplicationsDialogPreference.getValueAMSDP","app="+newInfo.appLabel);
@@ -580,7 +579,6 @@ public class ApplicationsDialogPreference  extends DialogPreference
             editedApplication.appLabel = cachedApplication.appLabel;
             editedApplication.packageName = cachedApplication.packageName;
             editedApplication.activityName = cachedApplication.activityName;
-            editedApplication.icon = cachedApplication.icon;
             if (!editedApplication.shortcut)
                 editedApplication.shortcutId = 0;
 

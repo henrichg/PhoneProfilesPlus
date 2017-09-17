@@ -1,6 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 
 class Application {
     boolean shortcut = false;
@@ -8,7 +8,6 @@ class Application {
     String packageName = "";
     String activityName = "";
     long shortcutId = 0;
-    Drawable icon;
     boolean checked = false;
 
     Application() {

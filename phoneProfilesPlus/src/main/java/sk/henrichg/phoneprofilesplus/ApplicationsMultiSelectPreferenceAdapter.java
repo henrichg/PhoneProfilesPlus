@@ -106,7 +106,7 @@ class ApplicationsMultiSelectPreferenceAdapter extends BaseAdapter implements Sc
         checkBox.setTag(application);
 
         // Display Application data
-        imageViewIcon.setImageDrawable(application.icon);
+        imageViewIcon.setImageBitmap(applicationsCache.getApplicationIcon(application, noShortcuts));
         textViewAppName.setText(application.appLabel);
         if (!noShortcuts) {
             if (application.shortcut)
