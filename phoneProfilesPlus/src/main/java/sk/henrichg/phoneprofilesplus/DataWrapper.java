@@ -2852,9 +2852,9 @@ public class DataWrapper {
                     else {
                         if (!forDelayStartAlarm) {
                             // called not for delay alarm
-                            if (restartEvent) {
+                            /*if (restartEvent) {
                                 event._isInDelayStart = false;
-                            } else {
+                            } else*/ {
                                 if (!event._isInDelayStart) {
                                     // if not delay alarm is set, set it
                                     event.setDelayStartAlarm(this); // for start delay
@@ -2890,9 +2890,9 @@ public class DataWrapper {
                     else {
                         if (!forDelayEndAlarm) {
                             // called not for delay alarm
-                            if (restartEvent) {
+                            /*if (restartEvent) {
                                 event._isInDelayEnd = false;
-                            } else {
+                            } else*/ {
                                 if (!event._isInDelayEnd) {
                                     // if not delay alarm is set, set it
                                     event.setDelayEndAlarm(this); // for end delay
