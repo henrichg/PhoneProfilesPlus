@@ -506,7 +506,11 @@ class EventPreferencesCalendar extends EventPreferences {
         String[] selectionArgs = new String[] { searchPattern };
 
         // Submit the query
-        cur =  cr.query(builder.build(), INSTANCE_PROJECTION, selection, selectionArgs, Instances.BEGIN + " ASC");
+        try {
+            cur = cr.query(builder.build(), INSTANCE_PROJECTION, selection, selectionArgs, Instances.BEGIN + " ASC");
+        } catch (Exception e) {
+            cur = null;
+        }
 
         if (cur != null)
         {
