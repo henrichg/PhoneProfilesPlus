@@ -447,10 +447,18 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        //this will open auto start screen where user can enable permission for your app
-                        Intent intent = new Intent();
-                        intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"));
-                        startActivity(intent);
+                        try {
+                            //this will open auto start screen where user can enable permission for your app
+                            Intent intent = new Intent();
+                            intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"));
+                            startActivity(intent);
+                        }catch (Exception e) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            dialogBuilder.show();
+                        }
                         return false;
                     }
                 });

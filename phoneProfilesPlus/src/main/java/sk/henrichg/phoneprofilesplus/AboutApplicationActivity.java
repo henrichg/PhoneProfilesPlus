@@ -93,9 +93,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 } catch (Exception ignored) {
                 }
                 intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion);
-                //if (intent.resolveActivity(getPackageManager()) != null) {
+                try {
                     startActivity(intent);
-                //}
+                } catch (Exception ignored) {}
             }
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -114,7 +114,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 String url = "https://sites.google.com/site/phoneprofilesplus/home/privacy-policy";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
-                startActivity(i);
+                try {
+                    startActivity(i);
+                } catch (Exception ignored) {}
             }
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -133,7 +135,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 String url = "https://github.com/henrichg/PhoneProfilesPlus/releases";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
-                startActivity(i);
+                try {
+                    startActivity(i);
+                } catch (Exception ignored) {}
             }
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -152,7 +156,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 String url = "https://github.com/henrichg/PhoneProfilesPlus";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
-                startActivity(i);
+                try {
+                    startActivity(i);
+                } catch (Exception ignored) {}
             }
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -171,7 +177,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 String url = "https://crowdin.com/project/phoneprofilesplus";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
-                startActivity(i);
+                try {
+                    startActivity(i);
+                } catch (Exception ignored) {}
             }
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -201,8 +209,10 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(goToMarket);
                 } catch (ActivityNotFoundException e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
+                    } catch (Exception ignored) {}
                 }
             }
         };
