@@ -40,6 +40,7 @@ import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.provider.Telephony;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.View;
