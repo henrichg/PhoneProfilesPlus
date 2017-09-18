@@ -3,12 +3,17 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.pm.ShortcutInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.pm.ShortcutInfoCompat;
+import android.support.v4.content.pm.ShortcutManagerCompat;
+import android.support.v4.graphics.drawable.IconCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -175,15 +180,12 @@ public class ShortcutCreatorListFragment extends Fragment {
         String profileName;
         boolean useCustomColor;
 
-        if (profile != null)
-        {
+        if (profile != null) {
             isIconResourceID = profile.getIsIconResourceID();
             iconIdentifier = profile.getIconIdentifier();
             profileName = profile._name;
             useCustomColor = profile.getUseCustomColorForIcon();
-        }
-        else
-        {
+        } else {
             isIconResourceID = true;
             iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
             profileName = getResources().getString(R.string.profile_name_default);
@@ -195,8 +197,7 @@ public class ShortcutCreatorListFragment extends Fragment {
             // restart events
             shortcutIntent = new Intent(getActivity().getApplicationContext(), ActionForExternalApplicationActivity.class);
             shortcutIntent.setAction(ActionForExternalApplicationActivity.ACTION_RESTART_EVENTS);
-        }
-        else {
+        } else {
             shortcutIntent = new Intent(getActivity().getApplicationContext(), BackgroundActivateProfileActivity.class);
             // BackgroundActivateProfileActivity musi toto testovat, a len spravit aktivaciu profilu
             shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
@@ -204,12 +205,18 @@ public class ShortcutCreatorListFragment extends Fragment {
             shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
         }
 
+        /*
         Intent intent = new Intent();
         intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
         intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, profileName);
+        */
 
-        if (isIconResourceID)
-        {
+        ShortcutInfoCompat.Builder shortcutBuilder = new ShortcutInfoCompat.Builder(getActivity(), "profile_shortcut");
+        shortcutBuilder.setIntent(shortcutIntent);
+        shortcutBuilder.setShortLabel(profileName);
+        shortcutBuilder.setLongLabel(profileName);
+
+        if (isIconResourceID) {
             //noinspection ConstantConditions
             if (profile._iconBitmap != null)
                 profileBitmap = profile._iconBitmap;
@@ -218,9 +225,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                 profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
             }
             shortcutOverlayBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_shortcut_overlay);
-        }
-        else
-        {
+        } else {
             Resources resources = getResources();
             int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
             int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
@@ -232,9 +237,8 @@ public class ShortcutCreatorListFragment extends Fragment {
             }
             shortcutOverlayBitmap = BitmapManipulator.resampleResource(resources, R.drawable.ic_shortcut_overlay, width, height);
         }
-        
-        if (ApplicationPreferences.applicationWidgetIconColor(dataWrapper.context).equals("1"))
-        {
+
+        if (ApplicationPreferences.applicationWidgetIconColor(dataWrapper.context).equals("1")) {
             int monochromeValue = 0xFF;
             String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness(dataWrapper.context);
             if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
@@ -242,20 +246,23 @@ public class ShortcutCreatorListFragment extends Fragment {
             if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
             if (applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
             if (applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
-            
+
             if (isIconResourceID || useCustomColor) {
                 // icon is from resource or colored by custom color
                 profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, getActivity().getBaseContext()*/);
-            }
-            else
+            } else
                 profileBitmap = BitmapManipulator.grayscaleBitmap(profileBitmap);
         }
 
         profileShortcutBitmap = combineImages(profileBitmap, shortcutOverlayBitmap);
-        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, profileShortcutBitmap);
+        //intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, profileShortcutBitmap);
+        shortcutBuilder.setIcon(IconCompat.createWithBitmap(profileShortcutBitmap));
 
         //intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
         //getActivity().getApplicationContext().sendBroadcast(intent);
+
+        ShortcutInfoCompat shortcutInfo = shortcutBuilder.build();
+        Intent intent = ShortcutManagerCompat.createShortcutResultIntent(getActivity(), shortcutInfo);
 
         getActivity().setResult(Activity.RESULT_OK, intent);
 
