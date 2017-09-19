@@ -279,41 +279,37 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     @Override
     public void onItemDismiss(int position) {
-        synchronized (PPApplication.refreshEditorProfilesListMutex) {
-            profileList.remove(position);
-            notifyItemRemoved(position);
-        }
+        profileList.remove(position);
+        notifyItemRemoved(position);
     }
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-        synchronized (PPApplication.refreshEditorProfilesListMutex) {
-            if (profileList == null)
-                return false;
+        if (profileList == null)
+            return false;
 
-            //Log.d("----- EditorProfileListAdapter.onItemMove", "fromPosition="+fromPosition);
-            //Log.d("----- EditorProfileListAdapter.onItemMove", "toPosition="+toPosition);
+        //Log.d("----- EditorProfileListAdapter.onItemMove", "fromPosition="+fromPosition);
+        //Log.d("----- EditorProfileListAdapter.onItemMove", "toPosition="+toPosition);
 
-            // convert positions from adapter into profileList
-            int plFrom = profileList.indexOf(getItem(fromPosition));
-            int plTo = profileList.indexOf(getItem(toPosition));
+        // convert positions from adapter into profileList
+        int plFrom = profileList.indexOf(getItem(fromPosition));
+        int plTo = profileList.indexOf(getItem(toPosition));
 
-            if (plFrom < plTo) {
-                for (int i = plFrom; i < plTo; i++) {
-                    Collections.swap(profileList, i, i + 1);
-                }
-            } else {
-                for (int i = plFrom; i > plTo; i--) {
-                    Collections.swap(profileList, i, i - 1);
-                }
+        if (plFrom < plTo) {
+            for (int i = plFrom; i < plTo; i++) {
+                Collections.swap(profileList, i, i + 1);
             }
-
-            fragment.databaseHandler.setProfileOrder(profileList);  // set profiles _porder and write it into db
-            fragment.activateProfileHelper.updateWidget(false);
-
-            notifyItemMoved(fromPosition, toPosition);
-            return true;
+        } else {
+            for (int i = plFrom; i > plTo; i--) {
+                Collections.swap(profileList, i, i - 1);
+            }
         }
+
+        fragment.databaseHandler.setProfileOrder(profileList);  // set profiles _porder and write it into db
+        fragment.activateProfileHelper.updateWidget(false);
+
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
     }
 
     void showTargetHelps(final Activity activity, final EditorProfileListFragment fragment, final View listItemView) {

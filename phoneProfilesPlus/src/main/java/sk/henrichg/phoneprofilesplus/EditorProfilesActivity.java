@@ -1729,26 +1729,24 @@ public class EditorProfilesActivity extends AppCompatActivity
     private void redrawProfileListFragment(Profile profile, int newProfileMode, int predefinedProfileIndex, boolean startTargetHelps) {
         // redraw headeru list fragmentu, notifikacie a widgetov
 
-        synchronized (PPApplication.refreshEditorProfilesListMutex) {
-            EditorProfileListFragment fragment = (EditorProfileListFragment) getFragmentManager().findFragmentById(R.id.editor_list_container);
-            if (fragment != null) {
-                //Log.e("EditorProfilesActivity.redrawProfileListFragment","xxx");
+        EditorProfileListFragment fragment = (EditorProfileListFragment) getFragmentManager().findFragmentById(R.id.editor_list_container);
+        if (fragment != null) {
+            //Log.e("EditorProfilesActivity.redrawProfileListFragment","xxx");
 
-                // update profile, this rewrite profile in profileList
-                fragment.dataWrapper.updateProfile(profile);
+            // update profile, this rewrite profile in profileList
+            fragment.dataWrapper.updateProfile(profile);
 
-                boolean newProfile = ((newProfileMode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
-                        (newProfileMode == EditorProfileListFragment.EDIT_MODE_DUPLICATE));
-                fragment.updateListView(profile, newProfile, false, false);
+            boolean newProfile = ((newProfileMode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
+                    (newProfileMode == EditorProfileListFragment.EDIT_MODE_DUPLICATE));
+            fragment.updateListView(profile, newProfile, false, false);
 
-                Profile activeProfile = fragment.dataWrapper.getActivatedProfile();
-                fragment.updateHeader(activeProfile);
-                if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.showProfileNotification(activeProfile, fragment.dataWrapper);
-                fragment.dataWrapper.getActivateProfileHelper().updateWidget(true);
-            }
-            redrawProfilePreferences(profile, newProfileMode, predefinedProfileIndex, startTargetHelps);
+            Profile activeProfile = fragment.dataWrapper.getActivatedProfile();
+            fragment.updateHeader(activeProfile);
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.showProfileNotification(activeProfile, fragment.dataWrapper);
+            fragment.dataWrapper.getActivateProfileHelper().updateWidget(true);
         }
+        redrawProfilePreferences(profile, newProfileMode, predefinedProfileIndex, startTargetHelps);
     }
 
     private void startEventPreferenceActivity(Event event, int editMode, int predefinedEventIndex) {
@@ -1812,19 +1810,17 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
 
     private void redrawEventListFragment(Event event, int newEventMode, int predefinedEventIndex, boolean startTargetHelps) {
-        synchronized (PPApplication.refreshEditorEventsListMutex) {
-            // redraw headeru list fragmentu, notifikacie a widgetov
-            EditorEventListFragment fragment = (EditorEventListFragment) getFragmentManager().findFragmentById(R.id.editor_list_container);
-            if (fragment != null) {
-                // update event, this rewrite event in eventList
-                fragment.dataWrapper.updateEvent(event);
+        // redraw headeru list fragmentu, notifikacie a widgetov
+        EditorEventListFragment fragment = (EditorEventListFragment) getFragmentManager().findFragmentById(R.id.editor_list_container);
+        if (fragment != null) {
+            // update event, this rewrite event in eventList
+            fragment.dataWrapper.updateEvent(event);
 
-                boolean newEvent = ((newEventMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
-                        (newEventMode == EditorEventListFragment.EDIT_MODE_DUPLICATE));
-                fragment.updateListView(event, newEvent, false, false);
-            }
-            redrawEventPreferences(event, newEventMode, predefinedEventIndex, startTargetHelps);
+            boolean newEvent = ((newEventMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
+                    (newEventMode == EditorEventListFragment.EDIT_MODE_DUPLICATE));
+            fragment.updateListView(event, newEvent, false, false);
         }
+        redrawEventPreferences(event, newEventMode, predefinedEventIndex, startTargetHelps);
     }
 
     private void redrawEventPreferences(Event event, int newEventMode, int predefinedEventIndex, boolean startTargetHelps) {

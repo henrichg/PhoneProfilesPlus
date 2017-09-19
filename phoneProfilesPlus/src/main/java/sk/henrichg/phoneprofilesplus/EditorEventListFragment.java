@@ -445,29 +445,27 @@ public class EditorEventListFragment extends Fragment
 
     private void deleteEvent(Event event)
     {
-        synchronized (PPApplication.refreshEditorEventsListMutex) {
-            if (dataWrapper.getEventById(event._id) == null)
-                // event not exists
-                return;
+        if (dataWrapper.getEventById(event._id) == null)
+            // event not exists
+            return;
 
-            List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-            event.stopEvent(dataWrapper, eventTimelineList, false, true, true, false, false);
-            // restart events
-            PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
-            dataWrapper.restartEvents(false, true, false);
+        List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+        event.stopEvent(dataWrapper, eventTimelineList, false, true, true, false, false);
+        // restart events
+        PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
+        dataWrapper.restartEvents(false, true, false);
 
-            //if (!eventListAdapter.released)
-                listView.getRecycledViewPool().clear();
+        //if (!eventListAdapter.released)
+            listView.getRecycledViewPool().clear();
 
-            eventListAdapter.deleteItemNoNotify(event);
-            databaseHandler.deleteEvent(event);
+        eventListAdapter.deleteItemNoNotify(event);
+        databaseHandler.deleteEvent(event);
 
-            //if (!eventListAdapter.released) {
-                eventListAdapter.notifyDataSetChanged();
+        //if (!eventListAdapter.released) {
+            eventListAdapter.notifyDataSetChanged();
 
-                onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
-            //}
-        }
+            onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
+        //}
     }
 
     public void showEditMenu(View view)
@@ -551,15 +549,14 @@ public class EditorEventListFragment extends Fragment
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
-                    synchronized (PPApplication.refreshEditorEventsListMutex) {
-                        dataWrapper.stopAllEvents(true, false);
+                    dataWrapper.stopAllEvents(true, false);
 
-                        databaseHandler.deleteAllEvents();
-                        eventListAdapter.clear();
+                    databaseHandler.deleteAllEvents();
+                    eventListAdapter.clear();
 
-                        onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
-                    }
+                    eventListAdapter.notifyDataSetChanged();
 
+                    onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
@@ -569,51 +566,49 @@ public class EditorEventListFragment extends Fragment
 
     public void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition)
     {
-        synchronized (PPApplication.refreshEditorEventsListMutex) {
-            /*if (listView != null)
-                listView.cancelDrag();*/
+        /*if (listView != null)
+            listView.cancelDrag();*/
 
-            if (eventListAdapter != null)
-                listView.getRecycledViewPool().clear();
+        if (eventListAdapter != null)
+            listView.getRecycledViewPool().clear();
 
-            if (eventListAdapter != null) {
-                if ((newEvent) && (event != null))
-                    // add event into listview
-                    eventListAdapter.addItem(event, false);
-            }
+        if (eventListAdapter != null) {
+            if ((newEvent) && (event != null))
+                // add event into listview
+                eventListAdapter.addItem(event, false);
+        }
 
-            if (eventList != null) {
-                // sort list
-                sortList(eventList, orderType, dataWrapper);
-            }
+        if (eventList != null) {
+            // sort list
+            sortList(eventList, orderType, dataWrapper);
+        }
 
-            if (eventListAdapter != null) {
-                int eventPos = ListView.INVALID_POSITION;
+        if (eventListAdapter != null) {
+            int eventPos = ListView.INVALID_POSITION;
 
-                if (event != null)
-                    eventPos = eventListAdapter.getItemPosition(event);
-                //else
-                //    eventPos = listView.getCheckedItemPosition();
+            if (event != null)
+                eventPos = eventListAdapter.getItemPosition(event);
+            //else
+            //    eventPos = listView.getCheckedItemPosition();
 
-                eventListAdapter.notifyDataSetChanged(refreshIcons);
+            eventListAdapter.notifyDataSetChanged(refreshIcons);
 
-                if (setPosition || newEvent) {
-                    if (eventPos != ListView.INVALID_POSITION) {
-                        // set event visible in list
-                        //int last = listView.getLastVisiblePosition();
-                        //int first = listView.getFirstVisiblePosition();
-                        //if ((eventPos <= first) || (eventPos >= last)) {
-                        //    listView.setSelection(eventPos);
-                        //}
-                        listView.getLayoutManager().scrollToPosition(eventPos);
-                    }
+            if (setPosition || newEvent) {
+                if (eventPos != ListView.INVALID_POSITION) {
+                    // set event visible in list
+                    //int last = listView.getLastVisiblePosition();
+                    //int first = listView.getFirstVisiblePosition();
+                    //if ((eventPos <= first) || (eventPos >= last)) {
+                    //    listView.setSelection(eventPos);
+                    //}
+                    listView.getLayoutManager().scrollToPosition(eventPos);
                 }
-
-                boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
-                if (startTargetHelps)
-                    showAdapterTargetHelps();
-
             }
+
+            boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+            if (startTargetHelps)
+                showAdapterTargetHelps();
+
         }
     }
 
@@ -626,13 +621,11 @@ public class EditorEventListFragment extends Fragment
 
     public void changeListOrder(int orderType)
     {
-        synchronized (PPApplication.refreshEditorEventsListMutex) {
-            this.orderType = orderType;
-            if (eventListAdapter != null) {
-                listView.getRecycledViewPool().clear();
-                sortList(eventList, orderType, dataWrapper);
-                eventListAdapter.notifyDataSetChanged();
-            }
+        this.orderType = orderType;
+        if (eventListAdapter != null) {
+            listView.getRecycledViewPool().clear();
+            sortList(eventList, orderType, dataWrapper);
+            eventListAdapter.notifyDataSetChanged();
         }
     }
 
@@ -696,8 +689,7 @@ public class EditorEventListFragment extends Fragment
         if ((dataWrapper == null) || (eventList == null))
             return;
 
-        for (Event event : eventList)
-        {
+        for (Event event : eventList) {
             int status = dataWrapper.getDatabaseHandler().getEventStatus(event);
             event.setStatus(status);
             event._isInDelayStart = dataWrapper.getDatabaseHandler().getEventInDelayStart(event);

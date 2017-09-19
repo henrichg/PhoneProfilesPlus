@@ -422,40 +422,38 @@ public class EditorProfileListFragment extends Fragment
 
     private void deleteProfile(Profile profile)
     {
-        synchronized (PPApplication.refreshEditorProfilesListMutex) {
-            //final Profile _profile = profile;
-            //final Activity activity = getActivity();
+        //final Profile _profile = profile;
+        //final Activity activity = getActivity();
 
-            if (dataWrapper.getProfileById(profile._id, false) == null)
-                // profile not exists
-                return;
+        if (dataWrapper.getProfileById(profile._id, false) == null)
+            // profile not exists
+            return;
 
-            Profile activatedProfile = dataWrapper.getActivatedProfile();
-            if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
-                // remove alarm for profile duration
-                ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
-                Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
-            }
-
-            listView.getRecycledViewPool().clear();
-
-            dataWrapper.stopEventsForProfile(profile, true);
-            dataWrapper.unlinkEventsFromProfile(profile);
-            profileListAdapter.deleteItemNoNotify(profile);
-            databaseHandler.unlinkEventsFromProfile(profile);
-            databaseHandler.deleteProfile(profile);
-
-            profileListAdapter.notifyDataSetChanged();
-            // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
-            //Profile profile = databaseHandler.getActivatedProfile();
-            Profile _profile = profileListAdapter.getActivatedProfile();
-            updateHeader(_profile);
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.showProfileNotification(_profile, dataWrapper);
-            activateProfileHelper.updateWidget(true);
-
-            onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
+        Profile activatedProfile = dataWrapper.getActivatedProfile();
+        if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+            // remove alarm for profile duration
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
+            Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
         }
+
+        listView.getRecycledViewPool().clear();
+
+        dataWrapper.stopEventsForProfile(profile, true);
+        dataWrapper.unlinkEventsFromProfile(profile);
+        profileListAdapter.deleteItemNoNotify(profile);
+        databaseHandler.unlinkEventsFromProfile(profile);
+        databaseHandler.deleteProfile(profile);
+
+        profileListAdapter.notifyDataSetChanged();
+        // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
+        //Profile profile = databaseHandler.getActivatedProfile();
+        Profile _profile = profileListAdapter.getActivatedProfile();
+        updateHeader(_profile);
+        if (PhoneProfilesService.instance != null)
+            PhoneProfilesService.instance.showProfileNotification(_profile, dataWrapper);
+        activateProfileHelper.updateWidget(true);
+
+        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
     }
 
     public void showEditMenu(View view)
@@ -526,31 +524,29 @@ public class EditorProfileListFragment extends Fragment
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
-                    synchronized (PPApplication.refreshEditorProfilesListMutex) {
-                        // remove alarm for profile duration
-                        ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
-                        Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
+                    // remove alarm for profile duration
+                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
+                    Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
 
-                        listView.getRecycledViewPool().clear();
+                    listView.getRecycledViewPool().clear();
 
-                        dataWrapper.stopAllEvents(true, false);
-                        dataWrapper.unlinkAllEvents();
-                        profileListAdapter.clearNoNotify();
-                        databaseHandler.deleteAllProfiles();
-                        databaseHandler.unlinkAllEvents();
+                    dataWrapper.stopAllEvents(true, false);
+                    dataWrapper.unlinkAllEvents();
+                    profileListAdapter.clearNoNotify();
+                    databaseHandler.deleteAllProfiles();
+                    databaseHandler.unlinkAllEvents();
 
-                        profileListAdapter.notifyDataSetChanged();
-                        // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
-                        //Profile profile = databaseHandler.getActivatedProfile();
-                        //Profile profile = profileListAdapter.getActivatedProfile();
-                        updateHeader(null);
-                        if (PhoneProfilesService.instance != null)
-                            PhoneProfilesService.instance.showProfileNotification(null, dataWrapper);
-                        activateProfileHelper.updateWidget(true);
+                    profileListAdapter.notifyDataSetChanged();
 
-                        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
-                    }
+                    // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
+                    //Profile profile = databaseHandler.getActivatedProfile();
+                    //Profile profile = profileListAdapter.getActivatedProfile();
+                    updateHeader(null);
+                    if (PhoneProfilesService.instance != null)
+                        PhoneProfilesService.instance.showProfileNotification(null, dataWrapper);
+                    activateProfileHelper.updateWidget(true);
 
+                    onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
@@ -668,36 +664,33 @@ public class EditorProfileListFragment extends Fragment
 
     public void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition)
     {
-        synchronized (PPApplication.refreshEditorProfilesListMutex) {
+        //Log.e("------- EditorProfileListFragment.updateListView", "xxx");
 
-            //Log.e("------- EditorProfileListFragment.updateListView", "xxx");
+        /*if (listView != null)
+            listView.cancelDrag();*/
 
-            /*if (listView != null)
-                listView.cancelDrag();*/
+        if (profileListAdapter != null)
+            listView.getRecycledViewPool().clear();
 
-            if (profileListAdapter != null)
-                listView.getRecycledViewPool().clear();
-
-            if (profileListAdapter != null) {
-                if ((newProfile) && (profile != null))
-                    // add profile into listview
-                    profileListAdapter.addItem(profile, false);
-            }
-
-            if (profileList != null) {
-                // sort list
-                if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
-                    sortAlphabetically(profileList);
-                else
-                    sortByPOrder(profileList);
-            }
-
-            if (profileListAdapter != null)
-                profileListAdapter.notifyDataSetChanged(refreshIcons);
-
-            if (setPosition || newProfile)
-                setProfileSelection(profile);
+        if (profileListAdapter != null) {
+            if ((newProfile) && (profile != null))
+                // add profile into listview
+                profileListAdapter.addItem(profile, false);
         }
+
+        if (profileList != null) {
+            // sort list
+            if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
+                sortAlphabetically(profileList);
+            else
+                sortByPOrder(profileList);
+        }
+
+        if (profileListAdapter != null)
+            profileListAdapter.notifyDataSetChanged(refreshIcons);
+
+        if (setPosition || newProfile)
+            setProfileSelection(profile);
     }
 
     /*
@@ -736,29 +729,25 @@ public class EditorProfileListFragment extends Fragment
         if ((dataWrapper == null) || (profileListAdapter == null))
             return;
 
-        PPApplication.logE("EditorProfileListFragment.refreshGUI","refresh");
+        PPApplication.logE("EditorProfileListFragment.refreshGUI", "refresh");
 
         Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
         if (profileFromAdapter != null)
             profileFromAdapter._checked = false;
 
         Profile profileFromDB = dataWrapper.getDatabaseHandler().getActivatedProfile();
-        if (profileFromDB != null)
-        {
-            PPApplication.logE("EditorProfileListFragment.refreshGUI","profile activated");
+        if (profileFromDB != null) {
+            PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile activated");
             Profile profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, false);
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);
             updateListView(profileFromDataWrapper, false, refreshIcons, setPosition);
-        }
-        else
-        {
-            PPApplication.logE("EditorProfileListFragment.refreshGUI","profile not activated");
+        } else {
+            PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile not activated");
             updateHeader(null);
             updateListView(null, false, refreshIcons, setPosition);
         }
-
     }
 
     public void removeAdapter() {

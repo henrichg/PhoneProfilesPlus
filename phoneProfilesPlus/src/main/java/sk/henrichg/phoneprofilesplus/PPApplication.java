@@ -176,9 +176,6 @@ public class PPApplication extends Application {
     public static String notAllowedReasonDetail;
 
     public static final StartRootCommandMutex startRootCommandMutex = new StartRootCommandMutex();
-    public static final RefreshActivatorListMutex refreshActivatorListMutex = new RefreshActivatorListMutex();
-    public static final RefreshEditorProfilesListMutex refreshEditorProfilesListMutex = new RefreshEditorProfilesListMutex();
-    public static final RefreshEditorEventsListMutex refreshEditorEventsListMutex = new RefreshEditorEventsListMutex();
     //public static final RootMutex rootMutex = new RootMutex();
     public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
