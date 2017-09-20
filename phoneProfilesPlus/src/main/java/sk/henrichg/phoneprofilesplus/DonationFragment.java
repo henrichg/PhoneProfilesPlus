@@ -13,12 +13,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import sk.henrichg.phoneprofilesplus.util.IabHelper;
 import sk.henrichg.phoneprofilesplus.util.IabResult;
+import sk.henrichg.phoneprofilesplus.util.Inventory;
 import sk.henrichg.phoneprofilesplus.util.Purchase;
 
 public class DonationFragment extends Fragment {
 
+    // List of SKUs.
     // http://developer.android.com/google/play/billing/billing_testing.html
     private static final String[] CATALOG_DEBUG = new String[]{"android.test.purchased",
             "android.test.canceled", "android.test.refunded", "android.test.item_unavailable"};
@@ -28,11 +34,13 @@ public class DonationFragment extends Fragment {
     private static final String[] CATALOG_RELEASE_VALUES = new String[]{"1 €", "2 €", "3 €", "5 €", "8 €", "13 €", "20 €"};
 
     private Spinner mGoogleSpinner;
+    private Button btGoogle;
 
     private boolean mDebug = false;
 
     // The helper object
     private IabHelper mHelper;
+    private IabHelper.QueryInventoryFinishedListener mQueryFinishedListener;
 
     // Debug tag, for logging
     private static final String TAG = "DonationFragment";
@@ -53,18 +61,8 @@ public class DonationFragment extends Fragment {
         // choose donation amount
         mGoogleSpinner = getActivity().findViewById(
                 R.id.donation_google_android_market_spinner);
-        ArrayAdapter<CharSequence> adapter;
-        if (mDebug) {
-            adapter = new ArrayAdapter<CharSequence>(getActivity(),
-                    android.R.layout.simple_spinner_item, CATALOG_DEBUG);
-        } else {
-            adapter = new ArrayAdapter<CharSequence>(getActivity(),
-                    android.R.layout.simple_spinner_item, CATALOG_RELEASE_VALUES);
-        }
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mGoogleSpinner.setAdapter(adapter);
 
-        Button btGoogle = getActivity().findViewById(
+        btGoogle = getActivity().findViewById(
                 R.id.donation_google_android_market_donate_button);
         btGoogle.setOnClickListener(new View.OnClickListener() {
 
@@ -74,7 +72,6 @@ public class DonationFragment extends Fragment {
             }
         });
 
-
         String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2OCdv8Qm0HysEnlWAiKhNoQ7Xg9OfhHdJD9ERxlFEpKsGeToSqVbhojq4IuhTz7/vFf6QkxG/mYOMp+RbxKhiDrWIfk49hcUNT0sUNfsTNK580mU0PKmEyHDADw52kPLAlG9or/bqc/R9xhMqbsLTBzahkk8ybYmTAASDo1ksivemeFB5cNjQO+9aIDr90z7MjXp5JMPfnsMeWs800a83IEKd0J34cUpqxruPFKHqJZdgk9fM85BbV1xhv9E0uSMQFjbhHcL9D7xnX5CK9OSkkawzGvtuHuKgz24+/ItDyKoJuCm2lZCIbBxeOZtbHqGKBNblqW4w3n2ioetlMXjowIDAQAB";
 
         // Create the helper, passing it our context and the public key to verify signatures with
@@ -83,6 +80,32 @@ public class DonationFragment extends Fragment {
 
         // enable debug logging (for a production application, you should set this to false).
         mHelper.enableDebugLogging(mDebug);
+
+        // listener for get inventory
+        mQueryFinishedListener = new IabHelper.QueryInventoryFinishedListener() {
+
+            public void onQueryInventoryFinished(IabResult result, Inventory inventory)
+            {
+                if (result.isFailure()) {
+                    // handle error
+                    return;
+                }
+
+                for (int i = 0; i < CATALOG_RELEASE.length; i++) {
+                    String price = inventory.getSkuDetails(CATALOG_RELEASE[i]).getPrice();
+                    CATALOG_RELEASE_VALUES[i] = price;
+                }
+
+                // update the UI
+                ArrayAdapter<CharSequence> adapter;
+                adapter = new ArrayAdapter<CharSequence>(getActivity(),
+                        android.R.layout.simple_spinner_item, CATALOG_RELEASE_VALUES);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mGoogleSpinner.setAdapter(adapter);
+                btGoogle.setEnabled(true);
+
+            }
+        };
 
         // Start setup. This is asynchronous and the specified listener
         // will be called once setup completes.
@@ -100,6 +123,29 @@ public class DonationFragment extends Fragment {
 
                 // Have we been disposed of in the meantime? If so, quit.
                 if (mHelper == null) return;
+
+                if (!mDebug) {
+                    List<String> skuList = Arrays.asList(CATALOG_RELEASE);
+                    try {
+                        mHelper.queryInventoryAsync(true, skuList, null, mQueryFinishedListener);
+                    } catch (Exception e) {
+                        ArrayAdapter<CharSequence> adapter;
+                        adapter = new ArrayAdapter<CharSequence>(getActivity(),
+                                android.R.layout.simple_spinner_item, CATALOG_RELEASE_VALUES);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        mGoogleSpinner.setAdapter(adapter);
+                        btGoogle.setEnabled(true);
+                    }
+                }
+                else {
+                    ArrayAdapter<CharSequence> adapter;
+                    adapter = new ArrayAdapter<CharSequence>(getActivity(),
+                            android.R.layout.simple_spinner_item, CATALOG_DEBUG);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    mGoogleSpinner.setAdapter(adapter);
+                    btGoogle.setEnabled(true);
+                }
+
             }
         });
     }
@@ -112,7 +158,9 @@ public class DonationFragment extends Fragment {
         // very important:
         if (mDebug) Log.d(TAG, "Destroying helper.");
         if (mHelper != null) {
-            mHelper.disposeWhenFinished();
+            try {
+                mHelper.disposeWhenFinished();
+            } catch (Exception ignored) {}
             mHelper = null;
         }
     }
