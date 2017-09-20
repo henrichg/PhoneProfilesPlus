@@ -11,6 +11,8 @@ public class PermissionsNotificationDeletedReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### PermissionsNotificationDeletedReceiver.onReceive", "xxx");
 
+        CallsCounter.logCounter(context, "PermissionsNotificationDeletedReceiver.onReceive", "PermissionsNotificationDeletedReceiver_onReceive");
+
         Permissions.clearMergedPermissions(context.getApplicationContext());
 
     }

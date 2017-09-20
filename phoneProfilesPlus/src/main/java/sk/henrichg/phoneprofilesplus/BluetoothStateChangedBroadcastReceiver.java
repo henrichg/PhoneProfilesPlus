@@ -13,6 +13,8 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### BluetoothStateChangedBroadcastReceiver.onReceive", "xxx");
 
+        CallsCounter.logCounter(context, "BluetoothStateChangedBroadcastReceiver.onReceive", "BluetoothStateChangedBroadcastReceiver_onReceive");
+
         Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(appContext, true))

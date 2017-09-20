@@ -15,6 +15,8 @@ public class ExecuteRadioProfilePrefsService extends WakefulIntentService
     protected void doWakefulWork(Intent intent) {
         PPApplication.logE("##### ExecuteRadioProfilePrefsService.onHandleIntent","-- START ----------");
 
+        CallsCounter.logCounter(getApplicationContext(), "ExecuteRadioProfilePrefsService.doWakefulWork", "ExecuteRadioProfilePrefsService_doWakefulWork");
+
         if (intent == null) return;
 
         Context context = getApplicationContext();

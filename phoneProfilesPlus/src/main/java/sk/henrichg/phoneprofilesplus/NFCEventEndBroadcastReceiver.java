@@ -12,6 +12,8 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### NFCEventEndBroadcastReceiver.onReceive", "xxx");
 
+        CallsCounter.logCounter(context, "NFCEventEndBroadcastReceiver.onReceive", "NFCEventEndBroadcastReceiver_onReceive");
+
         Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(appContext, true))

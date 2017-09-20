@@ -12,6 +12,8 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### AirplaneModeStateChangedBroadcastReceiver.onReceive", "xxx");
 
+        CallsCounter.logCounter(context, "AirplaneModeStateChangedBroadcastReceiver.onReceive", "AirplaneModeStateChangedBroadcastReceiver_onReceive");
+
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;

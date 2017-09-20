@@ -9,6 +9,7 @@ public class RestartEventsFromNotificationBroadcastReceiver extends BroadcastRec
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### RestartEventsFromNotificationBroadcastReceiver.onReceive", "xxx");
+        CallsCounter.logCounter(context, "RestartEventsFromNotificationBroadcastReceiver.onReceive", "RestartEventsFromNotificationBroadcastReceiver_onReceive");
 
         //Context appContext = context.getApplicationContext();
 

@@ -12,6 +12,8 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### AlarmClockBroadcastReceiver.onReceive", "xxx");
 
+        CallsCounter.logCounter(context, "AlarmClockBroadcastReceiver.onReceive", "AlarmClockBroadcastReceiver_onReceive");
+
         Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(context.getApplicationContext(), true))

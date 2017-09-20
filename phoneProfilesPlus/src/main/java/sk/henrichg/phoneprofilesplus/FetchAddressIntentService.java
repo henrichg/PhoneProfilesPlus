@@ -26,6 +26,8 @@ public class FetchAddressIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "FetchAddressIntentService.onHandleIntent", "FetchAddressIntentService_onHandleIntent");
+
         if (intent == null) return;
 
         String errorMessage = "";

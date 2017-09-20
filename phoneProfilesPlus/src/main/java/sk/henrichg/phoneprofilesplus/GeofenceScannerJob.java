@@ -24,6 +24,8 @@ class GeofenceScannerJob extends Job {
 
         Context context = getContext();
 
+        CallsCounter.logCounter(context, "GeofenceScannerJob.onRunJob", "GeofenceScannerJob_onRunJob");
+
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
         if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
             PPApplication.logE("GeofenceScannerJob.onRunJob", "any events exists = schedule job");

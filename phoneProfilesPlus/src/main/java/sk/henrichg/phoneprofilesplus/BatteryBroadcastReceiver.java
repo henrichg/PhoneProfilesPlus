@@ -19,6 +19,8 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### BatteryBroadcastReceiver.onReceive","xxx");
 
+        CallsCounter.logCounter(context, "BatteryBroadcastReceiver.onReceive", "BatteryBroadcastReceiver_onReceive");
+
         Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(appContext, true))

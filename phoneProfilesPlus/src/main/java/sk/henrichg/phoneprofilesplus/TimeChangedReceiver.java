@@ -11,6 +11,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### TimeChangedReceiver.onReceive", "xxx");
+        CallsCounter.logCounter(context, "TimeChangedReceiver.onReceive", "TimeChangedReceiver_onReceive");
 
         Context appContext = context.getApplicationContext();
 

@@ -13,6 +13,8 @@ public class BatteryService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "BatteryService.doWakefulWork", "BatteryService_doWakefulWork");
+
         if (intent != null) {
             PPApplication.logE("##### BatteryService.doWakefulWork","xxx");
 

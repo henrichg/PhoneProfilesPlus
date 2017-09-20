@@ -20,6 +20,8 @@ public class HeadsetConnectionService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "HeadsetConnectionService.doWakefulWork", "HeadsetConnectionService_doWakefulWork");
+
         if (intent != null) {
             PPApplication.logE("##### HeadsetConnectionService.doWakefulWork","xxx");
 

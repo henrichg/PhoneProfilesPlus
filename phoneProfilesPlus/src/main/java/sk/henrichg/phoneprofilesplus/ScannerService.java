@@ -67,6 +67,8 @@ public class ScannerService extends WakefulIntentService
     @SuppressLint("NewApi")
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(context, "ScannerService.doWakefulWork", "ScannerService_doWakefulWork");
+
         if (intent == null) {
             PPApplication.logE("%%%% ScannerService.onHandleIntent", "intent=null");
             return;

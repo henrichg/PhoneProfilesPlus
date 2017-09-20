@@ -14,6 +14,8 @@ public class ProfileDurationService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "ProfileDurationService.doWakefulWork", "ProfileDurationService_doWakefulWork");
+
         if (intent != null) {
             PPApplication.logE("##### ProfileDurationService.doWakefulWork", "xxx");
 

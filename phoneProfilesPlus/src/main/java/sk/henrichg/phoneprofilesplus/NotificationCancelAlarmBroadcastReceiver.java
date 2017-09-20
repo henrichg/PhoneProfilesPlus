@@ -11,6 +11,8 @@ public class NotificationCancelAlarmBroadcastReceiver extends BroadcastReceiver 
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### NotificationCancelAlarmBroadcastReceiver.onReceive", "xxx");
 
+        CallsCounter.logCounter(context, "NotificationCancelAlarmBroadcastReceiver.onReceive", "NotificationCancelAlarmBroadcastReceiver_onReceive");
+
         if (PhoneProfilesService.instance != null)
             PhoneProfilesService.instance.stopForeground(true);
         else {

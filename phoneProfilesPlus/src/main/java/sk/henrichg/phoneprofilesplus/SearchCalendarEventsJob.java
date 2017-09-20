@@ -20,6 +20,7 @@ class SearchCalendarEventsJob extends Job {
     @Override
     protected Result onRunJob(Params params) {
         PPApplication.logE("SearchCalendarEventsJob.onRunJob", "xxx");
+        CallsCounter.logCounter(getContext(), "SearchCalendarEventsJob.onRunJob", "SearchCalendarEventsJob_onRunJob");
 
         Context appContext = getContext().getApplicationContext();
 

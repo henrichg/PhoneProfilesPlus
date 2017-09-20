@@ -14,6 +14,8 @@ public class ScreenOnOffService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "ScreenOnOffService.onHandleIntent", "ScreenOnOffService_onHandleIntent");
+
         if (intent != null) {
 
             final Context appContext = getApplicationContext();

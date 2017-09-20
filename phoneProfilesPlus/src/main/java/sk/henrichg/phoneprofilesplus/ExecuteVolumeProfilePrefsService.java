@@ -17,6 +17,8 @@ public class ExecuteVolumeProfilePrefsService extends WakefulIntentService
     protected void doWakefulWork(Intent intent) {
         PPApplication.logE("##### ExecuteVolumeProfilePrefsService.onHandleIntent", "xxx");
 
+        CallsCounter.logCounter(getApplicationContext(), "ExecuteVolumeProfilePrefsService.doWakefulWork", "ExecuteVolumeProfilePrefsService_doWakefulWork");
+
         if (intent == null) return;
 
         final Context context = getApplicationContext();

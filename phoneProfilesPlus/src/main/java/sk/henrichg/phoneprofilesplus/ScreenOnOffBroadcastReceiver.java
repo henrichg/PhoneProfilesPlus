@@ -9,6 +9,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### ScreenOnOffBroadcastReceiver.onReceive", "xxx");
+        CallsCounter.logCounter(context, "ScreenOnOffBroadcastReceiver.onReceive", "ScreenOnOffBroadcastReceiver_onReceive");
 
         if (intent != null)
             PPApplication.logE("ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());

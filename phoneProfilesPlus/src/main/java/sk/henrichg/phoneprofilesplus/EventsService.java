@@ -98,6 +98,8 @@ public class EventsService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "EventsService.doWakefulWork", "EventsService_doWakefulWork");
+
         if (intent == null) {
             PPApplication.logE("#### EventsService.onHandleIntent", "intent=null");
             return;

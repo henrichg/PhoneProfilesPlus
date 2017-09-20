@@ -11,6 +11,8 @@ public class BootUpReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### BootUpReceiver.onReceive", "xxx");
 
+        CallsCounter.logCounter(context, "BootUpReceiver.onReceive", "BootUpReceiver_onReceive");
+
         if (intent == null)
             return;
 

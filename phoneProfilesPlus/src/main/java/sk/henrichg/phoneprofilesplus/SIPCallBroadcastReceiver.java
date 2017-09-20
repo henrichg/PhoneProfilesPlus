@@ -10,6 +10,8 @@ public class SIPCallBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        CallsCounter.logCounter(context, "SIPCallBroadcastReceiver.onReceive", "SIPCallBroadcastReceiver_onReceive");
+
         SipAudioCall incomingCall = null;
 
         try {

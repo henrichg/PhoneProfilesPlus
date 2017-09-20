@@ -16,6 +16,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
+        CallsCounter.logCounter(context, "ProfileDurationAlarmBroadcastReceiver.onReceive", "ProfileDurationAlarmBroadcastReceiver_onReceive");
+
         if (PPApplication.getApplicationStarted(context, true)) {
             try {
                 Intent profileDurationServiceIntent = new Intent(context, ProfileDurationService.class);

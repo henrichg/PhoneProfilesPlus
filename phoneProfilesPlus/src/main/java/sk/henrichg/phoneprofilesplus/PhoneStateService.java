@@ -13,6 +13,8 @@ public class PhoneStateService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "PhoneStateService.doWakefulWork", "PhoneStateService_doWakefulWork");
+
         if (intent != null) {
             PPApplication.logE("##### PhoneStateService.doWakefulWork", "xxx");
 

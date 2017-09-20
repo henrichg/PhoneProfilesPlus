@@ -17,6 +17,8 @@ public class DeviceIdleModeService extends WakefulIntentService {
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "DeviceIdleModeService.doWakefulWork", "DeviceIdleModeService_doWakefulWork");
+
         if (intent != null) {
 
             Context appContext = getApplicationContext();

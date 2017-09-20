@@ -29,6 +29,8 @@ public class BluetoothService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "BluetoothService.doWakefulWork", "BluetoothService_doWakefulWork");
+
         if (intent != null) {
             Context appContext = getApplicationContext();
 

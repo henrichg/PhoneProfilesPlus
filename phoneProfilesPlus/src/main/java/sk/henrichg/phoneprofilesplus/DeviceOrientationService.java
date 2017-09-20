@@ -13,6 +13,8 @@ public class DeviceOrientationService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "DeviceOrientationService.doWakefulWork", "DeviceOrientationService_doWakefulWork");
+
         if (intent != null) {
             PPApplication.logE("##### DeviceOrientationService.doWakefulWork", "xxx");
 

@@ -20,6 +20,8 @@ public class WifiService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "WifiService.doWakefulWork", "WifiService_doWakefulWork");
+
         if (intent != null) {
 
             Context appContext = getApplicationContext();

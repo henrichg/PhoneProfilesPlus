@@ -20,6 +20,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### SMSBroadcastReceiver.onReceive", "xxx");
+        CallsCounter.logCounter(context, "SMSBroadcastReceiver.onReceive", "SMSBroadcastReceiver_onReceive");
 
         //Context appContext = context.getApplicationContext();
 

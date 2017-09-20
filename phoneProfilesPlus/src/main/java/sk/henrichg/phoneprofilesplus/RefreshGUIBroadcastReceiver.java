@@ -13,6 +13,7 @@ public class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### RefreshGUIBroadcastReceiver.onReceive", "xxx");
+        CallsCounter.logCounter(context, "RefreshGUIBroadcastReceiver.onReceive", "RefreshGUIBroadcastReceiver_onReceive");
 
         LocalBroadcastManager.getInstance(context.getApplicationContext()).unregisterReceiver(PPApplication.refreshGUIBroadcastReceiver);
 

@@ -13,6 +13,7 @@ public class WifiAPStateChangeService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "WifiAPStateChangeService.doWakefulWork", "WifiAPStateChangeService_doWakefulWork");
         if (intent != null) {
 
             Context context = getApplicationContext();

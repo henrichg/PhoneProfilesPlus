@@ -12,6 +12,8 @@ public class DashClockService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "DashClockService.doWakefulWork", "DashClockService_doWakefulWork");
+
         if (intent != null) {
             PhoneProfilesDashClockExtension dashClockExtension = PhoneProfilesDashClockExtension.getInstance();
             if (dashClockExtension != null)

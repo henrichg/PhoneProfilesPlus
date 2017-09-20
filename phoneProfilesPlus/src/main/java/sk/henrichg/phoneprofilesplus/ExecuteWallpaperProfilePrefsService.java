@@ -14,6 +14,8 @@ public class ExecuteWallpaperProfilePrefsService extends IntentService
     protected void onHandleIntent(Intent intent) {
         PPApplication.logE("$$$ ExecuteWallpaperProfilePrefsService.onHandleIntent", "-- START ----------");
 
+        CallsCounter.logCounter(getApplicationContext(), "ExecuteWallpaperProfilePrefsService.onHandleIntent", "ExecuteWallpaperProfilePrefsService_onHandleIntent");
+
         if (intent == null) return;
 
         Context context = getApplicationContext();

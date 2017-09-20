@@ -40,6 +40,8 @@ public class PhoneCallService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "PhoneCallService.doWakefulWork", "PhoneCallService_doWakefulWork");
+
         if (intent != null) {
 
             context = getApplicationContext();

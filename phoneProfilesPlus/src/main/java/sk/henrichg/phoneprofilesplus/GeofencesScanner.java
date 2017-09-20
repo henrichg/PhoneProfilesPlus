@@ -133,6 +133,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onLocationChanged(Location location) {
         PPApplication.logE("##### GeofenceScanner.onLocationChanged", "location=" + location);
+        CallsCounter.logCounter(context, "GeofencesScanner.onLocationChanged", "GeofencesScanner.onLocationChanged");
 
         synchronized (PPApplication.geofenceScannerLastLocationMutex) {
             lastLocation.set(location);

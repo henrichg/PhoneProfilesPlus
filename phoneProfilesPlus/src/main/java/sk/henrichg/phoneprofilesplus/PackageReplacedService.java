@@ -16,6 +16,8 @@ public class PackageReplacedService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "PackageReplacedService.doWakefulWork", "PackageReplacedService_doWakefulWork");
+
         if (intent != null) {
             final Context appContext = getApplicationContext();
 

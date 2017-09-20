@@ -39,6 +39,8 @@ class WifiScanJob extends Job {
 
         Context context = getContext();
 
+        CallsCounter.logCounter(context, "WifiScanJob.onRunJob", "WifiScanJob_onRunJob");
+
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED) {
             WifiScanJob.cancelJob();

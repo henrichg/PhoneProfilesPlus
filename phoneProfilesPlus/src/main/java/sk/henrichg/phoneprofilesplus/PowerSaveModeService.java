@@ -17,6 +17,8 @@ public class PowerSaveModeService extends WakefulIntentService {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "PowerSaveModeService.doWakefulWork", "PowerSaveModeService_doWakefulWork");
+
         if (intent != null) {
             PPApplication.logE("##### PowerSaveModeService.doWakefulWork", "xxx");
 

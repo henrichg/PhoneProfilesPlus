@@ -217,6 +217,7 @@ class PhoneStateScanner extends PhoneStateListener {
         super.onCellInfoChanged(cellInfo);
 
         PPApplication.logE("PhoneStateScanner.onCellInfoChanged", "telephonyManager="+telephonyManager);
+        CallsCounter.logCounter(context, "PhoneStateScanner.onCellInfoChanged", "PhoneStateScanner_onCellInfoChanged");
 
         if (cellInfo == null)
             getAllCellInfo();
@@ -237,6 +238,7 @@ class PhoneStateScanner extends PhoneStateListener {
         super.onServiceStateChanged(serviceState);
 
         PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "telephonyManager=" + telephonyManager);
+        CallsCounter.logCounter(context, "PhoneStateScanner.onServiceStateChanged", "PhoneStateScanner_onServiceStateChanged");
 
         getRegisteredCell();
 
@@ -299,6 +301,7 @@ class PhoneStateScanner extends PhoneStateListener {
         super.onCellLocationChanged(location);
 
         PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "telephonyManager="+telephonyManager);
+        CallsCounter.logCounter(context, "PhoneStateScanner.onCellLocationChanged", "PhoneStateScanner_onCellLocationChanged");
 
         if (location == null)
             getCellLocation();

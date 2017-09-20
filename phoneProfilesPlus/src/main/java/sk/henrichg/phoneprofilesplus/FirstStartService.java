@@ -35,6 +35,8 @@ public class FirstStartService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "FirstStartService.doWakefulWork", "FirstStartService_doWakefulWork");
+
         if (intent == null) return;
 
         Context context = getApplicationContext();

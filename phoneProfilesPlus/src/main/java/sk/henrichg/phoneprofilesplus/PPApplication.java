@@ -38,7 +38,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     private static String logFilterTags = "##### PPApplication.onCreate"
@@ -46,6 +46,8 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedService"
+
+                                         +"|"+CallsCounter.LOG_TAG
 
                                          //+"PhoneProfilesHelper.doUninstallPPHelper"
                                          //+"|PhoneProfilesHelper.isPPHelperInstalled"
@@ -361,9 +363,13 @@ public class PPApplication extends Application {
         return contains;
     }
 
+    static public boolean logEnabled() {
+        return (logIntoLogCat || logIntoFile);
+    }
+
     static public void logI(String tag, String text)
     {
-        if (!(logIntoLogCat || logIntoFile))
+        if (!logEnabled())
             return;
 
         if (logContainsFilterTag(tag))
@@ -375,7 +381,7 @@ public class PPApplication extends Application {
 
     static public void logW(String tag, String text)
     {
-        if (!(logIntoLogCat || logIntoFile))
+        if (!logEnabled())
             return;
 
         if (logContainsFilterTag(tag))
@@ -387,7 +393,7 @@ public class PPApplication extends Application {
 
     static public void logE(String tag, String text)
     {
-        if (!(logIntoLogCat || logIntoFile))
+        if (!logEnabled())
             return;
 
         if (logContainsFilterTag(tag))
@@ -399,7 +405,7 @@ public class PPApplication extends Application {
 
     static public void logD(String tag, String text)
     {
-        if (!(logIntoLogCat || logIntoFile))
+        if (!logEnabled())
             return;
 
         if (logContainsFilterTag(tag))

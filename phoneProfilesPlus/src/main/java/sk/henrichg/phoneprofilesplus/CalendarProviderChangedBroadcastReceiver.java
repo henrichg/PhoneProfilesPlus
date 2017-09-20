@@ -12,6 +12,8 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### CalendarProviderChangedBroadcastReceiver.onReceive", "xxx");
 
+        CallsCounter.logCounter(context, "CalendarProviderChangedBroadcastReceiver.onReceive", "CalendarProviderChangedBroadcastReceiver_onReceive");
+
         Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(appContext, true))

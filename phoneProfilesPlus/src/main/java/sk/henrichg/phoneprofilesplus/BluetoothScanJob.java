@@ -45,6 +45,8 @@ class BluetoothScanJob extends Job {
 
         Context context = getContext();
 
+        CallsCounter.logCounter(context, "BluetoothScanJob.onRunJob", "BluetoothScanJob_onRunJob");
+
         BluetoothScanJob.scheduleJob(context, false, false);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=

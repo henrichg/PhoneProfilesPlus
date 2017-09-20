@@ -40,6 +40,8 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
     public void onAccessibilityEvent(AccessibilityEvent event) {
         Context context = getApplicationContext();
 
+        CallsCounter.logCounter(getApplicationContext(), "ForegroundApplicationChangedService.onAccessibilityEvent", "ForegroundApplicationChangedService_onAccessibilityEvent");
+
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;

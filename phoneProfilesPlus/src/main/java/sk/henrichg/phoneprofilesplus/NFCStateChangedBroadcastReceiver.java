@@ -16,6 +16,8 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### NFCStateChangedBroadcastReceiver.onReceive", "xxx");
 
+        CallsCounter.logCounter(context, "NFCStateChangedBroadcastReceiver.onReceive", "NFCStateChangedBroadcastReceiver_onReceive");
+
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;

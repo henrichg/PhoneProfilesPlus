@@ -22,8 +22,9 @@ class AboutApplicationJob extends Job {
     @Override
     protected Result onRunJob(Params params) {
         PPApplication.logE("##### AboutApplicationJob.onRunJob", "xxx");
-
         Context context = getContext();
+
+        CallsCounter.logCounter(context, "AboutApplicationJob.onRunJob", "AboutApplicationJob_onRunJob");
 
         if (!PPApplication.getApplicationStarted(context, false))
             // application is not started

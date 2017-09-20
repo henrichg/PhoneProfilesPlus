@@ -89,6 +89,7 @@ class SettingsContentObserver  extends ContentObserver {
         super.onChange(selfChange);
 
         //Log.e("### SettingsContentObserver", "onChange - internalChange=" + internalChange);
+        CallsCounter.logCounter(context, "SettingsContentObserver.onChange", "SettingsContentObserver_onChange");
 
         ////// volume change
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);

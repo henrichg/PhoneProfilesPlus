@@ -19,6 +19,8 @@ class BluetoothLEScanCallback21 extends ScanCallback {
     }
 
     public void onScanResult(int callbackType, ScanResult result) {
+        CallsCounter.logCounter(context, "BluetoothLEScanCallback21.onScanResult", "BluetoothLEScanCallback21.onScanResult");
+
         boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(context));
 
         if (scanStarted) {
@@ -37,6 +39,8 @@ class BluetoothLEScanCallback21 extends ScanCallback {
     }
 
     public void onBatchScanResults(List<ScanResult> results) {
+        CallsCounter.logCounter(context, "BluetoothLEScanCallback21.onBatchScanResults", "BluetoothLEScanCallback21.onBatchScanResults");
+
         boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(context));
 
         if (scanStarted) {

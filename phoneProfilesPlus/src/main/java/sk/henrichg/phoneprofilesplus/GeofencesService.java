@@ -13,6 +13,8 @@ public class GeofencesService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        CallsCounter.logCounter(getApplicationContext(), "GeofencesService.doWakefulWork", "GeofencesService_doWakefulWork");
+
         if (intent != null) {
             PPApplication.logE("##### GeofencesService.doWakefulWork", "xxx");
 
