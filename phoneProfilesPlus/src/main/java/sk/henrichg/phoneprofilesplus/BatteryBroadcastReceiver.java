@@ -34,18 +34,18 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             boolean _isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                     status == BatteryManager.BATTERY_STATUS_FULL;
             PPApplication.logE("BatteryBroadcastReceiver.onReceive", "isCharging=" + isCharging);
+            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_isCharging=" + _isCharging);
 
             int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
             int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
             int pct = Math.round(level / (float) scale * 100);
 
+            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryPct=" + batteryPct);
+            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "pct=" + pct);
+            //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "level=" + level);
 
             if ((isCharging != _isCharging) || (batteryPct != pct)) {
                 PPApplication.logE("BatteryBroadcastReceiver.onReceive", "state changed");
-                PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryPct=" + pct);
-                PPApplication.logE("BatteryBroadcastReceiver.onReceive", "level=" + level);
-                PPApplication.logE("BatteryBroadcastReceiver.onReceive", "isCharging=" + isCharging);
-                PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_isCharging=" + _isCharging);
 
                 isCharging = _isCharging;
                 batteryPct = pct;

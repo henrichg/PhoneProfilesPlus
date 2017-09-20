@@ -39,7 +39,7 @@ public class PPApplication extends Application {
     static String PACKAGE_NAME;
 
     private static boolean logIntoLogCat = true;
-    private static boolean logIntoFile = false;
+    private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
     private static String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
@@ -56,8 +56,8 @@ public class PPApplication extends Application {
                                          //+"|PPApplication._isRooted"
                                          //+"|PPApplication.isRootGranted"
 
-                                         +"|FirstStartService"
-                                         +"|DataWrapper.firstStartEvents"
+                                         //+"|FirstStartService"
+                                         //+"|DataWrapper.firstStartEvents"
 
                                          //+"|PreferenceFragment"
 
@@ -88,6 +88,8 @@ public class PPApplication extends Application {
                                          //+"|RingtonePreference"
                                          //+"|RingtonePreferenceAdapter"
                                          //+"|PhoneProfilesService.playEventNotificationSound"
+
+                                         +"|BatteryBroadcastReceiver"
             ;
 
 
