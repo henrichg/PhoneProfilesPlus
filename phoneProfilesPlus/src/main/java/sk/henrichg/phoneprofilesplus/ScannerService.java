@@ -67,15 +67,14 @@ public class ScannerService extends WakefulIntentService
     @SuppressLint("NewApi")
     @Override
     protected void doWakefulWork(Intent intent) {
-    //protected void onHandleIntent(Intent intent)
-        context = getApplicationContext();
-
-        PPApplication.logE("%%%% ScannerService.onHandleIntent", "-- START ------------");
-
         if (intent == null) {
             PPApplication.logE("%%%% ScannerService.onHandleIntent", "intent=null");
             return;
         }
+
+        context = getApplicationContext();
+
+        PPApplication.logE("%%%% ScannerService.onHandleIntent", "-- START ------------");
 
         DataWrapper dataWrapper;
 

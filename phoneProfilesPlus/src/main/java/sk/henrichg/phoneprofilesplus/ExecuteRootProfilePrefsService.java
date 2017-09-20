@@ -18,6 +18,8 @@ public class ExecuteRootProfilePrefsService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         PPApplication.logE("$$$ ExecuteRootProfilePrefsService.onHandleIntent", "-- START ----------");
 
+        if (intent == null) return;
+
         Context context = getApplicationContext();
 
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);

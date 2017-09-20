@@ -14,6 +14,8 @@ public class ExecuteRunApplicationsProfilePrefsService extends IntentService
     protected void onHandleIntent(Intent intent) {
         PPApplication.logE("$$$ ExecuteRunApplicationsProfilePrefsService.onHandleIntent", "-- START ----------");
 
+        if (intent == null) return;
+
         Context context = getApplicationContext();
 
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);

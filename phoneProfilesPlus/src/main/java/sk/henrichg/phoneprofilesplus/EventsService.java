@@ -98,6 +98,11 @@ public class EventsService extends WakefulIntentService {
 
     @Override
     protected void doWakefulWork(Intent intent) {
+        if (intent == null) {
+            PPApplication.logE("#### EventsService.onHandleIntent", "intent=null");
+            return;
+        }
+
         context = getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(context, true))
@@ -105,11 +110,6 @@ public class EventsService extends WakefulIntentService {
             return;
 
         PPApplication.logE("#### EventsService.onHandleIntent", "-- start --------------------------------");
-
-        if (intent == null) {
-            PPApplication.logE("#### EventsService.onHandleIntent", "intent=null");
-            return;
-        }
 
         broadcastReceiverType = intent.getStringExtra(EXTRA_BROADCAST_RECEIVER_TYPE);
         PPApplication.logE("#### EventsService.onHandleIntent", "broadcastReceiverType=" + broadcastReceiverType);

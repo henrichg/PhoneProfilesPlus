@@ -17,6 +17,8 @@ public class ExecuteVolumeProfilePrefsService extends WakefulIntentService
     protected void doWakefulWork(Intent intent) {
         PPApplication.logE("##### ExecuteVolumeProfilePrefsService.onHandleIntent", "xxx");
 
+        if (intent == null) return;
+
         final Context context = getApplicationContext();
 
         ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), false);
