@@ -8,7 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.v13.view.ViewCompat;
+import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -50,6 +50,7 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
             @Override
             public void run() {
                 if (ViewCompat.isAttachedToWindow(anchor)) {
+                //if (anchor.isAttachedToWindow()) {
                     try {
                         final int[] myLocation = new int[2];
                         final int[] anchorLocation = new int[2];
