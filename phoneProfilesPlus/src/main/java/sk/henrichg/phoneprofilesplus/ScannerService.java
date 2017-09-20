@@ -60,8 +60,8 @@ public class ScannerService extends WakefulIntentService
         // so if this process dies before onHandleIntent(Intent) returns, the process will be restarted
         // and the intent redelivered. If multiple Intents have been sent, only the most recent one
         // is guaranteed to be redelivered.
+        // -- but restarted service has intent == null??
         setIntentRedelivery(true);
-
     }
 
     @SuppressLint("NewApi")
@@ -71,6 +71,11 @@ public class ScannerService extends WakefulIntentService
         context = getApplicationContext();
 
         PPApplication.logE("%%%% ScannerService.onHandleIntent", "-- START ------------");
+
+        if (intent == null) {
+            PPApplication.logE("%%%% ScannerService.onHandleIntent", "intent=null");
+            return;
+        }
 
         DataWrapper dataWrapper;
 

@@ -92,6 +92,7 @@ public class EventsService extends WakefulIntentService {
         // so if this process dies before onHandleIntent(Intent) returns, the process will be restarted
         // and the intent redelivered. If multiple Intents have been sent, only the most recent one
         // is guaranteed to be redelivered.
+        // -- but restarted service has intent == null??
         setIntentRedelivery(true);
     }
 
@@ -104,6 +105,11 @@ public class EventsService extends WakefulIntentService {
             return;
 
         PPApplication.logE("#### EventsService.onHandleIntent", "-- start --------------------------------");
+
+        if (intent == null) {
+            PPApplication.logE("#### EventsService.onHandleIntent", "intent=null");
+            return;
+        }
 
         broadcastReceiverType = intent.getStringExtra(EXTRA_BROADCAST_RECEIVER_TYPE);
         PPApplication.logE("#### EventsService.onHandleIntent", "broadcastReceiverType=" + broadcastReceiverType);
