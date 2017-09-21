@@ -1077,4 +1077,5 @@
     <string name="phone_profiles_pref_applicationStartEvents">Start events on startup</string>
     <string name="phone_profiles_pref_systemAutoStartMIUI">AutoStart permission</string>
     <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Click here to enable AutoStart permission for PhoneProfilesPlus</string>
+    <string name="duration_dialog_value_description">Click to edit</string>
 </resources>

@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp">
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="20dp"
+              android:layout_marginRight="20dp">
 
     <TextView
         android:id="@+id/duration_pref_dlg_range"
@@ -23,16 +23,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <EditText
+        <TextView
             android:id="@+id/duration_pref_dlg_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:textSize="20sp"
+            android:textColor="?attr/colorAccent"
+            android:clickable="true" />
+        <TextView
+            android:id="@+id/duration_pref_dlg_value_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
-            android:inputType="number"
-            android:digits="0123456789 :"
-            android:textSize="20sp" />
+            android:textSize="13sp"
+            android:text="@string/duration_dialog_value_description"
+            android:clickable="true"/>
 
         <SeekBar
             android:id="@+id/duration_pref_dlg_hours"

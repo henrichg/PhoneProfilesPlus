@@ -1,11 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -13,17 +13,21 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.internal.MDButton;
-import com.redmadrobot.inputmask.MaskedTextChangedListener;
 
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import mobi.upod.timedurationpicker.TimeDurationPicker;
+import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
 class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
     private int mMin, mMax;
     private Profile mProfile;
     private int mAfterDo;
+
+    private Context context;
 
     private DataWrapper mDataWrapper;
     private boolean mMonochrome;
@@ -37,11 +41,12 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     //Context mContext;
 
     private MaterialDialog mDialog;
-    private EditText mValue;
+    private TextView mValue;
     private SeekBar mSeekBarHours;
     private SeekBar mSeekBarMinutes;
     private SeekBar mSeekBarSeconds;
     private TextView mEnds;
+    private TimeDurationPickerDialog mValueDialog;
 
     private volatile Timer updateEndsTimer = null;
 
@@ -160,67 +165,64 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
         mEnds.setText(GlobalGUIRoutines.getEndsAtString(iValue));
 
-        final MaskedTextChangedListener listener = new MaskedTextChangedListener(
-                "[00]{:}[00]{:}[00]",
-                false, // keep false: fix for java.lang.IndexOutOfBoundsException
-                mValue,
-                null,
-                new MaskedTextChangedListener.ValueListener() {
-                    @Override
-                    public void onTextChanged(boolean maskFilled, @NonNull final String extractedValue) {
-                        //Log.d(DurationDialogPreference2.class.getSimpleName(), extractedValue);
-                        //Log.d(DurationDialogPreference2.class.getSimpleName(), String.valueOf(maskFilled));
+        mValueDialog = new TimeDurationPickerDialog(activity, new TimeDurationPickerDialog.OnDurationSetListener() {
+            @Override
+            public void onDurationSet(TimeDurationPicker view, long duration) {
+                int iValue = (int) duration / 1000;
 
-                        int hours = 0;
-                        int minutes = 0;
-                        int seconds = 0;
-                        String[] splits = extractedValue.split(":");
-                        try {
-                            hours = Integer.parseInt(splits[0].replaceFirst("\\s+$", ""));
-                        } catch (Exception ignored) {
-                        }
-                        try {
-                            minutes = Integer.parseInt(splits[1].replaceFirst("\\s+$", ""));
-                        } catch (Exception ignored) {
-                        }
-                        try {
-                            seconds = Integer.parseInt(splits[2].replaceFirst("\\s+$", ""));
-                        } catch (Exception ignored) {
-                        }
+                if (iValue < mMin)
+                    iValue = mMin;
+                if (iValue > mMax)
+                    iValue = mMax;
 
-                        int iValue = (hours * 3600 + minutes * 60 + seconds);
+                mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
 
-                        boolean badText = false;
-                        if (iValue < mMin) {
-                            iValue = mMin;
-                            badText = true;
-                        }
-                        if (iValue > mMax) {
-                            iValue = mMax;
-                            badText = true;
-                        }
+                int hours = iValue / 3600;
+                int minutes = (iValue % 3600) / 60;
+                int seconds = iValue % 60;
 
-                        if (mDialog != null) {
-                            MDButton button = mDialog.getActionButton(DialogAction.POSITIVE);
-                            button.setEnabled(!badText);
-                        }
+                mSeekBarHours.setProgress(hours);
+                mSeekBarMinutes.setProgress(minutes);
+                mSeekBarSeconds.setProgress(seconds);
 
-                        hours = iValue / 3600;
-                        minutes = (iValue % 3600) / 60;
-                        seconds = iValue % 60;
+                updateTextFields(false);
+            }
+        }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
 
-                        mSeekBarHours.setProgress(hours);
-                        mSeekBarMinutes.setProgress(minutes);
-                        mSeekBarSeconds.setProgress(seconds);
+        mValue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int hours = mSeekBarHours.getProgress();
+                    int minutes = mSeekBarMinutes.getProgress();
+                    int seconds = mSeekBarSeconds.getProgress();
 
-                        updateTextFields(false);
+                    int iValue = (hours * 3600 + minutes * 60 + seconds);
+                    if (iValue < mMin) iValue = mMin;
+                    if (iValue > mMax) iValue = mMax;
 
-                    }
+                    mValueDialog.setDuration(iValue * 1000);
+                    mValueDialog.show();
                 }
+            }
         );
-        mValue.addTextChangedListener(listener);
-        mValue.setOnFocusChangeListener(listener);
-        mValue.setHint(listener.placeholder());
+
+        TextView mValueDescription = layout.findViewById(R.id.duration_pref_dlg_value_description);
+        mValueDescription.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int hours = mSeekBarHours.getProgress();
+                    int minutes = mSeekBarMinutes.getProgress();
+                    int seconds = mSeekBarSeconds.getProgress();
+
+                    int iValue = (hours * 3600 + minutes * 60 + seconds);
+                    if (iValue < mMin) iValue = mMin;
+                    if (iValue > mMax) iValue = mMax;
+
+                    mValueDialog.setDuration(iValue * 1000);
+                    mValueDialog.show();
+                }
+            }
+        );
 
         mSeekBarHours.setOnSeekBarChangeListener(this);
         mSeekBarMinutes.setOnSeekBarChangeListener(this);
