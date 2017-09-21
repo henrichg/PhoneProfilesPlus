@@ -17,7 +17,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### BatteryBroadcastReceiver.onReceive","xxx");
+        PPApplication.logE("##### BatteryBroadcastReceiver.onReceive", "xxx");
 
         CallsCounter.logCounter(context, "BatteryBroadcastReceiver.onReceive", "BatteryBroadcastReceiver_onReceive");
 
@@ -56,7 +56,8 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                     serviceIntent.putExtra(EXTRA_IS_CHARGING, isCharging);
                     serviceIntent.putExtra(EXTRA_BATTERY_PCT, batteryPct);
                     WakefulIntentService.sendWakefulWork(context, serviceIntent);
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
             }
         }
     }
