@@ -23,26 +23,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/duration_pref_dlg_value"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:textSize="20sp"
-            android:textColor="?attr/colorAccent"
-            android:clickable="true" />
-        <TextView
-            android:id="@+id/duration_pref_dlg_value_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_horizontal"
-            android:textSize="13sp"
-            android:textColor="?attr/colorAccent"
-            android:text="@string/duration_dialog_value_description"
-            android:clickable="true"/>
+            android:layout_marginBottom="10dp" >
+            <TextView
+                android:id="@+id/duration_pref_dlg_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textSize="20sp"
+                android:clickable="true" />
+            <TextView
+                android:id="@+id/duration_pref_dlg_value_spinnerChar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/duration_pref_dlg_value"
+                android:layout_toEndOf="@+id/duration_pref_dlg_value"
+                android:textSize="12sp"
+                android:text="\u25BC"
+                android:clickable="true"/>
+        </RelativeLayout>
 
         <SeekBar
             android:id="@+id/duration_pref_dlg_hours"

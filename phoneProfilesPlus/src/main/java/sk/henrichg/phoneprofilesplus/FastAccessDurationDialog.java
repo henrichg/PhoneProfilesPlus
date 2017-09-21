@@ -206,7 +206,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             }
         );
 
-        TextView mValueDescription = layout.findViewById(R.id.duration_pref_dlg_value_description);
+        TextView mValueDescription = layout.findViewById(R.id.duration_pref_dlg_value_spinnerChar);
         mValueDescription.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

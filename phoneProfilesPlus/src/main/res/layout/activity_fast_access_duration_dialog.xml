@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
               android:layout_marginLeft="20dp"
               android:layout_marginRight="20dp">
 
@@ -26,7 +26,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_gravity="center"
-            android:layout_width="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
@@ -46,26 +47,35 @@
                     android:textSize="16sp"
                     android:text="@string/duration_pref_dlg_duration_label"/>
 
-                <TextView
-                    android:id="@+id/duration_pref_dlg_value"
+                <RelativeLayout
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
-                    android:textSize="20sp"
-                    android:textColor="?attr/colorAccent"
-                    android:clickable="true" />
-                <TextView
-                    android:id="@+id/duration_pref_dlg_value_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center_horizontal"
-                    android:textSize="13sp"
-                    android:textColor="?attr/colorAccent"
-                    android:text="@string/duration_dialog_value_description"
-                    android:clickable="true"/>
+                    android:layout_marginBottom="10dp" >
+                    <TextView
+                        android:id="@+id/duration_pref_dlg_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:textSize="20sp"
+                        android:clickable="true"
+                        android:maxLines="1"/>
+                    <TextView
+                        android:id="@+id/duration_pref_dlg_value_spinnerChar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_toEndOf="@+id/duration_pref_dlg_value"
+                        android:layout_toRightOf="@+id/duration_pref_dlg_value"
+                        android:textSize="12sp"
+                        android:text="\u25BC"
+                        android:clickable="true"/>
+                </RelativeLayout>
 
             </LinearLayout>
 
