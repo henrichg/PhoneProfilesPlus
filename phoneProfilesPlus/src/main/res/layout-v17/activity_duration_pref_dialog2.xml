@@ -40,6 +40,7 @@
             android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
             android:textSize="13sp"
+            android:textColor="?attr/colorAccent"
             android:text="@string/duration_dialog_value_description"
             android:clickable="true"/>
 

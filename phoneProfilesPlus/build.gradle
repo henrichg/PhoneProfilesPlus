@@ -76,7 +76,7 @@ dependencies {
     compile 'com.getkeepsafe.taptargetview:taptargetview:1.9.1'
     compile 'com.evernote:android-job:1.1.11'
     compile 'com.commonsware.cwac:wakeful:1.1.0'
-    compile 'mobi.upod:time-duration-picker:1.1.1'
+    compile 'mobi.upod:time-duration-picker:1.1.2'
 }
 
 
