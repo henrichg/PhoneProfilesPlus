@@ -12,6 +12,7 @@ public class ExecuteRootProfilePrefsService extends IntentService {
 
     public ExecuteRootProfilePrefsService() {
         super("ExecuteRootProfilePrefsService");
+        setIntentRedelivery(true);
     }
 
     @Override

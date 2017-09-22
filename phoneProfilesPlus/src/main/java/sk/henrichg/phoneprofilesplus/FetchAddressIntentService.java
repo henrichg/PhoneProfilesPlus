@@ -22,6 +22,7 @@ public class FetchAddressIntentService extends IntentService {
 
     public FetchAddressIntentService() {
         super("FetchAddressIntentService");
+        setIntentRedelivery(true);
     }
 
     @Override

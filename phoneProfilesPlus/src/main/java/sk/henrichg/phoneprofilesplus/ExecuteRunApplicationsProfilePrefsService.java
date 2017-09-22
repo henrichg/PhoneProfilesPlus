@@ -8,6 +8,7 @@ public class ExecuteRunApplicationsProfilePrefsService extends IntentService
 {
     public ExecuteRunApplicationsProfilePrefsService() {
         super("ExecuteRunApplicationsProfilePrefsService");
+        setIntentRedelivery(true);
     }
 
     @Override

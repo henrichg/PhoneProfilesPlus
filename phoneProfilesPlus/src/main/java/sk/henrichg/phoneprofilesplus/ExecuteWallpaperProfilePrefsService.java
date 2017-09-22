@@ -8,6 +8,7 @@ public class ExecuteWallpaperProfilePrefsService extends IntentService
 {
     public ExecuteWallpaperProfilePrefsService() {
         super("ExecuteWallpaperProfilePrefsService");
+        setIntentRedelivery(true);
     }
 
     @Override

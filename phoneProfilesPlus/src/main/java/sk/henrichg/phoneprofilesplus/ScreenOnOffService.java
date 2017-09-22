@@ -10,6 +10,7 @@ public class ScreenOnOffService extends IntentService {
 
     public ScreenOnOffService() {
         super("ScreenOnOffService");
+        setIntentRedelivery(true);
     }
 
     @Override
