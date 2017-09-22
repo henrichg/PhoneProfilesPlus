@@ -89,7 +89,7 @@ public class PPApplication extends Application {
                                          //+"|RingtonePreferenceAdapter"
                                          //+"|PhoneProfilesService.playEventNotificationSound"
 
-                                         +"|BatteryBroadcastReceiver"
+                                         //+"|BatteryBroadcastReceiver"
             ;
 
 

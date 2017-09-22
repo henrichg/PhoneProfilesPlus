@@ -27,6 +27,7 @@ public class WifiService extends WakefulIntentService {
             Context appContext = getApplicationContext();
 
             String action = intent.getAction();
+            CallsCounter.logCounterNoInc(getApplicationContext(), "WifiService.doWakefulWork->action="+action, "WifiService_doWakefulWork");
 
             if (action.equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
                 // WifiConnectionBroadcastReceiver
@@ -239,6 +240,8 @@ public class WifiService extends WakefulIntentService {
                 }
             }
         }
+        else
+            CallsCounter.logCounterNoInc(getApplicationContext(), "WifiService.doWakefulWork->intent=null", "WifiService_doWakefulWork");
     }
 
 }

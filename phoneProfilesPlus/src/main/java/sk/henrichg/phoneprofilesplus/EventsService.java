@@ -115,6 +115,7 @@ public class EventsService extends WakefulIntentService {
 
         broadcastReceiverType = intent.getStringExtra(EXTRA_BROADCAST_RECEIVER_TYPE);
         PPApplication.logE("#### EventsService.onHandleIntent", "broadcastReceiverType=" + broadcastReceiverType);
+        CallsCounter.logCounterNoInc(getApplicationContext(), "EventsService.doWakefulWork->broadcastReceiverType="+broadcastReceiverType, "EventsService_doWakefulWork");
 
         //restartAtEndOfEvent = false;
 
