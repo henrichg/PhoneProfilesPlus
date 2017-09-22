@@ -28,37 +28,57 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
+        boolean statusReceived = false;
         int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "status=" + status);
-
+        boolean _isCharging = false;
         if (status != -1) {
-            boolean _isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+            statusReceived = true;
+            _isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                     status == BatteryManager.BATTERY_STATUS_FULL;
-            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "isCharging=" + isCharging);
-            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_isCharging=" + _isCharging);
+        }
 
-            int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        boolean levelReceived = false;
+        int pct = -100;
+        int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "level=" + level);
+        if (level != -1) {
+            levelReceived = true;
             int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-            int pct = Math.round(level / (float) scale * 100);
+            pct = Math.round(level / (float) scale * 100);
+        }
 
-            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryPct=" + batteryPct);
-            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "pct=" + pct);
-            //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "level=" + level);
+        String action = intent.getAction();
+        if (action.equals(Intent.ACTION_POWER_CONNECTED)) {
+            statusReceived = true;
+            _isCharging = true;
+        }
+        else
+        if (action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
+            statusReceived = true;
+            _isCharging = false;
+        }
 
-            if ((isCharging != _isCharging) || (batteryPct != pct)) {
-                PPApplication.logE("BatteryBroadcastReceiver.onReceive", "state changed");
+        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "isCharging=" + isCharging);
+        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_isCharging=" + _isCharging);
+        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryPct=" + batteryPct);
+        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "pct=" + pct);
 
+        if ((statusReceived &&(isCharging != _isCharging)) || (levelReceived && (batteryPct != pct))) {
+            PPApplication.logE("BatteryBroadcastReceiver.onReceive", "state changed");
+
+            if (statusReceived)
                 isCharging = _isCharging;
+            if (levelReceived)
                 batteryPct = pct;
 
-                try {
-                    Intent serviceIntent = new Intent(context, BatteryService.class);
-                    serviceIntent.setAction(intent.getAction());
-                    serviceIntent.putExtra(EXTRA_IS_CHARGING, isCharging);
-                    serviceIntent.putExtra(EXTRA_BATTERY_PCT, batteryPct);
-                    WakefulIntentService.sendWakefulWork(context, serviceIntent);
-                } catch (Exception ignored) {
-                }
+            try {
+                Intent serviceIntent = new Intent(context, BatteryService.class);
+                serviceIntent.setAction(intent.getAction());
+                serviceIntent.putExtra(EXTRA_IS_CHARGING, isCharging);
+                serviceIntent.putExtra(EXTRA_BATTERY_PCT, batteryPct);
+                WakefulIntentService.sendWakefulWork(context, serviceIntent);
+            } catch (Exception ignored) {
             }
         }
     }
