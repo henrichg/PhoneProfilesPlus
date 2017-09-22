@@ -130,11 +130,11 @@ Battery event:
 Wi-fi, Bluetooth, Location scanning:
 - Zmenit default hodnotu scan intervalu na 15 minut (v preferences)
 - Dat do preferences preference info s upozornenim, ze nizky interval skenovania zerie bateriu. Odporuca sa 15 minut.
-- Rescan preference - dat default len Screen On.
+- Rescan preference - dat default Screen On.
 - Dat do preferences preference info ze sa odporuca mat nastaveny Rescan preference na hodnotu s Screen On.
 
 Mobile cells scanning:
 - Zmenit default hodnotu scan intervalu na 10 sekund (v preferences)
 - Dat do preferences preference info s upozornenim, ze nizky interval skenovania zerie bateriu. Odporuca sa 15 minut.
-- Rescan preference - dat default len Screen On.
+- Rescan preference - dat default Screen On.
 - Dat do preferences preference info ze sa odporuca mat nastaveny Rescan preference na hodnotu s Screen On.
