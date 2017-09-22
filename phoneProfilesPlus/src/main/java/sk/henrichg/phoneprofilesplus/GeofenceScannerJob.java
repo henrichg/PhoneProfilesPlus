@@ -51,7 +51,7 @@ class GeofenceScannerJob extends Job {
             return Result.SUCCESS;
         }
 
-        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
+        boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
             PPApplication.logE("GeofenceScannerJob.onRunJob", "update in power save mode is not allowed = cancel job");
             GeofenceScannerJob.cancelJob();
@@ -121,7 +121,7 @@ class GeofenceScannerJob extends Job {
                         if (PhoneProfilesService.geofencesScanner.mUpdatesStarted) {
                             interval = ApplicationPreferences.applicationEventLocationUpdateInterval(context) * 60;
                             PPApplication.logE("GeofenceScannerJob.scheduleJob", "interval=" + interval);
-                            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
+                            boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
                             if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("1"))
                                 interval = 2 * interval;
                             //interval = interval - updateDuration;

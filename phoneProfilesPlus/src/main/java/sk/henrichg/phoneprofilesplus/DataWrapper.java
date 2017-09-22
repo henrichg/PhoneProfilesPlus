@@ -1635,7 +1635,7 @@ public class DataWrapper {
                     }
                 }
                 if (batteryPassed && event._eventPreferencesBattery._powerSaveMode) {
-                    batteryPassed = isPowerSaveMode();
+                    batteryPassed = PPApplication.isPowerSaveMode;
                 }
             }
             else
@@ -3266,44 +3266,6 @@ public class DataWrapper {
             }
         }
         getDatabaseHandler().resetAllEventsInDelayStart();
-    }
-
-    public static boolean isPowerSaveMode(/*Context context*/) {
-        // Internal Power save mode
-        if (Build.VERSION.SDK_INT < 21) {
-            return PPApplication.isPowerSaveMode;
-            /*else {
-                boolean isCharging;
-                int batteryPct;
-
-                // get battery status
-                IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-                Intent batteryStatus = context.registerReceiver(null, ifilter);
-
-                if (batteryStatus != null) {
-                    int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-                    isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
-                            status == BatteryManager.BATTERY_STATUS_FULL;
-
-                    int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-                    int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-
-                    batteryPct = Math.round(level / (float) scale * 100);
-
-                    if ((!isCharging) &&
-                            ((PPApplication.applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5)) ||
-                                    (PPApplication.applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15)))) {
-                        return true;
-                    }
-                }
-            }*/
-        }
-        else {
-            //PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            //return powerManager.isPowerSaveMode();
-            return PPApplication.isPowerSaveMode;
-        }
-        //return false;
     }
 
     public void addActivityLog(int logType, String eventName, String profileName, String profileIcon,

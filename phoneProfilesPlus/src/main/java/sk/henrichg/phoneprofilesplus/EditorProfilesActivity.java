@@ -1053,7 +1053,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (resultCode == RESULT_OK)
             {
                 if (PhoneProfilesService.instance != null) {
-                    boolean powerSaveMode = DataWrapper.isPowerSaveMode();
+                    boolean powerSaveMode = PPApplication.isPowerSaveMode;
                     if (PhoneProfilesService.geofencesScanner != null) {
                         PhoneProfilesService.geofencesScanner.resetLocationUpdates(powerSaveMode, true);
                     }

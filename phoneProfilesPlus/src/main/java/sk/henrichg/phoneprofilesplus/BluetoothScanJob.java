@@ -85,7 +85,7 @@ class BluetoothScanJob extends Job {
                         jobManager.cancelAllForTag(JOB_TAG_SHORT);
 
                         int interval = ApplicationPreferences.applicationEventBluetoothScanInterval(context);
-                        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
+                        boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
                         if (isPowerSaveMode && ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context).equals("1"))
                             interval = 2 * interval;
 

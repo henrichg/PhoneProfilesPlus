@@ -80,7 +80,7 @@ class WifiScanJob extends Job {
                         jobManager.cancelAllForTag(JOB_TAG_SHORT);
 
                         int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
-                        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
+                        boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
                         if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("1"))
                             interval = 2 * interval;
 
