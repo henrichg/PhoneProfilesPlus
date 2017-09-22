@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 
 class ApplicationPreferences {
 
@@ -297,7 +298,10 @@ class ApplicationPreferences {
     }
 
     static String applicationPowerSaveModeInternal(Context context) {
-        return getSharedPreferences(context).getString(PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, "2");
+        if (Build.VERSION.SDK_INT >= 21)
+            return getSharedPreferences(context).getString(PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, "3");
+        else
+            return getSharedPreferences(context).getString(PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, "0");
     }
 
     static int applicationEventBluetoothLEScanDuration(Context context) {

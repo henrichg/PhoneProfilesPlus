@@ -9,8 +9,8 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
-    private static boolean isCharging = false;
-    private static int batteryPct = -100;
+    static boolean isCharging = false;
+    static int batteryPct = -100;
 
     public static final String EXTRA_IS_CHARGING = "isCharging";
     public static final String EXTRA_BATTERY_PCT = "batteryPct";
@@ -20,6 +20,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("##### BatteryBroadcastReceiver.onReceive", "xxx");
 
         CallsCounter.logCounter(context, "BatteryBroadcastReceiver.onReceive", "BatteryBroadcastReceiver_onReceive");
+        CallsCounter.logCounterNoInc(context, "BatteryBroadcastReceiver.onReceive->action="+intent.getAction(), "BatteryBroadcastReceiver_onReceive");
 
         Context appContext = context.getApplicationContext();
 

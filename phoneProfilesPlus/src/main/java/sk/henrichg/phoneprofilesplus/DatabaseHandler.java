@@ -5099,6 +5099,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    int getBatteryEventWithLevelCount()
+    {
+        synchronized (databaseHandlerMutex) {
+            final String countQuery;
+            String eventChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
+            eventChecked = eventChecked + KEY_E_BATTERY_ENABLED + "=1" + " AND ";
+            eventChecked = eventChecked + "(" + KEY_E_BATTERY_LEVEL_LOW + ">0" + " OR ";
+            eventChecked = eventChecked +       KEY_E_BATTERY_LEVEL_HIGHT + "<100" +")";
+
+            countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
+                    " WHERE " + eventChecked;
+
+            //SQLiteDatabase db = this.getReadableDatabase();
+            SQLiteDatabase db = getMyWritableDatabase();
+
+            Cursor cursor = db.rawQuery(countQuery, null);
+
+            int r;
+
+            if (cursor != null) {
+                cursor.moveToFirst();
+                r = Integer.parseInt(cursor.getString(0));
+                cursor.close();
+            } else
+                r = 0;
+
+            //db.close();
+
+            return r;
+        }
+    }
+
 // EVENT TIMELINE ------------------------------------------------------------------
 
     // Adding time line

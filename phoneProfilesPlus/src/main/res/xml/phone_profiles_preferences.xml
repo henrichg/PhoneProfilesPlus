@@ -129,7 +129,7 @@
             android:key="applicationPowerSaveModeInternal"
             android:title="@string/phone_profiles_pref_applicationPowerSaveMode"
             android:summary="@string/array_pref_powerSaveMode_15"
-            android:defaultValue="2"
+            android:defaultValue="@string/applicationPowerSaveModeInternal"
             android:entries="@array/powerSaveModeArray"
             android:entryValues="@array/powerSaveModeValues"
             app:useStockLayout="true" />

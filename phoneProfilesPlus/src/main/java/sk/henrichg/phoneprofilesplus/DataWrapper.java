@@ -1600,8 +1600,8 @@ public class DataWrapper {
             int batteryPct;
 
             // get battery status
-            IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-            Intent batteryStatus = context.registerReceiver(null, ifilter);
+            IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+            Intent batteryStatus = context.registerReceiver(null, filter);
 
             if (batteryStatus != null)
             {

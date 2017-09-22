@@ -111,7 +111,6 @@ Android O:
    Dobre, ale je, ze to spravi wake, takze v podstate ako WakefulIntentService.
 4. Pouzivat NotificationChannels. Pre hlavnu notifikaciu to uz mam, len je to zapoznamkovane. Treba to spravit pre vsetky notifikacie.
 
-
 ----------------------------------
 
 Battery event:
@@ -145,3 +144,5 @@ Mobile cells scanning:
 - Dat do preferences preference info s upozornenim, ze nizky interval skenovania zerie bateriu. Odporuca sa 15 minut.
 - Rescan preference - dat default Screen On.
 - Dat do preferences preference info ze sa odporuca mat nastaveny Rescan preference na hodnotu s Screen On.
+
+

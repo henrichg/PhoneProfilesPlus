@@ -32,6 +32,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
+import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -43,6 +44,7 @@ import android.provider.Telephony;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -72,6 +74,7 @@ public class PhoneProfilesService extends Service
     private WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
 
     private BatteryBroadcastReceiver batteryEventReceiver = null;
+    private BatteryBroadcastReceiver batteryChangeLevelReceiver = null;
     private HeadsetConnectionBroadcastReceiver headsetPlugReceiver = null;
     private NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;
     private DockConnectionBroadcastReceiver dockConnectionBroadcastReceiver = null;
@@ -99,6 +102,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_SET_SERVICE_FOREGROUND = "set_service_foreground";
     static final String EXTRA_CLEAR_SERVICE_FOREGROUND = "clear_service_foreground";
     static final String EXTRA_SWITCH_KEYGUARD = "switch_keyguard";
+    static final String EXTRA_REGISTER_BATTERY_CHANGED_BROADCAST = "register_battery_changed_broadcast";
 
     //-----------------------
 
@@ -287,13 +291,30 @@ public class PhoneProfilesService extends Service
 
         // --- receivers and content observers for events -- register it only if any event exists
 
+        // get actual battery status
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = registerReceiver(null, filter);
+        if (batteryStatus != null) {
+            int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+            BatteryBroadcastReceiver.isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                            status == BatteryManager.BATTERY_STATUS_FULL;
+            int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+            int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+            BatteryBroadcastReceiver.batteryPct = Math.round(level / (float) scale * 100);
+        }
+
         // required for battery event
         if (batteryEventReceiver != null)
             appContext.unregisterReceiver(batteryEventReceiver);
         batteryEventReceiver = new BatteryBroadcastReceiver();
         IntentFilter intentFilter1 = new IntentFilter();
-        intentFilter1.addAction(Intent.ACTION_BATTERY_CHANGED);
+        intentFilter1.addAction(Intent.ACTION_POWER_CONNECTED);
+        intentFilter1.addAction(Intent.ACTION_POWER_DISCONNECTED);
+        intentFilter1.addAction(Intent.ACTION_BATTERY_LOW);
+        intentFilter1.addAction(Intent.ACTION_BATTERY_OKAY);
         appContext.registerReceiver(batteryEventReceiver, intentFilter1);
+
+        registerBatteryChangedReceiver();
 
         // required for peripherals event
         if (headsetPlugReceiver != null)
@@ -525,6 +546,8 @@ public class PhoneProfilesService extends Service
 
         if (batteryEventReceiver != null)
             appContext.unregisterReceiver(batteryEventReceiver);
+        if (batteryChangeLevelReceiver != null)
+            appContext.unregisterReceiver(batteryChangeLevelReceiver);
         if (headsetPlugReceiver != null)
             appContext.unregisterReceiver(headsetPlugReceiver);
         if (screenOnOffReceiver != null)
@@ -646,6 +669,29 @@ public class PhoneProfilesService extends Service
         return onlyStart;
     }
 
+    void registerBatteryChangedReceiver() {
+        Context appContext = getApplicationContext();
+        if (batteryChangeLevelReceiver != null) {
+            try {
+                appContext.unregisterReceiver(batteryChangeLevelReceiver);
+            } catch (Exception e) {
+                batteryChangeLevelReceiver = null;
+            }
+        }
+        // get power save mode from PPP settings (tested will be value "1" = 5%, "2" = 15%)
+        String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal(appContext);
+        // get non-stopped events with battery sensor with levels > 0 and < 100
+        int batterySensorEventCount = DatabaseHandler.getInstance(appContext).getBatteryEventWithLevelCount();
+        if (powerSaveModeInternal.equals("1") || powerSaveModeInternal.equals("2") || (batterySensorEventCount > 0)) {
+            batteryChangeLevelReceiver = new BatteryBroadcastReceiver();
+            IntentFilter intentFilter1_1 = new IntentFilter();
+            intentFilter1_1.addAction(Intent.ACTION_BATTERY_CHANGED);
+            appContext.registerReceiver(batteryChangeLevelReceiver, intentFilter1_1);
+        }
+        else
+            batteryChangeLevelReceiver = null;
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
@@ -707,6 +753,11 @@ public class PhoneProfilesService extends Service
                             }
                         }
                     }
+                }
+
+                if (intent.getBooleanExtra(EXTRA_REGISTER_BATTERY_CHANGED_BROADCAST, false)) {
+                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_REGISTER_BATTERY_CHANGED_BROADCAST");
+                    registerBatteryChangedReceiver();
                 }
 
                 if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_RINGING_CALL, false)) {

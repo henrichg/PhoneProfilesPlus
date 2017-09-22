@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.Preference;
@@ -249,15 +250,39 @@ class EventPreferencesBattery extends EventPreferences {
     public void setSystemEventForStart(Context context)
     {
     }
+    */
 
     @Override
     public void setSystemEventForPause(Context context)
     {
+        if (PhoneProfilesService.instance != null) {
+            // register receiver for battery level update
+            // required for preference ApplicationPreferences.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL
+            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_BATTERY_CHANGED_BROADCAST, true);
+            //TODO Android O
+            // if (Build.VERSION.SDK_INT < 26)
+            context.getApplicationContext().startService(serviceIntent);
+            //else
+            //    context.getApplicationContext().startForegroundService(serviceIntent);
+        }
     }
 
     @Override
     public void removeSystemEvent(Context context)
     {
+        if (PhoneProfilesService.instance != null) {
+            // register receiver for battery level update
+            // required for preference ApplicationPreferences.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL
+            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_BATTERY_CHANGED_BROADCAST, true);
+            //TODO Android O
+            // if (Build.VERSION.SDK_INT < 26)
+            context.getApplicationContext().startService(serviceIntent);
+            //else
+            //    context.getApplicationContext().startForegroundService(serviceIntent);
+        }
     }
-    */
 }
