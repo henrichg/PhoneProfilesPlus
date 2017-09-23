@@ -581,14 +581,22 @@ class GlobalGUIRoutines {
     }
 
     static boolean activityActionExists(String action, Context context) {
-        final Intent intent = new Intent(action);
-        List<ResolveInfo> activities = context.getApplicationContext().getPackageManager().queryIntentActivities(intent, 0);
-        return activities.size() > 0;
+        try {
+            final Intent intent = new Intent(action);
+            List<ResolveInfo> activities = context.getApplicationContext().getPackageManager().queryIntentActivities(intent, 0);
+            return activities.size() > 0;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     static boolean activityIntentExists(Intent intent, Context context) {
-        List<ResolveInfo> activities = context.getApplicationContext().getPackageManager().queryIntentActivities(intent, 0);
-        return activities.size() > 0;
+        try {
+            List<ResolveInfo> activities = context.getApplicationContext().getPackageManager().queryIntentActivities(intent, 0);
+            return activities.size() > 0;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }
