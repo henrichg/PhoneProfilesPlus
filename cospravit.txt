@@ -118,19 +118,19 @@ Battery event:
 - Cize dat do preferences preference info s upozrnenim, ze sledovanie urovne baterie hodne zerie. A ze ak nechce sledovat
   uroven baterie, nech nastavia lowLevel=0, highLevel=100.
 - Spravit toto:
-  1. Zmenit default hodnotu pre lowLevel=0, highLevel=100 (v databaze a preferences).
-  2. Ak ma nastaveny lowLevel=0 a highLevel=100, neregistrovat broadcast receiver Intent.ACTION_BATTERY_CHANGED.
+  1. HOTOVO - Zmenit default hodnotu pre lowLevel=0, highLevel=100 (v databaze a preferences).
+  2. HOTOVO - Ak ma nastaveny lowLevel=0 a highLevel=100, neregistrovat broadcast receiver Intent.ACTION_BATTERY_CHANGED.
      Ale bacha na "Power save mode", vid ApplicationPreferences.applicationPowerSaveModeInternal()
      Ak = "1" alebo "2", tak sa pouziva battery level, cize Intent.ACTION_BATTERY_CHANGED je nutny.
      Kto nastavuje PPApplication.isPowerSaveMode:
      a) BatteryService
      b) PowerSaveModeService
-  3. Zmenit default hodnotu pre PPP Settings = "Power save mode settings" na "off", ak nie je podpora v Android
+  3. HOTOVO - Zmenit default hodnotu pre PPP Settings = "Power save mode settings" na "off", ak nie je podpora v Android
      a na "Use battery saver", ak podpora je.
   4. Pridat novy parameter "Battery low" = broadcast Intent.ACTION_BATTERY_LOW, registrovat pre BatteryBroadcastReceiver.
   5. Pridat novy parameter "Battery OK" = broadcast Intent.ACTION_BATTERY_OKAY, registrovat pre BatteryBroadcastReceiver.
-  6. Pridat novy action Intent.ACTION_POWER_CONNECTED, registrovat pre BatteryBroadcastReceiver.
-  7. Pridat novy action Intent.ACTION_POWER_DISCONNECTED, registrovat pre BatteryBroadcastReceiver.
+  6. HOTOVO - Pridat novy action Intent.ACTION_POWER_CONNECTED, registrovat pre BatteryBroadcastReceiver.
+  7. HOTOVO - Pridat novy action Intent.ACTION_POWER_DISCONNECTED, registrovat pre BatteryBroadcastReceiver.
 - Vid: https://developer.android.com/training/monitoring-device-state/battery-monitoring.html
 
 Wi-fi, Bluetooth, Location scanning:
