@@ -1069,14 +1069,13 @@ public class PhoneProfilesService extends Service
                 contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_action_events_restart_dark);
             contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
 
-            //if (android.os.Build.VERSION.SDK_INT >= 24) {
-            //    notificationBuilder.setStyle(new Notification.DecoratedCustomViewStyle());
-            //    notificationBuilder.setCustomContentView(contentView);
-            //}
-            //else
-            //noinspection deprecation
-            notificationBuilder.setContent(contentView);
-            //notificationBuilder.setAutoCancel(true);
+            if (android.os.Build.VERSION.SDK_INT >= 24) {
+                //notificationBuilder.setStyle(new Notification.DecoratedCustomViewStyle());
+                notificationBuilder.setCustomContentView(contentView);
+            }
+            else
+                //noinspection deprecation
+                notificationBuilder.setContent(contentView);
 
             Notification phoneProfilesNotification;
             try {
