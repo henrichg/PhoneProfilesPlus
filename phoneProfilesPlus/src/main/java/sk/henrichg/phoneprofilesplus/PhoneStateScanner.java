@@ -380,7 +380,12 @@ class PhoneStateScanner extends PhoneStateListener {
             //Log.d("PhoneStateScanner.startAutoRegistration","xxx");
             stopAutoRegistration();
             try {
-                context.startService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
+                Intent serviceIntent = new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class);
+                //TODO Android O
+                // if (Build.VERSION.SDK_INT < 26)
+                context.startService(serviceIntent);
+                //else
+                //    context.startForegroundService(serviceIntent);
             } catch (Exception ignored) {}
         }
     }
