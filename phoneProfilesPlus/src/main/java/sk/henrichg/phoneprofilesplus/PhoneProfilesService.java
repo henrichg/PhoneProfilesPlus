@@ -694,7 +694,7 @@ public class PhoneProfilesService extends Service
             String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal(appContext);
             // get non-stopped events with battery sensor with levels > 0 and < 100
             int batterySensorEventCount = 1;
-            if (checkDatabase)
+            if (checkDatabase || (batteryChangeLevelReceiver == null))
                 batterySensorEventCount = DatabaseHandler.getInstance(appContext).getBatteryEventWithLevelCount();
             if (powerSaveModeInternal.equals("1") || powerSaveModeInternal.equals("2") || (batterySensorEventCount > 0)) {
                 if (batteryChangeLevelReceiver == null) {
