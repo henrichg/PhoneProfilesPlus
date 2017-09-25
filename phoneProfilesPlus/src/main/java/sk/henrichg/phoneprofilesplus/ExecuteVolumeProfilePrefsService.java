@@ -44,7 +44,7 @@ public class ExecuteVolumeProfilePrefsService extends WakefulIntentService
         }
 
         if (linkUnlink != PhoneCallService.LINKMODE_NONE)
-            // link, unlink is executed, not needed do it from EventsService
+            // link, unlink is executed, not needed do it from EventsHandlerService
             PhoneCallService.linkUnlinkExecuted = true;
 
         long profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
@@ -91,7 +91,7 @@ public class ExecuteVolumeProfilePrefsService extends WakefulIntentService
                 //SystemClock.sleep(500);
                 PPApplication.sleep(500);
 
-                final Handler handler = new Handler(context.getMainLooper());
+                final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {

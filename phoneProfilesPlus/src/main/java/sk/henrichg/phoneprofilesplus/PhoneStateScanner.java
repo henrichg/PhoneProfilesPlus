@@ -340,7 +340,7 @@ class PhoneStateScanner extends PhoneStateListener {
     }
 
     private void sendBroadcast() {
-        // start service for call EventsService
+        // start service for call EventsHandlerService
         try {
             Intent serviceIntent = new Intent(context, PhoneStateService.class);
             WakefulIntentService.sendWakefulWork(context, serviceIntent);

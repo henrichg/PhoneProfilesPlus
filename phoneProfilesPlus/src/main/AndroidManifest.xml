@@ -540,7 +540,7 @@
             android:stopWithTask="false">
         </service>
         <service
-            android:name=".EventsService"
+            android:name=".EventsHandlerService"
             android:exported="false">
         </service>
         <service

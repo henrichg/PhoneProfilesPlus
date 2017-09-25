@@ -1195,7 +1195,7 @@ class Event {
             if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart) {
                 PPApplication.logE("Event.pauseEvent","restart events");
 
-                //EventsService.restartAtEndOfEvent = true;
+                //EventsHandlerService.restartAtEndOfEvent = true;
 
                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 

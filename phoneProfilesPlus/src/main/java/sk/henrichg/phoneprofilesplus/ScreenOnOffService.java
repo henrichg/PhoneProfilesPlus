@@ -111,11 +111,9 @@ public class ScreenOnOffService extends IntentService {
                     //if (screenEventsExists*/)
                     //{
                     // start service
-                    try {
-                        Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_SCREEN);
-                        WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
-                    } catch (Exception ignored) {}
+                    Intent eventsServiceIntent = new Intent(appContext, EventsHandlerService.class);
+                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SCREEN);
+                    WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
                     //}
 
                     if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {

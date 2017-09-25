@@ -88,11 +88,11 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         if (Event.getGlobalEventsRunning(context)) {
             try {
-                Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_NOTIFICATION);
+                Intent eventsServiceIntent = new Intent(context, EventsHandlerService.class);
+                eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION);
                 //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
                 //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));
-                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
+                eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
                 WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
             } catch (Exception ignored) {}
         }
@@ -126,11 +126,11 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         if (Event.getGlobalEventsRunning(context)) {
             try {
-                Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_NOTIFICATION);
+                Intent eventsServiceIntent = new Intent(context, EventsHandlerService.class);
+                eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION);
                 //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
                 //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));
-                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
+                eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
                 WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
             } catch (Exception ignored) {}
         }

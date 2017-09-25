@@ -74,14 +74,14 @@ public class PPApplication extends Application {
 
                                          //+"|CalendarProviderChangedBroadcastReceiver"
                                          //+"|TimeChangedReceiver"
-                                         //+"|[CALENDAR] EventsService"
+                                         //+"|[CALENDAR] EventsHandlerService"
 
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
 
                                          //+"|PhoneProfilesService.doSimulatingRingingCall"
                                          //+"|ActivateProfileHelper.setZenMode"
 
-                                         //+"|EventsService.onHandleIntent"
+                                         //+"|EventsHandlerService.onHandleIntent"
                                          //+"|EventPreferencesNFC"
 
                                          //+"|##### DeviceOrientationService"
@@ -184,8 +184,11 @@ public class PPApplication extends Application {
     public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
     public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
-    public static final ScanResultsMutex scanResultsMutex = new ScanResultsMutex();
+    public static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
+    public static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
     public static final GeofenceScannerLastLocationMutex geofenceScannerLastLocationMutex = new GeofenceScannerLastLocationMutex();
+    public static final ScannerMutext scannerMutex = new ScannerMutext();
+    public static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
 
     public static boolean isPowerSaveMode = false;
 

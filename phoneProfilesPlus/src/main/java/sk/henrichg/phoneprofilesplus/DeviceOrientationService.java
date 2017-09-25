@@ -73,12 +73,9 @@ public class DeviceOrientationService extends WakefulIntentService {
                     return;
                 }
 
-                // start service
-                try {
-                    Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_DEVICE_ORIENTATION);
-                    WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
-                } catch (Exception ignored) {}
+                // start events handler
+                EventsHandler eventsHandler = new EventsHandler(appContext);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION, false);
             }
         }
     }

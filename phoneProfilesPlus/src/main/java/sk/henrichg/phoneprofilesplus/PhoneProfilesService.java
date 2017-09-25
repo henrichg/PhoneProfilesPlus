@@ -102,6 +102,14 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_SET_SERVICE_FOREGROUND = "set_service_foreground";
     static final String EXTRA_CLEAR_SERVICE_FOREGROUND = "clear_service_foreground";
     static final String EXTRA_SWITCH_KEYGUARD = "switch_keyguard";
+    static final String EXTRA_SIMULATE_RINGING_CALL = "simulate_ringing_call";
+    static final String EXTRA_OLD_RINGER_MODE = "old_ringer_mode";
+    static final String EXTRA_OLD_SYSTEM_RINGER_MODE = "old_system_ringer_mode";
+    static final String EXTRA_OLD_ZEN_MODE = "old_zen_mode";
+    static final String EXTRA_OLD_RINGTONE = "old_ringtone";
+    //static final String EXTRA_SIMULATE_NOTIFICATION_TONE = "simulate_notification_tone";
+    //static final String EXTRA_OLD_NOTIFICATION_TONE = "old_notification_tone";
+    static final String EXTRA_OLD_SYSTEM_RINGER_VOLUME = "old_system_ringer_volume";
 
     //-----------------------
 
@@ -273,7 +281,7 @@ public class PhoneProfilesService extends Service
         intentFilter8.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
         appContext.registerReceiver(wifiStateChangedBroadcastReceiver, intentFilter8);
 
-        // required for start EventsService in idle maintenance window
+        // required for start EventsHandlerService in idle maintenance window
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             if (deviceIdleModeReceiver != null)
                 appContext.unregisterReceiver(deviceIdleModeReceiver);
@@ -763,11 +771,11 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_RINGING_CALL, false)) {
+                if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SIMULATE_RINGING_CALL");
                     doSimulatingRingingCall(intent);
                 }
-                //if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_NOTIFICATION_TONE, false))
+                //if (intent.getBooleanExtra(EventsHandlerService.EXTRA_SIMULATE_NOTIFICATION_TONE, false))
                 //    doSimulatingNotificationTone(intent);
 
                 if (intent.getBooleanExtra(EXTRA_START_STOP_SCANNER, false)) {
@@ -1554,7 +1562,7 @@ public class PhoneProfilesService extends Service
     //---------------------------
 
     private void doSimulatingRingingCall(Intent intent) {
-        if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_RINGING_CALL, false))
+        if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false))
         {
             PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "simulate ringing call");
 
@@ -1562,11 +1570,11 @@ public class PhoneProfilesService extends Service
 
             ringingCallIsSimulating = false;
 
-            int oldRingerMode = intent.getIntExtra(EventsService.EXTRA_OLD_RINGER_MODE, 0);
-            int oldSystemRingerMode = intent.getIntExtra(EventsService.EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
-            int oldZenMode = intent.getIntExtra(EventsService.EXTRA_OLD_ZEN_MODE, 0);
-            String oldRingtone = intent.getStringExtra(EventsService.EXTRA_OLD_RINGTONE);
-            int oldSystemRingerVolume = intent.getIntExtra(EventsService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, -1);
+            int oldRingerMode = intent.getIntExtra(EXTRA_OLD_RINGER_MODE, 0);
+            int oldSystemRingerMode = intent.getIntExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
+            int oldZenMode = intent.getIntExtra(EXTRA_OLD_ZEN_MODE, 0);
+            String oldRingtone = intent.getStringExtra(EXTRA_OLD_RINGTONE);
+            int oldSystemRingerVolume = intent.getIntExtra(EXTRA_OLD_SYSTEM_RINGER_VOLUME, -1);
             int newRingerMode = ActivateProfileHelper.getRingerMode(context);
             int newZenMode = ActivateProfileHelper.getZenMode(context);
             int newRingerVolume = ActivateProfileHelper.getRingerVolume(context);
@@ -1771,7 +1779,7 @@ public class PhoneProfilesService extends Service
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", " security exception");
                     Permissions.grantPlayRingtoneNotificationPermissions(this, true, true);
                     ringingMediaPlayer = null;
-                    final Handler handler = new Handler(getMainLooper());
+                    final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -1782,7 +1790,7 @@ public class PhoneProfilesService extends Service
                 } catch (Exception e) {
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "exception");
                     ringingMediaPlayer = null;
-                    final Handler handler = new Handler(getMainLooper());
+                    final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -1817,7 +1825,7 @@ public class PhoneProfilesService extends Service
                 audioManager.abandonAudioFocus(this);
         //}
         ringingCallIsSimulating = false;
-        final Handler handler = new Handler(getMainLooper());
+        final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -1828,7 +1836,7 @@ public class PhoneProfilesService extends Service
     }
 
     /*private void doSimulatingNotificationTone(Intent intent) {
-        if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_NOTIFICATION_TONE, false) &&
+        if (intent.getBooleanExtra(EventsHandlerService.EXTRA_SIMULATE_NOTIFICATION_TONE, false) &&
                 !ringingCallIsSimulating)
         {
             PPApplication.logE("PhoneProfilesService.doSimulatingNotificationTone", "simulate notification tone");
@@ -1837,10 +1845,10 @@ public class PhoneProfilesService extends Service
 
             notificationToneIsSimulating = false;
 
-            int oldRingerMode = intent.getIntExtra(EventsService.EXTRA_OLD_RINGER_MODE, 0);
-            int oldSystemRingerMode = intent.getIntExtra(EventsService.EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
-            int oldZenMode = intent.getIntExtra(EventsService.EXTRA_OLD_ZEN_MODE, 0);
-            String oldNotificationTone = intent.getStringExtra(EventsService.EXTRA_OLD_NOTIFICATION_TONE);
+            int oldRingerMode = intent.getIntExtra(EventsHandlerService.EXTRA_OLD_RINGER_MODE, 0);
+            int oldSystemRingerMode = intent.getIntExtra(EventsHandlerService.EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
+            int oldZenMode = intent.getIntExtra(EventsHandlerService.EXTRA_OLD_ZEN_MODE, 0);
+            String oldNotificationTone = intent.getStringExtra(EventsHandlerService.EXTRA_OLD_NOTIFICATION_TONE);
             int newRingerMode = ActivateProfileHelper.getRingerMode(context);
             int newZenMode = ActivateProfileHelper.getZenMode(context);
             String newNotificationTone;
@@ -2178,7 +2186,7 @@ public class PhoneProfilesService extends Service
                             eventNotificationMediaPlayer = null;
                             eventNotificationPlayTimer = null;
 
-                            final Handler handler = new Handler(getMainLooper());
+                            final Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -2195,7 +2203,7 @@ public class PhoneProfilesService extends Service
                     Permissions.grantPlayRingtoneNotificationPermissions(this, true, false);
                     eventNotificationMediaPlayer = null;
                     eventNotificationIsPlayed = false;
-                    final Handler handler = new Handler(getMainLooper());
+                    final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -2208,7 +2216,7 @@ public class PhoneProfilesService extends Service
                     //e.printStackTrace();
                     eventNotificationMediaPlayer = null;
                     eventNotificationIsPlayed = false;
-                    final Handler handler = new Handler(getMainLooper());
+                    final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {

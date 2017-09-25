@@ -413,7 +413,7 @@ class WifiScanJob extends Job {
     //public static void getWifiConfigurationList(Context context)
     static List<WifiSSIDData> getWifiConfigurationList(Context context)
     {
-        synchronized (PPApplication.scanResultsMutex) {
+        synchronized (PPApplication.wifiScanResultsMutex) {
             //if (wifiConfigurationList == null)
             //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
 
@@ -442,7 +442,7 @@ class WifiScanJob extends Job {
     //private static void saveWifiConfigurationList(Context context)
     private static void saveWifiConfigurationList(Context context, List<WifiSSIDData> wifiConfigurationList)
     {
-        synchronized (PPApplication.scanResultsMutex) {
+        synchronized (PPApplication.wifiScanResultsMutex) {
             //if (wifiConfigurationList == null)
             //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
 
@@ -467,7 +467,7 @@ class WifiScanJob extends Job {
     //public static void getScanResults(Context context)
     static List<WifiSSIDData> getScanResults(Context context)
     {
-        synchronized (PPApplication.scanResultsMutex) {
+        synchronized (PPApplication.wifiScanResultsMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
             int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
 
@@ -492,7 +492,7 @@ class WifiScanJob extends Job {
     //private static void saveScanResults(Context context)
     private static void saveScanResults(Context context, List<WifiSSIDData> scanResults)
     {
-        synchronized (PPApplication.scanResultsMutex) {
+        synchronized (PPApplication.wifiScanResultsMutex) {
             //if (scanResults == null)
             //    scanResults = new ArrayList<WifiSSIDData>();
 
@@ -515,7 +515,7 @@ class WifiScanJob extends Job {
     }
 
     private static void clearScanResults(Context context) {
-        synchronized (PPApplication.scanResultsMutex) {
+        synchronized (PPApplication.wifiScanResultsMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
 

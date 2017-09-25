@@ -31,10 +31,10 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                 //boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
                 try {
-                    Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RADIO_SWITCH);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_GPS);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, isGpsEnabled);
+                    Intent eventsServiceIntent = new Intent(context, EventsHandlerService.class);
+                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_GPS);
+                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_RADIO_SWITCH_STATE, isGpsEnabled);
                     WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
                 } catch (Exception ignored) {}
 
@@ -45,8 +45,8 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
                 // start service
                 try {
-                    Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_LOCATION_MODE);
+                    Intent eventsServiceIntent = new Intent(appContext, EventsHandlerService.class);
+                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_LOCATION_MODE);
                     WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
                 } catch (Exception ignored) {}
 

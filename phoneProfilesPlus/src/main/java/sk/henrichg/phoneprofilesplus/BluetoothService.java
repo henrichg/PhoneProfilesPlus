@@ -99,12 +99,9 @@ public class BluetoothService extends WakefulIntentService {
                             {
                                 PPApplication.logE("@@@ BluetoothService.doWakefulWork","BluetoothConnectionBroadcastReceiver: bluetoothEventsExists="+bluetoothEventsExists);
                             */
-                            // start service
-                            try {
-                                Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_CONNECTION);
-                                WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
-                            } catch (Exception ignored) {}
+                            // start events handler
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION, false);
                             //}
                         }
                         //}
@@ -163,13 +160,10 @@ public class BluetoothService extends WakefulIntentService {
 
                             //if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
 
-                            try {
-                                Intent eventsServiceIntent = new Intent(appContext, EventsService.class);
-                                eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RADIO_SWITCH);
-                                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_BLUETOOTH);
-                                eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, bluetoothState == BluetoothAdapter.STATE_ON);
-                                WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
-                            } catch (Exception ignored) {}
+                            // start events handler
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.setEventRadioSwitchParameters(EventPreferencesRadioSwitch.RADIO_TYPE_BLUETOOTH, bluetoothState == BluetoothAdapter.STATE_ON);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
 
                             //}
 
@@ -181,12 +175,9 @@ public class BluetoothService extends WakefulIntentService {
                                 PPApplication.logE("@@@ BluetoothService.doWakefulWork", "BluetoothStateChangedBroadcastReceiver: bluetoothEventsExists=" + bluetoothEventsExists);
                             */
 
-                            // start service
-                            try {
-                                Intent eventsServiceIntent2 = new Intent(appContext, EventsService.class);
-                                eventsServiceIntent2.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_STATE);
-                                WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent2);
-                            } catch (Exception ignored) {}
+                            // start events handler
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_STATE, false);
+
                             //}
                         }
 
@@ -300,14 +291,12 @@ public class BluetoothService extends WakefulIntentService {
                         {
                             // start service
                             final Context _context = appContext;
-                            new Handler(appContext.getMainLooper()).postDelayed(new Runnable() {
+                            new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    try {
-                                        Intent eventsServiceIntent = new Intent(_context, EventsService.class);
-                                        eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_SCANNER);
-                                        WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
-                                    } catch (Exception ignored) {}
+                                    Intent eventsServiceIntent = new Intent(_context, EventsHandlerService.class);
+                                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
+                                    WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
                                 }
                             }, 5000);
                         }

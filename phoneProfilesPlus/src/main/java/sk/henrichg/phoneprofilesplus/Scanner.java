@@ -59,403 +59,195 @@ class Scanner {
     }
 
     void doScan(String scannerType) {
-        CallsCounter.logCounter(context, "Scanner.doScan", "Scanner_doScan");
+        synchronized (PPApplication.scannerMutex) {
+            CallsCounter.logCounter(context, "Scanner.doScan", "Scanner_doScan");
 
-        PPApplication.logE("%%%% Scanner.doScan", "-- START ------------");
-
-        DataWrapper dataWrapper;
-
-        PPApplication.logE("%%%% Scanner.doScan", "scannerType="+scannerType);
-
-        // for Airplane mode ON, no scan
-        if (android.os.Build.VERSION.SDK_INT >= 17) {
-            if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0) {
-                PPApplication.logE("%%%% Scanner.doScan", "-- END - airplane mode ON -------");
+            if (!PPApplication.getApplicationStarted(context, true))
+                // application is not started
                 return;
-            }
-        }
-        else {
-            //noinspection deprecation
-            if (Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0) {
-                PPApplication.logE("%%%% Scanner.doScan", "-- END - airplane mode ON -------");
-                return;
-            }
-        }
 
-        // check power save mode
-        boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-        if (isPowerSaveMode) {
-            int forceScan = getForceOneWifiScan(context);
-            if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
-                if (scannerType.equals(SCANNER_TYPE_WIFI) &&
-                        ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("2")) {
-                    // not scan wi-fi in power save mode
-                    PPApplication.logE("%%%% Scanner.doScan", "-- END - power save mode ON -------");
+            PPApplication.logE("%%%% Scanner.doScan", "-- START ------------");
+
+            DataWrapper dataWrapper;
+
+            PPApplication.logE("%%%% Scanner.doScan", "scannerType=" + scannerType);
+
+            // for Airplane mode ON, no scan
+            if (android.os.Build.VERSION.SDK_INT >= 17) {
+                if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0) {
+                    PPApplication.logE("%%%% Scanner.doScan", "-- END - airplane mode ON -------");
                     return;
                 }
-                if (scannerType.equals(SCANNER_TYPE_BLUETOOTH) &&
-                        ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context).equals("2")) {
-                    // not scan bluetooth in power save mode
-                    PPApplication.logE("%%%% Scanner.doScan", "-- END - power save mode ON -------");
+            } else {
+                //noinspection deprecation
+                if (Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0) {
+                    PPApplication.logE("%%%% Scanner.doScan", "-- END - airplane mode ON -------");
                     return;
                 }
             }
-        }
 
-        Handler wifiBluetoothChangeHandler = new Handler(context.getMainLooper());
-
-        PPApplication.logE("$$$ Scanner.doScan", "before synchronized block - scanerType=" + scannerType);
-
-        synchronized (PPApplication.radioChangeStateMutex) {
-
-            PPApplication.logE("$$$ Scanner.doScan", "in synchronized block - start - scannerType=" + scannerType);
-
-            if (scannerType.equals(SCANNER_TYPE_WIFI))
-            {
-                PPApplication.logE("$$$W Scanner.doScan", "start wifi scan");
-
-                WifiScanJob.fillWifiConfigurationList(context);
-
-                boolean canScan = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED;
-                if (canScan) {
-                    canScan = !WifiApManager.isWifiAPEnabled(context);
-                    PPApplication.logE("$$$W Scanner.doScan", "canScan=" + canScan);
-                    PPApplication.logE("$$$W Scanner.doScan", "isWifiAPEnabled="+!canScan);
+            // check power save mode
+            boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+            if (isPowerSaveMode) {
+                int forceScan = getForceOneWifiScan(context);
+                if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+                    if (scannerType.equals(SCANNER_TYPE_WIFI) &&
+                            ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("2")) {
+                        // not scan wi-fi in power save mode
+                        PPApplication.logE("%%%% Scanner.doScan", "-- END - power save mode ON -------");
+                        return;
+                    }
+                    if (scannerType.equals(SCANNER_TYPE_BLUETOOTH) &&
+                            ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context).equals("2")) {
+                        // not scan bluetooth in power save mode
+                        PPApplication.logE("%%%% Scanner.doScan", "-- END - power save mode ON -------");
+                        return;
+                    }
                 }
+            }
 
-                if (canScan) {
+            Handler wifiBluetoothChangeHandler = new Handler();
 
-                    dataWrapper = new DataWrapper(context, false, false, 0);
+            PPApplication.logE("$$$ Scanner.doScan", "before synchronized block - scanerType=" + scannerType);
 
-                    // check if wifi scan events exists
-                    //lock();
-                    boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
-                    //unlock();
-                    int forceScan = getForceOneWifiScan(context);
-                    boolean scan = (wifiEventsExists || (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
-                    if (scan) {
-                        if (wifiEventsExists)
-                            scan = isLocationEnabled(context, scannerType);
+            synchronized (PPApplication.radioChangeStateMutex) {
+
+                PPApplication.logE("$$$ Scanner.doScan", "in synchronized block - start - scannerType=" + scannerType);
+
+                if (scannerType.equals(SCANNER_TYPE_WIFI)) {
+                    PPApplication.logE("$$$W Scanner.doScan", "start wifi scan");
+
+                    WifiScanJob.fillWifiConfigurationList(context);
+
+                    boolean canScan = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED;
+                    if (canScan) {
+                        canScan = !WifiApManager.isWifiAPEnabled(context);
+                        PPApplication.logE("$$$W Scanner.doScan", "canScan=" + canScan);
+                        PPApplication.logE("$$$W Scanner.doScan", "isWifiAPEnabled=" + !canScan);
                     }
-                    PPApplication.logE("$$$W Scanner.doScan", "wifiEventsExists=" + wifiEventsExists);
-                    PPApplication.logE("$$$W Scanner.doScan", "forceScan=" + forceScan);
-                    if (!scan) {
-                        // wifi scan events not exists
-                        PPApplication.logE("$$$W Scanner.doScan","alarms removed");
-                        WifiScanJob.cancelJob();
-                    }
-                    else {
-                        PPApplication.logE("$$$W Scanner.doScan","can scan");
 
-                        if (WifiScanJob.wifi == null)
-                            WifiScanJob.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                    if (canScan) {
 
-                        if (WifiScanJob.getWifiEnabledForScan(context)) {
-                            // service restarted during scanning, disable wifi
-                            PPApplication.logE("$$$W Scanner.doScan", "disable wifi - service restarted");
-                            wifiBluetoothChangeHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //lock();
-                                    WifiScanJob.wifi.setWifiEnabled(false);
-                                    WifiScanJob.setScanRequest(context, false);
-                                    WifiScanJob.setWaitForResults(context, false);
-                                    WifiScanJob.setWifiEnabledForScan(context, false);
-                                }
-                            });
-                            //try { Thread.sleep(700); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(700);
-                            PPApplication.sleep(700);
-                            //unlock();
+                        dataWrapper = new DataWrapper(context, false, false, 0);
+
+                        // check if wifi scan events exists
+                        //lock();
+                        boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
+                        //unlock();
+                        int forceScan = getForceOneWifiScan(context);
+                        boolean scan = (wifiEventsExists || (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
+                        if (scan) {
+                            if (wifiEventsExists)
+                                scan = isLocationEnabled(context, scannerType);
                         }
+                        PPApplication.logE("$$$W Scanner.doScan", "wifiEventsExists=" + wifiEventsExists);
+                        PPApplication.logE("$$$W Scanner.doScan", "forceScan=" + forceScan);
+                        if (!scan) {
+                            // wifi scan events not exists
+                            PPApplication.logE("$$$W Scanner.doScan", "alarms removed");
+                            WifiScanJob.cancelJob();
+                        } else {
+                            PPApplication.logE("$$$W Scanner.doScan", "can scan");
 
-                        if (true /*canScanWifi(dataWrapper)*/) { // scan even if wifi is connected
+                            if (WifiScanJob.wifi == null)
+                                WifiScanJob.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-                            PPApplication.logE("$$$W Scanner.doScan","scan started");
+                            if (WifiScanJob.getWifiEnabledForScan(context)) {
+                                // service restarted during scanning, disable wifi
+                                PPApplication.logE("$$$W Scanner.doScan", "disable wifi - service restarted");
+                                wifiBluetoothChangeHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //lock();
+                                        WifiScanJob.wifi.setWifiEnabled(false);
+                                        WifiScanJob.setScanRequest(context, false);
+                                        WifiScanJob.setWaitForResults(context, false);
+                                        WifiScanJob.setWifiEnabledForScan(context, false);
+                                    }
+                                });
+                                //try { Thread.sleep(700); } catch (InterruptedException e) { }
+                                //SystemClock.sleep(700);
+                                PPApplication.sleep(700);
+                                //unlock();
+                            }
 
-                            WifiScanJob.setScanRequest(context, false);
-                            WifiScanJob.setWaitForResults(context, false);
-                            WifiScanJob.setWifiEnabledForScan(context, false);
+                            if (true /*canScanWifi(dataWrapper)*/) { // scan even if wifi is connected
 
-                            WifiScanJob.unlock();
+                                PPApplication.logE("$$$W Scanner.doScan", "scan started");
 
-                            // start scan
-
-                            //lock();
-
-                            IntentFilter intentFilter4 = new IntentFilter();
-                            intentFilter4.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-                            context.registerReceiver(wifiScanReceiver, intentFilter4);
-
-                            // enable wifi
-                            int wifiState;
-                            wifiState = enableWifi(dataWrapper, WifiScanJob.wifi, wifiBluetoothChangeHandler);
-
-                            if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-                                PPApplication.logE("$$$W Scanner.doScan", "startScan");
-                                WifiScanJob.startScan(context);
-                            } else if (wifiState != WifiManager.WIFI_STATE_ENABLING) {
                                 WifiScanJob.setScanRequest(context, false);
                                 WifiScanJob.setWaitForResults(context, false);
                                 WifiScanJob.setWifiEnabledForScan(context, false);
-                                setForceOneWifiScan(context, FORCE_ONE_SCAN_DISABLED);
-                            }
 
-                            if ((WifiScanJob.getScanRequest(context)) ||
-                                    (WifiScanJob.getWaitForResults(context))) {
-                                PPApplication.logE("$$$W Scanner.doScan", "waiting for scan end");
+                                WifiScanJob.unlock();
 
-                                // wait for scan end
-                                waitForWifiScanEnd(context, null);
+                                // start scan
 
-                                PPApplication.logE("$$$W Scanner.doScan", "scan ended");
+                                //lock();
 
-                                if (WifiScanJob.getWaitForResults(context)) {
-                                    PPApplication.logE("$$$W Scanner.doScan", "no data received from scanner");
-                                    if (getForceOneWifiScan(context) != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
-                                    {
-                                        // start service
-                                        final Context _context = context.getApplicationContext();
-                                        new Handler(context.getMainLooper()).postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                try {
-                                                    Intent eventsServiceIntent = new Intent(_context, EventsService.class);
-                                                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_WIFI_SCANNER);
+                                IntentFilter intentFilter4 = new IntentFilter();
+                                intentFilter4.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+                                context.registerReceiver(wifiScanReceiver, intentFilter4);
+
+                                // enable wifi
+                                int wifiState;
+                                wifiState = enableWifi(dataWrapper, WifiScanJob.wifi, wifiBluetoothChangeHandler);
+
+                                if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+                                    PPApplication.logE("$$$W Scanner.doScan", "startScan");
+                                    WifiScanJob.startScan(context);
+                                } else if (wifiState != WifiManager.WIFI_STATE_ENABLING) {
+                                    WifiScanJob.setScanRequest(context, false);
+                                    WifiScanJob.setWaitForResults(context, false);
+                                    WifiScanJob.setWifiEnabledForScan(context, false);
+                                    setForceOneWifiScan(context, FORCE_ONE_SCAN_DISABLED);
+                                }
+
+                                if ((WifiScanJob.getScanRequest(context)) ||
+                                        (WifiScanJob.getWaitForResults(context))) {
+                                    PPApplication.logE("$$$W Scanner.doScan", "waiting for scan end");
+
+                                    // wait for scan end
+                                    waitForWifiScanEnd(context, null);
+
+                                    PPApplication.logE("$$$W Scanner.doScan", "scan ended");
+
+                                    if (WifiScanJob.getWaitForResults(context)) {
+                                        PPApplication.logE("$$$W Scanner.doScan", "no data received from scanner");
+                                        if (getForceOneWifiScan(context) != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
+                                        {
+                                            // start service
+                                            final Context _context = context.getApplicationContext();
+                                            new Handler().postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Intent eventsServiceIntent = new Intent(_context, EventsHandlerService.class);
+                                                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
                                                     WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
-                                                } catch (Exception ignored) {}
-                                            }
-                                        }, 5000);
-                                        //WifiScanBroadcastReceiver.setAlarm(context);
+                                                }
+                                            }, 5000);
+                                            //WifiScanBroadcastReceiver.setAlarm(context);
+                                        }
                                     }
                                 }
-                            }
 
-                            WifiScanJob.unlock();
-                            //unlock();
-
-                            context.unregisterReceiver(wifiScanReceiver);
-                        }
-                    }
-
-                    wifiBluetoothChangeHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (WifiScanJob.getWifiEnabledForScan(context)) {
-                                PPApplication.logE("$$$W Scanner.doScan", "disable wifi");
-                                //lock();
-                                WifiScanJob.wifi.setWifiEnabled(false);
-                                WifiScanJob.setWifiEnabledForScan(context, false);
-                            }
-                            else
-                                PPApplication.logE("$$$W Scanner.doScan", "keep enabled wifi");
-                        }
-                    });
-                    //try { Thread.sleep(700); } catch (InterruptedException e) { }
-                    //SystemClock.sleep(700);
-                    PPApplication.sleep(700);
-                    //unlock();
-                }
-
-                setForceOneWifiScan(context, FORCE_ONE_SCAN_DISABLED);
-                WifiScanJob.setWaitForResults(context, false);
-                WifiScanJob.setScanRequest(context, false);
-
-                WifiScanJob.unlock();
-                //unlock();
-
-            }
-            else
-            if (scannerType.equals(SCANNER_TYPE_BLUETOOTH)) {
-
-                if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
-
-                    PPApplication.logE("$$$B Scanner.doScan", "start bt scan");
-
-                    dataWrapper = new DataWrapper(context, false, false, 0);
-
-                    // check if bluetooth scan events exists
-                    //lock();
-                    boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0;
-                    int forceScan = getForceOneBluetoothScan(dataWrapper.context);
-                    int forceScanLE = getForceOneLEBluetoothScan(context);
-                    boolean classicDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_CLASSIC, forceScanLE) > 0;
-                    boolean leDevicesScan;
-                    if (bluetoothLESupported(context))
-                        leDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_LE, forceScanLE) > 0;
-                    else
-                        leDevicesScan = false;
-                    //unlock();
-                    boolean scan = (bluetoothEventsExists || (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG) ||
-                            (forceScanLE == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
-                    if (scan) {
-                        if (leDevicesScan)
-                            leDevicesScan = isLocationEnabled(context, scannerType);
-                    }
-                    if (!scan) {
-                        // bluetooth scan events not exists
-                        PPApplication.logE("$$$B Scanner.doScan", "no bt scan events");
-                        BluetoothScanJob.cancelJob();
-                    }
-                    else {
-                        PPApplication.logE("$$$B Scanner.doScan", "scan=true");
-
-                        if (BluetoothScanJob.bluetooth == null)
-                            BluetoothScanJob.bluetooth = BluetoothScanJob.getBluetoothAdapter(context);
-
-                        if (BluetoothScanJob.getBluetoothEnabledForScan(context)) {
-                            // service restarted during scanning, disable Bluetooth
-                            PPApplication.logE("$$$B Scanner.doScan", "disable BT - service restarted");
-                            wifiBluetoothChangeHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //lock();
-                                    BluetoothScanJob.bluetooth.disable();
-                                    BluetoothScanJob.setScanRequest(context, false);
-                                    BluetoothScanJob.setLEScanRequest(context, false);
-                                    BluetoothScanJob.setWaitForResults(context, false);
-                                    BluetoothScanJob.setWaitForLEResults(context, false);
-                                    BluetoothScanJob.setBluetoothEnabledForScan(context, false);
-                                }
-                            });
-                            //try { Thread.sleep(700); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(700);
-                            PPApplication.sleep(700);
-                            //unlock();
-                        }
-
-                        if (true /*canScanBluetooth(dataWrapper)*/) {  // scan even if bluetooth is connected
-                            BluetoothScanJob.setScanRequest(context, false);
-                            BluetoothScanJob.setLEScanRequest(context, false);
-                            BluetoothScanJob.setWaitForResults(context, false);
-                            BluetoothScanJob.setWaitForLEResults(context, false);
-                            BluetoothScanJob.setBluetoothEnabledForScan(context, false);
-
-                            int bluetoothState;
-
-                            if (classicDevicesScan) {
-                                ///////// Classic BT scan
-
-                                PPApplication.logE("$$$BCL Scanner.doScan","classic devices scan");
-
-                                //lock();
-
-                                IntentFilter intentFilter6 = new IntentFilter();
-                                intentFilter6.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
-                                intentFilter6.addAction(BluetoothDevice.ACTION_FOUND);
-                                intentFilter6.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-                                context.registerReceiver(bluetoothScanReceiver, intentFilter6);
-
-                                // enable bluetooth
-                                bluetoothState = enableBluetooth(dataWrapper,
-                                        BluetoothScanJob.bluetooth,
-                                        wifiBluetoothChangeHandler,
-                                        false);
-                                PPApplication.logE("$$$BCL Scanner.doScan","bluetoothState="+bluetoothState);
-
-                                if (bluetoothState == BluetoothAdapter.STATE_ON) {
-                                    PPApplication.logE("$$$BCL Scanner.doScan", "start classic scan");
-                                    BluetoothScanJob.startCLScan(context);
-                                }
-                                else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
-                                    BluetoothScanJob.setScanRequest(context, false);
-                                    BluetoothScanJob.setWaitForResults(context, false);
-                                    BluetoothScanJob.setBluetoothEnabledForScan(context, false);
-                                    setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                                }
-
-                                if ((BluetoothScanJob.getScanRequest(context)) ||
-                                        (BluetoothScanJob.getWaitForResults(context))) {
-                                    PPApplication.logE("$$$BCL Scanner.doScan", "waiting for classic scan end");
-
-                                    // wait for scan end
-                                    waitForBluetoothScanEnd(context, null);
-
-                                    PPApplication.logE("$$$BCL Scanner.doScan", "classic scan ended");
-
-                                }
-
+                                WifiScanJob.unlock();
                                 //unlock();
 
-                                context.unregisterReceiver(bluetoothScanReceiver);
-
-                                setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                                BluetoothScanJob.setWaitForResults(context, false);
-                                BluetoothScanJob.setLEScanRequest(context, false);
-
-                                ///////// Classic BT scan - end
-                            }
-
-                            if (leDevicesScan) {
-                                ///////// LE BT scan
-
-                                PPApplication.logE("$$$BLE Scanner.doScan","LE devices scan");
-
-                            /*IntentFilter intentFilter7 = new IntentFilter();
-                            registerReceiver(bluetoothLEScanReceiver, intentFilter7);*/
-                                LocalBroadcastManager.getInstance(context).registerReceiver(bluetoothLEScanReceiver, new IntentFilter("BluetoothLEScanBroadcastReceiver"));
-
-                            /*if (android.os.Build.VERSION.SDK_INT < 21)
-                                // for old BT LE scan must by acquired lock
-                                lock();*/
-
-                                // enable bluetooth
-                                bluetoothState = enableBluetooth(dataWrapper,
-                                        BluetoothScanJob.bluetooth,
-                                        wifiBluetoothChangeHandler,
-                                        true);
-
-                                if (bluetoothState == BluetoothAdapter.STATE_ON) {
-                                    PPApplication.logE("$$$BLE Scanner.doScan", "start LE scan");
-                                    BluetoothScanJob.startLEScan(context);
-                                }
-                                else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
-                                    BluetoothScanJob.setLEScanRequest(context, false);
-                                    BluetoothScanJob.setWaitForLEResults(context, false);
-                                    BluetoothScanJob.setBluetoothEnabledForScan(context, false);
-                                    setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                                }
-
-                                if ((BluetoothScanJob.getLEScanRequest(context)) ||
-                                        (BluetoothScanJob.getWaitForLEResults(context))) {
-                                    PPApplication.logE("$$$BLE Scanner.doScan", "waiting for LE scan end");
-
-                                    // wait for scan end
-                                    waitForLEBluetoothScanEnd(context, null);
-
-                                    // send broadcast for start EventsService
-                                /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
-                                sendBroadcast(btLEIntent);*/
-                                    Intent btLEIntent = new Intent("BluetoothLEScanBroadcastReceiver");
-                                    LocalBroadcastManager.getInstance(context).sendBroadcast(btLEIntent);
-
-                                    PPApplication.logE("$$$BLE Scanner.doScan", "LE scan ended");
-                                }
-
-                                //unlock();
-
-                                //unregisterReceiver(bluetoothLEScanReceiver);
-                                LocalBroadcastManager.getInstance(context).unregisterReceiver(bluetoothLEScanReceiver);
-
-                                setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                                BluetoothScanJob.setWaitForLEResults(context, false);
-                                BluetoothScanJob.setLEScanRequest(context, false);
-
-                                ///////// LE BT scan - end
+                                context.unregisterReceiver(wifiScanReceiver);
                             }
                         }
 
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (BluetoothScanJob.getBluetoothEnabledForScan(context)) {
-                                    PPApplication.logE("$$$B Scanner.doScan", "disable bluetooth");
+                                if (WifiScanJob.getWifiEnabledForScan(context)) {
+                                    PPApplication.logE("$$$W Scanner.doScan", "disable wifi");
                                     //lock();
-                                    BluetoothScanJob.bluetooth.disable();
-                                    BluetoothScanJob.setBluetoothEnabledForScan(context, false);
-                                }
-                                else
-                                    PPApplication.logE("$$$B Scanner.doScan", "keep enabled bluetooth");
+                                    WifiScanJob.wifi.setWifiEnabled(false);
+                                    WifiScanJob.setWifiEnabledForScan(context, false);
+                                } else
+                                    PPApplication.logE("$$$W Scanner.doScan", "keep enabled wifi");
                             }
                         });
                         //try { Thread.sleep(700); } catch (InterruptedException e) { }
@@ -463,25 +255,227 @@ class Scanner {
                         PPApplication.sleep(700);
                         //unlock();
                     }
+
+                    setForceOneWifiScan(context, FORCE_ONE_SCAN_DISABLED);
+                    WifiScanJob.setWaitForResults(context, false);
+                    WifiScanJob.setScanRequest(context, false);
+
+                    WifiScanJob.unlock();
+                    //unlock();
+
+                } else if (scannerType.equals(SCANNER_TYPE_BLUETOOTH)) {
+
+                    if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
+
+                        PPApplication.logE("$$$B Scanner.doScan", "start bt scan");
+
+                        dataWrapper = new DataWrapper(context, false, false, 0);
+
+                        // check if bluetooth scan events exists
+                        //lock();
+                        boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0;
+                        int forceScan = getForceOneBluetoothScan(dataWrapper.context);
+                        int forceScanLE = getForceOneLEBluetoothScan(context);
+                        boolean classicDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_CLASSIC, forceScanLE) > 0;
+                        boolean leDevicesScan;
+                        if (bluetoothLESupported(context))
+                            leDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_LE, forceScanLE) > 0;
+                        else
+                            leDevicesScan = false;
+                        //unlock();
+                        boolean scan = (bluetoothEventsExists || (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG) ||
+                                (forceScanLE == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
+                        if (scan) {
+                            if (leDevicesScan)
+                                leDevicesScan = isLocationEnabled(context, scannerType);
+                        }
+                        if (!scan) {
+                            // bluetooth scan events not exists
+                            PPApplication.logE("$$$B Scanner.doScan", "no bt scan events");
+                            BluetoothScanJob.cancelJob();
+                        } else {
+                            PPApplication.logE("$$$B Scanner.doScan", "scan=true");
+
+                            if (BluetoothScanJob.bluetooth == null)
+                                BluetoothScanJob.bluetooth = BluetoothScanJob.getBluetoothAdapter(context);
+
+                            if (BluetoothScanJob.getBluetoothEnabledForScan(context)) {
+                                // service restarted during scanning, disable Bluetooth
+                                PPApplication.logE("$$$B Scanner.doScan", "disable BT - service restarted");
+                                wifiBluetoothChangeHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //lock();
+                                        BluetoothScanJob.bluetooth.disable();
+                                        BluetoothScanJob.setScanRequest(context, false);
+                                        BluetoothScanJob.setLEScanRequest(context, false);
+                                        BluetoothScanJob.setWaitForResults(context, false);
+                                        BluetoothScanJob.setWaitForLEResults(context, false);
+                                        BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+                                    }
+                                });
+                                //try { Thread.sleep(700); } catch (InterruptedException e) { }
+                                //SystemClock.sleep(700);
+                                PPApplication.sleep(700);
+                                //unlock();
+                            }
+
+                            if (true /*canScanBluetooth(dataWrapper)*/) {  // scan even if bluetooth is connected
+                                BluetoothScanJob.setScanRequest(context, false);
+                                BluetoothScanJob.setLEScanRequest(context, false);
+                                BluetoothScanJob.setWaitForResults(context, false);
+                                BluetoothScanJob.setWaitForLEResults(context, false);
+                                BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+
+                                int bluetoothState;
+
+                                if (classicDevicesScan) {
+                                    ///////// Classic BT scan
+
+                                    PPApplication.logE("$$$BCL Scanner.doScan", "classic devices scan");
+
+                                    //lock();
+
+                                    IntentFilter intentFilter6 = new IntentFilter();
+                                    intentFilter6.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
+                                    intentFilter6.addAction(BluetoothDevice.ACTION_FOUND);
+                                    intentFilter6.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+                                    context.registerReceiver(bluetoothScanReceiver, intentFilter6);
+
+                                    // enable bluetooth
+                                    bluetoothState = enableBluetooth(dataWrapper,
+                                            BluetoothScanJob.bluetooth,
+                                            wifiBluetoothChangeHandler,
+                                            false);
+                                    PPApplication.logE("$$$BCL Scanner.doScan", "bluetoothState=" + bluetoothState);
+
+                                    if (bluetoothState == BluetoothAdapter.STATE_ON) {
+                                        PPApplication.logE("$$$BCL Scanner.doScan", "start classic scan");
+                                        BluetoothScanJob.startCLScan(context);
+                                    } else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
+                                        BluetoothScanJob.setScanRequest(context, false);
+                                        BluetoothScanJob.setWaitForResults(context, false);
+                                        BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+                                        setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
+                                    }
+
+                                    if ((BluetoothScanJob.getScanRequest(context)) ||
+                                            (BluetoothScanJob.getWaitForResults(context))) {
+                                        PPApplication.logE("$$$BCL Scanner.doScan", "waiting for classic scan end");
+
+                                        // wait for scan end
+                                        waitForBluetoothScanEnd(context, null);
+
+                                        PPApplication.logE("$$$BCL Scanner.doScan", "classic scan ended");
+
+                                    }
+
+                                    //unlock();
+
+                                    context.unregisterReceiver(bluetoothScanReceiver);
+
+                                    setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
+                                    BluetoothScanJob.setWaitForResults(context, false);
+                                    BluetoothScanJob.setLEScanRequest(context, false);
+
+                                    ///////// Classic BT scan - end
+                                }
+
+                                if (leDevicesScan) {
+                                    ///////// LE BT scan
+
+                                    PPApplication.logE("$$$BLE Scanner.doScan", "LE devices scan");
+
+                            /*IntentFilter intentFilter7 = new IntentFilter();
+                            registerReceiver(bluetoothLEScanReceiver, intentFilter7);*/
+                                    LocalBroadcastManager.getInstance(context).registerReceiver(bluetoothLEScanReceiver, new IntentFilter("BluetoothLEScanBroadcastReceiver"));
+
+                            /*if (android.os.Build.VERSION.SDK_INT < 21)
+                                // for old BT LE scan must by acquired lock
+                                lock();*/
+
+                                    // enable bluetooth
+                                    bluetoothState = enableBluetooth(dataWrapper,
+                                            BluetoothScanJob.bluetooth,
+                                            wifiBluetoothChangeHandler,
+                                            true);
+
+                                    if (bluetoothState == BluetoothAdapter.STATE_ON) {
+                                        PPApplication.logE("$$$BLE Scanner.doScan", "start LE scan");
+                                        BluetoothScanJob.startLEScan(context);
+                                    } else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
+                                        BluetoothScanJob.setLEScanRequest(context, false);
+                                        BluetoothScanJob.setWaitForLEResults(context, false);
+                                        BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+                                        setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
+                                    }
+
+                                    if ((BluetoothScanJob.getLEScanRequest(context)) ||
+                                            (BluetoothScanJob.getWaitForLEResults(context))) {
+                                        PPApplication.logE("$$$BLE Scanner.doScan", "waiting for LE scan end");
+
+                                        // wait for scan end
+                                        waitForLEBluetoothScanEnd(context, null);
+
+                                        // send broadcast for start EventsHandlerService
+                                /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
+                                sendBroadcast(btLEIntent);*/
+                                        Intent btLEIntent = new Intent("BluetoothLEScanBroadcastReceiver");
+                                        LocalBroadcastManager.getInstance(context).sendBroadcast(btLEIntent);
+
+                                        PPApplication.logE("$$$BLE Scanner.doScan", "LE scan ended");
+                                    }
+
+                                    //unlock();
+
+                                    //unregisterReceiver(bluetoothLEScanReceiver);
+                                    LocalBroadcastManager.getInstance(context).unregisterReceiver(bluetoothLEScanReceiver);
+
+                                    setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
+                                    BluetoothScanJob.setWaitForLEResults(context, false);
+                                    BluetoothScanJob.setLEScanRequest(context, false);
+
+                                    ///////// LE BT scan - end
+                                }
+                            }
+
+                            wifiBluetoothChangeHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (BluetoothScanJob.getBluetoothEnabledForScan(context)) {
+                                        PPApplication.logE("$$$B Scanner.doScan", "disable bluetooth");
+                                        //lock();
+                                        BluetoothScanJob.bluetooth.disable();
+                                        BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+                                    } else
+                                        PPApplication.logE("$$$B Scanner.doScan", "keep enabled bluetooth");
+                                }
+                            });
+                            //try { Thread.sleep(700); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(700);
+                            PPApplication.sleep(700);
+                            //unlock();
+                        }
+                    }
+
+                    setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
+                    setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
+                    BluetoothScanJob.setWaitForResults(context, false);
+                    BluetoothScanJob.setWaitForLEResults(context, false);
+                    BluetoothScanJob.setScanRequest(context, false);
+                    BluetoothScanJob.setLEScanRequest(context, false);
+
+                    //unlock();
                 }
 
-                setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                BluetoothScanJob.setWaitForResults(context, false);
-                BluetoothScanJob.setWaitForLEResults(context, false);
-                BluetoothScanJob.setScanRequest(context, false);
-                BluetoothScanJob.setLEScanRequest(context, false);
+                PPApplication.logE("$$$ Scanner.doScan", "in synchronized block - end - scannerType=" + scannerType);
 
-                //unlock();
             }
 
-            PPApplication.logE("$$$ Scanner.doScan", "in synchronized block - end - scannerType=" + scannerType);
+            PPApplication.logE("$$$ Scanner.doScan", "after synchronized block - scannerType=" + scannerType);
 
+            PPApplication.logE("%%%% Scanner.doScan", "-- END ------------");
         }
-
-        PPApplication.logE("$$$ Scanner.doScan", "after synchronized block - scannerType=" + scannerType);
-
-        PPApplication.logE("%%%% Scanner.doScan", "-- END ------------");
     }
 
     static int getForceOneWifiScan(Context context)

@@ -25,10 +25,10 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
                 final boolean state = intent.getBooleanExtra("state", false);
 
                 try {
-                    Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_RADIO_SWITCH);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_AIRPLANE_MODE);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_RADIO_SWITCH_STATE, state);
+                    Intent eventsServiceIntent = new Intent(context, EventsHandlerService.class);
+                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_AIRPLANE_MODE);
+                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_RADIO_SWITCH_STATE, state);
                     WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
                 } catch (Exception ignored) {}
             }

@@ -116,10 +116,10 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
 
                 // start service
                 try {
-                    Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_SMS);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_SMS_PHONE_NUMBER, origin);
-                    eventsServiceIntent.putExtra(EventsService.EXTRA_EVENT_SMS_DATE, time);
+                    Intent eventsServiceIntent = new Intent(context, EventsHandlerService.class);
+                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SMS);
+                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_SMS_PHONE_NUMBER, origin);
+                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_SMS_DATE, time);
                     WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
                 } catch (Exception ignored) {}
             }

@@ -63,9 +63,9 @@ public class PhoneCallService extends WakefulIntentService {
             }
         }
 
-        /* wait is in EventsService after profile activation
+        /* wait is in EventsHandlerService after profile activation
         try {
-            Thread.sleep(1000); // // 1 second for EventsService
+            Thread.sleep(1000); // // 1 second for EventsHandlerService
         } catch (InterruptedException e) {
         }*/
     }
@@ -81,12 +81,9 @@ public class PhoneCallService extends WakefulIntentService {
         linkUnlinkExecuted = false;
         speakerphoneOnExecuted = false;
 
-        // start service
-        try {
-            Intent eventsServiceIntent = new Intent(context, EventsService.class);
-            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_PHONE_CALL);
-            WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
-        } catch (Exception ignored) {}
+        // start events handler
+        EventsHandler eventsHandler = new EventsHandler(context);
+        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL, false);
     }
 
     private void callStarted(boolean incoming, String phoneNumber)
@@ -143,7 +140,7 @@ public class PhoneCallService extends WakefulIntentService {
         // audiomode is set to MODE_IN_CALL by system
         //Log.e("PhoneCallService", "callAnswered audioMode=" + audioManager.getMode());
 
-        // setSpeakerphoneOn() moved to ExecuteVolumeProfilePrefsService and EventsService
+        // setSpeakerphoneOn() moved to ExecuteVolumeProfilePrefsService and EventsHandlerService
 
         if (PhoneProfilesService.instance != null)
             PhoneProfilesService.instance.stopSimulatingRingingCall(true);
@@ -183,7 +180,7 @@ public class PhoneCallService extends WakefulIntentService {
         } while (SystemClock.uptimeMillis() - start < 2000);
 
         // audiomode is set to MODE_NORMAL by system
-        //Log.e("PhoneCallService", "callEnded (before unlink/EventsService) audioMode="+audioManager.getMode());
+        //Log.e("PhoneCallService", "callEnded (before unlink/EventsHandlerService) audioMode="+audioManager.getMode());
 
         if (incoming)
             doCallEvent(CALL_EVENT_INCOMING_CALL_ENDED, phoneNumber);
