@@ -714,7 +714,7 @@ class BluetoothScanJob extends Job {
             {
                 // start service
                 final Context _context = context.getApplicationContext();
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                new Handler(context.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         try {

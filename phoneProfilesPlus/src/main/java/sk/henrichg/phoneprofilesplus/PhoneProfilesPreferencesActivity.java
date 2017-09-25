@@ -144,7 +144,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         //else
         //    startForegroundService(serviceIntent);
 
-        Handler handler = new Handler(Looper.getMainLooper());
+        Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

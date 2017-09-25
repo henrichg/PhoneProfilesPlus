@@ -292,7 +292,7 @@ public class BluetoothService extends WakefulIntentService {
                         {
                             // start service
                             final Context _context = appContext;
-                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                            new Handler(appContext.getMainLooper()).postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     Intent eventsServiceIntent = new Intent(_context, EventsHandlerService.class);

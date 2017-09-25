@@ -3137,7 +3137,7 @@ public class DataWrapper {
         final boolean _unblockEventsRun = unblockEventsRun;
         final boolean _interactive = interactive;
 
-        final Handler handler = new Handler(Looper.getMainLooper());
+        final Handler handler = new Handler(context.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -107,7 +107,7 @@ class Scanner {
                 }
             }
 
-            Handler wifiBluetoothChangeHandler = new Handler(Looper.getMainLooper());
+            Handler wifiBluetoothChangeHandler = new Handler(context.getMainLooper());
 
             PPApplication.logE("$$$ Scanner.doScan", "before synchronized block - scanerType=" + scannerType);
 
@@ -219,7 +219,7 @@ class Scanner {
                                         {
                                             // start service
                                             final Context _context = context.getApplicationContext();
-                                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                                            new Handler(context.getMainLooper()).postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     Intent eventsServiceIntent = new Intent(_context, EventsHandlerService.class);
