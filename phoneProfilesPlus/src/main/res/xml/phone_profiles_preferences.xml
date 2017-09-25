@@ -315,7 +315,7 @@
             android:key="applicationEventLocationUpdateInterval"
             android:summary="@string/phone_profiles_pref_applicationEventLocationScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
-            android:defaultValue="5"
+            android:defaultValue="15"
             henrichg:min="1"
             henrichg:max="300" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
@@ -361,7 +361,7 @@
             android:key="applicationEventWifiScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventWifiScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventWifiScanInterval" 
-            android:defaultValue="10"
+            android:defaultValue="15"
             henrichg:min="1"
             henrichg:max="300" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
@@ -402,7 +402,7 @@
             android:key="applicationEventBluetoothScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
-            android:defaultValue="10"
+            android:defaultValue="15"
             henrichg:min="1"
             henrichg:max="300" />
         <sk.henrichg.phoneprofilesplus.NumberPickerPreference

@@ -34,7 +34,7 @@ public class PackageReplacedService extends WakefulIntentService {
 
             Permissions.setShowRequestAccessNotificationPolicyPermission(appContext, true);
             Permissions.setShowRequestWriteSettingsPermission(appContext, true);
-            ScannerService.setShowEnableLocationNotification(appContext, true);
+            Scanner.setShowEnableLocationNotification(appContext, true);
             //ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
             int oldVersionCode = PPApplication.getSavedVersionCode(appContext);

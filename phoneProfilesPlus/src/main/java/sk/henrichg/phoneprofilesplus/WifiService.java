@@ -115,10 +115,10 @@ public class WifiService extends WakefulIntentService {
                     }
                 }
 
-                int forceOneScan = ScannerService.getForceOneWifiScan(appContext);
+                int forceOneScan = Scanner.getForceOneWifiScan(appContext);
                 PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiStateChangedBroadcastReceiver: forceOneScan="+forceOneScan);
 
-                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
                 {
                     PPApplication.logE("$$$ WifiService.doWakefulWork","WifiStateChangedBroadcastReceiver: state="+wifiState);
 
@@ -186,10 +186,10 @@ public class WifiService extends WakefulIntentService {
                 if (WifiScanJob.wifi == null)
                     WifiScanJob.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
 
-                int forceOneScan = ScannerService.getForceOneWifiScan(appContext);
+                int forceOneScan = Scanner.getForceOneWifiScan(appContext);
                 PPApplication.logE("%%%% WifiService.doWakefulWork", "WifiScanBroadcastReceiver: forceOneScan="+forceOneScan);
 
-                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
                 {
                     boolean scanStarted = (WifiScanJob.getWaitForResults(appContext));
                     PPApplication.logE("%%%% WifiService.doWakefulWork", "WifiScanBroadcastReceiver: scanStarted="+scanStarted);
@@ -218,9 +218,9 @@ public class WifiService extends WakefulIntentService {
                     if (scanStarted)
                     {
                         WifiScanJob.setWaitForResults(appContext, false);
-                        ScannerService.setForceOneWifiScan(appContext, ScannerService.FORCE_ONE_SCAN_DISABLED);
+                        Scanner.setForceOneWifiScan(appContext, Scanner.FORCE_ONE_SCAN_DISABLED);
 
-                        if (forceOneScan != ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
+                        if (forceOneScan != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                         {
                             // start service
                             final Context _context = appContext;

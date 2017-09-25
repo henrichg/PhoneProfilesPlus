@@ -662,7 +662,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         Permissions.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
         Permissions.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
-        ScannerService.setShowEnableLocationNotification(context.getApplicationContext(), true);
+        Scanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
         //ActivateProfileHelper.setScreenUnlocked(context, true);
 
         if (activity != null) {
@@ -1286,7 +1286,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         Permissions.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
                         Permissions.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
-                        ScannerService.setShowEnableLocationNotification(getApplicationContext(), true);
+                        Scanner.setShowEnableLocationNotification(getApplicationContext(), true);
                         //ActivateProfileHelper.setScreenUnlocked(getApplicationContext(), true);
 
                         Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);

@@ -242,7 +242,7 @@ class ApplicationPreferences {
     }
 
     static int applicationEventWifiScanInterval(Context context) {
-        return Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "10"));
+        return Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "15"));
     }
 
     static boolean applicationEventWifiEnableWifi(Context context) {
@@ -262,7 +262,7 @@ class ApplicationPreferences {
     }
 
     static int applicationEventBluetoothScanInterval(Context context) {
-        return Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "10"));
+        return Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "15"));
     }
 
     static boolean applicationEventBluetoothEnableBluetooth(Context context) {
@@ -309,7 +309,7 @@ class ApplicationPreferences {
     }
 
     static int applicationEventLocationUpdateInterval(Context context) {
-        return Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "5"));
+        return Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "15"));
     }
 
     static String applicationEventLocationUpdateInPowerSaveMode(Context context) {

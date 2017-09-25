@@ -20,8 +20,6 @@ import java.util.List;
 public class BluetoothService extends WakefulIntentService {
 
     private static List<BluetoothDeviceData> connectedDevices = null;
-    private static List<BluetoothDeviceData> tmpScanResults = null;
-    public static boolean discoveryStarted = false;
 
     public BluetoothService() {
         super("BluetoothService");
@@ -204,9 +202,9 @@ public class BluetoothService extends WakefulIntentService {
                 if (BluetoothScanJob.bluetooth == null)
                     BluetoothScanJob.bluetooth = BluetoothScanJob.getBluetoothAdapter(appContext);
 
-                int forceOneScan = ScannerService.getForceOneBluetoothScan(appContext);
+                int forceOneScan = Scanner.getForceOneBluetoothScan(appContext);
 
-                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
                 {
 
                     boolean scanStarted = (BluetoothScanJob.getWaitForResults(appContext));
@@ -219,8 +217,8 @@ public class BluetoothService extends WakefulIntentService {
                         {
                             // may be not invoked if not any BT is around
 
-                            if (!discoveryStarted) {
-                                discoveryStarted = true;
+                            if (!Scanner.bluetoothDiscoveryStarted) {
+                                Scanner.bluetoothDiscoveryStarted = true;
                                 BluetoothScanJob.fillBoundedDevicesList(appContext);
                             }
                         }
@@ -228,8 +226,8 @@ public class BluetoothService extends WakefulIntentService {
                         {
                             // When discovery finds a device
 
-                            if (!discoveryStarted) {
-                                discoveryStarted = true;
+                            if (!Scanner.bluetoothDiscoveryStarted) {
+                                Scanner.bluetoothDiscoveryStarted = true;
                                 BluetoothScanJob.fillBoundedDevicesList(appContext);
                             }
 
@@ -247,11 +245,11 @@ public class BluetoothService extends WakefulIntentService {
                             PPApplication.logE("@@@ BluetoothService.doWakefulWork","BluetoothScanBroadcastReceiver: deviceName_e="+btNameE);
                             PPApplication.logE("@@@ BluetoothService.doWakefulWork","BluetoothScanBroadcastReceiver: deviceAddress="+device.getAddress());
 
-                            if (tmpScanResults == null)
-                                tmpScanResults = new ArrayList<>();
+                            if (Scanner.tmpBluetoothScanResults == null)
+                                Scanner.tmpBluetoothScanResults = new ArrayList<>();
 
                             boolean found = false;
-                            for (BluetoothDeviceData _device : tmpScanResults)
+                            for (BluetoothDeviceData _device : Scanner.tmpBluetoothScanResults)
                             {
                                 if (_device.address.equals(device.getAddress()))
                                 {
@@ -261,18 +259,18 @@ public class BluetoothService extends WakefulIntentService {
                             }
                             if (!found)
                             {
-                                tmpScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
+                                Scanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
                                         BluetoothScanJob.getBluetoothType(device), false, 0));
                             }
                         }
                         else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
                         {
-                            if (!discoveryStarted) {
-                                discoveryStarted = true;
+                            if (!Scanner.bluetoothDiscoveryStarted) {
+                                Scanner.bluetoothDiscoveryStarted = true;
                                 BluetoothScanJob.fillBoundedDevicesList(appContext);
                             }
 
-                            finishScan(appContext);
+                            BluetoothScanJob.finishScan(appContext);
                         }
 
                     }
@@ -281,9 +279,9 @@ public class BluetoothService extends WakefulIntentService {
             }
             else
             if (action.equals("BluetoothLEScanBroadcastReceiver")) {
-                int forceOneScan = ScannerService.getForceOneLEBluetoothScan(appContext);
+                int forceOneScan = Scanner.getForceOneLEBluetoothScan(appContext);
 
-                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
                 {
 
                     boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(appContext));
@@ -296,9 +294,9 @@ public class BluetoothService extends WakefulIntentService {
 
                         BluetoothScanJob.setWaitForLEResults(appContext, false);
 
-                        ScannerService.setForceOneLEBluetoothScan(appContext, ScannerService.FORCE_ONE_SCAN_DISABLED);
+                        Scanner.setForceOneLEBluetoothScan(appContext, Scanner.FORCE_ONE_SCAN_DISABLED);
 
-                        if (forceOneScan != ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
+                        if (forceOneScan != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                         {
                             // start service
                             final Context _context = appContext;
@@ -510,48 +508,5 @@ public class BluetoothService extends WakefulIntentService {
             return false;
     }
     */
-
-    static public void finishScan(Context context) {
-        PPApplication.logE("BluetoothService.finishScan","BluetoothScanBroadcastReceiver: discoveryStarted="+discoveryStarted);
-
-        if (discoveryStarted) {
-
-            discoveryStarted = false;
-
-            List<BluetoothDeviceData> scanResults = new ArrayList<>();
-
-            if (tmpScanResults != null) {
-
-                for (BluetoothDeviceData device : tmpScanResults) {
-                    scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0));
-                }
-            }
-
-            BluetoothScanJob.saveCLScanResults(context, scanResults);
-
-            BluetoothScanJob.setWaitForResults(context, false);
-
-            int forceOneScan = ScannerService.getForceOneBluetoothScan(context);
-            ScannerService.setForceOneBluetoothScan(context, ScannerService.FORCE_ONE_SCAN_DISABLED);
-
-            if (forceOneScan != ScannerService.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
-            {
-                // start service
-                final Context _context = context.getApplicationContext();
-                new Handler(context.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Intent eventsServiceIntent = new Intent(_context, EventsService.class);
-                            eventsServiceIntent.putExtra(EventsService.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.SENSOR_TYPE_BLUETOOTH_SCANNER);
-                            WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
-                        } catch (Exception ignored) {}
-                    }
-                }, 5000);
-            }
-
-            tmpScanResults = null;
-        }
-    }
 
 }
