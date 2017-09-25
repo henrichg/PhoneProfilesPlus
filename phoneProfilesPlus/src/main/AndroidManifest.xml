@@ -604,10 +604,6 @@
             android:exported="false">
         </service>
         <service
-            android:name=".GeofencesService"
-            android:exported="false">
-        </service>
-        <service
             android:name=".DeviceOrientationService"
             android:exported="false">
         </service>
