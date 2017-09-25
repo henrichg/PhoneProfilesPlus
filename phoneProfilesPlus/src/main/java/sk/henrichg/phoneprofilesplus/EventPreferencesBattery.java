@@ -256,7 +256,7 @@ class EventPreferencesBattery extends EventPreferences {
     public void setSystemEventForPause(Context context)
     {
         if (PhoneProfilesService.instance != null) {
-            PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false);
+            PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false, false);
         }
     }
 
@@ -264,7 +264,7 @@ class EventPreferencesBattery extends EventPreferences {
     public void removeSystemEvent(Context context)
     {
         if (PhoneProfilesService.instance != null) {
-            PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false);
+            PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false, true);
         }
     }
 }

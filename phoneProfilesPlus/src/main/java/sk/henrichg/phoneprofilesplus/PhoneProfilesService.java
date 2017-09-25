@@ -313,7 +313,7 @@ public class PhoneProfilesService extends Service
         intentFilter1.addAction(Intent.ACTION_BATTERY_OKAY);
         appContext.registerReceiver(batteryEventReceiver, intentFilter1);
 
-        registerBatteryChangedReceiver(true, true);
+        registerBatteryChangedReceiver(true, true, true);
 
         // required for peripherals event
         if (headsetPlugReceiver != null)
@@ -546,7 +546,7 @@ public class PhoneProfilesService extends Service
         if (batteryEventReceiver != null)
             appContext.unregisterReceiver(batteryEventReceiver);
         if (batteryChangeLevelReceiver != null)
-            registerBatteryChangedReceiver(false, true);
+            registerBatteryChangedReceiver(false, true, false);
         if (headsetPlugReceiver != null)
             appContext.unregisterReceiver(headsetPlugReceiver);
         if (screenOnOffReceiver != null)
@@ -668,7 +668,7 @@ public class PhoneProfilesService extends Service
         return onlyStart;
     }
 
-    void registerBatteryChangedReceiver(boolean register, boolean unregister) {
+    void registerBatteryChangedReceiver(boolean register, boolean unregister, boolean checkDatabase) {
         Context appContext = getApplicationContext();
         if (unregister) {
             if (batteryChangeLevelReceiver != null) {
@@ -684,7 +684,9 @@ public class PhoneProfilesService extends Service
             // get power save mode from PPP settings (tested will be value "1" = 5%, "2" = 15%)
             String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal(appContext);
             // get non-stopped events with battery sensor with levels > 0 and < 100
-            int batterySensorEventCount = DatabaseHandler.getInstance(appContext).getBatteryEventWithLevelCount();
+            int batterySensorEventCount = 1;
+            if (checkDatabase)
+                batterySensorEventCount = DatabaseHandler.getInstance(appContext).getBatteryEventWithLevelCount();
             if (powerSaveModeInternal.equals("1") || powerSaveModeInternal.equals("2") || (batterySensorEventCount > 0)) {
                 if (batteryChangeLevelReceiver == null) {
                     batteryChangeLevelReceiver = new BatteryBroadcastReceiver();
@@ -693,7 +695,7 @@ public class PhoneProfilesService extends Service
                     appContext.registerReceiver(batteryChangeLevelReceiver, intentFilter1_1);
                 }
             } else {
-                registerBatteryChangedReceiver(false, true);
+                registerBatteryChangedReceiver(false, true, false);
             }
         }
     }

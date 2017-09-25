@@ -1056,7 +1056,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     // register receiver for battery level update
                     // required for preference ApplicationPreferences.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL
-                    PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false);
+                    PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false, true);
 
                     boolean powerSaveMode = PPApplication.isPowerSaveMode;
                     if (PhoneProfilesService.geofencesScanner != null) {
