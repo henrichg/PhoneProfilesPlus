@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Handler;
+import android.os.Looper;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
@@ -91,7 +92,7 @@ public class ExecuteVolumeProfilePrefsService extends WakefulIntentService
                 //SystemClock.sleep(500);
                 PPApplication.sleep(500);
 
-                final Handler handler = new Handler();
+                final Handler handler = new Handler(Looper.getMainLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {

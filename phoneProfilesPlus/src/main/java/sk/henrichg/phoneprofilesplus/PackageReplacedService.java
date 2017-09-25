@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.os.Handler;
+import android.os.Looper;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
@@ -23,7 +24,7 @@ public class PackageReplacedService extends WakefulIntentService {
 
             // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
             PPApplication.startedOnBoot = true;
-            final Handler handler = new Handler();
+            final Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -110,7 +111,7 @@ public class PackageReplacedService extends WakefulIntentService {
                 if (PhoneProfilesService.instance != null) {
                     // stop PhoneProfilesService
                     appContext.stopService(new Intent(appContext, PhoneProfilesService.class));
-                    Handler _handler = new Handler();
+                    Handler _handler = new Handler(Looper.getMainLooper());
                     Runnable r = new Runnable() {
                         public void run() {
                             startService(appContext);

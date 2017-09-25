@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
@@ -713,7 +714,7 @@ class BluetoothScanJob extends Job {
             {
                 // start service
                 final Context _context = context.getApplicationContext();
-                new Handler().postDelayed(new Runnable() {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         try {

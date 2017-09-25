@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
@@ -291,7 +292,7 @@ public class BluetoothService extends WakefulIntentService {
                         {
                             // start service
                             final Context _context = appContext;
-                            new Handler().postDelayed(new Runnable() {
+                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     Intent eventsServiceIntent = new Intent(_context, EventsHandlerService.class);

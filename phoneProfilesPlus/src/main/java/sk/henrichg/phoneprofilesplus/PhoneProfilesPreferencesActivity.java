@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -143,7 +144,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         //else
         //    startForegroundService(serviceIntent);
 
-        Handler handler = new Handler();
+        Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

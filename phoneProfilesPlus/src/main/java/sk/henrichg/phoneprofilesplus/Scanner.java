@@ -16,6 +16,7 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
@@ -106,7 +107,7 @@ class Scanner {
                 }
             }
 
-            Handler wifiBluetoothChangeHandler = new Handler();
+            Handler wifiBluetoothChangeHandler = new Handler(Looper.getMainLooper());
 
             PPApplication.logE("$$$ Scanner.doScan", "before synchronized block - scanerType=" + scannerType);
 
@@ -218,7 +219,7 @@ class Scanner {
                                         {
                                             // start service
                                             final Context _context = context.getApplicationContext();
-                                            new Handler().postDelayed(new Runnable() {
+                                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     Intent eventsServiceIntent = new Intent(_context, EventsHandlerService.class);

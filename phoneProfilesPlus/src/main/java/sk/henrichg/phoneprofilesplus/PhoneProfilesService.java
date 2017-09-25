@@ -36,6 +36,7 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
@@ -1779,7 +1780,7 @@ public class PhoneProfilesService extends Service
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", " security exception");
                     Permissions.grantPlayRingtoneNotificationPermissions(this, true, true);
                     ringingMediaPlayer = null;
-                    final Handler handler = new Handler();
+                    final Handler handler = new Handler(Looper.getMainLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -1790,7 +1791,7 @@ public class PhoneProfilesService extends Service
                 } catch (Exception e) {
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "exception");
                     ringingMediaPlayer = null;
-                    final Handler handler = new Handler();
+                    final Handler handler = new Handler(Looper.getMainLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -1825,7 +1826,7 @@ public class PhoneProfilesService extends Service
                 audioManager.abandonAudioFocus(this);
         //}
         ringingCallIsSimulating = false;
-        final Handler handler = new Handler();
+        final Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -2186,7 +2187,7 @@ public class PhoneProfilesService extends Service
                             eventNotificationMediaPlayer = null;
                             eventNotificationPlayTimer = null;
 
-                            final Handler handler = new Handler();
+                            final Handler handler = new Handler(Looper.getMainLooper());
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -2203,7 +2204,7 @@ public class PhoneProfilesService extends Service
                     Permissions.grantPlayRingtoneNotificationPermissions(this, true, false);
                     eventNotificationMediaPlayer = null;
                     eventNotificationIsPlayed = false;
-                    final Handler handler = new Handler();
+                    final Handler handler = new Handler(Looper.getMainLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -2216,7 +2217,7 @@ public class PhoneProfilesService extends Service
                     //e.printStackTrace();
                     eventNotificationMediaPlayer = null;
                     eventNotificationIsPlayed = false;
-                    final Handler handler = new Handler();
+                    final Handler handler = new Handler(Looper.getMainLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
