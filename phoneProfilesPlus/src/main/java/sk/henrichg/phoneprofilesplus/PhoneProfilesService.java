@@ -102,7 +102,6 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_SET_SERVICE_FOREGROUND = "set_service_foreground";
     static final String EXTRA_CLEAR_SERVICE_FOREGROUND = "clear_service_foreground";
     static final String EXTRA_SWITCH_KEYGUARD = "switch_keyguard";
-    static final String EXTRA_REGISTER_BATTERY_CHANGED_BROADCAST = "register_battery_changed_broadcast";
 
     //-----------------------
 
@@ -314,7 +313,7 @@ public class PhoneProfilesService extends Service
         intentFilter1.addAction(Intent.ACTION_BATTERY_OKAY);
         appContext.registerReceiver(batteryEventReceiver, intentFilter1);
 
-        registerBatteryChangedReceiver();
+        registerBatteryChangedReceiver(true, true);
 
         // required for peripherals event
         if (headsetPlugReceiver != null)
@@ -547,7 +546,7 @@ public class PhoneProfilesService extends Service
         if (batteryEventReceiver != null)
             appContext.unregisterReceiver(batteryEventReceiver);
         if (batteryChangeLevelReceiver != null)
-            appContext.unregisterReceiver(batteryChangeLevelReceiver);
+            registerBatteryChangedReceiver(false, true);
         if (headsetPlugReceiver != null)
             appContext.unregisterReceiver(headsetPlugReceiver);
         if (screenOnOffReceiver != null)
@@ -669,27 +668,34 @@ public class PhoneProfilesService extends Service
         return onlyStart;
     }
 
-    void registerBatteryChangedReceiver() {
+    void registerBatteryChangedReceiver(boolean register, boolean unregister) {
         Context appContext = getApplicationContext();
-        if (batteryChangeLevelReceiver != null) {
-            try {
-                appContext.unregisterReceiver(batteryChangeLevelReceiver);
-            } catch (Exception e) {
-                batteryChangeLevelReceiver = null;
+        if (unregister) {
+            if (batteryChangeLevelReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(batteryChangeLevelReceiver);
+                    batteryChangeLevelReceiver = null;
+                } catch (Exception e) {
+                    batteryChangeLevelReceiver = null;
+                }
             }
         }
-        // get power save mode from PPP settings (tested will be value "1" = 5%, "2" = 15%)
-        String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal(appContext);
-        // get non-stopped events with battery sensor with levels > 0 and < 100
-        int batterySensorEventCount = DatabaseHandler.getInstance(appContext).getBatteryEventWithLevelCount();
-        if (powerSaveModeInternal.equals("1") || powerSaveModeInternal.equals("2") || (batterySensorEventCount > 0)) {
-            batteryChangeLevelReceiver = new BatteryBroadcastReceiver();
-            IntentFilter intentFilter1_1 = new IntentFilter();
-            intentFilter1_1.addAction(Intent.ACTION_BATTERY_CHANGED);
-            appContext.registerReceiver(batteryChangeLevelReceiver, intentFilter1_1);
+        if (register) {
+            // get power save mode from PPP settings (tested will be value "1" = 5%, "2" = 15%)
+            String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal(appContext);
+            // get non-stopped events with battery sensor with levels > 0 and < 100
+            int batterySensorEventCount = DatabaseHandler.getInstance(appContext).getBatteryEventWithLevelCount();
+            if (powerSaveModeInternal.equals("1") || powerSaveModeInternal.equals("2") || (batterySensorEventCount > 0)) {
+                if (batteryChangeLevelReceiver == null) {
+                    batteryChangeLevelReceiver = new BatteryBroadcastReceiver();
+                    IntentFilter intentFilter1_1 = new IntentFilter();
+                    intentFilter1_1.addAction(Intent.ACTION_BATTERY_CHANGED);
+                    appContext.registerReceiver(batteryChangeLevelReceiver, intentFilter1_1);
+                }
+            } else {
+                registerBatteryChangedReceiver(false, true);
+            }
         }
-        else
-            batteryChangeLevelReceiver = null;
     }
 
     @Override
@@ -753,11 +759,6 @@ public class PhoneProfilesService extends Service
                             }
                         }
                     }
-                }
-
-                if (intent.getBooleanExtra(EXTRA_REGISTER_BATTERY_CHANGED_BROADCAST, false)) {
-                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_REGISTER_BATTERY_CHANGED_BROADCAST");
-                    registerBatteryChangedReceiver();
                 }
 
                 if (intent.getBooleanExtra(EventsService.EXTRA_SIMULATE_RINGING_CALL, false)) {
