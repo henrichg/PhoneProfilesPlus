@@ -3300,20 +3300,9 @@ public class DataWrapper {
             // no set system events, unblock all events, no activate return profile
             pauseAllEvents(true, false/*, false*/);
             Event.setGlobalEventsRunning(context, false);
-            // stop Wifi scanner
-            WifiScanJob.initialize(context);
-            WifiScanJob.cancelJob();
-            // stop bluetooth scanner
-            BluetoothScanJob.initialize(context);
-            BluetoothScanJob.cancelJob();
-            // stop geofences scanner
-            GeofenceScannerJob.cancelJob();
-            if (PhoneProfilesService.instance != null) {
-                PPApplication.stopGeofenceScanner(context);
-                PPApplication.stopOrientationScanner(context);
-                // no stop mobile cells scanner, must run for last connection time
-                //PPApplication.stopPhoneStateScanner(getApplicationContext());
-            }
+
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.stopEventReceiversAndJobs();
         }
         else
         {
@@ -3322,11 +3311,8 @@ public class DataWrapper {
 
             Event.setGlobalEventsRunning(context, true);
 
-            if (PhoneProfilesService.instance != null) {
-                PPApplication.startGeofenceScanner(context);
-                PPApplication.startOrientationScanner(context);
-                PPApplication.startPhoneStateScanner(context);
-            }
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.startEventReceiversAndJobs();
 
             // setup for next start
             firstStartEvents(false);

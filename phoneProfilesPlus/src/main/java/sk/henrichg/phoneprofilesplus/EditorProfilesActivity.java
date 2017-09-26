@@ -621,6 +621,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         BluetoothScanJob.cancelJob();
         GeofenceScannerJob.cancelJob();
 
+        if (PhoneProfilesService.instance != null)
+            PhoneProfilesService.instance.registerBatteryChangedReceiver(false, true, false);
 
         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 
@@ -1045,6 +1047,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     Permissions.grantEventPermissions(getApplicationContext(), event, false);
                 }
+
+                if (PhoneProfilesService.instance != null)
+                    PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false, true);
             }
         }
         else

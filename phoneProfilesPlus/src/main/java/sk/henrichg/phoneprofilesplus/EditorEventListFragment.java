@@ -409,6 +409,9 @@ public class EditorEventListFragment extends Fragment
                 updateListView(event, false, false, true);
             }
         }
+
+        if (PhoneProfilesService.instance != null)
+            PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false, true);
     }
 
     private void duplicateEvent(Event origEvent)
@@ -455,17 +458,17 @@ public class EditorEventListFragment extends Fragment
         PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
         dataWrapper.restartEvents(false, true, false);
 
-        //if (!eventListAdapter.released)
-            listView.getRecycledViewPool().clear();
+        listView.getRecycledViewPool().clear();
 
         eventListAdapter.deleteItemNoNotify(event);
         databaseHandler.deleteEvent(event);
 
-        //if (!eventListAdapter.released) {
-            eventListAdapter.notifyDataSetChanged();
+        eventListAdapter.notifyDataSetChanged();
 
-            onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
-        //}
+        if (PhoneProfilesService.instance != null)
+            PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false, true);
+
+        onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
     }
 
     public void showEditMenu(View view)
@@ -552,9 +555,12 @@ public class EditorEventListFragment extends Fragment
                     dataWrapper.stopAllEvents(true, false);
 
                     databaseHandler.deleteAllEvents();
-                    eventListAdapter.clear();
 
+                    eventListAdapter.clear();
                     eventListAdapter.notifyDataSetChanged();
+
+                    if (PhoneProfilesService.instance != null)
+                        PhoneProfilesService.instance.stopEventReceiversAndJobs();
 
                     onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
                 }

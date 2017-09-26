@@ -250,21 +250,15 @@ class EventPreferencesBattery extends EventPreferences {
     public void setSystemEventForStart(Context context)
     {
     }
-    */
 
     @Override
     public void setSystemEventForPause(Context context)
     {
-        if (PhoneProfilesService.instance != null) {
-            PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false, false);
-        }
     }
 
     @Override
     public void removeSystemEvent(Context context)
     {
-        if (PhoneProfilesService.instance != null) {
-            PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false, true);
-        }
     }
+    */
 }

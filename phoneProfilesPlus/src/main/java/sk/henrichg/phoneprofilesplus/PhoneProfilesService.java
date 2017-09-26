@@ -297,7 +297,59 @@ public class PhoneProfilesService extends Service
 
         // --------------------------------
 
+        startEventReceiversAndJobs();
+
+        AboutApplicationJob.scheduleJob();
+
+        ringingMediaPlayer = null;
+        //notificationMediaPlayer = null;
+
+        PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OK created");
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        PPApplication.logE("PhoneProfilesService.onDestroy", "xxxxx");
+
+        Context appContext = getApplicationContext();
+
+        if (screenOnOffReceiver != null)
+            appContext.unregisterReceiver(screenOnOffReceiver);
+        if (android.os.Build.VERSION.SDK_INT >= 23)
+            if (interruptionFilterChangedReceiver != null)
+                appContext.unregisterReceiver(interruptionFilterChangedReceiver);
+        if (phoneCallBroadcastReceiver != null)
+            appContext.unregisterReceiver(phoneCallBroadcastReceiver);
+        if (ringerModeChangeReceiver != null)
+            appContext.unregisterReceiver(ringerModeChangeReceiver);
+        if (settingsContentObserver != null)
+            appContext.getContentResolver().unregisterContentObserver(settingsContentObserver);
+        if (wifiStateChangedBroadcastReceiver != null)
+            appContext.unregisterReceiver(wifiStateChangedBroadcastReceiver);
+        if (android.os.Build.VERSION.SDK_INT >= 23)
+            if (deviceIdleModeReceiver != null)
+                appContext.unregisterReceiver(deviceIdleModeReceiver);
+
+        stopEventReceiversAndJobs();
+
+        stopSimulatingRingingCall(true);
+        //stopSimulatingNotificationTone(true);
+
+        reenableKeyguard();
+
+        removeProfileNotification(this);
+
+        instance = null;
+        serviceRunning = false;
+
+        super.onDestroy();
+    }
+
+    void startEventReceiversAndJobs() {
         // --- receivers and content observers for events -- register it only if any event exists
+
+        Context appContext = getApplicationContext();
 
         // get actual battery status
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
@@ -305,7 +357,7 @@ public class PhoneProfilesService extends Service
         if (batteryStatus != null) {
             int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
             BatteryBroadcastReceiver.isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
-                            status == BatteryManager.BATTERY_STATUS_FULL;
+                    status == BatteryManager.BATTERY_STATUS_FULL;
             int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
             int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
             BatteryBroadcastReceiver.batteryPct = Math.round(level / (float) scale * 100);
@@ -536,20 +588,9 @@ public class PhoneProfilesService extends Service
         startGeofenceScanner();
         startPhoneStateScanner();
         startOrientationScanner();
-
-        AboutApplicationJob.scheduleJob();
-
-        ringingMediaPlayer = null;
-        //notificationMediaPlayer = null;
-
-        PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OK created");
     }
 
-    @Override
-    public void onDestroy()
-    {
-        PPApplication.logE("PhoneProfilesService.onDestroy", "xxxxx");
-
+    void stopEventReceiversAndJobs() {
         Context appContext = getApplicationContext();
 
         if (batteryEventReceiver != null)
@@ -558,17 +599,9 @@ public class PhoneProfilesService extends Service
             registerBatteryChangedReceiver(false, true, false);
         if (headsetPlugReceiver != null)
             appContext.unregisterReceiver(headsetPlugReceiver);
-        if (screenOnOffReceiver != null)
-            appContext.unregisterReceiver(screenOnOffReceiver);
-        if (android.os.Build.VERSION.SDK_INT >= 23)
-            if (deviceIdleModeReceiver != null)
-                appContext.unregisterReceiver(deviceIdleModeReceiver);
         if (android.os.Build.VERSION.SDK_INT >= 21)
             if (powerSaveModeReceiver != null)
                 appContext.unregisterReceiver(powerSaveModeReceiver);
-        if (android.os.Build.VERSION.SDK_INT >= 23)
-            if (interruptionFilterChangedReceiver != null)
-                appContext.unregisterReceiver(interruptionFilterChangedReceiver);
         if (PPApplication.hasSystemFeature(this, PackageManager.FEATURE_NFC))
             if (nfcStateChangedBroadcastReceiver != null) {
                 //try {
@@ -576,12 +609,6 @@ public class PhoneProfilesService extends Service
                 //} catch (Exception ignored) {
                 //}
             }
-        if (phoneCallBroadcastReceiver != null)
-            appContext.unregisterReceiver(phoneCallBroadcastReceiver);
-        if (ringerModeChangeReceiver != null)
-            appContext.unregisterReceiver(ringerModeChangeReceiver);
-        if (wifiStateChangedBroadcastReceiver != null)
-            appContext.unregisterReceiver(wifiStateChangedBroadcastReceiver);
         if (dockConnectionBroadcastReceiver != null)
             appContext.unregisterReceiver(dockConnectionBroadcastReceiver);
         if (wifiConnectionBroadcastReceiver != null)
@@ -604,31 +631,20 @@ public class PhoneProfilesService extends Service
             appContext.unregisterReceiver(mmsBroadcastReceiver);
         if (calendarProviderChangedBroadcastReceiver != null)
             appContext.unregisterReceiver(calendarProviderChangedBroadcastReceiver);
-
-        if (settingsContentObserver != null)
-            appContext.getContentResolver().unregisterContentObserver(settingsContentObserver);
-
         if (mobileDataStateChangedContentObserver != null)
             appContext.getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
 
         //SMSBroadcastReceiver.unregisterSMSContentObserver(appContext);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(appContext);
 
+        WifiScanJob.cancelJob();
+        BluetoothScanJob.cancelJob();
+        GeofenceScannerJob.cancelJob();
+        SearchCalendarEventsJob.cancelJob();
+
         stopGeofenceScanner();
         stopOrientationScanner();
         stopPhoneStateScanner();
-
-        stopSimulatingRingingCall(true);
-        //stopSimulatingNotificationTone(true);
-
-        reenableKeyguard();
-
-        removeProfileNotification(this);
-
-        instance = null;
-        serviceRunning = false;
-
-        super.onDestroy();
     }
 
     // start service for first start
