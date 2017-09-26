@@ -36,16 +36,13 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.provider.Telephony;
-import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -93,8 +90,8 @@ public class PhoneProfilesService extends Service
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
 
-    private static SettingsContentObserver settingsContentObserver = null;
-    private static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
+    private SettingsContentObserver settingsContentObserver = null;
+    private MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
 
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
     static final String EXTRA_START_STOP_SCANNER_TYPE = "start_stop_scanner_type";
@@ -881,7 +878,7 @@ public class PhoneProfilesService extends Service
     }
 
     // start service for first start
-    private boolean doForFirstStart(Intent intent, int flags, int startId) {
+    private boolean doForFirstStart(Intent intent/*, int flags, int startId*/) {
         boolean onlyStart = true;
         boolean startOnBoot = false;
 
@@ -933,7 +930,7 @@ public class PhoneProfilesService extends Service
 
         serviceRunning = true;
 
-        if (!doForFirstStart(intent, flags, startId)) {
+        if (!doForFirstStart(intent/*, flags, startId*/)) {
             if (intent != null) {
                 if (intent.getBooleanExtra(EXTRA_SET_SERVICE_FOREGROUND, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SET_SERVICE_FOREGROUND");
