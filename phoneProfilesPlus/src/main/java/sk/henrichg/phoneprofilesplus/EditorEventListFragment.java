@@ -410,8 +410,13 @@ public class EditorEventListFragment extends Fragment
             }
         }
 
-        if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.restartEventReceiversAndJobs();
+        Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
+        serviceIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENT_RECEIVERS_AND_JOBS, true);
+        //TODO Android O
+        //if (Build.VERSION.SDK_INT < 26)
+        getActivity().getApplicationContext().startService(serviceIntent);
+        //else
+        //    context.startForegroundService(serviceIntent);
     }
 
     private void duplicateEvent(Event origEvent)
@@ -465,8 +470,13 @@ public class EditorEventListFragment extends Fragment
 
         eventListAdapter.notifyDataSetChanged();
 
-        if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.restartEventReceiversAndJobs();
+        Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
+        serviceIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENT_RECEIVERS_AND_JOBS, true);
+        //TODO Android O
+        //if (Build.VERSION.SDK_INT < 26)
+        getActivity().getApplicationContext().startService(serviceIntent);
+        //else
+        //    context.startForegroundService(serviceIntent);
 
         onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
     }
@@ -559,8 +569,13 @@ public class EditorEventListFragment extends Fragment
                     eventListAdapter.clear();
                     eventListAdapter.notifyDataSetChanged();
 
-                    if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.stopEventReceiversAndJobs();
+                    Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_STOP_EVENT_RECEIVERS_AND_JOBS, true);
+                    //TODO Android O
+                    //if (Build.VERSION.SDK_INT < 26)
+                    getActivity().getApplicationContext().startService(serviceIntent);
+                    //else
+                    //    context.startForegroundService(serviceIntent);
 
                     onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
                 }

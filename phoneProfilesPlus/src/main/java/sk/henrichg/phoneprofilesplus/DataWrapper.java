@@ -3301,8 +3301,13 @@ public class DataWrapper {
             pauseAllEvents(true, false/*, false*/);
             Event.setGlobalEventsRunning(context, false);
 
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.stopEventReceiversAndJobs();
+            Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_STOP_EVENT_RECEIVERS_AND_JOBS, true);
+            //TODO Android O
+            //if (Build.VERSION.SDK_INT < 26)
+            context.startService(serviceIntent);
+            //else
+            //    context.startForegroundService(serviceIntent);
         }
         else
         {
@@ -3311,8 +3316,13 @@ public class DataWrapper {
 
             Event.setGlobalEventsRunning(context, true);
 
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.startEventReceiversAndJobs();
+            Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_EVENT_RECEIVERS_AND_JOBS, true);
+            //TODO Android O
+            //if (Build.VERSION.SDK_INT < 26)
+            context.startService(serviceIntent);
+            //else
+            //    context.startForegroundService(serviceIntent);
 
             // setup for next start
             firstStartEvents(false);

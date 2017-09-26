@@ -111,6 +111,9 @@ public class PhoneProfilesService extends Service
     //static final String EXTRA_SIMULATE_NOTIFICATION_TONE = "simulate_notification_tone";
     //static final String EXTRA_OLD_NOTIFICATION_TONE = "old_notification_tone";
     static final String EXTRA_OLD_SYSTEM_RINGER_VOLUME = "old_system_ringer_volume";
+    static final String EXTRA_START_EVENT_RECEIVERS_AND_JOBS = "start_event_receivers_and_jobs";
+    static final String EXTRA_STOP_EVENT_RECEIVERS_AND_JOBS = "stop_event_receivers_and_jobs";
+    static final String EXTRA_RESTART_EVENT_RECEIVERS_AND_JOBS = "restart_event_receivers_and_jobs";
 
     //-----------------------
 
@@ -273,7 +276,8 @@ public class PhoneProfilesService extends Service
         appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver);
 
         // required for Connect to SSIS profile preference +
-        // wifi connection type = (dis)connected, radio switch event +
+        // wifi connection type = (dis)connected +
+        // radio switch event +
         // wifi scanner
         if (wifiStateChangedBroadcastReceiver != null)
             appContext.unregisterReceiver(wifiStateChangedBroadcastReceiver);
@@ -281,6 +285,16 @@ public class PhoneProfilesService extends Service
         IntentFilter intentFilter8 = new IntentFilter();
         intentFilter8.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
         appContext.registerReceiver(wifiStateChangedBroadcastReceiver, intentFilter8);
+
+        // required for Connect to SSIS profile preference +
+        // required for wifi connection type = (dis)connected event +
+        // wifi scanner
+        if (wifiConnectionBroadcastReceiver != null)
+            appContext.unregisterReceiver(wifiConnectionBroadcastReceiver);
+        wifiConnectionBroadcastReceiver = new WifiConnectionBroadcastReceiver();
+        IntentFilter intentFilter13 = new IntentFilter();
+        intentFilter13.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        appContext.registerReceiver(wifiConnectionBroadcastReceiver, intentFilter13);
 
         // required for start EventsHandlerService in idle maintenance window
         if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -346,7 +360,265 @@ public class PhoneProfilesService extends Service
         super.onDestroy();
     }
 
-    void startEventReceiversAndJobs() {
+    private void registerBatteryEventReceiver(boolean register, boolean unregister, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        if (unregister) {
+            if (batteryEventReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(batteryEventReceiver);
+                    batteryEventReceiver = null;
+                } catch (Exception e) {
+                    batteryEventReceiver = null;
+                }
+            }
+        }
+        if (register) {
+            int eventCount = 1;
+            if (checkDatabase || (batteryEventReceiver == null))
+                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BATTERY);
+            if (eventCount > 0) {
+                if (batteryEventReceiver == null) {
+                    batteryEventReceiver = new BatteryBroadcastReceiver();
+                    IntentFilter intentFilter1 = new IntentFilter();
+                    intentFilter1.addAction(Intent.ACTION_POWER_CONNECTED);
+                    intentFilter1.addAction(Intent.ACTION_POWER_DISCONNECTED);
+                    intentFilter1.addAction(Intent.ACTION_BATTERY_LOW);
+                    intentFilter1.addAction(Intent.ACTION_BATTERY_OKAY);
+                    appContext.registerReceiver(batteryEventReceiver, intentFilter1);
+                }
+            } else {
+                registerBatteryEventReceiver(false, true, false);
+            }
+        }
+    }
+
+    private void registerBatteryChangedReceiver(boolean register, boolean unregister, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        if (unregister) {
+            if (batteryChangeLevelReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(batteryChangeLevelReceiver);
+                    batteryChangeLevelReceiver = null;
+                } catch (Exception e) {
+                    batteryChangeLevelReceiver = null;
+                }
+            }
+        }
+        if (register) {
+            // get power save mode from PPP settings (tested will be value "1" = 5%, "2" = 15%)
+            String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal(appContext);
+            // get non-stopped events with battery sensor with levels > 0 and < 100
+            int batterySensorEventCount = 1;
+            if (checkDatabase || (batteryChangeLevelReceiver == null))
+                batterySensorEventCount = DatabaseHandler.getInstance(appContext).getBatteryEventWithLevelCount();
+            if (powerSaveModeInternal.equals("1") || powerSaveModeInternal.equals("2") || (batterySensorEventCount > 0)) {
+                if (batteryChangeLevelReceiver == null) {
+                    batteryChangeLevelReceiver = new BatteryBroadcastReceiver();
+                    IntentFilter intentFilter1_1 = new IntentFilter();
+                    intentFilter1_1.addAction(Intent.ACTION_BATTERY_CHANGED);
+                    appContext.registerReceiver(batteryChangeLevelReceiver, intentFilter1_1);
+                }
+            } else {
+                registerBatteryChangedReceiver(false, true, false);
+            }
+        }
+    }
+
+    private void registerReceiverForPeripheralsSensor(boolean register, boolean unregister, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        if (unregister) {
+            if (headsetPlugReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(headsetPlugReceiver);
+                    headsetPlugReceiver = null;
+                } catch (Exception e) {
+                    headsetPlugReceiver = null;
+                }
+            }
+            if (dockConnectionBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(dockConnectionBroadcastReceiver);
+                    dockConnectionBroadcastReceiver = null;
+                } catch (Exception e) {
+                    dockConnectionBroadcastReceiver = null;
+                }
+            }
+        }
+        if (register) {
+            int eventCount = 1;
+            if (checkDatabase || (headsetPlugReceiver == null) || (dockConnectionBroadcastReceiver == null))
+                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL);
+            if (eventCount > 0) {
+                if (headsetPlugReceiver == null) {
+                    headsetPlugReceiver = new HeadsetConnectionBroadcastReceiver();
+                    IntentFilter intentFilter2 = new IntentFilter();
+                    intentFilter2.addAction(Intent.ACTION_HEADSET_PLUG);
+                    intentFilter2.addAction(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED);
+                    intentFilter2.addAction(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED);
+                    appContext.registerReceiver(headsetPlugReceiver, intentFilter2);
+                }
+                if (dockConnectionBroadcastReceiver == null) {
+                    dockConnectionBroadcastReceiver = new DockConnectionBroadcastReceiver();
+                    IntentFilter intentFilter12 = new IntentFilter();
+                    intentFilter12.addAction(Intent.ACTION_DOCK_EVENT);
+                    intentFilter12.addAction("android.intent.action.ACTION_DOCK_EVENT");
+                    appContext.registerReceiver(dockConnectionBroadcastReceiver, intentFilter12);
+                }
+            } else {
+                registerReceiverForPeripheralsSensor(false, true, false);
+            }
+        }
+    }
+
+    private void registerReceiverForSMSSensor(boolean register, boolean unregister, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        if (unregister) {
+            if (smsBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(smsBroadcastReceiver);
+                    smsBroadcastReceiver = null;
+                } catch (Exception e) {
+                    smsBroadcastReceiver = null;
+                }
+            }
+            if (mmsBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(mmsBroadcastReceiver);
+                    mmsBroadcastReceiver = null;
+                } catch (Exception e) {
+                    mmsBroadcastReceiver = null;
+                }
+            }
+        }
+        if (register) {
+            int eventCount = 1;
+            if (checkDatabase || (smsBroadcastReceiver == null) || (mmsBroadcastReceiver == null))
+                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS);
+            if (eventCount > 0) {
+                if (smsBroadcastReceiver == null) {
+                    smsBroadcastReceiver = new SMSBroadcastReceiver();
+                    IntentFilter intentFilter21 = new IntentFilter();
+                    if (android.os.Build.VERSION.SDK_INT >= 19)
+                        intentFilter21.addAction(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
+                    else
+                        intentFilter21.addAction("android.provider.Telephony.SMS_RECEIVED");
+                    intentFilter21.setPriority(Integer.MAX_VALUE);
+                    appContext.registerReceiver(smsBroadcastReceiver, intentFilter21);
+                }
+                if (mmsBroadcastReceiver == null) {
+                    mmsBroadcastReceiver = new SMSBroadcastReceiver();
+                    IntentFilter intentFilter22;
+                    if (android.os.Build.VERSION.SDK_INT >= 19)
+                        intentFilter22 = IntentFilter.create(Telephony.Sms.Intents.WAP_PUSH_RECEIVED_ACTION, "application/vnd.wap.mms-message");
+                    else
+                        intentFilter22 = IntentFilter.create("android.provider.Telephony.WAP_PUSH_RECEIVED", "application/vnd.wap.mms-message");
+                    intentFilter22.setPriority(Integer.MAX_VALUE);
+                    appContext.registerReceiver(mmsBroadcastReceiver, intentFilter22);
+                }
+            } else {
+                registerReceiverForSMSSensor(false, true, false);
+            }
+        }
+    }
+
+    private void registerReceiverForCalendarSensor(boolean register, boolean unregister, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        if (unregister) {
+            if (calendarProviderChangedBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(calendarProviderChangedBroadcastReceiver);
+                    calendarProviderChangedBroadcastReceiver = null;
+                } catch (Exception e) {
+                    calendarProviderChangedBroadcastReceiver = null;
+                }
+            }
+        }
+        if (register) {
+            int eventCount = 1;
+            if (checkDatabase || (calendarProviderChangedBroadcastReceiver == null))
+                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR);
+            if (eventCount > 0) {
+                if (calendarProviderChangedBroadcastReceiver == null) {
+                    calendarProviderChangedBroadcastReceiver = new CalendarProviderChangedBroadcastReceiver();
+                    IntentFilter intentFilter23 = new IntentFilter();
+                    intentFilter23.addAction(Intent.ACTION_PROVIDER_CHANGED);
+                    intentFilter23.addDataScheme("content");
+                    intentFilter23.addDataAuthority("com.android.calendar", null);
+                    intentFilter23.setPriority(Integer.MAX_VALUE);
+                    appContext.registerReceiver(calendarProviderChangedBroadcastReceiver, intentFilter23);
+                }
+            } else {
+                registerReceiverForCalendarSensor(false, true, false);
+            }
+        }
+    }
+
+    private void registerReceiverForRadioSwitchSensor(boolean register, boolean unregister, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        if (unregister) {
+            if (airplaneModeStateChangedBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(airplaneModeStateChangedBroadcastReceiver);
+                    airplaneModeStateChangedBroadcastReceiver = null;
+                } catch (Exception e) {
+                    airplaneModeStateChangedBroadcastReceiver = null;
+                }
+            }
+            if (PPApplication.hasSystemFeature(this, PackageManager.FEATURE_NFC)) {
+                if (nfcStateChangedBroadcastReceiver != null) {
+                    try {
+                        appContext.unregisterReceiver(nfcStateChangedBroadcastReceiver);
+                        nfcStateChangedBroadcastReceiver = null;
+                    } catch (Exception e) {
+                        nfcStateChangedBroadcastReceiver = null;
+                    }
+                }
+            }
+            if (mobileDataStateChangedContentObserver != null) {
+                try {
+                    appContext.getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
+                    mobileDataStateChangedContentObserver = null;
+                } catch (Exception e) {
+                    mobileDataStateChangedContentObserver = null;
+                }
+            }
+        }
+        if (register) {
+            int eventCount = 1;
+            if (checkDatabase || (airplaneModeStateChangedBroadcastReceiver == null) || (nfcStateChangedBroadcastReceiver == null) ||
+                    (mobileDataStateChangedContentObserver == null))
+                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_RADIO_SWITCH);
+            if (eventCount > 0) {
+                if (airplaneModeStateChangedBroadcastReceiver == null) {
+                    airplaneModeStateChangedBroadcastReceiver = new AirplaneModeStateChangedBroadcastReceiver();
+                    IntentFilter intentFilter19 = new IntentFilter();
+                    intentFilter19.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+                    appContext.registerReceiver(airplaneModeStateChangedBroadcastReceiver, intentFilter19);
+                }
+                if (nfcStateChangedBroadcastReceiver == null) {
+                    if (android.os.Build.VERSION.SDK_INT >= 18) {
+                        if (PPApplication.hasSystemFeature(this, PackageManager.FEATURE_NFC)) {
+                            nfcStateChangedBroadcastReceiver = new NFCStateChangedBroadcastReceiver();
+                            IntentFilter intentFilter21 = new IntentFilter(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED);
+                            appContext.registerReceiver(nfcStateChangedBroadcastReceiver, intentFilter21);
+                            //PPApplication.logE("$$$ PhoneProfilesService.onCreate", "registered");
+                        }
+                    }
+                }
+                if (mobileDataStateChangedContentObserver == null) {
+                    mobileDataStateChangedContentObserver = new MobileDataStateChangedContentObserver(appContext, new Handler());
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+                        appContext.getContentResolver().registerContentObserver(Settings.Global.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
+                    else
+                        appContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
+                }
+            } else {
+                registerReceiverForRadioSwitchSensor(false, true, false);
+            }
+        }
+    }
+
+    private void startEventReceiversAndJobs() {
         // --- receivers and content observers for events -- register it only if any event exists
 
         Context appContext = getApplicationContext();
@@ -364,100 +636,20 @@ public class PhoneProfilesService extends Service
         }
 
         // required for battery event
-        if (batteryEventReceiver != null)
-            appContext.unregisterReceiver(batteryEventReceiver);
-        batteryEventReceiver = new BatteryBroadcastReceiver();
-        IntentFilter intentFilter1 = new IntentFilter();
-        intentFilter1.addAction(Intent.ACTION_POWER_CONNECTED);
-        intentFilter1.addAction(Intent.ACTION_POWER_DISCONNECTED);
-        intentFilter1.addAction(Intent.ACTION_BATTERY_LOW);
-        intentFilter1.addAction(Intent.ACTION_BATTERY_OKAY);
-        appContext.registerReceiver(batteryEventReceiver, intentFilter1);
-
+        registerBatteryEventReceiver(true, true, true);
         registerBatteryChangedReceiver(true, true, true);
 
         // required for peripherals event
-        if (headsetPlugReceiver != null)
-            appContext.unregisterReceiver(headsetPlugReceiver);
-        headsetPlugReceiver = new HeadsetConnectionBroadcastReceiver();
-        IntentFilter intentFilter2 = new IntentFilter();
-        intentFilter2.addAction(Intent.ACTION_HEADSET_PLUG);
-        intentFilter2.addAction(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED);
-        intentFilter2.addAction(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED);
-        appContext.registerReceiver(headsetPlugReceiver, intentFilter2);
+        registerReceiverForPeripheralsSensor(true, true, true);
 
-        // required for peripherals event
-        if (dockConnectionBroadcastReceiver != null)
-            appContext.unregisterReceiver(dockConnectionBroadcastReceiver);
-        dockConnectionBroadcastReceiver = new DockConnectionBroadcastReceiver();
-        IntentFilter intentFilter12 = new IntentFilter();
-        intentFilter12.addAction(Intent.ACTION_DOCK_EVENT);
-        intentFilter12.addAction("android.intent.action.ACTION_DOCK_EVENT");
-        appContext.registerReceiver(dockConnectionBroadcastReceiver, intentFilter12);
+        // required for sms event
+        registerReceiverForSMSSensor(true, true, true);
 
-        // required for wifi connection type = (dis)connected event
-        if (wifiConnectionBroadcastReceiver != null)
-            appContext.unregisterReceiver(wifiConnectionBroadcastReceiver);
-        wifiConnectionBroadcastReceiver = new WifiConnectionBroadcastReceiver();
-        IntentFilter intentFilter13 = new IntentFilter();
-        intentFilter13.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-        appContext.registerReceiver(wifiConnectionBroadcastReceiver, intentFilter13);
-
-        // required for bluetooth connection type = (dis)connected
-        if (bluetoothConnectionBroadcastReceiver != null)
-            appContext.unregisterReceiver(bluetoothConnectionBroadcastReceiver);
-        bluetoothConnectionBroadcastReceiver = new BluetoothConnectionBroadcastReceiver();
-        IntentFilter intentFilter14 = new IntentFilter();
-        intentFilter14.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
-        intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-        intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
-        intentFilter14.addAction(BluetoothDevice.ACTION_NAME_CHANGED);
-        appContext.registerReceiver(bluetoothConnectionBroadcastReceiver, intentFilter14);
+        // required for calendar event
+        registerReceiverForCalendarSensor(true, true, true);
 
         // required for radio switch event
-        if (airplaneModeStateChangedBroadcastReceiver != null)
-            appContext.unregisterReceiver(airplaneModeStateChangedBroadcastReceiver);
-        airplaneModeStateChangedBroadcastReceiver = new AirplaneModeStateChangedBroadcastReceiver();
-        IntentFilter intentFilter19 = new IntentFilter();
-        intentFilter19.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
-        appContext.registerReceiver(airplaneModeStateChangedBroadcastReceiver, intentFilter19);
-
-        // required for radio switch event
-        if (android.os.Build.VERSION.SDK_INT >= 18) {
-            if (PPApplication.hasSystemFeature(this, PackageManager.FEATURE_NFC)) {
-                if (nfcStateChangedBroadcastReceiver != null)
-                    appContext.unregisterReceiver(nfcStateChangedBroadcastReceiver);
-                nfcStateChangedBroadcastReceiver = new NFCStateChangedBroadcastReceiver();
-                IntentFilter intentFilter21 = new IntentFilter(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED);
-                appContext.registerReceiver(nfcStateChangedBroadcastReceiver, intentFilter21);
-                //PPApplication.logE("$$$ PhoneProfilesService.onCreate", "registered");
-            }
-        }
-
-        // required for radio switch event
-        if (mobileDataStateChangedContentObserver != null)
-            appContext.getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
-        mobileDataStateChangedContentObserver = new MobileDataStateChangedContentObserver(appContext, new Handler());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-            appContext.getContentResolver().registerContentObserver(Settings.Global.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
-        else
-            appContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
-
-        // required for radio switch event + bluetooth scanner
-        if (bluetoothStateChangedBroadcastReceiver != null)
-            appContext.unregisterReceiver(bluetoothStateChangedBroadcastReceiver);
-        bluetoothStateChangedBroadcastReceiver = new BluetoothStateChangedBroadcastReceiver();
-        IntentFilter intentFilter15 = new IntentFilter();
-        intentFilter15.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
-        appContext.registerReceiver(bluetoothStateChangedBroadcastReceiver, intentFilter15);
-
-        // required for wifi scanner
-        if (wifiAPStateChangeBroadcastReceiver != null)
-            appContext.unregisterReceiver(wifiAPStateChangeBroadcastReceiver);
-        wifiAPStateChangeBroadcastReceiver = new WifiAPStateChangeBroadcastReceiver();
-        IntentFilter intentFilter17 = new IntentFilter();
-        intentFilter17.addAction("android.net.wifi.WIFI_AP_STATE_CHANGED");
-        appContext.registerReceiver(wifiAPStateChangeBroadcastReceiver, intentFilter17);
+        registerReceiverForRadioSwitchSensor(true, true, true);
 
         // required for location and radio switch event
         if (locationModeChangedBroadcastReceiver != null)
@@ -469,40 +661,35 @@ public class PhoneProfilesService extends Service
             intentFilter18.addAction(LocationManager.MODE_CHANGED_ACTION);
         appContext.registerReceiver(locationModeChangedBroadcastReceiver, intentFilter18);
 
-        // required for sms event
-        if (smsBroadcastReceiver != null)
-            appContext.unregisterReceiver(smsBroadcastReceiver);
-        smsBroadcastReceiver = new SMSBroadcastReceiver();
-        IntentFilter intentFilter21 = new IntentFilter();
-        if (android.os.Build.VERSION.SDK_INT >= 19)
-            intentFilter21.addAction(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-        else
-            intentFilter21.addAction("android.provider.Telephony.SMS_RECEIVED");
-        intentFilter21.setPriority(Integer.MAX_VALUE);
-        appContext.registerReceiver(smsBroadcastReceiver, intentFilter21);
+        // required for bluetooth connection type = (dis)connected +
+        // radio switch event +
+        // bluetooth scanner
+        if (bluetoothStateChangedBroadcastReceiver != null)
+            appContext.unregisterReceiver(bluetoothStateChangedBroadcastReceiver);
+        bluetoothStateChangedBroadcastReceiver = new BluetoothStateChangedBroadcastReceiver();
+        IntentFilter intentFilter15 = new IntentFilter();
+        intentFilter15.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        appContext.registerReceiver(bluetoothStateChangedBroadcastReceiver, intentFilter15);
 
-        // required for sms event
-        if (mmsBroadcastReceiver != null)
-            appContext.unregisterReceiver(mmsBroadcastReceiver);
-        mmsBroadcastReceiver = new SMSBroadcastReceiver();
-        IntentFilter intentFilter22;
-        if (android.os.Build.VERSION.SDK_INT >= 19)
-            intentFilter22 = IntentFilter.create(Telephony.Sms.Intents.WAP_PUSH_RECEIVED_ACTION, "application/vnd.wap.mms-message");
-        else
-            intentFilter22 = IntentFilter.create("android.provider.Telephony.WAP_PUSH_RECEIVED", "application/vnd.wap.mms-message");
-        intentFilter22.setPriority(Integer.MAX_VALUE);
-        appContext.registerReceiver(mmsBroadcastReceiver, intentFilter22);
+        // required for bluetooth connection type = (dis)connected +
+        // bluetooth scanner
+        if (bluetoothConnectionBroadcastReceiver != null)
+            appContext.unregisterReceiver(bluetoothConnectionBroadcastReceiver);
+        bluetoothConnectionBroadcastReceiver = new BluetoothConnectionBroadcastReceiver();
+        IntentFilter intentFilter14 = new IntentFilter();
+        intentFilter14.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
+        intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+        intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
+        intentFilter14.addAction(BluetoothDevice.ACTION_NAME_CHANGED);
+        appContext.registerReceiver(bluetoothConnectionBroadcastReceiver, intentFilter14);
 
-        // required for calendar event
-        if (calendarProviderChangedBroadcastReceiver != null)
-            appContext.unregisterReceiver(calendarProviderChangedBroadcastReceiver);
-        calendarProviderChangedBroadcastReceiver = new CalendarProviderChangedBroadcastReceiver();
-        IntentFilter intentFilter23 = new IntentFilter();
-        intentFilter23.addAction(Intent.ACTION_PROVIDER_CHANGED);
-        intentFilter23.addDataScheme("content");
-        intentFilter23.addDataAuthority("com.android.calendar", null);
-        intentFilter23.setPriority(Integer.MAX_VALUE);
-        appContext.registerReceiver(calendarProviderChangedBroadcastReceiver, intentFilter23);
+        // required for wifi scanner
+        if (wifiAPStateChangeBroadcastReceiver != null)
+            appContext.unregisterReceiver(wifiAPStateChangeBroadcastReceiver);
+        wifiAPStateChangeBroadcastReceiver = new WifiAPStateChangeBroadcastReceiver();
+        IntentFilter intentFilter17 = new IntentFilter();
+        intentFilter17.addAction("android.net.wifi.WIFI_AP_STATE_CHANGED");
+        appContext.registerReceiver(wifiAPStateChangeBroadcastReceiver, intentFilter17);
 
         // required for all scanner events (wifi, bluetooth, location, mobile cells, device orientation)
         if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -590,49 +777,34 @@ public class PhoneProfilesService extends Service
         startOrientationScanner();
     }
 
-    void stopEventReceiversAndJobs() {
+    private void stopEventReceiversAndJobs() {
         Context appContext = getApplicationContext();
 
-        if (batteryEventReceiver != null)
-            appContext.unregisterReceiver(batteryEventReceiver);
-        if (batteryChangeLevelReceiver != null)
-            registerBatteryChangedReceiver(false, true, false);
-        if (headsetPlugReceiver != null)
-            appContext.unregisterReceiver(headsetPlugReceiver);
-        if (android.os.Build.VERSION.SDK_INT >= 21)
-            if (powerSaveModeReceiver != null)
-                appContext.unregisterReceiver(powerSaveModeReceiver);
-        if (PPApplication.hasSystemFeature(this, PackageManager.FEATURE_NFC))
-            if (nfcStateChangedBroadcastReceiver != null) {
-                //try {
-                appContext.unregisterReceiver(nfcStateChangedBroadcastReceiver);
-                //} catch (Exception ignored) {
-                //}
-            }
-        if (dockConnectionBroadcastReceiver != null)
-            appContext.unregisterReceiver(dockConnectionBroadcastReceiver);
+        registerBatteryEventReceiver(false, true, false);
+        registerBatteryChangedReceiver(false, true, false);
+        registerReceiverForPeripheralsSensor(false, true, false);
+        registerReceiverForSMSSensor(false, true, false);
+        registerReceiverForCalendarSensor(false, true, false);
+        registerReceiverForRadioSwitchSensor(false, true, false);
+
+        if (locationModeChangedBroadcastReceiver != null)
+            appContext.unregisterReceiver(locationModeChangedBroadcastReceiver);
+
         if (wifiConnectionBroadcastReceiver != null)
             appContext.unregisterReceiver(wifiConnectionBroadcastReceiver);
         if (bluetoothConnectionBroadcastReceiver != null)
             appContext.unregisterReceiver(bluetoothConnectionBroadcastReceiver);
         if (bluetoothStateChangedBroadcastReceiver != null)
             appContext.unregisterReceiver(bluetoothStateChangedBroadcastReceiver);
-        if (alarmClockBroadcastReceiver != null)
-            appContext.unregisterReceiver(alarmClockBroadcastReceiver);
         if (wifiAPStateChangeBroadcastReceiver != null)
             appContext.unregisterReceiver(wifiAPStateChangeBroadcastReceiver);
-        if (locationModeChangedBroadcastReceiver != null)
-            appContext.unregisterReceiver(locationModeChangedBroadcastReceiver);
-        if (airplaneModeStateChangedBroadcastReceiver != null)
-            appContext.unregisterReceiver(airplaneModeStateChangedBroadcastReceiver);
-        if (smsBroadcastReceiver != null)
-            appContext.unregisterReceiver(smsBroadcastReceiver);
-        if (mmsBroadcastReceiver != null)
-            appContext.unregisterReceiver(mmsBroadcastReceiver);
-        if (calendarProviderChangedBroadcastReceiver != null)
-            appContext.unregisterReceiver(calendarProviderChangedBroadcastReceiver);
-        if (mobileDataStateChangedContentObserver != null)
-            appContext.getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
+
+        if (android.os.Build.VERSION.SDK_INT >= 21)
+            if (powerSaveModeReceiver != null)
+                appContext.unregisterReceiver(powerSaveModeReceiver);
+
+        //if (alarmClockBroadcastReceiver != null)
+        //    appContext.unregisterReceiver(alarmClockBroadcastReceiver);
 
         //SMSBroadcastReceiver.unregisterSMSContentObserver(appContext);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(appContext);
@@ -647,8 +819,13 @@ public class PhoneProfilesService extends Service
         stopPhoneStateScanner();
     }
 
-    void restartEventReceiversAndJobs() {
+    private void restartEventReceiversAndJobs() {
+        registerBatteryEventReceiver(true, false, true);
         registerBatteryChangedReceiver(true, false, true);
+        registerReceiverForPeripheralsSensor(true, false, true);
+        registerReceiverForSMSSensor(true, false, true);
+        registerReceiverForCalendarSensor(true, false, true);
+        registerReceiverForRadioSwitchSensor(true, false, true);
     }
 
     // start service for first start
@@ -695,38 +872,6 @@ public class PhoneProfilesService extends Service
         }
 
         return onlyStart;
-    }
-
-    void registerBatteryChangedReceiver(boolean register, boolean unregister, boolean checkDatabase) {
-        Context appContext = getApplicationContext();
-        if (unregister) {
-            if (batteryChangeLevelReceiver != null) {
-                try {
-                    appContext.unregisterReceiver(batteryChangeLevelReceiver);
-                    batteryChangeLevelReceiver = null;
-                } catch (Exception e) {
-                    batteryChangeLevelReceiver = null;
-                }
-            }
-        }
-        if (register) {
-            // get power save mode from PPP settings (tested will be value "1" = 5%, "2" = 15%)
-            String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal(appContext);
-            // get non-stopped events with battery sensor with levels > 0 and < 100
-            int batterySensorEventCount = 1;
-            if (checkDatabase || (batteryChangeLevelReceiver == null))
-                batterySensorEventCount = DatabaseHandler.getInstance(appContext).getBatteryEventWithLevelCount();
-            if (powerSaveModeInternal.equals("1") || powerSaveModeInternal.equals("2") || (batterySensorEventCount > 0)) {
-                if (batteryChangeLevelReceiver == null) {
-                    batteryChangeLevelReceiver = new BatteryBroadcastReceiver();
-                    IntentFilter intentFilter1_1 = new IntentFilter();
-                    intentFilter1_1.addAction(Intent.ACTION_BATTERY_CHANGED);
-                    appContext.registerReceiver(batteryChangeLevelReceiver, intentFilter1_1);
-                }
-            } else {
-                registerBatteryChangedReceiver(false, true, false);
-            }
-        }
     }
 
     @Override
@@ -790,6 +935,19 @@ public class PhoneProfilesService extends Service
                             }
                         }
                     }
+                }
+
+                if (intent.getBooleanExtra(EXTRA_START_EVENT_RECEIVERS_AND_JOBS, false)) {
+                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_START_EVENT_RECEIVERS_AND_JOBS");
+                    startEventReceiversAndJobs();
+                }
+                if (intent.getBooleanExtra(EXTRA_STOP_EVENT_RECEIVERS_AND_JOBS, false)) {
+                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_STOP_EVENT_RECEIVERS_AND_JOBS");
+                    stopEventReceiversAndJobs();
+                }
+                if (intent.getBooleanExtra(EXTRA_RESTART_EVENT_RECEIVERS_AND_JOBS, false)) {
+                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_RESTART_EVENT_RECEIVERS_AND_JOBS");
+                    restartEventReceiversAndJobs();
                 }
 
                 if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {

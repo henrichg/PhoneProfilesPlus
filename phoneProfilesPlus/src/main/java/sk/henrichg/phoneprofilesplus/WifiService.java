@@ -41,10 +41,10 @@ public class WifiService extends WakefulIntentService {
                         // connect to SSID is started
 
                         if (info.getState() == NetworkInfo.State.CONNECTED) {
-                            WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
-                            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                            PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiConnectionBroadcastReceiver: wifiInfo.getSSID()=" + wifiInfo.getSSID());
-                            PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiConnectionBroadcastReceiver: PhoneProfilesService.connectToSSID=" + PhoneProfilesService.connectToSSID);
+                            //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                            //WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                            //PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiConnectionBroadcastReceiver: wifiInfo.getSSID()=" + wifiInfo.getSSID());
+                            //PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiConnectionBroadcastReceiver: PhoneProfilesService.connectToSSID=" + PhoneProfilesService.connectToSSID);
                             //if ((PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) ||
                             //    (wifiInfo.getSSID().equals(PhoneProfilesService.connectToSSID)))
                             PhoneProfilesService.connectToSSIDStarted = false;

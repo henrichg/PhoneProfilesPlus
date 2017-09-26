@@ -1040,8 +1040,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                     Permissions.grantEventPermissions(getApplicationContext(), event, false);
                 }
 
-                if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.restartEventReceiversAndJobs();
+                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENT_RECEIVERS_AND_JOBS, true);
+                //TODO Android O
+                //if (Build.VERSION.SDK_INT < 26)
+                getApplicationContext().startService(serviceIntent);
+                //else
+                //    context.startForegroundService(serviceIntent);
             }
         }
         else
@@ -1051,9 +1056,13 @@ public class EditorProfilesActivity extends AppCompatActivity
             {
                 if (PhoneProfilesService.instance != null) {
 
-                    // register receiver for battery level update
-                    // required for preference ApplicationPreferences.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL
-                    PhoneProfilesService.instance.restartEventReceiversAndJobs();
+                    Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENT_RECEIVERS_AND_JOBS, true);
+                    //TODO Android O
+                    //if (Build.VERSION.SDK_INT < 26)
+                    getApplicationContext().startService(serviceIntent);
+                    //else
+                    //    context.startForegroundService(serviceIntent);
 
                     boolean powerSaveMode = PPApplication.isPowerSaveMode;
                     if (PhoneProfilesService.geofencesScanner != null) {
