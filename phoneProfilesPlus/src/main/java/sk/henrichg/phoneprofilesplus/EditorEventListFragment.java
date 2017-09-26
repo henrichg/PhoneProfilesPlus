@@ -411,7 +411,7 @@ public class EditorEventListFragment extends Fragment
         }
 
         if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false, true);
+            PhoneProfilesService.instance.restartEventReceiversAndJobs();
     }
 
     private void duplicateEvent(Event origEvent)
@@ -466,7 +466,7 @@ public class EditorEventListFragment extends Fragment
         eventListAdapter.notifyDataSetChanged();
 
         if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false, true);
+            PhoneProfilesService.instance.restartEventReceiversAndJobs();
 
         onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
     }

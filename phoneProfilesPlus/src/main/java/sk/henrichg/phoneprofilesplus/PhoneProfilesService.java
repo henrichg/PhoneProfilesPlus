@@ -647,6 +647,10 @@ public class PhoneProfilesService extends Service
         stopPhoneStateScanner();
     }
 
+    void restartEventReceiversAndJobs() {
+        registerBatteryChangedReceiver(true, false, true);
+    }
+
     // start service for first start
     private boolean doForFirstStart(Intent intent, int flags, int startId) {
         boolean onlyStart = true;

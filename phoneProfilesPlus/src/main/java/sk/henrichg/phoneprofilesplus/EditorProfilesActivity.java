@@ -616,14 +616,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         ImportantInfoNotification.removeNotification(context);
         Permissions.removeNotifications(context);
 
-        SearchCalendarEventsJob.cancelJob();
-        WifiScanJob.cancelJob();
-        BluetoothScanJob.cancelJob();
-        GeofenceScannerJob.cancelJob();
-
-        if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.registerBatteryChangedReceiver(false, true, false);
-
         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 
         // remove alarm for profile duration
@@ -1049,7 +1041,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
 
                 if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false, true);
+                    PhoneProfilesService.instance.restartEventReceiversAndJobs();
             }
         }
         else
@@ -1061,7 +1053,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     // register receiver for battery level update
                     // required for preference ApplicationPreferences.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL
-                    PhoneProfilesService.instance.registerBatteryChangedReceiver(true, false, true);
+                    PhoneProfilesService.instance.restartEventReceiversAndJobs();
 
                     boolean powerSaveMode = PPApplication.isPowerSaveMode;
                     if (PhoneProfilesService.geofencesScanner != null) {
