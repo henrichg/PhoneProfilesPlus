@@ -50,6 +50,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // import/export
     private final String EXPORT_DBFILENAME = DATABASE_NAME + ".backup";
 
+    // profile type
+    static final int PTYPE_CONNECT_TO_SSID = 1;
+
     // event type
     static final int ETYPE_TIME = 1;
     static final int ETYPE_BATTERY = 2;
@@ -3155,6 +3158,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
             //db.close();
+        }
+    }
+
+    int getTypeProfilesCount(int profileType, boolean sharedProfile)
+    {
+        synchronized (databaseHandlerMutex) {
+            final String countQuery;
+            String profileTypeChecked = "";
+            if (profileType == PTYPE_CONNECT_TO_SSID) {
+                if (!sharedProfile)
+                    profileTypeChecked = profileTypeChecked + KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_JUSTANY + "\"";
+                else
+                    profileTypeChecked = profileTypeChecked + KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_DEFAULTPROFILE + "\"";
+            }
+
+            countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES +
+                    " WHERE " + profileTypeChecked;
+
+            //SQLiteDatabase db = this.getReadableDatabase();
+            SQLiteDatabase db = getMyWritableDatabase();
+
+            Cursor cursor = db.rawQuery(countQuery, null);
+
+            int r;
+
+            if (cursor != null) {
+                cursor.moveToFirst();
+                r = Integer.parseInt(cursor.getString(0));
+                cursor.close();
+            } else
+                r = 0;
+
+            //db.close();
+
+            return r;
         }
     }
 
