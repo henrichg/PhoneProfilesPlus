@@ -2,6 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
@@ -20,8 +22,27 @@ public class BatteryService extends WakefulIntentService {
 
             Context appContext = getApplicationContext();
 
-            boolean isCharging = intent.getBooleanExtra(BatteryBroadcastReceiver.EXTRA_IS_CHARGING, false);
-            int batteryPct = intent.getIntExtra(BatteryBroadcastReceiver.EXTRA_BATTERY_PCT, -100);
+            boolean statusReceived = intent.getBooleanExtra(BatteryBroadcastReceiver.EXTRA_STATUS_RECEIVED, false);
+            boolean levelReceived = intent.getBooleanExtra(BatteryBroadcastReceiver.EXTRA_LEVEL_RECEIVED, false);
+            boolean isCharging;
+            int batteryPct;
+            isCharging = intent.getBooleanExtra(BatteryBroadcastReceiver.EXTRA_IS_CHARGING, false);
+            batteryPct = intent.getIntExtra(BatteryBroadcastReceiver.EXTRA_BATTERY_PCT, -100);
+            if (!(statusReceived && levelReceived)) {
+                // get battery status
+                IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                Intent batteryStatus = registerReceiver(null, filter);
+
+                if (batteryStatus != null) {
+                    int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+                    isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                            status == BatteryManager.BATTERY_STATUS_FULL;
+
+                    int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+                    int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+                    batteryPct = Math.round(level / (float) scale * 100);
+                }
+            }
 
             PPApplication.logE("BatteryService.doWakefulWork", "batteryPct=" + batteryPct);
             PPApplication.logE("BatteryService.doWakefulWork", "isCharging=" + isCharging);

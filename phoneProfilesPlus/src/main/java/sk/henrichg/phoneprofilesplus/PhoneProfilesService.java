@@ -419,11 +419,28 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            if (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext) ==
-                                        PPApplication.PREFERENCE_ALLOWED) {
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            if (allowed) {
                 int eventCount = 1;
-                if (checkDatabase || (batteryEventReceiver == null))
-                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BATTERY);
+                if (checkDatabase || (powerSaveModeReceiver == null)) {
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
+                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT);
+                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION);
+                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS);
+                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION);
+                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BATTERY);
+                }
                 if (eventCount > 0) {
                     if (batteryEventReceiver == null) {
                         batteryEventReceiver = new BatteryBroadcastReceiver();
@@ -456,15 +473,34 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            if (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext) ==
-                    PPApplication.PREFERENCE_ALLOWED) {
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            if (allowed) {
+                int eventCount = 1;
+                int batteryLevelCount = 1;
+                if (checkDatabase || (batteryChangeLevelReceiver == null)) {
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
+                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT);
+                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION);
+                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS);
+                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION);
+                    //eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BATTERY);
+                    // get non-stopped events with battery sensor with levels > 0 and < 100
+                    batteryLevelCount = DatabaseHandler.getInstance(appContext).getBatteryEventWithLevelCount();
+                }
                 // get power save mode from PPP settings (tested will be value "1" = 5%, "2" = 15%)
                 String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal(appContext);
-                // get non-stopped events with battery sensor with levels > 0 and < 100
-                int batterySensorEventCount = 1;
-                if (checkDatabase || (batteryChangeLevelReceiver == null))
-                    batterySensorEventCount = DatabaseHandler.getInstance(appContext).getBatteryEventWithLevelCount();
-                if (powerSaveModeInternal.equals("1") || powerSaveModeInternal.equals("2") || (batterySensorEventCount > 0)) {
+                if (powerSaveModeInternal.equals("1") || powerSaveModeInternal.equals("2") || ((batteryLevelCount > 0) && (eventCount > 0))) {
                     if (batteryChangeLevelReceiver == null) {
                         batteryChangeLevelReceiver = new BatteryBroadcastReceiver();
                         IntentFilter intentFilter1_1 = new IntentFilter();

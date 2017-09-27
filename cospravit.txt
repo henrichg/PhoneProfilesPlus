@@ -146,4 +146,7 @@ EventsService:
 - z broadcastov, UI a Service volaj EventsHandlerService
 - z jobov a IntentService volaj priamo EventsHandler
 
+Power save mode:
+- zistuje ho BatteryBroadcastReceiver a PowerSaveModeBroadcastReceiver
+- pouziva ho Battery event a vsetky skenery
 

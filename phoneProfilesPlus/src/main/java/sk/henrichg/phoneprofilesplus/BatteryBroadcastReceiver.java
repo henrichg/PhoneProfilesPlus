@@ -14,6 +14,8 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
     public static final String EXTRA_IS_CHARGING = "isCharging";
     public static final String EXTRA_BATTERY_PCT = "batteryPct";
+    public static final String EXTRA_STATUS_RECEIVED = "statusReceived";
+    public static final String EXTRA_LEVEL_RECEIVED = "levelReceived";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -64,7 +66,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryPct=" + batteryPct);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "pct=" + pct);
 
-        if ((statusReceived &&(isCharging != _isCharging)) || (levelReceived && (batteryPct != pct))) {
+        if ((statusReceived && (isCharging != _isCharging)) || (levelReceived && (batteryPct != pct))) {
             PPApplication.logE("BatteryBroadcastReceiver.onReceive", "state changed");
 
             if (statusReceived)
@@ -77,6 +79,8 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                 serviceIntent.setAction(intent.getAction());
                 serviceIntent.putExtra(EXTRA_IS_CHARGING, isCharging);
                 serviceIntent.putExtra(EXTRA_BATTERY_PCT, batteryPct);
+                serviceIntent.putExtra(EXTRA_STATUS_RECEIVED, statusReceived);
+                serviceIntent.putExtra(EXTRA_LEVEL_RECEIVED, levelReceived);
                 WakefulIntentService.sendWakefulWork(context, serviceIntent);
             } catch (Exception ignored) {
             }
