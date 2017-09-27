@@ -116,8 +116,8 @@ public class PhoneProfilesService extends Service
 
     public static GeofencesScanner geofencesScanner = null;
 
-    private static SensorManager mSensorManager = null;
-    private static boolean mStartedSensors = false;
+    private static SensorManager mOrientationSensorManager = null;
+    private static boolean mStartedOrientationSensors = false;
 
     private int mEventCountSinceGZChanged = 0;
     private static final int MAX_COUNT_GZ_CHANGE = 5;
@@ -1231,6 +1231,99 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    private void startGeofenceScanner(boolean start, boolean stop, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService_startGeofenceScanner");
+        if (stop) {
+            if (isGeofenceScannerStarted()) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->stop", "PhoneProfilesService_startGeofenceScanner");
+                stopGeofenceScanner();
+            }
+        }
+        if (start) {
+            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            if (eventAllowed) {
+                int eventCount = 1;
+                if (checkDatabase || (!isGeofenceScannerStarted())) {
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION);
+                }
+                if (eventCount > 0) {
+                    if (!isGeofenceScannerStarted()) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->start", "PhoneProfilesService_startGeofenceScanner");
+                        startGeofenceScanner();
+                    }
+                } else {
+                    startGeofenceScanner(false, true, false);
+                }
+            }
+            else
+                startGeofenceScanner(false, true, false);
+        }
+    }
+
+    private void startPhoneStateScanner(boolean start, boolean stop, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.startPhoneStateScanner", "PhoneProfilesService_startPhoneStateScanner");
+        if (stop) {
+            if (isPhoneStateScannerStarted()) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startPhoneStateScanner->stop", "PhoneProfilesService_startPhoneStateScanner");
+                stopPhoneStateScanner();
+            }
+        }
+        if (start) {
+            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            if (eventAllowed) {
+                int eventCount = 1;
+                if (checkDatabase || (!isPhoneStateScannerStarted())) {
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS);
+                }
+                if (eventCount > 0) {
+                    if (!isPhoneStateScannerStarted()) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startPhoneStateScanner->start", "PhoneProfilesService_startPhoneStateScanner");
+                        startPhoneStateScanner();
+                    }
+                } else {
+                    startPhoneStateScanner(false, true, false);
+                }
+            }
+            else
+                startPhoneStateScanner(false, true, false);
+        }
+    }
+
+    private void startOrientationScanner(boolean start, boolean stop, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.startOrientationScanner", "PhoneProfilesService_startOrientationScanner");
+        if (stop) {
+            if (isOrientationScannerStarted()) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->stop", "PhoneProfilesService_startOrientationScanner");
+                startOrientationScanner();
+            }
+        }
+        if (start) {
+            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            if (eventAllowed) {
+                int eventCount = 1;
+                if (checkDatabase || (!isOrientationScannerStarted())) {
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION);
+                }
+                if (eventCount > 0) {
+                    if (!isOrientationScannerStarted()) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->start", "PhoneProfilesService_startOrientationScanner");
+                        startOrientationScanner();
+                    }
+                } else {
+                    startOrientationScanner(false, true, false);
+                }
+            }
+            else
+                startOrientationScanner(false, true, false);
+        }
+    }
+
     private void registerReceiversAndJobs() {
         // --- receivers and content observers for events -- register it only if any event exists
 
@@ -1369,9 +1462,9 @@ public class PhoneProfilesService extends Service
         scheduleGeofenceScannerJob(true, true, true);
         scheduleSearchCalendarEventsJob(true, true, true);
 
-        startGeofenceScanner();
-        startPhoneStateScanner();
-        startOrientationScanner();
+        startGeofenceScanner(true, true, true);
+        startPhoneStateScanner(true, true, true);
+        startOrientationScanner(true, true, true);
     }
 
     private void unregisterReceiversAndJobs() {
@@ -1403,9 +1496,9 @@ public class PhoneProfilesService extends Service
         scheduleGeofenceScannerJob(false, true, false);
         scheduleSearchCalendarEventsJob(false, true, false);
 
-        stopGeofenceScanner();
-        stopOrientationScanner();
-        stopPhoneStateScanner();
+        startGeofenceScanner(false, true, false);
+        startPhoneStateScanner(false, true, false);
+        startOrientationScanner(false, true, false);
     }
 
     private void reregisterReceiversAndJobs() {
@@ -1429,6 +1522,10 @@ public class PhoneProfilesService extends Service
         scheduleBluetoothJob(true, false, true);
         scheduleGeofenceScannerJob(true, false, true);
         scheduleSearchCalendarEventsJob(true, false, true);
+
+        startGeofenceScanner(true, false, true);
+        startPhoneStateScanner(true, false, true);
+        startOrientationScanner(true, false, true);
     }
 
     // start service for first start
@@ -2013,7 +2110,7 @@ public class PhoneProfilesService extends Service
     private void startPhoneStateScanner() {
         if (phoneStateScanner != null) {
             phoneStateScanner.disconnect();
-            //phoneStateScanner = null;
+            phoneStateScanner = null;
         }
 
         if (PPApplication.getApplicationStarted(this, false)) {
@@ -2026,11 +2123,11 @@ public class PhoneProfilesService extends Service
     private void stopPhoneStateScanner() {
         if (phoneStateScanner != null) {
             phoneStateScanner.disconnect();
-            //phoneStateScanner = null;
+            phoneStateScanner = null;
         }
     }
 
-    public static boolean isPhoneStateStarted() {
+    public static boolean isPhoneStateScannerStarted() {
         return (phoneStateScanner != null);
     }
 
@@ -2039,7 +2136,7 @@ public class PhoneProfilesService extends Service
     // Device orientation ----------------------------------------------------------------
 
     private void startOrientationScanner() {
-        if (mStartedSensors)
+        if (mStartedOrientationSensors)
             stopListeningOrientationSensors();
 
         if (PPApplication.getApplicationStarted(this, false))
@@ -2051,37 +2148,37 @@ public class PhoneProfilesService extends Service
     }
 
     public static boolean isOrientationScannerStarted() {
-        return mStartedSensors;
+        return mStartedOrientationSensors;
     }
 
     public static Sensor getAccelerometerSensor(Context context) {
-        if (mSensorManager == null)
-            mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        return mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        if (mOrientationSensorManager == null)
+            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
     public static Sensor getMagneticFieldSensor(Context context) {
-        if (mSensorManager == null)
-            mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        return mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        if (mOrientationSensorManager == null)
+            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
     public static Sensor getProximitySensor(Context context) {
-        if (mSensorManager == null)
-            mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        return mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        if (mOrientationSensorManager == null)
+            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
     }
     /*@SuppressWarnings("deprecation")
     public static Sensor getOrientationSensor(Context context) {
-        if (mSensorManager == null)
-            mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        return mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        if (mOrientationSensorManager == null)
+            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
     }*/
 
     @SuppressLint("NewApi")
     private void startListeningOrientationSensors() {
-        if (mSensorManager == null)
-            mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        if (mOrientationSensorManager == null)
+            mOrientationSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        if (!mStartedSensors) {
+        if (!mStartedOrientationSensors) {
 
             if (PPApplication.isPowerSaveMode && ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode(this).equals("2"))
                 // start scanning in power save mode is not allowed
@@ -2098,39 +2195,39 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","accelerometer="+accelerometer);
             if (accelerometer != null) {
                 if ((android.os.Build.VERSION.SDK_INT >= 19) && (accelerometer.getFifoMaxEventCount() > 0))
-                    mSensorManager.registerListener(this, accelerometer, 200000 * interval, 1000000 * interval);
+                    mOrientationSensorManager.registerListener(this, accelerometer, 200000 * interval, 1000000 * interval);
                 else
-                    mSensorManager.registerListener(this, accelerometer, 1000000 * interval);
+                    mOrientationSensorManager.registerListener(this, accelerometer, 1000000 * interval);
             }
             Sensor magneticField = getMagneticFieldSensor(getApplicationContext());
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","magneticField="+magneticField);
             if (magneticField != null) {
                 if ((android.os.Build.VERSION.SDK_INT >= 19) && (magneticField.getFifoMaxEventCount() > 0))
-                    mSensorManager.registerListener(this, magneticField, 200000 * interval, 1000000 * interval);
+                    mOrientationSensorManager.registerListener(this, magneticField, 200000 * interval, 1000000 * interval);
                 else
-                    mSensorManager.registerListener(this, magneticField, 1000000 * interval);
+                    mOrientationSensorManager.registerListener(this, magneticField, 1000000 * interval);
             }
             Sensor proximity = getProximitySensor(getApplicationContext());
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","proximity="+proximity);
             if (proximity != null) {
                 mMaxProximityDistance = proximity.getMaximumRange();
                 if ((android.os.Build.VERSION.SDK_INT >= 19) && (proximity.getFifoMaxEventCount() > 0))
-                    mSensorManager.registerListener(this, proximity, 200000 * interval, 1000000 * interval);
+                    mOrientationSensorManager.registerListener(this, proximity, 200000 * interval, 1000000 * interval);
                 else
-                    mSensorManager.registerListener(this, proximity, 1000000 * interval);
+                    mOrientationSensorManager.registerListener(this, proximity, 1000000 * interval);
             }
             //Sensor orientation = PPApplication.getOrientationSensor(this);
             //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","orientation="+orientation);
-            mStartedSensors = true;
+            mStartedOrientationSensors = true;
         }
     }
 
     private void stopListeningOrientationSensors() {
-        if (mSensorManager != null) {
-            mSensorManager.unregisterListener(this);
-            mSensorManager = null;
+        if (mOrientationSensorManager != null) {
+            mOrientationSensorManager.unregisterListener(this);
+            mOrientationSensorManager = null;
         }
-        mStartedSensors = false;
+        mStartedOrientationSensors = false;
     }
 
     public void resetListeningOrientationSensors(boolean oldPowerSaveMode, boolean forceReset) {
