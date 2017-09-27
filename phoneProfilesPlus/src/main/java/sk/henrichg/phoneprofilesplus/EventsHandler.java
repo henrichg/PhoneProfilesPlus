@@ -137,6 +137,7 @@ class EventsHandler {
             }
             */
 
+            /*
             if (PhoneProfilesService.instance != null) {
                 // start of GeofenceScanner
                 if (!PhoneProfilesService.isGeofenceScannerStarted())
@@ -148,6 +149,7 @@ class EventsHandler {
                     PPApplication.startPhoneStateScanner(context);
                 }
             }
+            */
 
             if (!Event.getGlobalEventsRunning(context)) {
                 // events are globally stopped
@@ -158,6 +160,7 @@ class EventsHandler {
                 return;
             }
 
+            /*
             // start orientation listener only when events exists
             if (PhoneProfilesService.instance != null) {
                 if (!PhoneProfilesService.isOrientationScannerStarted()) {
@@ -165,6 +168,7 @@ class EventsHandler {
                         PPApplication.startOrientationScanner(context);
                 }
             }
+            */
 
             if (!eventsExists(sensorType)) {
                 // events not exists
