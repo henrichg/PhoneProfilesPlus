@@ -98,4 +98,16 @@ class SearchCalendarEventsJob extends Job {
         } catch (Exception ignored) {}
     }
 
+    static boolean isJobScheduled() {
+        PPApplication.logE("SearchCalendarEventsJob.isJobScheduled", "xxx");
+
+        try {
+            JobManager jobManager = JobManager.instance();
+            return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0) ||
+                    (jobManager.getAllJobRequestsForTag(JOB_TAG_SHORT).size() != 0);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

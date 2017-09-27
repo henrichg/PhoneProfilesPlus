@@ -1107,6 +1107,130 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    private void scheduleWifiJob(boolean schedule, boolean cancel, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleWifiJob", "PhoneProfilesService_scheduleWifiJob");
+        if (cancel) {
+            if (WifiScanJob.isJobScheduled()) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleWifiJob->cancel", "PhoneProfilesService_scheduleWifiJob");
+                WifiScanJob.cancelJob();
+            }
+        }
+        if (schedule) {
+            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            if (eventAllowed) {
+                int eventCount = 1;
+                if (checkDatabase || (!WifiScanJob.isJobScheduled())) {
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
+                }
+                if (eventCount > 0) {
+                    if (!WifiScanJob.isJobScheduled()) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleWifiJob->schedule", "PhoneProfilesService_scheduleWifiJob");
+                        WifiScanJob.scheduleJob(appContext, true, false, false);
+                    }
+                } else {
+                    scheduleWifiJob(false, true, false);
+                }
+            }
+            else
+                scheduleWifiJob(false, true, false);
+        }
+    }
+
+    private void scheduleBluetoothJob(boolean schedule, boolean cancel, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleBluetoothJob", "PhoneProfilesService_scheduleBluetoothJob");
+        if (cancel) {
+            if (BluetoothScanJob.isJobScheduled()) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleBluetoothJob->cancel", "PhoneProfilesService_scheduleBluetoothJob");
+                BluetoothScanJob.cancelJob();
+            }
+        }
+        if (schedule) {
+            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            if (eventAllowed) {
+                int eventCount = 1;
+                if (checkDatabase || (!BluetoothScanJob.isJobScheduled())) {
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT);
+                }
+                if (eventCount > 0) {
+                    if (!BluetoothScanJob.isJobScheduled()) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleBluetoothJob->schedule", "PhoneProfilesService_scheduleBluetoothJob");
+                        BluetoothScanJob.scheduleJob(appContext, true, false);
+                    }
+                } else {
+                    scheduleBluetoothJob(false, true, false);
+                }
+            }
+            else
+                scheduleBluetoothJob(false, true, false);
+        }
+    }
+
+    private void scheduleGeofenceScannerJob(boolean schedule, boolean cancel, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob", "PhoneProfilesService_scheduleGeofenceScannerJob");
+        if (cancel) {
+            if (GeofenceScannerJob.isJobScheduled()) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob->cancel", "PhoneProfilesService_scheduleGeofenceScannerJob");
+                GeofenceScannerJob.cancelJob();
+            }
+        }
+        if (schedule) {
+            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            if (eventAllowed) {
+                int eventCount = 1;
+                if (checkDatabase || (!GeofenceScannerJob.isJobScheduled())) {
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION);
+                }
+                if (eventCount > 0) {
+                    if (!GeofenceScannerJob.isJobScheduled()) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob->schedule", "PhoneProfilesService_scheduleGeofenceScannerJob");
+                        GeofenceScannerJob.scheduleJob(appContext, true, false);
+                    }
+                } else {
+                    scheduleGeofenceScannerJob(false, true, false);
+                }
+            }
+            else
+                scheduleGeofenceScannerJob(false, true, false);
+        }
+    }
+
+    private void scheduleSearchCalendarEventsJob(boolean schedule, boolean cancel, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsJob", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
+        if (cancel) {
+            if (SearchCalendarEventsJob.isJobScheduled()) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsJob->cancel", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
+                SearchCalendarEventsJob.cancelJob();
+            }
+        }
+        if (schedule) {
+            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED;
+            if (eventAllowed) {
+                int eventCount = 1;
+                if (checkDatabase || (!SearchCalendarEventsJob.isJobScheduled())) {
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR);
+                }
+                if (eventCount > 0) {
+                    if (!SearchCalendarEventsJob.isJobScheduled()) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsJob->schedule", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
+                        SearchCalendarEventsJob.scheduleJob(true);
+                    }
+                } else {
+                    scheduleSearchCalendarEventsJob(false, true, false);
+                }
+            }
+            else
+                scheduleSearchCalendarEventsJob(false, true, false);
+        }
+    }
+
     private void registerReceiversAndJobs() {
         // --- receivers and content observers for events -- register it only if any event exists
 
@@ -1240,10 +1364,10 @@ public class PhoneProfilesService extends Service
         }
         */
 
-        WifiScanJob.scheduleJob(appContext, true, false, false);
-        BluetoothScanJob.scheduleJob(appContext, true, false);
-        GeofenceScannerJob.scheduleJob(appContext, true, false);
-        SearchCalendarEventsJob.scheduleJob(true);
+        scheduleWifiJob(true, true, true);
+        scheduleBluetoothJob(true, true, true);
+        scheduleGeofenceScannerJob(true, true, true);
+        scheduleSearchCalendarEventsJob(true, true, true);
 
         startGeofenceScanner();
         startPhoneStateScanner();
@@ -1274,10 +1398,10 @@ public class PhoneProfilesService extends Service
         //SMSBroadcastReceiver.unregisterSMSContentObserver(appContext);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(appContext);
 
-        WifiScanJob.cancelJob();
-        BluetoothScanJob.cancelJob();
-        GeofenceScannerJob.cancelJob();
-        SearchCalendarEventsJob.cancelJob();
+        scheduleWifiJob(false, true, false);
+        scheduleBluetoothJob(false, true, false);
+        scheduleGeofenceScannerJob(false, true, false);
+        scheduleSearchCalendarEventsJob(false, true, false);
 
         stopGeofenceScanner();
         stopOrientationScanner();
@@ -1300,6 +1424,11 @@ public class PhoneProfilesService extends Service
         registerPowerSaveModeReceiver(true, false, true);
         registerWifiStateChangedBroadcastReceiver(true, false, true);
         registerWifiConnectionBroadcastReceiver(true, false, true);
+
+        scheduleWifiJob(true, false, true);
+        scheduleBluetoothJob(true, false, true);
+        scheduleGeofenceScannerJob(true, false, true);
+        scheduleSearchCalendarEventsJob(true, false, true);
     }
 
     // start service for first start
