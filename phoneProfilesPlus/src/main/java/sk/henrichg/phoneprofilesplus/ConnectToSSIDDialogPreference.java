@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -137,7 +138,6 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
 
             @Override
             protected Void doInBackground(Void... params) {
-                //Log.d("ConnectToSSIDDialogPreference.onShow","doInBackground");
 
                 WifiScanJob.fillWifiConfigurationList(context);
                 List<WifiSSIDData> wifiConfigurationList = WifiScanJob.getWifiConfigurationList(context);
@@ -145,7 +145,9 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
                 {
                     for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
                     {
-                        if ((wifiConfiguration.ssid != null) && (wifiConfiguration.bssid != null))
+                        //if ((wifiConfiguration.ssid != null) && (wifiConfiguration.bssid != null)) {
+                        // bssid is null from configuration list
+                        if (wifiConfiguration.ssid != null)
                             _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid/*.replace("\"", "")*/, wifiConfiguration.bssid, false));
                     }
                 }

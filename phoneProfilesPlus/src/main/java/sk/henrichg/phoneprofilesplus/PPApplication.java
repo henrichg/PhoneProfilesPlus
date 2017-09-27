@@ -48,7 +48,7 @@ public class PPApplication extends Application {
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedService"
 
-                                         +"|"+CallsCounter.LOG_TAG
+                                         //+"|"+CallsCounter.LOG_TAG
 
                                          //+"PhoneProfilesHelper.doUninstallPPHelper"
                                          //+"|PhoneProfilesHelper.isPPHelperInstalled"
