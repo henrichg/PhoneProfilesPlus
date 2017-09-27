@@ -330,7 +330,6 @@ public class PhoneProfilesService extends Service
                 if (android.os.Build.VERSION.SDK_INT >= 23) {
                     boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
                     if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, appContext)) {
-                        appContext.unregisterReceiver(interruptionFilterChangedReceiver);
                         interruptionFilterChangedReceiver = new InterruptionFilterChangedBroadcastReceiver();
                         IntentFilter intentFilter11 = new IntentFilter();
                         intentFilter11.addAction(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED);
