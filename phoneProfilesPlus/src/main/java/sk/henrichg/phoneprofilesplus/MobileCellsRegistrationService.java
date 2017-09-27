@@ -56,7 +56,7 @@ public class MobileCellsRegistrationService extends Service {
             public void onFinish() {
                 //Log.d("MobileCellsRegistrationService", "Timer finished");
 
-                if (PhoneProfilesService.isPhoneStateStarted())
+                if (PhoneProfilesService.isPhoneStateScannerStarted())
                     PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = false;
                 setMobileCellsAutoRegistration(context, false);
 
@@ -125,7 +125,7 @@ public class MobileCellsRegistrationService extends Service {
 
 
     static public void getMobileCellsAutoRegistration(Context context) {
-        if (PhoneProfilesService.isPhoneStateStarted()) {
+        if (PhoneProfilesService.isPhoneStateScannerStarted()) {
             ApplicationPreferences.getSharedPreferences(context);
             PhoneProfilesService.phoneStateScanner.durationForAutoRegistration = ApplicationPreferences.preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
             PhoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = ApplicationPreferences.preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
@@ -134,7 +134,7 @@ public class MobileCellsRegistrationService extends Service {
     }
 
     static public void setMobileCellsAutoRegistration(Context context, boolean firstStart) {
-        if (PhoneProfilesService.isPhoneStateStarted()) {
+        if (PhoneProfilesService.isPhoneStateScannerStarted()) {
             ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PhoneProfilesService.phoneStateScanner.durationForAutoRegistration);
@@ -148,7 +148,7 @@ public class MobileCellsRegistrationService extends Service {
     }
 
     static private int getMobileCellsAutoRegistrationRemainingDuration(Context context) {
-        if (PhoneProfilesService.isPhoneStateStarted()) {
+        if (PhoneProfilesService.isPhoneStateScannerStarted()) {
             ApplicationPreferences.getSharedPreferences(context);
             return ApplicationPreferences.preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, 0);
         }
@@ -156,7 +156,7 @@ public class MobileCellsRegistrationService extends Service {
     }
 
     static public void setMobileCellsAutoRegistrationRemainingDuration(Context context, int remainingDuration) {
-        if (PhoneProfilesService.isPhoneStateStarted()) {
+        if (PhoneProfilesService.isPhoneStateScannerStarted()) {
             ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, remainingDuration);

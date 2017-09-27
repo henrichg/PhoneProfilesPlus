@@ -2570,7 +2570,7 @@ public class DataWrapper {
         {
             ignoreMobileCell = false;
 
-            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateStarted()) {
+            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
 
                 String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
                 if (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE) {
@@ -3025,7 +3025,7 @@ public class DataWrapper {
         {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0)
                 // rescan mobile cells
-                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateStarted()) {
+                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
                     PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of mobile cells scanner");
                     PhoneProfilesService.phoneStateScanner.rescanMobileCells();
                 }

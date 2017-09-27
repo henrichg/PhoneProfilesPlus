@@ -39,7 +39,7 @@ public class PowerSaveModeService extends WakefulIntentService {
                     if (PhoneProfilesService.isGeofenceScannerStarted())
                         PhoneProfilesService.geofencesScanner.resetLocationUpdates(oldPowerSaveMode, false);
                     PhoneProfilesService.instance.resetListeningOrientationSensors(oldPowerSaveMode, false);
-                    if (PhoneProfilesService.isPhoneStateStarted())
+                    if (PhoneProfilesService.isPhoneStateScannerStarted())
                         PhoneProfilesService.phoneStateScanner.resetListening(oldPowerSaveMode, false);
                 }
 

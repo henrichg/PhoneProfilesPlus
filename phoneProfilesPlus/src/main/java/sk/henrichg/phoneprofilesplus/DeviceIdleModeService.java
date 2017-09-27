@@ -50,7 +50,7 @@ public class DeviceIdleModeService extends WakefulIntentService {
                     }
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                         // rescan mobile cells
-                        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateStarted()) {
+                        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
                             PhoneProfilesService.phoneStateScanner.rescanMobileCells();
                         }
                     }

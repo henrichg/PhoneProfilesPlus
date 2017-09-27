@@ -147,7 +147,7 @@ public class ScreenOnOffService extends IntentService {
                                 ApplicationPreferences.applicationEventMobileCellsRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                                 // rescan mobile cells
-                                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateStarted()) {
+                                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
                                     PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of mobile cells scanner");
                                     PhoneProfilesService.phoneStateScanner.rescanMobileCells();
                                 }

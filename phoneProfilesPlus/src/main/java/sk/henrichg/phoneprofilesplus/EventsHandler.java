@@ -142,7 +142,7 @@ class EventsHandler {
                 if (!PhoneProfilesService.isGeofenceScannerStarted())
                     PPApplication.startGeofenceScanner(context);
                 // start of CellTowerScanner
-                if (!PhoneProfilesService.isPhoneStateStarted()) {
+                if (!PhoneProfilesService.isPhoneStateScannerStarted()) {
                     PPApplication.logE("EventsHandler.handleEvents", "startPhoneStateScanner");
                     //PPApplication.sendMessageToService(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
                     PPApplication.startPhoneStateScanner(context);

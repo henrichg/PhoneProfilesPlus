@@ -59,7 +59,7 @@ public class MobileCellsPreference extends DialogPreference {
         
         cellsList = new ArrayList<>();
 
-        if (!PhoneProfilesService.isPhoneStateStarted()) {
+        if (!PhoneProfilesService.isPhoneStateScannerStarted()) {
             //Log.d("MobileCellsPreference","no scanner started");
             PPApplication.startPhoneStateScanner(context);
         }
@@ -386,7 +386,7 @@ public class MobileCellsPreference extends DialogPreference {
                 db.addMobileCellsToList(_cellsList);
 
                 boolean found = false;
-                if (PhoneProfilesService.isPhoneStateStarted()) {
+                if (PhoneProfilesService.isPhoneStateScannerStarted()) {
                     // add registered cell
                     for (MobileCellsData cell : _cellsList) {
                         if (cell.cellId == PhoneProfilesService.phoneStateScanner.registeredCell) {
