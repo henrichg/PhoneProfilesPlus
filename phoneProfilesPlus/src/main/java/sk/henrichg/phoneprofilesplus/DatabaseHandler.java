@@ -69,6 +69,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_MOBILE_CELLS = 16;
     static final int ETYPE_NFC = 17;
     static final int ETYPE_RADIO_SWITCH = 18;
+    static final int ETYPE_RADIO_SWITCH_WIFI = 19;
+    static final int ETYPE_RADIO_SWITCH_BLUETOOTH = 20;
+    static final int ETYPE_RADIO_SWITCH_MOBILE_DATA = 21;
+    static final int ETYPE_RADIO_SWITCH_GPS = 22;
+    static final int ETYPE_RADIO_SWITCH_NFC = 23;
+    static final int ETYPE_RADIO_SWITCH_AIRPLANE_MODE = 24;
 
     // activity log types
     static final int ALTYPE_PROFILEACTIVATION = 1;
@@ -4557,6 +4563,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventTypeChecked = eventTypeChecked + KEY_E_NFC_ENABLED + "=1";
             else if (eventType == ETYPE_RADIO_SWITCH)
                 eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1";
+            else if (eventType == ETYPE_RADIO_SWITCH_WIFI)
+                eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                        KEY_E_RADIO_SWITCH_WIFI + "!=0";
+            else if (eventType == ETYPE_RADIO_SWITCH_BLUETOOTH)
+                eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                        KEY_E_RADIO_SWITCH_BLUETOOTH + "!=0";
+            else if (eventType == ETYPE_RADIO_SWITCH_MOBILE_DATA)
+                eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                        KEY_E_RADIO_SWITCH_MOBILE_DATA + "!=0";
+            else if (eventType == ETYPE_RADIO_SWITCH_GPS)
+                eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                        KEY_E_RADIO_SWITCH_GPS + "!=0";
+            else if (eventType == ETYPE_RADIO_SWITCH_NFC)
+                eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                        KEY_E_RADIO_SWITCH_NFC + "!=0";
+            else if (eventType == ETYPE_RADIO_SWITCH_AIRPLANE_MODE)
+                eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                        KEY_E_RADIO_SWITCH_AIRPLANE_MODE + "!=0";
 
             countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
                     " WHERE " + eventTypeChecked;

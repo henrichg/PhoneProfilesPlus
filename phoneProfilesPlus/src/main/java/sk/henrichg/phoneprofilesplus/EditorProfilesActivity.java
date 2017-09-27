@@ -1017,6 +1017,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                     Permissions.grantProfilePermissions(getApplicationContext(), defaultProfile, false, false,
                             true, false, 0, PPApplication.STARTUP_SOURCE_EDITOR, true, this, false);
                 }
+
+                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+                //TODO Android O
+                //if (Build.VERSION.SDK_INT < 26)
+                getApplicationContext().startService(serviceIntent);
+                //else
+                //    context.startForegroundService(serviceIntent);
             }
         }
         else
@@ -1041,7 +1049,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
 
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENT_RECEIVERS_AND_JOBS, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 //TODO Android O
                 //if (Build.VERSION.SDK_INT < 26)
                 getApplicationContext().startService(serviceIntent);
@@ -1057,7 +1065,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (PhoneProfilesService.instance != null) {
 
                     Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENT_RECEIVERS_AND_JOBS, true);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                     //TODO Android O
                     //if (Build.VERSION.SDK_INT < 26)
                     getApplicationContext().startService(serviceIntent);
