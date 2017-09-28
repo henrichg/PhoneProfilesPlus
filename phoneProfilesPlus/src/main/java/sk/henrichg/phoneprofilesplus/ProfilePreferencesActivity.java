@@ -75,6 +75,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         profile_id = getIntent().getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+        if (profile_id == Profile.DEFAULT_PROFILE_ID)
+            resultCode = RESULT_OK;
         newProfileMode = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
         predefinedProfileIndex = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
