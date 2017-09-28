@@ -63,8 +63,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     }
 
     void connectForResolve() {
-        if (!mGoogleApiClient.isConnecting() &&
-                !mGoogleApiClient.isConnected()) {
+        if (!mGoogleApiClient.isConnecting() && !mGoogleApiClient.isConnected()) {
             if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
                 mGoogleApiClient.connect();
         }
@@ -86,7 +85,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 PPApplication.logE("GeofenceScannerJob.mUpdatesStarted=false", "from GeofenceScanner.onConnected");
                 mUpdatesStarted = false;
                 PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GeofenceScanner.onConnected");
-                GeofenceScannerJob.scheduleJob(context, true, false);
+                if (PhoneProfilesService.instance != null)
+                    PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, false, true, false);
             }
         }
     }
@@ -284,7 +284,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             stopLocationUpdates();
             createLocationRequest();
             PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GeofenceScanner.resetLocationUpdates");
-            GeofenceScannerJob.scheduleJob(context, true, false);
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, false, true, false);
         }
     }
 

@@ -191,7 +191,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                         dataWrapper.getDatabaseHandler().addGeofence(geofence);
                         // start location updates
                         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
-                            PhoneProfilesService.geofencesScanner.connectForResolve();
+                            PhoneProfilesService.getGeofencesScanner().connectForResolve();
                     }
 
                     dataWrapper.getDatabaseHandler().checkGeofence(String.valueOf(geofence._id), 1);

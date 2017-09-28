@@ -117,30 +117,26 @@ public class ScreenOnOffService extends IntentService {
                     //}
 
                     if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
-                        DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                         if (ApplicationPreferences.applicationEventWifiRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
                                 ApplicationPreferences.applicationEventWifiRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
-                            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
-                                // send broadcast for one wifi scan
-                                PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of wifi scanner");
-                                WifiScanJob.scheduleJob(appContext, true, true, false);
-                            }
+                            PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of wifi scanner");
+                            if (PhoneProfilesService.instance != null)
+                                PhoneProfilesService.instance.scheduleWifiJob(true, false, true, true, false);
                         }
+                        DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                         if (ApplicationPreferences.applicationEventBluetoothRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
                                 ApplicationPreferences.applicationEventBluetoothRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
-                            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0) {
-                                // send broadcast for one bluetooth scan
-                                PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of bluetooth scanner");
-                                BluetoothScanJob.scheduleJob(appContext, true, true);
-                            }
+                            PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of bluetooth scanner");
+                            if (PhoneProfilesService.instance != null)
+                                PhoneProfilesService.instance.scheduleBluetoothJob(true, false, true, true);
                         }
                         if (ApplicationPreferences.applicationEventLocationRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
                                 ApplicationPreferences.applicationEventLocationRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
                                 // send broadcast for location scan
                                 PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of location scanner");
-                                PPApplication.logE("GeofenceScannerJob.scheduleJob", "from ScreenOnOffService.onHandleIntent");
-                                GeofenceScannerJob.scheduleJob(appContext, true, true);
+                                if (PhoneProfilesService.instance != null)
+                                    PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, false, true, true);
                             }
                         }
                         if (ApplicationPreferences.applicationEventMobileCellsRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||

@@ -231,16 +231,12 @@ class EventPreferencesWifi extends EventPreferences {
         return true;
     }
 
+    /*
     @Override
     public void setSystemEventForStart(Context context)
     {
-        if (_enabled &&
-            ((_connectionType == CTYPE_INFRONT) || (_connectionType == CTYPE_NOTINFRONT)) &&
-            (!WifiScanJob.isJobScheduled()))
-            WifiScanJob.scheduleJob(context, true, false, false);
     }
 
-    /*
     @Override
     public void setSystemEventForPause(Context context)
     {

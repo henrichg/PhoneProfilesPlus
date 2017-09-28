@@ -47,6 +47,15 @@ class WifiScanJob extends Job {
             return Result.SUCCESS;
         }
 
+        boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+        if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
+            PPApplication.logE("WifiScanJob.onRunJob", "update in power save mode is not allowed = cancel job");
+            WifiScanJob.cancelJob();
+            //removeAlarm(context/*, false*/);
+            //removeAlarm(context/*, true*/);
+            return Result.SUCCESS;
+        }
+
         WifiScanJob.scheduleJob(context, false, false, false);
 
         if (wifi == null)
@@ -72,55 +81,49 @@ class WifiScanJob extends Job {
             } catch (Exception ignored) { }
 
             if (jobManager != null) {
+                JobRequest.Builder jobBuilder;
+                if (!shortInterval) {
+                    jobManager.cancelAllForTag(JOB_TAG_SHORT);
 
-                if (DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
+                    int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
+                    boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+                    if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("1"))
+                        interval = 2 * interval;
 
-                    JobRequest.Builder jobBuilder;
-                    if (!shortInterval) {
-                        jobManager.cancelAllForTag(JOB_TAG_SHORT);
+                    jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-                        int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
-                        boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                        if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("1"))
-                            interval = 2 * interval;
-
-                        jobBuilder = new JobRequest.Builder(JOB_TAG);
-
-                        if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL) {
-                            jobManager.cancelAllForTag(JOB_TAG);
-                            jobBuilder.setExact(TimeUnit.MINUTES.toMillis(interval));
-                        } else {
-                            int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
-                            PPApplication.logE("WifiScanJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
-                            if (requestsForTagSize == 0) {
-                                if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL)
-                                    jobBuilder.setPeriodic(JobRequest.MIN_INTERVAL);
-                                else
-                                    jobBuilder.setPeriodic(TimeUnit.MINUTES.toMillis(interval));
-                            } else
-                                return;
-                        }
+                    if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL) {
+                        jobManager.cancelAllForTag(JOB_TAG);
+                        jobBuilder.setExact(TimeUnit.MINUTES.toMillis(interval));
                     } else {
-                        cancelJob();
-                        jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
-                        if (afterEnableWifi)
-                            jobBuilder.setExact(TimeUnit.SECONDS.toMillis(2));
-                        else if (forScreenOn)
-                            jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
-                        else
-                            jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+                        int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+                        PPApplication.logE("WifiScanJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
+                        if (requestsForTagSize == 0) {
+                            if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL)
+                                jobBuilder.setPeriodic(JobRequest.MIN_INTERVAL);
+                            else
+                                jobBuilder.setPeriodic(TimeUnit.MINUTES.toMillis(interval));
+                        } else
+                            return;
                     }
-
-                    PPApplication.logE("WifiScanJob.scheduleJob", "build and schedule");
-
-                    jobBuilder
-                            .setPersisted(false)
-                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                            .build()
-                            .schedule();
-                }
-                else
+                } else {
                     cancelJob();
+                    jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
+                    if (afterEnableWifi)
+                        jobBuilder.setExact(TimeUnit.SECONDS.toMillis(2));
+                    else if (forScreenOn)
+                        jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+                    else
+                        jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+                }
+
+                PPApplication.logE("WifiScanJob.scheduleJob", "build and schedule");
+
+                jobBuilder
+                        .setPersisted(false)
+                        .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                        .build()
+                        .schedule();
             }
         }
         else

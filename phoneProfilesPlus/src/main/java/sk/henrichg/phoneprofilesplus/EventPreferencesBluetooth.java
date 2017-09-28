@@ -276,16 +276,12 @@ class EventPreferencesBluetooth extends EventPreferences {
         return true;
     }
 
+    /*
     @Override
     public void setSystemEventForStart(Context context)
     {
-        if (_enabled &&
-            ((_connectionType == CTYPE_INFRONT) || (_connectionType == CTYPE_NOTINFRONT)) &&
-            (!BluetoothScanJob.isJobScheduled()))
-            BluetoothScanJob.scheduleJob(context, true, false);
     }
 
-    /*
     @Override
     public void setSystemEventForPause(Context context)
     {

@@ -34,20 +34,15 @@ public class DeviceIdleModeService extends WakefulIntentService {
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE, false);
 
                     // rescan
-                    DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
+                    if (PhoneProfilesService.instance != null) {
                         // schedule job for one wifi scan
-                        WifiScanJob.scheduleJob(appContext, true, true, false);
-                    }
-                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0) {
+                        PhoneProfilesService.instance.scheduleWifiJob(true, false, true, true, false);
                         // schedule job for one bluetooth scan
-                        BluetoothScanJob.scheduleJob(appContext, true, true);
-                    }
-                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
+                        PhoneProfilesService.instance.scheduleBluetoothJob(true, false, true, true);
                         // schedule job for location scan
-                        PPApplication.logE("GeofenceScannerJob.scheduleJob", "from DeviceIdleModeBroadcastReceiver.onReceive");
-                        GeofenceScannerJob.scheduleJob(appContext, true, true);
+                        PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, false, true, true);
                     }
+                    DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                         // rescan mobile cells
                         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {

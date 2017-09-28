@@ -316,7 +316,7 @@ public class LocationGeofencePreference extends DialogPreference {
                                 if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {
                                     // stop location updates
                                     if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
-                                        PhoneProfilesService.geofencesScanner.disconnect();
+                                        PhoneProfilesService.getGeofencesScanner().disconnect();
                                 }
                             }
                             else {

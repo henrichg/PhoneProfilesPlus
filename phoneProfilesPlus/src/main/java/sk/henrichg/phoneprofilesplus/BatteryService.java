@@ -64,7 +64,7 @@ public class BatteryService extends WakefulIntentService {
 
                 if (PhoneProfilesService.instance != null) {
                     if (PhoneProfilesService.isGeofenceScannerStarted())
-                        PhoneProfilesService.geofencesScanner.resetLocationUpdates(oldPowerSaveMode, false);
+                        PhoneProfilesService.getGeofencesScanner().resetLocationUpdates(oldPowerSaveMode, false);
                     PhoneProfilesService.instance.resetListeningOrientationSensors(oldPowerSaveMode, false);
                     if (PhoneProfilesService.isPhoneStateScannerStarted())
                         PhoneProfilesService.phoneStateScanner.resetListening(oldPowerSaveMode, false);

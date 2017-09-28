@@ -189,23 +189,21 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
             invalidateEditor = true;
         }
 
-        DataWrapper dataWrapper =  new DataWrapper(getApplicationContext(), false, false, 0);
         if (wifiScanInterval != ApplicationPreferences.applicationEventWifiScanInterval(getApplicationContext()))
         {
-            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
-                WifiScanJob.scheduleJob(getApplicationContext(), true, false, false);
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.scheduleWifiJob(true, false, true, false, false);
         }
         if (bluetoothScanInterval != ApplicationPreferences.applicationEventBluetoothScanInterval(getApplicationContext()))
         {
-            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
-                BluetoothScanJob.scheduleJob(getApplicationContext(), true, false);
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.scheduleBluetoothJob(true, false, true, false);
         }
+        DataWrapper dataWrapper =  new DataWrapper(getApplicationContext(), false, false, 0);
         if (locationScanInterval != ApplicationPreferences.applicationEventLocationUpdateInterval(getApplicationContext()))
         {
-            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
-                PPApplication.logE("GeofenceScannerJob.scheduleJob", "from PhoneProfilesPreferenceActivity.finish");
-                GeofenceScannerJob.scheduleJob(getApplicationContext(), true, false);
-            }
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, false, true, false);
         }
         dataWrapper.invalidateDataWrapper();
 

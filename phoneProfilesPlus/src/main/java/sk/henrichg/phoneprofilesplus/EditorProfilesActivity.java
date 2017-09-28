@@ -1073,8 +1073,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     //    context.startForegroundService(serviceIntent);
 
                     boolean powerSaveMode = PPApplication.isPowerSaveMode;
-                    if (PhoneProfilesService.geofencesScanner != null) {
-                        PhoneProfilesService.geofencesScanner.resetLocationUpdates(powerSaveMode, true);
+                    if ((PhoneProfilesService.isGeofenceScannerStarted())) {
+                        PhoneProfilesService.getGeofencesScanner().resetLocationUpdates(powerSaveMode, true);
                     }
                     PhoneProfilesService.instance.resetListeningOrientationSensors(powerSaveMode, true);
                 }

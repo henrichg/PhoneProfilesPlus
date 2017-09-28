@@ -200,16 +200,12 @@ class EventPreferencesLocation extends EventPreferences {
         return true;
     }
 
+    /*
     @Override
     public void setSystemEventForStart(Context context)
     {
-        if (_enabled && (!GeofenceScannerJob.isJobScheduled())) {
-            PPApplication.logE("GeofenceScannerJob.scheduleJob", "from EventPreferencesLocation.setSystemEventForStart");
-            GeofenceScannerJob.scheduleJob(context, true, false);
-        }
     }
 
-    /*
     @Override
     public void setSystemEventForPause(Context context)
     {
@@ -220,6 +216,7 @@ class EventPreferencesLocation extends EventPreferences {
     {
     }
     */
+
     private String getGeofenceName(long geofenceId, Context context) {
         if (dataWrapper == null)
             dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);

@@ -114,7 +114,7 @@ public class PhoneProfilesService extends Service
 
     //-----------------------
 
-    public static GeofencesScanner geofencesScanner = null;
+    private static GeofencesScanner geofencesScanner = null;
 
     private static SensorManager mOrientationSensorManager = null;
     private static boolean mStartedOrientationSensors = false;
@@ -1107,7 +1107,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void scheduleWifiJob(boolean schedule, boolean cancel, boolean checkDatabase) {
+    void scheduleWifiJob(boolean schedule, boolean cancel, boolean checkDatabase, boolean forScreenOn, boolean afterEnableWifi) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleWifiJob", "PhoneProfilesService_scheduleWifiJob");
         if (cancel) {
@@ -1127,18 +1127,18 @@ public class PhoneProfilesService extends Service
                 if (eventCount > 0) {
                     if (!WifiScanJob.isJobScheduled()) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleWifiJob->schedule", "PhoneProfilesService_scheduleWifiJob");
-                        WifiScanJob.scheduleJob(appContext, true, false, false);
+                        WifiScanJob.scheduleJob(appContext, true, forScreenOn, afterEnableWifi);
                     }
                 } else {
-                    scheduleWifiJob(false, true, false);
+                    scheduleWifiJob(false, true, false, forScreenOn, afterEnableWifi);
                 }
             }
             else
-                scheduleWifiJob(false, true, false);
+                scheduleWifiJob(false, true, false, forScreenOn, afterEnableWifi);
         }
     }
 
-    private void scheduleBluetoothJob(boolean schedule, boolean cancel, boolean checkDatabase) {
+    void scheduleBluetoothJob(boolean schedule, boolean cancel, boolean checkDatabase, boolean forScreenOn) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleBluetoothJob", "PhoneProfilesService_scheduleBluetoothJob");
         if (cancel) {
@@ -1158,18 +1158,18 @@ public class PhoneProfilesService extends Service
                 if (eventCount > 0) {
                     if (!BluetoothScanJob.isJobScheduled()) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleBluetoothJob->schedule", "PhoneProfilesService_scheduleBluetoothJob");
-                        BluetoothScanJob.scheduleJob(appContext, true, false);
+                        BluetoothScanJob.scheduleJob(appContext, true, forScreenOn);
                     }
                 } else {
-                    scheduleBluetoothJob(false, true, false);
+                    scheduleBluetoothJob(false, true, false, forScreenOn);
                 }
             }
             else
-                scheduleBluetoothJob(false, true, false);
+                scheduleBluetoothJob(false, true, false, forScreenOn);
         }
     }
 
-    private void scheduleGeofenceScannerJob(boolean schedule, boolean cancel, boolean checkDatabase) {
+    void scheduleGeofenceScannerJob(boolean schedule, boolean cancel, boolean checkDatabase, boolean forScreenOn) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob", "PhoneProfilesService_scheduleGeofenceScannerJob");
         if (cancel) {
@@ -1189,14 +1189,14 @@ public class PhoneProfilesService extends Service
                 if (eventCount > 0) {
                     if (!GeofenceScannerJob.isJobScheduled()) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob->schedule", "PhoneProfilesService_scheduleGeofenceScannerJob");
-                        GeofenceScannerJob.scheduleJob(appContext, true, false);
+                        GeofenceScannerJob.scheduleJob(appContext, true, forScreenOn);
                     }
                 } else {
-                    scheduleGeofenceScannerJob(false, true, false);
+                    scheduleGeofenceScannerJob(false, true, false, forScreenOn);
                 }
             }
             else
-                scheduleGeofenceScannerJob(false, true, false);
+                scheduleGeofenceScannerJob(false, true, false, forScreenOn);
         }
     }
 
@@ -1457,9 +1457,9 @@ public class PhoneProfilesService extends Service
         }
         */
 
-        scheduleWifiJob(true, true, true);
-        scheduleBluetoothJob(true, true, true);
-        scheduleGeofenceScannerJob(true, true, true);
+        scheduleWifiJob(true, true, true, false, false);
+        scheduleBluetoothJob(true, true, true, false);
+        scheduleGeofenceScannerJob(true, true, true, false);
         scheduleSearchCalendarEventsJob(true, true, true);
 
         startGeofenceScanner(true, true, true);
@@ -1491,9 +1491,9 @@ public class PhoneProfilesService extends Service
         //SMSBroadcastReceiver.unregisterSMSContentObserver(appContext);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(appContext);
 
-        scheduleWifiJob(false, true, false);
-        scheduleBluetoothJob(false, true, false);
-        scheduleGeofenceScannerJob(false, true, false);
+        scheduleWifiJob(false, true, false, false, false);
+        scheduleBluetoothJob(false, true, false, false);
+        scheduleGeofenceScannerJob(false, true, false, false);
         scheduleSearchCalendarEventsJob(false, true, false);
 
         startGeofenceScanner(false, true, false);
@@ -1518,9 +1518,9 @@ public class PhoneProfilesService extends Service
         registerWifiStateChangedBroadcastReceiver(true, false, true);
         registerWifiConnectionBroadcastReceiver(true, false, true);
 
-        scheduleWifiJob(true, false, true);
-        scheduleBluetoothJob(true, false, true);
-        scheduleGeofenceScannerJob(true, false, true);
+        scheduleWifiJob(true, false, true, false, false);
+        scheduleBluetoothJob(true, false, true, false);
+        scheduleGeofenceScannerJob(true, false, true, false);
         scheduleSearchCalendarEventsJob(true, false, true);
 
         startGeofenceScanner(true, false, true);
@@ -2099,8 +2099,12 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public static boolean isGeofenceScannerStarted() {
+    static boolean isGeofenceScannerStarted() {
         return (geofencesScanner != null);
+    }
+
+    static GeofencesScanner getGeofencesScanner() {
+        return geofencesScanner;
     }
 
     //--------------------------------------------------------------------------

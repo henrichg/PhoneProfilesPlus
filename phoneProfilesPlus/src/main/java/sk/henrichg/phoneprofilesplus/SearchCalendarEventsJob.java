@@ -24,12 +24,11 @@ class SearchCalendarEventsJob extends Job {
 
         Context appContext = getContext().getApplicationContext();
 
-        SearchCalendarEventsJob.scheduleJob(false);
-        //setAlarm(appContext, false);
-
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return Result.SUCCESS;
+
+        SearchCalendarEventsJob.scheduleJob(false);
 
         if (Event.getGlobalEventsRunning(appContext))
         {

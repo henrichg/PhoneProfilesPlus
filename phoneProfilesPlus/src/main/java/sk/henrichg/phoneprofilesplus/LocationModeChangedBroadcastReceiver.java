@@ -41,7 +41,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
             }
 
             if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
-                PhoneProfilesService.geofencesScanner.clearAllEventGeofences();
+                PhoneProfilesService.getGeofencesScanner().clearAllEventGeofences();
 
                 // start service
                 try {

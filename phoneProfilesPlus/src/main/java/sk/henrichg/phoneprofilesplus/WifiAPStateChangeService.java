@@ -28,12 +28,9 @@ public class WifiAPStateChangeService extends WakefulIntentService {
                 else {
                     PPApplication.logE("WifiAPStateChangeService.doWakefulWork","wifi AP disabled");
                     // send broadcast for one wifi scan
-                    DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
-                        WifiScanJob.scheduleJob(context, true, false, true);
-                    dataWrapper.invalidateDataWrapper();
+                    if (PhoneProfilesService.instance != null)
+                        PhoneProfilesService.instance.scheduleWifiJob(true, false, true, false, true);
                 }
-
             }
         }
     }

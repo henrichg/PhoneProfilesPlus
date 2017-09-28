@@ -827,13 +827,10 @@ public class GrantPermissionActivity extends Activity {
             if (Permissions.bluetoothNamePreference != null)
                 Permissions.bluetoothNamePreference.refreshListView(true, "");
             dataWrapper.restartEvents(false, true, false);
-            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
-                WifiScanJob.scheduleJob(context, true, false, false);
-            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
-                BluetoothScanJob.scheduleJob(context, true, false);
-            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
-                PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GrantPermissionActivity.finishGrant - GRANT_TYPE_WIFI_BT_SCAN_DIALOG");
-                GeofenceScannerJob.scheduleJob(context, false, false);
+            if (PhoneProfilesService.instance != null) {
+                PhoneProfilesService.instance.scheduleWifiJob(true, false, true, false, false);
+                PhoneProfilesService.instance.scheduleBluetoothJob(true, false, true, false);
+                PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, false, true, false);
             }
             finish();
         }
@@ -862,13 +859,10 @@ public class GrantPermissionActivity extends Activity {
             for (Permissions.PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
                     permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
-                        WifiScanJob.scheduleJob(context, true, false, false);
-                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
-                        BluetoothScanJob.scheduleJob(context, true, false);
-                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
-                        PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GrantPermissionActivity.finishGrant - GRANT_TYPE_EVENT");
-                        GeofenceScannerJob.scheduleJob(context, false, false);
+                    if (PhoneProfilesService.instance != null) {
+                        PhoneProfilesService.instance.scheduleWifiJob(true, false, true, false, false);
+                        PhoneProfilesService.instance.scheduleBluetoothJob(true, false, true, false);
+                        PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, false, true, false);
                     }
                     break;
                 }
@@ -879,7 +873,7 @@ public class GrantPermissionActivity extends Activity {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
-                    if (!(PhoneProfilesService.isGeofenceScannerStarted() && PhoneProfilesService.geofencesScanner.isConnected())) {
+                    if (!(PhoneProfilesService.isGeofenceScannerStarted() && PhoneProfilesService.getGeofencesScanner().isConnected())) {
                         PPApplication.startGeofenceScanner(context);
                         PPApplication.sleep(1000);
                     }
@@ -890,16 +884,13 @@ public class GrantPermissionActivity extends Activity {
                 protected void onPostExecute(Void response) {
                     super.onPostExecute(response);
 
-                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
-                        WifiScanJob.scheduleJob(context, true, false, false);
-                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
-                        BluetoothScanJob.scheduleJob(context, true, false);
+                    if (PhoneProfilesService.instance != null) {
+                        PhoneProfilesService.instance.scheduleWifiJob(true, false, true, false, false);
+                        PhoneProfilesService.instance.scheduleBluetoothJob(true, false, true, false);
+                        PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, false, true, false);
+                    }
                     if (Permissions.locationGeofenceEditorActivity != null)
                         Permissions.locationGeofenceEditorActivity.refreshActivity(true);
-                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
-                        PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GrantPermissionActivity.finishGrant - GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY");
-                        GeofenceScannerJob.scheduleJob(context, false, false);
-                    }
 
                     dataWrapper.restartEvents(false, true, false);
 

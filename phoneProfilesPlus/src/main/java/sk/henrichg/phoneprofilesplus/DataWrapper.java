@@ -2995,30 +2995,23 @@ public class DataWrapper {
         if (ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
                 ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
-            if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
-                // rescan wifi
-                PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of wifi scanner");
-                WifiScanJob.scheduleJob(context, true, false, false);
-            }
+            // rescan wifi
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.scheduleWifiJob(true, false, true, false, false);
         }
         if (ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
                 ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
-            if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0) {
                 // rescan bluetooth
-                PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of bluetooth scanner");
-                BluetoothScanJob.scheduleJob(context, true, false);
-            }
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.scheduleBluetoothJob(true, false, true, false);
         }
         if (ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
                 ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
-            if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
-                // send broadcast for location scan
-                PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of location scanner");
-                PPApplication.logE("GeofenceScannerJob.scheduleJob", "from DataWrapper.restartEventsWithRescan");
-                GeofenceScannerJob.scheduleJob(context, true, false);
-            }
+            // rescan location
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, false, true, false);
         }
         if (ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
                 ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
