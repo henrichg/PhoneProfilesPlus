@@ -1359,6 +1359,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     Profile defaultProfile = Profile.getDefaultProfile(context);
                     Permissions.grantProfilePermissions(context, defaultProfile, false, true,
                             true, false, 0, PPApplication.STARTUP_SOURCE_EDITOR, true, null, false);
+
+                    Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+                    //TODO Android O
+                    //if (Build.VERSION.SDK_INT < 26)
+                    context.startService(serviceIntent);
+                    //else
+                    //    context.startForegroundService(serviceIntent);
                 }
             }
         }
