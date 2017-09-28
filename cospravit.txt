@@ -33,7 +33,6 @@ povolenie/zakazanie vybrovania pri dotyku: Settings.System.HAPTIC_FEEDBACK_ENABL
 
 1. scanning - ak bezi, a dam spustit one shot scanning z preferences, neukoncit hned, ale cakat na
    ukoncenie beziaceho
-2. sprav udalost na start aplikacie
 3. skus spravit do profilu moznot zastavit aplikaciu
 4. sprav notifikaciu ako dasboard, kde budu ikony profilov, klikom na ikonu sa profil aktivuje.
    poradie bude take iste ako pro aktivatore. Ak sa nezmestia na jednu notifikaciu, spravit dalsiu.
@@ -149,4 +148,14 @@ EventsService:
 Power save mode:
 - zistuje ho BatteryBroadcastReceiver a PowerSaveModeBroadcastReceiver
 - pouziva ho Battery event a vsetky skenery
+
+Alarmy:
+- event delay start, end
+- calendar event sensor - zaciatok a koniec kalendarovej udalosti + delay pred startom
+- nfc event sensor - duration
+- notification event sensor - duration
+- sms/mms event sensor - duration
+- time event sensor - zaciatok a koniec
+- notifikacia aktivovaneho profilu - dlzka zobrazovania notifikacie
+- profile duration
 
