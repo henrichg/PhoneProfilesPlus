@@ -453,6 +453,14 @@ public class EditorProfileListFragment extends Fragment
             PhoneProfilesService.instance.showProfileNotification(_profile, dataWrapper);
         activateProfileHelper.updateWidget(true);
 
+        Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
+        serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+        //TODO Android O
+        //if (Build.VERSION.SDK_INT < 26)
+        getActivity().getApplicationContext().startService(serviceIntent);
+        //else
+        //    context.startForegroundService(serviceIntent);
+
         onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
     }
 
@@ -545,6 +553,14 @@ public class EditorProfileListFragment extends Fragment
                     if (PhoneProfilesService.instance != null)
                         PhoneProfilesService.instance.showProfileNotification(null, dataWrapper);
                     activateProfileHelper.updateWidget(true);
+
+                    Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+                    //TODO Android O
+                    //if (Build.VERSION.SDK_INT < 26)
+                    getActivity().getApplicationContext().startService(serviceIntent);
+                    //else
+                    //    context.startForegroundService(serviceIntent);
 
                     onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
                 }
