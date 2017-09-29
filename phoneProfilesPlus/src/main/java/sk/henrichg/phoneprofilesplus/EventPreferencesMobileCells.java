@@ -168,17 +168,12 @@ class EventPreferencesMobileCells extends EventPreferences {
         return true;
     }
 
+    /*
     @Override
     public void setSystemEventForStart(Context context)
     {
-        if (PhoneProfilesService.instance != null) {
-            if (_enabled && (!PhoneProfilesService.isPhoneStateScannerStarted())) {
-                PPApplication.startPhoneStateScanner(context);
-            }
-        }
     }
 
-    /*
     @Override
     public void setSystemEventForPause(Context context)
     {
