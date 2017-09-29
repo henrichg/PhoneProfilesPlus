@@ -172,6 +172,7 @@ public class PPApplication extends Application {
     static final int SCANNER_STOP_ORIENTATION_SCANNER = 4;
     static final int SCANNER_START_PHONE_STATE_SCANNER = 5;
     static final int SCANNER_STOP_PHONE_STATE_SCANNER = 6;
+    static final int SCANNER_RESTART_ORIENTATION_SCANNER = 7;
 
     public static HandlerWithContext toastHandler;
     public static HandlerWithContext brightnessHandler;
@@ -861,6 +862,21 @@ public class PPApplication extends Application {
             //TODO Android O
             //if (Build.VERSION.SDK_INT < 26)
                 context.startService(lIntent);
+            //else
+            //    context.startForegroundService(lIntent);
+        } catch (Exception ignored) {}
+    }
+
+    public static void restartOrientationScanner(Context context) {
+        try {
+            Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ORIENTATION_SCANNER);
+            //TODO Android O
+            //if (Build.VERSION.SDK_INT < 26)
+            context.startService(lIntent);
             //else
             //    context.startForegroundService(lIntent);
         } catch (Exception ignored) {}

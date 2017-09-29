@@ -1683,6 +1683,10 @@ public class PhoneProfilesService extends Service
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_ORIENTATION_SCANNER");
                             startOrientationScanner(false, true, false);
                             break;
+                        case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
+                            startOrientationScanner(true, false, true);
+                            break;
                         case PPApplication.SCANNER_START_PHONE_STATE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_PHONE_STATE_SCANNER");
                             startPhoneStateScanner(true, true, true);
