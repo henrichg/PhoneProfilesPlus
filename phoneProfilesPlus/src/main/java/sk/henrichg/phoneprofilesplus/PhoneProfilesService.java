@@ -1306,18 +1306,25 @@ public class PhoneProfilesService extends Service
             boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED;
             if (eventAllowed) {
-                int eventCount = 1;
-                if (checkDatabase || (!isOrientationScannerStarted())) {
-                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION);
-                }
-                if (eventCount > 0) {
-                    if (!isOrientationScannerStarted()) {
-                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->start", "PhoneProfilesService_startOrientationScanner");
-                        startOrientationScanner();
+                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                //noinspection deprecation
+                if (pm.isScreenOn()) {
+                    // start only for screen On
+                    int eventCount = 1;
+                    if (checkDatabase || (!isOrientationScannerStarted())) {
+                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION);
                     }
-                } else {
-                    startOrientationScanner(false, true, false);
+                    if (eventCount > 0) {
+                        if (!isOrientationScannerStarted()) {
+                            CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->start", "PhoneProfilesService_startOrientationScanner");
+                            startOrientationScanner();
+                        }
+                    } else {
+                        startOrientationScanner(false, true, false);
+                    }
                 }
+                else
+                    startOrientationScanner(false, true, false);
             }
             else
                 startOrientationScanner(false, true, false);

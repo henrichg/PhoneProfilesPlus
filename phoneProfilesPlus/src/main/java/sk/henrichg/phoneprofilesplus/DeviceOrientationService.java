@@ -64,15 +64,6 @@ public class DeviceOrientationService extends WakefulIntentService {
 
                 PPApplication.logE("@@@ DeviceOrientationService.doWakefulWork", "-----------");
 
-                DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-                if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) == 0) {
-                    if (PhoneProfilesService.instance != null) {
-                        PPApplication.stopOrientationScanner(appContext);
-                    }
-                    dataWrapper.invalidateDataWrapper();
-                    return;
-                }
-
                 // start events handler
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION, false);
