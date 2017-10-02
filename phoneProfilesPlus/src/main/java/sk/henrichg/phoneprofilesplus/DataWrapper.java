@@ -2467,12 +2467,19 @@ public class DataWrapper {
             ApplicationPreferences.getSharedPreferences(context);
             int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
 
+            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             if (/*Permissions.checkEventPhoneBroadcast(context, event) &&*/
                 (callEventType != PhoneCallService.CALL_EVENT_UNDEFINED) &&
                 (callEventType != PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) &&
                 (callEventType != PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                 // ignore changes during call
                 ignoreOrientation = true;
+            }
+            else
+             //noinspection deprecation
+            if (!pm.isScreenOn()) {
+                    // ignore for screen Off
+                    ignoreOrientation = true;
             }
             else
             {
@@ -2493,10 +2500,12 @@ public class DataWrapper {
                     }
                     if (!lApplicationPassed) {
 
+                        boolean lDisplayPassed = true;
+                        boolean lSidePassed = true;
+
                         boolean enabledAccelerometer = PhoneProfilesService.getAccelerometerSensor(context) != null;
                         boolean enabledMagneticField = PhoneProfilesService.getMagneticFieldSensor(context) != null;
                         boolean enabledAll = (enabledAccelerometer) && (enabledMagneticField);
-                        boolean lDisplayPassed = true;
                         if (enabledAccelerometer) {
                             if (!event._eventPreferencesOrientation._display.isEmpty()) {
                                 String[] splits = event._eventPreferencesOrientation._display.split("\\|");
@@ -2516,7 +2525,6 @@ public class DataWrapper {
                             }
                         }
 
-                        boolean lSidePassed = true;
                         if (enabledAll) {
                             if (!event._eventPreferencesOrientation._sides.isEmpty()) {
                                 String[] splits = event._eventPreferencesOrientation._sides.split("\\|");
@@ -2543,8 +2551,8 @@ public class DataWrapper {
                             }
                         }
 
-                        boolean enabled = PhoneProfilesService.getProximitySensor(context) != null;
                         boolean lDistancePassed = true;
+                        boolean enabled = PhoneProfilesService.getProximitySensor(context) != null;
                         if (enabled) {
                             if (event._eventPreferencesOrientation._distance != 0) {
                                 lDistancePassed = event._eventPreferencesOrientation._distance == PhoneProfilesService.mDeviceDistance;
@@ -2555,12 +2563,15 @@ public class DataWrapper {
                         //Log.d("**** DataWrapper.doHandleEvents","lSidePassed="+lSidePassed);
                         //Log.d("**** DataWrapper.doHandleEvents","lDistancePassed="+lDistancePassed);
 
+
                         orientationPassed = lDisplayPassed && lSidePassed && lDistancePassed;
                     }
                     else {
                         ignoreOrientation = true;
                     }
                 }
+                else
+                    ignoreOrientation = true;
             }
         }
 

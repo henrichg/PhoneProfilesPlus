@@ -1296,9 +1296,11 @@ public class PhoneProfilesService extends Service
     private void startOrientationScanner(boolean start, boolean stop, boolean checkDatabase) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.startOrientationScanner", "PhoneProfilesService_startOrientationScanner");
+        PPApplication.logE("PhoneProfilesService.startOrientationScanner","xxx");
         if (stop) {
             if (isOrientationScannerStarted()) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->stop", "PhoneProfilesService_startOrientationScanner");
+                PPApplication.logE("PhoneProfilesService.startOrientationScanner","stop");
                 stopOrientationScanner();
             }
         }
@@ -1317,6 +1319,7 @@ public class PhoneProfilesService extends Service
                     if (eventCount > 0) {
                         if (!isOrientationScannerStarted()) {
                             CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->start", "PhoneProfilesService_startOrientationScanner");
+                            PPApplication.logE("PhoneProfilesService.startOrientationScanner","start");
                             startOrientationScanner();
                         }
                     } else {
@@ -2123,10 +2126,8 @@ public class PhoneProfilesService extends Service
             geofencesScanner = null;
         }
 
-        if (PPApplication.getApplicationStarted(this, false)) {
-            geofencesScanner = new GeofencesScanner(getApplicationContext());
-            geofencesScanner.connect();
-        }
+        geofencesScanner = new GeofencesScanner(getApplicationContext());
+        geofencesScanner.connect();
     }
 
     private void stopGeofenceScanner() {
@@ -2154,11 +2155,8 @@ public class PhoneProfilesService extends Service
             phoneStateScanner = null;
         }
 
-        if (PPApplication.getApplicationStarted(this, false)) {
-            if (phoneStateScanner == null)
-                phoneStateScanner = new PhoneStateScanner(getApplicationContext());
-            phoneStateScanner.connect();
-        }
+        phoneStateScanner = new PhoneStateScanner(getApplicationContext());
+        phoneStateScanner.connect();
     }
 
     private void stopPhoneStateScanner() {
@@ -2180,8 +2178,7 @@ public class PhoneProfilesService extends Service
         if (mStartedOrientationSensors)
             stopListeningOrientationSensors();
 
-        if (PPApplication.getApplicationStarted(this, false))
-            startListeningOrientationSensors();
+        startListeningOrientationSensors();
     }
 
     private void stopOrientationScanner() {
@@ -2260,6 +2257,13 @@ public class PhoneProfilesService extends Service
             //Sensor orientation = PPApplication.getOrientationSensor(this);
             //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","orientation="+orientation);
             mStartedOrientationSensors = true;
+
+            mDisplayUp = DEVICE_ORIENTATION_UNKNOWN;
+            mSideUp = DEVICE_ORIENTATION_UNKNOWN;
+            mDeviceDistance = DEVICE_ORIENTATION_UNKNOWN;
+
+            tmpSideUp = DEVICE_ORIENTATION_UNKNOWN;
+            tmpSideTimestamp = 0;
         }
     }
 
@@ -2304,7 +2308,8 @@ public class PhoneProfilesService extends Service
                     try {
                         Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
                         WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
-                    } catch (Exception ignored) {}
+                    } catch (Exception ignored) {
+                    }
                 }
             //}
             return;
@@ -2412,8 +2417,8 @@ public class PhoneProfilesService extends Service
                                         try {
                                             Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
                                             WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
-                                        } catch (Exception ignored) {}
-
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             }
@@ -2451,7 +2456,8 @@ public class PhoneProfilesService extends Service
                                 try {
                                     Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
                                     WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
-                                } catch (Exception ignored) {}
+                                } catch (Exception ignored) {
+                                }
                             }
                         } else {
                             if (mEventCountSinceGZChanged > 0) {

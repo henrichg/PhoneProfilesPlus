@@ -391,15 +391,6 @@ public class BluetoothNamePreference extends DialogPreference {
                     Scanner.waitForForceOneBluetoothScanEnd(context, this);
                 }
 
-                if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    _bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false, 0));
-                    _bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false, 0));
-                }
-                else {
-                    _bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", 0, false, 0));
-                    _bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", 0, false, 0));
-                }
-
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanJob.getBoundedDevicesList(context);
                 if (boundedDevicesList != null)
                 {
@@ -478,6 +469,15 @@ public class BluetoothNamePreference extends DialogPreference {
                 }
 
                 Collections.sort(_bluetoothList, new SortList());
+
+                if (android.os.Build.VERSION.SDK_INT >= 18) {
+                    _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false, 0));
+                    _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false, 0));
+                }
+                else {
+                    _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", 0, false, 0));
+                    _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", 0, false, 0));
+                }
 
                 return null;
             }
