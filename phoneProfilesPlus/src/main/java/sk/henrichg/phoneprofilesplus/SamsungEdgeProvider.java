@@ -259,25 +259,29 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     }
 
     private void updateWidget(Context context, int cocktailId) {
-        SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
+        try {
+            SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
 
-        doOnUpdate(context, cocktailManager, cocktailId);
+            doOnUpdate(context, cocktailManager, cocktailId);
 
-        /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
-            cocktailManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_profile_list);
-        else*/
-            cocktailManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_profile_grid);
+            /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
+                cocktailManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_profile_list);
+            else*/
+                cocktailManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_profile_grid);
+        } catch (Exception ignored) {}
     }
 
     private void updateWidgets(Context context) {
-        SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
-        int cocktailIds[] = cocktailManager.getCocktailIds(new ComponentName(context, SamsungEdgeProvider.class));
+        try {
+            SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
+            int cocktailIds[] = cocktailManager.getCocktailIds(new ComponentName(context, SamsungEdgeProvider.class));
 
-        if (cocktailIds != null) {
-            for (int cocktailId : cocktailIds) {
-                updateWidget(context, cocktailId);
+            if (cocktailIds != null) {
+                for (int cocktailId : cocktailIds) {
+                    updateWidget(context, cocktailId);
+                }
             }
-        }
+        } catch (Exception ignored) {}
     }
 
     @Override
