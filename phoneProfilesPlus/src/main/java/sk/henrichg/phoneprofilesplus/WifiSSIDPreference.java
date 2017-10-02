@@ -67,6 +67,8 @@ public class WifiSSIDPreference extends DialogPreference {
     protected void showDialog(Bundle state) {
         value = getPersistedString(value);
 
+        PPApplication.forceRegisterReceiversForWifiScanner(context);
+
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
                 .icon(getDialogIcon())
@@ -271,6 +273,7 @@ public class WifiSSIDPreference extends DialogPreference {
         if ((rescanAsyncTask != null) && (!rescanAsyncTask.isCancelled()))
             rescanAsyncTask.cancel(true);
         MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        PPApplication.reregisterReceiversForWifiScanner(context);
     }
 
     @Override

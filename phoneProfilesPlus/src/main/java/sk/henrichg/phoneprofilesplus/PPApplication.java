@@ -172,7 +172,12 @@ public class PPApplication extends Application {
     static final int SCANNER_STOP_ORIENTATION_SCANNER = 4;
     static final int SCANNER_START_PHONE_STATE_SCANNER = 5;
     static final int SCANNER_STOP_PHONE_STATE_SCANNER = 6;
-    static final int SCANNER_RESTART_ORIENTATION_SCANNER = 7;
+    static final int SCANNER_FORCE_START_PHONE_STATE_SCANNER = 7;
+    static final int SCANNER_RESTART_ORIENTATION_SCANNER = 8;
+    static final int SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER = 9;
+    static final int SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER = 10;
+    static final int SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER = 11;
+    static final int SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER = 12;
 
     public static HandlerWithContext toastHandler;
     public static HandlerWithContext brightnessHandler;
@@ -807,6 +812,66 @@ public class PPApplication extends Application {
 
     // scanners ------------------------------------------
 
+    public static void forceRegisterReceiversForWifiScanner(Context context) {
+        try {
+            Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER);
+            //TODO Android O
+            //if (Build.VERSION.SDK_INT < 26)
+            context.startService(lIntent);
+            //else
+            //    context.startForegroundService(lIntent);
+        } catch (Exception ignored) {}
+    }
+
+    public static void reregisterReceiversForWifiScanner(Context context) {
+        try {
+            Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER);
+            //TODO Android O
+            //if (Build.VERSION.SDK_INT < 26)
+            context.startService(lIntent);
+            //else
+            //    context.startForegroundService(lIntent);
+        } catch (Exception ignored) {}
+    }
+
+    public static void forceRegisterReceiversForBluetoothScanner(Context context) {
+        try {
+            Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER);
+            //TODO Android O
+            //if (Build.VERSION.SDK_INT < 26)
+            context.startService(lIntent);
+            //else
+            //    context.startForegroundService(lIntent);
+        } catch (Exception ignored) {}
+    }
+
+    public static void reregisterReceiversForBluetoothScanner(Context context) {
+        try {
+            Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER);
+            //TODO Android O
+            //if (Build.VERSION.SDK_INT < 26)
+            context.startService(lIntent);
+            //else
+            //    context.startForegroundService(lIntent);
+        } catch (Exception ignored) {}
+    }
+
     public static void startGeofenceScanner(Context context) {
         try {
             Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -907,6 +972,21 @@ public class PPApplication extends Application {
             //TODO Android O
             //if (Build.VERSION.SDK_INT < 26)
                 context.startService(lIntent);
+            //else
+            //    context.startForegroundService(lIntent);
+        } catch (Exception ignored) {}
+    }
+
+    public static void forceStartPhoneStateScanner(Context context) {
+        try {
+            Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_PHONE_STATE_SCANNER);
+            //TODO Android O
+            //if (Build.VERSION.SDK_INT < 26)
+            context.startService(lIntent);
             //else
             //    context.startForegroundService(lIntent);
         } catch (Exception ignored) {}

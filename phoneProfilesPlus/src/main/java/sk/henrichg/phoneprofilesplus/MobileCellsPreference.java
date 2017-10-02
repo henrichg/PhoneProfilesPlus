@@ -59,12 +59,7 @@ public class MobileCellsPreference extends DialogPreference {
         
         cellsList = new ArrayList<>();
 
-        if (!PhoneProfilesService.isPhoneStateScannerStarted()) {
-            //Log.d("MobileCellsPreference","no scanner started");
-            PPApplication.startPhoneStateScanner(context);
-        }
-        //else
-        //    Log.d("MobileCellsPreference","scanner started");
+        PPApplication.forceStartPhoneStateScanner(context);
 
         //IntentFilter intentFilter = new IntentFilter();
         //intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
@@ -264,6 +259,7 @@ public class MobileCellsPreference extends DialogPreference {
         if ((rescanAsyncTask != null) && (!rescanAsyncTask.isCancelled()))
             rescanAsyncTask.cancel(true);
         MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        PPApplication.startPhoneStateScanner(context);
     }
 
     @Override

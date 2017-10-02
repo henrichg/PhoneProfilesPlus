@@ -1695,6 +1695,32 @@ public class PhoneProfilesService extends Service
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_PHONE_STATE_SCANNER");
                             startPhoneStateScanner(false, true, false);
                             break;
+                        case PPApplication.SCANNER_FORCE_START_PHONE_STATE_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_START_PHONE_STATE_SCANNER");
+                            startPhoneStateScanner(true, false, false);
+                            break;
+                        case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
+                            registerWifiConnectionBroadcastReceiver(true, false, true);
+                            registerWifiStateChangedBroadcastReceiver(true, false, true);
+                            registerWifiAPStateChangeBroadcastReceiver(true, false, true);
+                            break;
+                        case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
+                            registerWifiConnectionBroadcastReceiver(true, false, false);
+                            registerWifiStateChangedBroadcastReceiver(true, false, false);
+                            registerWifiAPStateChangeBroadcastReceiver(true, false, false);
+                            break;
+                        case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
+                            registerBluetoothConnectionBroadcastReceiver(true, false, true);
+                            registerBluetoothStateChangedBroadcastReceiver(true, false, true);
+                            break;
+                        case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
+                            registerBluetoothConnectionBroadcastReceiver(true, false, false);
+                            registerBluetoothStateChangedBroadcastReceiver(true, false, false);
+                            break;
                     }
                 }
             }
