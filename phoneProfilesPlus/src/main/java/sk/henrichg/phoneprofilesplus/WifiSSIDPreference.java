@@ -387,9 +387,6 @@ public class WifiSSIDPreference extends DialogPreference {
                     Scanner.waitForWifiScanEnd(context, this);
                 }
 
-                _SSIDList.add(new WifiSSIDData(EventPreferencesWifi.ALL_SSIDS_VALUE, "", false));
-                _SSIDList.add(new WifiSSIDData(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE, "", false));
-
                 List<WifiSSIDData> wifiConfigurationList = WifiScanJob.getWifiConfigurationList(context);
                 if (wifiConfigurationList != null)
                 {
@@ -467,6 +464,9 @@ public class WifiSSIDPreference extends DialogPreference {
                 }
 
                 Collections.sort(_SSIDList, new SortList());
+
+                _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE, "", false));
+                _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.ALL_SSIDS_VALUE, "", false));
 
                 return null;
             }
