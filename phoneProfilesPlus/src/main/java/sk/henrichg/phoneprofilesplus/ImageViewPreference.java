@@ -254,6 +254,8 @@ public class ImageViewPreference extends Preference {
             PPApplication.logE("ImageViewPreference.getImageContentUri","uri1="+uri);
             return uri;
         } else {
+            if (cursor != null)
+                cursor.close();
             File file = new File(imageFile);
             if (file.exists()) {
                 ContentValues values = new ContentValues();
