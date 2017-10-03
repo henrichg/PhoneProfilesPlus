@@ -279,7 +279,6 @@
         <CheckBoxPreference
             android:key="applicationAlert"
             android:title="@string/phone_profiles_pref_applicationAlert"
-            android:summary="@string/phone_profiles_pref_applicationAlertSummary"
             android:defaultValue="true"
             android:widgetLayout="@layout/mp_preference_switch" />
     </PreferenceScreen>
@@ -293,6 +292,11 @@
             android:title="@string/phone_profiles_pref_eventRunUsePriority"
             android:summary="@string/event_preferences_event_priorityInfo_summary"
             android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch" />
+        <CheckBoxPreference
+            android:key="applicationRestartEventsAlert"
+            android:title="@string/phone_profiles_pref_applicationRestartEventsAlert"
+            android:defaultValue="true"
             android:widgetLayout="@layout/mp_preference_switch" />
     </PreferenceScreen>
 

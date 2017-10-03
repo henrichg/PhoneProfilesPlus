@@ -97,6 +97,14 @@ public class PackageReplacedService extends WakefulIntentService {
                         editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS, true);
                         editor.apply();
                     }
+                    if (actualVersionCode <= 3500) {
+                        ApplicationPreferences.getSharedPreferences(appContext);
+                        if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
+                            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert(appContext));
+                            editor.apply();
+                        }
+                    }
                 }
             } catch (Exception e) {
                 //e.printStackTrace();

@@ -1261,51 +1261,51 @@ public class DataWrapper {
             final Activity _activity = activity;
             final DataWrapper _dataWrapper = this;
 
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(activity.getResources().getString(R.string.profile_string_0) + ": " + profile._name);
-            dialogBuilder.setMessage(activity.getResources().getString(R.string.activate_profile_alert_message));
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    if (_profile._askForDuration) {
-                        FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper,
-                                monochrome, monochromeValue, _startupSource, true);
-                        dlg.show();
-                    }
-                    else {
+            if (profile._askForDuration) {
+                FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper,
+                        monochrome, monochromeValue, _startupSource, true);
+                dlg.show();
+            }
+            else {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                dialogBuilder.setTitle(activity.getResources().getString(R.string.profile_string_0) + ": " + profile._name);
+                dialogBuilder.setMessage(activity.getResources().getString(R.string.activate_profile_alert_message));
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
                         if (Permissions.grantProfilePermissions(context, _profile, false, false,
                                 forGUI, monochrome, monochromeValue,
                                 _startupSource, true, _activity, true))
                             _activateProfile(_profile, false, _startupSource, true, _activity);
                         else {
                             Intent returnIntent = new Intent();
-                            _activity.setResult(Activity.RESULT_CANCELED,returnIntent);
+                            _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
 
                             finishActivity(_startupSource, false, _activity);
                         }
+                        }
+                });
+                dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // for startActivityForResult
+                        Intent returnIntent = new Intent();
+                        _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
+
+                        finishActivity(_startupSource, false, _activity);
                     }
-                }
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // for startActivityForResult
-                    Intent returnIntent = new Intent();
-                    _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
+                });
+                dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
 
-                    finishActivity(_startupSource, false, _activity);
-                }
-            });
-            dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    public void onCancel(DialogInterface dialog) {
+                        // for startActivityForResult
+                        Intent returnIntent = new Intent();
+                        _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
 
-                public void onCancel(DialogInterface dialog) {
-                    // for startActivityForResult
-                    Intent returnIntent = new Intent();
-                    _activity.setResult(Activity.RESULT_CANCELED,returnIntent);
-
-                    finishActivity(_startupSource, false, _activity);
-                }
-            });
-            dialogBuilder.show();
+                        finishActivity(_startupSource, false, _activity);
+                    }
+                });
+                dialogBuilder.show();
+            }
         }
         else
         {
@@ -3076,7 +3076,7 @@ public class DataWrapper {
 
         PPApplication.logE("DataWrapper.restartEventsWithAlert", "xxx");
 
-        if (ApplicationPreferences.applicationActivateWithAlert(context) || (activity instanceof EditorProfilesActivity))
+        if (ApplicationPreferences.applicationRestartEventsWithAlert(context) || (activity instanceof EditorProfilesActivity))
         {
             final Activity _activity = activity;
 

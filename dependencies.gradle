@@ -4,7 +4,7 @@
 // 2500 = profile notification is required, but if is not enabled, hide it from status bar (default for new apps is "show")
 // 2700 = not show Activator and Editor target helps
 // 3200 = show target helps for shared profile toolbar item
-
+// 3500 = added is "Confirm restart events"
 
 ext.ppVersions = [
         minSdk: 16,
