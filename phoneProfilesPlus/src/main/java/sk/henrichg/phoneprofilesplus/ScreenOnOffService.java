@@ -24,11 +24,19 @@ public class ScreenOnOffService extends IntentService {
             if (intent.getAction() != null) {
                 if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
                     PPApplication.logE("@@@ ScreenOnOffService.onReceive", "screen on");
+                    PPApplication.restartWifiScanner(appContext);
+                    PPApplication.restartBluetoothScanner(appContext);
+                    PPApplication.restartGeofenceScanner(appContext);
+                    PPApplication.restartPhoneStateScanner(appContext);
                     PPApplication.restartOrientationScanner(appContext);
                 }
                 else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                     PPApplication.logE("@@@ ScreenOnOffService.onReceive", "screen off");
 
+                    PPApplication.restartWifiScanner(appContext);
+                    PPApplication.restartBluetoothScanner(appContext);
+                    PPApplication.restartGeofenceScanner(appContext);
+                    PPApplication.restartPhoneStateScanner(appContext);
                     PPApplication.restartOrientationScanner(appContext);
 
                     //boolean lockDeviceEnabled = false;

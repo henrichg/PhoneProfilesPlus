@@ -792,10 +792,18 @@ public class PhoneProfilesService extends Service
                     PPApplication.PREFERENCE_ALLOWED);
             if (allowed) {
                 int eventCount = 1;
+                int eventScannerCount = 1;
                 if (checkDatabase/* || (locationModeChangedBroadcastReceiver == null)*/) {
                     eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_RADIO_SWITCH_GPS);
-                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION);
+                    eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION);
+                    PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    //noinspection deprecation
+                    if (pm.isScreenOn() || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
+                        // start only for screen On
+                        eventScannerCount = 0;
+                    }
                 }
+                eventCount = eventCount + eventScannerCount;
                 if (eventCount > 0) {
                     if (locationModeChangedBroadcastReceiver == null) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerLocationModeChangedBroadcastReceiver->REGISTER", "PhoneProfilesService_registerLocationModeChangedBroadcastReceiver");
@@ -836,11 +844,19 @@ public class PhoneProfilesService extends Service
                     PPApplication.PREFERENCE_ALLOWED);
             if (allowed) {
                 int eventCount = 1;
+                int eventScannerCount = 1;
                 if (checkDatabase/* || (bluetoothStateChangedBroadcastReceiver == null)*/) {
                     eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_RADIO_SWITCH_BLUETOOTH);
                     eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED);
-                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT);
+                    eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT);
+                    PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    //noinspection deprecation
+                    if (pm.isScreenOn() || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
+                        // start only for screen On
+                        eventScannerCount = 0;
+                    }
                 }
+                eventCount = eventCount + eventScannerCount;
                 if (eventCount > 0) {
                     if (bluetoothStateChangedBroadcastReceiver == null) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBluetoothStateChangedBroadcastReceiver->REGISTER", "PhoneProfilesService_registerBluetoothStateChangedBroadcastReceiver");
@@ -877,10 +893,18 @@ public class PhoneProfilesService extends Service
                     PPApplication.PREFERENCE_ALLOWED;
             if (allowed) {
                 int eventCount = 1;
+                int eventScannerCount = 1;
                 if (checkDatabase/* || (bluetoothConnectionBroadcastReceiver == null)*/) {
                     eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED);
-                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT);
+                    eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT);
+                    PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    //noinspection deprecation
+                    if (pm.isScreenOn() || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
+                        // start only for screen On
+                        eventScannerCount = 0;
+                    }
                 }
+                eventCount = eventCount + eventScannerCount;
                 if (eventCount > 0) {
                     if (bluetoothConnectionBroadcastReceiver == null) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBluetoothConnectionBroadcastReceiver->REGISTER", "PhoneProfilesService_registerBluetoothConnectionBroadcastReceiver");
@@ -919,21 +943,27 @@ public class PhoneProfilesService extends Service
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED;
             if (allowed) {
-                int eventCount = 1;
-                if (checkDatabase/* || (wifiAPStateChangeBroadcastReceiver == null)*/) {
-                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
-                }
-                if (eventCount > 0) {
-                    if (wifiAPStateChangeBroadcastReceiver == null) {
-                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerWifiAPStateChangeBroadcastReceiver->REGISTER", "PhoneProfilesService_registerWifiAPStateChangeBroadcastReceiver");
-                        wifiAPStateChangeBroadcastReceiver = new WifiAPStateChangeBroadcastReceiver();
-                        IntentFilter intentFilter17 = new IntentFilter();
-                        intentFilter17.addAction("android.net.wifi.WIFI_AP_STATE_CHANGED");
-                        appContext.registerReceiver(wifiAPStateChangeBroadcastReceiver, intentFilter17);
+                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                //noinspection deprecation
+                if (pm.isScreenOn() || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
+                    // start only for screen On
+                    int eventCount = 1;
+                    if (checkDatabase/* || (wifiAPStateChangeBroadcastReceiver == null)*/) {
+                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
                     }
-                } else {
-                    registerWifiAPStateChangeBroadcastReceiver(false, true, false);
+                    if (eventCount > 0) {
+                        if (wifiAPStateChangeBroadcastReceiver == null) {
+                            CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerWifiAPStateChangeBroadcastReceiver->REGISTER", "PhoneProfilesService_registerWifiAPStateChangeBroadcastReceiver");
+                            wifiAPStateChangeBroadcastReceiver = new WifiAPStateChangeBroadcastReceiver();
+                            IntentFilter intentFilter17 = new IntentFilter();
+                            intentFilter17.addAction("android.net.wifi.WIFI_AP_STATE_CHANGED");
+                            appContext.registerReceiver(wifiAPStateChangeBroadcastReceiver, intentFilter17);
+                        }
+                    } else
+                        registerWifiAPStateChangeBroadcastReceiver(false, true, false);
                 }
+                else
+                    registerWifiAPStateChangeBroadcastReceiver(false, true, false);
             }
             else
                 registerWifiAPStateChangeBroadcastReceiver(false, true, false);
@@ -1018,6 +1048,7 @@ public class PhoneProfilesService extends Service
             if (profileAllowed || eventAllowed) {
                 int profileCount = 1;
                 int eventCount = 1;
+                int eventScannerCount = 1;
                 if (checkDatabase/* || (wifiStateChangedBroadcastReceiver == null)*/) {
                     if (profileAllowed) {
                         profileCount = 0;
@@ -1030,10 +1061,17 @@ public class PhoneProfilesService extends Service
                             profileCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, false);
                     }
                     if (eventAllowed) {
-                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
-                        eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED);
+                        eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
+                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED);
                         eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_RADIO_SWITCH_WIFI);
+                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        //noinspection deprecation
+                        if (pm.isScreenOn() || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
+                            // start only for screen On
+                            eventScannerCount = 0;
+                        }
                     }
+                    eventCount = eventCount + eventScannerCount;
                 }
                 if ((profileCount > 0) || (eventCount > 0)) {
                     if (wifiStateChangedBroadcastReceiver == null) {
@@ -1074,6 +1112,7 @@ public class PhoneProfilesService extends Service
             if (profileAllowed || eventAllowed) {
                 int profileCount = 1;
                 int eventCount = 1;
+                int eventScannerCount = 1;
                 if (checkDatabase/* || (wifiConnectionBroadcastReceiver == null)*/) {
                     if (profileAllowed) {
                         profileCount = 0;
@@ -1086,9 +1125,16 @@ public class PhoneProfilesService extends Service
                             profileCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, false);
                     }
                     if (eventAllowed) {
-                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
-                        eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED);
+                        eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
+                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED);
+                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        //noinspection deprecation
+                        if (pm.isScreenOn() || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
+                            // start only for screen On
+                            eventScannerCount = 0;
+                        }
                     }
+                    eventCount = eventCount + eventScannerCount;
                 }
                 if ((profileCount > 0) || (eventCount > 0)) {
                     if (wifiConnectionBroadcastReceiver == null) {
@@ -1120,18 +1166,24 @@ public class PhoneProfilesService extends Service
             boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED;
             if (eventAllowed) {
-                int eventCount = 1;
-                if (checkDatabase/* || (!WifiScanJob.isJobScheduled())*/) {
-                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
-                }
-                if (eventCount > 0) {
-                    if (!WifiScanJob.isJobScheduled()) {
-                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleWifiJob->SCHEDULE", "PhoneProfilesService_scheduleWifiJob");
-                        WifiScanJob.scheduleJob(appContext, true, forScreenOn, afterEnableWifi);
+                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                //noinspection deprecation
+                if (pm.isScreenOn() || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
+                    // start only for screen On
+                    int eventCount = 1;
+                    if (checkDatabase/* || (!WifiScanJob.isJobScheduled())*/) {
+                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
                     }
-                } else {
-                    scheduleWifiJob(false, true, false, forScreenOn, afterEnableWifi);
+                    if (eventCount > 0) {
+                        if (!WifiScanJob.isJobScheduled()) {
+                            CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleWifiJob->SCHEDULE", "PhoneProfilesService_scheduleWifiJob");
+                            WifiScanJob.scheduleJob(appContext, true, forScreenOn, afterEnableWifi);
+                        }
+                    } else
+                        scheduleWifiJob(false, true, false, forScreenOn, afterEnableWifi);
                 }
+                else
+                    scheduleWifiJob(false, true, false, forScreenOn, afterEnableWifi);
             }
             else
                 scheduleWifiJob(false, true, false, forScreenOn, afterEnableWifi);
@@ -1151,18 +1203,24 @@ public class PhoneProfilesService extends Service
             boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED;
             if (eventAllowed) {
-                int eventCount = 1;
-                if (checkDatabase/* || (!BluetoothScanJob.isJobScheduled())*/) {
-                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT);
-                }
-                if (eventCount > 0) {
-                    if (!BluetoothScanJob.isJobScheduled()) {
-                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleBluetoothJob->SCHEDULE", "PhoneProfilesService_scheduleBluetoothJob");
-                        BluetoothScanJob.scheduleJob(appContext, true, forScreenOn);
+                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                //noinspection deprecation
+                if (pm.isScreenOn() || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
+                    // start only for screen On
+                    int eventCount = 1;
+                    if (checkDatabase/* || (!BluetoothScanJob.isJobScheduled())*/) {
+                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT);
                     }
-                } else {
-                    scheduleBluetoothJob(false, true, false, forScreenOn);
+                    if (eventCount > 0) {
+                        if (!BluetoothScanJob.isJobScheduled()) {
+                            CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleBluetoothJob->SCHEDULE", "PhoneProfilesService_scheduleBluetoothJob");
+                            BluetoothScanJob.scheduleJob(appContext, true, forScreenOn);
+                        }
+                    } else
+                        scheduleBluetoothJob(false, true, false, forScreenOn);
                 }
+                else
+                    scheduleBluetoothJob(false, true, false, forScreenOn);
             }
             else
                 scheduleBluetoothJob(false, true, false, forScreenOn);
@@ -1182,18 +1240,24 @@ public class PhoneProfilesService extends Service
             boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED;
             if (eventAllowed) {
-                int eventCount = 1;
-                if (checkDatabase/* || (!GeofenceScannerJob.isJobScheduled())*/) {
-                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION);
-                }
-                if (eventCount > 0) {
-                    if (!GeofenceScannerJob.isJobScheduled()) {
-                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob->SCHEDULE", "PhoneProfilesService_scheduleGeofenceScannerJob");
-                        GeofenceScannerJob.scheduleJob(appContext, true, forScreenOn);
+                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                //noinspection deprecation
+                if (pm.isScreenOn() || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
+                    // start only for screen On
+                    int eventCount = 1;
+                    if (checkDatabase/* || (!GeofenceScannerJob.isJobScheduled())*/) {
+                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION);
                     }
-                } else {
-                    scheduleGeofenceScannerJob(false, true, false, forScreenOn);
+                    if (eventCount > 0) {
+                        if (!GeofenceScannerJob.isJobScheduled()) {
+                            CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob->SCHEDULE", "PhoneProfilesService_scheduleGeofenceScannerJob");
+                            GeofenceScannerJob.scheduleJob(appContext, true, forScreenOn);
+                        }
+                    } else
+                        scheduleGeofenceScannerJob(false, true, false, forScreenOn);
                 }
+                else
+                    scheduleGeofenceScannerJob(false, true, false, forScreenOn);
             }
             else
                 scheduleGeofenceScannerJob(false, true, false, forScreenOn);
@@ -1244,18 +1308,24 @@ public class PhoneProfilesService extends Service
             boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED;
             if (eventAllowed) {
-                int eventCount = 1;
-                if (checkDatabase/* || (!isGeofenceScannerStarted())*/) {
-                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION);
-                }
-                if (eventCount > 0) {
-                    if (!isGeofenceScannerStarted()) {
-                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->START", "PhoneProfilesService_startGeofenceScanner");
-                        startGeofenceScanner();
+                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                //noinspection deprecation
+                if (pm.isScreenOn() || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
+                    // start only for screen On
+                    int eventCount = 1;
+                    if (checkDatabase/* || (!isGeofenceScannerStarted())*/) {
+                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION);
                     }
-                } else {
-                    startGeofenceScanner(false, true, false);
+                    if (eventCount > 0) {
+                        if (!isGeofenceScannerStarted()) {
+                            CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->START", "PhoneProfilesService_startGeofenceScanner");
+                            startGeofenceScanner();
+                        }
+                    } else
+                        startGeofenceScanner(false, true, false);
                 }
+                else
+                    startGeofenceScanner(false, true, false);
             }
             else
                 startGeofenceScanner(false, true, false);
@@ -1277,19 +1347,25 @@ public class PhoneProfilesService extends Service
             boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED;
             if (eventAllowed) {
-                int eventCount = 1;
-                if (checkDatabase/* || (!isPhoneStateScannerStarted())*/) {
-                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS);
-                }
-                if (eventCount > 0) {
-                    if (!isPhoneStateScannerStarted()) {
-                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startPhoneStateScanner->START", "PhoneProfilesService_startPhoneStateScanner");
-                        PPApplication.logE("PhoneProfilesService.startPhoneStateScanner", "start");
-                        startPhoneStateScanner();
+                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                //noinspection deprecation
+                if (pm.isScreenOn() || !ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(appContext)) {
+                    // start only for screen On
+                    int eventCount = 1;
+                    if (checkDatabase/* || (!isPhoneStateScannerStarted())*/) {
+                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS);
                     }
-                } else {
-                    startPhoneStateScanner(false, true, false);
+                    if (eventCount > 0) {
+                        if (!isPhoneStateScannerStarted()) {
+                            CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startPhoneStateScanner->START", "PhoneProfilesService_startPhoneStateScanner");
+                            PPApplication.logE("PhoneProfilesService.startPhoneStateScanner", "start");
+                            startPhoneStateScanner();
+                        }
+                    } else
+                        startPhoneStateScanner(false, true, false);
                 }
+                else
+                    startPhoneStateScanner(false, true, false);
             }
             else
                 startPhoneStateScanner(false, true, false);
@@ -1313,7 +1389,7 @@ public class PhoneProfilesService extends Service
             if (eventAllowed) {
                 PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 //noinspection deprecation
-                if (pm.isScreenOn()) {
+                if (pm.isScreenOn() || !ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(appContext)) {
                     // start only for screen On
                     int eventCount = 1;
                     if (checkDatabase/* || (!isOrientationScannerStarted())*/) {
@@ -1325,9 +1401,8 @@ public class PhoneProfilesService extends Service
                             PPApplication.logE("PhoneProfilesService.startOrientationScanner","start");
                             startOrientationScanner();
                         }
-                    } else {
+                    } else
                         startOrientationScanner(false, true, false);
-                    }
                 }
                 else
                     startOrientationScanner(false, true, false);
@@ -1726,6 +1801,24 @@ public class PhoneProfilesService extends Service
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
                             registerBluetoothConnectionBroadcastReceiver(true, false, false);
                             registerBluetoothStateChangedBroadcastReceiver(true, false, false);
+                            break;
+                        case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
+                            registerWifiConnectionBroadcastReceiver(true, false, true);
+                            registerWifiStateChangedBroadcastReceiver(true, false, true);
+                            registerWifiAPStateChangeBroadcastReceiver(true, false, true);
+                            scheduleWifiJob(true, false, true, false, false);
+                            break;
+                        case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
+                            registerBluetoothConnectionBroadcastReceiver(true, false, true);
+                            registerBluetoothStateChangedBroadcastReceiver(true, false, true);
+                            scheduleBluetoothJob(true, false, true, false);
+                            break;
+                        case PPApplication.SCANNER_RESTART_PHONE_STATE_SCANNER:
+                            startPhoneStateScanner(true, false, true);
+                            break;
+                        case PPApplication.SCANNER_RESTART_GEOFENCE_SCANNER:
+                            registerLocationModeChangedBroadcastReceiver(true, false, true);
+                            startGeofenceScanner(true, false, true);
                             break;
                     }
                 }

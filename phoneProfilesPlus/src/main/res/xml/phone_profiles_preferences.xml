@@ -326,6 +326,11 @@
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
             app:useStockLayout="true" />
+        <CheckBoxPreference
+            android:key="applicationEventLocationScanOnlyWhenScreenIsOn"
+            android:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventLocationRescan"
             android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
@@ -372,6 +377,11 @@
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
             app:useStockLayout="true" />
+        <CheckBoxPreference
+            android:key="applicationEventWifiScanOnlyWhenScreenIsOn"
+            android:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventWifiRescan"
             android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
@@ -420,6 +430,11 @@
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
             app:useStockLayout="true" />
+        <CheckBoxPreference
+            android:key="applicationEventBluetoothScanOnlyWhenScreenIsOn"
+            android:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventBluetoothRescan"
             android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
@@ -449,6 +464,11 @@
             android:entries="@array/scanInPowerSaveModeMobileCellsArray"
             android:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
             app:useStockLayout="true" />
+        <CheckBoxPreference
+            android:key="applicationEventMobileCellScanOnlyWhenScreenIsOn"
+            android:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventMobileCellsRescan"
             android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
@@ -478,6 +498,11 @@
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
             app:useStockLayout="true" />
+        <CheckBoxPreference
+            android:key="applicationEventOrientationScanOnlyWhenScreenIsOn"
+            android:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
     </PreferenceScreen>
 
     <PreferenceScreen
