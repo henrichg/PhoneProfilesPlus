@@ -1,15 +1,28 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.preference.DialogPreference;
 import android.preference.Preference;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 
-public class ProfilePreference extends Preference {
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class ProfilePreference extends DialogPreference {
 
     private String profileId;
     int addNoActivateItem;
@@ -17,8 +30,12 @@ public class ProfilePreference extends Preference {
     int showDuration;
 
     private Context prefContext;
+    private MaterialDialog mDialog;
+    private ListView listView;
 
-    public static DataWrapper dataWrapper;
+    private ProfilePreferenceAdapter profilePreferenceAdapter;
+
+    private DataWrapper dataWrapper;
 
 
     public ProfilePreference(Context context, AttributeSet attrs)
@@ -41,6 +58,89 @@ public class ProfilePreference extends Preference {
 
         typedArray.recycle();
 
+    }
+
+    protected void showDialog(Bundle state) {
+        PPApplication.logE("ProfilePreference.showDialog", "xx");
+
+        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
+                .title(getDialogTitle())
+                .icon(getDialogIcon())
+                //.disableDefaultFonts()
+                .negativeText(getNegativeButtonText())
+                .content(getDialogMessage())
+                .customView(R.layout.activity_profile_pref_dialog, false)
+                .autoDismiss(false)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        mDialog.dismiss();
+                    }
+                });
+
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                ProfilePreference.this.onShow(dialog);
+            }
+        });
+
+        mDialog = mBuilder.build();
+        View layout = mDialog.getCustomView();
+
+        listView = layout.findViewById(R.id.profile_pref_dlg_listview);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View item, int position, long id)
+            {
+                doOnItemSelected(position);
+            }
+        });
+
+        List<Profile> profileList = dataWrapper.getProfileList();
+        Collections.sort(profileList, new AlphabeticallyComparator());
+
+        profilePreferenceAdapter = new ProfilePreferenceAdapter(this, prefContext, profileId, profileList);
+        listView.setAdapter(profilePreferenceAdapter);
+
+        int position;
+        long iProfileId;
+        if (profileId.isEmpty())
+            iProfileId = 0;
+        else
+            iProfileId = Long.valueOf(profileId);
+        if ((addNoActivateItem == 1) && (iProfileId == Profile.PROFILE_NO_ACTIVATE))
+            position = 0;
+        else
+        {
+            boolean found = false;
+            position = 0;
+            for (Profile profile : profileList)
+            {
+                if (profile._id == iProfileId)
+                {
+                    found = true;
+                    break;
+                }
+                position++;
+            }
+            if (found)
+            {
+                if (addNoActivateItem == 1)
+                    position++;
+            }
+            else
+                position = 0;
+        }
+        listView.setSelection(position);
+
+        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+
+        if (state != null)
+            mDialog.onRestoreInstanceState(state);
+
+        mDialog.setOnDismissListener(this);
+        mDialog.show();
     }
 
     //@Override
@@ -85,13 +185,38 @@ public class ProfilePreference extends Preference {
         }
     }
 
-    @Override
-    protected void onClick()
-    {
-        // klik na preference
+    private void onShow(DialogInterface dialog) {
+        //if (Permissions.grantRingtonePreferencesDialogPermissions(prefContext, this))
+        //    refreshListView();
+    }
 
-        final ProfilePreferenceDialog dialog = new ProfilePreferenceDialog(prefContext, this, profileId);
-        dialog.show();
+    public void onDismiss (DialogInterface dialog)
+    {
+        super.onDismiss(dialog);
+        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
+    }
+
+    void doOnItemSelected(int position)
+    {
+        if (addNoActivateItem == 1)
+        {
+            long profileId;
+            if (position == 0)
+                profileId = Profile.PROFILE_NO_ACTIVATE;
+            else
+                profileId = profilePreferenceAdapter.profileList.get(position-1)._id;
+            setProfileId(profileId);
+        }
+        else
+            setProfileId(profilePreferenceAdapter.profileList.get(position)._id);
+        mDialog.dismiss();
     }
 
     @Override
@@ -278,5 +403,12 @@ public class ProfilePreference extends Preference {
 
         };
 
+    }
+
+    private class AlphabeticallyComparator implements Comparator<Profile> {
+
+        public int compare(Profile lhs, Profile rhs) {
+            return GlobalGUIRoutines.collator.compare(lhs._name, rhs._name);
+        }
     }
 }

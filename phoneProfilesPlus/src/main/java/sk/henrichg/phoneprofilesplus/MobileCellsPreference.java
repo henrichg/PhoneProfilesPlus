@@ -176,6 +176,7 @@ public class MobileCellsPreference extends DialogPreference {
                             }
                         })
                         .positiveText(R.string.mobile_cells_pref_dlg_cell_rename_button)
+                        .negativeText(getNegativeButtonText())
                         .show();
             }
         });
@@ -206,6 +207,7 @@ public class MobileCellsPreference extends DialogPreference {
                             }
                         })
                         .positiveText(R.string.pref_dlg_change_selection_button)
+                        .negativeText(getNegativeButtonText())
                         .show();
             }
         });

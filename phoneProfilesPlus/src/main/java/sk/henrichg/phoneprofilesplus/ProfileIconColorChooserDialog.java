@@ -30,9 +30,9 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
 
         MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                 .title(R.string.colorChooser_pref_dialog_title)
-                        //.disableDefaultFonts()
-                .autoDismiss(false)
-                .customView(R.layout.dialog_color_chooser, false);
+                //.disableDefaultFonts()
+                .customView(R.layout.dialog_color_chooser, false)
+                .negativeText(android.R.string.cancel);
 
         mDialog = dialogBuilder.build();
 

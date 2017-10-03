@@ -32,8 +32,8 @@ class ApplicationEditorDialog
         MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                 .title(R.string.applications_editor_dialog_title)
                 //.disableDefaultFonts()
-                .autoDismiss(false)
-                .customView(R.layout.activity_applications_editor_dialog, false);
+                .customView(R.layout.activity_applications_editor_dialog, false)
+                .negativeText(android.R.string.cancel);
 
         mDialog = dialogBuilder.build();
 

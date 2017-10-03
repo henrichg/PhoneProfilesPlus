@@ -14,6 +14,8 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 
@@ -267,19 +269,20 @@ class BitmapManipulator {
     }
 
     /*
-    public static Drawable tintDrawableByColor(Drawable drawable, int color) {
+    static Drawable tintDrawableByColor(Drawable drawable, int color) {
         Drawable wrapDrawable = DrawableCompat.wrap(drawable);
         //DrawableCompat.setTintMode(wrapDrawable,  PorterDuff.Mode.DST_ATOP);
         DrawableCompat.setTint(wrapDrawable, color);
         return wrapDrawable;
     }
 
-    public static Drawable tintDrawableByValue(Drawable drawable, int value) {
+    static Drawable tintDrawableByValue(Drawable drawable, int value) {
         int color  = Color.argb(0xFF, value, value, value);
         return tintDrawableByColor(drawable, color);
     }
+    */
 
-    public static Bitmap getBitmapFromDrawable(Drawable drawable) {
+    static Bitmap getBitmapFromDrawable(Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
             return ((BitmapDrawable)drawable).getBitmap();
         }
@@ -291,7 +294,6 @@ class BitmapManipulator {
 
         return bitmap;
     }
-    */
 
     static Bitmap grayscaleBitmap(Bitmap bitmap)
     {
@@ -355,7 +357,5 @@ class BitmapManipulator {
         }
         return inSampleSize;
     }
-
-
 
 }

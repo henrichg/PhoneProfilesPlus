@@ -77,14 +77,14 @@ public class ApplicationsCache {
                 Object appIcon = applicationIconsLru.get(newInfo.packageName + "/" + newInfo.activityName);
                 if (appIcon == null){
                     Drawable icon = applicationInfo.loadIcon(packageManager);
-                    Bitmap bitmap = ((BitmapDrawable)icon).getBitmap();
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon);
                     appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
                     applicationIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
                 }
                 appIcon = applicationNoShortcutIconsLru.get(newInfo.packageName + "/" + newInfo.activityName);
                 if (appIcon == null){
                     Drawable icon = applicationInfo.loadIcon(packageManager);
-                    Bitmap bitmap = ((BitmapDrawable)icon).getBitmap();
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon);
                     appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
                     applicationNoShortcutIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
                 }
@@ -123,7 +123,7 @@ public class ApplicationsCache {
                 Object appIcon = applicationIconsLru.get(newInfo.packageName + "/" + newInfo.activityName);
                 if (appIcon == null){
                     Drawable icon = shortcutInfo.loadIcon(packageManager);
-                    Bitmap bitmap = ((BitmapDrawable)icon).getBitmap();
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon);
                     appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
                     applicationIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
                 }

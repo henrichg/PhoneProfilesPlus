@@ -221,6 +221,7 @@ public class NFCTagPreference extends DialogPreference {
                             }
                         })
                         .positiveText(R.string.pref_dlg_change_selection_button)
+                        .negativeText(getNegativeButtonText())
                         .show();
             }
         });
