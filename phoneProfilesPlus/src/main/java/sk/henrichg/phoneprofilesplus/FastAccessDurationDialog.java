@@ -77,8 +77,9 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(mActivity)
                 .title(mActivity.getString(R.string.profile_preferences_duration))
-                .positiveText(android.R.string.ok)
+                .positiveText(R.string.fast_access_duration_activate_with_button)
                 .negativeText(android.R.string.cancel)
+                .neutralText(R.string.fast_access_duration_activate_without_button)
                 .customView(R.layout.activity_fast_access_duration_dialog, false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -109,6 +110,20 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         updateEndsTimer = null;
                         mDataWrapper.finishActivity(mStartupSource, false, mActivity);
+                    }
+                })
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        updateEndsTimer = null;
+
+                        mProfile._duration = 0;
+                        mDataWrapper.getDatabaseHandler().updateProfile(mProfile);
+
+                        if (Permissions.grantProfilePermissions(mActivity, mProfile, false, false,
+                                true, mMonochrome, mMonochromeValue,
+                                mStartupSource, mInteractive, mActivity, true))
+                            mDataWrapper._activateProfile(mProfile, false, mStartupSource, mInteractive, mActivity);
                     }
                 })
                 .dismissListener(new DialogInterface.OnDismissListener() {
