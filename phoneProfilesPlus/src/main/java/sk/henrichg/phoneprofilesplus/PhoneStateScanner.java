@@ -350,7 +350,7 @@ class PhoneStateScanner extends PhoneStateListener {
         /*Intent intent = new Intent(ACTION_PHONE_STATE_CHANGED);
         //intent.putExtra("state", mode);
         context.sendBroadcast(intent);*/
-        Intent intent = new Intent("PhoneStateChangedBroadcastReceiver");
+        Intent intent = new Intent("PhoneStateChangedBroadcastReceiver_preference");
         //intent.putExtra("state", mode);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }

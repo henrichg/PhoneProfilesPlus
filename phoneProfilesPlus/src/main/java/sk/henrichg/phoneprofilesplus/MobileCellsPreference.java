@@ -50,6 +50,8 @@ public class MobileCellsPreference extends DialogPreference {
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
+    private PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver;
+
     private static final String PREF_SHOW_HELP = "mobile_cells_pref_show_help";
 
     public MobileCellsPreference(Context context, AttributeSet attrs) {
@@ -58,14 +60,6 @@ public class MobileCellsPreference extends DialogPreference {
         this.context = context;
         
         cellsList = new ArrayList<>();
-
-        PPApplication.forceStartPhoneStateScanner(context);
-
-        //IntentFilter intentFilter = new IntentFilter();
-        //intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
-        EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver = new PhoneStateChangedBroadcastReceiver(this);
-        //context.registerReceiver(EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver, intentFilter);
-        LocalBroadcastManager.getInstance(context).registerReceiver(EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver, new IntentFilter("PhoneStateChangedBroadcastReceiver"));
     }
 
     @Override
@@ -73,6 +67,14 @@ public class MobileCellsPreference extends DialogPreference {
 
         persistedValue = getPersistedString("");
         value = persistedValue;
+
+        //IntentFilter intentFilter = new IntentFilter();
+        //intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
+        phoneStateChangedBroadcastReceiver = new PhoneStateChangedBroadcastReceiver(this);
+        //context.registerReceiver(EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver, intentFilter);
+        LocalBroadcastManager.getInstance(context).registerReceiver(phoneStateChangedBroadcastReceiver, new IntentFilter("PhoneStateChangedBroadcastReceiver_preference"));
+
+        PPApplication.forceStartPhoneStateScanner(context);
 
         /*
         DatabaseHandler db = DatabaseHandler.getInstance(context);
@@ -260,7 +262,15 @@ public class MobileCellsPreference extends DialogPreference {
         super.onDismiss(dialog);
         if ((rescanAsyncTask != null) && (!rescanAsyncTask.isCancelled()))
             rescanAsyncTask.cancel(true);
+
         MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+
+        if (phoneStateChangedBroadcastReceiver != null) {
+            //getActivity().unregisterReceiver(phoneStateChangedBroadcastReceiver);
+            LocalBroadcastManager.getInstance(context).unregisterReceiver(phoneStateChangedBroadcastReceiver);
+            phoneStateChangedBroadcastReceiver = null;
+        }
+
         PPApplication.startPhoneStateScanner(context);
     }
 
@@ -372,11 +382,13 @@ public class MobileCellsPreference extends DialogPreference {
             protected Void doInBackground(Void... params) {
 
                 if (forRescan) {
-                    PhoneProfilesService.phoneStateScanner.getRegisteredCell();
+                    if (PhoneProfilesService.isPhoneStateScannerStarted()) {
+                        PhoneProfilesService.phoneStateScanner.getRegisteredCell();
 
-                    //try { Thread.sleep(200); } catch (InterruptedException e) { }
-                    //SystemClock.sleep(200);
-                    //PPApplication.sleep(200);
+                        //try { Thread.sleep(200); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(200);
+                        //PPApplication.sleep(200);
+                    }
                 }
 
                 // add all from table
@@ -518,17 +530,19 @@ public class MobileCellsPreference extends DialogPreference {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            //Log.d("MobileCellsPreference.PhoneStateChangedBroadcastReceiver", "xxx");
+            PPApplication.logE("MobileCellsPreference.PhoneStateChangedBroadcastReceiver", "xxx");
             if ((preference.mDialog != null) && preference.mDialog.isShowing()) {
                 // save new registered cell
                 List<MobileCellsData> localCellsList = new ArrayList<>();
-                if (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE)
-                    localCellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
-                            preference.cellName.getText().toString(), true, false,
-                            PhoneProfilesService.phoneStateScanner.lastConnectedTime));
-                DatabaseHandler db = DatabaseHandler.getInstance(context);
-                db.saveMobileCellsList(localCellsList, true, false);
-                preference.refreshListView(false);
+                if (PhoneProfilesService.isPhoneStateScannerStarted()) {
+                    if (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE)
+                        localCellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
+                                preference.cellName.getText().toString(), true, false,
+                                PhoneProfilesService.phoneStateScanner.lastConnectedTime));
+                    DatabaseHandler db = DatabaseHandler.getInstance(context);
+                    db.saveMobileCellsList(localCellsList, true, false);
+                    preference.refreshListView(false);
+                }
             }
         }
     }

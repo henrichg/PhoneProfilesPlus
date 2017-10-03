@@ -22,8 +22,6 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     protected SharedPreferences preferences;
     private Context context;
 
-    public static MobileCellsPreference.PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver;
-
     private static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
     //static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
 
@@ -261,11 +259,6 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
         } catch (Exception ignored) {}
-        if (phoneStateChangedBroadcastReceiver != null) {
-            //getActivity().unregisterReceiver(phoneStateChangedBroadcastReceiver);
-            LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(phoneStateChangedBroadcastReceiver);
-            phoneStateChangedBroadcastReceiver = null;
-        }
         super.onDestroy();
     }
 
