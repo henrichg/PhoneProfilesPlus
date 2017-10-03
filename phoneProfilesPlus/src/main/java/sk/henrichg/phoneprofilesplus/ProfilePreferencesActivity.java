@@ -601,13 +601,34 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                     circleColor = 0x7F7F7F;
 
                 final TapTargetSequence sequence = new TapTargetSequence(this);
-                sequence.targets(
-                        TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
-                                .targetCircleColorInt(circleColor)
-                                .textColorInt(0xFFFFFF)
-                                .drawShadow(true)
-                                .id(1)
-                );
+                if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+
+                    editor = ApplicationPreferences.preferences.edit();
+                    editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                    editor.apply();
+
+                    sequence.targets(
+                            TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_shared_profile, getString(R.string.title_activity_default_profile_preferences), getString(R.string.profile_preferences_sourceProfileInfo_summary))
+                                    .targetCircleColorInt(circleColor)
+                                    .textColorInt(0xFFFFFF)
+                                    .drawShadow(true)
+                                    .id(1),
+                            TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
+                                    .targetCircleColorInt(circleColor)
+                                    .textColorInt(0xFFFFFF)
+                                    .drawShadow(true)
+                                    .id(2)
+                    );
+                }
+                else {
+                    sequence.targets(
+                            TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
+                                    .targetCircleColorInt(circleColor)
+                                    .textColorInt(0xFFFFFF)
+                                    .drawShadow(true)
+                                    .id(1)
+                    );
+                }
                 sequence.listener(new TapTargetSequence.Listener() {
                     // This listener will tell us when interesting(tm) events happen in regards
                     // to the sequence
