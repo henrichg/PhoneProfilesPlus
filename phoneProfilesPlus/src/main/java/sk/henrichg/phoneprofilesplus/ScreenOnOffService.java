@@ -133,14 +133,14 @@ public class ScreenOnOffService extends IntentService {
                                 ApplicationPreferences.applicationEventWifiRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                             PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of wifi scanner");
                             if (PhoneProfilesService.instance != null)
-                                PhoneProfilesService.instance.scheduleWifiJob(true, false, true, true, false);
+                                PhoneProfilesService.instance.scheduleWifiJob(true, true, true, true, false);
                         }
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                         if (ApplicationPreferences.applicationEventBluetoothRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
                                 ApplicationPreferences.applicationEventBluetoothRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                             PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of bluetooth scanner");
                             if (PhoneProfilesService.instance != null)
-                                PhoneProfilesService.instance.scheduleBluetoothJob(true, false, true, true);
+                                PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, true);
                         }
                         if (ApplicationPreferences.applicationEventLocationRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
                                 ApplicationPreferences.applicationEventLocationRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
@@ -148,7 +148,7 @@ public class ScreenOnOffService extends IntentService {
                                 // send broadcast for location scan
                                 PPApplication.logE("@@@ ScreenOnOffService.onReceive", "start of location scanner");
                                 if (PhoneProfilesService.instance != null)
-                                    PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, false, true, true);
+                                    PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, true);
                             }
                         }
                         if (ApplicationPreferences.applicationEventMobileCellsRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||

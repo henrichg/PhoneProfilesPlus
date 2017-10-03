@@ -36,11 +36,11 @@ public class DeviceIdleModeService extends WakefulIntentService {
                     // rescan
                     if (PhoneProfilesService.instance != null) {
                         // schedule job for one wifi scan
-                        PhoneProfilesService.instance.scheduleWifiJob(true, false, true, true, false);
+                        PhoneProfilesService.instance.scheduleWifiJob(true, true, true, true, false);
                         // schedule job for one bluetooth scan
-                        PhoneProfilesService.instance.scheduleBluetoothJob(true, false, true, true);
+                        PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, true);
                         // schedule job for location scan
-                        PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, false, true, true);
+                        PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, true);
                     }
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {

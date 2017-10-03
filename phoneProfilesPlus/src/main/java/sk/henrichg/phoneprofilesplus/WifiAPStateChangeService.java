@@ -29,7 +29,7 @@ public class WifiAPStateChangeService extends WakefulIntentService {
                     PPApplication.logE("WifiAPStateChangeService.doWakefulWork","wifi AP disabled");
                     // send broadcast for one wifi scan
                     if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.scheduleWifiJob(true, false, true, false, true);
+                        PhoneProfilesService.instance.scheduleWifiJob(true, true, true, false, true);
                 }
             }
         }

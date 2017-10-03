@@ -1590,30 +1590,30 @@ public class PhoneProfilesService extends Service
     }
 
     private void reregisterReceiversAndJobs() {
-        registerBatteryEventReceiver(true, false, true);
-        registerBatteryChangedReceiver(true, false, true);
-        registerReceiverForPeripheralsSensor(true, false, true);
-        registerReceiverForSMSSensor(true, false, true);
-        registerReceiverForCalendarSensor(true, false, true);
-        registerReceiverForRadioSwitchMobileDataSensor(true, false, true);
-        registerReceiverForRadioSwitchNFCSensor(true, false, true);
-        registerReceiverForRadioSwitchAirplaneModeSensor(true, false, true);
-        registerLocationModeChangedBroadcastReceiver(true, false, true);
-        registerBluetoothStateChangedBroadcastReceiver(true, false, true);
-        registerBluetoothConnectionBroadcastReceiver(true, false, true);
-        registerWifiAPStateChangeBroadcastReceiver(true, false, true);
-        registerPowerSaveModeReceiver(true, false, true);
-        registerWifiStateChangedBroadcastReceiver(true, false, true);
-        registerWifiConnectionBroadcastReceiver(true, false, true);
+        registerBatteryEventReceiver(true, true, true);
+        registerBatteryChangedReceiver(true, true, true);
+        registerReceiverForPeripheralsSensor(true, true, true);
+        registerReceiverForSMSSensor(true, true, true);
+        registerReceiverForCalendarSensor(true, true, true);
+        registerReceiverForRadioSwitchMobileDataSensor(true, true, true);
+        registerReceiverForRadioSwitchNFCSensor(true, true, true);
+        registerReceiverForRadioSwitchAirplaneModeSensor(true, true, true);
+        registerLocationModeChangedBroadcastReceiver(true, true, true);
+        registerBluetoothStateChangedBroadcastReceiver(true, true, true);
+        registerBluetoothConnectionBroadcastReceiver(true, true, true);
+        registerWifiAPStateChangeBroadcastReceiver(true, true, true);
+        registerPowerSaveModeReceiver(true, true, true);
+        registerWifiStateChangedBroadcastReceiver(true, true, true);
+        registerWifiConnectionBroadcastReceiver(true, true, true);
 
-        scheduleWifiJob(true, false, true, false, false);
-        scheduleBluetoothJob(true, false, true, false);
-        scheduleGeofenceScannerJob(true, false, true, false);
+        scheduleWifiJob(true, true, true, false, false);
+        scheduleBluetoothJob(true, true, true, false);
+        scheduleGeofenceScannerJob(true, true, true, false);
         scheduleSearchCalendarEventsJob(true, false, true);
 
-        startGeofenceScanner(true, false, true);
-        startPhoneStateScanner(true, false, true);
-        startOrientationScanner(true, false, true);
+        startGeofenceScanner(true, true, true);
+        startPhoneStateScanner(true, true, true);
+        startOrientationScanner(true, true, true);
     }
 
     // start service for first start

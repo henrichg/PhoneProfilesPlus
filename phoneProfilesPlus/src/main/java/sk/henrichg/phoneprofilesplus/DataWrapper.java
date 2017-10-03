@@ -3026,21 +3026,21 @@ public class DataWrapper {
         {
             // rescan wifi
             if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.scheduleWifiJob(true, false, true, false, false);
+                PhoneProfilesService.instance.scheduleWifiJob(true, true, true, false, false);
         }
         if (ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
                 ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
                 // rescan bluetooth
             if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.scheduleBluetoothJob(true, false, true, false);
+                PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, false);
         }
         if (ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
                 ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
             // rescan location
             if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, false, true, false);
+                PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, false);
         }
         if (ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
                 ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
