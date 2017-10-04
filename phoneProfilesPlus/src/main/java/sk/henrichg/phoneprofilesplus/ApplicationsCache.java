@@ -274,20 +274,87 @@ public class ApplicationsCache {
 
     static long getShortcutId(String value) {
         if (value.length() > 2) {
-            long shortcutId;
-            //String activityName;
+            long shortcutId = 0;
             String[] splits2 = value.split("/");
             if (splits2.length == 2) {
-                String[] splits3 = splits2[1].split("#");
-                try {
-                    shortcutId = Long.parseLong(splits3[1]);
-                } catch (Exception e) {
-                    shortcutId = 0;
+                // activity exists
+                String shortcut = splits2[0].substring(0, 3);
+                //packageName = splits2[0];
+                String[] splits4 = splits2[1].split("#"); // shortcut id, startApplicationDelay
+                //activityName = splits4[0];
+                if (shortcut.equals("(s)")) {
+                    if (splits4.length >= 2)
+                        try {
+                            shortcutId = Long.parseLong(splits4[1]);
+                        } catch (Exception ignored) {}
+                    //if (splits4.length >= 3)
+                    //    startApplicationDelay = splits4[2];
                 }
-            }
-            else
-                shortcutId = 0;
+                //else {
+                //    if (splits4.length >= 2)
+                //        startApplicationDelay = splits4[1];
+                //}
+            } /*else {
+                // activity not exists
+                shortcut = value.substring(0, 3);
+                String[] splits4 = value.split("#"); // startApplicationDelay
+                if (splits4.length >= 2) {
+                    packageName = splits4[0];
+                    startApplicationDelay = splits4[1];
+                }
+                else {
+                    packageName = split;
+                }
+                activityName = "";
+            }*/
             return shortcutId;
+        }
+        else
+            return 0;
+    }
+
+    static long getStartApplicationDelay(String value) {
+        if (value.length() > 2) {
+            int startApplicationDelay = 0;
+            String[] splits2 = value.split("/");
+            if (splits2.length == 2) {
+                // activity exists
+                String shortcut = splits2[0].substring(0, 3);
+                //packageName = splits2[0];
+                String[] splits4 = splits2[1].split("#"); // shortcut id, startApplicationDelay
+                //activityName = splits4[0];
+                if (shortcut.equals("(s)")) {
+                    //if (splits4.length >= 2)
+                    //    try {
+                    //        shortcutId = Long.parseLong(splits4[1]);
+                    //    } catch (Exception ignored) {}
+                    if (splits4.length >= 3)
+                        try {
+                            startApplicationDelay = Integer.parseInt(splits4[2]);
+                        } catch (Exception ignored) {}
+                }
+                else {
+                    if (splits4.length >= 2)
+                        try {
+                            startApplicationDelay = Integer.parseInt(splits4[1]);
+                        } catch (Exception ignored) {}
+                }
+            } else {
+                // activity not exists
+                //shortcut = value.substring(0, 3);
+                String[] splits4 = value.split("#"); // startApplicationDelay
+                if (splits4.length >= 2) {
+                    //packageName = splits4[0];
+                    try {
+                        startApplicationDelay = Integer.parseInt(splits4[1]);
+                    } catch (Exception ignored) {}
+                }
+                //else {
+                //    packageName = split;
+                //}
+                //activityName = "";
+            }
+            return startApplicationDelay;
         }
         else
             return 0;
