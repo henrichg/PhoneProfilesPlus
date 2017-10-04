@@ -98,6 +98,8 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.startPhoneStateScanner"
 
                                          //+"|ApplicationsDialogPreference"
+
+                                         +"|RunApplicationWithDelayBroadcastReceiver"
             ;
 
 
