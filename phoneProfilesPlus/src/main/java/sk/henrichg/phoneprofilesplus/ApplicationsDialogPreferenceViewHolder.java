@@ -19,6 +19,7 @@ class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder imp
     private TextView textViewAppName;
     private TextView textViewAppType;
     private ImageView imageViewMenu;
+    private TextView textViewStartApplicationDelay;
 
     private Application application;
 
@@ -40,6 +41,7 @@ class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder imp
         textViewAppName = itemView.findViewById(R.id.applications_pref_dlg_item_app_name);
         textViewAppType = itemView.findViewById(R.id.applications_pref_dlg_item_app_type);
         imageViewMenu = itemView.findViewById(R.id.applications_pref_dlg_item_edit_menu);
+        textViewStartApplicationDelay = itemView.findViewById(R.id.applications_pref_dlg_item_startApplicationDelay);
 
         itemView.setOnClickListener(this);
     }
@@ -59,11 +61,17 @@ class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder imp
         }
         textViewAppName.setText(text);
         setTextStyle(textViewAppName, application.shortcut && (application.shortcutId == 0));
+
         if (application.shortcut)
             textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_shortcut));
         else
             textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_application));
         setTextStyle(textViewAppType, application.shortcut && (application.shortcutId == 0));
+
+        text = context.getString(R.string.applications_editor_dialog_startApplicationDelay);
+        text = text + " " + GlobalGUIRoutines.getDurationString(application.startApplicationDelay);
+        textViewStartApplicationDelay.setText(text);
+        setTextStyle(textViewStartApplicationDelay, application.shortcut && (application.shortcutId == 0));
 
         imageViewMenu.setTag(application);
         final ImageView itemEditMenu = imageViewMenu;
