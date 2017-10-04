@@ -9,6 +9,7 @@ class Application {
     String activityName = "";
     long shortcutId = 0;
     boolean checked = false;
+    int startApplicationDelay;
 
     Application() {
     }

@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.internal.MDButton;
 
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
@@ -60,7 +59,7 @@ public class DurationDialogPreference extends DialogPreference
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
                 .content(getDialogMessage())
-                .customView(R.layout.activity_duration_pref_dialog2, false)
+                .customView(R.layout.activity_duration_pref_dialog, false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -163,8 +162,8 @@ public class DurationDialogPreference extends DialogPreference
             }
         );
 
-        TextView mValueDescription = layout.findViewById(R.id.duration_pref_dlg_value_spinnerChar);
-        mValueDescription.setOnClickListener(new View.OnClickListener() {
+        TextView mValueSpinnerChar = layout.findViewById(R.id.duration_pref_dlg_value_spinnerChar);
+        mValueSpinnerChar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int hours = mSeekBarHours.getProgress();

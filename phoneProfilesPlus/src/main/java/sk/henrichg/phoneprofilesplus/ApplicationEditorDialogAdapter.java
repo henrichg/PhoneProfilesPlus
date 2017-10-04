@@ -18,16 +18,14 @@ class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
     private Context context;
 
     private ApplicationEditorDialog dialog;
-    private int selectedPosition;
 
-    ApplicationEditorDialogAdapter(ApplicationEditorDialog dialog, Context context, int selectedPosition)
+    ApplicationEditorDialogAdapter(ApplicationEditorDialog dialog, Context context)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
         this.context = context;
 
         this.dialog = dialog;
-        this.selectedPosition = selectedPosition;
     }
 
     public int getCount() {
@@ -53,18 +51,10 @@ class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
         return childPosition;
     }
 
-    static class ViewHolder {
-        ImageView imageViewIcon;
-        TextView textViewAppName;
-        RadioButton radioBtn;
-        TextView textViewAppType;
-        //int position;
-    }
-
     @SuppressLint("SetTextI18n")
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        ViewHolder holder;
+        ApplicationEditorViewHolder holder;
 
         ApplicationsCache applicationsCache = EditorProfilesActivity.getApplicationsCache();
 
@@ -78,7 +68,7 @@ class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
             convertView = inflater.inflate(R.layout.applications_editor_dialog_list_item, parent, false);
 
             // Find the child views.
-            holder = new ViewHolder();
+            holder = new ApplicationEditorViewHolder();
             holder.imageViewIcon = convertView.findViewById(R.id.applications_editor_dialog_item_icon);
             holder.textViewAppName = convertView.findViewById(R.id.applications_editor_dialog_item_app_name);
             holder.radioBtn = convertView.findViewById(R.id.applications_editor_dialog_item_radiobutton);
@@ -90,13 +80,19 @@ class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
         {
             // Because we use a ViewHolder, we avoid having to call
             // findViewById().
-            holder = (ViewHolder)convertView.getTag();
+            holder = (ApplicationEditorViewHolder)convertView.getTag();
         }
 
+        holder.radioBtn.setTag(position);
+        if (dialog.selectedPosition == position)
+            holder.radioBtn.setChecked(true);
+        else
+            holder.radioBtn.setChecked(false);
         holder.radioBtn.setTag(position);
         holder.radioBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 RadioButton rb = (RadioButton) v;
+                rb.setChecked(true);
                 dialog.doOnItemSelected((Integer)rb.getTag());
             }
         });
@@ -108,8 +104,6 @@ class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
             holder.textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_shortcut));
         else
             holder.textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_application));
-
-        holder.radioBtn.setChecked(position == selectedPosition);
 
         return convertView;
     }

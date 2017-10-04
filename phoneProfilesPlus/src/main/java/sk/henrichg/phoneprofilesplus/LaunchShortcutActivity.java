@@ -11,10 +11,12 @@ public class LaunchShortcutActivity extends Activity {
     public static final String EXTRA_PACKAGE_NAME = "packageName";
     public static final String EXTRA_ACTIVITY_NAME = "activityName";
     public static final String EXTRA_DIALOG_PREFERENCE_POSITION = "dialogPreferencePosition";
+    public static final String EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY = "dialogPreferenceStartApplicationDelay";
 
     private String packageName;
     private String activityName;
     private int dialogPreferencePosition;
+    private int startApplicationDelay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class LaunchShortcutActivity extends Activity {
         packageName = getIntent().getStringExtra(EXTRA_PACKAGE_NAME);
         activityName = getIntent().getStringExtra(EXTRA_ACTIVITY_NAME);
         dialogPreferencePosition = getIntent().getIntExtra(EXTRA_DIALOG_PREFERENCE_POSITION, -1);
+        startApplicationDelay = getIntent().getIntExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0);
 
         //Log.d("LaunchShortcutActivity.onCreate","dialogPreferencePosition="+dialogPreferencePosition);
 
@@ -72,6 +75,7 @@ public class LaunchShortcutActivity extends Activity {
                 returnIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
                 returnIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, icon);
                 returnIntent.putExtra(EXTRA_DIALOG_PREFERENCE_POSITION, dialogPreferencePosition);
+                returnIntent.putExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
                 setResult(RESULT_OK,returnIntent);
             }
         }
