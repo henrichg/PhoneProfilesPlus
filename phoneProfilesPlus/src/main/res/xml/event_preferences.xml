@@ -71,7 +71,7 @@
                 android:defaultValue="false"
                 android:disableDependentsState="true"
                 android:widgetLayout="@layout/mp_preference_switch"/>
-            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventDelayStart"
                 android:summary="@string/event_preferences_delayStart"
                 android:title="@string/event_preferences_delayStart"
@@ -113,7 +113,7 @@
             android:title="@string/event_preferences_category_startofeventOthers"
             android:key="eventEndOthersCategory"
             android:widgetLayout="@layout/start_activity_preference" >
-            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventDelayEnd"
                 android:summary="@string/event_preferences_delayStart"
                 android:title="@string/event_preferences_delayStart"
@@ -216,7 +216,7 @@
                 android:entryValues="@array/eventCalendarAvailabilityValues"
                 android:dependency="eventCalendarEnabled"
                 app:useStockLayout="true" />
-            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventCalendarStartBeforeEvent"
                 android:summary="@string/event_preferences_startBeforeEvent"
                 android:title="@string/event_preferences_startBeforeEvent"
@@ -346,7 +346,7 @@
                 android:defaultValue="true"
                 android:dependency="eventSMSEnabled"
                 android:widgetLayout="@layout/mp_preference_switch" />
-            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventSMSDuration"
                 android:summary="@string/event_preferences_duration"
                 android:title="@string/event_preferences_duration"
@@ -640,7 +640,7 @@
                 android:defaultValue="true"
                 android:dependency="eventNotificationEnabled"
                 android:widgetLayout="@layout/mp_preference_switch" />
-            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventNotificationDuration"
                 android:summary="@string/event_preferences_duration"
                 android:title="@string/event_preferences_duration"
@@ -754,7 +754,7 @@
                 android:defaultValue="true"
                 android:dependency="eventNFCEnabled"
                 android:widgetLayout="@layout/mp_preference_switch" />
-            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventNFCDuration"
                 android:summary="@string/event_preferences_duration"
                 android:title="@string/event_preferences_duration"

@@ -7,36 +7,45 @@ import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.NumberPicker;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.internal.MDButton;
 
-public class DurationDialogPreference extends DialogPreference {
+import mobi.upod.timedurationpicker.TimeDurationPicker;
+import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
+
+public class DurationDialogPreference extends DialogPreference
+        implements SeekBar.OnSeekBarChangeListener {
 
     private String value;
 
     private int mMin, mMax;
 
     private MaterialDialog mDialog;
-    private NumberPicker mNumberPickerHours;
-    private NumberPicker mNumberPickerMinutes;
-    private NumberPicker mNumberPickerSeconds;
+    private TextView mValue;
+    private SeekBar mSeekBarHours;
+    private SeekBar mSeekBarMinutes;
+    private SeekBar mSeekBarSeconds;
+    private TimeDurationPickerDialog mValueDialog;
 
-    //private int mColor = 0;
+    Context context;
 
     public DurationDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TypedArray numberPickerType = context.obtainStyledAttributes(attrs,
+
+        this.context = context;
+
+        TypedArray durationDialogType = context.obtainStyledAttributes(attrs,
                 R.styleable.DurationDialogPreference, 0, 0);
 
-        mMax = numberPickerType.getInt(R.styleable.DurationDialogPreference_dMax, 5);
-        mMin = numberPickerType.getInt(R.styleable.DurationDialogPreference_dMin, 0);
+        mMax = durationDialogType.getInt(R.styleable.DurationDialogPreference_dMax, 5);
+        mMin = durationDialogType.getInt(R.styleable.DurationDialogPreference_dMin, 0);
 
-        numberPickerType.recycle();
+        durationDialogType.recycle();
 
         //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
         //    mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);
@@ -46,31 +55,26 @@ public class DurationDialogPreference extends DialogPreference {
     protected void showDialog(Bundle state) {
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
-                        //.disableDefaultFonts()
+                //.disableDefaultFonts()
                 .icon(getDialogIcon())
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
                 .content(getDialogMessage())
-                .customView(R.layout.activity_duration_pref_dialog, false)
+                .customView(R.layout.activity_duration_pref_dialog2, false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        mNumberPickerHours.clearFocus();
-                        mNumberPickerMinutes.clearFocus();
-                        mNumberPickerSeconds.clearFocus();
+                        int hours = mSeekBarHours.getProgress();
+                        int minutes = mSeekBarMinutes.getProgress();
+                        int seconds = mSeekBarSeconds.getProgress();
 
-                        int hours = mNumberPickerHours.getValue();
-                        int minutes = mNumberPickerMinutes.getValue();
-                        int seconds = mNumberPickerSeconds.getValue();
-
-                        int iValue = hours * 3600 + minutes * 60 + seconds;
+                        int iValue = (hours * 3600 + minutes * 60 + seconds);
                         if (iValue < mMin) iValue = mMin;
                         if (iValue > mMax) iValue = mMax;
 
                         value = String.valueOf(iValue);
 
-                        if (callChangeListener(value))
-                        {
+                        if (callChangeListener(value)) {
                             //persistInt(mNumberPicker.getValue());
                             persistString(value);
                             setSummaryDDP();
@@ -82,18 +86,15 @@ public class DurationDialogPreference extends DialogPreference {
         View layout = mDialog.getCustomView();
 
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
-        mNumberPickerHours = layout.findViewById(R.id.duration_pref_dlg_hours);
-        mNumberPickerMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
-        mNumberPickerSeconds = layout.findViewById(R.id.duration_pref_dlg_seconds);
 
-        TypedValue tv = new TypedValue();
-        getContext().getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
-        GlobalGUIRoutines.setSeparatorColorForNumberPicker(mNumberPickerHours, tv.data);
-        GlobalGUIRoutines.updateTextAttributesForNumberPicker(mNumberPickerHours, 18);
-        GlobalGUIRoutines.setSeparatorColorForNumberPicker(mNumberPickerMinutes, tv.data);
-        GlobalGUIRoutines.updateTextAttributesForNumberPicker(mNumberPickerMinutes, 18);
-        GlobalGUIRoutines.setSeparatorColorForNumberPicker(mNumberPickerSeconds, tv.data);
-        GlobalGUIRoutines.updateTextAttributesForNumberPicker(mNumberPickerSeconds, 18);
+        mValue = layout.findViewById(R.id.duration_pref_dlg_value);
+        mSeekBarHours = layout.findViewById(R.id.duration_pref_dlg_hours);
+        mSeekBarMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
+        mSeekBarSeconds = layout.findViewById(R.id.duration_pref_dlg_seconds);
+
+        //mSeekBarHours.setRotation(180);
+        //mSeekBarMinutes.setRotation(180);
+        //mSeekBarSeconds.setRotation(180);
 
         // Initialize state
         int hours;
@@ -103,31 +104,88 @@ public class DurationDialogPreference extends DialogPreference {
         minutes = (mMax % 3600) / 60;
         seconds = mMax % 60;
         final String sMax = GlobalGUIRoutines.getDurationString(mMax);
-        mNumberPickerHours.setMaxValue(hours);
+        mSeekBarHours.setMax(hours);
         if (hours == 0)
-            mNumberPickerMinutes.setMaxValue(minutes);
+            mSeekBarMinutes.setMax(minutes);
         else
-            mNumberPickerMinutes.setMaxValue(59);
+            mSeekBarMinutes.setMax(59);
         if ((hours == 0) && (minutes == 0))
-            mNumberPickerSeconds.setMaxValue(seconds);
+            mSeekBarSeconds.setMax(seconds);
         else
-            mNumberPickerSeconds.setMaxValue(59);
+            mSeekBarSeconds.setMax(59);
         final String sMin = GlobalGUIRoutines.getDurationString(mMin);
-        mNumberPickerHours.setMinValue(0);
-        mNumberPickerMinutes.setMinValue(0);
-        mNumberPickerSeconds.setMinValue(0);
         int iValue = Integer.valueOf(value);
         hours = iValue / 3600;
         minutes = (iValue % 3600) / 60;
         seconds = iValue % 60;
-        mNumberPickerHours.setValue(hours);
-        mNumberPickerMinutes.setValue(minutes);
-        mNumberPickerSeconds.setValue(seconds);
-        mNumberPickerHours.setWrapSelectorWheel(false);
-        mNumberPickerMinutes.setWrapSelectorWheel(false);
-        mNumberPickerSeconds.setWrapSelectorWheel(false);
+        mSeekBarHours.setProgress(hours);
+        mSeekBarMinutes.setProgress(minutes);
+        mSeekBarSeconds.setProgress(seconds);
 
-        mTextViewRange.setText(sMin+" - "+sMax);
+        mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
+
+        mValueDialog = new TimeDurationPickerDialog(context, new TimeDurationPickerDialog.OnDurationSetListener() {
+            @Override
+            public void onDurationSet(TimeDurationPicker view, long duration) {
+                int iValue = (int) duration / 1000;
+
+                if (iValue < mMin)
+                    iValue = mMin;
+                if (iValue > mMax)
+                    iValue = mMax;
+
+                mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
+
+                int hours = iValue / 3600;
+                int minutes = (iValue % 3600) / 60;
+                int seconds = iValue % 60;
+
+                mSeekBarHours.setProgress(hours);
+                mSeekBarMinutes.setProgress(minutes);
+                mSeekBarSeconds.setProgress(seconds);
+            }
+        }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
+
+        mValue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int hours = mSeekBarHours.getProgress();
+                    int minutes = mSeekBarMinutes.getProgress();
+                    int seconds = mSeekBarSeconds.getProgress();
+
+                    int iValue = (hours * 3600 + minutes * 60 + seconds);
+                    if (iValue < mMin) iValue = mMin;
+                    if (iValue > mMax) iValue = mMax;
+
+                    mValueDialog.setDuration(iValue * 1000);
+                    mValueDialog.show();
+                }
+            }
+        );
+
+        TextView mValueDescription = layout.findViewById(R.id.duration_pref_dlg_value_spinnerChar);
+        mValueDescription.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int hours = mSeekBarHours.getProgress();
+                    int minutes = mSeekBarMinutes.getProgress();
+                    int seconds = mSeekBarSeconds.getProgress();
+
+                    int iValue = (hours * 3600 + minutes * 60 + seconds);
+                    if (iValue < mMin) iValue = mMin;
+                    if (iValue > mMax) iValue = mMax;
+
+                    mValueDialog.setDuration(iValue * 1000);
+                    mValueDialog.show();
+                }
+            }
+        );
+
+        mSeekBarHours.setOnSeekBarChangeListener(this);
+        mSeekBarMinutes.setOnSeekBarChangeListener(this);
+        mSeekBarSeconds.setOnSeekBarChangeListener(this);
+
+        mTextViewRange.setText(sMin + " - " + sMax);
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
@@ -178,4 +236,28 @@ public class DurationDialogPreference extends DialogPreference {
         setSummary(GlobalGUIRoutines.getDurationString(Integer.parseInt(value)));
     }
 
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (fromUser) {
+            int hours = mSeekBarHours.getProgress();
+            int minutes = mSeekBarMinutes.getProgress();
+            int seconds = mSeekBarSeconds.getProgress();
+
+            int iValue = (hours * 3600 + minutes * 60 + seconds);
+            if (iValue < mMin) iValue = mMin;
+            if (iValue > mMax) iValue = mMax;
+
+            mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
+        }
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
 }
