@@ -1263,53 +1263,59 @@ public class ActivateProfileHelper {
 
             for (String split : splits) {
                 //Log.d("ActivateProfileHelper.executeForRunApplications","app data="+splits[i]);
-                if (!ApplicationsCache.isShortcut(split)) {
-                    //Log.d("ActivateProfileHelper.executeForRunApplications","no shortcut");
-                    String packageName = ApplicationsCache.getPackageName(split);
-                    intent = packageManager.getLaunchIntentForPackage(packageName);
-                    if (intent != null) {
-                        //if (!isRunning(procInfos, packageName)) {
-                        //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": not running");
-                        //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
-                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        try {
-                            context.startActivity(intent);
-                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(1000);
-                            PPApplication.sleep(1000);
-                        } catch (Exception ignored) {
-                        }
-                        //}
-                        //else
-                        //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": running");
-                    }
-                } else {
-                    //Log.d("ActivateProfileHelper.executeForRunApplications","shortcut");
-                    long shortcutId = ApplicationsCache.getShortcutId(split);
-                    //Log.d("ActivateProfileHelper.executeForRunApplications","shortcutId="+shortcutId);
-                    if (shortcutId > 0) {
-                        Shortcut shortcut = dataWrapper.getDatabaseHandler().getShortcut(shortcutId);
-                        if (shortcut != null) {
+                int startApplicationDelay = ApplicationsCache.getStartApplicationDelay(split);
+                if (ApplicationsCache.getStartApplicationDelay(split) > 0) {
+                    RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(context, startApplicationDelay, split);
+                }
+                else {
+                    if (!ApplicationsCache.isShortcut(split)) {
+                        //Log.d("ActivateProfileHelper.executeForRunApplications","no shortcut");
+                        String packageName = ApplicationsCache.getPackageName(split);
+                        intent = packageManager.getLaunchIntentForPackage(packageName);
+                        if (intent != null) {
+                            //if (!isRunning(procInfos, packageName)) {
+                            //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": not running");
+                            //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
+                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
-                                intent = Intent.parseUri(shortcut._intent, 0);
-                                if (intent != null) {
-                                    //String packageName = intent.getPackage();
-                                    //if (!isRunning(procInfos, packageName)) {
-                                    //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": not running");
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
-                                    try {
-                                        context.startActivity(intent);
-                                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                                        //SystemClock.sleep(1000);
-                                        PPApplication.sleep(1000);
-                                    } catch (Exception ignored) {
-                                    }
-                                    //} else
-                                    //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": running");
-                                }
+                                context.startActivity(intent);
+                                //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                                //SystemClock.sleep(1000);
+                                PPApplication.sleep(1000);
                             } catch (Exception ignored) {
+                            }
+                            //}
+                            //else
+                            //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": running");
+                        }
+                    } else {
+                        //Log.d("ActivateProfileHelper.executeForRunApplications","shortcut");
+                        long shortcutId = ApplicationsCache.getShortcutId(split);
+                        //Log.d("ActivateProfileHelper.executeForRunApplications","shortcutId="+shortcutId);
+                        if (shortcutId > 0) {
+                            Shortcut shortcut = dataWrapper.getDatabaseHandler().getShortcut(shortcutId);
+                            if (shortcut != null) {
+                                try {
+                                    intent = Intent.parseUri(shortcut._intent, 0);
+                                    if (intent != null) {
+                                        //String packageName = intent.getPackage();
+                                        //if (!isRunning(procInfos, packageName)) {
+                                        //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": not running");
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
+                                        try {
+                                            context.startActivity(intent);
+                                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                                            //SystemClock.sleep(1000);
+                                            PPApplication.sleep(1000);
+                                        } catch (Exception ignored) {
+                                        }
+                                        //} else
+                                        //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": running");
+                                    }
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
                     }

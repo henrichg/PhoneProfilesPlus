@@ -313,7 +313,7 @@ public class ApplicationsCache {
             return 0;
     }
 
-    static long getStartApplicationDelay(String value) {
+    static int getStartApplicationDelay(String value) {
         if (value.length() > 2) {
             int startApplicationDelay = 0;
             String[] splits2 = value.split("/");
