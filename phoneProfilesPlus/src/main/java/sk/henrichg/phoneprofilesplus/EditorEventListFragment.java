@@ -412,6 +412,7 @@ public class EditorEventListFragment extends Fragment
 
         Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         //TODO Android O
         //if (Build.VERSION.SDK_INT < 26)
         getActivity().getApplicationContext().startService(serviceIntent);
@@ -472,6 +473,7 @@ public class EditorEventListFragment extends Fragment
 
         Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         //TODO Android O
         //if (Build.VERSION.SDK_INT < 26)
         getActivity().getApplicationContext().startService(serviceIntent);
@@ -571,6 +573,7 @@ public class EditorEventListFragment extends Fragment
 
                     Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                     //TODO Android O
                     //if (Build.VERSION.SDK_INT < 26)
                     getActivity().getApplicationContext().startService(serviceIntent);

@@ -1020,6 +1020,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 //TODO Android O
                 //if (Build.VERSION.SDK_INT < 26)
                 getApplicationContext().startService(serviceIntent);
@@ -1050,6 +1051,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 //TODO Android O
                 //if (Build.VERSION.SDK_INT < 26)
                 getApplicationContext().startService(serviceIntent);
@@ -1066,6 +1068,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                     //TODO Android O
                     //if (Build.VERSION.SDK_INT < 26)
                     getApplicationContext().startService(serviceIntent);
