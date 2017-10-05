@@ -1804,20 +1804,24 @@ public class PhoneProfilesService extends Service
                             registerBluetoothStateChangedBroadcastReceiver(true, false, false);
                             break;
                         case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_WIFI_SCANNER");
                             registerWifiConnectionBroadcastReceiver(true, false, true);
                             registerWifiStateChangedBroadcastReceiver(true, false, true);
                             registerWifiAPStateChangeBroadcastReceiver(true, false, true);
                             scheduleWifiJob(true, false, true, false, false);
                             break;
                         case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER");
                             registerBluetoothConnectionBroadcastReceiver(true, false, true);
                             registerBluetoothStateChangedBroadcastReceiver(true, false, true);
                             scheduleBluetoothJob(true, false, true, false);
                             break;
                         case PPApplication.SCANNER_RESTART_PHONE_STATE_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_PHONE_STATE_SCANNER");
                             startPhoneStateScanner(true, false, true);
                             break;
                         case PPApplication.SCANNER_RESTART_GEOFENCE_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_GEOFENCE_SCANNER");
                             registerLocationModeChangedBroadcastReceiver(true, false, true);
                             startGeofenceScanner(true, false, true);
                             break;
