@@ -40,7 +40,8 @@ class AddProfileDialog
         MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                 .title(R.string.new_profile_predefined_profiles_dialog)
                         //.disableDefaultFonts()
-                .autoDismiss(false)
+                .negativeText(android.R.string.cancel)
+                .autoDismiss(true)
                 .customView(R.layout.activity_profile_pref_dialog, false);
 
         mDialog = dialogBuilder.build();

@@ -44,7 +44,8 @@ class AddEventDialog
         MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                            .title(R.string.new_event_predefined_events_dialog)
                             //.disableDefaultFonts()
-                            .autoDismiss(false)
+                            .negativeText(android.R.string.cancel)
+                            .autoDismiss(true)
                             .customView(R.layout.activity_event_pref_dialog, false);
 
         mDialog = dialogBuilder.build();
