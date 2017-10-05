@@ -2125,6 +2125,7 @@ public class DataWrapper {
             if (event._eventPreferencesScreen._eventType == EventPreferencesScreen.ETYPE_SCREENON)
             {
                 if (event._eventPreferencesScreen._whenUnlocked)
+                    // passed if screen is on and unlocked => start only when unlocked
                     screenPassed = isScreenOn && (!keyguardShowing);
                 else
                     screenPassed = isScreenOn;
@@ -2132,6 +2133,7 @@ public class DataWrapper {
             else
             {
                 if (event._eventPreferencesScreen._whenUnlocked)
+                    // passed if screen is off or locked => locked is the same as screen off
                     screenPassed = (!isScreenOn) || keyguardShowing;
                 else
                     screenPassed = !isScreenOn;
