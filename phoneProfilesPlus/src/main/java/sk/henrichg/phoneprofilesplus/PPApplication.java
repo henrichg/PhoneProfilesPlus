@@ -38,8 +38,8 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static boolean logIntoLogCat = true;
-    private static boolean logIntoFile = true;
+    private static boolean logIntoLogCat = false;
+    private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     private static String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
@@ -52,6 +52,7 @@ public class PPApplication extends Application {
                                          //+"|[RJS] PPApplication"
                                          //+"|[RJS] PhoneProfilesService"
 
+                                         /*
                                          +"|WifiScanJob"
                                          +"|WifiService"
                                          +"|WifiStateChangedBroadcastReceiver"
@@ -60,6 +61,7 @@ public class PPApplication extends Application {
                                          +"|ScannerService"
                                          +"|$$$W Scanner"
                                          +"|EventsHandlerService"
+                                         */
 
                                          //+"PhoneProfilesHelper.doUninstallPPHelper"
                                          //+"|PhoneProfilesHelper.isPPHelperInstalled"
