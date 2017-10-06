@@ -67,7 +67,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_toEndOf="@+id/duration_pref_dlg_value"
+                        android:layout_toEndOf="@id/duration_pref_dlg_value"
                         android:textSize="12sp"
                         android:text="\u25BC"
                         android:clickable="true"/>

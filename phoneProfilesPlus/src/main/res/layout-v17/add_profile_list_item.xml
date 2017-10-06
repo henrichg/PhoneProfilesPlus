@@ -23,7 +23,7 @@
         android:orientation="vertical"
         android:layout_marginStart="5dp"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/profile_pref_dlg_item_icon" >
+        android:layout_toEndOf="@id/profile_pref_dlg_item_icon" >
 
         <TextView
             android:id="@+id/profile_pref_dlg_item_label"

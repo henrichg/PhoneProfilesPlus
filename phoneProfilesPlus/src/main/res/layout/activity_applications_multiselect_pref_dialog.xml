@@ -51,8 +51,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_toLeftOf="@+id/applications_pref_dlg_quickscroll"
-                android:layout_toStartOf="@+id/applications_pref_dlg_quickscroll"
+                android:layout_toLeftOf="@id/applications_pref_dlg_quickscroll"
+                android:layout_toStartOf="@id/applications_pref_dlg_quickscroll"
                 android:overScrollMode="never"
                 android:scrollbars="none"
                 android:divider="@android:color/transparent" />

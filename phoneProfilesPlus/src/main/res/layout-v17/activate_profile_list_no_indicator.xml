@@ -39,7 +39,7 @@
                 android:layout_alignParentTop="true"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:layout_toEndOf="@+id/act_prof_activated_profile_icon"
+                android:layout_toEndOf="@id/act_prof_activated_profile_icon"
                 android:text="@string/profile_name_default"
                 android:textSize="16sp"
                 android:textStyle="bold"

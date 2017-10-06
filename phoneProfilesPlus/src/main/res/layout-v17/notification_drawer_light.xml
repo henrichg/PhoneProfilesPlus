@@ -23,7 +23,7 @@
         android:id="@+id/notification_activated_profile_root"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/notification_activated_profile_restart_events"
+        android:layout_toStartOf="@id/notification_activated_profile_restart_events"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true">
 
@@ -48,7 +48,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
-            android:layout_toEndOf="@+id/notification_activated_profile_icon"
+            android:layout_toEndOf="@id/notification_activated_profile_icon"
             android:text="@string/profile_name_default"
             android:textAppearance="@style/NotificationTitle"
             android:textColor="@color/notificationTextColor_light"
@@ -58,8 +58,8 @@
             android:id="@+id/notification_activated_profile_pref_indicator"
             android:layout_width="match_parent"
             android:layout_height="15dp"
-            android:layout_below="@+id/notification_activated_profile_name"
-            android:layout_toEndOf="@+id/notification_activated_profile_icon"
+            android:layout_below="@id/notification_activated_profile_name"
+            android:layout_toEndOf="@id/notification_activated_profile_icon"
             android:layout_marginStart="5dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/empty_string"

@@ -28,8 +28,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/location_pref_dlg_item_buttons_root"
-        android:layout_toStartOf="@+id/location_pref_dlg_item_buttons_root"
+        android:layout_toLeftOf="@id/location_pref_dlg_item_buttons_root"
+        android:layout_toStartOf="@id/location_pref_dlg_item_buttons_root"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true" >
@@ -50,8 +50,8 @@
             android:id="@+id/location_pref_dlg_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/location_pref_dlg_item_checkBox"
-            android:layout_toEndOf="@+id/location_pref_dlg_item_checkBox"
+            android:layout_toRightOf="@id/location_pref_dlg_item_checkBox"
+            android:layout_toEndOf="@id/location_pref_dlg_item_checkBox"
             android:layout_centerVertical="true"
             android:paddingLeft="3dp"
             android:paddingRight="3dp"

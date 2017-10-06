@@ -84,7 +84,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_above="@+id/profileicon_pref_dlg_et_btn"
+        android:layout_above="@id/profileicon_pref_dlg_et_btn"
         android:layout_alignParentTop="true"
         >
 

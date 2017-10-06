@@ -77,7 +77,7 @@
                     android:padding="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_centerVertical="true"
-                    android:layout_toStartOf = "@+id/mobile_cells_pref_dlg_helpIcon"
+                    android:layout_toStartOf = "@id/mobile_cells_pref_dlg_helpIcon"
                     android:adjustViewBounds="true"
                     android:maxHeight="50dp"
                     android:maxWidth="50dp"
@@ -94,7 +94,7 @@
                     android:padding="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_centerVertical="true"
-                    android:layout_toStartOf = "@+id/mobile_cells_pref_dlg_changeSelection"
+                    android:layout_toStartOf = "@id/mobile_cells_pref_dlg_changeSelection"
                     android:adjustViewBounds="true"
                     android:maxHeight="50dp"
                     android:maxWidth="50dp"
@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="5dp"
-                    android:layout_toStartOf = "@+id/mobile_cells_pref_dlg_rename"
+                    android:layout_toStartOf = "@id/mobile_cells_pref_dlg_rename"
                     android:hint="@string/mobile_cells_pref_dlg_cell_name_hint"
                     android:selectAllOnFocus="true"
                     android:inputType="textNoSuggestions" />
@@ -124,7 +124,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_above="@+id/mobile_cells_pref_dlg_et_btn"
+            android:layout_above="@id/mobile_cells_pref_dlg_et_btn"
             android:layout_alignParentTop="true"
             >
 

@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="3dp"
-        android:layout_toEndOf="@+id/profile_pref_dlg_item_radiobtn"
+        android:layout_toEndOf="@id/profile_pref_dlg_item_radiobtn"
         android:adjustViewBounds="true"
         android:contentDescription="@string/profile_preferences_profileIcon"
         android:maxHeight="40dp"

@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:layout_toStartOf="@+id/editor_list_run_stop_indicator"
+                        android:layout_toStartOf="@id/editor_list_run_stop_indicator"
                         android:ellipsize="end"
                         android:textSize="15sp"
                         android:textColor="@android:color/white"
@@ -113,8 +113,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/editor_list_toolbar"
-            android:layout_above="@+id/editor_list_bottom_bar"
+            android:layout_below="@id/editor_list_toolbar"
+            android:layout_above="@id/editor_list_bottom_bar"
             android:foreground="?android:windowContentOverlay" >
 
             <LinearLayout
@@ -193,7 +193,7 @@
                 android:id="@+id/editor_drawer_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/editor_drawer_order_root"
+                android:layout_above="@id/editor_drawer_order_root"
                 android:layout_alignParentTop="true"
                 android:choiceMode="singleChoice"
                 android:divider="@android:color/transparent"

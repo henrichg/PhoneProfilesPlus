@@ -40,7 +40,7 @@
                 android:id="@+id/location_editor_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf = "@+id/location_editor_ok"
+                android:layout_toStartOf = "@id/location_editor_ok"
                 android:layout_centerVertical="true"
                 android:text="@android:string/cancel"
                 android:textColor="?attr/colorAccent"
@@ -54,7 +54,7 @@
         android:id="@+id/location_editor_et_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/location_editor_et_btn3"
+        android:layout_above="@id/location_editor_et_btn3"
         android:orientation="vertical" >
 
         <View
@@ -80,7 +80,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/location_pref_dlg_radius_label"
+                android:layout_toEndOf="@id/location_pref_dlg_radius_label"
                 android:layout_centerVertical="true" >
 
                 <TextView
@@ -96,7 +96,7 @@
                     android:id="@+id/location_pref_dlg_radius_seekbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/location_pref_dlg_radius_seekbar_label"
+                    android:layout_below="@id/location_pref_dlg_radius_seekbar_label"
                     android:max="50"
                     android:splitTrack="false"
                     tools:ignore="UnusedAttribute"/>
@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:layout_marginEnd="10dp"
-                android:layout_toStartOf = "@+id/location_editor_my_location"
+                android:layout_toStartOf = "@id/location_editor_my_location"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_action_location_address"
                 android:background="?attr/selectableItemBackground" />
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_toStartOf = "@+id/location_editor_address_btn"
+                android:layout_toStartOf = "@id/location_editor_address_btn"
                 android:layout_centerVertical="true"
                 android:selectAllOnFocus="true"
                 android:inputType="textNoSuggestions" />
@@ -154,7 +154,7 @@
         android:layout_height="wrap_content"
         android:padding="0dp"
         android:orientation="vertical"
-        android:layout_above="@+id/location_editor_et_btn"
+        android:layout_above="@id/location_editor_et_btn"
         android:layout_alignParentTop="true"
         >
 
@@ -175,7 +175,7 @@
                   xmlns:tools="http://schemas.android.com/tools"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_above="@+id/location_editor_address_text"
+                  android:layout_above="@id/location_editor_address_text"
                   android:layout_alignParentTop="true"
                   tools:context="sk.henrichg.phoneprofilesplus.LocationGeofenceEditorActivity"
                   map:cameraZoom="15" />

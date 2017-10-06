@@ -28,8 +28,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/bluetooth_name_pref_dlg_item_buttons_root"
-        android:layout_toStartOf="@+id/bluetooth_name_pref_dlg_item_buttons_root"
+        android:layout_toLeftOf="@id/bluetooth_name_pref_dlg_item_buttons_root"
+        android:layout_toStartOf="@id/bluetooth_name_pref_dlg_item_buttons_root"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true" >
@@ -50,8 +50,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/bluetooth_name_pref_dlg_item_checkbox"
-            android:layout_toEndOf="@+id/bluetooth_name_pref_dlg_item_checkbox"
+            android:layout_toRightOf="@id/bluetooth_name_pref_dlg_item_checkbox"
+            android:layout_toEndOf="@id/bluetooth_name_pref_dlg_item_checkbox"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="@string/empty_string"

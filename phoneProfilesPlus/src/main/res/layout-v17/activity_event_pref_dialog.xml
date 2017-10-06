@@ -16,7 +16,7 @@
         android:id="@+id/event_pref_dlg_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/event_pref_dlg_help"
+        android:layout_above="@id/event_pref_dlg_help"
         android:padding="5dp"
         android:gravity="center"
         android:clipToPadding="false"

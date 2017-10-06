@@ -72,7 +72,7 @@
                     android:padding="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_centerVertical="true"
-                    android:layout_toStartOf = "@+id/wifi_ssid_pref_dlg_helpIcon"
+                    android:layout_toStartOf = "@id/wifi_ssid_pref_dlg_helpIcon"
                     android:src="@drawable/ic_profile_activated"
                     android:background="?attr/selectableItemBackground"
                     android:contentDescription="@string/pref_dlg_change_selection_title"/>
@@ -84,7 +84,7 @@
                     android:padding="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_centerVertical="true"
-                    android:layout_toStartOf = "@+id/wifi_ssid_pref_dlg_changeSelection"
+                    android:layout_toStartOf = "@id/wifi_ssid_pref_dlg_changeSelection"
                     android:src="@drawable/ic_action_location_add"
                     android:background="?attr/selectableItemBackground"
                     android:contentDescription="@string/wifi_ssid_pref_dlg_add_wifi_ssid_icon"/>
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_toStartOf = "@+id/wifi_ssid_pref_dlg_addIcon"
+                    android:layout_toStartOf = "@id/wifi_ssid_pref_dlg_addIcon"
                     android:selectAllOnFocus="true"
                     android:hint="@string/event_preferences_wifi_ssid"
                     android:inputType="textNoSuggestions" />
@@ -109,7 +109,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_above="@+id/wifi_ssid_pref_dlg_et_btn"
+            android:layout_above="@id/wifi_ssid_pref_dlg_et_btn"
             android:layout_alignParentTop="true"
             >
 

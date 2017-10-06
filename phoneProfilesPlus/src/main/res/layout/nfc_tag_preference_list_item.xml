@@ -28,8 +28,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/nfc_tag_pref_dlg_item_buttons_root"
-        android:layout_toStartOf="@+id/nfc_tag_pref_dlg_item_buttons_root"
+        android:layout_toLeftOf="@id/nfc_tag_pref_dlg_item_buttons_root"
+        android:layout_toStartOf="@id/nfc_tag_pref_dlg_item_buttons_root"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true" >
@@ -49,8 +49,8 @@
             android:id="@+id/nfc_tag_pref_dlg_item_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/nfc_tag_pref_dlg_item_checkbox"
-            android:layout_toEndOf="@+id/nfc_tag_pref_dlg_item_checkbox"
+            android:layout_toRightOf="@id/nfc_tag_pref_dlg_item_checkbox"
+            android:layout_toEndOf="@id/nfc_tag_pref_dlg_item_checkbox"
             android:layout_centerVertical="true"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

@@ -32,7 +32,7 @@
             android:id="@+id/widget_profile_list_header_profile_root"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/widget_profile_list_header_restart_events"
+            android:layout_toStartOf="@id/widget_profile_list_header_restart_events"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true">
 
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/widget_profile_list_header_profile_icon"
+                android:layout_toEndOf="@id/widget_profile_list_header_profile_icon"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:shadowColor="#ffffffff"
