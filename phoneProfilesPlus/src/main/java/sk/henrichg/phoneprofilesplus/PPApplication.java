@@ -38,8 +38,8 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static boolean logIntoLogCat = false;
-    private static boolean logIntoFile = false;
+    private static boolean logIntoLogCat = true;
+    private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
     private static String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
@@ -49,8 +49,17 @@ public class PPApplication extends Application {
                                          +"|PackageReplacedService"
 
                                          //+"|"+CallsCounter.LOG_TAG
-                                         +"|[RJS] PPApplication"
-                                         +"|[RJS] PhoneProfilesService"
+                                         //+"|[RJS] PPApplication"
+                                         //+"|[RJS] PhoneProfilesService"
+
+                                         +"|WifiScanJob"
+                                         +"|WifiService"
+                                         +"|WifiStateChangedBroadcastReceiver"
+                                         +"|WifiConnectionBroadcastReceiver"
+                                         +"|WifiScanBroadcastReceiver"
+                                         +"|ScannerService"
+                                         +"|$$$W Scanner"
+                                         +"|EventsHandlerService"
 
                                          //+"PhoneProfilesHelper.doUninstallPPHelper"
                                          //+"|PhoneProfilesHelper.isPPHelperInstalled"
@@ -94,14 +103,14 @@ public class PPApplication extends Application {
 
                                          //+"|BatteryBroadcastReceiver"
 
-                                         +"|DeviceOrientationService.doWakefulWork"
-                                         +"|PhoneProfilesService.startOrientationScanner"
+                                         //+"|DeviceOrientationService.doWakefulWork"
+                                         //+"|PhoneProfilesService.startOrientationScanner"
                                          //+"|MobileCellsPreference"
                                          //+"|PhoneProfilesService.startPhoneStateScanner"
 
                                          //+"|ApplicationsDialogPreference"
 
-                                         +"|RunApplicationWithDelayBroadcastReceiver"
+                                         //+"|RunApplicationWithDelayBroadcastReceiver"
             ;
 
 

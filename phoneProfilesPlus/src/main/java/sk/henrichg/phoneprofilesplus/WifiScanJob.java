@@ -403,6 +403,8 @@ class WifiScanJob extends Job {
                 }
                 //}
             }
+            else
+                PPApplication.logE("%%%% WifiScanJob.fillScanResults", "_scanResults=null");
         }
         else
             save = true;

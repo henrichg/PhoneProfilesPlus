@@ -194,17 +194,15 @@ public class WifiService extends WakefulIntentService {
                     WifiScanJob.fillScanResults(appContext);
                     //WifiScanJobBroadcastReceiver.unlock();
 
-                    /*
-                    List<WifiSSIDData> scanResults = WifiScanJobBroadcastReceiver.getScanResults(context);
+                    List<WifiSSIDData> scanResults = WifiScanJob.getScanResults(appContext);
                     if (scanResults != null) {
-                        PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiScanBroadcastReceiver: scanResults.size="+scanResults.size());
-                        //for (WifiSSIDData result : scanResults) {
-                        //    PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiScanBroadcastReceiver: result.SSID=" + result.ssid);
-                        //}
+                        //PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiScanBroadcastReceiver: scanResults.size="+scanResults.size());
+                        for (WifiSSIDData result : scanResults) {
+                            PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiScanBroadcastReceiver: result.SSID=" + result.ssid);
+                        }
                     }
                     else
                         PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiScanBroadcastReceiver: scanResults=null");
-                    */
 
                     if (scanStarted)
                     {
@@ -218,6 +216,7 @@ public class WifiService extends WakefulIntentService {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
+                                    PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiScanBroadcastReceiver: start EventsHandlerService");
                                     Intent eventsServiceIntent = new Intent(_context, EventsHandlerService.class);
                                     eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
                                     WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
