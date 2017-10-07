@@ -1064,23 +1064,26 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             if (resultCode == RESULT_OK)
             {
-                if (PhoneProfilesService.instance != null) {
+                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                //TODO Android O
+                //if (Build.VERSION.SDK_INT < 26)
+                getApplicationContext().startService(serviceIntent);
+                //else
+                //    context.startForegroundService(serviceIntent);
 
-                    Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                    //TODO Android O
-                    //if (Build.VERSION.SDK_INT < 26)
-                    getApplicationContext().startService(serviceIntent);
-                    //else
-                    //    context.startForegroundService(serviceIntent);
-
+                //if (PhoneProfilesService.instance != null) {
+                    /*
                     boolean powerSaveMode = PPApplication.isPowerSaveMode;
                     if ((PhoneProfilesService.isGeofenceScannerStarted())) {
                         PhoneProfilesService.getGeofencesScanner().resetLocationUpdates(powerSaveMode, true);
                     }
                     PhoneProfilesService.instance.resetListeningOrientationSensors(powerSaveMode, true);
-                }
+                    if (PhoneProfilesService.isPhoneStateScannerStarted())
+                        PhoneProfilesService.phoneStateScanner.resetListening(powerSaveMode, true);
+                    */
+                //}
 
                 boolean restart = data.getBooleanExtra(PhoneProfilesPreferencesActivity.EXTRA_RESET_EDITOR, false);
 

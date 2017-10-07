@@ -60,8 +60,17 @@ public class BatteryService extends WakefulIntentService {
                     PPApplication.isPowerSaveMode = oldPowerSaveMode;
             }
 
-            if (Event.getGlobalEventsRunning(appContext)) {
+            Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //TODO Android O
+            //if (Build.VERSION.SDK_INT < 26)
+            getApplicationContext().startService(serviceIntent);
+            //else
+            //    context.startForegroundService(serviceIntent);
 
+            if (Event.getGlobalEventsRunning(appContext)) {
+                /*
                 if (PhoneProfilesService.instance != null) {
                     if (PhoneProfilesService.isGeofenceScannerStarted())
                         PhoneProfilesService.getGeofencesScanner().resetLocationUpdates(oldPowerSaveMode, false);
@@ -69,6 +78,7 @@ public class BatteryService extends WakefulIntentService {
                     if (PhoneProfilesService.isPhoneStateScannerStarted())
                         PhoneProfilesService.phoneStateScanner.resetListening(oldPowerSaveMode, false);
                 }
+                */
 
                 /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                 batteryEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BATTERY) > 0;
