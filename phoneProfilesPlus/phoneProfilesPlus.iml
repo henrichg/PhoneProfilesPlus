@@ -108,6 +108,7 @@
     <orderEntry type="library" exported="" name="crashlytics-core-2.3.17" level="project" />
     <orderEntry type="library" exported="" name="core-0.9.4.7" level="project" />
     <orderEntry type="library" exported="" name="library-1.4.1" level="project" />
+    <orderEntry type="library" exported="" name="android-job-1.2.0" level="project" />
     <orderEntry type="library" exported="" name="systembartint-1.0.4" level="project" />
     <orderEntry type="library" exported="" name="play-services-basement-11.4.0" level="project" />
     <orderEntry type="library" exported="" name="transition-26.0.1" level="project" />
@@ -134,7 +135,6 @@
     <orderEntry type="library" exported="" name="hidden-apis" level="project" />
     <orderEntry type="library" exported="" name="hidden-apis_2" level="project" />
     <orderEntry type="library" exported="" name="crashlytics-2.6.8" level="project" />
-    <orderEntry type="library" exported="" name="android-job-1.1.11" level="project" />
     <orderEntry type="library" exported="" name="design-26.0.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-tasks-11.4.0" level="project" />
     <orderEntry type="library" exported="" name="TapTargetView-master-SNAPSHOT" level="project" />

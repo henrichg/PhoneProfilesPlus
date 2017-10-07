@@ -125,7 +125,6 @@ class BluetoothScanJob extends Job {
                 PPApplication.logE("BluetoothScanJob.scheduleJob", "build and schedule");
 
                 jobBuilder
-                        .setPersisted(false)
                         .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
                         .build()
                         .schedule();

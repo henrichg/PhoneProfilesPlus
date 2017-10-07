@@ -120,7 +120,6 @@ class WifiScanJob extends Job {
                 PPApplication.logE("WifiScanJob.scheduleJob", "build and schedule");
 
                 jobBuilder
-                        .setPersisted(false)
                         .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
                         .build()
                         .schedule();
