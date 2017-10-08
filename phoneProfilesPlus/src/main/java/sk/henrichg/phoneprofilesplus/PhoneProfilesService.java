@@ -400,7 +400,7 @@ public class PhoneProfilesService extends Service
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered settings content observer");
 
-            // required for start EventsHandlerService in idle maintenance window
+            // required for start EventsHandlerJob in idle maintenance window
             if (deviceIdleModeReceiver == null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER device idle mode", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER device idle mode");
@@ -1942,7 +1942,7 @@ public class PhoneProfilesService extends Service
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SIMULATE_RINGING_CALL");
                     doSimulatingRingingCall(intent);
                 }
-                //if (intent.getBooleanExtra(EventsHandlerService.EXTRA_SIMULATE_NOTIFICATION_TONE, false))
+                //if (intent.getBooleanExtra(EventsHandler.EXTRA_SIMULATE_NOTIFICATION_TONE, false))
                 //    doSimulatingNotificationTone(intent);
 
                 if (intent.getBooleanExtra(EXTRA_START_STOP_SCANNER, false)) {
@@ -3062,7 +3062,7 @@ public class PhoneProfilesService extends Service
     }
 
     /*private void doSimulatingNotificationTone(Intent intent) {
-        if (intent.getBooleanExtra(EventsHandlerService.EXTRA_SIMULATE_NOTIFICATION_TONE, false) &&
+        if (intent.getBooleanExtra(EventsHandler.EXTRA_SIMULATE_NOTIFICATION_TONE, false) &&
                 !ringingCallIsSimulating)
         {
             PPApplication.logE("PhoneProfilesService.doSimulatingNotificationTone", "simulate notification tone");
@@ -3071,10 +3071,10 @@ public class PhoneProfilesService extends Service
 
             notificationToneIsSimulating = false;
 
-            int oldRingerMode = intent.getIntExtra(EventsHandlerService.EXTRA_OLD_RINGER_MODE, 0);
-            int oldSystemRingerMode = intent.getIntExtra(EventsHandlerService.EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
-            int oldZenMode = intent.getIntExtra(EventsHandlerService.EXTRA_OLD_ZEN_MODE, 0);
-            String oldNotificationTone = intent.getStringExtra(EventsHandlerService.EXTRA_OLD_NOTIFICATION_TONE);
+            int oldRingerMode = intent.getIntExtra(EventsHandler.EXTRA_OLD_RINGER_MODE, 0);
+            int oldSystemRingerMode = intent.getIntExtra(EventsHandler.EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
+            int oldZenMode = intent.getIntExtra(EventsHandler.EXTRA_OLD_ZEN_MODE, 0);
+            String oldNotificationTone = intent.getStringExtra(EventsHandler.EXTRA_OLD_NOTIFICATION_TONE);
             int newRingerMode = ActivateProfileHelper.getRingerMode(context);
             int newZenMode = ActivateProfileHelper.getZenMode(context);
             String newNotificationTone;

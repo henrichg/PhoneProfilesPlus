@@ -290,14 +290,12 @@ public class BluetoothService extends WakefulIntentService {
 
                         if (forceOneScan != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                         {
-                            // start service
+                            // start job
                             final Context _context = appContext;
                             new Handler(appContext.getMainLooper()).postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent eventsServiceIntent = new Intent(_context, EventsHandlerService.class);
-                                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
-                                    WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
+                                    EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
                                 }
                             }, 5000);
                         }

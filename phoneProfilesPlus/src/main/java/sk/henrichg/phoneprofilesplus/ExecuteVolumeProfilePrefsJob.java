@@ -40,7 +40,7 @@ class ExecuteVolumeProfilePrefsJob extends Job {
         }
 
         if (linkUnlink != PhoneCallJob.LINKMODE_NONE)
-            // link, unlink is executed, not needed do it from EventsHandlerService
+            // link, unlink is executed, not needed do it from EventsHandler
             PhoneCallJob.linkUnlinkExecuted = true;
 
         Bundle bundle = params.getTransientExtras();

@@ -217,14 +217,12 @@ class Scanner {
                                         PPApplication.logE("$$$W Scanner.doScan", "no data received from scanner");
                                         if (getForceOneWifiScan(context) != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                         {
-                                            // start service
+                                            // start job
                                             final Context _context = context.getApplicationContext();
                                             new Handler(context.getMainLooper()).postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    Intent eventsServiceIntent = new Intent(_context, EventsHandlerService.class);
-                                                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
-                                                    WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
+                                                    EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
                                                 }
                                             }, 5000);
                                             //WifiScanBroadcastReceiver.setAlarm(context);
@@ -418,9 +416,9 @@ class Scanner {
                                         // wait for scan end
                                         waitForLEBluetoothScanEnd(context, null);
 
-                                        // send broadcast for start EventsHandlerService
-                                /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
-                                sendBroadcast(btLEIntent);*/
+                                        // send broadcast for start EventsHandlerJob
+                                        /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
+                                        sendBroadcast(btLEIntent);*/
                                         Intent btLEIntent = new Intent("BluetoothLEScanBroadcastReceiver");
                                         LocalBroadcastManager.getInstance(context).sendBroadcast(btLEIntent);
 

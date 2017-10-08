@@ -46,13 +46,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
             if (previousState != actualState) {
 
                 if (Event.getGlobalEventsRunning(context)) {
-                    try {
-                        Intent eventsServiceIntent = new Intent(context, EventsHandlerService.class);
-                        eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-                        eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_MOBILE_DATA);
-                        eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_RADIO_SWITCH_STATE, actualState);
-                        WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
-                    } catch (Exception ignored) {}
+                    EventsHandlerJob.startForRadioSwitchSensor(EventPreferencesRadioSwitch.RADIO_TYPE_MOBILE_DATA, actualState);
                 }
 
                 previousState = actualState;

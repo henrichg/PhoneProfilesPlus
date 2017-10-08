@@ -19,20 +19,20 @@ class PhoneCallJob extends Job {
     private static boolean savedSpeakerphone = false;
     private static boolean speakerphoneSelected = false;
 
-    public static boolean linkUnlinkExecuted = false;
-    public static boolean speakerphoneOnExecuted = false;
+    static boolean linkUnlinkExecuted = false;
+    static boolean speakerphoneOnExecuted = false;
 
-    public static final int CALL_EVENT_UNDEFINED = 0;
-    public static final int CALL_EVENT_INCOMING_CALL_RINGING = 1;
-    //public static final int CALL_EVENT_OUTGOING_CALL_STARTED = 2;
-    public static final int CALL_EVENT_INCOMING_CALL_ANSWERED = 3;
-    public static final int CALL_EVENT_OUTGOING_CALL_ANSWERED = 4;
-    public static final int CALL_EVENT_INCOMING_CALL_ENDED = 5;
-    public static final int CALL_EVENT_OUTGOING_CALL_ENDED = 6;
+    static final int CALL_EVENT_UNDEFINED = 0;
+    static final int CALL_EVENT_INCOMING_CALL_RINGING = 1;
+    //static final int CALL_EVENT_OUTGOING_CALL_STARTED = 2;
+    static final int CALL_EVENT_INCOMING_CALL_ANSWERED = 3;
+    static final int CALL_EVENT_OUTGOING_CALL_ANSWERED = 4;
+    static final int CALL_EVENT_INCOMING_CALL_ENDED = 5;
+    static final int CALL_EVENT_OUTGOING_CALL_ENDED = 6;
 
-    public static final int LINKMODE_NONE = 0;
-    public static final int LINKMODE_LINK = 1;
-    public static final int LINKMODE_UNLINK = 2;
+    static final int LINKMODE_NONE = 0;
+    static final int LINKMODE_LINK = 1;
+    static final int LINKMODE_UNLINK = 2;
 
     static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
     static final String PREF_EVENT_CALL_PHONE_NUMBER = "eventCallPhoneNumber";
@@ -108,7 +108,7 @@ class PhoneCallJob extends Job {
         }
     }
 
-    public static void setSpeakerphoneOn(Profile profile, Context context) {
+    static void setSpeakerphoneOn(Profile profile, Context context) {
         if (profile != null) {
 
             if (profile._volumeSpeakerPhone != 0) {
@@ -150,7 +150,7 @@ class PhoneCallJob extends Job {
         // audiomode is set to MODE_IN_CALL by system
         //Log.e("PhoneCallJob", "callAnswered audioMode=" + audioManager.getMode());
 
-        // setSpeakerphoneOn() moved to ExecuteVolumeProfilePrefsJob and EventsHandlerService
+        // setSpeakerphoneOn() moved to ExecuteVolumeProfilePrefsJob and EventsHandler
 
         if (PhoneProfilesService.instance != null)
             PhoneProfilesService.instance.stopSimulatingRingingCall(true);
@@ -190,7 +190,7 @@ class PhoneCallJob extends Job {
         } while (SystemClock.uptimeMillis() - start < 2000);
 
         // audiomode is set to MODE_NORMAL by system
-        //Log.e("PhoneCallJob", "callEnded (before unlink/EventsHandlerService) audioMode="+audioManager.getMode());
+        //Log.e("PhoneCallJob", "callEnded (before unlink/EventsHandler) audioMode="+audioManager.getMode());
 
         if (incoming)
             doCallEvent(CALL_EVENT_INCOMING_CALL_ENDED, phoneNumber, context);

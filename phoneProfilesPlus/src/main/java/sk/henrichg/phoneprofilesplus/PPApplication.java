@@ -60,7 +60,7 @@ public class PPApplication extends Application {
                                          +"|WifiScanBroadcastReceiver"
                                          +"|ScannerService"
                                          +"|$$$W Scanner"
-                                         +"|EventsHandlerService"
+                                         +"|EventsHandlerJob"
                                          */
 
                                          //+"PhoneProfilesHelper.doUninstallPPHelper"
@@ -88,14 +88,14 @@ public class PPApplication extends Application {
 
                                          //+"|CalendarProviderChangedBroadcastReceiver"
                                          //+"|TimeChangedReceiver"
-                                         //+"|[CALENDAR] EventsHandlerService"
+                                         //+"|[CALENDAR] EventsHandler"
 
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
 
                                          //+"|PhoneProfilesService.doSimulatingRingingCall"
                                          //+"|ActivateProfileHelper.setZenMode"
 
-                                         //+"|EventsHandlerService.onHandleIntent"
+                                         //+"|EventsHandlerJob.onRunJob"
                                          //+"|EventPreferencesNFC"
 
                                          //+"|##### DeviceOrientationService"

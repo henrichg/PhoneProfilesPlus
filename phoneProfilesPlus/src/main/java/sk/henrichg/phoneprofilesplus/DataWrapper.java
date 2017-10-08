@@ -2971,11 +2971,7 @@ public class DataWrapper {
         PPApplication.logE("$$$ restartEvents", "in DataWrapper.restartEvents");
 
         if (Event.getEventsBlocked(context) && (!unblockEventsRun)) {
-            try {
-                Intent eventsServiceIntent = new Intent(context, EventsHandlerService.class);
-                eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE);
-                WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
-            } catch (Exception ignored) {}
+            EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE);
             return;
         }
 
@@ -3004,12 +3000,7 @@ public class DataWrapper {
             setProfileActive(null);
         }
 
-        try {
-            Intent eventsServiceIntent = new Intent(context, EventsHandlerService.class);
-            eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
-            eventsServiceIntent.putExtra(DataWrapper.EXTRA_INTERACTIVE, interactive);
-            WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
-        } catch (Exception ignored) {}
+        EventsHandlerJob.startForRestartEvents(interactive);
     }
 
     void restartEventsWithRescan(boolean showToast, boolean interactive)

@@ -29,13 +29,7 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
                 final int state = intent.getIntExtra(NfcAdapter.EXTRA_ADAPTER_STATE, NfcAdapter.STATE_OFF);
 
                 if ((state == NfcAdapter.STATE_ON) || (state == NfcAdapter.STATE_OFF)) {
-                    try {
-                        Intent eventsServiceIntent = new Intent(context, EventsHandlerService.class);
-                        eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-                        eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_NFC);
-                        eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_RADIO_SWITCH_STATE, state == NfcAdapter.STATE_ON);
-                        WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
-                    } catch (Exception ignored) {}
+                    EventsHandlerJob.startForRadioSwitchSensor(EventPreferencesRadioSwitch.RADIO_TYPE_NFC, state == NfcAdapter.STATE_ON);
                 }
             }
         }

@@ -33,12 +33,8 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
 
             if (timeEventsExists)
             {*/
-                // start service
-                try {
-                    Intent eventsServiceIntent = new Intent(appContext, EventsHandlerService.class);
-                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_TIME);
-                    WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
-                } catch (Exception ignored) {}
+                // start job
+                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_TIME);
             //}
 
         }

@@ -29,13 +29,7 @@ public class NFCTagReadActivity extends Activity {
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                 long time = now.getTimeInMillis() + gmtOffset;
 
-                try {
-                    Intent eventsServiceIntent = new Intent(getApplicationContext(), EventsHandlerService.class);
-                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NFC_TAG);
-                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_NFC_TAG_NAME, tagRead);
-                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_NFC_DATE, time);
-                    WakefulIntentService.sendWakefulWork(getApplicationContext(), eventsServiceIntent);
-                } catch (Exception ignored) {}
+                EventsHandlerJob.startForNFCTagSensor(tagRead, time);
 
                 NFCTagReadActivity.this.finish();
             }

@@ -125,10 +125,8 @@ class ScreenOnOffJob extends Job {
 
                 //if (screenEventsExists*/)
                 //{
-                // start service
-                Intent eventsServiceIntent = new Intent(appContext, EventsHandlerService.class);
-                eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SCREEN);
-                WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
+                // start job
+                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_SCREEN);
                 //}
 
                 if (action.equals(Intent.ACTION_SCREEN_ON)) {

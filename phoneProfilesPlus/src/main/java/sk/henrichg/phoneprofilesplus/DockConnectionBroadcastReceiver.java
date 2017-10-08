@@ -28,12 +28,8 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
 
             if (peripheralEventsExists)
             {*/
-                // start service
-                try {
-                    Intent eventsServiceIntent = new Intent(appContext, EventsHandlerService.class);
-                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_DOCK_CONNECTION);
-                    WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
-                } catch (Exception ignored) {}
+                // start job
+                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_DOCK_CONNECTION);
             //}
 
         }

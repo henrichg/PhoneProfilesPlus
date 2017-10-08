@@ -29,27 +29,14 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                 LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
                 boolean isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
                 //boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-                try {
-                    Intent eventsServiceIntent = new Intent(context, EventsHandlerService.class);
-                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_GPS);
-                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_RADIO_SWITCH_STATE, isGpsEnabled);
-                    WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
-                } catch (Exception ignored) {}
-
+                EventsHandlerJob.startForRadioSwitchSensor(EventPreferencesRadioSwitch.RADIO_TYPE_GPS, isGpsEnabled);
             }
 
             if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
                 PhoneProfilesService.getGeofencesScanner().clearAllEventGeofences();
 
-                // start service
-                try {
-                    Intent eventsServiceIntent = new Intent(appContext, EventsHandlerService.class);
-                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_LOCATION_MODE);
-                    WakefulIntentService.sendWakefulWork(appContext, eventsServiceIntent);
-                } catch (Exception ignored) {}
-
+                // start job
+                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
             }
         }
 

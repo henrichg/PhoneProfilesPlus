@@ -211,16 +211,14 @@ public class WifiService extends WakefulIntentService {
 
                         if (forceOneScan != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                         {
-                            PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiScanBroadcastReceiver: start EventsHandlerService (1)");
-                            // start service
+                            PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiScanBroadcastReceiver: start EventsHandlerJob (1)");
+                            // start job
                             final Context _context = appContext;
                             new Handler(appContext.getMainLooper()).postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiScanBroadcastReceiver: start EventsHandlerService (2)");
-                                    Intent eventsServiceIntent = new Intent(_context, EventsHandlerService.class);
-                                    eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
-                                    WakefulIntentService.sendWakefulWork(_context, eventsServiceIntent);
+                                    PPApplication.logE("$$$ WifiService.doWakefulWork", "WifiScanBroadcastReceiver: start EventsHandlerJob (2)");
+                                    EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
                                 }
                             }, 5000);
                         }

@@ -539,10 +539,6 @@
 
         <!-- IntentService -->
         <service
-            android:name=".EventsHandlerService"
-            android:exported="false">
-        </service>
-        <service
             android:name=".ScannerService"
             android:exported="false">
         </service>

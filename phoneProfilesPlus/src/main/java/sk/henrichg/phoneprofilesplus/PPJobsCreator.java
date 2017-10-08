@@ -51,6 +51,8 @@ class PPJobsCreator implements JobCreator {
                 return new PhoneCallJob();
             case DashClockJob.JOB_TAG:
                 return new DashClockJob();
+            case EventsHandlerJob.JOB_TAG:
+                return new EventsHandlerJob();
 
             default:
                 return null;

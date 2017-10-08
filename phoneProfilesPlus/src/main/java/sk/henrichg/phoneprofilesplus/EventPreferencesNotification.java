@@ -313,7 +313,7 @@ class EventPreferencesNotification extends EventPreferences {
         // set alarm for state PAUSE
 
         // this alarm generates broadcast, that change state into RUNNING;
-        // from broadcast will by called EventsHandlerService
+        // from broadcast will by called EventsHandlerJob
 
         PPApplication.logE("EventPreferencesNotification.setSystemRunningEvent","xxx");
 
@@ -326,7 +326,7 @@ class EventPreferencesNotification extends EventPreferences {
         // set alarm for state RUNNING
 
         // this alarm generates broadcast, that change state into PAUSE;
-        // from broadcast will by called EventsHandlerService
+        // from broadcast will by called EventsHandlerJob
 
         PPApplication.logE("EventPreferencesNotification.setSystemPauseEvent","xxx");
 

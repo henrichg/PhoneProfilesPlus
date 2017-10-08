@@ -87,14 +87,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (Event.getGlobalEventsRunning(context)) {
-            try {
-                Intent eventsServiceIntent = new Intent(context, EventsHandlerService.class);
-                eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION);
-                //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
-                //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));
-                eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
-                WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
-            } catch (Exception ignored) {}
+            EventsHandlerJob.startForNotificationSensor("posted");
         }
     }
 
@@ -125,14 +118,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (Event.getGlobalEventsRunning(context)) {
-            try {
-                Intent eventsServiceIntent = new Intent(context, EventsHandlerService.class);
-                eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION);
-                //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
-                //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));
-                eventsServiceIntent.putExtra(EventsHandlerService.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
-                WakefulIntentService.sendWakefulWork(context, eventsServiceIntent);
-            } catch (Exception ignored) {}
+            EventsHandlerJob.startForNotificationSensor("removed");
         }
     }
 
