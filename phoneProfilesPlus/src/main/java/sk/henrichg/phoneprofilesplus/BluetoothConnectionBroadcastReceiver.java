@@ -21,13 +21,9 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        try {
-            Intent serviceIntent = new Intent(context, BluetoothService.class);
-            serviceIntent.setAction(intent.getAction());
-            serviceIntent.putExtra(BluetoothDevice.EXTRA_DEVICE, intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE));
-            serviceIntent.putExtra(BluetoothDevice.EXTRA_NAME, intent.getStringExtra(BluetoothDevice.EXTRA_NAME));
-            WakefulIntentService.sendWakefulWork(context, serviceIntent);
-        } catch (Exception ignored) {}
+        BluetoothJob.startForConnectionBroadcast(intent.getAction(),
+                intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE),
+                intent.getStringExtra(BluetoothDevice.EXTRA_NAME));
     }
 
 }

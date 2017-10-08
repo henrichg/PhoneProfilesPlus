@@ -17,10 +17,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        try {
-            Intent serviceIntent = new Intent(context, WifiAPStateChangeService.class);
-            WakefulIntentService.sendWakefulWork(context, serviceIntent);
-        } catch (Exception ignored) {}
+        WifiAPStateChangeJob.start();
     }
 
 }

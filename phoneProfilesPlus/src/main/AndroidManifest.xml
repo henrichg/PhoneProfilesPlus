@@ -539,10 +539,6 @@
 
         <!-- IntentService -->
         <service
-            android:name=".ScannerService"
-            android:exported="false">
-        </service>
-        <service
             android:name=".FetchAddressIntentService"
             android:exported="false"/>
         <service
@@ -555,22 +551,6 @@
         </service>
         <service
             android:name=".PhoneStateService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".WifiAPStateChangeService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".WifiService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".BluetoothService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".BatteryService"
             android:exported="false">
         </service>
         <service

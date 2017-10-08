@@ -2163,7 +2163,7 @@ public class DataWrapper {
 
                 PPApplication.logE("[BTScan] DataWrapper.doHandleEvents","-- eventAdapterName="+event._eventPreferencesBluetooth._adapterName);
 
-                if (BluetoothService.isBluetoothConnected(context, "")) {
+                if (BluetoothJob.isBluetoothConnected(context, "")) {
 
                     PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth connected");
 
@@ -2177,12 +2177,12 @@ public class DataWrapper {
                         else
                         if (_bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
                             for (BluetoothDeviceData data : boundedDevicesList) {
-                                connected = BluetoothService.isBluetoothConnected(context, data.getName());
+                                connected = BluetoothJob.isBluetoothConnected(context, data.getName());
                                 if (connected)
                                     break;
                             }
                         } else
-                            connected = BluetoothService.isBluetoothConnected(context, _bluetoothName);
+                            connected = BluetoothJob.isBluetoothConnected(context, _bluetoothName);
                         if (connected)
                             break;
                     }

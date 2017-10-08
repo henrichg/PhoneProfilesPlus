@@ -53,6 +53,16 @@ class PPJobsCreator implements JobCreator {
                 return new DashClockJob();
             case EventsHandlerJob.JOB_TAG:
                 return new EventsHandlerJob();
+            case ScannerJob.JOB_TAG:
+                return new ScannerJob();
+            case WifiJob.JOB_TAG:
+                return new WifiJob();
+            case BluetoothJob.JOB_TAG:
+                return new BluetoothJob();
+            case BatteryJob.JOB_TAG:
+                return new BatteryJob();
+            case WifiAPStateChangeJob.JOB_TAG:
+                return new WifiAPStateChangeJob();
 
             default:
                 return null;

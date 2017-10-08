@@ -74,16 +74,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             if (levelReceived)
                 batteryPct = pct;
 
-            try {
-                Intent serviceIntent = new Intent(context, BatteryService.class);
-                serviceIntent.setAction(intent.getAction());
-                serviceIntent.putExtra(EXTRA_IS_CHARGING, isCharging);
-                serviceIntent.putExtra(EXTRA_BATTERY_PCT, batteryPct);
-                serviceIntent.putExtra(EXTRA_STATUS_RECEIVED, statusReceived);
-                serviceIntent.putExtra(EXTRA_LEVEL_RECEIVED, levelReceived);
-                WakefulIntentService.sendWakefulWork(context, serviceIntent);
-            } catch (Exception ignored) {
-            }
+            BatteryJob.start(isCharging, batteryPct, statusReceived, levelReceived);
         }
     }
 }

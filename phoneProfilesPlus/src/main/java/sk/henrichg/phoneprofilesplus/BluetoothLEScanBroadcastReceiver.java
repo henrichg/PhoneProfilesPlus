@@ -18,12 +18,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        try {
-            Intent serviceIntent = new Intent(context, BluetoothService.class);
-            serviceIntent.setAction(intent.getAction());
-            WakefulIntentService.sendWakefulWork(context, serviceIntent);
-        } catch (Exception ignored) {}
-
+        BluetoothJob.startForLEScanBroadcast();
     }
 
 }

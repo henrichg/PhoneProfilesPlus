@@ -142,6 +142,7 @@ class FirstStartJob extends Job {
         
         jobBuilder
                 .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                .setTransientExtras(bundle)
                 .startNow()
                 .build()
                 .schedule();

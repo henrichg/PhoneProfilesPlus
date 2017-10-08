@@ -319,7 +319,7 @@ class BluetoothScanJob extends Job {
                     if (Scanner.bluetoothLEScanCallback21 == null)
                         Scanner.bluetoothLEScanCallback21 = new BluetoothLEScanCallback21(context);
 
-                    //ScannerService.leScanner.stopScan(ScannerService.leScanCallback21);
+                    //Scanner.leScanner.stopScan(Scanner.leScanCallback21);
 
                     ScanSettings.Builder builder = new ScanSettings.Builder();
 
@@ -345,7 +345,7 @@ class BluetoothScanJob extends Job {
                     if (Scanner.bluetoothLEScanCallback18 == null)
                         Scanner.bluetoothLEScanCallback18 = new BluetoothLEScanCallback18(context);
 
-                    //bluetooth.stopLeScan(ScannerService.leScanCallback18);
+                    //bluetooth.stopLeScan(Scanner.leScanCallback18);
 
                     tmpScanLEResults = null;
 
@@ -410,12 +410,7 @@ class BluetoothScanJob extends Job {
         profile = Profile.getMappedProfile(profile, context);
         if (fromDialog || (profile == null) || (profile._applicationDisableBluetoothScanning != 1)) {
             if (fromDialog) {
-                try {
-                    Intent scanServiceIntent = new Intent(context, ScannerService.class);
-                    scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, Scanner.SCANNER_TYPE_BLUETOOTH);
-                    WakefulIntentService.sendWakefulWork(context, scanServiceIntent);
-                } catch (Exception ignored) {
-                }
+                ScannerJob.start(Scanner.SCANNER_TYPE_BLUETOOTH);
             }
             else {
                 Scanner scanner = new Scanner(context);
@@ -690,7 +685,7 @@ class BluetoothScanJob extends Job {
     }
 
     static void finishScan(Context context) {
-        PPApplication.logE("BluetoothService.finishScan","BluetoothScanBroadcastReceiver: discoveryStarted="+Scanner.bluetoothDiscoveryStarted);
+        PPApplication.logE("BluetoothScanJob.finishScan","BluetoothScanBroadcastReceiver: discoveryStarted="+Scanner.bluetoothDiscoveryStarted);
 
         if (Scanner.bluetoothDiscoveryStarted) {
 

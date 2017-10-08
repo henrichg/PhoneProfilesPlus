@@ -54,11 +54,11 @@ public class PPApplication extends Application {
 
                                          /*
                                          +"|WifiScanJob"
-                                         +"|WifiService"
+                                         +"|WifiJob"
                                          +"|WifiStateChangedBroadcastReceiver"
                                          +"|WifiConnectionBroadcastReceiver"
                                          +"|WifiScanBroadcastReceiver"
-                                         +"|ScannerService"
+                                         +"|ScannerJob"
                                          +"|$$$W Scanner"
                                          +"|EventsHandlerJob"
                                          */
@@ -76,13 +76,13 @@ public class PPApplication extends Application {
                                          //+"|PreferenceFragment"
 
                                          //+"|SearchCalendarEventsJob"
-                                         //+"|WifiService"
+                                         //+"|WifiJob"
                                          //+"|WifiScanJob.fillScanResults"
-                                         //+"|BluetoothService"
+                                         //+"|BluetoothJob"
                                          //+"|BluetoothScanJob"
                                          //+"|GeofenceScannerJob"
                                          //+"|BatteryBroadcastReceiver"
-                                         //+"|BatteryService"
+                                         //+"|BatteryJob"
                                          //+"|HeadsetConnectionService"
                                          //+"|SMSBroadcastReceiver"
 

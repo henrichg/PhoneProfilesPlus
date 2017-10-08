@@ -38,8 +38,8 @@ public class BootUpReceiver extends BroadcastReceiver {
             PPApplication.logE("BootUpReceiver.onReceive", "applicationStartEvents=" + ApplicationPreferences.applicationStartEvents(context));
             PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning="+Event.getGlobalEventsRunning(context));
 
-            BluetoothService.clearConnectedDevices(context, true);
-            BluetoothService.saveConnectedDevices(context);
+            BluetoothJob.clearConnectedDevices(context, true);
+            BluetoothJob.saveConnectedDevices(context);
 
             PPApplication.setApplicationStarted(context, false);
 
