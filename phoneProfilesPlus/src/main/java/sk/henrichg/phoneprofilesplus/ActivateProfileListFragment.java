@@ -284,7 +284,7 @@ public class ActivateProfileListFragment extends Fragment {
 
     private void endOnStart()
     {
-        //  aplikacia uz je 1. krat spustena - is in FirstStartService
+        //  aplikacia uz je 1. krat spustena - is in FirstStartJob
         //PPApplication.setApplicationStarted(getActivity().getApplicationContext(), true);
     }
 

@@ -46,7 +46,7 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
-                                         +"|PackageReplacedService"
+                                         +"|PackageReplacedJob"
 
                                          //+"|"+CallsCounter.LOG_TAG
                                          //+"|[RJS] PPApplication"
@@ -70,7 +70,7 @@ public class PPApplication extends Application {
                                          //+"|PPApplication._isRooted"
                                          //+"|PPApplication.isRootGranted"
 
-                                         //+"|FirstStartService"
+                                         //+"|FirstStartJob"
                                          //+"|DataWrapper.firstStartEvents"
 
                                          //+"|PreferenceFragment"

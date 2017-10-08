@@ -1853,10 +1853,8 @@ public class PhoneProfilesService extends Service
         showProfileNotification(activatedProfile, dataWrapper);
 
         if (onlyStart) {
-            // start FirstStartService
-            Intent serviceIntent = new Intent(appContext, FirstStartService.class);
-            serviceIntent.putExtra(EXTRA_START_ON_BOOT, startOnBoot);
-            WakefulIntentService.sendWakefulWork(appContext, serviceIntent);
+            // start FirstStartJob
+            FirstStartJob.start(startOnBoot);
 
             ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, false);
         }
@@ -2807,7 +2805,7 @@ public class PhoneProfilesService extends Service
             int newZenMode = ActivateProfileHelper.getZenMode(context);
             int newRingerVolume = ActivateProfileHelper.getRingerVolume(context);
             String newRingtone = "";
-            String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, "");
+            String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallJob.PREF_EVENT_CALL_PHONE_NUMBER, "");
 
             // get ringtone from contact
             boolean phoneNumberFound = false;

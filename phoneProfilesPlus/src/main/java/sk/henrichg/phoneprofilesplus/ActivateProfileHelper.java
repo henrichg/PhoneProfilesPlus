@@ -85,7 +85,6 @@ public class ActivateProfileHelper {
 
     static final String EXTRA_MERGED_PROFILE = "merged_profile";
     static final String EXTRA_FOR_PROFILE_ACTIVATION = "for_profile_activation";
-    static final String EXTRA_STARTED_FROM_BROADCAST = "started_from_broadcast";
 
     private static final String PREF_RINGER_VOLUME = "ringer_volume";
     private static final String PREF_NOTIFICATION_VOLUME = "notification_volume";
@@ -610,7 +609,7 @@ public class ActivateProfileHelper {
                             } catch (Exception ignored) { }
                         }
                         volumesSet = true;
-                    } else if (linkUnlink == PhoneCallService.LINKMODE_LINK) {
+                    } else if (linkUnlink == PhoneCallJob.LINKMODE_LINK) {
                         // for separating ringing and notification
                         // in not ringing state ringer and notification volume must by change
                         //Log.e("ActivateProfileHelper","setVolumes get audio mode="+audioManager.getMode());
@@ -1360,15 +1359,8 @@ public class ActivateProfileHelper {
         final Profile profile = Profile.getMappedProfile(_profile, context);
 
         // nahodenie volume
-        // run service for execute volumes
-        try {
-            PPApplication.logE("ActivateProfileHelper.execute", "ExecuteVolumeProfilePrefsService");
-            Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
-            volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            volumeServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
-            volumeServiceIntent.putExtra(EXTRA_FOR_PROFILE_ACTIVATION, true);
-            WakefulIntentService.sendWakefulWork(context, volumeServiceIntent);
-        } catch (Exception ignored) {}
+        // run job for execute volumes
+        ExecuteVolumeProfilePrefsJob.start(profile._id, merged, true);
 
         // set vibration on touch
         if (Permissions.checkProfileVibrationOnTouch(context, profile)) {
@@ -1383,17 +1375,12 @@ public class ActivateProfileHelper {
         }
 
         // nahodenie  tonov
-        // moved to ExecuteVolumeProfilePrefsService
+        // moved to ExecuteVolumeProfilePrefsJob
         //setTones(profile);
 
         //// nahodenie radio preferences
-        // run service for execute radios
-        try {
-            Intent radioServiceIntent = new Intent(context, ExecuteRadioProfilePrefsService.class);
-            radioServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            radioServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
-            WakefulIntentService.sendWakefulWork(context, radioServiceIntent);
-        } catch (Exception ignored) {}
+        // run job for execute radios
+        ExecuteRadioProfilePrefsJob.start(profile._id, merged);
 
         // nahodenie auto-sync
         try {
@@ -1523,13 +1510,7 @@ public class ActivateProfileHelper {
                                         profile.getDeviceBrightnessAdaptiveValue(context));
                             } catch (Exception ee) {
                                 // run service for execute radios
-                                try {
-                                    Intent rootServiceIntent = new Intent(context, ExecuteRootProfilePrefsService.class);
-                                    rootServiceIntent.setAction(ExecuteRootProfilePrefsService.ACTION_ADAPTIVE_BRIGHTNESS);
-                                    rootServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                                    rootServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
-                                    context.startService(rootServiceIntent);
-                                } catch (Exception ignored) {}
+                                ExecuteRootProfilePrefsJob.start(ExecuteRootProfilePrefsJob.ACTION_ADAPTIVE_BRIGHTNESS, profile._id, merged);
                             }
                         }
                     }
@@ -1606,25 +1587,14 @@ public class ActivateProfileHelper {
         // nahodenie pozadia
         if (Permissions.checkProfileWallpaper(context, profile)) {
             if (profile._deviceWallpaperChange == 1) {
-                try {
-                    Intent wallpaperServiceIntent = new Intent(context, ExecuteWallpaperProfilePrefsService.class);
-                    wallpaperServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                    wallpaperServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
-                    context.startService(wallpaperServiceIntent);
-                } catch (Exception ignored) {}
+                ExecuteWallpaperProfilePrefsJob.start(profile._id, merged);
             }
         }
 
         Intent rootServiceIntent;
 
         // set power save mode
-        try {
-            rootServiceIntent = new Intent(context, ExecuteRootProfilePrefsService.class);
-            rootServiceIntent.setAction(ExecuteRootProfilePrefsService.ACTION_POWER_SAVE_MODE);
-            rootServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            rootServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
-            context.startService(rootServiceIntent);
-        } catch (Exception ignored) {}
+        ExecuteRootProfilePrefsJob.start(ExecuteRootProfilePrefsJob.ACTION_POWER_SAVE_MODE, profile._id, merged);
 
         if (Permissions.checkProfileLockDevice(context, profile)) {
             if (profile._lockDevice != 0) {
@@ -1633,13 +1603,7 @@ public class ActivateProfileHelper {
                 keyguardLocked = kgMgr.isKeyguardLocked();
                 PPApplication.logE("---$$$ ActivateProfileHelper.execute","keyguardLocked="+keyguardLocked);
                 if (!keyguardLocked) {
-                    try {
-                        rootServiceIntent = new Intent(context, ExecuteRootProfilePrefsService.class);
-                        rootServiceIntent.setAction(ExecuteRootProfilePrefsService.ACTION_LOCK_DEVICE);
-                        rootServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                        rootServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
-                        context.startService(rootServiceIntent);
-                    } catch (Exception ignored) {}
+                    ExecuteRootProfilePrefsJob.start(ExecuteRootProfilePrefsJob.ACTION_LOCK_DEVICE, profile._id, merged);
                 }
             }
         }
@@ -1696,12 +1660,7 @@ public class ActivateProfileHelper {
 
             if (profile._deviceRunApplicationChange == 1)
             {
-                try {
-                    Intent runApplicationsServiceIntent = new Intent(context, ExecuteRunApplicationsProfilePrefsService.class);
-                    runApplicationsServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                    runApplicationsServiceIntent.putExtra(EXTRA_MERGED_PROFILE, merged);
-                    context.startService(runApplicationsServiceIntent);
-                } catch (Exception ignored) {}
+                ExecuteRunApplicationsProfilePrefsJob.start(profile._id, merged);
             }
         }
 

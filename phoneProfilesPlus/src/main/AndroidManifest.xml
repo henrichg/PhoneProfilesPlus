@@ -395,6 +395,18 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/profile_list_widget_info"/>
         </receiver>
+        <receiver
+            android:name=".SamsungEdgeProvider"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.samsung.android.cocktail.v2.action.COCKTAIL_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="com.samsung.android.cocktail.provider"
+                android:resource="@xml/samsung_edge"/>
+        </receiver>
 
         <!-- Device administrator receiver -->
         <receiver
@@ -477,6 +489,7 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+
         <!--
         <receiver
             android:name=".SIPCallBroadcastReceiver"
@@ -488,21 +501,14 @@
         </receiver>
         -->
 
+        <!-- main service -->
+        <service
+            android:name=".PhoneProfilesService"
+            android:exported="false"
+            android:stopWithTask="false">
+        </service>
 
-        <!-- Samsung Edge Look provider -->
-        <receiver
-            android:name=".SamsungEdgeProvider"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.samsung.android.cocktail.v2.action.COCKTAIL_UPDATE"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="com.samsung.android.cocktail.provider"
-                android:resource="@xml/samsung_edge"/>
-        </receiver>
-
+        <!-- widget services -->
         <service
             android:name=".ProfileListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
@@ -528,22 +534,10 @@
                 android:value="@string/dashclock_extension_description"/>
         </service>
         <service
-            android:name=".ExecuteRadioProfilePrefsService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".ExecuteVolumeProfilePrefsService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".ExecuteWallpaperProfilePrefsService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".PhoneProfilesService"
-            android:exported="false"
-            android:stopWithTask="false">
-        </service>
+            android:name=".SamsungEdgeService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
+        <!-- IntentService -->
         <service
             android:name=".EventsHandlerService"
             android:exported="false">
@@ -553,40 +547,6 @@
             android:exported="false">
         </service>
         <service
-            android:name=".FirstStartService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".PPNotificationListenerService"
-            android:enabled="@bool/api_v18"
-            android:exported="@bool/api_v18"
-            android:label="@string/app_name"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-            <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService"/>
-            </intent-filter>
-        </service>
-        <service
-            android:name=".PhoneCallService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".ExecuteRunApplicationsProfilePrefsService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".ForegroundApplicationChangedService"
-            android:label="@string/accessibility_service_name"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/accessibilityservice"/>
-        </service>
-        <service
             android:name=".FetchAddressIntentService"
             android:exported="false"/>
         <service
@@ -594,34 +554,11 @@
             android:enabled="true">
         </service>
         <service
-            android:name=".ScreenOnOffService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".ExecuteRootProfilePrefsService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".SamsungEdgeService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
-        <service
-            android:name=".ProfileDurationService"
-            android:exported="false">
-        </service>
-        <service
             android:name=".DeviceOrientationService"
             android:exported="false">
         </service>
         <service
             android:name=".PhoneStateService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".DashClockService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".PackageReplacedService"
             android:exported="false">
         </service>
         <service
@@ -652,6 +589,31 @@
             android:name=".DeviceIdleModeService"
             android:exported="false">
         </service>
+
+        <!-- other services -->
+        <service
+            android:name=".PPNotificationListenerService"
+            android:enabled="@bool/api_v18"
+            android:exported="@bool/api_v18"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".ForegroundApplicationChangedService"
+            android:label="@string/accessibility_service_name"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibilityservice"/>
+        </service>
+
     </application>
 
 </manifest>

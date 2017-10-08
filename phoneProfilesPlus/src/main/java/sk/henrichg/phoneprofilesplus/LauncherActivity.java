@@ -32,9 +32,8 @@ public class LauncherActivity extends Activity {
         {
             //Log.e("LauncherActivity.onStart","app. not started");
 
-            /*// start service for first start
-            Intent firstStartServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
-            startService(firstStartServiceIntent);*/
+            /*// start job for first start
+            FirstStartJob.start(false);*/
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
@@ -84,7 +83,7 @@ public class LauncherActivity extends Activity {
 
     private void endOnStart()
     {
-        //  aplikacia uz je 1. krat spustena - is in FirstStartService
+        //  aplikacia uz je 1. krat spustena - is in FirstStartJob
         //PPApplication.setApplicationStarted(getBaseContext(), true);
 
         Intent intentLaunch;

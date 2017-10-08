@@ -1660,12 +1660,12 @@ public class DataWrapper {
             ignoreCall = false;
 
             ApplicationPreferences.getSharedPreferences(context);
-            int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
-            String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, "");
+            int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallJob.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallJob.CALL_EVENT_UNDEFINED);
+            String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallJob.PREF_EVENT_CALL_PHONE_NUMBER, "");
 
             boolean phoneNumberFound = false;
 
-            if (callEventType != PhoneCallService.CALL_EVENT_UNDEFINED)
+            if (callEventType != PhoneCallJob.CALL_EVENT_UNDEFINED)
             {
                 if (event._eventPreferencesCall._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE)
                 {
@@ -1752,8 +1752,8 @@ public class DataWrapper {
                 {
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING)
                     {
-                        if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING) ||
-                            ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ANSWERED)))
+                        if ((callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_RINGING) ||
+                            ((callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_ANSWERED)))
                             ;//eventStart = eventStart && true;
                         else
                             callPassed = false;
@@ -1761,7 +1761,7 @@ public class DataWrapper {
                     else
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED)
                     {
-                        if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ANSWERED)
+                        if (callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_ANSWERED)
                             ;//eventStart = eventStart && true;
                         else
                             callPassed = false;
@@ -1769,14 +1769,14 @@ public class DataWrapper {
                     else
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED)
                     {
-                        if (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ANSWERED)
+                        if (callEventType == PhoneCallJob.CALL_EVENT_OUTGOING_CALL_ANSWERED)
                             ;//eventStart = eventStart && true;
                         else
                             callPassed = false;
                     }
 
-                    if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                        (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED))
+                    if ((callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                        (callEventType == PhoneCallJob.CALL_EVENT_OUTGOING_CALL_ENDED))
                     {
                         //callPassed = true;
                         //eventStart = eventStart && false;
@@ -2478,13 +2478,13 @@ public class DataWrapper {
             ignoreOrientation = false;
 
             ApplicationPreferences.getSharedPreferences(context);
-            int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+            int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallJob.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallJob.CALL_EVENT_UNDEFINED);
 
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             if (/*Permissions.checkEventPhoneBroadcast(context, event) &&*/
-                (callEventType != PhoneCallService.CALL_EVENT_UNDEFINED) &&
-                (callEventType != PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) &&
-                (callEventType != PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                (callEventType != PhoneCallJob.CALL_EVENT_UNDEFINED) &&
+                (callEventType != PhoneCallJob.CALL_EVENT_INCOMING_CALL_ENDED) &&
+                (callEventType != PhoneCallJob.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                 // ignore changes during call
                 ignoreOrientation = true;
             }

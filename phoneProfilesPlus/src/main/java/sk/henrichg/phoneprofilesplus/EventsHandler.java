@@ -101,7 +101,7 @@ class EventsHandler {
             dataWrapper = new DataWrapper(context, true, false, 0);
 
             ApplicationPreferences.getSharedPreferences(context);
-            callEventType = ApplicationPreferences.preferences.getInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+            callEventType = ApplicationPreferences.preferences.getInt(PhoneCallJob.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallJob.CALL_EVENT_UNDEFINED);
 
             oldRingerMode = ActivateProfileHelper.getRingerMode(context);
             oldZenMode = ActivateProfileHelper.getZenMode(context);
@@ -588,37 +588,30 @@ class EventsHandler {
 
         if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
 
-            if (!PhoneCallService.linkUnlinkExecuted) {
+            if (!PhoneCallJob.linkUnlinkExecuted) {
                 // no profile is activated from EventsHandler
                 // link, unlink volumes for activated profile
                 boolean linkUnlink = false;
-                if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING)
+                if (callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_RINGING)
                     linkUnlink = true;
-                if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED)
+                if (callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_ENDED)
                     linkUnlink = true;
                 if (linkUnlink) {
                     Profile profile = dataWrapper.getActivatedProfile();
                     profile = Profile.getMappedProfile(profile, context);
                     if (profile != null) {
                         PPApplication.logE("EventsHandler.doEndService", "callEventType=" + callEventType);
-                        try {
-                            Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
-                            volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                            volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_MERGED_PROFILE, false);
-                            volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_FOR_PROFILE_ACTIVATION, false);
-                            volumeServiceIntent.putExtra(ActivateProfileHelper.EXTRA_STARTED_FROM_BROADCAST, false);
-                            WakefulIntentService.sendWakefulWork(context, volumeServiceIntent);
-                            // wait for link/unlink
-                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(1000);
-                            PPApplication.sleep(1000);
-                        } catch (Exception ignored) {}
+                        ExecuteVolumeProfilePrefsJob.start(profile._id, false, false);
+                        // wait for link/unlink
+                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(1000);
+                        PPApplication.sleep(1000);
                     }
                 }
             } else
-                PhoneCallService.linkUnlinkExecuted = false;
+                PhoneCallJob.linkUnlinkExecuted = false;
 
-            if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING)) {
+            if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_RINGING)) {
                 // start PhoneProfilesService for ringing call simulation
                 try {
                     Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -638,24 +631,24 @@ class EventsHandler {
                 } catch (Exception ignored) {}
             }
 
-            if (!PhoneCallService.speakerphoneOnExecuted) {
+            if (!PhoneCallJob.speakerphoneOnExecuted) {
                 // no profile is activated from EventsHandler
                 // set speakerphone ON for activated profile
-                if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
-                        (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
+                if ((callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
+                        (callEventType == PhoneCallJob.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
                     Profile profile = dataWrapper.getActivatedProfile();
                     profile = Profile.getMappedProfile(profile, context);
-                    PhoneCallService.setSpeakerphoneOn(profile, context);
+                    PhoneCallJob.setSpeakerphoneOn(profile, context);
                 }
             } else
-                PhoneCallService.speakerphoneOnExecuted = false;
+                PhoneCallJob.speakerphoneOnExecuted = false;
 
-            if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                    (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+            if ((callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                    (callEventType == PhoneCallJob.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                 ApplicationPreferences.getSharedPreferences(context);
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                editor.putInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
-                editor.putString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                editor.putInt(PhoneCallJob.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallJob.CALL_EVENT_UNDEFINED);
+                editor.putString(PhoneCallJob.PREF_EVENT_CALL_PHONE_NUMBER, "");
                 editor.apply();
             }
         }

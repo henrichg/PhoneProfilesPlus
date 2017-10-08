@@ -25,9 +25,9 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
     protected void showDialog(Bundle state) {
         final SharedPreferences preferences = getSharedPreferences();
 
-        //Log.d("NotificationVolume0DialogPreference.showDialog","toneInstalled="+FirstStartService.isToneInstalled(FirstStartService.TONE_ID, _context));
+        //Log.d("NotificationVolume0DialogPreference.showDialog","toneInstalled="+FirstStartJob.isToneInstalled(FirstStartJob.TONE_ID, _context));
 
-        final String uriId = FirstStartService.getPhoneProfilesSilentUri(_context, RingtoneManager.TYPE_NOTIFICATION);
+        final String uriId = FirstStartJob.getPhoneProfilesSilentUri(_context, RingtoneManager.TYPE_NOTIFICATION);
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(_context);
         if (uriId.isEmpty()) {
@@ -49,7 +49,7 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
                 if (notificationToneChange.equals("99"))
                     message = message + " " + _context.getString(R.string.default_profile_name);
                 else {
-                    message = message + " " + FirstStartService.getToneName(_context, RingtoneManager.TYPE_NOTIFICATION, notificationTone);
+                    message = message + " " + FirstStartJob.getToneName(_context, RingtoneManager.TYPE_NOTIFICATION, notificationTone);
                 }
                 message = message + "\n\n";
             }

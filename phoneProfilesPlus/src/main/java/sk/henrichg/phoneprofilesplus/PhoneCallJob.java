@@ -1,16 +1,19 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
+import com.evernote.android.job.Job;
+import com.evernote.android.job.JobRequest;
 
-public class PhoneCallService extends WakefulIntentService {
+class PhoneCallJob extends Job {
 
-    private Context context;
+    static final String JOB_TAG  = "PhoneCallJob";
+
     private static AudioManager audioManager = null;
 
     private static boolean savedSpeakerphone = false;
@@ -33,49 +36,56 @@ public class PhoneCallService extends WakefulIntentService {
 
     static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
     static final String PREF_EVENT_CALL_PHONE_NUMBER = "eventCallPhoneNumber";
-
-    public PhoneCallService() {
-        super("PhoneCallService");
-    }
-
+    
+    @NonNull
     @Override
-    protected void doWakefulWork(Intent intent) {
-        CallsCounter.logCounter(getApplicationContext(), "PhoneCallService.doWakefulWork", "PhoneCallService_doWakefulWork");
+    protected Result onRunJob(Params params) {
+        final Context appContext = getContext().getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneCallJob.onRunJob", "PhoneCallJob_onRunJob");
 
-        if (intent != null) {
+        Bundle bundle = params.getTransientExtras();
 
-            context = getApplicationContext();
+        int phoneEvent = bundle.getInt(PhoneCallBroadcastReceiver.EXTRA_SERVICE_PHONE_EVENT, 0);
+        boolean incoming = bundle.getBoolean(PhoneCallBroadcastReceiver.EXTRA_SERVICE_PHONE_INCOMING, true);
+        String number = bundle.getString(PhoneCallBroadcastReceiver.EXTRA_SERVICE_PHONE_NUMBER);
 
-            int phoneEvent = intent.getIntExtra(PhoneCallBroadcastReceiver.EXTRA_SERVICE_PHONE_EVENT, 0);
-            boolean incoming = intent.getBooleanExtra(PhoneCallBroadcastReceiver.EXTRA_SERVICE_PHONE_INCOMING, true);
-            String number = intent.getStringExtra(PhoneCallBroadcastReceiver.EXTRA_SERVICE_PHONE_NUMBER);
-
-            switch (phoneEvent) {
-                case PhoneCallBroadcastReceiver.SERVICE_PHONE_EVENT_START:
-                    callStarted(incoming, number);
-                    break;
-                case PhoneCallBroadcastReceiver.SERVICE_PHONE_EVENT_ANSWER:
-                    callAnswered(incoming, number);
-                    break;
-                case PhoneCallBroadcastReceiver.SERVICE_PHONE_EVENT_END:
-                    callEnded(incoming, number);
-                    break;
-            }
+        switch (phoneEvent) {
+            case PhoneCallBroadcastReceiver.SERVICE_PHONE_EVENT_START:
+                callStarted(incoming, number, appContext);
+                break;
+            case PhoneCallBroadcastReceiver.SERVICE_PHONE_EVENT_ANSWER:
+                callAnswered(incoming, number, appContext);
+                break;
+            case PhoneCallBroadcastReceiver.SERVICE_PHONE_EVENT_END:
+                callEnded(incoming, number, appContext);
+                break;
         }
-
-        /* wait is in EventsHandlerService after profile activation
-        try {
-            Thread.sleep(1000); // // 1 second for EventsHandlerService
-        } catch (InterruptedException e) {
-        }*/
+        
+        return Result.SUCCESS;
     }
 
-    private void doCallEvent(int eventType, String phoneNumber)
+    static void start(int phoneEvent, boolean incoming, String number) {
+        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(PhoneCallBroadcastReceiver.EXTRA_SERVICE_PHONE_EVENT, phoneEvent);
+        bundle.putBoolean(PhoneCallBroadcastReceiver.EXTRA_SERVICE_PHONE_INCOMING, incoming);
+        bundle.putString(PhoneCallBroadcastReceiver.EXTRA_SERVICE_PHONE_NUMBER, number);
+
+        jobBuilder
+                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                .setTransientExtras(bundle)
+                .startNow()
+                .build()
+                .schedule();
+    }
+
+    private void doCallEvent(int eventType, String phoneNumber, Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putInt(PhoneCallService.PREF_EVENT_CALL_EVENT_TYPE, eventType);
-        editor.putString(PhoneCallService.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
+        editor.putInt(PhoneCallJob.PREF_EVENT_CALL_EVENT_TYPE, eventType);
+        editor.putString(PhoneCallJob.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
         editor.apply();
 
         linkUnlinkExecuted = false;
@@ -86,7 +96,7 @@ public class PhoneCallService extends WakefulIntentService {
         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL, false);
     }
 
-    private void callStarted(boolean incoming, String phoneNumber)
+    private void callStarted(boolean incoming, String phoneNumber, Context context)
     {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
@@ -94,7 +104,7 @@ public class PhoneCallService extends WakefulIntentService {
         speakerphoneSelected = false;
 
         if (incoming) {
-            doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber);
+            doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, context);
         }
     }
 
@@ -122,7 +132,7 @@ public class PhoneCallService extends WakefulIntentService {
         }
     }
 
-    private void callAnswered(boolean incoming, String phoneNumber)
+    private void callAnswered(boolean incoming, String phoneNumber, Context context)
     {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
@@ -138,20 +148,20 @@ public class PhoneCallService extends WakefulIntentService {
         } while (SystemClock.uptimeMillis() - start < 2000);
 
         // audiomode is set to MODE_IN_CALL by system
-        //Log.e("PhoneCallService", "callAnswered audioMode=" + audioManager.getMode());
+        //Log.e("PhoneCallJob", "callAnswered audioMode=" + audioManager.getMode());
 
-        // setSpeakerphoneOn() moved to ExecuteVolumeProfilePrefsService and EventsHandlerService
+        // setSpeakerphoneOn() moved to ExecuteVolumeProfilePrefsJob and EventsHandlerService
 
         if (PhoneProfilesService.instance != null)
             PhoneProfilesService.instance.stopSimulatingRingingCall(true);
 
         if (incoming)
-            doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber);
+            doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, context);
         else
-            doCallEvent(CALL_EVENT_OUTGOING_CALL_ANSWERED, phoneNumber);
+            doCallEvent(CALL_EVENT_OUTGOING_CALL_ANSWERED, phoneNumber, context);
     }
 
-    private void callEnded(boolean incoming, String phoneNumber)
+    private void callEnded(boolean incoming, String phoneNumber, Context context)
     {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
@@ -160,7 +170,7 @@ public class PhoneCallService extends WakefulIntentService {
             PhoneProfilesService.instance.stopSimulatingRingingCall(true);
 
         // audiomode is set to MODE_IN_CALL by system
-        //Log.e("PhoneCallService", "callEnded (before back speaker phone) audioMode="+audioManager.getMode());
+        //Log.e("PhoneCallJob", "callEnded (before back speaker phone) audioMode="+audioManager.getMode());
 
         if (speakerphoneSelected)
         {
@@ -180,13 +190,13 @@ public class PhoneCallService extends WakefulIntentService {
         } while (SystemClock.uptimeMillis() - start < 2000);
 
         // audiomode is set to MODE_NORMAL by system
-        //Log.e("PhoneCallService", "callEnded (before unlink/EventsHandlerService) audioMode="+audioManager.getMode());
+        //Log.e("PhoneCallJob", "callEnded (before unlink/EventsHandlerService) audioMode="+audioManager.getMode());
 
         if (incoming)
-            doCallEvent(CALL_EVENT_INCOMING_CALL_ENDED, phoneNumber);
+            doCallEvent(CALL_EVENT_INCOMING_CALL_ENDED, phoneNumber, context);
         else
-            doCallEvent(CALL_EVENT_OUTGOING_CALL_ENDED, phoneNumber);
+            doCallEvent(CALL_EVENT_OUTGOING_CALL_ENDED, phoneNumber, context);
 
     }
-
+    
 }
