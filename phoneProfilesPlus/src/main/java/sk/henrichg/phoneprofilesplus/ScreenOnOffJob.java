@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobRequest;
 

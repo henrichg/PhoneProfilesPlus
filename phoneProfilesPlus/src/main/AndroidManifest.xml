@@ -537,34 +537,13 @@
             android:name=".SamsungEdgeService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
-        <!-- IntentService -->
+        <!-- IntentServices called from foreground UI -->
+        <service
+            android:name=".ScannerService"
+            android:exported="false"/>
         <service
             android:name=".FetchAddressIntentService"
             android:exported="false"/>
-        <service
-            android:name=".MobileCellsRegistrationService"
-            android:enabled="true">
-        </service>
-        <service
-            android:name=".DeviceOrientationService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".PhoneStateService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".HeadsetConnectionService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".PowerSaveModeService"
-            android:exported="false">
-        </service>
-        <service
-            android:name=".DeviceIdleModeService"
-            android:exported="false">
-        </service>
 
         <!-- other services -->
         <service
@@ -588,6 +567,10 @@
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibilityservice"/>
+        </service>
+        <service
+            android:name=".MobileCellsRegistrationService"
+            android:enabled="true">
         </service>
 
     </application>

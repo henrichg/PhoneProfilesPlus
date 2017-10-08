@@ -10,8 +10,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 import java.util.List;
 
 class EventsHandler {

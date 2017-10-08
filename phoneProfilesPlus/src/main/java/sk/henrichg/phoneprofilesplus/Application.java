@@ -1,7 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.graphics.Bitmap;
-
 class Application {
     boolean shortcut = false;
     String appLabel = "";

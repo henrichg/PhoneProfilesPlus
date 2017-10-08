@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 import java.util.Calendar;
 
 public class SMSBroadcastReceiver extends BroadcastReceiver {

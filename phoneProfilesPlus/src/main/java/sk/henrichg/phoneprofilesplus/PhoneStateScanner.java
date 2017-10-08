@@ -23,8 +23,6 @@ import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -341,10 +339,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
     private void sendBroadcast() {
         // start service for call EventsHandler
-        try {
-            Intent serviceIntent = new Intent(context, PhoneStateService.class);
-            WakefulIntentService.sendWakefulWork(context, serviceIntent);
-        } catch (Exception ignored) {}
+        PhoneStateJob.start();
 
         // broadcast for cells editor
         /*Intent intent = new Intent(ACTION_PHONE_STATE_CHANGED);

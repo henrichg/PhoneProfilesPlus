@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -23,9 +21,6 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        try {
-            Intent serviceIntent = new Intent(context, PowerSaveModeService.class);
-            WakefulIntentService.sendWakefulWork(context, serviceIntent);
-        } catch (Exception ignored) {}
+        PowerSaveModeJob.start();
     }
 }

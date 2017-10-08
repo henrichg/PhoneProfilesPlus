@@ -8,8 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 

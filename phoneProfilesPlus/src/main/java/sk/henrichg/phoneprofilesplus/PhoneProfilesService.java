@@ -15,7 +15,6 @@ import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -47,7 +46,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
 import com.crashlytics.android.Crashlytics;
 
 import java.util.Calendar;
@@ -2605,11 +2603,7 @@ public class PhoneProfilesService extends Service
                 if (tmpDeviceDistance != mDeviceDistance) {
                     PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity - send broadcast");
                     mDeviceDistance = tmpDeviceDistance;
-                    try {
-                        Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
-                        WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
-                    } catch (Exception ignored) {
-                    }
+                    DeviceOrientationJob.start();
                 }
             //}
             return;
@@ -2714,11 +2708,7 @@ public class PhoneProfilesService extends Service
                                             PPApplication.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
                                         */
 
-                                        try {
-                                            Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
-                                            WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
-                                        } catch (Exception ignored) {
-                                        }
+                                        DeviceOrientationJob.start();
                                     }
                                 }
                             }
@@ -2753,11 +2743,7 @@ public class PhoneProfilesService extends Service
                                 if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
                                     mDisplayUp = mSideUp;
 
-                                try {
-                                    Intent serviceIntent = new Intent(getApplicationContext(), DeviceOrientationService.class);
-                                    WakefulIntentService.sendWakefulWork(getApplicationContext(), serviceIntent);
-                                } catch (Exception ignored) {
-                                }
+                                DeviceOrientationJob.start();
                             }
                         } else {
                             if (mEventCountSinceGZChanged > 0) {

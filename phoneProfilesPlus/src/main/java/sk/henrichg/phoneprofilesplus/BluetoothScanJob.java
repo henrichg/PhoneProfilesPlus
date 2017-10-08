@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
@@ -410,7 +409,12 @@ class BluetoothScanJob extends Job {
         profile = Profile.getMappedProfile(profile, context);
         if (fromDialog || (profile == null) || (profile._applicationDisableBluetoothScanning != 1)) {
             if (fromDialog) {
-                ScannerJob.start(Scanner.SCANNER_TYPE_BLUETOOTH);
+                try {
+                    Intent scanServiceIntent = new Intent(context, ScannerService.class);
+                    scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, Scanner.SCANNER_TYPE_BLUETOOTH);
+                    WakefulIntentService.sendWakefulWork(context, scanServiceIntent);
+                } catch (Exception ignored) {
+                }
             }
             else {
                 Scanner scanner = new Scanner(context);

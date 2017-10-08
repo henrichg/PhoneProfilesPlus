@@ -7,8 +7,6 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)

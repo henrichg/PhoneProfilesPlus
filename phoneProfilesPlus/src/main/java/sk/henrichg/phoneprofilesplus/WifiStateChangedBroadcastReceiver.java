@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override

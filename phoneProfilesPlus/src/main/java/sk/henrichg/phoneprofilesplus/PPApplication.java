@@ -58,7 +58,7 @@ public class PPApplication extends Application {
                                          +"|WifiStateChangedBroadcastReceiver"
                                          +"|WifiConnectionBroadcastReceiver"
                                          +"|WifiScanBroadcastReceiver"
-                                         +"|ScannerJob"
+                                         +"|ScannerService"
                                          +"|$$$W Scanner"
                                          +"|EventsHandlerJob"
                                          */
@@ -83,7 +83,7 @@ public class PPApplication extends Application {
                                          //+"|GeofenceScannerJob"
                                          //+"|BatteryBroadcastReceiver"
                                          //+"|BatteryJob"
-                                         //+"|HeadsetConnectionService"
+                                         //+"|HeadsetConnectionJob"
                                          //+"|SMSBroadcastReceiver"
 
                                          //+"|CalendarProviderChangedBroadcastReceiver"
@@ -98,14 +98,14 @@ public class PPApplication extends Application {
                                          //+"|EventsHandlerJob.onRunJob"
                                          //+"|EventPreferencesNFC"
 
-                                         //+"|##### DeviceOrientationService"
+                                         //+"|##### DeviceOrientationJob"
                                          //+"|RingtonePreference"
                                          //+"|RingtonePreferenceAdapter"
                                          //+"|PhoneProfilesService.playEventNotificationSound"
 
                                          //+"|BatteryBroadcastReceiver"
 
-                                         //+"|DeviceOrientationService.doWakefulWork"
+                                         //+"|DeviceOrientationJon.onRunJob"
                                          //+"|PhoneProfilesService.startOrientationScanner"
                                          //+"|MobileCellsPreference"
                                          //+"|PhoneProfilesService.startPhoneStateScanner"

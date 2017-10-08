@@ -22,7 +22,6 @@ import android.nfc.NfcAdapter;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.provider.Settings;
@@ -30,8 +29,6 @@ import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
 import android.widget.Toast;
-
-import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -1836,9 +1833,9 @@ public class DataWrapper {
                 (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_HEADPHONES))
             {
                 ApplicationPreferences.getSharedPreferences(context);
-                boolean headsetConnected = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionService.PREF_EVENT_HEADSET_CONNECTED, false);
-                boolean headsetMicrophone = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionService.PREF_EVENT_HEADSET_MICROPHONE, false);
-                boolean bluetoothHeadset = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionService.PREF_EVENT_HEADSET_BLUETOOTH, false);
+                boolean headsetConnected = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionJob.PREF_EVENT_HEADSET_CONNECTED, false);
+                boolean headsetMicrophone = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionJob.PREF_EVENT_HEADSET_MICROPHONE, false);
+                boolean bluetoothHeadset = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionJob.PREF_EVENT_HEADSET_BLUETOOTH, false);
 
                 if (headsetConnected)
                 {

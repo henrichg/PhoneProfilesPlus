@@ -6,9 +6,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
+
+    static final String EXTRA_HEADSET_PLUG_STATE = "state";
+    static final String EXTRA_HEADSET_PLUG_MICROPHONE = "microphone";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -24,20 +25,14 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
         String action = intent.getAction();
 
-        try {
-            Intent serviceIntent = new Intent(context, HeadsetConnectionService.class);
-            serviceIntent.setAction(intent.getAction());
-            if (action.equals(Intent.ACTION_HEADSET_PLUG)) {
-                serviceIntent.putExtra("state", intent.getIntExtra("state", -1));
-                serviceIntent.putExtra("microphone", intent.getIntExtra("microphone", -1));
-            }
-            else
-            if (action.equals(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED))
-                serviceIntent.putExtra(BluetoothProfile.EXTRA_STATE, intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothHeadset.STATE_AUDIO_DISCONNECTED));
-            else
-            if (action.equals(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED))
-                serviceIntent.putExtra(BluetoothProfile.EXTRA_STATE, intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED));
-            WakefulIntentService.sendWakefulWork(context, serviceIntent);
-        } catch (Exception ignored) {}
+        if (action.equals(Intent.ACTION_HEADSET_PLUG))
+            HeadsetConnectionJob.startForHeadsetPlug(intent.getIntExtra("state", -1), intent.getIntExtra("microphone", -1));
+        else
+        if (action.equals(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED))
+            HeadsetConnectionJob.startForBluetoothPlug(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED, intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothHeadset.STATE_AUDIO_DISCONNECTED));
+        else
+        if (action.equals(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED))
+            HeadsetConnectionJob.startForBluetoothPlug(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED, intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED));
+
     }
 }

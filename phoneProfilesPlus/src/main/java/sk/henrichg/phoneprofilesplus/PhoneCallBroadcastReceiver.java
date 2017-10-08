@@ -1,9 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.Intent;
-
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
     public static final String EXTRA_SERVICE_PHONE_EVENT = "service_phone_event";

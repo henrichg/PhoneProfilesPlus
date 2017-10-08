@@ -53,8 +53,6 @@ class PPJobsCreator implements JobCreator {
                 return new DashClockJob();
             case EventsHandlerJob.JOB_TAG:
                 return new EventsHandlerJob();
-            case ScannerJob.JOB_TAG:
-                return new ScannerJob();
             case WifiJob.JOB_TAG:
                 return new WifiJob();
             case BluetoothJob.JOB_TAG:
@@ -63,6 +61,16 @@ class PPJobsCreator implements JobCreator {
                 return new BatteryJob();
             case WifiAPStateChangeJob.JOB_TAG:
                 return new WifiAPStateChangeJob();
+            case HeadsetConnectionJob.JOB_TAG:
+                return new HeadsetConnectionJob();
+            case PhoneStateJob.JOB_TAG:
+                return new PhoneStateJob();
+            case DeviceOrientationJob.JOB_TAG:
+                return new DeviceOrientationJob();
+            case PowerSaveModeJob.JOB_TAG:
+                return new PowerSaveModeJob();
+            case DeviceIdleModeJob.JOB_TAG:
+                return new DeviceIdleModeJob();
 
             default:
                 return null;

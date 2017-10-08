@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override

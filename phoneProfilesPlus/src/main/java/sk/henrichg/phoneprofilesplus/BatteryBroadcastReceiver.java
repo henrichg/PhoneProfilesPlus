@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
     static boolean isCharging = false;

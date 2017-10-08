@@ -1,12 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.os.Handler;
-
-import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 class MobileDataStateChangedContentObserver extends ContentObserver {
 

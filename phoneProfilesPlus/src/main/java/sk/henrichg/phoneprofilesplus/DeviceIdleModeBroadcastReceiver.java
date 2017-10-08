@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -23,11 +21,6 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        try {
-            Intent serviceIntent = new Intent(context, DeviceIdleModeService.class);
-            serviceIntent.setAction(intent.getAction());
-            WakefulIntentService.sendWakefulWork(context, serviceIntent);
-        } catch (Exception ignored) {}
-
+        DeviceIdleModeJob.start();
     }
 }

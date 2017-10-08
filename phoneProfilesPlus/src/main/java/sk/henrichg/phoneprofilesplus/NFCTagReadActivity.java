@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 import java.util.Calendar;
 
 public class NFCTagReadActivity extends Activity {

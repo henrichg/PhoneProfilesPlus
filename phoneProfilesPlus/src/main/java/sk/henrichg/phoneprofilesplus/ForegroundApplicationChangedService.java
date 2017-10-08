@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 import java.util.List;
 
 public class ForegroundApplicationChangedService extends AccessibilityService {

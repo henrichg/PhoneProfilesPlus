@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
-
 public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
