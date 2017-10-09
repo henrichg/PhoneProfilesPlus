@@ -3011,36 +3011,21 @@ public class DataWrapper {
         // a odblokuj forceRun eventy
         restartEvents(true, false, interactive);
 
-        if (ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
-                ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
+        if (ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
-            // rescan wifi
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.scheduleWifiJob(true, true, true, false, false);
+            PPApplication.restartWifiScanner(context);
         }
-        if (ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
-                ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
+        if (ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
-                // rescan bluetooth
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, false);
+            PPApplication.restartBluetoothScanner(context);
         }
-        if (ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
-                ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
+        if (ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
-            // rescan location
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, false);
+            PPApplication.restartGeofenceScanner(context);
         }
-        if (ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_RESTART_EVENTS) ||
-                ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
+        if (ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
-            if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0)
-                // rescan mobile cells
-                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
-                    PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","start of mobile cells scanner");
-                    PhoneProfilesService.phoneStateScanner.rescanMobileCells();
-                }
+            PPApplication.restartPhoneStateScanner(context);
         }
 
 

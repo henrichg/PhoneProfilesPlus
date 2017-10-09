@@ -128,6 +128,7 @@ class ScreenOnOffJob extends Job {
                 EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_SCREEN);
                 //}
 
+                /* Not needed for SCREEN_ON are restarted all scanners
                 if (action.equals(Intent.ACTION_SCREEN_ON)) {
                     if (ApplicationPreferences.applicationEventWifiRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
                             ApplicationPreferences.applicationEventWifiRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
@@ -135,7 +136,6 @@ class ScreenOnOffJob extends Job {
                         if (PhoneProfilesService.instance != null)
                             PhoneProfilesService.instance.scheduleWifiJob(true, true, true, true, false);
                     }
-                    DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                     if (ApplicationPreferences.applicationEventBluetoothRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
                             ApplicationPreferences.applicationEventBluetoothRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                         PPApplication.logE("@@@ ScreenOnOffJob.onRunJob", "start of bluetooth scanner");
@@ -144,15 +144,13 @@ class ScreenOnOffJob extends Job {
                     }
                     if (ApplicationPreferences.applicationEventLocationRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
                             ApplicationPreferences.applicationEventLocationRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
-                        if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
-                            // send broadcast for location scan
-                            PPApplication.logE("@@@ ScreenOnOffJob.onRunJob", "start of location scanner");
-                            if (PhoneProfilesService.instance != null)
-                                PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, true);
-                        }
+                        PPApplication.logE("@@@ ScreenOnOffJob.onRunJob", "start of location scanner");
+                        if (PhoneProfilesService.instance != null)
+                            PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, true);
                     }
                     if (ApplicationPreferences.applicationEventMobileCellsRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
                             ApplicationPreferences.applicationEventMobileCellsRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+                        DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                         if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                             // rescan mobile cells
                             if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
@@ -160,9 +158,10 @@ class ScreenOnOffJob extends Job {
                                 PhoneProfilesService.phoneStateScanner.rescanMobileCells();
                             }
                         }
+                        dataWrapper.invalidateDataWrapper();
                     }
-                    dataWrapper.invalidateDataWrapper();
                 }
+                */
 
             }
 

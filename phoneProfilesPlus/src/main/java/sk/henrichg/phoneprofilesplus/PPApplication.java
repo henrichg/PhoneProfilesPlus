@@ -164,9 +164,7 @@ public class PPApplication extends Application {
     static final String PERMISSIONS_PREFS_NAME = "permissions_list";
     static final String POSTED_NOTIFICATIONS_PREFS_NAME = "posted_notifications";
 
-    //public static final String RESCAN_TYPE_NONE = "0";
     public static final String RESCAN_TYPE_SCREEN_ON = "1";
-    public static final String RESCAN_TYPE_RESTART_EVENTS = "2";
     public static final String RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS = "3";
 
 

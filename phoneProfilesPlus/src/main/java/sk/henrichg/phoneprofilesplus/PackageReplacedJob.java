@@ -100,6 +100,32 @@ class PackageReplacedJob extends Job {
                     if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
                         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert(appContext));
+                        String rescan;
+                        rescan = ApplicationPreferences.applicationEventLocationRescan(appContext);
+                        if (rescan.equals("0"))
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
+                        if (rescan.equals("2"))
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "3");
+                        rescan = ApplicationPreferences.applicationEventWifiRescan(appContext);
+                        if (rescan.equals("0"))
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "1");
+                        if (rescan.equals("2"))
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "3");
+                        rescan = ApplicationPreferences.applicationEventBluetoothRescan(appContext);
+                        if (rescan.equals("0"))
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "1");
+                        if (rescan.equals("2"))
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "3");
+                        rescan = ApplicationPreferences.applicationEventMobileCellsRescan(appContext);
+                        if (rescan.equals("0"))
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
+                        if (rescan.equals("2"))
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");
+                        rescan = ApplicationPreferences.applicationEventMobileCellsRescan(appContext);
+                        if (rescan.equals("0"))
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
+                        if (rescan.equals("2"))
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");
                         editor.apply();
                     }
                 }
