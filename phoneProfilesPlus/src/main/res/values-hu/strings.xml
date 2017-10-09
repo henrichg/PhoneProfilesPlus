@@ -1069,4 +1069,14 @@
   <string name="array_pref_value_bg">bg</string>
   <string name="array_pref_value_hi">hi</string>
   <string name="array_pref_value_id">id</string>
+  <string name="phone_profiles_pref_applicationLanguage_sl">Slovenščina</string>
+  <string name="array_pref_value_sl">sl</string>
+  <string name="phone_profiles_pref_applicationStartEvents">Készülék indításkor startoló esemény</string>
+  <string name="phone_profiles_pref_systemAutoStartMIUI">Automatikus indítási engedély</string>
+  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Kattintson ide, hogy engedélyezze az Automatikus indulást a PhoneProfilesPlus számára</string>
+  <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Vizsgálat csak bekapcsolt kijelzőnél</string>
+  <string name="phone_profiles_pref_applicationRestartEventsAlert">Ellenőrizze az újraindult eseményeket</string>
+  <string name="fast_access_duration_activate_with_button">Aktivál vele</string>
+  <string name="fast_access_duration_activate_without_button">Aktivál nélküle</string>
+  <string name="applications_editor_dialog_startApplicationDelay">Indítás időzítése:</string>
 </resources>

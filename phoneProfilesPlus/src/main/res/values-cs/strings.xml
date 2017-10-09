@@ -1069,4 +1069,14 @@
   <string name="array_pref_value_bg">bg</string>
   <string name="array_pref_value_hi">hi</string>
   <string name="array_pref_value_id">id</string>
+  <string name="phone_profiles_pref_applicationLanguage_sl">Slovenščina</string>
+  <string name="array_pref_value_sl">sl</string>
+  <string name="phone_profiles_pref_applicationStartEvents">Start událostí při startu</string>
+  <string name="phone_profiles_pref_systemAutoStartMIUI">Povolení AutoStart</string>
+  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Klepnutím sem povolíte funkci AutoStart pro PhoneProfilesPlus</string>
+  <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Skenovat jen když je obrazovka zapnutá</string>
+  <string name="phone_profiles_pref_applicationRestartEventsAlert">Ptát se na restart událostí</string>
+  <string name="fast_access_duration_activate_with_button">Aktiv. s</string>
+  <string name="fast_access_duration_activate_without_button">Aktiv. bez</string>
+  <string name="applications_editor_dialog_startApplicationDelay">Zpoždění spuštění:</string>
 </resources>

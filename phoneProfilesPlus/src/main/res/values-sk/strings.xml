@@ -1060,4 +1060,23 @@
   <string name="important_info_quick_guide_editor_1">Profily a udalosti sú nakonfigurované v Editore, ktorý si môžete vyvolať cez Aktivátor. V Editore môžete pridať, duplikovať, aktualizovať a odstrániť profily a udalosti. Editor má ľavý bočný panel, ktorý vám umožní zmeniť pohľad Editora. Použite ho na prepínanie medzi zoznamami profilov a udalostí.</string>
   <string name="event_preferences_noPauseByManualActivation">Nezastav manuálnou aktiváciou</string>
   <string name="event_preferences_noPauseByManualActivation_summary">Nezastav túto udalosť manuálnou aktiváciou profilu ak je spustená</string>
+  <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Názov tagu nie je nakonfigurovaný.</string>
+  <string name="phone_profiles_pref_applicationLanguage_ar">عربى</string>
+  <string name="phone_profiles_pref_applicationLanguage_bg">Български</string>
+  <string name="phone_profiles_pref_applicationLanguage_hi">हिंदी</string>
+  <string name="phone_profiles_pref_applicationLanguage_id">Bahasa Indonesia</string>
+  <string name="array_pref_value_ar">ar</string>
+  <string name="array_pref_value_bg">bg</string>
+  <string name="array_pref_value_hi">hi</string>
+  <string name="array_pref_value_id">id</string>
+  <string name="phone_profiles_pref_applicationLanguage_sl">Slovenščina</string>
+  <string name="array_pref_value_sl">sl</string>
+  <string name="phone_profiles_pref_applicationStartEvents">Štart udalostí pri štarte</string>
+  <string name="phone_profiles_pref_systemAutoStartMIUI">Povolenie AutoStart</string>
+  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Kliknite sem pre zapnutie povolenia AutoStart pre PhoneProfilesPlus</string>
+  <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Skenovať len keď je obrazovka zapnutá</string>
+  <string name="phone_profiles_pref_applicationRestartEventsAlert">Pýtať sa na reštart udalostí</string>
+  <string name="fast_access_duration_activate_with_button">Aktiv. s</string>
+  <string name="fast_access_duration_activate_without_button">Aktiv. bez</string>
+  <string name="applications_editor_dialog_startApplicationDelay">Oneskorenie spustenia:</string>
 </resources>

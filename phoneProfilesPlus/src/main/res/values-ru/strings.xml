@@ -1022,10 +1022,10 @@
   <string name="ringtone_preference_default_alarm">Мелодия будильника по умолчанию</string>
   <string name="ringtone_preference_none">Без звука</string>
   <string name="event_preferences_notificationVibrate">Уведомлять вибрацией</string>
-  <string name="important_info_profile_grant">Some profile preferences require permission WRITE_SECURE_SETTINGS. ROOT is not required. These preferences are marked with \"(G1)\".</string>
+  <string name="important_info_profile_grant">Некоторые настройки профиля требуют разрешение WRITE_SECURE_SETTINGS. ROOT не требуется. Эти настройки отмечены «(G1)».</string>
   <string name="important_info_profile_grant_lookSectionProfiles">For more information, look at the \"Profiles\" section further below.</string>
   <string name="profile_preferences_typesInfoGrant">For more informations look at \"Important information\", section \"Profiles\".</string>
-  <string name="important_info_profile_grant_1_howTo_1">Profile parameters marked with (GX) need special permission for PhoneProfilesPlus. This is done through your PC with installed adb.</string>
+  <string name="important_info_profile_grant_1_howTo_1">Некоторые настройки профиля требуют разрешений которые можно установить только через adb. Эти настройки отмечены «(GX)».</string>
   <string name="important_info_profile_grant_1_howTo_2">Если не установлен adb на вашем компьютере:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Скачать инструменты SDK из:</string>
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
@@ -1070,4 +1070,14 @@
   <string name="array_pref_value_bg">bg</string>
   <string name="array_pref_value_hi">hi</string>
   <string name="array_pref_value_id">id</string>
+  <string name="phone_profiles_pref_applicationLanguage_sl">Slovenščina</string>
+  <string name="array_pref_value_sl">sl</string>
+  <string name="phone_profiles_pref_applicationStartEvents">Start events on startup</string>
+  <string name="phone_profiles_pref_systemAutoStartMIUI">AutoStart permission</string>
+  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Click here to enable AutoStart permission for PhoneProfilesPlus</string>
+  <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Scan only when screen is on</string>
+  <string name="phone_profiles_pref_applicationRestartEventsAlert">Confirm restart events</string>
+  <string name="fast_access_duration_activate_with_button">Act. with</string>
+  <string name="fast_access_duration_activate_without_button">Act. without</string>
+  <string name="applications_editor_dialog_startApplicationDelay">Startup delay:</string>
 </resources>

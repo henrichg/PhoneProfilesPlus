@@ -1062,6 +1062,25 @@
   <string name="important_info_quick_guide_sensors_9"><b>• NFC parameters:</b> Start an event via NFC tags.</string>
   <string name="important_info_quick_guide_events_3">If you manually activate a profile (not by an event), all running events are ended (paused). Events will not start during manual profile activation. However, you can override this behavior via the \"Ignore manual activation\" setting in event parameters.</string>
   <string name="important_info_quick_guide_editor_1">Profiles and Events are configured in the Editor, which you can invoke through the Activator. Within the Editor you can add, duplicate, update, and delete profiles and events. The Editor has a left side panel, which allows you to change the Editor view. Use it to switch between profile and event lists.</string>
-  <string name="event_preferences_noPauseByManualActivation">Do not pause by manual activation</string>
-  <string name="event_preferences_noPauseByManualActivation_summary">Do not pause this event by manual profile activation when is running</string>
+  <string name="event_preferences_noPauseByManualActivation">Do not pause during manual activation</string>
+  <string name="event_preferences_noPauseByManualActivation_summary">Do not pause this running event if a profile is manually activated</string>
+  <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Tag name is not configured.</string>
+  <string name="phone_profiles_pref_applicationLanguage_ar">عربى</string>
+  <string name="phone_profiles_pref_applicationLanguage_bg">Български</string>
+  <string name="phone_profiles_pref_applicationLanguage_hi">हिंदी</string>
+  <string name="phone_profiles_pref_applicationLanguage_id">Bahasa Indonesia</string>
+  <string name="array_pref_value_ar">ar</string>
+  <string name="array_pref_value_bg">bg</string>
+  <string name="array_pref_value_hi">hi</string>
+  <string name="array_pref_value_id">id</string>
+  <string name="phone_profiles_pref_applicationLanguage_sl">Slovenščina</string>
+  <string name="array_pref_value_sl">sl</string>
+  <string name="phone_profiles_pref_applicationStartEvents">Start events on startup</string>
+  <string name="phone_profiles_pref_systemAutoStartMIUI">AutoStart permission</string>
+  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Click here to enable AutoStart permission for PhoneProfilesPlus</string>
+  <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Scan only when screen is on</string>
+  <string name="phone_profiles_pref_applicationRestartEventsAlert">Confirm restart events</string>
+  <string name="fast_access_duration_activate_with_button">Act. with</string>
+  <string name="fast_access_duration_activate_without_button">Act. without</string>
+  <string name="applications_editor_dialog_startApplicationDelay">Startup delay:</string>
 </resources>
