@@ -157,7 +157,7 @@ public class RingtonePreference extends DialogPreference {
     }
 
     private void onShow(DialogInterface dialog) {
-        if (Permissions.grantRingtonePreferencesDialogPermissions(prefContext, this))
+        if (Permissions.grantRingtonePreferenceDialogPermissions(prefContext, this))
             refreshListView();
     }
 

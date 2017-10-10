@@ -183,6 +183,7 @@ class Permissions {
             }
             if (!checkProfileRingtones(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.WRITE_SETTINGS));
+                permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.READ_EXTERNAL_STORAGE));
                 //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_RINGTONES");
             }
             if (!checkProfileScreenTimeout(context, profile)) {
@@ -336,10 +337,11 @@ class Permissions {
             if ((profile._soundRingtoneChange != 0) ||
                     (profile._soundNotificationChange != 0) ||
                     (profile._soundAlarmChange != 0)) {
-                boolean granted = Settings.System.canWrite(context);
-                if (granted)
+                boolean grantedSystemSettings = Settings.System.canWrite(context);
+                boolean grantedStorage = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+                if (grantedSystemSettings)
                     setShowRequestWriteSettingsPermission(context, true);
-                return granted;
+                return grantedSystemSettings && grantedStorage;
             }
             else
                 return true;
@@ -514,7 +516,7 @@ class Permissions {
     }
     */
 
-    static boolean checkRingtones(Context context) {
+    private static boolean checkRingtonePreference(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23)
             return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         else
@@ -1279,9 +1281,9 @@ class Permissions {
             return true;
     }
 
-    static boolean grantRingtonePreferencesDialogPermissions(Context context, RingtonePreference preference) {
+    static boolean grantRingtonePreferenceDialogPermissions(Context context, RingtonePreference preference) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkRingtones(context);
+            boolean granted = checkRingtonePreference(context);
             if (!granted) {
                 try {
                     List<PermissionType> permissions = new ArrayList<>();
