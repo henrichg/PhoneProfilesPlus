@@ -168,7 +168,7 @@ public class Profile {
             "ic_profile_work_11", "ic_profile_work_12", "ic_profile_work_13",
 
             "ic_profile_sleep", "ic_profile_sleep_2", "ic_profile_night", "ic_profile_call_1", "ic_profile_food_1",
-            "ic_profile_food_2","ic_profile_food_3","ic_profile_food_4","ic_profile_food_5",
+            "ic_profile_food_2","ic_profile_food_3","ic_profile_food_4","ic_profile_food_5", "ic_profile_alarm",
 
             "ic_profile_car_1", "ic_profile_car_2", "ic_profile_car_3", "ic_profile_car_4", "ic_profile_car_5",
             "ic_profile_car_6", "ic_profile_car_7", "ic_profile_car_8", "ic_profile_car_9", "ic_profile_airplane_1",
@@ -177,35 +177,49 @@ public class Profile {
 
             "ic_profile_battery_1", "ic_profile_battery_2", "ic_profile_battery_3",
 
-            "ic_profile_culture_1", "ic_profile_culture_2", "ic_profile_culture_3", "ic_profile_culture_4"
+            "ic_profile_culture_1", "ic_profile_culture_2", "ic_profile_culture_3", "ic_profile_culture_4",
+
+            "ic_profile_lock"
     };
 
     static final int[] profileIconColor = {
+            // default
             0xff1c9cd7,
 
+            // home
             0xff99cc00, 0xff99cc00,
 
+            // outdoors
             0xffffbc33, 0xffffbc33, 0xffffbc33, 0xffffbc33,
             0xffffbc33, 0xffffbc33, 0xffffbc33,
 
+            // meeting, volume
             0xffcc0000, 0xffcc0000, 0xffcc0000, 0xffcc0000, 0xffcc0000,
             0xffcc0000, 0xffcc0000, 0xffcc0000, 0xffcc0000, 0xffcc0000,
 
+            // work
             0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
             0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
             0xffa801ff, 0xffa801ff, 0xffa801ff,
 
+            // sleep, food, alarm
             0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc,
-            0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc,
+            0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc,
 
+            // car, airplane, tickets
             0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
             0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
             0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
             0xff28a174,
 
+            // battery
             0xffdb3514, 0xffdb9714, 0xff2aa561,
 
-            0xff38d043, 0xff38d043, 0xff38d043, 0xff38d043
+            // culture
+            0xff38d043, 0xff38d043, 0xff38d043, 0xff38d043,
+
+            //lock
+            0xff6a3e18
     };
 
     // Empty constructorn
