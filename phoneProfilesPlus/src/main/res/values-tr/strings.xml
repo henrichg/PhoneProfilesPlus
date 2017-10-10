@@ -1071,12 +1071,12 @@
   <string name="array_pref_value_id">id</string>
   <string name="phone_profiles_pref_applicationLanguage_sl">Slovenščina</string>
   <string name="array_pref_value_sl">sl</string>
-  <string name="phone_profiles_pref_applicationStartEvents">Start events on startup</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI">AutoStart permission</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Click here to enable AutoStart permission for PhoneProfilesPlus</string>
-  <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Scan only when screen is on</string>
-  <string name="phone_profiles_pref_applicationRestartEventsAlert">Confirm restart events</string>
-  <string name="fast_access_duration_activate_with_button">Act. with</string>
-  <string name="fast_access_duration_activate_without_button">Act. without</string>
-  <string name="applications_editor_dialog_startApplicationDelay">Startup delay:</string>
+  <string name="phone_profiles_pref_applicationStartEvents">Başlangıçta Durumları başlat</string>
+  <string name="phone_profiles_pref_systemAutoStartMIUI">Otomatik başlatma izni</string>
+  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">PhoneProfilesPlus\'ın otomatik başlamasına izin vermek için buraya dokunun</string>
+  <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Sadece ekran açıkken tarama yap</string>
+  <string name="phone_profiles_pref_applicationRestartEventsAlert">Durumları yeniden başlatırken sor</string>
+  <string name="fast_access_duration_activate_with_button">Beraber baslat</string>
+  <string name="fast_access_duration_activate_without_button">Olmadan başlat</string>
+  <string name="applications_editor_dialog_startApplicationDelay">Başlangıç gecikmesi:</string>
 </resources>
