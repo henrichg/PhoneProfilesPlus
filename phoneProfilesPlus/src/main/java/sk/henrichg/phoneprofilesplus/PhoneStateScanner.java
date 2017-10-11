@@ -36,9 +36,9 @@ class PhoneStateScanner extends PhoneStateListener {
     int registeredCell = Integer.MAX_VALUE;
     long lastConnectedTime = 0;
 
-    boolean enabledAutoRegistration = false;
-    int durationForAutoRegistration = 0;
-    String cellsNameForAutoRegistration = "";
+    static boolean enabledAutoRegistration = false;
+    static int durationForAutoRegistration = 0;
+    static String cellsNameForAutoRegistration = "";
 
     static MobileCellsRegistrationService autoRegistrationService = null;
 

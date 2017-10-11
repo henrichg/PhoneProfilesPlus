@@ -27,10 +27,6 @@ class Scanner {
 
     Context context;
 
-    private static WifiScanBroadcastReceiver wifiScanReceiver = null;
-    private static BluetoothScanBroadcastReceiver bluetoothScanReceiver = null;
-    private static BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = null;
-
     private static int wifiScanDuration = 25;      // 25 seconds for wifi scan
     private static int classicBTScanDuration = 20; // 20 seconds for classic bluetooth scan
 
@@ -143,7 +139,7 @@ class Scanner {
                         if (!scan) {
                             // wifi scan events not exists
                             PPApplication.logE("$$$W Scanner.doScan", "alarms removed");
-                            WifiScanJob.cancelJob();
+                            WifiScanJob.cancelJob(context);
                         } else {
                             PPApplication.logE("$$$W Scanner.doScan", "can scan");
 
@@ -182,13 +178,6 @@ class Scanner {
                                 // start scan
 
                                 //lock();
-
-                                if (wifiScanReceiver != null)
-                                    context.unregisterReceiver(wifiScanReceiver);
-                                wifiScanReceiver = new WifiScanBroadcastReceiver();
-                                IntentFilter intentFilter4 = new IntentFilter();
-                                intentFilter4.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-                                context.registerReceiver(wifiScanReceiver, intentFilter4);
 
                                 // enable wifi
                                 int wifiState;
@@ -232,9 +221,6 @@ class Scanner {
 
                                 WifiScanJob.unlock();
                                 //unlock();
-
-                                context.unregisterReceiver(wifiScanReceiver);
-                                wifiScanReceiver = null;
                             }
                         }
 
@@ -292,7 +278,7 @@ class Scanner {
                         if (!scan) {
                             // bluetooth scan events not exists
                             PPApplication.logE("$$$B Scanner.doScan", "no bt scan events");
-                            BluetoothScanJob.cancelJob();
+                            BluetoothScanJob.cancelJob(context);
                         } else {
                             PPApplication.logE("$$$B Scanner.doScan", "scan=true");
 
@@ -336,15 +322,6 @@ class Scanner {
 
                                     //lock();
 
-                                    if (bluetoothScanReceiver != null)
-                                        context.unregisterReceiver(bluetoothScanReceiver);
-                                    bluetoothScanReceiver = new BluetoothScanBroadcastReceiver();
-                                    IntentFilter intentFilter6 = new IntentFilter();
-                                    intentFilter6.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
-                                    intentFilter6.addAction(BluetoothDevice.ACTION_FOUND);
-                                    intentFilter6.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-                                    context.registerReceiver(bluetoothScanReceiver, intentFilter6);
-
                                     // enable bluetooth
                                     bluetoothState = enableBluetooth(dataWrapper,
                                             BluetoothScanJob.bluetooth,
@@ -375,9 +352,6 @@ class Scanner {
 
                                     //unlock();
 
-                                    context.unregisterReceiver(bluetoothScanReceiver);
-                                    bluetoothScanReceiver = null;
-
                                     setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
                                     BluetoothScanJob.setWaitForResults(context, false);
                                     BluetoothScanJob.setLEScanRequest(context, false);
@@ -389,13 +363,6 @@ class Scanner {
                                     ///////// LE BT scan
 
                                     PPApplication.logE("$$$BLE Scanner.doScan", "LE devices scan");
-
-                                    if (bluetoothLEScanReceiver != null)
-                                        context.unregisterReceiver(bluetoothLEScanReceiver);
-                                    bluetoothLEScanReceiver = new BluetoothLEScanBroadcastReceiver();
-                                    /*IntentFilter intentFilter7 = new IntentFilter();
-                                    registerReceiver(bluetoothLEScanReceiver, intentFilter7);*/
-                                    LocalBroadcastManager.getInstance(context).registerReceiver(bluetoothLEScanReceiver, new IntentFilter("BluetoothLEScanBroadcastReceiver"));
 
                                     /*if (android.os.Build.VERSION.SDK_INT < 21)
                                         // for old BT LE scan must by acquired lock
@@ -434,10 +401,6 @@ class Scanner {
                                     }
 
                                     //unlock();
-
-                                    //unregisterReceiver(bluetoothLEScanReceiver);
-                                    LocalBroadcastManager.getInstance(context).unregisterReceiver(bluetoothLEScanReceiver);
-                                    bluetoothLEScanReceiver = null;
 
                                     setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
                                     BluetoothScanJob.setWaitForLEResults(context, false);

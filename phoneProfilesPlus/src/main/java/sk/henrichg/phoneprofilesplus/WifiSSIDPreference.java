@@ -52,6 +52,8 @@ public class WifiSSIDPreference extends DialogPreference {
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
+    static boolean forceRegister = false;
+
     private static final String PREF_SHOW_HELP = "wifi_ssid_pref_show_help";
 
     public WifiSSIDPreference(Context context, AttributeSet attrs) {
@@ -67,6 +69,7 @@ public class WifiSSIDPreference extends DialogPreference {
     protected void showDialog(Bundle state) {
         value = getPersistedString(value);
 
+        forceRegister = true;
         PPApplication.forceRegisterReceiversForWifiScanner(context);
 
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
@@ -273,6 +276,7 @@ public class WifiSSIDPreference extends DialogPreference {
         if ((rescanAsyncTask != null) && (!rescanAsyncTask.isCancelled()))
             rescanAsyncTask.cancel(true);
         MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        forceRegister = false;
         PPApplication.reregisterReceiversForWifiScanner(context);
     }
 

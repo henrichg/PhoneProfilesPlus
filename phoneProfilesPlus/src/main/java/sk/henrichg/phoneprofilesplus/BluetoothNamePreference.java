@@ -53,6 +53,8 @@ public class BluetoothNamePreference extends DialogPreference {
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
+    static boolean forceRegister = false;
+
     private static final String PREF_SHOW_HELP = "bluetooth_name_pref_show_help";
 
     public BluetoothNamePreference(Context context, AttributeSet attrs) {
@@ -68,6 +70,7 @@ public class BluetoothNamePreference extends DialogPreference {
     protected void showDialog(Bundle state) {
         value = getPersistedString(value);
 
+        forceRegister = true;
         PPApplication.forceRegisterReceiversForBluetoothScanner(context);
 
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
@@ -278,6 +281,7 @@ public class BluetoothNamePreference extends DialogPreference {
         if ((rescanAsyncTask != null) && (!rescanAsyncTask.isCancelled()))
             rescanAsyncTask.cancel(true);
         MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        forceRegister = false;
         PPApplication.reregisterReceiversForBluetoothScanner(context);
     }
 

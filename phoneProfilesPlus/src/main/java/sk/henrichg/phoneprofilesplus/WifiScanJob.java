@@ -43,14 +43,14 @@ class WifiScanJob extends Job {
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED) {
-            WifiScanJob.cancelJob();
+            WifiScanJob.cancelJob(context);
             return Result.SUCCESS;
         }
 
         boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
             PPApplication.logE("WifiScanJob.onRunJob", "update in power save mode is not allowed = cancel job");
-            WifiScanJob.cancelJob();
+            WifiScanJob.cancelJob(context);
             //removeAlarm(context/*, false*/);
             //removeAlarm(context/*, true*/);
             return Result.SUCCESS;
@@ -107,7 +107,7 @@ class WifiScanJob extends Job {
                             return;
                     }
                 } else {
-                    cancelJob();
+                    cancelJob(context);
                     jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
                     if (afterEnableWifi)
                         jobBuilder.setExact(TimeUnit.SECONDS.toMillis(2));
@@ -129,8 +129,13 @@ class WifiScanJob extends Job {
             PPApplication.logE("WifiScanJob.scheduleJob","WifiHardware=false");
     }
 
-    static void cancelJob() {
+    static void cancelJob(Context context) {
         PPApplication.logE("WifiScanJob.cancelJob", "xxx");
+
+        WifiScanJob.setScanRequest(context, false);
+        WifiScanJob.setWaitForResults(context, false);
+        WifiScanJob.setWifiEnabledForScan(context, false);
+        Scanner.setForceOneWifiScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
 
         try {
             JobManager jobManager = JobManager.instance();

@@ -52,6 +52,8 @@ public class MobileCellsPreference extends DialogPreference {
 
     private PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver;
 
+    static boolean forceStart;
+
     private static final String PREF_SHOW_HELP = "mobile_cells_pref_show_help";
 
     public MobileCellsPreference(Context context, AttributeSet attrs) {
@@ -74,6 +76,7 @@ public class MobileCellsPreference extends DialogPreference {
         //context.registerReceiver(EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver, intentFilter);
         LocalBroadcastManager.getInstance(context).registerReceiver(phoneStateChangedBroadcastReceiver, new IntentFilter("PhoneStateChangedBroadcastReceiver_preference"));
 
+        forceStart = true;
         PPApplication.forceStartPhoneStateScanner(context);
 
         /*
@@ -271,7 +274,8 @@ public class MobileCellsPreference extends DialogPreference {
             phoneStateChangedBroadcastReceiver = null;
         }
 
-        PPApplication.startPhoneStateScanner(context);
+        forceStart = false;
+        PPApplication.restartPhoneStateScanner(context);
     }
 
     @Override

@@ -50,14 +50,14 @@ class BluetoothScanJob extends Job {
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED) {
-            BluetoothScanJob.cancelJob();
+            BluetoothScanJob.cancelJob(context);
             return Result.SUCCESS;
         }
 
         boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
             PPApplication.logE("BluetoothScanJob.onRunJob", "update in power save mode is not allowed = cancel job");
-            BluetoothScanJob.cancelJob();
+            BluetoothScanJob.cancelJob(context);
             //removeAlarm(context/*, false*/);
             //removeAlarm(context/*, true*/);
             return Result.SUCCESS;
@@ -114,7 +114,7 @@ class BluetoothScanJob extends Job {
                             return;
                     }
                 } else {
-                    cancelJob();
+                    cancelJob(context);
                     jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
                     if (forScreenOn)
                         jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
@@ -134,8 +134,16 @@ class BluetoothScanJob extends Job {
             PPApplication.logE("BluetoothScanJob.scheduleJob","BluetoothHardware=false");
     }
 
-    static void cancelJob() {
+    static void cancelJob(Context context) {
         PPApplication.logE("BluetoothScanJob.cancelJob", "xxx");
+
+        BluetoothScanJob.setScanRequest(context, false);
+        BluetoothScanJob.setWaitForResults(context, false);
+        BluetoothScanJob.setLEScanRequest(context, false);
+        BluetoothScanJob.setWaitForLEResults(context, false);
+        BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+        Scanner.setForceOneBluetoothScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
+        Scanner.setForceOneLEBluetoothScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
 
         try {
             JobManager jobManager = JobManager.instance();
