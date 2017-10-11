@@ -64,6 +64,7 @@ class WifiScanJob extends Job {
             startScanner(context, false);
         }
 
+        PPApplication.logE("WifiScanJob.onRunJob", "schedule job");
         WifiScanJob.scheduleJob(context, false, false, false);
 
         return Result.SUCCESS;

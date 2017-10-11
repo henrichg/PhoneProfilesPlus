@@ -56,6 +56,7 @@ public class PPApplication extends Application {
                                          +"|WifiScanJob.startScanner"
                                          +"|BluetoothScanJob.startScanner"
                                          +"|[RJS] PhoneProfilesService.registerWifiScannerReceiver"
+                                         +"|WifiScanJob.onRunJob"
             ;
 
 
