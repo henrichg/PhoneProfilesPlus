@@ -41,8 +41,6 @@ class GeofenceScannerJob extends Job {
             return Result.SUCCESS;
         }
 
-        GeofenceScannerJob.scheduleJob(context, false, false);
-
         if (Event.getGlobalEventsRunning(context)) {
             if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.getGeofencesScanner() != null)) {
                 if (PhoneProfilesService.getGeofencesScanner().mUpdatesStarted) {
@@ -71,6 +69,8 @@ class GeofenceScannerJob extends Job {
                     );
             }
         }
+
+        GeofenceScannerJob.scheduleJob(context, false, false);
 
         return Result.SUCCESS;
     }

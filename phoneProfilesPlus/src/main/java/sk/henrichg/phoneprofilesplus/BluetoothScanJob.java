@@ -63,8 +63,6 @@ class BluetoothScanJob extends Job {
             return Result.SUCCESS;
         }
 
-        BluetoothScanJob.scheduleJob(context, false, false);
-
         if (bluetooth == null)
             bluetooth = getBluetoothAdapter(context);
 
@@ -72,6 +70,9 @@ class BluetoothScanJob extends Job {
         {
             startScanner(context, false);
         }
+
+        BluetoothScanJob.scheduleJob(context, false, false);
+
         return Result.SUCCESS;
     }
 
@@ -404,6 +405,7 @@ class BluetoothScanJob extends Job {
 
     static void startScanner(Context context, boolean fromDialog)
     {
+        PPApplication.logE("$$$ BluetoothScanJob.startScanner", "xxx");
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
         Profile profile = dataWrapper.getActivatedProfile();
         profile = Profile.getMappedProfile(profile, context);

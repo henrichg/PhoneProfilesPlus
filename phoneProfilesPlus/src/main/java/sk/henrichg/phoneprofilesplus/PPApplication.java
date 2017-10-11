@@ -38,7 +38,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     private static String logFilterTags = "##### PPApplication.onCreate"
@@ -52,67 +52,9 @@ public class PPApplication extends Application {
                                          //+"|[RJS] PPApplication"
                                          //+"|[RJS] PhoneProfilesService"
 
-                                         /*
-                                         +"|WifiScanJob"
-                                         +"|WifiJob"
-                                         +"|WifiStateChangedBroadcastReceiver"
-                                         +"|WifiConnectionBroadcastReceiver"
-                                         +"|WifiScanBroadcastReceiver"
-                                         +"|ScannerService"
-                                         +"|$$$W Scanner"
-                                         +"|EventsHandlerJob"
-                                         */
-
-                                         //+"PhoneProfilesHelper.doUninstallPPHelper"
-                                         //+"|PhoneProfilesHelper.isPPHelperInstalled"
-
-                                         //+"|##### PPApplication.onCreate"
-                                         //+"|PPApplication._isRooted"
-                                         //+"|PPApplication.isRootGranted"
-
-                                         //+"|FirstStartJob"
-                                         //+"|DataWrapper.firstStartEvents"
-
-                                         //+"|PreferenceFragment"
-
-                                         //+"|SearchCalendarEventsJob"
-                                         //+"|WifiJob"
-                                         //+"|WifiScanJob.fillScanResults"
-                                         //+"|BluetoothJob"
-                                         //+"|BluetoothScanJob"
-                                         //+"|GeofenceScannerJob"
-                                         //+"|BatteryBroadcastReceiver"
-                                         //+"|BatteryJob"
-                                         //+"|HeadsetConnectionJob"
-                                         //+"|SMSBroadcastReceiver"
-
-                                         //+"|CalendarProviderChangedBroadcastReceiver"
-                                         //+"|TimeChangedReceiver"
-                                         //+"|[CALENDAR] EventsHandler"
-
-                                         //+"|ProfilePreferencesNestedFragment.onActivityCreated"
-
-                                         //+"|PhoneProfilesService.doSimulatingRingingCall"
-                                         //+"|ActivateProfileHelper.setZenMode"
-
-                                         //+"|EventsHandlerJob.onRunJob"
-                                         //+"|EventPreferencesNFC"
-
-                                         //+"|##### DeviceOrientationJob"
-                                         //+"|RingtonePreference"
-                                         //+"|RingtonePreferenceAdapter"
-                                         //+"|PhoneProfilesService.playEventNotificationSound"
-
-                                         //+"|BatteryBroadcastReceiver"
-
-                                         //+"|DeviceOrientationJon.onRunJob"
-                                         //+"|PhoneProfilesService.startOrientationScanner"
-                                         //+"|MobileCellsPreference"
-                                         //+"|PhoneProfilesService.startPhoneStateScanner"
-
-                                         //+"|ApplicationsDialogPreference"
-
-                                         //+"|RunApplicationWithDelayBroadcastReceiver"
+                                         +"|ScannerService.doWakefulWork"
+                                         +"|WifiScanJob.startScanner"
+                                         +"|BluetoothScanJob.startScanner"
             ;
 
 

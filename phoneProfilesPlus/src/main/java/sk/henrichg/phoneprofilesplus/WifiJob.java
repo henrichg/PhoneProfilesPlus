@@ -127,12 +127,12 @@ class WifiJob extends Job {
                     if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                         // start scan
                         if (WifiScanJob.getScanRequest(appContext)) {
-                            final Context _context = appContext;
+                            //final Context _context = appContext;
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     PPApplication.logE("$$$ WifiJob.onRunJob", "WifiStateChangedBroadcastReceiver: startScan");
-                                    WifiScanJob.startScan(_context);
+                                    WifiScanJob.startScan(getContext());
                                 }
                             }, 5000);
 

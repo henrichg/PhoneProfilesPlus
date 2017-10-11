@@ -56,8 +56,6 @@ class WifiScanJob extends Job {
             return Result.SUCCESS;
         }
 
-        WifiScanJob.scheduleJob(context, false, false, false);
-
         if (wifi == null)
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
@@ -65,6 +63,8 @@ class WifiScanJob extends Job {
         {
             startScanner(context, false);
         }
+
+        WifiScanJob.scheduleJob(context, false, false, false);
 
         return Result.SUCCESS;
     }
@@ -278,6 +278,7 @@ class WifiScanJob extends Job {
 
     static void startScanner(Context context, boolean fromDialog)
     {
+        PPApplication.logE("$$$ WifiScanJob.startScanner", "xxx");
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
         Profile profile = dataWrapper.getActivatedProfile();
         profile = Profile.getMappedProfile(profile, context);

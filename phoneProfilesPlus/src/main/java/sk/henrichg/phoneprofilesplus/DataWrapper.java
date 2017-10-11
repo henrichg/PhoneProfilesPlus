@@ -3009,7 +3009,7 @@ public class DataWrapper {
         resetAllEventsInDelayEnd(false);
         // ignoruj manualnu aktivaciu profilu
         // a odblokuj forceRun eventy
-        restartEvents(true, false, interactive);
+        restartEvents(true, true, interactive);
 
         if (ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
@@ -3139,7 +3139,7 @@ public class DataWrapper {
             @Override
             public void run() {
                 PPApplication.logE("DataWrapper.restartEventsWithDelay","restart");
-                restartEvents(_unblockEventsRun, false, _interactive);
+                restartEvents(_unblockEventsRun, true, _interactive);
             }
         }, delay * 1000);
     }

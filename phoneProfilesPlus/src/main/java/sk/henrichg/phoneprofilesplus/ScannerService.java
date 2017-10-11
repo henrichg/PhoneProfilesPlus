@@ -12,7 +12,7 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 public class ScannerService extends WakefulIntentService
 {
-    private Context context;
+    //private Context context;
 
     static final String EXTRA_SCANNER_TYPE = "scanner_type";
 
@@ -31,24 +31,23 @@ public class ScannerService extends WakefulIntentService
     @SuppressLint("NewApi")
     @Override
     protected void doWakefulWork(Intent intent) {
-        CallsCounter.logCounter(context, "ScannerService.doWakefulWork", "ScannerService_doWakefulWork");
+        //context = getApplicationContext();
+        CallsCounter.logCounter(this, "ScannerService.doWakefulWork", "ScannerService_doWakefulWork");
 
         if (intent == null) {
-            PPApplication.logE("%%%% ScannerService.onHandleIntent", "intent=null");
+            PPApplication.logE("%%%% ScannerService.doWakefulWork", "intent=null");
             return;
         }
 
-        context = getApplicationContext();
-
-        PPApplication.logE("%%%% ScannerService.onHandleIntent", "-- START ------------");
+        PPApplication.logE("%%%% ScannerService.doWakefulWork", "-- START ------------");
 
         String scannerType = intent.getStringExtra(EXTRA_SCANNER_TYPE);
         PPApplication.logE("%%%% ScannerService.onHandleIntent", "scannerType="+scannerType);
 
-        Scanner scanner = new Scanner(context);
+        Scanner scanner = new Scanner(this);
         scanner.doScan(scannerType);
 
-        PPApplication.logE("%%%% ScannerService.onHandleIntent", "-- END ------------");
+        PPApplication.logE("%%%% ScannerService.doWakefulWork", "-- END ------------");
 
     }
 
