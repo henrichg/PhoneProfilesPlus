@@ -2136,6 +2136,8 @@ public class PhoneProfilesService extends Service
                                 registerWifiAPStateChangeBroadcastReceiver(true, false, true);
                                 registerWifiScannerReceiver(true, false, true);
                             }
+                            else
+                                PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER - is force");
                             break;
                         case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
@@ -2151,6 +2153,8 @@ public class PhoneProfilesService extends Service
                                 registerBluetoothStateChangedBroadcastReceiver(true, false, true);
                                 registerBluetoothScannerReceivers(true, false, true);
                             }
+                            else
+                                PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER - is force");
                             break;
                         case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
@@ -2167,6 +2171,8 @@ public class PhoneProfilesService extends Service
                                 registerWifiScannerReceiver(true, false, true);
                                 scheduleWifiJob(true, true, true, false, false);
                             }
+                            else
+                                PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_WIFI_SCANNER - is force");
                             break;
                         case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER");
@@ -2176,12 +2182,16 @@ public class PhoneProfilesService extends Service
                                 registerBluetoothScannerReceivers(true, false, true);
                                 scheduleBluetoothJob(true, true, true, false);
                             }
+                            else
+                                PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER - is force");
                             break;
                         case PPApplication.SCANNER_RESTART_PHONE_STATE_SCANNER:
                             if (!MobileCellsPreference.forceStart && !MobileCellsRegistrationService.forceStart) {
                                 PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_PHONE_STATE_SCANNER");
                                 startPhoneStateScanner(true, true, true);
                             }
+                            else
+                                PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_PHONE_STATE_SCANNER - is force");
                             break;
                         case PPApplication.SCANNER_FORCE_START_PHONE_STATE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_START_PHONE_STATE_SCANNER");
