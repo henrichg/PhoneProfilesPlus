@@ -109,11 +109,11 @@ public class EditorProfilesActivity extends AppCompatActivity
     // request code for startActivityForResult with intent ProfilePreferencesActivity
     static final int REQUEST_CODE_PROFILE_PREFERENCES = 6221;
     // request code for startActivityForResult with intent EventPreferencesActivity
-    static final int REQUEST_CODE_EVENT_PREFERENCES = 6222;
+    private static final int REQUEST_CODE_EVENT_PREFERENCES = 6222;
     // request code for startActivityForResult with intent PhoneProfilesActivity
-    static final int REQUEST_CODE_APPLICATION_PREFERENCES = 6229;
+    private static final int REQUEST_CODE_APPLICATION_PREFERENCES = 6229;
     // request code for startActivityForResult with intent "phoneprofiles.intent.action.EXPORTDATA"
-    static final int REQUEST_CODE_REMOTE_EXPORT = 6250;
+    private static final int REQUEST_CODE_REMOTE_EXPORT = 6250;
 
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
@@ -534,7 +534,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         return true;
     }
 
-    static void onNextLayout(final View view, final Runnable runnable) {
+    private static void onNextLayout(final View view, final Runnable runnable) {
         final ViewTreeObserver observer = view.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override

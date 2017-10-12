@@ -10,17 +10,20 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### TimeChangedReceiver.onReceive", "xxx");
-        CallsCounter.logCounter(context, "TimeChangedReceiver.onReceive", "TimeChangedReceiver_onReceive");
+        if ((intent != null) && (intent.getAction() != null)) {
+            if (intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                PPApplication.logE("##### TimeChangedReceiver.onReceive", "xxx");
+                CallsCounter.logCounter(context, "TimeChangedReceiver.onReceive", "TimeChangedReceiver_onReceive");
 
-        Context appContext = context.getApplicationContext();
+                Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(appContext, true))
-            return;
+                if (!PPApplication.getApplicationStarted(appContext, true))
+                    return;
 
-        SearchCalendarEventsJob.scheduleJob(true);
-        DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
-        dataWrapper.restartEvents(true, true, false);
-
+                SearchCalendarEventsJob.scheduleJob(true);
+                DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
+                dataWrapper.restartEvents(true, true, false);
+            }
+        }
     }
 }

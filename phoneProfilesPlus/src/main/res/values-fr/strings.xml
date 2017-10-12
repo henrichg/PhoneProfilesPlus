@@ -794,7 +794,7 @@
   <string name="donation_google_android_market_text">Quel montant?</string>
   <string name="donation_google_android_market_not_supported_title">Les Dons dans l\' application ne sont pas supportés.</string>
   <string name="donation_google_android_market_not_supported">Les Dons dans l\' application ne sont pas supportés. Google play store est-il installé correctement ?</string>
-  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google prend 30 % sur chaque don.</string>
+  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google prend 30% sur chaque don.</string>
   <string name="donation_google_android_market_donate_button">Donner</string>
   <string name="donation_thanks_dialog_title">Merci</string>
   <string name="donation_thanks_dialog">Merci pour le don. \nJ\'apprécie vraiment (la traduction est entièrement gratuite).</string>
@@ -1065,11 +1065,11 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="phone_profiles_pref_applicationLanguage_ar">عربى</string>
   <string name="phone_profiles_pref_applicationLanguage_bg">Български</string>
   <string name="phone_profiles_pref_applicationLanguage_hi">हिंदी</string>
-  <string name="phone_profiles_pref_applicationLanguage_id">Bahasa Indonesia</string>
+  <string name="phone_profiles_pref_applicationLanguage_in">Bahasa Indonesia</string>
   <string name="array_pref_value_ar">ar</string>
   <string name="array_pref_value_bg">bg</string>
   <string name="array_pref_value_hi">hi</string>
-  <string name="array_pref_value_id">id</string>
+  <string name="array_pref_value_in">in</string>
   <string name="phone_profiles_pref_applicationLanguage_sl">Slovenščina</string>
   <string name="array_pref_value_sl">sl</string>
   <string name="phone_profiles_pref_applicationStartEvents">Démarrer l\'évènement au démarrage</string>

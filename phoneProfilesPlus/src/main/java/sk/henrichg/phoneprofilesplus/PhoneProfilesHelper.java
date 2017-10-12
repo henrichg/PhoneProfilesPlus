@@ -254,7 +254,7 @@ class PhoneProfilesHelper {
         dialogBuilder.show();
     }
 
-    static private boolean commandWait(Command cmd) throws Exception {
+    static private boolean commandWait(Command cmd) {
         boolean OK;
 
         int waitTill = 50;

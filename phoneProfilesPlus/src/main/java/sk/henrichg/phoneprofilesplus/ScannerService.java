@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;

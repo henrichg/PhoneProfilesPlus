@@ -254,10 +254,10 @@ class FirstStartJob extends Job {
         }
     }
 
-    private static boolean installTone(int resID, int type, String title, Context context, boolean fromMenu) {
+    private static void installTone(int resID, int type, String title, Context context, boolean fromMenu) {
         // Make sure the shared storage is currently writable
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
-            return false;
+            return;
 
         String directory;
         boolean isRingtone = false;
@@ -277,7 +277,7 @@ class FirstStartJob extends Job {
                 isAlarm = true;
                 break;
             default:
-                return false;
+                return;
         }
         File path = Environment.
                 getExternalStoragePublicDirectory(directory);
@@ -410,7 +410,7 @@ class FirstStartJob extends Job {
             msg.show();
         }
 
-        return !isError;
+        return;
     }
 
     static void installTone(int resID, String title, Context context, boolean fromMenu) {

@@ -5,11 +5,9 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
@@ -25,7 +23,7 @@ import java.util.List;
 
 class Scanner {
 
-    Context context;
+    private Context context;
 
     private static int wifiScanDuration = 25;      // 25 seconds for wifi scan
     private static int classicBTScanDuration = 20; // 20 seconds for classic bluetooth scan
@@ -33,8 +31,8 @@ class Scanner {
     static List<BluetoothDeviceData> tmpBluetoothScanResults = null;
     static boolean bluetoothDiscoveryStarted = false;
     static BluetoothLeScanner bluetoothLEScanner = null;
-    static BluetoothLEScanCallback18 bluetoothLEScanCallback18 = null;
-    static BluetoothLEScanCallback21 bluetoothLEScanCallback21 = null;
+    //static BluetoothLEScanCallback18 bluetoothLEScanCallback18 = null;
+    //static BluetoothLEScanCallback21 bluetoothLEScanCallback21 = null;
 
     static final String SCANNER_TYPE_WIFI = "wifi";
     static final String SCANNER_TYPE_BLUETOOTH = "bluetooth";
@@ -207,7 +205,6 @@ class Scanner {
                                         if (getForceOneWifiScan(context) != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                         {
                                             // start job
-                                            final Context _context = context.getApplicationContext();
                                             new Handler(context.getMainLooper()).postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {

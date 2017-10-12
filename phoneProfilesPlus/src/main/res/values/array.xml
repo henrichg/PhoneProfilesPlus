@@ -71,7 +71,7 @@
     <item>@string/phone_profiles_pref_applicationLanguage_iw</item>
     <item>@string/phone_profiles_pref_applicationLanguage_hi</item>
     <item>@string/phone_profiles_pref_applicationLanguage_hu</item>
-    <item>@string/phone_profiles_pref_applicationLanguage_id</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_in</item>
     <item>@string/phone_profiles_pref_applicationLanguage_it</item>
     <item>@string/phone_profiles_pref_applicationLanguage_ja</item>
     <item>@string/phone_profiles_pref_applicationLanguage_ko</item>
@@ -105,7 +105,7 @@
     <item>@string/array_pref_value_iw</item>
     <item>@string/array_pref_value_hi</item>
     <item>@string/array_pref_value_hu</item>
-    <item>@string/array_pref_value_id</item>
+    <item>@string/array_pref_value_in</item>
     <item>@string/array_pref_value_it</item>
     <item>@string/array_pref_value_ja</item>
     <item>@string/array_pref_value_ko</item>

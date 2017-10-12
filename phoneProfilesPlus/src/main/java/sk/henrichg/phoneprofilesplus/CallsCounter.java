@@ -5,11 +5,9 @@ import android.content.SharedPreferences;
 
 class CallsCounter {
 
-    static final String PREFS_NAME = "phone_profile_calls_counter";
+    private static SharedPreferences preferences = null;
 
-    static SharedPreferences preferences = null;
-
-    static final String LOG_TAG = "CallsCounter";
+    private static final String LOG_TAG = "CallsCounter";
 
     private static SharedPreferences getSharedPreferences(Context context) {
         if (preferences == null)

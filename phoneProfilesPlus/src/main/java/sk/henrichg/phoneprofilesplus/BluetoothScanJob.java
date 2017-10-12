@@ -324,8 +324,8 @@ class BluetoothScanJob extends Job {
                 if ((android.os.Build.VERSION.SDK_INT >= 21)) {
                     if (Scanner.bluetoothLEScanner == null)
                         Scanner.bluetoothLEScanner = bluetooth.getBluetoothLeScanner();
-                    if (Scanner.bluetoothLEScanCallback21 == null)
-                        Scanner.bluetoothLEScanCallback21 = new BluetoothLEScanCallback21(context);
+                    //if (Scanner.bluetoothLEScanCallback21 == null)
+                    //    Scanner.bluetoothLEScanCallback21 = new BluetoothLEScanCallback21(context);
 
                     //Scanner.leScanner.stopScan(Scanner.leScanCallback21);
 
@@ -345,19 +345,19 @@ class BluetoothScanJob extends Job {
 
                     List<ScanFilter> filters = new ArrayList<>();
                     try {
-                        Scanner.bluetoothLEScanner.startScan(filters, settings, Scanner.bluetoothLEScanCallback21);
+                        Scanner.bluetoothLEScanner.startScan(filters, settings, new BluetoothLEScanCallback21(context));
                         startScan = true;
                     } catch (Exception ignored) {}
                 }
                 else {
-                    if (Scanner.bluetoothLEScanCallback18 == null)
-                        Scanner.bluetoothLEScanCallback18 = new BluetoothLEScanCallback18(context);
+                    //if (Scanner.bluetoothLEScanCallback18 == null)
+                    //    Scanner.bluetoothLEScanCallback18 = new BluetoothLEScanCallback18(context);
 
                     //bluetooth.stopLeScan(Scanner.leScanCallback18);
 
                     tmpScanLEResults = null;
 
-                    startScan = bluetooth.startLeScan(Scanner.bluetoothLEScanCallback18);
+                    startScan = bluetooth.startLeScan(new BluetoothLEScanCallback18(context));
 
                     if (!startScan) {
                         if (getBluetoothEnabledForScan(context)) {
@@ -383,13 +383,13 @@ class BluetoothScanJob extends Job {
                 if ((android.os.Build.VERSION.SDK_INT >= 21)) {
                     if (Scanner.bluetoothLEScanner == null)
                         Scanner.bluetoothLEScanner = bluetooth.getBluetoothLeScanner();
-                    if (Scanner.bluetoothLEScanCallback21 == null)
-                        Scanner.bluetoothLEScanCallback21 = new BluetoothLEScanCallback21(context);
-                    Scanner.bluetoothLEScanner.stopScan(Scanner.bluetoothLEScanCallback21);
+                    //if (Scanner.bluetoothLEScanCallback21 == null)
+                    //    Scanner.bluetoothLEScanCallback21 = new BluetoothLEScanCallback21(context);
+                    Scanner.bluetoothLEScanner.stopScan(new BluetoothLEScanCallback21(context));
                 } else {
-                    if (Scanner.bluetoothLEScanCallback18 == null)
-                        Scanner.bluetoothLEScanCallback18 = new BluetoothLEScanCallback18(context);
-                    bluetooth.stopLeScan(Scanner.bluetoothLEScanCallback18);
+                    //if (Scanner.bluetoothLEScanCallback18 == null)
+                    //    Scanner.bluetoothLEScanCallback18 = new BluetoothLEScanCallback18(context);
+                    bluetooth.stopLeScan(new BluetoothLEScanCallback18(context));
                 }
             }
         }
@@ -724,7 +724,6 @@ class BluetoothScanJob extends Job {
             if (forceOneScan != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
             {
                 // start job
-                final Context _context = context.getApplicationContext();
                 new Handler(context.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {

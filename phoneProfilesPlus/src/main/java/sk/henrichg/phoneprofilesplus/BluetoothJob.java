@@ -166,7 +166,6 @@ class BluetoothJob extends Job {
 
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.setEventRadioSwitchParameters(EventPreferencesRadioSwitch.RADIO_TYPE_BLUETOOTH, bluetoothState == BluetoothAdapter.STATE_ON);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
 
                         //}

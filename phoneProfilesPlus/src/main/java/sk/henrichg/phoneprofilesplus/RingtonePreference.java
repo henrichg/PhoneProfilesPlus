@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -499,6 +500,7 @@ public class RingtonePreference extends DialogPreference {
         boolean isDialogShowing;
         Bundle dialogBundle;
 
+        @SuppressLint("ParcelClassLoader")
         SavedState(Parcel source) {
             super(source);
             isDialogShowing = source.readInt() == 1;

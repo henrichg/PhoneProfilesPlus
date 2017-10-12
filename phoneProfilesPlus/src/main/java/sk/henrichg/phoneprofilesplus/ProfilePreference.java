@@ -30,7 +30,6 @@ public class ProfilePreference extends DialogPreference {
 
     private Context prefContext;
     private MaterialDialog mDialog;
-    private ListView listView;
 
     private ProfilePreferenceAdapter profilePreferenceAdapter;
 
@@ -87,7 +86,7 @@ public class ProfilePreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        listView = layout.findViewById(R.id.profile_pref_dlg_listview);
+        ListView listView = layout.findViewById(R.id.profile_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)
@@ -308,7 +307,7 @@ public class ProfilePreference extends DialogPreference {
     }
     */
 
-    void setProfileId(long newProfileId)
+    private void setProfileId(long newProfileId)
     {
         String newValue = String.valueOf(newProfileId);
 

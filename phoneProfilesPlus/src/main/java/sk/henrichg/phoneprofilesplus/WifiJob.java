@@ -163,7 +163,6 @@ class WifiJob extends Job {
 
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.setEventRadioSwitchParameters(EventPreferencesRadioSwitch.RADIO_TYPE_WIFI, wifiState == WifiManager.WIFI_STATE_ENABLED);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
 
                         // start events handler

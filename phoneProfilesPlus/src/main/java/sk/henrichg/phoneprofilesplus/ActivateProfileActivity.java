@@ -197,6 +197,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         super.onStop();
         if (instance == this)
             instance = null;
+        ActivatorTargetHelpsActivity.activatorActivity = null;
     }
 
     @Override
@@ -212,14 +213,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
             instance = this;
             refreshGUI(false);
         }
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-    //	Debug.stopMethodTracing();
-
-        super.onDestroy();
     }
 
     @Override
@@ -425,6 +418,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                     //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
                                     ActivatorTargetHelpsActivity.activity.finish();
                                     ActivatorTargetHelpsActivity.activity = null;
+                                    ActivatorTargetHelpsActivity.activatorActivity = null;
                                 }
                             }
                         }, 500);

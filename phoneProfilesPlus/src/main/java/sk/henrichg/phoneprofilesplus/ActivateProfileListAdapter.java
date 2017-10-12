@@ -22,7 +22,7 @@ class ActivateProfileListAdapter extends BaseAdapter
 
     private List<Profile> profileList;
     private ActivateProfileListFragment fragment;
-    private DataWrapper dataWrapper;
+    private final DataWrapper dataWrapper;
 
     //public boolean targetHelpsSequenceStarted;
     static final String PREF_START_TARGET_HELPS = "activate_profile_list_adapter_start_target_helps";

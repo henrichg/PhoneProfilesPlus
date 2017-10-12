@@ -31,7 +31,7 @@ public class DurationDialogPreference extends DialogPreference
     private SeekBar mSeekBarSeconds;
     private TimeDurationPickerDialog mValueDialog;
 
-    Context context;
+    private Context context;
 
     public DurationDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

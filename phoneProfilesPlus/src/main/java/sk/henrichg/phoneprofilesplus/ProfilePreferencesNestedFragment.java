@@ -21,6 +21,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
 
@@ -1385,9 +1386,11 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 } catch (Exception ignored) {}
             }
 
-            if (ProfilePreferencesFragment.changedImageViewPreference != null)
+            if (ProfilePreferencesFragment.changedImageViewPreference != null) {
                 // nastavime image identifikatoru na ziskanu cestu ku obrazku
                 ProfilePreferencesFragment.changedImageViewPreference.setImageIdentifier(selectedImage.toString());
+                ProfilePreferencesFragment.changedImageViewPreference = null;
+            }
         }
         if (requestCode == ProfileIconPreference.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
         {
@@ -1403,9 +1406,11 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 } catch (Exception ignored) {}
             }
 
-            if (ProfilePreferencesFragment.changedProfileIconPreference != null)
+            if (ProfilePreferencesFragment.changedProfileIconPreference != null) {
                 // nastavime image identifikatoru na ziskanu cestu ku obrazku
                 ProfilePreferencesFragment.changedProfileIconPreference.setImageIdentifierAndType(selectedImage.toString(), false, true);
+                ProfilePreferencesFragment.changedProfileIconPreference = null;
+            }
         }
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
             /*final boolean canEnableZenMode =
@@ -1419,12 +1424,16 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (requestCode == ApplicationsDialogPreference.RESULT_APPLICATIONS_EDITOR && resultCode == Activity.RESULT_OK && data != null)
         {
             if (ProfilePreferencesFragment.applicationsDialogPreference != null) {
+                Log.e("ProfilePreferencesNestedFragment.doOnActivityResult", "data="+PPApplication.intentToString(data));
+
                 ProfilePreferencesFragment.applicationsDialogPreference.updateShortcut(
                         (Intent)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT),
                         data.getStringExtra(Intent.EXTRA_SHORTCUT_NAME),
                         /*(Bitmap)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON),*/
                         data.getIntExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, -1),
                         data.getIntExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0));
+
+                ProfilePreferencesFragment.applicationsDialogPreference = null;
             }
         }
         if (requestCode == RESULT_UNLINK_VOLUMES_APP_PREFERENCES) {

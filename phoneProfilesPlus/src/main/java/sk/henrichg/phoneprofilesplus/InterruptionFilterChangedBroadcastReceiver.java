@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;

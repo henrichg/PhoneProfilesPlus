@@ -14,10 +14,9 @@ import java.util.List;
 
 class EventsHandler {
     
-    Context context;
+    private Context context;
     private DataWrapper dataWrapper;
     private String sensorType;
-    private boolean interactive;
 
     private int callEventType;
     private static int oldRingerMode;
@@ -32,8 +31,6 @@ class EventsHandler {
     private String eventNotificationPostedRemoved;
     private String eventNFCTagName;
     private long eventNFCDate;
-    private int eventRadioSwitchType;
-    private boolean eventRadioSwitchState;
 
     static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
     static final String SENSOR_TYPE_RESTART_EVENTS = "restartEvents";
@@ -82,6 +79,8 @@ class EventsHandler {
                 return;
 
             PPApplication.logE("#### EventsHandler.handleEvents", "-- start --------------------------------");
+
+            boolean interactive;
 
             this.sensorType = sensorType;
             PPApplication.logE("#### EventsHandler.handleEvents", "sensorType=" + this.sensorType);
@@ -185,7 +184,7 @@ class EventsHandler {
 
             boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS);
 
-            this.interactive = (!isRestart) || _interactive;
+            interactive = (!isRestart) || _interactive;
 
             if (sensorType.equals(SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED) ||
                     sensorType.equals(SENSOR_TYPE_SEARCH_CALENDAR_EVENTS)) {
@@ -694,8 +693,4 @@ class EventsHandler {
         eventNFCDate = date;
     }
 
-    void setEventRadioSwitchParameters(int type, boolean state) {
-        eventRadioSwitchType = type;
-        eventRadioSwitchState = state;
-    }
 }

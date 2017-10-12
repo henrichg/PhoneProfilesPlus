@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -13,7 +14,7 @@ import java.util.Calendar;
 
 public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver {
 
-    static final String EXTRA_RUN_APPLICATION_DATA = "run_application_data";
+    private static final String EXTRA_RUN_APPLICATION_DATA = "run_application_data";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -76,6 +77,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             now.add(Calendar.SECOND, startApplicationDelay);
             long alarmTime = now.getTimeInMillis();
 
+            @SuppressLint("SimpleDateFormat")
             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
             String result = sdf.format(alarmTime);
             PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.setDelayAlarm","startTime="+result);
@@ -99,7 +101,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         }
     }
 
-    static void removeDelayAlarm(Context context)
+    static private void removeDelayAlarm(Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 

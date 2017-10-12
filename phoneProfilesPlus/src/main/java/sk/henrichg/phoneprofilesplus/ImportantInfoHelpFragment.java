@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -177,6 +178,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context)) {
+                        @SuppressLint("InlinedApi")
                         Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
                         startActivity(intent);

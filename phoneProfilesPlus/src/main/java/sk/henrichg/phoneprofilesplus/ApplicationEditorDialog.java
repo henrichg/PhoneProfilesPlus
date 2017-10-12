@@ -22,7 +22,7 @@ import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 class ApplicationEditorDialog
 {
 
-    ApplicationsDialogPreference preference;
+    private ApplicationsDialogPreference preference;
     private List<Application> cachedApplicationList;
     private ApplicationEditorDialogAdapter listAdapter;
 

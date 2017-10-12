@@ -77,7 +77,7 @@ class ApplicationsMultiSelectPreferenceAdapter extends BaseAdapter implements Sc
             // Optimization: Tag the row with it's child views, so we don't
             // have to
             // call findViewById() later when we reuse the row.
-            convertView.setTag(new ApplicationViewHolder(imageViewIcon, textViewAppName, textViewAppType, checkBox, null));
+            convertView.setTag(new ApplicationViewHolder(imageViewIcon, textViewAppName, textViewAppType, checkBox));
 
             // If CheckBox is toggled, update the Application it is tagged with.
             checkBox.setOnClickListener(new View.OnClickListener() {

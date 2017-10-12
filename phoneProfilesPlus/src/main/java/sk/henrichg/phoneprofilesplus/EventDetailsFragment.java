@@ -12,10 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class EventDetailsFragment extends Fragment {
 
     public long event_id;

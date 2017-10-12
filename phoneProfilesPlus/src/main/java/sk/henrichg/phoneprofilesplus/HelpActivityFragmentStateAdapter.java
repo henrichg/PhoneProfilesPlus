@@ -6,9 +6,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 class HelpActivityFragmentStateAdapter extends FragmentStatePagerAdapter {
 
-    int mNumOfTabs;
+    private int mNumOfTabs;
 
-    public HelpActivityFragmentStateAdapter(FragmentManager fm, int NumOfTabs) {
+    HelpActivityFragmentStateAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
@@ -18,11 +18,9 @@ class HelpActivityFragmentStateAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                ImportantInfoHelpFragment tab1 = new ImportantInfoHelpFragment();
-                return tab1;
+                return new ImportantInfoHelpFragment();
             case 1:
-                QuickGuideHelpFragment tab2 = new QuickGuideHelpFragment();
-                return tab2;
+                return new QuickGuideHelpFragment();
             default:
                 return null;
         }

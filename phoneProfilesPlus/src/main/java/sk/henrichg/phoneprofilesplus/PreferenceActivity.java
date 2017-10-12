@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-public abstract class PreferenceActivity extends AppCompatPreferenceActivity
+abstract class PreferenceActivity extends AppCompatPreferenceActivity
 {
     Toolbar toolbar;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void setPreferenceFragment(PreferenceFragment preferenceFragment) {
+    void setPreferenceFragment(PreferenceFragment preferenceFragment) {
 
         //First check if it's already loaded (configuration change) so we don't overlap fragments
         if(getFragmentManager()

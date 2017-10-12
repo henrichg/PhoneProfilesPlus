@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@id/widget_profile_list_header_profile_icon"
-                android:layout_toEndOf="@+d/widget_profile_list_header_profile_icon"
+                android:layout_toEndOf="@id/widget_profile_list_header_profile_icon"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:shadowColor="#ffffffff"

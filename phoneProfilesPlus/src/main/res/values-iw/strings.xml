@@ -1068,11 +1068,11 @@
   <string name="phone_profiles_pref_applicationLanguage_ar">عربى</string>
   <string name="phone_profiles_pref_applicationLanguage_bg">Български</string>
   <string name="phone_profiles_pref_applicationLanguage_hi">हिंदी</string>
-  <string name="phone_profiles_pref_applicationLanguage_id">Bahasa Indonesia</string>
+  <string name="phone_profiles_pref_applicationLanguage_in">Bahasa Indonesia</string>
   <string name="array_pref_value_ar">ar</string>
   <string name="array_pref_value_bg">bg</string>
   <string name="array_pref_value_hi">hi</string>
-  <string name="array_pref_value_id">id</string>
+  <string name="array_pref_value_in">in</string>
   <string name="phone_profiles_pref_applicationLanguage_sl">Slovenščina</string>
   <string name="array_pref_value_sl">sl</string>
   <string name="phone_profiles_pref_applicationStartEvents">Start events on startup</string>

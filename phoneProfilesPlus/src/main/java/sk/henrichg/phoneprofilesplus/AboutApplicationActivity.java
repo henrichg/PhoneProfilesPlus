@@ -195,7 +195,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
             public void onClick(View textView) {
                 Uri uri = Uri.parse("market://details?id=" + getPackageName());
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                // To count with Play market backstack, After pressing back button,
+                // To count with Play market back stack, After pressing back button,
                 // to taken back to our application, we need to add following flags to intent.
                 if (android.os.Build.VERSION.SDK_INT >= 21)
                     goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |

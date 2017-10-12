@@ -226,6 +226,7 @@ public class MaterialEditTextPreference extends EditTextPreference {
         boolean isDialogShowing;
         Bundle dialogBundle;
 
+        @SuppressLint("ParcelClassLoader")
         SavedState(Parcel source) {
             super(source);
             isDialogShowing = source.readInt() == 1;

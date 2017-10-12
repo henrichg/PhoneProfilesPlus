@@ -40,7 +40,6 @@ class EventsHandlerJob extends Job {
         eventsHandler.setEventNotificationParameters(bundle.getString(EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED));
         eventsHandler.setEventSMSParameters(bundle.getString(EXTRA_EVENT_SMS_PHONE_NUMBER), bundle.getLong(EXTRA_EVENT_SMS_DATE, 0));
         eventsHandler.setEventNFCParameters(bundle.getString(EXTRA_EVENT_NFC_TAG_NAME), bundle.getLong(EXTRA_EVENT_NFC_DATE, 0));
-        eventsHandler.setEventRadioSwitchParameters(bundle.getInt(EXTRA_EVENT_RADIO_SWITCH_TYPE, 0), bundle.getBoolean(EXTRA_EVENT_RADIO_SWITCH_STATE, false));
         eventsHandler.handleEvents(sensorType, bundle.getBoolean(DataWrapper.EXTRA_INTERACTIVE, false));
         return Result.SUCCESS;
     }
@@ -65,22 +64,6 @@ class EventsHandlerJob extends Job {
         Bundle bundle = new Bundle();
         bundle.putString(EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
         bundle.getBoolean(DataWrapper.EXTRA_INTERACTIVE, interactive);
-
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
-    }
-
-    static void startForRadioSwitchSensor(int switchType, boolean state) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
-
-        Bundle bundle = new Bundle();
-        bundle.putString(EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-        bundle.putInt(EXTRA_EVENT_RADIO_SWITCH_TYPE, switchType);
-        bundle.putBoolean(EXTRA_EVENT_RADIO_SWITCH_STATE, state);
 
         jobBuilder
                 .setUpdateCurrent(false) // don't update current, it would cancel this currently running job

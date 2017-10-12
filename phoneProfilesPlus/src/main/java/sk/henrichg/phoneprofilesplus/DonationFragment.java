@@ -166,7 +166,7 @@ public class DonationFragment extends Fragment {
 
     /** Verifies the developer payload of a purchase. */
     private boolean verifyDeveloperPayload(Purchase p) {
-        String payload = p.getDeveloperPayload();
+        //String payload = p.getDeveloperPayload();
 
         /*
          * TODO: verify that the developer payload of the purchase is correct. It will be

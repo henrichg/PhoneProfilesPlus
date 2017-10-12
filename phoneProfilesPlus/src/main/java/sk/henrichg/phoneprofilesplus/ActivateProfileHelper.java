@@ -1590,8 +1590,6 @@ public class ActivateProfileHelper {
             }
         }
 
-        Intent rootServiceIntent;
-
         // set power save mode
         ExecuteRootProfilePrefsJob.start(ExecuteRootProfilePrefsJob.ACTION_POWER_SAVE_MODE, profile._id, merged);
 
@@ -2862,7 +2860,7 @@ public class ActivateProfileHelper {
         }
     }
 
-    private static void commandWait(Command cmd) throws Exception {
+    private static void commandWait(Command cmd) {
         int waitTill = 50;
         int waitTillMultiplier = 2;
         int waitTillLimit = 3200; //7 tries, 6350 msec

@@ -21,9 +21,4 @@ public class QuickGuideHelpFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_help_quick_guide, container, false);
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
 }

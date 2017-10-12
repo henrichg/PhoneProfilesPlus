@@ -24,10 +24,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("@@@ LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 
             if (intent.getAction().matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
-                LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                boolean isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-                //boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-                EventsHandlerJob.startForRadioSwitchSensor(EventPreferencesRadioSwitch.RADIO_TYPE_GPS, isGpsEnabled);
+                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
             }
 
             if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {

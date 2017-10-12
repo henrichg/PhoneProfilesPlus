@@ -57,7 +57,7 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
         {
             vi = inflater.inflate(R.layout.profileicon_preference_gridview_item, parent, false);
             holder = new ViewHolder();
-            holder.icon = (ImageView)vi.findViewById(R.id.profileicon_preference_gridview_item_icon);
+            holder.icon = vi.findViewById(R.id.profileicon_preference_gridview_item_icon);
             vi.setTag(holder);
         }
         else

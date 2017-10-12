@@ -168,7 +168,7 @@ public class PhoneProfilesService extends Service
 
     private MediaPlayer eventNotificationMediaPlayer = null;
     private boolean eventNotificationIsPlayed = false;
-    Timer eventNotificationPlayTimer = null;
+    private Timer eventNotificationPlayTimer = null;
 
     public static String connectToSSID = Profile.CONNECTTOSSID_JUSTANY;
     public static boolean connectToSSIDStarted = false;

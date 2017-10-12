@@ -40,7 +40,7 @@ public class ActivateProfileListFragment extends Fragment {
     //public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
 
-    public static int PORDER_FOR_IGNORED_PROFILE = 1000000;
+    public static final int PORDER_FOR_IGNORED_PROFILE = 1000000;
 
     public ActivateProfileListFragment() {
     }
@@ -277,17 +277,9 @@ public class ActivateProfileListFragment extends Fragment {
 
         updateHeader(profile);
         setProfileSelection(profile, false);
-        endOnStart();
 
         //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onStart");
     }
-
-    private void endOnStart()
-    {
-        //  aplikacia uz je 1. krat spustena - is in FirstStartJob
-        //PPApplication.setApplicationStarted(getActivity().getApplicationContext(), true);
-    }
-
 
     @Override
     public void onDestroy()

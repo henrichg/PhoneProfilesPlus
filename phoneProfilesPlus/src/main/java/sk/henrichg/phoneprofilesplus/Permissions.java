@@ -1352,6 +1352,7 @@ class Permissions {
         locationGeofenceEditorActivity = null;
         brightnessDialogPreference = null;
         mobileCellsPreference = null;
+        ringtonePreference = null;
     }
 
 

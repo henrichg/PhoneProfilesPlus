@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
@@ -192,6 +193,7 @@ public class MaterialListPreference extends ListPreference {
         boolean isDialogShowing;
         Bundle dialogBundle;
 
+        @SuppressLint("ParcelClassLoader")
         SavedState(Parcel source) {
             super(source);
             dialogBundle = source.readBundle();

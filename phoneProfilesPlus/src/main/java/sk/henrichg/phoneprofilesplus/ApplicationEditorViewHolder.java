@@ -4,7 +4,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-public class ApplicationEditorViewHolder {
+class ApplicationEditorViewHolder {
     ImageView imageViewIcon;
     TextView textViewAppName;
     RadioButton radioBtn;

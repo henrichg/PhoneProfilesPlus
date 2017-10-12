@@ -1,5 +1,6 @@
 package com.andraskindler.quickscroll.animation;
 
+import android.annotation.SuppressLint;
 import android.graphics.Camera;
 import android.graphics.Matrix;
 import android.graphics.RectF;
@@ -18,6 +19,7 @@ import java.util.WeakHashMap;
  */
 public final class AnimatorProxy extends Animation {
     /** Whether or not the current running platform needs to be proxied. */
+    @SuppressLint("ObsoleteSdkInt")
     public static final boolean NEEDS_PROXY = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB;
 
     private static final WeakHashMap<View, AnimatorProxy> PROXIES = new WeakHashMap<>();

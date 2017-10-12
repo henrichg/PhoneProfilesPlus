@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -599,6 +600,7 @@ public class BrightnessDialogPreference extends
         int defaultProfile = 0;
         int disableDefaultProfile = 0;
 
+        @SuppressLint("ParcelClassLoader")
         SavedState(Parcel source)
         {
             super(source);

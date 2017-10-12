@@ -43,7 +43,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
             if (previousState != actualState) {
 
                 if (Event.getGlobalEventsRunning(context)) {
-                    EventsHandlerJob.startForRadioSwitchSensor(EventPreferencesRadioSwitch.RADIO_TYPE_MOBILE_DATA, actualState);
+                    EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
                 }
 
                 previousState = actualState;
