@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.content.pm.ShortcutInfoCompat;
 import android.support.v4.content.pm.ShortcutManagerCompat;
 import android.support.v4.graphics.drawable.IconCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -193,10 +194,13 @@ public class ShortcutCreatorListFragment extends Fragment {
         Intent shortcutIntent;
         if (position == 0) {
             // restart events
+            Log.e("ShortcutCreatorListFragment.createShortcut","restart events");
             shortcutIntent = new Intent(getActivity().getApplicationContext(), ActionForExternalApplicationActivity.class);
             shortcutIntent.setAction(ActionForExternalApplicationActivity.ACTION_RESTART_EVENTS);
         } else {
+            Log.e("ShortcutCreatorListFragment.createShortcut","profile="+profile._name);
             shortcutIntent = new Intent(getActivity().getApplicationContext(), BackgroundActivateProfileActivity.class);
+            shortcutIntent.setAction(Intent.ACTION_MAIN);
             // BackgroundActivateProfileActivity musi toto testovat, a len spravit aktivaciu profilu
             shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
             //noinspection ConstantConditions
