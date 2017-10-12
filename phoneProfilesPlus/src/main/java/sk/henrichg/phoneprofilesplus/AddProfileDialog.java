@@ -13,9 +13,9 @@ import java.util.List;
 
 class AddProfileDialog
 {
-    private EditorProfileListFragment profileListFragment;
+    private final EditorProfileListFragment profileListFragment;
 
-    MaterialDialog mDialog;
+    final MaterialDialog mDialog;
 
     AddProfileDialog(Context context, EditorProfileListFragment profileListFragment)
     {

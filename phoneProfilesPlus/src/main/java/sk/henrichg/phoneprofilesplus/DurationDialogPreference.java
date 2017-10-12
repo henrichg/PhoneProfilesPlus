@@ -22,7 +22,7 @@ public class DurationDialogPreference extends DialogPreference
 
     private String value;
 
-    private int mMin, mMax;
+    private final int mMin, mMax;
 
     private MaterialDialog mDialog;
     private TextView mValue;
@@ -31,7 +31,7 @@ public class DurationDialogPreference extends DialogPreference
     private SeekBar mSeekBarSeconds;
     private TimeDurationPickerDialog mValueDialog;
 
-    private Context context;
+    private final Context context;
 
     public DurationDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

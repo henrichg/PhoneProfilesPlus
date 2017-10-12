@@ -12,9 +12,9 @@ import java.util.List;
 
 class AddProfileAdapter extends BaseAdapter {
 
-    private List<Profile> profileList;
+    private final List<Profile> profileList;
 
-    private Context context;
+    private final Context context;
 
     private LayoutInflater inflater = null;
 

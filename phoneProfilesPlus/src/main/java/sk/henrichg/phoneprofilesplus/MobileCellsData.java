@@ -2,11 +2,11 @@ package sk.henrichg.phoneprofilesplus;
 
 class MobileCellsData {
 
-    int cellId;
+    final int cellId;
     String name;
     boolean connected;
-    boolean _new;
-    long lastConnectedTime;
+    final boolean _new;
+    final long lastConnectedTime;
 
     //MobileCellsData() {
     //}

@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static SQLiteDatabase writableDb;
     private static final DatabaseHandlerMutex databaseHandlerMutex = new DatabaseHandlerMutex();
 
-    private Context context;
+    private final Context context;
     
     // Database Version
     private static final int DATABASE_VERSION = 1930;
@@ -6417,7 +6417,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             mobileCell._id = foundedDbId;
                             mobileCell._cellId = cell.cellId;
                             mobileCell._name = cell.name;
-                            mobileCell._new = cell._new;
+                            mobileCell._new = true;
                             mobileCell._lastConnectedTime = cell.lastConnectedTime;
                             updateMobileCell(mobileCell);
                         }

@@ -16,7 +16,7 @@ import com.andraskindler.quickscroll.Scrollable;
 
 class ContactsMultiSelectPreferenceAdapter extends BaseAdapter implements Scrollable
 {
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
     //private Context context;
 
     ContactsMultiSelectPreferenceAdapter(Context context)

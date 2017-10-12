@@ -11,7 +11,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 
     private static boolean previousState = false;
 
-    private Context context;
+    private final Context context;
 
     MobileDataStateChangedContentObserver(Context c, Handler handler) {
         super(handler);

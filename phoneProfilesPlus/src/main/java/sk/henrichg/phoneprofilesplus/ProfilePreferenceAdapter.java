@@ -13,11 +13,11 @@ import java.util.List;
 
 class ProfilePreferenceAdapter extends BaseAdapter {
 
-    List<Profile> profileList;
-    private long profileId;
-    private ProfilePreference preference;
+    final List<Profile> profileList;
+    private final long profileId;
+    private final ProfilePreference preference;
 
-    private Context context;
+    private final Context context;
 
     private LayoutInflater inflater = null;
 

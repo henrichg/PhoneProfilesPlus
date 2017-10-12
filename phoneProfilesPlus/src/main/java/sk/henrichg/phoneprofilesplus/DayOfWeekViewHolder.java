@@ -5,8 +5,8 @@ import android.widget.TextView;
 
 class DayOfWeekViewHolder {
 
-    TextView textViewDisplayName;
-    CheckBox checkBox;
+    final TextView textViewDisplayName;
+    final CheckBox checkBox;
 
     //public DayOfWeekViewHolder() {
     //}

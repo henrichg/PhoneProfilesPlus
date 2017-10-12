@@ -17,11 +17,11 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 class ProfileIconColorChooserDialog implements View.OnClickListener {
 
-    private ProfileIconPreference profileIconPreference;
-    MaterialDialog mDialog;
-    private Context context;
+    private final ProfileIconPreference profileIconPreference;
+    final MaterialDialog mDialog;
+    private final Context context;
 
-    private int[] mColors;
+    private final int[] mColors;
 
     ProfileIconColorChooserDialog(Context context, ProfileIconPreference preference, boolean useCustomColor, int selectedColor, int defaultColor)
     {

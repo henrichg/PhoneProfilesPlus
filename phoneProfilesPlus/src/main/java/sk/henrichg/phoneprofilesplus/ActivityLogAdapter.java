@@ -23,9 +23,9 @@ class ActivityLogAdapter extends CursorAdapter {
     //private final int KEY_AL_DURATION_DELAY;
 
     @SuppressLint("UseSparseArrays")
-    private HashMap<Integer, Integer> activityTypeStrings = new HashMap<>();
+    private final HashMap<Integer, Integer> activityTypeStrings = new HashMap<>();
     @SuppressLint("UseSparseArrays")
-    private HashMap<Integer, Integer> activityTypeColors = new HashMap<>();
+    private final HashMap<Integer, Integer> activityTypeColors = new HashMap<>();
 
     ActivityLogAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);

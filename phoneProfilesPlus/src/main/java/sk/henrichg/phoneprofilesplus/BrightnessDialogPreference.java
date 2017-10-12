@@ -49,19 +49,19 @@ public class BrightnessDialogPreference extends
     private int disableDefaultProfile = 0;
 
     @SuppressWarnings("FieldCanBeLocal")
-    private int maximumValue = 100;
-    private int minimumValue = 0;
-    private int stepSize = 1;
+    private final int maximumValue = 100;
+    private final int minimumValue = 0;
+    private final int stepSize = 1;
 
     private String sValue = "";
     private int value = 0;
 
     private boolean adaptiveAllowed = true;
-    private Profile _defaultProfile;
+    private final Profile _defaultProfile;
 
-    private int savedBrightness;
+    private final int savedBrightness;
     private float savedAdaptiveBrightness;
-    private int savedBrightnessMode;
+    private final int savedBrightnessMode;
 
     public BrightnessDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

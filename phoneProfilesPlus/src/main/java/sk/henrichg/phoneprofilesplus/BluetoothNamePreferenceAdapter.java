@@ -13,11 +13,10 @@ import android.widget.TextView;
 
 class BluetoothNamePreferenceAdapter extends BaseAdapter
 {
-    private BluetoothNamePreference preference;
-    private Context context;
+    private final BluetoothNamePreference preference;
+    private final Context context;
 
-    private LayoutInflater inflater;
-    //private Context context;
+    private final LayoutInflater inflater;
 
     BluetoothNamePreferenceAdapter(Context context, BluetoothNamePreference preference)
     {

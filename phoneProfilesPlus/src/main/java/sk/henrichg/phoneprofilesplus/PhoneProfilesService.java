@@ -2757,12 +2757,14 @@ public class PhoneProfilesService extends Service
         mStartedOrientationSensors = false;
     }
 
+    /*
     public void resetListeningOrientationSensors(boolean oldPowerSaveMode, boolean forceReset) {
         if ((forceReset) || (PPApplication.isPowerSaveMode != oldPowerSaveMode)) {
             stopListeningOrientationSensors();
             startListeningOrientationSensors();
         }
     }
+    */
 
     @Override
     public void onSensorChanged(SensorEvent event) {

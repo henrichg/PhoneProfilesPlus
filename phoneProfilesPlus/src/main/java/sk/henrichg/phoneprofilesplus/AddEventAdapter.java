@@ -14,14 +14,14 @@ import java.util.List;
 
 class AddEventAdapter extends BaseAdapter {
 
-    private List<Event> eventList;
-    private String[] profileNamesArray;
-    private int[] profileIconsArray;
+    private final List<Event> eventList;
+    private final String[] profileNamesArray;
+    private final int[] profileIconsArray;
     private int defaultColor;
 
-    private AddEventDialog dialog;
+    private final AddEventDialog dialog;
 
-    private Context context;
+    private final Context context;
 
     AddEventAdapter(AddEventDialog dialog, Context c, List<Event> eventList)
     {

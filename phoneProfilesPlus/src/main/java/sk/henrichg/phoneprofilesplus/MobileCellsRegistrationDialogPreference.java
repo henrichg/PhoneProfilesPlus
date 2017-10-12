@@ -28,9 +28,9 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                                         implements SeekBar.OnSeekBarChangeListener {
 
     private String value;
-    private Context context;
+    private final Context context;
 
-    private int mMin, mMax;
+    private final int mMin, mMax;
 
     private MaterialDialog mDialog;
     private TextView mValue;
@@ -380,7 +380,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
     public class MobileCellsRegistrationBroadcastReceiver extends BroadcastReceiver {
 
-        MobileCellsRegistrationDialogPreference preference;
+        final MobileCellsRegistrationDialogPreference preference;
 
         MobileCellsRegistrationBroadcastReceiver(MobileCellsRegistrationDialogPreference preference) {
             this.preference = preference;

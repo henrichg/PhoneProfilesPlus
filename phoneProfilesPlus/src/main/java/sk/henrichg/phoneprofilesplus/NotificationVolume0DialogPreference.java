@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 
 public class NotificationVolume0DialogPreference extends DialogPreference {
 
-    private Context _context;
+    private final Context _context;
 
     private AlertDialog mDialog;
 

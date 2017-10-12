@@ -22,7 +22,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     private EditorProfileListFragment fragment;
     private DataWrapper dataWrapper;
-    private int filterType;
+    private final int filterType;
     private List<Profile> profileList;
 
     private final OnStartDragItemListener mDragStartListener;

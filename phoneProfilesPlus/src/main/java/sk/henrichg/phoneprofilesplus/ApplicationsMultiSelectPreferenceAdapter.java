@@ -14,10 +14,10 @@ import com.andraskindler.quickscroll.Scrollable;
 
 class ApplicationsMultiSelectPreferenceAdapter extends BaseAdapter implements Scrollable
 {
-    private LayoutInflater inflater;
-    private Context context;
+    private final LayoutInflater inflater;
+    private final Context context;
 
-    private boolean noShortcuts;
+    private final boolean noShortcuts;
 
     ApplicationsMultiSelectPreferenceAdapter(Context context, int addShortcuts)
     {

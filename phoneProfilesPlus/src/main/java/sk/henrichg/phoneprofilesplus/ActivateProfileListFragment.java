@@ -157,8 +157,8 @@ public class ActivateProfileListFragment extends Fragment {
 
     private static class LoadProfileListAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private WeakReference<ActivateProfileListFragment> fragmentWeakRef;
-        private DataWrapper dataWrapper;
+        private final WeakReference<ActivateProfileListFragment> fragmentWeakRef;
+        private final DataWrapper dataWrapper;
 
         private class ProfileComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {

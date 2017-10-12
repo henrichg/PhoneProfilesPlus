@@ -17,8 +17,8 @@ class EventsHandlerJob extends Job {
     private static final String EXTRA_EVENT_SMS_DATE = "event_sms_date";
     private static final String EXTRA_EVENT_NFC_DATE = "event_nfc_date";
     private static final String EXTRA_EVENT_NFC_TAG_NAME = "event_nfc_tag_name";
-    private static final String EXTRA_EVENT_RADIO_SWITCH_TYPE = "event_radio_switch_type";
-    private static final String EXTRA_EVENT_RADIO_SWITCH_STATE = "event_radio_switch_state";
+    //private static final String EXTRA_EVENT_RADIO_SWITCH_TYPE = "event_radio_switch_type";
+    //private static final String EXTRA_EVENT_RADIO_SWITCH_STATE = "event_radio_switch_state";
 
     @NonNull
     @Override

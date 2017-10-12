@@ -12,17 +12,17 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
 {
 
-    ImageView dragHandle;
+    final ImageView dragHandle;
     //private RelativeLayout listItemRoot;
-    private ImageView profileIcon;
-    private TextView profileName;
+    private final ImageView profileIcon;
+    private final TextView profileName;
     private ImageView profileIndicator;
-    private ImageView profileItemEditMenu;
+    private final ImageView profileItemEditMenu;
 
     private Profile profile;
-    private EditorProfileListFragment editorFragment;
+    private final EditorProfileListFragment editorFragment;
 
-    private Context context;
+    private final Context context;
 
     EditorProfileListViewHolder(View itemView, EditorProfileListFragment editorFragment, Context context, int filterType) {
         super(itemView);
@@ -100,11 +100,10 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         }
 
         profileItemEditMenu.setTag(profile);
-        final ImageView _profileItemEditMenu = profileItemEditMenu;
         profileItemEditMenu.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                editorFragment.showEditMenu(_profileItemEditMenu);
+                editorFragment.showEditMenu(profileItemEditMenu);
             }
         });
     }

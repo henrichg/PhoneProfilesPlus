@@ -14,8 +14,8 @@ import java.util.Map;
 
 class RingtonePreferenceAdapter extends BaseAdapter {
 
-    Map<String, String> toneList;
-    private RingtonePreference preference;
+    final Map<String, String> toneList;
+    private final RingtonePreference preference;
 
     private LayoutInflater inflater = null;
 

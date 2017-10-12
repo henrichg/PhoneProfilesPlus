@@ -41,10 +41,10 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static boolean logIntoLogCat = false;
-    private static boolean logIntoFile = false;
-    private static boolean rootToolsDebug = false;
-    private static String logFilterTags = "##### PPApplication.onCreate"
+    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoFile = false;
+    private static final boolean rootToolsDebug = false;
+    private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.onDestroy"
@@ -112,7 +112,7 @@ public class PPApplication extends Application {
     static final String PERMISSIONS_PREFS_NAME = "permissions_list";
     static final String POSTED_NOTIFICATIONS_PREFS_NAME = "posted_notifications";
 
-    public static final String RESCAN_TYPE_SCREEN_ON = "1";
+    //public static final String RESCAN_TYPE_SCREEN_ON = "1";
     public static final String RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS = "3";
 
 
@@ -168,7 +168,7 @@ public class PPApplication extends Application {
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
     public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
     public static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
-    public static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
+    //public static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
     public static final GeofenceScannerLastLocationMutex geofenceScannerLastLocationMutex = new GeofenceScannerLastLocationMutex();
     public static final ScannerMutext scannerMutex = new ScannerMutext();
     public static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
@@ -183,11 +183,11 @@ public class PPApplication extends Application {
     // Samsung Look instance
     public static Slook sLook = null;
     public static boolean sLookCocktailPanelEnabled = false;
-    public static boolean sLookCocktailBarEnabled = false;
+    //public static boolean sLookCocktailBarEnabled = false;
 
     // this refresh GUI, must by called from GUI thread no IntentService
-    public static RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver();
-    public static DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
+    public static final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver();
+    public static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
 
     @Override
     public void onCreate()
@@ -259,7 +259,7 @@ public class PPApplication extends Application {
             // true = The Device supports Edge Single Mode, Edge Single Plus Mode, and Edge Feeds Mode.
             sLookCocktailPanelEnabled = sLook.isFeatureEnabled(Slook.COCKTAIL_PANEL);
             // true = The Device supports Edge Immersive Mode feature.
-            sLookCocktailBarEnabled = sLook.isFeatureEnabled(Slook.COCKTAIL_BAR);
+            //sLookCocktailBarEnabled = sLook.isFeatureEnabled(Slook.COCKTAIL_BAR);
         } catch (SsdkUnsupportedException e) {
             sLook = null;
         }
@@ -943,7 +943,7 @@ public class PPApplication extends Application {
         } catch (Exception ignored) {}
     }
 
-
+    /*
     public static void startGeofenceScanner(Context context) {
         try {
             PPApplication.logE("[RJS] PPApplication.startGeofenceScanner", "xxx");
@@ -959,6 +959,7 @@ public class PPApplication extends Application {
             //    context.startForegroundService(lIntent);
         } catch (Exception ignored) {}
     }
+    */
 
     public static void stopGeofenceScanner(Context context) {
         try {
@@ -992,7 +993,7 @@ public class PPApplication extends Application {
         } catch (Exception ignored) {}
     }
 
-
+    /*
     public static void startOrientationScanner(Context context) {
         try {
             PPApplication.logE("[RJS] PPApplication.startOrientationScanner", "xxx");
@@ -1008,6 +1009,7 @@ public class PPApplication extends Application {
             //    context.startForegroundService(lIntent);
         } catch (Exception ignored) {}
     }
+    */
 
     public static void stopOrientationScanner(Context context) {
         try {
@@ -1041,6 +1043,7 @@ public class PPApplication extends Application {
         } catch (Exception ignored) {}
     }
 
+    /*
     public static void startPhoneStateScanner(Context context) {
         try {
             PPApplication.logE("[RJS] PPApplication.startPhoneStateScanner", "xxx");
@@ -1056,6 +1059,7 @@ public class PPApplication extends Application {
             //    context.startForegroundService(lIntent);
         } catch (Exception ignored) {}
     }
+    */
 
     public static void stopPhoneStateScanner(Context context) {
         try {

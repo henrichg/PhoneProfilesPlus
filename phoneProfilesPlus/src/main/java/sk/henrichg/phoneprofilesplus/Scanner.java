@@ -23,10 +23,10 @@ import java.util.List;
 
 class Scanner {
 
-    private Context context;
+    private final Context context;
 
-    private static int wifiScanDuration = 25;      // 25 seconds for wifi scan
-    private static int classicBTScanDuration = 20; // 20 seconds for classic bluetooth scan
+    private static final int wifiScanDuration = 25;      // 25 seconds for wifi scan
+    private static final int classicBTScanDuration = 20; // 20 seconds for classic bluetooth scan
 
     static List<BluetoothDeviceData> tmpBluetoothScanResults = null;
     static boolean bluetoothDiscoveryStarted = false;

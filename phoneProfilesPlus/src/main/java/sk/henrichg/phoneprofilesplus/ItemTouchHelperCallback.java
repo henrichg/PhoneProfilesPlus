@@ -6,8 +6,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     private final ItemTouchHelperAdapter mAdapter;
-    private boolean mAllowSwipe;
-    private boolean mLogPressDrag;
+    private final boolean mAllowSwipe;
+    private final boolean mLogPressDrag;
 
     ItemTouchHelperCallback(ItemTouchHelperAdapter adapter, boolean allowSwipe, boolean longPressDrag) {
         mAdapter = adapter;

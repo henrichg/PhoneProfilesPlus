@@ -22,7 +22,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     private EditorEventListFragment fragment;
     private DataWrapper dataWrapper;
-    private int filterType;
+    private final int filterType;
     private List<Event> eventList;
     //boolean released = false;
     //private int defaultColor;

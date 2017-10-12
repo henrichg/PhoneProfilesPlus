@@ -14,7 +14,7 @@ class DaysOfWeekPreferenceAdapter extends BaseAdapter
 {
     private List<DayOfWeek> daysOfWeekList = null;
 
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
     //private Context context;
 
     DaysOfWeekPreferenceAdapter(Context context, List<DayOfWeek> daysOfWeekList)

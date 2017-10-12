@@ -36,8 +36,8 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
     private MaterialDialog mDialog;
 
-    private int addShortcuts;
-    private String systemSettings;
+    private final int addShortcuts;
+    private final String systemSettings;
 
     // Layout widgets.
     private LinearLayout linlaProgress;

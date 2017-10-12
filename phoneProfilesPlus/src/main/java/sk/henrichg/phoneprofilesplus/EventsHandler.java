@@ -14,7 +14,7 @@ import java.util.List;
 
 class EventsHandler {
     
-    private Context context;
+    private final Context context;
     private DataWrapper dataWrapper;
     private String sensorType;
 

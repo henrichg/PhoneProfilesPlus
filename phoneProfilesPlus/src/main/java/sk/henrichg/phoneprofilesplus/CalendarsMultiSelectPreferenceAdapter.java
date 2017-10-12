@@ -15,7 +15,7 @@ class CalendarsMultiSelectPreferenceAdapter extends BaseAdapter
 {
     private List<CalendarEvent> calendarList = null;
 
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
     //private Context context;
 
     CalendarsMultiSelectPreferenceAdapter(Context context, List<CalendarEvent> calendarList)

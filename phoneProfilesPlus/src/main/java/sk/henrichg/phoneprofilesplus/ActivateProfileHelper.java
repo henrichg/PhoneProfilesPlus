@@ -2898,7 +2898,7 @@ public class ActivateProfileHelper {
         editor.apply();
     }
 
-    static int getNotificationVolume(Context context)
+    private static int getNotificationVolume(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
         return ApplicationPreferences.preferences.getInt(PREF_NOTIFICATION_VOLUME, -999);

@@ -28,7 +28,7 @@ public class ProfilePreference extends DialogPreference {
     int noActivateAsDoNotApply;
     int showDuration;
 
-    private Context prefContext;
+    private final Context prefContext;
     private MaterialDialog mDialog;
 
     private ProfilePreferenceAdapter profilePreferenceAdapter;

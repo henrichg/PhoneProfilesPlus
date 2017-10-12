@@ -22,30 +22,28 @@ import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
 class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
-    private int mMin, mMax;
-    private Profile mProfile;
+    private final int mMin, mMax;
+    private final Profile mProfile;
     private int mAfterDo;
 
-    private Context context;
-
-    private DataWrapper mDataWrapper;
-    private boolean mMonochrome;
-    private int mMonochromeValue;
-    private int mStartupSource;
-    private boolean mInteractive;
-    private Activity mActivity;
+    private final DataWrapper mDataWrapper;
+    private final boolean mMonochrome;
+    private final int mMonochromeValue;
+    private final int mStartupSource;
+    private final boolean mInteractive;
+    private final Activity mActivity;
     //private boolean mLog;
-    private String[] afterDoValues;
+    private final String[] afterDoValues;
 
     //Context mContext;
 
-    private MaterialDialog mDialog;
-    private TextView mValue;
+    private final MaterialDialog mDialog;
+    private final TextView mValue;
     private SeekBar mSeekBarHours;
     private SeekBar mSeekBarMinutes;
     private SeekBar mSeekBarSeconds;
-    private TextView mEnds;
-    private TimeDurationPickerDialog mValueDialog;
+    private final TextView mEnds;
+    private final TimeDurationPickerDialog mValueDialog;
 
     private volatile Timer updateEndsTimer = null;
 

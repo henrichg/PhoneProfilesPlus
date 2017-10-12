@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 class EditorDrawerListAdapter extends BaseAdapter {
 
-    private Context context;
-    private String[] drawerItemsTitle;
-    private String[] drawerItemsSubtitle;
-    private Integer[] drawerItemsIcon;
+    private final Context context;
+    private final String[] drawerItemsTitle;
+    private final String[] drawerItemsSubtitle;
+    private final Integer[] drawerItemsIcon;
     
     EditorDrawerListAdapter(ListView listView, Context context,
                                     String[] itemTitle,

@@ -18,7 +18,7 @@ import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 
 class GuiInfoPopupWindow extends RelativePopupWindow {
 
-    View view;
+    final View view;
 
     GuiInfoPopupWindow(int layoutId, Context context) {
         view = LayoutInflater.from(context).inflate(layoutId, null);

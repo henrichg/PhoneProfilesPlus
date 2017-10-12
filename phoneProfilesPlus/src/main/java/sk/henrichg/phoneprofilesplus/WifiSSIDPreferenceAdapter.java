@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 class WifiSSIDPreferenceAdapter extends BaseAdapter
 {
-    private WifiSSIDPreference preference;
+    private final WifiSSIDPreference preference;
     //private RadioButton selectedRB;
     //int selectedRBIndex = -1;
 
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
     //private Context context;
 
     WifiSSIDPreferenceAdapter(Context context, WifiSSIDPreference preference)

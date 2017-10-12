@@ -23,11 +23,11 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                          LocationListener
 {
 
-    private GoogleApiClient mGoogleApiClient;
-    private Context context;
-    private DataWrapper dataWrapper;
+    private final GoogleApiClient mGoogleApiClient;
+    private final Context context;
+    private final DataWrapper dataWrapper;
 
-    private Location lastLocation;
+    private final Location lastLocation;
 
     private LocationRequest mLocationRequest;
     //public boolean mPowerSaveMode = false;
@@ -279,6 +279,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         }
     }
 
+    /*
     void resetLocationUpdates(boolean oldPowerSaveMode, boolean forceReset) {
         if ((forceReset) || (PPApplication.isPowerSaveMode != oldPowerSaveMode)) {
             stopLocationUpdates();
@@ -288,6 +289,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, false);
         }
     }
+    */
 
     //-------------------------------------------
 

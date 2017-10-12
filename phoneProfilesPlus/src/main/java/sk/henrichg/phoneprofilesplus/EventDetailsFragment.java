@@ -40,7 +40,7 @@ public class EventDetailsFragment extends Fragment {
      * A dummy implementation of the Callbacks interface that does
      * nothing. Used only when this fragment is not attached to an activity.
      */
-    private static OnStartEventPreferencesFromDetail sDummyOnStartEventPreferencesCallback = new OnStartEventPreferencesFromDetail() {
+    private static final OnStartEventPreferencesFromDetail sDummyOnStartEventPreferencesCallback = new OnStartEventPreferencesFromDetail() {
         public void onStartEventPreferencesFromDetail(Event event) {
         }
     };

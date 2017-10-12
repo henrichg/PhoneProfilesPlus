@@ -9,7 +9,7 @@ import android.os.Build;
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 class BluetoothLEScanCallback18 implements BluetoothAdapter.LeScanCallback {
 
-    private Context context;
+    private final Context context;
 
     BluetoothLEScanCallback18(Context _context) {
         context = _context;

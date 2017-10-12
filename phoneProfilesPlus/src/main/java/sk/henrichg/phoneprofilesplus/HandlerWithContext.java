@@ -9,7 +9,7 @@ import java.lang.ref.WeakReference;
 class HandlerWithContext extends Handler {
 
     // A weak reference to the enclosing context
-    private WeakReference<Context> mContext;
+    private final WeakReference<Context> mContext;
 
     HandlerWithContext (Looper looper, Context context) {
         super(looper);

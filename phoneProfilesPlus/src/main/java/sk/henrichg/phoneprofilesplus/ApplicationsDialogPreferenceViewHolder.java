@@ -14,18 +14,18 @@ import android.widget.TextView;
 
 class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    ImageView dragHandle;
-    private ImageView imageViewIcon;
-    private TextView textViewAppName;
-    private TextView textViewAppType;
-    private ImageView imageViewMenu;
-    private TextView textViewStartApplicationDelay;
+    final ImageView dragHandle;
+    private final ImageView imageViewIcon;
+    private final TextView textViewAppName;
+    private final TextView textViewAppType;
+    private final ImageView imageViewMenu;
+    private final TextView textViewStartApplicationDelay;
 
     private Application application;
 
-    private Context context;
-    private DataWrapper dataWrapper;
-    private ApplicationsDialogPreference preference;
+    private final Context context;
+    private final DataWrapper dataWrapper;
+    private final ApplicationsDialogPreference preference;
 
     ApplicationsDialogPreferenceViewHolder(View itemView, Context context, ApplicationsDialogPreference preference)
     {
@@ -74,11 +74,10 @@ class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder imp
         setTextStyle(textViewStartApplicationDelay, application.shortcut && (application.shortcutId == 0));
 
         imageViewMenu.setTag(application);
-        final ImageView itemEditMenu = imageViewMenu;
         imageViewMenu.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                preference.showEditMenu(itemEditMenu);
+                preference.showEditMenu(imageViewMenu);
             }
         });
 

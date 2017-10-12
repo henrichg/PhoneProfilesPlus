@@ -37,15 +37,15 @@ public class RingtonePreference extends DialogPreference {
 
     String ringtone;
 
-    private String ringtoneType;
-    private boolean showSilent;
-    private boolean showDefault;
+    private final String ringtoneType;
+    private final boolean showSilent;
+    private final boolean showDefault;
 
-    private Context prefContext;
+    private final Context prefContext;
     private MaterialDialog mDialog;
     private ListView listView;
 
-    private Map<String, String> toneList = new LinkedHashMap<>();
+    private final Map<String, String> toneList = new LinkedHashMap<>();
     private RingtonePreferenceAdapter listAdapter;
 
     private static MediaPlayer mediaPlayer = null;

@@ -19,8 +19,8 @@ import java.util.Calendar;
 
 public class TimePreference extends DialogPreference {
     
-    private Context context;
-    private AttributeSet attributeSet;
+    private final Context context;
+    private final AttributeSet attributeSet;
     //private Calendar calendar;
     private int value;
     private MaterialDialog mDialog;

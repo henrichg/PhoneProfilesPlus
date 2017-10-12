@@ -26,9 +26,9 @@ public class ImageViewPreference extends Preference {
     private String imageIdentifier;
     private Bitmap bitmap;
 
-    private Context prefContext;
+    private final Context prefContext;
 
-    static int RESULT_LOAD_IMAGE = 1970;
+    static final int RESULT_LOAD_IMAGE = 1970;
 
     public ImageViewPreference(Context context, AttributeSet attrs)
     {

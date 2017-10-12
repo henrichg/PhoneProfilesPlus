@@ -13,9 +13,9 @@ import java.util.Collections;
 class ApplicationsDialogPreferenceAdapter extends RecyclerView.Adapter<ApplicationsDialogPreferenceViewHolder>
                                             implements ItemTouchHelperAdapter
 {
-    private Context context;
+    private final Context context;
 
-    private ApplicationsDialogPreference preference;
+    private final ApplicationsDialogPreference preference;
 
     private final OnStartDragItemListener mDragStartListener;
 

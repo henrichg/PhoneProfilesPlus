@@ -2,8 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 class PostedNotificationData {
 
-    public String packageName;
-    public long time;
+    public final String packageName;
+    public final long time;
 
     //public PostedNotificationData() {
     //}

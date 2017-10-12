@@ -34,7 +34,7 @@ import java.util.List;
 public class ApplicationsDialogPreference  extends DialogPreference
                                             implements OnStartDragItemListener {
 
-    private Context context;
+    private final Context context;
 
     private String value = "";
 
@@ -58,7 +58,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
     private ImageView packageIcon3;
     private ImageView packageIcon4;
 
-    private DataWrapper dataWrapper;
+    private final DataWrapper dataWrapper;
 
     static final int RESULT_APPLICATIONS_EDITOR = 2100;
 

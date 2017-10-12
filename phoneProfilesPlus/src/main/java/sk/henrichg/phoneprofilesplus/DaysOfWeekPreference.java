@@ -22,7 +22,7 @@ public class DaysOfWeekPreference extends DialogPreference {
 
     static final String allValue = "#ALL#";
 
-    private Context _context;
+    private final Context _context;
     private String value = "";
 
     private List<DayOfWeek> daysOfWeekList = null;

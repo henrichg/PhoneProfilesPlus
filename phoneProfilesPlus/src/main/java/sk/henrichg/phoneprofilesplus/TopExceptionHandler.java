@@ -14,9 +14,9 @@ import java.util.Calendar;
 
 class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
-    private Thread.UncaughtExceptionHandler defaultUEH;
-    private Context applicationContext;
-    private int actualVersionCode;
+    private final Thread.UncaughtExceptionHandler defaultUEH;
+    private final Context applicationContext;
+    private final int actualVersionCode;
 
     private static final String CRASH_FILENAME = "crash.txt";
 

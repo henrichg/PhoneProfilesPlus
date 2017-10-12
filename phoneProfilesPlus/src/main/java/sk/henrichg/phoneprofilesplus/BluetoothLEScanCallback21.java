@@ -12,7 +12,7 @@ import java.util.List;
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class BluetoothLEScanCallback21 extends ScanCallback {
 
-    private Context context;
+    private final Context context;
 
     BluetoothLEScanCallback21(Context _context) {
         context = _context;

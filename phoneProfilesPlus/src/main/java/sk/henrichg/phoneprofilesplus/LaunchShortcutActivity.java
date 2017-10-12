@@ -3,9 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.content.pm.ShortcutInfo;
-import android.content.pm.ShortcutManager;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 
 public class LaunchShortcutActivity extends Activity {
@@ -60,10 +57,9 @@ public class LaunchShortcutActivity extends Activity {
     {
         if (requestCode == 100) {
             if ((resultCode == RESULT_OK) && (data != null)) {
-                Intent returnIntent = data;
-                returnIntent.putExtra(EXTRA_DIALOG_PREFERENCE_POSITION, dialogPreferencePosition);
-                returnIntent.putExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
-                setResult(RESULT_OK,returnIntent);
+                data.putExtra(EXTRA_DIALOG_PREFERENCE_POSITION, dialogPreferencePosition);
+                data.putExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
+                setResult(RESULT_OK, data);
             }
         }
 

@@ -96,7 +96,7 @@ public class EditorEventListFragment extends Fragment
      * A dummy implementation of the Callbacks interface that does
      * nothing. Used only when this fragment is not attached to an activity.
      */
-    private static OnStartEventPreferences sDummyOnStartEventPreferencesCallback = new OnStartEventPreferences() {
+    private static final OnStartEventPreferences sDummyOnStartEventPreferencesCallback = new OnStartEventPreferences() {
         public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex, boolean startTargetHelps) {
         }
     };
@@ -242,10 +242,10 @@ public class EditorEventListFragment extends Fragment
 
     private static class LoadEventListAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private WeakReference<EditorEventListFragment> fragmentWeakRef;
-        private DataWrapper dataWrapper;
-        private int filterType;
-        private int orderType;
+        private final WeakReference<EditorEventListFragment> fragmentWeakRef;
+        private final DataWrapper dataWrapper;
+        private final int filterType;
+        private final int orderType;
 
         private LoadEventListAsyncTask (EditorEventListFragment fragment, int filterType, int orderType) {
             this.fragmentWeakRef = new WeakReference<>(fragment);

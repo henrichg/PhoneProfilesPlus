@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 class NFCTagPreferenceAdapter extends BaseAdapter
 {
-    private NFCTagPreference preference;
+    private final NFCTagPreference preference;
     //private RadioButton selectedRB;
     //int selectedRBIndex = -1;
 
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
     //private Context context;
 
     NFCTagPreferenceAdapter(Context context, NFCTagPreference preference)

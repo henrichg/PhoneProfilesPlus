@@ -35,7 +35,7 @@ public class DonationFragment extends Fragment {
     private Spinner mGoogleSpinner;
     private Button btGoogle;
 
-    private boolean mDebug = false;
+    private final boolean mDebug = false;
 
     // The helper object
     private IabHelper mHelper;
@@ -128,8 +128,7 @@ public class DonationFragment extends Fragment {
                     try {
                         mHelper.queryInventoryAsync(true, skuList, null, mQueryFinishedListener);
                     } catch (Exception e) {
-                        ArrayAdapter<CharSequence> adapter;
-                        adapter = new ArrayAdapter<CharSequence>(getActivity(),
+                        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(),
                                 android.R.layout.simple_spinner_item, CATALOG_RELEASE_VALUES);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         mGoogleSpinner.setAdapter(adapter);
@@ -137,8 +136,7 @@ public class DonationFragment extends Fragment {
                     }
                 }
                 else {
-                    ArrayAdapter<CharSequence> adapter;
-                    adapter = new ArrayAdapter<CharSequence>(getActivity(),
+                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(),
                             android.R.layout.simple_spinner_item, CATALOG_DEBUG);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mGoogleSpinner.setAdapter(adapter);
@@ -195,7 +193,7 @@ public class DonationFragment extends Fragment {
     }
 
     // Callback for when a purchase is finished
-    private IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
+    private final IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
             if (mDebug) Log.d(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
 
@@ -233,7 +231,7 @@ public class DonationFragment extends Fragment {
     };
 
     // Called when consumption is complete
-    private IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
+    private final IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
         public void onConsumeFinished(Purchase purchase, IabResult result) {
             if (mDebug) Log.d(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
 

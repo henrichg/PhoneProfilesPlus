@@ -16,12 +16,14 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     int _nfc;
     int _airplaneMode;
 
+    /*
     static final int RADIO_TYPE_WIFI = 1;
     static final int RADIO_TYPE_BLUETOOTH = 2;
     static final int RADIO_TYPE_MOBILE_DATA = 3;
     static final int RADIO_TYPE_GPS = 4;
     static final int RADIO_TYPE_NFC = 5;
     static final int RADIO_TYPE_AIRPLANE_MODE = 6;
+    */
 
     static final String PREF_EVENT_RADIO_SWITCH_ENABLED = "eventRadioSwitchEnabled";
     private static final String PREF_EVENT_RADIO_SWITCH_WIFI = "eventRadioSwitchWifi";

@@ -23,7 +23,7 @@ import java.util.List;
 
 public class ConnectToSSIDDialogPreference extends DialogPreference {
 
-    private Context context;
+    private final Context context;
 
     String value = "";
     private int disableDefaultProfile = 0;

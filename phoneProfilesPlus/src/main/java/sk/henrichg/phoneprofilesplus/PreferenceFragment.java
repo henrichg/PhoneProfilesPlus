@@ -24,7 +24,7 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
 
     public abstract int addPreferencesFromResource();
 
-    private static HashMap<String, PreferenceScreen> preferenceScreenHashMap = new HashMap<>();
+    private static final HashMap<String, PreferenceScreen> preferenceScreenHashMap = new HashMap<>();
 
     private PreferenceScreen mPreferenceScreen;
 
@@ -48,7 +48,7 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
      * A dummy implementation of the Callbacks interface that does
      * nothing. Used only when this fragment is not attached to an activity.
      */
-    private static OnCreateNestedPreferenceFragment sDummyOnCreateNestedPreferenceFragmentCallback = new OnCreateNestedPreferenceFragment() {
+    private static final OnCreateNestedPreferenceFragment sDummyOnCreateNestedPreferenceFragmentCallback = new OnCreateNestedPreferenceFragment() {
         public PreferenceFragment onCreateNestedPreferenceFragment() {
             return null;
         }

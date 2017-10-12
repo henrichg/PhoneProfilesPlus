@@ -11,12 +11,12 @@ import android.widget.TextView;
 
 class MobileCellsPreferenceAdapter extends BaseAdapter
 {
-    private MobileCellsPreference preference;
+    private final MobileCellsPreference preference;
     //private RadioButton selectedRB;
     //int selectedRBIndex = -1;
 
-    private LayoutInflater inflater;
-    private Context context;
+    private final LayoutInflater inflater;
+    private final Context context;
 
     MobileCellsPreferenceAdapter(Context context, MobileCellsPreference preference)
     {

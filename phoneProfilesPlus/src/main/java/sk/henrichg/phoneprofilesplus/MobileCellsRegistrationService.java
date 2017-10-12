@@ -12,8 +12,8 @@ import android.support.v4.app.NotificationCompat;
 
 public class MobileCellsRegistrationService extends Service {
 
-    public static String ACTION_COUNT_DOWN_TICK = "sk.henrichg.phoneprofilesplus.ACTION_COUNT_DOWN_TICK";
-    public static String EXTRA_COUNTDOWN = "countdown";
+    public static final String ACTION_COUNT_DOWN_TICK = "sk.henrichg.phoneprofilesplus.ACTION_COUNT_DOWN_TICK";
+    public static final String EXTRA_COUNTDOWN = "countdown";
 
     private CountDownTimer countDownTimer = null;
 

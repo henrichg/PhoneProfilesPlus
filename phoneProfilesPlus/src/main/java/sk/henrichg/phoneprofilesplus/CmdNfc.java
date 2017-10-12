@@ -6,7 +6,7 @@ import android.os.ServiceManager;
 /**
  * A shell executable for NTC toggle.
  */
-class CmdNfc {
+public class CmdNfc {
 
   public static void main(String[] args) {
       //PPApplication.logE("CmdNfc.main", "args="+args);

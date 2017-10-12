@@ -21,7 +21,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
     private final int KEY_G_CHECKED;
 
     //public RadioButton selectedRB;
-    private LocationGeofencePreference preference;
+    private final LocationGeofencePreference preference;
 
     LocationGeofencesPreferenceAdapter(Context context, Cursor cursor, LocationGeofencePreference preference) {
         super(context, cursor, 0);

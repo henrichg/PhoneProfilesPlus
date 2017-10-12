@@ -25,9 +25,9 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 public class LocationGeofencePreference extends DialogPreference {
 
-    private Context context;
+    private final Context context;
 
-    int onlyEdit;
+    final int onlyEdit;
 
     private MaterialDialog mDialog;
     //private LinearLayout progressLinearLayout;
@@ -35,7 +35,7 @@ public class LocationGeofencePreference extends DialogPreference {
     //private TextView geofenceName;
     private LocationGeofencesPreferenceAdapter listAdapter;
 
-    public DataWrapper dataWrapper;
+    public final DataWrapper dataWrapper;
 
     static final String EXTRA_GEOFENCE_ID = "geofence_id";
     static final int RESULT_GEOFENCE_EDITOR = 2100;

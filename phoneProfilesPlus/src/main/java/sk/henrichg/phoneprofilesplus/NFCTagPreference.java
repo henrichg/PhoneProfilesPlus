@@ -41,7 +41,7 @@ public class NFCTagPreference extends DialogPreference {
     private String value;
     List<NFCTagData> nfcTagList = null;
 
-    private Context context;
+    private final Context context;
 
     private MaterialDialog mDialog;
     private MaterialDialog mSelectorDialog;

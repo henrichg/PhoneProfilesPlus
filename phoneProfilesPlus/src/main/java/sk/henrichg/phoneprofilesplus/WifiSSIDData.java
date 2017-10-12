@@ -3,8 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 class WifiSSIDData {
 
     String ssid;
-    String bssid;
-    boolean custom;
+    final String bssid;
+    final boolean custom;
 
     //WifiSSIDData() {
     //}

@@ -24,7 +24,7 @@ public class VolumeDialogPreference extends
         DialogPreference implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
     // Layout widgets.
 
-    private Context _context;
+    private final Context _context;
     private MaterialDialog mDialog;
     private SeekBar seekBar = null;
     private TextView valueText = null;
@@ -41,7 +41,7 @@ public class VolumeDialogPreference extends
     private int disableDefaultProfile = 0;
 
     private int maximumValue = 7;
-    private int minimumValue = 0;
+    private final int minimumValue = 0;
     private int maximumMediaValue = 15;
     private int defaultValueRing = 0;
     private int defaultValueNotification = 0;
@@ -49,7 +49,7 @@ public class VolumeDialogPreference extends
     private int defaultValueAlarm = 0;
     private int defaultValueSystem = 0;
     private int defaultValueVoice = 0;
-    private int stepSize = 1;
+    private final int stepSize = 1;
 
     private String sValue = "0|1";
     private int value = 0;
@@ -173,6 +173,7 @@ public class VolumeDialogPreference extends
     public void onProgressChanged(SeekBar seek, int newValue,
             boolean fromTouch) {
         // Round the value to the closest integer value.
+        //noinspection ConstantConditions
         if (stepSize >= 1) {
             value = Math.round(newValue/stepSize)*stepSize;
         }

@@ -94,8 +94,8 @@ public class ShortcutCreatorListFragment extends Fragment {
 
     private static class LoadProfileListAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private WeakReference<ShortcutCreatorListFragment> fragmentWeakRef;
-        private DataWrapper dataWrapper;
+        private final WeakReference<ShortcutCreatorListFragment> fragmentWeakRef;
+        private final DataWrapper dataWrapper;
 
         private class ProfileComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
@@ -198,7 +198,10 @@ public class ShortcutCreatorListFragment extends Fragment {
             shortcutIntent = new Intent(getActivity().getApplicationContext(), ActionForExternalApplicationActivity.class);
             shortcutIntent.setAction(ActionForExternalApplicationActivity.ACTION_RESTART_EVENTS);
         } else {
-            Log.e("ShortcutCreatorListFragment.createShortcut","profile="+profile._name);
+            if (profile != null)
+                Log.e("ShortcutCreatorListFragment.createShortcut","profile="+profile._name);
+            else
+                Log.e("ShortcutCreatorListFragment.createShortcut","profile=null");
             shortcutIntent = new Intent(getActivity().getApplicationContext(), BackgroundActivateProfileActivity.class);
             shortcutIntent.setAction(Intent.ACTION_MAIN);
             // BackgroundActivateProfileActivity musi toto testovat, a len spravit aktivaciu profilu

@@ -14,9 +14,9 @@ import java.util.List;
 
 class AddEventDialog
 {
-    EditorEventListFragment eventListFragment;
+    final EditorEventListFragment eventListFragment;
 
-    MaterialDialog mDialog;
+    final MaterialDialog mDialog;
 
     AddEventDialog(Context context, EditorEventListFragment eventListFragment)
     {

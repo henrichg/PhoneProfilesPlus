@@ -19,7 +19,7 @@ class SettingsContentObserver  extends ContentObserver {
     //private int defaultRingerMode = 0;
     private static int previousScreenTimeout = 0;
 
-    private Context context;
+    private final Context context;
 
     SettingsContentObserver(Context c, Handler handler) {
         super(handler);

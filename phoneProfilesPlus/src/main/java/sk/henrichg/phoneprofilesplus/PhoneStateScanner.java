@@ -29,7 +29,7 @@ import java.util.List;
 
 class PhoneStateScanner extends PhoneStateListener {
 
-    private Context context;
+    private final Context context;
     private TelephonyManager telephonyManager = null;
     //private TelephonyManager telephonyManager2 = null;
 
@@ -116,12 +116,14 @@ class PhoneStateScanner extends PhoneStateListener {
         stopAutoRegistration();
     }
 
+    /*
     void resetListening(boolean oldPowerSaveMode, boolean forceReset) {
         if ((forceReset) || (PPApplication.isPowerSaveMode != oldPowerSaveMode)) {
             disconnect();
             connect();
         }
     }
+    */
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void getAllCellInfo(List<CellInfo> cellInfo) {

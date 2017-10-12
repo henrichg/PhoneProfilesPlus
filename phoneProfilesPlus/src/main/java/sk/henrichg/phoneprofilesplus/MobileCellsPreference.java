@@ -38,7 +38,7 @@ public class MobileCellsPreference extends DialogPreference {
     String persistedValue;
     List<MobileCellsData> cellsList = null;
 
-    private Context context;
+    private final Context context;
 
     private MaterialDialog mDialog;
     private MaterialDialog mRenameDialog;
@@ -526,7 +526,7 @@ public class MobileCellsPreference extends DialogPreference {
 
     public class PhoneStateChangedBroadcastReceiver extends BroadcastReceiver {
 
-        MobileCellsPreference preference;
+        final MobileCellsPreference preference;
 
         PhoneStateChangedBroadcastReceiver(MobileCellsPreference preference) {
             this.preference = preference;

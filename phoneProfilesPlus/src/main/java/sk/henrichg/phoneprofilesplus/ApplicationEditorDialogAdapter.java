@@ -12,10 +12,10 @@ import com.andraskindler.quickscroll.Scrollable;
 
 class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
 {
-    private LayoutInflater inflater;
-    private Context context;
+    private final LayoutInflater inflater;
+    private final Context context;
 
-    private ApplicationEditorDialog dialog;
+    private final ApplicationEditorDialog dialog;
 
     ApplicationEditorDialogAdapter(ApplicationEditorDialog dialog, Context context)
     {

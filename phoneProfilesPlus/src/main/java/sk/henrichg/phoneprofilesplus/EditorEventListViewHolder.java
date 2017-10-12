@@ -16,24 +16,24 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
 {
 
-    ImageView dragHandle;
+    final ImageView dragHandle;
     //RelativeLayout listItemRoot;
-    private TextView eventName;
+    private final TextView eventName;
     private TextView eventPreferencesDescription;
-    private ImageView eventStatus;
-    private ImageView profileStartIcon;
-    private TextView profileStartName;
+    private final ImageView eventStatus;
+    private final ImageView profileStartIcon;
+    private final TextView profileStartName;
     private ImageView profileStartIndicator;
-    private ImageView profileEndIcon;
-    private TextView profileEndName;
+    private final ImageView profileEndIcon;
+    private final TextView profileEndName;
     private ImageView profileEndIndicator;
-    private ImageView eventItemEditMenu;
+    private final ImageView eventItemEditMenu;
 
     private Event event;
-    private EditorEventListFragment editorFragment;
+    private final EditorEventListFragment editorFragment;
 
-    private Context context;
-    private int filterType;
+    private final Context context;
+    private final int filterType;
 
     EditorEventListViewHolder(View itemView, EditorEventListFragment editorFragment, Context context, int filterType) {
         super(itemView);
@@ -266,11 +266,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
 
             eventItemEditMenu.setTag(event);
-            final ImageView _eventItemEditMenu = eventItemEditMenu;
             eventItemEditMenu.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-                    editorFragment.showEditMenu(_eventItemEditMenu);
+                    editorFragment.showEditMenu(eventItemEditMenu);
                 }
             });
 

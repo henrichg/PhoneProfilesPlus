@@ -2,7 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 class NFCTagData {
 
-    String name;
+    final String name;
 
     //NFCTagData() {
     //}

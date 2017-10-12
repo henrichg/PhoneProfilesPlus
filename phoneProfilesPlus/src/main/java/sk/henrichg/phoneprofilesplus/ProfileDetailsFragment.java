@@ -39,7 +39,7 @@ public class ProfileDetailsFragment extends Fragment {
      * A dummy implementation of the Callbacks interface that does
      * nothing. Used only when this fragment is not attached to an activity.
      */
-    private static OnStartProfilePreferencesFromDetail sDummyOnStartProfilePreferencesCallback = new OnStartProfilePreferencesFromDetail() {
+    private static final OnStartProfilePreferencesFromDetail sDummyOnStartProfilePreferencesCallback = new OnStartProfilePreferencesFromDetail() {
         public void onStartProfilePreferencesFromDetail(Profile profile) {
         }
     };
