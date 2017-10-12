@@ -13,5 +13,5 @@ ext.ppVersions = [
         buildTools: '26.0.2',
         publishVersion: '3.5.5b',
         publishVersionCode: 3329,
-        supportLib: '26.0.1'
+        supportLib: '26.1.0'
 ]
