@@ -62,14 +62,15 @@ public class RingtonePreference extends DialogPreference {
         showSilent = typedArray.getBoolean(R.styleable.RingtonePreference_showSilent, false);
         showDefault = typedArray.getBoolean(R.styleable.RingtonePreference_showDefault, false);
 
-        if (ringtoneType.equals("ringtone"))
-            ringtone = Settings.System.DEFAULT_RINGTONE_URI.toString();
-        else
-        if (ringtoneType.equals("notification"))
-            ringtone = Settings.System.DEFAULT_NOTIFICATION_URI.toString();
-        else
-        if (ringtoneType.equals("alarm"))
-            ringtone = Settings.System.DEFAULT_ALARM_ALERT_URI.toString();
+        ringtone = "";
+        if (ringtoneType != null) {
+            if (ringtoneType.equals("ringtone"))
+                ringtone = Settings.System.DEFAULT_RINGTONE_URI.toString();
+            else if (ringtoneType.equals("notification"))
+                ringtone = Settings.System.DEFAULT_NOTIFICATION_URI.toString();
+            else if (ringtoneType.equals("alarm"))
+                ringtone = Settings.System.DEFAULT_ALARM_ALERT_URI.toString();
+        }
 
         prefContext = context;
 
