@@ -33,9 +33,9 @@ class DeviceIdleModeJob extends Job {
                 // rescan
                 if (PhoneProfilesService.instance != null) {
                     // schedule job for one wifi scan
-                    PhoneProfilesService.instance.scheduleWifiJob(true, true, true, true, false);
+                    PhoneProfilesService.instance.scheduleWifiJob(true, true, true, true, false, false);
                     // schedule job for one bluetooth scan
-                    PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, true);
+                    PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, true, false);
                     // schedule job for location scan
                     PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, true);
                 }

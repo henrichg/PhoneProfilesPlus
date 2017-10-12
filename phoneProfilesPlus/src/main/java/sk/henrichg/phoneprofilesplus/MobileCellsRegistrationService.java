@@ -30,8 +30,8 @@ public class MobileCellsRegistrationService extends Service {
         super.onCreate();
         //Log.d("MobileCellsRegistrationService", "START");
 
-        forceStart = true;
         PPApplication.forceStartPhoneStateScanner(this);
+        forceStart = true;
 
         PhoneStateScanner.autoRegistrationService = this;
 

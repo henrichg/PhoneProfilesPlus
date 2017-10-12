@@ -76,8 +76,8 @@ public class MobileCellsPreference extends DialogPreference {
         //context.registerReceiver(EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver, intentFilter);
         LocalBroadcastManager.getInstance(context).registerReceiver(phoneStateChangedBroadcastReceiver, new IntentFilter("PhoneStateChangedBroadcastReceiver_preference"));
 
-        forceStart = true;
         PPApplication.forceStartPhoneStateScanner(context);
+        forceStart = true;
 
         /*
         DatabaseHandler db = DatabaseHandler.getInstance(context);

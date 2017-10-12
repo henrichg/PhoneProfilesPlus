@@ -27,7 +27,7 @@ class WifiAPStateChangeJob extends Job {
                 PPApplication.logE("WifiAPStateChangeJob.onRunJob","wifi AP disabled");
                 // send broadcast for one wifi scan
                 if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.scheduleWifiJob(true, true, true, false, true);
+                    PhoneProfilesService.instance.scheduleWifiJob(true, true, true, false, true, false);
             }
         }
 

@@ -828,8 +828,8 @@ public class GrantPermissionActivity extends Activity {
                 Permissions.bluetoothNamePreference.refreshListView(true, "");
             dataWrapper.restartEvents(false, true, false);
             if (PhoneProfilesService.instance != null) {
-                PhoneProfilesService.instance.scheduleWifiJob(true, true, true, false, false);
-                PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, false);
+                PhoneProfilesService.instance.scheduleWifiJob(true, true, true, false, false, Permissions.wifiSSIDPreference != null);
+                PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, false, Permissions.bluetoothNamePreference != null);
                 PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, false);
             }
             finish();
@@ -860,8 +860,8 @@ public class GrantPermissionActivity extends Activity {
                 if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
                     permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
                     if (PhoneProfilesService.instance != null) {
-                        PhoneProfilesService.instance.scheduleWifiJob(true, true, true, false, false);
-                        PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, false);
+                        PhoneProfilesService.instance.scheduleWifiJob(true, true, true, false, false, false);
+                        PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, false, false);
                         PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, false);
                     }
                     break;
@@ -885,8 +885,8 @@ public class GrantPermissionActivity extends Activity {
                     super.onPostExecute(response);
 
                     if (PhoneProfilesService.instance != null) {
-                        PhoneProfilesService.instance.scheduleWifiJob(true, true, true, false, false);
-                        PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, false);
+                        //PhoneProfilesService.instance.scheduleWifiJob(true, true, true, false, false);
+                        //PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, false);
                         PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, false);
                     }
                     if (Permissions.locationGeofenceEditorActivity != null)

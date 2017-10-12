@@ -69,8 +69,8 @@ public class WifiSSIDPreference extends DialogPreference {
     protected void showDialog(Bundle state) {
         value = getPersistedString(value);
 
-        forceRegister = true;
         PPApplication.forceRegisterReceiversForWifiScanner(context);
+        forceRegister = true;
 
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
