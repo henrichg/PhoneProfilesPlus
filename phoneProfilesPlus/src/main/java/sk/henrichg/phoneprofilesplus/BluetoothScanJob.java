@@ -694,7 +694,8 @@ class BluetoothScanJob extends Job {
             }
         }
         if (!found) {
-            tmpScanLEResults.add(new BluetoothDeviceData(device.name, device.address, device.type, false, 0));
+            if (tmpScanLEResults != null) // maybe set to null by startLEScan() or funuishLEScan()
+                tmpScanLEResults.add(new BluetoothDeviceData(device.name, device.address, device.type, false, 0));
         }
     }
 
