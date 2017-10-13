@@ -165,7 +165,7 @@ public class Profile {
 
             "ic_profile_work_1", "ic_profile_work_2", "ic_profile_work_3", "ic_profile_work_4", "ic_profile_work_5",
             "ic_profile_work_6", "ic_profile_work_7", "ic_profile_work_8", "ic_profile_work_9", "ic_profile_work_10",
-            "ic_profile_work_11", "ic_profile_work_12", "ic_profile_work_13",
+            "ic_profile_work_11", "ic_profile_work_12", "ic_profile_work_13", "ic_profile_work_14",
 
             "ic_profile_sleep", "ic_profile_sleep_2", "ic_profile_night", "ic_profile_call_1", "ic_profile_food_1",
             "ic_profile_food_2","ic_profile_food_3","ic_profile_food_4","ic_profile_food_5", "ic_profile_alarm",
@@ -201,7 +201,7 @@ public class Profile {
             // work
             0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
             0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
-            0xffa801ff, 0xffa801ff, 0xffa801ff,
+            0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
 
             // sleep, food, alarm
             0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc,
