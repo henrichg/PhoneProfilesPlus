@@ -172,8 +172,9 @@ public class Profile {
             "ic_profile_food_2","ic_profile_food_3","ic_profile_food_4","ic_profile_food_5", "ic_profile_alarm",
 
             "ic_profile_car_1", "ic_profile_car_2", "ic_profile_car_3", "ic_profile_car_4", "ic_profile_car_5",
-            "ic_profile_car_6", "ic_profile_car_7", "ic_profile_car_8", "ic_profile_car_9", "ic_profile_airplane_1",
-            "ic_profile_airplane_2", "ic_profile_airplane_3", "ic_profile_tickets_1", "ic_profile_tickets_2",
+            "ic_profile_car_6", "ic_profile_car_7", "ic_profile_car_8", "ic_profile_car_9", "ic_profile_car_10",
+            "ic_profile_airplane_1", "ic_profile_airplane_2", "ic_profile_airplane_3", "ic_profile_ship_1",
+            "ic_profile_ship_2", "ic_profile_ship_3", "ic_profile_tickets_1", "ic_profile_tickets_2",
             "ic_profile_tickets_3",
 
             "ic_profile_battery_1", "ic_profile_battery_2", "ic_profile_battery_3",
@@ -209,9 +210,10 @@ public class Profile {
             0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc,
             0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc, 0xff0099cc,
 
-            // car, airplane, tickets
+            // car, airplane, ship, tickets
             0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
             0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
+            0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
             0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
             0xff28a174,
 
