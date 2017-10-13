@@ -155,10 +155,11 @@ public class Profile {
     static final String[] profileIconId = {
             "ic_profile_default",
 
-            "ic_profile_home", "ic_profile_home_2",
+            "ic_profile_home", "ic_profile_home_2", "ic_profile_home_3", "ic_profile_home_4", "ic_profile_home_5",
 
             "ic_profile_outdoors_1", "ic_profile_outdoors_2", "ic_profile_outdoors_3", "ic_profile_outdoors_4",
-            "ic_profile_outdoors_5", "ic_profile_outdoors_6", "ic_profile_outdoors_7",
+            "ic_profile_outdoors_5", "ic_profile_outdoors_6", "ic_profile_outdoors_7", "ic_profile_outdoors_8",
+            "ic_profile_outdoors_9",
 
             "ic_profile_meeting", "ic_profile_meeting_2", "ic_profile_meeting_3", "ic_profile_mute", "ic_profile_mute_2",
             "ic_profile_volume_4", "ic_profile_volume_1", "ic_profile_volume_2", "ic_profile_volume_3", "ic_profile_vibrate_1",
@@ -188,11 +189,12 @@ public class Profile {
             0xff1c9cd7,
 
             // home
-            0xff99cc00, 0xff99cc00,
+            0xff99cc00, 0xff99cc00, 0xff99cc00, 0xff99cc00, 0xff99cc00,
 
             // outdoors
             0xffffbc33, 0xffffbc33, 0xffffbc33, 0xffffbc33,
-            0xffffbc33, 0xffffbc33, 0xffffbc33,
+            0xffffbc33, 0xffffbc33, 0xffffbc33, 0xffffbc33,
+            0xffffbc33,
 
             // meeting, volume
             0xffcc0000, 0xffcc0000, 0xffcc0000, 0xffcc0000, 0xffcc0000,
