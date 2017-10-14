@@ -177,11 +177,12 @@ public class Profile {
             "ic_profile_ship_2", "ic_profile_ship_3", "ic_profile_tram_1", "ic_profile_tickets_1",
             "ic_profile_tickets_2",
 
+            "ic_profile_culture_1", "ic_profile_culture_6", "ic_profile_culture_7", "ic_profile_culture_2",
+            "ic_profile_culture_8", "ic_profile_culture_9", "ic_profile_culture_3", "ic_profile_culture_10",
+            "ic_profile_culture_11", "ic_profile_culture_12", "ic_profile_culture_13", "ic_profile_culture_5",
+            "ic_profile_culture_14", "ic_profile_culture_4", "ic_profile_culture_15", "ic_profile_culture_16",
 
             "ic_profile_battery_1", "ic_profile_battery_2", "ic_profile_battery_3",
-
-            "ic_profile_culture_1", "ic_profile_culture_2", "ic_profile_culture_3", "ic_profile_culture_4",
-            "ic_profile_culture_5",
 
             "ic_profile_lock"
     };
@@ -218,12 +219,14 @@ public class Profile {
             0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
             0xff28a174,
 
+            // culture
+            0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63,
+            0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63,
+            0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63,
+            0xffe91e63, 0xffe91e63, 0xffe91e63, 0xffe91e63,
+
             // battery
             0xffdb3514, 0xffdb9714, 0xff2aa561,
-
-            // culture
-            0xff38d043, 0xff38d043, 0xff38d043, 0xff38d043,
-            0xff38d043,
 
             //lock
             0xff6a3e18
