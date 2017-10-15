@@ -156,6 +156,7 @@ public class Profile {
             "ic_profile_default",
 
             "ic_profile_home", "ic_profile_home_2", "ic_profile_home_3", "ic_profile_home_4", "ic_profile_home_5",
+            "ic_profile_home_6",
 
             "ic_profile_outdoors_1", "ic_profile_outdoors_2", "ic_profile_outdoors_3", "ic_profile_outdoors_4",
             "ic_profile_outdoors_5", "ic_profile_outdoors_6", "ic_profile_outdoors_7", "ic_profile_outdoors_8",
@@ -193,6 +194,7 @@ public class Profile {
 
             // home
             0xff99cc00, 0xff99cc00, 0xff99cc00, 0xff99cc00, 0xff99cc00,
+            0xff99cc00,
 
             // outdoors
             0xffffbc33, 0xffffbc33, 0xffffbc33, 0xffffbc33,
