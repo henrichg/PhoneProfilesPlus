@@ -131,6 +131,7 @@ public class PPApplication extends Application {
     private static final String PREF_ACTIVITY_LOG_ENABLED = "activity_log_enabled";
     private static final String PREF_SAVED_VERSION_CODE = "saved_version_code";
     private static final String PREF_DAYS_AFTER_FIRST_START = "days_after_first_start";
+    private static final String PREF_DONATION_NOTIFICATION_COUNT = "donation_notification_count";
 
 
     // scanner start/stop types
@@ -518,6 +519,20 @@ public class PPApplication extends Application {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_DAYS_AFTER_FIRST_START, days);
+        editor.apply();
+    }
+
+    static public int getDonationNotificationCount(Context context)
+    {
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getInt(PREF_DONATION_NOTIFICATION_COUNT, 0);
+    }
+
+    static public void setDonationNotificationCount(Context context, int days)
+    {
+        ApplicationPreferences.getSharedPreferences(context);
+        Editor editor = ApplicationPreferences.preferences.edit();
+        editor.putInt(PREF_DONATION_NOTIFICATION_COUNT, days);
         editor.apply();
     }
 

@@ -56,6 +56,7 @@ class PackageReplacedJob extends Job {
                 if (actualVersionCode <= 2400) {
                     PPApplication.logE("@@@ PackageReplacedJob.onRunJob", "donation alarm restart");
                     PPApplication.setDaysAfterFirstStart(appContext, 0);
+                    PPApplication.setDonationNotificationCount(appContext, 0);
                     AboutApplicationJob.scheduleJob();
                 }
                 if (actualVersionCode <= 2500) {

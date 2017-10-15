@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import sk.henrichg.phoneprofilesplus.util.IabResult;
 import sk.henrichg.phoneprofilesplus.util.Inventory;
 import sk.henrichg.phoneprofilesplus.util.Purchase;
 
+@SuppressWarnings("ConstantConditions")
 public class DonationFragment extends Fragment {
 
     // List of SKUs.
@@ -36,6 +38,8 @@ public class DonationFragment extends Fragment {
     private Button btGoogle;
 
     private final boolean mDebug = false;
+
+    private Context appContext;
 
     // The helper object
     private IabHelper mHelper;
@@ -56,6 +60,8 @@ public class DonationFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        appContext = getActivity().getApplicationContext();
 
         // choose donation amount
         mGoogleSpinner = getActivity().findViewById(
@@ -213,6 +219,9 @@ public class DonationFragment extends Fragment {
             }
 
             if (mDebug) Log.d(TAG, "Purchase successful.");
+
+            // do not show donation notification after purchase
+            PPApplication.setDonationNotificationCount(appContext, AboutApplicationJob.MAX_DONATION_NOTIFICATION_COUNT+1);
 
             // directly consume in-app purchase, so that people can donate multiple times
             try {
