@@ -34,20 +34,17 @@ class AboutApplicationJob extends Job {
 
         int daysAfterFirstStart = PPApplication.getDaysAfterFirstStart(context)+1;
         PPApplication.logE("AboutApplicationJob.onRunJob", "daysAfterFirstStart="+daysAfterFirstStart);
-        int donationNotificationCount = PPApplication.getDonationNotificationCount(context)+1;
+        int donationNotificationCount = PPApplication.getDonationNotificationCount(context);
         PPApplication.logE("AboutApplicationJob.onRunJob", "donationNotificationCount="+donationNotificationCount);
 
-        if (donationNotificationCount <= MAX_DONATION_NOTIFICATION_COUNT) {
+        if (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT) {
             int daysForOneNotification = 7;
             switch (donationNotificationCount) {
                 case 1:
-                    daysForOneNotification = 7;
+                    daysForOneNotification = daysAfterFirstStart + 14;
                     break;
                 case 2:
-                    daysForOneNotification = 14;
-                    break;
-                case 3:
-                    daysForOneNotification = 21;
+                    daysForOneNotification = daysAfterFirstStart + 21;
                     break;
             }
 
@@ -86,7 +83,7 @@ class AboutApplicationJob extends Job {
             scheduleJob();
         }
         else {
-            PPApplication.setDonationNotificationCount(context, MAX_DONATION_NOTIFICATION_COUNT+1);
+            PPApplication.setDonationNotificationCount(context, MAX_DONATION_NOTIFICATION_COUNT);
         }
 
         return Result.SUCCESS;

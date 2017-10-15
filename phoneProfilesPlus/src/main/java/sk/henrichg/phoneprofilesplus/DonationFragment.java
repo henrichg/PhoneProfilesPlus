@@ -221,7 +221,7 @@ public class DonationFragment extends Fragment {
             if (mDebug) Log.d(TAG, "Purchase successful.");
 
             // do not show donation notification after purchase
-            PPApplication.setDonationNotificationCount(appContext, AboutApplicationJob.MAX_DONATION_NOTIFICATION_COUNT+1);
+            PPApplication.setDonationNotificationCount(appContext, AboutApplicationJob.MAX_DONATION_NOTIFICATION_COUNT);
 
             // directly consume in-app purchase, so that people can donate multiple times
             try {
