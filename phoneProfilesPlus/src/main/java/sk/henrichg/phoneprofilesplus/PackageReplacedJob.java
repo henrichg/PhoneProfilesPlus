@@ -132,7 +132,8 @@ class PackageReplacedJob extends Job {
                     }
 
                     // continue donation notification
-                    PPApplication.setDonationNotificationCount(appContext, 1);
+                    if (PPApplication.getDaysAfterFirstStart(appContext) == 8)
+                        PPApplication.setDonationNotificationCount(appContext, 1);
                 }
             }
         } catch (Exception e) {
