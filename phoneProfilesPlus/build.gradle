@@ -52,6 +52,7 @@ dependencies {
     compile project(':RootShell')
     compile project(':RootTools')
     compile project(':QuickScroll')
+    compile project(':time-duration-picker')
     provided files('libs/hidden-apis.jar')
     provided files('libs/hidden-apis_2.jar')
     compile files('libs/sdk-v1.0.0.jar')
@@ -78,7 +79,6 @@ dependencies {
     compile 'com.github.KeepSafe:TapTargetView:master-SNAPSHOT'
     compile 'com.commonsware.cwac:wakeful:1.1.0'
     compile 'com.evernote:android-job:1.2.0'
-    compile 'mobi.upod:time-duration-picker:1.1.2'
 }
 
 

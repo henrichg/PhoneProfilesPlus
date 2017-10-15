@@ -1,4 +1,5 @@
 include ':RootShell'
 include ':RootTools'
 include ':QuickScroll'
+include ':time-duration-picker'
 include ':phoneProfilesPlus'
