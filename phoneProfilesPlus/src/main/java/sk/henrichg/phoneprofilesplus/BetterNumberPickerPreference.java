@@ -55,18 +55,42 @@ class BetterNumberPickerPreference extends DialogPreference {
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
                 .content(getDialogMessage())
+                .autoDismiss(false)
                 .customView(R.layout.activity_better_number_pref_dialog, false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        mNumberPicker.clearFocus();
+                        BigDecimal number = mNumberPicker.getEnteredNumber();
+                        if (isSmaller(number) || isBigger(number)) {
+                            String errorText = context.getString(R.string.number_picker_min_max_error, String.valueOf(mMin), String.valueOf(mMax));
+                            mNumberPicker.getErrorView().setText(errorText);
+                            mNumberPicker.getErrorView().show();
+                            return;
+                        } else if (isSmaller(number)) {
+                            String errorText = context.getString(R.string.number_picker_min_error, String.valueOf(mMin));
+                            mNumberPicker.getErrorView().setText(errorText);
+                            mNumberPicker.getErrorView().show();
+                            return;
+                        } else if (isBigger(number)) {
+                            String errorText = context.getString(R.string.number_picker_max_error, String.valueOf(mMax));
+                            mNumberPicker.getErrorView().setText(errorText);
+                            mNumberPicker.getErrorView().show();
+                            return;
+                        }
 
                         value = String.valueOf(mNumberPicker.getNumber());
 
                         if (callChangeListener(value))
                         {
                             persistString(value);
+                            mDialog.dismiss();
                         }
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        mDialog.dismiss();
                     }
                 });
 
@@ -136,6 +160,14 @@ class BetterNumberPickerPreference extends DialogPreference {
             value = (String)defaultValue;
             persistString(value);
         }
+    }
+
+    private boolean isBigger(BigDecimal number) {
+        return number.compareTo(BigDecimal.valueOf(mMax)) > 0;
+    }
+
+    private boolean isSmaller(BigDecimal number) {
+        return number.compareTo(BigDecimal.valueOf(mMin)) < 0;
     }
 
 }
