@@ -101,6 +101,7 @@ class PackageReplacedJob extends Job {
                     if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
                         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert(appContext));
+
                         String rescan;
                         rescan = ApplicationPreferences.applicationEventLocationRescan(appContext);
                         if (rescan.equals("0"))
@@ -129,6 +130,9 @@ class PackageReplacedJob extends Job {
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");
                         editor.apply();
                     }
+
+                    // continue donation notification
+                    PPApplication.setDonationNotificationCount(appContext, 1);
                 }
             }
         } catch (Exception e) {

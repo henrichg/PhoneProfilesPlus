@@ -49,6 +49,8 @@ class AboutApplicationJob extends Job {
             }
 
             if (daysAfterFirstStart == daysForOneNotification) {
+                PPApplication.setDonationNotificationCount(context, donationNotificationCount+1);
+
                 // show notification about "Please donate me."
                 NotificationCompat.Builder mBuilder;
                 Intent _intent = new Intent(context, AboutApplicationActivity.class);
@@ -77,8 +79,8 @@ class AboutApplicationJob extends Job {
                 NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, mBuilder.build());
             }
+
             PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
-            PPApplication.setDonationNotificationCount(context, donationNotificationCount+1);
 
             scheduleJob();
         }
