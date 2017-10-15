@@ -78,7 +78,7 @@ class AboutApplicationJob extends Job {
                 mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, mBuilder.build());
             }
             PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
-            PPApplication.setDonationNotificationCount(context, donationNotificationCount);
+            PPApplication.setDonationNotificationCount(context, donationNotificationCount+1);
 
             scheduleJob();
         }
