@@ -9,27 +9,30 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.NumberPicker;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.codetroopers.betterpickers.numberpicker.NumberPickerBuilder;
+import com.codetroopers.betterpickers.numberpicker.NumberPicker;
 
-public class NumberPickerPreference extends DialogPreference {
+import java.math.BigDecimal;
+
+class BetterNumberPickerPreference extends DialogPreference {
 
     private String value;
 
     private int mMin, mMax;
-    
+
     private final String mMaxExternalKey, mMinExternalKey;
 
     private MaterialDialog mDialog;
     private NumberPicker mNumberPicker;
 
-    //private int mColor = 0;
+    private final Context context;
 
-    public NumberPickerPreference(Context context, AttributeSet attrs) {
+    public BetterNumberPickerPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        this.context = context;
 
         TypedArray numberPickerType = context.obtainStyledAttributes(attrs,
                 R.styleable.NumberPickerPreference, 0, 0);
@@ -41,9 +44,6 @@ public class NumberPickerPreference extends DialogPreference {
         mMin = numberPickerType.getInt(R.styleable.NumberPickerPreference_min, 0);
 
         numberPickerType.recycle();
-
-        //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-        //    mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);
     }
 
     @Override
@@ -55,17 +55,16 @@ public class NumberPickerPreference extends DialogPreference {
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
                 .content(getDialogMessage())
-                .customView(R.layout.activity_number_pref_dialog, false)
+                .customView(R.layout.activity_better_number_pref_dialog, false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         mNumberPicker.clearFocus();
 
-                        value = String.valueOf(mNumberPicker.getValue());
+                        value = String.valueOf(mNumberPicker.getNumber());
 
                         if (callChangeListener(value))
                         {
-                            //persistInt(mNumberPicker.getValue());
                             persistString(value);
                         }
                     }
@@ -73,11 +72,6 @@ public class NumberPickerPreference extends DialogPreference {
 
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
-
-        /*
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            getEditText().getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_ATOP);
-        */
 
         // External values
         if (mMaxExternalKey != null) {
@@ -87,17 +81,19 @@ public class NumberPickerPreference extends DialogPreference {
             mMin = getSharedPreferences().getInt(mMinExternalKey, mMin);
         }
 
-        mNumberPicker = layout.findViewById(R.id.number_picker);
+        mNumberPicker = layout.findViewById(R.id.better_number_picker);
 
         // Initialize state
-        mNumberPicker.setMaxValue(mMax);
-        mNumberPicker.setMinValue(mMin);
-        mNumberPicker.setValue(Integer.valueOf(value));
-        mNumberPicker.setWrapSelectorWheel(false);
-        TypedValue tv = new TypedValue();
-        getContext().getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
-        GlobalGUIRoutines.setSeparatorColorForNumberPicker(mNumberPicker, tv.data);
-        GlobalGUIRoutines.updateTextAttributesForNumberPicker(mNumberPicker, 18);
+        mNumberPicker.setMin(BigDecimal.valueOf(mMin));
+        mNumberPicker.setMax(BigDecimal.valueOf(mMax));
+        mNumberPicker.setPlusMinusVisibility(View.INVISIBLE);
+        mNumberPicker.setDecimalVisibility(View.INVISIBLE);
+        //mNumberPicker.setLabelText(getContext().getString(R.string.minutes_label_description));
+        mNumberPicker.setNumber(Integer.valueOf(value), null, null);
+        if (ApplicationPreferences.applicationTheme(context).equals("dark"))
+            mNumberPicker.setTheme(R.style.BetterPickersDialogFragment);
+        else
+            mNumberPicker.setTheme(R.style.BetterPickersDialogFragment_Light);
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
@@ -140,7 +136,6 @@ public class NumberPickerPreference extends DialogPreference {
             value = (String)defaultValue;
             persistString(value);
         }
-        
     }
 
 }

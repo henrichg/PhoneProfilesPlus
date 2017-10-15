@@ -79,6 +79,7 @@ dependencies {
     compile 'com.github.KeepSafe:TapTargetView:master-SNAPSHOT'
     compile 'com.commonsware.cwac:wakeful:1.1.0'
     compile 'com.evernote:android-job:1.2.0'
+    compile 'com.code-troopers.betterpickers:library:3.1.0'
 }
 
 

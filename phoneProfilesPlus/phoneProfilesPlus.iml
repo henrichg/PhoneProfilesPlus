@@ -95,14 +95,35 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 26 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="cardview-v7-26.1.0" level="project" />
     <orderEntry type="library" exported="" name="sdk-v1.0.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-maps-license-11.4.2" level="project" />
+    <orderEntry type="library" exported="" name="transition-26.1.0" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="multidex-instrumentation-1.0.1" level="project" />
+    <orderEntry type="library" exported="" name="dashclock-api-2.0.0" level="project" />
+    <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
+    <orderEntry type="library" exported="" name="support-compat-26.1.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-location-11.4.2" level="project" />
+    <orderEntry type="library" exported="" name="wakeful-1.1.0" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-26.1.0" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-26.1.0" level="project" />
+    <orderEntry type="library" exported="" name="support-fragment-26.1.0" level="project" />
+    <orderEntry type="library" exported="" name="slook_v1.4.0" level="project" />
+    <orderEntry type="library" exported="" name="crashlytics-core-2.4.0" level="project" />
+    <orderEntry type="library" exported="" name="relativepopupwindow-0.3.1" level="project" />
+    <orderEntry type="library" exported="" name="cat-1.0.5" level="project" />
+    <orderEntry type="library" exported="" name="common-1.0.0" level="project" />
+    <orderEntry type="library" exported="" name="1_common-1.0.0" level="project" />
+    <orderEntry type="library" exported="" name="hidden-apis" level="project" />
+    <orderEntry type="library" exported="" name="hidden-apis_2" level="project" />
+    <orderEntry type="library" exported="" name="design-26.1.0" level="project" />
+    <orderEntry type="library" exported="" name="TapTargetView-master-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="play-services-tasks-11.4.2" level="project" />
+    <orderEntry type="library" exported="" name="cardview-v7-26.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-core-ui-26.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-base-11.4.2" level="project" />
     <orderEntry type="library" exported="" name="support-media-compat-26.1.0" level="project" />
     <orderEntry type="library" exported="" name="gridlayout-v7-26.1.0" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-26.1.0" level="project" />
-    <orderEntry type="library" exported="" name="play-services-maps-license-11.4.2" level="project" />
     <orderEntry type="library" exported="" name="support-vector-drawable-26.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-core-utils-26.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-base-license-11.4.2" level="project" />
@@ -112,38 +133,19 @@
     <orderEntry type="library" exported="" name="android-job-1.2.0" level="project" />
     <orderEntry type="library" exported="" name="systembartint-1.0.4" level="project" />
     <orderEntry type="library" exported="" name="play-services-basement-11.4.2" level="project" />
-    <orderEntry type="library" exported="" name="transition-26.1.0" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="multidex-instrumentation-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="crashlytics-2.7.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-maps-11.4.2" level="project" />
-    <orderEntry type="library" exported="" name="dashclock-api-2.0.0" level="project" />
-    <orderEntry type="library" exported="" name="support-compat-26.1.0" level="project" />
-    <orderEntry type="library" exported="" name="play-services-location-11.4.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-location-license-11.4.2" level="project" />
-    <orderEntry type="library" exported="" name="wakeful-1.1.0" level="project" />
     <orderEntry type="library" exported="" name="gson-2.7" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-26.1.0" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-26.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-tasks-license-11.4.2" level="project" />
-    <orderEntry type="library" exported="" name="support-fragment-26.1.0" level="project" />
     <orderEntry type="library" exported="" name="animated-vector-drawable-26.1.0" level="project" />
     <orderEntry type="library" exported="" name="fabric-1.4.0" level="project" />
-    <orderEntry type="library" exported="" name="slook_v1.4.0" level="project" />
     <orderEntry type="library" exported="" name="runtime-1.0.0" level="project" />
-    <orderEntry type="library" exported="" name="crashlytics-core-2.4.0" level="project" />
-    <orderEntry type="library" exported="" name="relativepopupwindow-0.3.1" level="project" />
-    <orderEntry type="library" exported="" name="cat-1.0.5" level="project" />
     <orderEntry type="library" exported="" name="multidex-1.0.1" level="project" />
-    <orderEntry type="library" exported="" name="common-1.0.0" level="project" />
-    <orderEntry type="library" exported="" name="1_common-1.0.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-26.1.0" level="project" />
-    <orderEntry type="library" exported="" name="hidden-apis" level="project" />
-    <orderEntry type="library" exported="" name="hidden-apis_2" level="project" />
     <orderEntry type="library" exported="" name="play-services-basement-license-11.4.2" level="project" />
-    <orderEntry type="library" exported="" name="design-26.1.0" level="project" />
-    <orderEntry type="library" exported="" name="TapTargetView-master-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="answers-1.4.0" level="project" />
-    <orderEntry type="library" exported="" name="play-services-tasks-11.4.2" level="project" />
+    <orderEntry type="library" exported="" name="library-3.1.0" level="project" />
     <orderEntry type="module" module-name="RootTools" exported="" />
     <orderEntry type="module" module-name="QuickScroll" exported="" />
     <orderEntry type="module" module-name="time-duration-picker" exported="" />

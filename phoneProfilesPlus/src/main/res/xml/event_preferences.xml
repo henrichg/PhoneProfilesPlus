@@ -235,7 +235,7 @@
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
                 android:widgetLayout="@layout/mp_preference_switch" />
-            <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+            <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
                 android:key="eventBatteryLevelLow"
                 android:summary="@string/event_preferences_battery_level_low"
                 android:title="@string/event_preferences_battery_level_low"
@@ -243,7 +243,7 @@
                 henrichg:min="0"
                 henrichg:max="100"
                 android:dependency="eventBatteryEnabled" />
-            <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+            <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
                 android:key="eventBatteryLevelHight"
                 android:summary="@string/event_preferences_battery_level_hight"
                 android:title="@string/event_preferences_battery_level_hight"

@@ -315,7 +315,7 @@
             android:key="applicationEventLocationsEditor"
             android:title="@string/phone_profiles_pref_applicationEventLocationsEditor"
             henrichg:onlyEdit="1" />
-        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationEventLocationUpdateInterval"
             android:summary="@string/phone_profiles_pref_applicationEventLocationScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
@@ -366,7 +366,7 @@
             android:summary="@string/phone_profiles_pref_applicationEventWifiEnableWifi_summary"
             android:defaultValue="true"
             android:widgetLayout="@layout/mp_preference_switch" />
-        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationEventWifiScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventWifiScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventWifiScanInterval" 
@@ -412,14 +412,14 @@
             android:summary="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary"
             android:defaultValue="true"
             android:widgetLayout="@layout/mp_preference_switch" />
-        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationEventBluetoothScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
             android:defaultValue="15"
             henrichg:min="1"
             henrichg:max="300" />
-        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationEventBluetoothLEScanDuration"
             android:summary="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
@@ -487,7 +487,7 @@
         android:key="orientationScanningCategory"
         android:title="@string/phone_profiles_pref_category_orientation_scanning"
         android:widgetLayout="@layout/start_activity_preference">
-        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationEventOrientationScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
@@ -564,7 +564,7 @@
             android:title="@string/phone_profiles_pref_applicationAutoCloseDrawer"
             android:defaultValue="true"
             android:widgetLayout="@layout/mp_preference_switch" />
-        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationDeleteOldActivityLogs"
             android:summary="@string/phone_profiles_pref_deleteOldActivityLogs"
             android:title="@string/phone_profiles_pref_deleteOldActivityLogs"
