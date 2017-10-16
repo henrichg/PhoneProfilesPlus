@@ -1424,7 +1424,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (requestCode == ApplicationsDialogPreference.RESULT_APPLICATIONS_EDITOR && resultCode == Activity.RESULT_OK && data != null)
         {
             if (ProfilePreferencesFragment.applicationsDialogPreference != null) {
-                Log.e("ProfilePreferencesNestedFragment.doOnActivityResult", "data="+PPApplication.intentToString(data));
+                //Log.e("ProfilePreferencesNestedFragment.doOnActivityResult", "data="+PPApplication.intentToString(data));
 
                 ProfilePreferencesFragment.applicationsDialogPreference.updateShortcut(
                         (Intent)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT),
