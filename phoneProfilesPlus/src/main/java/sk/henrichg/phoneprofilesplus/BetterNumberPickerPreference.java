@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;

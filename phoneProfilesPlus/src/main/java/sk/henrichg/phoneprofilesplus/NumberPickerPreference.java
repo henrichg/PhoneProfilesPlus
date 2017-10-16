@@ -13,7 +13,6 @@ import android.widget.NumberPicker;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.codetroopers.betterpickers.numberpicker.NumberPickerBuilder;
 
 public class NumberPickerPreference extends DialogPreference {
 

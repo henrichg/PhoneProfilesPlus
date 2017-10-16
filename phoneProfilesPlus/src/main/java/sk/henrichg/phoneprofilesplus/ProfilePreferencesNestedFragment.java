@@ -21,7 +21,6 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
 
