@@ -2501,7 +2501,7 @@ public class PhoneProfilesService extends Service
                 //if (Build.VERSION.SDK_INT < 26) {
                 if (notificationStatusBarPermanent) {
                     //notification.flags |= Notification.FLAG_NO_CLEAR;
-                    phoneProfilesNotification.flags |= Notification.FLAG_ONGOING_EVENT;
+                    phoneProfilesNotification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
                 } else {
                     setAlarmForNotificationCancel(dataWrapper.context);
                 }
