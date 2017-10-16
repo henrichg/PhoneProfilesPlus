@@ -32,6 +32,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     private LocationRequest mLocationRequest;
     //public boolean mPowerSaveMode = false;
     boolean mUpdatesStarted = false;
+    boolean mTransitionsUpdated = false;
 
     // Bool to track whether the app is already resolving an error
     boolean mResolvingError = false;
@@ -173,12 +174,15 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     //change = true;
                 }
             }
+
+            mTransitionsUpdated = true;
         }
     }
 
     void clearAllEventGeofences() {
         // clear all geofence transitions
         dataWrapper.getDatabaseHandler().clearAllGeofenceTransitions();
+        mTransitionsUpdated = false;
     }
 
     //-------------------------------------------

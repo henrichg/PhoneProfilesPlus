@@ -55,18 +55,18 @@ class GeofenceScannerJob extends Job {
                     EventsHandler eventsHandler = new EventsHandler(context);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER, false);
 
-                } else
+                } else {
                     PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates not started - start it");
                     // Fixed: java.lang.NullPointerException: Calling thread must be a prepared Looper thread.
                     //        com.google.android.gms.internal.zzccb.requestLocationUpdates(Unknown Source)
                     Handler handler = new Handler(context.getMainLooper());
                     handler.post(new Runnable() {
-                             @Override
-                             public void run() {
-                                 PhoneProfilesService.getGeofencesScanner().startLocationUpdates();
-                             }
-                         }
-                    );
+                        @Override
+                        public void run() {
+                            PhoneProfilesService.getGeofencesScanner().startLocationUpdates();
+                        }
+                    });
+                }
             }
         }
 

@@ -2446,26 +2446,31 @@ public class DataWrapper {
                 ignoreLocation = true;
             }
             else {
-                locationPassed = false;
+                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted() &&
+                        PhoneProfilesService.getGeofencesScanner().mTransitionsUpdated) {
+                    locationPassed = false;
 
-                String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
-                //Log.d("DataWrapper.doHandleEvents", "geofences="+event._eventPreferencesLocation._geofences);
-                for (String _geofence : splits) {
-                    if (!_geofence.isEmpty()) {
-                        //Log.d("DataWrapper.doHandleEvents", "geofence="+getDatabaseHandler().getGeofenceName(Long.valueOf(_geofence)));
+                    String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
+                    //Log.d("DataWrapper.doHandleEvents", "geofences="+event._eventPreferencesLocation._geofences);
+                    for (String _geofence : splits) {
+                        if (!_geofence.isEmpty()) {
+                            //Log.d("DataWrapper.doHandleEvents", "geofence="+getDatabaseHandler().getGeofenceName(Long.valueOf(_geofence)));
 
-                        int geofenceTransition = getDatabaseHandler().getGeofenceTransition(Long.valueOf(_geofence));
+                            int geofenceTransition = getDatabaseHandler().getGeofenceTransition(Long.valueOf(_geofence));
 
-                        if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
-                            locationPassed = true;
-                            break;
+                            if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
+                                locationPassed = true;
+                                break;
+                            }
                         }
                     }
-                }
-                //Log.d("DataWrapper.doHandleEvents", "locationPassed="+locationPassed);
+                    //Log.d("DataWrapper.doHandleEvents", "locationPassed="+locationPassed);
 
-                if (event._eventPreferencesLocation._whenOutside)
-                    locationPassed = !locationPassed;
+                    if (event._eventPreferencesLocation._whenOutside)
+                        locationPassed = !locationPassed;
+                }
+                else
+                    ignoreLocation = true;
             }
         }
 
