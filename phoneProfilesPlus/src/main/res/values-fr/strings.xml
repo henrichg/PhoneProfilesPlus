@@ -565,7 +565,7 @@
   <string name="phone_profiles_pref_applicationLanguage_tr">Türk</string>
   <string name="array_pref_value_tr">tr</string>
   <string name="accessibility_service_name">PhoneProfilesPlus</string>
-  <string name="accessibility_service_description">Laisse phoneprofilesplus détecter quelle application est au premier plan. Cela est nécessaire pour les événements avec validation des paramètres des Applications.</string>
+  <string name="accessibility_service_description">Laisse PhoneProfilesPlus détecter quelle application est au premier plan. Cela est nécessaire pour les événements avec validation des paramètres des Applications.</string>
   <string name="event_type_applications">Applications</string>
   <string name="event_preferences_category_eventApplicationsParameters">Paramètres des applications</string>
   <string name="event_preferences_applications_applications">Applications</string>
@@ -1080,4 +1080,7 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="fast_access_duration_activate_with_button">Act. with</string>
   <string name="fast_access_duration_activate_without_button">Act. without</string>
   <string name="applications_editor_dialog_startApplicationDelay">Startup delay:</string>
+  <string name="number_picker_min_error">Il vous plaît, veuillez indiquer un nombre plus grand ou égal à %1$s</string>
+  <string name="number_picker_max_error">Il vous plaît, veuillez indiquer un nombre plus petit ou égal à %1$s</string>
+  <string name="number_picker_min_max_error">Il vous plaît, veuillez indiquer un nombre entre %1$s et %2$s</string>
 </resources>

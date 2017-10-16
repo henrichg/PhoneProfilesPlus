@@ -565,7 +565,7 @@
   <string name="phone_profiles_pref_applicationLanguage_tr">Türkçe</string>
   <string name="array_pref_value_tr">tr</string>
   <string name="accessibility_service_name">PhoneProfilesPlus</string>
-  <string name="accessibility_service_description">Permitir que phoneprofilesplus detecte qué aplicación está en primer plano. Esto es necesario para eventos con \"parámetros de aplicaciones\".</string>
+  <string name="accessibility_service_description">Permitir que PhoneProfilesPlus detecte qué aplicación está en primer plano. Esto es necesario para eventos con \"parámetros de aplicaciones\".</string>
   <string name="event_type_applications">Aplicaciones</string>
   <string name="event_preferences_category_eventApplicationsParameters">Parámetros de aplicaciones</string>
   <string name="event_preferences_applications_applications">Aplicaciones</string>
@@ -1079,4 +1079,7 @@
   <string name="fast_access_duration_activate_with_button">Act. with</string>
   <string name="fast_access_duration_activate_without_button">Act. without</string>
   <string name="applications_editor_dialog_startApplicationDelay">Startup delay:</string>
+  <string name="number_picker_min_error">Por favor introduzca un número más grande o igual a %1$s</string>
+  <string name="number_picker_max_error">Por favor introduzca un número más pequeño o igual a %1$s</string>
+  <string name="number_picker_min_max_error">Por favor introduzca un número entre %1$s y %2$s</string>
 </resources>

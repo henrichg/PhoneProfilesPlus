@@ -1079,4 +1079,7 @@
   <string name="fast_access_duration_activate_with_button">Act. with</string>
   <string name="fast_access_duration_activate_without_button">Act. without</string>
   <string name="applications_editor_dialog_startApplicationDelay">Startup delay:</string>
+  <string name="number_picker_min_error">Bitte eine Zahl größer oder gleich %1$s eingeben</string>
+  <string name="number_picker_max_error">Bitte eine Zahl kleiner oder gleich %1$s eingeben</string>
+  <string name="number_picker_min_max_error">Bitte eine Zahl zwischen %1$s und %2$s eingeben</string>
 </resources>
