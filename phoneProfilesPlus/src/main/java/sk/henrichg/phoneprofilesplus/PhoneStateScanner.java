@@ -105,7 +105,7 @@ class PhoneStateScanner extends PhoneStateListener {
                 //| PhoneStateListener.LISTEN_CALL_FORWARDING_INDICATOR
                 //| PhoneStateListener.LISTEN_MESSAGE_WAITING_INDICATOR
             );*/
-        startAutoRegistration();
+        startAutoRegistration(context);
     }
 
     void disconnect() {
@@ -113,7 +113,7 @@ class PhoneStateScanner extends PhoneStateListener {
             telephonyManager.listen(this, PhoneStateListener.LISTEN_NONE);
         /*if ((telephonyManager2 != null) && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
             telephonyManager2.listen(this, PhoneStateListener.LISTEN_NONE);*/
-        stopAutoRegistration();
+        stopAutoRegistration(context);
     }
 
     /*
@@ -367,7 +367,7 @@ class PhoneStateScanner extends PhoneStateListener {
         }
     }
 
-    void startAutoRegistration() {
+    static void startAutoRegistration(Context context) {
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
@@ -375,7 +375,7 @@ class PhoneStateScanner extends PhoneStateListener {
         MobileCellsRegistrationService.getMobileCellsAutoRegistration(context);
         if (enabledAutoRegistration) {
             //Log.d("PhoneStateScanner.startAutoRegistration","xxx");
-            stopAutoRegistration();
+            stopAutoRegistration(context);
             try {
                 Intent serviceIntent = new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class);
                 //TODO Android O
@@ -387,7 +387,7 @@ class PhoneStateScanner extends PhoneStateListener {
         }
     }
 
-    void stopAutoRegistration() {
+    static void stopAutoRegistration(Context context) {
         if (autoRegistrationService != null) {
             context.stopService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
             autoRegistrationService = null;

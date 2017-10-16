@@ -100,7 +100,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                         PhoneStateScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
                         PhoneStateScanner.enabledAutoRegistration = true;
                         MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
-                        PhoneProfilesService.phoneStateScanner.startAutoRegistration();
+                        PhoneStateScanner.startAutoRegistration(context);
 
                         value = String.valueOf(iValue);
                         setSummaryDDP(0);
@@ -124,7 +124,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                         PhoneStateScanner.enabledAutoRegistration = false;
                         MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
                         setSummaryDDP(0);
-                        PhoneProfilesService.phoneStateScanner.stopAutoRegistration();
+                        PhoneStateScanner.stopAutoRegistration(context);
                     }
                 })
                 ;

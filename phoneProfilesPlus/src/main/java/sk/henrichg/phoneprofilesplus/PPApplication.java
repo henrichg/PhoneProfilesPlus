@@ -46,7 +46,7 @@ public class PPApplication extends Application {
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
-                                         +"|PhoneProfilesService.onStartCommand"
+                                         //+"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedJob"
@@ -54,13 +54,9 @@ public class PPApplication extends Application {
                                          //+"|"+CallsCounter.LOG_TAG
                                          //+"|[RJS] PPApplication"
                                          //+"|[RJS] PhoneProfilesService"
-
-                                         +"|ScannerService.doWakefulWork"
-                                         +"|WifiScanJob.startScanner"
-                                         +"|BluetoothScanJob.startScanner"
-                                         +"|[RJS] PhoneProfilesService.registerWifiScannerReceiver"
-                                         +"|WifiScanJob.onRunJob"
-                                         +"|WifiScanJob.scheduleJob"
+                                         +"|PhoneStateScanner.onCellInfoChanged"
+                                         +"|PhoneStateScanner.onServiceStateChanged"
+                                         +"|PhoneStateScanner.onCellLocationChanged"
             ;
 
 
