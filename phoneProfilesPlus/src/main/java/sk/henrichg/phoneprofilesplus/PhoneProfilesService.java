@@ -2180,18 +2180,18 @@ public class PhoneProfilesService extends Service
                             registerWifiStateChangedBroadcastReceiver(true, false, true, false);
                             registerWifiAPStateChangeBroadcastReceiver(true, false, true, false);
                             registerWifiScannerReceiver(true, false, true, false);
-                            scheduleWifiJob(true, true, true, false, false, false);
+                            scheduleWifiJob(true, false, true, false, false, false);
                             break;
                         case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER");
                             registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
                             registerBluetoothStateChangedBroadcastReceiver(true, false, true, false);
                             registerBluetoothScannerReceivers(true, false, true, false);
-                            scheduleBluetoothJob(true, true, true, false, false);
+                            scheduleBluetoothJob(true, false, true, false, false);
                             break;
                         case PPApplication.SCANNER_RESTART_PHONE_STATE_SCANNER:
                              PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_PHONE_STATE_SCANNER");
-                             startPhoneStateScanner(true, true, true, false);
+                             startPhoneStateScanner(true, false, true, false);
                             break;
                         case PPApplication.SCANNER_FORCE_START_PHONE_STATE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_START_PHONE_STATE_SCANNER");
@@ -2200,7 +2200,7 @@ public class PhoneProfilesService extends Service
                         case PPApplication.SCANNER_RESTART_GEOFENCE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_GEOFENCE_SCANNER");
                             registerLocationModeChangedBroadcastReceiver(true, false, true);
-                            startGeofenceScanner(true, true, true);
+                            startGeofenceScanner(true, false, true);
                             break;
                         case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
