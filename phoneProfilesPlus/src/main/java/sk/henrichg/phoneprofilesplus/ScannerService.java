@@ -1,15 +1,14 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.IntentService;
 import android.content.Intent;
-
-import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 /*
  This service is called only from WifiSSIDPreference and BluetoothNamePreference, not needed to convert it to job.
  */
 
-public class ScannerService extends WakefulIntentService
+public class ScannerService extends IntentService
 {
     //private Context context;
 
@@ -29,7 +28,7 @@ public class ScannerService extends WakefulIntentService
 
     @SuppressLint("NewApi")
     @Override
-    protected void doWakefulWork(Intent intent) {
+    protected void onHandleIntent(Intent intent) {
         //context = getApplicationContext();
         CallsCounter.logCounter(this, "ScannerService.doWakefulWork", "ScannerService_doWakefulWork");
 

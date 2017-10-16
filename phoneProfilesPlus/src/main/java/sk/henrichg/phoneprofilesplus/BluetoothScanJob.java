@@ -12,7 +12,6 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
@@ -422,7 +421,7 @@ class BluetoothScanJob extends Job {
                 try {
                     Intent scanServiceIntent = new Intent(context, ScannerService.class);
                     scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, Scanner.SCANNER_TYPE_BLUETOOTH);
-                    WakefulIntentService.sendWakefulWork(context, scanServiceIntent);
+                    context.startService(scanServiceIntent);
                 } catch (Exception ignored) {
                 }
             }

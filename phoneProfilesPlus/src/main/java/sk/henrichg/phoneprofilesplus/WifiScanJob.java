@@ -10,7 +10,6 @@ import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.commonsware.cwac.wakeful.WakefulIntentService;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
@@ -296,7 +295,7 @@ class WifiScanJob extends Job {
                 try {
                     Intent scanServiceIntent = new Intent(context, ScannerService.class);
                     scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, Scanner.SCANNER_TYPE_WIFI);
-                    WakefulIntentService.sendWakefulWork(context, scanServiceIntent);
+                    context.startService(scanServiceIntent);
                 } catch (Exception ignored) {
                 }
             }

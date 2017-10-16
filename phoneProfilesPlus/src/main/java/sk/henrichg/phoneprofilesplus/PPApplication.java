@@ -186,7 +186,7 @@ public class PPApplication extends Application {
     public static boolean sLookCocktailPanelEnabled = false;
     //public static boolean sLookCocktailBarEnabled = false;
 
-    // this refresh GUI, must by called from GUI thread no IntentService
+    // this refresh GUI, must by called from GUI thread no IntentService, Job
     public static final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver();
     public static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
 
