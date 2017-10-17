@@ -41,7 +41,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -54,9 +54,11 @@ public class PPApplication extends Application {
                                          //+"|"+CallsCounter.LOG_TAG
                                          //+"|[RJS] PPApplication"
                                          //+"|[RJS] PhoneProfilesService"
-                                         +"|PhoneStateScanner.onCellInfoChanged"
-                                         +"|PhoneStateScanner.onServiceStateChanged"
-                                         +"|PhoneStateScanner.onCellLocationChanged"
+
+                                         //+"|PhoneStateScanner.onCellInfoChanged"
+                                         //+"|PhoneStateScanner.onServiceStateChanged"
+                                         //+"|PhoneStateScanner.onCellLocationChanged"
+                                         +"|GeofenceScanner"
             ;
 
 
