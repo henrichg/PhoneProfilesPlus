@@ -12,9 +12,11 @@ import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
 
@@ -57,10 +59,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     }
 
     void connect() {
-        PPApplication.logE("GeofenceScanner.onConnected", "mResolvingError="+mResolvingError);
+        PPApplication.logE("GeofenceScanner.connect", "mResolvingError="+mResolvingError);
         if (!mResolvingError) {
-            if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
-                mGoogleApiClient.connect();
+            //if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
+            mGoogleApiClient.connect();
         }
     }
 
@@ -68,8 +70,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         PPApplication.logE("GeofenceScanner.disconnect", "xxx");
         if (!mGoogleApiClient.isConnecting() && !mGoogleApiClient.isConnected()) {
             PPApplication.logE("GeofenceScanner.disconnect", "not connected, connect it");
-            if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
-                mGoogleApiClient.connect();
+            //if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
+            mGoogleApiClient.connect();
         }
     }
 
@@ -86,6 +88,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         PPApplication.logE("GeofenceScanner.onConnected", "xxx");
         if (mGoogleApiClient.isConnected()) {
             clearAllEventGeofences();
+            updateTransitionsByLastKnownLocation();
             if (PPApplication.getApplicationStarted(context, true)) {
                 PPApplication.logE("GeofenceScannerb.mUpdatesStarted=false", "from GeofenceScanner.onConnected");
                 mUpdatesStarted = false;
@@ -297,6 +300,27 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, false, true, forScreenOn, true);
     }
     */
+
+    void updateTransitionsByLastKnownLocation() {
+        if (Permissions.checkLocation(context)) {
+            PPApplication.logE("GeofenceScanner.updateTransitionsByLastKnownLocation", "xxx");
+            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+            //noinspection MissingPermission
+            fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    // Got last known location. In some rare situations this can be null.
+                    PPApplication.logE("GeofenceScanner.updateTransitionsByLastKnownLocation", "onSuccess");
+                    if (location != null) {
+                        synchronized (PPApplication.geofenceScannerLastLocationMutex) {
+                            lastLocation.set(location);
+                            updateGeofencesInDB();
+                        }
+                    }
+                }
+            });
+        }
+    }
 
     //-------------------------------------------
 

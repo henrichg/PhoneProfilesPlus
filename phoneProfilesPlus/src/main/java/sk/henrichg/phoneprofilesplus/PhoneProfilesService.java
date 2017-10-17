@@ -1599,12 +1599,17 @@ public class PhoneProfilesService extends Service
                         if (!GeofenceScannerJob.isJobScheduled()) {
                             CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob->SCHEDULE", "PhoneProfilesService_scheduleGeofenceScannerJob");
                             PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "SCHEDULE");
+                            if (isGeofenceScannerStarted())
+                                getGeofencesScanner().updateTransitionsByLastKnownLocation();
                             GeofenceScannerJob.scheduleJob(appContext, true, forScreenOn);
                         }
                         else {
                             PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "scheduled");
-                            if (rescan)
+                            if (rescan) {
+                                if (isGeofenceScannerStarted())
+                                    getGeofencesScanner().updateTransitionsByLastKnownLocation();
                                 GeofenceScannerJob.scheduleJob(appContext, true, forScreenOn);
+                            }
                         }
                     } else
                         scheduleGeofenceScannerJob(false, true, false, forScreenOn, rescan);
