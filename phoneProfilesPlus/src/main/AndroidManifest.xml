@@ -398,7 +398,8 @@
         <receiver
             android:name=".SamsungEdgeProvider"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="com.samsung.android.cocktail.v2.action.COCKTAIL_UPDATE"/>
             </intent-filter>
