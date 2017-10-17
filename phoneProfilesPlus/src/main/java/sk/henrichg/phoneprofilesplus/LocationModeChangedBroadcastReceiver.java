@@ -29,6 +29,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
             if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
                 PhoneProfilesService.getGeofencesScanner().clearAllEventGeofences();
+                PhoneProfilesService.getGeofencesScanner().updateTransitionsByLastKnownLocation();
 
                 // start job
                 EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
