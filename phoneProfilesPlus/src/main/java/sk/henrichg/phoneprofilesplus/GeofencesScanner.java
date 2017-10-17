@@ -87,7 +87,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 mUpdatesStarted = false;
                 PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GeofenceScanner.onConnected");
                 if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, false);
+                    PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, false, false);
             }
         }
     }
@@ -284,14 +284,13 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     }
 
     /*
-    void resetLocationUpdates(boolean oldPowerSaveMode, boolean forceReset) {
-        if ((forceReset) || (PPApplication.isPowerSaveMode != oldPowerSaveMode)) {
-            stopLocationUpdates();
-            createLocationRequest();
-            PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GeofenceScanner.resetLocationUpdates");
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, false);
-        }
+    void resetLocationUpdates(boolean forScreenOn) {
+        stopLocationUpdates();
+        createLocationRequest();
+        PPApplication.logE("GeofenceScannerJob.scheduleJob", "from GeofenceScanner.resetLocationUpdates");
+        // startLocationUpdates is called from GeofenceScannerJob
+        if (PhoneProfilesService.instance != null)
+            PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, false, true, forScreenOn, true);
     }
     */
 

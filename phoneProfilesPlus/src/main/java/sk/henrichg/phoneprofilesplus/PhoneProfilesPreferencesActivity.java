@@ -191,18 +191,18 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         if (wifiScanInterval != ApplicationPreferences.applicationEventWifiScanInterval(getApplicationContext()))
         {
             if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.scheduleWifiJob(true, true, true, false, false, false);
+                PhoneProfilesService.instance.scheduleWifiJob(true, true, true, false, false, false, false);
         }
         if (bluetoothScanInterval != ApplicationPreferences.applicationEventBluetoothScanInterval(getApplicationContext()))
         {
             if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, false, false);
+                PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, false, false, false);
         }
         DataWrapper dataWrapper =  new DataWrapper(getApplicationContext(), false, false, 0);
         if (locationScanInterval != ApplicationPreferences.applicationEventLocationUpdateInterval(getApplicationContext()))
         {
             if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, false);
+                PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, false, false);
         }
         dataWrapper.invalidateDataWrapper();
 

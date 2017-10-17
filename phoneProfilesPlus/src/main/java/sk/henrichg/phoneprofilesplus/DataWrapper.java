@@ -3018,19 +3018,19 @@ public class DataWrapper {
 
         if (ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
-            PPApplication.restartWifiScanner(context);
+            PPApplication.restartWifiScanner(context, false);
         }
         if (ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
-            PPApplication.restartBluetoothScanner(context);
+            PPApplication.restartBluetoothScanner(context, false);
         }
         if (ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
-            PPApplication.restartGeofenceScanner(context);
+            PPApplication.restartGeofenceScanner(context, false);
         }
         if (ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
-            PPApplication.restartPhoneStateScanner(context);
+            PPApplication.restartPhoneStateScanner(context, false);
         }
 
 

@@ -90,7 +90,7 @@ public class MobileCellsRegistrationService extends Service {
         PhoneStateScanner.autoRegistrationService = null;
 
         forceStart = false;
-        PPApplication.restartPhoneStateScanner(this);
+        PPApplication.restartPhoneStateScanner(this, false);
 
         stopForeground(true);
 

@@ -275,7 +275,7 @@ public class MobileCellsPreference extends DialogPreference {
         }
 
         forceStart = false;
-        PPApplication.restartPhoneStateScanner(context);
+        PPApplication.restartPhoneStateScanner(context, false);
     }
 
     @Override

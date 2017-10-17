@@ -26,20 +26,20 @@ class ScreenOnOffJob extends Job {
         if (action != null) {
             if (action.equals(Intent.ACTION_SCREEN_ON)) {
                 PPApplication.logE("@@@ ScreenOnOffJob.onRunJob", "screen on");
-                PPApplication.restartWifiScanner(appContext);
-                PPApplication.restartBluetoothScanner(appContext);
-                PPApplication.restartGeofenceScanner(appContext);
-                PPApplication.restartPhoneStateScanner(appContext);
-                PPApplication.restartOrientationScanner(appContext);
+                PPApplication.restartWifiScanner(appContext, true);
+                PPApplication.restartBluetoothScanner(appContext, true);
+                PPApplication.restartGeofenceScanner(appContext, true);
+                PPApplication.restartPhoneStateScanner(appContext, true);
+                PPApplication.restartOrientationScanner(appContext, true);
             }
             else if (action.equals(Intent.ACTION_SCREEN_OFF)) {
                 PPApplication.logE("@@@ ScreenOnOffJob.onRunJob", "screen off");
 
-                PPApplication.restartWifiScanner(appContext);
-                PPApplication.restartBluetoothScanner(appContext);
-                PPApplication.restartGeofenceScanner(appContext);
-                PPApplication.restartPhoneStateScanner(appContext);
-                PPApplication.restartOrientationScanner(appContext);
+                PPApplication.restartWifiScanner(appContext, true);
+                PPApplication.restartBluetoothScanner(appContext, true);
+                PPApplication.restartGeofenceScanner(appContext, true);
+                PPApplication.restartPhoneStateScanner(appContext, true);
+                PPApplication.restartOrientationScanner(appContext, true);
 
                 //boolean lockDeviceEnabled = false;
                 if (PPApplication.lockDeviceActivity != null) {
