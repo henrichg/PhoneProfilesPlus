@@ -19,6 +19,7 @@ import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 
 import static android.app.Activity.RESULT_CANCELED;
 
@@ -72,6 +73,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.mp_toolbar);
+        Bundle bundle = getArguments();
+        if (bundle.getBoolean(PreferenceFragment.EXTRA_NESTED, false))
+            toolbar.setSubtitle(getString(R.string.title_activity_phone_profiles_preferences));
+        else
+            toolbar.setSubtitle(null);
 
         prefMng = getPreferenceManager();
         prefMng.setSharedPreferencesName(PPApplication.APPLICATION_PREFS_NAME);
