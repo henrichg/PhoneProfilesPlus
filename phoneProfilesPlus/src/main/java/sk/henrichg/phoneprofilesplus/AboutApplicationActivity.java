@@ -94,7 +94,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 }
                 intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion);
                 try {
-                    startActivity(intent);
+                    startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
                 } catch (Exception ignored) {}
             }
         };
@@ -115,7 +115,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
-                    startActivity(i);
+                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception ignored) {}
             }
         };
@@ -136,7 +136,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
-                    startActivity(i);
+                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception ignored) {}
             }
         };
@@ -157,7 +157,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
-                    startActivity(i);
+                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception ignored) {}
             }
         };
@@ -178,7 +178,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
-                    startActivity(i);
+                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception ignored) {}
             }
         };
@@ -210,8 +210,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                     startActivity(goToMarket);
                 } catch (ActivityNotFoundException e) {
                     try {
-                        startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
+                        Intent i = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName()));
+                        startActivity(Intent.createChooser(i, getString(R.string.google_play_chooser)));
                     } catch (Exception ignored) {}
                 }
             }
