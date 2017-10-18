@@ -9,6 +9,7 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 
 public class EventPreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -312,6 +313,11 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
     {
+        if (key.equals(Event.PREF_EVENT_NAME)) {
+            String value = sharedPreferences.getString(key, "");
+            Toolbar toolbar = getActivity().findViewById(R.id.mp_toolbar);
+            toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + value);
+        }
 
         //eventTypeChanged = false;
 

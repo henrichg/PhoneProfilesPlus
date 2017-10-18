@@ -265,6 +265,9 @@ public class EventPreferencesActivity extends PreferenceActivity
 
         if (event != null)
         {
+            Toolbar toolbar = findViewById(R.id.mp_toolbar);
+            toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + event._name);
+
             SharedPreferences preferences=getSharedPreferences(EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY), Activity.MODE_PRIVATE);
 
             event.loadSharedPreferences(preferences);

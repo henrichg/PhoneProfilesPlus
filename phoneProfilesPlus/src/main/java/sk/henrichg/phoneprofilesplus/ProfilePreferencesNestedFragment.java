@@ -20,6 +20,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
@@ -1320,6 +1321,11 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             String key) {
 
         String value;
+        if (key.equals(Profile.PREF_PROFILE_NAME)) {
+            value = sharedPreferences.getString(key, "");
+            Toolbar toolbar = getActivity().findViewById(R.id.mp_toolbar);
+            toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + value);
+        }
         if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
             key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
             key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON)) {
