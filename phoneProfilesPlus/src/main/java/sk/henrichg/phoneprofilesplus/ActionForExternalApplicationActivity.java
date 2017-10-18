@@ -7,10 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
 
-public class ActionForExternalApplicationActivity extends Activity {
+public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
     private DataWrapper dataWrapper;
 
@@ -30,6 +31,7 @@ public class ActionForExternalApplicationActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(0, 0);
 
         //Log.d("ActionForExternalApplicationActivity.onCreate", "xxx");
 
@@ -207,6 +209,13 @@ public class ActionForExternalApplicationActivity extends Activity {
         }
         NotificationManager mNotificationManager = (NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
+    }
+
+    @Override
+    public void finish()
+    {
+        super.finish();
+        overridePendingTransition(0, 0);
     }
 
 }

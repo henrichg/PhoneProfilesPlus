@@ -3,8 +3,9 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-public class BackgroundActivateProfileActivity extends Activity {
+public class BackgroundActivateProfileActivity extends AppCompatActivity {
 
     private DataWrapper dataWrapper;
 
@@ -14,6 +15,7 @@ public class BackgroundActivateProfileActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(0, 0);
 
         PPApplication.logE("BackgroundActivateProfileActivity.onCreate", "xxx");
 
@@ -59,6 +61,13 @@ public class BackgroundActivateProfileActivity extends Activity {
 
         dataWrapper.invalidateDataWrapper();
         dataWrapper = null;
+    }
+
+    @Override
+    public void finish()
+    {
+        super.finish();
+        overridePendingTransition(0, 0);
     }
 
 }

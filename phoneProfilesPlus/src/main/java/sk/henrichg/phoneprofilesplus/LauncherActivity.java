@@ -3,8 +3,9 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-public class LauncherActivity extends Activity {
+public class LauncherActivity extends AppCompatActivity {
 
     private int startupSource;
     private DataWrapper dataWrapper;
@@ -12,7 +13,6 @@ public class LauncherActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         overridePendingTransition(0, 0);
 
         dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
@@ -131,8 +131,8 @@ public class LauncherActivity extends Activity {
     @Override
     public void finish()
     {
-        overridePendingTransition(0, 0);
         super.finish();
+        overridePendingTransition(0, 0);
     }
 
 }

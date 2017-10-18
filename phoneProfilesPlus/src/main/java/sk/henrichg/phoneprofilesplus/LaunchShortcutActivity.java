@@ -4,8 +4,9 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-public class LaunchShortcutActivity extends Activity {
+public class LaunchShortcutActivity extends AppCompatActivity {
 
     public static final String EXTRA_PACKAGE_NAME = "packageName";
     public static final String EXTRA_ACTIVITY_NAME = "activityName";
@@ -20,6 +21,7 @@ public class LaunchShortcutActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(0, 0);
 
         packageName = getIntent().getStringExtra(EXTRA_PACKAGE_NAME);
         activityName = getIntent().getStringExtra(EXTRA_ACTIVITY_NAME);
@@ -64,6 +66,13 @@ public class LaunchShortcutActivity extends Activity {
         }
 
         finish();
+    }
+
+    @Override
+    public void finish()
+    {
+        super.finish();
+        overridePendingTransition(0, 0);
     }
 
 }

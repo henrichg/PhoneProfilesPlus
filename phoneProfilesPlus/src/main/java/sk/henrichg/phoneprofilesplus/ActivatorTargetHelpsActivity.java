@@ -2,8 +2,9 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-public class ActivatorTargetHelpsActivity extends Activity {
+public class ActivatorTargetHelpsActivity extends AppCompatActivity {
 
     public static ActivatorTargetHelpsActivity activity;
     public static ActivateProfileActivity activatorActivity;
@@ -11,6 +12,7 @@ public class ActivatorTargetHelpsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(0, 0);
 
         activity = this;
     }
@@ -28,6 +30,13 @@ public class ActivatorTargetHelpsActivity extends Activity {
         }
 
         activatorActivity.showTargetHelps();
+    }
+
+    @Override
+    public void finish()
+    {
+        super.finish();
+        overridePendingTransition(0, 0);
     }
 
 }

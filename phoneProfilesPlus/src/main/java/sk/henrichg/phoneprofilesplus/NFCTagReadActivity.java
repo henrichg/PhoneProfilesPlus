@@ -3,17 +3,19 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
-public class NFCTagReadActivity extends Activity {
+public class NFCTagReadActivity extends AppCompatActivity {
 
     private NFCTagReadWriteManager nfcManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(0, 0);
 
         nfcManager = new NFCTagReadWriteManager(this);
         nfcManager.onActivityCreate();
@@ -71,6 +73,13 @@ public class NFCTagReadActivity extends Activity {
         super.onNewIntent(intent);
         nfcManager.onActivityNewIntent(intent);
         //Log.d("NFCTagReadActivity.onNewIntent", "xxx");
+    }
+
+    @Override
+    public void finish()
+    {
+        super.finish();
+        overridePendingTransition(0, 0);
     }
 
 }

@@ -20,6 +20,7 @@ public class LockDeviceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(0, 0);
 
         PPApplication.logE("LockDeviceActivity.onCreate", "xxx");
 
@@ -101,6 +102,13 @@ public class LockDeviceActivity extends AppCompatActivity {
         PPApplication.lockDeviceActivity = null;
         if (Permissions.checkLockDevice(getApplicationContext()))
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
+    }
+
+    @Override
+    public void finish()
+    {
+        super.finish();
+        overridePendingTransition(0, 0);
     }
 
 }

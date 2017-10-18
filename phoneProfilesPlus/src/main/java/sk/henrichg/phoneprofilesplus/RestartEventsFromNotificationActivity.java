@@ -3,8 +3,9 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-public class RestartEventsFromNotificationActivity extends Activity
+public class RestartEventsFromNotificationActivity extends AppCompatActivity
 {
 
     private DataWrapper dataWrapper;
@@ -12,6 +13,7 @@ public class RestartEventsFromNotificationActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(0, 0);
 
         PPApplication.logE("RestartEventsFromNotificationActivity.onCreate", "xxx");
 
@@ -45,6 +47,13 @@ public class RestartEventsFromNotificationActivity extends Activity
 
         dataWrapper.invalidateDataWrapper();
         dataWrapper = null;
+    }
+
+    @Override
+    public void finish()
+    {
+        super.finish();
+        overridePendingTransition(0, 0);
     }
 
 }
