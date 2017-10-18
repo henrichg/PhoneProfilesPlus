@@ -458,13 +458,13 @@ public class EditorEventListFragment extends Fragment
             // event not exists
             return;
 
+        listView.getRecycledViewPool().clear();
+
         List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
         event.stopEvent(dataWrapper, eventTimelineList, false, true, true, false, false);
         // restart events
         PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
         dataWrapper.restartEvents(false, true, false);
-
-        listView.getRecycledViewPool().clear();
 
         eventListAdapter.deleteItemNoNotify(event);
         databaseHandler.deleteEvent(event);
@@ -564,12 +564,15 @@ public class EditorEventListFragment extends Fragment
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
+                    listView.getRecycledViewPool().clear();
+
                     dataWrapper.stopAllEvents(true, false);
 
                     databaseHandler.deleteAllEvents();
 
                     eventListAdapter.clear();
-                    eventListAdapter.notifyDataSetChanged();
+                    // this is in eventListAdapter.clear()
+                    //eventListAdapter.notifyDataSetChanged();
 
                     Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
