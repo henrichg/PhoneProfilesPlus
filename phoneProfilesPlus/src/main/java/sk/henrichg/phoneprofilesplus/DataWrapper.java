@@ -1602,51 +1602,40 @@ public class DataWrapper {
         {
             ignoreBattery = false;
 
-            boolean isCharging;
-            int batteryPct;
+            boolean isPowerSaveMode = batteryPassed = isPowerSaveMode(context);
+
+            boolean isCharging = false;
+            int batteryPct = -100;
 
             // get battery status
             IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             Intent batteryStatus = context.registerReceiver(null, filter);
 
-            if (batteryStatus != null)
-            {
+            if (batteryStatus != null) {
                 int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-                PPApplication.logE("*** DataWrapper.doHandleEvents","status="+status);
+                PPApplication.logE("*** DataWrapper.doHandleEvents", "status=" + status);
                 isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
-                             status == BatteryManager.BATTERY_STATUS_FULL;
-                PPApplication.logE("*** DataWrapper.doHandleEvents","isCharging="+isCharging);
+                        status == BatteryManager.BATTERY_STATUS_FULL;
+                PPApplication.logE("*** DataWrapper.doHandleEvents", "isCharging=" + isCharging);
 
                 int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
                 int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-                PPApplication.logE("*** DataWrapper.doHandleEvents","level="+level);
-                PPApplication.logE("*** DataWrapper.doHandleEvents","scale="+scale);
+                PPApplication.logE("*** DataWrapper.doHandleEvents", "level=" + level);
+                PPApplication.logE("*** DataWrapper.doHandleEvents", "scale=" + scale);
 
-                batteryPct = Math.round(level/(float)scale*100);
-                PPApplication.logE("*** DataWrapper.doHandleEvents","batteryPct="+batteryPct);
-
-                batteryPassed = (isCharging == event._eventPreferencesBattery._charging);
-
-                if (batteryPassed)
-                {
-                    if ((batteryPct >= event._eventPreferencesBattery._levelLow) &&
-                        (batteryPct <= event._eventPreferencesBattery._levelHight))
-                    {
-                        //eventStart = eventStart && true;
-                    }
-                    else
-                    {
-                        batteryPassed = false;
-                        //eventStart = eventStart && false;
-                    }
-                }
-                if (batteryPassed && event._eventPreferencesBattery._powerSaveMode) {
-                    batteryPassed = PPApplication.isPowerSaveMode;
-                }
+                batteryPct = Math.round(level / (float) scale * 100);
+                PPApplication.logE("*** DataWrapper.doHandleEvents", "batteryPct=" + batteryPct);
             }
-            else
-                batteryPassed = false;
 
+            if ((batteryPct >= event._eventPreferencesBattery._levelLow) &&
+                (batteryPct <= event._eventPreferencesBattery._levelHight))
+                batteryPassed = true;
+
+            if (isCharging)
+                batteryPassed = batteryPassed && event._eventPreferencesBattery._charging;
+            else
+            if (isPowerSaveMode)
+                batteryPassed = batteryPassed && event._eventPreferencesBattery._powerSaveMode;
         }
 
         if ((event._eventPreferencesCall._enabled)  &&
@@ -3332,4 +3321,43 @@ public class DataWrapper {
             firstStartEvents(false);
         }
     }
+
+    static boolean isPowerSaveMode(Context context) {
+        boolean isCharging = false;
+        int batteryPct = -100;
+        boolean isPowerSaveMode = false;
+
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            isPowerSaveMode = powerManager.isPowerSaveMode();
+        }
+
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = context.registerReceiver(null, filter);
+        if (batteryStatus != null) {
+            int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+            PPApplication.logE("DataWrapper.isPowerSaveMode", "status=" + status);
+            isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                         status == BatteryManager.BATTERY_STATUS_FULL;
+            PPApplication.logE("DataWrapper.isPowerSaveMode", "isCharging=" + isCharging);
+
+            int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+            int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+            PPApplication.logE("DataWrapper.isPowerSaveMode", "level=" + level);
+            PPApplication.logE("DataWrapper.isPowerSaveMode", "scale=" + scale);
+
+            batteryPct = Math.round(level / (float) scale * 100);
+            PPApplication.logE("DataWrapper.isPowerSaveMode", "batteryPct=" + batteryPct);
+        }
+
+        if (ApplicationPreferences.applicationPowerSaveModeInternal(context).equals("1") && (batteryPct <= 5) && (!isCharging))
+            return true;
+        if (ApplicationPreferences.applicationPowerSaveModeInternal(context).equals("2") && (batteryPct <= 15) && (!isCharging))
+            return true;
+        if (ApplicationPreferences.applicationPowerSaveModeInternal(context).equals("3"))
+            return isPowerSaveMode;
+
+        return false;
+    }
+
 }

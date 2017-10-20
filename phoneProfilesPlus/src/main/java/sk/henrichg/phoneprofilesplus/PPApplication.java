@@ -172,7 +172,7 @@ public class PPApplication extends Application {
     public static final ScannerMutext scannerMutex = new ScannerMutext();
     public static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
 
-    public static boolean isPowerSaveMode = false;
+    //public static boolean isPowerSaveMode = false;
 
     public static boolean startedOnBoot = false;
 

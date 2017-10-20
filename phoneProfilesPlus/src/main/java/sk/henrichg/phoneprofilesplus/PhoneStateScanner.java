@@ -73,7 +73,8 @@ class PhoneStateScanner extends PhoneStateListener {
 
     @SuppressLint("InlinedApi")
     void connect() {
-        if (PPApplication.isPowerSaveMode && ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode(context).equals("2"))
+        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+        if (/*PPApplication.*/isPowerSaveMode && ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode(context).equals("2"))
             // start scanning in power save mode is not allowed
             return;
 

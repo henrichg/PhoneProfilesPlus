@@ -53,7 +53,8 @@ class BluetoothScanJob extends Job {
             return Result.SUCCESS;
         }
 
-        boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+        //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
             PPApplication.logE("BluetoothScanJob.onRunJob", "update in power save mode is not allowed = cancel job");
             BluetoothScanJob.cancelJob(context);
@@ -92,7 +93,8 @@ class BluetoothScanJob extends Job {
                     jobManager.cancelAllForTag(JOB_TAG_SHORT);
 
                     int interval = ApplicationPreferences.applicationEventBluetoothScanInterval(context);
-                    boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+                    //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
                     if (isPowerSaveMode && ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context).equals("1"))
                         interval = 2 * interval;
 

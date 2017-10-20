@@ -2726,7 +2726,8 @@ public class PhoneProfilesService extends Service
 
         if (!mStartedOrientationSensors) {
 
-            if (PPApplication.isPowerSaveMode && ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode(this).equals("2"))
+            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(this);
+            if (/*PPApplication.*/isPowerSaveMode && ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode(this).equals("2"))
                 // start scanning in power save mode is not allowed
                 return;
 
@@ -2735,7 +2736,7 @@ public class PhoneProfilesService extends Service
                 return;
 
             int interval = ApplicationPreferences.applicationEventOrientationScanInterval(this);
-            if (PPApplication.isPowerSaveMode && ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode(this).equals("1"))
+            if (/*PPApplication.*/isPowerSaveMode && ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode(this).equals("1"))
                 interval *= 2;
             Sensor accelerometer = getAccelerometerSensor(getApplicationContext());
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","accelerometer="+accelerometer);

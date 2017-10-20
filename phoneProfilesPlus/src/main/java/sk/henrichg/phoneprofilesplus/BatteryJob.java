@@ -47,6 +47,7 @@ class BatteryJob extends Job {
         PPApplication.logE("BatteryJob.onRunJob", "batteryPct=" + batteryPct);
         PPApplication.logE("BatteryJob.onRunJob", "isCharging=" + isCharging);
 
+        /*
         boolean oldPowerSaveMode = PPApplication.isPowerSaveMode;
         PPApplication.isPowerSaveMode = false;
         if ((!isCharging) &&
@@ -59,6 +60,7 @@ class BatteryJob extends Job {
             else
                 PPApplication.isPowerSaveMode = oldPowerSaveMode;
         }
+        */
 
         Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);

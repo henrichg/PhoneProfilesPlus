@@ -79,7 +79,8 @@ class Scanner {
             }
 
             // check power save mode
-            boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+            //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
             if (isPowerSaveMode) {
                 int forceScan = getForceOneWifiScan(context);
                 if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {

@@ -21,6 +21,7 @@ class PowerSaveModeJob extends Job {
         Context appContext = getContext().getApplicationContext();
         CallsCounter.logCounter(appContext, "PowerSaveModeJob.onRunJob", "PowerSaveModeJob_onRunJob");
 
+        /*
         boolean oldPowerSaveMode = PPApplication.isPowerSaveMode;
         PPApplication.isPowerSaveMode = false;
         if (ApplicationPreferences.applicationPowerSaveModeInternal(appContext).equals("3")) {
@@ -29,6 +30,7 @@ class PowerSaveModeJob extends Job {
         }
         else
             PPApplication.isPowerSaveMode = oldPowerSaveMode;
+        */
 
         Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);

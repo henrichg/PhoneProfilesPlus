@@ -46,7 +46,8 @@ class WifiScanJob extends Job {
             return Result.SUCCESS;
         }
 
-        boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+        //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
             PPApplication.logE("WifiScanJob.onRunJob", "update in power save mode is not allowed = cancel job");
             WifiScanJob.cancelJob(context);
@@ -86,7 +87,8 @@ class WifiScanJob extends Job {
                     jobManager.cancelAllForTag(JOB_TAG_SHORT);
 
                     int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
-                    boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+                    //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
                     if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("1"))
                         interval = 2 * interval;
 

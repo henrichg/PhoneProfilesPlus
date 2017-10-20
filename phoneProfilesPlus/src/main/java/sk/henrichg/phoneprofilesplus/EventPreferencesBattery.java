@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
@@ -172,6 +173,8 @@ class EventPreferencesBattery extends EventPreferences {
     {
         final Preference lowLevelPreference = prefMng.findPreference(PREF_EVENT_BATTERY_LEVEL_LOW);
         final Preference hightLevelPreference = prefMng.findPreference(PREF_EVENT_BATTERY_LEVEL_HIGHT);
+        final CheckBoxPreference chargingPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_BATTERY_CHARGING);
+        final CheckBoxPreference powerSaveModePreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_BATTERY_POWER_SAVE_MODE);
         final PreferenceManager _prefMng = prefMng;
         final Context _context = context;
 
@@ -241,6 +244,26 @@ class EventPreferencesBattery extends EventPreferences {
             });
         }
 
+        if ((chargingPreference != null) && (powerSaveModePreference != null)) {
+            chargingPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    boolean bNewValue = (boolean) newValue;
+                    if (bNewValue)
+                        powerSaveModePreference.setChecked(false);
+                    return true;
+                }
+            });
+            powerSaveModePreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    boolean bNewValue = (boolean) newValue;
+                    if (bNewValue)
+                        chargingPreference.setChecked(false);
+                    return true;
+                }
+            });
+        }
     }
 
 
