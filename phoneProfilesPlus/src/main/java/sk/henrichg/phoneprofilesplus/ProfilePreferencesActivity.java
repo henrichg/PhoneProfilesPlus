@@ -337,8 +337,10 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         if (profile != null)
         {
-            Toolbar toolbar = findViewById(R.id.mp_toolbar);
-            toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profile._name);
+            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+                Toolbar toolbar = findViewById(R.id.mp_toolbar);
+                toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profile._name);
+            }
 
             String PREFS_NAME = ProfilePreferencesNestedFragment.getPreferenceName(startupSource);
 
