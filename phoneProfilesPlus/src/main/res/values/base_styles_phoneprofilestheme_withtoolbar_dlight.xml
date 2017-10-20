@@ -63,6 +63,8 @@
         <item name="colorQSHandlebarActive">@color/colorQSHandlebarActive</item>
         <item name="colorQSHandlebarStroke">@color/colorQSHandlebarStroke</item>
 
+        <item name="actionDefaultProfile">@drawable/ic_action_default_profile</item>
+
     </style>
 
 </resources>

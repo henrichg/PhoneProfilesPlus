@@ -97,5 +97,6 @@
     <attr name="colorQSHandlebarInactive" format="reference" />
     <attr name="colorQSHandlebarActive" format="reference" />
     <attr name="colorQSHandlebarStroke" format="reference" />
+    <attr name="actionDefaultProfile" format="reference" />
 
 </resources>

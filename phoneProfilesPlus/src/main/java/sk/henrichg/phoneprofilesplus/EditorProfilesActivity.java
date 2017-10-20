@@ -703,7 +703,10 @@ public class EditorProfilesActivity extends AppCompatActivity
         case R.id.menu_activity_log:
             intent = new Intent(getBaseContext(), ActivityLogActivity.class);
             startActivity(intent);
-
+            return true;
+        case R.id.important_info:
+            intent = new Intent(getBaseContext(), ImportantInfoActivity.class);
+            startActivity(intent);
             return true;
         case R.id.menu_settings:
             intent = new Intent(getBaseContext(), PhoneProfilesPreferencesActivity.class);

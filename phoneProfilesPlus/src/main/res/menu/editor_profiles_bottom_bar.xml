@@ -12,9 +12,9 @@
         android:orderInCategory="200"
         app:showAsAction="always"
         android:icon="?attr/actionDeleteAllIcon" />
-    <item android:id="@+id/important_info"
-        android:title="@string/important_info_activity_title"
+    <item android:id="@+id/menu_default_profile"
+        android:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
         android:orderInCategory="400"
         app:showAsAction="always"
-        android:icon="?attr/actionHelpIcon"/>
+        android:icon="?attr/actionDefaultProfile"/>
 </menu>

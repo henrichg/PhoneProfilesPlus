@@ -212,17 +212,10 @@ public class EditorProfileListFragment extends Fragment
                     case R.id.menu_delete_all_profiles:
                         deleteAllProfiles();
                         return true;
-                    /*case R.id.menu_default_profile:
-                        // start preferences activity for default profile
-                        Intent intent = new Intent(getActivity().getBaseContext(), ProfilePreferencesActivity.class);
-                        intent.putExtra(PPApplication.EXTRA_PROFILE_ID, PPApplication.DEFAULT_PROFILE_ID);
-                        intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                        intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-                        getActivity().startActivityForResult(intent, PPApplication.REQUEST_CODE_PROFILE_PREFERENCES);
-                        return true;*/
-                    case R.id.important_info:
-                        Intent intent = new Intent(getActivity().getBaseContext(), ImportantInfoActivity.class);
-                        getActivity().startActivity(intent);
+                    case R.id.menu_default_profile:
+                        Intent intent = new Intent(getActivity(), PhoneProfilesPreferencesActivity.class);
+                        intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "profileActivationCategory");
+                        startActivity(intent);
                         return true;
                 }
                 return false;

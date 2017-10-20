@@ -13,9 +13,14 @@
         app:showAsAction="always"
         android:icon="?attr/actionActivityLogIcon"
         tools:ignore="AlwaysShowAction" />
+    <item android:id="@+id/important_info"
+          android:title="@string/important_info_activity_title"
+          android:orderInCategory="102"
+          app:showAsAction="always"
+          android:icon="?attr/actionHelpIcon"/>
     <item android:id="@+id/menu_run_stop_events"
         android:title="@string/menu_run_events"
-        android:orderInCategory="102"
+        android:orderInCategory="104"
         app:showAsAction="never" />
     <item android:id="@+id/menu_settings"
         android:title="@string/menu_settings"

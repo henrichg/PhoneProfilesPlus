@@ -213,9 +213,10 @@ public class EditorEventListFragment extends Fragment
                     case R.id.menu_delete_all_events:
                         deleteAllEvents();
                         return true;
-                    case R.id.important_info:
-                        Intent intent = new Intent(getActivity().getBaseContext(), ImportantInfoActivity.class);
-                        getActivity().startActivity(intent);
+                    case R.id.menu_default_profile:
+                        Intent intent = new Intent(getActivity(), PhoneProfilesPreferencesActivity.class);
+                        intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "profileActivationCategory");
+                        startActivity(intent);
                         return true;
                 }
                 return false;
