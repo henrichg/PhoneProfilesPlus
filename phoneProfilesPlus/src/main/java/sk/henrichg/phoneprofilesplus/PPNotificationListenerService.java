@@ -349,7 +349,13 @@ public class PPNotificationListenerService extends NotificationListenerService {
                                 case INTERRUPTION_FILTER_PRIORITY:
                                 case INTERRUPTION_FILTER_NONE:
                                 case INTERRUPTION_FILTER_ALARMS:
-                                    requestInterruptionFilter(filter);
+                                    try {
+                                        if (isNotificationListenerServiceEnabled(context))
+                                            requestInterruptionFilter(filter);
+                                    } catch (SecurityException ignored) {
+                                        // Fix disallowed call from unknown listener exception.
+                                        // java.lang.SecurityException: Disallowed call from unknown listener
+                                    }
                                     break;
                             }
                         }
