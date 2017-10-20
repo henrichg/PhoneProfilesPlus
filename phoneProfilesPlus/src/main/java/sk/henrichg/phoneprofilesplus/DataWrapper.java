@@ -1603,6 +1603,7 @@ public class DataWrapper {
             ignoreBattery = false;
 
             boolean isPowerSaveMode = batteryPassed = isPowerSaveMode(context);
+            PPApplication.logE("*** DataWrapper.doHandleEvents", "isPowerSaveMode=" + isPowerSaveMode);
 
             boolean isCharging = false;
             int batteryPct = -100;
@@ -1631,11 +1632,11 @@ public class DataWrapper {
                 (batteryPct <= event._eventPreferencesBattery._levelHight))
                 batteryPassed = true;
 
-            if (isCharging)
-                batteryPassed = batteryPassed && event._eventPreferencesBattery._charging;
+            if (event._eventPreferencesBattery._charging)
+                batteryPassed = batteryPassed && isCharging;
             else
-            if (isPowerSaveMode)
-                batteryPassed = batteryPassed && event._eventPreferencesBattery._powerSaveMode;
+            if (event._eventPreferencesBattery._powerSaveMode)
+                batteryPassed = batteryPassed && isPowerSaveMode;
         }
 
         if ((event._eventPreferencesCall._enabled)  &&

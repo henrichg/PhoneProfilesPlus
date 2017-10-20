@@ -55,10 +55,7 @@ public class PPApplication extends Application {
                                          //+"|[RJS] PPApplication"
                                          //+"|[RJS] PhoneProfilesService"
 
-                                         //+"|PhoneStateScanner.onCellInfoChanged"
-                                         //+"|PhoneStateScanner.onServiceStateChanged"
-                                         //+"|PhoneStateScanner.onCellLocationChanged"
-                                         +"|GeofenceScanner"
+                                         +"|*** DataWrapper.doHandleEvents"
             ;
 
 
