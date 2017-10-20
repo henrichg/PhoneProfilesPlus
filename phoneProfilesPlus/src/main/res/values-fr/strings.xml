@@ -1083,4 +1083,7 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="number_picker_min_error">Il vous plaît, veuillez indiquer un nombre plus grand ou égal à %1$s</string>
   <string name="number_picker_max_error">Il vous plaît, veuillez indiquer un nombre plus petit ou égal à %1$s</string>
   <string name="number_picker_min_max_error">Il vous plaît, veuillez indiquer un nombre entre %1$s et %2$s</string>
+  <string name="email_chooser">Send e-mail using</string>
+  <string name="web_browser_chooser">View web link using</string>
+  <string name="google_play_chooser">View Google Play using</string>
 </resources>

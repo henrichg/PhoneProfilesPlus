@@ -1082,4 +1082,7 @@
   <string name="number_picker_min_error">Kérjük adjon meg egy számot, ami nagyobb vagy egyenlő %1$s</string>
   <string name="number_picker_max_error">Kérjük adja meg legfeljebb %1$s számot</string>
   <string name="number_picker_min_max_error">Kérjük adjon meg egy számot, %1$s és %2$s között</string>
+  <string name="email_chooser">Send e-mail using</string>
+  <string name="web_browser_chooser">View web link using</string>
+  <string name="google_play_chooser">View Google Play using</string>
 </resources>

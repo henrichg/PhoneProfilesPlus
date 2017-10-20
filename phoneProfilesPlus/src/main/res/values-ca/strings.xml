@@ -1082,4 +1082,7 @@
   <string name="number_picker_min_error">Si us plau introdueixi un número més gran o igual a %1$s</string>
   <string name="number_picker_max_error">Si us plau introdueixi un número més petit o igual a %1$s</string>
   <string name="number_picker_min_max_error">Si us plau introdueixi un número entre %1$s i %2$s</string>
+  <string name="email_chooser">Send e-mail using</string>
+  <string name="web_browser_chooser">View web link using</string>
+  <string name="google_play_chooser">View Google Play using</string>
 </resources>

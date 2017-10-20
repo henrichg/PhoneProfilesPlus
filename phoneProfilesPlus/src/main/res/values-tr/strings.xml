@@ -1040,8 +1040,8 @@
   <string name="important_info_quick_guide_tab">Hızlı rehber</string>
   <string name="important_info_important_info_tab">Mühim malumat</string>
   <string name="important_info_quick_guide_1">PhoneProfilesPlus (PPP) iki parçaya sahiptir:</string>
-  <string name="important_info_quick_guide_2">1. <b>Tercihler:</b> Cihaz ayarlarının nasıl değiştirileceğini tayin eder.</string>
-  <string name="important_info_quick_guide_3">1. <b>Durumlar</b> Cihaz ayarlarının nasıl değiştirileceğini tayin eder.</string>
+  <string name="important_info_quick_guide_2">1. <b>Tercihler:</b> Hangi cihaz ayarlarının değiştirileceğini tayin eder.</string>
+  <string name="important_info_quick_guide_3">1. <b>Durumlar:</b> Cihaz ayarlarının hangi durumlarda değiştirileceğini tayin eder.</string>
   <string name="important_info_quick_guide_profiles_1"><b>Tercihler:</b> Zil modu, ses seviyeleri, zil ve bildirim sesleri, radyolar (Wi-Fi, Bluetooth, mobil veri, vb.) gibi cihaz ayarlarını yapılandırmaya izin verin. Bir tercih faal olduğunda, bu tercihle alakalı ayarlar kalıcıdır. Ayarları değiştirmek istiyorsanız, başka bir tercih faaliyete geçirilmelidir.</string>
   <string name="important_info_quick_guide_profiles_2">Tercihler, el ile veya bir Durum tarafından faaliyete geçirilebilir.</string>
   <string name="important_info_quick_guide_profiles_3">PPP Muharrik vasıtasıyla El ile bir tercihi faaliyete geçirebilirsiniz (açılır penceredeki kullanılabilir tercih listesi ile). Muharrik, PPP başlatma simgesi, PPP bildirim, PPP widgetleri, DashClock widget ve Samsung Edge cihazlarında kenar paneli vasıtasıyla görüntülenebilir. PPP 4 x 4 widget, tercih kısayolu veya Samsung Edge cihazlarda kenar paneli ile doğrudan bir tercihi faaliyete geçirebilirsiniz.</string>
@@ -1079,7 +1079,10 @@
   <string name="fast_access_duration_activate_with_button">Beraber baslat</string>
   <string name="fast_access_duration_activate_without_button">Olmadan başlat</string>
   <string name="applications_editor_dialog_startApplicationDelay">Başlangıç gecikmesi:</string>
-  <string name="number_picker_min_error">Please input a number greater than or equal to %1$s</string>
-  <string name="number_picker_max_error">Please input a number less than or equal to %1$s</string>
-  <string name="number_picker_min_max_error">Please input a number between %1$s and %2$s</string>
+  <string name="number_picker_min_error">Lütfen %1$s a eşit veya daha büyük bir sayı girin</string>
+  <string name="number_picker_max_error">Lütfen %1$s a eşit veya daha küçük bir sayı girin</string>
+  <string name="number_picker_min_max_error">Lutfen %1$s ile %2$s arasında bir sayı giriniz</string>
+  <string name="email_chooser">Send e-mail using</string>
+  <string name="web_browser_chooser">View web link using</string>
+  <string name="google_play_chooser">View Google Play using</string>
 </resources>

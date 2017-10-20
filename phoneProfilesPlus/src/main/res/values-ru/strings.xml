@@ -1073,14 +1073,17 @@
   <string name="phone_profiles_pref_applicationLanguage_sl">Slovenščina</string>
   <string name="array_pref_value_sl">sl</string>
   <string name="phone_profiles_pref_applicationStartEvents">Запуск событий при старте</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI">AutoStart permission</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Click here to enable AutoStart permission for PhoneProfilesPlus</string>
-  <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Scan only when screen is on</string>
-  <string name="phone_profiles_pref_applicationRestartEventsAlert">Confirm restart events</string>
+  <string name="phone_profiles_pref_systemAutoStartMIUI">Разрешение автозапуска</string>
+  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Нажмите здесь, чтобы включить автозапуск для PhoneProfilesPlus</string>
+  <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Сканировать только когда экран включен</string>
+  <string name="phone_profiles_pref_applicationRestartEventsAlert">Подтвердите перезагрузку событий</string>
   <string name="fast_access_duration_activate_with_button">Act. with</string>
   <string name="fast_access_duration_activate_without_button">Act. without</string>
-  <string name="applications_editor_dialog_startApplicationDelay">Startup delay:</string>
+  <string name="applications_editor_dialog_startApplicationDelay">Задержка запуска:</string>
   <string name="number_picker_min_error">Пожалуйста, введите число больше или равно чем %1$s</string>
   <string name="number_picker_max_error">Пожалуйста, введите число меньше или равно чем %1$s</string>
   <string name="number_picker_min_max_error">Пожалуйста, введите число между %1$s и %2$s</string>
+  <string name="email_chooser">Отправлять почту с помощью</string>
+  <string name="web_browser_chooser">Просмотр веб-ссылки с помощью</string>
+  <string name="google_play_chooser">Просмотр Google Play с помощью</string>
 </resources>

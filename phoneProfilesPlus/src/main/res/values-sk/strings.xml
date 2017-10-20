@@ -1082,4 +1082,7 @@
   <string name="number_picker_min_error">Vložte prosím číslo väčšie alebo rovné %1$s</string>
   <string name="number_picker_max_error">Vložte prosím číslo menšie alebo rovné %1$s</string>
   <string name="number_picker_min_max_error">Vložte prosím číslo v rozmezí %1$s a %2$s</string>
+  <string name="email_chooser">Odoslať e-mail pomocou</string>
+  <string name="web_browser_chooser">Zobraziť webový odkaz pomocou</string>
+  <string name="google_play_chooser">Zobraziť Google Play pomocou</string>
 </resources>

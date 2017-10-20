@@ -1086,4 +1086,7 @@
   <string name="number_picker_min_error">Please input a number greater than or equal to %1$s</string>
   <string name="number_picker_max_error">Please input a number less than or equal to %1$s</string>
   <string name="number_picker_min_max_error">Please input a number between %1$s and %2$s</string>
+  <string name="email_chooser">Send e-mail using</string>
+  <string name="web_browser_chooser">View web link using</string>
+  <string name="google_play_chooser">View Google Play using</string>
 </resources>
