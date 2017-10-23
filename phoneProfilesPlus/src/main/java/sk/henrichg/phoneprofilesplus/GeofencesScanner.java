@@ -303,23 +303,25 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     */
 
     void updateTransitionsByLastKnownLocation() {
-        if (Permissions.checkLocation(context)) {
+        if (Permissions.checkLocation(context) && mGoogleApiClient.isConnected()) {
             PPApplication.logE("GeofenceScanner.updateTransitionsByLastKnownLocation", "xxx");
-            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
-            //noinspection MissingPermission
-            fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    // Got last known location. In some rare situations this can be null.
-                    PPApplication.logE("GeofenceScanner.updateTransitionsByLastKnownLocation", "onSuccess");
-                    if (location != null) {
-                        synchronized (PPApplication.geofenceScannerLastLocationMutex) {
-                            lastLocation.set(location);
-                            updateGeofencesInDB();
+            try {
+                FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+                //noinspection MissingPermission
+                fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        PPApplication.logE("GeofenceScanner.updateTransitionsByLastKnownLocation", "onSuccess");
+                        if (location != null) {
+                            synchronized (PPApplication.geofenceScannerLastLocationMutex) {
+                                lastLocation.set(location);
+                                updateGeofencesInDB();
+                            }
                         }
                     }
-                }
-            });
+                });
+            } catch (Exception ignored) {}
         }
     }
 
