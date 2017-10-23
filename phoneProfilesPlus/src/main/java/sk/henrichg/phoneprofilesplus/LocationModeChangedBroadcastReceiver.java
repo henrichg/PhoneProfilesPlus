@@ -24,7 +24,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("@@@ LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 
             if (intent.getAction().matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
-                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
             }
 
             if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
@@ -32,7 +32,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                 PhoneProfilesService.getGeofencesScanner().updateTransitionsByLastKnownLocation();
 
                 // start job
-                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
+                EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_LOCATION_MODE);
             }
         }
 

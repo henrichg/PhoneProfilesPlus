@@ -17,7 +17,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        BluetoothJob.startForScanBroadcast(intent.getAction(),
+        BluetoothJob.startForScanBroadcast(context.getApplicationContext(), intent.getAction(),
                 intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE),
                 intent.getStringExtra(BluetoothDevice.EXTRA_NAME));
     }

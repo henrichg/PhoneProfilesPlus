@@ -36,6 +36,7 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
@@ -229,7 +230,7 @@ public class PhoneProfilesService extends Service
 
         registerReceiversAndJobs();
 
-        AboutApplicationJob.scheduleJob();
+        AboutApplicationJob.scheduleJob(getApplicationContext());
 
         ringingMediaPlayer = null;
         //notificationMediaPlayer = null;
@@ -1671,7 +1672,7 @@ public class PhoneProfilesService extends Service
                     if (!SearchCalendarEventsJob.isJobScheduled()) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsJob->SCHEDULE", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
                         PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "SCHEDULE");
-                        SearchCalendarEventsJob.scheduleJob(true);
+                        SearchCalendarEventsJob.scheduleJob(appContext, true);
                     }
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "scheduled");
@@ -2054,32 +2055,73 @@ public class PhoneProfilesService extends Service
         }
 
         if (onlyStart)
-            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_ONLY_START");
+            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START");
         if (startOnBoot)
-            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_START_ON_BOOT");
+            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_BOOT");
 
         Context appContext = getApplicationContext();
 
-        // set service foreground
-        final DataWrapper dataWrapper =  new DataWrapper(this, true, false, 0);
-        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
-        Profile activatedProfile = null;
-        if (onlyStart && startOnBoot) {
-            if (ApplicationPreferences.applicationActivate(this) &&
-                    ApplicationPreferences.applicationStartEvents(this)) {
-                activatedProfile = dataWrapper.getActivatedProfile();
-            }
-            else
-            if (ApplicationPreferences.applicationActivate(this))
-                activatedProfile = dataWrapper.getActivatedProfile();
+        if ((intent == null) || (!intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false))) {
+            /*PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "before start thread");
+            final Context _this = this;
+            final boolean _onlyStart = onlyStart;
+            final boolean _startOnBoot = startOnBoot;
+            new Thread(){
+                public void run() {
+                    Handler h = new Handler(Looper.getMainLooper());
+                    h.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            // set service foreground
+                            final DataWrapper dataWrapper =  new DataWrapper(_this, true, false, 0);
+                            Profile activatedProfile = null;
+                            if (_onlyStart && _startOnBoot) {
+                                if (ApplicationPreferences.applicationActivate(_this) &&
+                                        ApplicationPreferences.applicationStartEvents(_this)) {
+                                    activatedProfile = dataWrapper.getActivatedProfile();
+                                }
+                                else
+                                if (ApplicationPreferences.applicationActivate(_this))
+                                    activatedProfile = dataWrapper.getActivatedProfile();
+                            }
+                            else
+                                activatedProfile = dataWrapper.getActivatedProfile();
+                            showProfileNotification(activatedProfile, dataWrapper);
+                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "after end of Handler.run");
+                        }
+                    });
+                };
+            }.start();
+            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "after start thread");*/
+            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "before start of handler");
+            final Context _this = this;
+            final boolean _onlyStart = onlyStart;
+            final boolean _startOnBoot = startOnBoot;
+            final Handler handler = new Handler(this.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    // set service foreground
+                    final DataWrapper dataWrapper = new DataWrapper(_this, true, false, 0);
+                    Profile activatedProfile = null;
+                    if (_onlyStart && _startOnBoot) {
+                        if (ApplicationPreferences.applicationActivate(_this) &&
+                                ApplicationPreferences.applicationStartEvents(_this)) {
+                            activatedProfile = dataWrapper.getActivatedProfile();
+                        } else if (ApplicationPreferences.applicationActivate(_this))
+                            activatedProfile = dataWrapper.getActivatedProfile();
+                    } else
+                        activatedProfile = dataWrapper.getActivatedProfile();
+                    showProfileNotification(activatedProfile, dataWrapper);
+                    PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "after end of Handler.run");
+                }
+            });
+            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "after start of handler");
         }
-        else
-            activatedProfile = dataWrapper.getActivatedProfile();
-        showProfileNotification(activatedProfile, dataWrapper);
 
         if (onlyStart) {
             // start FirstStartJob
-            FirstStartJob.start(startOnBoot);
+            FirstStartJob.start(appContext, startOnBoot);
 
             ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, false);
         }
@@ -2096,13 +2138,14 @@ public class PhoneProfilesService extends Service
 
         if (!doForFirstStart(intent/*, flags, startId*/)) {
             if (intent != null) {
-                if (intent.getBooleanExtra(EXTRA_SET_SERVICE_FOREGROUND, false)) {
+                // notification is shown from doForFirstStart
+                /*if (intent.getBooleanExtra(EXTRA_SET_SERVICE_FOREGROUND, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SET_SERVICE_FOREGROUND");
                     final DataWrapper dataWrapper =  new DataWrapper(this, true, false, 0);
                     dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
                     Profile activatedProfile = dataWrapper.getActivatedProfile();
                     showProfileNotification(activatedProfile, dataWrapper);
-                }
+                }*/
 
                 if (intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_CLEAR_SERVICE_FOREGROUND");
@@ -2819,6 +2862,8 @@ public class PhoneProfilesService extends Service
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        Context appContext = getApplicationContext();
+
         int sensorType = event.sensor.getType();
 
         //if (event.accuracy == SensorManager.SENSOR_STATUS_ACCURACY_LOW)
@@ -2840,7 +2885,7 @@ public class PhoneProfilesService extends Service
                 if (tmpDeviceDistance != mDeviceDistance) {
                     PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity - send broadcast");
                     mDeviceDistance = tmpDeviceDistance;
-                    DeviceOrientationJob.start();
+                    DeviceOrientationJob.start(appContext);
                 }
             //}
             return;
@@ -2945,7 +2990,7 @@ public class PhoneProfilesService extends Service
                                             PPApplication.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
                                         */
 
-                                        DeviceOrientationJob.start();
+                                        DeviceOrientationJob.start(appContext);
                                     }
                                 }
                             }
@@ -2980,7 +3025,7 @@ public class PhoneProfilesService extends Service
                                 if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
                                     mDisplayUp = mSideUp;
 
-                                DeviceOrientationJob.start();
+                                DeviceOrientationJob.start(appContext);
                             }
                         } else {
                             if (mEventCountSinceGZChanged > 0) {

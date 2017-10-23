@@ -32,7 +32,7 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
             if (timeEventsExists)
             {*/
                 // start job
-                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_TIME);
+                EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_TIME);
             //}
 
         }

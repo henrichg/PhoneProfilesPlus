@@ -20,7 +20,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                 if (!PPApplication.getApplicationStarted(appContext, true))
                     return;
 
-                SearchCalendarEventsJob.scheduleJob(true);
+                SearchCalendarEventsJob.scheduleJob(appContext, true);
                 DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
                 dataWrapper.restartEvents(true, true, false);
             }

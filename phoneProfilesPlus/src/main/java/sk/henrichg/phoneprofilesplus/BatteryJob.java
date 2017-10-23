@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.evernote.android.job.Job;
@@ -97,23 +98,29 @@ class BatteryJob extends Job {
         return Result.SUCCESS;
     }
 
-    static void start(boolean isCharging, int batteryPct, boolean statusReceived, boolean levelReceived) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void start(Context context, boolean isCharging, int batteryPct, boolean statusReceived, boolean levelReceived) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putBoolean(BatteryBroadcastReceiver.EXTRA_IS_CHARGING, isCharging);
         bundle.putInt(BatteryBroadcastReceiver.EXTRA_BATTERY_PCT, batteryPct);
         bundle.putBoolean(BatteryBroadcastReceiver.EXTRA_STATUS_RECEIVED, statusReceived);
         bundle.putBoolean(BatteryBroadcastReceiver.EXTRA_LEVEL_RECEIVED, levelReceived);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
     
 }

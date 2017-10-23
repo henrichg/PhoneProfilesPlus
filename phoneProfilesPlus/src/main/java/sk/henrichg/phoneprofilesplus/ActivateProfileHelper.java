@@ -1359,7 +1359,7 @@ public class ActivateProfileHelper {
 
         // nahodenie volume
         // run job for execute volumes
-        ExecuteVolumeProfilePrefsJob.start(profile._id, merged, true);
+        ExecuteVolumeProfilePrefsJob.start(context, profile._id, merged, true);
 
         // set vibration on touch
         if (Permissions.checkProfileVibrationOnTouch(context, profile)) {
@@ -1379,7 +1379,7 @@ public class ActivateProfileHelper {
 
         //// nahodenie radio preferences
         // run job for execute radios
-        ExecuteRadioProfilePrefsJob.start(profile._id, merged);
+        ExecuteRadioProfilePrefsJob.start(context, profile._id, merged);
 
         // nahodenie auto-sync
         try {
@@ -1509,7 +1509,7 @@ public class ActivateProfileHelper {
                                         profile.getDeviceBrightnessAdaptiveValue(context));
                             } catch (Exception ee) {
                                 // run service for execute radios
-                                ExecuteRootProfilePrefsJob.start(ExecuteRootProfilePrefsJob.ACTION_ADAPTIVE_BRIGHTNESS, profile._id, merged);
+                                ExecuteRootProfilePrefsJob.start(context, ExecuteRootProfilePrefsJob.ACTION_ADAPTIVE_BRIGHTNESS, profile._id, merged);
                             }
                         }
                     }
@@ -1586,12 +1586,12 @@ public class ActivateProfileHelper {
         // nahodenie pozadia
         if (Permissions.checkProfileWallpaper(context, profile)) {
             if (profile._deviceWallpaperChange == 1) {
-                ExecuteWallpaperProfilePrefsJob.start(profile._id, merged);
+                ExecuteWallpaperProfilePrefsJob.start(context, profile._id, merged);
             }
         }
 
         // set power save mode
-        ExecuteRootProfilePrefsJob.start(ExecuteRootProfilePrefsJob.ACTION_POWER_SAVE_MODE, profile._id, merged);
+        ExecuteRootProfilePrefsJob.start(context, ExecuteRootProfilePrefsJob.ACTION_POWER_SAVE_MODE, profile._id, merged);
 
         if (Permissions.checkProfileLockDevice(context, profile)) {
             if (profile._lockDevice != 0) {
@@ -1600,7 +1600,7 @@ public class ActivateProfileHelper {
                 keyguardLocked = kgMgr.isKeyguardLocked();
                 PPApplication.logE("---$$$ ActivateProfileHelper.execute","keyguardLocked="+keyguardLocked);
                 if (!keyguardLocked) {
-                    ExecuteRootProfilePrefsJob.start(ExecuteRootProfilePrefsJob.ACTION_LOCK_DEVICE, profile._id, merged);
+                    ExecuteRootProfilePrefsJob.start(context, ExecuteRootProfilePrefsJob.ACTION_LOCK_DEVICE, profile._id, merged);
                 }
             }
         }
@@ -1657,7 +1657,7 @@ public class ActivateProfileHelper {
 
             if (profile._deviceRunApplicationChange == 1)
             {
-                ExecuteRunApplicationsProfilePrefsJob.start(profile._id, merged);
+                ExecuteRunApplicationsProfilePrefsJob.start(context, profile._id, merged);
             }
         }
 

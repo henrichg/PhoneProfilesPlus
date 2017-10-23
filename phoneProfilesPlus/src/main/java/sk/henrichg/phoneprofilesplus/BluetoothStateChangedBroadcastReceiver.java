@@ -19,6 +19,6 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        BluetoothJob.startForStateChangedBroadcast(intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR));
+        BluetoothJob.startForStateChangedBroadcast(appContext, intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR));
     }
 }

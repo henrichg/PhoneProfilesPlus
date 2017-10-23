@@ -113,7 +113,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.logE("@@@ SMSBroadcastReceiver.onReceive","start service");
 
                 // start job
-                EventsHandlerJob.startForSMSSensor(origin, time);
+                EventsHandlerJob.startForSMSSensor(context.getApplicationContext(), origin, time);
             }
         }
     }

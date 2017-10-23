@@ -32,7 +32,7 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
             if (calendarEventsExists)
             {*/
                 // start job
-                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED);
+                EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED);
             //}
 
         }

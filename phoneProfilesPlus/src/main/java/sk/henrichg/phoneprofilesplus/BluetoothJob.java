@@ -31,7 +31,7 @@ class BluetoothJob extends Job {
     @NonNull
     @Override
     protected Result onRunJob(Params params) {
-        Context appContext = getContext().getApplicationContext();
+        final Context appContext = getContext().getApplicationContext();
         CallsCounter.logCounter(appContext, "BluetoothJob.onRunJob", "BluetoothJob_onRunJob");
 
         Bundle bundle = params.getTransientExtras();
@@ -297,7 +297,7 @@ class BluetoothJob extends Job {
                         new Handler(appContext.getMainLooper()).postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
+                                EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
                             }
                         }, 5000);
                     }
@@ -308,73 +308,97 @@ class BluetoothJob extends Job {
         return Result.SUCCESS;
     }
 
-    static void startForConnectionBroadcast(String action, Parcelable device, String name) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForConnectionBroadcast(Context context, String action, Parcelable device, String name) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_ACTION, action);
         bundle.putParcelable(BluetoothDevice.EXTRA_DEVICE, device);
         bundle.putString(BluetoothDevice.EXTRA_NAME, name);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
 
-    static void startForStateChangedBroadcast(int state) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForStateChangedBroadcast(Context context, int state) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_ACTION, BluetoothAdapter.ACTION_STATE_CHANGED);
         bundle.putInt(BluetoothAdapter.EXTRA_STATE, state);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
 
-    static void startForScanBroadcast(String action, Parcelable device, String name) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForScanBroadcast(Context context, String action, Parcelable device, String name) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_ACTION, action);
         bundle.putParcelable(BluetoothDevice.EXTRA_DEVICE, device);
         bundle.putString(BluetoothDevice.EXTRA_NAME, name);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
 
-    static void startForLEScanBroadcast() {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForLEScanBroadcast(Context context) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_ACTION, "BluetoothLEScanBroadcastReceiver");
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
     
     private static final String CONNECTED_DEVICES_COUNT_PREF = "count";

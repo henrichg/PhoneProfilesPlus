@@ -17,7 +17,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         CallsCounter.logCounter(context, "ProfileDurationAlarmBroadcastReceiver.onReceive", "ProfileDurationAlarmBroadcastReceiver_onReceive");
 
         if (PPApplication.getApplicationStarted(context, true)) {
-            ProfileDurationJob.start(intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0));
+            ProfileDurationJob.start(context.getApplicationContext(), intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0));
         }
     }
 

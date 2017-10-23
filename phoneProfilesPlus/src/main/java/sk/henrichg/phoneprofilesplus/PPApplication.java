@@ -49,6 +49,7 @@ public class PPApplication extends Application {
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
                                          //+"|PhoneProfilesService.onStartCommand"
+                                         +"|PhoneProfilesService.doForFirstStart"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedJob"

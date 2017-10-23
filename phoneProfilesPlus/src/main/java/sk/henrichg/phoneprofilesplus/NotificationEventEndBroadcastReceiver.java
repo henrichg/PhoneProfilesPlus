@@ -32,7 +32,7 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
             if (notificationEventsExists)
             {*/
                 // start job
-                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_NOTIFICATION_EVENT_END);
+                EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION_EVENT_END);
             //}
 
         }

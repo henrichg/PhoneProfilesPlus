@@ -27,7 +27,7 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
             if (peripheralEventsExists)
             {*/
                 // start job
-                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_DOCK_CONNECTION);
+                EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_DOCK_CONNECTION);
             //}
 
         }

@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.evernote.android.job.Job;
@@ -44,89 +45,119 @@ class EventsHandlerJob extends Job {
         return Result.SUCCESS;
     }
 
-    static void startForSensor(String sensorType) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForSensor(Context context, String sensorType) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_SENSOR_TYPE, sensorType);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
 
-    static void startForRestartEvents(boolean interactive) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForRestartEvents(Context context, boolean interactive) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
         bundle.getBoolean(DataWrapper.EXTRA_INTERACTIVE, interactive);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
 
-    static void startForNFCTagSensor(String tagName, long date) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForNFCTagSensor(Context context, String tagName, long date) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NFC_TAG);
         bundle.putString(EXTRA_EVENT_NFC_TAG_NAME, tagName);
         bundle.putLong(EXTRA_EVENT_NFC_DATE, date);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
 
-    static void startForNotificationSensor(String postedRemoved) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForNotificationSensor(Context context, String postedRemoved) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION);
         bundle.putString(EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, postedRemoved);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
 
-    static void startForSMSSensor(String phoneNumber, long date) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForSMSSensor(Context context, String phoneNumber, long date) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SMS);
         bundle.putString(EXTRA_EVENT_SMS_PHONE_NUMBER, phoneNumber);
         bundle.putLong(EXTRA_EVENT_SMS_DATE, date);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
 }

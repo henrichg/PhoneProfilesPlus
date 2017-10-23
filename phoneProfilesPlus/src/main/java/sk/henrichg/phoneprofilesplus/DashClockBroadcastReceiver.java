@@ -17,7 +17,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
 
         LocalBroadcastManager.getInstance(context.getApplicationContext()).unregisterReceiver(PPApplication.dashClockBroadcastReceiver);
 
-        DashClockJob.start();
+        DashClockJob.start(context.getApplicationContext());
     }
 
 }

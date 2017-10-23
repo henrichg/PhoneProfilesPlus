@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 
@@ -82,7 +83,7 @@ class AboutApplicationJob extends Job {
 
             PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
 
-            scheduleJob();
+            scheduleJob(context);
         }
         else {
             PPApplication.setDonationNotificationCount(context, MAX_DONATION_NOTIFICATION_COUNT);
@@ -91,34 +92,40 @@ class AboutApplicationJob extends Job {
         return Result.SUCCESS;
     }
 
-    static void scheduleJob() {
+    static void scheduleJob(final Context context) {
         PPApplication.logE("AboutApplicationJob.scheduleJob", "xxx");
 
-        JobManager jobManager = null;
-        try {
-            jobManager = JobManager.instance();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                JobManager jobManager = null;
+                try {
+                    jobManager = JobManager.instance();
+                } catch (Exception ignored) { }
 
-        if (jobManager != null) {
-            JobRequest.Builder jobBuilder;
-            int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
-            PPApplication.logE("AboutApplicationJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
-            if (requestsForTagSize == 0) {
-                jobBuilder = new JobRequest.Builder(JOB_TAG);
-                // each 24 hours
-                jobBuilder.setPeriodic(TimeUnit.DAYS.toMillis(1));
-            } else
-                return;
+                if (jobManager != null) {
+                    final JobRequest.Builder jobBuilder;
+                    int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+                    PPApplication.logE("AboutApplicationJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
+                    if (requestsForTagSize == 0) {
+                        jobBuilder = new JobRequest.Builder(JOB_TAG);
+                        // each 24 hours
+                        jobBuilder.setPeriodic(TimeUnit.DAYS.toMillis(1));
+                    } else
+                        return;
 
-            PPApplication.logE("AboutApplicationJob.scheduleJob", "build and schedule");
+                    PPApplication.logE("AboutApplicationJob.scheduleJob", "build and schedule");
 
-            try {
-                jobBuilder
-                        .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                        .build()
-                        .schedule();
-            } catch (Exception ignored) { }
-        }
+                    try {
+                        jobBuilder
+                                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                                .build()
+                                .schedule();
+                    } catch (Exception ignored) { }
+                }
+            }
+        });
     }
 
     /*

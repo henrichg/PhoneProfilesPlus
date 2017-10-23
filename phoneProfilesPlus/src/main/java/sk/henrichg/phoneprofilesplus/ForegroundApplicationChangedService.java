@@ -62,7 +62,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
                     setApplicationInForeground(context, packageInForeground);
 
                     if (Event.getGlobalEventsRunning(context)) {
-                        EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_APPLICATION);
+                        EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
                     }
                 }
             } catch (Exception e) {
@@ -91,7 +91,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
         setApplicationInForeground(context, "");
 
-        EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_APPLICATION);
+        EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
 
         return super.onUnbind(intent);
     }

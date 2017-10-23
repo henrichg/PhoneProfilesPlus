@@ -2963,7 +2963,7 @@ public class DataWrapper {
         PPApplication.logE("$$$ restartEvents", "in DataWrapper.restartEvents");
 
         if (Event.getEventsBlocked(context) && (!unblockEventsRun)) {
-            EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE);
+            EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE);
             return;
         }
 
@@ -2992,7 +2992,7 @@ public class DataWrapper {
             setProfileActive(null);
         }
 
-        EventsHandlerJob.startForRestartEvents(interactive);
+        EventsHandlerJob.startForRestartEvents(context, interactive);
     }
 
     void restartEventsWithRescan(boolean showToast, boolean interactive)

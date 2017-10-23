@@ -25,7 +25,7 @@ class WifiJob extends Job {
     @NonNull
     @Override
     protected Result onRunJob(Params params) {
-        Context appContext = getContext().getApplicationContext();
+        final Context appContext = getContext().getApplicationContext();
         CallsCounter.logCounter(appContext, "WifiJob.onRunJob", "WifiJob_onRunJob");
 
         Bundle bundle = params.getTransientExtras();
@@ -145,12 +145,11 @@ class WifiJob extends Job {
 
                         } else if (!WifiScanJob.getWaitForResults(appContext)) {
                             // refresh configured networks list
-                            final Context _context = appContext;
                             new Handler().post(new Runnable() {
                                 @Override
                                 public void run() {
                                     PPApplication.logE("$$$ WifiJob.onRunJob", "WifiStateChangedBroadcastReceiver: startScan");
-                                    WifiScanJob.fillWifiConfigurationList(_context);
+                                    WifiScanJob.fillWifiConfigurationList(appContext);
                                 }
                             });
                         }
@@ -219,7 +218,7 @@ class WifiJob extends Job {
                             @Override
                             public void run() {
                                 PPApplication.logE("$$$ WifiJob.onRunJob", "WifiScanBroadcastReceiver: start EventsHandlerJob (2)");
-                                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
+                                EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
                             }
                         }, 5000);
                     }
@@ -231,72 +230,96 @@ class WifiJob extends Job {
         return Result.SUCCESS;
     }
     
-    static void startForConnectionBroadcast(Parcelable networkInfo) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForConnectionBroadcast(Context context, Parcelable networkInfo) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_ACTION, WifiManager.NETWORK_STATE_CHANGED_ACTION);
         bundle.putParcelable(WifiManager.EXTRA_NETWORK_INFO, networkInfo);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
 
-    static void startForStateChangedBroadcast(int wifiState) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForStateChangedBroadcast(Context context, int wifiState) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_ACTION, WifiManager.NETWORK_STATE_CHANGED_ACTION);
         bundle.putInt(WifiManager.EXTRA_WIFI_STATE, wifiState);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
 
-    static void startForScanBroadcast() {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForScanBroadcast(Context context) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_ACTION, WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
     
     @TargetApi(Build.VERSION_CODES.M)
-    static void startForScanBroadcast(boolean resultsUpdated) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForScanBroadcast(Context context, boolean resultsUpdated) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_ACTION, WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
         bundle.putBoolean(WifiManager.EXTRA_RESULTS_UPDATED, resultsUpdated);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
 
 }

@@ -21,6 +21,6 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        PowerSaveModeJob.start();
+        PowerSaveModeJob.start(appContext);
     }
 }

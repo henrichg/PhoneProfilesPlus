@@ -26,37 +26,37 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
     protected void onIncomingCallStarted(String number/*, Date start*/)
     {
-        PhoneCallJob.start(SERVICE_PHONE_EVENT_START, true, number);
+        PhoneCallJob.start(savedContext, SERVICE_PHONE_EVENT_START, true, number);
     }
 
     protected void onOutgoingCallStarted(String number/*, Date start*/)
     {
-        PhoneCallJob.start(SERVICE_PHONE_EVENT_START, false, number);
+        PhoneCallJob.start(savedContext, SERVICE_PHONE_EVENT_START, false, number);
     }
     
     protected void onIncomingCallAnswered(String number/*, Date start*/)
     {
-        PhoneCallJob.start(SERVICE_PHONE_EVENT_ANSWER, true, number);
+        PhoneCallJob.start(savedContext, SERVICE_PHONE_EVENT_ANSWER, true, number);
     }
 
     protected void onOutgoingCallAnswered(String number/*, Date start*/)
     {
-        PhoneCallJob.start(SERVICE_PHONE_EVENT_ANSWER, false, number);
+        PhoneCallJob.start(savedContext, SERVICE_PHONE_EVENT_ANSWER, false, number);
     }
     
     protected void onIncomingCallEnded(String number/*, Date start, Date end*/)
     {
-        PhoneCallJob.start(SERVICE_PHONE_EVENT_END, true, number);
+        PhoneCallJob.start(savedContext, SERVICE_PHONE_EVENT_END, true, number);
     }
 
     protected void onOutgoingCallEnded(String number/*, Date start, Date end*/)
     {
-        PhoneCallJob.start(SERVICE_PHONE_EVENT_END, false, number);
+        PhoneCallJob.start(savedContext, SERVICE_PHONE_EVENT_END, false, number);
     }
 
     protected void onMissedCall(String number/*, Date start*/)
     {
-        PhoneCallJob.start(SERVICE_PHONE_EVENT_END, true, number);
+        PhoneCallJob.start(savedContext, SERVICE_PHONE_EVENT_END, true, number);
     }
 
 }

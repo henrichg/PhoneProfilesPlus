@@ -57,7 +57,7 @@ class PackageReplacedJob extends Job {
                     PPApplication.logE("@@@ PackageReplacedJob.onRunJob", "donation alarm restart");
                     PPApplication.setDaysAfterFirstStart(appContext, 0);
                     PPApplication.setDonationNotificationCount(appContext, 0);
-                    AboutApplicationJob.scheduleJob();
+                    AboutApplicationJob.scheduleJob(appContext);
                 }
                 if (actualVersionCode <= 2500) {
                     // for old packages hide profile notification from status bar if notification is disabled
@@ -164,15 +164,22 @@ class PackageReplacedJob extends Job {
         return Result.SUCCESS;
     }
 
-    static void start() {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+    static void start(Context context) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
 
     private void startService(Context context) {

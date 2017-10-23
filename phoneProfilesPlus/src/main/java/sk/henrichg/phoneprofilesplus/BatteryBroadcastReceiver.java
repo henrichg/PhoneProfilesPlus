@@ -72,7 +72,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             if (levelReceived)
                 batteryPct = pct;
 
-            BatteryJob.start(isCharging, batteryPct, statusReceived, levelReceived);
+            BatteryJob.start(appContext, isCharging, batteryPct, statusReceived, levelReceived);
         }
     }
 }

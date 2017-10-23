@@ -21,6 +21,6 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        DeviceIdleModeJob.start();
+        DeviceIdleModeJob.start(appContext);
     }
 }

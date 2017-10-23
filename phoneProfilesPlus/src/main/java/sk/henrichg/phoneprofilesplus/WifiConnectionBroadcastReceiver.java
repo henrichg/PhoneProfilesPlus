@@ -18,6 +18,6 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        WifiJob.startForConnectionBroadcast(intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO));
+        WifiJob.startForConnectionBroadcast(appContext, intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO));
     }
 }

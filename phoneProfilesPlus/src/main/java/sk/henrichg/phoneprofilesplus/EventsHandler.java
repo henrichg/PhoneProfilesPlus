@@ -598,7 +598,7 @@ class EventsHandler {
                     profile = Profile.getMappedProfile(profile, context);
                     if (profile != null) {
                         PPApplication.logE("EventsHandler.doEndService", "callEventType=" + callEventType);
-                        ExecuteVolumeProfilePrefsJob.start(profile._id, false, false);
+                        ExecuteVolumeProfilePrefsJob.start(context, profile._id, false, false);
                         // wait for link/unlink
                         //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                         //SystemClock.sleep(1000);

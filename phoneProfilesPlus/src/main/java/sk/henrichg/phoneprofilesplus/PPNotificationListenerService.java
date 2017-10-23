@@ -86,7 +86,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (Event.getGlobalEventsRunning(context)) {
-            EventsHandlerJob.startForNotificationSensor("posted");
+            EventsHandlerJob.startForNotificationSensor(context, "posted");
         }
     }
 
@@ -117,7 +117,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (Event.getGlobalEventsRunning(context)) {
-            EventsHandlerJob.startForNotificationSensor("removed");
+            EventsHandlerJob.startForNotificationSensor(context, "removed");
         }
     }
 

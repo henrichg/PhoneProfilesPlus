@@ -209,7 +209,7 @@ class Scanner {
                                             new Handler(context.getMainLooper()).postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
+                                                    EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
                                                 }
                                             }, 5000);
                                             //WifiScanBroadcastReceiver.setAlarm(context);

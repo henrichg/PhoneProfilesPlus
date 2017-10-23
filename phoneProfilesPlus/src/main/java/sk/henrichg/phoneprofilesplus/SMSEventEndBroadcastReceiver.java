@@ -31,7 +31,7 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
             if (smsEventsExists)
             {*/
                 // start job
-                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
+                EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
             //}
 
         }

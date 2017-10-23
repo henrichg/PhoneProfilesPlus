@@ -32,7 +32,7 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
             if (smsEventsExists)
             {*/
                 // start job
-                EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_NFC_EVENT_END);
+                EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_NFC_EVENT_END);
             //}
 
         }

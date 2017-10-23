@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.evernote.android.job.Job;
@@ -25,16 +26,22 @@ class DashClockJob extends Job {
         return Result.SUCCESS;
     }
 
-    static void start() {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void start(Context context) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
 
 }

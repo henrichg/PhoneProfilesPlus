@@ -12,7 +12,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
         if ((intent != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
             PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
-            PackageReplacedJob.start();
+            PackageReplacedJob.start(context.getApplicationContext());
         }
     }
 

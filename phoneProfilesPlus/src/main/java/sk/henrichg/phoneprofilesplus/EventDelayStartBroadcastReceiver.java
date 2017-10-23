@@ -23,7 +23,7 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("@@@ EventDelayStartBroadcastReceiver.onReceive","xxx");
 
             // start job
-            EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
+            EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
         }
 
     }

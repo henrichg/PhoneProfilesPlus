@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.evernote.android.job.Job;
@@ -44,44 +45,52 @@ class SearchCalendarEventsJob extends Job {
 
         }
 
-        SearchCalendarEventsJob.scheduleJob(false);
+        SearchCalendarEventsJob.scheduleJob(appContext, false);
 
         return Result.SUCCESS;
     }
 
-    static void scheduleJob(boolean shortInterval) {
+    static void scheduleJob(final Context context, final boolean shortInterval) {
         PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "shortInterval="+shortInterval);
 
-        JobManager jobManager = null;
-        try {
-            jobManager = JobManager.instance();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                JobManager jobManager = null;
+                try {
+                    jobManager = JobManager.instance();
+                } catch (Exception ignored) { }
 
-        if (jobManager != null) {
-            JobRequest.Builder jobBuilder;
-            if (!shortInterval) {
-                jobManager.cancelAllForTag(JOB_TAG_SHORT);
-                int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
-                PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
-                if (requestsForTagSize == 0) {
-                    jobBuilder = new JobRequest.Builder(JOB_TAG);
-                    // each 24 hours
-                    jobBuilder.setPeriodic(TimeUnit.HOURS.toMillis(24));
-                } else
-                    return;
-            } else {
-                cancelJob();
-                jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
-                jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+                if (jobManager != null) {
+                    final JobRequest.Builder jobBuilder;
+                    if (!shortInterval) {
+                        jobManager.cancelAllForTag(JOB_TAG_SHORT);
+                        int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+                        PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
+                        if (requestsForTagSize == 0) {
+                            jobBuilder = new JobRequest.Builder(JOB_TAG);
+                            // each 24 hours
+                            jobBuilder.setPeriodic(TimeUnit.HOURS.toMillis(24));
+                        } else
+                            return;
+                    } else {
+                        cancelJob();
+                        jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
+                        jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+                    }
+
+                    PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "build and schedule");
+
+                    try {
+                        jobBuilder
+                                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                                .build()
+                                .schedule();
+                    } catch (Exception ignored) { }
+                }
             }
-
-            PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "build and schedule");
-
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .build()
-                    .schedule();
-        }
+        });
     }
 
     static void cancelJob() {

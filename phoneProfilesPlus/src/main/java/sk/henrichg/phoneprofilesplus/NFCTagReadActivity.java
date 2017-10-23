@@ -29,7 +29,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                 long time = now.getTimeInMillis() + gmtOffset;
 
-                EventsHandlerJob.startForNFCTagSensor(tagRead, time);
+                EventsHandlerJob.startForNFCTagSensor(getApplicationContext(), tagRead, time);
 
                 NFCTagReadActivity.this.finish();
             }

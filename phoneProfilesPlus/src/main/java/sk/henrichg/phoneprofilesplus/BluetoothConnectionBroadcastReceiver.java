@@ -19,7 +19,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        BluetoothJob.startForConnectionBroadcast(intent.getAction(),
+        BluetoothJob.startForConnectionBroadcast(appContext, intent.getAction(),
                 intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE),
                 intent.getStringExtra(BluetoothDevice.EXTRA_NAME));
     }

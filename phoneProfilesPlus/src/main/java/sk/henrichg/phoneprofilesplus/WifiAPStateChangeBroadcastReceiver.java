@@ -15,7 +15,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        WifiAPStateChangeJob.start();
+        WifiAPStateChangeJob.start(context.getApplicationContext());
     }
 
 }

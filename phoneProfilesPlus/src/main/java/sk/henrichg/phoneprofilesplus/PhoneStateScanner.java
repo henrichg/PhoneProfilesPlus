@@ -342,7 +342,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
     private void sendBroadcast() {
         // start service for call EventsHandler
-        PhoneStateJob.start();
+        PhoneStateJob.start(context);
 
         // broadcast for cells editor
         /*Intent intent = new Intent(ACTION_PHONE_STATE_CHANGED);

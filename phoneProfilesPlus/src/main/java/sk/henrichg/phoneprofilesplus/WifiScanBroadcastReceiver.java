@@ -19,9 +19,9 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
             return;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            WifiJob.startForScanBroadcast(intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, true));
+            WifiJob.startForScanBroadcast(context.getApplicationContext(), intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, true));
         else
-            WifiJob.startForScanBroadcast();
+            WifiJob.startForScanBroadcast(context.getApplicationContext());
     }
 
 }

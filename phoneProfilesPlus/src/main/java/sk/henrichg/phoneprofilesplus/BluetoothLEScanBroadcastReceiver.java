@@ -16,7 +16,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        BluetoothJob.startForLEScanBroadcast();
+        BluetoothJob.startForLEScanBroadcast(context.getApplicationContext());
     }
 
 }

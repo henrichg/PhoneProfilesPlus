@@ -27,7 +27,7 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
                 final int state = intent.getIntExtra(NfcAdapter.EXTRA_ADAPTER_STATE, NfcAdapter.STATE_OFF);
 
                 if ((state == NfcAdapter.STATE_ON) || (state == NfcAdapter.STATE_OFF)) {
-                    EventsHandlerJob.startForSensor(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                    EventsHandlerJob.startForSensor(context.getApplicationContext(), EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
                 }
             }
         }

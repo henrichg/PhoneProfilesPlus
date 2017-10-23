@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.evernote.android.job.Job;
@@ -100,39 +101,51 @@ class HeadsetConnectionJob extends Job {
         return Result.SUCCESS;
     }
 
-    static void startForHeadsetPlug(int state, int microphone) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForHeadsetPlug(Context context, int state, int microphone) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_ACTION, Intent.ACTION_HEADSET_PLUG);
         bundle.putInt(HeadsetConnectionBroadcastReceiver.EXTRA_HEADSET_PLUG_STATE, state);
         bundle.putInt(HeadsetConnectionBroadcastReceiver.EXTRA_HEADSET_PLUG_MICROPHONE, microphone);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
 
-    static void startForBluetoothPlug(String action, int state) {
-        JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
+    static void startForBluetoothPlug(Context context, String action, int state) {
+        final JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString(EXTRA_ACTION, action);
         bundle.putInt(BluetoothProfile.EXTRA_STATE, state);
 
-        try {
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .setTransientExtras(bundle)
-                    .startNow()
-                    .build()
-                    .schedule();
-        } catch (Exception ignored) { }
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    jobBuilder
+                            .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                            .setTransientExtras(bundle)
+                            .startNow()
+                            .build()
+                            .schedule();
+                } catch (Exception ignored) { }
+            }
+        });
     }
     
 }
