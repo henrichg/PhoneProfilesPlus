@@ -46,12 +46,14 @@ class ExecuteRunApplicationsProfilePrefsJob extends Job {
         bundle.putLong(PPApplication.EXTRA_PROFILE_ID, profile_id);
         bundle.putBoolean(ActivateProfileHelper.EXTRA_MERGED_PROFILE, mergedProfile);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
 
 }

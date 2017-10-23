@@ -108,12 +108,14 @@ class HeadsetConnectionJob extends Job {
         bundle.putInt(HeadsetConnectionBroadcastReceiver.EXTRA_HEADSET_PLUG_STATE, state);
         bundle.putInt(HeadsetConnectionBroadcastReceiver.EXTRA_HEADSET_PLUG_MICROPHONE, microphone);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
 
     static void startForBluetoothPlug(String action, int state) {
@@ -123,12 +125,14 @@ class HeadsetConnectionJob extends Job {
         bundle.putString(EXTRA_ACTION, action);
         bundle.putInt(BluetoothProfile.EXTRA_STATE, state);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
     
 }

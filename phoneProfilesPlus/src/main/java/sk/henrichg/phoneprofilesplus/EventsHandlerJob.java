@@ -50,12 +50,14 @@ class EventsHandlerJob extends Job {
         Bundle bundle = new Bundle();
         bundle.putString(EXTRA_SENSOR_TYPE, sensorType);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
 
     static void startForRestartEvents(boolean interactive) {
@@ -65,12 +67,14 @@ class EventsHandlerJob extends Job {
         bundle.putString(EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
         bundle.getBoolean(DataWrapper.EXTRA_INTERACTIVE, interactive);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
 
     static void startForNFCTagSensor(String tagName, long date) {
@@ -81,12 +85,14 @@ class EventsHandlerJob extends Job {
         bundle.putString(EXTRA_EVENT_NFC_TAG_NAME, tagName);
         bundle.putLong(EXTRA_EVENT_NFC_DATE, date);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
 
     static void startForNotificationSensor(String postedRemoved) {
@@ -96,12 +102,14 @@ class EventsHandlerJob extends Job {
         bundle.putString(EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION);
         bundle.putString(EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, postedRemoved);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
 
     static void startForSMSSensor(String phoneNumber, long date) {
@@ -112,11 +120,13 @@ class EventsHandlerJob extends Job {
         bundle.putString(EXTRA_EVENT_SMS_PHONE_NUMBER, phoneNumber);
         bundle.putLong(EXTRA_EVENT_SMS_DATE, date);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
 }

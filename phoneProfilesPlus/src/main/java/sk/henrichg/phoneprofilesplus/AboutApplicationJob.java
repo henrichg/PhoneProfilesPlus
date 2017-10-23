@@ -112,10 +112,12 @@ class AboutApplicationJob extends Job {
 
             PPApplication.logE("AboutApplicationJob.scheduleJob", "build and schedule");
 
-            jobBuilder
-                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                    .build()
-                    .schedule();
+            try {
+                jobBuilder
+                        .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                        .build()
+                        .schedule();
+            } catch (Exception ignored) { }
         }
     }
 

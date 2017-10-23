@@ -316,12 +316,14 @@ class BluetoothJob extends Job {
         bundle.putParcelable(BluetoothDevice.EXTRA_DEVICE, device);
         bundle.putString(BluetoothDevice.EXTRA_NAME, name);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
 
     static void startForStateChangedBroadcast(int state) {
@@ -331,12 +333,14 @@ class BluetoothJob extends Job {
         bundle.putString(EXTRA_ACTION, BluetoothAdapter.ACTION_STATE_CHANGED);
         bundle.putInt(BluetoothAdapter.EXTRA_STATE, state);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
 
     static void startForScanBroadcast(String action, Parcelable device, String name) {
@@ -347,12 +351,14 @@ class BluetoothJob extends Job {
         bundle.putParcelable(BluetoothDevice.EXTRA_DEVICE, device);
         bundle.putString(BluetoothDevice.EXTRA_NAME, name);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
 
     static void startForLEScanBroadcast() {
@@ -361,12 +367,14 @@ class BluetoothJob extends Job {
         Bundle bundle = new Bundle();
         bundle.putString(EXTRA_ACTION, "BluetoothLEScanBroadcastReceiver");
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
     
     private static final String CONNECTED_DEVICES_COUNT_PREF = "count";

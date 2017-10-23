@@ -72,12 +72,14 @@ class PhoneCallJob extends Job {
         bundle.putBoolean(PhoneCallBroadcastReceiver.EXTRA_SERVICE_PHONE_INCOMING, incoming);
         bundle.putString(PhoneCallBroadcastReceiver.EXTRA_SERVICE_PHONE_NUMBER, number);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
 
     private void doCallEvent(int eventType, String phoneNumber, Context context)

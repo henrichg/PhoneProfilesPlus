@@ -115,12 +115,14 @@ class ExecuteVolumeProfilePrefsJob extends Job {
         bundle.putBoolean(ActivateProfileHelper.EXTRA_MERGED_PROFILE, mergedProfile);
         bundle.putBoolean(ActivateProfileHelper.EXTRA_FOR_PROFILE_ACTIVATION, forProfileActivation);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
     
 }

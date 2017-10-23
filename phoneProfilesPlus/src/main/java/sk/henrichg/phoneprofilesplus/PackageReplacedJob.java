@@ -166,11 +166,13 @@ class PackageReplacedJob extends Job {
 
     static void start() {
         JobRequest.Builder jobBuilder = new JobRequest.Builder(JOB_TAG);
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
 
     private void startService(Context context) {

@@ -238,12 +238,14 @@ class WifiJob extends Job {
         bundle.putString(EXTRA_ACTION, WifiManager.NETWORK_STATE_CHANGED_ACTION);
         bundle.putParcelable(WifiManager.EXTRA_NETWORK_INFO, networkInfo);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
 
     static void startForStateChangedBroadcast(int wifiState) {
@@ -253,12 +255,14 @@ class WifiJob extends Job {
         bundle.putString(EXTRA_ACTION, WifiManager.NETWORK_STATE_CHANGED_ACTION);
         bundle.putInt(WifiManager.EXTRA_WIFI_STATE, wifiState);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
 
     static void startForScanBroadcast() {
@@ -267,12 +271,14 @@ class WifiJob extends Job {
         Bundle bundle = new Bundle();
         bundle.putString(EXTRA_ACTION, WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
 
+        try {
             jobBuilder
                     .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
                     .setTransientExtras(bundle)
                     .startNow()
                     .build()
                     .schedule();
+        } catch (Exception ignored) { }
     }
     
     @TargetApi(Build.VERSION_CODES.M)
@@ -283,12 +289,14 @@ class WifiJob extends Job {
         bundle.putString(EXTRA_ACTION, WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
         bundle.putBoolean(WifiManager.EXTRA_RESULTS_UPDATED, resultsUpdated);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
-    
+
 }

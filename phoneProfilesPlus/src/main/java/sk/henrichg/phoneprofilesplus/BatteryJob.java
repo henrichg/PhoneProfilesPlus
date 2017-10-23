@@ -106,12 +106,14 @@ class BatteryJob extends Job {
         bundle.putBoolean(BatteryBroadcastReceiver.EXTRA_STATUS_RECEIVED, statusReceived);
         bundle.putBoolean(BatteryBroadcastReceiver.EXTRA_LEVEL_RECEIVED, levelReceived);
 
-        jobBuilder
-                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                .setTransientExtras(bundle)
-                .startNow()
-                .build()
-                .schedule();
+        try {
+            jobBuilder
+                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                    .setTransientExtras(bundle)
+                    .startNow()
+                    .build()
+                    .schedule();
+        } catch (Exception ignored) { }
     }
     
 }
