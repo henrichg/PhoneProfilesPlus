@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.support.multidex.MultiDex;
 import android.util.Log;
@@ -41,7 +43,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -50,12 +52,13 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedJob"
+                                         +"|ShutdownBroadcastReceiver"
 
                                          //+"|"+CallsCounter.LOG_TAG
                                          //+"|[RJS] PPApplication"
                                          //+"|[RJS] PhoneProfilesService"
 
-                                         +"|*** DataWrapper.doHandleEvents"
+                                         //+"|*** DataWrapper.doHandleEvents"
             ;
 
 
@@ -1170,6 +1173,70 @@ public class PPApplication extends Application {
             return packageManager.hasSystemFeature(feature);
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    public static void exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
+                               boolean setApplicationStarted) {
+        // stop all events
+        dataWrapper.stopAllEvents(false, false);
+
+        // zrusenie notifikacie
+        ImportantInfoNotification.removeNotification(context);
+        Permissions.removeNotifications(context);
+
+        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
+
+        // remove alarm for profile duration
+        ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+        Profile.setActivatedProfileForDuration(context, 0);
+
+        if (PhoneProfilesService.instance != null) {
+            PPApplication.stopGeofenceScanner(context);
+            PPApplication.stopOrientationScanner(context);
+            PPApplication.stopPhoneStateScanner(context);
+        }
+
+        if (PPApplication.brightnessHandler != null) {
+            PPApplication.brightnessHandler.post(new Runnable() {
+                public void run() {
+                    ActivateProfileHelper.removeBrightnessView(context);
+
+                }
+            });
+        }
+        if (PPApplication.screenTimeoutHandler != null) {
+            PPApplication.screenTimeoutHandler.post(new Runnable() {
+                public void run() {
+                    ActivateProfileHelper.screenTimeoutUnlock(context);
+                    ActivateProfileHelper.removeBrightnessView(context);
+
+                }
+            });
+        }
+
+        PPApplication.initRoot();
+
+        //PPApplication.cleanPhoneProfilesServiceMessenger(context);
+
+        context.stopService(new Intent(context, PhoneProfilesService.class));
+
+        if (setApplicationStarted)
+            PPApplication.setApplicationStarted(context, false);
+
+        Permissions.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
+        Permissions.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
+        Scanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
+        //ActivateProfileHelper.setScreenUnlocked(context, true);
+
+        if (activity != null) {
+            Handler handler = new Handler(context.getMainLooper());
+            Runnable r = new Runnable() {
+                public void run() {
+                    activity.finish();
+                }
+            };
+            handler.postDelayed(r, 500);
         }
     }
 

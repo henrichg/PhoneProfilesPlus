@@ -15,9 +15,9 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
         // NEZAVRIE APLIKACIU PO RESTORE.
 
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
+        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
 
-        EditorProfilesActivity.exitApp(getApplicationContext(), dataWrapper, null);
+        PPApplication.exitApp(getApplicationContext(), dataWrapper, null, true);
 
         ActivateProfileActivity activateProfileActivity = ActivateProfileActivity.getInstance();
         if (activateProfileActivity != null)

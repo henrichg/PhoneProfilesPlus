@@ -608,68 +608,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         return ret;
     }
 
-    public static void exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity) {
-        // stop all events
-        dataWrapper.stopAllEvents(false, false);
-
-        // zrusenie notifikacie
-        ImportantInfoNotification.removeNotification(context);
-        Permissions.removeNotifications(context);
-
-        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
-
-        // remove alarm for profile duration
-        ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-        Profile.setActivatedProfileForDuration(context, 0);
-
-        if (PhoneProfilesService.instance != null) {
-            PPApplication.stopGeofenceScanner(context);
-            PPApplication.stopOrientationScanner(context);
-            PPApplication.stopPhoneStateScanner(context);
-        }
-
-        if (PPApplication.brightnessHandler != null) {
-            PPApplication.brightnessHandler.post(new Runnable() {
-                public void run() {
-                    ActivateProfileHelper.removeBrightnessView(context);
-
-                }
-            });
-        }
-        if (PPApplication.screenTimeoutHandler != null) {
-            PPApplication.screenTimeoutHandler.post(new Runnable() {
-                public void run() {
-                    ActivateProfileHelper.screenTimeoutUnlock(context);
-                    ActivateProfileHelper.removeBrightnessView(context);
-
-                }
-            });
-        }
-
-        PPApplication.initRoot();
-
-        //PPApplication.cleanPhoneProfilesServiceMessenger(context);
-
-        context.stopService(new Intent(context, PhoneProfilesService.class));
-
-        PPApplication.setApplicationStarted(context, false);
-
-        Permissions.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
-        Permissions.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
-        Scanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
-        //ActivateProfileHelper.setScreenUnlocked(context, true);
-
-        if (activity != null) {
-            Handler handler = new Handler(context.getMainLooper());
-            Runnable r = new Runnable() {
-                public void run() {
-                    activity.finish();
-                }
-            };
-            handler.postDelayed(r, 500);
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -743,7 +681,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             startActivity(intent);
             return true;
         case R.id.menu_exit:
-            exitApp(getApplicationContext(), getDataWrapper(), this);
+            PPApplication.exitApp(getApplicationContext(), getDataWrapper(), this, true);
             return true;
         default:
             return super.onOptionsItemSelected(item);

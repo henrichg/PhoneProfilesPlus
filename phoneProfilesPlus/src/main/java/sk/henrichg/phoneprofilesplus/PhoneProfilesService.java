@@ -65,6 +65,7 @@ public class PhoneProfilesService extends Service
     @SuppressWarnings("deprecation")
     private static KeyguardManager.KeyguardLock keyguardLock = null;
 
+    private ShutdownBroadcastReceiver shutdownBroadcastReceiver = null;
     private ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
     private InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
     private PhoneCallBroadcastReceiver phoneCallBroadcastReceiver = null;
@@ -261,6 +262,18 @@ public class PhoneProfilesService extends Service
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
         PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "xxx");
         if (unregister) {
+            if (shutdownBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER shutdown", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER shutdown");
+                try {
+                    appContext.unregisterReceiver(shutdownBroadcastReceiver);
+                    shutdownBroadcastReceiver = null;
+                } catch (Exception e) {
+                    shutdownBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered shutdown");
             if (screenOnOffReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER screen on off", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER screen on off");
@@ -335,6 +348,17 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered device idle mode");
         }
         if (register) {
+            if (shutdownBroadcastReceiver == null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER shutdown", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER shutdown");
+                shutdownBroadcastReceiver = new ShutdownBroadcastReceiver();
+                IntentFilter intentFilter5 = new IntentFilter();
+                intentFilter5.addAction(Intent.ACTION_SHUTDOWN);
+                appContext.registerReceiver(shutdownBroadcastReceiver, intentFilter5);
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered shutdown");
+
             // required for Lock device, Hide notification in lock screen, screen timeout +
             // screen on/off event + rescan wifi, bluetooth, location, mobile cells
             if (screenOnOffReceiver == null) {
