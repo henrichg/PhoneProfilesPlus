@@ -311,6 +311,10 @@ public class ActivateProfileListFragment extends Fragment {
         if (!ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
             return;
 
+        if (activeProfileName == null)
+            // Activator opened from recent app list and setting for show header is changed
+            return;
+
         if (profile == null)
         {
             activeProfileName.setText(getResources().getString(R.string.profiles_header_profile_name_no_activated));
