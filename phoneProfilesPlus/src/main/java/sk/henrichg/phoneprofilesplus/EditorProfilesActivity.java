@@ -1992,7 +1992,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .targetCircleColorInt(circleColor)
                                     .textColorInt(0xFFFFFF)
                                     .drawShadow(true)
-                                    .id(4)
+                                    .id(4),
+                            TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
+                                    .targetCircleColorInt(circleColor)
+                                    .textColorInt(0xFFFFFF)
+                                    .drawShadow(true)
+                                    .id(5)
                     );
                 else
                     sequence.targets(
@@ -2010,7 +2015,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .targetCircleColorInt(circleColor)
                                     .textColorInt(0xFFFFFF)
                                     .drawShadow(true)
-                                    .id(3)
+                                    .id(3),
+                            TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
+                                    .targetCircleColorInt(circleColor)
+                                    .textColorInt(0xFFFFFF)
+                                    .drawShadow(true)
+                                    .id(4)
                     );
 
                 sequence.listener(new TapTargetSequence.Listener() {
