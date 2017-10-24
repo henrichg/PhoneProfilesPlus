@@ -45,15 +45,19 @@ class SearchCalendarEventsJob extends Job {
 
         }
 
-        SearchCalendarEventsJob.scheduleJob(appContext, false);
+        SearchCalendarEventsJob.scheduleJob(appContext, null, false);
 
         return Result.SUCCESS;
     }
 
-    static void scheduleJob(final Context context, final boolean shortInterval) {
+    static void scheduleJob(final Context context, final Handler _handler, final boolean shortInterval) {
         PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "shortInterval="+shortInterval);
 
-        final Handler handler = new Handler(context.getMainLooper());
+        final Handler handler;
+        if (_handler == null)
+            handler = new Handler(context.getMainLooper());
+        else
+            handler = _handler;
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -75,7 +79,7 @@ class SearchCalendarEventsJob extends Job {
                         } else
                             return;
                     } else {
-                        cancelJob();
+                        cancelJob(context, handler);
                         jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
                         jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
                     }
@@ -93,14 +97,24 @@ class SearchCalendarEventsJob extends Job {
         });
     }
 
-    static void cancelJob() {
+    static void cancelJob(final Context context, final Handler _handler) {
         PPApplication.logE("SearchCalendarEventsJob.cancelJob", "xxx");
 
-        try {
-            JobManager jobManager = JobManager.instance();
-            jobManager.cancelAllForTag(JOB_TAG_SHORT);
-            jobManager.cancelAllForTag(JOB_TAG);
-        } catch (Exception ignored) {}
+        final Handler handler;
+        if (_handler == null)
+            handler = new Handler(context.getMainLooper());
+        else
+            handler = _handler;
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JobManager jobManager = JobManager.instance();
+                    jobManager.cancelAllForTag(JOB_TAG_SHORT);
+                    jobManager.cancelAllForTag(JOB_TAG);
+                } catch (Exception ignored) {}
+            }
+        });
     }
 
     static boolean isJobScheduled() {

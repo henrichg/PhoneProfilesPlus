@@ -43,7 +43,7 @@ class WifiScanJob extends Job {
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED) {
-            WifiScanJob.cancelJob(context);
+            WifiScanJob.cancelJob(context, null);
             return Result.SUCCESS;
         }
 
@@ -51,7 +51,7 @@ class WifiScanJob extends Job {
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
             PPApplication.logE("WifiScanJob.onRunJob", "update in power save mode is not allowed = cancel job");
-            WifiScanJob.cancelJob(context);
+            WifiScanJob.cancelJob(context, null);
             //removeAlarm(context/*, false*/);
             //removeAlarm(context/*, true*/);
             return Result.SUCCESS;
@@ -66,17 +66,21 @@ class WifiScanJob extends Job {
         }
 
         PPApplication.logE("WifiScanJob.onRunJob", "schedule job");
-        WifiScanJob.scheduleJob(context, false, false, false);
+        WifiScanJob.scheduleJob(context, null, false, false, false);
 
         return Result.SUCCESS;
     }
 
-    static void scheduleJob(final Context context, final boolean shortInterval, final boolean forScreenOn, final boolean afterEnableWifi) {
+    static void scheduleJob(final Context context, final Handler _handler, final boolean shortInterval, final boolean forScreenOn, final boolean afterEnableWifi) {
         PPApplication.logE("WifiScanJob.scheduleJob", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context)
                 == PPApplication.PREFERENCE_ALLOWED) {
-            final Handler handler = new Handler(context.getMainLooper());
+            final Handler handler;
+            if (_handler == null)
+                handler = new Handler(context.getMainLooper());
+            else
+                handler = _handler;
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -113,7 +117,7 @@ class WifiScanJob extends Job {
                                     return;
                             }
                         } else {
-                            cancelJob(context);
+                            cancelJob(context, handler);
                             jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
                             if (afterEnableWifi)
                                 jobBuilder.setExact(TimeUnit.SECONDS.toMillis(2));
@@ -139,19 +143,29 @@ class WifiScanJob extends Job {
             PPApplication.logE("WifiScanJob.scheduleJob","WifiHardware=false");
     }
 
-    static void cancelJob(Context context) {
+    static void cancelJob(final Context context, final Handler _handler) {
         PPApplication.logE("WifiScanJob.cancelJob", "xxx");
 
-        WifiScanJob.setScanRequest(context, false);
-        WifiScanJob.setWaitForResults(context, false);
-        WifiScanJob.setWifiEnabledForScan(context, false);
-        Scanner.setForceOneWifiScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
+        final Handler handler;
+        if (_handler == null)
+            handler = new Handler(context.getMainLooper());
+        else
+            handler = _handler;
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                WifiScanJob.setScanRequest(context, false);
+                WifiScanJob.setWaitForResults(context, false);
+                WifiScanJob.setWifiEnabledForScan(context, false);
+                Scanner.setForceOneWifiScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
 
-        try {
-            JobManager jobManager = JobManager.instance();
-            jobManager.cancelAllForTag(JOB_TAG_SHORT);
-            jobManager.cancelAllForTag(JOB_TAG);
-        } catch (Exception ignored) {}
+                try {
+                    JobManager jobManager = JobManager.instance();
+                    jobManager.cancelAllForTag(JOB_TAG_SHORT);
+                    jobManager.cancelAllForTag(JOB_TAG);
+                } catch (Exception ignored) {}
+            }
+        });
     }
 
     static boolean isJobScheduled() {

@@ -26,7 +26,7 @@ class GeofenceScannerJob extends Job {
 
         if (!PhoneProfilesService.isGeofenceScannerStarted()) {
             PPApplication.logE("GeofenceScannerJob.onRunJob", "geofence scanner is not started = cancel job");
-            GeofenceScannerJob.cancelJob();
+            GeofenceScannerJob.cancelJob(context, null);
             //removeAlarm(context/*, false*/);
             //removeAlarm(context/*, true*/);
             return Result.SUCCESS;
@@ -36,7 +36,7 @@ class GeofenceScannerJob extends Job {
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
             PPApplication.logE("GeofenceScannerJob.onRunJob", "update in power save mode is not allowed = cancel job");
-            GeofenceScannerJob.cancelJob();
+            GeofenceScannerJob.cancelJob(context, null);
             //removeAlarm(context/*, false*/);
             //removeAlarm(context/*, true*/);
             return Result.SUCCESS;
@@ -72,17 +72,20 @@ class GeofenceScannerJob extends Job {
             }
         }
 
-        GeofenceScannerJob.scheduleJob(context, false, false);
+        GeofenceScannerJob.scheduleJob(context, null, false, false);
 
         return Result.SUCCESS;
     }
 
-    static void scheduleJob(final Context context, final boolean startScanning, final boolean forScreenOn) {
+    static void scheduleJob(final Context context, final Handler _handler, final boolean startScanning, final boolean forScreenOn) {
         PPApplication.logE("GeofenceScannerJob.scheduleJob", "startScanning="+startScanning);
 
         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
-
-            final Handler handler = new Handler(context.getMainLooper());
+            final Handler handler;
+            if (_handler == null)
+                handler = new Handler(context.getMainLooper());
+            else
+                handler = _handler;
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -135,7 +138,7 @@ class GeofenceScannerJob extends Job {
                                     return;
                             }
                         } else {
-                            cancelJob();
+                            cancelJob(context, handler);
                             jobBuilder = new JobRequest.Builder(JOB_TAG_START);
                             if (forScreenOn)
                                 jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
@@ -159,14 +162,24 @@ class GeofenceScannerJob extends Job {
             PPApplication.logE("GeofenceScannerJob.scheduleJob", "scanner is not started");
     }
 
-    static void cancelJob() {
+    static void cancelJob(final Context context, final Handler _handler) {
         PPApplication.logE("GeofenceScannerJob.cancelJob", "xxx");
 
-        try {
-            JobManager jobManager = JobManager.instance();
-            jobManager.cancelAllForTag(JOB_TAG_START);
-            jobManager.cancelAllForTag(JOB_TAG);
-        } catch (Exception ignored) {}
+        final Handler handler;
+        if (_handler == null)
+            handler = new Handler(context.getMainLooper());
+        else
+            handler = _handler;
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JobManager jobManager = JobManager.instance();
+                    jobManager.cancelAllForTag(JOB_TAG_START);
+                    jobManager.cancelAllForTag(JOB_TAG);
+                } catch (Exception ignored) {}
+            }
+        });
     }
 
     static boolean isJobScheduled() {

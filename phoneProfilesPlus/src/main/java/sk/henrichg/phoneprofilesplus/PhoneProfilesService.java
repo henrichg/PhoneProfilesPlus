@@ -49,6 +49,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.crashlytics.android.Crashlytics;
+import com.evernote.android.job.JobManager;
 
 import java.util.Calendar;
 import java.util.Timer;
@@ -1494,195 +1495,242 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    void scheduleWifiJob(boolean schedule, boolean cancel, boolean checkDatabase, boolean forScreenOn, boolean afterEnableWifi,
-                         boolean forceStart, boolean rescan) {
-        Context appContext = getApplicationContext();
+    private void cancelWifiJob(final Context context, final Handler _handler) {
+        if (WifiScanJob.isJobScheduled()) {
+            CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleWifiJob->CANCEL", "PhoneProfilesService_scheduleWifiJob");
+            PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "CANCEL");
+            WifiScanJob.cancelJob(context, _handler);
+        }
+        else
+            PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "not scheduled");
+    }
+
+    void scheduleWifiJob(final boolean schedule, final boolean cancel, final boolean checkDatabase,
+                         final boolean forScreenOn, final boolean afterEnableWifi,
+                         final boolean forceStart, final boolean rescan) {
+        final Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleWifiJob", "PhoneProfilesService_scheduleWifiJob");
         PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "xxx");
+
         if (!forceStart && WifiSSIDPreference.forceRegister)
             return;
-        if (cancel) {
-            if (WifiScanJob.isJobScheduled()) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleWifiJob->CANCEL", "PhoneProfilesService_scheduleWifiJob");
-                PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "CANCEL");
-                WifiScanJob.cancelJob(appContext);
-            }
-            else
-                PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "not scheduled");
-        }
-        if (schedule) {
-            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext) ==
-                    PPApplication.PREFERENCE_ALLOWED;
-            if (eventAllowed) {
-                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                //noinspection deprecation
-                if (pm.isScreenOn() || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
-                    // start only for screen On
-                    int eventCount = 1;
-                    if (checkDatabase/* || (!WifiScanJob.isJobScheduled())*/) {
-                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
-                    }
-                    if (eventCount > 0) {
-                        if (!WifiScanJob.isJobScheduled()) {
-                            CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleWifiJob->SCHEDULE", "PhoneProfilesService_scheduleWifiJob");
-                            PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "SCHEDULE");
-                            WifiScanJob.scheduleJob(appContext, true, forScreenOn, afterEnableWifi);
-                        }
-                        else {
-                            PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "scheduled");
-                            if (rescan)
-                                WifiScanJob.scheduleJob(appContext, true, forScreenOn, afterEnableWifi);
-                        }
-                    } else
-                        scheduleWifiJob(false, true, false, forScreenOn, afterEnableWifi, forceStart, rescan);
-                }
-                else
-                    scheduleWifiJob(false, true, false, forScreenOn, afterEnableWifi, forceStart, rescan);
-            }
-            else
-                scheduleWifiJob(false, true, false, forScreenOn, afterEnableWifi, forceStart, rescan);
-        }
-    }
 
-    void scheduleBluetoothJob(boolean schedule, boolean cancel, boolean checkDatabase, boolean forScreenOn, boolean forceStart,
-                              boolean rescan) {
-        Context appContext = getApplicationContext();
-        CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleBluetoothJob", "PhoneProfilesService_scheduleBluetoothJob");
-        PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "xxx");
-        if (!forceStart && BluetoothNamePreference.forceRegister)
-            return;
-        if (cancel) {
-            if (BluetoothScanJob.isJobScheduled()) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleBluetoothJob->CANCEL", "PhoneProfilesService_scheduleBluetoothJob");
-                PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "CANCEL");
-                BluetoothScanJob.cancelJob(appContext);
-            }
-            else
-                PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "not scheduled");
-        }
-        if (schedule) {
-            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext) ==
-                    PPApplication.PREFERENCE_ALLOWED;
-            if (eventAllowed) {
-                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                //noinspection deprecation
-                if (pm.isScreenOn() || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
-                    // start only for screen On
-                    int eventCount = 1;
-                    if (checkDatabase/* || (!BluetoothScanJob.isJobScheduled())*/) {
-                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT);
-                    }
-                    if (eventCount > 0) {
-                        if (!BluetoothScanJob.isJobScheduled()) {
-                            CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleBluetoothJob->SCHEDULE", "PhoneProfilesService_scheduleBluetoothJob");
-                            PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "SCHEDULE");
-                            BluetoothScanJob.scheduleJob(appContext, true, forScreenOn);
-                        }
-                        else {
-                            PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "scheduled");
-                            if (rescan)
-                                BluetoothScanJob.scheduleJob(appContext, true, forScreenOn);
-                        }
-                    } else
-                        scheduleBluetoothJob(false, true, false, forScreenOn, forceStart, rescan);
+        final Handler handler = new Handler(appContext.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (cancel) {
+                    cancelWifiJob(appContext, handler);
                 }
-                else
-                    scheduleBluetoothJob(false, true, false, forScreenOn, forceStart, rescan);
-            }
-            else
-                scheduleBluetoothJob(false, true, false, forScreenOn, forceStart, rescan);
-        }
-    }
-
-    void scheduleGeofenceScannerJob(boolean schedule, boolean cancel, boolean checkDatabase, boolean forScreenOn,
-                                    boolean rescan) {
-        Context appContext = getApplicationContext();
-        CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob", "PhoneProfilesService_scheduleGeofenceScannerJob");
-        PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "xxx");
-        if (cancel) {
-            if (GeofenceScannerJob.isJobScheduled()) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob->CANCEL", "PhoneProfilesService_scheduleGeofenceScannerJob");
-                PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "CANCEL");
-                GeofenceScannerJob.cancelJob();
-            }
-            else
-                PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "not scheduled");
-        }
-        if (schedule) {
-            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
-                    PPApplication.PREFERENCE_ALLOWED;
-            if (eventAllowed) {
-                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                //noinspection deprecation
-                if (pm.isScreenOn() || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
-                    // start only for screen On
-                    int eventCount = 1;
-                    if (checkDatabase/* || (!GeofenceScannerJob.isJobScheduled())*/) {
-                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION);
-                    }
-                    if (eventCount > 0) {
-                        if (!GeofenceScannerJob.isJobScheduled()) {
-                            CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob->SCHEDULE", "PhoneProfilesService_scheduleGeofenceScannerJob");
-                            PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "SCHEDULE");
-                            if (isGeofenceScannerStarted())
-                                getGeofencesScanner().updateTransitionsByLastKnownLocation();
-                            GeofenceScannerJob.scheduleJob(appContext, true, forScreenOn);
-                        }
-                        else {
-                            PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "scheduled");
-                            if (rescan) {
-                                if (isGeofenceScannerStarted())
-                                    getGeofencesScanner().updateTransitionsByLastKnownLocation();
-                                GeofenceScannerJob.scheduleJob(appContext, true, forScreenOn);
+                if (schedule) {
+                    boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext) ==
+                            PPApplication.PREFERENCE_ALLOWED;
+                    if (eventAllowed) {
+                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        //noinspection deprecation
+                        if (pm.isScreenOn() || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
+                            // start only for screen On
+                            int eventCount = 1;
+                            if (checkDatabase/* || (!WifiScanJob.isJobScheduled())*/) {
+                                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
                             }
+                            if (eventCount > 0) {
+                                if (!WifiScanJob.isJobScheduled()) {
+                                    CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleWifiJob->SCHEDULE", "PhoneProfilesService_scheduleWifiJob");
+                                    PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "SCHEDULE");
+                                    WifiScanJob.scheduleJob(appContext, handler, true, forScreenOn, afterEnableWifi);
+                                }
+                                else {
+                                    PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "scheduled");
+                                    if (rescan)
+                                        WifiScanJob.scheduleJob(appContext, handler, true, forScreenOn, afterEnableWifi);
+                                }
+                            } else
+                                cancelWifiJob(appContext, handler);
                         }
-                    } else
-                        scheduleGeofenceScannerJob(false, true, false, forScreenOn, rescan);
-                }
-                else
-                    scheduleGeofenceScannerJob(false, true, false, forScreenOn, rescan);
-            }
-            else
-                scheduleGeofenceScannerJob(false, true, false, forScreenOn, rescan);
-        }
-    }
-
-    private void scheduleSearchCalendarEventsJob(boolean schedule, boolean cancel, boolean checkDatabase) {
-        Context appContext = getApplicationContext();
-        CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsJob", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
-        PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "xxx");
-        if (cancel) {
-            if (SearchCalendarEventsJob.isJobScheduled()) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsJob->CANCEL", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
-                PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "CANCEL");
-                SearchCalendarEventsJob.cancelJob();
-            }
-            else
-                PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "not scheduled");
-        }
-        if (schedule) {
-            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext) ==
-                    PPApplication.PREFERENCE_ALLOWED;
-            if (eventAllowed) {
-                int eventCount = 1;
-                if (checkDatabase/* || (!SearchCalendarEventsJob.isJobScheduled())*/) {
-                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR);
-                }
-                if (eventCount > 0) {
-                    if (!SearchCalendarEventsJob.isJobScheduled()) {
-                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsJob->SCHEDULE", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
-                        PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "SCHEDULE");
-                        SearchCalendarEventsJob.scheduleJob(appContext, true);
+                        else
+                            cancelWifiJob(appContext, handler);
                     }
                     else
-                        PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "scheduled");
-                } else {
-                    scheduleSearchCalendarEventsJob(false, true, false);
+                        cancelWifiJob(appContext, handler);
                 }
             }
-            else
-                scheduleSearchCalendarEventsJob(false, true, false);
+        });
+    }
+
+    private void cancelBluetoothJob(final Context context, final Handler _handler) {
+        if (BluetoothScanJob.isJobScheduled()) {
+            CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleBluetoothJob->CANCEL", "PhoneProfilesService_scheduleBluetoothJob");
+            PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "CANCEL");
+            BluetoothScanJob.cancelJob(context, _handler);
         }
+        else
+            PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "not scheduled");
+    }
+
+    void scheduleBluetoothJob(final boolean schedule, final boolean cancel, final boolean checkDatabase,
+                              final boolean forScreenOn, final boolean forceStart, final boolean rescan) {
+        final Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleBluetoothJob", "PhoneProfilesService_scheduleBluetoothJob");
+        PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "xxx");
+
+        if (!forceStart && BluetoothNamePreference.forceRegister)
+            return;
+
+        final Handler handler = new Handler(appContext.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (cancel) {
+                    cancelBluetoothJob(appContext, handler);
+                }
+                if (schedule) {
+                    boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext) ==
+                            PPApplication.PREFERENCE_ALLOWED;
+                    if (eventAllowed) {
+                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        //noinspection deprecation
+                        if (pm.isScreenOn() || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
+                            // start only for screen On
+                            int eventCount = 1;
+                            if (checkDatabase/* || (!BluetoothScanJob.isJobScheduled())*/) {
+                                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT);
+                            }
+                            if (eventCount > 0) {
+                                if (!BluetoothScanJob.isJobScheduled()) {
+                                    CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleBluetoothJob->SCHEDULE", "PhoneProfilesService_scheduleBluetoothJob");
+                                    PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "SCHEDULE");
+                                    BluetoothScanJob.scheduleJob(appContext, handler, true, forScreenOn);
+                                }
+                                else {
+                                    PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "scheduled");
+                                    if (rescan)
+                                        BluetoothScanJob.scheduleJob(appContext, handler, true, forScreenOn);
+                                }
+                            } else
+                                cancelBluetoothJob(appContext, handler);
+                        }
+                        else
+                            cancelBluetoothJob(appContext, handler);
+                    }
+                    else
+                        cancelBluetoothJob(appContext, handler);
+                }
+            }
+        });
+    }
+
+    private void cancelGeofenceScannerJob(final Context context, final Handler _handler) {
+        if (GeofenceScannerJob.isJobScheduled()) {
+            CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleGeofenceScannerJob->CANCEL", "PhoneProfilesService_scheduleGeofenceScannerJob");
+            PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "CANCEL");
+            GeofenceScannerJob.cancelJob(context, _handler);
+        }
+        else
+            PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "not scheduled");
+    }
+
+    void scheduleGeofenceScannerJob(final boolean schedule, final boolean cancel, final boolean checkDatabase,
+                                    final boolean forScreenOn, final boolean rescan) {
+        final Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob", "PhoneProfilesService_scheduleGeofenceScannerJob");
+        PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "xxx");
+
+        final Handler handler = new Handler(appContext.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (cancel) {
+                    cancelGeofenceScannerJob(appContext, handler);
+                }
+                if (schedule) {
+                    boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
+                            PPApplication.PREFERENCE_ALLOWED;
+                    if (eventAllowed) {
+                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        //noinspection deprecation
+                        if (pm.isScreenOn() || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
+                            // start only for screen On
+                            int eventCount = 1;
+                            if (checkDatabase/* || (!GeofenceScannerJob.isJobScheduled())*/) {
+                                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION);
+                            }
+                            if (eventCount > 0) {
+                                if (!GeofenceScannerJob.isJobScheduled()) {
+                                    CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob->SCHEDULE", "PhoneProfilesService_scheduleGeofenceScannerJob");
+                                    PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "SCHEDULE");
+                                    if (isGeofenceScannerStarted())
+                                        getGeofencesScanner().updateTransitionsByLastKnownLocation();
+                                    GeofenceScannerJob.scheduleJob(appContext, handler, true, forScreenOn);
+                                }
+                                else {
+                                    PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "scheduled");
+                                    if (rescan) {
+                                        if (isGeofenceScannerStarted())
+                                            getGeofencesScanner().updateTransitionsByLastKnownLocation();
+                                        GeofenceScannerJob.scheduleJob(appContext, handler, true, forScreenOn);
+                                    }
+                                }
+                            } else
+                                cancelGeofenceScannerJob(appContext, handler);
+                        }
+                        else
+                            cancelGeofenceScannerJob(appContext, handler);
+                    }
+                    else
+                        cancelGeofenceScannerJob(appContext, handler);
+                }
+            }
+        });
+    }
+
+    private void cancelSearchCalendarEventsJob(final Context context, final Handler _handler) {
+        if (SearchCalendarEventsJob.isJobScheduled()) {
+            CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleSearchCalendarEventsJob->CANCEL", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
+            PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "CANCEL");
+            SearchCalendarEventsJob.cancelJob(context, _handler);
+        }
+        else
+            PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "not scheduled");
+    }
+
+    private void scheduleSearchCalendarEventsJob(final boolean schedule, final boolean cancel, final boolean checkDatabase) {
+        final Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsJob", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
+        PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "xxx");
+
+        final Handler handler = new Handler(appContext.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (cancel) {
+                    cancelSearchCalendarEventsJob(appContext, handler);
+                }
+                if (schedule) {
+                    boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext) ==
+                            PPApplication.PREFERENCE_ALLOWED;
+                    if (eventAllowed) {
+                        int eventCount = 1;
+                        if (checkDatabase/* || (!SearchCalendarEventsJob.isJobScheduled())*/) {
+                            eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR);
+                        }
+                        if (eventCount > 0) {
+                            if (!SearchCalendarEventsJob.isJobScheduled()) {
+                                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsJob->SCHEDULE", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
+                                PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "SCHEDULE");
+                                SearchCalendarEventsJob.scheduleJob(appContext, handler, true);
+                            }
+                            else
+                                PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "scheduled");
+                        } else {
+                            cancelSearchCalendarEventsJob(appContext, handler);
+                        }
+                    }
+                    else
+                        cancelSearchCalendarEventsJob(appContext, handler);
+                }
+            }
+        });
     }
 
     private void startGeofenceScanner(boolean start, boolean stop, boolean checkDatabase, boolean forScreenOn, boolean rescan) {

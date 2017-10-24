@@ -49,7 +49,7 @@ class BluetoothScanJob extends Job {
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED) {
-            BluetoothScanJob.cancelJob(context);
+            BluetoothScanJob.cancelJob(context, null);
             return Result.SUCCESS;
         }
 
@@ -57,7 +57,7 @@ class BluetoothScanJob extends Job {
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
             PPApplication.logE("BluetoothScanJob.onRunJob", "update in power save mode is not allowed = cancel job");
-            BluetoothScanJob.cancelJob(context);
+            BluetoothScanJob.cancelJob(context, null);
             //removeAlarm(context/*, false*/);
             //removeAlarm(context/*, true*/);
             return Result.SUCCESS;
@@ -71,18 +71,21 @@ class BluetoothScanJob extends Job {
             startScanner(context, false);
         }
 
-        BluetoothScanJob.scheduleJob(context, false, false);
+        BluetoothScanJob.scheduleJob(context, null, false, false);
 
         return Result.SUCCESS;
     }
 
-    static void scheduleJob(final Context context, final boolean shortInterval, final boolean forScreenOn) {
+    static void scheduleJob(final Context context, final Handler _handler, final boolean shortInterval, final boolean forScreenOn) {
         PPApplication.logE("BluetoothScanJob.scheduleJob", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
                 == PPApplication.PREFERENCE_ALLOWED) {
-
-            final Handler handler = new Handler(context.getMainLooper());
+            final Handler handler;
+            if (_handler == null)
+                handler = new Handler(context.getMainLooper());
+            else
+                handler = _handler;
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -119,7 +122,7 @@ class BluetoothScanJob extends Job {
                                     return;
                             }
                         } else {
-                            cancelJob(context);
+                            cancelJob(context, handler);
                             jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
                             if (forScreenOn)
                                 jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
@@ -143,22 +146,32 @@ class BluetoothScanJob extends Job {
             PPApplication.logE("BluetoothScanJob.scheduleJob","BluetoothHardware=false");
     }
 
-    static void cancelJob(Context context) {
+    static void cancelJob(final Context context, final Handler _handler) {
         PPApplication.logE("BluetoothScanJob.cancelJob", "xxx");
 
-        BluetoothScanJob.setScanRequest(context, false);
-        BluetoothScanJob.setWaitForResults(context, false);
-        BluetoothScanJob.setLEScanRequest(context, false);
-        BluetoothScanJob.setWaitForLEResults(context, false);
-        BluetoothScanJob.setBluetoothEnabledForScan(context, false);
-        Scanner.setForceOneBluetoothScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
-        Scanner.setForceOneLEBluetoothScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
+        final Handler handler;
+        if (_handler == null)
+            handler = new Handler(context.getMainLooper());
+        else
+            handler = _handler;
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                BluetoothScanJob.setScanRequest(context, false);
+                BluetoothScanJob.setWaitForResults(context, false);
+                BluetoothScanJob.setLEScanRequest(context, false);
+                BluetoothScanJob.setWaitForLEResults(context, false);
+                BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+                Scanner.setForceOneBluetoothScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
+                Scanner.setForceOneLEBluetoothScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
 
-        try {
-            JobManager jobManager = JobManager.instance();
-            jobManager.cancelAllForTag(JOB_TAG_SHORT);
-            jobManager.cancelAllForTag(JOB_TAG);
-        } catch (Exception ignored) {}
+                try {
+                    JobManager jobManager = JobManager.instance();
+                    jobManager.cancelAllForTag(JOB_TAG_SHORT);
+                    jobManager.cancelAllForTag(JOB_TAG);
+                } catch (Exception ignored) {}
+            }
+        });
     }
 
     static boolean isJobScheduled() {

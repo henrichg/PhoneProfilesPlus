@@ -22,7 +22,7 @@ class WifiAPStateChangeJob extends Job {
             if (WifiApManager.isWifiAPEnabled(appContext)) {
                 // Wifi AP is enabled
                 PPApplication.logE("WifiAPStateChangeJob.onRunJob","wifi AP enabled");
-                WifiScanJob.cancelJob(appContext);
+                WifiScanJob.cancelJob(appContext, null);
             }
             else {
                 PPApplication.logE("WifiAPStateChangeJob.onRunJob","wifi AP disabled");

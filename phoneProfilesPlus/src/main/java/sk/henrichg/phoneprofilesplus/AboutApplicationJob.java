@@ -129,11 +129,23 @@ class AboutApplicationJob extends Job {
     }
 
     /*
-    static void cancelJob() {
+    static void cancelJob(final Context context, final Handler _handler) {
         PPApplication.logE("AboutApplicationJob.cancelJob", "xxx");
 
-        JobManager jobManager = JobManager.instance();
-        jobManager.cancelAllForTag(JOB_TAG);
+        final Handler handler;
+        if (_handler == null)
+            handler = new Handler(context.getMainLooper());
+        else
+            handler = _handler;
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JobManager jobManager = JobManager.instance();
+                    jobManager.cancelAllForTag(JOB_TAG);
+                } catch (Exception ignored) {}
+            }
+        });
     }
     */
 }
