@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
 
@@ -19,8 +20,6 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### SMSBroadcastReceiver.onReceive", "xxx");
         CallsCounter.logCounter(context, "SMSBroadcastReceiver.onReceive", "SMSBroadcastReceiver_onReceive");
-
-        //Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
@@ -104,16 +103,27 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("SMSBroadcastReceiver.onReceive","from="+origin);
             //PPApplication.logE("SMSBroadcastReceiver.onReceive","message="+body);
 
+            final String _origin = origin;
             Calendar now = Calendar.getInstance();
             int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-            long time = now.getTimeInMillis() + gmtOffset;
+            final long _time = now.getTimeInMillis() + gmtOffset;
 
             if (Event.getGlobalEventsRunning(context))
             {
                 PPApplication.logE("@@@ SMSBroadcastReceiver.onReceive","start service");
 
                 // start job
-                EventsHandlerJob.startForSMSSensor(context.getApplicationContext(), origin, time);
+                //EventsHandlerJob.startForSMSSensor(context.getApplicationContext(), origin, time);
+                final Context appContext = context.getApplicationContext();
+                final Handler handler = new Handler(context.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.setEventSMSParameters(_origin, _time);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS, false);
+                    }
+                });
             }
         }
     }

@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 
 public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
 
@@ -12,7 +13,7 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
 
         CallsCounter.logCounter(context, "EventDelayStartBroadcastReceiver.onReceive", "EventDelayStartBroadcastReceiver_onReceive");
 
-        Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
@@ -23,7 +24,15 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("@@@ EventDelayStartBroadcastReceiver.onReceive","xxx");
 
             // start job
-            EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
+            //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
+            final Handler handler = new Handler(appContext.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START, false);
+                }
+            });
         }
 
     }

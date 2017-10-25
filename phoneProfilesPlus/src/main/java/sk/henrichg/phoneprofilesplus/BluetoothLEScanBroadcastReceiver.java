@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 
 public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
@@ -12,11 +13,53 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
         CallsCounter.logCounter(context, "BluetoothLEScanBroadcastReceiver.onReceive", "BluetoothLEScanBroadcastReceiver_onReceive");
 
-        if (!PPApplication.getApplicationStarted(context, true))
+        final Context appContext = context.getApplicationContext();
+
+        if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return;
 
-        BluetoothJob.startForLEScanBroadcast(context.getApplicationContext());
+        //BluetoothJob.startForLEScanBroadcast(context.getApplicationContext());
+
+        final int forceOneScan = Scanner.getForceOneLEBluetoothScan(appContext);
+
+        if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+        {
+
+            boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(appContext));
+
+            if (scanStarted)
+            {
+                PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive","xxx");
+
+                final Handler handler = new Handler(appContext.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        BluetoothScanJob.fillBoundedDevicesList(appContext);
+
+                        BluetoothScanJob.setWaitForLEResults(appContext, false);
+
+                        Scanner.setForceOneLEBluetoothScan(appContext, Scanner.FORCE_ONE_SCAN_DISABLED);
+
+                        if (forceOneScan != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
+                        {
+                            // start job
+                            new Handler(appContext.getMainLooper()).postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
+                                    // start events handler
+                                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, false);
+                                }
+                            }, 5000);
+                        }
+                    }
+                });
+            }
+        }
+
     }
 
 }

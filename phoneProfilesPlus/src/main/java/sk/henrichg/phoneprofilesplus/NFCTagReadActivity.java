@@ -1,8 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -25,11 +27,23 @@ public class NFCTagReadActivity extends AppCompatActivity {
             public void onTagRead(String tagRead) {
                 Toast.makeText(NFCTagReadActivity.this, "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_readed)+": "+tagRead, Toast.LENGTH_LONG).show();
 
+                final String _tagRead = tagRead;
+
                 Calendar now = Calendar.getInstance();
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                long time = now.getTimeInMillis() + gmtOffset;
+                final long _time = now.getTimeInMillis() + gmtOffset;
 
-                EventsHandlerJob.startForNFCTagSensor(getApplicationContext(), tagRead, time);
+                //EventsHandlerJob.startForNFCTagSensor(getApplicationContext(), tagRead, time);
+                final Context appContext = getApplicationContext();
+                final Handler handler = new Handler(appContext.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.setEventNFCParameters(_tagRead, _time);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_TAG, false);
+                    }
+                });
 
                 NFCTagReadActivity.this.finish();
             }

@@ -1155,7 +1155,7 @@ public class DataWrapper {
                     (profile._duration > 0))
                 profileDuration = profile._duration;
 
-            activateProfileHelper.execute(profile, merged, _interactive);
+            activateProfileHelper.execute(profile, /*merged, */_interactive);
 
             if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
                 (startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&
@@ -1647,12 +1647,12 @@ public class DataWrapper {
             ignoreCall = false;
 
             ApplicationPreferences.getSharedPreferences(context);
-            int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallJob.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallJob.CALL_EVENT_UNDEFINED);
-            String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallJob.PREF_EVENT_CALL_PHONE_NUMBER, "");
+            int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
+            String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
 
             boolean phoneNumberFound = false;
 
-            if (callEventType != PhoneCallJob.CALL_EVENT_UNDEFINED)
+            if (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED)
             {
                 if (event._eventPreferencesCall._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE)
                 {
@@ -1739,8 +1739,8 @@ public class DataWrapper {
                 {
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING)
                     {
-                        if ((callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_RINGING) ||
-                            ((callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_ANSWERED)))
+                        if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING) ||
+                            ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED)))
                             ;//eventStart = eventStart && true;
                         else
                             callPassed = false;
@@ -1748,7 +1748,7 @@ public class DataWrapper {
                     else
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED)
                     {
-                        if (callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_ANSWERED)
+                        if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED)
                             ;//eventStart = eventStart && true;
                         else
                             callPassed = false;
@@ -1756,14 +1756,14 @@ public class DataWrapper {
                     else
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED)
                     {
-                        if (callEventType == PhoneCallJob.CALL_EVENT_OUTGOING_CALL_ANSWERED)
+                        if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ANSWERED)
                             ;//eventStart = eventStart && true;
                         else
                             callPassed = false;
                     }
 
-                    if ((callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                        (callEventType == PhoneCallJob.CALL_EVENT_OUTGOING_CALL_ENDED))
+                    if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED))
                     {
                         //callPassed = true;
                         //eventStart = eventStart && false;
@@ -1823,9 +1823,9 @@ public class DataWrapper {
                 (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_HEADPHONES))
             {
                 ApplicationPreferences.getSharedPreferences(context);
-                boolean headsetConnected = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionJob.PREF_EVENT_HEADSET_CONNECTED, false);
-                boolean headsetMicrophone = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionJob.PREF_EVENT_HEADSET_MICROPHONE, false);
-                boolean bluetoothHeadset = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionJob.PREF_EVENT_HEADSET_BLUETOOTH, false);
+                boolean headsetConnected = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_CONNECTED, false);
+                boolean headsetMicrophone = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_MICROPHONE, false);
+                boolean bluetoothHeadset = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_BLUETOOTH, false);
 
                 if (headsetConnected)
                 {
@@ -2150,7 +2150,7 @@ public class DataWrapper {
 
                 PPApplication.logE("[BTScan] DataWrapper.doHandleEvents","-- eventAdapterName="+event._eventPreferencesBluetooth._adapterName);
 
-                if (BluetoothJob.isBluetoothConnected(context, "")) {
+                if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, "")) {
 
                     PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth connected");
 
@@ -2164,12 +2164,12 @@ public class DataWrapper {
                         else
                         if (_bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
                             for (BluetoothDeviceData data : boundedDevicesList) {
-                                connected = BluetoothJob.isBluetoothConnected(context, data.getName());
+                                connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, data.getName());
                                 if (connected)
                                     break;
                             }
                         } else
-                            connected = BluetoothJob.isBluetoothConnected(context, _bluetoothName);
+                            connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, _bluetoothName);
                         if (connected)
                             break;
                     }
@@ -2470,13 +2470,13 @@ public class DataWrapper {
             ignoreOrientation = false;
 
             ApplicationPreferences.getSharedPreferences(context);
-            int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallJob.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallJob.CALL_EVENT_UNDEFINED);
+            int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
 
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             if (/*Permissions.checkEventPhoneBroadcast(context, event) &&*/
-                (callEventType != PhoneCallJob.CALL_EVENT_UNDEFINED) &&
-                (callEventType != PhoneCallJob.CALL_EVENT_INCOMING_CALL_ENDED) &&
-                (callEventType != PhoneCallJob.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED) &&
+                (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) &&
+                (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                 // ignore changes during call
                 ignoreOrientation = true;
             }
@@ -2954,7 +2954,7 @@ public class DataWrapper {
         PPApplication.logE("%%% DataWrapper.doHandleEvents","--- end --------------------------");
     }
 
-    void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile, boolean interactive)
+    void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile, final boolean interactive)
     {
         if (!Event.getGlobalEventsRunning(context))
             // events are globally stopped
@@ -2963,7 +2963,16 @@ public class DataWrapper {
         PPApplication.logE("$$$ restartEvents", "in DataWrapper.restartEvents");
 
         if (Event.getEventsBlocked(context) && (!unblockEventsRun)) {
-            EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE);
+            //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE);
+            final Context appContext = context.getApplicationContext();
+            final Handler handler = new Handler(appContext.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE, false);
+                }
+            });
             return;
         }
 
@@ -2992,7 +3001,16 @@ public class DataWrapper {
             setProfileActive(null);
         }
 
-        EventsHandlerJob.startForRestartEvents(context, interactive);
+        //EventsHandlerJob.startForRestartEvents(context, interactive);
+        final Context appContext = context.getApplicationContext();
+        final Handler handler = new Handler(appContext.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                EventsHandler eventsHandler = new EventsHandler(appContext);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS, interactive);
+            }
+        });
     }
 
     void restartEventsWithRescan(boolean showToast, boolean interactive)

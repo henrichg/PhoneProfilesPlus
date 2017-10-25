@@ -450,7 +450,7 @@ class EventPreferencesTime extends EventPreferences {
         // set alarm for state PAUSE
 
         // this alarm generates broadcast, that change state into RUNNING;
-        // from broadcast will by called EventsHandlerJob
+        // from broadcast will by called EventsHandler
 
 
         //removeAlarm(true, context);
@@ -468,7 +468,7 @@ class EventPreferencesTime extends EventPreferences {
         // set alarm for state RUNNING
 
         // this alarm generates broadcast, that change state into PAUSE;
-        // from broadcast will by called EventsHandlerJob
+        // from broadcast will by called EventsHandler
 
         //removeAlarm(true, context);
         removeAlarm(/*false, */context);

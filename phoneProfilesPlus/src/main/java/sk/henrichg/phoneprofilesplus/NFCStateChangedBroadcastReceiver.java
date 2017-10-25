@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 
 public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
@@ -27,7 +28,16 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
                 final int state = intent.getIntExtra(NfcAdapter.EXTRA_ADAPTER_STATE, NfcAdapter.STATE_OFF);
 
                 if ((state == NfcAdapter.STATE_ON) || (state == NfcAdapter.STATE_OFF)) {
-                    EventsHandlerJob.startForSensor(context.getApplicationContext(), EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                    //EventsHandlerJob.startForSensor(context.getApplicationContext(), EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                    final Context appContext = context.getApplicationContext();
+                    final Handler handler = new Handler(appContext.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
+                        }
+                    });
                 }
             }
         }

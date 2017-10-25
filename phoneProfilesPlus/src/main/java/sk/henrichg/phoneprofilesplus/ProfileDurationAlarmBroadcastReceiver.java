@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -7,6 +8,15 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Handler;
+import android.os.PowerManager;
+import android.provider.Settings;
+import android.util.Log;
+
+import com.stericson.RootShell.execution.Command;
+import com.stericson.RootShell.execution.Shell;
+import com.stericson.RootTools.RootTools;
 
 import java.util.Calendar;
 
@@ -17,7 +27,65 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         CallsCounter.logCounter(context, "ProfileDurationAlarmBroadcastReceiver.onReceive", "ProfileDurationAlarmBroadcastReceiver_onReceive");
 
         if (PPApplication.getApplicationStarted(context, true)) {
-            ProfileDurationJob.start(context.getApplicationContext(), intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0));
+            //ProfileDurationJob.start(context.getApplicationContext(), intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0));
+
+            if (intent != null) {
+                final Context appContext = context.getApplicationContext();
+                final long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+                final Handler handler = new Handler(appContext.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (profileId != 0) {
+                            DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
+
+                            if (dataWrapper.getIsManualProfileActivation()) {
+                                Profile profile = dataWrapper.getProfileById(profileId, false);
+                                Profile activatedProfile = dataWrapper.getActivatedProfile();
+
+                                if ((profile != null) && (activatedProfile != null) &&
+                                        (activatedProfile._id == profile._id) &&
+                                        (profile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING)) {
+                                    // alarm is from activated profile
+
+                                    long activateProfileId = 0;
+                                    if (profile._afterDurationDo == Profile.AFTERDURATIONDO_BACKGROUNPROFILE) {
+                                        activateProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(appContext));
+                                        if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
+                                            activateProfileId = 0;
+
+                                        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_BACKGROUNDPROFILE, null,
+                                                DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper),
+                                                profile._icon, 0);
+                                    }
+                                    if (profile._afterDurationDo == Profile.AFTERDURATIONDO_UNDOPROFILE) {
+                                        activateProfileId = Profile.getActivatedProfileForDuration(appContext);
+
+                                        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, null,
+                                                DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper),
+                                                profile._icon, 0);
+                                    }
+                                    if (profile._afterDurationDo == Profile.AFTERDURATIONDO_RESTARTEVENTS) {
+                                        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_RESTARTEVENTS, null,
+                                                DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper),
+                                                profile._icon, 0);
+
+                                        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+
+                                        PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.onReceive", "restart events");
+                                        dataWrapper.restartEventsWithDelay(3, true, false);
+                                    } else {
+                                        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, appContext);
+                                        dataWrapper.activateProfileAfterDuration(activateProfileId);
+                                    }
+                                }
+                            }
+
+                            dataWrapper.invalidateDataWrapper();
+                        }
+                    }
+                });
+            }
         }
     }
 

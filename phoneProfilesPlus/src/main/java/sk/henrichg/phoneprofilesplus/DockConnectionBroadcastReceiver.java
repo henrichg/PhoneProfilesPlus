@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 
 public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
 
@@ -12,7 +13,7 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
 
         CallsCounter.logCounter(context, "DockConnectionBroadcastReceiver.onReceive", "DockConnectionBroadcastReceiver_onReceive");
 
-        Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
@@ -27,7 +28,15 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
             if (peripheralEventsExists)
             {*/
                 // start job
-                EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_DOCK_CONNECTION);
+                //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_DOCK_CONNECTION);
+                final Handler handler = new Handler(appContext.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DOCK_CONNECTION, false);
+                    }
+                });
             //}
 
         }

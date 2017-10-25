@@ -52,7 +52,7 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.doForFirstStart"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
-                                         +"|PackageReplacedJob"
+                                         +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
 
                                          //+"|"+CallsCounter.LOG_TAG
@@ -60,6 +60,7 @@ public class PPApplication extends Application {
                                          //+"|[RJS] PhoneProfilesService"
 
                                          //+"|*** DataWrapper.doHandleEvents"
+                                         //+"|ScreenOnOffBroadcastReceiver.onReceive"
             ;
 
 

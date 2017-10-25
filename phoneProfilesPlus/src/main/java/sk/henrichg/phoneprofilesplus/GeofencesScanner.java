@@ -88,7 +88,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         PPApplication.logE("GeofenceScanner.onConnected", "xxx");
         if (mGoogleApiClient.isConnected()) {
             clearAllEventGeofences();
-            updateTransitionsByLastKnownLocation();
+            updateTransitionsByLastKnownLocation(false);
             if (PPApplication.getApplicationStarted(context, true)) {
                 PPApplication.logE("GeofenceScannerb.mUpdatesStarted=false", "from GeofenceScanner.onConnected");
                 mUpdatesStarted = false;
@@ -302,11 +302,12 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     }
     */
 
-    void updateTransitionsByLastKnownLocation() {
+    void updateTransitionsByLastKnownLocation(final boolean startEventsHandler) {
         if (Permissions.checkLocation(context) && mGoogleApiClient.isConnected()) {
             PPApplication.logE("GeofenceScanner.updateTransitionsByLastKnownLocation", "xxx");
             try {
                 FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+                final Context appContext = context.getApplicationContext();
                 //noinspection MissingPermission
                 fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override
@@ -317,6 +318,12 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                             synchronized (PPApplication.geofenceScannerLastLocationMutex) {
                                 lastLocation.set(location);
                                 updateGeofencesInDB();
+                                if (startEventsHandler) {
+                                    // start job
+                                    //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_LOCATION_MODE);
+                                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE, false);
+                                }
                             }
                         }
                     }

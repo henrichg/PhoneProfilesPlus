@@ -206,10 +206,13 @@ class Scanner {
                                         if (getForceOneWifiScan(context) != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                         {
                                             // start job
+                                            final Context appContext = context.getApplicationContext();
                                             new Handler(context.getMainLooper()).postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
+                                                    //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
+                                                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, false);
                                                 }
                                             }, 5000);
                                             //WifiScanBroadcastReceiver.setAlarm(context);
@@ -389,7 +392,7 @@ class Scanner {
                                         // wait for scan end
                                         waitForLEBluetoothScanEnd(context, null);
 
-                                        // send broadcast for start EventsHandlerJob
+                                        // send broadcast for start EventsHandler
                                         /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
                                         sendBroadcast(btLEIntent);*/
                                         Intent btLEIntent = new Intent("BluetoothLEScanBroadcastReceiver");

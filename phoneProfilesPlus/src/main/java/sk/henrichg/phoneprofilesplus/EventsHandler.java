@@ -98,7 +98,7 @@ class EventsHandler {
             dataWrapper = new DataWrapper(context, true, false, 0);
 
             ApplicationPreferences.getSharedPreferences(context);
-            callEventType = ApplicationPreferences.preferences.getInt(PhoneCallJob.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallJob.CALL_EVENT_UNDEFINED);
+            callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
 
             oldRingerMode = ActivateProfileHelper.getRingerMode(context);
             oldZenMode = ActivateProfileHelper.getZenMode(context);
@@ -585,20 +585,21 @@ class EventsHandler {
 
         if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
 
-            if (!PhoneCallJob.linkUnlinkExecuted) {
+            if (!PhoneCallBroadcastReceiver.linkUnlinkExecuted) {
                 // no profile is activated from EventsHandler
                 // link, unlink volumes for activated profile
                 boolean linkUnlink = false;
-                if (callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_RINGING)
+                if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)
                     linkUnlink = true;
-                if (callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_ENDED)
+                if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED)
                     linkUnlink = true;
                 if (linkUnlink) {
                     Profile profile = dataWrapper.getActivatedProfile();
                     profile = Profile.getMappedProfile(profile, context);
                     if (profile != null) {
                         PPApplication.logE("EventsHandler.doEndService", "callEventType=" + callEventType);
-                        ExecuteVolumeProfilePrefsJob.start(context, profile._id, false, false);
+                        //ExecuteVolumeProfilePrefsJob.start(context, profile._id, false, false);
+                        dataWrapper.getActivateProfileHelper().executeForVolumes(profile, false);
                         // wait for link/unlink
                         //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                         //SystemClock.sleep(1000);
@@ -606,9 +607,9 @@ class EventsHandler {
                     }
                 }
             } else
-                PhoneCallJob.linkUnlinkExecuted = false;
+                PhoneCallBroadcastReceiver.linkUnlinkExecuted = false;
 
-            if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_RINGING)) {
+            if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)) {
                 // start PhoneProfilesService for ringing call simulation
                 try {
                     Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -628,24 +629,24 @@ class EventsHandler {
                 } catch (Exception ignored) {}
             }
 
-            if (!PhoneCallJob.speakerphoneOnExecuted) {
+            if (!PhoneCallBroadcastReceiver.speakerphoneOnExecuted) {
                 // no profile is activated from EventsHandler
                 // set speakerphone ON for activated profile
-                if ((callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
-                        (callEventType == PhoneCallJob.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
+                if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
+                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
                     Profile profile = dataWrapper.getActivatedProfile();
                     profile = Profile.getMappedProfile(profile, context);
-                    PhoneCallJob.setSpeakerphoneOn(profile, context);
+                    PhoneCallBroadcastReceiver.setSpeakerphoneOn(profile, context);
                 }
             } else
-                PhoneCallJob.speakerphoneOnExecuted = false;
+                PhoneCallBroadcastReceiver.speakerphoneOnExecuted = false;
 
-            if ((callEventType == PhoneCallJob.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                    (callEventType == PhoneCallJob.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+            if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                    (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                 ApplicationPreferences.getSharedPreferences(context);
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                editor.putInt(PhoneCallJob.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallJob.CALL_EVENT_UNDEFINED);
-                editor.putString(PhoneCallJob.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
+                editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
                 editor.apply();
             }
         }

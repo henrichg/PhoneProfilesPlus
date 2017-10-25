@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 
 public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -20,7 +21,16 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
             final String action = intent.getAction();
 
             if (action.equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)) {
-                EventsHandlerJob.startForSensor(context.getApplicationContext(), EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                //EventsHandlerJob.startForSensor(context.getApplicationContext(), EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                final Context appContext = context.getApplicationContext();
+                final Handler handler = new Handler(appContext.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
+                    }
+                });
             }
         }
     }

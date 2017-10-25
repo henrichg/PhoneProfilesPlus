@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 
 public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
 
@@ -12,7 +13,7 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
 
         CallsCounter.logCounter(context, "NotificationEventEndBroadcastReceiver.onReceive", "NotificationEventEndBroadcastReceiver_onReceive");
 
-        Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
@@ -32,7 +33,15 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
             if (notificationEventsExists)
             {*/
                 // start job
-                EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION_EVENT_END);
+                //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION_EVENT_END);
+                final Handler handler = new Handler(appContext.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION_EVENT_END, false);
+                    }
+                });
             //}
 
         }

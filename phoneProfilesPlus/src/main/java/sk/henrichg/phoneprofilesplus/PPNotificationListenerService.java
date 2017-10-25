@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Build;
+import android.os.Handler;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.app.NotificationManagerCompat;
@@ -62,7 +63,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         //Log.e(TAG, "ID :" + sbn.getId() + "t" + sbn.getNotification().tickerText + "t" + sbn.getPackageName());
 
-        Context context = getApplicationContext();
+        final Context context = getApplicationContext();
 
         if (sbn.getPackageName().equals(context.getPackageName()))
             return;
@@ -86,7 +87,16 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (Event.getGlobalEventsRunning(context)) {
-            EventsHandlerJob.startForNotificationSensor(context, "posted");
+            //EventsHandlerJob.startForNotificationSensor(context, "posted");
+            final Handler handler = new Handler(context.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    EventsHandler eventsHandler = new EventsHandler(context);
+                    eventsHandler.setEventNotificationParameters("posted");
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION, false);
+                }
+            });
         }
     }
 
@@ -101,7 +111,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         //Log.e(TAG, "ID :" + sbn.getId() + "t" + sbn.getNotification().tickerText + "t" + sbn.getPackageName());
 
-        Context context = getApplicationContext();
+        final Context context = getApplicationContext();
 
         if (sbn.getPackageName().equals(context.getPackageName()))
             return;
@@ -117,7 +127,16 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (Event.getGlobalEventsRunning(context)) {
-            EventsHandlerJob.startForNotificationSensor(context, "removed");
+            //EventsHandlerJob.startForNotificationSensor(context, "removed");
+            final Handler handler = new Handler(context.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    EventsHandler eventsHandler = new EventsHandler(context);
+                    eventsHandler.setEventNotificationParameters("removed");
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION, false);
+                }
+            });
         }
     }
 

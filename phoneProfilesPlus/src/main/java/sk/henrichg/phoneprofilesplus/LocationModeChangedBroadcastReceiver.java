@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.os.Handler;
 
 public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -13,7 +14,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
         CallsCounter.logCounter(context, "LocationModeChangedBroadcastReceiver.onReceive", "LocationModeChangedBroadcastReceiver_onReceive");
 
-        Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
@@ -23,17 +24,23 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
         {
             PPApplication.logE("@@@ LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 
-            if (intent.getAction().matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
-                EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-            }
+            final String action = intent.getAction();
+            final Handler handler = new Handler(appContext.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (action.matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
+                        //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                         EventsHandler eventsHandler = new EventsHandler(appContext);
+                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
+                    }
 
-            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
-                PhoneProfilesService.getGeofencesScanner().clearAllEventGeofences();
-                PhoneProfilesService.getGeofencesScanner().updateTransitionsByLastKnownLocation();
-
-                // start job
-                EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_LOCATION_MODE);
-            }
+                    if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
+                        PhoneProfilesService.getGeofencesScanner().clearAllEventGeofences();
+                        PhoneProfilesService.getGeofencesScanner().updateTransitionsByLastKnownLocation(true);
+                    }
+                }
+            });
         }
 
     }

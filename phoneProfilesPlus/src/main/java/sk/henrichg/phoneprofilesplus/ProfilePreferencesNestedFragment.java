@@ -759,7 +759,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (preference != null) {
             String notificationToneChange = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
             String notificationTone = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
-            String uriId = FirstStartJob.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_NOTIFICATION);
+            String uriId = TonesHandler.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_NOTIFICATION);
             if (notificationToneChange.equals("1") && notificationTone.equals(uriId))
                 preference.setSummary(R.string.profile_preferences_volumeNotificationVolume0_summaryConfigured);
             else

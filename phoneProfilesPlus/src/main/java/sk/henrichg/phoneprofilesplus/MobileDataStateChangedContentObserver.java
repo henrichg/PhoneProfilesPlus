@@ -43,7 +43,16 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
             if (previousState != actualState) {
 
                 if (Event.getGlobalEventsRunning(context)) {
-                    EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                    //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                    final Context appContext = context.getApplicationContext();
+                    final Handler handler = new Handler(appContext.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
+                        }
+                    });
                 }
 
                 previousState = actualState;

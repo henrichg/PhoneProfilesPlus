@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.CellIdentityCdma;
 import android.telephony.CellIdentityGsm;
@@ -341,8 +342,25 @@ class PhoneStateScanner extends PhoneStateListener {
     }
 
     private void sendBroadcast() {
-        // start service for call EventsHandler
-        PhoneStateJob.start(context);
+        //PhoneStateJob.start(context);
+        if (Event.getGlobalEventsRunning(context))
+        {
+            final Context appContext = context.getApplicationContext();
+            final Handler handler = new Handler(appContext.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
+                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
+                        // start events handler
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_STATE, false);
+                    }
+                    dataWrapper.invalidateDataWrapper();
+                }
+            });
+        }
+
 
         // broadcast for cells editor
         /*Intent intent = new Intent(ACTION_PHONE_STATE_CHANGED);

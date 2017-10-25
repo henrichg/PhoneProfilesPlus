@@ -15,6 +15,7 @@ import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -34,6 +35,7 @@ import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.BatteryManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -49,6 +51,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.crashlytics.android.Crashlytics;
+import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 
 import java.util.Calendar;
@@ -429,7 +432,7 @@ public class PhoneProfilesService extends Service
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered settings content observer");
 
-            // required for start EventsHandlerJob in idle maintenance window
+            // required for start EventsHandler in idle maintenance window
             if (deviceIdleModeReceiver == null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER device idle mode", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER device idle mode");
@@ -1660,14 +1663,14 @@ public class PhoneProfilesService extends Service
                                     CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob->SCHEDULE", "PhoneProfilesService_scheduleGeofenceScannerJob");
                                     PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "SCHEDULE");
                                     if (isGeofenceScannerStarted())
-                                        getGeofencesScanner().updateTransitionsByLastKnownLocation();
+                                        getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
                                     GeofenceScannerJob.scheduleJob(appContext, handler, true, forScreenOn);
                                 }
                                 else {
                                     PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "scheduled");
                                     if (rescan) {
                                         if (isGeofenceScannerStarted())
-                                            getGeofencesScanner().updateTransitionsByLastKnownLocation();
+                                            getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
                                         GeofenceScannerJob.scheduleJob(appContext, handler, true, forScreenOn);
                                     }
                                 }
@@ -2107,7 +2110,7 @@ public class PhoneProfilesService extends Service
         if (startOnBoot)
             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_BOOT");
 
-        Context appContext = getApplicationContext();
+        final Context appContext = getApplicationContext();
 
         if ((intent == null) || (!intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false))) {
             /*PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "before start thread");
@@ -2169,7 +2172,105 @@ public class PhoneProfilesService extends Service
 
         if (onlyStart) {
             // start FirstStartJob
-            FirstStartJob.start(appContext, startOnBoot);
+            //FirstStartJob.start(appContext, startOnBoot);
+
+            final boolean _startOnBoot = startOnBoot;
+            final Handler handler = new Handler(this.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.initRoot();
+                    // grant root
+                    //if (PPApplication.isRooted(false))
+                    //{
+                    if (PPApplication.isRootGranted())
+                    {
+                        PPApplication.settingsBinaryExists();
+                        PPApplication.serviceBinaryExists();
+                        //PPApplication.getSUVersion();
+                    }
+                    //}
+
+                    GlobalGUIRoutines.setLanguage(appContext);
+
+                    if (PPApplication.getApplicationStarted(appContext, false)) {
+                        PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application already started");
+                        return;
+                    }
+
+                    PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application not started, start it");
+
+                    Permissions.clearMergedPermissions(appContext);
+
+                    TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, appContext, false);
+
+                    ActivateProfileHelper.setLockScreenDisabled(appContext, false);
+
+                    AudioManager audioManager = (AudioManager)appContext.getSystemService(Context.AUDIO_SERVICE);
+                    ActivateProfileHelper.setRingerVolume(appContext, audioManager.getStreamVolume(AudioManager.STREAM_RING));
+                    ActivateProfileHelper.setNotificationVolume(appContext, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
+                    RingerModeChangeReceiver.setRingerMode(appContext, audioManager);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
+                        PPNotificationListenerService.setZenMode(appContext, audioManager);
+                    InterruptionFilterChangedBroadcastReceiver.setZenMode(appContext, audioManager);
+
+                    Profile.setActivatedProfileForDuration(appContext, 0);
+                    ForegroundApplicationChangedService.setApplicationInForeground(appContext, "");
+
+                    ApplicationPreferences.getSharedPreferences(appContext);
+                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                    editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
+                    editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                    editor.apply();
+
+                    // show info notification
+                    ImportantInfoNotification.showInfoNotification(appContext);
+
+                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(appContext);
+                    Profile.setActivatedProfileForDuration(appContext, 0);
+
+                    DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
+                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, appContext);
+                    dataWrapper.getDatabaseHandler().deleteAllEventTimelines(true);
+
+                    MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
+
+                    PPApplication.setApplicationStarted(appContext, true);
+                    if (_startOnBoot)
+                        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, null, null, null, 0);
+                    else
+                        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
+
+                    PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application started");
+
+                    // startname eventy
+                    if (Event.getGlobalEventsRunning(appContext))
+                    {
+                        PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","global event run is enabled, first start events");
+
+                        if (!dataWrapper.getIsManualProfileActivation()) {
+                            ////// unblock all events for first start
+                            //     that may be blocked in previous application run
+                            dataWrapper.pauseAllEvents(true, false/*, false*/);
+                        }
+
+                        dataWrapper.firstStartEvents(true);
+                    }
+                    else
+                    {
+                        PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","global event run is not enabled, manually activate profile");
+                        //PPApplication.setApplicationStarted(context, true);
+
+                        ////// unblock all events for first start
+                        //     that may be blocked in previous application run
+                        dataWrapper.pauseAllEvents(true, false/*, false*/);
+
+                        dataWrapper.activateProfileOnBoot();
+                    }
+
+                    dataWrapper.invalidateDataWrapper();
+                }
+            });
 
             ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, false);
         }
@@ -2908,6 +3009,56 @@ public class PhoneProfilesService extends Service
     }
     */
 
+    private void runEventsHandlerForOrientationChange(final Context context) {
+        if (Event.getGlobalEventsRunning(context)) {
+            final Handler handler = new Handler(context.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
+
+                    if (mDeviceDistance == DEVICE_ORIENTATION_DEVICE_IS_NEAR)
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "now device is NEAR.");
+                    else if (mDeviceDistance == DEVICE_ORIENTATION_DEVICE_IS_FAR)
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "now device is FAR");
+                    else if (mDeviceDistance == DEVICE_ORIENTATION_UNKNOWN)
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "unknown distance");
+
+                    if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_UP)
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) now screen is facing up.");
+                    if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) now screen is facing down.");
+                    if (mDisplayUp == DEVICE_ORIENTATION_UNKNOWN)
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(D) unknown display orientation.");
+
+                    if (mSideUp == DEVICE_ORIENTATION_DISPLAY_UP)
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now screen is facing up.");
+                    if (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now screen is facing down.");
+
+                    if (mSideUp == mDisplayUp)
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now device is horizontal.");
+                    if (mSideUp == DEVICE_ORIENTATION_UP_SIDE_UP)
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now up side is facing up.");
+                    if (mSideUp == DEVICE_ORIENTATION_DOWN_SIDE_UP)
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now down side is facing up.");
+                    if (mSideUp == DEVICE_ORIENTATION_RIGHT_SIDE_UP)
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now right side is facing up.");
+                    if (mSideUp == DEVICE_ORIENTATION_LEFT_SIDE_UP)
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) now left side is facing up.");
+                    if (mSideUp == DEVICE_ORIENTATION_UNKNOWN)
+                        PPApplication.logE("PhoneProfilesService.runEventsHandlerForOrientationChange", "(S) unknown side.");
+
+                    PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
+
+                    // start events handler
+                    EventsHandler eventsHandler = new EventsHandler(context);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION, false);
+                }
+            });
+        }
+    }
+
     @Override
     public void onSensorChanged(SensorEvent event) {
         Context appContext = getApplicationContext();
@@ -2933,7 +3084,8 @@ public class PhoneProfilesService extends Service
                 if (tmpDeviceDistance != mDeviceDistance) {
                     PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity - send broadcast");
                     mDeviceDistance = tmpDeviceDistance;
-                    DeviceOrientationJob.start(appContext);
+                    //DeviceOrientationJob.start(appContext);
+                    runEventsHandlerForOrientationChange(appContext);
                 }
             //}
             return;
@@ -3038,7 +3190,8 @@ public class PhoneProfilesService extends Service
                                             PPApplication.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
                                         */
 
-                                        DeviceOrientationJob.start(appContext);
+                                        //DeviceOrientationJob.start(appContext);
+                                        runEventsHandlerForOrientationChange(appContext);
                                     }
                                 }
                             }
@@ -3073,7 +3226,8 @@ public class PhoneProfilesService extends Service
                                 if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
                                     mDisplayUp = mSideUp;
 
-                                DeviceOrientationJob.start(appContext);
+                                //DeviceOrientationJob.start(appContext);
+                                runEventsHandlerForOrientationChange(appContext);
                             }
                         } else {
                             if (mEventCountSinceGZChanged > 0) {
@@ -3121,7 +3275,7 @@ public class PhoneProfilesService extends Service
             int newZenMode = ActivateProfileHelper.getZenMode(context);
             int newRingerVolume = ActivateProfileHelper.getRingerVolume(context);
             String newRingtone = "";
-            String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallJob.PREF_EVENT_CALL_PHONE_NUMBER, "");
+            String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
 
             // get ringtone from contact
             boolean phoneNumberFound = false;

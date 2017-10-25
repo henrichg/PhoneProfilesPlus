@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.os.Handler;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
@@ -36,7 +37,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        Context context = getApplicationContext();
+        final Context context = getApplicationContext();
 
         CallsCounter.logCounter(getApplicationContext(), "ForegroundApplicationChangedService.onAccessibilityEvent", "ForegroundApplicationChangedService_onAccessibilityEvent");
 
@@ -62,7 +63,15 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
                     setApplicationInForeground(context, packageInForeground);
 
                     if (Event.getGlobalEventsRunning(context)) {
-                        EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
+                        //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
+                        final Handler handler = new Handler(context.getMainLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                EventsHandler eventsHandler = new EventsHandler(context);
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION, false);
+                            }
+                        });
                     }
                 }
             } catch (Exception e) {
@@ -87,11 +96,19 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
     public boolean onUnbind(Intent intent) {
         //Log.d("ForegroundApplicationChangedService", "onUnbind");
 
-        Context context = getApplicationContext();
+        final Context context = getApplicationContext();
 
         setApplicationInForeground(context, "");
 
-        EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
+        //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
+        final Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                EventsHandler eventsHandler = new EventsHandler(context);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION, false);
+            }
+        });
 
         return super.onUnbind(intent);
     }

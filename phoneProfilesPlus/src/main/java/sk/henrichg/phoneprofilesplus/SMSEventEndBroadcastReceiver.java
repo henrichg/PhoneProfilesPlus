@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 
 public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
 
@@ -11,7 +12,7 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("##### SMSEventEndBroadcastReceiver.onReceive", "xxx");
         CallsCounter.logCounter(context, "SMSEventEndBroadcastReceiver.onReceive", "SMSEventEndBroadcastReceiver_onReceive");
 
-        Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
@@ -31,7 +32,15 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
             if (smsEventsExists)
             {*/
                 // start job
-                EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
+                //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
+                final Handler handler = new Handler(appContext.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS_EVENT_END, false);
+                    }
+                });
             //}
 
         }

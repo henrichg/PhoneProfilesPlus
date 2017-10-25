@@ -29,49 +29,6 @@ class PPJobsCreator implements JobCreator {
             case AboutApplicationJob.JOB_TAG:
                 return new AboutApplicationJob();
 
-            case PackageReplacedJob.JOB_TAG:
-                return new PackageReplacedJob();
-            case FirstStartJob.JOB_TAG:
-                return new FirstStartJob();
-            case ExecuteRadioProfilePrefsJob.JOB_TAG:
-                return new ExecuteRadioProfilePrefsJob();
-            case ExecuteVolumeProfilePrefsJob.JOB_TAG:
-                return new ExecuteVolumeProfilePrefsJob();
-            case ExecuteWallpaperProfilePrefsJob.JOB_TAG:
-                return new ExecuteWallpaperProfilePrefsJob();
-            case ExecuteRunApplicationsProfilePrefsJob.JOB_TAG:
-                return new ExecuteRunApplicationsProfilePrefsJob();
-            case ExecuteRootProfilePrefsJob.JOB_TAG:
-                return new ExecuteRootProfilePrefsJob();
-            case ProfileDurationJob.JOB_TAG:
-                return new ProfileDurationJob();
-            case ScreenOnOffJob.JOB_TAG:
-                return new ScreenOnOffJob();
-            case PhoneCallJob.JOB_TAG:
-                return new PhoneCallJob();
-            case DashClockJob.JOB_TAG:
-                return new DashClockJob();
-            case EventsHandlerJob.JOB_TAG:
-                return new EventsHandlerJob();
-            case WifiJob.JOB_TAG:
-                return new WifiJob();
-            case BluetoothJob.JOB_TAG:
-                return new BluetoothJob();
-            case BatteryJob.JOB_TAG:
-                return new BatteryJob();
-            case WifiAPStateChangeJob.JOB_TAG:
-                return new WifiAPStateChangeJob();
-            case HeadsetConnectionJob.JOB_TAG:
-                return new HeadsetConnectionJob();
-            case PhoneStateJob.JOB_TAG:
-                return new PhoneStateJob();
-            case DeviceOrientationJob.JOB_TAG:
-                return new DeviceOrientationJob();
-            case PowerSaveModeJob.JOB_TAG:
-                return new PowerSaveModeJob();
-            case DeviceIdleModeJob.JOB_TAG:
-                return new DeviceIdleModeJob();
-
             default:
                 return null;
         }

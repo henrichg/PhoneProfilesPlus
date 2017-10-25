@@ -747,10 +747,13 @@ class BluetoothScanJob extends Job {
             if (forceOneScan != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
             {
                 // start job
-                new Handler(context.getMainLooper()).postDelayed(new Runnable() {
+                final Context appContext = context.getApplicationContext();
+                new Handler(appContext.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
+                        // start events handler
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE, false);
                     }
                 }, 5000);
             }

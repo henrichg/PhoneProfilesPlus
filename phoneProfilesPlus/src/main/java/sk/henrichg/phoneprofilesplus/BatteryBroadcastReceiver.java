@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
+import android.os.Handler;
 
 public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
@@ -22,7 +23,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         CallsCounter.logCounter(context, "BatteryBroadcastReceiver.onReceive", "BatteryBroadcastReceiver_onReceive");
         CallsCounter.logCounterNoInc(context, "BatteryBroadcastReceiver.onReceive->action="+intent.getAction(), "BatteryBroadcastReceiver_onReceive");
 
-        Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
@@ -72,7 +73,45 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             if (levelReceived)
                 batteryPct = pct;
 
-            BatteryJob.start(appContext, isCharging, batteryPct, statusReceived, levelReceived);
+            //BatteryJob.start(appContext, isCharging, batteryPct, statusReceived, levelReceived);
+
+            Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //TODO Android O
+            //if (Build.VERSION.SDK_INT < 26)
+            appContext.startService(serviceIntent);
+            //else
+            //    context.startForegroundService(serviceIntent);
+
+            if (Event.getGlobalEventsRunning(appContext)) {
+                final Handler handler = new Handler(appContext.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        /*
+                        if (PhoneProfilesService.instance != null) {
+                            if (PhoneProfilesService.isGeofenceScannerStarted())
+                                PhoneProfilesService.getGeofencesScanner().resetLocationUpdates(oldPowerSaveMode, false);
+                            PhoneProfilesService.instance.resetListeningOrientationSensors(oldPowerSaveMode, false);
+                            if (PhoneProfilesService.isPhoneStateScannerStarted())
+                                PhoneProfilesService.phoneStateScanner.resetListening(oldPowerSaveMode, false);
+                        }
+                        */
+
+                        /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
+                        batteryEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BATTERY) > 0;
+                        dataWrapper.invalidateDataWrapper();
+
+                        if (batteryEventsExists)
+                        {*/
+                        // start events handler
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY, false);
+                        //}
+                    }
+                });
+            }
         }
     }
 }
