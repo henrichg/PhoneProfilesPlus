@@ -37,6 +37,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import static android.content.Context.POWER_SERVICE;
+
 public class DataWrapper {
 
     public Context context = null;
@@ -2969,8 +2971,14 @@ public class DataWrapper {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.restartEvents.1");
+                    wakeLock.acquire();
+
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE, false);
+
+                    wakeLock.release();
                 }
             });
             return;
@@ -3007,8 +3015,14 @@ public class DataWrapper {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.restartEvents.2");
+                wakeLock.acquire();
+
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS, interactive);
+
+                wakeLock.release();
             }
         });
     }

@@ -2152,6 +2152,10 @@ public class PhoneProfilesService extends Service
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneProfilesService.doForFirstStart.1");
+                    wakeLock.acquire();
+
                     // set service foreground
                     final DataWrapper dataWrapper = new DataWrapper(_this, true, false, 0);
                     Profile activatedProfile = null;
@@ -2165,6 +2169,8 @@ public class PhoneProfilesService extends Service
                         activatedProfile = dataWrapper.getActivatedProfile();
                     showProfileNotification(activatedProfile, dataWrapper);
                     PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "after end of Handler.run");
+
+                    wakeLock.release();
                 }
             });
             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "after start of handler");
@@ -2179,6 +2185,10 @@ public class PhoneProfilesService extends Service
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneProfilesService.doForFirstStart.2");
+                    wakeLock.acquire();
+
                     PPApplication.initRoot();
                     // grant root
                     //if (PPApplication.isRooted(false))
@@ -2195,6 +2205,7 @@ public class PhoneProfilesService extends Service
 
                     if (PPApplication.getApplicationStarted(appContext, false)) {
                         PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application already started");
+                        wakeLock.release();
                         return;
                     }
 
@@ -2269,6 +2280,8 @@ public class PhoneProfilesService extends Service
                     }
 
                     dataWrapper.invalidateDataWrapper();
+
+                    wakeLock.release();
                 }
             });
 
@@ -3015,6 +3028,10 @@ public class PhoneProfilesService extends Service
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneProfilesService.runEventsHandlerForOrientationChange");
+                    wakeLock.acquire();
+
                     PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
 
                     if (mDeviceDistance == DEVICE_ORIENTATION_DEVICE_IS_NEAR)
@@ -3054,6 +3071,8 @@ public class PhoneProfilesService extends Service
                     // start events handler
                     EventsHandler eventsHandler = new EventsHandler(context);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION, false);
+
+                    wakeLock.release();
                 }
             });
         }

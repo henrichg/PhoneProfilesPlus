@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
+
+import static android.content.Context.POWER_SERVICE;
 
 public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
@@ -101,6 +104,10 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "HeadsetConnectionBroadcastReceiver.onReceive");
+                        wakeLock.acquire();
+
                         /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                         boolean peripheralEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL) > 0;
                         dataWrapper.invalidateDataWrapper();
@@ -111,6 +118,8 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_HEADSET_CONNECTION, false);
                         //}
+
+                        wakeLock.release();
                     }
                 });
             }

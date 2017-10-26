@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Handler;
+import android.os.PowerManager;
+
+import static android.content.Context.POWER_SERVICE;
 
 public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -29,6 +32,10 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "LocationModeChangedBroadcastReceiver.onReceive");
+                    wakeLock.acquire();
+
                     if (action.matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
                         //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
                          EventsHandler eventsHandler = new EventsHandler(appContext);
@@ -39,6 +46,8 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                         PhoneProfilesService.getGeofencesScanner().clearAllEventGeofences();
                         PhoneProfilesService.getGeofencesScanner().updateTransitionsByLastKnownLocation(true);
                     }
+
+                    wakeLock.release();
                 }
             });
         }

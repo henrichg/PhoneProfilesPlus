@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
 
 import java.util.Calendar;
+
+import static android.content.Context.POWER_SERVICE;
 
 public class SMSBroadcastReceiver extends BroadcastReceiver {
 
@@ -119,9 +122,15 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "SMSBroadcastReceiver.onReceive");
+                        wakeLock.acquire();
+
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.setEventSMSParameters(_origin, _time);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS, false);
+
+                        wakeLock.release();
                     }
                 });
             }

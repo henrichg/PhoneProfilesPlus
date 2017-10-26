@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
+import android.os.PowerManager;
 
 import java.util.List;
+
+import static android.content.Context.POWER_SERVICE;
 
 public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -39,6 +42,10 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiStateChangedBroadcastReceiver.onReceive");
+                    wakeLock.acquire();
+
                     if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                         if (!((WifiScanJob.getScanRequest(appContext)) ||
                                 (WifiScanJob.getWaitForResults(appContext)) ||
@@ -83,8 +90,14 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
+                                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiStateChangedBroadcastReceiver.onReceive.Handler.postDelayed.1");
+                                            wakeLock.acquire();
+
                                             PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
                                             WifiScanJob.startScan(appContext);
+
+                                            wakeLock.release();
                                         }
                                     }, 5000);
 
@@ -100,8 +113,14 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     new Handler().post(new Runnable() {
                                         @Override
                                         public void run() {
+                                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiStateChangedBroadcastReceiver.onReceive.Handler.post.2");
+                                            wakeLock.acquire();
+
                                             PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
                                             WifiScanJob.fillWifiConfigurationList(appContext);
+
+                                            wakeLock.release();
                                         }
                                     });
                                 }
@@ -122,6 +141,8 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     }
+
+                    wakeLock.release();
                 }
             });
         }

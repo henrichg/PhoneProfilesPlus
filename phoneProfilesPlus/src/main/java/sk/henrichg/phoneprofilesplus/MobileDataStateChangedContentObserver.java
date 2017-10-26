@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.os.Handler;
+import android.os.PowerManager;
+
+import static android.content.Context.POWER_SERVICE;
 
 class MobileDataStateChangedContentObserver extends ContentObserver {
 
@@ -49,8 +52,14 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MobileDataStateChangedContentObserver.onChange");
+                            wakeLock.acquire();
+
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
+
+                            wakeLock.release();
                         }
                     });
                 }

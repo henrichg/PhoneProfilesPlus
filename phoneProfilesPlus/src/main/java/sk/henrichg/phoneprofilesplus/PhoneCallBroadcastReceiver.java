@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.os.SystemClock;
+
+import static android.content.Context.POWER_SERVICE;
 
 public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
@@ -111,6 +114,10 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
     private void doCallEvent(int eventType, String phoneNumber, Context context)
     {
+        PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneCallBroadcastReceiver.doCallEvent");
+        wakeLock.acquire();
+
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, eventType);
@@ -123,6 +130,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         // start events handler
         EventsHandler eventsHandler = new EventsHandler(context);
         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL, false);
+
+        wakeLock.release();
     }
 
     private void callStarted(boolean incoming, String phoneNumber, Context context)

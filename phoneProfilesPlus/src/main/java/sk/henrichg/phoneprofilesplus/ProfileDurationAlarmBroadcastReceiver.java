@@ -20,6 +20,8 @@ import com.stericson.RootTools.RootTools;
 
 import java.util.Calendar;
 
+import static android.content.Context.POWER_SERVICE;
+
 public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
@@ -37,6 +39,11 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     @Override
                     public void run() {
                         if (profileId != 0) {
+
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ProfileDurationAlarmBroadcastReceiver.onReceive");
+                            wakeLock.acquire();
+
                             DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
 
                             if (dataWrapper.getIsManualProfileActivation()) {
@@ -82,6 +89,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                             }
 
                             dataWrapper.invalidateDataWrapper();
+
+                            wakeLock.release();
                         }
                     }
                 });

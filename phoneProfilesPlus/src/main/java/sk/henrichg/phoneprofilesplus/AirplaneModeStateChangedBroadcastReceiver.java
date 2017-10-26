@@ -4,6 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.PowerManager;
+
+import static android.content.Context.POWER_SERVICE;
 
 public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -27,8 +30,15 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AirplaneModeStateChangedBroadcastReceiver.onReceive");
+                        wakeLock.acquire();
+
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
+
+                        wakeLock.release();
                     }
                 });
             }

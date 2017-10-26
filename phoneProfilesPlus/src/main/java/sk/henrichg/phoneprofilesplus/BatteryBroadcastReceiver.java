@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
 import android.os.Handler;
+import android.os.PowerManager;
+
+import static android.content.Context.POWER_SERVICE;
 
 public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
@@ -89,26 +92,15 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        /*
-                        if (PhoneProfilesService.instance != null) {
-                            if (PhoneProfilesService.isGeofenceScannerStarted())
-                                PhoneProfilesService.getGeofencesScanner().resetLocationUpdates(oldPowerSaveMode, false);
-                            PhoneProfilesService.instance.resetListeningOrientationSensors(oldPowerSaveMode, false);
-                            if (PhoneProfilesService.isPhoneStateScannerStarted())
-                                PhoneProfilesService.phoneStateScanner.resetListening(oldPowerSaveMode, false);
-                        }
-                        */
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BatteryBroadcastReceiver.onReceive");
+                        wakeLock.acquire();
 
-                        /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-                        batteryEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BATTERY) > 0;
-                        dataWrapper.invalidateDataWrapper();
-
-                        if (batteryEventsExists)
-                        {*/
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY, false);
-                        //}
+
+                        wakeLock.release();
                     }
                 });
             }

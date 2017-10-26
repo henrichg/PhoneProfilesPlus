@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.os.Handler;
+import android.os.PowerManager;
+
+import static android.content.Context.POWER_SERVICE;
 
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
@@ -24,6 +27,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PackageReplacedReceiver.onReceive");
+                    wakeLock.acquire();
 
                     // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
                     PPApplication.startedOnBoot = true;
@@ -166,6 +172,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             startService(appContext);
                     }
 
+                    wakeLock.release();
                 }
             });
 

@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
+import android.os.PowerManager;
+
+import static android.content.Context.POWER_SERVICE;
 
 public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
 
@@ -34,6 +37,10 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiConnectionBroadcastReceiver.onReceive");
+                        wakeLock.acquire();
+
                         PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "state=" + info.getState());
 
                         if (PhoneProfilesService.connectToSSIDStarted) {
@@ -72,6 +79,8 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                                     PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
                             }
                         }
+
+                        wakeLock.release();
                     }
                 });
             }

@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.app.NotificationManagerCompat;
@@ -92,9 +93,15 @@ public class PPNotificationListenerService extends NotificationListenerService {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PPNotificationListenerService.onNotificationPosted");
+                    wakeLock.acquire();
+
                     EventsHandler eventsHandler = new EventsHandler(context);
                     eventsHandler.setEventNotificationParameters("posted");
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION, false);
+
+                    wakeLock.release();
                 }
             });
         }
@@ -132,9 +139,15 @@ public class PPNotificationListenerService extends NotificationListenerService {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PPNotificationListenerService.onNotificationRemoved");
+                    wakeLock.acquire();
+
                     EventsHandler eventsHandler = new EventsHandler(context);
                     eventsHandler.setEventNotificationParameters("removed");
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION, false);
+
+                    wakeLock.release();
                 }
             });
         }

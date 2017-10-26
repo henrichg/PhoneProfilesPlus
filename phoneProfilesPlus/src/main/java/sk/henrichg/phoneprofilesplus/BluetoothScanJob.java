@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.support.annotation.NonNull;
 
 import com.evernote.android.job.Job;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import static android.content.Context.POWER_SERVICE;
 
 class BluetoothScanJob extends Job {
 
@@ -751,9 +754,15 @@ class BluetoothScanJob extends Job {
                 new Handler(appContext.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothScanJob.finishScan.Handler.postDelayed");
+                        wakeLock.acquire();
+
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE, false);
+
+                        wakeLock.release();
                     }
                 }, 5000);
             }

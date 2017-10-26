@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
+import static android.content.Context.POWER_SERVICE;
+
 public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -33,6 +35,11 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DeviceIdleModeBroadcastReceiver.onReceive");
+                        wakeLock.acquire();
+
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE, false);
@@ -54,6 +61,8 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                         dataWrapper.invalidateDataWrapper();
+
+                        wakeLock.release();
                     }
                 });
             }

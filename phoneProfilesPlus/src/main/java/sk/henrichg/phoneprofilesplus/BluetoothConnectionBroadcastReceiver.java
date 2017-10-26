@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.os.SystemClock;
 
 import com.google.gson.Gson;
@@ -15,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static android.content.Context.POWER_SERVICE;
 
 public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
@@ -55,6 +58,11 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothConnectionBroadcastReceiver.onReceive");
+                    wakeLock.acquire();
+
                     getConnectedDevices(appContext);
 
                     if (device != null) {
@@ -118,6 +126,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             //}
                         }
                     }
+
+                    wakeLock.release();
                 }
             });
         }

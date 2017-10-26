@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.CellIdentityCdma;
 import android.telephony.CellIdentityGsm;
@@ -27,6 +28,8 @@ import android.telephony.gsm.GsmCellLocation;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static android.content.Context.POWER_SERVICE;
 
 class PhoneStateScanner extends PhoneStateListener {
 
@@ -350,6 +353,10 @@ class PhoneStateScanner extends PhoneStateListener {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneStateScanner.sendBroadcast");
+                    wakeLock.acquire();
+
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                         // start events handler
@@ -357,6 +364,8 @@ class PhoneStateScanner extends PhoneStateListener {
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_STATE, false);
                     }
                     dataWrapper.invalidateDataWrapper();
+
+                    wakeLock.release();
                 }
             });
         }

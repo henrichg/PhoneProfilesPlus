@@ -6,8 +6,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.PowerManager;
 
 import java.util.ArrayList;
+
+import static android.content.Context.POWER_SERVICE;
 
 public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
@@ -44,6 +47,11 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothScanBroadcastReceiver.onReceive");
+                    wakeLock.acquire();
+
                     if (BluetoothScanJob.bluetooth == null)
                         BluetoothScanJob.bluetooth = BluetoothScanJob.getBluetoothAdapter(appContext);
 
@@ -116,10 +124,10 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
                                 BluetoothScanJob.finishScan(appContext);
                             }
-
                         }
-
                     }
+
+                    wakeLock.release();
                 }
             });
 

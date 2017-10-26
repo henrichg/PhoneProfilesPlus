@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
@@ -68,8 +69,14 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
+                                PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ForegroundApplicationChangedService.onAccessibilityEvent");
+                                wakeLock.acquire();
+
                                 EventsHandler eventsHandler = new EventsHandler(context);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION, false);
+
+                                wakeLock.release();
                             }
                         });
                     }
@@ -105,8 +112,14 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ForegroundApplicationChangedService.onUnbind");
+                wakeLock.acquire();
+
                 EventsHandler eventsHandler = new EventsHandler(context);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION, false);
+
+                wakeLock.release();
             }
         });
 

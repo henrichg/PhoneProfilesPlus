@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.support.annotation.RequiresApi;
+
+import static android.content.Context.POWER_SERVICE;
 
 public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -34,8 +37,14 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "NFCStateChangedBroadcastReceiver.onReceive");
+                            wakeLock.acquire();
+
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
+
+                            wakeLock.release();
                         }
                     });
                 }
