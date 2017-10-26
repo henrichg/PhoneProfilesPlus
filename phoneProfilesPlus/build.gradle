@@ -57,7 +57,7 @@ dependencies {
     provided files('libs/hidden-apis_2.jar')
     compile files('libs/sdk-v1.0.0.jar')
     compile files('libs/slook_v1.4.0.jar')
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.2'
     compile 'com.android.support:support-core-ui:' + ppVersions.supportLib
     compile 'com.android.support:appcompat-v7:' + ppVersions.supportLib
     compile 'com.android.support:gridlayout-v7:' + ppVersions.supportLib
@@ -69,12 +69,10 @@ dependencies {
     }
     compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
-    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.google.android.gms:play-services-location:11.4.2'
     compile 'com.google.android.gms:play-services-maps:11.4.2'
-    compile ('com.afollestad.material-dialogs:core:0.9.4.7') {
-        exclude group: 'com.android.support', module: 'support-v13'
-    }
+    compile 'com.afollestad.material-dialogs:core:0.9.5.0'
     compile 'com.labo.kaji:relativepopupwindow:0.3.1'
     compile 'com.github.KeepSafe:TapTargetView:master-SNAPSHOT'
     compile 'com.evernote:android-job:1.2.0'
