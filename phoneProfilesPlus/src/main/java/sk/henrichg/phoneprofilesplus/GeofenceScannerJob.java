@@ -65,7 +65,8 @@ class GeofenceScannerJob extends Job {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            PhoneProfilesService.getGeofencesScanner().startLocationUpdates();
+                            if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.getGeofencesScanner() != null))
+                                PhoneProfilesService.getGeofencesScanner().startLocationUpdates();
                         }
                     });
                 }
