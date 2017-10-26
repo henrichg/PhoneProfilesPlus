@@ -55,7 +55,7 @@ class BetterNumberPickerPreference extends DialogPreference {
                 .negativeText(getNegativeButtonText())
                 .content(getDialogMessage())
                 .autoDismiss(false)
-                .customView(R.layout.activity_better_number_pref_dialog, false)
+                .customView(R.layout.activity_better_number_pref_dialog, true)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {

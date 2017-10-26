@@ -10,7 +10,7 @@
     <item android:id="@+id/menu_activity_log"
         android:title="@string/menu_activity_log"
         android:orderInCategory="101"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:icon="?attr/actionActivityLogIcon"
         tools:ignore="AlwaysShowAction" />
     <item android:id="@+id/important_info"

@@ -59,7 +59,7 @@ public class DurationDialogPreference extends DialogPreference
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
                 .content(getDialogMessage())
-                .customView(R.layout.activity_duration_pref_dialog, false)
+                .customView(R.layout.activity_duration_pref_dialog, true)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {

@@ -778,12 +778,7 @@ public class EditorEventListFragment extends Fragment
                                         .targetCircleColorInt(circleColor)
                                         .textColorInt(0xFFFFFF)
                                         .drawShadow(true)
-                                        .id(2),
-                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
-                                        .targetCircleColorInt(circleColor)
-                                        .textColorInt(0xFFFFFF)
-                                        .drawShadow(true)
-                                        .id(3)
+                                        .id(2)
                         )
                         .listener(new TapTargetSequence.Listener() {
                             // This listener will tell us when interesting(tm) events happen in regards

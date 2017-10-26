@@ -76,7 +76,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 .positiveText(R.string.fast_access_duration_activate_with_button)
                 .negativeText(android.R.string.cancel)
                 .neutralText(R.string.fast_access_duration_activate_without_button)
-                .customView(R.layout.activity_fast_access_duration_dialog, false)
+                .customView(R.layout.activity_fast_access_duration_dialog, true)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
