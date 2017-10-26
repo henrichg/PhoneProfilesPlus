@@ -234,7 +234,10 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
     private class SortList implements Comparator<WifiSSIDData> {
 
         public int compare(WifiSSIDData lhs, WifiSSIDData rhs) {
-            return GlobalGUIRoutines.collator.compare(lhs.ssid, rhs.ssid);
+            if (GlobalGUIRoutines.collator != null)
+                return GlobalGUIRoutines.collator.compare(lhs.ssid, rhs.ssid);
+            else
+                return 0;
         }
 
     }

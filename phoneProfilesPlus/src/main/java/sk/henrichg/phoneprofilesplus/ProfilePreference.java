@@ -406,7 +406,10 @@ public class ProfilePreference extends DialogPreference {
     private class AlphabeticallyComparator implements Comparator<Profile> {
 
         public int compare(Profile lhs, Profile rhs) {
-            return GlobalGUIRoutines.collator.compare(lhs._name, rhs._name);
+            if (GlobalGUIRoutines.collator != null)
+                return GlobalGUIRoutines.collator.compare(lhs._name, rhs._name);
+            else
+                return 0;
         }
     }
 }

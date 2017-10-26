@@ -467,25 +467,28 @@ public class MobileCellsPreference extends DialogPreference {
     private class SortList implements Comparator<MobileCellsData> {
 
         public int compare(MobileCellsData lhs, MobileCellsData rhs) {
-            String _lhs = "";
-            if (lhs._new)
-                _lhs = _lhs + "\uFFFF";
-            if (lhs.name.isEmpty())
-                _lhs = _lhs + "\uFFFF";
-            else
-                _lhs = _lhs + lhs.name;
-            _lhs = _lhs + "-" + lhs.cellId;
+            if (GlobalGUIRoutines.collator != null) {
+                String _lhs = "";
+                if (lhs._new)
+                    _lhs = _lhs + "\uFFFF";
+                if (lhs.name.isEmpty())
+                    _lhs = _lhs + "\uFFFF";
+                else
+                    _lhs = _lhs + lhs.name;
+                _lhs = _lhs + "-" + lhs.cellId;
 
-            String _rhs = "";
-            if (rhs._new)
-                _rhs = _rhs + "\uFFFF";
-            if (rhs.name.isEmpty())
-                _rhs = _rhs + "\uFFFF";
+                String _rhs = "";
+                if (rhs._new)
+                    _rhs = _rhs + "\uFFFF";
+                if (rhs.name.isEmpty())
+                    _rhs = _rhs + "\uFFFF";
+                else
+                    _rhs = _rhs + rhs.name;
+                _rhs = _rhs + "-" + rhs.cellId;
+                return GlobalGUIRoutines.collator.compare(_lhs, _rhs);
+            }
             else
-                _rhs = _rhs + rhs.name;
-            _rhs = _rhs + "-" + rhs.cellId;
-
-            return GlobalGUIRoutines.collator.compare(_lhs, _rhs);
+                return 0;
         }
 
     }

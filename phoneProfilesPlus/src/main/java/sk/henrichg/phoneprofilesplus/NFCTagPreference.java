@@ -405,7 +405,10 @@ public class NFCTagPreference extends DialogPreference {
     private class SortList implements Comparator<NFCTagData> {
 
         public int compare(NFCTagData lhs, NFCTagData rhs) {
-            return GlobalGUIRoutines.collator.compare(lhs.name, rhs.name);
+            if (GlobalGUIRoutines.collator != null)
+                return GlobalGUIRoutines.collator.compare(lhs.name, rhs.name);
+            else
+                return 0;
         }
 
     }

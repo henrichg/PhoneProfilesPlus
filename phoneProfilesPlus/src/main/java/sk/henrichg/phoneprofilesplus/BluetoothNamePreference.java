@@ -516,7 +516,10 @@ public class BluetoothNamePreference extends DialogPreference {
     private class SortList implements Comparator<BluetoothDeviceData> {
 
         public int compare(BluetoothDeviceData lhs, BluetoothDeviceData rhs) {
-            return GlobalGUIRoutines.collator.compare(lhs.getName(), rhs.getName());
+            if (GlobalGUIRoutines.collator != null)
+                return GlobalGUIRoutines.collator.compare(lhs.getName(), rhs.getName());
+            else
+                return 0;
         }
 
     }

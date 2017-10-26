@@ -663,7 +663,10 @@ public class EditorEventListFragment extends Fragment
 
         class EventNameComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
-                return GlobalGUIRoutines.collator.compare(lhs._name, rhs._name);
+                if (GlobalGUIRoutines.collator != null)
+                    return GlobalGUIRoutines.collator.compare(lhs._name, rhs._name);
+                else
+                    return 0;
             }
         }
 
@@ -675,13 +678,17 @@ public class EditorEventListFragment extends Fragment
 
         class ProfileNameComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
-                Profile profileLhs = dataWrapper.getProfileById(lhs._fkProfileStart, false);
-                Profile profileRhs = dataWrapper.getProfileById(rhs._fkProfileStart, false);
-                String nameLhs = "";
-                if (profileLhs != null) nameLhs = profileLhs._name;
-                String nameRhs = "";
-                if (profileRhs != null) nameRhs = profileRhs._name;
-                return GlobalGUIRoutines.collator.compare(nameLhs, nameRhs);
+                if (GlobalGUIRoutines.collator != null) {
+                    Profile profileLhs = dataWrapper.getProfileById(lhs._fkProfileStart, false);
+                    Profile profileRhs = dataWrapper.getProfileById(rhs._fkProfileStart, false);
+                    String nameLhs = "";
+                    if (profileLhs != null) nameLhs = profileLhs._name;
+                    String nameRhs = "";
+                    if (profileRhs != null) nameRhs = profileRhs._name;
+                    return GlobalGUIRoutines.collator.compare(nameLhs, nameRhs);
+                }
+                else
+                    return 0;
             }
         }
 

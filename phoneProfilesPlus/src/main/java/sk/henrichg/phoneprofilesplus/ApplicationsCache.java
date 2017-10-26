@@ -18,7 +18,17 @@ public class ApplicationsCache {
     private class SortList implements Comparator<Application> {
 
         public int compare(Application lhs, Application rhs) {
-            return GlobalGUIRoutines.collator.compare(lhs.appLabel, rhs.appLabel);
+            if (GlobalGUIRoutines.collator != null) {
+                if (lhs == null)
+                    return -1;
+                else
+                if (rhs == null)
+                    return 1;
+                else
+                    return GlobalGUIRoutines.collator.compare(lhs.appLabel, rhs.appLabel);
+            }
+            else
+                return 0;
         }
 
     }
