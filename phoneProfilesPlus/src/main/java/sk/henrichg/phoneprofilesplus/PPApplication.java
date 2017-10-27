@@ -49,7 +49,7 @@ public class PPApplication extends Application {
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
                                          //+"|PhoneProfilesService.onStartCommand"
-                                         +"|PhoneProfilesService.doForFirstStart"
+                                         //+"|PhoneProfilesService.doForFirstStart"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
@@ -59,8 +59,12 @@ public class PPApplication extends Application {
                                          //+"|[RJS] PPApplication"
                                          //+"|[RJS] PhoneProfilesService"
 
-                                         //+"|*** DataWrapper.doHandleEvents"
-                                         //+"|ScreenOnOffBroadcastReceiver.onReceive"
+                                         +"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
+                                         +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
+                                         +"|ActivateProfileHelper.executeForVolumes"
+                                         +"|ActivateProfileHelper.setRingerMode"
+                                         +"|ActivateProfileHelper.setVolumes"
+                                         +"|ActivateProfileHelper.setZenMode"
             ;
 
 

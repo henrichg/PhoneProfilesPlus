@@ -693,6 +693,7 @@ public class ActivateProfileHelper {
                                 //PhoneProfilesService.notificationVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
                                 //correctVolume0(audioManager);
+                                PPApplication.logE("ActivateProfileHelper.setVolumes", "notification volume set");
                             } catch (Exception ignored) { }
                         }
                     }
@@ -704,6 +705,7 @@ public class ActivateProfileHelper {
                             PhoneProfilesService.ringingVolume = volume;
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
                             //correctVolume0(audioManager);
+                            PPApplication.logE("ActivateProfileHelper.setVolumes", "ringer volume set");
                         } catch (Exception ignored) { }
                     }
                 }
@@ -766,7 +768,7 @@ public class ActivateProfileHelper {
             PPApplication.logE("ActivateProfileHelper.setZenMode", "ringerMode=" + ringerMode);
 
             int _zenMode = getSystemZenMode(context, -1);
-            PPApplication.logE("ActivateProfileHelper.setZenMode", "_zenMode=" + _zenMode);
+            PPApplication.logE("ActivateProfileHelper.setZenMode", " _zenMode (system)=" + _zenMode);
             int _ringerMode = audioManager.getRingerMode();
             PPApplication.logE("ActivateProfileHelper.setZenMode", "_ringerMode=" + _ringerMode);
 
@@ -963,9 +965,12 @@ public class ActivateProfileHelper {
 
                         setRingerMode(appContext, profile, audioManager, true, /*linkUnlink,*/ forProfileActivation);
                         PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
-                        setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation);
-                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
+                        //setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation);
+                        //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
                         setRingerMode(appContext, profile, audioManager, false, /*linkUnlink,*/ forProfileActivation);
+                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
+                        PPApplication.sleep(500);
+                        setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation);
                         PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
 
                         //try { Thread.sleep(500); } catch (InterruptedException e) { }
@@ -1022,12 +1027,10 @@ public class ActivateProfileHelper {
     }
 
     private void changeRingerModeForVolumeEqual0(/*Context context, */Profile profile) {
-        if (profile.getVolumeRingtoneChange()) {
-            //int ringerMode = PPApplication.getRingerMode(context);
-            //int zenMode = PPApplication.getZenMode(context);
+        PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneChange=" + profile.getVolumeRingtoneChange());
+        PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneValue=" + profile.getVolumeRingtoneValue());
 
-            //PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "ringerMode=" + ringerMode);
-            //PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "zenMode=" + zenMode);
+        if (profile.getVolumeRingtoneChange()) {
 
             if (profile.getVolumeRingtoneValue() == 0) {
                 profile.setVolumeRingtoneValue(1);
@@ -1049,6 +1052,9 @@ public class ActivateProfileHelper {
     }
 
     private void changeNotificationVolumeForVolumeEqual0(Context context, Profile profile) {
+        PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "volumeNotificationChange="+profile.getVolumeNotificationChange());
+        PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "mergedRingNotificationVolumes="+getMergedRingNotificationVolumes(context));
+        PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "volumeNotificationValue="+profile.getVolumeNotificationValue());
         if (profile.getVolumeNotificationChange() && getMergedRingNotificationVolumes(context)) {
             if (profile.getVolumeNotificationValue() == 0) {
                 PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "changed notification value to 1");
