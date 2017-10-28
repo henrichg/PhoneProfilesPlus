@@ -50,71 +50,79 @@ class SearchCalendarEventsJob extends Job {
         return Result.SUCCESS;
     }
 
+    private static void _scheduleJob(final Context context, final Handler _handler, final boolean shortInterval) {
+        JobManager jobManager = null;
+        try {
+            jobManager = JobManager.instance();
+        } catch (Exception ignored) { }
+
+        if (jobManager != null) {
+            final JobRequest.Builder jobBuilder;
+            if (!shortInterval) {
+                jobManager.cancelAllForTag(JOB_TAG_SHORT);
+                int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+                PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
+                if (requestsForTagSize == 0) {
+                    jobBuilder = new JobRequest.Builder(JOB_TAG);
+                    // each 24 hours
+                    jobBuilder.setPeriodic(TimeUnit.HOURS.toMillis(24));
+                } else
+                    return;
+            } else {
+                cancelJob(context, _handler);
+                jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
+                jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+            }
+
+            PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "build and schedule");
+
+            try {
+                jobBuilder
+                        .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                        .build()
+                        .schedule();
+            } catch (Exception ignored) { }
+        }
+    }
+
     static void scheduleJob(final Context context, final Handler _handler, final boolean shortInterval) {
         PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "shortInterval="+shortInterval);
 
-        final Handler handler;
-        if (_handler == null)
-            handler = new Handler(context.getMainLooper());
-        else
-            handler = _handler;
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                JobManager jobManager = null;
-                try {
-                    jobManager = JobManager.instance();
-                } catch (Exception ignored) { }
-
-                if (jobManager != null) {
-                    final JobRequest.Builder jobBuilder;
-                    if (!shortInterval) {
-                        jobManager.cancelAllForTag(JOB_TAG_SHORT);
-                        int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
-                        PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
-                        if (requestsForTagSize == 0) {
-                            jobBuilder = new JobRequest.Builder(JOB_TAG);
-                            // each 24 hours
-                            jobBuilder.setPeriodic(TimeUnit.HOURS.toMillis(24));
-                        } else
-                            return;
-                    } else {
-                        cancelJob(context, handler);
-                        jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
-                        jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
-                    }
-
-                    PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "build and schedule");
-
-                    try {
-                        jobBuilder
-                                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                                .build()
-                                .schedule();
-                    } catch (Exception ignored) { }
+        if (_handler == null) {
+            final Handler handler = new Handler(context.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    _scheduleJob(context, handler, shortInterval);
                 }
-            }
-        });
+            });
+        }
+        else
+            _scheduleJob(context, _handler, shortInterval);
+    }
+
+    private static void _cancelJob(final Context context, final Handler _handler) {
+        try {
+            JobManager jobManager = JobManager.instance();
+            jobManager.cancelAllForTag(JOB_TAG_SHORT);
+            jobManager.cancelAllForTag(JOB_TAG);
+        } catch (Exception ignored) {}
     }
 
     static void cancelJob(final Context context, final Handler _handler) {
         PPApplication.logE("SearchCalendarEventsJob.cancelJob", "xxx");
 
-        final Handler handler;
-        if (_handler == null)
-            handler = new Handler(context.getMainLooper());
+        if (_handler == null) {
+            final Handler handler = new Handler(context.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    _cancelJob(context, handler);
+                }
+            });
+        }
         else
-            handler = _handler;
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    JobManager jobManager = JobManager.instance();
-                    jobManager.cancelAllForTag(JOB_TAG_SHORT);
-                    jobManager.cancelAllForTag(JOB_TAG);
-                } catch (Exception ignored) {}
-            }
-        });
+            _cancelJob(context, _handler);
     }
 
     static boolean isJobScheduled() {

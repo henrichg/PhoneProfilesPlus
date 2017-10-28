@@ -79,102 +79,110 @@ class BluetoothScanJob extends Job {
         return Result.SUCCESS;
     }
 
+    private static void _scheduleJob(final Context context, final Handler _handler, final boolean shortInterval, final boolean forScreenOn) {
+        JobManager jobManager = null;
+        try {
+            jobManager = JobManager.instance();
+        } catch (Exception ignored) { }
+
+        if (jobManager != null) {
+            final JobRequest.Builder jobBuilder;
+            if (!shortInterval) {
+                jobManager.cancelAllForTag(JOB_TAG_SHORT);
+
+                int interval = ApplicationPreferences.applicationEventBluetoothScanInterval(context);
+                //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                if (isPowerSaveMode && ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context).equals("1"))
+                    interval = 2 * interval;
+
+                jobBuilder = new JobRequest.Builder(JOB_TAG);
+
+                if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL) {
+                    jobManager.cancelAllForTag(JOB_TAG);
+                    jobBuilder.setExact(TimeUnit.MINUTES.toMillis(interval));
+                } else {
+                    int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+                    PPApplication.logE("BluetoothScanJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
+                    if (requestsForTagSize == 0) {
+                        if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL)
+                            jobBuilder.setPeriodic(JobRequest.MIN_INTERVAL);
+                        else
+                            jobBuilder.setPeriodic(TimeUnit.MINUTES.toMillis(interval));
+                    } else
+                        return;
+                }
+            } else {
+                cancelJob(context, _handler);
+                jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
+                if (forScreenOn)
+                    jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+                else
+                    jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+            }
+
+            PPApplication.logE("BluetoothScanJob.scheduleJob", "build and schedule");
+
+            try {
+                jobBuilder
+                        .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                        .build()
+                        .schedule();
+            } catch (Exception ignored) {}
+        }
+    }
+
     static void scheduleJob(final Context context, final Handler _handler, final boolean shortInterval, final boolean forScreenOn) {
         PPApplication.logE("BluetoothScanJob.scheduleJob", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
                 == PPApplication.PREFERENCE_ALLOWED) {
-            final Handler handler;
-            if (_handler == null)
-                handler = new Handler(context.getMainLooper());
-            else
-                handler = _handler;
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    JobManager jobManager = null;
-                    try {
-                        jobManager = JobManager.instance();
-                    } catch (Exception ignored) { }
-
-                    if (jobManager != null) {
-                        final JobRequest.Builder jobBuilder;
-                        if (!shortInterval) {
-                            jobManager.cancelAllForTag(JOB_TAG_SHORT);
-
-                            int interval = ApplicationPreferences.applicationEventBluetoothScanInterval(context);
-                            //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                            if (isPowerSaveMode && ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context).equals("1"))
-                                interval = 2 * interval;
-
-                            jobBuilder = new JobRequest.Builder(JOB_TAG);
-
-                            if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL) {
-                                jobManager.cancelAllForTag(JOB_TAG);
-                                jobBuilder.setExact(TimeUnit.MINUTES.toMillis(interval));
-                            } else {
-                                int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
-                                PPApplication.logE("BluetoothScanJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
-                                if (requestsForTagSize == 0) {
-                                    if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL)
-                                        jobBuilder.setPeriodic(JobRequest.MIN_INTERVAL);
-                                    else
-                                        jobBuilder.setPeriodic(TimeUnit.MINUTES.toMillis(interval));
-                                } else
-                                    return;
-                            }
-                        } else {
-                            cancelJob(context, handler);
-                            jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
-                            if (forScreenOn)
-                                jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
-                            else
-                                jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
-                        }
-
-                        PPApplication.logE("BluetoothScanJob.scheduleJob", "build and schedule");
-
-                        try {
-                            jobBuilder
-                                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                                    .build()
-                                    .schedule();
-                        } catch (Exception ignored) {}
+            if (_handler == null) {
+                final Handler handler = new Handler(context.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        _scheduleJob(context, handler, shortInterval, forScreenOn);
                     }
-                }
-            });
+                });
+            }
+            else
+                _scheduleJob(context, _handler, shortInterval, forScreenOn);
         }
         else
             PPApplication.logE("BluetoothScanJob.scheduleJob","BluetoothHardware=false");
     }
 
+    private static void _cancelJob(final Context context, final Handler _handler) {
+        BluetoothScanJob.setScanRequest(context, false);
+        BluetoothScanJob.setWaitForResults(context, false);
+        BluetoothScanJob.setLEScanRequest(context, false);
+        BluetoothScanJob.setWaitForLEResults(context, false);
+        BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+        Scanner.setForceOneBluetoothScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
+        Scanner.setForceOneLEBluetoothScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
+
+        try {
+            JobManager jobManager = JobManager.instance();
+            jobManager.cancelAllForTag(JOB_TAG_SHORT);
+            jobManager.cancelAllForTag(JOB_TAG);
+        } catch (Exception ignored) {}
+    }
+
     static void cancelJob(final Context context, final Handler _handler) {
         PPApplication.logE("BluetoothScanJob.cancelJob", "xxx");
 
-        final Handler handler;
-        if (_handler == null)
-            handler = new Handler(context.getMainLooper());
+        if (_handler == null) {
+            final Handler handler = new Handler(context.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    _cancelJob(context, handler);
+                }
+            });
+        }
         else
-            handler = _handler;
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                BluetoothScanJob.setScanRequest(context, false);
-                BluetoothScanJob.setWaitForResults(context, false);
-                BluetoothScanJob.setLEScanRequest(context, false);
-                BluetoothScanJob.setWaitForLEResults(context, false);
-                BluetoothScanJob.setBluetoothEnabledForScan(context, false);
-                Scanner.setForceOneBluetoothScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
-                Scanner.setForceOneLEBluetoothScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
-
-                try {
-                    JobManager jobManager = JobManager.instance();
-                    jobManager.cancelAllForTag(JOB_TAG_SHORT);
-                    jobManager.cancelAllForTag(JOB_TAG);
-                } catch (Exception ignored) {}
-            }
-        });
+            _cancelJob(context, _handler);
     }
 
     static boolean isJobScheduled() {

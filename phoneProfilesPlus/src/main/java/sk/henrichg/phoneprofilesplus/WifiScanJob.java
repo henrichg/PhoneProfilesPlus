@@ -71,101 +71,111 @@ class WifiScanJob extends Job {
         return Result.SUCCESS;
     }
 
+    private static void _scheduleJob(final Context context, final Handler _handler, final boolean shortInterval, final boolean forScreenOn, final boolean afterEnableWifi) {
+        JobManager jobManager = null;
+        try {
+            jobManager = JobManager.instance();
+        } catch (Exception ignored) { }
+
+        if (jobManager != null) {
+            final JobRequest.Builder jobBuilder;
+            if (!shortInterval) {
+                jobManager.cancelAllForTag(JOB_TAG_SHORT);
+
+                int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
+                //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("1"))
+                    interval = 2 * interval;
+
+                jobBuilder = new JobRequest.Builder(JOB_TAG);
+
+                if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL) {
+                    jobManager.cancelAllForTag(JOB_TAG);
+                    jobBuilder.setExact(TimeUnit.MINUTES.toMillis(interval));
+                } else {
+                    int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+                    PPApplication.logE("WifiScanJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
+                    if (requestsForTagSize == 0) {
+                        if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL)
+                            jobBuilder.setPeriodic(JobRequest.MIN_INTERVAL);
+                        else
+                            jobBuilder.setPeriodic(TimeUnit.MINUTES.toMillis(interval));
+                    } else
+                        return;
+                }
+            } else {
+                cancelJob(context, _handler);
+                jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
+                if (afterEnableWifi)
+                    jobBuilder.setExact(TimeUnit.SECONDS.toMillis(2));
+                else if (forScreenOn)
+                    jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+                else
+                    jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+            }
+
+            PPApplication.logE("WifiScanJob.scheduleJob", "build and schedule");
+
+            try {
+                jobBuilder
+                        .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                        .build()
+                        .schedule();
+            } catch (Exception e) {
+                PPApplication.logE("WifiScanJob.scheduleJob",e.toString());
+            }
+        }
+    }
+
     static void scheduleJob(final Context context, final Handler _handler, final boolean shortInterval, final boolean forScreenOn, final boolean afterEnableWifi) {
         PPApplication.logE("WifiScanJob.scheduleJob", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context)
                 == PPApplication.PREFERENCE_ALLOWED) {
-            final Handler handler;
-            if (_handler == null)
-                handler = new Handler(context.getMainLooper());
-            else
-                handler = _handler;
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    JobManager jobManager = null;
-                    try {
-                        jobManager = JobManager.instance();
-                    } catch (Exception ignored) { }
-
-                    if (jobManager != null) {
-                        final JobRequest.Builder jobBuilder;
-                        if (!shortInterval) {
-                            jobManager.cancelAllForTag(JOB_TAG_SHORT);
-
-                            int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
-                            //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                            if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("1"))
-                                interval = 2 * interval;
-
-                            jobBuilder = new JobRequest.Builder(JOB_TAG);
-
-                            if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL) {
-                                jobManager.cancelAllForTag(JOB_TAG);
-                                jobBuilder.setExact(TimeUnit.MINUTES.toMillis(interval));
-                            } else {
-                                int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
-                                PPApplication.logE("WifiScanJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
-                                if (requestsForTagSize == 0) {
-                                    if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL)
-                                        jobBuilder.setPeriodic(JobRequest.MIN_INTERVAL);
-                                    else
-                                        jobBuilder.setPeriodic(TimeUnit.MINUTES.toMillis(interval));
-                                } else
-                                    return;
-                            }
-                        } else {
-                            cancelJob(context, handler);
-                            jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
-                            if (afterEnableWifi)
-                                jobBuilder.setExact(TimeUnit.SECONDS.toMillis(2));
-                            else if (forScreenOn)
-                                jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
-                            else
-                                jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
-                        }
-
-                        PPApplication.logE("WifiScanJob.scheduleJob", "build and schedule");
-
-                        try {
-                            jobBuilder
-                                    .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                                    .build()
-                                    .schedule();
-                        } catch (Exception ignored) { }
+            if (_handler == null) {
+                final Handler handler = new Handler(context.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        _scheduleJob(context, handler, shortInterval, forScreenOn,afterEnableWifi);
                     }
-                }
-            });
+                });
+            }
+            else
+                _scheduleJob(context, _handler, shortInterval, forScreenOn,afterEnableWifi);
         }
         else
             PPApplication.logE("WifiScanJob.scheduleJob","WifiHardware=false");
     }
 
+    private static void _cancelJob(final Context context, final Handler _handler) {
+        WifiScanJob.setScanRequest(context, false);
+        WifiScanJob.setWaitForResults(context, false);
+        WifiScanJob.setWifiEnabledForScan(context, false);
+        Scanner.setForceOneWifiScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
+
+        try {
+            JobManager jobManager = JobManager.instance();
+            jobManager.cancelAllForTag(JOB_TAG_SHORT);
+            jobManager.cancelAllForTag(JOB_TAG);
+        } catch (Exception ignored) {}
+    }
+
     static void cancelJob(final Context context, final Handler _handler) {
         PPApplication.logE("WifiScanJob.cancelJob", "xxx");
 
-        final Handler handler;
-        if (_handler == null)
-            handler = new Handler(context.getMainLooper());
+        if (_handler == null) {
+            final Handler handler = new Handler(context.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    _cancelJob(context, handler);
+                }
+            });
+        }
         else
-            handler = _handler;
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                WifiScanJob.setScanRequest(context, false);
-                WifiScanJob.setWaitForResults(context, false);
-                WifiScanJob.setWifiEnabledForScan(context, false);
-                Scanner.setForceOneWifiScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
-
-                try {
-                    JobManager jobManager = JobManager.instance();
-                    jobManager.cancelAllForTag(JOB_TAG_SHORT);
-                    jobManager.cancelAllForTag(JOB_TAG);
-                } catch (Exception ignored) {}
-            }
-        });
+            _cancelJob(context, _handler);
     }
 
     static boolean isJobScheduled() {

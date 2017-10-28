@@ -56,15 +56,18 @@ public class PPApplication extends Application {
                                          +"|ShutdownBroadcastReceiver"
 
                                          //+"|"+CallsCounter.LOG_TAG
-                                         //+"|[RJS] PPApplication"
-                                         //+"|[RJS] PhoneProfilesService"
+                                         +"|[RJS] PPApplication"
+                                         +"|[RJS] PhoneProfilesService"
 
+                                         /*
                                          +"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
                                          +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
                                          +"|ActivateProfileHelper.executeForVolumes"
                                          +"|ActivateProfileHelper.setRingerMode"
                                          +"|ActivateProfileHelper.setVolumes"
                                          +"|ActivateProfileHelper.setZenMode"
+                                         */
+                                         +"|WifiScanJob"
             ;
 
 
