@@ -2973,7 +2973,7 @@ public class DataWrapper {
                 public void run() {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.restartEvents.1");
-                    wakeLock.acquire();
+                    wakeLock.acquire(10 * 60 * 1000);
 
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE, false);
@@ -3017,7 +3017,7 @@ public class DataWrapper {
             public void run() {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.restartEvents.2");
-                wakeLock.acquire();
+                wakeLock.acquire(10 * 60 * 1000);
 
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS, interactive);

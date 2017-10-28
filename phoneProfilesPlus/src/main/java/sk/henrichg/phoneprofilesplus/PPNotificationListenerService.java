@@ -95,7 +95,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 public void run() {
                     PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PPNotificationListenerService.onNotificationPosted");
-                    wakeLock.acquire();
+                    wakeLock.acquire(10 * 60 * 1000);
 
                     EventsHandler eventsHandler = new EventsHandler(context);
                     eventsHandler.setEventNotificationParameters("posted");
@@ -141,7 +141,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 public void run() {
                     PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PPNotificationListenerService.onNotificationRemoved");
-                    wakeLock.acquire();
+                    wakeLock.acquire(10 * 60 * 1000);
 
                     EventsHandler eventsHandler = new EventsHandler(context);
                     eventsHandler.setEventNotificationParameters("removed");

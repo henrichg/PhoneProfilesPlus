@@ -44,7 +44,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                 public void run() {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiStateChangedBroadcastReceiver.onReceive");
-                    wakeLock.acquire();
+                    wakeLock.acquire(10 * 60 * 1000);
 
                     if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                         if (!((WifiScanJob.getScanRequest(appContext)) ||
@@ -92,7 +92,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         public void run() {
                                             PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                                             PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiStateChangedBroadcastReceiver.onReceive.Handler.postDelayed.1");
-                                            wakeLock.acquire();
+                                            wakeLock.acquire(10 * 60 * 1000);
 
                                             PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
                                             WifiScanJob.startScan(appContext);
@@ -115,7 +115,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         public void run() {
                                             PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                                             PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiStateChangedBroadcastReceiver.onReceive.Handler.post.2");
-                                            wakeLock.acquire();
+                                            wakeLock.acquire(10 * 60 * 1000);
 
                                             PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
                                             WifiScanJob.fillWifiConfigurationList(appContext);

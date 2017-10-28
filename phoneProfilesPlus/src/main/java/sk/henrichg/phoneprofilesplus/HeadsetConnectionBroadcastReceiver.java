@@ -106,7 +106,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "HeadsetConnectionBroadcastReceiver.onReceive");
-                        wakeLock.acquire();
+                        wakeLock.acquire(10 * 60 * 1000);
 
                         /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                         boolean peripheralEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL) > 0;

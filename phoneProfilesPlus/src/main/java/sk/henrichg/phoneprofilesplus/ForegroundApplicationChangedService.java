@@ -71,7 +71,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
                             public void run() {
                                 PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                                 PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ForegroundApplicationChangedService.onAccessibilityEvent");
-                                wakeLock.acquire();
+                                wakeLock.acquire(10 * 60 * 1000);
 
                                 EventsHandler eventsHandler = new EventsHandler(context);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION, false);
@@ -119,7 +119,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
                 EventsHandler eventsHandler = new EventsHandler(context);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION, false);
 
-                wakeLock.release();
+                wakeLock.release(10 * 60 * 1000);
             }
         });
 

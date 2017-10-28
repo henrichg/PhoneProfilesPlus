@@ -116,7 +116,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     {
         PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneCallBroadcastReceiver.doCallEvent");
-        wakeLock.acquire();
+        wakeLock.acquire(10 * 60 * 1000);
 
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();

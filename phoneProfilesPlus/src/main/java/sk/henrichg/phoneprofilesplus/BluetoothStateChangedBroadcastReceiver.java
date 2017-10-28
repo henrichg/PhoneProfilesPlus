@@ -40,7 +40,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothStateChangedBroadcastReceiver.onReceive");
-                    wakeLock.acquire();
+                    wakeLock.acquire(10 * 60 * 1000);
 
                     // remove connected devices list
                     if (bluetoothState == BluetoothAdapter.STATE_OFF) {

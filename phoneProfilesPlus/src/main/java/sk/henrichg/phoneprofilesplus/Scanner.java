@@ -499,7 +499,7 @@ class Scanner {
             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ScanWakeLock");
         try {
             if (!wakeLock.isHeld())
-                wakeLock.acquire();
+                wakeLock.acquire(10 * 60 * 1000);
             PPApplication.logE("$$$ Scanner.lock","xxx");
         } catch(Exception e) {
             Log.e("Scanner.lock", "Error getting Lock: " + e.getMessage());

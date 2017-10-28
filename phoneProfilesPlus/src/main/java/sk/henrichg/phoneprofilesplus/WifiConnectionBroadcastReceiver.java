@@ -39,7 +39,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiConnectionBroadcastReceiver.onReceive");
-                        wakeLock.acquire();
+                        wakeLock.acquire(10 * 60 * 1000);
 
                         PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "state=" + info.getState());
 

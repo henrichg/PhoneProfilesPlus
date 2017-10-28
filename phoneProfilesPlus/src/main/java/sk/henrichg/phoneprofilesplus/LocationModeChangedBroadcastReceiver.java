@@ -34,7 +34,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                 public void run() {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "LocationModeChangedBroadcastReceiver.onReceive");
-                    wakeLock.acquire();
+                    wakeLock.acquire(10 * 60 * 1000);
 
                     if (action.matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
                         //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);

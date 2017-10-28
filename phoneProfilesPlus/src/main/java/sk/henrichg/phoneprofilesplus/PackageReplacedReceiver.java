@@ -29,7 +29,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 public void run() {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PackageReplacedReceiver.onReceive");
-                    wakeLock.acquire();
+                    wakeLock.acquire(10 * 60 * 1000);
 
                     // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
                     PPApplication.startedOnBoot = true;

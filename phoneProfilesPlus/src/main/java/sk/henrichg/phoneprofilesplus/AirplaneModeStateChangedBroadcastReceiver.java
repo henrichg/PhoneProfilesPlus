@@ -33,7 +33,7 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AirplaneModeStateChangedBroadcastReceiver.onReceive");
-                        wakeLock.acquire();
+                        wakeLock.acquire(10 * 60 * 1000);
 
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);

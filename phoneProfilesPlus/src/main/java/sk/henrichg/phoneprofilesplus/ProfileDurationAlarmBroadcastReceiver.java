@@ -42,7 +42,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ProfileDurationAlarmBroadcastReceiver.onReceive");
-                            wakeLock.acquire();
+                            wakeLock.acquire(10 * 60 * 1000);
 
                             DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
 

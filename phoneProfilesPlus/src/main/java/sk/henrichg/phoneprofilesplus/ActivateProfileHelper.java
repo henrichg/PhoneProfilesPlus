@@ -418,7 +418,7 @@ public class ActivateProfileHelper {
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForRadios");
-                wakeLock.acquire();
+                wakeLock.acquire(10 * 60 * 1000);
 
                 boolean _isAirplaneMode = false;
                 boolean _setAirplaneMode = false;
@@ -918,7 +918,7 @@ public class ActivateProfileHelper {
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForVolumes");
-                wakeLock.acquire();
+                wakeLock.acquire(10 * 60 * 1000);
 
                 // link, unlink volumes during activation of profile
                 // required for phone call events
@@ -1287,7 +1287,7 @@ public class ActivateProfileHelper {
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForWallpaper");
-                    wakeLock.acquire();
+                    wakeLock.acquire(10 * 60 * 1000);
 
                     DisplayMetrics displayMetrics = new DisplayMetrics();
                     WindowManager wm = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
@@ -1378,7 +1378,7 @@ public class ActivateProfileHelper {
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForRunApplications");
-                    wakeLock.acquire();
+                    wakeLock.acquire(10 * 60 * 1000);
 
                     String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
                     Intent intent;
@@ -1463,7 +1463,7 @@ public class ActivateProfileHelper {
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeRootForAdaptiveBrightness");
-                wakeLock.acquire();
+                wakeLock.acquire(10 * 60 * 1000);
 
                 /* not working (private secure settings) :-/
                 if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -2903,7 +2903,7 @@ public class ActivateProfileHelper {
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.setPowerSaveMode");
-                        wakeLock.acquire();
+                        wakeLock.acquire(10 * 60 * 1000);
 
                         //PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         boolean _isPowerSaveMode = false;
@@ -2968,7 +2968,7 @@ public class ActivateProfileHelper {
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.lockDevice");
-                wakeLock.acquire();
+                wakeLock.acquire(10 * 60 * 1000);
 
                 switch (profile._lockDevice) {
                     case 3:

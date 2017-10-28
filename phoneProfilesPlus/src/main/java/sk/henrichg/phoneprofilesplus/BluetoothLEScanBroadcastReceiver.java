@@ -42,7 +42,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
-                        wakeLock.acquire();
+                        wakeLock.acquire(10 * 60 * 1000);
 
                         BluetoothScanJob.fillBoundedDevicesList(appContext);
 
@@ -58,7 +58,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                                 public void run() {
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                                     PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive.Handler.postDelayed");
-                                    wakeLock.acquire();
+                                    wakeLock.acquire(10 * 60 * 1000);
 
                                     //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
                                     // start events handler

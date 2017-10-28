@@ -50,7 +50,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothScanBroadcastReceiver.onReceive");
-                    wakeLock.acquire();
+                    wakeLock.acquire(10 * 60 * 1000);
 
                     if (BluetoothScanJob.bluetooth == null)
                         BluetoothScanJob.bluetooth = BluetoothScanJob.getBluetoothAdapter(appContext);
