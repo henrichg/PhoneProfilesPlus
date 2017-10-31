@@ -13,7 +13,7 @@
         android:textAppearance="?attr/textAppearanceListItem"
         android:ellipsize="marquee"
         android:textColor="?android:textColorPrimary"
-        android:maxLines="1"/>
+        android:singleLine="true"/>
 
     <TextView
         android:id="@android:id/summary"

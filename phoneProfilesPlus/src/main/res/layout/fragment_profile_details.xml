@@ -30,7 +30,8 @@
                 android:clickable="true"
                 android:background="?attr/selectableItemBackground"
                 android:contentDescription="@string/empty_string"
-                android:src="@drawable/ic_action_detail_profile_preferences_edit" />
+                android:src="@drawable/ic_action_detail_profile_preferences_edit"
+                android:focusable="true"/>
 
         </LinearLayout>
 

@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -30,7 +31,8 @@
             android:layout_toRightOf="@id/applications_editor_dialog_startApplicationDelay_label"
             android:layout_toEndOf="@id/applications_editor_dialog_startApplicationDelay_label"
             android:textSize="18sp"
-            android:clickable="true" />
+            android:clickable="true"
+            android:focusable="true"/>
         <TextView
             android:id="@+id/applications_editor_dialog_startApplicationDelay_spinnerChar"
             android:layout_width="wrap_content"
@@ -40,7 +42,9 @@
             android:layout_toEndOf="@id/applications_editor_dialog_startApplicationDelay"
             android:textSize="12sp"
             android:text="\u25BC"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:focusable="true"
+            tools:ignore="HardcodedText"/>
     </RelativeLayout>
 
     <RelativeLayout

@@ -11,4 +11,4 @@
           android:paddingTop="12dp"
           android:paddingBottom="12dp"
           android:ellipsize="marquee"
-          android:maxLines="1"/>
+          android:singleLine="true"/>

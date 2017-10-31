@@ -96,7 +96,8 @@
                     android:textColor="@android:color/white"
                     android:clickable="true"
                     android:text="@string/editor_drawer_order_label"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:focusable="true"/>
 
                 <Spinner
                     android:id="@+id/editor_list_bottom_bar_order"

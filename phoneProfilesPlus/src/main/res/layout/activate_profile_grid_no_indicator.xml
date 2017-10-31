@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/act_prof_linlayout_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,63 +12,38 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:orientation="vertical"
-        android:padding="5dp" >
-    
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="1dp" >
+        android:padding="6dp" >
 
-            <ImageView
-                android:id="@+id/act_prof_activated_profile_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/profile_preferences_profileIcon"
-                android:maxHeight="40dp"
-                android:maxWidth="40dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_profile_default" />
+        <ImageView
+            android:id="@+id/act_prof_activated_profile_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/profile_preferences_profileIcon"
+            android:maxHeight="40dp"
+            android:maxWidth="40dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_profile_default" />
 
-            <TextView
-                android:id="@+id/act_prof_activated_profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:paddingLeft="12dp"
-                android:paddingStart="12dp"
-                android:paddingRight="12dp"
-                android:paddingEnd="12dp"
-                android:layout_toRightOf="@id/act_prof_activated_profile_icon"
-                android:layout_toEndOf="@id/act_prof_activated_profile_icon"
-                android:text="@string/profile_name_default"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:textColor="?attr/colorAccent"/>
+        <TextView
+            android:id="@+id/act_prof_activated_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
+            android:paddingRight="12dp"
+            android:paddingEnd="12dp"
+            android:layout_toRightOf="@id/act_prof_activated_profile_icon"
+            android:layout_toEndOf="@id/act_prof_activated_profile_icon"
+            android:text="@string/profile_name_default"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:textColor="?attr/colorAccent"/>
 
-            <!--
-            <ImageView
-                android:id="@+id/act_prof_activated_profile_activated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/empty_string"
-                android:maxHeight="20dp"
-                android:maxWidth="20dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_profile_activated" />
-                -->
-
-        </RelativeLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

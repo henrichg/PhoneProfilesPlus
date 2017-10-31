@@ -5,67 +5,58 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:padding="5dp" >
-    
-        <RelativeLayout
+        android:padding="6dp" >
+
+        <ImageView
+            android:id="@+id/activated_profile_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/profile_preferences_profileIcon"
+            android:maxHeight="40dp"
+            android:maxWidth="40dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_profile_default" />
+
+        <TextView
+            android:id="@+id/activated_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
+            android:paddingRight="12dp"
+            android:paddingEnd="12dp"
+            android:layout_toRightOf="@id/activated_profile_icon"
+            android:layout_toEndOf="@id/activated_profile_icon"
+            android:text="@string/profile_name_default"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:textColor="?attr/colorAccent" />
+
+        <ImageView
+            android:id="@+id/activated_profile_pref_indicator"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="1dp" >
+            android:layout_height="15dp"
+            android:layout_below="@id/activated_profile_name"
+            android:layout_toRightOf="@id/activated_profile_icon"
+            android:layout_toEndOf="@id/activated_profile_icon"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/empty_string"
+            android:scaleType="@integer/profilePrefIndicatorScaleType"
+            android:src="@drawable/ic_profile_pref_volume_on"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
 
-            <ImageView
-                android:id="@+id/activated_profile_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/profile_preferences_profileIcon"
-                android:maxHeight="40dp"
-                android:maxWidth="40dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_profile_default" />
-
-            <TextView
-                android:id="@+id/activated_profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:paddingLeft="12dp"
-                android:paddingStart="12dp"
-                android:paddingRight="12dp"
-                android:paddingEnd="12dp"
-                android:layout_toRightOf="@id/activated_profile_icon"
-                android:layout_toEndOf="@id/activated_profile_icon"
-                android:text="@string/profile_name_default"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:textColor="?attr/colorAccent" />
-
-            <ImageView
-                android:id="@+id/activated_profile_pref_indicator"
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_below="@id/activated_profile_name"
-                android:layout_toRightOf="@id/activated_profile_icon"
-                android:layout_toEndOf="@id/activated_profile_icon"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/empty_string"
-                android:scaleType="@integer/profilePrefIndicatorScaleType"
-                android:src="@drawable/ic_profile_pref_volume_on"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

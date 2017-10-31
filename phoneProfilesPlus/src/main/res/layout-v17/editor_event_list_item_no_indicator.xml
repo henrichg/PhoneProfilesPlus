@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--  Single List Item Design -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/event_list_item_root"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="1dp"
-    android:orientation="horizontal"
-    android:clickable="true"
-    android:background="?attr/selectableItemBackground" >
+                android:id="@+id/event_list_item_root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
+                android:focusable="true">
 
     <LinearLayout 
             android:id="@+id/event_list_item_buttons_root"
@@ -26,7 +27,8 @@
             android:clickable="true"
             android:background="?attr/selectableItemBackground"
             android:contentDescription="@string/preference_item_edit_menu"
-            android:src="?attr/editItemMenuIcon" />
+            android:src="?attr/editItemMenuIcon"
+            android:focusable="true"/>
 
     </LinearLayout>
     

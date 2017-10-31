@@ -44,7 +44,7 @@
             android:fontFamily="sans-serif"
             style="@style/MD_Preference_Title"
             tools:text="Title"
-            android:maxLines="1"/>
+            android:singleLine="true"/>
 
         <TextView
             android:id="@android:id/summary"

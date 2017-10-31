@@ -22,7 +22,8 @@
             android:clickable="true"
             android:background="?attr/selectableItemBackground"
             android:contentDescription="@string/preference_item_edit_menu"
-            android:src="?attr/editItemMenuIcon" />
+            android:src="?attr/editItemMenuIcon"
+            android:focusable="true"/>
 
     </LinearLayout>
 
