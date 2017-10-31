@@ -77,6 +77,7 @@ public class DaysOfWeekPreference extends DialogPreference {
                 .content(getDialogMessage())
                 .customView(R.layout.activity_days_of_week_pref_dialog, false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @SuppressWarnings("StringConcatenationInLoop")
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist())
@@ -187,6 +188,7 @@ public class DaysOfWeekPreference extends DialogPreference {
         }
     }
 
+    @SuppressWarnings("StringConcatenationInLoop")
     private void setSummaryDOWMDP()
     {
         String[] namesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();

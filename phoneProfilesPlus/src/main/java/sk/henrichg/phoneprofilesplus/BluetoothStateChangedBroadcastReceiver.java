@@ -28,7 +28,8 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
         //BluetoothJob.startForStateChangedBroadcast(appContext, intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR));
 
-        if (intent.getAction().equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+        String action = intent.getAction();
+        if ((action != null) && action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
             // BluetoothStateChangedBroadcastReceiver
 
             final int bluetoothState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
@@ -39,8 +40,11 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                 public void run() {
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothStateChangedBroadcastReceiver.onReceive");
-                    wakeLock.acquire(10 * 60 * 1000);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothStateChangedBroadcastReceiver.onReceive");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
                     // remove connected devices list
                     if (bluetoothState == BluetoothAdapter.STATE_OFF) {
@@ -111,7 +115,8 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
 
-                    wakeLock.release();
+                    if (wakeLock != null)
+                        wakeLock.release();
                 }
             });
         }

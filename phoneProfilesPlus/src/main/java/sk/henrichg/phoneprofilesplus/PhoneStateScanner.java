@@ -206,6 +206,7 @@ class PhoneStateScanner extends PhoneStateListener {
             PPApplication.logE("PhoneStateScanner.getAllCellInfo", "cell info is null");
     }
 
+    @SuppressLint("MissingPermission")
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void getAllCellInfo() {
         if (telephonyManager != null) {
@@ -292,6 +293,7 @@ class PhoneStateScanner extends PhoneStateListener {
             PPApplication.logE("PhoneStateScanner.getCellLocation", "location is null");
     }
 
+    @SuppressLint("MissingPermission")
     private void getCellLocation() {
         if (telephonyManager != null) {
             CellLocation location = null;
@@ -354,8 +356,11 @@ class PhoneStateScanner extends PhoneStateListener {
                 @Override
                 public void run() {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneStateScanner.sendBroadcast");
-                    wakeLock.acquire(10 * 60 * 1000);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneStateScanner.sendBroadcast");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
@@ -365,7 +370,8 @@ class PhoneStateScanner extends PhoneStateListener {
                     }
                     dataWrapper.invalidateDataWrapper();
 
-                    wakeLock.release();
+                    if (wakeLock != null)
+                        wakeLock.release();
                 }
             });
         }

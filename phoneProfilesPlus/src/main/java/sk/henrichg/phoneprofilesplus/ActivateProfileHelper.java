@@ -212,41 +212,43 @@ public class ActivateProfileHelper {
                     if ((!isWifiAPEnabled) || (profile._deviceWiFi == 4)) { // only when wifi AP is not enabled, change wifi
                         PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled=false");
                         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                        int wifiState = wifiManager.getWifiState();
-                        boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
-                        boolean setWifiState = false;
-                        switch (profile._deviceWiFi) {
-                            case 1:
-                            case 4:
-                                if (!isWifiEnabled) {
-                                    isWifiEnabled = true;
+                        if (wifiManager != null) {
+                            int wifiState = wifiManager.getWifiState();
+                            boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                            boolean setWifiState = false;
+                            switch (profile._deviceWiFi) {
+                                case 1:
+                                case 4:
+                                    if (!isWifiEnabled) {
+                                        isWifiEnabled = true;
+                                        setWifiState = true;
+                                    }
+                                    break;
+                                case 2:
+                                    if (isWifiEnabled) {
+                                        isWifiEnabled = false;
+                                        setWifiState = true;
+                                    }
+                                    break;
+                                case 3:
+                                case 5:
+                                    isWifiEnabled = !isWifiEnabled;
                                     setWifiState = true;
-                                }
-                                break;
-                            case 2:
-                                if (isWifiEnabled) {
-                                    isWifiEnabled = false;
-                                    setWifiState = true;
-                                }
-                                break;
-                            case 3:
-                            case 5:
-                                isWifiEnabled = !isWifiEnabled;
-                                setWifiState = true;
-                                break;
-                        }
-                        if (isWifiEnabled)
-                            // when wifi is enabled from profile, no disable wifi after scan
-                            WifiScanJob.setWifiEnabledForScan(context, false);
-                        if (setWifiState) {
-                            try {
-                                wifiManager.setWifiEnabled(isWifiEnabled);
-                            } catch (Exception e) {
-                                Log.e("ActivateProfileHelper.doExecuteForRadios", e.toString());
+                                    break;
                             }
-                            //try { Thread.sleep(200); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(200);
-                            PPApplication.sleep(200);
+                            if (isWifiEnabled)
+                                // when wifi is enabled from profile, no disable wifi after scan
+                                WifiScanJob.setWifiEnabledForScan(context, false);
+                            if (setWifiState) {
+                                try {
+                                    wifiManager.setWifiEnabled(isWifiEnabled);
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.doExecuteForRadios", e.toString());
+                                }
+                                //try { Thread.sleep(200); } catch (InterruptedException e) { }
+                                //SystemClock.sleep(200);
+                                PPApplication.sleep(200);
+                            }
                         }
                     }
                 }
@@ -256,36 +258,40 @@ public class ActivateProfileHelper {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, context) == PPApplication.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
                     WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                    int wifiState = wifiManager.getWifiState();
-                    if  (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+                    if (wifiManager != null) {
+                        int wifiState = wifiManager.getWifiState();
+                        if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
 
-                        // check if wifi is connected
-                        ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                        NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
-                        boolean wifiConnected = (activeNetwork != null) &&
-                                (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
-                                activeNetwork.isConnected();
-                        WifiInfo wifiInfo = null;
-                        if (wifiConnected)
-                            wifiInfo = wifiManager.getConnectionInfo();
+                            // check if wifi is connected
+                            ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                            if (connManager != null) {
+                                NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
+                                boolean wifiConnected = (activeNetwork != null) &&
+                                        (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
+                                        activeNetwork.isConnected();
+                                WifiInfo wifiInfo = null;
+                                if (wifiConnected)
+                                    wifiInfo = wifiManager.getConnectionInfo();
 
-                        List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
-                        if (list != null) {
-                            for (WifiConfiguration i : list) {
-                                if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {
-                                    if (wifiConnected) {
-                                        if (!wifiInfo.getSSID().equals(i.SSID)) {
+                                List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
+                                if (list != null) {
+                                    for (WifiConfiguration i : list) {
+                                        if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {
+                                            if (wifiConnected) {
+                                                if (!wifiInfo.getSSID().equals(i.SSID)) {
 
-                                            PhoneProfilesService.connectToSSIDStarted = true;
+                                                    PhoneProfilesService.connectToSSIDStarted = true;
 
-                                            // connected to another SSID
-                                            wifiManager.disconnect();
-                                            wifiManager.enableNetwork(i.networkId, true);
-                                            wifiManager.reconnect();
+                                                    // connected to another SSID
+                                                    wifiManager.disconnect();
+                                                    wifiManager.enableNetwork(i.networkId, true);
+                                                    wifiManager.reconnect();
+                                                }
+                                            } else
+                                                wifiManager.enableNetwork(i.networkId, true);
+                                            break;
                                         }
-                                    } else
-                                        wifiManager.enableNetwork(i.networkId, true);
-                                    break;
+                                    }
                                 }
                             }
                         }
@@ -351,30 +357,34 @@ public class ActivateProfileHelper {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, context) == PPApplication.PREFERENCE_ALLOWED) {
                 //String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
-                boolean isEnabled;
+                boolean isEnabled = false;
+                boolean ok = true;
                 if (android.os.Build.VERSION.SDK_INT < 19)
                     isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
                 else {
                     LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                    isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                    if (locationManager != null)
+                        isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                    else
+                        ok = false;
                 }
-                PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "isEnabled=" + isEnabled);
-
-
-                switch (profile._deviceGPS) {
-                    case 1:
-                        setGPS(context, true);
-                        break;
-                    case 2:
-                        setGPS(context, false);
-                        break;
-                    case 3:
-                        if (!isEnabled) {
+                if (ok) {
+                    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "isEnabled=" + isEnabled);
+                    switch (profile._deviceGPS) {
+                        case 1:
                             setGPS(context, true);
-                        } else {
+                            break;
+                        case 2:
                             setGPS(context, false);
-                        }
-                        break;
+                            break;
+                        case 3:
+                            if (!isEnabled) {
+                                setGPS(context, true);
+                            } else {
+                                setGPS(context, false);
+                            }
+                            break;
+                    }
                 }
             }
         }
@@ -417,8 +427,11 @@ public class ActivateProfileHelper {
             public void run() {
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForRadios");
-                wakeLock.acquire(10 * 60 * 1000);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForRadios");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
                 boolean _isAirplaneMode = false;
                 boolean _setAirplaneMode = false;
@@ -463,7 +476,8 @@ public class ActivateProfileHelper {
                     setAirplaneMode(context, _isAirplaneMode);
                 }*/
 
-                wakeLock.release();
+                if (wakeLock != null)
+                    wakeLock.release();
             }
         });
     }
@@ -529,30 +543,32 @@ public class ActivateProfileHelper {
             try {
                 boolean merged;
                 AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-                int ringerMode = audioManager.getRingerMode();
-                int maximumNotificationValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-                int oldRingVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-                int oldNotificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-                if (oldRingVolume == oldNotificationVolume) {
-                    int newNotificationVolume;
-                    if (oldNotificationVolume == maximumNotificationValue)
-                        newNotificationVolume = oldNotificationVolume - 1;
-                    else
-                        newNotificationVolume = oldNotificationVolume + 1;
-                    audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, newNotificationVolume, 0);
-                    PPApplication.sleep(1000);
-                    if (audioManager.getStreamVolume(AudioManager.STREAM_RING) == newNotificationVolume)
-                        merged = true;
-                    else
+                if (audioManager != null) {
+                    int ringerMode = audioManager.getRingerMode();
+                    int maximumNotificationValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                    int oldRingVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                    int oldNotificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+                    if (oldRingVolume == oldNotificationVolume) {
+                        int newNotificationVolume;
+                        if (oldNotificationVolume == maximumNotificationValue)
+                            newNotificationVolume = oldNotificationVolume - 1;
+                        else
+                            newNotificationVolume = oldNotificationVolume + 1;
+                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, newNotificationVolume, 0);
+                        PPApplication.sleep(1000);
+                        if (audioManager.getStreamVolume(AudioManager.STREAM_RING) == newNotificationVolume)
+                            merged = true;
+                        else
+                            merged = false;
+                    } else
                         merged = false;
-                } else
-                    merged = false;
-                audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, oldNotificationVolume, 0);
-                audioManager.setRingerMode(ringerMode);
+                    audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, oldNotificationVolume, 0);
+                    audioManager.setRingerMode(ringerMode);
 
-                PPApplication.logE("ActivateProfileHelper.setMergedRingNotificationVolumes", "merged="+merged);
+                    PPApplication.logE("ActivateProfileHelper.setMergedRingNotificationVolumes", "merged=" + merged);
 
-                editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
+                    editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
+                }
             } catch (Exception ignored) {}
         }
     }
@@ -597,11 +613,10 @@ public class ActivateProfileHelper {
                     }
                 }
 
-                TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                int callState = telephony.getCallState();
-
                 boolean volumesSet = false;
-                if (getMergedRingNotificationVolumes(context) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
+                TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if ((telephony != null) && getMergedRingNotificationVolumes(context) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
+                    int callState = telephony.getCallState();
                     //if (doUnlink) {
                     //if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK) {
                     if (callState == TelephonyManager.CALL_STATE_RINGING) {
@@ -671,15 +686,15 @@ public class ActivateProfileHelper {
                         }
                         volumesSet = true;
                     }
-                /*}
-                else {
-                    if (callState == TelephonyManager.CALL_STATE_RINGING) {
-                        int volume = PPApplication.getRingerVolume(context);
-                        if (volume == -999)
-                            volume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-                        PhoneProfilesService.ringingVolume = volume;
-                    }
-                }*/
+                    /*}
+                    else {
+                        if (callState == TelephonyManager.CALL_STATE_RINGING) {
+                            int volume = PPApplication.getRingerVolume(context);
+                            if (volume == -999)
+                                volume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                            PhoneProfilesService.ringingVolume = volume;
+                        }
+                    }*/
                 }
                 if (!volumesSet) {
                     // reverted order for disabled unlink
@@ -917,8 +932,11 @@ public class ActivateProfileHelper {
             public void run() {
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForVolumes");
-                wakeLock.acquire(10 * 60 * 1000);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForVolumes");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
                 // link, unlink volumes during activation of profile
                 // required for phone call events
@@ -991,7 +1009,8 @@ public class ActivateProfileHelper {
                     setTones(appContext, profile);
                 }
 
-                wakeLock.release();
+                if (wakeLock != null)
+                    wakeLock.release();
             }
         });
     }
@@ -1087,18 +1106,20 @@ public class ActivateProfileHelper {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
-                switch (interruptionFilter) {
-                    case NotificationManager.INTERRUPTION_FILTER_ALARMS:
-                        return ActivateProfileHelper.ZENMODE_ALARMS;
-                    case NotificationManager.INTERRUPTION_FILTER_ALL:
-                        return ActivateProfileHelper.ZENMODE_ALL;
-                    case NotificationManager.INTERRUPTION_FILTER_NONE:
-                        return ActivateProfileHelper.ZENMODE_NONE;
-                    case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
-                        return ActivateProfileHelper.ZENMODE_PRIORITY;
-                    case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
-                        return ActivateProfileHelper.ZENMODE_ALL;
+                if (mNotificationManager != null) {
+                    int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
+                    switch (interruptionFilter) {
+                        case NotificationManager.INTERRUPTION_FILTER_ALARMS:
+                            return ActivateProfileHelper.ZENMODE_ALARMS;
+                        case NotificationManager.INTERRUPTION_FILTER_ALL:
+                            return ActivateProfileHelper.ZENMODE_ALL;
+                        case NotificationManager.INTERRUPTION_FILTER_NONE:
+                            return ActivateProfileHelper.ZENMODE_NONE;
+                        case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
+                            return ActivateProfileHelper.ZENMODE_PRIORITY;
+                        case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
+                            return ActivateProfileHelper.ZENMODE_ALL;
+                    }
                 }
             }
             else {
@@ -1286,62 +1307,66 @@ public class ActivateProfileHelper {
                 public void run() {
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForWallpaper");
-                    wakeLock.acquire(10 * 60 * 1000);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForWallpaper");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
                     DisplayMetrics displayMetrics = new DisplayMetrics();
                     WindowManager wm = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
-                    Display display = wm.getDefaultDisplay();
-                    if (android.os.Build.VERSION.SDK_INT >= 17)
-                        display.getRealMetrics(displayMetrics);
-                    else
-                        display.getMetrics(displayMetrics);
-                    int height = displayMetrics.heightPixels;
-                    int width = displayMetrics.widthPixels;
-                    if (appContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                        //noinspection SuspiciousNameCombination
-                        height = displayMetrics.widthPixels;
-                        //noinspection SuspiciousNameCombination
-                        width = displayMetrics.heightPixels;
-                    }
-                    //Log.d("ActivateProfileHelper.executeForWallpaper", "height="+height);
-                    //Log.d("ActivateProfileHelper.executeForWallpaper", "width="+width);
-                    // for lock screen no double width
-                    if ((android.os.Build.VERSION.SDK_INT < 24) || (profile._deviceWallpaperFor != 2))
-                        width = width << 1; // best wallpaper width is twice screen width
+                    if (wm != null) {
+                        Display display = wm.getDefaultDisplay();
+                        if (android.os.Build.VERSION.SDK_INT >= 17)
+                            display.getRealMetrics(displayMetrics);
+                        else
+                            display.getMetrics(displayMetrics);
+                        int height = displayMetrics.heightPixels;
+                        int width = displayMetrics.widthPixels;
+                        if (appContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                            //noinspection SuspiciousNameCombination
+                            height = displayMetrics.widthPixels;
+                            //noinspection SuspiciousNameCombination
+                            width = displayMetrics.heightPixels;
+                        }
+                        //Log.d("ActivateProfileHelper.executeForWallpaper", "height="+height);
+                        //Log.d("ActivateProfileHelper.executeForWallpaper", "width="+width);
+                        // for lock screen no double width
+                        if ((android.os.Build.VERSION.SDK_INT < 24) || (profile._deviceWallpaperFor != 2))
+                            width = width << 1; // best wallpaper width is twice screen width
 
-                    Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(profile._deviceWallpaper, width, height, appContext);
-                    if (decodedSampleBitmap != null)
-                    {
-                        // set wallpaper
-                        WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
-                        try {
-                            if (android.os.Build.VERSION.SDK_INT >= 24) {
-                                int flags = WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK;
-                                Rect visibleCropHint = null;
-                                if (profile._deviceWallpaperFor == 1)
-                                    flags = WallpaperManager.FLAG_SYSTEM;
-                                if (profile._deviceWallpaperFor == 2) {
-                                    flags = WallpaperManager.FLAG_LOCK;
-                                    int left = 0;
-                                    int right = decodedSampleBitmap.getWidth();
-                                    if (decodedSampleBitmap.getWidth() > width) {
-                                        left = (decodedSampleBitmap.getWidth() / 2) - (width / 2);
-                                        right = (decodedSampleBitmap.getWidth() / 2) + (width / 2);
+                        Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(profile._deviceWallpaper, width, height, appContext);
+                        if (decodedSampleBitmap != null) {
+                            // set wallpaper
+                            WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
+                            try {
+                                if (android.os.Build.VERSION.SDK_INT >= 24) {
+                                    int flags = WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK;
+                                    Rect visibleCropHint = null;
+                                    if (profile._deviceWallpaperFor == 1)
+                                        flags = WallpaperManager.FLAG_SYSTEM;
+                                    if (profile._deviceWallpaperFor == 2) {
+                                        flags = WallpaperManager.FLAG_LOCK;
+                                        int left = 0;
+                                        int right = decodedSampleBitmap.getWidth();
+                                        if (decodedSampleBitmap.getWidth() > width) {
+                                            left = (decodedSampleBitmap.getWidth() / 2) - (width / 2);
+                                            right = (decodedSampleBitmap.getWidth() / 2) + (width / 2);
+                                        }
+                                        visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
                                     }
-                                    visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
-                                }
-                                //noinspection WrongConstant
-                                wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
+                                    //noinspection WrongConstant
+                                    wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
+                                } else
+                                    wallpaperManager.setBitmap(decodedSampleBitmap);
+                            } catch (IOException e) {
+                                Log.e("ActivateProfileHelper.executeForWallpaper", "Cannot set wallpaper. Image=" + profile._deviceWallpaper);
                             }
-                            else
-                                wallpaperManager.setBitmap(decodedSampleBitmap);
-                        } catch (IOException e) {
-                            Log.e("ActivateProfileHelper.executeForWallpaper", "Cannot set wallpaper. Image="+profile._deviceWallpaper);
                         }
                     }
 
-                    wakeLock.release();
+                    if (wakeLock != null)
+                        wakeLock.release();
                 }
             });
         }
@@ -1377,8 +1402,11 @@ public class ActivateProfileHelper {
                 public void run() {
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForRunApplications");
-                    wakeLock.acquire(10 * 60 * 1000);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForRunApplications");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
                     String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
                     Intent intent;
@@ -1448,7 +1476,8 @@ public class ActivateProfileHelper {
                         }
                     }
 
-                    wakeLock.release();
+                    if (wakeLock != null)
+                        wakeLock.release();
                 }
             });
         }
@@ -1462,8 +1491,11 @@ public class ActivateProfileHelper {
             public void run() {
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeRootForAdaptiveBrightness");
-                wakeLock.acquire(10 * 60 * 1000);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeRootForAdaptiveBrightness");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
                 /* not working (private secure settings) :-/
                 if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -1489,7 +1521,8 @@ public class ActivateProfileHelper {
                 }
                 //}
 
-                wakeLock.release();
+                if (wakeLock != null)
+                    wakeLock.release();
             }
         });
     }
@@ -1559,7 +1592,7 @@ public class ActivateProfileHelper {
         if (Permissions.checkProfileScreenTimeout(context, profile)) {
             PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
             //noinspection deprecation
-            if (pm.isScreenOn()) {
+            if ((pm != null) && pm.isScreenOn()) {
                 //Log.d("ActivateProfileHelper.execute","screen on");
                 if (PPApplication.screenTimeoutHandler != null) {
                     final Context _context = context;
@@ -1606,28 +1639,33 @@ public class ActivateProfileHelper {
             //else
             //{
             PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
-            //noinspection deprecation
-            isScreenOn = pm.isScreenOn();
-            //}
-            PPApplication.logE("$$$ ActivateProfileHelper.execute","isScreenOn="+isScreenOn);
-            boolean keyguardShowing;
-            KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-            keyguardShowing = kgMgr.isKeyguardLocked();
-            PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguardShowing="+keyguardShowing);
+            if (pm != null) {
+                //noinspection deprecation
+                isScreenOn = pm.isScreenOn();
+                //}
+                PPApplication.logE("$$$ ActivateProfileHelper.execute", "isScreenOn=" + isScreenOn);
+                boolean keyguardShowing;
+                KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+                if (kgMgr != null) {
+                    keyguardShowing = kgMgr.isKeyguardLocked();
+                    PPApplication.logE("$$$ ActivateProfileHelper.execute", "keyguardShowing=" + keyguardShowing);
 
-            if (isScreenOn && !keyguardShowing) {
-                try {
-                    // start PhoneProfilesService
-                    //PPApplication.firstStartServiceStarted = false;
-                    Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                    //TODO Android O
-                    //if (Build.VERSION.SDK_INT < 26)
-                    context.startService(serviceIntent);
-                    //else
-                    //    startForegroundService(serviceIntent);
-                } catch (Exception ignored) {}
+                    if (isScreenOn && !keyguardShowing) {
+                        try {
+                            // start PhoneProfilesService
+                            //PPApplication.firstStartServiceStarted = false;
+                            Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                            //TODO Android O
+                            //if (Build.VERSION.SDK_INT < 26)
+                            context.startService(serviceIntent);
+                            //else
+                            //    startForegroundService(serviceIntent);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
             }
         }
 
@@ -1748,11 +1786,13 @@ public class ActivateProfileHelper {
             if (profile._lockDevice != 0) {
                 boolean keyguardLocked;
                 KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-                keyguardLocked = kgMgr.isKeyguardLocked();
-                PPApplication.logE("---$$$ ActivateProfileHelper.execute","keyguardLocked="+keyguardLocked);
-                if (!keyguardLocked) {
-                    //ExecuteRootProfilePrefsJob.start(context, ExecuteRootProfilePrefsJob.ACTION_LOCK_DEVICE, profile._id, merged);
-                    lockDevice(profile);
+                if (kgMgr != null) {
+                    keyguardLocked = kgMgr.isKeyguardLocked();
+                    PPApplication.logE("---$$$ ActivateProfileHelper.execute", "keyguardLocked=" + keyguardLocked);
+                    if (!keyguardLocked) {
+                        //ExecuteRootProfilePrefsJob.start(context, ExecuteRootProfilePrefsJob.ACTION_LOCK_DEVICE, profile._id, merged);
+                        lockDevice(profile);
+                    }
                 }
             }
         }
@@ -1894,40 +1934,41 @@ public class ActivateProfileHelper {
 
     private static void screenTimeoutLock(Context context)
     {
-        //Log.d("ActivateProfileHelper.screenTimeoutLock","xxx");
-        WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-
         screenTimeoutUnlock(context);
 
-        int type;
-        if (android.os.Build.VERSION.SDK_INT < 25)
-            //noinspection deprecation
-            type = WindowManager.LayoutParams.TYPE_TOAST;
-        else
-            //TODO Android O
-        //if (android.os.Build.VERSION.SDK_INT < 26)
-            //noinspection deprecation
-            type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
-        //else
-        //    type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                1, 1,
-                type,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | /*WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |*/ WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
-                PixelFormat.TRANSLUCENT
-        );
-        /*if (android.os.Build.VERSION.SDK_INT < 17)
-            params.gravity = Gravity.RIGHT | Gravity.TOP;
-        else
-            params.gravity = Gravity.END | Gravity.TOP;*/
-        GlobalGUIRoutines.keepScreenOnView = new BrightnessView(context);
-        try {
-            windowManager.addView(GlobalGUIRoutines.keepScreenOnView, params);
-        } catch (Exception e) {
-            GlobalGUIRoutines.keepScreenOnView = null;
-            //e.printStackTrace();
+        //Log.d("ActivateProfileHelper.screenTimeoutLock","xxx");
+        WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        if (windowManager != null) {
+            int type;
+            if (android.os.Build.VERSION.SDK_INT < 25)
+                //noinspection deprecation
+                type = WindowManager.LayoutParams.TYPE_TOAST;
+            else
+                //TODO Android O
+                //if (android.os.Build.VERSION.SDK_INT < 26)
+                //noinspection deprecation
+                type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+            //else
+            //    type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                    1, 1,
+                    type,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | /*WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |*/ WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+                    PixelFormat.TRANSLUCENT
+            );
+            /*if (android.os.Build.VERSION.SDK_INT < 17)
+                params.gravity = Gravity.RIGHT | Gravity.TOP;
+            else
+                params.gravity = Gravity.END | Gravity.TOP;*/
+            GlobalGUIRoutines.keepScreenOnView = new BrightnessView(context);
+            try {
+                windowManager.addView(GlobalGUIRoutines.keepScreenOnView, params);
+            } catch (Exception e) {
+                GlobalGUIRoutines.keepScreenOnView = null;
+                //e.printStackTrace();
+            }
+            //Log.d("ActivateProfileHelper.screenTimeoutLock","-- end");
         }
-        //Log.d("ActivateProfileHelper.screenTimeoutLock","-- end");
     }
 
     static void screenTimeoutUnlock(Context context)
@@ -1937,11 +1978,13 @@ public class ActivateProfileHelper {
         if (GlobalGUIRoutines.keepScreenOnView != null)
         {
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-            try {
-                windowManager.removeView(GlobalGUIRoutines.keepScreenOnView);
-            } catch (Exception ignored) {
+            if (windowManager != null) {
+                try {
+                    windowManager.removeView(GlobalGUIRoutines.keepScreenOnView);
+                } catch (Exception ignored) {
+                }
+                GlobalGUIRoutines.keepScreenOnView = null;
             }
-            GlobalGUIRoutines.keepScreenOnView = null;
         }
 
         //Log.d("ActivateProfileHelper.screenTimeoutUnlock","-- end");
@@ -1956,61 +1999,62 @@ public class ActivateProfileHelper {
         //{
 
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-            if (GlobalGUIRoutines.brightnessView != null)
-            {
-                //Log.d("ActivateProfileHelper.createBrightnessView","GlobalGUIRoutines.brightnessView != null");
-                try {
-                    windowManager.removeView(GlobalGUIRoutines.brightnessView);
-                } catch (Exception ignored) {
+            if (windowManager != null) {
+                if (GlobalGUIRoutines.brightnessView != null) {
+                    //Log.d("ActivateProfileHelper.createBrightnessView","GlobalGUIRoutines.brightnessView != null");
+                    try {
+                        windowManager.removeView(GlobalGUIRoutines.brightnessView);
+                    } catch (Exception ignored) {
+                    }
+                    GlobalGUIRoutines.brightnessView = null;
                 }
-                GlobalGUIRoutines.brightnessView = null;
-            }
-            int type;
-            if (android.os.Build.VERSION.SDK_INT < 25)
-                //noinspection deprecation
-                type = WindowManager.LayoutParams.TYPE_TOAST;
-            else {
-                //TODO Android O
-                //if (android.os.Build.VERSION.SDK_INT < 26)
+                int type;
+                if (android.os.Build.VERSION.SDK_INT < 25)
+                    //noinspection deprecation
+                    type = WindowManager.LayoutParams.TYPE_TOAST;
+                else {
+                    //TODO Android O
+                    //if (android.os.Build.VERSION.SDK_INT < 26)
                     //noinspection deprecation
                     type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
-                //else
-                //    type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
-            }
-            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                    //else
+                    //    type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+                }
+                WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                         1, 1,
                         type,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE /*| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE*/,
                         PixelFormat.TRANSLUCENT
-                    );
-            GlobalGUIRoutines.brightnessView = new BrightnessView(context);
-            try {
-                windowManager.addView(GlobalGUIRoutines.brightnessView, params);
-            } catch (Exception e) {
-                GlobalGUIRoutines.brightnessView = null;
-                //e.printStackTrace();
-            }
-
-            final Handler handler = new Handler(context.getMainLooper());
-            final Context _context = context;
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    PPApplication.logE("ActivateProfileHelper.createBrightnessView", "remove brightness view");
-
-                    WindowManager windowManager = (WindowManager)_context.getSystemService(Context.WINDOW_SERVICE);
-                    if (GlobalGUIRoutines.brightnessView != null)
-                    {
-                        try {
-                            windowManager.removeView(GlobalGUIRoutines.brightnessView);
-                        } catch (Exception ignored) {
-                        }
-                        GlobalGUIRoutines.brightnessView = null;
-                    }
+                );
+                GlobalGUIRoutines.brightnessView = new BrightnessView(context);
+                try {
+                    windowManager.addView(GlobalGUIRoutines.brightnessView, params);
+                } catch (Exception e) {
+                    GlobalGUIRoutines.brightnessView = null;
+                    //e.printStackTrace();
                 }
-            }, 5000);
 
-        //Log.d("ActivateProfileHelper.createBrightnessView","-- end");
+                final Handler handler = new Handler(context.getMainLooper());
+                final Context _context = context;
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        PPApplication.logE("ActivateProfileHelper.createBrightnessView", "remove brightness view");
+
+                        WindowManager windowManager = (WindowManager) _context.getSystemService(Context.WINDOW_SERVICE);
+                        if (windowManager != null) {
+                            if (GlobalGUIRoutines.brightnessView != null) {
+                                try {
+                                    windowManager.removeView(GlobalGUIRoutines.brightnessView);
+                                } catch (Exception ignored) {
+                                }
+                                GlobalGUIRoutines.brightnessView = null;
+                            }
+                        }
+                    }
+                }, 5000);
+                //Log.d("ActivateProfileHelper.createBrightnessView","-- end");
+            }
 
         //}
     }
@@ -2019,11 +2063,13 @@ public class ActivateProfileHelper {
         if (GlobalGUIRoutines.brightnessView != null)
         {
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-            try {
-                windowManager.removeView(GlobalGUIRoutines.brightnessView);
-            } catch (Exception ignored) {
+            if (windowManager != null) {
+                try {
+                    windowManager.removeView(GlobalGUIRoutines.brightnessView);
+                } catch (Exception ignored) {
+                }
+                GlobalGUIRoutines.brightnessView = null;
             }
-            GlobalGUIRoutines.brightnessView = null;
         }
     }
 
@@ -2104,16 +2150,19 @@ public class ActivateProfileHelper {
         if (android.os.Build.VERSION.SDK_INT < 21)
         {
             final ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-            try {
-                final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
-                final Method getMobileDataEnabledMethod = connectivityManagerClass.getDeclaredMethod("getMobileDataEnabled");
-                getMobileDataEnabledMethod.setAccessible(true);
-                return (Boolean)getMobileDataEnabledMethod.invoke(connectivityManager);
-            } catch (Exception e) {
-                //e.printStackTrace();
-                return false;
+            if (connectivityManager != null) {
+                try {
+                    final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
+                    final Method getMobileDataEnabledMethod = connectivityManagerClass.getDeclaredMethod("getMobileDataEnabled");
+                    getMobileDataEnabledMethod.setAccessible(true);
+                    return (Boolean) getMobileDataEnabledMethod.invoke(connectivityManager);
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                    return false;
+                }
             }
+            else
+                return false;
         }
         else
         if (android.os.Build.VERSION.SDK_INT < 22)
@@ -2125,24 +2174,27 @@ public class ActivateProfileHelper {
 
             TelephonyManager telephonyManager = (TelephonyManager) context
                     .getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                try {
+                    telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+                    Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
+                    getITelephonyMethod.setAccessible(true);
+                    ITelephonyStub = getITelephonyMethod.invoke(telephonyManager);
+                    ITelephonyClass = Class.forName(ITelephonyStub.getClass().getName());
 
-            try {
-                telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
-                Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
-                getITelephonyMethod.setAccessible(true);
-                ITelephonyStub = getITelephonyMethod.invoke(telephonyManager);
-                ITelephonyClass = Class.forName(ITelephonyStub.getClass().getName());
+                    getDataEnabledMethod = ITelephonyClass.getDeclaredMethod("getDataEnabled");
 
-                getDataEnabledMethod = ITelephonyClass.getDeclaredMethod("getDataEnabled");
+                    getDataEnabledMethod.setAccessible(true);
 
-                getDataEnabledMethod.setAccessible(true);
+                    return (Boolean) getDataEnabledMethod.invoke(ITelephonyStub);
 
-                return (Boolean)getDataEnabledMethod.invoke(ITelephonyStub);
-
-            } catch (Exception e) {
-                //e.printStackTrace();
-                return false;
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                    return false;
+                }
             }
+            else
+                return false;
         }
         else
         {
@@ -2151,18 +2203,21 @@ public class ActivateProfileHelper {
 
             TelephonyManager telephonyManager = (TelephonyManager) context
                     .getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                try {
+                    telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+                    getDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("getDataEnabled");
+                    getDataEnabledMethod.setAccessible(true);
 
-            try {
-                telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
-                getDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("getDataEnabled");
-                getDataEnabledMethod.setAccessible(true);
+                    return (Boolean) getDataEnabledMethod.invoke(telephonyManager);
 
-                return (Boolean)getDataEnabledMethod.invoke(telephonyManager);
-
-            } catch (Exception e) {
-                //e.printStackTrace();
-                return false;
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                    return false;
+                }
             }
+            else
+                return false;
         }
 
     }
@@ -2175,16 +2230,19 @@ public class ActivateProfileHelper {
 
             TelephonyManager telephonyManager = (TelephonyManager) context
                     .getSystemService(Context.TELEPHONY_SERVICE);
-
-            try {
-                telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
-                Method getDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("getDataEnabled");
-                getDataEnabledMethod.setAccessible(true);
-                return true;
-            } catch (Exception e) {
-                //e.printStackTrace();
-                return false;
+            if (telephonyManager != null) {
+                try {
+                    telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+                    Method getDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("getDataEnabled");
+                    getDataEnabledMethod.setAccessible(true);
+                    return true;
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                    return false;
+                }
             }
+            else
+                return false;
         }
         else
         if (android.os.Build.VERSION.SDK_INT >= 21)
@@ -2193,29 +2251,35 @@ public class ActivateProfileHelper {
 
             TelephonyManager telephonyManager = (TelephonyManager) context
                     .getSystemService(Context.TELEPHONY_SERVICE);
-
-            try {
-                telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
-                Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
-                getITelephonyMethod.setAccessible(true);
-                return true;
-            } catch (Exception e) {
-                //e.printStackTrace();
-                return false;
+            if (telephonyManager != null) {
+                try {
+                    telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+                    Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
+                    getITelephonyMethod.setAccessible(true);
+                    return true;
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                    return false;
+                }
             }
+            else
+                return false;
         }
         else
         {
             final ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-            try {
-                final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
-                final Method getMobileDataEnabledMethod = connectivityManagerClass.getDeclaredMethod("getMobileDataEnabled");
-                getMobileDataEnabledMethod.setAccessible(true);
-                return true;
-            } catch (Exception e) {
-                return false;
+            if (connectivityManager != null) {
+                try {
+                    final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
+                    final Method getMobileDataEnabledMethod = connectivityManagerClass.getDeclaredMethod("getMobileDataEnabled");
+                    getMobileDataEnabledMethod.setAccessible(true);
+                    return true;
+                } catch (Exception e) {
+                    return false;
+                }
             }
+            else
+                return false;
         }
     }
 
@@ -2235,19 +2299,20 @@ public class ActivateProfileHelper {
 
                     TelephonyManager telephonyManager = (TelephonyManager) context
                             .getSystemService(Context.TELEPHONY_SERVICE);
+                    if (telephonyManager != null) {
+                        try {
+                            telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+                            Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
+                            getITelephonyMethod.setAccessible(true);
+                            ITelephonyStub = getITelephonyMethod.invoke(telephonyManager);
+                            ITelephonyClass = Class.forName(ITelephonyStub.getClass().getName());
+                            dataConnSwitchMethod = ITelephonyClass.getDeclaredMethod("setDataEnabled", Boolean.TYPE);
 
-                    try {
-                        telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
-                        Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
-                        getITelephonyMethod.setAccessible(true);
-                        ITelephonyStub = getITelephonyMethod.invoke(telephonyManager);
-                        ITelephonyClass = Class.forName(ITelephonyStub.getClass().getName());
-                        dataConnSwitchMethod = ITelephonyClass.getDeclaredMethod("setDataEnabled", Boolean.TYPE);
+                            dataConnSwitchMethod.setAccessible(true);
+                            dataConnSwitchMethod.invoke(ITelephonyStub, enable);
 
-                        dataConnSwitchMethod.setAccessible(true);
-                        dataConnSwitchMethod.invoke(ITelephonyStub, enable);
-
-                    } catch (Exception ignored) {
+                        } catch (Exception ignored) {
+                        }
                     }
                 }
                 else
@@ -2257,15 +2322,16 @@ public class ActivateProfileHelper {
 
                     TelephonyManager telephonyManager = (TelephonyManager) context
                             .getSystemService(Context.TELEPHONY_SERVICE);
+                    if (telephonyManager != null) {
+                        try {
+                            telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+                            setDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("setDataEnabled", Boolean.TYPE);
+                            setDataEnabledMethod.setAccessible(true);
 
-                    try {
-                        telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
-                        setDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("setDataEnabled", Boolean.TYPE);
-                        setDataEnabledMethod.setAccessible(true);
+                            setDataEnabledMethod.invoke(telephonyManager, enable);
 
-                        setDataEnabledMethod.invoke(telephonyManager, enable);
-
-                    } catch (Exception ignored) {
+                        } catch (Exception ignored) {
+                        }
                     }
                 }
             }
@@ -2358,35 +2424,36 @@ public class ActivateProfileHelper {
         else
         {
             final ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-            boolean OK = false;
-            try {
-                final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
-                final Field iConnectivityManagerField = connectivityManagerClass.getDeclaredField("mService");
-                iConnectivityManagerField.setAccessible(true);
-                final Object iConnectivityManager = iConnectivityManagerField.get(connectivityManager);
-                final Class<?> iConnectivityManagerClass = Class.forName(iConnectivityManager.getClass().getName());
-                final Method setMobileDataEnabledMethod = iConnectivityManagerClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
-                setMobileDataEnabledMethod.setAccessible(true);
-
-                setMobileDataEnabledMethod.invoke(iConnectivityManager, enable);
-
-                OK = true;
-
-            } catch (Exception ignored) {
-            }
-
-            if (!OK)
-            {
+            if (connectivityManager != null) {
+                boolean OK = false;
                 try {
-                    Method setMobileDataEnabledMethod = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
-
+                    final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
+                    final Field iConnectivityManagerField = connectivityManagerClass.getDeclaredField("mService");
+                    iConnectivityManagerField.setAccessible(true);
+                    final Object iConnectivityManager = iConnectivityManagerField.get(connectivityManager);
+                    final Class<?> iConnectivityManagerClass = Class.forName(iConnectivityManager.getClass().getName());
+                    final Method setMobileDataEnabledMethod = iConnectivityManagerClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
                     setMobileDataEnabledMethod.setAccessible(true);
-                    setMobileDataEnabledMethod.invoke(connectivityManager, enable);
 
-                    //OK = true;
+                    setMobileDataEnabledMethod.invoke(iConnectivityManager, enable);
+
+                    OK = true;
 
                 } catch (Exception ignored) {
+                }
+
+                if (!OK) {
+                    try {
+                        @SuppressLint("PrivateApi")
+                        Method setMobileDataEnabledMethod = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
+
+                        setMobileDataEnabledMethod.setAccessible(true);
+                        setMobileDataEnabledMethod.invoke(connectivityManager, enable);
+
+                        //OK = true;
+
+                    } catch (Exception ignored) {
+                    }
                 }
             }
         }
@@ -2445,22 +2512,26 @@ public class ActivateProfileHelper {
     private static String getTransactionCode(Context context, String fieldName) throws Exception {
         //try {
         final TelephonyManager mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        final Class<?> mTelephonyClass = Class.forName(mTelephonyManager.getClass().getName());
-        final Method mTelephonyMethod = mTelephonyClass.getDeclaredMethod("getITelephony");
-        mTelephonyMethod.setAccessible(true);
-        final Object mTelephonyStub = mTelephonyMethod.invoke(mTelephonyManager);
-        final Class<?> mTelephonyStubClass = Class.forName(mTelephonyStub.getClass().getName());
-        final Class<?> mClass = mTelephonyStubClass.getDeclaringClass();
-        final Field field = mClass.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        return String.valueOf(field.getInt(null));
-        //} catch (Exception e) {
-        // The "TRANSACTION_setDataEnabled" field is not available,
-        // or named differently in the current API level, so we throw
-        // an exception and inform users that the method is not available.
-        //e.printStackTrace();
-        //    throw e;
-        //}
+        if (mTelephonyManager != null) {
+            final Class<?> mTelephonyClass = Class.forName(mTelephonyManager.getClass().getName());
+            final Method mTelephonyMethod = mTelephonyClass.getDeclaredMethod("getITelephony");
+            mTelephonyMethod.setAccessible(true);
+            final Object mTelephonyStub = mTelephonyMethod.invoke(mTelephonyManager);
+            final Class<?> mTelephonyStubClass = Class.forName(mTelephonyStub.getClass().getName());
+            final Class<?> mClass = mTelephonyStubClass.getDeclaringClass();
+            final Field field = mClass.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            return String.valueOf(field.getInt(null));
+            //} catch (Exception e) {
+            // The "TRANSACTION_setDataEnabled" field is not available,
+            // or named differently in the current API level, so we throw
+            // an exception and inform users that the method is not available.
+            //e.printStackTrace();
+            //    throw e;
+            //}
+        }
+        else
+            return "";
     }
 
     /*static public String getTransactionCode(String className, String methodName) throws Exception {
@@ -2503,44 +2574,46 @@ public class ActivateProfileHelper {
             try {
                 // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
                 String transactionCode = getTransactionCode(context, "TRANSACTION_setPreferredNetworkType");
-                // Android 6?
-                if (Build.VERSION.SDK_INT >= 23) {
-                    SubscriptionManager mSubscriptionManager = SubscriptionManager.from(context);
-                    // Loop through the subscription list i.e. SIM list.
-                    List<SubscriptionInfo> subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                    if (subscriptionList != null) {
-                        for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
-                            if (transactionCode.length() > 0) {
-                                // Get the active subscription ID for a given SIM card.
-                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                if (subscriptionInfo != null) {
-                                    int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                    synchronized (PPApplication.startRootCommandMutex) {
-                                        String command1 = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + networkType;
-                                        Command command = new Command(0, false, command1);
-                                        try {
-                                            //RootTools.closeAllShells();
-                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                            commandWait(command);
-                                        } catch (Exception e) {
-                                            Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                if (!transactionCode.isEmpty()) {
+                    // Android 6?
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        SubscriptionManager mSubscriptionManager = SubscriptionManager.from(context);
+                        // Loop through the subscription list i.e. SIM list.
+                        List<SubscriptionInfo> subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                        if (subscriptionList != null) {
+                            for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
+                                if (transactionCode.length() > 0) {
+                                    // Get the active subscription ID for a given SIM card.
+                                    SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                    if (subscriptionInfo != null) {
+                                        int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                        synchronized (PPApplication.startRootCommandMutex) {
+                                            String command1 = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + networkType;
+                                            Command command = new Command(0, false, command1);
+                                            try {
+                                                //RootTools.closeAllShells();
+                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                commandWait(command);
+                                            } catch (Exception e) {
+                                                Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
-                    }
-                } else  {
-                    if (transactionCode.length() > 0) {
-                        synchronized (PPApplication.startRootCommandMutex) {
-                            String command1 = "service call phone " + transactionCode + " i32 " + networkType;
-                            Command command = new Command(0, false, command1);
-                            try {
-                                //RootTools.closeAllShells();
-                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                commandWait(command);
-                            } catch (Exception e) {
-                                Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                    } else {
+                        if (transactionCode.length() > 0) {
+                            synchronized (PPApplication.startRootCommandMutex) {
+                                String command1 = "service call phone " + transactionCode + " i32 " + networkType;
+                                Command command = new Command(0, false, command1);
+                                try {
+                                    //RootTools.closeAllShells();
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    commandWait(command);
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                                }
                             }
                         }
                     }
@@ -2618,13 +2691,19 @@ public class ActivateProfileHelper {
                         (locationMode == Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
         }*/
 
-        boolean isEnabled;
+        boolean isEnabled = false;
+        boolean ok = true;
         if (android.os.Build.VERSION.SDK_INT < 19)
             isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
         else {
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-            isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            if (locationManager != null)
+                isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            else
+                ok = false;
         }
+        if (!ok)
+            return;
 
         PPApplication.logE("ActivateProfileHelper.setGPS", "isEnabled="+isEnabled);
 
@@ -2742,7 +2821,9 @@ public class ActivateProfileHelper {
                     for (String aList : list) {
                         if (!aList.equals(LocationManager.GPS_PROVIDER)) {
                             if (j > 0)
+                                //noinspection StringConcatenationInLoop
                                 newSet += ",";
+                            //noinspection StringConcatenationInLoop
                             newSet += aList;
                             j++;
                         }
@@ -2773,7 +2854,9 @@ public class ActivateProfileHelper {
 
                         if (!aList.equals(LocationManager.GPS_PROVIDER)) {
                             if (j > 0)
+                                //noinspection StringConcatenationInLoop
                                 newSet += ",";
+                            //noinspection StringConcatenationInLoop
                             newSet += aList;
                             j++;
                         }
@@ -2902,54 +2985,58 @@ public class ActivateProfileHelper {
                     if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, appContext) == PPApplication.PREFERENCE_ALLOWED) {
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.setPowerSaveMode");
-                        wakeLock.acquire(10 * 60 * 1000);
-
-                        //PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                        boolean _isPowerSaveMode = false;
-                        if (Build.VERSION.SDK_INT >= 21)
-                            _isPowerSaveMode = powerManager.isPowerSaveMode();
-                        boolean _setPowerSaveMode = false;
-                        switch (profile._devicePowerSaveMode) {
-                            case 1:
-                                if (!_isPowerSaveMode) {
-                                    _isPowerSaveMode = true;
-                                    _setPowerSaveMode = true;
-                                }
-                                break;
-                            case 2:
-                                if (_isPowerSaveMode) {
-                                    _isPowerSaveMode = false;
-                                    _setPowerSaveMode = true;
-                                }
-                                break;
-                            case 3:
-                                _isPowerSaveMode = !_isPowerSaveMode;
-                                _setPowerSaveMode = true;
-                                break;
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.setPowerSaveMode");
+                            wakeLock.acquire(10 * 60 * 1000);
                         }
-                        if (_setPowerSaveMode) {
-                            if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                                if (android.os.Build.VERSION.SDK_INT >= 21)
-                                    Settings.Global.putInt(appContext.getContentResolver(), "low_power", ((_isPowerSaveMode) ? 1 : 0));
+
+                        if (powerManager != null) {
+                            //PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                            boolean _isPowerSaveMode = false;
+                            if (Build.VERSION.SDK_INT >= 21)
+                                _isPowerSaveMode = powerManager.isPowerSaveMode();
+                            boolean _setPowerSaveMode = false;
+                            switch (profile._devicePowerSaveMode) {
+                                case 1:
+                                    if (!_isPowerSaveMode) {
+                                        _isPowerSaveMode = true;
+                                        _setPowerSaveMode = true;
+                                    }
+                                    break;
+                                case 2:
+                                    if (_isPowerSaveMode) {
+                                        _isPowerSaveMode = false;
+                                        _setPowerSaveMode = true;
+                                    }
+                                    break;
+                                case 3:
+                                    _isPowerSaveMode = !_isPowerSaveMode;
+                                    _setPowerSaveMode = true;
+                                    break;
                             }
-                            else
-                            if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
-                                synchronized (PPApplication.startRootCommandMutex) {
-                                    String command1 = "settings put global low_power " + ((_isPowerSaveMode) ? 1 : 0);
-                                    Command command = new Command(0, false, command1);
-                                    try {
-                                        //RootTools.closeAllShells();
-                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        commandWait(command);
-                                    } catch (Exception e) {
-                                        Log.e("ActivateProfileHelper.setPowerSaveMode", "Error on run su: " + e.toString());
+                            if (_setPowerSaveMode) {
+                                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                                    if (android.os.Build.VERSION.SDK_INT >= 21)
+                                        Settings.Global.putInt(appContext.getContentResolver(), "low_power", ((_isPowerSaveMode) ? 1 : 0));
+                                } else if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                                    synchronized (PPApplication.startRootCommandMutex) {
+                                        String command1 = "settings put global low_power " + ((_isPowerSaveMode) ? 1 : 0);
+                                        Command command = new Command(0, false, command1);
+                                        try {
+                                            //RootTools.closeAllShells();
+                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                            commandWait(command);
+                                        } catch (Exception e) {
+                                            Log.e("ActivateProfileHelper.setPowerSaveMode", "Error on run su: " + e.toString());
+                                        }
                                     }
                                 }
                             }
                         }
 
-                        wakeLock.release();
+                        if (wakeLock != null)
+                            wakeLock.release();
                     }
                 }
             });
@@ -2967,15 +3054,20 @@ public class ActivateProfileHelper {
                     return;
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.lockDevice");
-                wakeLock.acquire(10 * 60 * 1000);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.lockDevice");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
                 switch (profile._lockDevice) {
                     case 3:
                         DevicePolicyManager manager = (DevicePolicyManager)appContext.getSystemService(DEVICE_POLICY_SERVICE);
-                        final ComponentName component = new ComponentName(appContext, PPDeviceAdminReceiver.class);
-                        if (manager.isAdminActive(component))
-                            manager.lockNow();
+                        if (manager != null) {
+                            final ComponentName component = new ComponentName(appContext, PPDeviceAdminReceiver.class);
+                            if (manager.isAdminActive(component))
+                                manager.lockNow();
+                        }
                         break;
                     case 2:
                         /*if (PPApplication.isRooted()) {
@@ -3035,7 +3127,8 @@ public class ActivateProfileHelper {
                         break;
                 }
 
-                wakeLock.release();
+                if (wakeLock != null)
+                    wakeLock.release();
             }
         });
     }

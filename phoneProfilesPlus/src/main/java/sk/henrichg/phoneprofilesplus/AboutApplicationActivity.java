@@ -26,7 +26,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class AboutApplicationActivity extends AppCompatActivity {
 
-    @SuppressLint("InlinedApi")
+    @SuppressLint({"InlinedApi", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity

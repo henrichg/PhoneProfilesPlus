@@ -139,11 +139,13 @@ class ProfilePreferenceAdapter extends BaseAdapter {
             else
                 holder.profileIcon.setImageBitmap(profile._iconBitmap);
             if (ApplicationPreferences.applicationEditorPrefIndicator(context)) {
-                holder.profileIndicator.setVisibility(View.VISIBLE);
-                if (profile._preferencesIndicator != null)
-                    holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
-                else
-                    holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                if (holder.profileIndicator != null) {
+                    holder.profileIndicator.setVisibility(View.VISIBLE);
+                    if (profile._preferencesIndicator != null)
+                        holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+                    else
+                        holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                }
             }
         }
         else
@@ -168,8 +170,10 @@ class ProfilePreferenceAdapter extends BaseAdapter {
                 holder.profileIcon.setVisibility(View.VISIBLE);
                 holder.profileIcon.setImageResource(R.drawable.ic_empty);
                 if (ApplicationPreferences.applicationEditorPrefIndicator(context)) {
-                    holder.profileIndicator.setVisibility(View.VISIBLE);
-                    holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                    if (holder.profileIndicator != null) {
+                        holder.profileIndicator.setVisibility(View.VISIBLE);
+                        holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                    }
                 }
             }
         }

@@ -70,13 +70,17 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
                             @Override
                             public void run() {
                                 PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
-                                PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ForegroundApplicationChangedService.onAccessibilityEvent");
-                                wakeLock.acquire(10 * 60 * 1000);
+                                PowerManager.WakeLock wakeLock = null;
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ForegroundApplicationChangedService.onAccessibilityEvent");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
                                 EventsHandler eventsHandler = new EventsHandler(context);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION, false);
 
-                                wakeLock.release();
+                                if (wakeLock != null)
+                                    wakeLock.release();
                             }
                         });
                     }
@@ -113,13 +117,17 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
             @Override
             public void run() {
                 PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ForegroundApplicationChangedService.onUnbind");
-                wakeLock.acquire(10 * 60 * 1000);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ForegroundApplicationChangedService.onUnbind");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
                 EventsHandler eventsHandler = new EventsHandler(context);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION, false);
 
-                wakeLock.release();
+                if (wakeLock != null)
+                    wakeLock.release();
             }
         });
 
@@ -128,14 +136,15 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
     public static boolean isEnabled(Context context) {
         AccessibilityManager manager = (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
+        if (manager != null) {
+            List<AccessibilityServiceInfo> runningServices =
+                    manager.getEnabledAccessibilityServiceList(AccessibilityEvent.TYPES_ALL_MASK);
 
-        List<AccessibilityServiceInfo> runningServices =
-                manager.getEnabledAccessibilityServiceList(AccessibilityEvent.TYPES_ALL_MASK);
-
-        for (AccessibilityServiceInfo service : runningServices) {
-            //Log.d("ForegroundApplicationChangedService", "serviceId="+service.getId());
-            if (SERVICE_ID.equals(service.getId()))
-                return true;
+            for (AccessibilityServiceInfo service : runningServices) {
+                //Log.d("ForegroundApplicationChangedService", "serviceId="+service.getId());
+                if (SERVICE_ID.equals(service.getId()))
+                    return true;
+            }
         }
 
         return false;

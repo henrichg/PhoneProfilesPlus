@@ -286,19 +286,142 @@ class Scanner {
                             if (BluetoothScanJob.bluetooth == null)
                                 BluetoothScanJob.bluetooth = BluetoothScanJob.getBluetoothAdapter(context);
 
-                            if (BluetoothScanJob.getBluetoothEnabledForScan(context)) {
-                                // service restarted during scanning, disable Bluetooth
-                                PPApplication.logE("$$$B Scanner.doScan", "disable BT - service restarted");
+                            if (BluetoothScanJob.bluetooth != null) {
+                                if (BluetoothScanJob.getBluetoothEnabledForScan(context)) {
+                                    // service restarted during scanning, disable Bluetooth
+                                    PPApplication.logE("$$$B Scanner.doScan", "disable BT - service restarted");
+                                    wifiBluetoothChangeHandler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //lock();
+                                            BluetoothScanJob.bluetooth.disable();
+                                            BluetoothScanJob.setScanRequest(context, false);
+                                            BluetoothScanJob.setLEScanRequest(context, false);
+                                            BluetoothScanJob.setWaitForResults(context, false);
+                                            BluetoothScanJob.setWaitForLEResults(context, false);
+                                            BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+                                        }
+                                    });
+                                    //try { Thread.sleep(700); } catch (InterruptedException e) { }
+                                    //SystemClock.sleep(700);
+                                    PPApplication.sleep(700);
+                                    //unlock();
+                                }
+
+                                if (true /*canScanBluetooth(dataWrapper)*/) {  // scan even if bluetooth is connected
+                                    BluetoothScanJob.setScanRequest(context, false);
+                                    BluetoothScanJob.setLEScanRequest(context, false);
+                                    BluetoothScanJob.setWaitForResults(context, false);
+                                    BluetoothScanJob.setWaitForLEResults(context, false);
+                                    BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+
+                                    int bluetoothState;
+
+                                    if (classicDevicesScan) {
+                                        ///////// Classic BT scan
+
+                                        PPApplication.logE("$$$BCL Scanner.doScan", "classic devices scan");
+
+                                        //lock();
+
+                                        // enable bluetooth
+                                        bluetoothState = enableBluetooth(dataWrapper,
+                                                BluetoothScanJob.bluetooth,
+                                                wifiBluetoothChangeHandler,
+                                                false);
+                                        PPApplication.logE("$$$BCL Scanner.doScan", "bluetoothState=" + bluetoothState);
+
+                                        if (bluetoothState == BluetoothAdapter.STATE_ON) {
+                                            PPApplication.logE("$$$BCL Scanner.doScan", "start classic scan");
+                                            BluetoothScanJob.startCLScan(context);
+                                        } else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
+                                            BluetoothScanJob.setScanRequest(context, false);
+                                            BluetoothScanJob.setWaitForResults(context, false);
+                                            BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+                                            setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
+                                        }
+
+                                        if ((BluetoothScanJob.getScanRequest(context)) ||
+                                                (BluetoothScanJob.getWaitForResults(context))) {
+                                            PPApplication.logE("$$$BCL Scanner.doScan", "waiting for classic scan end");
+
+                                            // wait for scan end
+                                            waitForBluetoothScanEnd(context, null);
+
+                                            PPApplication.logE("$$$BCL Scanner.doScan", "classic scan ended");
+
+                                        }
+
+                                        //unlock();
+
+                                        setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
+                                        BluetoothScanJob.setWaitForResults(context, false);
+                                        BluetoothScanJob.setLEScanRequest(context, false);
+
+                                        ///////// Classic BT scan - end
+                                    }
+
+                                    if (leDevicesScan) {
+                                        ///////// LE BT scan
+
+                                        PPApplication.logE("$$$BLE Scanner.doScan", "LE devices scan");
+
+                                    /*if (android.os.Build.VERSION.SDK_INT < 21)
+                                        // for old BT LE scan must by acquired lock
+                                        lock();*/
+
+                                        // enable bluetooth
+                                        bluetoothState = enableBluetooth(dataWrapper,
+                                                BluetoothScanJob.bluetooth,
+                                                wifiBluetoothChangeHandler,
+                                                true);
+
+                                        if (bluetoothState == BluetoothAdapter.STATE_ON) {
+                                            PPApplication.logE("$$$BLE Scanner.doScan", "start LE scan");
+                                            BluetoothScanJob.startLEScan(context);
+                                        } else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
+                                            BluetoothScanJob.setLEScanRequest(context, false);
+                                            BluetoothScanJob.setWaitForLEResults(context, false);
+                                            BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+                                            setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
+                                        }
+
+                                        if ((BluetoothScanJob.getLEScanRequest(context)) ||
+                                                (BluetoothScanJob.getWaitForLEResults(context))) {
+                                            PPApplication.logE("$$$BLE Scanner.doScan", "waiting for LE scan end");
+
+                                            // wait for scan end
+                                            waitForLEBluetoothScanEnd(context, null);
+
+                                            // send broadcast for start EventsHandler
+                                        /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
+                                        sendBroadcast(btLEIntent);*/
+                                            Intent btLEIntent = new Intent("BluetoothLEScanBroadcastReceiver");
+                                            LocalBroadcastManager.getInstance(context).sendBroadcast(btLEIntent);
+
+                                            PPApplication.logE("$$$BLE Scanner.doScan", "LE scan ended");
+                                        }
+
+                                        //unlock();
+
+                                        setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
+                                        BluetoothScanJob.setWaitForLEResults(context, false);
+                                        BluetoothScanJob.setLEScanRequest(context, false);
+
+                                        ///////// LE BT scan - end
+                                    }
+                                }
+
                                 wifiBluetoothChangeHandler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        //lock();
-                                        BluetoothScanJob.bluetooth.disable();
-                                        BluetoothScanJob.setScanRequest(context, false);
-                                        BluetoothScanJob.setLEScanRequest(context, false);
-                                        BluetoothScanJob.setWaitForResults(context, false);
-                                        BluetoothScanJob.setWaitForLEResults(context, false);
-                                        BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+                                        if (BluetoothScanJob.getBluetoothEnabledForScan(context)) {
+                                            PPApplication.logE("$$$B Scanner.doScan", "disable bluetooth");
+                                            //lock();
+                                            BluetoothScanJob.bluetooth.disable();
+                                            BluetoothScanJob.setBluetoothEnabledForScan(context, false);
+                                        } else
+                                            PPApplication.logE("$$$B Scanner.doScan", "keep enabled bluetooth");
                                     }
                                 });
                                 //try { Thread.sleep(700); } catch (InterruptedException e) { }
@@ -306,127 +429,6 @@ class Scanner {
                                 PPApplication.sleep(700);
                                 //unlock();
                             }
-
-                            if (true /*canScanBluetooth(dataWrapper)*/) {  // scan even if bluetooth is connected
-                                BluetoothScanJob.setScanRequest(context, false);
-                                BluetoothScanJob.setLEScanRequest(context, false);
-                                BluetoothScanJob.setWaitForResults(context, false);
-                                BluetoothScanJob.setWaitForLEResults(context, false);
-                                BluetoothScanJob.setBluetoothEnabledForScan(context, false);
-
-                                int bluetoothState;
-
-                                if (classicDevicesScan) {
-                                    ///////// Classic BT scan
-
-                                    PPApplication.logE("$$$BCL Scanner.doScan", "classic devices scan");
-
-                                    //lock();
-
-                                    // enable bluetooth
-                                    bluetoothState = enableBluetooth(dataWrapper,
-                                            BluetoothScanJob.bluetooth,
-                                            wifiBluetoothChangeHandler,
-                                            false);
-                                    PPApplication.logE("$$$BCL Scanner.doScan", "bluetoothState=" + bluetoothState);
-
-                                    if (bluetoothState == BluetoothAdapter.STATE_ON) {
-                                        PPApplication.logE("$$$BCL Scanner.doScan", "start classic scan");
-                                        BluetoothScanJob.startCLScan(context);
-                                    } else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
-                                        BluetoothScanJob.setScanRequest(context, false);
-                                        BluetoothScanJob.setWaitForResults(context, false);
-                                        BluetoothScanJob.setBluetoothEnabledForScan(context, false);
-                                        setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                                    }
-
-                                    if ((BluetoothScanJob.getScanRequest(context)) ||
-                                            (BluetoothScanJob.getWaitForResults(context))) {
-                                        PPApplication.logE("$$$BCL Scanner.doScan", "waiting for classic scan end");
-
-                                        // wait for scan end
-                                        waitForBluetoothScanEnd(context, null);
-
-                                        PPApplication.logE("$$$BCL Scanner.doScan", "classic scan ended");
-
-                                    }
-
-                                    //unlock();
-
-                                    setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                                    BluetoothScanJob.setWaitForResults(context, false);
-                                    BluetoothScanJob.setLEScanRequest(context, false);
-
-                                    ///////// Classic BT scan - end
-                                }
-
-                                if (leDevicesScan) {
-                                    ///////// LE BT scan
-
-                                    PPApplication.logE("$$$BLE Scanner.doScan", "LE devices scan");
-
-                                    /*if (android.os.Build.VERSION.SDK_INT < 21)
-                                        // for old BT LE scan must by acquired lock
-                                        lock();*/
-
-                                    // enable bluetooth
-                                    bluetoothState = enableBluetooth(dataWrapper,
-                                            BluetoothScanJob.bluetooth,
-                                            wifiBluetoothChangeHandler,
-                                            true);
-
-                                    if (bluetoothState == BluetoothAdapter.STATE_ON) {
-                                        PPApplication.logE("$$$BLE Scanner.doScan", "start LE scan");
-                                        BluetoothScanJob.startLEScan(context);
-                                    } else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
-                                        BluetoothScanJob.setLEScanRequest(context, false);
-                                        BluetoothScanJob.setWaitForLEResults(context, false);
-                                        BluetoothScanJob.setBluetoothEnabledForScan(context, false);
-                                        setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                                    }
-
-                                    if ((BluetoothScanJob.getLEScanRequest(context)) ||
-                                            (BluetoothScanJob.getWaitForLEResults(context))) {
-                                        PPApplication.logE("$$$BLE Scanner.doScan", "waiting for LE scan end");
-
-                                        // wait for scan end
-                                        waitForLEBluetoothScanEnd(context, null);
-
-                                        // send broadcast for start EventsHandler
-                                        /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
-                                        sendBroadcast(btLEIntent);*/
-                                        Intent btLEIntent = new Intent("BluetoothLEScanBroadcastReceiver");
-                                        LocalBroadcastManager.getInstance(context).sendBroadcast(btLEIntent);
-
-                                        PPApplication.logE("$$$BLE Scanner.doScan", "LE scan ended");
-                                    }
-
-                                    //unlock();
-
-                                    setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                                    BluetoothScanJob.setWaitForLEResults(context, false);
-                                    BluetoothScanJob.setLEScanRequest(context, false);
-
-                                    ///////// LE BT scan - end
-                                }
-                            }
-
-                            wifiBluetoothChangeHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (BluetoothScanJob.getBluetoothEnabledForScan(context)) {
-                                        PPApplication.logE("$$$B Scanner.doScan", "disable bluetooth");
-                                        //lock();
-                                        BluetoothScanJob.bluetooth.disable();
-                                        BluetoothScanJob.setBluetoothEnabledForScan(context, false);
-                                    } else
-                                        PPApplication.logE("$$$B Scanner.doScan", "keep enabled bluetooth");
-                                }
-                            });
-                            //try { Thread.sleep(700); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(700);
-                            PPApplication.sleep(700);
-                            //unlock();
                         }
                     }
 
@@ -824,10 +826,12 @@ class Scanner {
                         mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
                     }
                     NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    if (scanType.equals(SCANNER_TYPE_WIFI))
-                        mNotificationManager.notify(PPApplication.LOCATION_SETTINGS_FOR_WIFI_SCANNING_NOTIFICATION_ID, mBuilder.build());
-                    else
-                        mNotificationManager.notify(PPApplication.LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_ID, mBuilder.build());
+                    if (mNotificationManager != null) {
+                        if (scanType.equals(SCANNER_TYPE_WIFI))
+                            mNotificationManager.notify(PPApplication.LOCATION_SETTINGS_FOR_WIFI_SCANNING_NOTIFICATION_ID, mBuilder.build());
+                        else
+                            mNotificationManager.notify(PPApplication.LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_ID, mBuilder.build());
+                    }
 
                     setShowEnableLocationNotification(context, false);
                 }

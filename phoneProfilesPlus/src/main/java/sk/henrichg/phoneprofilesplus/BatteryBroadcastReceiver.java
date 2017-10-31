@@ -14,10 +14,12 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
     static boolean isCharging = false;
     static int batteryPct = -100;
 
+    /*
     public static final String EXTRA_IS_CHARGING = "isCharging";
     public static final String EXTRA_BATTERY_PCT = "batteryPct";
     public static final String EXTRA_STATUS_RECEIVED = "statusReceived";
     public static final String EXTRA_LEVEL_RECEIVED = "levelReceived";
+    */
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -53,14 +55,14 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         }
 
         String action = intent.getAction();
-        if (action.equals(Intent.ACTION_POWER_CONNECTED)) {
-            statusReceived = true;
-            _isCharging = true;
-        }
-        else
-        if (action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
-            statusReceived = true;
-            _isCharging = false;
+        if (action != null) {
+            if (action.equals(Intent.ACTION_POWER_CONNECTED)) {
+                statusReceived = true;
+                _isCharging = true;
+            } else if (action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
+                statusReceived = true;
+                _isCharging = false;
+            }
         }
 
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "isCharging=" + isCharging);
@@ -93,14 +95,18 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                     @Override
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BatteryBroadcastReceiver.onReceive");
-                        wakeLock.acquire(10 * 60 * 1000);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BatteryBroadcastReceiver.onReceive");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY, false);
 
-                        wakeLock.release();
+                        if (wakeLock != null)
+                            wakeLock.release();
                     }
                 });
             }

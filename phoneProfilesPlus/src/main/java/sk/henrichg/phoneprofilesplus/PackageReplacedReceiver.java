@@ -16,7 +16,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, Intent intent) {
         CallsCounter.logCounter(context, "PackageReplacedReceiver.onReceive", "PackageReplacedReceiver_onReceive");
 
-        if ((intent != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
+        if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
             PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
 
             //PackageReplacedJob.start(context.getApplicationContext());
@@ -28,8 +28,11 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 @Override
                 public void run() {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PackageReplacedReceiver.onReceive");
-                    wakeLock.acquire(10 * 60 * 1000);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PackageReplacedReceiver.onReceive");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
                     // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
                     PPApplication.startedOnBoot = true;
@@ -172,7 +175,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             startService(appContext);
                     }
 
-                    wakeLock.release();
+                    if (wakeLock != null)
+                        wakeLock.release();
                 }
             });
 

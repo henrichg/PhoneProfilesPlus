@@ -134,7 +134,7 @@ public class ProfileDetailsFragment extends Fragment {
                 //profilePrefIndicatorImageView.setImageBitmap(null);
                 //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                 //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                if (profileIndicator != null)
+                if (profile._preferencesIndicator != null)
                     profileIndicator.setImageBitmap(profile._preferencesIndicator);
                 else
                     profileIndicator.setImageResource(R.drawable.ic_empty);

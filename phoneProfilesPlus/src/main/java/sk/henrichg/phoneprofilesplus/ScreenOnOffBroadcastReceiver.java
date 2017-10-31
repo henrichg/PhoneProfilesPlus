@@ -36,12 +36,15 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
             @Override
             public void run() {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ScreenOnOffBroadcastReceiver.onReceive");
-                wakeLock.acquire(10 * 60 * 1000);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ScreenOnOffBroadcastReceiver.onReceive");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
                 PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of handler post");
 
-                if (action.equals(Intent.ACTION_SCREEN_ON)) {
+                if ((action != null) && action.equals(Intent.ACTION_SCREEN_ON)) {
                     PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
                     PPApplication.restartWifiScanner(appContext, true);
                     PPApplication.restartBluetoothScanner(appContext, true);
@@ -49,7 +52,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.restartPhoneStateScanner(appContext, true);
                     PPApplication.restartOrientationScanner(appContext, true);
                 }
-                else if (action.equals(Intent.ACTION_SCREEN_OFF)) {
+                else if ((action != null) && action.equals(Intent.ACTION_SCREEN_OFF)) {
                     PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
 
                     PPApplication.restartWifiScanner(appContext, true);
@@ -76,7 +79,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             PhoneProfilesService.instance.showProfileNotification(activatedProfile, dataWrapper);
                         dataWrapper.invalidateDataWrapper();
                     }
-                } else if (action.equals(Intent.ACTION_USER_PRESENT)) {
+                } else if ((action != null) && action.equals(Intent.ACTION_USER_PRESENT)) {
                     PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
                     //ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
@@ -125,7 +128,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         //    startForegroundService(serviceIntent);
                     } catch (Exception ignored) {}
 
-                    wakeLock.release();
+                    if (wakeLock != null)
+                        wakeLock.release();
                     return;
                 }
 
@@ -185,7 +189,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                 }
 
-                if (action.equals(Intent.ACTION_SCREEN_ON)) {
+                if ((action != null) && action.equals(Intent.ACTION_SCREEN_ON)) {
                     if (ApplicationPreferences.notificationShowInStatusBar(appContext) &&
                             ApplicationPreferences.notificationHideInLockScreen(appContext)) {
                         DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
@@ -201,7 +205,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                 PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "end of handler post");
 
-                wakeLock.release();
+                if (wakeLock != null)
+                    wakeLock.release();
             }
         });
         PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "after start handler");

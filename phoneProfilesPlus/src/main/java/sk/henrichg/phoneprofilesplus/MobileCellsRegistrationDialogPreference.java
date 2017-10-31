@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -69,6 +70,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void showDialog(Bundle state) {
 

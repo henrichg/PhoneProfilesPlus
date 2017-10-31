@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -101,6 +102,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 .neutralText(R.string.pref_dlg_change_selection_button_unselect_all)
                 .autoDismiss(false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @SuppressWarnings("StringConcatenationInLoop")
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist())
@@ -198,6 +200,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         mDialog.show();
     }
 
+    @SuppressLint("StaticFieldLeak")
     private void refreshListView(final boolean notForUnselect) {
         new AsyncTask<Void, Integer, Void>() {
 

@@ -102,6 +102,7 @@ class EventPreferencesBluetooth extends EventPreferences {
             String[] splits = this._adapterName.split("\\|");
             for (String _bluetoothName : splits) {
                 if (_bluetoothName.isEmpty()) {
+                    //noinspection StringConcatenationInLoop
                     selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 }
                 else
@@ -233,10 +234,15 @@ class EventPreferencesBluetooth extends EventPreferences {
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
                 != PPApplication.PREFERENCE_ALLOWED)
         {
-            prefMng.findPreference(PREF_EVENT_BLUETOOTH_ENABLED).setEnabled(false);
-            prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME).setEnabled(false);
-            prefMng.findPreference(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE).setEnabled(false);
-            prefMng.findPreference(PREF_EVENT_BLUETOOTH_DEVICES_TYPE).setEnabled(false);
+            Preference preference;
+            preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ENABLED);
+            if (preference != null) preference.setEnabled(false);
+            preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
+            if (preference != null) preference.setEnabled(false);
+            preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE);
+            if (preference != null) preference.setEnabled(false);
+            preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_DEVICES_TYPE);
+            if (preference != null) preference.setEnabled(false);
         }
 
     }

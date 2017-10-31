@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -58,6 +59,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                 .customView(R.layout.activity_contacts_multiselect_pref_dialog, false)
                 .autoDismiss(false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @SuppressWarnings("StringConcatenationInLoop")
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist())
@@ -150,6 +152,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         mDialog.show();
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void refreshListView(final boolean notForUnselect) {
 
         new AsyncTask<Void, Integer, Void>() {

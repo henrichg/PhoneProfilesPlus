@@ -74,6 +74,7 @@ class EventPreferencesOrientation extends EventPreferences {
         editor.apply();
     }
 
+    @SuppressWarnings("StringConcatenationInLoop")
     @Override
     public void saveSharedPreferences(SharedPreferences preferences)
     {
@@ -105,6 +106,7 @@ class EventPreferencesOrientation extends EventPreferences {
         this._ignoredApplications = preferences.getString(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS, "");
     }
 
+    @SuppressWarnings("StringConcatenationInLoop")
     @Override
     public String getPreferencesDescription(boolean addBullet, Context context)
     {
@@ -203,13 +205,17 @@ class EventPreferencesOrientation extends EventPreferences {
     {
         if (key.equals(PREF_EVENT_ORIENTATION_DISPLAY)) {
             Preference preference = prefMng.findPreference(key);
-            preference.setSummary(value);
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+            if (preference != null) {
+                preference.setSummary(value);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+            }
         }
         if (key.equals(PREF_EVENT_ORIENTATION_SIDES)) {
             Preference preference = prefMng.findPreference(key);
-            preference.setSummary(value);
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+            if (preference != null) {
+                preference.setSummary(value);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+            }
         }
         if (key.equals(PREF_EVENT_ORIENTATION_DISTANCE))
         {
@@ -227,6 +233,7 @@ class EventPreferencesOrientation extends EventPreferences {
         }
     }
 
+    @SuppressWarnings("StringConcatenationInLoop")
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {

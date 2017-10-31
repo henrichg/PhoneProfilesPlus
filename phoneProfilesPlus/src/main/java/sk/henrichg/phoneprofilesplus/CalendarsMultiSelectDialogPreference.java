@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -70,6 +71,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 .customView(R.layout.activity_calendars_multiselect_pref_dialog, false)
                 .autoDismiss(false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @SuppressWarnings("StringConcatenationInLoop")
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist())
@@ -144,6 +146,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         mDialog.show();
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void refreshListView(final boolean notForUnselect) {
 
         new AsyncTask<Void, Integer, Void>() {
@@ -163,6 +166,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 }
             }
 
+            @SuppressLint("MissingPermission")
             @Override
             protected Void doInBackground(Void... params) {
 
@@ -299,6 +303,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         }
     }
 
+    @SuppressLint("MissingPermission")
     private void setSummaryCMSDP()
     {
         String prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_not_selected);

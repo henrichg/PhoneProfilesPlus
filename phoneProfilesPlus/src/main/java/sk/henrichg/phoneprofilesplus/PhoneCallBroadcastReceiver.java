@@ -19,9 +19,9 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     static boolean linkUnlinkExecuted = false;
     static boolean speakerphoneOnExecuted = false;
 
-    public static final String EXTRA_SERVICE_PHONE_EVENT = "service_phone_event";
-    public static final String EXTRA_SERVICE_PHONE_INCOMING = "service_phone_incoming";
-    public static final String EXTRA_SERVICE_PHONE_NUMBER = "service_phone_number";
+    //public static final String EXTRA_SERVICE_PHONE_EVENT = "service_phone_event";
+    //public static final String EXTRA_SERVICE_PHONE_INCOMING = "service_phone_incoming";
+    //public static final String EXTRA_SERVICE_PHONE_NUMBER = "service_phone_number";
 
     public static final int SERVICE_PHONE_EVENT_START = 1;
     public static final int SERVICE_PHONE_EVENT_ANSWER = 2;
@@ -115,8 +115,11 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     private void doCallEvent(int eventType, String phoneNumber, Context context)
     {
         PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
-        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneCallBroadcastReceiver.doCallEvent");
-        wakeLock.acquire(10 * 60 * 1000);
+        PowerManager.WakeLock wakeLock = null;
+        if (powerManager != null) {
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneCallBroadcastReceiver.doCallEvent");
+            wakeLock.acquire(10 * 60 * 1000);
+        }
 
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
@@ -131,7 +134,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         EventsHandler eventsHandler = new EventsHandler(context);
         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL, false);
 
-        wakeLock.release();
+        if (wakeLock != null)
+            wakeLock.release();
     }
 
     private void callStarted(boolean incoming, String phoneNumber, Context context)
@@ -153,8 +157,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
                 if (audioManager == null )
                     audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-
-                savedSpeakerphone = audioManager.isSpeakerphoneOn();
+                if (audioManager != null)
+                    savedSpeakerphone = audioManager.isSpeakerphoneOn();
                 boolean changeSpeakerphone = false;
                 if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
                     changeSpeakerphone = true;
@@ -162,7 +166,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                     changeSpeakerphone = true;
                 if (changeSpeakerphone) {
                     /// activate SpeakerPhone
-                    audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
+                    if (audioManager != null)
+                        audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
                     speakerphoneSelected = true;
                 }
 
@@ -212,7 +217,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         if (speakerphoneSelected)
         {
-            audioManager.setSpeakerphoneOn(savedSpeakerphone);
+            if (audioManager != null)
+                audioManager.setSpeakerphoneOn(savedSpeakerphone);
         }
 
         speakerphoneSelected = false;

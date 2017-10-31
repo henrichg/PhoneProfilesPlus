@@ -166,10 +166,12 @@ class AddEventAdapter extends BaseAdapter {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                     //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                    if (holder.profileStartIndicator != null)
-                        holder.profileStartIndicator.setImageBitmap(profile._preferencesIndicator);
-                    else
-                        holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                    if (holder.profileStartIndicator != null) {
+                        if (profile._preferencesIndicator != null)
+                            holder.profileStartIndicator.setImageBitmap(profile._preferencesIndicator);
+                        else
+                            holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                    }
                 }
             }
             else
@@ -231,10 +233,12 @@ class AddEventAdapter extends BaseAdapter {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                        if (holder.profileEndIndicator != null)
-                            holder.profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
-                        else
-                            holder.profileEndIndicator.setImageResource(R.drawable.ic_empty);
+                        if (holder.profileEndIndicator != null) {
+                            if (profile._preferencesIndicator != null)
+                                holder.profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
+                            else
+                                holder.profileEndIndicator.setImageResource(R.drawable.ic_empty);
+                        }
                     }
                 } else {
                     String profileName;

@@ -531,7 +531,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR)) {
                 boolean show = preferences.getBoolean(key, true);
                 Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
-                _preference.setEnabled(show);
+                if (_preference != null)
+                    _preference.setEnabled(show);
             }
         }
 
@@ -621,13 +622,17 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS);
-            boolean colorful = preferences.getString(key, "0").equals("1");
-            _preference.setEnabled(colorful);
+            if (_preference != null) {
+                boolean colorful = preferences.getString(key, "0").equals("1");
+                _preference.setEnabled(colorful);
+            }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS);
-            boolean colorful = preferences.getString(key, "0").equals("1");
-            _preference.setEnabled(colorful);
+            if (_preference != null) {
+                boolean colorful = preferences.getString(key, "0").equals("1");
+                _preference.setEnabled(colorful);
+            }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS);
@@ -677,7 +682,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 }
                 if (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) {
                     NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    if (mNotificationManager.isNotificationPolicyAccessGranted())
+                    if ((mNotificationManager != null) && (mNotificationManager.isNotificationPolicyAccessGranted()))
                         Permissions.setShowRequestAccessNotificationPolicyPermission(context, true);
                 }
                 if (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS) {

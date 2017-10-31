@@ -17,9 +17,9 @@ public class BootUpReceiver extends BroadcastReceiver {
             return;
 
         String action = intent.getAction();
-        if (action.equals(Intent.ACTION_BOOT_COMPLETED) ||
+        if ((action != null) && (action.equals(Intent.ACTION_BOOT_COMPLETED) ||
                 action.equals("android.intent.action.QUICKBOOT_POWERON") ||
-                action.equals("com.htc.intent.action.QUICKBOOT_POWERON")) {
+                action.equals("com.htc.intent.action.QUICKBOOT_POWERON"))) {
 
             PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 

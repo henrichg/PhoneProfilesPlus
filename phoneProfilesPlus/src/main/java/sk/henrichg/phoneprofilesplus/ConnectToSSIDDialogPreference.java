@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
@@ -116,6 +117,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
         mDialog.show();
     }
 
+    @SuppressLint("StaticFieldLeak")
     private void onShow(DialogInterface dialog) {
 
         new AsyncTask<Void, Integer, Void>() {

@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -294,6 +295,7 @@ public class NFCTagPreference extends DialogPreference {
         //Log.d("WifiSSIDPreference.addSSID","value="+value);
     }
 
+    @SuppressWarnings("StringConcatenationInLoop")
     void removeNfcTag(String tag) {
         String[] splits = value.split("\\|");
         value = "";
@@ -318,6 +320,7 @@ public class NFCTagPreference extends DialogPreference {
         return false;
     }
 
+    @SuppressLint("StaticFieldLeak")
     private void refreshListView(boolean forRescan, final String scrollToTag)
     {
         final boolean _forRescan = forRescan;
@@ -443,7 +446,9 @@ public class NFCTagPreference extends DialogPreference {
                                 if (!_tag.isEmpty()) {
                                     if (!_tag.equals(tag)) {
                                         if (!value.isEmpty())
+                                            //noinspection StringConcatenationInLoop
                                             value = value + "|";
+                                        //noinspection StringConcatenationInLoop
                                         value = value + _tag;
                                     } else
                                         found = true;

@@ -370,16 +370,16 @@ class EventPreferencesCalendar extends EventPreferences {
     private void removeAlarm(/*boolean startEvent, */Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+        if (alarmManager != null) {
+            Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
 
-        Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
+            if (pendingIntent != null) {
+                PPApplication.logE("EventPreferencesCalendar.removeAlarm", "alarm found");
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
-        if (pendingIntent != null)
-        {
-            PPApplication.logE("EventPreferencesCalendar.removeAlarm","alarm found");
-
-            alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
+                alarmManager.cancel(pendingIntent);
+                pendingIntent.cancel();
+            }
         }
     }
 
@@ -400,14 +400,14 @@ class EventPreferencesCalendar extends EventPreferences {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-
-        if (android.os.Build.VERSION.SDK_INT >= 23)
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime+ Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-        else
-        if (android.os.Build.VERSION.SDK_INT >= 19)
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime+ Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-        else
-            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime+ Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+        if (alarmManager != null) {
+            if (android.os.Build.VERSION.SDK_INT >= 23)
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            else if (android.os.Build.VERSION.SDK_INT >= 19)
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            else
+                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+        }
     }
 
     private void searchEvent(Context context)

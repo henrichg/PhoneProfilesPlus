@@ -388,100 +388,99 @@ public class RingtonePreference extends DialogPreference {
 
     void playRingtone(final boolean play) {
         final AudioManager audioManager = (AudioManager)prefContext.getSystemService(Context.AUDIO_SERVICE);
-
-        if (mediaPlayer != null) {
-            try {
-                if (mediaPlayer.isPlaying())
-                    mediaPlayer.stop();
-            } catch (Exception ignored) {}
-            mediaPlayer.release();
-            mediaPlayer = null;
-
-            if (oldMediaVolume > -1)
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
-        }
-
-        if (playTimer != null) {
-            playTimer.cancel();
-            playTimer = null;
-        }
-
-        if (!play) return;
-
-        Uri ringtoneUri = Uri.parse(ringtone);
-
-        try {
-            RingerModeChangeReceiver.internalChange = true;
-
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.setDataSource(prefContext, ringtoneUri);
-            mediaPlayer.prepare();
-            mediaPlayer.setLooping(false);
-
-            oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-
-            int ringtoneVolume = 0;
-            int maximumRingtoneValue = 0;
-
-            if (ringtoneType.equals("ringtone")) {
-                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-                maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-            }
-            else
-            if (ringtoneType.equals("notification")) {
-                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-                maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-            }
-            else
-            if (ringtoneType.equals("alarm")) {
-                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-                maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-            }
-
-            PPApplication.logE("RingtonePreference.playRingtone", "ringtoneVolume=" + ringtoneVolume);
-
-            int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-
-            float percentage = (float) ringtoneVolume / maximumRingtoneValue * 100.0f;
-            int mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
-
-            PPApplication.logE("RingtonePreference.playRingtone", "mediaVolume=" + mediaVolume);
-
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaVolume, 0);
-
-            mediaPlayer.start();
-
-            //final Context context = this;
-            playTimer = new Timer();
-            playTimer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-
-                    if (mediaPlayer != null) {
-                        try {
-                            if (mediaPlayer.isPlaying())
-                                mediaPlayer.stop();
-                        } catch (Exception ignored) {}
-                        mediaPlayer.release();
-
-                        if (oldMediaVolume > -1)
-                            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
-                        PPApplication.logE("RingtonePreference.playRingtone", "play stopped");
-                    }
-
-                    mediaPlayer = null;
-                    playTimer = null;
+        if (audioManager != null) {
+            if (mediaPlayer != null) {
+                try {
+                    if (mediaPlayer.isPlaying())
+                        mediaPlayer.stop();
+                } catch (Exception ignored) {
                 }
-            }, mediaPlayer.getDuration());
+                mediaPlayer.release();
+                mediaPlayer = null;
 
-        } catch (SecurityException e) {
-            PPApplication.logE("RingtonePreference.playRingtone", "security exception");
-            mediaPlayer = null;
-        } catch (Exception e) {
-            PPApplication.logE("RingtonePreference.playRingtone", "exception");
-            //e.printStackTrace();
-            mediaPlayer = null;
+                if (oldMediaVolume > -1)
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
+            }
+
+            if (playTimer != null) {
+                playTimer.cancel();
+                playTimer = null;
+            }
+
+            if (!play) return;
+
+            Uri ringtoneUri = Uri.parse(ringtone);
+
+            try {
+                RingerModeChangeReceiver.internalChange = true;
+
+                mediaPlayer = new MediaPlayer();
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                mediaPlayer.setDataSource(prefContext, ringtoneUri);
+                mediaPlayer.prepare();
+                mediaPlayer.setLooping(false);
+
+                oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+                int ringtoneVolume = 0;
+                int maximumRingtoneValue = 0;
+
+                if (ringtoneType.equals("ringtone")) {
+                    ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                    maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+                } else if (ringtoneType.equals("notification")) {
+                    ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+                    maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                } else if (ringtoneType.equals("alarm")) {
+                    ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                    maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                }
+
+                PPApplication.logE("RingtonePreference.playRingtone", "ringtoneVolume=" + ringtoneVolume);
+
+                int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+
+                float percentage = (float) ringtoneVolume / maximumRingtoneValue * 100.0f;
+                int mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
+
+                PPApplication.logE("RingtonePreference.playRingtone", "mediaVolume=" + mediaVolume);
+
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaVolume, 0);
+
+                mediaPlayer.start();
+
+                //final Context context = this;
+                playTimer = new Timer();
+                playTimer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+
+                        if (mediaPlayer != null) {
+                            try {
+                                if (mediaPlayer.isPlaying())
+                                    mediaPlayer.stop();
+                            } catch (Exception ignored) {
+                            }
+                            mediaPlayer.release();
+
+                            if (oldMediaVolume > -1)
+                                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
+                            PPApplication.logE("RingtonePreference.playRingtone", "play stopped");
+                        }
+
+                        mediaPlayer = null;
+                        playTimer = null;
+                    }
+                }, mediaPlayer.getDuration());
+
+            } catch (SecurityException e) {
+                PPApplication.logE("RingtonePreference.playRingtone", "security exception");
+                mediaPlayer = null;
+            } catch (Exception e) {
+                PPApplication.logE("RingtonePreference.playRingtone", "exception");
+                //e.printStackTrace();
+                mediaPlayer = null;
+            }
         }
     }
 

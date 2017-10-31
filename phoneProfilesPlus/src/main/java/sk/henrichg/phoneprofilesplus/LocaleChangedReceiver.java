@@ -10,7 +10,7 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         CallsCounter.logCounter(context, "LocaleChangedReceiver.onReceive", "LocaleChangedReceiver_onReceive");
 
-        if ((intent != null) && intent.getAction().equals(Intent.ACTION_LOCALE_CHANGED)) {
+        if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_LOCALE_CHANGED)) {
             PPApplication.logE("##### LocaleChangedReceiver.onReceive", "xxx");
 
             if (ApplicationPreferences.applicationLanguage(context).equals("system")) {

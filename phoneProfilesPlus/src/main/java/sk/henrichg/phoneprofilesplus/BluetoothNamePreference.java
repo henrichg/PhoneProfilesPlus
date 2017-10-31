@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -336,6 +337,7 @@ public class BluetoothNamePreference extends DialogPreference {
         //Log.d("BluetoothNamePreference.addBluetoothName","value="+value);
     }
 
+    @SuppressWarnings("StringConcatenationInLoop")
     void removeBluetoothName(String bluetoothName) {
         String[] splits = value.split("\\|");
         value = "";
@@ -359,6 +361,7 @@ public class BluetoothNamePreference extends DialogPreference {
         return false;
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void refreshListView(boolean forRescan, final String scrollToBTName)
     {
         final boolean _forRescan = forRescan;
@@ -540,6 +543,7 @@ public class BluetoothNamePreference extends DialogPreference {
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
+            @SuppressWarnings("StringConcatenationInLoop")
             public boolean onMenuItemClick(android.view.MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.bluetooth_name_pref_dlg_item_menu_change:

@@ -13,7 +13,6 @@ import android.view.WindowManager;
 
 public class LockDeviceActivity extends AppCompatActivity {
 
-    private WindowManager windowManager;
     private View view = null;
 
     @SuppressLint("InflateParams")
@@ -66,8 +65,9 @@ public class LockDeviceActivity extends AppCompatActivity {
             }
         });
 
-        windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
-        windowManager.addView(view, params);
+        WindowManager windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
+        if (windowManager != null)
+            windowManager.addView(view, params);
 
         /*
         WindowManager.LayoutParams aParams = getWindow().getAttributes();
@@ -96,7 +96,9 @@ public class LockDeviceActivity extends AppCompatActivity {
 
         if (view != null)
             try {
-                windowManager.removeViewImmediate(view);
+                WindowManager windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
+                if (windowManager != null)
+                    windowManager.removeViewImmediate(view);
             } catch (Exception ignored) {}
 
         PPApplication.lockDeviceActivity = null;

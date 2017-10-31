@@ -78,7 +78,7 @@ class GeofenceScannerJob extends Job {
         return Result.SUCCESS;
     }
 
-    static void _scheduleJob(final Context context, final Handler _handler, final boolean startScanning, final boolean forScreenOn) {
+    private static void _scheduleJob(final Context context, final Handler _handler, final boolean startScanning, final boolean forScreenOn) {
         if (startScanning)
             PhoneProfilesService.getGeofencesScanner().mUpdatesStarted = false;
 

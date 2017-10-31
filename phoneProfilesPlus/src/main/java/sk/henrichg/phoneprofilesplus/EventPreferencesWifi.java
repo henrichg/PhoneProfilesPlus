@@ -92,6 +92,7 @@ class EventPreferencesWifi extends EventPreferences {
             String[] splits = this._SSID.split("\\|");
             for (String _ssid : splits) {
                 if (_ssid.isEmpty()) {
+                    //noinspection StringConcatenationInLoop
                     selectedSSIDs = selectedSSIDs + context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 }
                 else

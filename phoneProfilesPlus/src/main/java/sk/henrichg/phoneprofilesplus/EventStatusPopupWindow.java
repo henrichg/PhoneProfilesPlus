@@ -1,12 +1,14 @@
 package sk.henrichg.phoneprofilesplus;
 
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.SwitchCompat;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
 class EventStatusPopupWindow extends GuiInfoPopupWindow {
 
+    @SuppressLint("SetTextI18n")
     EventStatusPopupWindow(EditorEventListFragment fragment, Event event) {
         super(R.layout.event_status_popup_window, fragment.getActivity().getBaseContext());
 

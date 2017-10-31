@@ -5705,7 +5705,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             if (!geofence.isEmpty()) {
                                 if (!geofence.equals(Long.toString(geofenceId))) {
                                     if (!geofences.isEmpty())
+                                        //noinspection StringConcatenationInLoop
                                         geofences = geofences + "|";
+                                    //noinspection StringConcatenationInLoop
                                     geofences = geofences + geofence;
                                 } else
                                     found = true;
@@ -5884,7 +5886,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     do {
                         if (cursor.getInt(cursor.getColumnIndex(KEY_G_CHECKED)) == 1) {
                             if (!value.isEmpty())
+                                //noinspection StringConcatenationInLoop
                                 value = value + "|";
+                            //noinspection StringConcatenationInLoop
                             value = value + cursor.getLong(cursor.getColumnIndex(KEY_G_ID));
                         }
                     } while (cursor.moveToNext());
@@ -7721,7 +7725,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     int disableNotAllowedPreferences(Context context)
     {
         synchronized (databaseHandlerMutex) {
-            int ret = 0;
+            int ret;
 
             final String selectProfilesQuery = "SELECT " + KEY_ID + "," +
                     KEY_DEVICE_AIRPLANE_MODE + "," +

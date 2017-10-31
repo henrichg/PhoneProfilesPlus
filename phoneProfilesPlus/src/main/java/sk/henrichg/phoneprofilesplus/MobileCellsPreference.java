@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -317,6 +318,7 @@ public class MobileCellsPreference extends DialogPreference {
     }
     */
 
+    @SuppressWarnings("StringConcatenationInLoop")
     void addCellId(int cellId) {
         String[] splits = value.split("\\|");
         String sCellId = Integer.toString(cellId);
@@ -339,6 +341,7 @@ public class MobileCellsPreference extends DialogPreference {
         }
     }
 
+    @SuppressWarnings("StringConcatenationInLoop")
     void removeCellId(int cellId) {
         String[] splits = value.split("\\|");
         String sCellId = Integer.toString(cellId);
@@ -364,6 +367,7 @@ public class MobileCellsPreference extends DialogPreference {
         return false;
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void refreshListView(final boolean forRescan)
     {
         rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {

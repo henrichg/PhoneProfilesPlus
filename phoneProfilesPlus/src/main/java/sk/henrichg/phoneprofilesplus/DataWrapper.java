@@ -51,7 +51,7 @@ public class DataWrapper {
     private List<Profile> profileList = null;
     private List<Event> eventList = null;
 
-    static final String EXTRA_INTERACTIVE = "interactive";
+    //static final String EXTRA_INTERACTIVE = "interactive";
 
     DataWrapper(Context c,
                         boolean fgui,
@@ -193,12 +193,20 @@ public class DataWrapper {
 
     Profile getPredefinedProfile(int index, boolean saveToDB) {
         AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-        int	maximumValueRing = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-        int	maximumValueNotification = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-        int	maximumValueMusic = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        int	maximumValueAlarm = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-        //int	maximumValueSystem = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
-        //int	maximumValueVoiceCall = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
+        int maximumValueRing = 7;
+        int maximumValueNotification = 7;
+        int maximumValueMusic = 15;
+        int maximumValueAlarm = 7;
+        //int	maximumValueSystem = 7;
+        //int	maximumValueVoiceCall = 7;
+        if (audioManager != null) {
+            maximumValueRing = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+            maximumValueNotification = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+            maximumValueMusic = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+            maximumValueAlarm = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+            //maximumValueSystem = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
+            //maximumValueVoiceCall = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
+        }
 
         Profile profile;
 
@@ -2141,75 +2149,70 @@ public class DataWrapper {
 
             List<BluetoothDeviceData> boundedDevicesList = BluetoothScanJob.getBoundedDevicesList(context);
 
-            BluetoothAdapter bluetooth = BluetoothScanJob.getBluetoothAdapter(context);
-            boolean isBluetoothEnabled = bluetooth.isEnabled();
-
             boolean done = false;
 
-            if (isBluetoothEnabled)
-            {
-                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents","bluetoothEnabled=true");
+            BluetoothAdapter bluetooth = BluetoothScanJob.getBluetoothAdapter(context);
+            if (bluetooth != null) {
+                boolean isBluetoothEnabled = bluetooth.isEnabled();
 
-                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents","-- eventAdapterName="+event._eventPreferencesBluetooth._adapterName);
+                if (isBluetoothEnabled) {
+                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetoothEnabled=true");
 
-                if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, "")) {
+                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "-- eventAdapterName=" + event._eventPreferencesBluetooth._adapterName);
 
-                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth connected");
+                    if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, "")) {
 
-                    boolean connected = false;
-                    String[] splits = event._eventPreferencesBluetooth._adapterName.split("\\|");
-                    for (String _bluetoothName : splits) {
-                        if (_bluetoothName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE)) {
-                            connected = true;
-                            break;
+                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth connected");
+
+                        boolean connected = false;
+                        String[] splits = event._eventPreferencesBluetooth._adapterName.split("\\|");
+                        for (String _bluetoothName : splits) {
+                            if (_bluetoothName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE)) {
+                                connected = true;
+                                break;
+                            } else if (_bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
+                                for (BluetoothDeviceData data : boundedDevicesList) {
+                                    connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, data.getName());
+                                    if (connected)
+                                        break;
+                                }
+                            } else
+                                connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, _bluetoothName);
+                            if (connected)
+                                break;
                         }
-                        else
-                        if (_bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
-                            for (BluetoothDeviceData data : boundedDevicesList) {
-                                connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, data.getName());
-                                if (connected)
-                                    break;
+
+                        if (connected) {
+                            // event BT adapter is connected
+                            done = true;
+
+                            bluetoothPassed = !((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) ||
+                                    (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT));
+                        } else {
+                            if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) {
+                                // for this connectionTypes, BT must not be connected to event BT adapter
+                                done = true;
+                                bluetoothPassed = true;
                             }
-                        } else
-                            connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, _bluetoothName);
-                        if (connected)
-                            break;
-                    }
+                        }
+                    } else {
+                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth not connected");
 
-                    if (connected) {
-                        // event BT adapter is connected
-                        done = true;
-
-                        bluetoothPassed = !((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) ||
-                                (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT));
-                    }
-                    else {
                         if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) {
                             // for this connectionTypes, BT must not be connected to event BT adapter
                             done = true;
                             bluetoothPassed = true;
                         }
                     }
-                }
-                else
-                {
-                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth not connected");
+                } else {
+                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetoothEnabled=true");
 
-                    if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) {
+                    if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
+                            (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED)) {
                         // for this connectionTypes, BT must not be connected to event BT adapter
                         done = true;
-                        bluetoothPassed = true;
+                        bluetoothPassed = (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED);
                     }
-                }
-            }
-            else {
-                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetoothEnabled=true");
-
-                if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
-                    (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED)) {
-                    // for this connectionTypes, BT must not be connected to event BT adapter
-                    done = true;
-                    bluetoothPassed = (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED);
                 }
             }
 
@@ -2972,13 +2975,17 @@ public class DataWrapper {
                 @Override
                 public void run() {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.restartEvents.1");
-                    wakeLock.acquire(10 * 60 * 1000);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.restartEvents.1");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE, false);
 
-                    wakeLock.release();
+                    if (wakeLock != null)
+                        wakeLock.release();
                 }
             });
             return;
@@ -3016,13 +3023,17 @@ public class DataWrapper {
             @Override
             public void run() {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.restartEvents.2");
-                wakeLock.acquire(10 * 60 * 1000);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.restartEvents.2");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS, interactive);
 
-                wakeLock.release();
+                if (wakeLock != null)
+                    wakeLock.release();
             }
         });
     }
@@ -3360,9 +3371,10 @@ public class DataWrapper {
         int batteryPct = -100;
         boolean isPowerSaveMode = false;
 
-        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            isPowerSaveMode = powerManager.isPowerSaveMode();
+            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            if (powerManager != null)
+                isPowerSaveMode = powerManager.isPowerSaveMode();
         }
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);

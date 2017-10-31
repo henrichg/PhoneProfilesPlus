@@ -33,10 +33,13 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                 @Override
                 public void run() {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "LocationModeChangedBroadcastReceiver.onReceive");
-                    wakeLock.acquire(10 * 60 * 1000);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "LocationModeChangedBroadcastReceiver.onReceive");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                    if (action.matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
+                    if ((action != null) && action.matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
                         //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
                          EventsHandler eventsHandler = new EventsHandler(appContext);
                          eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
@@ -47,7 +50,8 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                         PhoneProfilesService.getGeofencesScanner().updateTransitionsByLastKnownLocation(true);
                     }
 
-                    wakeLock.release();
+                    if (wakeLock != null)
+                        wakeLock.release();
                 }
             });
         }

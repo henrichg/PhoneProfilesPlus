@@ -78,7 +78,8 @@ class AboutApplicationJob extends Job {
                     mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
                 }
                 NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, mBuilder.build());
+                if (mNotificationManager != null)
+                    mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, mBuilder.build());
             }
 
             PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);

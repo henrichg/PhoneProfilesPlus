@@ -541,24 +541,28 @@ class Event {
         if (key.equals(PREF_EVENT_NAME))
         {
             Preference preference = prefMng.findPreference(key);
-            preference.setSummary(value);
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+            if (preference != null) {
+                preference.setSummary(value);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+            }
         }
         if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END)||
                 key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
         {
             ProfilePreference preference = (ProfilePreference)prefMng.findPreference(key);
-            long lProfileId;
-            try {
-                lProfileId = Long.parseLong(value);
-            } catch (Exception e) {
-                lProfileId = 0;
-            }
-            preference.setSummary(lProfileId);
-            if (key.equals(PREF_EVENT_PROFILE_START))
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
-            if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE)) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, lProfileId != Profile.PROFILE_NO_ACTIVATE, false, false, false);
+            if (preference != null) {
+                long lProfileId;
+                try {
+                    lProfileId = Long.parseLong(value);
+                } catch (Exception e) {
+                    lProfileId = 0;
+                }
+                preference.setSummary(lProfileId);
+                if (key.equals(PREF_EVENT_PROFILE_START))
+                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+                if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE)) {
+                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, lProfileId != Profile.PROFILE_NO_ACTIVATE, false, false, false);
+                }
             }
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_SOUND))
@@ -569,22 +573,25 @@ class Event {
         if (key.equals(PREF_EVENT_PRIORITY))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            if (ApplicationPreferences.applicationEventUsePriority(context)) {
-                int index = listPreference.findIndexOfValue(value);
-                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                listPreference.setSummary(summary);
+            if (listPreference != null) {
+                if (ApplicationPreferences.applicationEventUsePriority(context)) {
+                    int index = listPreference.findIndexOfValue(value);
+                    CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                    listPreference.setSummary(summary);
+                } else {
+                    listPreference.setSummary(R.string.event_preferences_priority_notUse);
+                }
+                listPreference.setEnabled(ApplicationPreferences.applicationEventUsePriority(context));
             }
-            else {
-                listPreference.setSummary(R.string.event_preferences_priority_notUse);
-            }
-            listPreference.setEnabled(ApplicationPreferences.applicationEventUsePriority(context));
         }
         if (key.equals(PREF_EVENT_AT_END_DO))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            int index = listPreference.findIndexOfValue(value);
-            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            listPreference.setSummary(summary);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(value);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+            }
         }
         if (key.equals(PREF_EVENT_DELAY_START))
         {
@@ -782,7 +789,8 @@ class Event {
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_FORCE_RUN);
-        preference.setTitle("[»] " + context.getString(R.string.event_preferences_ForceRun));
+        if (preference != null)
+            preference.setTitle("[»] " + context.getString(R.string.event_preferences_ForceRun));
 
 
         setSummary(prefMng, PREF_EVENT_NAME, preferences, context);
@@ -1511,22 +1519,27 @@ class Event {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
+            if (alarmManager != null) {
 
-            if (android.os.Build.VERSION.SDK_INT >= 23)
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-            else
-            if (android.os.Build.VERSION.SDK_INT >= 19)
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-            else
-                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-            //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
-            //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
+                if (android.os.Build.VERSION.SDK_INT >= 23)
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                else if (android.os.Build.VERSION.SDK_INT >= 19)
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                else
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
+                //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
 
-            now = Calendar.getInstance();
-            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-            this._startStatusTime = now.getTimeInMillis() - gmtOffset;
+                now = Calendar.getInstance();
+                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                this._startStatusTime = now.getTimeInMillis() - gmtOffset;
 
-            this._isInDelayStart = true;
+                this._isInDelayStart = true;
+            }
+            else {
+                this._startStatusTime = 0;
+                this._isInDelayStart = false;
+            }
         }
         else {
             this._startStatusTime = 0;
@@ -1561,18 +1574,18 @@ class Event {
     void removeDelayStartAlarm(DataWrapper dataWrapper)
     {
         AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
+        if (alarmManager != null) {
 
-        Intent intent = new Intent(dataWrapper.context, EventDelayStartBroadcastReceiver.class);
+            Intent intent = new Intent(dataWrapper.context, EventDelayStartBroadcastReceiver.class);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
-        if (pendingIntent != null)
-        {
-            PPApplication.logE("Event.removeDelayStartAlarm","alarm found");
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
+            if (pendingIntent != null) {
+                PPApplication.logE("Event.removeDelayStartAlarm", "alarm found");
 
-            alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
+                alarmManager.cancel(pendingIntent);
+                pendingIntent.cancel();
+            }
         }
-
         this._isInDelayStart = false;
         this._startStatusTime = 0;
         dataWrapper.getDatabaseHandler().updateEventInDelayStart(this);
@@ -1629,21 +1642,26 @@ class Event {
 
             AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
 
-            if (android.os.Build.VERSION.SDK_INT >= 23)
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-            else
-            if (android.os.Build.VERSION.SDK_INT >= 19)
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-            else
-                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-            //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
-            //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
+            if (alarmManager != null) {
+                if (android.os.Build.VERSION.SDK_INT >= 23)
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                else if (android.os.Build.VERSION.SDK_INT >= 19)
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                else
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
+                //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
 
-            now = Calendar.getInstance();
-            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-            this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
+                now = Calendar.getInstance();
+                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
 
-            this._isInDelayEnd = true;
+                this._isInDelayEnd = true;
+            }
+            else {
+                this._pauseStatusTime = 0;
+                this._isInDelayEnd = false;
+            }
         }
         else {
             this._pauseStatusTime = 0;
@@ -1697,18 +1715,17 @@ class Event {
     void removeDelayEndAlarm(DataWrapper dataWrapper)
     {
         AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
+        if (alarmManager != null) {
+            Intent intent = new Intent(dataWrapper.context, EventDelayEndBroadcastReceiver.class);
 
-        Intent intent = new Intent(dataWrapper.context, EventDelayEndBroadcastReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
+            if (pendingIntent != null) {
+                PPApplication.logE("Event.removeDelayEndAlarm", "alarm found");
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
-        if (pendingIntent != null)
-        {
-            PPApplication.logE("Event.removeDelayEndAlarm","alarm found");
-
-            alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
+                alarmManager.cancel(pendingIntent);
+                pendingIntent.cancel();
+            }
         }
-
         this._isInDelayEnd = false;
         dataWrapper.getDatabaseHandler().updateEventInDelayEnd(this);
     }

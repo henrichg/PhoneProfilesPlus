@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -332,6 +333,7 @@ public class WifiSSIDPreference extends DialogPreference {
         //Log.d("WifiSSIDPreference.addSSID","value="+value);
     }
 
+    @SuppressWarnings("StringConcatenationInLoop")
     void removeSSID(String ssid) {
         String[] splits = value.split("\\|");
         value = "";
@@ -356,6 +358,7 @@ public class WifiSSIDPreference extends DialogPreference {
         return false;
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void refreshListView(boolean forRescan, final String scrollToSSID)
     {
         final boolean _forRescan = forRescan;
@@ -542,7 +545,9 @@ public class WifiSSIDPreference extends DialogPreference {
                                 if (!_ssid.isEmpty()) {
                                     if (!_ssid.equals(ssid)) {
                                         if (!value.isEmpty())
+                                            //noinspection StringConcatenationInLoop
                                             value = value + "|";
+                                        //noinspection StringConcatenationInLoop
                                         value = value + _ssid;
                                     } else
                                         found = true;

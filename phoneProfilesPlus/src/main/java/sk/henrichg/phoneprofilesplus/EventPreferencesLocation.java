@@ -85,6 +85,7 @@ class EventPreferencesLocation extends EventPreferences {
                 String[] splits = this._geofences.split("\\|");
                 for (String _geofence : splits) {
                     if (_geofence.isEmpty()) {
+                        //noinspection StringConcatenationInLoop
                         selectedLocations = selectedLocations + context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     } else if (splits.length == 1) {
                         selectedLocations = selectedLocations + getGeofenceName(Long.valueOf(_geofence), context);

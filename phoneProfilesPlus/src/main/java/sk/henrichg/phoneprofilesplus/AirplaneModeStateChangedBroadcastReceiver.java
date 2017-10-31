@@ -22,25 +22,30 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
 
         if (Event.getGlobalEventsRunning(context)) {
             final String action = intent.getAction();
+            if (action != null) {
+                if (action.equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)) {
+                    //EventsHandlerJob.startForSensor(context.getApplicationContext(), EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                    final Context appContext = context.getApplicationContext();
+                    final Handler handler = new Handler(appContext.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
 
-            if (action.equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)) {
-                //EventsHandlerJob.startForSensor(context.getApplicationContext(), EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-                final Context appContext = context.getApplicationContext();
-                final Handler handler = new Handler(appContext.getMainLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AirplaneModeStateChangedBroadcastReceiver.onReceive");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AirplaneModeStateChangedBroadcastReceiver.onReceive");
-                        wakeLock.acquire(10 * 60 * 1000);
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
 
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
-
-                        wakeLock.release();
-                    }
-                });
+                            if (wakeLock != null)
+                                wakeLock.release();
+                        }
+                    });
+                }
             }
         }
     }

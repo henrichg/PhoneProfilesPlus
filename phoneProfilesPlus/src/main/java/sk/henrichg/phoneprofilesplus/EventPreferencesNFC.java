@@ -93,6 +93,7 @@ class EventPreferencesNFC extends EventPreferences {
             String[] splits = this._nfcTags.split("\\|");
             for (String _tag : splits) {
                 if (_tag.isEmpty()) {
+                    //noinspection StringConcatenationInLoop
                     selectedNfcTags = selectedNfcTags + context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 }
                 else
@@ -303,16 +304,16 @@ class EventPreferencesNFC extends EventPreferences {
     private void removeAlarm(Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+        if (alarmManager != null) {
+            Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
 
-        Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
+            if (pendingIntent != null) {
+                PPApplication.logE("EventPreferencesNFC.removeAlarm", "alarm found");
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
-        if (pendingIntent != null)
-        {
-            PPApplication.logE("EventPreferencesNFC.removeAlarm","alarm found");
-
-            alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
+                alarmManager.cancel(pendingIntent);
+                pendingIntent.cancel();
+            }
         }
     }
 
@@ -330,13 +331,14 @@ class EventPreferencesNFC extends EventPreferences {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-
-            if (android.os.Build.VERSION.SDK_INT >= 23)
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-            else if (android.os.Build.VERSION.SDK_INT >= 19)
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-            else
-                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            if (alarmManager != null) {
+                if (android.os.Build.VERSION.SDK_INT >= 23)
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                else if (android.os.Build.VERSION.SDK_INT >= 19)
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                else
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            }
         }
     }
 

@@ -30,15 +30,18 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRunning(appContext)) {
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             // isLightDeviceIdleMode() is @hide :-(
-            if (!powerManager.isDeviceIdleMode() /*&& !powerManager.isLightDeviceIdleMode()*/) {
+            if ((powerManager != null) && !powerManager.isDeviceIdleMode() /*&& !powerManager.isLightDeviceIdleMode()*/) {
                 final Handler handler = new Handler(appContext.getMainLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DeviceIdleModeBroadcastReceiver.onReceive");
-                        wakeLock.acquire(10 * 60 * 1000);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DeviceIdleModeBroadcastReceiver.onReceive");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);
@@ -62,7 +65,8 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                         }
                         dataWrapper.invalidateDataWrapper();
 
-                        wakeLock.release();
+                        if (wakeLock != null)
+                            wakeLock.release();
                     }
                 });
             }

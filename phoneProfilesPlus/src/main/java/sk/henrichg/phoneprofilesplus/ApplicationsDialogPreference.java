@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -115,6 +116,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
         mBuilder.positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText());
         mBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
+            @SuppressWarnings("StringConcatenationInLoop")
             @Override
             public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                 if (shouldPersist())
@@ -196,6 +198,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
         mDialog.show();
     }
 
+    @SuppressLint("StaticFieldLeak")
     private void onShow(DialogInterface dialog) {
 
         new AsyncTask<Void, Integer, Void>() {

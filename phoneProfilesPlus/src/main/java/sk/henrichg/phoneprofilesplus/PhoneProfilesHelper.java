@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -151,6 +152,7 @@ class PhoneProfilesHelper {
         dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
+                @SuppressLint("StaticFieldLeak")
                 class UninstallAsyncTask extends AsyncTask<Void, Integer, Boolean>
                 {
                     private MaterialDialog dialog;

@@ -177,8 +177,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                     //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                    if (profileStartIndicator != null)
-                        profileStartIndicator.setImageBitmap(profile._preferencesIndicator);
+                    if (profileStartIndicator != null) {
+                        if (profile._preferencesIndicator != null)
+                            profileStartIndicator.setImageBitmap(profile._preferencesIndicator);
+                        else
+                            profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                    }
                 }
             }
             else
@@ -235,8 +239,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                        if (profileEndIndicator != null)
-                            profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
+                        if (profileEndIndicator != null) {
+                            if (profile._preferencesIndicator != null)
+                                profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
+                            else
+                                profileEndIndicator.setImageResource(R.drawable.ic_empty);
+                        }
                     }
                 } else {
                     String profileName = "";
@@ -288,27 +296,29 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     //Log.d("EditorEventListAdapter.eventsRunStopIndicator.onClick","measuredH="+measuredH);
 
                     Point screenSize = GlobalGUIRoutines.getRealScreenSize(editorFragment.getActivity());
+                    Point navigationBarSize = GlobalGUIRoutines.getNavigationBarSize(editorFragment.getActivity());
+                    if ((screenSize != null) && (navigationBarSize != null)) {
+                        int[] location = new int[2];
+                        _eventStatusView.getLocationOnScreen(location);
+                        int x = 0;
+                        int y = 0;
 
-                    int[] location = new int[2];
-                    _eventStatusView.getLocationOnScreen(location);
-                    int x = 0;
-                    int y = 0;
+                        int statusBarHeight = (int) (24 * editorFragment.getResources().getDisplayMetrics().density + 0.5f);
 
-                    int statusBarHeight = (int) (24 * editorFragment.getResources().getDisplayMetrics().density + 0.5f);
+                        if ((location[0] + measuredW) > screenSize.x)
+                            x = -(location[0]
+                                    - (screenSize.x - measuredW));
 
-                    if ((location[0] + measuredW) > screenSize.x)
-                        x = -(location[0]
-                                - (screenSize.x - measuredW));
+                        if ((location[1] + _eventStatusView.getHeight() + measuredH) > screenSize.y)
+                            y = -(location[1] - _eventStatusView.getHeight()
+                                    - (screenSize.y - measuredH)
+                                    + navigationBarSize.y
+                                    + statusBarHeight);
 
-                    if ((location[1] + _eventStatusView.getHeight() + measuredH) > screenSize.y)
-                        y = -(location[1] - _eventStatusView.getHeight()
-                                - (screenSize.y - measuredH)
-                                + GlobalGUIRoutines.getNavigationBarSize(editorFragment.getActivity()).y
-                                + statusBarHeight);
-
-                    popup.setClippingEnabled(false);
-                    popup.showOnAnchor(_eventStatusView, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
-                            RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y);
+                        popup.setClippingEnabled(false);
+                        popup.showOnAnchor(_eventStatusView, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
+                                RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y);
+                    }
                 }
             });
 

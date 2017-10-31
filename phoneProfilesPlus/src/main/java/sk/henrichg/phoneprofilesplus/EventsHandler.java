@@ -103,8 +103,10 @@ class EventsHandler {
             oldRingerMode = ActivateProfileHelper.getRingerMode(context);
             oldZenMode = ActivateProfileHelper.getZenMode(context);
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-            oldSystemRingerMode = audioManager.getRingerMode();
-            oldSystemRingerVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+            if (audioManager != null) {
+                oldSystemRingerMode = audioManager.getRingerMode();
+                oldSystemRingerVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+            }
 
             try {
                 Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);

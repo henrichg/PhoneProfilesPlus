@@ -43,6 +43,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 intent.getStringExtra(BluetoothDevice.EXTRA_NAME));*/
 
         final String action = intent.getAction();
+        if (action == null)
+            return;
 
         if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED) ||
                 action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED) ||
@@ -60,8 +62,11 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 public void run() {
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothConnectionBroadcastReceiver.onReceive");
-                    wakeLock.acquire(10 * 60 * 1000);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothConnectionBroadcastReceiver.onReceive");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
                     getConnectedDevices(appContext);
 
@@ -127,7 +132,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
 
-                    wakeLock.release();
+                    if (wakeLock != null)
+                        wakeLock.release();
                 }
             });
         }

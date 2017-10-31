@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -302,6 +303,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     }
     */
 
+    @SuppressLint("MissingPermission")
     void updateTransitionsByLastKnownLocation(final boolean startEventsHandler) {
         if (Permissions.checkLocation(context) && mGoogleApiClient.isConnected()) {
             PPApplication.logE("GeofenceScanner.updateTransitionsByLastKnownLocation", "xxx");
@@ -360,7 +362,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
         }
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(PPApplication.GEOFENCE_SCANNER_ERROR_NOTIFICATION_ID, mBuilder.build());
+        if (mNotificationManager != null)
+            mNotificationManager.notify(PPApplication.GEOFENCE_SCANNER_ERROR_NOTIFICATION_ID, mBuilder.build());
     }
 
 }

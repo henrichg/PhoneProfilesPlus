@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
@@ -50,6 +51,7 @@ public class DurationDialogPreference extends DialogPreference
         //    mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void showDialog(Bundle state) {
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())

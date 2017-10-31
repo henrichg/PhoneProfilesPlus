@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -14,8 +13,8 @@ import static android.content.Context.POWER_SERVICE;
 
 public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
-    static final String EXTRA_HEADSET_PLUG_STATE = "state";
-    static final String EXTRA_HEADSET_PLUG_MICROPHONE = "microphone";
+    //static final String EXTRA_HEADSET_PLUG_STATE = "state";
+    //static final String EXTRA_HEADSET_PLUG_MICROPHONE = "microphone";
 
     static final String PREF_EVENT_HEADSET_CONNECTED = "eventHeadsetConnected";
     static final String PREF_EVENT_HEADSET_MICROPHONE = "eventHeadsetMicrophone";
@@ -53,35 +52,34 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
         boolean connectedMicrophone = false;
         boolean bluetoothHeadset = false;
 
-        // Wired headset monitoring
-        if (action.equals(Intent.ACTION_HEADSET_PLUG))
-        {
-            connectedHeadphones = (intent.getIntExtra("state", -1) == 1);
-            connectedMicrophone = (intent.getIntExtra("microphone", -1) == 1);
-            bluetoothHeadset = false;
+        if (action != null) {
+            // Wired headset monitoring
+            if (action.equals(Intent.ACTION_HEADSET_PLUG)) {
+                connectedHeadphones = (intent.getIntExtra("state", -1) == 1);
+                connectedMicrophone = (intent.getIntExtra("microphone", -1) == 1);
+                bluetoothHeadset = false;
 
-            broadcast = true;
-        }
+                broadcast = true;
+            }
 
-        // Bluetooth monitoring
-        // Works up to and including Honeycomb
-        if (action.equals(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED))
-        {
-            connectedHeadphones = (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothHeadset.STATE_AUDIO_DISCONNECTED) == BluetoothHeadset.STATE_AUDIO_CONNECTED);
-            connectedMicrophone = true;
-            bluetoothHeadset = true;
+            // Bluetooth monitoring
+            // Works up to and including Honeycomb
+            if (action.equals(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED)) {
+                connectedHeadphones = (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothHeadset.STATE_AUDIO_DISCONNECTED) == BluetoothHeadset.STATE_AUDIO_CONNECTED);
+                connectedMicrophone = true;
+                bluetoothHeadset = true;
 
-            broadcast = true;
-        }
+                broadcast = true;
+            }
 
-        // Works for Ice Cream Sandwich
-        if (action.equals(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED))
-        {
-            connectedHeadphones = (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED) == BluetoothProfile.STATE_CONNECTED);
-            connectedMicrophone = true;
-            bluetoothHeadset = true;
+            // Works for Ice Cream Sandwich
+            if (action.equals(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED)) {
+                connectedHeadphones = (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED) == BluetoothProfile.STATE_CONNECTED);
+                connectedMicrophone = true;
+                bluetoothHeadset = true;
 
-            broadcast = true;
+                broadcast = true;
+            }
         }
 
         PPApplication.logE("@@@ HeadsetConnectionBroadcastReceiver.onReceive","broadcast="+broadcast);
@@ -105,8 +103,11 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                     @Override
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "HeadsetConnectionBroadcastReceiver.onReceive");
-                        wakeLock.acquire(10 * 60 * 1000);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "HeadsetConnectionBroadcastReceiver.onReceive");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
                         /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                         boolean peripheralEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL) > 0;
@@ -119,7 +120,8 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_HEADSET_CONNECTION, false);
                         //}
 
-                        wakeLock.release();
+                        if (wakeLock != null)
+                            wakeLock.release();
                     }
                 });
             }

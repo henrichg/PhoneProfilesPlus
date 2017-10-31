@@ -34,6 +34,8 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                 intent.getStringExtra(BluetoothDevice.EXTRA_NAME));*/
 
         final String action = intent.getAction();
+        if (action == null)
+            return;
 
         if (action.equals(BluetoothAdapter.ACTION_DISCOVERY_STARTED) ||
                 action.equals(BluetoothDevice.ACTION_FOUND) ||
@@ -49,85 +51,81 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                 public void run() {
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothScanBroadcastReceiver.onReceive");
-                    wakeLock.acquire(10 * 60 * 1000);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothScanBroadcastReceiver.onReceive");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
                     if (BluetoothScanJob.bluetooth == null)
                         BluetoothScanJob.bluetooth = BluetoothScanJob.getBluetoothAdapter(appContext);
 
-                    int forceOneScan = Scanner.getForceOneBluetoothScan(appContext);
+                    if (BluetoothScanJob.bluetooth != null) {
+                        int forceOneScan = Scanner.getForceOneBluetoothScan(appContext);
 
-                    if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
-                    {
+                        if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
 
-                        boolean scanStarted = (BluetoothScanJob.getWaitForResults(appContext));
+                            boolean scanStarted = (BluetoothScanJob.getWaitForResults(appContext));
 
-                        if (scanStarted)
-                        {
-                            PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","action="+action);
+                            if (scanStarted) {
+                                PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "action=" + action);
 
-                            if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action))
-                            {
-                                // may be not invoked if not any BT is around
+                                if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
+                                    // may be not invoked if not any BT is around
 
-                                if (!Scanner.bluetoothDiscoveryStarted) {
-                                    Scanner.bluetoothDiscoveryStarted = true;
-                                    BluetoothScanJob.fillBoundedDevicesList(appContext);
-                                }
-                            }
-                            else if (BluetoothDevice.ACTION_FOUND.equals(action))
-                            {
-                                // When discovery finds a device
-
-                                if (!Scanner.bluetoothDiscoveryStarted) {
-                                    Scanner.bluetoothDiscoveryStarted = true;
-                                    BluetoothScanJob.fillBoundedDevicesList(appContext);
-                                }
-
-                                //noinspection ConstantConditions
-                                String btNameD = device.getName();
-                                String btNameE = "";
-                                String btName = btNameD;
-                                if (deviceName != null) {
-                                    btNameE = deviceName;
-                                    btName = btNameE;
-                                }
-
-                                PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName_d="+btNameD);
-                                PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName_e="+btNameE);
-                                PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceAddress="+device.getAddress());
-
-                                if (Scanner.tmpBluetoothScanResults == null)
-                                    Scanner.tmpBluetoothScanResults = new ArrayList<>();
-
-                                boolean found = false;
-                                for (BluetoothDeviceData _device : Scanner.tmpBluetoothScanResults)
-                                {
-                                    if (_device.address.equals(device.getAddress()))
-                                    {
-                                        found = true;
-                                        break;
+                                    if (!Scanner.bluetoothDiscoveryStarted) {
+                                        Scanner.bluetoothDiscoveryStarted = true;
+                                        BluetoothScanJob.fillBoundedDevicesList(appContext);
                                     }
-                                }
-                                if (!found)
-                                {
-                                    Scanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
-                                            BluetoothScanJob.getBluetoothType(device), false, 0));
-                                }
-                            }
-                            else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
-                            {
-                                if (!Scanner.bluetoothDiscoveryStarted) {
-                                    Scanner.bluetoothDiscoveryStarted = true;
-                                    BluetoothScanJob.fillBoundedDevicesList(appContext);
-                                }
+                                } else if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                                    // When discovery finds a device
 
-                                BluetoothScanJob.finishScan(appContext);
+                                    if (!Scanner.bluetoothDiscoveryStarted) {
+                                        Scanner.bluetoothDiscoveryStarted = true;
+                                        BluetoothScanJob.fillBoundedDevicesList(appContext);
+                                    }
+
+                                    //noinspection ConstantConditions
+                                    String btNameD = device.getName();
+                                    String btNameE = "";
+                                    String btName = btNameD;
+                                    if (deviceName != null) {
+                                        btNameE = deviceName;
+                                        btName = btNameE;
+                                    }
+
+                                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceName_d=" + btNameD);
+                                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceName_e=" + btNameE);
+                                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceAddress=" + device.getAddress());
+
+                                    if (Scanner.tmpBluetoothScanResults == null)
+                                        Scanner.tmpBluetoothScanResults = new ArrayList<>();
+
+                                    boolean found = false;
+                                    for (BluetoothDeviceData _device : Scanner.tmpBluetoothScanResults) {
+                                        if (_device.address.equals(device.getAddress())) {
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!found) {
+                                        Scanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
+                                                BluetoothScanJob.getBluetoothType(device), false, 0));
+                                    }
+                                } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                                    if (!Scanner.bluetoothDiscoveryStarted) {
+                                        Scanner.bluetoothDiscoveryStarted = true;
+                                        BluetoothScanJob.fillBoundedDevicesList(appContext);
+                                    }
+
+                                    BluetoothScanJob.finishScan(appContext);
+                                }
                             }
                         }
                     }
 
-                    wakeLock.release();
+                    if (wakeLock != null)
+                        wakeLock.release();
                 }
             });
 

@@ -24,38 +24,40 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                     final AudioManager audioManager = (AudioManager) context.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
 
                     NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                    int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
+                    if (mNotificationManager != null) {
+                        int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
 
-                    // convert to profile zenMode
-                    int zenMode = 0;
-                    switch (interruptionFilter) {
-                        case NotificationManager.INTERRUPTION_FILTER_ALL:
-                            if (ActivateProfileHelper.vibrationIsOn(/*context.getApplicationContext(), */audioManager, true))
-                                zenMode = 4;
-                            else
+                        // convert to profile zenMode
+                        int zenMode = 0;
+                        switch (interruptionFilter) {
+                            case NotificationManager.INTERRUPTION_FILTER_ALL:
+                                if (ActivateProfileHelper.vibrationIsOn(/*context.getApplicationContext(), */audioManager, true))
+                                    zenMode = 4;
+                                else
+                                    zenMode = 1;
+                                break;
+                            case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
+                                if (ActivateProfileHelper.vibrationIsOn(/*context.getApplicationContext(), */audioManager, true))
+                                    zenMode = 5;
+                                else
+                                    zenMode = 2;
+                                break;
+                            case NotificationManager.INTERRUPTION_FILTER_NONE:
+                                zenMode = 3;
+                                break;
+                            case NotificationManager.INTERRUPTION_FILTER_ALARMS:
+                                zenMode = 6;
+                                break;
+                            case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
                                 zenMode = 1;
-                            break;
-                        case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
-                            if (ActivateProfileHelper.vibrationIsOn(/*context.getApplicationContext(), */audioManager, true))
-                                zenMode = 5;
-                            else
-                                zenMode = 2;
-                            break;
-                        case NotificationManager.INTERRUPTION_FILTER_NONE:
-                            zenMode = 3;
-                            break;
-                        case NotificationManager.INTERRUPTION_FILTER_ALARMS:
-                            zenMode = 6;
-                            break;
-                        case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
-                            zenMode = 1;
-                            break;
-                    }
-                    PPApplication.logE(TAG, "onReceive(zenMode=" + zenMode + ')');
-                    if (zenMode != 0) {
-                        //Log.e(TAG, "onInterruptionFilterChanged  new zenMode=" + zenMode);
-                        ActivateProfileHelper.setRingerMode(context.getApplicationContext(), 5);
-                        ActivateProfileHelper.setZenMode(context.getApplicationContext(), zenMode);
+                                break;
+                        }
+                        PPApplication.logE(TAG, "onReceive(zenMode=" + zenMode + ')');
+                        if (zenMode != 0) {
+                            //Log.e(TAG, "onInterruptionFilterChanged  new zenMode=" + zenMode);
+                            ActivateProfileHelper.setRingerMode(context.getApplicationContext(), 5);
+                            ActivateProfileHelper.setZenMode(context.getApplicationContext(), zenMode);
+                        }
                     }
                 }
 
@@ -69,32 +71,34 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
         // convert to profile zenMode
         int zenMode = 0;
         NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
-        PPApplication.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "interruptionFilter=" + interruptionFilter);
-        switch (interruptionFilter) {
-            case NotificationManager.INTERRUPTION_FILTER_ALL:
-                if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, true))
-                    zenMode = 4;
-                else
+        if (mNotificationManager != null) {
+            int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
+            PPApplication.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "interruptionFilter=" + interruptionFilter);
+            switch (interruptionFilter) {
+                case NotificationManager.INTERRUPTION_FILTER_ALL:
+                    if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, true))
+                        zenMode = 4;
+                    else
+                        zenMode = 1;
+                    break;
+                case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
+                    if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, true))
+                        zenMode = 5;
+                    else
+                        zenMode = 2;
+                    break;
+                case NotificationManager.INTERRUPTION_FILTER_NONE:
+                    zenMode = 3;
+                    break;
+                case NotificationManager.INTERRUPTION_FILTER_ALARMS:
+                    zenMode = 6;
+                    break;
+                case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
                     zenMode = 1;
-                break;
-            case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
-                if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, true))
-                    zenMode = 5;
-                else
-                    zenMode = 2;
-                break;
-            case NotificationManager.INTERRUPTION_FILTER_NONE:
-                zenMode = 3;
-                break;
-            case NotificationManager.INTERRUPTION_FILTER_ALARMS:
-                zenMode = 6;
-                break;
-            case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
-                zenMode = 1;
-                break;
+                    break;
+            }
+            PPApplication.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "zenMode=" + zenMode);
         }
-        PPApplication.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "zenMode=" + zenMode);
         return zenMode;
     }
 
@@ -132,7 +136,8 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                 }
                 //Log.e(TAG, "requestInterruptionFilter(" + interruptionFilter + ')');
                 NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                mNotificationManager.setInterruptionFilter(interruptionFilter);
+                if (mNotificationManager != null)
+                    mNotificationManager.setInterruptionFilter(interruptionFilter);
             }
         }
     }

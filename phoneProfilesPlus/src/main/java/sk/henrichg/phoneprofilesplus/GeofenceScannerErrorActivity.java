@@ -70,7 +70,9 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Get the error code and retrieve the appropriate dialog
-            int errorCode = this.getArguments().getInt(GeofencesScanner.DIALOG_ERROR);
+            int errorCode = -999;
+            if (this.getArguments() != null)
+                errorCode = this.getArguments().getInt(GeofencesScanner.DIALOG_ERROR);
             return GoogleApiAvailability.getInstance().getErrorDialog(
                     this.getActivity(), errorCode, GeofencesScanner.REQUEST_RESOLVE_ERROR);
         }

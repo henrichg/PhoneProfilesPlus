@@ -506,44 +506,56 @@ class GlobalGUIRoutines {
         Point appUsableSize = getAppUsableScreenSize(context);
         Point realScreenSize = getRealScreenSize(context);
 
-        // navigation bar on the right
-        if (appUsableSize.x < realScreenSize.x) {
-            return new Point(realScreenSize.x - appUsableSize.x, appUsableSize.y);
-        }
+        if ((appUsableSize != null) && (realScreenSize != null)) {
+            // navigation bar on the right
+            if (appUsableSize.x < realScreenSize.x) {
+                return new Point(realScreenSize.x - appUsableSize.x, appUsableSize.y);
+            }
 
-        // navigation bar at the bottom
-        if (appUsableSize.y < realScreenSize.y) {
-            return new Point(appUsableSize.x, realScreenSize.y - appUsableSize.y);
-        }
+            // navigation bar at the bottom
+            if (appUsableSize.y < realScreenSize.y) {
+                return new Point(appUsableSize.x, realScreenSize.y - appUsableSize.y);
+            }
 
-        // navigation bar is not present
-        return new Point();
+            // navigation bar is not present
+            return new Point();
+        }
+        else
+            return null;
     }
 
     private static Point getAppUsableScreenSize(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = windowManager.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        return size;
+        if (windowManager != null) {
+            Display display = windowManager.getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            return size;
+        }
+        else
+            return null;
     }
 
     static Point getRealScreenSize(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = windowManager.getDefaultDisplay();
-        Point size = new Point();
+        if (windowManager != null) {
+            Display display = windowManager.getDefaultDisplay();
+            Point size = new Point();
 
-        if (Build.VERSION.SDK_INT >= 17) {
-            display.getRealSize(size);
-        } else /*if (Build.VERSION.SDK_INT >= 14)*/ {
-            try {
-                size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
-                size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
+            if (Build.VERSION.SDK_INT >= 17) {
+                display.getRealSize(size);
+            } else /*if (Build.VERSION.SDK_INT >= 14)*/ {
+                try {
+                    size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
+                    size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
+                } catch (Exception ignored) {
+                }
             }
-            catch (Exception ignored) { }
-        }
 
-        return size;
+            return size;
+        }
+        else
+            return null;
     }
 
     static int getThemeAccentColor (final Context context) {

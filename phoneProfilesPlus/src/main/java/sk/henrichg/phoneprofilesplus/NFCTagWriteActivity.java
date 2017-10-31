@@ -86,7 +86,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                     int[] attrs = {R.attr.navigationDrawerText};
                     TypedArray ta = obtainStyledAttributes(attrs);
                     int color = ta.getResourceId(0, android.R.color.black);
-                    writableTextView.setTextColor(color);
+                    writableTextView.setTextColor(getResources().getColor(color));
                     ta.recycle();
 
                     if (nfcManager.tagReaded) {

@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
@@ -49,6 +50,7 @@ class MaterialDialogsPrefUtil {
     static void registerOnActivityDestroyListener(@NonNull Preference preference, @NonNull PreferenceManager.OnActivityDestroyListener listener) {
         try {
             PreferenceManager pm = preference.getPreferenceManager();
+            @SuppressLint("PrivateApi")
             Method method = pm.getClass().getDeclaredMethod(
                     "registerOnActivityDestroyListener",
                     PreferenceManager.OnActivityDestroyListener.class);
@@ -61,6 +63,7 @@ class MaterialDialogsPrefUtil {
     static void unregisterOnActivityDestroyListener(@NonNull Preference preference, @NonNull PreferenceManager.OnActivityDestroyListener listener) {
         try {
             PreferenceManager pm = preference.getPreferenceManager();
+            @SuppressLint("PrivateApi")
             Method method = pm.getClass().getDeclaredMethod(
                     "unregisterOnActivityDestroyListener",
                     PreferenceManager.OnActivityDestroyListener.class);

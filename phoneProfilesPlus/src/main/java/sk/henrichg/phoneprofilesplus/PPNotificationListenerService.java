@@ -94,14 +94,18 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 @Override
                 public void run() {
                     PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PPNotificationListenerService.onNotificationPosted");
-                    wakeLock.acquire(10 * 60 * 1000);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PPNotificationListenerService.onNotificationPosted");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
                     EventsHandler eventsHandler = new EventsHandler(context);
                     eventsHandler.setEventNotificationParameters("posted");
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION, false);
 
-                    wakeLock.release();
+                    if (wakeLock != null)
+                        wakeLock.release();
                 }
             });
         }
@@ -140,14 +144,18 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 @Override
                 public void run() {
                     PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PPNotificationListenerService.onNotificationRemoved");
-                    wakeLock.acquire(10 * 60 * 1000);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PPNotificationListenerService.onNotificationRemoved");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
                     EventsHandler eventsHandler = new EventsHandler(context);
                     eventsHandler.setEventNotificationParameters("removed");
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION, false);
 
-                    wakeLock.release();
+                    if (wakeLock != null)
+                        wakeLock.release();
                 }
             });
         }
@@ -275,7 +283,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         String packageName = context.getPackageName();
         //Log.e(TAG, "enabledNotificationListeners(" + className + ')');
 
-        if (packageNames != null) {
+        //if (packageNames != null) {
             for (String pkgName : packageNames) {
                 //Log.e(TAG, "enabledNotificationListeners(" + pkgName + ')');
                 //if (className.contains(pkgName)) {
@@ -285,9 +293,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 }
             }
             return false;
-        }
-        else
-            return false;
+        //}
+        //else
+        //    return false;
     }
 
     private static Intent getInterruptionFilterRequestIntent(final int filter) {
@@ -361,6 +369,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     class NLServiceReceiver extends BroadcastReceiver {
 
+        @SuppressLint("InlinedApi")
         @Override
         public void onReceive(Context context, Intent intent) {
             //Log.e(TAG, "NLServiceReceiver.onReceive(" + intent.getAction()  + ')');

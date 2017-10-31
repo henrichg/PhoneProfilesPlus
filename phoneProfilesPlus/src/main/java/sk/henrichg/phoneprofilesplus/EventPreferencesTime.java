@@ -193,6 +193,7 @@ class EventPreferencesTime extends EventPreferences {
                     dayOfWeek = getDayOfWeekByLocale(i);
 
                     if (daySet[dayOfWeek])
+                        //noinspection StringConcatenationInLoop
                         descr = descr + namesOfDay[dayOfWeek+1] + " ";
                 }
             }
@@ -493,16 +494,16 @@ class EventPreferencesTime extends EventPreferences {
     private void removeAlarm(/*boolean startEvent, */Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+        if (alarmManager != null) {
+            Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
 
-        Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
+            if (pendingIntent != null) {
+                PPApplication.logE("EventPreferencesTime.removeAlarm", "alarm found");
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
-        if (pendingIntent != null)
-        {
-            PPApplication.logE("EventPreferencesTime.removeAlarm","alarm found");
-
-            alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
+                alarmManager.cancel(pendingIntent);
+                pendingIntent.cancel();
+            }
         }
     }
 
@@ -523,15 +524,15 @@ class EventPreferencesTime extends EventPreferences {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-
-        //
-        if (android.os.Build.VERSION.SDK_INT >= 23)
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime+ Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-        else
-        if (android.os.Build.VERSION.SDK_INT >= 19)
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime+ Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-        else
-            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime+ Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+        if (alarmManager != null) {
+            //
+            if (android.os.Build.VERSION.SDK_INT >= 23)
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            else if (android.os.Build.VERSION.SDK_INT >= 19)
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            else
+                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+        }
     }
 
 }

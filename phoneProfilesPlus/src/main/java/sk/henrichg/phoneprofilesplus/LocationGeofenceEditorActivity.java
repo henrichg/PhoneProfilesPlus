@@ -446,6 +446,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         okButton.setEnabled((!name.isEmpty()) && (mLocation != null));
     }
 
+    @SuppressLint("MissingPermission")
     private void getLastLocation() {
         if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this)) {
             try {
@@ -484,6 +485,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     /**
      * Requests location updates from the FusedLocationApi.
      */
+    @SuppressLint("MissingPermission")
     private void startLocationUpdates() {
         // The final argument to {@code requestLocationUpdates()} is a LocationListener
         // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
@@ -589,14 +591,17 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Get the error code and retrieve the appropriate dialog
-            int errorCode = this.getArguments().getInt(DIALOG_ERROR);
+            int errorCode = -999;
+            if (this.getArguments() != null)
+                errorCode = this.getArguments().getInt(DIALOG_ERROR);
             return GoogleApiAvailability.getInstance().getErrorDialog(
                     this.getActivity(), errorCode, REQUEST_RESOLVE_ERROR);
         }
 
         @Override
         public void onDismiss(DialogInterface dialog) {
-            ((LocationGeofenceEditorActivity) getActivity()).onDialogDismissed();
+            if (getActivity() != null)
+                ((LocationGeofenceEditorActivity) getActivity()).onDialogDismissed();
         }
     }
 

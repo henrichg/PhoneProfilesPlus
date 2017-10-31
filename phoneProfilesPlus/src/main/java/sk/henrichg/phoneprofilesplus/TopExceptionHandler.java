@@ -20,12 +20,13 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
     private static final String CRASH_FILENAME = "crash.txt";
 
-    public TopExceptionHandler(Context applicationContext, int actualVersionCode) {
+    TopExceptionHandler(Context applicationContext, int actualVersionCode) {
         this.defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
         this.applicationContext = applicationContext;
         this.actualVersionCode = actualVersionCode;
     }
 
+    @SuppressWarnings("StringConcatenationInLoop")
     public void uncaughtException(Thread t, Throwable e)
     {
         try {

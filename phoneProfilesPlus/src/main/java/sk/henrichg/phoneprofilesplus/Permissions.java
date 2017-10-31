@@ -153,7 +153,11 @@ class Permissions {
                         permissions.add(new PermissionType(_permission.preference, _permission.permission));
                 } else if (_permission.permission.equals(permission.ACCESS_NOTIFICATION_POLICY)) {
                     NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    if (!mNotificationManager.isNotificationPolicyAccessGranted())
+                    if (mNotificationManager != null) {
+                        if (!mNotificationManager.isNotificationPolicyAccessGranted())
+                            permissions.add(new PermissionType(_permission.preference, _permission.permission));
+                    }
+                    else
                         permissions.add(new PermissionType(_permission.preference, _permission.permission));
                 } else {
                     if (ContextCompat.checkSelfPermission(context, _permission.permission) != PackageManager.PERMISSION_GRANTED)
@@ -523,7 +527,7 @@ class Permissions {
             return hasPermission(context, permission.READ_EXTERNAL_STORAGE);
     }
 
-    static boolean checkProfileRadioPreferences(Context context, Profile profile) {
+    private static boolean checkProfileRadioPreferences(Context context, Profile profile) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = true;
@@ -576,7 +580,9 @@ class Permissions {
                         profile.getVolumeNotificationChange() ||
                         profile.getVolumeSystemChange()) {
                     NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    boolean granted = mNotificationManager.isNotificationPolicyAccessGranted();
+                    boolean granted = false;
+                    if (mNotificationManager != null)
+                        granted = mNotificationManager.isNotificationPolicyAccessGranted();
                     if (granted)
                         setShowRequestAccessNotificationPolicyPermission(context, true);
                     return granted;
@@ -595,7 +601,9 @@ class Permissions {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                boolean granted = mNotificationManager.isNotificationPolicyAccessGranted();
+                boolean granted = false;
+                if (mNotificationManager != null)
+                    granted = mNotificationManager.isNotificationPolicyAccessGranted();
                 if (granted)
                     setShowRequestAccessNotificationPolicyPermission(context, true);
                 return granted;
@@ -1310,33 +1318,39 @@ class Permissions {
     static void removeProfileNotification(Context context)
     {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
+        if (notificationManager != null)
+            notificationManager.cancel(PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
     }
 
     static void removeInstallToneNotification(Context context)
     {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
+        if (notificationManager != null)
+            notificationManager.cancel(PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
     }
 
     static void removePlayRingtoneNotificationNotification(Context context)
     {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID);
+        if (notificationManager != null)
+            notificationManager.cancel(PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID);
     }
 
     static void removeEventNotification(Context context)
     {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
+        if (notificationManager != null)
+            notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
     }
 
     static void removeNotifications(Context context)
     {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
-        notificationManager.cancel(PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
-        notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
+        if (notificationManager != null) {
+            notificationManager.cancel(PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
+            notificationManager.cancel(PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
+            notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
+        }
     }
 
     static void releaseReferences() {
