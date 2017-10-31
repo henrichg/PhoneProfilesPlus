@@ -65,7 +65,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:' + ppVersions.supportLib
     compile 'com.android.support:design:' + ppVersions.supportLib
     compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
-        transitive = true;
+        transitive = true
     }
     compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
