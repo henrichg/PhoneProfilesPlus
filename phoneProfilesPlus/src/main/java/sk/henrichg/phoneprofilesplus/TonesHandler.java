@@ -115,7 +115,7 @@ class TonesHandler {
     }
 
     static boolean isToneInstalled(int resID, Context context) {
-        if (Permissions.checkInstallTone(context)) {
+        if (Permissions.checkInstallTone(context, null)) {
             boolean ringtone = isToneInstalled(resID, Environment.DIRECTORY_RINGTONES, context);
             boolean notification = isToneInstalled(resID, Environment.DIRECTORY_NOTIFICATIONS, context);
             boolean alarm = isToneInstalled(resID, Environment.DIRECTORY_ALARMS, context);

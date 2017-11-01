@@ -1614,8 +1614,8 @@ public class DataWrapper {
 
         if ((event._eventPreferencesCall._enabled)  &&
                 (Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)&&
-                Permissions.checkEventCallContacts(context, event) &&
-                Permissions.checkEventPhoneBroadcast(context, event))
+                Permissions.checkEventCallContacts(context, event, null) &&
+                Permissions.checkEventPhoneBroadcast(context, event, null))
         {
             ignoreCall = false;
 
@@ -1821,7 +1821,7 @@ public class DataWrapper {
 
         if ((event._eventPreferencesCalendar._enabled) &&
                 (Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) &&
-                (Permissions.checkEventCalendar(context, event)))
+                (Permissions.checkEventCalendar(context, event, null)))
         {
             ignoreCalendar = false;
 
@@ -1859,7 +1859,7 @@ public class DataWrapper {
 
         if (event._eventPreferencesWifi._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
-                && Permissions.checkEventLocation(context, event))
+                && Permissions.checkEventLocation(context, event, null))
         {
             ignoreWifi = false;
 
@@ -2104,7 +2104,7 @@ public class DataWrapper {
 
         if (event._eventPreferencesBluetooth._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
-                && Permissions.checkEventLocation(context, event))
+                && Permissions.checkEventLocation(context, event, null))
         {
             ignoreBluetooth = false;
 
@@ -2271,8 +2271,8 @@ public class DataWrapper {
 
         if ((event._eventPreferencesSMS._enabled) &&
                 (Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
-                && Permissions.checkEventSMSContacts(context, event) &&
-                Permissions.checkEventSMSBroadcast(context, event))
+                && Permissions.checkEventSMSContacts(context, event, null) &&
+                Permissions.checkEventSMSBroadcast(context, event, null))
         {
             ignoreSms = false;
 
@@ -2393,7 +2393,7 @@ public class DataWrapper {
 
         if (event._eventPreferencesLocation._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
-                && Permissions.checkEventLocation(context, event))
+                && Permissions.checkEventLocation(context, event, null))
         {
             ignoreLocation = false;
 
@@ -2550,7 +2550,7 @@ public class DataWrapper {
 
         if (event._eventPreferencesMobileCells._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
-                && Permissions.checkEventLocation(context, event))
+                && Permissions.checkEventLocation(context, event, null))
         {
             ignoreMobileCell = false;
 
