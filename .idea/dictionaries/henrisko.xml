@@ -46,6 +46,7 @@
       <w>fgui</w>
       <w>geofence</w>
       <w>geofences</w>
+      <w>getprop</w>
       <w>gron</w>
       <w>henrich</w>
       <w>henrichg</w>
@@ -65,7 +66,9 @@
       <w>notconnected</w>
       <w>notinfront</w>
       <w>pausedlogging</w>
+      <w>phelper</w>
       <w>phoneprofiles</w>
+      <w>phoneprofileshelper</w>
       <w>phoneprofilesplus</w>
       <w>porder</w>
       <w>pphelper</w>
@@ -83,9 +86,14 @@
       <w>screenoff</w>
       <w>screenon</w>
       <w>seekbar</w>
+      <w>selinux</w>
       <w>ssid</w>
       <w>ssids</w>
       <w>startedlogging</w>
+      <w>supersu</w>
+      <w>sysfs</w>
+      <w>sysprop</w>
+      <w>timelines</w>
       <w>true;</w>
       <w>uncheck</w>
       <w>undoprofile</w>

@@ -725,7 +725,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (PhoneProfilesPreferencesFragment.changedLocationGeofencePreference != null) {
                 if(resultCode == Activity.RESULT_OK){
                     //long geofenceId = data.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
-                    // this persistGeofence, for multislelect this mus only refresh listView in preference
+                    // this persistGeofence, for multiselect this mus only refresh listView in preference
                     PhoneProfilesPreferencesFragment.changedLocationGeofencePreference.setGeofenceFromEditor(/*geofenceId*/);
                     PhoneProfilesPreferencesFragment.changedLocationGeofencePreference = null;
                 }

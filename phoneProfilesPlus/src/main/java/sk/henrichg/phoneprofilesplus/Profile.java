@@ -754,7 +754,7 @@ public class Profile {
         return value;
     }
 
-    // geting icon custom color
+    // get icon custom color
     private int getIconCustomColor() {
         int value;
         try {

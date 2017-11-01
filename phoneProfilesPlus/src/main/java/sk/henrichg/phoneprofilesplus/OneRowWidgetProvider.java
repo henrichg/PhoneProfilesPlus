@@ -28,7 +28,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         Profile profile = dataWrapper.getActivatedProfile();
 
-        // get all OneRowWidgetProvider widgets in laucher
+        // get all OneRowWidgetProvider widgets in launcher
         ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
         int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 

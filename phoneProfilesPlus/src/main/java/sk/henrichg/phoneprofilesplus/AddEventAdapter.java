@@ -223,7 +223,7 @@ class AddEventAdapter extends BaseAdapter {
                             //holder.profileEndIcon.setImageBitmap(null);
                             int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                                     vi.getContext().getPackageName());
-                            holder.profileEndIcon.setImageResource(res); // resource na ikonu
+                            holder.profileEndIcon.setImageResource(res); // icon resource
                         }
                     } else {
                         holder.profileEndIcon.setImageBitmap(profile._iconBitmap);

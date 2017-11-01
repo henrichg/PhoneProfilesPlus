@@ -829,7 +829,7 @@ public class PPApplication extends Application {
             }
         }
         if (!cmd.isFinished()){
-            Log.e("GlobaData.commandWait", "Could not finish root command in " + (waitTill/waitTillMultiplier));
+            Log.e("PPApplication.commandWait", "Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }
     */
