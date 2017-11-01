@@ -359,12 +359,9 @@ class Permissions {
             boolean grantedWriteSettings = Settings.System.canWrite(context);
             if (grantedWriteSettings)
                 setShowRequestWriteSettingsPermission(context, true);
-            boolean grantedDrawOverlays = true;
-            if (android.os.Build.VERSION.SDK_INT >= 25) {
-                grantedDrawOverlays = Settings.canDrawOverlays(context);
-                if (grantedDrawOverlays)
-                    setShowRequestDrawOverlaysPermission(context, true);
-            }
+            boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+            if (grantedDrawOverlays)
+                setShowRequestDrawOverlaysPermission(context, true);
             return grantedWriteSettings && grantedDrawOverlays;
         }
         else
@@ -378,12 +375,9 @@ class Permissions {
                 boolean grantedWriteSettings = Settings.System.canWrite(context);
                 if (grantedWriteSettings)
                     setShowRequestWriteSettingsPermission(context, true);
-                boolean grantedDrawOverlays = true;
-                if (android.os.Build.VERSION.SDK_INT >= 25) {
-                    grantedDrawOverlays = Settings.canDrawOverlays(context);
-                    if (grantedDrawOverlays)
-                        setShowRequestDrawOverlaysPermission(context, true);
-                }
+                boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                if (grantedDrawOverlays)
+                    setShowRequestDrawOverlaysPermission(context, true);
                 return grantedWriteSettings && grantedDrawOverlays;
             }
             else
@@ -398,12 +392,9 @@ class Permissions {
             boolean grantedWriteSettings = Settings.System.canWrite(context);
             if (grantedWriteSettings)
                 setShowRequestWriteSettingsPermission(context, true);
-            boolean grantedDrawOverlays = true;
-            if (android.os.Build.VERSION.SDK_INT >= 25) {
-                grantedDrawOverlays = Settings.canDrawOverlays(context);
-                if (grantedDrawOverlays)
-                    setShowRequestDrawOverlaysPermission(context, true);
-            }
+            boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+            if (grantedDrawOverlays)
+                setShowRequestDrawOverlaysPermission(context, true);
             return grantedWriteSettings && grantedDrawOverlays;
         }
         else
@@ -417,12 +408,9 @@ class Permissions {
                 boolean grantedWriteSettings = Settings.System.canWrite(context);
                 if (grantedWriteSettings)
                     setShowRequestWriteSettingsPermission(context, true);
-                boolean grantedDrawOverlays = true;
-                if (android.os.Build.VERSION.SDK_INT >= 25) {
-                    grantedDrawOverlays = Settings.canDrawOverlays(context);
-                    if (grantedDrawOverlays)
-                        setShowRequestDrawOverlaysPermission(context, true);
-                }
+                boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                if (grantedDrawOverlays)
+                    setShowRequestDrawOverlaysPermission(context, true);
                 return grantedWriteSettings && grantedDrawOverlays;
             }
             else
@@ -620,12 +608,9 @@ class Permissions {
             boolean grantedWriteSettings = Settings.System.canWrite(context);
             if (grantedWriteSettings)
                 setShowRequestWriteSettingsPermission(context, true);
-            boolean grantedDrawOverlays = true;
-            if (android.os.Build.VERSION.SDK_INT >= 23) {
-                grantedDrawOverlays = Settings.canDrawOverlays(context);
-                if (grantedDrawOverlays)
-                    setShowRequestDrawOverlaysPermission(context, true);
-            }
+            boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+            if (grantedDrawOverlays)
+                setShowRequestDrawOverlaysPermission(context, true);
             return grantedWriteSettings && grantedDrawOverlays;
         }
         else
@@ -640,12 +625,9 @@ class Permissions {
                 boolean grantedWriteSettings = Settings.System.canWrite(context);
                 if (grantedWriteSettings)
                     setShowRequestWriteSettingsPermission(context, true);
-                boolean grantedDrawOverlays = true;
-                if (android.os.Build.VERSION.SDK_INT >= 23) {
-                    grantedDrawOverlays = Settings.canDrawOverlays(context);
-                    if (grantedDrawOverlays)
-                        setShowRequestDrawOverlaysPermission(context, true);
-                }
+                boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                if (grantedDrawOverlays)
+                    setShowRequestDrawOverlaysPermission(context, true);
                 return grantedWriteSettings && grantedDrawOverlays;
             }
             else
