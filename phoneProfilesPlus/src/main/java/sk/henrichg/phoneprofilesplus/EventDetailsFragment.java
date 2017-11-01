@@ -208,7 +208,7 @@ public class EventDetailsFragment extends Fragment {
                         //holder.profileStartIcon.setImageBitmap(null);
                         int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                                 getActivity().getPackageName());
-                        profileStartIcon.setImageResource(res); // resource na ikonu
+                        profileStartIcon.setImageResource(res); // icon resource
                     }
                 }
                 else
@@ -273,7 +273,7 @@ public class EventDetailsFragment extends Fragment {
                             //holder.profileEndIcon.setImageBitmap(null);
                             int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                                     getActivity().getPackageName());
-                            profileEndIcon.setImageResource(res); // resource na ikonu
+                            profileEndIcon.setImageResource(res); // icon resource
                         }
                     } else {
                         profileEndIcon.setImageBitmap(profile._iconBitmap);

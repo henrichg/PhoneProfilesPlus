@@ -97,8 +97,8 @@ class PhoneProfilesHelper {
             Shell.defaultContext = Shell.ShellContext.NORMAL;
 
         /*
-        String command1 = "mount -o remount,rw /system";		//mounts the system partition to be writeable
-        String command2 = "rm "+destinationFile;				//removes the old systemapp
+        String command1 = "mount -o remount,rw /system";		//mounts the system partition to be writable
+        String command2 = "rm "+destinationFile;				//removes the old system app
         String command3 = "mount -o remount,ro /system";		//mounts the system partition to be read-only again
         //if (PPApplication.isSELinuxEnforcing())
         //{

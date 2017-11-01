@@ -109,7 +109,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             popupHeight = popupHeight + (60f * scale * profileCount); // item
             popupHeight = popupHeight + (1f * scale * (profileCount)); // divider
 
-            popupHeight = popupHeight + (20f * scale); // listview padding
+            popupHeight = popupHeight + (20f * scale); // listView padding
         }
         else
         {
@@ -121,7 +121,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             popupHeight = popupHeight + (85f * scale * profileCount); // item
             popupHeight = popupHeight + (1f * scale * (profileCount-1)); // divider
 
-            popupHeight = popupHeight + (24f * scale); // gridview margin
+            popupHeight = popupHeight + (24f * scale); // gridView margin
         }
 
         if (popupHeight > popupMaxHeight)
@@ -133,7 +133,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     //-----------------------------------------------------------------------------------
 
-        //Debug.startMethodTracing("phoneprofiles");
+        //Debug.startMethodTracing("phoneprofilesplus");
 
     // Layout ---------------------------------------------------------------------------------
 
@@ -253,8 +253,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
             if (dataWrapper != null) {
                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
-                // ignoruj manualnu aktivaciu profilu
-                // a odblokuj forceRun eventy
+                // ignore manual profile activation
+                // and unblock forceRun events
                 PPApplication.logE("$$$ restartEvents", "from ActivateProfileActivity.onOptionsItemSelected menu_restart_events");
                 dataWrapper.restartEventsWithAlert(this);
             }

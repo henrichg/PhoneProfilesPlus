@@ -91,7 +91,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             clearAllEventGeofences();
             updateTransitionsByLastKnownLocation(false);
             if (PPApplication.getApplicationStarted(context, true)) {
-                PPApplication.logE("GeofenceScannerb.mUpdatesStarted=false", "from GeofenceScanner.onConnected");
+                PPApplication.logE("GeofenceScanner.mUpdatesStarted=false", "from GeofenceScanner.onConnected");
                 mUpdatesStarted = false;
                 PPApplication.logE("GeofenceScanner.scheduleJob", "from GeofenceScanner.onConnected");
                 if (PhoneProfilesService.instance != null)

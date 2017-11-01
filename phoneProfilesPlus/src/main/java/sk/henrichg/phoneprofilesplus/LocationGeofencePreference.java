@@ -268,7 +268,7 @@ public class LocationGeofencePreference extends DialogPreference {
         Intent intent = new Intent(context, LocationGeofenceEditorActivity.class);
         intent.putExtra(EXTRA_GEOFENCE_ID, geofenceId);
 
-        // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
+        // is not possible to get activity from preference, used is static method
         if (onlyEdit == 0) {
             EventPreferencesFragment.setChangedLocationGeofencePreference(this);
             ((Activity)context).startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);

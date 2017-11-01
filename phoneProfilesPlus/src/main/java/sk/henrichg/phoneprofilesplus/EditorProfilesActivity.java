@@ -625,8 +625,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             //noinspection ConstantConditions
             getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
-            // ignoruj manualnu aktivaciu profilu
-            // a odblokuj forceRun eventy
+            // ignore manual profile activation
+            // and unblock forceRun events
             PPApplication.logE("$$$ restartEvents","from EditorProfilesActivity.onOptionsItemSelected menu_restart_events");
             getDataWrapper().restartEventsWithAlert(this);
             return true;
@@ -860,7 +860,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerHeaderFilterImage.setImageResource(drawerItemsIcon[drawerSelectedItem -1]);
         drawerHeaderFilterTitle.setText(drawerItemsTitle[drawerSelectedItem - 1]);
 
-        // set filter statusbar title
+        // set filter status bar title
         setStatusBarTitle();
         
         
@@ -1261,7 +1261,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //    startForegroundService(serviceIntent);
 
                         // restart events
-                        // startneme eventy
                         if (Event.getGlobalEventsRunning(getApplicationContext())) {
                             PPApplication.logE("$$$ restartEvents", "from EditorProfilesActivity.doImportData.onPostExecute");
                             dataWrapper.restartEventsWithDelay(3, false, false);
@@ -1589,7 +1588,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
      private void setStatusBarTitle()
      {
-        // set filter statusbar title
+        // set filter status bar title
         /*String text = "";
         if (drawerSelectedItem <= COUNT_DRAWER_PROFILE_ITEMS)
         {
@@ -1671,7 +1670,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (mTwoPane) {
             if (profile != null)
             {
-                // restart profile preferences fragmentu
+                // restart profile preferences fragment
                 Bundle arguments = new Bundle();
                 arguments.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
                 arguments.putInt(EXTRA_NEW_PROFILE_MODE, newProfileMode);
@@ -1695,7 +1694,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
 
     private void redrawProfileListFragment(Profile profile, int newProfileMode, int predefinedProfileIndex, boolean startTargetHelps) {
-        // redraw headeru list fragmentu, notifikacie a widgetov
+        // redraw list fragment, notification a widgets
 
         EditorProfileListFragment fragment = (EditorProfileListFragment) getFragmentManager().findFragmentById(R.id.editor_list_container);
         if (fragment != null) {
@@ -1778,7 +1777,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
 
     private void redrawEventListFragment(Event event, int newEventMode, int predefinedEventIndex, boolean startTargetHelps) {
-        // redraw headeru list fragmentu, notifikacie a widgetov
+        // redraw list fragment, notification and widgets
         EditorEventListFragment fragment = (EditorEventListFragment) getFragmentManager().findFragmentById(R.id.editor_list_container);
         if (fragment != null) {
             // update event, this rewrite event in eventList
@@ -1795,7 +1794,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (mTwoPane) {
             if (event != null)
             {
-                // restart event preferences fragmentu
+                // restart event preferences fragment
                 Bundle arguments = new Bundle();
                 arguments.putLong(PPApplication.EXTRA_EVENT_ID, event._id);
                 arguments.putInt(EXTRA_NEW_EVENT_MODE, newEventMode);

@@ -1938,13 +1938,13 @@ public class PhoneProfilesService extends Service
         // battery event
         registerPowerSaveModeReceiver(true, true, true);
 
-        // required for Connect to SSIS profile preference +
+        // required for Connect to SSID profile preference +
         // wifi connection type = (dis)connected +
         // radio switch event +
         // wifi scanner
         registerWifiStateChangedBroadcastReceiver(true, true, true, false);
 
-        // required for Connect to SSIS profile preference +
+        // required for Connect to SSID profile preference +
         // required for wifi connection type = (dis)connected event +
         // wifi scanner
         registerWifiConnectionBroadcastReceiver(true, true, true, false);
@@ -2261,7 +2261,7 @@ public class PhoneProfilesService extends Service
 
                     PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application started");
 
-                    // startname eventy
+                    // start events
                     if (Event.getGlobalEventsRunning(appContext))
                     {
                         PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","global event run is enabled, first start events");
@@ -2507,23 +2507,20 @@ public class PhoneProfilesService extends Service
             // close showed notification
             //notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
 
-            // vytvorenie intentu na aktivitu, ktora sa otvori na kliknutie na notifikaciu
+            // intent to LauncherActivity, for click on notification
             Intent intent = new Intent(dataWrapper.context, LauncherActivity.class);
             // clear all opened activities
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-            // nastavime, ze aktivita sa spusti z notifikacnej listy
+            // setup sturtupSource
             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
             PendingIntent pIntent = PendingIntent.getActivity(dataWrapper.context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-            // vytvorenie intentu na restart events
+            // intent for restart events
             /*Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
             intentRE.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);*/
             Intent intentRE = new Intent(dataWrapper.context, RestartEventsFromNotificationBroadcastReceiver.class);
             PendingIntent pIntentRE = PendingIntent.getBroadcast(dataWrapper.context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
-
-
-            // vytvorenie samotnej notifikacie
 
             Notification.Builder notificationBuilder;
 
@@ -3764,7 +3761,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public void stopSimulatingNotificationTone(boolean abadonFocus) {
+    public void stopSimulatingNotificationTone(boolean abandonFocus) {
         //if (notificationToneIsSimulating) {
         PPApplication.logE("PhoneProfilesService.stopSimulatingNotificationTone", "xxx");
         if (audioManager == null )
@@ -3781,7 +3778,7 @@ public class PhoneProfilesService extends Service
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
             PPApplication.logE("PhoneProfilesService.stopSimulatingNotificationTone", "notification stopped");
         }
-        if (abadonFocus)
+        if (abandonFocus)
             audioManager.abandonAudioFocus(this);
         //}
         notificationToneIsSimulating = false;

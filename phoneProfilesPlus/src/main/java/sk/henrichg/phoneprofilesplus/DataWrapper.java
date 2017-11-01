@@ -785,7 +785,7 @@ public class DataWrapper {
                 setEventBlocked(event, false);
                 if (blockEvents && (status == Event.ESTATUS_RUNNING) && event._forceRun)
                 {
-                    // block only running forcerun events
+                    // block only running forceRun events
                     if (!event._noPauseByManualActivation)
                         setEventBlocked(event, true);
                 }
@@ -1357,11 +1357,9 @@ public class DataWrapper {
             finish = false;
             if (ApplicationPreferences.applicationClose(context))
             {
-                // ma sa zatvarat aktivita po aktivacii
+                // close of activity after profile activation is enabled
                 if (PPApplication.getApplicationStarted(context, false))
-                    // aplikacia je uz spustena, mozeme aktivitu zavriet
-                    // tymto je vyriesene, ze pri spusteni aplikacie z launchera
-                    // sa hned nezavrie
+                    // application is already started and is possible to close activity
                     finish = afterActivation;
             }
         }
@@ -1379,7 +1377,7 @@ public class DataWrapper {
     {
         Profile profile;
 
-        // pre profil, ktory je prave aktivny, treba aktualizovat aktivitu
+        // for activated profile is recommended update of activity
         profile = getActivatedProfile();
 
         boolean actProfile = false;
@@ -1392,48 +1390,23 @@ public class DataWrapper {
             (startupSource == PPApplication.STARTUP_SOURCE_SERVICE_MANUAL) ||
             (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER))
         {
-            // aktivacia spustena z shortcutu, widgetu, aktivatora, editora, zo service, profil aktivujeme
+            // activation is invoked from shortcut, widget, Activator, Editor, service,
+            // do profile activation
             actProfile = true;
             interactive = ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE));
         }
         else
         if (startupSource == PPApplication.STARTUP_SOURCE_BOOT)
         {
-            // aktivacia bola spustena po boote telefonu
+            // activation is invoked during device boot
 
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
             Profile.setActivatedProfileForDuration(context, 0);
 
             if (ApplicationPreferences.applicationActivate(context))
             {
-                // je nastavene, ze pri starte sa ma aktivita aktivovat
                 actProfile = true;
             }
-            /*else
-            {
-                // nema sa aktivovat profil pri starte, ale musim pozriet, ci daky event bezi
-                // a ak ano, aktivovat profil posledneho eventu v timeline
-                boolean eventRunning = false;
-                List<EventTimeline> eventTimelineList = getEventTimelineList();
-                if (eventTimelineList.size() > 0)
-                {
-                    eventRunning = true;
-
-                    EventTimeline eventTimeline = eventTimelineList.get(eventTimelineList.size()-1);
-
-                    Event _event = getEventById(eventTimeline._fkEvent);
-                    profile = getProfileById(_event._fkProfileStart);
-                    actProfile = true;
-                }
-
-
-                if ((profile != null) && (!eventRunning))
-                {
-                    getDatabaseHandler().deactivateProfile();
-                    //profile._checked = false;
-                    profile = null;
-                }
-            }*/
 
             if (profile_id == 0)
                 profile = null;
@@ -1441,25 +1414,15 @@ public class DataWrapper {
         else
         if (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER_START)
         {
-            // aktivacia bola spustena z lauchera
+            // activation is invoked from launcher
 
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
             Profile.setActivatedProfileForDuration(context, 0);
 
             if (ApplicationPreferences.applicationActivate(context))
             {
-                // je nastavene, ze pri starte sa ma aktivita aktivovat
                 actProfile = true;
             }
-            /*else
-            {
-                if (profile != null)
-                {
-                    getDatabaseHandler().deactivateProfile();
-                    //profile._checked = false;
-                    profile = null;
-                }
-            }*/
 
             if (profile_id == 0)
                 profile = null;
@@ -1482,7 +1445,7 @@ public class DataWrapper {
 
         if (actProfile && (profile != null))
         {
-            // aktivacia profilu
+            // profile activation
             activateProfileWithAlert(profile, startupSource, interactive, activity);
         }
         else
@@ -1797,8 +1760,8 @@ public class DataWrapper {
                 (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_CAR_DOCK))
             {
                 // get dock status
-                IntentFilter ifilter = new IntentFilter(Intent.ACTION_DOCK_EVENT);
-                Intent dockStatus = context.registerReceiver(null, ifilter);
+                IntentFilter iFilter = new IntentFilter(Intent.ACTION_DOCK_EVENT);
+                Intent dockStatus = context.registerReceiver(null, iFilter);
 
                 boolean isDocked = false;
                 boolean isCar = false;
@@ -2862,7 +2825,7 @@ public class DataWrapper {
                 mobileCellPassed &&
                 nfcPassed &&
                 radioSwitchPassed) {
-                // podmienky sedia, vykoname, co treba
+                // all sensors are passed
 
                 //if (eventStart)
                 newEventStatus = Event.ESTATUS_RUNNING;
@@ -2897,7 +2860,7 @@ public class DataWrapper {
                                     event.setDelayStartAlarm(this); // for start delay
                                 }
                                 if (event._isInDelayStart) {
-                                    // if delay timeouted, start event
+                                    // if delay expires, start event
                                     event.checkDelayStart(/*this*/);
                                 }
                             }
@@ -2935,7 +2898,7 @@ public class DataWrapper {
                                     event.setDelayEndAlarm(this); // for end delay
                                 }
                                 if (event._isInDelayEnd) {
-                                    // if delay timeouted, pause event
+                                    // if delay expires, pause event
                                     event.checkDelayEnd(/*this*/);
                                 }
                             }
@@ -3045,8 +3008,8 @@ public class DataWrapper {
         // remove all event delay alarms
         resetAllEventsInDelayStart(false);
         resetAllEventsInDelayEnd(false);
-        // ignoruj manualnu aktivaciu profilu
-        // a odblokuj forceRun eventy
+        // ignore manual profile activation
+        // and unblock forceRun events
         restartEvents(true, true, interactive);
 
         if (ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))

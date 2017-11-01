@@ -78,7 +78,7 @@ public class ProfileIconPreference extends DialogPreference {
     {
         super.onBindView(view);
 
-        imageView = view.findViewById(R.id.profileicon_pref_imageview); // resource na Textview v custom preference layoute
+        imageView = view.findViewById(R.id.profileicon_pref_imageview);
         updateIcon(false);
     }
 
@@ -112,7 +112,7 @@ public class ProfileIconPreference extends DialogPreference {
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        // zavolat galeriu na vyzdvihnutie image
+                        // call of gallery
                         if (Permissions.grantCustomProfileIconPermissions(prefContext, ProfileIconPreference.this)) {
                             startGallery();
                             mDialog.dismiss();
@@ -219,7 +219,7 @@ public class ProfileIconPreference extends DialogPreference {
     {
         super.onGetDefaultValue(a, index);
 
-        return a.getString(index);  // ikona bude vratena ako retazec
+        return a.getString(index);  // icon is returned as string
     }
 
     private void getBitmap() {
@@ -302,19 +302,14 @@ public class ProfileIconPreference extends DialogPreference {
     @Override
     protected Parcelable onSaveInstanceState()
     {
-        // ulozime instance state - napriklad kvoli zmene orientacie
-
         final Parcelable superState = super.onSaveInstanceState();
         if (isPersistent()) {
-            // netreba ukladat, je ulozene persistentne
             return superState;
         }
 
-        // ulozenie istance state
         final SavedState myState = new SavedState(superState);
         myState.imageIdentifierAndType = imageIdentifier+"|"+((isImageResourceID) ? "1" : "0");
         return myState;
-
     }
 
     @Override
@@ -391,7 +386,6 @@ public class ProfileIconPreference extends DialogPreference {
             newValue = imageIdentifier+"|"+((isImageResourceID) ? "1" : "0")+"|"+((useCustomColor) ? "1" : "0")+"|"+customColor;
             if (callChangeListener(newValue)) {
                 persistString(newValue);
-                // Data sa zmenili,notifikujeme
                 notifyChanged();
             }
         }
@@ -420,7 +414,7 @@ public class ProfileIconPreference extends DialogPreference {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setType("image/*");
 
-            // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
+            // is not possible to get activity from preference, used is static method
             ProfilePreferencesFragment.setChangedProfileIconPreference(this);
             ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
         } catch (ActivityNotFoundException e) {
@@ -430,7 +424,7 @@ public class ProfileIconPreference extends DialogPreference {
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 intent.setType("image/*");
 
-                // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
+                // is not possible to get activity from preference, used is static method
                 ProfilePreferencesFragment.setChangedProfileIconPreference(this);
                 ((Activity) prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
             } catch (Exception ignored) {}
@@ -463,7 +457,7 @@ public class ProfileIconPreference extends DialogPreference {
                     imageView.setImageBitmap(bitmap);
                 }
                 else
-                    imageView.setImageResource(res); // resource na ikonu
+                    imageView.setImageResource(res); // icon resource
             }
             else
             {

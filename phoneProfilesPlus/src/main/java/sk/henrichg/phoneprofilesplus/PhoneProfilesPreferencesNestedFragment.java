@@ -562,7 +562,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             int index = listPreference.findIndexOfValue(stringValue);
 
             // Set the summary to reflect the new value.
-            // **** Heno changes ** support for "%" in list items
+            // added support for "%" in list items
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
             if (summary != null)
             {

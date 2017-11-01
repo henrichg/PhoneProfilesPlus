@@ -60,9 +60,8 @@ public class LauncherActivity extends AppCompatActivity {
 
             if (startupSource == 0)
             {
-                // aktivita nebola spustena z notifikacie, ani z widgetu
+                // activity was not started from notification, widget
 
-                // pre profil, ktory je prave aktivny, treba aktualizovat notifikaciu a widgety
                 Profile profile = dataWrapper.getActivatedProfile();
                 if (PhoneProfilesService.instance != null)
                     PhoneProfilesService.instance.showProfileNotification(profile, dataWrapper);
@@ -78,7 +77,7 @@ public class LauncherActivity extends AppCompatActivity {
 
     private void endOnStart()
     {
-        //  aplikacia uz je 1. krat spustena - is in PhoneProfilesService
+        //  application is already started - is in PhoneProfilesService
         //PPApplication.setApplicationStarted(getBaseContext(), true);
 
         Intent intentLaunch;
@@ -110,7 +109,7 @@ public class LauncherActivity extends AppCompatActivity {
         intentLaunch.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
         getApplicationContext().startActivity(intentLaunch);
 
-        // reset, aby sa to dalej chovalo ako normalne spustenie z lauchera
+        // reset startupSource
         startupSource = 0;
 
     }

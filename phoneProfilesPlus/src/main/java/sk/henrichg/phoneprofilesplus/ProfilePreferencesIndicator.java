@@ -10,7 +10,7 @@ class ProfilePreferencesIndicator {
 
     private static Bitmap createIndicatorBitmap(Context context, int countDrawables)
     {
-        // bitmapa, z ktorej zobrerieme velkost
+        // bitmap to get size
         Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_profile_pref_volume_on);
 
         int width  = bmp.getWidth() * countDrawables;
@@ -153,12 +153,12 @@ class ProfilePreferencesIndicator {
             // screen timeout
             if (profile._deviceScreenTimeout != 0)
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_timeout;
-            // lockscreen
+            // lock screen
             if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3))
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen;
             if (profile._deviceKeyguard == 2)
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off;
-            // brightness/autobrightness
+            // brightness/auto-brightness
             if (profile.getDeviceBrightnessChange())
                 if (profile.getDeviceBrightnessAutomatic())
                     drawables[countDrawables++] = R.drawable.ic_profile_pref_autobrightness;

@@ -28,11 +28,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         Profile profile = dataWrapper.getActivatedProfile();
 
-        // ziskanie vsetkych wigetov tejto triedy na plochach lauchera
+        // get all OneRowWidgetProvider widgets in laucher
         ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
         int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
-        // prechadzame vsetky ziskane widgety
         for (int widgetId : allWidgetIds)
         {
             boolean isIconResourceID;
@@ -134,13 +133,13 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
             remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_restart_events, pIntentRE);
 
-            // konfiguracia, ze ma spustit hlavnu aktivitu zoznamu profilov, ked kliknme na widget
+            // intent for start LauncherActivity on widget click
             Intent intent = new Intent(context, LauncherActivity.class);
             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header, pendingIntent);
 
-            // aktualizacia widgetu
+            // widget update
             try {
                 appWidgetManager.updateAppWidget(widgetId, remoteViews);
             } catch (Exception ignored) {}

@@ -82,7 +82,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
                 //holder.profileIcon.setImageBitmap(null);
                 int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                         context.getPackageName());
-                profileIcon.setImageResource(res); // resource na ikonu
+                profileIcon.setImageResource(res); // icon resource
             }
         }
         else

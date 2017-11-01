@@ -118,7 +118,7 @@ public class ActivateProfileHelper {
     {
         PPApplication.sleep(300);
 
-        // nahodenie network type
+        // setup network type
         if (profile._deviceNetworkType >= 100) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, context) == PPApplication.PREFERENCE_ALLOWED) {
                 setPreferredNetworkType(context, profile._deviceNetworkType - 100);
@@ -128,7 +128,7 @@ public class ActivateProfileHelper {
             }
         }
 
-        // nahodenie mobilnych dat
+        // setup mobile data
         if (profile._deviceMobileData != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == PPApplication.PREFERENCE_ALLOWED) {
                 boolean _isMobileData = isMobileData(context);
@@ -161,7 +161,7 @@ public class ActivateProfileHelper {
             }
         }
 
-        // nahodenie WiFi AP
+        // setip WiFi AP
         boolean canChangeWifi = true;
         if (profile._deviceWiFiAP != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, context) == PPApplication.PREFERENCE_ALLOWED) {
@@ -205,7 +205,7 @@ public class ActivateProfileHelper {
         }
 
         if (canChangeWifi) {
-            // nahodenie WiFi
+            // setup Wi-Fi
             if (profile._deviceWiFi != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, context) == PPApplication.PREFERENCE_ALLOWED) {
                     boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
@@ -309,7 +309,7 @@ public class ActivateProfileHelper {
             }
         }
 
-        // nahodenie bluetooth
+        // setup bluetooth
         if (profile._deviceBluetooth != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, context) == PPApplication.PREFERENCE_ALLOWED) {
                 PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","setBluetooth");
@@ -352,7 +352,7 @@ public class ActivateProfileHelper {
             }
         }
 
-        // nahodenie GPS
+        // setup GPS
         if (profile._deviceGPS != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, context) == PPApplication.PREFERENCE_ALLOWED) {
                 //String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
@@ -389,7 +389,7 @@ public class ActivateProfileHelper {
             }
         }
 
-        // nahodenie NFC
+        // setup NFC
         if (profile._deviceNFC != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, context) == PPApplication.PREFERENCE_ALLOWED) {
                 //Log.e("ActivateProfileHelper.doExecuteForRadios", "allowed");
@@ -469,7 +469,7 @@ public class ActivateProfileHelper {
                 doExecuteForRadios(appContext, profile);
 
                 /*if (_setAirplaneMode && (!_isAirplaneMode)) {
-                    // 200 miliseconds is in doExecuteForRadios
+                    // 200 milliseconds is in doExecuteForRadios
                     PPApplication.sleep(1800);
 
                     // switch OFF airplane mode, set if after executeForRadios
@@ -599,7 +599,7 @@ public class ActivateProfileHelper {
         // (Android 6 - priority mode = ONLY_ALARMS)
         if (isAudibleRinging(ringerMode, zenMode)) {
 
-            PPApplication.logE("ActivateProfileHelper.setVolumes", "ringer/notif/system change");
+            PPApplication.logE("ActivateProfileHelper.setVolumes", "ringer/notification/system change");
 
             //if (Permissions.checkAccessNotificationPolicy(context)) {
 
@@ -1531,12 +1531,12 @@ public class ActivateProfileHelper {
     {
         PPApplication.logE("##### ActivateProfileHelper.execute", "xxx");
 
-        // rozdelit zvonenie a notifikacie - zial je to oznacene ako @Hide :-(
+        // unlink ring and notifications - it is @Hide :-(
         //Settings.System.putInt(context.getContentResolver(), Settings.System.NOTIFICATIONS_USE_RING_VOLUME, 0);
 
         final Profile profile = Profile.getMappedProfile(_profile, context);
 
-        // nahodenie volume
+        // setup volume
         // run job for execute volumes
         //ExecuteVolumeProfilePrefsJob.start(context, profile._id, merged, true);
         executeForVolumes(profile, true);
@@ -1553,16 +1553,16 @@ public class ActivateProfileHelper {
             }
         }
 
-        // nahodenie  tonov
+        // setup  tones
         // moved to ActivateProfileHelper.executeForVolumes
         //setTones(profile);
 
-        //// nahodenie radio preferences
+        //// setup radio preferences
         // run job for execute radios
         //ExecuteRadioProfilePrefsJob.start(context, profile._id, merged);
         executeForRadios(profile);
 
-        // nahodenie auto-sync
+        // setup auto-sync
         try {
             boolean _isAutoSync = ContentResolver.getMasterSyncAutomatically();
             boolean _setAutoSync = false;
@@ -1612,18 +1612,18 @@ public class ActivateProfileHelper {
         //else
         //    PPApplication.setActivatedProfileScreenTimeout(context, 0);
 
-        // zapnutie/vypnutie lockscreenu
+        // on/off lock screen
         //PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguard");
         boolean setLockScreen = false;
         switch (profile._deviceKeyguard) {
             case 1:
-                // enable lockscreen
+                // enable lock screen
                 PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguard=ON");
                 setLockScreenDisabled(context, false);
                 setLockScreen = true;
                 break;
             case 2:
-                // disable lockscreen
+                // disable lock screen
                 PPApplication.logE("$$$ ActivateProfileHelper.execute","keyguard=OFF");
                 setLockScreenDisabled(context, true);
                 setLockScreen = true;
@@ -1669,7 +1669,7 @@ public class ActivateProfileHelper {
             }
         }
 
-        // nahodenie podsvietenia
+        // setup display brightness
         if (Permissions.checkProfileScreenBrightness(context, profile)) {
             if (profile.getDeviceBrightnessChange()) {
                 PPApplication.logE("ActivateProfileHelper.execute", "set brightness: profile=" + profile._name);
@@ -1721,7 +1721,7 @@ public class ActivateProfileHelper {
             }
         }
 
-        // nahodenie rotate
+        // setup rotation
         if (Permissions.checkProfileAutoRotation(context, profile)) {
             switch (profile._deviceAutoRotate) {
                 case 1:
@@ -1770,7 +1770,7 @@ public class ActivateProfileHelper {
             //}
         }
 
-        // nahodenie pozadia
+        // setup wallpaper
         if (Permissions.checkProfileWallpaper(context, profile)) {
             if (profile._deviceWallpaperChange == 1) {
                 //ExecuteWallpaperProfilePrefsJob.start(context, profile._id, merged);
@@ -1799,7 +1799,7 @@ public class ActivateProfileHelper {
 
         if (_interactive)
         {
-            // preferences, ktore vyzaduju interakciu uzivatela
+            // preferences, which requires user interaction
 
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context) == PPApplication.PREFERENCE_ALLOWED)
             {
@@ -2106,7 +2106,7 @@ public class ActivateProfileHelper {
             context.sendBroadcast(intent2);
         } catch (Exception ignored) {}
 
-        // dashclock extension
+        // dash clock extension
         LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.dashClockBroadcastReceiver, new IntentFilter("DashClockBroadcastReceiver"));
         Intent intent3 = new Intent("DashClockBroadcastReceiver");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
@@ -2355,9 +2355,9 @@ public class ActivateProfileHelper {
                     }
 
                     @Override
-                    public void commandCompleted(int id, int exitcode) {
-                        super.commandCompleted(id, exitcode);
-                        PPApplication.logE("ActivateProfileHelper.setMobileData","completed="+exitcode);
+                    public void commandCompleted(int id, int exitCode) {
+                        super.commandCompleted(id, exitCode);
+                        PPApplication.logE("ActivateProfileHelper.setMobileData","completed="+exitCode);
                     }
                     }*/;
                     try {
@@ -2486,8 +2486,8 @@ public class ActivateProfileHelper {
                         }
 
                         @Override
-                        public void commandCompleted(int id, int exitcode) {
-                            super.commandCompleted(id, exitcode);
+                        public void commandCompleted(int id, int exitCode) {
+                            super.commandCompleted(id, exitCode);
                         }
                     };
                     try {
@@ -2659,7 +2659,7 @@ public class ActivateProfileHelper {
 
     static boolean canExploitGPS(Context context)
     {
-        // test expoiting power manager widget
+        // test exploiting power manager widget
         PackageManager pacMan = context.getPackageManager();
         try {
             PackageInfo pacInfo = pacMan.getPackageInfo("com.android.settings", PackageManager.GET_RECEIVERS);
@@ -2727,7 +2727,7 @@ public class ActivateProfileHelper {
             else
             if (PPApplication.isRooted() && PPApplication.settingsBinaryExists())
             {
-                // zariadenie je rootnute
+                // device is rooted
                 PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
 
                 String command1;
@@ -2836,7 +2836,7 @@ public class ActivateProfileHelper {
             else
             if (PPApplication.isRooted() && PPApplication.settingsBinaryExists())
             {
-                // zariadenie je rootnute
+                // device is rooted
                 PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
 
                 String command1;
@@ -2931,7 +2931,7 @@ public class ActivateProfileHelper {
     {
         if (PPApplication.isRooted() && PPApplication.settingsBinaryExists())
         {
-            // zariadenie je rootnute
+            // device is rooted
             synchronized (PPApplication.startRootCommandMutex) {
                 String command1;
                 String command2;

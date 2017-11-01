@@ -341,7 +341,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         {
             // Get the value of OPTION_APPWIDGET_HOST_CATEGORY
             int category = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY, -1);
-            // If the value is WIDGET_CATEGORY_KEYGUARD, it's a lockscreen widget
+            // If the value is WIDGET_CATEGORY_KEYGUARD, it's a lock screen widget
             isKeyguard = category == AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
 
             //int minWidth = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
@@ -409,7 +409,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         String preferenceKey = "isLargeLayout_"+appWidgetId;
         ApplicationPreferences.getSharedPreferences(context);
 
-        // remove preference, will by reseted in setLayoutParams
+        // remove preference, will by reset in setLayoutParams
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.remove(preferenceKey);
         editor.apply();

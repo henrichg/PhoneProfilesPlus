@@ -21,7 +21,7 @@
         android:src="@drawable/ic_profile_default"
         android:contentDescription="@string/profile_preferences_profileIcon"/>
 
-    <!-- space between icon and name - usefull for multiline profile name -->
+    <!-- space between icon and name - useful for multiline profile name -->
     <FrameLayout
         android:id="@+id/act_prof_list_item_space"
         android:layout_width="match_parent"

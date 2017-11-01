@@ -228,7 +228,7 @@ public class ActivateProfileListFragment extends Fragment {
 
                 if (fragment.profileList.size() == 0)
                 {
-                    // nie je ziaden profile, startneme Editor
+                    // no profile in list, start Editor
 
                     Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorProfilesActivity.class);
                     intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR_START);
@@ -329,7 +329,7 @@ public class ActivateProfileListFragment extends Fragment {
                     activeProfileIcon.setImageBitmap(profile._iconBitmap);
                 else {
                     int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().getPackageName());
-                    activeProfileIcon.setImageResource(res); // resource na ikonu
+                    activeProfileIcon.setImageResource(res); // icon resource
                 }
             }
             else

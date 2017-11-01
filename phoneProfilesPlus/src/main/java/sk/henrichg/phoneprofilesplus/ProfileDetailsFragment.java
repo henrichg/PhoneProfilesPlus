@@ -124,7 +124,7 @@ public class ProfileDetailsFragment extends Fragment {
                     //holder.profileIcon.setImageBitmap(null);
                     int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                             getActivity().getPackageName());
-                    profileIcon.setImageResource(res); // resource na ikonu
+                    profileIcon.setImageResource(res); // icon resource
                 }
             } else {
                 profileIcon.setImageBitmap(profile._iconBitmap);

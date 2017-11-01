@@ -93,7 +93,7 @@ public class PPApplication extends Application {
 
     static final int PREFERENCES_STARTUP_SOURCE_ACTIVITY = 1;
     //static final int PREFERENCES_STARTUP_SOURCE_FRAGMENT = 2;
-    static final int PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE = 3;
+    static final int PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE = 3;
 
     static final int PROFILE_NOTIFICATION_ID = 700420;
     static final int IMPORTANT_INFO_NOTIFICATION_ID = 700422;
@@ -178,7 +178,7 @@ public class PPApplication extends Application {
     public static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
     //public static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
     public static final GeofenceScannerLastLocationMutex geofenceScannerLastLocationMutex = new GeofenceScannerLastLocationMutex();
-    public static final ScannerMutext scannerMutex = new ScannerMutext();
+    public static final ScannerMutex scannerMutex = new ScannerMutex();
     public static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
 
     //public static boolean isPowerSaveMode = false;
@@ -314,6 +314,7 @@ public class PPApplication extends Application {
 
         try
         {
+            // warnings when logIntoFile == false
             File sd = Environment.getExternalStorageDirectory();
             File exportDir = new File(sd, PPApplication.EXPORT_PATH);
             if (!(exportDir.exists() && exportDir.isDirectory()))
@@ -604,7 +605,7 @@ public class PPApplication extends Application {
             }*/
                 //if (RootTools.isRootAvailable()) {
                 if (RootToolsSmall.isRooted()) {
-                    // zariadenie je rootnute
+                    // device is rooted
                     PPApplication.logE("PPApplication._isRooted", "root available");
                     //rootChecked = true;
                     rooted = true;
@@ -653,11 +654,11 @@ public class PPApplication extends Application {
                         e.printStackTrace();
                     }*/
                     if (RootTools.isAccessGiven()) {
-                        // root grantnuty
+                        // root is granted
                         PPApplication.logE("PPApplication.isRootGranted", "root granted");
                         return true;
                     } else {
-                        // grant odmietnuty
+                        // grant denied
                         PPApplication.logE("PPApplication.isRootGranted", "root NOT granted");
                         return false;
                     }
@@ -1190,7 +1191,7 @@ public class PPApplication extends Application {
         // stop all events
         dataWrapper.stopAllEvents(false, false);
 
-        // zrusenie notifikacie
+        // remove notifications
         ImportantInfoNotification.removeNotification(context);
         Permissions.removeNotifications(context);
 

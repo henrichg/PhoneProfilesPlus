@@ -78,8 +78,8 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
             onOutgoingCallStarted(savedNumber/*, callStartTime*/);
         }
 
-        //Incoming call-  goes from IDLE to RINGING when it rings, to OFFHOOK when it's answered, to IDLE when its hung up
-        //Outgoing call-  goes from IDLE to OFFHOOK when it dials out, to IDLE when hung up
+        //Incoming call-  goes from IDLE to RINGING when it rings, to OFF HOOK when it's answered, to IDLE when its hung up
+        //Outgoing call-  goes from IDLE to OFF HOOK when it dials out, to IDLE when hung up
         void onCallStateChanged(Intent intent) {
             int state = telephony.getCallState();
             if(lastState == state){
@@ -96,7 +96,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
                     onIncomingCallStarted(incomingNumber/*, callStartTime*/);
                     break;
                 case TelephonyManager.CALL_STATE_OFFHOOK:
-                    //Transition of ringing->offhook are pickups of incoming calls.  Nothing donw on them
+                    //Transition of ringing->off hook are pickups of incoming calls.  Nothing down on them
                     if(lastState != TelephonyManager.CALL_STATE_RINGING){
                         inCall = true;
                         isIncoming = false;

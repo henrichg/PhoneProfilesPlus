@@ -190,7 +190,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                 break;
         } while (SystemClock.uptimeMillis() - start < 2000);
 
-        // audiomode is set to MODE_IN_CALL by system
+        // audio mode is set to MODE_IN_CALL by system
         //Log.e("PhoneCallBroadcastReceiver", "callAnswered audioMode=" + audioManager.getMode());
 
         // setSpeakerphoneOn() moved to ActivateProfileHelper.executeForVolumes
@@ -212,7 +212,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         if (PhoneProfilesService.instance != null)
             PhoneProfilesService.instance.stopSimulatingRingingCall(true);
 
-        // audiomode is set to MODE_IN_CALL by system
+        // audio mode is set to MODE_IN_CALL by system
         //Log.e("PhoneCallBroadcastReceiver", "callEnded (before back speaker phone) audioMode="+audioManager.getMode());
 
         if (speakerphoneSelected)
@@ -233,7 +233,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                 break;
         } while (SystemClock.uptimeMillis() - start < 2000);
 
-        // audiomode is set to MODE_NORMAL by system
+        // audio mode is set to MODE_NORMAL by system
         //Log.e("PhoneCallBroadcastReceiver", "callEnded (before unlink/EventsHandler) audioMode="+audioManager.getMode());
 
         if (incoming)

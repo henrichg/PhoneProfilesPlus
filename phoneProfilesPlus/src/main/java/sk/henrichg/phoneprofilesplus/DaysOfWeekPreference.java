@@ -82,7 +82,7 @@ public class DaysOfWeekPreference extends DialogPreference {
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist())
                         {
-                            // sem narvi stringy skupin kontatkov oddelenych |
+                            // fill with days of week separated with |
                             value = "";
                             if (daysOfWeekList != null)
                             {
@@ -161,7 +161,6 @@ public class DaysOfWeekPreference extends DialogPreference {
         }
         else {
             // set state
-            // sem narvi default string skupin kontaktov oddeleny |
             value = "";
             persistString("");
         }

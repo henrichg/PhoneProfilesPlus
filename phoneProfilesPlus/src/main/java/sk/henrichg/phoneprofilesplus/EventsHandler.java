@@ -288,8 +288,8 @@ class EventsHandler {
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
 
                     if (_event.getStatus() != Event.ESTATUS_STOP)
-                        // len pauzuj eventy
-                        // pauzuj aj ked uz je zapauznuty
+                        // only pause events
+                        // pause also paused events
                         dataWrapper.doHandleEvents(_event, true, true, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, sensorType);
                 }
 
@@ -305,8 +305,8 @@ class EventsHandler {
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
 
                     if (_event.getStatus() != Event.ESTATUS_STOP)
-                        // len spustaj eventy
-                        // spustaj vsetky
+                        // only start events
+                        // start all events
                         dataWrapper.doHandleEvents(_event, false, true, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, sensorType);
                 }
             } else {
@@ -324,8 +324,8 @@ class EventsHandler {
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
 
                     if (_event.getStatus() != Event.ESTATUS_STOP)
-                        // len pauzuj eventy
-                        // pauzuj len ak este nie je zapauznuty
+                        // only pause events
+                        // pause only running events
                         //noinspection ConstantConditions
                         dataWrapper.doHandleEvents(_event, true, false, interactive, forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile, sensorType);
                 }
@@ -342,9 +342,8 @@ class EventsHandler {
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
 
                     if (_event.getStatus() != Event.ESTATUS_STOP)
-                        // len spustaj eventy
-                        // spustaj len ak este nebezi - musi to takto byt, lebo inac to bude furt menit veci v mobile
-                        // napr. ked hlasitosti zmenene manualne tlacitkami.
+                        // only start events
+                        // start only paused events
                         //noinspection ConstantConditions
                         dataWrapper.doHandleEvents(_event, false, false, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, sensorType);
                 }

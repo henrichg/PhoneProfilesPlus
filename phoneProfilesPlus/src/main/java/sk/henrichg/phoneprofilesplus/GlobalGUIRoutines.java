@@ -62,7 +62,6 @@ class GlobalGUIRoutines {
     {
         //if (android.os.Build.VERSION.SDK_INT < 24) {
 
-            // jazyk na aky zmenit
             String lang = ApplicationPreferences.applicationLanguage(context);
 
             Locale appLocale;

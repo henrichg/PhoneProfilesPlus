@@ -176,7 +176,6 @@ public class EditorProfileListFragment extends Fragment
     {
         //super.onActivityCreated(savedInstanceState);
 
-        // az tu mame layout, tak mozeme ziskat view-y
     /*	activeProfileName = getActivity().findViewById(R.id.activated_profile_name);
         activeProfileIcon = getActivity().findViewById(R.id.activated_profile_icon);
         listView = getActivity().findViewById(R.id.editor_profiles_list);
@@ -235,7 +234,7 @@ public class EditorProfileListFragment extends Fragment
         {
             listView.setAdapter(profileListAdapter);
         
-            // pre profil, ktory je prave aktivny, treba aktualizovat aktivitu
+            // update activity for activated profile
             fragment.listView.getRecycledViewPool().clear();
             Profile profile;
             profile = dataWrapper.getActivatedProfile();
@@ -306,7 +305,7 @@ public class EditorProfileListFragment extends Fragment
 
                 fragment.listView.setAdapter(fragment.profileListAdapter);
 
-                // pre profil, ktory je prave aktivny, treba aktualizovat aktivitu
+                // update activity for activated profile
                 fragment.listView.getRecycledViewPool().clear();
                 Profile profile;
                 profile = fragment.dataWrapper.getActivatedProfile();
@@ -374,7 +373,7 @@ public class EditorProfileListFragment extends Fragment
 
         if (profile != null)
         {
-            // editacia profilu
+            // edit profile
             int profilePos = profileListAdapter.getItemPosition(profile);
             /*int last = listView.getLastVisiblePosition();
             int first = listView.getFirstVisiblePosition();
@@ -391,7 +390,7 @@ public class EditorProfileListFragment extends Fragment
         }
         else
         {
-            // pridanie noveho profilu
+            // add new profile
             editMode = EDIT_MODE_INSERT;
         }
 
@@ -404,7 +403,7 @@ public class EditorProfileListFragment extends Fragment
     {
         int editMode;
 
-        // zduplikovanie profilu
+        // duplicate profile
         editMode = EDIT_MODE_DUPLICATE;
 
         // Notify the active callbacks interface (the activity, if the
@@ -438,7 +437,6 @@ public class EditorProfileListFragment extends Fragment
         databaseHandler.deleteProfile(profile);
 
         profileListAdapter.notifyDataSetChanged();
-        // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
         //Profile profile = databaseHandler.getActivatedProfile();
         Profile _profile = profileListAdapter.getActivatedProfile();
         updateHeader(_profile);
@@ -540,7 +538,6 @@ public class EditorProfileListFragment extends Fragment
 
                     profileListAdapter.notifyDataSetChanged();
 
-                    // v pripade, ze sa odmaze aktivovany profil, nastavime, ze nic nie je aktivovane
                     //Profile profile = databaseHandler.getActivatedProfile();
                     //Profile profile = profileListAdapter.getActivatedProfile();
                     updateHeader(null);
@@ -587,7 +584,7 @@ public class EditorProfileListFragment extends Fragment
                     activeProfileIcon.setImageBitmap(profile._iconBitmap);
                 else {
                     int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().getPackageName());
-                    activeProfileIcon.setImageResource(res); // resource na ikonu
+                    activeProfileIcon.setImageResource(res); // icon resource
                 }
             }
             else

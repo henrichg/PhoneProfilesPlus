@@ -17,7 +17,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     private DataWrapper dataWrapper;
 
-    public static final String INTENT_REFRESH_EDGEPANEL = "sk.henrichg.phoneprofiles.REFRESH_EDGEPANEL";
+    public static final String INTENT_REFRESH_EDGEPANEL = "sk.henrichg.phoneprofilesplus.REFRESH_EDGEPANEL";
 
     @SuppressWarnings("deprecation")
     private RemoteViews buildLayout(Context context, SlookCocktailManager cocktailBarManager, int appWidgetId)

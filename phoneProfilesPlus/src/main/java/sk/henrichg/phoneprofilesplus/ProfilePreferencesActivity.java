@@ -108,7 +108,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         arguments.putLong(PPApplication.EXTRA_PROFILE_ID, profile_id);
         arguments.putInt(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, newProfileMode);
         if (profile_id == Profile.DEFAULT_PROFILE_ID)
-            arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE);
+            arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE);
         else
             arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
         arguments.putInt(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
@@ -230,7 +230,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         Profile profile;
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 
-        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
             // no change this in shared profile
             if (!leaveSaveMenu)
                 showSaveMenu = false;
@@ -238,7 +238,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         //Log.d("------ ProfilePreferencesActivity.createProfile", "startupSource="+startupSource);
 
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
         {
             profile = Profile.getDefaultProfile(context);
         }
@@ -329,7 +329,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         int startupSource;
         if (profile_id == Profile.DEFAULT_PROFILE_ID)
-            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE;
+            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE;
         else
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
 
@@ -337,7 +337,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         if (profile != null)
         {
-            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
                 Toolbar toolbar = findViewById(R.id.mp_toolbar);
                 toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profile._name);
             }
@@ -347,7 +347,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 
             SharedPreferences.Editor editor = preferences.edit();
-            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
             {
                 /*
                 editor.remove(Profile.PREF_PROFILE_NAME).putString(Profile.PREF_PROFILE_NAME, profile._name);
@@ -415,7 +415,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     {
         int startupSource;
         if (profile_id == Profile.DEFAULT_PROFILE_ID)
-            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE;
+            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE;
         else
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
 
@@ -429,7 +429,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 
         // save preferences into profile
-        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
         {
             profile._name = preferences.getString(Profile.PREF_PROFILE_NAME, "");
             profile._icon = preferences.getString(Profile.PREF_PROFILE_ICON, "");
@@ -504,7 +504,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         profile._applicationDisableWifiScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, ""));
         profile._applicationDisableBluetoothScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, ""));
 
-        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
         {
             if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                     (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE))

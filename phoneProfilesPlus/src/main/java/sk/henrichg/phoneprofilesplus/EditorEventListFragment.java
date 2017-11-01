@@ -179,7 +179,6 @@ public class EditorEventListFragment extends Fragment
     {
         //super.onActivityCreated(savedInstanceState);
 
-        // az tu mame layout, tak mozeme ziskat view-y
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_events_list);
         listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
@@ -340,7 +339,7 @@ public class EditorEventListFragment extends Fragment
 
         if (event != null)
         {
-            // editacia udalosti
+            // edit event
             int eventPos = eventListAdapter.getItemPosition(event);
             /*int last = listView.getLastVisiblePosition();
             int first = listView.getFirstVisiblePosition();
@@ -357,7 +356,7 @@ public class EditorEventListFragment extends Fragment
         }
         else
         {
-            // pridanie novej udalost
+            // add new event
             editMode = EDIT_MODE_INSERT;
 
         }
@@ -397,14 +396,14 @@ public class EditorEventListFragment extends Fragment
             if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP) {
                 // pause event
                 event.setStatus(Event.ESTATUS_PAUSE);
-                // udate event in DB
+                // update event in DB
                 dataWrapper.getDatabaseHandler().updateEvent(event);
                 // redraw event list
                 updateListView(event, false, false, true);
             } else {
                 // stop event
                 event.setStatus(Event.ESTATUS_STOP);
-                // udate event in DB
+                // update event in DB
                 dataWrapper.getDatabaseHandler().updateEvent(event);
                 // redraw event list
                 updateListView(event, false, false, true);
@@ -444,7 +443,7 @@ public class EditorEventListFragment extends Fragment
 
         int editMode;
 
-        // zduplikovanie profilu
+        // duplicate event
         editMode = EDIT_MODE_DUPLICATE;
 
         // Notify the active callbacks interface (the activity, if the

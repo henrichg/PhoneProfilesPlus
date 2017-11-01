@@ -101,7 +101,7 @@ class Scanner {
 
             Handler wifiBluetoothChangeHandler = new Handler(context.getMainLooper());
 
-            PPApplication.logE("$$$ Scanner.doScan", "before synchronized block - scanerType=" + scannerType);
+            PPApplication.logE("$$$ Scanner.doScan", "before synchronized block - scannerType=" + scannerType);
 
             synchronized (PPApplication.radioChangeStateMutex) {
 

@@ -64,7 +64,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist())
                         {
-                            // sem narvi stringy kontatkov oddelenych |
+                            // fill with strings of contacts separated with |
                             value = "";
                             List<Contact> contactList = EditorProfilesActivity.getContactsCache().getList();
                             if (contactList != null)
@@ -225,7 +225,6 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         }
         else {
             // set state
-            // sem narvi default string kontaktov oddeleny |
             value = "";
             persistString("");
         }

@@ -102,7 +102,7 @@ class Event {
     private static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
     private static final String PREF_FORCE_RUN_EVENT_RUNNING = "forceRunEventRunning";
 
-    // alarm time offset (miliseconds) for events with generated alarms
+    // alarm time offset (milliseconds) for events with generated alarms
     static final int EVENT_ALARM_TIME_OFFSET = 15000;
 
     // Empty constructor
@@ -1321,7 +1321,7 @@ class Event {
 
 
         //if (_forceRun)
-        //{ look for forceRun events always, not only when forcerun event is paused
+        //{ look for forceRun events always, not only when forceRun event is paused
             boolean forceRunRunning = false;
             for (EventTimeline _eventTimeline : eventTimelineList)
             {

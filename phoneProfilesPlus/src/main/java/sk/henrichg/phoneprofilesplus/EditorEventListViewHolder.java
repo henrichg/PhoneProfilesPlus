@@ -164,7 +164,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         //holder.profileStartIcon.setImageBitmap(null);
                         int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                                 context.getPackageName());
-                        profileStartIcon.setImageResource(res); // resource na ikonu
+                        profileStartIcon.setImageResource(res); // icon resource
                     }
                 }
                 else
@@ -229,7 +229,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                             //holder.profileEndIcon.setImageBitmap(null);
                             int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                                     context.getPackageName());
-                            profileEndIcon.setImageResource(res); // resource na ikonu
+                            profileEndIcon.setImageResource(res); // icon resource
                         }
                     } else {
                         profileEndIcon.setImageBitmap(profile._iconBitmap);

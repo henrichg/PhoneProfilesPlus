@@ -40,7 +40,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
             startupSource = bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0);
 
         //Log.d("------ ProfilePreferencesFragment.addPreferencesFromResource", "startupSource="+startupSource);
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
             return R.xml.default_profile_preferences;
         else
             return R.xml.profile_preferences;
@@ -68,7 +68,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
 
         setSummary(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
 
-        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
         {
             setSummary(Profile.PREF_PROFILE_NAME);
             setSummary(Profile.PREF_PROFILE_DURATION);

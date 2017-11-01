@@ -382,7 +382,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 if (!TextUtils.isEmpty(intent.getAction())) {
                     if (ACTION_REQUEST_INTERRUPTION_FILTER.equals(intent.getAction())) {
                         if (intent.hasExtra(EXTRA_FILTER)) {
-                            @SuppressLint("InlinedApi")
                             final int filter = intent.getIntExtra(EXTRA_FILTER, INTERRUPTION_FILTER_ALL);
                             //Log.e(TAG, "filter= " + filter);
                             switch (filter) {

@@ -82,7 +82,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
             PREFS_NAME = PREFS_NAME_FRAGMENT;*/
         else
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
             PREFS_NAME = PREFS_NAME_DEFAULT_PROFILE;
         else
             PREFS_NAME = PREFS_NAME_ACTIVITY;
@@ -103,7 +103,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
         PPApplication.logE("ProfilePreferencesNestedFragment.onActivityCreated","startupSource="+startupSource);
 
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
             Toolbar toolbar = getActivity().findViewById(R.id.mp_toolbar);
             Bundle bundle = getArguments();
             if (bundle.getBoolean(PreferenceFragment.EXTRA_NESTED, false))
@@ -172,7 +172,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 } else {
                     if (ringerModePreference != null) {
                         CharSequence[] entries = ringerModePreference.getEntries();
-                        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+                        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
                             entries[5] = "(S) " + getString(R.string.array_pref_ringerModeArray_ZenMode);
                         else
                             entries[6] = "(S) " + getString(R.string.array_pref_ringerModeArray_ZenMode);
@@ -292,7 +292,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     phoneType = telephonyManager.getPhoneType();
 
                 if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
-                    if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+                    if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
                         networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMDPArray));
                         networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMDPValues));
                     } else {
@@ -305,7 +305,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
 
                 if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
-                    if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+                    if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
                         networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMADPArray));
                         networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMADPValues));
                     } else {
@@ -1289,7 +1289,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             ListPreference lockDevicePreference = (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_LOCK_DEVICE);
             if (lockDevicePreference != null) {
                 CharSequence[] entries = lockDevicePreference.getEntries();
-                if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+                if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
                     if (!manager.isAdminActive(component))
                         entries[1] = getString(R.string.array_pref_lockDevice_deviceAdmin) + " (" +
                                 getString(R.string.array_pref_lockDevice_not_enabled) + ")";
@@ -1350,7 +1350,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         // disable depended preferences
         disableDependedPref(key, value);
 
-        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
             // no save menu for shared profile
             ProfilePreferencesActivity activity = (ProfilePreferencesActivity)getActivity();
             ProfilePreferencesActivity.showSaveMenu = true;
@@ -1404,7 +1404,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             }
 
             if (ProfilePreferencesFragment.changedImageViewPreference != null) {
-                // nastavime image identifikatoru na ziskanu cestu ku obrazku
+                // set image identifier for get bitmap path
                 ProfilePreferencesFragment.changedImageViewPreference.setImageIdentifier(selectedImage.toString());
                 ProfilePreferencesFragment.changedImageViewPreference = null;
             }
@@ -1424,7 +1424,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             }
 
             if (ProfilePreferencesFragment.changedProfileIconPreference != null) {
-                // nastavime image identifikatoru na ziskanu cestu ku obrazku
+                // set image identifier ant type for get bitmap path
                 ProfilePreferencesFragment.changedProfileIconPreference.setImageIdentifierAndType(selectedImage.toString(), false, true);
                 ProfilePreferencesFragment.changedProfileIconPreference = null;
             }
@@ -1472,7 +1472,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     @Override
     protected String getSavedInstanceStateKeyName() {
         //Log.d("------ ProfilePreferencesFragment.addPreferencesFromResource", "startupSource="+startupSource);
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
             return "DefaultProfilePreferencesFragment_PreferenceScreenKey";
         else
             return "ProfilePreferencesFragment_PreferenceScreenKey";

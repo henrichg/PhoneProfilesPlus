@@ -61,7 +61,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist())
                         {
-                            // sem narvi stringy skupin kontatkov oddelenych |
+                            // fill with strings of contact groups separated with |
                             value = "";
                             List<ContactGroup> contactGroupList = EditorProfilesActivity.getContactGroupsCache().getList();
                             if (contactGroupList != null)
@@ -207,7 +207,6 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         }
         else {
             // set state
-            // sem narvi default string skupin kontaktov oddeleny |
             value = "";
             persistString("");
         }

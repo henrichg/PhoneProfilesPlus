@@ -206,12 +206,12 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             // screen timeout
             if (profile._deviceScreenTimeout != 0)
                 indicator1 = addIntoIndicator(indicator1, "stm");
-            // lockscreen
+            // lock screen
             if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3))
                 indicator1 = addIntoIndicator(indicator1, "ls1");
             if (profile._deviceKeyguard == 2)
                 indicator1 = addIntoIndicator(indicator1, "ls0");
-            // brightness/autobrightness
+            // brightness/auto-brightness
             if (profile.getDeviceBrightnessChange())
             {
                 if (profile.getDeviceBrightnessAutomatic())
@@ -219,7 +219,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                 else
                     indicator1 = addIntoIndicator(indicator1, "brt");
             }
-            // autorotation
+            // auto-rotation
             if (profile._deviceAutoRotate == 1)
                 indicator1 = addIntoIndicator(indicator1, "aro");
             else

@@ -234,7 +234,7 @@ public class Profile {
             0xff6a3e18
     };
 
-    // Empty constructorn
+    // Empty constructor
     Profile(){
         //this._useCustomColor = true;
         //this._customColor = Color.YELLOW;
@@ -741,7 +741,7 @@ public class Profile {
         return value;
     }
 
-    //gettig where icon has custom color
+    //get where icon has custom color
     boolean getUseCustomColorForIcon() {
         boolean value;
         try {
@@ -1238,7 +1238,7 @@ public class Profile {
             }
             else
             if (monochrome)
-                _iconBitmap = BitmapManipulator.grayscaleBitmap(_iconBitmap);
+                _iconBitmap = BitmapManipulator.grayScaleBitmap(_iconBitmap);
             //_iconDrawable = null;
         }
         else
@@ -1695,7 +1695,7 @@ public class Profile {
                     }
                     else
                     if (PPApplication.isRooted()) {
-                        // zariadenie je rootnute
+                        // device is rooted
                         //if (serviceBinaryExists() && telephonyServiceExists(context, PREF_PROFILE_DEVICE_MOBILE_DATA))
                         featurePresented = PPApplication.PREFERENCE_ALLOWED;
                     }
