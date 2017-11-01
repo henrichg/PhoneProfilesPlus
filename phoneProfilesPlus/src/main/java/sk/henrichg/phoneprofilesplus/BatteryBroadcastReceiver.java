@@ -90,7 +90,8 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             //    context.startForegroundService(serviceIntent);
 
             if (Event.getGlobalEventsRunning(appContext)) {
-                final Handler handler = new Handler(appContext.getMainLooper());
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

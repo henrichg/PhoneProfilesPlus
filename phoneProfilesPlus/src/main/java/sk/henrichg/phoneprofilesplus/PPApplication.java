@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Parcelable;
 import android.support.multidex.MultiDex;
 import android.util.Log;
@@ -1229,15 +1230,16 @@ public class PPApplication extends Application {
 
         //PPApplication.cleanPhoneProfilesServiceMessenger(context);
 
+        Permissions.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
+        Permissions.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
+        Permissions.setShowRequestDrawOverlaysPermission(context.getApplicationContext(), true);
+        Scanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
+        //ActivateProfileHelper.setScreenUnlocked(context, true);
+
         context.stopService(new Intent(context, PhoneProfilesService.class));
 
         if (setApplicationStarted)
             PPApplication.setApplicationStarted(context, false);
-
-        Permissions.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
-        Permissions.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
-        Scanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
-        //ActivateProfileHelper.setScreenUnlocked(context, true);
 
         if (activity != null) {
             Handler handler = new Handler(context.getMainLooper());

@@ -99,7 +99,8 @@ class Scanner {
                 }
             }
 
-            Handler wifiBluetoothChangeHandler = new Handler(context.getMainLooper());
+            PhoneProfilesService.startHandlerThread();
+            final Handler wifiBluetoothChangeHandler = new Handler(PhoneProfilesService.handlerThread.getLooper());
 
             PPApplication.logE("$$$ Scanner.doScan", "before synchronized block - scannerType=" + scannerType);
 
@@ -207,7 +208,9 @@ class Scanner {
                                         {
                                             // start job
                                             final Context appContext = context.getApplicationContext();
-                                            new Handler(context.getMainLooper()).postDelayed(new Runnable() {
+                                            PhoneProfilesService.startHandlerThread();
+                                            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                                            handler.postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);

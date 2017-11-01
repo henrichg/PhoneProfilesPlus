@@ -89,7 +89,8 @@ class SearchCalendarEventsJob extends Job {
         PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "shortInterval="+shortInterval);
 
         if (_handler == null) {
-            final Handler handler = new Handler(context.getMainLooper());
+            PhoneProfilesService.startHandlerThread();
+            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -113,7 +114,8 @@ class SearchCalendarEventsJob extends Job {
         PPApplication.logE("SearchCalendarEventsJob.cancelJob", "xxx");
 
         if (_handler == null) {
-            final Handler handler = new Handler(context.getMainLooper());
+            PhoneProfilesService.startHandlerThread();
+            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

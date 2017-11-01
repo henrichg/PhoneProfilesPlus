@@ -28,7 +28,8 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
 
             // start job
             //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
-            final Handler handler = new Handler(appContext.getMainLooper());
+            PhoneProfilesService.startHandlerThread();
+            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

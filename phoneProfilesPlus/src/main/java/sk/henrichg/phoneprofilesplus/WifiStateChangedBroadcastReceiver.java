@@ -39,7 +39,8 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                 final int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
 
-                final Handler handler = new Handler(appContext.getMainLooper());
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -91,7 +92,9 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     // start scan
                                     if (WifiScanJob.getScanRequest(appContext)) {
                                         //final Context _context = appContext;
-                                        new Handler().postDelayed(new Runnable() {
+                                        PhoneProfilesService.startHandlerThread();
+                                        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                                        handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
                                                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
@@ -118,7 +121,9 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                                     } else if (!WifiScanJob.getWaitForResults(appContext)) {
                                         // refresh configured networks list
-                                        new Handler().post(new Runnable() {
+                                        PhoneProfilesService.startHandlerThread();
+                                        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                                        handler.post(new Runnable() {
                                             @Override
                                             public void run() {
                                                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);

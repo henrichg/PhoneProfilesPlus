@@ -351,7 +351,8 @@ class PhoneStateScanner extends PhoneStateListener {
         if (Event.getGlobalEventsRunning(context))
         {
             final Context appContext = context.getApplicationContext();
-            final Handler handler = new Handler(appContext.getMainLooper());
+            PhoneProfilesService.startHandlerThread();
+            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

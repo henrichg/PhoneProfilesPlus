@@ -34,7 +34,8 @@ public class NFCTagReadActivity extends AppCompatActivity {
 
                 //EventsHandlerJob.startForNFCTagSensor(getApplicationContext(), tagRead, time);
                 final Context appContext = getApplicationContext();
-                final Handler handler = new Handler(appContext.getMainLooper());
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

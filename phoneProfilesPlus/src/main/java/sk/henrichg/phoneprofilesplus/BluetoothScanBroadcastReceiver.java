@@ -45,7 +45,8 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
             final BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             final String deviceName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
 
-            final Handler handler = new Handler(appContext.getMainLooper());
+            PhoneProfilesService.startHandlerThread();
+            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

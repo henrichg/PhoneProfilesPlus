@@ -23,7 +23,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             final Context appContext = context.getApplicationContext();
 
-            final Handler handler = new Handler(appContext.getMainLooper());
+            PhoneProfilesService.startHandlerThread();
+            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -36,7 +37,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                     // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
                     PPApplication.startedOnBoot = true;
-                    final Handler handler = new Handler(appContext.getMainLooper());
+                    PhoneProfilesService.startHandlerThread();
+                    final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -163,7 +165,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         if (PhoneProfilesService.instance != null) {
                             // stop PhoneProfilesService
                             appContext.stopService(new Intent(appContext, PhoneProfilesService.class));
-                            Handler _handler = new Handler(appContext.getMainLooper());
+                            PhoneProfilesService.startHandlerThread();
+                            final Handler _handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                             Runnable r = new Runnable() {
                                 public void run() {
                                     startService(appContext);

@@ -61,7 +61,8 @@ class GeofenceScannerJob extends Job {
                     PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates not started - start it");
                     // Fixed: java.lang.NullPointerException: Calling thread must be a prepared Looper thread.
                     //        com.google.android.gms.internal.zzccb.requestLocationUpdates(Unknown Source)
-                    Handler handler = new Handler(context.getMainLooper());
+                    PhoneProfilesService.startHandlerThread();
+                    final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -152,7 +153,8 @@ class GeofenceScannerJob extends Job {
 
         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
             if (_handler == null) {
-                final Handler handler = new Handler(context.getMainLooper());
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -179,7 +181,8 @@ class GeofenceScannerJob extends Job {
         PPApplication.logE("GeofenceScannerJob.cancelJob", "xxx");
 
         if (_handler == null) {
-            final Handler handler = new Handler(context.getMainLooper());
+            PhoneProfilesService.startHandlerThread();
+            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

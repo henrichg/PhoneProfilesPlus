@@ -32,7 +32,8 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
             {*/
                 // start job
                 //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_DOCK_CONNECTION);
-                final Handler handler = new Handler(appContext.getMainLooper());
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

@@ -65,7 +65,8 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
                     if (Event.getGlobalEventsRunning(context)) {
                         //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
-                        final Handler handler = new Handler(context.getMainLooper());
+                        PhoneProfilesService.startHandlerThread();
+                        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -112,7 +113,8 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
         setApplicationInForeground(context, "");
 
         //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
-        final Handler handler = new Handler(context.getMainLooper());
+        PhoneProfilesService.startHandlerThread();
+        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {

@@ -36,7 +36,8 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
             {*/
                 // start job
                 //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
-                final Handler handler = new Handler(appContext.getMainLooper());
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

@@ -25,7 +25,8 @@ public class BootUpReceiver extends BroadcastReceiver {
 
             // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
             PPApplication.startedOnBoot = true;
-            final Handler handler = new Handler(context.getMainLooper());
+            PhoneProfilesService.startHandlerThread();
+            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {

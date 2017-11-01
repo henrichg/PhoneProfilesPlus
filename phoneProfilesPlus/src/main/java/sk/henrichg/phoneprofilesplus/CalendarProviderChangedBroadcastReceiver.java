@@ -37,7 +37,8 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
             {*/
                 // start job
                 //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED);
-                final Handler handler = new Handler(appContext.getMainLooper());
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

@@ -96,7 +96,8 @@ class AboutApplicationJob extends Job {
     static void scheduleJob(final Context context) {
         PPApplication.logE("AboutApplicationJob.scheduleJob", "xxx");
 
-        final Handler handler = new Handler(context.getMainLooper());
+        PhoneProfilesService.startHandlerThread();
+        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {

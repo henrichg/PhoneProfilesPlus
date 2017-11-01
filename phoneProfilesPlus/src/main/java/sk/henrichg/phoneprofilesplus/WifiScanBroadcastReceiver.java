@@ -44,7 +44,8 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
 
                 if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
-                    final Handler handler = new Handler(appContext.getMainLooper());
+                    PhoneProfilesService.startHandlerThread();
+                    final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -84,7 +85,9 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                 {
                                     PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "start EventsHandler (1)");
                                     // start job
-                                    new Handler(appContext.getMainLooper()).postDelayed(new Runnable() {
+                                    PhoneProfilesService.startHandlerThread();
+                                    final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                                    handler.postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
                                             PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);

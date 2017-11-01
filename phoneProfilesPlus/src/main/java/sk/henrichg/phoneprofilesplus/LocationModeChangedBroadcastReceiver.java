@@ -28,7 +28,8 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("@@@ LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 
             final String action = intent.getAction();
-            final Handler handler = new Handler(appContext.getMainLooper());
+            PhoneProfilesService.startHandlerThread();
+            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

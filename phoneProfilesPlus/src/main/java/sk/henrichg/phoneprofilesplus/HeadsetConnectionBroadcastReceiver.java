@@ -98,7 +98,8 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
         {
             if (broadcast)
             {
-                final Handler handler = new Handler(appContext.getMainLooper());
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

@@ -138,7 +138,8 @@ class BluetoothScanJob extends Job {
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
                 == PPApplication.PREFERENCE_ALLOWED) {
             if (_handler == null) {
-                final Handler handler = new Handler(context.getMainLooper());
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -173,7 +174,8 @@ class BluetoothScanJob extends Job {
         PPApplication.logE("BluetoothScanJob.cancelJob", "xxx");
 
         if (_handler == null) {
-            final Handler handler = new Handler(context.getMainLooper());
+            PhoneProfilesService.startHandlerThread();
+            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -772,7 +774,9 @@ class BluetoothScanJob extends Job {
             {
                 // start job
                 final Context appContext = context.getApplicationContext();
-                new Handler(appContext.getMainLooper()).postDelayed(new Runnable() {
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);

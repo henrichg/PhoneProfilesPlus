@@ -36,7 +36,8 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
         //else
         //    context.startForegroundService(serviceIntent);
 
-        final Handler handler = new Handler(appContext.getMainLooper());
+        PhoneProfilesService.startHandlerThread();
+        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {

@@ -118,7 +118,8 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                 // start job
                 //EventsHandlerJob.startForSMSSensor(context.getApplicationContext(), origin, time);
                 final Context appContext = context.getApplicationContext();
-                final Handler handler = new Handler(context.getMainLooper());
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
