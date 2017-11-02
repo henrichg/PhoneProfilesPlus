@@ -33,7 +33,7 @@ class Permissions {
     private static final int PERMISSION_PROFILE_RADIO_PREFERENCES = 8;
     private static final int PERMISSION_PROFILE_PHONE_BROADCAST = 9;
     private static final int PERMISSION_PROFILE_CUSTOM_PROFILE_ICON = 10;
-    static final int PERMISSION_INSTALL_TONE = 11;
+    private static final int PERMISSION_INSTALL_TONE = 11;
     private static final int PERMISSION_EXPORT = 12;
     private static final int PERMISSION_IMPORT = 13;
     private static final int PERMISSION_EVENT_CALENDAR_PREFERENCES = 15;
@@ -43,7 +43,7 @@ class Permissions {
     private static final int PERMISSION_EVENT_CONTACTS = 19;
     private static final int PERMISSION_PROFILE_NOTIFICATION_LED = 20;
     private static final int PERMISSION_PROFILE_VIBRATE_WHEN_RINGING = 21;
-    static final int PERMISSION_PLAY_RINGTONE_NOTIFICATION = 22;
+    private static final int PERMISSION_PLAY_RINGTONE_NOTIFICATION = 22;
     private static final int PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY = 23;
     private static final int PERMISSION_PROFILE_LOCK_DEVICE = 24;
     private static final int PERMISSION_RINGTONE_PREFERENCE = 25;

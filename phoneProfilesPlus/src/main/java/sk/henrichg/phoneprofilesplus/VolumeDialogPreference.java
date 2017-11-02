@@ -101,9 +101,11 @@ public class VolumeDialogPreference extends
         defaultValueSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
         defaultValueVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
 
-        mediaPlayer = MediaPlayer.create(context, R.raw.volume_change_notif);
-        if (mediaPlayer != null)
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        try {
+            mediaPlayer = MediaPlayer.create(context, R.raw.volume_change_notif);
+            if (mediaPlayer != null)
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        } catch (Exception ignored) {}
 
         typedArray.recycle();
     }
