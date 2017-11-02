@@ -312,6 +312,8 @@ public class EventPreferencesActivity extends PreferenceActivity
     {
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext().getApplicationContext(), false, false, 0);
         Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
+        if (event == null)
+            return;
 
         String PREFS_NAME = EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
 
