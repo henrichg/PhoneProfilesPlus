@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Menu;
@@ -44,22 +45,22 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     // set window dimensions ----------------------------------------------------------
 
-        Display display = getWindowManager().getDefaultDisplay();
-
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND, WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         LayoutParams params = getWindow().getAttributes();
         params.alpha = 1.0f;
         params.dimAmount = 0.5f;
         getWindow().setAttributes(params);
 
-        float popupMaxHeight;
         int actionBarHeight;
 
         // display dimensions
-        //noinspection deprecation
-        float popupWidth = display.getWidth();
-        //noinspection deprecation
-        popupMaxHeight = display.getHeight();
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        float popupWidth = displaymetrics.widthPixels;
+        float popupMaxHeight = displaymetrics.heightPixels;
+        //Display display = getWindowManager().getDefaultDisplay();
+        //float popupWidth = display.getWidth();
+        //popupMaxHeight = display.getHeight();
         float popupHeight = 0;
         actionBarHeight = 0;
 
