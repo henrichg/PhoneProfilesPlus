@@ -44,7 +44,6 @@ public class ProfileDetailsFragment extends Fragment {
         }
     };
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

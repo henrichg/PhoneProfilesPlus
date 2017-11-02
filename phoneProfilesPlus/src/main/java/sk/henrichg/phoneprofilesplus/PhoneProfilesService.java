@@ -232,6 +232,7 @@ public class PhoneProfilesService extends Service
 
         keyguardManager = (KeyguardManager)appContext.getSystemService(Activity.KEYGUARD_SERVICE);
         if (keyguardManager != null)
+            //noinspection deprecation
             keyguardLock = keyguardManager.newKeyguardLock("phoneProfilesPlus.keyguardLock");
 
         registerReceiversAndJobs();
@@ -954,7 +955,6 @@ public class PhoneProfilesService extends Service
                 int eventScannerCount = 1;
                 if (checkDatabase/* || (locationModeChangedBroadcastReceiver == null)*/) {
                     PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    //noinspection deprecation
                     if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
                         // start only for screen On
                         eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_RADIO_SWITCH_GPS);
@@ -1018,7 +1018,6 @@ public class PhoneProfilesService extends Service
                 int eventScannerCount = 1;
                 if (checkDatabase/* || (bluetoothStateChangedBroadcastReceiver == null)*/) {
                     PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    //noinspection deprecation
                     if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
                         // start only for screen On
                         eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_RADIO_SWITCH_BLUETOOTH);
@@ -1079,7 +1078,6 @@ public class PhoneProfilesService extends Service
                 int eventScannerCount = 1;
                 if (checkDatabase/* || (bluetoothConnectionBroadcastReceiver == null)*/) {
                     PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    //noinspection deprecation
                     if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
                         // start only for screen On
                         eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED);
@@ -1153,7 +1151,6 @@ public class PhoneProfilesService extends Service
                 int eventCount = 1;
                 if (checkDatabase) {
                     PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    //noinspection deprecation
                     if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
                         // start only for screen On
                         eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT);
@@ -1216,7 +1213,6 @@ public class PhoneProfilesService extends Service
                     PPApplication.PREFERENCE_ALLOWED;
             if (allowed) {
                 PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                //noinspection deprecation
                 if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                     // start only for screen On
                     int eventCount = 1;
@@ -1350,7 +1346,6 @@ public class PhoneProfilesService extends Service
                     }
                     if (eventAllowed) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        //noinspection deprecation
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
                             eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
@@ -1426,7 +1421,6 @@ public class PhoneProfilesService extends Service
                     }
                     if (eventAllowed) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        //noinspection deprecation
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
                             eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
@@ -1486,7 +1480,6 @@ public class PhoneProfilesService extends Service
                 int eventCount = 1;
                 if (checkDatabase) {
                     PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    //noinspection deprecation
                     if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                         // start only for screen On
                         eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT);
@@ -1548,7 +1541,6 @@ public class PhoneProfilesService extends Service
                             PPApplication.PREFERENCE_ALLOWED;
                     if (eventAllowed) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        //noinspection deprecation
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
                             int eventCount = 1;
@@ -1611,7 +1603,6 @@ public class PhoneProfilesService extends Service
                             PPApplication.PREFERENCE_ALLOWED;
                     if (eventAllowed) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        //noinspection deprecation
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
                             int eventCount = 1;
@@ -1671,7 +1662,6 @@ public class PhoneProfilesService extends Service
                             PPApplication.PREFERENCE_ALLOWED;
                     if (eventAllowed) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        //noinspection deprecation
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
                             int eventCount = 1;
@@ -1775,7 +1765,6 @@ public class PhoneProfilesService extends Service
                     PPApplication.PREFERENCE_ALLOWED;
             if (eventAllowed) {
                 PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                //noinspection deprecation
                 if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
                     // start only for screen On
                     int eventCount = 1;
@@ -1825,7 +1814,6 @@ public class PhoneProfilesService extends Service
                     PPApplication.PREFERENCE_ALLOWED;
             if (eventAllowed) {
                 PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                //noinspection deprecation
                 if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(appContext)) {
                     // start only for screen On
                     int eventCount = 1;
@@ -1872,7 +1860,6 @@ public class PhoneProfilesService extends Service
                     PPApplication.PREFERENCE_ALLOWED;
             if (eventAllowed) {
                 PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                //noinspection deprecation
                 if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(appContext)) {
                     // start only for screen On
                     int eventCount = 1;
@@ -2777,7 +2764,6 @@ public class PhoneProfilesService extends Service
                 notificationBuilder.setCustomContentView(contentView);
             }
             else
-                //noinspection deprecation
                 notificationBuilder.setContent(contentView);
 
             Notification phoneProfilesNotification;
@@ -2890,7 +2876,6 @@ public class PhoneProfilesService extends Service
             return  locationMode != Settings.Secure.LOCATION_MODE_OFF;
         }
         else {
-            //noinspection deprecation
             locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
             return  !TextUtils.isEmpty(locationProviders);
         }
@@ -2990,7 +2975,7 @@ public class PhoneProfilesService extends Service
         else
             return null;
     }
-    /*@SuppressWarnings("deprecation")
+    /*
     public static Sensor getOrientationSensor(Context context) {
         if (mOrientationSensorManager == null)
             mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);

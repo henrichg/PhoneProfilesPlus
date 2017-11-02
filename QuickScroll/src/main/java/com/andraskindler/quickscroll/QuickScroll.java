@@ -327,6 +327,7 @@ public class QuickScroll extends View {
         popupbackground.setColor(backgroundcolor);
 
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
+            //noinspection deprecation
             scrollIndicatorTextView.setBackgroundDrawable(popupbackground);
         else
             scrollIndicatorTextView.setBackground(popupbackground);
@@ -406,6 +407,7 @@ public class QuickScroll extends View {
             states.addState(new int[]{android.R.attr.state_enabled}, bg_inactive);
 
             if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
+                //noinspection deprecation
                 handleBar.setBackgroundDrawable(states);
             else
                 handleBar.setBackground(states);

@@ -413,7 +413,6 @@ class WifiScanJob extends Job {
         saveWifiConfigurationList(context, wifiConfigurationList);
     }
 
-    @SuppressWarnings("deprecation")
     static void fillScanResults(Context context)
     {
         List<WifiSSIDData> scanResults = new ArrayList<>();

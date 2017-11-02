@@ -71,7 +71,6 @@ class Scanner {
                     return;
                 }
             } else {
-                //noinspection deprecation
                 if (Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0) {
                     PPApplication.logE("%%%% Scanner.doScan", "-- END - airplane mode ON -------");
                     return;

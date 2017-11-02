@@ -113,7 +113,6 @@ public class ActivateProfileHelper {
         context = null;
     }
 
-    @SuppressWarnings("deprecation")
     private void doExecuteForRadios(Context context, Profile profile)
     {
         PPApplication.sleep(300);
@@ -1155,13 +1154,13 @@ public class ActivateProfileHelper {
         return defaultValue;
     }
 
-    @SuppressWarnings("deprecation")
     static boolean vibrationIsOn(/*Context context, */AudioManager audioManager, boolean testRingerMode) {
         int ringerMode = -999;
         if (testRingerMode)
             ringerMode = audioManager.getRingerMode();
         int vibrateType = -999;
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1)
+            //noinspection deprecation
             vibrateType = audioManager.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
         //int vibrateWhenRinging;
         //if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
@@ -1173,13 +1172,13 @@ public class ActivateProfileHelper {
         PPApplication.logE("PPApplication.vibrationIsOn", "vibrateType="+vibrateType);
         //PPApplication.logE("PPApplication.vibrationIsOn", "vibrateWhenRinging="+vibrateWhenRinging);
 
+        //noinspection deprecation
         return (ringerMode == AudioManager.RINGER_MODE_VIBRATE) ||
                 (vibrateType == AudioManager.VIBRATE_SETTING_ON) ||
                 (vibrateType == AudioManager.VIBRATE_SETTING_ONLY_SILENT);// ||
         //(vibrateWhenRinging == 1);
     }
 
-    @SuppressWarnings("deprecation")
     private void setRingerMode(Context context, Profile profile, AudioManager audioManager, boolean firstCall, boolean forProfileActivation)
     {
         //PPApplication.logE("@@@ ActivateProfileHelper.setRingerMode", "audioM.ringerMode=" + audioManager.getRingerMode());
@@ -1213,10 +1212,12 @@ public class ActivateProfileHelper {
                     setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL); not needed, called from setZenMode
                     try {
+                        //noinspection deprecation
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
                     } catch (Exception ignored) {
                     }
                     try {
+                        //noinspection deprecation
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
                     } catch (Exception ignored) {
                     }
@@ -1226,10 +1227,12 @@ public class ActivateProfileHelper {
                     setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL); not needed, called from setZenMode
                     try {
+                        //noinspection deprecation
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
                     } catch (Exception ignored) {
                     }
                     try {
+                        //noinspection deprecation
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_ON);
                     } catch (Exception ignored) {
                     }
@@ -1239,10 +1242,12 @@ public class ActivateProfileHelper {
                     setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_VIBRATE);
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE); not needed, called from setZenMode
                     try {
+                        //noinspection deprecation
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
                     } catch (Exception ignored) {
                     }
                     try {
+                        //noinspection deprecation
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_ON);
                     } catch (Exception ignored) {
                     }
@@ -1256,10 +1261,12 @@ public class ActivateProfileHelper {
                     else {
                         setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_SILENT);
                         try {
+                            //noinspection deprecation
                             audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
                         } catch (Exception ignored) {
                         }
                         try {
+                            //noinspection deprecation
                             audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
                         } catch (Exception ignored) {
                         }
@@ -1596,7 +1603,6 @@ public class ActivateProfileHelper {
         // screen timeout
         if (Permissions.checkProfileScreenTimeout(context, profile, null)) {
             PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
-            //noinspection deprecation
             if ((pm != null) && pm.isScreenOn()) {
                 //Log.d("ActivateProfileHelper.execute","screen on");
                 if (PPApplication.screenTimeoutHandler != null) {
@@ -1645,7 +1651,6 @@ public class ActivateProfileHelper {
             //{
             PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
             if (pm != null) {
-                //noinspection deprecation
                 isScreenOn = pm.isScreenOn();
                 //}
                 PPApplication.logE("$$$ ActivateProfileHelper.execute", "isScreenOn=" + isScreenOn);
@@ -1947,12 +1952,10 @@ public class ActivateProfileHelper {
         if (windowManager != null) {
             int type;
             if (android.os.Build.VERSION.SDK_INT < 25)
-                //noinspection deprecation
                 type = WindowManager.LayoutParams.TYPE_TOAST;
             else
                 //TODO Android O
                 //if (android.os.Build.VERSION.SDK_INT < 26)
-                //noinspection deprecation
                 type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
             //else
             //    type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
@@ -2016,12 +2019,10 @@ public class ActivateProfileHelper {
                 }
                 int type;
                 if (android.os.Build.VERSION.SDK_INT < 25)
-                    //noinspection deprecation
                     type = WindowManager.LayoutParams.TYPE_TOAST;
                 else {
                     //TODO Android O
                     //if (android.os.Build.VERSION.SDK_INT < 26)
-                    //noinspection deprecation
                     type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
                     //else
                     //    type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
@@ -2684,7 +2685,6 @@ public class ActivateProfileHelper {
         return false;
     }
 
-    @SuppressWarnings("deprecation")
     private void setGPS(Context context, boolean enable)
     {
         //boolean isEnabled;
@@ -2768,9 +2768,10 @@ public class ActivateProfileHelper {
                     }
                 }
                 else {
+                    /*
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
-
+                    */
                     synchronized (PPApplication.startRootCommandMutex) {
                         command1 = "settings put secure location_providers_allowed +gps";
                         Command command = new Command(0, false, command1);
@@ -2886,9 +2887,10 @@ public class ActivateProfileHelper {
                     }
                 }
                 else {
+                    /*
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
-
+                    */
                     synchronized (PPApplication.startRootCommandMutex) {
                         command1 = "settings put secure location_providers_allowed -gps";
                         Command command = new Command(0, false, command1);
@@ -2972,7 +2974,6 @@ public class ActivateProfileHelper {
         //}
     }
 
-    @SuppressWarnings("deprecation")
     private void setAirplaneMode_SDK8(Context context, boolean mode)
     {
         Settings.System.putInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, mode ? 1 : 0);

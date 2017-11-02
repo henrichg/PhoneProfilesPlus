@@ -146,7 +146,7 @@
 
     </RelativeLayout>
     
-    <sk.henrichg.phoneprofilesplus.ScrimInsetsFrameLayout
+    <sk.henrichg.phoneprofilesplus.PPScrimInsetsFrameLayout
         android:id="@+id/editor_drawer_root"
         android:layout_height="match_parent"
         android:layout_gravity="start"
@@ -181,7 +181,7 @@
 
         </RelativeLayout>
 
-    </sk.henrichg.phoneprofilesplus.ScrimInsetsFrameLayout>
+    </sk.henrichg.phoneprofilesplus.PPScrimInsetsFrameLayout>
     
 </android.support.v4.widget.DrawerLayout>
 

@@ -104,7 +104,6 @@ public class EditorEventListFragment extends Fragment
     public EditorEventListFragment() {
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

@@ -26,7 +26,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     private boolean isLargeLayout;
     private boolean isKeyguard;
 
-    @SuppressWarnings("deprecation")
     private RemoteViews buildLayout(Context context, AppWidgetManager appWidgetManager, int appWidgetId, boolean largeLayout)
     {
         Intent svcIntent=new Intent(context, ProfileListWidgetService.class);
@@ -217,9 +216,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events, pIntentRE);
 
             if (!ApplicationPreferences.applicationWidgetListGridLayout(context))
-                widget.setRemoteAdapter(appWidgetId, R.id.widget_profile_list, svcIntent);
+                widget.setRemoteAdapter(R.id.widget_profile_list, svcIntent);
             else
-                widget.setRemoteAdapter(appWidgetId, R.id.widget_profile_grid, svcIntent);
+                widget.setRemoteAdapter(R.id.widget_profile_grid, svcIntent);
 
             // The empty view is displayed when the collection has no items.
             // It should be in the same layout used to instantiate the RemoteViews

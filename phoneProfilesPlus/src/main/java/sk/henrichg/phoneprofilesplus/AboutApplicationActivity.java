@@ -202,7 +202,6 @@ public class AboutApplicationActivity extends AppCompatActivity {
                         Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
                         Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 else
-                    //noinspection deprecation
                     goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
                             Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
                             Intent.FLAG_ACTIVITY_MULTIPLE_TASK);

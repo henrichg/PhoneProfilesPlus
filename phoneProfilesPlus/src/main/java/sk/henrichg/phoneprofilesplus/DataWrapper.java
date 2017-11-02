@@ -1484,7 +1484,6 @@ public class DataWrapper {
         }
     }
 
-    @SuppressWarnings("deprecation")
     @SuppressLint({ "NewApi", "SimpleDateFormat" })
     void doHandleEvents(Event event, boolean statePause,
                                     boolean restartEvent, boolean interactive,
@@ -1987,7 +1986,6 @@ public class DataWrapper {
                 if (!done)
                 {
                     PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    //noinspection deprecation
                     if (!pm.isScreenOn() && ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(context)) {
                         // ignore for screen Off
                         ignoreWifi = true;
@@ -2186,7 +2184,6 @@ public class DataWrapper {
             {
                 if (!done) {
                     PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    //noinspection deprecation
                     if (!pm.isScreenOn() && ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(context)) {
                         // ignore for screen Off
                         ignoreBluetooth = true;
@@ -2398,7 +2395,6 @@ public class DataWrapper {
             ignoreLocation = false;
 
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            //noinspection deprecation
             if (!pm.isScreenOn() && ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context)) {
                 // ignore for screen Off
                 ignoreLocation = true;
@@ -2449,7 +2445,6 @@ public class DataWrapper {
                 ignoreOrientation = true;
             }
             else
-             //noinspection deprecation
             if (!pm.isScreenOn() && ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(context)) {
                     // ignore for screen Off
                     ignoreOrientation = true;
@@ -2555,7 +2550,6 @@ public class DataWrapper {
             ignoreMobileCell = false;
 
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            //noinspection deprecation
             if (!pm.isScreenOn() && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(context)) {
                 // ignore for screen Off
                 ignoreMobileCell = true;

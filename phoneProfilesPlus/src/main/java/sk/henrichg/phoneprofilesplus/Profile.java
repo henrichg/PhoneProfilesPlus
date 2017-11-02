@@ -1672,7 +1672,6 @@ public class Profile {
                         }
                     }
                     else {*/
-                    //noinspection deprecation
                     NetworkInfo ni = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
                     mobileDataSupported = ni != null;
                     //}

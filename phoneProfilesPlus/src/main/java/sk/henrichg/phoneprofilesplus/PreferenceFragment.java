@@ -58,7 +58,6 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
         mPreferenceScreen = preferenceScreen;
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

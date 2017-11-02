@@ -12,7 +12,6 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
 
     private DataWrapper dataWrapper;
 
-    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +32,9 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
         getWindow().setAttributes(params);
 
         // display dimensions
+        //noinspection deprecation
         float popupWidth = display.getWidth();
+        //noinspection deprecation
         float popupMaxHeight = display.getHeight();
         float popupHeight = 0;
         float actionBarHeight = 0;

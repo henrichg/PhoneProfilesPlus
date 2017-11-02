@@ -126,7 +126,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private Toolbar editorToolbar;
     private DrawerLayout drawerLayout;
-    private ScrimInsetsFrameLayout drawerRoot;
+    private PPScrimInsetsFrameLayout drawerRoot;
     private ListView drawerListView;
     private ActionBarDrawerToggle drawerToggle;
     private TextView filterStatusBarTitle;

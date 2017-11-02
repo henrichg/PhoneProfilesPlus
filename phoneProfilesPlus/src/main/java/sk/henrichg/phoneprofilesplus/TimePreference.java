@@ -53,7 +53,6 @@ public class TimePreference extends DialogPreference {
                         if (shouldPersist()) {
                             picker.clearFocus();
 
-                            //noinspection deprecation
                             value = picker.getCurrentHour() * 60 + picker.getCurrentMinute();
 
                             setSummary(getSummary());
@@ -103,9 +102,7 @@ public class TimePreference extends DialogPreference {
     @Override
     protected void onBindDialogView(View v) {
         super.onBindDialogView(v);
-        //noinspection deprecation
         picker.setCurrentHour(value / 60);
-        //noinspection deprecation
         picker.setCurrentMinute(value % 60);
     }
 

@@ -51,7 +51,6 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                 Object[] pdus = (Object[]) extras.get("pdus");
                 if (pdus != null) {
                     for (Object pdu : pdus) {
-                        //noinspection deprecation
                         SmsMessage msg = SmsMessage.createFromPdu((byte[]) pdu);
                         origin = msg.getOriginatingAddress();
                         //body = msg.getMessageBody();

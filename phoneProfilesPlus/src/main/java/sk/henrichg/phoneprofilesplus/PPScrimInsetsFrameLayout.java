@@ -29,41 +29,40 @@ import android.widget.FrameLayout;
  * A layout that draws something in the insets passed to {@link #fitSystemWindows(Rect)}, i.e. the area above UI chrome
  * (status and navigation bars, overlay action bars).
  */
-public class ScrimInsetsFrameLayout extends FrameLayout {
+public class PPScrimInsetsFrameLayout extends FrameLayout {
     private Drawable mInsetForeground;
 
     private Rect mInsets;
     private final Rect mTempRect = new Rect();
     //private OnInsetsCallback mOnInsetsCallback;
 
-    public ScrimInsetsFrameLayout(Context context) {
+    public PPScrimInsetsFrameLayout(Context context) {
         super(context);
         init(context, null, 0);
     }
 
-    public ScrimInsetsFrameLayout(Context context, AttributeSet attrs) {
+    public PPScrimInsetsFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0);
     }
 
-    public ScrimInsetsFrameLayout(Context context, AttributeSet attrs, int defStyle) {
+    public PPScrimInsetsFrameLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs, defStyle);
     }
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
         final TypedArray a = context.obtainStyledAttributes(attrs,
-                R.styleable.ScrimInsetsView, defStyle, 0);
+                R.styleable.PPScrimInsetsFrameLayout, defStyle, 0);
         if (a == null) {
             return;
         }
-        mInsetForeground = a.getDrawable(R.styleable.ScrimInsetsView_insetForeground);
+        mInsetForeground = a.getDrawable(R.styleable.PPScrimInsetsFrameLayout_insetForeground);
         a.recycle();
 
         setWillNotDraw(true);
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     protected boolean fitSystemWindows(Rect insets) {
         mInsets = new Rect(insets);

@@ -55,7 +55,7 @@
         <attr name="showDefault" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="ScrimInsetsView">
+    <declare-styleable name="PPScrimInsetsFrameLayout">
         <attr format="reference|color" name="insetForeground" />
     </declare-styleable>
 

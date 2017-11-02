@@ -33,7 +33,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
     public static final String PREF_START_TARGET_HELPS = "activate_profiles_activity_start_target_helps";
 
     @SuppressLint("NewApi")
-    @SuppressWarnings({ "deprecation" })
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +56,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
         int actionBarHeight;
 
         // display dimensions
+        //noinspection deprecation
         float popupWidth = display.getWidth();
+        //noinspection deprecation
         popupMaxHeight = display.getHeight();
         float popupHeight = 0;
         actionBarHeight = 0;

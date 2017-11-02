@@ -348,7 +348,6 @@ class BluetoothScanJob extends Job {
         }
     }
 
-    @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
     static void startLEScan(Context context)
     {
@@ -416,7 +415,6 @@ class BluetoothScanJob extends Job {
         }
     }
 
-    @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
     static void stopLEScan(Context context) {
         if (Scanner.bluetoothLESupported(context)) {
