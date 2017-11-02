@@ -96,6 +96,7 @@ class EventsHandler {
             //PPApplication.setApplicationStarted(context, true);
 
             dataWrapper = new DataWrapper(context, true, false, 0);
+            dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
 
             ApplicationPreferences.getSharedPreferences(context);
             callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
@@ -179,8 +180,6 @@ class EventsHandler {
 
                 return;
             }
-
-            dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
 
             List<Event> eventList = dataWrapper.getEventList();
 
