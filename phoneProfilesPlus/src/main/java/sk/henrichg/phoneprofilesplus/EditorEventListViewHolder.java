@@ -16,7 +16,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
 {
 
-    final ImageView dragHandle;
+    final DragHandle dragHandle;
     //RelativeLayout listItemRoot;
     private final TextView eventName;
     private TextView eventPreferencesDescription;

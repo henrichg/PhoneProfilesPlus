@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,7 @@ class ApplicationsDialogPreferenceAdapter extends RecyclerView.Adapter<Applicati
         return new ApplicationsDialogPreferenceViewHolder(view, context, preference);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(final ApplicationsDialogPreferenceViewHolder holder, int position) {
         Application application = preference.applicationsList.get(position);
@@ -42,9 +44,19 @@ class ApplicationsDialogPreferenceAdapter extends RecyclerView.Adapter<Applicati
         holder.dragHandle.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-                    mDragStartListener.onStartDrag(holder);
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mDragStartListener.onStartDrag(holder);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        v.performClick();
+                        break;
+                    default:
+                        break;
                 }
+                /*if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    mDragStartListener.onStartDrag(holder);
+                }*/
                 return false;
             }
         });

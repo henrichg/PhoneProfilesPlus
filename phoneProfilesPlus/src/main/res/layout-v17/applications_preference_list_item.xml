@@ -37,7 +37,7 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true" >
 
-        <ImageView
+        <sk.henrichg.phoneprofilesplus.DragHandle
             android:id="@+id/applications_pref_dlg_item_drag_handle"
             android:layout_width="25dp"
             android:layout_height="45dp"
@@ -48,7 +48,9 @@
             android:paddingRight="5dp"
             android:layout_marginStart="3dp"
             android:scaleType="center"
-            android:src="?attr/dragHandleIcon" />
+            android:src="?attr/dragHandleIcon"
+            android:clickable="true"
+            android:focusable="true" />
 
         <ImageView
             android:id="@+id/applications_pref_dlg_item_icon"

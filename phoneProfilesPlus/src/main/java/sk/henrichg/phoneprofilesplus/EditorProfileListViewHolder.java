@@ -12,7 +12,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
 {
 
-    final ImageView dragHandle;
+    final DragHandle dragHandle;
     //private RelativeLayout listItemRoot;
     private final ImageView profileIcon;
     private final TextView profileName;

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    final ImageView dragHandle;
+    final DragHandle dragHandle;
     private final ImageView imageViewIcon;
     private final TextView textViewAppName;
     private final TextView textViewAppType;
