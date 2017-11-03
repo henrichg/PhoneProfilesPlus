@@ -22,6 +22,7 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventPreferencesActivity extends PreferenceActivity
@@ -395,13 +396,20 @@ public class EventPreferencesActivity extends PreferenceActivity
                 circleColor = 0x7F7F7F;
 
             final TapTargetSequence sequence = new TapTargetSequence(this);
-            sequence.targets(
-                    TapTarget.forToolbarMenuItem(toolbar, R.id.event_preferences_save, getString(R.string.event_preference_activity_targetHelps_save_title), getString(R.string.event_preference_activity_targetHelps_save_description))
-                            .targetCircleColorInt(circleColor)
-                            .textColorInt(0xFFFFFF)
-                            .drawShadow(true)
-                            .id(1)
-            );
+            List<TapTarget> targets = new ArrayList<>();
+            int id = 1;
+            try {
+                targets.add(
+                        TapTarget.forToolbarMenuItem(toolbar, R.id.event_preferences_save, getString(R.string.event_preference_activity_targetHelps_save_title), getString(R.string.event_preference_activity_targetHelps_save_description))
+                                .targetCircleColorInt(circleColor)
+                                .textColorInt(0xFFFFFF)
+                                .drawShadow(true)
+                                .id(id)
+                );
+                ++id;
+            } catch (Exception ignored) {} // not in action bar?
+
+            sequence.targets(targets);
             sequence.listener(new TapTargetSequence.Listener() {
                 // This listener will tell us when interesting(tm) events happen in regards
                 // to the sequence

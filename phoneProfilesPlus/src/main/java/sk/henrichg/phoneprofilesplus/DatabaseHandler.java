@@ -6619,9 +6619,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 if (exportedDB.exists()) {
                     SQLiteDatabase exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
 
-                    SQLiteDatabase db = getMyWritableDatabase();
-
                     if (exportedDBObj.getVersion() <= DATABASE_VERSION) {
+                        SQLiteDatabase db = getMyWritableDatabase();
 
                         Cursor cursorExportedDB = null;
                         String[] columnNamesExportedDB;
@@ -7522,6 +7521,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         }
                     }
                     else {
+                    //    exportedDBObj.close();
                         ret = 0;
                     }
                 }

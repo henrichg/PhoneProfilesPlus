@@ -33,6 +33,7 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -796,19 +797,31 @@ public class EditorProfileListFragment extends Fragment
                 if (ApplicationPreferences.applicationTheme(getActivity()).equals("dark"))
                     circleColor = 0x7F7F7F;
 
-                final TapTargetSequence sequence = new TapTargetSequence(getActivity())
-                        .targets(
-                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_profile, getString(R.string.editor_activity_targetHelps_newProfileButton_title), getString(R.string.editor_activity_targetHelps_newProfileButton_description))
-                                        .targetCircleColorInt(circleColor)
-                                        .textColorInt(0xFFFFFF)
-                                        .drawShadow(true)
-                                        .id(1),
-                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_profiles, getString(R.string.editor_activity_targetHelps_deleteAllProfilesButton_title), getString(R.string.editor_activity_targetHelps_deleteAllProfilesButton_description))
-                                        .targetCircleColorInt(circleColor)
-                                        .textColorInt(0xFFFFFF)
-                                        .drawShadow(true)
-                                        .id(2)
-                        )
+                final TapTargetSequence sequence = new TapTargetSequence(getActivity());
+                List<TapTarget> targets = new ArrayList<>();
+                int id = 1;
+                try {
+                    targets.add(
+                            TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_profile, getString(R.string.editor_activity_targetHelps_newProfileButton_title), getString(R.string.editor_activity_targetHelps_newProfileButton_description))
+                                    .targetCircleColorInt(circleColor)
+                                    .textColorInt(0xFFFFFF)
+                                    .drawShadow(true)
+                                    .id(id)
+                    );
+                    ++id;
+                } catch (Exception ignored) {} // not in action bar?
+                try {
+                    targets.add(
+                            TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_profiles, getString(R.string.editor_activity_targetHelps_deleteAllProfilesButton_title), getString(R.string.editor_activity_targetHelps_deleteAllProfilesButton_description))
+                                    .targetCircleColorInt(circleColor)
+                                    .textColorInt(0xFFFFFF)
+                                    .drawShadow(true)
+                                    .id(id)
+                    );
+                    ++id;
+                } catch (Exception ignored) {} // not in action bar?
+
+                sequence.targets(targets)
                         .listener(new TapTargetSequence.Listener() {
                             // This listener will tell us when interesting(tm) events happen in regards
                             // to the sequence

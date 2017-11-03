@@ -55,6 +55,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -1972,57 +1973,98 @@ public class EditorProfilesActivity extends AppCompatActivity
                     circleColor = 0x7F7F7F;
 
                 final TapTargetSequence sequence = new TapTargetSequence(this);
-                if (Event.getGlobalEventsRunning(getApplicationContext()))
-                    sequence.targets(
-                            TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
-                                    .targetCircleColorInt(circleColor)
-                                    .textColorInt(0xFFFFFF)
-                                    .drawShadow(true)
-                                    .id(1),
-                            TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
-                                    .targetCircleColorInt(circleColor)
-                                    .textColorInt(0xFFFFFF)
-                                    .drawShadow(true)
-                                    .id(2),
-                            TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_restart_events, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
-                                    .targetCircleColorInt(circleColor)
-                                    .textColorInt(0xFFFFFF)
-                                    .drawShadow(true)
-                                    .id(3),
+                if (Event.getGlobalEventsRunning(getApplicationContext())) {
+                    List<TapTarget> targets = new ArrayList<>();
+                    targets.add(
+                        TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
+                                .targetCircleColorInt(circleColor)
+                                .textColorInt(0xFFFFFF)
+                                .drawShadow(true)
+                                .id(1)
+                    );
+                    targets.add(
+                        TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
+                                .targetCircleColorInt(circleColor)
+                                .textColorInt(0xFFFFFF)
+                                .drawShadow(true)
+                                .id(2)
+                    );
+
+                    int id = 3;
+                    try {
+                        targets.add(
+                                TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_restart_events, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
+                                        .targetCircleColorInt(circleColor)
+                                        .textColorInt(0xFFFFFF)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
+                    } catch (Exception ignored) {} // not in action bar?
+                    try {
+                        targets.add(
                             TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
                                     .targetCircleColorInt(circleColor)
                                     .textColorInt(0xFFFFFF)
                                     .drawShadow(true)
-                                    .id(4),
+                                    .id(id)
+                        );
+                        ++id;
+                    } catch (Exception ignored) {} // not in action bar?
+                    try {
+                        targets.add(
                             TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
                                     .targetCircleColorInt(circleColor)
                                     .textColorInt(0xFFFFFF)
                                     .drawShadow(true)
-                                    .id(5)
-                    );
-                else
-                    sequence.targets(
+                                    .id(id)
+                        );
+                        ++id;
+                    } catch (Exception ignored) {} // not in action bar?
+
+                    sequence.targets(targets);
+                }
+                else {
+                    List<TapTarget> targets = new ArrayList<>();
+                    targets.add(
                             TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
                                     .targetCircleColorInt(circleColor)
                                     .textColorInt(0xFFFFFF)
                                     .drawShadow(true)
-                                    .id(1),
+                                    .id(1)
+                    );
+                    targets.add(
                             TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
                                     .targetCircleColorInt(circleColor)
                                     .textColorInt(0xFFFFFF)
                                     .drawShadow(true)
-                                    .id(2),
-                            TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
-                                    .targetCircleColorInt(circleColor)
-                                    .textColorInt(0xFFFFFF)
-                                    .drawShadow(true)
-                                    .id(3),
-                            TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
-                                    .targetCircleColorInt(circleColor)
-                                    .textColorInt(0xFFFFFF)
-                                    .drawShadow(true)
-                                    .id(4)
+                                    .id(2)
                     );
+
+                    int id = 3;
+                    try {
+                        targets.add(
+                                TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
+                                        .targetCircleColorInt(circleColor)
+                                        .textColorInt(0xFFFFFF)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
+                    } catch (Exception ignored) {} // not in action bar?
+                    try {
+                        targets.add(
+                                TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
+                                        .targetCircleColorInt(circleColor)
+                                        .textColorInt(0xFFFFFF)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
+                    } catch (Exception ignored) {} // not in action bar?
+
+                    sequence.targets(targets);
+                }
 
                 sequence.listener(new TapTargetSequence.Listener() {
                     // This listener will tell us when interesting(tm) events happen in regards
