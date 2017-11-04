@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 class WifiScanJob extends Job {
@@ -32,6 +33,8 @@ class WifiScanJob extends Job {
     private static final String PREF_EVENT_WIFI_WAIT_FOR_RESULTS = "eventWifiWaitForResults";
     private static final String PREF_EVENT_WIFI_ENABLED_FOR_SCAN = "eventWifiEnabledForScan";
 
+    private static CountDownLatch countDownLatch = null;
+
     @NonNull
     @Override
     protected Result onRunJob(Params params) {
@@ -41,9 +44,18 @@ class WifiScanJob extends Job {
 
         CallsCounter.logCounter(context, "WifiScanJob.onRunJob", "WifiScanJob_onRunJob");
 
+        countDownLatch = new CountDownLatch(1);
+
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED) {
             WifiScanJob.cancelJob(context, null);
+
+            try {
+                countDownLatch.await();
+            } catch (InterruptedException ignored) {
+            }
+            countDownLatch = null;
+            PPApplication.logE("WifiScanJob.onRunJob", "return");
             return Result.SUCCESS;
         }
 
@@ -54,6 +66,13 @@ class WifiScanJob extends Job {
             WifiScanJob.cancelJob(context, null);
             //removeAlarm(context/*, false*/);
             //removeAlarm(context/*, true*/);
+
+            try {
+                countDownLatch.await();
+            } catch (InterruptedException ignored) {
+            }
+            countDownLatch = null;
+            PPApplication.logE("WifiScanJob.onRunJob", "return");
             return Result.SUCCESS;
         }
 
@@ -68,10 +87,16 @@ class WifiScanJob extends Job {
         PPApplication.logE("WifiScanJob.onRunJob", "schedule job");
         WifiScanJob.scheduleJob(context, null, false, false, false);
 
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException ignored) {
+        }
+        countDownLatch = null;
+        PPApplication.logE("WifiScanJob.onRunJob", "return");
         return Result.SUCCESS;
     }
 
-    private static void _scheduleJob(final Context context, final Handler _handler, final boolean shortInterval, final boolean forScreenOn, final boolean afterEnableWifi) {
+    private static void _scheduleJob(final Context context, final boolean shortInterval, final boolean forScreenOn, final boolean afterEnableWifi) {
         JobManager jobManager = null;
         try {
             jobManager = JobManager.instance();
@@ -105,7 +130,7 @@ class WifiScanJob extends Job {
                         return;
                 }
             } else {
-                cancelJob(context, _handler);
+                _cancelJob(context);
                 jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
                 if (afterEnableWifi)
                     jobBuilder.setExact(TimeUnit.SECONDS.toMillis(2));
@@ -139,18 +164,23 @@ class WifiScanJob extends Job {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        _scheduleJob(context, handler, shortInterval, forScreenOn,afterEnableWifi);
+                        _scheduleJob(context, shortInterval, forScreenOn,afterEnableWifi);
+                        if (countDownLatch != null)
+                            countDownLatch.countDown();
                     }
                 });
             }
-            else
-                _scheduleJob(context, _handler, shortInterval, forScreenOn,afterEnableWifi);
+            else {
+                _scheduleJob(context, shortInterval, forScreenOn, afterEnableWifi);
+                if (countDownLatch != null)
+                    countDownLatch.countDown();
+            }
         }
         else
             PPApplication.logE("WifiScanJob.scheduleJob","WifiHardware=false");
     }
 
-    private static void _cancelJob(final Context context, final Handler _handler) {
+    private static void _cancelJob(final Context context) {
         WifiScanJob.setScanRequest(context, false);
         WifiScanJob.setWaitForResults(context, false);
         WifiScanJob.setWifiEnabledForScan(context, false);
@@ -172,12 +202,17 @@ class WifiScanJob extends Job {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    _cancelJob(context, handler);
+                    _cancelJob(context);
+                    if (countDownLatch != null)
+                        countDownLatch.countDown();
                 }
             });
         }
-        else
-            _cancelJob(context, _handler);
+        else {
+            _cancelJob(context);
+            if (countDownLatch != null)
+                countDownLatch.countDown();
+        }
     }
 
     static boolean isJobScheduled() {

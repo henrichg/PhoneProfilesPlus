@@ -13,6 +13,7 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 class AboutApplicationJob extends Job {
@@ -20,6 +21,8 @@ class AboutApplicationJob extends Job {
     static final String JOB_TAG  = "AboutApplicationJob";
 
     static final int MAX_DONATION_NOTIFICATION_COUNT = 3;
+
+    private static CountDownLatch countDownLatch = null;
 
     @NonNull
     @Override
@@ -32,6 +35,8 @@ class AboutApplicationJob extends Job {
         if (!PPApplication.getApplicationStarted(context, false))
             // application is not started
             return Result.SUCCESS;
+
+        countDownLatch = new CountDownLatch(1);
 
         int daysAfterFirstStart = PPApplication.getDaysAfterFirstStart(context)+1;
         PPApplication.logE("AboutApplicationJob.onRunJob", "daysAfterFirstStart="+daysAfterFirstStart);
@@ -90,6 +95,12 @@ class AboutApplicationJob extends Job {
             PPApplication.setDonationNotificationCount(context, MAX_DONATION_NOTIFICATION_COUNT);
         }
 
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException ignored) {
+        }
+        countDownLatch = null;
+        PPApplication.logE("AboutApplicationJob.onRunJob", "return");
         return Result.SUCCESS;
     }
 
@@ -126,6 +137,9 @@ class AboutApplicationJob extends Job {
                                 .schedule();
                     } catch (Exception ignored) { }
                 }
+
+                if (countDownLatch != null)
+                    countDownLatch.countDown();
             }
         });
     }

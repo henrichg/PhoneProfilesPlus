@@ -8,12 +8,15 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 class SearchCalendarEventsJob extends Job {
 
     static final String JOB_TAG  = "SearchCalendarEventsJob";
     static final String JOB_TAG_SHORT  = "SearchCalendarEventsJob_short";
+
+    private static CountDownLatch countDownLatch = null;
 
     @NonNull
     @Override
@@ -26,6 +29,8 @@ class SearchCalendarEventsJob extends Job {
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return Result.SUCCESS;
+
+        countDownLatch = new CountDownLatch(1);
 
         if (Event.getGlobalEventsRunning(appContext))
         {
@@ -47,10 +52,16 @@ class SearchCalendarEventsJob extends Job {
 
         SearchCalendarEventsJob.scheduleJob(appContext, null, false);
 
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException ignored) {
+        }
+        countDownLatch = null;
+        PPApplication.logE("SearchCalendarEventsJob.onRunJob", "return");
         return Result.SUCCESS;
     }
 
-    private static void _scheduleJob(final Context context, final Handler _handler, final boolean shortInterval) {
+    private static void _scheduleJob(final Context context, final boolean shortInterval) {
         JobManager jobManager = null;
         try {
             jobManager = JobManager.instance();
@@ -69,7 +80,7 @@ class SearchCalendarEventsJob extends Job {
                 } else
                     return;
             } else {
-                cancelJob(context, _handler);
+                _cancelJob(context);
                 jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
                 jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
             }
@@ -94,15 +105,20 @@ class SearchCalendarEventsJob extends Job {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    _scheduleJob(context, handler, shortInterval);
+                    _scheduleJob(context, shortInterval);
+                    if (countDownLatch != null)
+                        countDownLatch.countDown();
                 }
             });
         }
-        else
-            _scheduleJob(context, _handler, shortInterval);
+        else {
+            _scheduleJob(context, shortInterval);
+            if (countDownLatch != null)
+                countDownLatch.countDown();
+        }
     }
 
-    private static void _cancelJob(final Context context, final Handler _handler) {
+    private static void _cancelJob(final Context context) {
         try {
             JobManager jobManager = JobManager.instance();
             jobManager.cancelAllForTag(JOB_TAG_SHORT);
@@ -119,12 +135,17 @@ class SearchCalendarEventsJob extends Job {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    _cancelJob(context, handler);
+                    _cancelJob(context);
+                    if (countDownLatch != null)
+                        countDownLatch.countDown();
                 }
             });
         }
-        else
-            _cancelJob(context, _handler);
+        else {
+            _cancelJob(context);
+            if (countDownLatch != null)
+                countDownLatch.countDown();
+        }
     }
 
     static boolean isJobScheduled() {
