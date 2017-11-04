@@ -503,9 +503,9 @@
   <string name="permissions_for_custom_profile_icon_text1">Выбор иконки требует дополнительных разрешений.</string>
   <string name="permissions_for_custom_profile_icon_text2">Разрешите в следующих диалоговых окнах. Затем вы сможете выбрать значок из галереи.</string>
   <string name="permissions_for_export_app_data_text1">Резервное копирование параметров приложения требует некоторых разрешений.</string>
-  <string name="permissions_for_export_app_data_text2">Please grant them in next dialog. Settings will then be backed-up.</string>
-  <string name="permissions_for_import_app_data_text1">Restore of application settings requires some permissions.</string>
-  <string name="permissions_for_import_app_data_text2">Please grant them in next dialog. Data will then be restored.</string>
+  <string name="permissions_for_export_app_data_text2">Пожалуйста, предоставьте их в следующем диалоговом окне. Затем настройки будут сохранены.</string>
+  <string name="permissions_for_import_app_data_text1">Восстановление параметров приложения требует некоторых разрешений.</string>
+  <string name="permissions_for_import_app_data_text2">Пожалуйста, предоставьте их в следующем диалоговом окне. Затем данные будут восстановлены.</string>
   <string name="permissions_write_settings_not_allowed_confirm">Вы не разрешили «Изменить настройки». Не спрашивать больше?</string>
   <string name="phone_profiles_pref_category_permissions">Разрешения</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions">Системные настройки</string>
@@ -1023,8 +1023,8 @@
   <string name="ringtone_preference_none">Без звука</string>
   <string name="event_preferences_notificationVibrate">Уведомлять вибрацией</string>
   <string name="important_info_profile_grant">Некоторые настройки профиля требуют разрешение WRITE_SECURE_SETTINGS. ROOT не требуется. Эти настройки отмечены «(G1)».</string>
-  <string name="important_info_profile_grant_lookSectionProfiles">For more information, look at the \"Profiles\" section further below.</string>
-  <string name="profile_preferences_typesInfoGrant">For more informations look at \"Important information\", section \"Profiles\".</string>
+  <string name="important_info_profile_grant_lookSectionProfiles">Для получения дополнительной информации смотрите ниже в разделе «Профили».</string>
+  <string name="profile_preferences_typesInfoGrant">Для дополнительной информации смотрите «Важная информация» в разделе «Профили».</string>
   <string name="important_info_profile_grant_1_howTo_1">Некоторые настройки профиля требуют разрешений которые можно установить только через adb. Эти настройки отмечены «(GX)».</string>
   <string name="important_info_profile_grant_1_howTo_2">Если не установлен adb на вашем компьютере:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Скачать инструменты SDK из:</string>
@@ -1044,7 +1044,7 @@
   <string name="important_info_quick_guide_2">1. <b>ПРОФИЛИ:</b> указывает, как изменить настройки устройства.</string>
   <string name="important_info_quick_guide_3">2. <b>СОБЫТИЯ:</b> указывает, когда следует изменить настройки устройства.</string>
   <string name="important_info_quick_guide_profiles_1"><b>PROFILES:</b> Allow you to configure device settings such as ringer mode, volume levels, ringtone and notification sounds, radio switch (Wi-Fi, Bluetooth, mobile data, etc.). When a profile is activated, the corresponding settings are permanent. If you want settings to change, another profile must be activated.</string>
-  <string name="important_info_quick_guide_profiles_2">Profiles can be activated manually, or by an Event.</string>
+  <string name="important_info_quick_guide_profiles_2">Профили можно активировать вручную или событием.</string>
   <string name="important_info_quick_guide_profiles_3">You can manually activate a profile through the PPP Activator (pop-up window with list of available profiles). The Activator can be displayed via the PPP home icon, the PPP notification, PPP widgets, DashClock widget and, for Samsung Edge devices, from the Edge panel. You can also directly activate a profile through the PPP 4x4 widget, a shortcut to the profile or, on Samsung Edge devices, through the Edge panel.</string>
   <string name="important_info_quick_guide_events_1"><b>EVENTS:</b> Allow you to configure when a profile activates. Events have a start and end. You can configure what will happen at the start of an event, and what will happen when the event ends.</string>
   <string name="important_info_quick_guide_events_2">Events contain important sensor configuration parameters, which must all be satisfied before an event is triggered. If any sensor does not pass, the event will end (pause).</string>

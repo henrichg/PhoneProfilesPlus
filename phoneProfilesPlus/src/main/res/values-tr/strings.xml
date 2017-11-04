@@ -1082,7 +1082,7 @@
   <string name="number_picker_min_error">Lütfen %1$s a eşit veya daha büyük bir sayı girin</string>
   <string name="number_picker_max_error">Lütfen %1$s a eşit veya daha küçük bir sayı girin</string>
   <string name="number_picker_min_max_error">Lutfen %1$s ile %2$s arasında bir sayı giriniz</string>
-  <string name="email_chooser">Send e-mail using</string>
-  <string name="web_browser_chooser">View web link using</string>
-  <string name="google_play_chooser">View Google Play using</string>
+  <string name="email_chooser">Şununla e-posta gönder:</string>
+  <string name="web_browser_chooser">Şununla internet adresine bak:</string>
+  <string name="google_play_chooser">Şununla Google Play\'e bak:</string>
 </resources>
