@@ -1496,22 +1496,22 @@ public class DataWrapper {
 
         int newEventStatus;// = Event.ESTATUS_NONE;
 
-        boolean ignoreTime = true;
-        boolean ignoreBattery = true;
-        boolean ignoreCall = true;
-        boolean ignorePeripheral = true;
-        boolean ignoreCalendar = true;
-        boolean ignoreWifi = true;
-        boolean ignoreScreen = true;
-        boolean ignoreBluetooth = true;
-        boolean ignoreSms = true;
-        boolean ignoreNotification = true;
-        boolean ignoreApplication = true;
-        boolean ignoreLocation = true;
-        boolean ignoreOrientation = true;
-        boolean ignoreMobileCell = true;
-        boolean ignoreNfc = true;
-        boolean ignoreRadioSwitch = true;
+        boolean ignoreTime = false;
+        boolean ignoreBattery = false;
+        boolean ignoreCall = false;
+        boolean ignorePeripheral = false;
+        boolean ignoreCalendar = false;
+        boolean ignoreWifi = false;
+        boolean ignoreScreen = false;
+        boolean ignoreBluetooth = false;
+        boolean ignoreSms = false;
+        boolean ignoreNotification = false;
+        boolean ignoreApplication = false;
+        boolean ignoreLocation = false;
+        boolean ignoreOrientation = false;
+        boolean ignoreMobileCell = false;
+        boolean ignoreNfc = false;
+        boolean ignoreRadioSwitch = false;
 
         boolean timePassed = true;
         boolean batteryPassed = true;
@@ -1538,8 +1538,6 @@ public class DataWrapper {
         if (event._eventPreferencesTime._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
-            ignoreTime = false;
-
             // compute start datetime
             long startAlarmTime;
             long endAlarmTime;
@@ -1572,8 +1570,6 @@ public class DataWrapper {
         if (event._eventPreferencesBattery._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
-            ignoreBattery = false;
-
             boolean isPowerSaveMode = batteryPassed = isPowerSaveMode(context);
             PPApplication.logE("*** DataWrapper.doHandleEvents", "isPowerSaveMode=" + isPowerSaveMode);
 
@@ -1616,8 +1612,6 @@ public class DataWrapper {
                 Permissions.checkEventCallContacts(context, event, null) &&
                 Permissions.checkEventPhoneBroadcast(context, event, null))
         {
-            ignoreCall = false;
-
             ApplicationPreferences.getSharedPreferences(context);
             int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
             String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
@@ -1753,8 +1747,6 @@ public class DataWrapper {
         if (event._eventPreferencesPeripherals._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
-            ignorePeripheral = false;
-
             if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_DESK_DOCK) ||
                 (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_CAR_DOCK))
             {
@@ -1822,8 +1814,6 @@ public class DataWrapper {
                 (Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) &&
                 (Permissions.checkEventCalendar(context, event, null)))
         {
-            ignoreCalendar = false;
-
             // compute start datetime
             long startAlarmTime;
             long endAlarmTime;
@@ -1855,13 +1845,12 @@ public class DataWrapper {
 
             //eventStart = eventStart && calendarPassed;
         }
+        
 
         if (event._eventPreferencesWifi._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event, null))
         {
-            ignoreWifi = false;
-
             PPApplication.logE("----- DataWrapper.doHandleEvents","-------- eventSSID="+event._eventPreferencesWifi._SSID);
 
             wifiPassed = false;
@@ -2056,11 +2045,10 @@ public class DataWrapper {
             //eventStart = eventStart && wifiPassed;
         }
 
+
         if (event._eventPreferencesScreen._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
-            ignoreScreen = false;
-
             boolean isScreenOn;
             //if (android.os.Build.VERSION.SDK_INT >= 20)
             //{
@@ -2100,12 +2088,11 @@ public class DataWrapper {
             //eventStart = eventStart && screenPassed;
         }
 
+
         if (event._eventPreferencesBluetooth._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event, null))
         {
-            ignoreBluetooth = false;
-
             bluetoothPassed = false;
 
             List<BluetoothDeviceData> boundedDevicesList = BluetoothScanJob.getBoundedDevicesList(context);
@@ -2271,8 +2258,6 @@ public class DataWrapper {
                 && Permissions.checkEventSMSContacts(context, event, null) &&
                 Permissions.checkEventSMSBroadcast(context, event, null))
         {
-            ignoreSms = false;
-
             // compute start time
 
             if (event._eventPreferencesSMS._startTime > 0) {
@@ -2317,8 +2302,6 @@ public class DataWrapper {
         if (event._eventPreferencesNotification._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
-            ignoreNotification = false;
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 if (!event._eventPreferencesNotification._endWhenRemoved) {
 
@@ -2362,15 +2345,15 @@ public class DataWrapper {
                     getDatabaseHandler().updateNotificationStartTime(event);
                 }
             }
-            else
+            else {
                 ignoreNotification = true;
+            }
         }
+
 
         if (event._eventPreferencesApplication._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
-            ignoreApplication = false;
-
             applicationPassed = false;
 
             String foregroundApplication = ForegroundApplicationChangedService.getApplicationInForeground(context);
@@ -2392,11 +2375,10 @@ public class DataWrapper {
                 (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event, null))
         {
-            ignoreLocation = false;
-
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             if (!pm.isScreenOn() && ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context)) {
                 // ignore for screen Off
+                PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents","ignore for screen off");
                 ignoreLocation = true;
             }
             else {
@@ -2406,12 +2388,13 @@ public class DataWrapper {
                         locationPassed = false;
 
                         String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
-                        //Log.d("DataWrapper.doHandleEvents", "geofences="+event._eventPreferencesLocation._geofences);
+                        PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents","geofences="+event._eventPreferencesLocation._geofences);
                         for (String _geofence : splits) {
                             if (!_geofence.isEmpty()) {
-                                //Log.d("DataWrapper.doHandleEvents", "geofence="+getDatabaseHandler().getGeofenceName(Long.valueOf(_geofence)));
+                                PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents","geofence="+getDatabaseHandler().getGeofenceName(Long.valueOf(_geofence)));
 
                                 int geofenceTransition = getDatabaseHandler().getGeofenceTransition(Long.valueOf(_geofence));
+                                PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents","geofenceTransition="+geofenceTransition);
 
                                 if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
                                     locationPassed = true;
@@ -2419,12 +2402,13 @@ public class DataWrapper {
                                 }
                             }
                         }
-                        //Log.d("DataWrapper.doHandleEvents", "locationPassed="+locationPassed);
+                        PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents","locationPassed="+locationPassed);
 
                         if (event._eventPreferencesLocation._whenOutside)
                             locationPassed = !locationPassed;
-                    } else
+                    } else {
                         ignoreLocation = true;
+                    }
                 }
             }
         }
@@ -2432,8 +2416,6 @@ public class DataWrapper {
         if (event._eventPreferencesOrientation._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
-            ignoreOrientation = false;
-
             ApplicationPreferences.getSharedPreferences(context);
             int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
 
@@ -2538,8 +2520,9 @@ public class DataWrapper {
                         } else {
                             ignoreOrientation = true;
                         }
-                    } else
+                    } else {
                         ignoreOrientation = true;
+                    }
                 }
             }
         }
@@ -2548,8 +2531,6 @@ public class DataWrapper {
                 (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event, null))
         {
-            ignoreMobileCell = false;
-
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             if (!pm.isScreenOn() && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(context)) {
                 // ignore for screen Off
@@ -2582,8 +2563,6 @@ public class DataWrapper {
         if (event._eventPreferencesNFC._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
-            ignoreNfc = false;
-
             // compute start time
 
             if (event._eventPreferencesNFC._startTime > 0) {
@@ -2627,8 +2606,6 @@ public class DataWrapper {
         if (event._eventPreferencesRadioSwitch._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
-            ignoreRadioSwitch = false;
-
             radioSwitchPassed = true;
             boolean tested = false;
 
@@ -2787,23 +2764,23 @@ public class DataWrapper {
 
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
-        if (!(ignoreTime &&
-              ignoreBattery &&
-              ignoreCall &&
-              ignorePeripheral &&
-              ignoreCalendar &&
-              ignoreWifi &&
-              ignoreScreen &&
-              ignoreBluetooth &&
-              ignoreSms &&
-              ignoreNotification &&
-              ignoreApplication &&
-              ignoreLocation &&
-              ignoreOrientation &&
-              ignoreMobileCell &&
-              ignoreNfc &&
+        if (!(ignoreTime ||
+              ignoreBattery ||
+              ignoreCall ||
+              ignorePeripheral ||
+              ignoreCalendar ||
+              ignoreWifi ||
+              ignoreScreen ||
+              ignoreBluetooth ||
+              ignoreSms ||
+              ignoreNotification ||
+              ignoreApplication ||
+              ignoreLocation ||
+              ignoreOrientation ||
+              ignoreMobileCell ||
+              ignoreNfc ||
               ignoreRadioSwitch)) {
-            // if some sensor is not ignored, do event start/pause
+            // if all sensors are not ignored, do event start/pause
 
             if (timePassed &&
                 batteryPassed &&
@@ -2820,7 +2797,7 @@ public class DataWrapper {
                 orientationPassed &&
                 mobileCellPassed &&
                 nfcPassed &&
-                radioSwitchPassed) {
+                radioSwitchPassed ) {
                 // all sensors are passed
 
                 //if (eventStart)
