@@ -5287,7 +5287,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     KEY_AL_PROFILE_ICON + "," +
                     KEY_AL_DURATION_DELAY +
                     " FROM " + TABLE_ACTIVITY_LOG +
-                    " ORDER BY " + KEY_AL_LOG_DATE_TIME + " DESC";
+                    " ORDER BY " + KEY_AL_ID + " DESC";
 
             //SQLiteDatabase db = this.getWritableDatabase();
             SQLiteDatabase db = getMyWritableDatabase();
