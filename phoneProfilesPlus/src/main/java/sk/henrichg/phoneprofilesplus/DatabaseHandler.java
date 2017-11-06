@@ -4887,7 +4887,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     int getBluetoothDevicesTypeCount(int devicesType, int forceScan)
     {
         synchronized (databaseHandlerMutex) {
-            if (forceScan != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+            if (forceScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                 final String countQuery;
                 String devicesTypeChecked = "";
                 devicesTypeChecked = devicesTypeChecked + KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events

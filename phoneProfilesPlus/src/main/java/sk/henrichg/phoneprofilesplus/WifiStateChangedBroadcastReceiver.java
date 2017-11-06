@@ -81,10 +81,10 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
 
-                        int forceOneScan = Scanner.getForceOneWifiScan(appContext);
+                        int forceOneScan = WifiBluetoothScanner.getForceOneWifiScan(appContext);
                         PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
 
-                        if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                        if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
                             PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "state=" + wifiState);
 
                             if ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_DISABLED)) {

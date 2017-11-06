@@ -388,60 +388,62 @@ public class MobileCellsPreference extends DialogPreference {
 
             @Override
             protected Void doInBackground(Void... params) {
+                synchronized (PPApplication.phoneStateScannerMutex) {
 
-                if (forRescan) {
+                    if (forRescan) {
+                        if (PhoneProfilesService.isPhoneStateScannerStarted()) {
+                            PhoneProfilesService.phoneStateScanner.getRegisteredCell();
+
+                            //try { Thread.sleep(200); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(200);
+                            //PPApplication.sleep(200);
+                        }
+                    }
+
+                    // add all from table
+                    DatabaseHandler db = DatabaseHandler.getInstance(context);
+                    db.addMobileCellsToList(_cellsList);
+
+                    boolean found = false;
                     if (PhoneProfilesService.isPhoneStateScannerStarted()) {
-                        PhoneProfilesService.phoneStateScanner.getRegisteredCell();
-
-                        //try { Thread.sleep(200); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(200);
-                        //PPApplication.sleep(200);
+                        // add registered cell
+                        for (MobileCellsData cell : _cellsList) {
+                            if (cell.cellId == PhoneProfilesService.phoneStateScanner.registeredCell) {
+                                cell.connected = true;
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found && (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE))
+                            _cellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
+                                    _cellName, true, true, PhoneProfilesService.phoneStateScanner.lastConnectedTime));
                     }
-                }
 
-                // add all from table
-                DatabaseHandler db = DatabaseHandler.getInstance(context);
-                db.addMobileCellsToList(_cellsList);
-
-                boolean found = false;
-                if (PhoneProfilesService.isPhoneStateScannerStarted()) {
-                    // add registered cell
-                    for (MobileCellsData cell : _cellsList) {
-                        if (cell.cellId == PhoneProfilesService.phoneStateScanner.registeredCell) {
-                            cell.connected = true;
-                            found = true;
-                            break;
+                    // add all from value
+                    String[] splits = value.split("\\|");
+                    for (String cell : splits) {
+                        found = false;
+                        for (MobileCellsData mCell : _cellsList) {
+                            if (cell.equals(Integer.toString(mCell.cellId))) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            try {
+                                int iCell = Integer.parseInt(cell);
+                                _cellsList.add(new MobileCellsData(iCell, _cellName, false, false, 0));
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
-                    if (!found && (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE))
-                        _cellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
-                                _cellName, true, true, PhoneProfilesService.phoneStateScanner.lastConnectedTime));
+
+                    db.saveMobileCellsList(_cellsList, true, false);
+
+                    Collections.sort(_cellsList, new SortList());
+
+                    return null;
                 }
-
-                // add all from value
-                String[] splits = value.split("\\|");
-                for (String cell : splits) {
-                    found = false;
-                    for (MobileCellsData mCell : _cellsList) {
-                        if (cell.equals(Integer.toString(mCell.cellId))) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        try {
-                            int iCell = Integer.parseInt(cell);
-                            _cellsList.add(new MobileCellsData(iCell, _cellName, false, false, 0));
-                        }
-                        catch (Exception ignored) { }
-                    }
-                }
-
-                db.saveMobileCellsList(_cellsList, true, false);
-
-                Collections.sort(_cellsList, new SortList());
-
-                return null;
             }
 
             @Override
@@ -544,15 +546,17 @@ public class MobileCellsPreference extends DialogPreference {
             PPApplication.logE("MobileCellsPreference.PhoneStateChangedBroadcastReceiver", "xxx");
             if ((preference.mDialog != null) && preference.mDialog.isShowing()) {
                 // save new registered cell
-                List<MobileCellsData> localCellsList = new ArrayList<>();
-                if (PhoneProfilesService.isPhoneStateScannerStarted()) {
-                    if (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE)
-                        localCellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
-                                preference.cellName.getText().toString(), true, false,
-                                PhoneProfilesService.phoneStateScanner.lastConnectedTime));
-                    DatabaseHandler db = DatabaseHandler.getInstance(context);
-                    db.saveMobileCellsList(localCellsList, true, false);
-                    preference.refreshListView(false);
+                synchronized (PPApplication.phoneStateScannerMutex) {
+                    List<MobileCellsData> localCellsList = new ArrayList<>();
+                    if (PhoneProfilesService.isPhoneStateScannerStarted()) {
+                        if (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE)
+                            localCellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
+                                    preference.cellName.getText().toString(), true, false,
+                                    PhoneProfilesService.phoneStateScanner.lastConnectedTime));
+                        DatabaseHandler db = DatabaseHandler.getInstance(context);
+                        db.saveMobileCellsList(localCellsList, true, false);
+                        preference.refreshListView(false);
+                    }
                 }
             }
         }

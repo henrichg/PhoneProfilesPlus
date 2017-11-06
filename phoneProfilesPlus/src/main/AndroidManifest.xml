@@ -542,7 +542,7 @@
 
         <!-- IntentServices called from foreground UI -->
         <service
-            android:name=".ScannerService"
+            android:name=".WifiBluetoothScannerService"
             android:exported="false"/>
         <service
             android:name=".FetchAddressIntentService"

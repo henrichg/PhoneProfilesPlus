@@ -404,7 +404,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (preference != null)
                 preferenceCategory.removePreference(preference);
         }
-        if (!Scanner.bluetoothLESupported(getActivity().getApplicationContext())) {
+        if (!WifiBluetoothScanner.bluetoothLESupported(getActivity().getApplicationContext())) {
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("bluetoothScanninCategory");
             Preference preference = findPreference(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
             if (preference != null)

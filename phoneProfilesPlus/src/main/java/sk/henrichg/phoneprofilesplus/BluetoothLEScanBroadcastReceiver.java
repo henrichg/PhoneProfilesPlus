@@ -24,9 +24,9 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
         //BluetoothJob.startForLEScanBroadcast(context.getApplicationContext());
 
-        final int forceOneScan = Scanner.getForceOneLEBluetoothScan(appContext);
+        final int forceOneScan = WifiBluetoothScanner.getForceOneLEBluetoothScan(appContext);
 
-        if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+        if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
         {
 
             boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(appContext));
@@ -52,9 +52,9 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
                         BluetoothScanJob.setWaitForLEResults(appContext, false);
 
-                        Scanner.setForceOneLEBluetoothScan(appContext, Scanner.FORCE_ONE_SCAN_DISABLED);
+                        WifiBluetoothScanner.setForceOneLEBluetoothScan(appContext, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
 
-                        if (forceOneScan != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
+                        if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                         {
                             // start job
                             PhoneProfilesService.startHandlerThread();

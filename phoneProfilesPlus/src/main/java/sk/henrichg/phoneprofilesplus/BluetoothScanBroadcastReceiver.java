@@ -62,9 +62,9 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                         BluetoothScanJob.bluetooth = BluetoothScanJob.getBluetoothAdapter(appContext);
 
                     if (BluetoothScanJob.bluetooth != null) {
-                        int forceOneScan = Scanner.getForceOneBluetoothScan(appContext);
+                        int forceOneScan = WifiBluetoothScanner.getForceOneBluetoothScan(appContext);
 
-                        if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                        if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
 
                             boolean scanStarted = (BluetoothScanJob.getWaitForResults(appContext));
 
@@ -74,15 +74,15 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                 if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
                                     // may be not invoked if not any BT is around
 
-                                    if (!Scanner.bluetoothDiscoveryStarted) {
-                                        Scanner.bluetoothDiscoveryStarted = true;
+                                    if (!WifiBluetoothScanner.bluetoothDiscoveryStarted) {
+                                        WifiBluetoothScanner.bluetoothDiscoveryStarted = true;
                                         BluetoothScanJob.fillBoundedDevicesList(appContext);
                                     }
                                 } else if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                                     // When discovery finds a device
 
-                                    if (!Scanner.bluetoothDiscoveryStarted) {
-                                        Scanner.bluetoothDiscoveryStarted = true;
+                                    if (!WifiBluetoothScanner.bluetoothDiscoveryStarted) {
+                                        WifiBluetoothScanner.bluetoothDiscoveryStarted = true;
                                         BluetoothScanJob.fillBoundedDevicesList(appContext);
                                     }
 
@@ -99,23 +99,23 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                     PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceName_e=" + btNameE);
                                     PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceAddress=" + device.getAddress());
 
-                                    if (Scanner.tmpBluetoothScanResults == null)
-                                        Scanner.tmpBluetoothScanResults = new ArrayList<>();
+                                    if (WifiBluetoothScanner.tmpBluetoothScanResults == null)
+                                        WifiBluetoothScanner.tmpBluetoothScanResults = new ArrayList<>();
 
                                     boolean found = false;
-                                    for (BluetoothDeviceData _device : Scanner.tmpBluetoothScanResults) {
+                                    for (BluetoothDeviceData _device : WifiBluetoothScanner.tmpBluetoothScanResults) {
                                         if (_device.address.equals(device.getAddress())) {
                                             found = true;
                                             break;
                                         }
                                     }
                                     if (!found) {
-                                        Scanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
+                                        WifiBluetoothScanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
                                                 BluetoothScanJob.getBluetoothType(device), false, 0));
                                     }
                                 } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                                    if (!Scanner.bluetoothDiscoveryStarted) {
-                                        Scanner.bluetoothDiscoveryStarted = true;
+                                    if (!WifiBluetoothScanner.bluetoothDiscoveryStarted) {
+                                        WifiBluetoothScanner.bluetoothDiscoveryStarted = true;
                                         BluetoothScanJob.fillBoundedDevicesList(appContext);
                                     }
 

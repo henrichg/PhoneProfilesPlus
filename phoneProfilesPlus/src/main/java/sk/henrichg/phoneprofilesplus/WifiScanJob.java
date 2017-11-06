@@ -184,7 +184,7 @@ class WifiScanJob extends Job {
         WifiScanJob.setScanRequest(context, false);
         WifiScanJob.setWaitForResults(context, false);
         WifiScanJob.setWifiEnabledForScan(context, false);
-        Scanner.setForceOneWifiScan(context, Scanner.FORCE_ONE_SCAN_DISABLED);
+        WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
 
         try {
             JobManager jobManager = JobManager.instance();
@@ -364,15 +364,15 @@ class WifiScanJob extends Job {
 
             if (fromDialog) {
                 try {
-                    Intent scanServiceIntent = new Intent(context, ScannerService.class);
-                    scanServiceIntent.putExtra(ScannerService.EXTRA_SCANNER_TYPE, Scanner.SCANNER_TYPE_WIFI);
+                    Intent scanServiceIntent = new Intent(context, WifiBluetoothScannerService.class);
+                    scanServiceIntent.putExtra(WifiBluetoothScannerService.EXTRA_SCANNER_TYPE, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
                     context.startService(scanServiceIntent);
                 } catch (Exception ignored) {
                 }
             }
             else {
-                Scanner scanner = new Scanner(context);
-                scanner.doScan(Scanner.SCANNER_TYPE_WIFI);
+                WifiBluetoothScanner wifiBluetoothScanner = new WifiBluetoothScanner(context);
+                wifiBluetoothScanner.doScan(WifiBluetoothScanner.SCANNER_TYPE_WIFI);
             }
         }
         dataWrapper.invalidateDataWrapper();

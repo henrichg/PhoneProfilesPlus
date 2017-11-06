@@ -1672,15 +1672,19 @@ public class PhoneProfilesService extends Service
                                 if (!GeofenceScannerJob.isJobScheduled()) {
                                     CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob->SCHEDULE", "PhoneProfilesService_scheduleGeofenceScannerJob");
                                     PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "SCHEDULE");
-                                    if (isGeofenceScannerStarted())
-                                        getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
+                                    synchronized (PPApplication.geofenceScannerMutex) {
+                                        if (isGeofenceScannerStarted())
+                                            getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
+                                    }
                                     GeofenceScannerJob.scheduleJob(appContext, handler, true, forScreenOn);
                                 }
                                 else {
                                     PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "scheduled");
                                     if (rescan) {
-                                        if (isGeofenceScannerStarted())
-                                            getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
+                                        synchronized (PPApplication.geofenceScannerMutex) {
+                                            if (isGeofenceScannerStarted())
+                                                getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
+                                        }
                                         GeofenceScannerJob.scheduleJob(appContext, handler, true, forScreenOn);
                                     }
                                 }
@@ -1748,140 +1752,134 @@ public class PhoneProfilesService extends Service
     }
 
     private void startGeofenceScanner(boolean start, boolean stop, boolean checkDatabase, boolean forScreenOn, boolean rescan) {
-        Context appContext = getApplicationContext();
-        CallsCounter.logCounter(appContext, "PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService_startGeofenceScanner");
-        PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "xxx");
-        if (stop) {
-            if (isGeofenceScannerStarted()) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->STOP", "PhoneProfilesService_startGeofenceScanner");
-                PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "STOP");
-                stopGeofenceScanner();
+        synchronized (PPApplication.geofenceScannerMutex) {
+            Context appContext = getApplicationContext();
+            CallsCounter.logCounter(appContext, "PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService_startGeofenceScanner");
+            PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "xxx");
+            if (stop) {
+                if (isGeofenceScannerStarted()) {
+                    CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->STOP", "PhoneProfilesService_startGeofenceScanner");
+                    PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "STOP");
+                    stopGeofenceScanner();
+                } else
+                    PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "not started");
             }
-            else
-                PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "not started");
-        }
-        if (start) {
-            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
-                    PPApplication.PREFERENCE_ALLOWED;
-            if (eventAllowed) {
-                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
-                    // start only for screen On
-                    int eventCount = 1;
-                    if (checkDatabase/* || (!isGeofenceScannerStarted())*/) {
-                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION);
-                    }
-                    if (eventCount > 0) {
-                        if (!isGeofenceScannerStarted()) {
-                            CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->START", "PhoneProfilesService_startGeofenceScanner");
-                            PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "START");
-                            startGeofenceScanner();
+            if (start) {
+                boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
+                        PPApplication.PREFERENCE_ALLOWED;
+                if (eventAllowed) {
+                    PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
+                        // start only for screen On
+                        int eventCount = 1;
+                        if (checkDatabase/* || (!isGeofenceScannerStarted())*/) {
+                            eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION);
                         }
-                        else {
-                            PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "started");
-                            if (rescan)
-                                scheduleGeofenceScannerJob(true, stop, checkDatabase, forScreenOn, true);
-                        }
+                        if (eventCount > 0) {
+                            if (!isGeofenceScannerStarted()) {
+                                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->START", "PhoneProfilesService_startGeofenceScanner");
+                                PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "START");
+                                startGeofenceScanner();
+                            } else {
+                                PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "started");
+                                if (rescan)
+                                    scheduleGeofenceScannerJob(true, stop, checkDatabase, forScreenOn, true);
+                            }
+                        } else
+                            startGeofenceScanner(false, true, false, forScreenOn, rescan);
                     } else
                         startGeofenceScanner(false, true, false, forScreenOn, rescan);
-                }
-                else
+                } else
                     startGeofenceScanner(false, true, false, forScreenOn, rescan);
             }
-            else
-                startGeofenceScanner(false, true, false, forScreenOn, rescan);
         }
     }
 
     private void startPhoneStateScanner(boolean start, boolean stop, boolean checkDatabase, boolean forceStart,
                                         boolean rescan) {
-        Context appContext = getApplicationContext();
-        CallsCounter.logCounter(appContext, "PhoneProfilesService.startPhoneStateScanner", "PhoneProfilesService_startPhoneStateScanner");
-        PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "xxx");
-        if (!forceStart && (MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart))
-            return;
-        if (stop) {
-            if (isPhoneStateScannerStarted()) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startPhoneStateScanner->STOP", "PhoneProfilesService_startPhoneStateScanner");
-                PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "STOP");
-                stopPhoneStateScanner();
+        synchronized (PPApplication.phoneStateScannerMutex) {
+            Context appContext = getApplicationContext();
+            CallsCounter.logCounter(appContext, "PhoneProfilesService.startPhoneStateScanner", "PhoneProfilesService_startPhoneStateScanner");
+            PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "xxx");
+            if (!forceStart && (MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart))
+                return;
+            if (stop) {
+                if (isPhoneStateScannerStarted()) {
+                    CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startPhoneStateScanner->STOP", "PhoneProfilesService_startPhoneStateScanner");
+                    PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "STOP");
+                    stopPhoneStateScanner();
+                } else
+                    PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "not started");
             }
-            else
-                PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "not started");
-        }
-        if (start) {
-            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext) ==
-                    PPApplication.PREFERENCE_ALLOWED;
-            if (eventAllowed) {
-                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(appContext)) {
-                    // start only for screen On
-                    int eventCount = 1;
-                    if (checkDatabase/* || (!isPhoneStateScannerStarted())*/) {
-                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS);
-                    }
-                    if (eventCount > 0) {
-                        if (!isPhoneStateScannerStarted()) {
-                            CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startPhoneStateScanner->START", "PhoneProfilesService_startPhoneStateScanner");
-                            PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "START");
-                            startPhoneStateScanner();
+            if (start) {
+                boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext) ==
+                        PPApplication.PREFERENCE_ALLOWED;
+                if (eventAllowed) {
+                    PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(appContext)) {
+                        // start only for screen On
+                        int eventCount = 1;
+                        if (checkDatabase/* || (!isPhoneStateScannerStarted())*/) {
+                            eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS);
                         }
-                        else {
-                            PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "started");
-                            if (rescan)
-                                phoneStateScanner.rescanMobileCells();
-                        }
+                        if (eventCount > 0) {
+                            if (!isPhoneStateScannerStarted()) {
+                                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startPhoneStateScanner->START", "PhoneProfilesService_startPhoneStateScanner");
+                                PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "START");
+                                startPhoneStateScanner();
+                            } else {
+                                PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "started");
+                                if (rescan)
+                                    phoneStateScanner.rescanMobileCells();
+                            }
+                        } else
+                            startPhoneStateScanner(false, true, false, forceStart, rescan);
                     } else
                         startPhoneStateScanner(false, true, false, forceStart, rescan);
-                }
-                else
+                } else
                     startPhoneStateScanner(false, true, false, forceStart, rescan);
             }
-            else
-                startPhoneStateScanner(false, true, false, forceStart, rescan);
         }
     }
 
     private void startOrientationScanner(boolean start, boolean stop, boolean checkDatabase) {
-        Context appContext = getApplicationContext();
-        CallsCounter.logCounter(appContext, "PhoneProfilesService.startOrientationScanner", "PhoneProfilesService_startOrientationScanner");
-        PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "xxx");
-        if (stop) {
-            if (isOrientationScannerStarted()) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->STOP", "PhoneProfilesService_startOrientationScanner");
-                PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "STOP");
-                stopOrientationScanner();
+        synchronized (PPApplication.orientationScannerMutex) {
+            Context appContext = getApplicationContext();
+            CallsCounter.logCounter(appContext, "PhoneProfilesService.startOrientationScanner", "PhoneProfilesService_startOrientationScanner");
+            PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "xxx");
+            if (stop) {
+                if (isOrientationScannerStarted()) {
+                    CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->STOP", "PhoneProfilesService_startOrientationScanner");
+                    PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "STOP");
+                    stopOrientationScanner();
+                } else
+                    PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "not started");
             }
-            else
-                PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "not started");
-        }
-        if (start) {
-            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext) ==
-                    PPApplication.PREFERENCE_ALLOWED;
-            if (eventAllowed) {
-                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(appContext)) {
-                    // start only for screen On
-                    int eventCount = 1;
-                    if (checkDatabase/* || (!isOrientationScannerStarted())*/) {
-                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION);
-                    }
-                    if (eventCount > 0) {
-                        if (!isOrientationScannerStarted()) {
-                            CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->START", "PhoneProfilesService_startOrientationScanner");
-                            PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "START");
-                            startOrientationScanner();
+            if (start) {
+                boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext) ==
+                        PPApplication.PREFERENCE_ALLOWED;
+                if (eventAllowed) {
+                    PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(appContext)) {
+                        // start only for screen On
+                        int eventCount = 1;
+                        if (checkDatabase/* || (!isOrientationScannerStarted())*/) {
+                            eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION);
                         }
-                        else
-                            PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "started");
+                        if (eventCount > 0) {
+                            if (!isOrientationScannerStarted()) {
+                                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->START", "PhoneProfilesService_startOrientationScanner");
+                                PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "START");
+                                startOrientationScanner();
+                            } else
+                                PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "started");
+                        } else
+                            startOrientationScanner(false, true, false);
                     } else
                         startOrientationScanner(false, true, false);
-                }
-                else
+                } else
                     startOrientationScanner(false, true, false);
             }
-            else
-                startOrientationScanner(false, true, false);
         }
     }
 
@@ -2952,34 +2950,42 @@ public class PhoneProfilesService extends Service
     }
 
     public static Sensor getAccelerometerSensor(Context context) {
-        if (mOrientationSensorManager == null)
-            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        if (mOrientationSensorManager != null)
-            return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        else
-            return null;
+        synchronized (PPApplication.orientationScannerMutex) {
+            if (mOrientationSensorManager == null)
+                mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+            if (mOrientationSensorManager != null)
+                return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            else
+                return null;
+        }
     }
     public static Sensor getMagneticFieldSensor(Context context) {
-        if (mOrientationSensorManager == null)
-            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        if (mOrientationSensorManager != null)
-            return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        else
-            return null;
+        synchronized (PPApplication.orientationScannerMutex) {
+            if (mOrientationSensorManager == null)
+                mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+            if (mOrientationSensorManager != null)
+                return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+            else
+                return null;
+        }
     }
     public static Sensor getProximitySensor(Context context) {
-        if (mOrientationSensorManager == null)
-            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        if (mOrientationSensorManager != null)
-            return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        else
-            return null;
+        synchronized (PPApplication.orientationScannerMutex) {
+            if (mOrientationSensorManager == null)
+                mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+            if (mOrientationSensorManager != null)
+                return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+            else
+                return null;
+        }
     }
     /*
     public static Sensor getOrientationSensor(Context context) {
-        if (mOrientationSensorManager == null)
-            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        synchronized (PPApplication.orientationScannerMutex) {
+            if (mOrientationSensorManager == null)
+                mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+            return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        }
     }*/
 
     @SuppressLint("NewApi")

@@ -385,13 +385,13 @@ public class WifiSSIDPreference extends DialogPreference {
 
                 if (_forRescan)
                 {
-                    Scanner.setForceOneWifiScan(context, Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
+                    WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     WifiScanJob.startScanner(context, true);
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);
                     //PPApplication.sleep(200);
-                    Scanner.waitForWifiScanEnd(context, this);
+                    WifiBluetoothScanner.waitForWifiScanEnd(context, this);
                 }
 
                 List<WifiSSIDData> wifiConfigurationList = WifiScanJob.getWifiConfigurationList(context);

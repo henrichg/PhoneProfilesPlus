@@ -40,10 +40,10 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                 if (WifiScanJob.wifi == null)
                     WifiScanJob.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
 
-                final int forceOneScan = Scanner.getForceOneWifiScan(appContext);
+                final int forceOneScan = WifiBluetoothScanner.getForceOneWifiScan(appContext);
                 PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
 
-                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
                     PhoneProfilesService.startHandlerThread();
                     final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                     handler.post(new Runnable() {
@@ -79,9 +79,9 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                             if (scanStarted) {
                                 WifiScanJob.setWaitForResults(appContext, false);
-                                Scanner.setForceOneWifiScan(appContext, Scanner.FORCE_ONE_SCAN_DISABLED);
+                                WifiBluetoothScanner.setForceOneWifiScan(appContext, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
 
-                                if (forceOneScan != Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
+                                if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                 {
                                     PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "start EventsHandler (1)");
                                     // start job

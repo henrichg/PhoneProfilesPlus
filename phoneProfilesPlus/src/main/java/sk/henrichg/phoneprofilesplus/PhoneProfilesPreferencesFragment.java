@@ -155,7 +155,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH).setEnabled(false);
             prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE).setEnabled(false);
             prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN).setEnabled(false);
-            if (Scanner.bluetoothLESupported(preferencesActivity.getApplicationContext()))
+            if (WifiBluetoothScanner.bluetoothLESupported(preferencesActivity.getApplicationContext()))
                 prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION).setEnabled(false);*/
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, false);

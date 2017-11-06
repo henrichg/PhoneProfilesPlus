@@ -388,14 +388,14 @@ public class BluetoothNamePreference extends DialogPreference {
 
                 if (_forRescan)
                 {
-                    Scanner.setForceOneBluetoothScan(context, Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
-                    Scanner.setForceOneLEBluetoothScan(context, Scanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
+                    WifiBluetoothScanner.setForceOneBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
+                    WifiBluetoothScanner.setForceOneLEBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     BluetoothScanJob.startScanner(context, true);
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);
                     //PPApplication.sleep(200);
-                    Scanner.waitForForceOneBluetoothScanEnd(context, this);
+                    WifiBluetoothScanner.waitForForceOneBluetoothScanEnd(context, this);
                 }
 
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanJob.getBoundedDevicesList(context);

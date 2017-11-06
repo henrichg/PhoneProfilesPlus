@@ -32,13 +32,15 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GeofencesScanner.REQUEST_RESOLVE_ERROR) {
-            if (PhoneProfilesService.instance != null) {
-                if (PhoneProfilesService.isGeofenceScannerStarted())
-                    PhoneProfilesService.getGeofencesScanner().mResolvingError = false;
-                if (resultCode == RESULT_OK) {
-                    // Make sure the app is not already connected or attempting to connect
+            synchronized (PPApplication.geofenceScannerMutex) {
+                if (PhoneProfilesService.instance != null) {
                     if (PhoneProfilesService.isGeofenceScannerStarted())
-                        PhoneProfilesService.getGeofencesScanner().connectForResolve();
+                        PhoneProfilesService.getGeofencesScanner().mResolvingError = false;
+                    if (resultCode == RESULT_OK) {
+                        // Make sure the app is not already connected or attempting to connect
+                        if (PhoneProfilesService.isGeofenceScannerStarted())
+                            PhoneProfilesService.getGeofencesScanner().connectForResolve();
+                    }
                 }
             }
         }
@@ -59,10 +61,12 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
 
     /* Called from ErrorDialogFragment when the dialog is dismissed. */
     public void onDialogDismissed() {
-        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
-            PhoneProfilesService.getGeofencesScanner().mResolvingError = false;
-        finish();
-        activity = null;
+        synchronized (PPApplication.geofenceScannerMutex) {
+            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
+                PhoneProfilesService.getGeofencesScanner().mResolvingError = false;
+            finish();
+            activity = null;
+        }
     }
 
     /* A fragment to display an error dialog */

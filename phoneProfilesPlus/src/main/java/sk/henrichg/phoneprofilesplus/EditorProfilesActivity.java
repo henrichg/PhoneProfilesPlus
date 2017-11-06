@@ -1249,7 +1249,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         Permissions.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
                         Permissions.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
-                        Scanner.setShowEnableLocationNotification(getApplicationContext(), true);
+                        WifiBluetoothScanner.setShowEnableLocationNotification(getApplicationContext(), true);
                         //ActivateProfileHelper.setScreenUnlocked(getApplicationContext(), true);
 
                         Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);

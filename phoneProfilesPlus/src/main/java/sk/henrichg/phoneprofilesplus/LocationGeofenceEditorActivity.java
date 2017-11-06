@@ -189,9 +189,11 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                         dataWrapper.getDatabaseHandler().updateGeofence(geofence);
                     } else {
                         dataWrapper.getDatabaseHandler().addGeofence(geofence);
-                        // start location updates
-                        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
-                            PhoneProfilesService.getGeofencesScanner().connectForResolve();
+                        synchronized (PPApplication.geofenceScannerMutex) {
+                            // start location updates
+                            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
+                                PhoneProfilesService.getGeofencesScanner().connectForResolve();
+                        }
                     }
 
                     dataWrapper.getDatabaseHandler().checkGeofence(String.valueOf(geofence._id), 1);

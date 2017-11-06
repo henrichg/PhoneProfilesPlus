@@ -35,7 +35,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
         Permissions.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
         Permissions.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
-        Scanner.setShowEnableLocationNotification(getApplicationContext(), true);
+        WifiBluetoothScanner.setShowEnableLocationNotification(getApplicationContext(), true);
         //ActivateProfileHelper.setScreenUnlocked(getApplicationContext(), true);
         ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), true);
     }

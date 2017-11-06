@@ -114,7 +114,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                         selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
                     else {
                         if ((this._connectionType == CTYPE_INFRONT) || (this._connectionType == CTYPE_NOTINFRONT)) {
-                            if (Scanner.bluetoothLESupported(context)) {
+                            if (WifiBluetoothScanner.bluetoothLESupported(context)) {
                                 if (this._devicesType == DTYPE_CLASSIC)
                                     selectedBluetoothNames = selectedBluetoothNames + "[CL] ";
                                 else if (this._devicesType == DTYPE_LE)
@@ -184,7 +184,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 listPreference.setSummary(summary);
             }
 
-            boolean btLESupported = Scanner.bluetoothLESupported(context);
+            boolean btLESupported = WifiBluetoothScanner.bluetoothLESupported(context);
             listPreference = (ListPreference)prefMng.findPreference(PREF_EVENT_BLUETOOTH_DEVICES_TYPE);
             if (listPreference != null) {
                 if ((!btLESupported) || value.equals("0") || value.equals("2"))
@@ -197,7 +197,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
             if (listPreference != null) {
-                boolean btLESupported = Scanner.bluetoothLESupported(context);
+                boolean btLESupported = WifiBluetoothScanner.bluetoothLESupported(context);
 
                 if (!btLESupported) {
                     listPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+

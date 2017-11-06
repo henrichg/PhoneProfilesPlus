@@ -2400,31 +2400,32 @@ public class DataWrapper {
                 ignoreLocation = true;
             }
             else {
-                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted() &&
-                        PhoneProfilesService.getGeofencesScanner().mTransitionsUpdated) {
-                    locationPassed = false;
+                synchronized (PPApplication.geofenceScannerMutex) {
+                    if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted() &&
+                            PhoneProfilesService.getGeofencesScanner().mTransitionsUpdated) {
+                        locationPassed = false;
 
-                    String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
-                    //Log.d("DataWrapper.doHandleEvents", "geofences="+event._eventPreferencesLocation._geofences);
-                    for (String _geofence : splits) {
-                        if (!_geofence.isEmpty()) {
-                            //Log.d("DataWrapper.doHandleEvents", "geofence="+getDatabaseHandler().getGeofenceName(Long.valueOf(_geofence)));
+                        String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
+                        //Log.d("DataWrapper.doHandleEvents", "geofences="+event._eventPreferencesLocation._geofences);
+                        for (String _geofence : splits) {
+                            if (!_geofence.isEmpty()) {
+                                //Log.d("DataWrapper.doHandleEvents", "geofence="+getDatabaseHandler().getGeofenceName(Long.valueOf(_geofence)));
 
-                            int geofenceTransition = getDatabaseHandler().getGeofenceTransition(Long.valueOf(_geofence));
+                                int geofenceTransition = getDatabaseHandler().getGeofenceTransition(Long.valueOf(_geofence));
 
-                            if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
-                                locationPassed = true;
-                                break;
+                                if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
+                                    locationPassed = true;
+                                    break;
+                                }
                             }
                         }
-                    }
-                    //Log.d("DataWrapper.doHandleEvents", "locationPassed="+locationPassed);
+                        //Log.d("DataWrapper.doHandleEvents", "locationPassed="+locationPassed);
 
-                    if (event._eventPreferencesLocation._whenOutside)
-                        locationPassed = !locationPassed;
+                        if (event._eventPreferencesLocation._whenOutside)
+                            locationPassed = !locationPassed;
+                    } else
+                        ignoreLocation = true;
                 }
-                else
-                    ignoreLocation = true;
             }
         }
 
@@ -2451,95 +2452,95 @@ public class DataWrapper {
             }
             else
             {
-                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isOrientationScannerStarted()) {
+                synchronized (PPApplication.orientationScannerMutex) {
+                    if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isOrientationScannerStarted()) {
 
-                    String foregroundApplication = ForegroundApplicationChangedService.getApplicationInForeground(context);
-                    boolean lApplicationPassed = false;
-                    if (!foregroundApplication.isEmpty()) {
-                        String[] splits = event._eventPreferencesOrientation._ignoredApplications.split("\\|");
-                        for (String split : splits) {
-                            String packageName = ApplicationsCache.getPackageName(split);
+                        String foregroundApplication = ForegroundApplicationChangedService.getApplicationInForeground(context);
+                        boolean lApplicationPassed = false;
+                        if (!foregroundApplication.isEmpty()) {
+                            String[] splits = event._eventPreferencesOrientation._ignoredApplications.split("\\|");
+                            for (String split : splits) {
+                                String packageName = ApplicationsCache.getPackageName(split);
 
-                            if (foregroundApplication.equals(packageName)) {
-                                lApplicationPassed = true;
-                                break;
+                                if (foregroundApplication.equals(packageName)) {
+                                    lApplicationPassed = true;
+                                    break;
+                                }
                             }
                         }
-                    }
-                    if (!lApplicationPassed) {
+                        if (!lApplicationPassed) {
 
-                        boolean lDisplayPassed = true;
-                        boolean lSidePassed = true;
+                            boolean lDisplayPassed = true;
+                            boolean lSidePassed = true;
 
-                        boolean enabledAccelerometer = PhoneProfilesService.getAccelerometerSensor(context) != null;
-                        boolean enabledMagneticField = PhoneProfilesService.getMagneticFieldSensor(context) != null;
-                        boolean enabledAll = (enabledAccelerometer) && (enabledMagneticField);
-                        if (enabledAccelerometer) {
-                            if (!event._eventPreferencesOrientation._display.isEmpty()) {
-                                String[] splits = event._eventPreferencesOrientation._display.split("\\|");
-                                if (splits.length > 0) {
-                                    lDisplayPassed = false;
-                                    for (String split : splits) {
-                                        try {
-                                            int side = Integer.valueOf(split);
-                                            if (side == PhoneProfilesService.mDisplayUp) {
-                                                lDisplayPassed = true;
-                                                break;
+                            boolean enabledAccelerometer = PhoneProfilesService.getAccelerometerSensor(context) != null;
+                            boolean enabledMagneticField = PhoneProfilesService.getMagneticFieldSensor(context) != null;
+                            boolean enabledAll = (enabledAccelerometer) && (enabledMagneticField);
+                            if (enabledAccelerometer) {
+                                if (!event._eventPreferencesOrientation._display.isEmpty()) {
+                                    String[] splits = event._eventPreferencesOrientation._display.split("\\|");
+                                    if (splits.length > 0) {
+                                        lDisplayPassed = false;
+                                        for (String split : splits) {
+                                            try {
+                                                int side = Integer.valueOf(split);
+                                                if (side == PhoneProfilesService.mDisplayUp) {
+                                                    lDisplayPassed = true;
+                                                    break;
+                                                }
+                                            } catch (Exception ignored) {
                                             }
-                                        } catch (Exception ignored) {
                                         }
                                     }
                                 }
                             }
-                        }
 
-                        if (enabledAll) {
-                            if (!event._eventPreferencesOrientation._sides.isEmpty()) {
-                                String[] splits = event._eventPreferencesOrientation._sides.split("\\|");
-                                if (splits.length > 0) {
-                                    lSidePassed = false;
-                                    for (String split : splits) {
-                                        try {
-                                            int side = Integer.valueOf(split);
-                                            if (side == PhoneProfilesService.DEVICE_ORIENTATION_HORIZONTAL) {
-                                                if (PhoneProfilesService.mSideUp == PhoneProfilesService.mDisplayUp) {
-                                                    lSidePassed = true;
-                                                    break;
+                            if (enabledAll) {
+                                if (!event._eventPreferencesOrientation._sides.isEmpty()) {
+                                    String[] splits = event._eventPreferencesOrientation._sides.split("\\|");
+                                    if (splits.length > 0) {
+                                        lSidePassed = false;
+                                        for (String split : splits) {
+                                            try {
+                                                int side = Integer.valueOf(split);
+                                                if (side == PhoneProfilesService.DEVICE_ORIENTATION_HORIZONTAL) {
+                                                    if (PhoneProfilesService.mSideUp == PhoneProfilesService.mDisplayUp) {
+                                                        lSidePassed = true;
+                                                        break;
+                                                    }
+                                                } else {
+                                                    if (side == PhoneProfilesService.mSideUp) {
+                                                        lSidePassed = true;
+                                                        break;
+                                                    }
                                                 }
-                                            } else {
-                                                if (side == PhoneProfilesService.mSideUp) {
-                                                    lSidePassed = true;
-                                                    break;
-                                                }
+                                            } catch (Exception ignored) {
                                             }
-                                        } catch (Exception ignored) {
                                         }
                                     }
                                 }
                             }
-                        }
 
-                        boolean lDistancePassed = true;
-                        boolean enabled = PhoneProfilesService.getProximitySensor(context) != null;
-                        if (enabled) {
-                            if (event._eventPreferencesOrientation._distance != 0) {
-                                lDistancePassed = event._eventPreferencesOrientation._distance == PhoneProfilesService.mDeviceDistance;
+                            boolean lDistancePassed = true;
+                            boolean enabled = PhoneProfilesService.getProximitySensor(context) != null;
+                            if (enabled) {
+                                if (event._eventPreferencesOrientation._distance != 0) {
+                                    lDistancePassed = event._eventPreferencesOrientation._distance == PhoneProfilesService.mDeviceDistance;
+                                }
                             }
+
+                            //Log.d("**** DataWrapper.doHandleEvents","lDisplayPassed="+lDisplayPassed);
+                            //Log.d("**** DataWrapper.doHandleEvents","lSidePassed="+lSidePassed);
+                            //Log.d("**** DataWrapper.doHandleEvents","lDistancePassed="+lDistancePassed);
+
+
+                            orientationPassed = lDisplayPassed && lSidePassed && lDistancePassed;
+                        } else {
+                            ignoreOrientation = true;
                         }
-
-                        //Log.d("**** DataWrapper.doHandleEvents","lDisplayPassed="+lDisplayPassed);
-                        //Log.d("**** DataWrapper.doHandleEvents","lSidePassed="+lSidePassed);
-                        //Log.d("**** DataWrapper.doHandleEvents","lDistancePassed="+lDistancePassed);
-
-
-                        orientationPassed = lDisplayPassed && lSidePassed && lDistancePassed;
-                    }
-                    else {
+                    } else
                         ignoreOrientation = true;
-                    }
                 }
-                else
-                    ignoreOrientation = true;
             }
         }
 
@@ -2555,25 +2556,26 @@ public class DataWrapper {
                 ignoreMobileCell = true;
             }
             else {
-                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
-
-                    String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
-                    if (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE) {
-                        String registeredCell = Integer.toString(PhoneProfilesService.phoneStateScanner.registeredCell);
-                        boolean found = false;
-                        for (String cell : splits) {
-                            if (cell.equals(registeredCell)) {
-                                found = true;
-                                break;
+                synchronized (PPApplication.phoneStateScannerMutex) {
+                    if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
+                        String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
+                        if (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE) {
+                            String registeredCell = Integer.toString(PhoneProfilesService.phoneStateScanner.registeredCell);
+                            boolean found = false;
+                            for (String cell : splits) {
+                                if (cell.equals(registeredCell)) {
+                                    found = true;
+                                    break;
+                                }
                             }
+                            mobileCellPassed = found;
                         }
-                        mobileCellPassed = found;
-                    }
 
-                    if (event._eventPreferencesMobileCells._whenOutside)
-                        mobileCellPassed = !mobileCellPassed;
-                } else
-                    ignoreMobileCell = true;
+                        if (event._eventPreferencesMobileCells._whenOutside)
+                            mobileCellPassed = !mobileCellPassed;
+                    } else
+                        ignoreMobileCell = true;
+                }
             }
         }
 

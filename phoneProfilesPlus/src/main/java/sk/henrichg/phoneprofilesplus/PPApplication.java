@@ -184,8 +184,11 @@ public class PPApplication extends Application {
     public static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
     //public static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
     public static final GeofenceScannerLastLocationMutex geofenceScannerLastLocationMutex = new GeofenceScannerLastLocationMutex();
-    public static final ScannerMutex scannerMutex = new ScannerMutex();
+    public static final GeofenceScannerMutex geofenceScannerMutex = new GeofenceScannerMutex();
+    public static final WifiBluetoothScannerMutex wifiBluetoothscannerMutex = new WifiBluetoothScannerMutex();
     public static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
+    public static final PhoneStateScannerMutex phoneStateScannerMutex = new PhoneStateScannerMutex();
+    public static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
 
     //public static boolean isPowerSaveMode = false;
 
@@ -1238,7 +1241,7 @@ public class PPApplication extends Application {
         Permissions.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
         Permissions.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
         Permissions.setShowRequestDrawOverlaysPermission(context.getApplicationContext(), true);
-        Scanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
+        WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
         //ActivateProfileHelper.setScreenUnlocked(context, true);
 
         context.stopService(new Intent(context, PhoneProfilesService.class));

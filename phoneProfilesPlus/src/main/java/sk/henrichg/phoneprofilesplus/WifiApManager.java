@@ -88,7 +88,7 @@ final class WifiApManager {
                     int wifiApState = wifiApManager.getWifiApState();
                     // 11 => AP OFF
                     // 13 => AP ON
-                    Log.e("&&&& Scanner", "wifiApState=" + wifiApState);
+                    Log.e("&&&& WifiBluetoothScanner", "wifiApState=" + wifiApState);
                     canScan = wifiApState == 11;*/
             return wifiApManager.isWifiAPEnabled();
         } catch (NoSuchMethodException e) {

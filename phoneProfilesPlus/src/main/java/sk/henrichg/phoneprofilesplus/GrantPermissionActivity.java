@@ -872,11 +872,13 @@ public class GrantPermissionActivity extends AppCompatActivity {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
-                    if (!(PhoneProfilesService.isGeofenceScannerStarted() && PhoneProfilesService.getGeofencesScanner().isConnected())) {
-                        PPApplication.restartGeofenceScanner(context, false);
-                        PPApplication.sleep(1000);
+                    synchronized (PPApplication.geofenceScannerMutex) {
+                        if (!(PhoneProfilesService.isGeofenceScannerStarted() && PhoneProfilesService.getGeofencesScanner().isConnected())) {
+                            PPApplication.restartGeofenceScanner(context, false);
+                            PPApplication.sleep(1000);
+                        }
+                        return null;
                     }
-                    return null;
                 }
 
                 @Override

@@ -8,15 +8,15 @@ import android.content.Intent;
  This service is called only from WifiSSIDPreference and BluetoothNamePreference, not needed to convert it to job.
  */
 
-public class ScannerService extends IntentService
+public class WifiBluetoothScannerService extends IntentService
 {
     //private Context context;
 
     static final String EXTRA_SCANNER_TYPE = "scanner_type";
 
-    public ScannerService()
+    public WifiBluetoothScannerService()
     {
-        super("ScannerService");
+        super("WifiBluetoothScannerService");
 
         // if enabled is true, onStartCommand(Intent, int, int) will return START_REDELIVER_INTENT,
         // so if this process dies before onHandleIntent(Intent) returns, the process will be restarted
@@ -30,22 +30,22 @@ public class ScannerService extends IntentService
     @Override
     protected void onHandleIntent(Intent intent) {
         //context = getApplicationContext();
-        CallsCounter.logCounter(this, "ScannerService.doWakefulWork", "ScannerService_doWakefulWork");
+        CallsCounter.logCounter(this, "WifiBluetoothScannerService.doWakefulWork", "ScannerService_doWakefulWork");
 
         if (intent == null) {
-            PPApplication.logE("%%%% ScannerService.doWakefulWork", "intent=null");
+            PPApplication.logE("%%%% WifiBluetoothScannerService.doWakefulWork", "intent=null");
             return;
         }
 
-        PPApplication.logE("%%%% ScannerService.doWakefulWork", "-- START ------------");
+        PPApplication.logE("%%%% WifiBluetoothScannerService.doWakefulWork", "-- START ------------");
 
         String scannerType = intent.getStringExtra(EXTRA_SCANNER_TYPE);
-        PPApplication.logE("%%%% ScannerService.onHandleIntent", "scannerType="+scannerType);
+        PPApplication.logE("%%%% WifiBluetoothScannerService.onHandleIntent", "scannerType="+scannerType);
 
-        Scanner scanner = new Scanner(this);
-        scanner.doScan(scannerType);
+        WifiBluetoothScanner wifiBluetoothScanner = new WifiBluetoothScanner(this);
+        wifiBluetoothScanner.doScan(scannerType);
 
-        PPApplication.logE("%%%% ScannerService.doWakefulWork", "-- END ------------");
+        PPApplication.logE("%%%% WifiBluetoothScannerService.doWakefulWork", "-- END ------------");
 
     }
 

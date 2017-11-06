@@ -60,8 +60,10 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                         if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                             // rescan mobile cells
-                            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
-                                PhoneProfilesService.phoneStateScanner.rescanMobileCells();
+                            synchronized (PPApplication.phoneStateScannerMutex) {
+                                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
+                                    PhoneProfilesService.phoneStateScanner.rescanMobileCells();
+                                }
                             }
                         }
                         dataWrapper.invalidateDataWrapper();
