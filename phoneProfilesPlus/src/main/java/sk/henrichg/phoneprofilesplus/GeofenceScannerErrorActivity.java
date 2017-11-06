@@ -13,6 +13,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 public class GeofenceScannerErrorActivity extends AppCompatActivity {
 
     private int dialogError;
+    private static GeofenceScannerErrorActivity activity = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
     protected void onStart()
     {
         super.onStart();
+        activity = this;
         showErrorDialog(dialogError);
     }
 
@@ -60,11 +62,14 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
             PhoneProfilesService.getGeofencesScanner().mResolvingError = false;
         finish();
+        activity = null;
     }
 
     /* A fragment to display an error dialog */
     public static class ErrorDialogFragment extends DialogFragment {
-        public ErrorDialogFragment() { }
+        public ErrorDialogFragment() {
+            super();
+        }
 
         @NonNull
         @Override
@@ -74,13 +79,13 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
             if (this.getArguments() != null)
                 errorCode = this.getArguments().getInt(GeofencesScanner.DIALOG_ERROR);
             return GoogleApiAvailability.getInstance().getErrorDialog(
-                    this.getActivity(), errorCode, GeofencesScanner.REQUEST_RESOLVE_ERROR);
+                    activity, errorCode, GeofencesScanner.REQUEST_RESOLVE_ERROR);
         }
 
         @Override
         public void onDismiss(DialogInterface dialog) {
-            if (getActivity() != null)
-                ((GeofenceScannerErrorActivity) getActivity()).onDialogDismissed();
+            if (activity != null)
+                activity.onDialogDismissed();
         }
     }
 
