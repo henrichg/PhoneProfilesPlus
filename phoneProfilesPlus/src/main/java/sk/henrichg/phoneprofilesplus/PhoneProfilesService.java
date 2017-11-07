@@ -1779,7 +1779,11 @@ public class PhoneProfilesService extends Service
                             if (!isGeofenceScannerStarted()) {
                                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->START", "PhoneProfilesService_startGeofenceScanner");
                                 PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "START");
-                                startGeofenceScanner();
+                                if (forScreenOn && (pm != null) && pm.isScreenOn() &&
+                                        ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext))
+                                    startGeofenceScanner(true);
+                                else
+                                    startGeofenceScanner(false);
                             } else {
                                 PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "started");
                                 if (rescan)
@@ -2879,7 +2883,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void startGeofenceScanner() {
+    private void startGeofenceScanner(boolean resetUseGPS) {
 
         if (geofencesScanner != null) {
             geofencesScanner.disconnect();
@@ -2887,7 +2891,7 @@ public class PhoneProfilesService extends Service
         }
 
         geofencesScanner = new GeofencesScanner(getApplicationContext());
-        geofencesScanner.connect();
+        geofencesScanner.connect(resetUseGPS);
     }
 
     private void stopGeofenceScanner() {
