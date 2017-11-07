@@ -276,19 +276,21 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             }
         }
 
-        // recursive call this for switch usage of GPS
-        int delay = 60000; // one minute with GPS ON
-        if (!useGPS)
-            delay = 60000 * 30;  // 30 minutes with GPS OFF
-        final Handler handler = new Handler(context.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                useGPS = !useGPS;
-                stopLocationUpdates();
-                startLocationUpdates();
-            }
-        }, delay);
+        if (ApplicationPreferences.applicationEventLocationUseGPS(context)) {
+            // recursive call this for switch usage of GPS
+            int delay = 60000; // one minute with GPS ON
+            if (!useGPS)
+                delay = 60000 * 30;  // 30 minutes with GPS OFF
+            final Handler handler = new Handler(context.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    useGPS = !useGPS;
+                    stopLocationUpdates();
+                    startLocationUpdates();
+                }
+            }, delay);
+        }
     }
 
     /**

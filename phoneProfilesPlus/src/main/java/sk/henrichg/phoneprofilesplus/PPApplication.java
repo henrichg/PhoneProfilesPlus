@@ -72,11 +72,11 @@ public class PPApplication extends Application {
                                          +"|$$$ WifiScanBroadcastReceiver.onReceive"
                                          +"|----- DataWrapper.doHandleEvents"
                                          */
-                                         //+"|GeofenceScanner"
-                                         //+"|GeofenceScannerJob"
+                                         +"|GeofenceScanner"
+                                         +"|GeofenceScannerJob"
                                          //+"|DataWrapper.doHandleEvents"
-                                         +"|BluetoothConnectionBroadcastReceiver"
-                                         +"|BluetoothStateChangedBroadcastReceiver"
+                                         //+"|BluetoothConnectionBroadcastReceiver"
+                                         //+"|BluetoothStateChangedBroadcastReceiver"
             ;
 
 

@@ -131,13 +131,17 @@ class GeofenceScannerJob extends Job {
 
                     jobManager.cancelAllForTag(JOB_TAG_START);
 
-                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=" + PhoneProfilesService.getGeofencesScanner().mUpdatesStarted);
+                    if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
+                        PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=" + PhoneProfilesService.getGeofencesScanner().mUpdatesStarted);
+                    else
+                        PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=false");
 
                     // look at GeofenceScanner:UPDATE_INTERVAL_IN_MILLISECONDS
                     int updateDuration = 30;
 
                     int interval;
-                    if (PhoneProfilesService.getGeofencesScanner().mUpdatesStarted) {
+                    if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted() &&
+                        PhoneProfilesService.getGeofencesScanner().mUpdatesStarted) {
                         interval = ApplicationPreferences.applicationEventLocationUpdateInterval(context) * 60;
                         PPApplication.logE("GeofenceScannerJob.scheduleJob", "interval=" + interval);
                         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
