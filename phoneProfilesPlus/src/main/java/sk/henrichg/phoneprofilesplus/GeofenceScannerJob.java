@@ -114,8 +114,10 @@ class GeofenceScannerJob extends Job {
 
     private static void _scheduleJob(final Context context, final boolean startScanning, final boolean forScreenOn) {
         synchronized (PPApplication.geofenceScannerMutex) {
-            if (startScanning)
-                PhoneProfilesService.getGeofencesScanner().mUpdatesStarted = false;
+            if (startScanning) {
+                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
+                    PhoneProfilesService.getGeofencesScanner().mUpdatesStarted = false;
+            }
 
             JobManager jobManager = null;
             try {
@@ -188,7 +190,7 @@ class GeofenceScannerJob extends Job {
     static void scheduleJob(final Context context, final Handler _handler, final boolean startScanning, final boolean forScreenOn) {
         PPApplication.logE("GeofenceScannerJob.scheduleJob", "startScanning="+startScanning);
 
-        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
+        //if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
             if (_handler == null) {
                 PhoneProfilesService.startHandlerThread();
                 final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
@@ -206,9 +208,9 @@ class GeofenceScannerJob extends Job {
                 if (countDownLatch != null)
                     countDownLatch.countDown();
             }
-        }
-        else
-            PPApplication.logE("GeofenceScannerJob.scheduleJob", "scanner is not started");
+        //}
+        //else
+        //    PPApplication.logE("GeofenceScannerJob.scheduleJob", "scanner is not started");
     }
 
     private static void _cancelJob(final Context context) {
