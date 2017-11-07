@@ -1084,7 +1084,7 @@ public class Profile {
             }
             catch (Exception ignored) {}
         }
-        return 1;
+        return 0;
     }
 
     private static int getMaximumScreenBrightnessSetting ()
