@@ -1115,7 +1115,7 @@ public class Profile {
         //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "minimumValue="+minimumValue);
 
         if (maximumValue-minimumValue > 255) {
-            minimumValue = 1;
+            minimumValue = 0;
             maximumValue = 255;
         }
 
