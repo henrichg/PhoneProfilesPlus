@@ -1570,7 +1570,7 @@ public class DataWrapper {
         if (event._eventPreferencesBattery._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
-            boolean isPowerSaveMode = batteryPassed = isPowerSaveMode(context);
+            boolean isPowerSaveMode = isPowerSaveMode(context);
             PPApplication.logE("*** DataWrapper.doHandleEvents", "isPowerSaveMode=" + isPowerSaveMode);
 
             boolean isCharging = false;
