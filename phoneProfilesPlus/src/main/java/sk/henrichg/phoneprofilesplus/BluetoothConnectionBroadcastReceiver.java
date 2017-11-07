@@ -46,6 +46,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         if (action == null)
             return;
 
+        PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "action=" + action);
+
         if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED) ||
                 action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED) ||
                 action.equals(BluetoothDevice.ACTION_NAME_CHANGED)/* ||
@@ -214,7 +216,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     private void addConnectedDevice(BluetoothDevice device)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
-
+            PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDevice","device.name="+device.getName());
+            PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDevice","device.address="+device.getAddress());
             boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
                 if (_device.address.equals(device.getAddress())) {
@@ -222,6 +225,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     break;
                 }
             }
+            PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDevice","found="+found);
             if (!found) {
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                 Calendar now = Calendar.getInstance();
@@ -235,6 +239,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     private void removeConnectedDevice(BluetoothDevice device)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
+            PPApplication.logE("BluetoothConnectionBroadcastReceiver.removeConnectedDevice","device.name="+device.getName());
+            PPApplication.logE("BluetoothConnectionBroadcastReceiver.removeConnectedDevice","device.address="+device.getAddress());
             int index = 0;
             boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
@@ -244,6 +250,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 }
                 ++index;
             }
+            PPApplication.logE("BluetoothConnectionBroadcastReceiver.removeConnectedDevice","found="+found);
             if (found)
                 connectedDevices.remove(index);
         }
