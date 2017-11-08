@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
@@ -28,21 +29,6 @@ class GeofenceScannerJob extends Job {
         CallsCounter.logCounter(context, "GeofenceScannerJob.onRunJob", "GeofenceScannerJob_onRunJob");
 
         countDownLatch = new CountDownLatch(1);
-
-        if (!PhoneProfilesService.isGeofenceScannerStarted()) {
-            PPApplication.logE("GeofenceScannerJob.onRunJob", "geofence scanner is not started = cancel job");
-            GeofenceScannerJob.cancelJob(context, null);
-            //removeAlarm(context/*, false*/);
-            //removeAlarm(context/*, true*/);
-
-            try {
-                countDownLatch.await();
-            } catch (InterruptedException ignored) {
-            }
-            countDownLatch = null;
-            PPApplication.logE("GeofenceScannerJob.onRunJob", "return");
-            return Result.SUCCESS;
-        }
 
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
@@ -79,6 +65,16 @@ class GeofenceScannerJob extends Job {
                     } else {
                         // this is required, for example for GeofenceScanner.resetLocationUpdates()
                         PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates not started - start it");
+                        Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_LOCATION_UPDATES, true);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                        //TODO Android O
+                        //if (Build.VERSION.SDK_INT < 26)
+                        context.startService(serviceIntent);
+                        //else
+                        //    context.startForegroundService(serviceIntent);
+
+                        /*
                         // Fixed: java.lang.NullPointerException: Calling thread must be a prepared Looper thread.
                         //        com.google.android.gms.internal.zzccb.requestLocationUpdates(Unknown Source)
                         //        ! Must be main looper !
@@ -96,6 +92,7 @@ class GeofenceScannerJob extends Job {
                             _countDownLatch.await();
                         } catch (InterruptedException ignored) {
                         }
+                        */
                     }
                 }
             }

@@ -135,7 +135,7 @@ Senzor polohy:
   - ma metodu onConnected()
     - vymaze vsetky transitions z db
     - zavola updateTransitionsByLastKnownLocation(), nevola sa EventsHandler
-    - nasheduluje GeofenceScannerJob
+    - nasheduluje GeofenceScannerJob - ZAPOZNAMKOVANE, JOB SA SHEDULUJE SAMOSTATNE
   - ma metodu onLocationChanged()
     - updatne lastLocation
   - ma metodu updateTransitionsByLastKnownLocation()
@@ -200,7 +200,7 @@ Senzor polohy:
     - volana je z DeviceIdleModeBroadcastReceiver.onReceive()
       - aby sa spravil rescan - tu by som radsej zavolal GeofenceScanner.updateTransitionsByLastKnownLocation(true)
       - TU TO PREROB AJ PRE OSTATNE SCENERY, VYVOLAJ LEN RESCAN
-    - volana je z GeofenceScanner.onConnected()
+    - volana je z GeofenceScanner.onConnected() - ZAPOZNAMKOVANE
     - volana je z GrantPermissionActivity.finishGrant()
       - aby sa spustilo GeofenceScanner.startLoacionUpdates() z GeofenceScannerJob.onRunJob()
     - volana je z PhoneProfilesPreferencesActivity.finish()

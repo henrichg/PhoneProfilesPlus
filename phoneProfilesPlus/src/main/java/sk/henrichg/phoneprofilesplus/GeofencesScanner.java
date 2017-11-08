@@ -97,8 +97,6 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 PPApplication.logE("GeofenceScanner.mUpdatesStarted=false", "from GeofenceScanner.onConnected");
                 mUpdatesStarted = false;
                 PPApplication.logE("GeofenceScanner.scheduleJob", "from GeofenceScanner.onConnected");
-                if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, false, false);
             }
         }
     }
@@ -257,21 +255,22 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     void startLocationUpdates() {
         // The final argument to {@code requestLocationUpdates()} is a LocationListener
         // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
+        synchronized (PPApplication.geofenceScannerMutex) {
+            if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
 
-        if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
-
-            if (Permissions.checkLocation(context)) {
-                try {
-                    PPApplication.logE("****** GeofenceScanner.startLocationUpdates", "xxx");
-                    createLocationRequest();
-                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-                    PPApplication.logE("****** GeofenceScanner.startLocationUpdates", "mUpdatesStarted=true");
-                    mUpdatesStarted = true;
-                } catch (SecurityException securityException) {
-                    // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
-                    PPApplication.logE("****** GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
-                    mUpdatesStarted = false;
-                    //return;
+                if (Permissions.checkLocation(context)) {
+                    try {
+                        PPApplication.logE("****** GeofenceScanner.startLocationUpdates", "xxx");
+                        createLocationRequest();
+                        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+                        PPApplication.logE("****** GeofenceScanner.startLocationUpdates", "mUpdatesStarted=true");
+                        mUpdatesStarted = true;
+                    } catch (SecurityException securityException) {
+                        // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+                        PPApplication.logE("****** GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
+                        mUpdatesStarted = false;
+                        //return;
+                    }
                 }
             }
         }
@@ -304,11 +303,13 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         // The final argument to {@code requestLocationUpdates()} is a LocationListener
         // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
 
-        if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
-            PPApplication.logE("##### GeofenceScanner.stopLocationUpdates", "xxx");
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-            PPApplication.logE("GeofenceScannerJob.mUpdatesStarted=false", "from GeofenceScanner.stopLocationUpdates");
-            mUpdatesStarted = false;
+        synchronized (PPApplication.geofenceScannerMutex) {
+            if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
+                PPApplication.logE("##### GeofenceScanner.stopLocationUpdates", "xxx");
+                LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+                PPApplication.logE("GeofenceScannerJob.mUpdatesStarted=false", "from GeofenceScanner.stopLocationUpdates");
+                mUpdatesStarted = false;
+            }
         }
     }
 
