@@ -2551,6 +2551,8 @@ public class DataWrapper {
                             }
                             mobileCellPassed = found;
                         }
+                        else
+                            ignoreMobileCell = true;
 
                         if (event._eventPreferencesMobileCells._whenOutside)
                             mobileCellPassed = !mobileCellPassed;
