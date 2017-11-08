@@ -3,7 +3,6 @@
     android:id="@+id/widget_one_row_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/widget_margin"
     android:gravity="center" >
 
     <ImageView
