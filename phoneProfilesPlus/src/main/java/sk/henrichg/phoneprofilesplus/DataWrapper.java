@@ -1594,17 +1594,19 @@ public class DataWrapper {
 
                 batteryPct = Math.round(level / (float) scale * 100);
                 PPApplication.logE("*** DataWrapper.doHandleEvents", "batteryPct=" + batteryPct);
+
+                if ((batteryPct >= event._eventPreferencesBattery._levelLow) &&
+                        (batteryPct <= event._eventPreferencesBattery._levelHight))
+                    batteryPassed = true;
+
+                if (event._eventPreferencesBattery._charging)
+                    batteryPassed = batteryPassed && isCharging;
+                else
+                if (event._eventPreferencesBattery._powerSaveMode)
+                    batteryPassed = batteryPassed && isPowerSaveMode;
             }
-
-            if ((batteryPct >= event._eventPreferencesBattery._levelLow) &&
-                (batteryPct <= event._eventPreferencesBattery._levelHight))
-                batteryPassed = true;
-
-            if (event._eventPreferencesBattery._charging)
-                batteryPassed = batteryPassed && isCharging;
             else
-            if (event._eventPreferencesBattery._powerSaveMode)
-                batteryPassed = batteryPassed && isPowerSaveMode;
+                ignoreBattery = true;
         }
 
         if ((event._eventPreferencesCall._enabled)  &&
@@ -1766,20 +1768,22 @@ public class DataWrapper {
                     isDesk = dockState == Intent.EXTRA_DOCK_STATE_DESK ||
                              dockState == Intent.EXTRA_DOCK_STATE_LE_DESK ||
                              dockState == Intent.EXTRA_DOCK_STATE_HE_DESK;
-                }
 
-                if (isDocked)
-                {
-                    if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_DESK_DOCK)
-                            && isDesk)
-                        peripheralPassed = true;
+                    if (isDocked)
+                    {
+                        if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_DESK_DOCK)
+                                && isDesk)
+                            peripheralPassed = true;
+                        else
+                            peripheralPassed = (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_CAR_DOCK)
+                                    && isCar;
+                    }
                     else
-                        peripheralPassed = (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_CAR_DOCK)
-                                && isCar;
+                        peripheralPassed = false;
+                    //eventStart = eventStart && peripheralPassed;
                 }
                 else
-                    peripheralPassed = false;
-                //eventStart = eventStart && peripheralPassed;
+                    ignorePeripheral = true;
             }
             else
             if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_WIRED_HEADSET) ||
@@ -2662,8 +2666,6 @@ public class DataWrapper {
             if ((event._eventPreferencesRadioSwitch._mobileData == 1 || event._eventPreferencesRadioSwitch._mobileData == 2)
                     && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
 
-                ignoreRadioSwitch = false;
-
                 boolean enabled = ActivateProfileHelper.isMobileData(context);
                 PPApplication.logE("-###- DataWrapper.doHandleEvents", "mobileDataState=" + enabled);
                 tested = true;
@@ -2675,8 +2677,6 @@ public class DataWrapper {
 
             if ((event._eventPreferencesRadioSwitch._gps == 1 || event._eventPreferencesRadioSwitch._gps == 2)
                     && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_LOCATION_GPS)) {
-
-                ignoreRadioSwitch = false;
 
                 boolean enabled;
                 if (android.os.Build.VERSION.SDK_INT < 19)
@@ -2696,8 +2696,6 @@ public class DataWrapper {
             if ((event._eventPreferencesRadioSwitch._nfc == 1 || event._eventPreferencesRadioSwitch._nfc == 2)
                     && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_NFC)) {
 
-                ignoreRadioSwitch = false;
-
                 NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
                 if (nfcAdapter != null) {
                     boolean enabled = nfcAdapter.isEnabled();
@@ -2711,8 +2709,6 @@ public class DataWrapper {
             }
 
             if (event._eventPreferencesRadioSwitch._airplaneMode == 1 || event._eventPreferencesRadioSwitch._airplaneMode == 2) {
-
-                ignoreRadioSwitch = false;
 
                 boolean enabled = ActivateProfileHelper.isAirplaneMode(context);
                 PPApplication.logE("-###- DataWrapper.doHandleEvents", "airplaneModeState=" + enabled);
