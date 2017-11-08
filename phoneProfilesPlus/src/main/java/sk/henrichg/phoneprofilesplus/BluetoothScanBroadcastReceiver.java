@@ -34,8 +34,12 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                 intent.getStringExtra(BluetoothDevice.EXTRA_NAME));*/
 
         final String action = intent.getAction();
+
+        PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive","action="+action);
+
         if (action == null)
             return;
+
 
         if (action.equals(BluetoothAdapter.ACTION_DISCOVERY_STARTED) ||
                 action.equals(BluetoothDevice.ACTION_FOUND) ||
@@ -44,6 +48,9 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
             final BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             final String deviceName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
+
+            PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive","device="+device);
+            PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive","deviceName="+deviceName);
 
             PhoneProfilesService.startHandlerThread();
             final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
@@ -109,6 +116,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                             break;
                                         }
                                     }
+                                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "found=" + found);
                                     if (!found) {
                                         WifiBluetoothScanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
                                                 BluetoothScanJob.getBluetoothType(device), false, 0));

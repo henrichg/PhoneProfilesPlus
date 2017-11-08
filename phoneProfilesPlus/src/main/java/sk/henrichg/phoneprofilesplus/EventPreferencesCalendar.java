@@ -585,7 +585,8 @@ class EventPreferencesCalendar extends EventPreferences {
     }
 
     void saveStartEndTime(DataWrapper dataWrapper) {
-        _event._eventPreferencesCalendar.searchEvent(dataWrapper.context);
+        //_event._eventPreferencesCalendar.searchEvent(dataWrapper.context);
+        //   searchEvent is called from setSystemEventForPause and setSystemEventForStart
         if (_event.getStatus() == Event.ESTATUS_RUNNING)
             _event._eventPreferencesCalendar.setSystemEventForPause(dataWrapper.context);
         if (_event.getStatus() == Event.ESTATUS_PAUSE)
