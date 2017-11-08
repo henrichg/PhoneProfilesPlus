@@ -112,12 +112,12 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                             }
                                         }, 5000);
 
-                            /*
-                            PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "before startScan");
-                            PPApplication.sleep(5000);
-                            WifiScanJobBroadcastReceiver.startScan(appContext);
-                            PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "after startScan");
-                            */
+                                        /*
+                                        PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "before startScan");
+                                        PPApplication.sleep(5000);
+                                        WifiScanJobBroadcastReceiver.startScan(appContext);
+                                        PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "after startScan");
+                                        */
 
                                     } else if (!WifiScanJob.getWaitForResults(appContext)) {
                                         // refresh configured networks list
@@ -133,7 +133,6 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                     wakeLock.acquire(10 * 60 * 1000);
                                                 }
 
-                                                PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
                                                 WifiScanJob.fillWifiConfigurationList(appContext);
 
                                                 if (wakeLock != null)
@@ -146,7 +145,6 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 if (!((WifiScanJob.getScanRequest(appContext)) ||
                                         (WifiScanJob.getWaitForResults(appContext)) ||
                                         (WifiScanJob.getWifiEnabledForScan(appContext)))) {
-                                    // required for Wifi ConnectionType="Not connected"
 
                                     // start events handler
                                     EventsHandler eventsHandler = new EventsHandler(appContext);

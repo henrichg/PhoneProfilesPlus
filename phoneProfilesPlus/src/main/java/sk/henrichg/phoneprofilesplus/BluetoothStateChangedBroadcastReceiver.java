@@ -89,9 +89,6 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     (BluetoothScanJob.getWaitForResults(appContext)) ||
                                     (BluetoothScanJob.getWaitForLEResults(appContext)) ||
                                     (BluetoothScanJob.getBluetoothEnabledForScan(appContext)))) {
-                                // required for Bluetooth ConnectionType="Not connected"
-
-                                //if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
 
                                 // start events handler
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
@@ -99,13 +96,13 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                                 //}
 
-                            /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-                            boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED) > 0;
-                            dataWrapper.invalidateDataWrapper();
+                                /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
+                                boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED) > 0;
+                                dataWrapper.invalidateDataWrapper();
 
-                            if (bluetoothEventsExists) {
-                                PPApplication.logE("@@@ BluetoothJob.onRunJob", "BluetoothStateChangedBroadcastReceiver: bluetoothEventsExists=" + bluetoothEventsExists);
-                            */
+                                if (bluetoothEventsExists) {
+                                    PPApplication.logE("@@@ BluetoothJob.onRunJob", "BluetoothStateChangedBroadcastReceiver: bluetoothEventsExists=" + bluetoothEventsExists);
+                                */
 
                                 // start events handler
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_STATE, false);
