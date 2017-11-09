@@ -783,11 +783,12 @@ public class ActivateProfileHelper {
             PPApplication.logE("ActivateProfileHelper.setZenMode", "ringerMode=" + ringerMode);
 
             int _zenMode = getSystemZenMode(context, -1);
-            PPApplication.logE("ActivateProfileHelper.setZenMode", " _zenMode (system)=" + _zenMode);
+            PPApplication.logE("ActivateProfileHelper.setZenMode", "_zenMode (system)=" + _zenMode);
             int _ringerMode = audioManager.getRingerMode();
-            PPApplication.logE("ActivateProfileHelper.setZenMode", "_ringerMode=" + _ringerMode);
+            PPApplication.logE("ActivateProfileHelper.setZenMode", "_ringerMode (system)=" + _ringerMode);
 
             if ((zenMode != ZENMODE_SILENT) && canChangeZenMode(context, false)) {
+                PPApplication.logE("ActivateProfileHelper.setZenMode", "not ZENMODE_SILENT and can change zen mode");
                 audioManager.setRingerMode(ringerMode);
                 //try { Thread.sleep(500); } catch (InterruptedException e) { }
                 //SystemClock.sleep(500);
@@ -798,6 +799,7 @@ public class ActivateProfileHelper {
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(context, zenMode);
                 }
             } else {
+                PPApplication.logE("ActivateProfileHelper.setZenMode", "ZENMODE_SILENT or not can change zen mode");
                 try {
                     switch (zenMode) {
                         case ZENMODE_SILENT:
@@ -1047,7 +1049,7 @@ public class ActivateProfileHelper {
         }
     }
 
-    private void changeRingerModeForVolumeEqual0(/*Context context, */Profile profile) {
+    private void changeRingerModeForVolumeEqual0(Profile profile/*, AudioManager audioManager*/) {
         PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneChange=" + profile.getVolumeRingtoneChange());
         PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneValue=" + profile.getVolumeRingtoneValue());
 
@@ -1069,6 +1071,13 @@ public class ActivateProfileHelper {
                     }
                 }
             }
+            /*else {
+                if ((profile._volumeRingerMode == 0) && (audioManager.getRingerMode() == AudioManager.RINGER_MODE_SILENT)) {
+                    // change ringer mode to Ringing
+                    PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "changed to ringing");
+                    profile._volumeRingerMode = 1;
+                }
+            }*/
         }
     }
 

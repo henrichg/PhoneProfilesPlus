@@ -59,21 +59,20 @@ public class PPApplication extends Application {
                                          //+"|[RJS] PPApplication"
                                          //+"|[RJS] PhoneProfilesService"
 
-                                         /*
                                          +"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
                                          +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
                                          +"|ActivateProfileHelper.executeForVolumes"
                                          +"|ActivateProfileHelper.setRingerMode"
                                          +"|ActivateProfileHelper.setVolumes"
                                          +"|ActivateProfileHelper.setZenMode"
-                                         */
+
                                          /*
                                          +"|WifiScanJob"
                                          +"|$$$ WifiScanBroadcastReceiver.onReceive"
                                          +"|----- DataWrapper.doHandleEvents"
                                          */
-                                         +"|GeofenceScanner"
-                                         +"|GeofenceScannerJob"
+                                         //+"|GeofenceScanner"
+                                         //+"|GeofenceScannerJob"
                                          //+"|DataWrapper.doHandleEvents"
                                          //+"|BluetoothConnectionBroadcastReceiver"
                                          //+"|BluetoothStateChangedBroadcastReceiver"
