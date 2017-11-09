@@ -98,11 +98,11 @@ class Permissions {
     private static final String PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION = "show_request_draw_overlays_permission";
 
     static class PermissionType implements Parcelable {
-        final int preference;
+        final int type;
         final String permission;
 
-        PermissionType (int preference, String permission) {
-            this.preference = preference;
+        PermissionType (int type, String permission) {
+            this.type = type;
             this.permission = permission;
         }
 
@@ -113,12 +113,12 @@ class Permissions {
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(this.preference);
+            dest.writeInt(this.type);
             dest.writeString(this.permission);
         }
 
         PermissionType(Parcel in) {
-            this.preference = in.readInt();
+            this.type = in.readInt();
             this.permission = in.readString();
         }
 
@@ -150,21 +150,21 @@ class Permissions {
             for (PermissionType _permission : _permissions) {
                 if (_permission.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                     if (!Settings.System.canWrite(context))
-                        permissions.add(new PermissionType(_permission.preference, _permission.permission));
+                        permissions.add(new PermissionType(_permission.type, _permission.permission));
                 } else if (_permission.permission.equals(permission.ACCESS_NOTIFICATION_POLICY)) {
                     NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (mNotificationManager != null) {
                         if (!mNotificationManager.isNotificationPolicyAccessGranted())
-                            permissions.add(new PermissionType(_permission.preference, _permission.permission));
+                            permissions.add(new PermissionType(_permission.type, _permission.permission));
                     }
                     else
-                        permissions.add(new PermissionType(_permission.preference, _permission.permission));
+                        permissions.add(new PermissionType(_permission.type, _permission.permission));
                 } else if (_permission.permission.equals(permission.SYSTEM_ALERT_WINDOW)) {
                     if (!Settings.canDrawOverlays(context))
-                        permissions.add(new PermissionType(_permission.preference, _permission.permission));
+                        permissions.add(new PermissionType(_permission.type, _permission.permission));
                 } else {
                     if (ContextCompat.checkSelfPermission(context, _permission.permission) != PackageManager.PERMISSION_GRANTED)
-                        permissions.add(new PermissionType(_permission.preference, _permission.permission));
+                        permissions.add(new PermissionType(_permission.type, _permission.permission));
                 }
             }
         }
@@ -1471,7 +1471,7 @@ class Permissions {
                 }
             }
             if (!found) {
-                savedPermissions.add(new Permissions.PermissionType(permission.preference, permission.permission));
+                savedPermissions.add(new Permissions.PermissionType(permission.type, permission.permission));
             }
         }
 
