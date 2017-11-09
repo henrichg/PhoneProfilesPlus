@@ -977,12 +977,12 @@ public class ActivateProfileHelper {
                     if (/*Permissions.checkProfileVolumePreferences(context, profile) &&*/
                             Permissions.checkProfileAccessNotificationPolicy(appContext, profile, null)) {
 
-                        changeRingerModeForVolumeEqual0(/*appContext, */profile);
+                        final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
+
+                        changeRingerModeForVolumeEqual0(profile, audioManager);
                         changeNotificationVolumeForVolumeEqual0(appContext, profile);
 
                         RingerModeChangeReceiver.internalChange = true;
-
-                        final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
 
                         setRingerMode(appContext, profile, audioManager, true, /*linkUnlink,*/ forProfileActivation);
                         PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
@@ -1049,7 +1049,7 @@ public class ActivateProfileHelper {
         }
     }
 
-    private void changeRingerModeForVolumeEqual0(Profile profile/*, AudioManager audioManager*/) {
+    private void changeRingerModeForVolumeEqual0(Profile profile, AudioManager audioManager) {
         PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneChange=" + profile.getVolumeRingtoneChange());
         PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneValue=" + profile.getVolumeRingtoneValue());
 
@@ -1071,13 +1071,13 @@ public class ActivateProfileHelper {
                     }
                 }
             }
-            /*else {
+            else {
                 if ((profile._volumeRingerMode == 0) && (audioManager.getRingerMode() == AudioManager.RINGER_MODE_SILENT)) {
                     // change ringer mode to Ringing
                     PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "changed to ringing");
                     profile._volumeRingerMode = 1;
                 }
-            }*/
+            }
         }
     }
 
