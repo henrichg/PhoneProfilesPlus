@@ -462,8 +462,8 @@ public class ActivateProfileHelper {
                 if (_setAirplaneMode /*&& _isAirplaneMode*/) {
                     // switch ON airplane mode, set it before executeForRadios
                     setAirplaneMode(appContext, _isAirplaneMode);
-
-                    PPApplication.sleep(2500);
+                    PPApplication.sleep(2000);
+                    PPApplication.logE("ActivateProfileHelper.executeForRadios", "after sleep");
                 }
 
                 doExecuteForRadios(appContext, profile);
@@ -2965,14 +2965,15 @@ public class ActivateProfileHelper {
                 //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                 //	command2 = PPApplication.getSELinuxEnforceCommand(command2, Shell.ShellContext.SYSTEM_APP);
                 //}
-                Command command = new Command(0, false, command1, command2);
+                Command command = new Command(0, true, command1, command2);
                 try {
                     //RootTools.closeAllShells();
                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    commandWait(command);
+                    //commandWait(command);
                 } catch (Exception e) {
                     Log.e("AirPlaneMode_SDK17.setAirplaneMode", "Error on run su");
                 }
+                PPApplication.logE("ActivateProfileHelper.setAirplaneMode_SDK17", "done");
             }
         }
         //else
