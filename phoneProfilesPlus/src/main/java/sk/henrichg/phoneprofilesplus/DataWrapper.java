@@ -1581,6 +1581,8 @@ public class DataWrapper {
             Intent batteryStatus = context.registerReceiver(null, filter);
 
             if (batteryStatus != null) {
+                batteryPassed = false;
+
                 int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
                 PPApplication.logE("*** DataWrapper.doHandleEvents", "status=" + status);
                 isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
