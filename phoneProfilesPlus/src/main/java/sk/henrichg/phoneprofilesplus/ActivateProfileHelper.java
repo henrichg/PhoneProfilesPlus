@@ -463,7 +463,7 @@ public class ActivateProfileHelper {
                     // switch ON airplane mode, set it before executeForRadios
                     setAirplaneMode(appContext, _isAirplaneMode);
 
-                    PPApplication.sleep(2000);
+                    PPApplication.sleep(2500);
                 }
 
                 doExecuteForRadios(appContext, profile);
