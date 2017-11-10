@@ -3493,6 +3493,10 @@ public class PhoneProfilesService extends Service
 
             //stopSimulatingNotificationTone(true);
 
+            if (eventNotificationPlayTimer != null) {
+                eventNotificationPlayTimer.cancel();
+                eventNotificationPlayTimer = null;
+            }
             if ((eventNotificationMediaPlayer != null) && eventNotificationIsPlayed) {
                 try {
                     if (eventNotificationMediaPlayer.isPlaying())
@@ -3501,10 +3505,6 @@ public class PhoneProfilesService extends Service
                 eventNotificationMediaPlayer.release();
                 eventNotificationIsPlayed = false;
                 eventNotificationMediaPlayer = null;
-            }
-            if (eventNotificationPlayTimer != null) {
-                eventNotificationPlayTimer.cancel();
-                eventNotificationPlayTimer = null;
             }
 
             if ((ringtone != null) && !ringtone.isEmpty()) {
@@ -3899,6 +3899,10 @@ public class PhoneProfilesService extends Service
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
+            if (eventNotificationPlayTimer != null) {
+                eventNotificationPlayTimer.cancel();
+                eventNotificationPlayTimer = null;
+            }
             if ((eventNotificationMediaPlayer != null) && eventNotificationIsPlayed) {
                 try {
                     if (eventNotificationMediaPlayer.isPlaying())
@@ -3907,10 +3911,6 @@ public class PhoneProfilesService extends Service
                 eventNotificationMediaPlayer.release();
                 eventNotificationIsPlayed = false;
                 eventNotificationMediaPlayer = null;
-            }
-            if (eventNotificationPlayTimer != null) {
-                eventNotificationPlayTimer.cancel();
-                eventNotificationPlayTimer = null;
             }
 
             if (!eventNotificationSound.isEmpty())
@@ -3968,17 +3968,6 @@ public class PhoneProfilesService extends Service
                             eventNotificationIsPlayed = false;
                             eventNotificationMediaPlayer = null;
                             eventNotificationPlayTimer = null;
-
-                            PhoneProfilesService.startHandlerThread();
-                            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "disable ringer mode change internal change");
-                                    RingerModeChangeReceiver.internalChange = false;
-                                }
-                            }, 3000);
-
                         }
                     }, eventNotificationMediaPlayer.getDuration());
 
@@ -3987,29 +3976,11 @@ public class PhoneProfilesService extends Service
                     Permissions.grantPlayRingtoneNotificationPermissions(this, true, false);
                     eventNotificationMediaPlayer = null;
                     eventNotificationIsPlayed = false;
-                    PhoneProfilesService.startHandlerThread();
-                    final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "disable ringer mode change internal change");
-                            RingerModeChangeReceiver.internalChange = false;
-                        }
-                    }, 3000);
                 } catch (Exception e) {
                     PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "exception");
                     //e.printStackTrace();
                     eventNotificationMediaPlayer = null;
                     eventNotificationIsPlayed = false;
-                    PhoneProfilesService.startHandlerThread();
-                    final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "disable ringer mode change internal change");
-                            RingerModeChangeReceiver.internalChange = false;
-                        }
-                    }, 3000);
                 }
 
             }
