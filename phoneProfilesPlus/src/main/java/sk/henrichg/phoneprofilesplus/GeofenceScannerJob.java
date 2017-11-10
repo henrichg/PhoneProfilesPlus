@@ -48,6 +48,7 @@ class GeofenceScannerJob extends Job {
         }
 
         if (Event.getGlobalEventsRunning(context)) {
+            boolean geofenceScannerUpdatesStarted = false;
             synchronized (PPApplication.geofenceScannerMutex) {
                 if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.getGeofencesScanner() != null)) {
                     if (PhoneProfilesService.getGeofencesScanner().mUpdatesStarted) {
@@ -58,43 +59,49 @@ class GeofenceScannerJob extends Job {
                         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
                             PhoneProfilesService.getGeofencesScanner().updateGeofencesInDB();
 
-                        // start events handler
-                        EventsHandler eventsHandler = new EventsHandler(context);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER, false);
-
-                    } else {
-                        // this is required, for example for GeofenceScanner.resetLocationUpdates()
-                        PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates not started - start it");
-                        Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_LOCATION_UPDATES, true);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                        //TODO Android O
-                        //if (Build.VERSION.SDK_INT < 26)
-                        context.startService(serviceIntent);
-                        //else
-                        //    context.startForegroundService(serviceIntent);
-
-                        /*
-                        // Fixed: java.lang.NullPointerException: Calling thread must be a prepared Looper thread.
-                        //        com.google.android.gms.internal.zzccb.requestLocationUpdates(Unknown Source)
-                        //        ! Must be main looper !
-                        final CountDownLatch _countDownLatch = new CountDownLatch(1);
-                        final Handler handler = new Handler(context.getMainLooper());
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.getGeofencesScanner() != null))
-                                    PhoneProfilesService.getGeofencesScanner().startLocationUpdates();
-                                _countDownLatch.countDown();
-                            }
-                        });
-                        try {
-                            _countDownLatch.await();
-                        } catch (InterruptedException ignored) {
-                        }
-                        */
+                        geofenceScannerUpdatesStarted = true;
                     }
                 }
+            }
+
+            if (geofenceScannerUpdatesStarted) {
+                PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates started - start EventsHandler");
+
+                // start events handler
+                EventsHandler eventsHandler = new EventsHandler(context);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER, false);
+
+            } else {
+                // this is required, for example for GeofenceScanner.resetLocationUpdates()
+                PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates not started - start it");
+                Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_LOCATION_UPDATES, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                //TODO Android O
+                //if (Build.VERSION.SDK_INT < 26)
+                context.startService(serviceIntent);
+                //else
+                //    context.startForegroundService(serviceIntent);
+
+                /*
+                // Fixed: java.lang.NullPointerException: Calling thread must be a prepared Looper thread.
+                //        com.google.android.gms.internal.zzccb.requestLocationUpdates(Unknown Source)
+                //        ! Must be main looper !
+                final CountDownLatch _countDownLatch = new CountDownLatch(1);
+                final Handler handler = new Handler(context.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.getGeofencesScanner() != null))
+                            PhoneProfilesService.getGeofencesScanner().startLocationUpdates();
+                        _countDownLatch.countDown();
+                    }
+                });
+                try {
+                    _countDownLatch.await();
+                } catch (InterruptedException ignored) {
+                }
+                */
             }
         }
 
