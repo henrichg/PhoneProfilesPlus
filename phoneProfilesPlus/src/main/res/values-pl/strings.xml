@@ -130,7 +130,7 @@
   <string name="toast_import_ok">Settings restored</string>
   <string name="import_profiles_alert_title">Restore settings</string>
   <string name="import_profiles_alert_message">Czy na pewno?</string>
-  <string name="import_profiles_alert_error">Error during restore process</string>
+  <string name="import_profiles_alert_error">Błąd podczas przywracania</string>
   <string name="export_profiles_alert_title">Backup settings</string>
   <string name="export_profiles_alert_message">Czy na pewno?</string>
   <string name="export_profiles_alert_error">Error during backup process</string>

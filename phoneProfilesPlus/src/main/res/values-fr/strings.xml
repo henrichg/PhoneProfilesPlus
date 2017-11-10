@@ -545,8 +545,8 @@
   <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Mettre en marche à 5 % de batterie</string>
   <string name="important_info_profile_ringerMode_root">Dans Android 6 (Marshmallow), il n\'est pas possible de changer le réglage « Vibrer avec la sonnerie » sur un téléphone non rooté.</string>
   <string name="important_info_profile_adaptiveBrightness_root">Dans Android 6 (Marshmallow), il n\'est pas possible de changer le réglage « Eclairage automatique» sur un téléphone non rooté.</string>
-  <string name="important_info_profile_wifiScanning_location">Dans Android 6 (Marshmallow), pour pouvoir wifiBluetoothScanner le wifi il faut valider la localisation wifi dans les paramètre de localisation.</string>
-  <string name="important_info_profile_bluetoothScanning_location">Dans Android 6 (Marshmallow), pour pouvoir wifiBluetoothScanner le Bluetooth il faut le valider dans les paramètres de localisation.</string>
+  <string name="important_info_profile_wifiScanning_location">Dans Android 6 (Marshmallow), pour pouvoir scanner le wifi il faut valider la localisation wifi dans les paramètre de localisation.</string>
+  <string name="important_info_profile_bluetoothScanning_location">Dans Android 6 (Marshmallow), pour pouvoir scanner le Bluetooth il faut le valider dans les paramètres de localisation.</string>
   <string name="profile_preferences_devicePowerSaveMode">(G1)(R) mode économie d\'énergie</string>
   <string name="event_preferences_bluetooth_devices_type">Type de dispositifs scannés</string>
   <string name="array_event_pref_bluetoothDevicesType_classic">[CL] classique</string>
