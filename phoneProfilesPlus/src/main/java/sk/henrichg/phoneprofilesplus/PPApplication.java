@@ -1002,7 +1002,7 @@ public class PPApplication extends Application {
     }
     */
 
-    public static void stopGeofenceScanner(Context context) {
+    public static void stopGeofenceScanner(Context context, boolean exitApp) {
         try {
             PPApplication.logE("[RJS] PPApplication.stopGeofenceScanner", "xxx");
             Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -1010,6 +1010,7 @@ public class PPApplication extends Application {
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_GEOFENCE_SCANNER);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, exitApp);
             //TODO Android O
             //if (Build.VERSION.SDK_INT < 26)
                 context.startService(lIntent);
@@ -1053,7 +1054,7 @@ public class PPApplication extends Application {
     }
     */
 
-    public static void stopOrientationScanner(Context context) {
+    public static void stopOrientationScanner(Context context, boolean exitApp) {
         try {
             PPApplication.logE("[RJS] PPApplication.stopOrientationScanner", "xxx");
             Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -1061,6 +1062,7 @@ public class PPApplication extends Application {
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_ORIENTATION_SCANNER);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, exitApp);
             //TODO Android O
             //if (Build.VERSION.SDK_INT < 26)
                 context.startService(lIntent);
@@ -1104,7 +1106,7 @@ public class PPApplication extends Application {
     }
     */
 
-    public static void stopPhoneStateScanner(Context context) {
+    public static void stopPhoneStateScanner(Context context, boolean exitApp) {
         try {
             PPApplication.logE("[RJS] PPApplication.stopPhoneStateScanner", "xxx");
             Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -1112,6 +1114,7 @@ public class PPApplication extends Application {
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_PHONE_STATE_SCANNER);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, exitApp);
             //TODO Android O
             //if (Build.VERSION.SDK_INT < 26)
                 context.startService(lIntent);
@@ -1218,9 +1221,9 @@ public class PPApplication extends Application {
         Profile.setActivatedProfileForDuration(context, 0);
 
         if (PhoneProfilesService.instance != null) {
-            PPApplication.stopGeofenceScanner(context);
-            PPApplication.stopOrientationScanner(context);
-            PPApplication.stopPhoneStateScanner(context);
+            PPApplication.stopGeofenceScanner(context, true);
+            PPApplication.stopOrientationScanner(context, true);
+            PPApplication.stopPhoneStateScanner(context, true);
         }
 
         if (PPApplication.brightnessHandler != null) {

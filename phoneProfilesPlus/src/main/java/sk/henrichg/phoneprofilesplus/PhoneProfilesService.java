@@ -2822,13 +2822,15 @@ public class PhoneProfilesService extends Service
 
     private void removeProfileNotification(Context context)
     {
-        if (ApplicationPreferences.notificationStatusBarPermanent(context))
-            stopForeground(true);
-        else {
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null)
-                notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
-        }
+        try {
+            if (ApplicationPreferences.notificationStatusBarPermanent(context))
+                stopForeground(true);
+            else {
+                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null)
+                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+            }
+        } catch (Exception ignored) {}
     }
 
     private void setAlarmForNotificationCancel(Context context)
