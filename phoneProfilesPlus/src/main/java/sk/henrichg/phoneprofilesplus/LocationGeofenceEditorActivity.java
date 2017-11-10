@@ -256,19 +256,22 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         // Within {@code onPause()}, we pause location updates, but leave the
         // connection to GoogleApiClient intact.  Here, we resume receiving
         // location updates if the user has requested them.
-
-        if (mGoogleApiClient.isConnected()) {
-            startLocationUpdates();
-        }
+        try {
+            if (mGoogleApiClient.isConnected()) {
+                startLocationUpdates();
+            }
+        } catch (Exception ignored) {}
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         // Stop location updates to save battery, but don't disconnect the GoogleApiClient object.
-        if (mGoogleApiClient.isConnected()) {
-            stopLocationUpdates();
-        }
+        try {
+            if (mGoogleApiClient.isConnected()) {
+                stopLocationUpdates();
+            }
+        } catch (Exception ignored) {}
     }
 
     @Override
@@ -277,10 +280,12 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             mResolvingError = false;
             if (resultCode == RESULT_OK) {
                 // Make sure the app is not already connected or attempting to connect
-                if (!mGoogleApiClient.isConnecting() &&
-                        !mGoogleApiClient.isConnected()) {
-                    mGoogleApiClient.connect();
-                }
+                try {
+                    if (!mGoogleApiClient.isConnecting() &&
+                            !mGoogleApiClient.isConnected()) {
+                        mGoogleApiClient.connect();
+                    }
+                } catch (Exception ignored) {}
             }
         }
     }
@@ -514,17 +519,19 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     }
 
     private  void getGeofenceAddress(/*boolean updateName*/) {
-        // Only start the service to fetch the address if GoogleApiClient is
-        // connected.
-        if (mGoogleApiClient.isConnected() && mLocation != null) {
-            startIntentService(true);
-        }
-        // If GoogleApiClient isn't connected, process the user's request by
-        // setting mAddressRequested to true. Later, when GoogleApiClient connects,
-        // launch the service to fetch the address. As far as the user is
-        // concerned, pressing the Fetch Address button
-        // immediately kicks off the process of getting the address.
-        //mAddressRequested = true;
+        try {
+            // Only start the service to fetch the address if GoogleApiClient is
+            // connected.
+            if (mGoogleApiClient.isConnected() && mLocation != null) {
+                startIntentService(true);
+            }
+            // If GoogleApiClient isn't connected, process the user's request by
+            // setting mAddressRequested to true. Later, when GoogleApiClient connects,
+            // launch the service to fetch the address. As far as the user is
+            // concerned, pressing the Fetch Address button
+            // immediately kicks off the process of getting the address.
+            //mAddressRequested = true;
+        } catch (Exception ignored) {}
     }
 
     private void startIntentService(boolean updateName) {
