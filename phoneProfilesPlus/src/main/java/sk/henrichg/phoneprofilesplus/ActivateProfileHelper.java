@@ -476,6 +476,8 @@ public class ActivateProfileHelper {
                     setAirplaneMode(context, _isAirplaneMode);
                 }*/
 
+                PPApplication.sleep(500);
+
                 if (wakeLock != null)
                     wakeLock.release();
             }
