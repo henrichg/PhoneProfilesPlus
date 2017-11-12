@@ -460,9 +460,9 @@ public class ActivateProfileHelper {
                 }
 
                 if (_setAirplaneMode /*&& _isAirplaneMode*/) {
-                    // switch ON airplane mode, set it before executeForRadios
+                    // switch ON airplane mode, set it before doExecuteForRadios
                     setAirplaneMode(appContext, _isAirplaneMode);
-                    PPApplication.sleep(2000);
+                    PPApplication.sleep(2500);
                     PPApplication.logE("ActivateProfileHelper.executeForRadios", "after sleep");
                 }
 
@@ -476,7 +476,7 @@ public class ActivateProfileHelper {
                     setAirplaneMode(context, _isAirplaneMode);
                 }*/
 
-                PPApplication.sleep(500);
+                //PPApplication.sleep(500);
 
                 if (wakeLock != null)
                     wakeLock.release();
