@@ -24,7 +24,7 @@ public class ForegroundApplicationChangedBroadcastReceiver extends BroadcastRece
     static final String ACTION_ACCESSIBILITY_SERVICE_UNBIND = "sk.henrichg.phoneprofilesplusextender.ACTION_ACCESSIBILITY_SERVICE_UNBIND";
     static final String ACCESSIBILITY_SERVICE_PERMISSION = "sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION";
 
-    private static final String EXTENDER_ACCESSIBILITY_SERVICE_ID = "sk.henrichg.phoneprofilesplusextender/.AccessibilityService";
+    private static final String EXTENDER_ACCESSIBILITY_SERVICE_ID = "sk.henrichg.phoneprofilesplusextender/.PPPEAccessibilityService";
 
     private static final String EXTRA_PACKAGE_NAME = "sk.henrichg.phoneprofilesplus.package_name";
     private static final String EXTRA_CLASS_NAME = "sk.henrichg.phoneprofilesplus.class_name";
@@ -130,12 +130,16 @@ public class ForegroundApplicationChangedBroadcastReceiver extends BroadcastRece
                     manager.getEnabledAccessibilityServiceList(AccessibilityEvent.TYPES_ALL_MASK);
 
             for (AccessibilityServiceInfo service : runningServices) {
-                //Log.d("ForegroundApplicationChangedService", "serviceId="+service.getId());
-                if (EXTENDER_ACCESSIBILITY_SERVICE_ID.equals(service.getId()))
+                PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled", "serviceId="+service.getId());
+                if (EXTENDER_ACCESSIBILITY_SERVICE_ID.equals(service.getId())) {
+                    PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled", "true");
                     return true;
+                }
             }
+            PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled", "false");
             return false;
         }
+        PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled", "false");
         return false;
     }
 
