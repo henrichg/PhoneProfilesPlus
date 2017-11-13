@@ -55,6 +55,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         boolean news = false;
         boolean newsLatest = (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        boolean news3640 = ((versionCode >= 3640) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news2190 = ((versionCode >= 2190) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1804 = ((versionCode >= 1804) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1772 = ((versionCode >= 1772) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
@@ -67,8 +68,19 @@ public class ImportantInfoHelpFragment extends Fragment {
             // empty this, for switch off news
         }
 
-        if (news2190) {
+        if (news3640) {
             // empty this, for switch off news
+            news = true;
+        }
+        else {
+            // empty this, for switch off news
+            TextView infoText1 = view.findViewById(R.id.activity_info_notification_dialog_info_text50_news);
+            infoText1.setVisibility(View.GONE);
+            TextView infoText2 = view.findViewById(R.id.activity_info_notification_dialog_info_text50_profiles_news);
+            infoText2.setVisibility(View.GONE);
+        }
+
+        if (news2190) {
             TextView infoText1 = view.findViewById(R.id.activity_info_event_start_order1);
             infoText1.setVisibility(View.GONE);
             TextView infoText2 = view.findViewById(R.id.activity_info_event_start_order2);
@@ -76,7 +88,6 @@ public class ImportantInfoHelpFragment extends Fragment {
             news = true;
         }
         else {
-            // empty this, for switch off news
             TextView infoText1 = view.findViewById(R.id.activity_info_event_start_order1_news);
             infoText1.setVisibility(View.GONE);
             TextView infoText2 = view.findViewById(R.id.activity_info_event_start_order2_news);
