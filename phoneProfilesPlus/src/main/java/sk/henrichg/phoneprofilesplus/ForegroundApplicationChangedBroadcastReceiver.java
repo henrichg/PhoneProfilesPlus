@@ -1,14 +1,20 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
+
+import java.util.List;
 
 import static android.content.Context.POWER_SERVICE;
 
@@ -17,6 +23,8 @@ public class ForegroundApplicationChangedBroadcastReceiver extends BroadcastRece
     static final String ACTION_FOREGROUND_APPLICATION_CHANGED = "sk.henrichg.phoneprofilesplusextender.ACTION_FOREGROUND_APPLICATION_CHANGED";
     static final String ACTION_ACCESSIBILITY_SERVICE_UNBIND = "sk.henrichg.phoneprofilesplusextender.ACTION_ACCESSIBILITY_SERVICE_UNBIND";
     static final String ACCESSIBILITY_SERVICE_PERMISSION = "sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION";
+
+    private static final String EXTENDER_ACCESSIBILITY_SERVICE_ID = "sk.henrichg.phoneprofilesplusextender/.AccessibilityService";
 
     private static final String EXTRA_PACKAGE_NAME = "sk.henrichg.phoneprofilesplus.package_name";
     private static final String EXTRA_CLASS_NAME = "sk.henrichg.phoneprofilesplus.class_name";
@@ -115,22 +123,39 @@ public class ForegroundApplicationChangedBroadcastReceiver extends BroadcastRece
         }
     }
 
-    public static boolean isEnabled(Context context) {
-        /*AccessibilityManager manager = (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
+    static boolean isAccessibilityServiceEnabled(Context context) {
+        AccessibilityManager manager = (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
         if (manager != null) {
             List<AccessibilityServiceInfo> runningServices =
                     manager.getEnabledAccessibilityServiceList(AccessibilityEvent.TYPES_ALL_MASK);
 
             for (AccessibilityServiceInfo service : runningServices) {
                 //Log.d("ForegroundApplicationChangedService", "serviceId="+service.getId());
-                if (SERVICE_ID.equals(service.getId()))
+                if (EXTENDER_ACCESSIBILITY_SERVICE_ID.equals(service.getId()))
                     return true;
             }
-        }*/
-
+            return false;
+        }
         return false;
     }
 
+    static boolean isExtenderInstalled(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            return packageManager.getApplicationInfo("sk.henrichg.phoneprofilesplusextender", 0).enabled;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
+    static boolean isEnabled(Context context) {
+        boolean installed = isExtenderInstalled(context);
+        boolean enabled = false;
+        if (installed)
+            enabled = isAccessibilityServiceEnabled(context);
+        return  installed && enabled;
+    }
 
     static public String getApplicationInForeground(Context context)
     {

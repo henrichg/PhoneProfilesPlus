@@ -662,7 +662,7 @@
             <Preference
                 android:key="eventApplicationAccessibilitySettings"
                 android:title="@string/event_preferences_applications_AccessibilitySettings_title"
-                android:summary="@string/event_preferences_applications_AccessibilitySettings_summary"
+                android:summary="@string/event_preferences_applications_AccessibilitySettingsForExtender_summary"
                 android:dependency="eventApplicationEnabled"
                 android:widgetLayout="@layout/start_activity_preference" >
             </Preference>
