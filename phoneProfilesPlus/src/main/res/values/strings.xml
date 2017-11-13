@@ -838,7 +838,7 @@
     <string name="profile_preferences_sourceProfileInfo_summary">You can set each profile parameter to use Shared profile. Click here to configure the Shared profile parameters.</string>
     <string name="run_stop_events_indicator">Enable/disable events run indicator</string>
     <string name="run_stop_indicator_popup_window_important_infos">For more information, review the \"Important information\" screen in Editor through the question mark icon in the bottom toolbar.</string>
-    <string name="important_info_how_to_show_ppp">This important information can be viewed In Editor through the question mark icon in the bottom toolbar.</string>
+    <string name="important_info_how_to_show_ppp">This important information can be viewed In Editor through the question mark icon in the top toolbar.</string>
     <string name="preference_not_allowed_reason_not_supported_by_application">not supported by application</string>
     <string name="preference_not_allowed_reason_detail_old_android">old Android version</string>
     <string name="preference_not_allowed_reason_detail_network_type">unsupported network type or can\'t be changed</string>
