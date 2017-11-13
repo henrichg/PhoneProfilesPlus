@@ -2362,19 +2362,24 @@ public class DataWrapper {
         {
             applicationPassed = false;
 
-            String foregroundApplication = ForegroundApplicationChangedService.getApplicationInForeground(context);
+            if (ForegroundApplicationChangedService.isEnabled(context.getApplicationContext())) {
+                String foregroundApplication = ForegroundApplicationChangedService.getApplicationInForeground(context);
 
-            if (!foregroundApplication.isEmpty()) {
-                String[] splits = event._eventPreferencesApplication._applications.split("\\|");
-                for (String split : splits) {
-                    String packageName = ApplicationsCache.getPackageName(split);
+                if (!foregroundApplication.isEmpty()) {
+                    String[] splits = event._eventPreferencesApplication._applications.split("\\|");
+                    for (String split : splits) {
+                        String packageName = ApplicationsCache.getPackageName(split);
 
-                    if (foregroundApplication.equals(packageName)) {
-                        applicationPassed = true;
-                        break;
+                        if (foregroundApplication.equals(packageName)) {
+                            applicationPassed = true;
+                            break;
+                        }
                     }
-                }
+                } else
+                    ignoreApplication = true;
             }
+            else
+                ignoreApplication = true;
         }
 
         if (event._eventPreferencesLocation._enabled &&
@@ -2442,17 +2447,18 @@ public class DataWrapper {
             {
                 synchronized (PPApplication.orientationScannerMutex) {
                     if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isOrientationScannerStarted()) {
-
-                        String foregroundApplication = ForegroundApplicationChangedService.getApplicationInForeground(context);
                         boolean lApplicationPassed = false;
-                        if (!foregroundApplication.isEmpty()) {
-                            String[] splits = event._eventPreferencesOrientation._ignoredApplications.split("\\|");
-                            for (String split : splits) {
-                                String packageName = ApplicationsCache.getPackageName(split);
+                        if (ForegroundApplicationChangedService.isEnabled(context.getApplicationContext())) {
+                            String foregroundApplication = ForegroundApplicationChangedService.getApplicationInForeground(context);
+                            if (!foregroundApplication.isEmpty()) {
+                                String[] splits = event._eventPreferencesOrientation._ignoredApplications.split("\\|");
+                                for (String split : splits) {
+                                    String packageName = ApplicationsCache.getPackageName(split);
 
-                                if (foregroundApplication.equals(packageName)) {
-                                    lApplicationPassed = true;
-                                    break;
+                                    if (foregroundApplication.equals(packageName)) {
+                                        lApplicationPassed = true;
+                                        break;
+                                    }
                                 }
                             }
                         }

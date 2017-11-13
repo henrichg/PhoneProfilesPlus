@@ -559,6 +559,7 @@
                 <action android:name="android.service.notification.NotificationListenerService"/>
             </intent-filter>
         </service>
+        <!-- removed due to change rule by Google about using accesibility service :-/
         <service
             android:name=".ForegroundApplicationChangedService"
             android:label="@string/accessibility_service_name"
@@ -571,6 +572,7 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibilityservice"/>
         </service>
+        -->
         <service
             android:name=".MobileCellsRegistrationService"
             android:enabled="true">
