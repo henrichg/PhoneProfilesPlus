@@ -160,7 +160,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 descr = descr + "; " + context.getString(R.string.event_preferences_orientation_distance) + ": " + distanceNames[i];
 
             String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (!ForegroundApplicationChangedService.isEnabled(context.getApplicationContext())) {
+            if (!ForegroundApplicationChangedBroadcastReceiver.isEnabled(context.getApplicationContext())) {
                 selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
             }
@@ -360,7 +360,7 @@ class EventPreferencesOrientation extends EventPreferences {
                         ": "+context.getString(R.string.preference_not_allowed_reason_no_hardware));
             preference.setEnabled(enabled);
         }
-        enabled = ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
+        enabled = ForegroundApplicationChangedBroadcastReceiver.isEnabled(context.getApplicationContext());
         ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
         if (applicationsPreference != null) {
             applicationsPreference.setEnabled(enabled);

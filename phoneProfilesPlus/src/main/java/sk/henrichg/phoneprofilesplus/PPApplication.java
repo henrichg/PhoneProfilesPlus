@@ -43,7 +43,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -66,8 +66,8 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.setVolumes"
                                          //+"|ActivateProfileHelper.setZenMode"
 
-                                         +"|ActivateProfileHelper.setAirplaneMode_SDK17"
-                                         +"|ActivateProfileHelper.executeForRadios"
+                                         //+"|ActivateProfileHelper.setAirplaneMode_SDK17"
+                                         //+"|ActivateProfileHelper.executeForRadios"
 
                                          /*
                                          +"|WifiScanJob"
@@ -81,6 +81,8 @@ public class PPApplication extends Application {
                                          //+"|BluetoothStateChangedBroadcastReceiver"
                                          //+"|BluetoothScanBroadcastReceiver"
                                          //+"|BluetoothScanJob"
+
+                                         +"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
             ;
 
 

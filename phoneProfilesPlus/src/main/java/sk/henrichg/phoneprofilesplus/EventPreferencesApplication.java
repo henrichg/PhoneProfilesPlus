@@ -84,7 +84,7 @@ class EventPreferencesApplication extends EventPreferences {
             }
 
             String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (!ForegroundApplicationChangedService.isEnabled(context.getApplicationContext())) {
+            if (!ForegroundApplicationChangedBroadcastReceiver.isEnabled(context.getApplicationContext())) {
                 selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
             }
@@ -200,7 +200,7 @@ class EventPreferencesApplication extends EventPreferences {
     public void checkPreferences(PreferenceManager prefMng, Context context) {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             final boolean enabled =
-                    ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
+                    ForegroundApplicationChangedBroadcastReceiver.isEnabled(context.getApplicationContext());
             ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
             if (applicationsPreference != null) {
                 //Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);

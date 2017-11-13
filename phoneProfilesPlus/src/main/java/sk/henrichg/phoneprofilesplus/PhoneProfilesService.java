@@ -94,6 +94,7 @@ public class PhoneProfilesService extends Service
     private WifiScanBroadcastReceiver wifiScanReceiver = null;
     private BluetoothScanBroadcastReceiver bluetoothScanReceiver = null;
     private BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = null;
+    private ForegroundApplicationChangedBroadcastReceiver foregroundApplicationChangedBroadcastReceiver = null;
 
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
@@ -925,6 +926,56 @@ public class PhoneProfilesService extends Service
             }
             else
                 registerReceiverForRadioSwitchMobileDataSensor(false, true, false);
+        }
+    }
+
+    private void registerForegroundApplicationChangedReceiver(boolean register, boolean unregister, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.registerForegroundApplicationChangedReceiver", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
+        PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "xxx");
+        if (unregister) {
+            if (foregroundApplicationChangedBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerForegroundApplicationChangedReceiver->UNREGISTER", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "UNREGISTER");
+                try {
+                    appContext.unregisterReceiver(foregroundApplicationChangedBroadcastReceiver);
+                    foregroundApplicationChangedBroadcastReceiver = null;
+                } catch (Exception e) {
+                    foregroundApplicationChangedBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "not registered");
+        }
+        if (register) {
+            if ((Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED) ||
+                (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED)) {
+                int eventCount = 1;
+                if (checkDatabase) {
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION);
+                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION);
+                }
+                if (eventCount > 0) {
+                    if (foregroundApplicationChangedBroadcastReceiver == null) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerForegroundApplicationChangedReceiver->REGISTER", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "REGISTER");
+                        foregroundApplicationChangedBroadcastReceiver = new ForegroundApplicationChangedBroadcastReceiver();
+                        IntentFilter intentFilter23 = new IntentFilter();
+                        intentFilter23.addAction(ForegroundApplicationChangedBroadcastReceiver.ACTION_FOREGROUND_APPLICATION_CHANGED);
+                        intentFilter23.addAction(ForegroundApplicationChangedBroadcastReceiver.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
+                        appContext.registerReceiver(foregroundApplicationChangedBroadcastReceiver, intentFilter23,
+                                ForegroundApplicationChangedBroadcastReceiver.ACCESSIBILITY_SERVICE_PERMISSION, null);
+                    }
+                    else
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "registered");
+                } else {
+                    registerForegroundApplicationChangedReceiver(false, true, false);
+                }
+            }
+            else
+                registerForegroundApplicationChangedReceiver(false, true, false);
         }
     }
 
@@ -1928,6 +1979,9 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchNFCSensor(true, true, true);
         registerReceiverForRadioSwitchAirplaneModeSensor(true, true, true);
 
+        // required for applications and orientation event
+        registerForegroundApplicationChangedReceiver(true, true, true);
+
         // required for location and radio switch event
         registerLocationModeChangedBroadcastReceiver(true, true, true);
 
@@ -2049,6 +2103,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchMobileDataSensor(false, true, false);
         registerReceiverForRadioSwitchNFCSensor(false, true, false);
         registerReceiverForRadioSwitchAirplaneModeSensor(false, true, false);
+        registerForegroundApplicationChangedReceiver(false, true, false);
         registerLocationModeChangedBroadcastReceiver(false, true, false);
         registerBluetoothStateChangedBroadcastReceiver(false, true, false, false);
         registerBluetoothConnectionBroadcastReceiver(false, true, false, false);
@@ -2086,6 +2141,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchMobileDataSensor(true, true, true);
         registerReceiverForRadioSwitchNFCSensor(true, true, true);
         registerReceiverForRadioSwitchAirplaneModeSensor(true, true, true);
+        registerForegroundApplicationChangedReceiver(true, true, true);
         registerLocationModeChangedBroadcastReceiver(true, true, true);
         registerBluetoothStateChangedBroadcastReceiver(true, true, true, false);
         registerBluetoothConnectionBroadcastReceiver(true, true, true, false);
@@ -2250,7 +2306,7 @@ public class PhoneProfilesService extends Service
                     }
 
                     Profile.setActivatedProfileForDuration(appContext, 0);
-                    ForegroundApplicationChangedService.setApplicationInForeground(appContext, "");
+                    ForegroundApplicationChangedBroadcastReceiver.setApplicationInForeground(appContext, "");
 
                     ApplicationPreferences.getSharedPreferences(appContext);
                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();

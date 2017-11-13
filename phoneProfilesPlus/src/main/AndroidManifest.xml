@@ -559,7 +559,8 @@
                 <action android:name="android.service.notification.NotificationListenerService"/>
             </intent-filter>
         </service>
-        <!-- removed due to change rule by Google about using accesibility service :-/
+        <!--
+        removed due to change rule by Google about using accessibility service :-/
         <service
             android:name=".ForegroundApplicationChangedService"
             android:label="@string/accessibility_service_name"

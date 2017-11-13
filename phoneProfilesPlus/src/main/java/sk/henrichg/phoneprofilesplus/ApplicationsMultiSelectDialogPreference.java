@@ -348,7 +348,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                     ": "+_context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
         }
         else
-        if (systemSettings.equals("accessibility") && (!ForegroundApplicationChangedService.isEnabled(_context))) {
+        if (systemSettings.equals("accessibility") && (!ForegroundApplicationChangedBroadcastReceiver.isEnabled(_context))) {
             prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                     ": "+_context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
         }
