@@ -18,7 +18,7 @@ class EventPreferencesApplication extends EventPreferences {
 
     static final String PREF_EVENT_APPLICATION_ENABLED = "eventApplicationEnabled";
     private static final String PREF_EVENT_APPLICATION_APPLICATIONS = "eventApplicationApplications";
-    //private static final String PREF_EVENT_NOTIFICATION_DURATION = "eventNotificationDuration";
+    private static final String PREF_EVENT_APPLICATION_INSTALL_EXTENDER = "eventApplicationInstallExtender";
 
     private static final String PREF_EVENT_APPLICATION_CATEGORY = "eventApplicationCategory";
 
@@ -134,27 +134,26 @@ class EventPreferencesApplication extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            if (key.equals(PREF_EVENT_APPLICATION_APPLICATIONS)) {
-                Preference preference = prefMng.findPreference(key);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, true);
+        if (key.equals(PREF_EVENT_APPLICATION_APPLICATIONS)) {
+            Preference preference = prefMng.findPreference(key);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, true);
+        }
+        if (key.equals(PREF_EVENT_APPLICATION_INSTALL_EXTENDER)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                if (ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context))
+                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
+                else
+                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_install_summary);
             }
-            /*if (key.equals(PREF_EVENT_NOTIFICATION_DURATION)) {
-                Preference preference = prefMng.findPreference(key);
-                String sValue = value.toString();
-                //int iValue = 0;
-                //if (!sValue.isEmpty())
-                //    iValue = Integer.valueOf(sValue);
-                preference.setSummary(sValue);
-            }*/
-        //}
+        }
     }
 
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_APPLICATION_APPLICATIONS)/* ||
-            key.equals(PREF_EVENT_NOTIFICATION_DURATION)*/)
+        if (key.equals(PREF_EVENT_APPLICATION_APPLICATIONS) ||
+            key.equals(PREF_EVENT_APPLICATION_INSTALL_EXTENDER))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -164,7 +163,7 @@ class EventPreferencesApplication extends EventPreferences {
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_APPLICATION_APPLICATIONS, preferences, context);
-        //setSummary(prefMng, PREF_EVENT_NOTIFICATION_DURATION, preferences, context);
+        setSummary(prefMng, PREF_EVENT_APPLICATION_INSTALL_EXTENDER, preferences, context);
     }
 
     @Override

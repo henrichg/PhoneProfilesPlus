@@ -26,6 +26,7 @@ class EventPreferencesOrientation extends EventPreferences {
     private static final String PREF_EVENT_ORIENTATION_DISPLAY = "eventOrientationDisplay";
     private static final String PREF_EVENT_ORIENTATION_SIDES = "eventOrientationSides";
     private static final String PREF_EVENT_ORIENTATION_DISTANCE = "eventOrientationDistance";
+    private static final String PREF_EVENT_ORIENTATION_INSTALL_EXTENDER = "eventOrientationInstallExtender";
     private static final String PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS = "eventOrientationIgnoredApplications";
 
     private static final String PREF_EVENT_ORIENTATION_CATEGORY = "eventOrientationCategory";
@@ -232,6 +233,15 @@ class EventPreferencesOrientation extends EventPreferences {
             }
             //GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, true, false);
         }
+        if (key.equals(PREF_EVENT_ORIENTATION_INSTALL_EXTENDER)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                if (ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context))
+                    preference.setSummary(R.string.event_preferences_orientation_PPPExtender_upgrade_summary);
+                else
+                    preference.setSummary(R.string.event_preferences_orientation_PPPExtender_install_summary);
+            }
+        }
         if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
             Preference preference = prefMng.findPreference(key);
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, false, false, true);
@@ -285,7 +295,8 @@ class EventPreferencesOrientation extends EventPreferences {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
 
-        if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS))
+        if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS) ||
+                key.equals(PREF_EVENT_ORIENTATION_INSTALL_EXTENDER))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -298,6 +309,7 @@ class EventPreferencesOrientation extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_ORIENTATION_DISPLAY, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_SIDES, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_DISTANCE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_ORIENTATION_INSTALL_EXTENDER, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS, preferences, context);
     }
 

@@ -1090,6 +1090,12 @@
     <string name="google_play_chooser">View Google Play using</string>
     <string name="preference_not_allowed_reason_not_extender_installed">not installed PhoneProfilesPlusExtender</string>
     <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">not enabled Accessibility settings for PhoneProfilesPlusExtender</string>
-    <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">To enable Application parameters, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
+    <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">To enable \"Applications\" parameters, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
+    <string name="event_preferences_applications_PPPExtender_title">PhoneProfilesPlusExtender</string>
+    <string name="event_preferences_applications_PPPExtender_install_summary">To enable \"Applications\" parameters, click here to install PhoneProfilesPlusExtender.</string>
+    <string name="event_preferences_orientation_PPPExtender_title">PhoneProfilesPlusExtender</string>
+    <string name="event_preferences_orientation_PPPExtender_install_summary">To enable \"Ignore for applications\" parameters, click here to install PhoneProfilesPlusExtender.</string>
+    <string name="event_preferences_applications_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
+    <string name="event_preferences_orientation_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
 </resources>

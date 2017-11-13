@@ -43,6 +43,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private static final int RESULT_MOBILE_CELLS_SCANNING_SETTINGS = 1987;
     private static final String PREF_USE_PRIORITY_APP_SETTINGS = "eventUsePriorityAppSettings";
     private static final int RESULT_USE_PRIORITY_SETTINGS = 1988;
+    private static final String PREF_APPLICATIONS_PPP_EXTENDER = "eventApplicationInstallExtender";
+    private static final String PREF_ORIENTATION_PPP_EXTENDER = "eventOrientationInstallExtender";
 
     @Override
     public int addPreferencesFromResource() {
@@ -118,32 +120,37 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
+        Preference extenderPreference = prefMng.findPreference(PREF_APPLICATIONS_PPP_EXTENDER);
+        if (extenderPreference != null) {
+            //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        startActivityForResult(Intent.createChooser(i, getString(R.string.web_browser_chooser)), RESULT_ACCESSIBILITY_SETTINGS);
+                    } catch (Exception ignored) {}
+                    return false;
+                }
+            });
+        }
         Preference accessibilityPreference = prefMng.findPreference(PREF_APPLICATIONS_ACCESSIBILITY_SETTINGS);
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    if (!ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context)) {
-                        String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(url));
-                        try {
-                            startActivityForResult(Intent.createChooser(i, getString(R.string.web_browser_chooser)), RESULT_ACCESSIBILITY_SETTINGS);
-                        } catch (Exception ignored) {}
-                    }
-                    else
-                    if (!ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled(context)) {
-                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
-                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                            startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
-                        } else {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            dialogBuilder.show();
-                        }
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
+                        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                        startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                    } else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        dialogBuilder.show();
                     }
                     return false;
                 }
@@ -209,32 +216,37 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
+        extenderPreference = prefMng.findPreference(PREF_ORIENTATION_PPP_EXTENDER);
+        if (extenderPreference != null) {
+            //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        startActivityForResult(Intent.createChooser(i, getString(R.string.web_browser_chooser)), RESULT_ACCESSIBILITY_SETTINGS);
+                    } catch (Exception ignored) {}
+                    return false;
+                }
+            });
+        }
         Preference orientationPreference = prefMng.findPreference(PREF_ORIENTATION_ACCESSIBILITY_SETTINGS);
         if (orientationPreference != null) {
             //orientationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             orientationPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    if (!ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context)) {
-                        String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(url));
-                        try {
-                            startActivityForResult(Intent.createChooser(i, getString(R.string.web_browser_chooser)), RESULT_ACCESSIBILITY_SETTINGS);
-                        } catch (Exception ignored) {}
-                    }
-                    else
-                    if (!ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled(context)) {
-                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
-                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                            startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
-                        } else {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            dialogBuilder.show();
-                        }
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
+                        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                        startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                    } else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        dialogBuilder.show();
                     }
                     return false;
                 }
