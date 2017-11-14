@@ -26,10 +26,18 @@ final class WifiApManager {
             //wifiApState = mWifiManager.getClass().getMethod("getWifiApState");
             wifiApEnabled = mWifiManager.getClass().getDeclaredMethod("isWifiApEnabled");
         }
+        PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-mWifiManager="+mWifiManager);
+        PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiControlMethod="+wifiControlMethod);
+        PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiApConfigurationMethod="+wifiApConfigurationMethod);
+        PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiApEnabled="+wifiApEnabled);
     }
 
     private boolean setWifiApState(WifiConfiguration config, boolean enabled) {
         try {
+            PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-config="+config);
+            PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-enabled="+enabled);
+            PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-mWifiManager="+mWifiManager);
+            PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-wifiControlMethod="+wifiControlMethod);
             if (enabled) {
                 mWifiManager.setWifiEnabled(false);
             }
@@ -37,6 +45,7 @@ final class WifiApManager {
             return (Boolean) wifiControlMethod.invoke(mWifiManager, config, enabled);
         } catch (Exception e) {
             Log.e(TAG, "", e);
+            PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-exception="+e);
             return false;
         }
     }
@@ -46,6 +55,8 @@ final class WifiApManager {
         return setWifiApState(wifiConfiguration, enabled);
     }
 
+    // not working in Android 8+ :-/
+    // https://stackoverflow.com/questions/46392277/changing-android-hotspot-settings
     private WifiConfiguration getWifiApConfiguration()
     {
         try{
@@ -54,6 +65,7 @@ final class WifiApManager {
         }
         catch(Exception e)
         {
+            PPApplication.logE("$$$ WifiAP", "WifiApManager.getWifiApConfiguration-exception="+e);
             return null;
         }
     }
@@ -76,6 +88,7 @@ final class WifiApManager {
             return (Boolean) wifiApEnabled.invoke(mWifiManager);
         } catch (Exception e) {
             Log.e(TAG, "", e);
+            PPApplication.logE("$$$ WifiAP", "WifiApManager.isWifiAPEnabled-exception="+e);
             return false;
         }
 

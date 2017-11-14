@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Parcelable;
 import android.support.multidex.MultiDex;
 import android.util.Log;
+import android.util.Pair;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -22,6 +23,7 @@ import com.evernote.android.job.JobManager;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.RootShell.RootShell;
+import com.stericson.RootShell.execution.Command;
 import com.stericson.RootTools.RootTools;
 
 import java.io.BufferedReader;
@@ -33,9 +35,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -68,6 +75,7 @@ public class PPApplication extends Application {
 
                                          //+"|ActivateProfileHelper.setAirplaneMode_SDK17"
                                          //+"|ActivateProfileHelper.executeForRadios"
+                                         +"|$$$ WifiAP"
 
                                          /*
                                          +"|WifiScanJob"
@@ -82,8 +90,8 @@ public class PPApplication extends Application {
                                          //+"|BluetoothScanBroadcastReceiver"
                                          //+"|BluetoothScanJob"
 
-                                         +"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
-                                         +"|ForegroundApplicationChangedBroadcastReceiver"
+                                         //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
+                                         //+"|ForegroundApplicationChangedBroadcastReceiver"
             ;
 
 
@@ -591,6 +599,7 @@ public class PPApplication extends Application {
     //static private boolean suVersionChecked;
     //static private boolean serviceBinaryChecked;
     static private boolean serviceBinaryExists;
+    static private ArrayList<Pair> serviceList = null;
 
     static synchronized void initRoot() {
         //synchronized (PPApplication.rootMutex) {
@@ -829,28 +838,6 @@ public class PPApplication extends Application {
         }
         return suVersion;
     }
-    
-    private static void commandWait(Command cmd) throws Exception {
-        int waitTill = 50;
-        int waitTillMultiplier = 2;
-        int waitTillLimit = 3200; // 6350 msec (3200 * 2 - 50)
-
-        while (!cmd.isFinished() && waitTill<=waitTillLimit) {
-            synchronized (cmd) {
-                try {
-                    if (!cmd.isFinished()) {
-                        cmd.wait(waitTill);
-                        waitTill *= waitTillMultiplier;
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        if (!cmd.isFinished()){
-            Log.e("PPApplication.commandWait", "Could not finish root command in " + (waitTill/waitTillMultiplier));
-        }
-    }
     */
 
     public static String getJavaCommandFile(Class<?> mainClass, String name, Context context, Object cmdParam) {
@@ -881,6 +868,114 @@ public class PPApplication extends Application {
         } catch (Exception e) {
             //e.printStackTrace();
             return null;
+        }
+    }
+
+    static void getServicesList() {
+        if (serviceList == null)
+            serviceList = new ArrayList<>();
+        else
+            serviceList.clear();
+
+        final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
+        Command command = new Command(0, false, "service list")
+        {
+            @Override
+            public void commandOutput(int id, String line) {
+                Matcher matcher = compile.matcher(line);
+                if (matcher.find()) {
+                    serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
+                }
+                super.commandOutput(id, line);
+            }
+        }
+                ;
+        try {
+            //RootTools.closeAllShells();
+            RootTools.getShell(false).add(command);
+            commandWait(command);
+        } catch (Exception e) {
+            Log.e("PPApplication.getServicesList", "Error on run su");
+        }
+    }
+
+    static Object getServiceManager(String serviceType) {
+        if (serviceList != null) {
+            for (Pair pair : serviceList) {
+                if (serviceType.equals(pair.first)) {
+                    return pair.second;
+                }
+            }
+        }
+        return null;
+    }
+
+    static int getTransactionCode(String serviceManager, String method) {
+        int code = -1;
+        try {
+            for (Class declaredFields : Class.forName(serviceManager).getDeclaredClasses()) {
+                Field[] declaredFields2 = declaredFields.getDeclaredFields();
+                int length = declaredFields2.length;
+                int iField = 0;
+                while (iField < length) {
+                    Field field = declaredFields2[iField];
+                    String name = field.getName();
+                    if (name == null || !name.equals("TRANSACTION_" + method)) {
+                        iField++;
+                    } else {
+                        try {
+                            field.setAccessible(true);
+                            code = field.getInt(field);
+                            break;
+                        } catch (IllegalAccessException e) {
+                            Log.e("PPApplication.getTransactionCode", e.toString());
+                        } catch (IllegalArgumentException e) {
+                            Log.e("PPApplication.getTransactionCode", e.toString());
+                        }
+                    }
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            Log.e("PPApplication.getTransactionCode", e.toString());
+        }
+        return code;
+    }
+
+    static String getServiceCommand(String serviceType, int transactionCode, Object... params) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("service").append(" ").append("call").append(" ").append(serviceType).append(" ").append(transactionCode);
+        for (Object param : params) {
+            if (param != null) {
+                stringBuilder.append(" ");
+                if (param instanceof Integer) {
+                    stringBuilder.append("i32").append(" ").append(param);
+                } else if (param instanceof String) {
+                    stringBuilder.append("s16").append(" ").append("'").append(((String) param).replace("'", "'\\''")).append("'");
+                }
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+    private static void commandWait(Command cmd) throws Exception {
+        int waitTill = 50;
+        int waitTillMultiplier = 2;
+        int waitTillLimit = 3200; // 6350 msec (3200 * 2 - 50)
+
+        while (!cmd.isFinished() && waitTill<=waitTillLimit) {
+            synchronized (cmd) {
+                try {
+                    if (!cmd.isFinished()) {
+                        cmd.wait(waitTill);
+                        waitTill *= waitTillMultiplier;
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (!cmd.isFinished()){
+            Log.e("PPApplication.commandWait", "Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }
 
