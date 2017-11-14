@@ -282,6 +282,15 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 preferenceCategory.removePreference(preference);
             }
         }
+        if (android.os.Build.VERSION.SDK_INT >= 26) {
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
+            if (preference != null)
+            {
+                preference.setTitle("(R) "+getString(R.string.profile_preferences_deviceWiFiAP));
+                String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP, "");
+                setSummary(Profile.PREF_PROFILE_DEVICE_WIFI_AP, value);
+            }
+        }
         if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
         {
             ListPreference networkTypePreference = (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE);
