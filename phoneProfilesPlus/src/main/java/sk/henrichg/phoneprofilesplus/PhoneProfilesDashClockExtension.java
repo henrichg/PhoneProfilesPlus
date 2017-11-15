@@ -92,168 +92,261 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         if (profile != null)
         {
             maxLength = 25;
-            if (profile._volumeRingerMode == 5)
-            {
-                // zen mode
-                if (profile._volumeZenMode == 1)
-                    indicator1 = addIntoIndicator(indicator1, "ina");
-                if (profile._volumeZenMode == 2)
-                    indicator1 = addIntoIndicator(indicator1, "inp");
-                if (profile._volumeZenMode == 3)
-                    indicator1 = addIntoIndicator(indicator1, "inn");
-                if (profile._volumeZenMode == 4)
-                {
-                    indicator1 = addIntoIndicator(indicator1, "ina");
-                    indicator1 = addIntoIndicator(indicator1, "vib");
+            if (profile._volumeRingerMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if (profile._volumeRingerMode == 5) {
+                        // zen mode
+                        if (profile._volumeZenMode == 1)
+                            indicator1 = addIntoIndicator(indicator1, "ina");
+                        if (profile._volumeZenMode == 2)
+                            indicator1 = addIntoIndicator(indicator1, "inp");
+                        if (profile._volumeZenMode == 3)
+                            indicator1 = addIntoIndicator(indicator1, "inn");
+                        if (profile._volumeZenMode == 4) {
+                            indicator1 = addIntoIndicator(indicator1, "ina");
+                            indicator1 = addIntoIndicator(indicator1, "vib");
+                        }
+                        if (profile._volumeZenMode == 5) {
+                            indicator1 = addIntoIndicator(indicator1, "inp");
+                            indicator1 = addIntoIndicator(indicator1, "vib");
+                        }
+                        if (profile._volumeZenMode == 6)
+                            indicator1 = addIntoIndicator(indicator1, "inl");
+                    } else {
+                        // volume on
+                        if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 2))
+                            indicator1 = addIntoIndicator(indicator1, "rng");
+                        // vibration
+                        if ((profile._volumeRingerMode == 2) || (profile._volumeRingerMode == 3))
+                            indicator1 = addIntoIndicator(indicator1, "vib");
+                        // volume off
+                        if (profile._volumeRingerMode == 4)
+                            indicator1 = addIntoIndicator(indicator1, "sil");
+                    }
                 }
-                if (profile._volumeZenMode == 5)
-                {
-                    indicator1 = addIntoIndicator(indicator1, "inp");
-                    indicator1 = addIntoIndicator(indicator1, "vib");
+            }
+            /*// vibrate when ringing
+            if (profile._vibrateWhenRinging != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                        indicator1 = addIntoIndicator(indicator1, "wr1");
+                    if (profile._vibrateWhenRinging == 2)
+                        indicator1 = addIntoIndicator(indicator1, "wr0");
                 }
-                if (profile._volumeZenMode == 6)
-                    indicator1 = addIntoIndicator(indicator1, "inl");
-            }
-            else
-            {
-                // volume on
-                if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 2))
-                    indicator1 = addIntoIndicator(indicator1, "rng");
-                // vibration
-                if ((profile._volumeRingerMode == 2) || (profile._volumeRingerMode == 3))
-                    indicator1 = addIntoIndicator(indicator1, "vib");
-                // volume off
-                if (profile._volumeRingerMode == 4)
-                    indicator1 = addIntoIndicator(indicator1, "sil");
-            }
-            // vibrate when ringing
-            if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
-                indicator1 = addIntoIndicator(indicator1, "wr1");
-            if (profile._vibrateWhenRinging == 2)
-                indicator1 = addIntoIndicator(indicator1, "wr0");
+            }*/
             // vibration on touch
-            if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3))
-                indicator1 = addIntoIndicator(indicator1, "vt1");
-            if (profile._vibrationOnTouch == 2)
-                indicator1 = addIntoIndicator(indicator1, "vt0");
+            if (profile._vibrationOnTouch != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3))
+                        indicator1 = addIntoIndicator(indicator1, "vt1");
+                    if (profile._vibrationOnTouch == 2)
+                        indicator1 = addIntoIndicator(indicator1, "vt0");
+                }
+            }
             // volume level
             if (profile.getVolumeAlarmChange() ||
                 profile.getVolumeMediaChange() ||
                 profile.getVolumeNotificationChange() ||
                 profile.getVolumeRingtoneChange() ||
                 profile.getVolumeSystemChange() ||
-                profile.getVolumeVoiceChange())
-                indicator1 = addIntoIndicator(indicator1, "vol");
+                profile.getVolumeVoiceChange()) {
+                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, this) == PPApplication.PREFERENCE_ALLOWED) ||
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MEDIA, this) == PPApplication.PREFERENCE_ALLOWED) ||
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, this) == PPApplication.PREFERENCE_ALLOWED) ||
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGTONE, this) == PPApplication.PREFERENCE_ALLOWED) ||
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SYSTEM, this) == PPApplication.PREFERENCE_ALLOWED) ||
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, this) == PPApplication.PREFERENCE_ALLOWED))
+                    indicator1 = addIntoIndicator(indicator1, "vol");
+            }
             // speaker phone
-            if (profile._volumeSpeakerPhone == 1)
-                indicator1 = addIntoIndicator(indicator1, "sp1");
-            if (profile._volumeSpeakerPhone == 2)
-                indicator1 = addIntoIndicator(indicator1, "sp0");
+            if (profile._volumeSpeakerPhone != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if (profile._volumeSpeakerPhone == 1)
+                        indicator1 = addIntoIndicator(indicator1, "sp1");
+                    if (profile._volumeSpeakerPhone == 2)
+                        indicator1 = addIntoIndicator(indicator1, "sp0");
+                }
+            }
             // sound
             if ((profile._soundRingtoneChange == 1) ||
                 (profile._soundNotificationChange == 1) ||
-                (profile._soundAlarmChange == 1))
-                indicator1 = addIntoIndicator(indicator1, "snd");
+                (profile._soundAlarmChange == 1)) {
+                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, this) == PPApplication.PREFERENCE_ALLOWED) ||
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, this) == PPApplication.PREFERENCE_ALLOWED) ||
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, this) == PPApplication.PREFERENCE_ALLOWED))
+                    indicator1 = addIntoIndicator(indicator1, "snd");
+            }
             // airplane mode
-            if ((profile._deviceAirplaneMode == 1) || (profile._deviceAirplaneMode == 3))
-                indicator1 = addIntoIndicator(indicator1, "am1");
-            if (profile._deviceAirplaneMode == 2)
-                indicator1 = addIntoIndicator(indicator1, "am0");
+            if (profile._deviceAirplaneMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceAirplaneMode == 1) || (profile._deviceAirplaneMode == 3))
+                        indicator1 = addIntoIndicator(indicator1, "am1");
+                    if (profile._deviceAirplaneMode == 2)
+                        indicator1 = addIntoIndicator(indicator1, "am0");
+                }
+            }
             // auto-sync
-            if ((profile._deviceAutoSync == 1) || (profile._deviceAutoSync == 3))
-                indicator1 = addIntoIndicator(indicator1, "as1");
-            if (profile._deviceAutoSync == 2)
-                indicator1 = addIntoIndicator(indicator1, "as0");
+            if (profile._deviceAutoSync != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceAutoSync == 1) || (profile._deviceAutoSync == 3))
+                        indicator1 = addIntoIndicator(indicator1, "as1");
+                    if (profile._deviceAutoSync == 2)
+                        indicator1 = addIntoIndicator(indicator1, "as0");
+                }
+            }
             // Network type
-            if (profile._deviceNetworkType != 0)
-                indicator1 = addIntoIndicator(indicator1, "ntt");
+            if (profile._deviceNetworkType != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, this) == PPApplication.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "ntt");
+            }
             // mobile data
-            if ((profile._deviceMobileData == 1) || (profile._deviceMobileData == 3))
-                indicator1 = addIntoIndicator(indicator1, "md1");
-            if (profile._deviceMobileData == 2)
-                indicator1 = addIntoIndicator(indicator1, "md0");
+            if (profile._deviceMobileData != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceMobileData == 1) || (profile._deviceMobileData == 3))
+                        indicator1 = addIntoIndicator(indicator1, "md1");
+                    if (profile._deviceMobileData == 2)
+                        indicator1 = addIntoIndicator(indicator1, "md0");
+                }
+            }
             // mobile data preferences
-            if (profile._deviceMobileDataPrefs == 1)
-                indicator1 = addIntoIndicator(indicator1, "mdP");
+            if (profile._deviceMobileDataPrefs == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, this) == PPApplication.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "mdP");
+            }
             // wifi
-            if ((profile._deviceWiFi == 1) || (profile._deviceWiFi == 3) || (profile._deviceWiFi == 4) || (profile._deviceWiFi == 5))
-                indicator1 = addIntoIndicator(indicator1, "wf1");
-            if (profile._deviceWiFi == 2)
-                indicator1 = addIntoIndicator(indicator1, "wf0");
+            if (profile._deviceWiFi != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceWiFi == 1) || (profile._deviceWiFi == 3) || (profile._deviceWiFi == 4) || (profile._deviceWiFi == 5))
+                        indicator1 = addIntoIndicator(indicator1, "wf1");
+                    if (profile._deviceWiFi == 2)
+                        indicator1 = addIntoIndicator(indicator1, "wf0");
+                }
+            }
             // wifi AP
-            if ((profile._deviceWiFiAP == 1) || (profile._deviceWiFiAP == 3))
-                indicator1 = addIntoIndicator(indicator1, "wp1");
-            if (profile._deviceWiFiAP == 2)
-                indicator1 = addIntoIndicator(indicator1, "wp0");
+            if (profile._deviceWiFiAP != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceWiFiAP == 1) || (profile._deviceWiFiAP == 3))
+                        indicator1 = addIntoIndicator(indicator1, "wp1");
+                    if (profile._deviceWiFiAP == 2)
+                        indicator1 = addIntoIndicator(indicator1, "wp0");
+                }
+            }
             // bluetooth
-            if ((profile._deviceBluetooth == 1) || (profile._deviceBluetooth == 3))
-                indicator1 = addIntoIndicator(indicator1, "bt1");
-            if (profile._deviceBluetooth == 2)
-                indicator1 = addIntoIndicator(indicator1, "bt0");
+            if (profile._deviceBluetooth != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceBluetooth == 1) || (profile._deviceBluetooth == 3))
+                        indicator1 = addIntoIndicator(indicator1, "bt1");
+                    if (profile._deviceBluetooth == 2)
+                        indicator1 = addIntoIndicator(indicator1, "bt0");
+                }
+            }
             // gps
-            if ((profile._deviceGPS == 1) || (profile._deviceGPS == 3))
-                indicator1 = addIntoIndicator(indicator1, "gp1");
-            if (profile._deviceGPS == 2)
-                indicator1 = addIntoIndicator(indicator1, "gp0");
+            if (profile._deviceGPS != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceGPS == 1) || (profile._deviceGPS == 3))
+                        indicator1 = addIntoIndicator(indicator1, "gp1");
+                    if (profile._deviceGPS == 2)
+                        indicator1 = addIntoIndicator(indicator1, "gp0");
+                }
+            }
             // location settings preferences
-            if (profile._deviceLocationServicePrefs == 1)
-                indicator1 = addIntoIndicator(indicator1, "loP");
+            if (profile._deviceLocationServicePrefs == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, this) == PPApplication.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "loP");
+            }
             // nfc
-            if ((profile._deviceNFC == 1) || (profile._deviceNFC == 3))
-                indicator1 = addIntoIndicator(indicator1, "nf1");
-            if (profile._deviceNFC == 2)
-                indicator1 = addIntoIndicator(indicator1, "nf0");
+            if (profile._deviceNFC != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceNFC == 1) || (profile._deviceNFC == 3))
+                        indicator1 = addIntoIndicator(indicator1, "nf1");
+                    if (profile._deviceNFC == 2)
+                        indicator1 = addIntoIndicator(indicator1, "nf0");
+                }
+            }
             // screen timeout
-            if (profile._deviceScreenTimeout != 0)
-                indicator1 = addIntoIndicator(indicator1, "stm");
+            if (profile._deviceScreenTimeout != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, this) == PPApplication.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "stm");
+            }
             // lock screen
-            if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3))
-                indicator1 = addIntoIndicator(indicator1, "ls1");
-            if (profile._deviceKeyguard == 2)
-                indicator1 = addIntoIndicator(indicator1, "ls0");
+            if (profile._deviceKeyguard != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_KEYGUARD, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3))
+                        indicator1 = addIntoIndicator(indicator1, "ls1");
+                    if (profile._deviceKeyguard == 2)
+                        indicator1 = addIntoIndicator(indicator1, "ls0");
+                }
+            }
             // brightness/auto-brightness
             if (profile.getDeviceBrightnessChange())
             {
-                if (profile.getDeviceBrightnessAutomatic())
-                    indicator1 = addIntoIndicator(indicator1, "brA");
-                else
-                    indicator1 = addIntoIndicator(indicator1, "brt");
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if (profile.getDeviceBrightnessAutomatic())
+                        indicator1 = addIntoIndicator(indicator1, "brA");
+                    else
+                        indicator1 = addIntoIndicator(indicator1, "brt");
+                }
             }
             // auto-rotation
-            if (profile._deviceAutoRotate == 1)
-                indicator1 = addIntoIndicator(indicator1, "aro");
-            else
-            if (profile._deviceAutoRotate != 0)
-                indicator1 = addIntoIndicator(indicator1, "rot");
+            if (profile._deviceAutoRotate != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if (profile._deviceAutoRotate == 1)
+                        indicator1 = addIntoIndicator(indicator1, "aro");
+                    else if (profile._deviceAutoRotate != 0)
+                        indicator1 = addIntoIndicator(indicator1, "rot");
+                }
+            }
             // notification led
-            if ((profile._notificationLed == 1) || (profile._notificationLed == 3))
-                indicator1 = addIntoIndicator(indicator1, "nl1");
-            if (profile._notificationLed == 2)
-                indicator1 = addIntoIndicator(indicator1, "nl0");
+            if (profile._notificationLed != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._notificationLed == 1) || (profile._notificationLed == 3))
+                        indicator1 = addIntoIndicator(indicator1, "nl1");
+                    if (profile._notificationLed == 2)
+                        indicator1 = addIntoIndicator(indicator1, "nl0");
+                }
+            }
             // power save mode
-            if ((profile._devicePowerSaveMode == 1) || (profile._devicePowerSaveMode == 3))
-                indicator1 = addIntoIndicator(indicator1, "ps1");
-            if (profile._devicePowerSaveMode == 2)
-                indicator1 = addIntoIndicator(indicator1, "ps0");
+            if (profile._devicePowerSaveMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._devicePowerSaveMode == 1) || (profile._devicePowerSaveMode == 3))
+                        indicator1 = addIntoIndicator(indicator1, "ps1");
+                    if (profile._devicePowerSaveMode == 2)
+                        indicator1 = addIntoIndicator(indicator1, "ps0");
+                }
+            }
             // run application
-            if (profile._deviceRunApplicationChange == 1)
-                indicator1 = addIntoIndicator(indicator1, "rap");
+            if (profile._deviceRunApplicationChange == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, this) == PPApplication.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "rap");
+            }
             // wallpaper
-            if (profile._deviceWallpaperChange == 1)
-                indicator1 = addIntoIndicator(indicator1, "wlp");
+            if (profile._deviceWallpaperChange == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, this) == PPApplication.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "wlp");
+            }
             // lock device
-            if (profile._lockDevice != 0)
-                indicator1 = addIntoIndicator(indicator1, "lck");
+            if (profile._lockDevice != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, this) == PPApplication.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "lck");
+            }
             // disable wifi scanning
-            if ((profile._applicationDisableWifiScanning == 1) || (profile._applicationDisableWifiScanning == 3))
-                indicator1 = addIntoIndicator(indicator1, "ws1");
-            if (profile._applicationDisableWifiScanning == 2)
-                indicator1 = addIntoIndicator(indicator1, "ws0");
+            if (profile._applicationDisableWifiScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableWifiScanning == 1) || (profile._applicationDisableWifiScanning == 3))
+                        indicator1 = addIntoIndicator(indicator1, "ws1");
+                    if (profile._applicationDisableWifiScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "ws0");
+                }
+            }
             // disable bluetooth scanning
-            if ((profile._applicationDisableBluetoothScanning == 1) || (profile._applicationDisableBluetoothScanning == 3))
-                indicator1 = addIntoIndicator(indicator1, "bs1");
-            if (profile._applicationDisableBluetoothScanning == 2)
-                indicator1 = addIntoIndicator(indicator1, "bs0");
+            if (profile._applicationDisableBluetoothScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableBluetoothScanning == 1) || (profile._applicationDisableBluetoothScanning == 3))
+                        indicator1 = addIntoIndicator(indicator1, "bs1");
+                    if (profile._applicationDisableBluetoothScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "bs0");
+                }
+            }
         }
         /////////////////////////////////////////////////////////////
 
