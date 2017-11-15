@@ -92,9 +92,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
             profile = Profile.getDefaultProfile(getApplicationContext());
         event = dataWrapper.getEventById(event_id);
 
-        Log.e("GrantPermissionActivity", "onShow grantType="+grantType);
-        Log.e("GrantPermissionActivity", "onShow permissions.size()="+permissions.size());
-        Log.e("GrantPermissionActivity", "onShow onlyNotification="+onlyNotification);
+        //Log.e("GrantPermissionActivity", "onShow grantType="+grantType);
+        //Log.e("GrantPermissionActivity", "onShow permissions.size()="+permissions.size());
+        //Log.e("GrantPermissionActivity", "onShow onlyNotification="+onlyNotification);
         //if (profile != null)
         //    Log.e("GrantPermissionActivity", "onShow profile._name="+profile._name);
         //if (event != null)
@@ -189,10 +189,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
         boolean showRequestAccessCoarseLocation = false;
         boolean showRequestAccessFineLocation = false;
 
-        Log.e("GrantPermissionActivity.onStart", "permissions.size="+permissions.size());
+        //Log.e("GrantPermissionActivity.onStart", "permissions.size="+permissions.size());
 
         for (Permissions.PermissionType permissionType : permissions) {
-            Log.e("GrantPermissionActivity.onStart", "permissionType.permission="+permissionType.permission);
+            //Log.e("GrantPermissionActivity.onStart", "permissionType.permission="+permissionType.permission);
 
             if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS))
                 showRequestWriteSettings = Permissions.getShowRequestWriteSettingsPermission(context);
@@ -224,6 +224,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION);
         }
 
+        /*
         Log.e("GrantPermissionActivity.onStart", "showRequestWriteSettings="+showRequestWriteSettings);
         Log.e("GrantPermissionActivity.onStart", "showRequestReadExternalStorage="+showRequestReadExternalStorage);
         Log.e("GrantPermissionActivity.onStart", "showRequestReadPhoneState="+showRequestReadPhoneState);
@@ -237,6 +238,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         Log.e("GrantPermissionActivity.onStart", "showRequestAccessFineLocation="+showRequestAccessFineLocation);
         Log.e("GrantPermissionActivity.onStart", "showRequestAccessNotificationPolicy="+showRequestAccessNotificationPolicy);
         Log.e("GrantPermissionActivity.onStart", "showRequestDrawOverlays="+showRequestDrawOverlays);
+        */
 
         if (showRequestWriteSettings ||
                 showRequestReadExternalStorage ||
@@ -422,7 +424,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
         }
         else {
-            Log.e("GrantPermissionActivity.onStart","no show rationale");
+            //Log.e("GrantPermissionActivity.onStart","no show rationale");
             if (onlyNotification)
                 showNotification(context);
             else

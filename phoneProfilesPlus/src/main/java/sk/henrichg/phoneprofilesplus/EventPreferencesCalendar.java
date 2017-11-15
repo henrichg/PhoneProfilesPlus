@@ -18,6 +18,7 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract.Instances;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -445,41 +446,58 @@ class EventPreferencesCalendar extends EventPreferences {
         Cursor cur;
         ContentResolver cr = context.getContentResolver();
 
-        String selection =  "(    ";
+        StringBuilder selection = new StringBuilder("(");
 
-        switch (_searchField) {
-            case SEARCH_FIELD_TITLE:
-                selection = selection +
-                        "     (lower(" + Instances.TITLE + ")" + " LIKE lower(?) ESCAPE '\\')";
-                break;
-            case SEARCH_FIELD_DESCRIPTION:
-                selection = selection +
-                        "     (lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?) ESCAPE '\\')";
-                break;
-            case SEARCH_FIELD_LOCATION:
-                selection = selection +
-                        "     (lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?) ESCAPE '\\')";
-                break;
+        String[] searchStringSplits = _searchString.split("\\|");
+        String[] selectionArgs = new String[searchStringSplits.length];
+        int argsId = 0;
+        selection.append("(");
+        for (String split : searchStringSplits) {
+            if (!split.isEmpty()) {
+                String searchPattern = split;
+
+                // when in searchPattern are not wildcards add %
+                if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+                    searchPattern = "%"+searchPattern+"%";
+
+                selectionArgs[argsId] = searchPattern;
+
+                if (argsId > 0)
+                    selection.append(" OR ");
+
+                switch (_searchField) {
+                    case SEARCH_FIELD_TITLE:
+                        selection.append("(lower(" + Instances.TITLE + ")" + " LIKE lower(?) ESCAPE '\\')");
+                        break;
+                    case SEARCH_FIELD_DESCRIPTION:
+                        selection.append("(lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?) ESCAPE '\\')");
+                        break;
+                    case SEARCH_FIELD_LOCATION:
+                        selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?) ESCAPE '\\')");
+                        break;
+                }
+
+                ++argsId;
+            }
         }
+        selection.append(")");
 
         switch (_availability) {
             case AVAILABILITY_BUSY:
-                selection = selection +
-                        " AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_BUSY + ")";
+                selection.append(" AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_BUSY + ")");
                 break;
             case AVAILABILITY_FREE:
-                selection = selection +
-                        " AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_FREE + ")";
+                selection.append(" AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_FREE + ")");
                 break;
             case AVAILABILITY_TENTATIVE:
-                selection = selection +
-                        " AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_TENTATIVE + ")";
+                selection.append(" AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_TENTATIVE + ")");
                 break;
         }
-        selection = selection + ")";
+        selection.append(")");
 
-        //Log.e("** EventPrefCalendar", "_searchField="+_searchField);
-        //Log.e("** EventPrefCalendar", "selection="+selection);
+        Log.e("** EventPrefCalendar", "selection="+selection);
+        for (String arg : selectionArgs)
+            Log.e("** EventPrefCalendar", "selectionArgs="+arg);
 
         // Construct the query with the desired date range.
         Calendar calendar = Calendar.getInstance();
@@ -497,17 +515,11 @@ class EventPreferencesCalendar extends EventPreferences {
         _startTime = 0;
         _endTime = 0;
 
-        String[] splits = _calendars.split("\\|");
-
-        String searchPattern = _searchString;
-        // when in searchPattern are not wildcards add %
-        if (!(searchPattern.contains("%") || searchPattern.contains("_")))
-            searchPattern = "%"+searchPattern+"%";
-        String[] selectionArgs = new String[] { searchPattern };
+        String[] calendarsSplits = _calendars.split("\\|");
 
         // Submit the query
         try {
-            cur = cr.query(builder.build(), INSTANCE_PROJECTION, selection, selectionArgs, Instances.BEGIN + " ASC");
+            cur = cr.query(builder.build(), INSTANCE_PROJECTION, selection.toString(), selectionArgs, Instances.BEGIN + " ASC");
         } catch (Exception e) {
             cur = null;
         }
@@ -517,7 +529,7 @@ class EventPreferencesCalendar extends EventPreferences {
             while (cur.moveToNext()) {
 
                 boolean calendarFound = false;
-                for (String split : splits) {
+                for (String split : calendarsSplits) {
                     long calendarId = Long.parseLong(split);
                     if (cur.getLong(PROJECTION_CALENDAR_ID_INDEX) == calendarId) {
                         calendarFound = true;
