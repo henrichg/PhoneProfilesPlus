@@ -1100,4 +1100,5 @@
     <string name="event_preferences_orientation_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
     <string name="important_info_accessibility_service_text1">Due to change of rules by Google, about usage of Accessibility services, you must install PhoneProfilesPlusExtender for event sensors \"Applications parameters\" and \"Orientation parameters\". Look at parameters of these sensors for more information.</string>
     <string name="about_application_extender_source_code">Source code - Extender:</string>
+    <string name="pref_dlg_info_about_wildcards_4">You can configure more strings. Separate it with character \"|\".</string>
 </resources>

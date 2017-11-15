@@ -213,10 +213,12 @@ class EventPreferencesCalendar extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value);
-                String helpString = context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
+                String helpString = context.getString(R.string.pref_dlg_info_about_wildcards_1) + "\n" +
                         context.getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
                         context.getString(R.string.calendar_pref_dlg_info_about_wildcards) + " " +
-                        context.getString(R.string.pref_dlg_info_about_wildcards_3);
+                        context.getString(R.string.pref_dlg_info_about_wildcards_3) + "\n" +
+                        context.getString(R.string.pref_dlg_info_about_wildcards_4)
+                        ;
                 ((EditTextPreference) preference).setDialogMessage(helpString);
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
