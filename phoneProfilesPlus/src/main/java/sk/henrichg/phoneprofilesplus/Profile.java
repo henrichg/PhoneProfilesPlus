@@ -1812,6 +1812,8 @@ public class Profile {
             }
             else
                 PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-featurePresented="+featurePresented);
+            PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-PPApplication.notAllowedReason="+PPApplication.notAllowedReason);
         }
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))

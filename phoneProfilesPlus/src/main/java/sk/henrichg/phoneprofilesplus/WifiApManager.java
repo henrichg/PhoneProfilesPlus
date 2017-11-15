@@ -39,7 +39,12 @@ final class WifiApManager {
             PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-mWifiManager="+mWifiManager);
             PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-wifiControlMethod="+wifiControlMethod);
             if (enabled) {
-                mWifiManager.setWifiEnabled(false);
+                if (mWifiManager != null) {
+                    int wifiState = mWifiManager.getWifiState();
+                    boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                    if (isWifiEnabled)
+                        mWifiManager.setWifiEnabled(false);
+                }
             }
             wifiControlMethod.setAccessible(true);
             return (Boolean) wifiControlMethod.invoke(mWifiManager, config, enabled);

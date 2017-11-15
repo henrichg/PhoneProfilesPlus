@@ -2275,9 +2275,18 @@ public class PhoneProfilesService extends Service
                         PPApplication.settingsBinaryExists();
                         PPApplication.serviceBinaryExists();
                         //PPApplication.getSUVersion();
-                        PPApplication.getServicesList();
                     }
                     //}
+                    PPApplication.getServicesList();
+                    /*
+                    Object serviceManager = PPApplication.getServiceManager("wifi");
+                    int transactionCode = -1;
+                    if (serviceManager != null) {
+                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setWifiApEnabled");
+                    }
+                    PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.?????-serviceManager="+String.valueOf(serviceManager));
+                    PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.?????-transactionCode="+transactionCode);
+                    */
 
                     GlobalGUIRoutines.setLanguage(appContext);
 

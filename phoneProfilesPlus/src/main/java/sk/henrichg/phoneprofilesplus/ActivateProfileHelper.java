@@ -2631,10 +2631,16 @@ public class ActivateProfileHelper {
     }
 
     private void setWifiAP(WifiApManager wifiApManager, boolean enable) {
-        if (Build.VERSION.SDK_INT < 26)
+        PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-enable="+enable);
+
+        if (Build.VERSION.SDK_INT < 26) {
+            PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 26");
             wifiApManager.setWifiApState(enable);
+        }
         else {
+            PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API >= 26");
             if (PPApplication.isRooted() && PPApplication.serviceBinaryExists()) {
+                PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-rooted");
                 try {
                     Object serviceManager = PPApplication.getServiceManager("wifi");
                     int transactionCode = -1;
@@ -2645,8 +2651,19 @@ public class ActivateProfileHelper {
                     PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-transactionCode="+transactionCode);
 
                     if (transactionCode != -1) {
+                        if (enable) {
+                            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                            PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-wifiManager="+wifiManager);
+                            if (wifiManager != null) {
+                                int wifiState = wifiManager.getWifiState();
+                                boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                                PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-isWifiEnabled="+isWifiEnabled);
+                                if (isWifiEnabled)
+                                    wifiManager.setWifiEnabled(false);
+                            }
+                        }
                         synchronized (PPApplication.startRootCommandMutex) {
-                            //String command1 = "service call phone " + transactionCode + " i32 " + networkType;
+                            PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-start root command");
                             String command1 = PPApplication.getServiceCommand("wifi", transactionCode, 0, (enable) ? 1 : 0);
                             PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-command1="+command1);
                             Command command = new Command(0, false, command1);
@@ -2654,8 +2671,10 @@ public class ActivateProfileHelper {
                                 //RootTools.closeAllShells();
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                 commandWait(command);
+                                PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command end");
                             } catch (Exception e) {
                                 Log.e("ActivateProfileHelper.setWifiAP", "Error on run su");
+                                PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command error");
                             }
                         }
                     }

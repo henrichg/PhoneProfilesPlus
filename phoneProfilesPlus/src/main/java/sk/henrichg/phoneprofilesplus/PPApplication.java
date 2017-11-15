@@ -51,7 +51,7 @@ public class PPApplication extends Application {
     static String PACKAGE_NAME;
 
     private static final boolean logIntoLogCat = true;
-    private static final boolean logIntoFile = false;
+    private static final boolean logIntoFile = true;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
@@ -882,9 +882,13 @@ public class PPApplication extends Application {
         {
             @Override
             public void commandOutput(int id, String line) {
+                //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - line="+line);
                 Matcher matcher = compile.matcher(line);
                 if (matcher.find()) {
+                    //noinspection unchecked
                     serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
+                    //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(1)="+matcher.group(1));
+                    //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(2)="+matcher.group(2));
                 }
                 super.commandOutput(id, line);
             }
