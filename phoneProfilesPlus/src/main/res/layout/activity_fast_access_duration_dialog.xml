@@ -98,10 +98,10 @@
                     android:id="@+id/duration_pref_dlg_ends"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
+                    android:layout_gravity="right|end"
                     android:text="00:00:00"
                     android:textSize="20sp"
-                    tools:ignore="HardcodedText"/>
+                    tools:ignore="HardcodedText,RtlHardcoded"/>
 
             </LinearLayout>
 
