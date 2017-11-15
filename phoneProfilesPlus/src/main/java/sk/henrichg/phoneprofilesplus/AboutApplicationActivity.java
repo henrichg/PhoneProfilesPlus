@@ -166,6 +166,27 @@ public class AboutApplicationActivity extends AppCompatActivity {
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
+        text = findViewById(R.id.about_application_extender_source_code);
+        str1 = getString(R.string.about_application_extender_source_code);
+        str2 = str1 + " https://github.com/henrichg/PhoneProfilesPlusExtender";
+        sbt = new SpannableString(str2);
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+                String url = "https://github.com/henrichg/PhoneProfilesPlusExtender";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                } catch (Exception ignored) {}
+            }
+        };
+        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        text.setText(sbt);
+        text.setMovementMethod(LinkMovementMethod.getInstance());
+
         text = findViewById(R.id.about_application_translations);
         str1 = getString(R.string.about_application_transaltions);
         str2 = str1 + " https://crowdin.com/project/phoneprofilesplus";
