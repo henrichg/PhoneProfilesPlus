@@ -120,10 +120,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         final Context context = getApplicationContext();
 
-        //if (permissions.size() == 0) {
-        if (onlyNotification) {
+        if (permissions.size() == 0) {
             // called from notification - recheck permissions
-            permissions.clear();
             if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE) {
                 boolean granted = Permissions.checkInstallTone(context, permissions);
                 if (granted) {
