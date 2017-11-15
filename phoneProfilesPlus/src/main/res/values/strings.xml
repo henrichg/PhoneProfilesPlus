@@ -835,7 +835,7 @@
     <string name="editor_event_list_item_event_status">Event status indicator</string>
     <string name="editor_event_list_item_profile_start_icon">Start of event profile icon</string>
     <string name="editor_event_list_item_profile_end_icon">End of event profile icon</string>
-    <string name="profile_preferences_sourceProfileInfo_summary">You can set each profile parameter to use Shared profile. Click here to configure the Shared profile parameters.</string>
+    <string name="profile_preferences_sourceProfileInfo_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile. Click here to configure the Shared profile parameters.</string>
     <string name="run_stop_events_indicator">Enable/disable events run indicator</string>
     <string name="run_stop_indicator_popup_window_important_infos">For more information, review the \"Important information\" screen in Editor through the question mark icon in the bottom toolbar.</string>
     <string name="important_info_how_to_show_ppp">This important information can be viewed In Editor through the question mark icon in the top toolbar.</string>
@@ -1101,4 +1101,6 @@
     <string name="important_info_accessibility_service_text1">Due to change of rules by Google, about usage of Accessibility services, you must install PhoneProfilesPlusExtender for event sensors \"Applications parameters\" and \"Orientation parameters\". Look at parameters of these sensors for more information.</string>
     <string name="about_application_extender_source_code">Source code - Extender:</string>
     <string name="pref_dlg_info_about_wildcards_4">You can configure more strings. Separate it with character \"|\".</string>
+    <string name="profile_preferences_sourceProfileInfoX_title">Shared profile functionality.</string>
+    <string name="profile_preferences_sourceProfileInfoX_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile.</string>
 </resources>

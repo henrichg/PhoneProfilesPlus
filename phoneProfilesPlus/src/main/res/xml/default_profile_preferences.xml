@@ -6,6 +6,11 @@
     android:key="rootScreen"
     android:title="@string/title_activity_default_profile_preferences" >
 
+    <Preference
+        android:key="prf_pref_sharedProfileInfo"
+        android:title="@string/profile_preferences_sourceProfileInfoX_title"
+        android:summary="@string/profile_preferences_sourceProfileInfoX_summary"
+        android:widgetLayout="@layout/info_preference" />
     <PreferenceCategory
         android:summary="@string/profile_preferences_category_profileDeviceParameters"
         android:title="@string/profile_preferences_category_profileDeviceParameters" >
