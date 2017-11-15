@@ -1283,7 +1283,7 @@ public class DataWrapper {
                         if (Permissions.grantProfilePermissions(context, _profile, false, false,
                                 forGUI, monochrome, monochromeValue,
                                 _startupSource, true, _activity, true))
-                            _activateProfile(_profile, false, _startupSource, true, _activity);
+                            _dataWrapper._activateProfile(_profile, false, _startupSource, true, _activity);
                         else {
                             Intent returnIntent = new Intent();
                             _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
