@@ -682,7 +682,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             startActivity(intent);
             return true;
         case R.id.menu_exit:
-            PPApplication.exitApp(getApplicationContext(), getDataWrapper(), this, true);
+            PPApplication.exitApp(getApplicationContext(), getDataWrapper(), this, true, false);
             return true;
         default:
             return super.onOptionsItemSelected(item);
