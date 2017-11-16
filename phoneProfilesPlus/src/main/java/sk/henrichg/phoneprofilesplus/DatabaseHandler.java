@@ -6317,6 +6317,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    void addMobileCellNamesToList(List<String> cellNamesList) {
+        synchronized (databaseHandlerMutex) {
+            // Select All Query
+            final String selectQuery = "SELECT " + KEY_MC_NAME +
+                                        " FROM " + TABLE_MOBILE_CELLS +
+                                        " GROUP BY " + KEY_MC_NAME +
+                                        " ORDER BY " + KEY_MC_NAME;
+
+            //SQLiteDatabase db = this.getReadableDatabase();
+            SQLiteDatabase db = getMyWritableDatabase();
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            // looping through all rows and adding to list
+            if (cursor.moveToFirst()) {
+                do {
+                    String name = cursor.getString(cursor.getColumnIndex(KEY_MC_NAME));
+                    cellNamesList.add(name);
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+            //db.close();
+        }
+    }
+
 // NFC_TAGS ----------------------------------------------------------------------
 
     /*

@@ -1105,4 +1105,5 @@
     <string name="profile_preferences_sourceProfileInfoX_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile.</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Default profile</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">This profile will activate when no event is running. Click this to configure it.</string>
+    <string name="mobile_cell_names_dialog_title">Cell names</string>
 </resources>

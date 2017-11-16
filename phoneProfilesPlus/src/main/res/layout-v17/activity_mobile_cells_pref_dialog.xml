@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical">
 
     <LinearLayout 
         android:id="@+id/mobile_cells_pref_dlg_linla_progress"
@@ -45,6 +46,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/mobile_cells_pref_dlg_help" />
 
             <RelativeLayout
@@ -107,16 +109,35 @@
                     android:contentDescription="@string/mobile_cells_pref_dlg_rename_icon"
                     android:focusable="true"/>
 
-                <EditText
-                    android:id="@+id/mobile_cells_pref_dlg_cells_name"
-                    android:layout_width="fill_parent"
+                <RelativeLayout
+                    android:id="@+id/mobile_cells_pref_dlg_cells_name_root"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginEnd="5dp"
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_rename"
-                    android:hint="@string/mobile_cells_pref_dlg_cell_name_hint"
-                    android:selectAllOnFocus="true"
-                    android:inputType="textNoSuggestions" />
+                    android:clickable="true"
+                    android:focusable="true" >
+                    <TextView
+                        android:id="@+id/mobile_cells_pref_dlg_value_spinnerChar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_alignParentEnd="true"
+                        android:textSize="12sp"
+                        android:text="\u25BC"
+                        tools:ignore="HardcodedText"/>
+                    <TextView
+                        android:id="@+id/mobile_cells_pref_dlg_cells_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="18dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_toEndOf="@id/mobile_cells_pref_dlg_value_spinnerChar"
+                        android:hint="@string/mobile_cells_pref_dlg_cell_name_hint"
+                        android:textSize="19sp"/>
+                </RelativeLayout>
 
             </RelativeLayout>
 

@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -46,8 +47,9 @@ public class MobileCellsPreference extends DialogPreference {
     private MaterialDialog mSelectorDialog;
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
-    private EditText cellName;
+    TextView cellName;
     private MobileCellsPreferenceAdapter listAdapter;
+    private MobileCellNamesDialog mMobileCellNamesDialog;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
@@ -164,6 +166,16 @@ public class MobileCellsPreference extends DialogPreference {
             }
 
         });
+
+        RelativeLayout cellNamesValueRoot = layout.findViewById(R.id.mobile_cells_pref_dlg_cells_name_root);
+        mMobileCellNamesDialog = new MobileCellNamesDialog(context, this);
+        cellNamesValueRoot.setOnClickListener(new View.OnClickListener() {
+                                                  @Override
+                                                  public void onClick(View view) {
+                                                      mMobileCellNamesDialog.show();
+                                                  }
+                                              }
+        );
 
         final ImageView editIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_rename);
         editIcon.setOnClickListener(new View.OnClickListener() {

@@ -39,10 +39,11 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
     private SeekBar mSeekBarHours;
     private SeekBar mSeekBarMinutes;
     private SeekBar mSeekBarSeconds;
-    private EditText mCellsName;
+    TextView mCellsName;
     private TextView mStatus;
     private TextView mRemainingTime;
     private TimeDurationPickerDialog mValueDialog;
+    private MobileCellNamesDialog mMobileCellNamesDialog;
 
     //private int mColor = 0;
 
@@ -231,6 +232,16 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                     mValueDialog.show();
                 }
              }
+        );
+
+        RelativeLayout cellNamesValueRoot = layout.findViewById(R.id.mobile_cells_registration_cells_name_root);
+        mMobileCellNamesDialog = new MobileCellNamesDialog(context, this);
+        cellNamesValueRoot.setOnClickListener(new View.OnClickListener() {
+                                         @Override
+                                         public void onClick(View view) {
+                                             mMobileCellNamesDialog.show();
+                                         }
+                                     }
         );
 
         mSeekBarHours.setOnSeekBarChangeListener(this);
