@@ -146,7 +146,10 @@ public class MobileCellsPreference extends DialogPreference {
         //dataRelativeLayout = layout.findViewById(R.id.mobile_cells_pref_dlg_rella_data);
 
         cellFilter = layout.findViewById(R.id.mobile_cells_pref_dlg_cells_filter_name);
-        cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_selected);
+        if (value.isEmpty())
+            cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_all);
+        else
+            cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_selected);
         cellFilter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
