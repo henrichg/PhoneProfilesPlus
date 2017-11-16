@@ -5,23 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 class MobileCellNamesDialogAdapter extends BaseAdapter {
 
     private LayoutInflater inflater = null;
-    private final Context context;
 
     MobileCellNamesDialog dialog;
 
-    MobileCellNamesDialogAdapter(Context c, MobileCellNamesDialog dialog)
+    MobileCellNamesDialogAdapter(Context context, MobileCellNamesDialog dialog)
     {
-        context = c;
         this.dialog = dialog;
 
-        inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override

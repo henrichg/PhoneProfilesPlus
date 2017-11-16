@@ -5,8 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatImageButton;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -25,8 +23,7 @@ class MobileCellNamesDialog {
     List<String> cellNamesList = new ArrayList<>();
 
     final MaterialDialog mDialog;
-    final ListView cellNamesListView;
-    final EditText cellName;
+    private final EditText cellName;
 
     private LinearLayout linlaProgress;
     private RelativeLayout rellaDialog;
@@ -63,7 +60,7 @@ class MobileCellNamesDialog {
         mDialog = dialogBuilder.build();
         View layout = mDialog.getCustomView();
 
-        cellNamesListView = layout.findViewById(R.id.mobile_cell_names_dlg_listview);
+        ListView cellNamesListView = layout.findViewById(R.id.mobile_cell_names_dlg_listview);
         cellName = layout.findViewById(R.id.mobile_cell_names_dlg_name);
         if (preference instanceof MobileCellsRegistrationDialogPreference) {
             cellName.setText(((MobileCellsRegistrationDialogPreference) preference).mCellsName.getText().toString());
