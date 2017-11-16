@@ -497,9 +497,11 @@ class EventPreferencesCalendar extends EventPreferences {
         }
         selection.append(")");
 
+        /*
         Log.e("** EventPrefCalendar", "selection="+selection);
         for (String arg : selectionArgs)
             Log.e("** EventPrefCalendar", "selectionArgs="+arg);
+        */
 
         // Construct the query with the desired date range.
         Calendar calendar = Calendar.getInstance();
