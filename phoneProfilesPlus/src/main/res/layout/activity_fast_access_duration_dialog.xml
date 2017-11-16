@@ -48,12 +48,15 @@
                     android:text="@string/duration_pref_dlg_duration_label"/>
 
                 <RelativeLayout
+                    android:id="@+id/duration_pref_dlg_value_root"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
-                    android:layout_marginBottom="10dp" >
+                    android:layout_marginBottom="10dp"
+                    android:clickable="true"
+                    android:focusable="true" >
                     <TextView
                         android:id="@+id/duration_pref_dlg_value"
                         android:layout_width="wrap_content"
@@ -63,9 +66,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
                         android:textSize="20sp"
-                        android:clickable="true"
-                        android:maxLines="1"
-                        android:focusable="true"/>
+                        android:maxLines="1"/>
                     <TextView
                         android:id="@+id/duration_pref_dlg_value_spinnerChar"
                         android:layout_width="wrap_content"
@@ -75,8 +76,6 @@
                         android:layout_toRightOf="@id/duration_pref_dlg_value"
                         android:textSize="12sp"
                         android:text="\u25BC"
-                        android:clickable="true"
-                        android:focusable="true"
                         tools:ignore="HardcodedText"/>
                 </RelativeLayout>
 

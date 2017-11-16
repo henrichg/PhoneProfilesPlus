@@ -9,6 +9,7 @@ import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -125,6 +126,7 @@ public class DurationDialogPreference extends DialogPreference
 
         mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
 
+        RelativeLayout valueRoot = layout.findViewById(R.id.duration_pref_dlg_value_root);
         mValueDialog = new TimeDurationPickerDialog(context, new TimeDurationPickerDialog.OnDurationSetListener() {
             @Override
             public void onDurationSet(TimeDurationPicker view, long duration) {
@@ -146,26 +148,7 @@ public class DurationDialogPreference extends DialogPreference
                 mSeekBarSeconds.setProgress(seconds);
             }
         }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
-
-        mValue.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int hours = mSeekBarHours.getProgress();
-                    int minutes = mSeekBarMinutes.getProgress();
-                    int seconds = mSeekBarSeconds.getProgress();
-
-                    int iValue = (hours * 3600 + minutes * 60 + seconds);
-                    if (iValue < mMin) iValue = mMin;
-                    if (iValue > mMax) iValue = mMax;
-
-                    mValueDialog.setDuration(iValue * 1000);
-                    mValueDialog.show();
-                }
-            }
-        );
-
-        TextView mValueSpinnerChar = layout.findViewById(R.id.duration_pref_dlg_value_spinnerChar);
-        mValueSpinnerChar.setOnClickListener(new View.OnClickListener() {
+        valueRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int hours = mSeekBarHours.getProgress();

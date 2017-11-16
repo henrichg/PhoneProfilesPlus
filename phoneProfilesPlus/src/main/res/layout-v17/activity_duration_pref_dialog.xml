@@ -24,21 +24,22 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/duration_pref_dlg_value_root"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="10dp" >
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true" >
             <TextView
                 android:id="@+id/duration_pref_dlg_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_alignParentStart="true"
-                android:textSize="20sp"
-                android:clickable="true"
-                android:focusable="true"/>
+                android:textSize="20sp"/>
             <TextView
                 android:id="@+id/duration_pref_dlg_value_spinnerChar"
                 android:layout_width="wrap_content"
@@ -47,8 +48,6 @@
                 android:layout_toEndOf="@id/duration_pref_dlg_value"
                 android:textSize="12sp"
                 android:text="\u25BC"
-                android:clickable="true"
-                android:focusable="true"
                 tools:ignore="HardcodedText"/>
         </RelativeLayout>
 

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -178,6 +179,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
         mEnds.setText(GlobalGUIRoutines.getEndsAtString(iValue));
 
+        RelativeLayout valueRoot = layout.findViewById(R.id.duration_pref_dlg_value_root);
         mValueDialog = new TimeDurationPickerDialog(activity, new TimeDurationPickerDialog.OnDurationSetListener() {
             @Override
             public void onDurationSet(TimeDurationPicker view, long duration) {
@@ -201,8 +203,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 updateTextFields(false);
             }
         }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
-
-        mValue.setOnClickListener(new View.OnClickListener() {
+        valueRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int hours = mSeekBarHours.getProgress();
@@ -212,25 +213,6 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                     int iValue = (hours * 3600 + minutes * 60 + seconds);
                     if (iValue < mMin) iValue = mMin;
                     if (iValue > mMax) iValue = mMax;
-
-                    mValueDialog.setDuration(iValue * 1000);
-                    mValueDialog.show();
-                }
-            }
-        );
-
-        TextView mValueDescription = layout.findViewById(R.id.duration_pref_dlg_value_spinnerChar);
-        mValueDescription.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int hours = mSeekBarHours.getProgress();
-                    int minutes = mSeekBarMinutes.getProgress();
-                    int seconds = mSeekBarSeconds.getProgress();
-
-                    int iValue = (hours * 3600 + minutes * 60 + seconds);
-                    if (iValue < mMin) iValue = mMin;
-                    if (iValue > mMax) iValue = mMax;
-
                     mValueDialog.setDuration(iValue * 1000);
                     mValueDialog.show();
                 }
