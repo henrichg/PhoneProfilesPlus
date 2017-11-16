@@ -1106,4 +1106,11 @@
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Default profile</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">This profile will activate when no event is running. Click this to configure it.</string>
     <string name="mobile_cell_names_dialog_title">Cell names</string>
+    <string name="mobile_cell_names_dialog_filter_title">Cell names filter</string>
+    <string name="mobile_cell_names_dialog_item_show_selected">[ Selected ]</string>
+    <string name="mobile_cell_names_dialog_item_show_without_name">[ Without name ]</string>
+    <string name="mobile_cell_names_dialog_item_show_new">[ New (N) ]</string>
+    <string name="mobile_cell_names_dialog_item_show_all">[ All ]</string>
+    <string name="array_pref_change_selection_mobile_cells_select_all_visible">Select all visible</string>
+    <string name="array_pref_mobile_cells_rename_all_visible">All visible</string>
 </resources>

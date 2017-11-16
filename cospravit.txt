@@ -213,3 +213,26 @@ Senzor polohy:
   - cancelGeofenceScannerJob()
     - volane je z scheduleGeofenceScannerJob()
     - robi cancel GeofenceScannerJob
+
+-------------------
+
+MobileCellsPreference
+- nad zoznam buniek dat MobileCellNamesDialog + refresh ikonu (taky kruh so sipkami)
+- MobileCellNamesDialog
+  - bude filtrovat bunky v zozname podla cell name
+  - necha zobrazene co vyfiltroval, cize ak pribudne bunka (lebo dialog skenuje), tak tam nove zostanu
+  - do dialogu pridat (na zaciatok zoznamu):
+    - zobraz vybrate (oselectovane) - mastavi sa po otvoreni preference
+    - zobraz pouzite (boldom)
+    - zobraz vsetky
+    - vybratie konkretneho nazvu sa prenesie do nazvu dole v dialogu
+- spodny MobileCellNamesDialog nechaj ako je
+  - bude menit nazov buniek, ktore pribudnu (ako teraz)
+  - nazov po otvoreni preference sa nastavi na prvy oselectovany cell v zozname, ak nie je ziaden oselectovany, da sa nazov udalosti
+  - zmena nazvu
+    - nove (N) - zostava
+    - Vybrate - zostava
+  - zmena vyberu
+    - zrusit cely vyber - zostava
+    - vybrat podla nazvu bunky - zostava
+    - vybrat vsetky zobrazene - oselectuje vsetky bunky, ktore su prave zobrazene

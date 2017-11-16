@@ -234,7 +234,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         );
 
         RelativeLayout cellNamesValueRoot = layout.findViewById(R.id.mobile_cells_registration_cells_name_root);
-        mMobileCellNamesDialog = new MobileCellNamesDialog(context, this);
+        mMobileCellNamesDialog = new MobileCellNamesDialog(context, this, false);
         cellNamesValueRoot.setOnClickListener(new View.OnClickListener() {
                                          @Override
                                          public void onClick(View view) {

@@ -122,8 +122,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_toLeftOf = "@id/mobile_cells_pref_dlg_rename"
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_rename"
                     android:clickable="true"
@@ -142,12 +142,12 @@
                         android:id="@+id/mobile_cells_pref_dlg_cells_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="18dp"
-                        android:layout_marginEnd="18dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
-                        android:layout_toRightOf="@id/mobile_cells_pref_dlg_value_spinnerChar"
-                        android:layout_toEndOf="@id/mobile_cells_pref_dlg_value_spinnerChar"
+                        android:layout_toLeftOf="@id/mobile_cells_pref_dlg_value_spinnerChar"
+                        android:layout_toStartOf="@id/mobile_cells_pref_dlg_value_spinnerChar"
                         android:hint="@string/mobile_cells_pref_dlg_cell_name_hint"
                         android:textSize="19sp"/>
                 </RelativeLayout>
@@ -164,6 +164,42 @@
             android:layout_above="@id/mobile_cells_pref_dlg_et_btn"
             android:layout_alignParentTop="true"
             >
+
+            <RelativeLayout
+                android:id="@+id/mobile_cells_pref_dlg_cells_filter_root"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
+                android:clickable="true"
+                android:focusable="true" >
+                <TextView
+                    android:id="@+id/mobile_cells_pref_dlg_cells_filter_spinnerChar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="12sp"
+                    android:text="\u25BC"
+                    tools:ignore="HardcodedText"/>
+                <TextView
+                    android:id="@+id/mobile_cells_pref_dlg_cells_filter_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@id/mobile_cells_pref_dlg_cells_filter_spinnerChar"
+                    android:layout_toStartOf="@id/mobile_cells_pref_dlg_cells_filter_spinnerChar"
+                    android:textSize="19sp"/>
+            </RelativeLayout>
 
             <View
                 android:id="@+id/mobile_cells_pref_dlg_titleBarDivider"

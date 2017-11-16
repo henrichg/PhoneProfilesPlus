@@ -6322,6 +6322,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             // Select All Query
             final String selectQuery = "SELECT " + KEY_MC_NAME +
                                         " FROM " + TABLE_MOBILE_CELLS +
+                                        " WHERE " + KEY_MC_NAME + " IS NOT NULL" +
+                                        " AND " + KEY_MC_NAME + " <> ''" +
                                         " GROUP BY " + KEY_MC_NAME +
                                         " ORDER BY " + KEY_MC_NAME;
 

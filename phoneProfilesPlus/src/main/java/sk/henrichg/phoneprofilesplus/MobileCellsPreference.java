@@ -13,7 +13,11 @@ import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.View;
@@ -27,6 +31,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.internal.MDButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +42,8 @@ public class MobileCellsPreference extends DialogPreference {
 
     private String value;
     String persistedValue;
-    List<MobileCellsData> cellsList = null;
+    private List<MobileCellsData> cellsList = null;
+    List<MobileCellsData> filteredCellsList = null;
 
     private final Context context;
 
@@ -46,8 +52,10 @@ public class MobileCellsPreference extends DialogPreference {
     private MaterialDialog mSelectorDialog;
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
+    TextView cellFilter;
     TextView cellName;
     private MobileCellsPreferenceAdapter listAdapter;
+    private MobileCellNamesDialog mMobileCellsFilterDialog;
     private MobileCellNamesDialog mMobileCellNamesDialog;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
@@ -64,6 +72,7 @@ public class MobileCellsPreference extends DialogPreference {
         this.context = context;
         
         cellsList = new ArrayList<>();
+        filteredCellsList = new ArrayList<>();
     }
 
     @Override
@@ -136,10 +145,25 @@ public class MobileCellsPreference extends DialogPreference {
         //progressLinearLayout = layout.findViewById(R.id.mobile_cells_pref_dlg_linla_progress);
         //dataRelativeLayout = layout.findViewById(R.id.mobile_cells_pref_dlg_rella_data);
 
+        cellFilter = layout.findViewById(R.id.mobile_cells_pref_dlg_cells_filter_name);
+        cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_selected);
+        cellFilter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                refreshListView(false);
+            }
+        });
+
         cellName = layout.findViewById(R.id.mobile_cells_pref_dlg_cells_name);
-        SharedPreferences sharedPreferences = getSharedPreferences();
-                //context.getSharedPreferences(EventPreferencesFragment.getPreferenceName(), Context.MODE_PRIVATE);
-        cellName.setText(sharedPreferences.getString(Event.PREF_EVENT_NAME, ""));
 
         ListView cellsListView = layout.findViewById(R.id.mobile_cells_pref_dlg_listview);
         listAdapter = new MobileCellsPreferenceAdapter(context, this);
@@ -147,34 +171,32 @@ public class MobileCellsPreference extends DialogPreference {
 
         refreshListView(false);
 
+        /*
         cellsListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                //MobileCellsPreferenceAdapter.ViewHolder viewHolder =
-                //        (MobileCellsPreferenceAdapter.ViewHolder) v.getTag();
-
-                /*viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
-
-                if (viewHolder.checkBox.isChecked()) {
-                    addCellId(cellsList.get(position).cellId);
-                }
-                else {
-                    removeCellId(cellsList.get(position).cellId);
-                }*/
-
                 cellName.setText(cellsList.get(position).name);
             }
 
         });
+        */
+
+        RelativeLayout cellsFilterValueRoot = layout.findViewById(R.id.mobile_cells_pref_dlg_cells_filter_root);
+        mMobileCellsFilterDialog = new MobileCellNamesDialog(context, this, true);
+        cellsFilterValueRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMobileCellsFilterDialog.show();
+            }
+        });
 
         RelativeLayout cellNamesValueRoot = layout.findViewById(R.id.mobile_cells_pref_dlg_cells_name_root);
-        mMobileCellNamesDialog = new MobileCellNamesDialog(context, this);
+        mMobileCellNamesDialog = new MobileCellNamesDialog(context, this, false);
         cellNamesValueRoot.setOnClickListener(new View.OnClickListener() {
-                                                  @Override
-                                                  public void onClick(View view) {
-                                                      mMobileCellNamesDialog.show();
-                                                  }
-                                              }
-        );
+            @Override
+            public void onClick(View view) {
+                mMobileCellNamesDialog.show();
+            }
+        });
 
         final ImageView editIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_rename);
         editIcon.setOnClickListener(new View.OnClickListener() {
@@ -186,8 +208,16 @@ public class MobileCellsPreference extends DialogPreference {
                         .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
                             @Override
                             public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                DatabaseHandler db = DatabaseHandler.getInstance(context);
-                                db.renameMobileCellsList(cellsList, cellName.getText().toString(), which==0, value);
+                                final DatabaseHandler db = DatabaseHandler.getInstance(context);
+                                switch (which) {
+                                    case 0:
+                                    case 1:
+                                        db.renameMobileCellsList(filteredCellsList, cellName.getText().toString(), which == 0, value);
+                                        break;
+                                    case 2:
+                                        db.renameMobileCellsList(filteredCellsList, cellName.getText().toString(), false, value);
+                                        break;
+                                }
                                 refreshListView(false);
                                 return true;
                             }
@@ -212,9 +242,15 @@ public class MobileCellsPreference extends DialogPreference {
                                         value = "";
                                         break;
                                     case 1:
-                                        for (MobileCellsData cell : cellsList) {
+                                        for (MobileCellsData cell : filteredCellsList) {
                                             if (cell.name.equals(cellName.getText().toString()))
                                                 addCellId(cell.cellId);
+                                        }
+                                        break;
+                                    case 2:
+                                        value = "";
+                                        for (MobileCellsData cell : filteredCellsList) {
+                                            addCellId(cell.cellId);
                                         }
                                         break;
                                     default:
@@ -333,16 +369,13 @@ public class MobileCellsPreference extends DialogPreference {
     void addCellId(int cellId) {
         String[] splits = value.split("\\|");
         String sCellId = Integer.toString(cellId);
-        value = "";
         boolean found = false;
         for (String cell : splits) {
             if (!cell.isEmpty()) {
-                if (!cell.equals(sCellId)) {
-                    if (!value.isEmpty())
-                        value = value + "|";
-                    value = value + cell;
-                } else
+                if (cell.equals(sCellId)) {
                     found = true;
+                    break;
+                }
             }
         }
         if (!found) {
@@ -385,6 +418,9 @@ public class MobileCellsPreference extends DialogPreference {
 
             String _cellName;
             List<MobileCellsData> _cellsList = null;
+            List<MobileCellsData> _filteredCellsList = null;
+            String _cellFilterValue;
+            String _value;
 
             @Override
             protected void onPreExecute() {
@@ -392,6 +428,9 @@ public class MobileCellsPreference extends DialogPreference {
 
                 _cellName = cellName.getText().toString();
                 _cellsList = new ArrayList<>();
+                _filteredCellsList = new ArrayList<>();
+                _cellFilterValue = cellFilter.getText().toString();
+                _value = value;
 
                 //dataRelativeLayout.setVisibility(View.GONE);
                 //progressLinearLayout.setVisibility(View.VISIBLE);
@@ -453,6 +492,30 @@ public class MobileCellsPreference extends DialogPreference {
 
                     Collections.sort(_cellsList, new SortList());
 
+                    _filteredCellsList.clear();
+                    splits = _value.split("\\|");
+                    for (MobileCellsData cellData : _cellsList) {
+                        if (_cellFilterValue.equals(context.getString(R.string.mobile_cell_names_dialog_item_show_selected))) {
+                            for (String cell : splits) {
+                                if (cell.equals(Integer.toString(cellData.cellId))) {
+                                    _filteredCellsList.add(cellData);
+                                    break;
+                                }
+                            }
+                        } else if (_cellFilterValue.equals(context.getString(R.string.mobile_cell_names_dialog_item_show_without_name))) {
+                            if (cellData.name.isEmpty())
+                                _filteredCellsList.add(cellData);
+                        } else if (_cellFilterValue.equals(context.getString(R.string.mobile_cell_names_dialog_item_show_without_name))) {
+                            if (cellData._new)
+                                _filteredCellsList.add(cellData);
+                        } else if (_cellFilterValue.equals(context.getString(R.string.mobile_cell_names_dialog_item_show_all))) {
+                            _filteredCellsList.add(cellData);
+                        } else {
+                            if (_cellFilterValue.equals(cellData.name))
+                                _filteredCellsList.add(cellData);
+                        }
+                    }
+
                     return null;
                 }
             }
@@ -462,7 +525,23 @@ public class MobileCellsPreference extends DialogPreference {
                 super.onPostExecute(result);
 
                 cellsList = new ArrayList<>(_cellsList);
+                filteredCellsList = new ArrayList<>(_filteredCellsList);
                 listAdapter.notifyDataSetChanged();
+
+                if (cellName.getText().toString().isEmpty()) {
+                    boolean found = false;
+                    for (MobileCellsData cell : filteredCellsList) {
+                        if (isCellSelected(cell.cellId) && (!cell.name.isEmpty())) {
+                            cellName.setText(cell.name);
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        SharedPreferences sharedPreferences = getSharedPreferences();
+                        cellName.setText(sharedPreferences.getString(Event.PREF_EVENT_NAME, ""));
+                    }
+                }
+
                 //progressLinearLayout.setVisibility(View.GONE);
                 //dataRelativeLayout.setVisibility(View.VISIBLE);
 

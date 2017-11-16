@@ -29,11 +29,11 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
     }
 
     public int getCount() {
-        return preference.cellsList.size();
+        return preference.filteredCellsList.size();
     }
 
     public Object getItem(int position) {
-        return preference.cellsList.get(position);
+        return preference.filteredCellsList.get(position);
     }
 
     public long getItemId(int position) {
@@ -76,10 +76,10 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
             holder = (ViewHolder)vi.getTag();
         }
 
-        if (preference.cellsList.size() == 0)
+        if (preference.filteredCellsList.size() == 0)
             return vi;
 
-        MobileCellsData cellData = preference.cellsList.get(position);
+        MobileCellsData cellData = preference.filteredCellsList.get(position);
         //System.out.println(String.valueOf(position));
 
         String cellName = "";
@@ -111,7 +111,7 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
             public void onClick(View v) {
                 CheckBox chb = (CheckBox) v;
 
-                int cellId = preference.cellsList.get((Integer)chb.getTag()).cellId;
+                int cellId = preference.filteredCellsList.get((Integer)chb.getTag()).cellId;
 
                 if (chb.isChecked())
                     preference.addCellId(cellId);
@@ -119,6 +119,8 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
                     preference.removeCellId(cellId);
             }
         });
+
+        /*
         boolean found = false;
         String[] splits = preference.persistedValue.split("\\|");
         for (String cell : splits) {
@@ -127,11 +129,12 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
                 break;
             }
         }
-        if (preference.cellsList.get(position).connected || found)
+        */
+        if (preference.filteredCellsList.get(position).connected/* || found*/)
             holder.itemEditMenu.setVisibility(View.GONE);
         else
             holder.itemEditMenu.setVisibility(View.VISIBLE);
-        holder.itemEditMenu.setTag(preference.cellsList.get(position).cellId);
+        holder.itemEditMenu.setTag(preference.filteredCellsList.get(position).cellId);
         final ImageView itemEditMenu = holder.itemEditMenu;
         holder.itemEditMenu.setOnClickListener(new View.OnClickListener() {
 
