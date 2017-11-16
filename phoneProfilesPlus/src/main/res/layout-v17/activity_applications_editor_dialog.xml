@@ -8,7 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:padding="10dp" >
+        android:padding="10dp"
+        android:clickable="true"
+        android:focusable="true" >
         <TextView
             android:id="@+id/applications_editor_dialog_startApplicationDelay_label"
             android:layout_width="wrap_content"
@@ -25,9 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_toEndOf="@id/applications_editor_dialog_startApplicationDelay_label"
-            android:textSize="18sp"
-            android:clickable="true"
-            android:focusable="true"/>
+            android:textSize="18sp"/>
         <TextView
             android:id="@+id/applications_editor_dialog_startApplicationDelay_spinnerChar"
             android:layout_width="wrap_content"
@@ -36,8 +36,6 @@
             android:layout_toEndOf="@id/applications_editor_dialog_startApplicationDelay"
             android:textSize="12sp"
             android:text="\u25BC"
-            android:clickable="true"
-            android:focusable="true"
             tools:ignore="HardcodedText"/>
     </RelativeLayout>
 
