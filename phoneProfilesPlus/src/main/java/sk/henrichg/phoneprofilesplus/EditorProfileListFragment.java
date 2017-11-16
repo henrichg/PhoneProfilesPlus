@@ -779,18 +779,21 @@ public class EditorProfileListFragment extends Fragment
 
         ApplicationPreferences.getSharedPreferences(getActivity());
 
-        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
+        boolean showTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
+        boolean showTargetHelpsDefaultProfile = ApplicationPreferences.preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, true);
+        if (showTargetHelps || showTargetHelpsDefaultProfile ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
 
             //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            if (showTargetHelps || showTargetHelpsDefaultProfile) {
 
                 //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
                 editor.apply();
 
                 int circleColor = 0xFFFFFF;
@@ -800,26 +803,43 @@ public class EditorProfileListFragment extends Fragment
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity());
                 List<TapTarget> targets = new ArrayList<>();
                 int id = 1;
-                try {
-                    targets.add(
-                            TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_profile, getString(R.string.editor_activity_targetHelps_newProfileButton_title), getString(R.string.editor_activity_targetHelps_newProfileButton_description))
-                                    .targetCircleColorInt(circleColor)
-                                    .textColorInt(0xFFFFFF)
-                                    .drawShadow(true)
-                                    .id(id)
-                    );
-                    ++id;
-                } catch (Exception ignored) {} // not in action bar?
-                try {
-                    targets.add(
-                            TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_profiles, getString(R.string.editor_activity_targetHelps_deleteAllProfilesButton_title), getString(R.string.editor_activity_targetHelps_deleteAllProfilesButton_description))
-                                    .targetCircleColorInt(circleColor)
-                                    .textColorInt(0xFFFFFF)
-                                    .drawShadow(true)
-                                    .id(id)
-                    );
-                    ++id;
-                } catch (Exception ignored) {} // not in action bar?
+                if (showTargetHelps) {
+                    try {
+                        targets.add(
+                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_profile, getString(R.string.editor_activity_targetHelps_newProfileButton_title), getString(R.string.editor_activity_targetHelps_newProfileButton_description))
+                                        .targetCircleColorInt(circleColor)
+                                        .textColorInt(0xFFFFFF)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
+                    } catch (Exception ignored) {
+                    } // not in action bar?
+                    try {
+                        targets.add(
+                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_profiles, getString(R.string.editor_activity_targetHelps_deleteAllProfilesButton_title), getString(R.string.editor_activity_targetHelps_deleteAllProfilesButton_description))
+                                        .targetCircleColorInt(circleColor)
+                                        .textColorInt(0xFFFFFF)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
+                    } catch (Exception ignored) {
+                    } // not in action bar?
+                }
+                if (showTargetHelpsDefaultProfile) {
+                    try {
+                        targets.add(
+                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_default_profile, getString(R.string.editor_activity_targetHelps_backgroundProfileButton_title), getString(R.string.editor_activity_targetHelps_backgroundProfileButton_description))
+                                        .targetCircleColorInt(circleColor)
+                                        .textColorInt(0xFFFFFF)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
+                    } catch (Exception ignored) {
+                    } // not in action bar?
+                }
 
                 sequence.targets(targets)
                         .listener(new TapTargetSequence.Listener() {
