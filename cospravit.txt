@@ -216,23 +216,34 @@ Senzor polohy:
 
 -------------------
 
-MobileCellsPreference
-- nad zoznam buniek dat MobileCellNamesDialog + refresh ikonu (taky kruh so sipkami)
-- MobileCellNamesDialog
-  - bude filtrovat bunky v zozname podla cell name
-  - necha zobrazene co vyfiltroval, cize ak pribudne bunka (lebo dialog skenuje), tak tam nove zostanu
-  - do dialogu pridat (na zaciatok zoznamu):
-    - zobraz vybrate (oselectovane) - mastavi sa po otvoreni preference
-    - zobraz pouzite (boldom)
-    - zobraz vsetky
-    - vybratie konkretneho nazvu sa prenesie do nazvu dole v dialogu
-- spodny MobileCellNamesDialog nechaj ako je
-  - bude menit nazov buniek, ktore pribudnu (ako teraz)
-  - nazov po otvoreni preference sa nastavi na prvy oselectovany cell v zozname, ak nie je ziaden oselectovany, da sa nazov udalosti
-  - zmena nazvu
-    - nove (N) - zostava
-    - Vybrate - zostava
-  - zmena vyberu
-    - zrusit cely vyber - zostava
-    - vybrat podla nazvu bunky - zostava
-    - vybrat vsetky zobrazene - oselectuje vsetky bunky, ktore su prave zobrazene
+Optimalizacia databazy
+- TABLE_PROFILES - KEY_DEVICE_AUTOROTATE
+- TABLE_PROFILES - KEY_SHOW_IN_ACTIVATOR
+- TABLE_PROFILES - KEY_DEVICE_CONNECT_TO_SSID
+
+- TABLE_EVENTS - KEY_E_TYPE
+- TABLE_EVENTS - KEY_E_BATTERY_DETECTOR_TYPE
+- TABLE_EVENTS - KEY_E_LOCATION_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_TIME_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_BATTERY_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_CALL_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_PERIPHERAL_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_CALENDAR_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_WIFI_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_SCREEN_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_BLUETOOTH_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_SMS_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_NOTIFICATION_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_APPLICATION_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_LOCATION_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_ORIENTATION_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_MOBILE_CELLS_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_NFC_ENABLED
+- TABLE_EVENTS - KEY_E_STATUS, KEY_E_RADIO_SWITCH_ENABLED
+
+- TABLE_GEOFENCES - KEY_G_NAME
+
+- TABLE_MOBILE_CELLS - KEY_MC_NAME
+
+- TABLE_NFC_TAGS - KEY_NT_NAME
+

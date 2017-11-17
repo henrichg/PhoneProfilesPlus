@@ -61,6 +61,8 @@ public class PPApplication extends Application {
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
 
+                                         +"|------------ DatabaseHandler.onUpgrade"
+
                                          //+"|"+CallsCounter.LOG_TAG
                                          //+"|[RJS] PPApplication"
                                          //+"|[RJS] PhoneProfilesService"
@@ -74,7 +76,7 @@ public class PPApplication extends Application {
 
                                          //+"|ActivateProfileHelper.setAirplaneMode_SDK17"
                                          //+"|ActivateProfileHelper.executeForRadios"
-                                         +"|$$$ WifiAP"
+                                         //+"|$$$ WifiAP"
 
                                          /*
                                          +"|WifiScanJob"

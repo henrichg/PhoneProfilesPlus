@@ -31,7 +31,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1930;
+    private static final int DATABASE_VERSION = 1940;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -163,7 +163,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
     private static final String KEY_E_NAME = "name";
-    private static final String KEY_E_TYPE = "type";
     private static final String KEY_E_START_ORDER = "startOrder";
     private static final String KEY_E_FK_PROFILE_START = "fkProfile";
     private static final String KEY_E_STATUS = "status";
@@ -172,7 +171,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_DAYS_OF_WEEK = "daysOfWeek";
     private static final String KEY_E_USE_END_TIME = "useEndTime";
     private static final String KEY_E_BATTERY_LEVEL = "batteryLevel";
-    private static final String KEY_E_BATTERY_DETECTOR_TYPE = "batteryDetectorType";
     private static final String KEY_E_NOTIFICATION_SOUND = "notificationSound";
     private static final String KEY_E_BATTERY_LEVEL_LOW = "batteryLevelLow";
     private static final String KEY_E_BATTERY_LEVEL_HIGHT = "batteryLevelHight";
@@ -433,9 +431,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         final String CREATE_PROFILES_TABLE = profileTableCreationString(TABLE_PROFILES);
         db.execSQL(CREATE_PROFILES_TABLE);
 
-        db.execSQL("CREATE INDEX IDX_PORDER ON " + TABLE_PROFILES + " (" + KEY_PORDER + ")");
-        db.execSQL("CREATE INDEX IDX_SHOW_IN_ACTIVATOR ON " + TABLE_PROFILES + " (" + KEY_SHOW_IN_ACTIVATOR + ")");
-        db.execSQL("CREATE INDEX IDX_P_NAME ON " + TABLE_PROFILES + " (" + KEY_NAME + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_PORDER ON " + TABLE_PROFILES + " (" + KEY_PORDER + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_SHOW_IN_ACTIVATOR ON " + TABLE_PROFILES + " (" + KEY_SHOW_IN_ACTIVATOR + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_P_NAME ON " + TABLE_PROFILES + " (" + KEY_NAME + ")");
 
         final String CREATE_MERGED_PROFILE_TABLE = profileTableCreationString(TABLE_MERGED_PROFILE);
         db.execSQL(CREATE_MERGED_PROFILE_TABLE);
@@ -543,11 +541,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
-        db.execSQL("CREATE INDEX IDX_FK_PROFILE ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_START + ")");
-        db.execSQL("CREATE INDEX IDX_E_NAME ON " + TABLE_EVENTS + " (" + KEY_E_NAME + ")");
-        db.execSQL("CREATE INDEX IDX_FK_PROFILE_END ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_END + ")");
-        db.execSQL("CREATE INDEX IDX_PRIORITY ON " + TABLE_EVENTS + " (" + KEY_E_PRIORITY + ")");
-        db.execSQL("CREATE INDEX IDX_START_ORDER ON " + TABLE_EVENTS + " (" + KEY_E_START_ORDER + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_FK_PROFILE ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_START + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_E_NAME ON " + TABLE_EVENTS + " (" + KEY_E_NAME + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_FK_PROFILE_END ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_END + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_PRIORITY ON " + TABLE_EVENTS + " (" + KEY_E_PRIORITY + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_START_ORDER ON " + TABLE_EVENTS + " (" + KEY_E_START_ORDER + ")");
 
         final String CREATE_EVENTTIME_TABLE = "CREATE TABLE " + TABLE_EVENT_TIMELINE + "("
                 + KEY_ET_ID + " INTEGER PRIMARY KEY,"
@@ -557,7 +555,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(CREATE_EVENTTIME_TABLE);
 
-        db.execSQL("CREATE INDEX IDX_ET_PORDER ON " + TABLE_EVENT_TIMELINE + " (" + KEY_ET_EORDER + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_ET_PORDER ON " + TABLE_EVENT_TIMELINE + " (" + KEY_ET_EORDER + ")");
 
         final String CREATE_ACTIVITYLOG_TABLE = "CREATE TABLE " + TABLE_ACTIVITY_LOG + "("
                 + KEY_AL_ID + " INTEGER PRIMARY KEY,"
@@ -570,7 +568,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(CREATE_ACTIVITYLOG_TABLE);
 
-        db.execSQL("CREATE INDEX IDX_AL_LOG_DATE_TIME ON " + TABLE_ACTIVITY_LOG + " (" + KEY_AL_LOG_DATE_TIME + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_AL_LOG_DATE_TIME ON " + TABLE_ACTIVITY_LOG + " (" + KEY_AL_LOG_DATE_TIME + ")");
 
         final String CREATE_GEOFENCES_TABLE = "CREATE TABLE " + TABLE_GEOFENCES + "("
                 + KEY_G_ID + " INTEGER PRIMARY KEY,"
@@ -604,6 +602,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_NT_NAME + " TEXT"
                 + ")";
         db.execSQL(CREATE_NFC_TAGS_TABLE);
+
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_AUTOROTATE ON " + TABLE_PROFILES + " (" + KEY_DEVICE_AUTOROTATE + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_CONNECT_TO_SSID ON " + TABLE_PROFILES + " (" + KEY_DEVICE_CONNECT_TO_SSID + ")");
+
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_LOCATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_LOCATION_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__TIME_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_TIME_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__BATTERY_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_BATTERY_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__CALL_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_CALL_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__PERIPHERAL_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_PERIPHERAL_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__CALENDAR_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_CALENDAR_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__WIFI_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_WIFI_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__SCREEN_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_SCREEN_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__BLUETOOTH_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_BLUETOOTH_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__SMS_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_SMS_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__NOTIFICATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_NOTIFICATION_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__APPLICATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_APPLICATION_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__LOCATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_LOCATION_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__ORIENTATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_ORIENTATION_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MOBILE_CELLS_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_MOBILE_CELLS_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__NFC_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_NFC_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__RADIO_SWITCH_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_RADIO_SWITCH_ENABLED + ")");
+
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + TABLE_GEOFENCES + " (" + KEY_G_NAME + ")");
+
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + TABLE_MOBILE_CELLS + " (" + KEY_MC_NAME + ")");
+
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + TABLE_NFC_TAGS + " (" + KEY_NT_NAME + ")");
 
     }
 
@@ -703,7 +728,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 23)
         {
-            db.execSQL("CREATE INDEX IDX_PORDER ON " + TABLE_PROFILES + " (" + KEY_PORDER + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_PORDER ON " + TABLE_PROFILES + " (" + KEY_PORDER + ")");
         }
 
         if (oldVersion < 24)
@@ -712,19 +737,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_AUTOSYNC + "=0");
 
-            db.execSQL("CREATE INDEX IDX_P_NAME ON " + TABLE_PROFILES + " (" + KEY_NAME + ")");
-            db.execSQL("CREATE INDEX IDX_E_NAME ON " + TABLE_EVENTS + " (" + KEY_E_NAME + ")");
-        }
-
-        if (oldVersion < 25)
-        {
-            final String CREATE_EVENTS_TABLE = "CREATE TABLE " + TABLE_EVENTS + "("
-                    + KEY_E_ID + " INTEGER PRIMARY KEY,"
-                    + KEY_E_NAME + " TEXT,"
-                    + KEY_E_TYPE + " INTEGER,"
-                    + KEY_E_FK_PROFILE_START + " INTEGER"
-                    + ")";
-            db.execSQL(CREATE_EVENTS_TABLE);
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_P_NAME ON " + TABLE_PROFILES + " (" + KEY_NAME + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_E_NAME ON " + TABLE_EVENTS + " (" + KEY_E_NAME + ")");
         }
 
         if (oldVersion < 26)
@@ -736,7 +750,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 28)
         {
-            db.execSQL("CREATE INDEX IDX_SHOW_IN_ACTIVATOR ON " + TABLE_PROFILES + " (" + KEY_SHOW_IN_ACTIVATOR + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_SHOW_IN_ACTIVATOR ON " + TABLE_PROFILES + " (" + KEY_SHOW_IN_ACTIVATOR + ")");
         }
 
         if (oldVersion < 29)
@@ -749,7 +763,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_END_TIME + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_DAYS_OF_WEEK + "=\"#ALL#\"");
 
-            db.execSQL("CREATE INDEX IDX_FK_PROFILE ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_START + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_FK_PROFILE ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_START + ")");
         }
 
         if (oldVersion < 30)
@@ -776,7 +790,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     + ")";
             db.execSQL(CREATE_EVENTTIME_TABLE);
 
-            db.execSQL("CREATE INDEX IDX_ET_PORDER ON " + TABLE_EVENT_TIMELINE + " (" + KEY_ET_EORDER + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_ET_PORDER ON " + TABLE_EVENT_TIMELINE + " (" + KEY_ET_EORDER + ")");
         }
 
         if (oldVersion < 1001)
@@ -809,13 +823,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_LOCATION_SERVICE_PREFS + "=0");
         }
 
-        if (oldVersion < 1016)
-        {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BATTERY_DETECTOR_TYPE + " INTEGER");
-
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_DETECTOR_TYPE + "=0");
-        }
-
         if (oldVersion < 1020)
         {
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_VOLUME_SPEAKER_PHONE + " INTEGER");
@@ -839,9 +846,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL_LOW + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL_HIGHT + "=100");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_CHARGING + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL_HIGHT + "=" + KEY_E_BATTERY_LEVEL + " WHERE " + KEY_E_BATTERY_DETECTOR_TYPE + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL_LOW + "=" + KEY_E_BATTERY_LEVEL + " WHERE " + KEY_E_BATTERY_DETECTOR_TYPE + "=1");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_CHARGING + "=1 WHERE " + KEY_E_BATTERY_DETECTOR_TYPE + "=2");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL_HIGHT + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL_LOW + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_CHARGING + "=0");
         }
 
         if (oldVersion < 1030)
@@ -851,17 +858,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_TIME_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_ENABLED + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_TIME_ENABLED + "=1 WHERE " + KEY_E_TYPE + "=1");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_ENABLED + "=1 WHERE " + KEY_E_TYPE + "=2");
-
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_START_TIME + "=0 WHERE " + KEY_E_TYPE + "=2");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_END_TIME + "=0 WHERE " + KEY_E_TYPE + "=2");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_DAYS_OF_WEEK + "=\"#ALL#\" WHERE " + KEY_E_TYPE + "=2");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_USE_END_TIME + "=0 WHERE " + KEY_E_TYPE + "=2");
-
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL_LOW + "=0 WHERE " + KEY_E_TYPE + "=1");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL_HIGHT + "=100 WHERE " + KEY_E_TYPE + "=1");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_CHARGING + "=0 WHERE " + KEY_E_TYPE + "=1");
         }
 
         if (oldVersion < 1035)
@@ -890,7 +886,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_FK_PROFILE_END + "=" + Profile.PROFILE_NO_ACTIVATE);
 
-            db.execSQL("CREATE INDEX IDX_FK_PROFILE_END ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_END + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_FK_PROFILE_END ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_END + ")");
         }
 
         if (oldVersion < 1050)
@@ -920,7 +916,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PRIORITY + "=0");
 
-            db.execSQL("CREATE INDEX IDX_PRIORITY ON " + TABLE_EVENTS + " (" + KEY_E_PRIORITY + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_PRIORITY ON " + TABLE_EVENTS + " (" + KEY_E_PRIORITY + ")");
         }
 
         if (oldVersion < 1080)
@@ -1245,7 +1241,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     + ")";
             db.execSQL(CREATE_ACTIVITYLOG_TABLE);
 
-            db.execSQL("CREATE INDEX IDX_AL_LOG_DATE_TIME ON " + TABLE_ACTIVITY_LOG + " (" + KEY_AL_LOG_DATE_TIME + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_AL_LOG_DATE_TIME ON " + TABLE_ACTIVITY_LOG + " (" + KEY_AL_LOG_DATE_TIME + ")");
         }
 
         if (oldVersion < 1210)
@@ -1377,7 +1373,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + "=-999");
 
-            db.execSQL("CREATE INDEX IDX_FK_PROFILE_START_WHEN_ACTIVATED ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_FK_PROFILE_START_WHEN_ACTIVATED ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + ")");
         }
 
         if (oldVersion < 1380)
@@ -1938,6 +1934,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             cursor.close();
         }
+
+
+        if (oldVersion < 1940) {
+            PPApplication.logE("------------ DatabaseHandler.onUpgrade", "1940");
+
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_AUTOROTATE ON " + TABLE_PROFILES + " (" + KEY_DEVICE_AUTOROTATE + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_CONNECT_TO_SSID ON " + TABLE_PROFILES + " (" + KEY_DEVICE_CONNECT_TO_SSID + ")");
+
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_LOCATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_LOCATION_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__TIME_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_TIME_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__BATTERY_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_BATTERY_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__CALL_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_CALL_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__PERIPHERAL_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_PERIPHERAL_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__CALENDAR_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_CALENDAR_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__WIFI_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_WIFI_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__SCREEN_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_SCREEN_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__BLUETOOTH_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_BLUETOOTH_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__SMS_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_SMS_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__NOTIFICATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_NOTIFICATION_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__APPLICATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_APPLICATION_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__LOCATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_LOCATION_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__ORIENTATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_ORIENTATION_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MOBILE_CELLS_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_MOBILE_CELLS_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__NFC_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_NFC_ENABLED + ")");
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__RADIO_SWITCH_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_RADIO_SWITCH_ENABLED + ")");
+
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + TABLE_GEOFENCES + " (" + KEY_G_NAME + ")");
+
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + TABLE_MOBILE_CELLS + " (" + KEY_MC_NAME + ")");
+
+            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + TABLE_NFC_TAGS + " (" + KEY_NT_NAME + ")");
+        }
+
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
@@ -6891,7 +6920,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                 int batteryLevel = 15;
                                 int batteryDetectorType = 0;
-                                int eventType = 0;
                                 long fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
                                 long startTime = 0;
                                 long endTime = 0;
@@ -6934,10 +6962,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                             if (columnNamesExportedDB[i].equals(KEY_E_BATTERY_LEVEL))
                                                 batteryLevel = cursorExportedDB.getInt(i);
-                                            if (columnNamesExportedDB[i].equals(KEY_E_BATTERY_DETECTOR_TYPE))
-                                                batteryDetectorType = cursorExportedDB.getInt(i);
-                                            if (columnNamesExportedDB[i].equals(KEY_E_TYPE))
-                                                eventType = cursorExportedDB.getInt(i);
                                             if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END))
                                                 fkProfileEnd = cursorExportedDB.getLong(i);
                                             if (columnNamesExportedDB[i].equals(KEY_E_START_TIME))
@@ -6975,7 +6999,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         }
                                         if (exportedDBObj.getVersion() < 1016) {
                                             values.put(KEY_E_BATTERY_LEVEL, 15);
-                                            values.put(KEY_E_BATTERY_DETECTOR_TYPE, 0);
                                         }
 
                                         if (exportedDBObj.getVersion() < 1022) {
@@ -6997,20 +7020,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         if (exportedDBObj.getVersion() < 1030) {
                                             values.put(KEY_E_TIME_ENABLED, 0);
                                             values.put(KEY_E_BATTERY_ENABLED, 0);
-                                            if (eventType == 1) {
-                                                values.put(KEY_E_TIME_ENABLED, 1);
-                                                values.put(KEY_E_BATTERY_LEVEL_LOW, 0);
-                                                values.put(KEY_E_BATTERY_LEVEL_HIGHT, 100);
-                                                values.put(KEY_E_BATTERY_CHARGING, 0);
-                                            }
-                                            if (eventType == 2) {
-                                                values.put(KEY_E_BATTERY_ENABLED, 1);
-                                                values.put(KEY_E_START_TIME, 0);
-                                                values.put(KEY_E_END_TIME, 0);
-                                                values.put(KEY_E_DAYS_OF_WEEK, "#ALL#");
-                                                values.put(KEY_E_USE_END_TIME, 0);
-                                            }
-
                                         }
 
                                         if (exportedDBObj.getVersion() < 1040) {
