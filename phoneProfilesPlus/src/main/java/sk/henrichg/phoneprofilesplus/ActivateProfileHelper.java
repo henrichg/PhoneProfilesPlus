@@ -1332,7 +1332,8 @@ public class ActivateProfileHelper {
         if (profile._deviceWallpaperChange == 1)
         {
             final Context appContext = context.getApplicationContext();
-            final Handler handler = new Handler(appContext.getMainLooper());
+            PhoneProfilesService.startHandlerThread();
+            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
