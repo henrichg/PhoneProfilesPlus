@@ -2655,6 +2655,8 @@ public class PhoneProfilesService extends Service
 
             //TODO Android O
             /*if (Build.VERSION.SDK_INT >= 26) {
+                notificationBuilder.setSettingsText("Pokus");
+
                 // The id of the channel.
                 String channelId = "phoneProfiles_profile_activated";
                 // The user-visible name of the channel.
