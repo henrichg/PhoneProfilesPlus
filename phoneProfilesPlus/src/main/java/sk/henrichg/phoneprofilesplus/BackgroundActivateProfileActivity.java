@@ -27,7 +27,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
 
             dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 
-            dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
+            dataWrapper.getActivateProfileHelper().initialize(getApplicationContext());
         }
     }
 

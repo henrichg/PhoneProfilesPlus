@@ -34,7 +34,7 @@ class GeofenceScannerJob extends Job {
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
             PPApplication.logE("GeofenceScannerJob.onRunJob", "update in power save mode is not allowed = cancel job");
-            GeofenceScannerJob.cancelJob(context, null);
+            GeofenceScannerJob.cancelJob(null);
             //removeAlarm(context/*, false*/);
             //removeAlarm(context/*, true*/);
 
@@ -229,7 +229,7 @@ class GeofenceScannerJob extends Job {
         } catch (Exception ignored) {}
     }
 
-    static void cancelJob(final Context context, final Handler _handler) {
+    static void cancelJob(/*final Context context, */final Handler _handler) {
         PPApplication.logE("GeofenceScannerJob.cancelJob", "xxx");
 
         if (_handler == null) {

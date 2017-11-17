@@ -32,7 +32,7 @@ final class WifiApManager {
         PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiApEnabled="+wifiApEnabled);
     }
 
-    private boolean setWifiApState(WifiConfiguration config, boolean enabled) {
+    private void setWifiApState(WifiConfiguration config, boolean enabled) {
         try {
             PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-config="+config);
             PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-enabled="+enabled);
@@ -47,11 +47,10 @@ final class WifiApManager {
                 }
             }
             wifiControlMethod.setAccessible(true);
-            return (Boolean) wifiControlMethod.invoke(mWifiManager, config, enabled);
+            wifiControlMethod.invoke(mWifiManager, config, enabled);
         } catch (Exception e) {
             Log.e(TAG, "", e);
             PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-exception="+e);
-            return false;
         }
     }
 

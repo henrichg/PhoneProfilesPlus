@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.sip.SipAudioCall;
-import android.net.sip.SipProfile;
 
 public class SIPCallBroadcastReceiver extends BroadcastReceiver {
 

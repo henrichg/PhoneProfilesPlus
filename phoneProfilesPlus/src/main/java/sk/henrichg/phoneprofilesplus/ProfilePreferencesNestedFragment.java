@@ -30,9 +30,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 {
     protected int startupSource;
 
-    protected PreferenceManager prefMng;
-    protected SharedPreferences preferences;
-    protected Context context;
+    private PreferenceManager prefMng;
+    private SharedPreferences preferences;
+    private Context context;
 
     private static final String PREFS_NAME_ACTIVITY = "profile_preferences_activity";
     //static final String PREFS_NAME_FRAGMENT = "profile_preferences_fragment";

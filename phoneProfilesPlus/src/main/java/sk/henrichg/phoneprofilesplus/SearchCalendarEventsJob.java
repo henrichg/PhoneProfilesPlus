@@ -61,7 +61,7 @@ class SearchCalendarEventsJob extends Job {
         return Result.SUCCESS;
     }
 
-    private static void _scheduleJob(final Context context, final boolean shortInterval) {
+    private static void _scheduleJob(/*final Context context, */final boolean shortInterval) {
         JobManager jobManager = null;
         try {
             jobManager = JobManager.instance();
@@ -105,14 +105,14 @@ class SearchCalendarEventsJob extends Job {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    _scheduleJob(context, shortInterval);
+                    _scheduleJob(shortInterval);
                     if (countDownLatch != null)
                         countDownLatch.countDown();
                 }
             });
         }
         else {
-            _scheduleJob(context, shortInterval);
+            _scheduleJob(shortInterval);
             if (countDownLatch != null)
                 countDownLatch.countDown();
         }
@@ -126,7 +126,7 @@ class SearchCalendarEventsJob extends Job {
         } catch (Exception ignored) {}
     }
 
-    static void cancelJob(final Context context, final Handler _handler) {
+    static void cancelJob(/*final Context context, */final Handler _handler) {
         PPApplication.logE("SearchCalendarEventsJob.cancelJob", "xxx");
 
         if (_handler == null) {

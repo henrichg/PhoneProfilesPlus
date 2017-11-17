@@ -101,7 +101,7 @@ public class ActivateProfileHelper {
 
     }
 
-    public void initialize(DataWrapper dataWrapper, Context c)
+    public void initialize(/*DataWrapper dataWrapper, */Context c)
     {
         //this.dataWrapper = dataWrapper;
         this.context = c;

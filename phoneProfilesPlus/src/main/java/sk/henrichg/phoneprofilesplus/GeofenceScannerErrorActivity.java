@@ -60,7 +60,7 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
     }
 
     /* Called from ErrorDialogFragment when the dialog is dismissed. */
-    public void onDialogDismissed() {
+    private void onDialogDismissed() {
         synchronized (PPApplication.geofenceScannerMutex) {
             if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
                 PhoneProfilesService.getGeofencesScanner().mResolvingError = false;

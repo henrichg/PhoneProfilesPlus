@@ -918,10 +918,12 @@ class Event {
         _eventPreferencesRadioSwitch.checkPreferences(prefMng, context);
     }
 
+    /*
     private boolean canActivateReturnProfile()
     {
         return true;
     }
+    */
 
     private int getEventTimelinePosition(List<EventTimeline> eventTimelineList)
     {
@@ -1152,7 +1154,7 @@ class Event {
         Profile activatedProfile = dataWrapper.getActivatedProfile();
         // activate profile only when profile not already activated
         //noinspection ConstantConditions
-        if (activateReturnProfile && canActivateReturnProfile())
+        if (activateReturnProfile/* && canActivateReturnProfile()*/)
         {
             long activatedProfileId = 0;
             if (activatedProfile != null)

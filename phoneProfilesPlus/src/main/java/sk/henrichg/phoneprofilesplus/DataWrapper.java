@@ -480,14 +480,14 @@ public class DataWrapper {
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 forGUI, monochrome, monochromeValue,
                 startupSource, interactive, null, true)) {
-            getActivateProfileHelper().initialize(this, context);
+            getActivateProfileHelper().initialize(context);
             _activateProfile(profile, merged, startupSource, interactive, null);
         }
     }
 
     void updateNotificationAndWidgets(Profile profile)
     {
-        getActivateProfileHelper().initialize(this, context);
+        getActivateProfileHelper().initialize(context);
         if (PhoneProfilesService.instance != null)
             PhoneProfilesService.instance.showProfileNotification(profile, this);
         getActivateProfileHelper().updateWidget(true);
@@ -1480,7 +1480,7 @@ public class DataWrapper {
         if (Permissions.grantProfilePermissions(context, profile, false, true,
                 forGUI, monochrome, monochromeValue,
                 startupSource, true, null, true)) {
-            getActivateProfileHelper().initialize(this, context);
+            getActivateProfileHelper().initialize(context);
             _activateProfile(profile, false, startupSource, true, null);
         }
     }

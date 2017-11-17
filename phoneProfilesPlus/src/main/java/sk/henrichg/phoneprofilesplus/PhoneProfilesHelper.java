@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
@@ -28,7 +26,7 @@ class PhoneProfilesHelper {
 
     static int PPHelperVersion = -1;
 
-    static final int PPHELPER_CURRENT_VERSION = 59;
+    //static final int PPHELPER_CURRENT_VERSION = 59;
 
     private static boolean errorNoRoot = false;
     private static boolean nowPPHelperUninstalled = false;
@@ -225,7 +223,7 @@ class PhoneProfilesHelper {
 
     static private void restartAndroid(Activity activity/*, int installUninstall, boolean finishActivity*/)
     {
-        final Activity _activity = activity;
+        //final Activity _activity = activity;
         //final boolean _finishActivity = finishActivity;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -292,7 +290,7 @@ class PhoneProfilesHelper {
 
     static private void installUnInstallPPhelperErrorDialog(Activity activity/*, int installUninstall, boolean finishActivity*/)
     {
-        final Activity _activity = activity;
+        //final Activity _activity = activity;
         //final boolean _finishActivity = finishActivity;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);

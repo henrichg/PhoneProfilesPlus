@@ -55,7 +55,7 @@ public class ActivateProfileListFragment extends Fragment {
         setRetainInstance(true);
 
         dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
-        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getActivity().getApplicationContext());
+        dataWrapper.getActivateProfileHelper().initialize(getActivity().getApplicationContext());
     }
 
     @Override
@@ -119,7 +119,7 @@ public class ActivateProfileListFragment extends Fragment {
 
                 if (!ApplicationPreferences.applicationLongClickActivation(dataWrapper.context))
                     //activateProfileWithAlert(position);
-                    activateProfile((Profile)profileListAdapter.getItem(position), PPApplication.STARTUP_SOURCE_ACTIVATOR);
+                    activateProfile((Profile)profileListAdapter.getItem(position));
 
             }
 
@@ -132,7 +132,7 @@ public class ActivateProfileListFragment extends Fragment {
 
                 if (ApplicationPreferences.applicationLongClickActivation(dataWrapper.context))
                     //activateProfileWithAlert(position);
-                    activateProfile((Profile)profileListAdapter.getItem(position), PPApplication.STARTUP_SOURCE_ACTIVATOR);
+                    activateProfile((Profile)profileListAdapter.getItem(position));
 
                 return false;
             }
@@ -356,13 +356,13 @@ public class ActivateProfileListFragment extends Fragment {
         }
     }
 
-    private void activateProfile(Profile profile, int startupSource)
+    private void activateProfile(Profile profile)
     {
         if ((dataWrapper == null) || (profile == null))
             return;
 
         if (profile._porder != PORDER_FOR_IGNORED_PROFILE)
-            dataWrapper.activateProfile(profile._id, startupSource, getActivity()/*, ""*/);
+            dataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity()/*, ""*/);
     }
 
     private void setProfileSelection(Profile profile, boolean refreshIcons) {

@@ -1689,7 +1689,7 @@ public class PhoneProfilesService extends Service
         if (GeofenceScannerJob.isJobScheduled()) {
             CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleGeofenceScannerJob->CANCEL", "PhoneProfilesService_scheduleGeofenceScannerJob");
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "CANCEL");
-            GeofenceScannerJob.cancelJob(context, _handler);
+            GeofenceScannerJob.cancelJob(_handler);
         }
         else
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "not scheduled");
@@ -1757,7 +1757,7 @@ public class PhoneProfilesService extends Service
         if (SearchCalendarEventsJob.isJobScheduled()) {
             CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleSearchCalendarEventsJob->CANCEL", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "CANCEL");
-            SearchCalendarEventsJob.cancelJob(context, _handler);
+            SearchCalendarEventsJob.cancelJob(_handler);
         }
         else
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "not scheduled");
@@ -2331,7 +2331,7 @@ public class PhoneProfilesService extends Service
                     Profile.setActivatedProfileForDuration(appContext, 0);
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
-                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, appContext);
+                    dataWrapper.getActivateProfileHelper().initialize(appContext);
                     dataWrapper.getDatabaseHandler().deleteAllEventTimelines();
 
                     MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);

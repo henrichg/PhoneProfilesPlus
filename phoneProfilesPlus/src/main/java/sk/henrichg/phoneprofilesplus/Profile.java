@@ -1071,6 +1071,7 @@ public class Profile {
         return value == 1;
     }
 
+    /*
     private static int getMinimumScreenBrightnessSetting ()
     {
         final Resources res = Resources.getSystem();
@@ -1086,10 +1087,12 @@ public class Profile {
         }
         return 0;
     }
+    */
 
+    /*
     private static int getMaximumScreenBrightnessSetting ()
     {
-        /*final Resources res = Resources.getSystem();
+        final Resources res = Resources.getSystem();
         final int id = res.getIdentifier("config_screenBrightnessSettingMaximum", "integer", "android");  // API17+
         if (id != 0)
         {
@@ -1102,9 +1105,10 @@ public class Profile {
             catch (Resources.NotFoundException e) {
                 // ignore
             }
-        }*/
+        }
         return 255;
     }
+    */
 
     static int convertPercentsToBrightnessManualValue(int perc, Context context)
     {

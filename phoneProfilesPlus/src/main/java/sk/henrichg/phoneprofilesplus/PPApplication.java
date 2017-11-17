@@ -186,9 +186,9 @@ public class PPApplication extends Application {
     static final int SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER = 15;
     static final int SCANNER_RESTART_BLUETOOTH_SCANNER = 16;
 
-    public static HandlerWithContext toastHandler;
-    public static HandlerWithContext brightnessHandler;
-    public static HandlerWithContext screenTimeoutHandler;
+    public static Handler toastHandler;
+    public static Handler brightnessHandler;
+    public static Handler screenTimeoutHandler;
 
     public static int notAllowedReason;
     public static String notAllowedReasonDetail;
@@ -281,9 +281,14 @@ public class PPApplication extends Application {
 
         //Log.d("PPApplication.onCreate","xxx");
 
+        /*
         toastHandler = new HandlerWithContext(getMainLooper(), getApplicationContext());
         brightnessHandler = new HandlerWithContext(getMainLooper(), getApplicationContext());
         screenTimeoutHandler = new HandlerWithContext(getMainLooper(), getApplicationContext());
+        */
+        toastHandler = new Handler(getMainLooper());
+        brightnessHandler = new Handler(getMainLooper());
+        screenTimeoutHandler = new Handler(getMainLooper());
 
         // Samsung Look initialization
         sLook = new Slook();

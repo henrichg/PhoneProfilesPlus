@@ -49,7 +49,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     //Log.d("ActionForExternalApplicationActivity.onCreate", "profileName="+profileName);
 
                     if (!profileName.isEmpty()) {
-                        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
+                        dataWrapper.getActivateProfileHelper().initialize(getApplicationContext());
 
                         List<Profile> profileList = dataWrapper.getProfileList();
                         for (Profile profile : profileList) {

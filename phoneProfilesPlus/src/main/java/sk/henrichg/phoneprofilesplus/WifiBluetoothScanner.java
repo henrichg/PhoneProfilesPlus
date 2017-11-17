@@ -164,7 +164,7 @@ class WifiBluetoothScanner {
                                 //unlock();
                             }
 
-                            //noinspection ConstantConditions
+                            //noinspection ConstantConditions,ConstantIfStatement
                             if (true /*canScanWifi(dataWrapper)*/) { // scan even if wifi is connected
 
                                 PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "scan started");
@@ -311,7 +311,7 @@ class WifiBluetoothScanner {
                                     //unlock();
                                 }
 
-                                //noinspection ConstantConditions
+                                //noinspection ConstantConditions,ConstantIfStatement
                                 if (true /*canScanBluetooth(dataWrapper)*/) {  // scan even if bluetooth is connected
                                     BluetoothScanJob.setScanRequest(context, false);
                                     BluetoothScanJob.setLEScanRequest(context, false);

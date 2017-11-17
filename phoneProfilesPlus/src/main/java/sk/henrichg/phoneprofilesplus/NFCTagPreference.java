@@ -46,8 +46,8 @@ public class NFCTagPreference extends DialogPreference {
 
     private MaterialDialog mDialog;
     private MaterialDialog mSelectorDialog;
-    private LinearLayout progressLinearLayout;
-    private RelativeLayout dataRelativeLayout;
+    //private LinearLayout progressLinearLayout;
+    //private RelativeLayout dataRelativeLayout;
     private ListView nfcTagListView;
     private EditText nfcTagName;
     private AppCompatImageButton addIcon;
@@ -108,8 +108,8 @@ public class NFCTagPreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
-        progressLinearLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_linla_progress);
-        dataRelativeLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_rella_data);
+        //progressLinearLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_linla_progress);
+        //dataRelativeLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_rella_data);
 
         addIcon = layout.findViewById(R.id.nfc_tag_pref_dlg_addIcon);
         addIcon.setOnClickListener(new View.OnClickListener() {

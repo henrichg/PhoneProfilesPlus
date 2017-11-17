@@ -36,7 +36,7 @@ import java.util.List;
 public class MobileCellsPreference extends DialogPreference {
 
     private String value;
-    private String persistedValue;
+    //private String persistedValue;
     private List<MobileCellsData> cellsList = null;
     List<MobileCellsData> filteredCellsList = null;
 
@@ -73,8 +73,9 @@ public class MobileCellsPreference extends DialogPreference {
     @Override
     protected void showDialog(Bundle state) {
 
-        persistedValue = getPersistedString("");
-        value = persistedValue;
+        //persistedValue = getPersistedString("");
+        //value = persistedValue;
+        value = getPersistedString("");
 
         //IntentFilter intentFilter = new IntentFilter();
         //intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
