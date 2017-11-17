@@ -23,9 +23,9 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     //public static final String EXTRA_SERVICE_PHONE_INCOMING = "service_phone_incoming";
     //public static final String EXTRA_SERVICE_PHONE_NUMBER = "service_phone_number";
 
-    public static final int SERVICE_PHONE_EVENT_START = 1;
-    public static final int SERVICE_PHONE_EVENT_ANSWER = 2;
-    public static final int SERVICE_PHONE_EVENT_END = 3;
+    private static final int SERVICE_PHONE_EVENT_START = 1;
+    private static final int SERVICE_PHONE_EVENT_ANSWER = 2;
+    private static final int SERVICE_PHONE_EVENT_END = 3;
 
     static final int CALL_EVENT_UNDEFINED = 0;
     static final int CALL_EVENT_INCOMING_CALL_RINGING = 1;

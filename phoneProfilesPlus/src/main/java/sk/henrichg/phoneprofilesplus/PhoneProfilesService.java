@@ -139,18 +139,18 @@ public class PhoneProfilesService extends Service
 
     public static PhoneStateScanner phoneStateScanner = null;
 
-    public static final int DEVICE_ORIENTATION_UNKNOWN = 0;
-    public static final int DEVICE_ORIENTATION_RIGHT_SIDE_UP = 3;
-    public static final int DEVICE_ORIENTATION_LEFT_SIDE_UP = 4;
-    public static final int DEVICE_ORIENTATION_UP_SIDE_UP = 5;
-    public static final int DEVICE_ORIENTATION_DOWN_SIDE_UP = 6;
+    private static final int DEVICE_ORIENTATION_UNKNOWN = 0;
+    private static final int DEVICE_ORIENTATION_RIGHT_SIDE_UP = 3;
+    private static final int DEVICE_ORIENTATION_LEFT_SIDE_UP = 4;
+    private static final int DEVICE_ORIENTATION_UP_SIDE_UP = 5;
+    private static final int DEVICE_ORIENTATION_DOWN_SIDE_UP = 6;
     public static final int DEVICE_ORIENTATION_HORIZONTAL = 9;
 
-    public static final int DEVICE_ORIENTATION_DISPLAY_UP = 1;
-    public static final int DEVICE_ORIENTATION_DISPLAY_DOWN = 2;
+    private static final int DEVICE_ORIENTATION_DISPLAY_UP = 1;
+    private static final int DEVICE_ORIENTATION_DISPLAY_DOWN = 2;
 
-    public static final int DEVICE_ORIENTATION_DEVICE_IS_NEAR = 7;
-    public static final int DEVICE_ORIENTATION_DEVICE_IS_FAR = 8;
+    private static final int DEVICE_ORIENTATION_DEVICE_IS_NEAR = 7;
+    private static final int DEVICE_ORIENTATION_DEVICE_IS_FAR = 8;
 
     public static int mDisplayUp = DEVICE_ORIENTATION_UNKNOWN;
     public static int mSideUp = DEVICE_ORIENTATION_UNKNOWN;
@@ -239,7 +239,7 @@ public class PhoneProfilesService extends Service
 
         registerReceiversAndJobs();
 
-        AboutApplicationJob.scheduleJob(getApplicationContext());
+        AboutApplicationJob.scheduleJob(/*getApplicationContext()*/);
 
         ringingMediaPlayer = null;
         //notificationMediaPlayer = null;
@@ -282,11 +282,11 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void registerAllTheTimeRequiredReceivers(boolean register, boolean unregister) {
+    private void registerAllTheTimeRequiredReceivers(boolean register/*, boolean unregister*/) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
         PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "xxx");
-        if (unregister) {
+        //if (unregister) {
             if (shutdownBroadcastReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER shutdown", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER shutdown");
@@ -371,7 +371,7 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered device idle mode");
-        }
+        //}
         if (register) {
             if (shutdownBroadcastReceiver == null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER shutdown", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
@@ -471,11 +471,11 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void registerBatteryEventReceiver(boolean register, boolean unregister, boolean checkDatabase) {
+    private void registerBatteryEventReceiver(boolean register/*, boolean unregister*/, boolean checkDatabase) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerBatteryEventReceiver", "PhoneProfilesService_registerBatteryEventReceiver");
         PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "xxx");
-        if (unregister) {
+        //if (unregister) {
             if (batteryEventReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBatteryEventReceiver->UNREGISTER", "PhoneProfilesService_registerBatteryEventReceiver");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "UNREGISTER");
@@ -488,7 +488,7 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "not registered");
-        }
+        //}
         if (register) {
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED;
@@ -527,19 +527,19 @@ public class PhoneProfilesService extends Service
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryEventReceiver", "registered");
                 } else {
-                    registerBatteryEventReceiver(false, true, false);
+                    registerBatteryEventReceiver(false, false);
                 }
             }
             else
-                registerBatteryEventReceiver(false, true, false);
+                registerBatteryEventReceiver(false, false);
         }
     }
 
-    private void registerBatteryChangedReceiver(boolean register, boolean unregister, boolean checkDatabase) {
+    private void registerBatteryChangedReceiver(boolean register, /*boolean unregister,*/ boolean checkDatabase) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerBatteryChangedReceiver", "PhoneProfilesService_registerBatteryChangedReceiver");
         PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "xxx");
-        if (unregister) {
+        //if (unregister) {
             if (batteryChangeLevelReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBatteryChangedReceiver->UNREGISTER", "PhoneProfilesService_registerBatteryChangedReceiver");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "UNREGISTER");
@@ -552,7 +552,7 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "not registered");
-        }
+        //}
         if (register) {
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED;
@@ -593,19 +593,19 @@ public class PhoneProfilesService extends Service
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryChangedReceiver", "registered");
                 } else {
-                    registerBatteryChangedReceiver(false, true, false);
+                    registerBatteryChangedReceiver(false, false);
                 }
             }
             else
-                registerBatteryChangedReceiver(false, true, false);
+                registerBatteryChangedReceiver(false, false);
         }
     }
 
-    private void registerReceiverForPeripheralsSensor(boolean register, boolean unregister, boolean checkDatabase) {
+    private void registerReceiverForPeripheralsSensor(boolean register, /*boolean unregister,*/ boolean checkDatabase) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForPeripheralsSensor", "PhoneProfilesService_registerReceiverForPeripheralsSensor");
         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "xxx");
-        if (unregister) {
+        //if (unregister) {
             if (headsetPlugReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForPeripheralsSensor->UNREGISTER headset plug", "PhoneProfilesService_registerReceiverForPeripheralsSensor");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "UNREGISTER headset plug");
@@ -630,7 +630,7 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "not registered dock connection");
-        }
+        //}
         if (register) {
             if (Event.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED) {
@@ -662,19 +662,19 @@ public class PhoneProfilesService extends Service
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "registered dock connection");
                 } else {
-                    registerReceiverForPeripheralsSensor(false, true, false);
+                    registerReceiverForPeripheralsSensor(false, false);
                 }
             }
             else
-                registerReceiverForPeripheralsSensor(false, true, false);
+                registerReceiverForPeripheralsSensor(false, false);
         }
     }
 
-    private void registerReceiverForSMSSensor(boolean register, boolean unregister, boolean checkDatabase) {
+    private void registerReceiverForSMSSensor(boolean register, /*boolean unregister,*/ boolean checkDatabase) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForSMSSensor", "PhoneProfilesService_registerReceiverForSMSSensor");
         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "xxx");
-        if (unregister) {
+        //if (unregister) {
             if (smsBroadcastReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForSMSSensor->UNREGISTER SMS", "PhoneProfilesService_registerReceiverForSMSSensor");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "UNREGISTER SMS");
@@ -699,7 +699,7 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "not registered MMS");
-        }
+        //}
         if (register) {
             if (Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED) {
@@ -736,19 +736,19 @@ public class PhoneProfilesService extends Service
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "registered MMS");
                 } else {
-                    registerReceiverForSMSSensor(false, true, false);
+                    registerReceiverForSMSSensor(false, false);
                 }
             }
             else
-                registerReceiverForSMSSensor(false, true, false);
+                registerReceiverForSMSSensor(false, false);
         }
     }
 
-    private void registerReceiverForCalendarSensor(boolean register, boolean unregister, boolean checkDatabase) {
+    private void registerReceiverForCalendarSensor(boolean register, /*boolean unregister,*/ boolean checkDatabase) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForCalendarSensor", "PhoneProfilesService_registerReceiverForCalendarSensor");
         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "xxx");
-        if (unregister) {
+        //if (unregister) {
             if (calendarProviderChangedBroadcastReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForCalendarSensor->UNREGISTER", "PhoneProfilesService_registerReceiverForCalendarSensor");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "UNREGISTER");
@@ -761,7 +761,7 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "not registered");
-        }
+        //}
         if (register) {
             if (Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED) {
@@ -783,19 +783,19 @@ public class PhoneProfilesService extends Service
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "registered");
                 } else {
-                    registerReceiverForCalendarSensor(false, true, false);
+                    registerReceiverForCalendarSensor(false, false);
                 }
             }
             else
-                registerReceiverForCalendarSensor(false, true, false);
+                registerReceiverForCalendarSensor(false, false);
         }
     }
 
-    private void registerReceiverForRadioSwitchAirplaneModeSensor(boolean register, boolean unregister, boolean checkDatabase) {
+    private void registerReceiverForRadioSwitchAirplaneModeSensor(boolean register, /*boolean unregister,*/ boolean checkDatabase) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchAirplaneModeSensor", "PhoneProfilesService_registerReceiverForRadioSwitchAirplaneModeSensor");
         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchAirplaneModeSensor", "xxx");
-        if (unregister) {
+        //if (unregister) {
             if (airplaneModeStateChangedBroadcastReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchAirplaneModeSensor->UNREGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchAirplaneModeSensor");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchAirplaneModeSensor", "UNREGISTER");
@@ -808,7 +808,7 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchAirplaneModeSensor", "not registered");
-        }
+        //}
         if (register) {
             if (Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED) {
@@ -827,19 +827,19 @@ public class PhoneProfilesService extends Service
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchAirplaneModeSensor", "registered");
                 } else {
-                    registerReceiverForRadioSwitchAirplaneModeSensor(false, true, false);
+                    registerReceiverForRadioSwitchAirplaneModeSensor(false, false);
                 }
             }
             else
-                registerReceiverForRadioSwitchAirplaneModeSensor(false, true, false);
+                registerReceiverForRadioSwitchAirplaneModeSensor(false, false);
         }
     }
 
-    private void registerReceiverForRadioSwitchNFCSensor(boolean register, boolean unregister, boolean checkDatabase) {
+    private void registerReceiverForRadioSwitchNFCSensor(boolean register, /*boolean unregister,*/ boolean checkDatabase) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor", "PhoneProfilesService_registerReceiverForRadioSwitchNFCSensor");
         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor", "xxx");
-        if (unregister) {
+        //if (unregister) {
             if (PPApplication.hasSystemFeature(this, PackageManager.FEATURE_NFC)) {
                 if (nfcStateChangedBroadcastReceiver != null) {
                     CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor->UNREGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchNFCSensor");
@@ -854,7 +854,7 @@ public class PhoneProfilesService extends Service
                 else
                     PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor", "not registered");
             }
-        }
+        //}
         if (register) {
             if (Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED) {
@@ -877,18 +877,18 @@ public class PhoneProfilesService extends Service
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor", "registered");
                 } else {
-                    registerReceiverForRadioSwitchNFCSensor(false, true, false);
+                    registerReceiverForRadioSwitchNFCSensor(false, false);
                 }
             } else
-                registerReceiverForRadioSwitchNFCSensor(false, true, false);
+                registerReceiverForRadioSwitchNFCSensor(false, false);
         }
     }
 
-    private void registerReceiverForRadioSwitchMobileDataSensor(boolean register, boolean unregister, boolean checkDatabase) {
+    private void registerReceiverForRadioSwitchMobileDataSensor(boolean register, /*boolean unregister,*/ boolean checkDatabase) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "PhoneProfilesService_registerReceiverForRadioSwitchMobileDataSensor");
         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "xxx");
-        if (unregister) {
+        //if (unregister) {
             if (mobileDataStateChangedContentObserver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor->UNREGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchMobileDataSensor");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "UNREGISTER");
@@ -901,7 +901,7 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "not registered");
-        }
+        //}
         if (register) {
             if (Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED) {
@@ -921,19 +921,19 @@ public class PhoneProfilesService extends Service
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "registered");
                 } else {
-                    registerReceiverForRadioSwitchMobileDataSensor(false, true, false);
+                    registerReceiverForRadioSwitchMobileDataSensor(false, false);
                 }
             }
             else
-                registerReceiverForRadioSwitchMobileDataSensor(false, true, false);
+                registerReceiverForRadioSwitchMobileDataSensor(false, false);
         }
     }
 
-    private void registerForegroundApplicationChangedReceiver(boolean register, boolean unregister, boolean checkDatabase) {
+    private void registerForegroundApplicationChangedReceiver(boolean register, /*boolean unregister,*/ boolean checkDatabase) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerForegroundApplicationChangedReceiver", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
         PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "xxx");
-        if (unregister) {
+        //if (unregister) {
             if (foregroundApplicationChangedBroadcastReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerForegroundApplicationChangedReceiver->UNREGISTER", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "UNREGISTER");
@@ -946,7 +946,7 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "not registered");
-        }
+        //}
         if (register) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED) ||
@@ -971,11 +971,11 @@ public class PhoneProfilesService extends Service
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "registered");
                 } else {
-                    registerForegroundApplicationChangedReceiver(false, true, false);
+                    registerForegroundApplicationChangedReceiver(false, false);
                 }
             }
             else
-                registerForegroundApplicationChangedReceiver(false, true, false);
+                registerForegroundApplicationChangedReceiver(false, false);
         }
     }
 
@@ -1293,11 +1293,11 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void registerPowerSaveModeReceiver(boolean register, boolean unregister, boolean checkDatabase) {
+    private void registerPowerSaveModeReceiver(boolean register, /*boolean unregister,*/ boolean checkDatabase) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerPowerSaveModeReceiver", "PhoneProfilesService_registerPowerSaveModeReceiver");
         PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "xxx");
-        if (unregister) {
+        //if (unregister) {
             if (powerSaveModeReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerPowerSaveModeReceiver->UNREGISTER", "PhoneProfilesService_registerPowerSaveModeReceiver");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "UNREGISTER");
@@ -1310,7 +1310,7 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "not registered");
-        }
+        //}
         if (register) {
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED;
@@ -1348,11 +1348,11 @@ public class PhoneProfilesService extends Service
                             PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "registered");
                     }
                 } else {
-                    registerPowerSaveModeReceiver(false, true, false);
+                    registerPowerSaveModeReceiver(false, false);
                 }
             }
             else
-                registerPowerSaveModeReceiver(false, true, false);
+                registerPowerSaveModeReceiver(false, false);
         }
     }
 
@@ -1570,7 +1570,7 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "not scheduled");
     }
 
-    void scheduleWifiJob(final boolean schedule, final boolean cancel, final boolean checkDatabase,
+    void scheduleWifiJob(final boolean schedule, /*final boolean cancel,*/ final boolean checkDatabase,
                          final boolean forScreenOn, final boolean afterEnableWifi,
                          final boolean forceStart, final boolean rescan) {
         final Context appContext = getApplicationContext();
@@ -1585,9 +1585,9 @@ public class PhoneProfilesService extends Service
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if (cancel) {
+                //if (cancel) {
                     cancelWifiJob(appContext, handler);
-                }
+                //}
                 if (schedule) {
                     boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext) ==
                             PPApplication.PREFERENCE_ALLOWED;
@@ -1633,7 +1633,7 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "not scheduled");
     }
 
-    void scheduleBluetoothJob(final boolean schedule, final boolean cancel, final boolean checkDatabase,
+    void scheduleBluetoothJob(final boolean schedule, /*final boolean cancel,*/ final boolean checkDatabase,
                               final boolean forScreenOn, final boolean forceStart, final boolean rescan) {
         final Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleBluetoothJob", "PhoneProfilesService_scheduleBluetoothJob");
@@ -1647,9 +1647,9 @@ public class PhoneProfilesService extends Service
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if (cancel) {
+                //if (cancel) {
                     cancelBluetoothJob(appContext, handler);
-                }
+                //}
                 if (schedule) {
                     boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext) ==
                             PPApplication.PREFERENCE_ALLOWED;
@@ -1695,7 +1695,7 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "not scheduled");
     }
 
-    void scheduleGeofenceScannerJob(final boolean schedule, final boolean cancel, final boolean checkDatabase,
+    void scheduleGeofenceScannerJob(final boolean schedule, /*final boolean cancel,*/ final boolean checkDatabase,
                                     final boolean forScreenOn, final boolean rescan) {
         final Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob", "PhoneProfilesService_scheduleGeofenceScannerJob");
@@ -1706,9 +1706,9 @@ public class PhoneProfilesService extends Service
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if (cancel) {
+                //if (cancel) {
                     cancelGeofenceScannerJob(appContext, handler);
-                }
+                //}
                 if (schedule) {
                     boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
                             PPApplication.PREFERENCE_ALLOWED;
@@ -1803,19 +1803,19 @@ public class PhoneProfilesService extends Service
         });
     }
 
-    private void startGeofenceScanner(boolean start, boolean stop, boolean checkDatabase, boolean forScreenOn) {
+    private void startGeofenceScanner(boolean start, /*boolean stop,*/ boolean checkDatabase, boolean forScreenOn) {
         synchronized (PPApplication.geofenceScannerMutex) {
             Context appContext = getApplicationContext();
             CallsCounter.logCounter(appContext, "PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService_startGeofenceScanner");
             PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "xxx");
-            if (stop) {
+            //if (stop) {
                 if (isGeofenceScannerStarted()) {
                     CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->STOP", "PhoneProfilesService_startGeofenceScanner");
                     PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "STOP");
                     stopGeofenceScanner();
                 } else
                     PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "not started");
-            }
+            //}
             if (start) {
                 boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
                         PPApplication.PREFERENCE_ALLOWED;
@@ -1840,11 +1840,11 @@ public class PhoneProfilesService extends Service
                                 PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "started");
                             }
                         } else
-                            startGeofenceScanner(false, true, false, forScreenOn);
+                            startGeofenceScanner(false, false, forScreenOn);
                     } else
-                        startGeofenceScanner(false, true, false, forScreenOn);
+                        startGeofenceScanner(false, false, forScreenOn);
                 } else
-                    startGeofenceScanner(false, true, false, forScreenOn);
+                    startGeofenceScanner(false, false, forScreenOn);
             }
         }
     }
@@ -1959,28 +1959,28 @@ public class PhoneProfilesService extends Service
             BatteryBroadcastReceiver.batteryPct = Math.round(level / (float) scale * 100);
         }
 
-        registerAllTheTimeRequiredReceivers(true, true);
+        registerAllTheTimeRequiredReceivers(true);
 
         // required for battery event
-        registerBatteryEventReceiver(true, true, true);
-        registerBatteryChangedReceiver(true, true, true);
+        registerBatteryEventReceiver(true, true);
+        registerBatteryChangedReceiver(true, true);
 
         // required for peripherals event
-        registerReceiverForPeripheralsSensor(true, true, true);
+        registerReceiverForPeripheralsSensor(true, true);
 
         // required for sms event
-        registerReceiverForSMSSensor(true, true, true);
+        registerReceiverForSMSSensor(true, true);
 
         // required for calendar event
-        registerReceiverForCalendarSensor(true, true, true);
+        registerReceiverForCalendarSensor(true, true);
 
         // required for radio switch event
-        registerReceiverForRadioSwitchMobileDataSensor(true, true, true);
-        registerReceiverForRadioSwitchNFCSensor(true, true, true);
-        registerReceiverForRadioSwitchAirplaneModeSensor(true, true, true);
+        registerReceiverForRadioSwitchMobileDataSensor(true, true);
+        registerReceiverForRadioSwitchNFCSensor(true, true);
+        registerReceiverForRadioSwitchAirplaneModeSensor(true, true);
 
         // required for applications and orientation event
-        registerForegroundApplicationChangedReceiver(true, true, true);
+        registerForegroundApplicationChangedReceiver(true, true);
 
         // required for location and radio switch event
         registerLocationModeChangedBroadcastReceiver(true, true, true);
@@ -2002,7 +2002,7 @@ public class PhoneProfilesService extends Service
 
         // required for all scanner events (wifi, bluetooth, location, mobile cells, device orientation) +
         // battery event
-        registerPowerSaveModeReceiver(true, true, true);
+        registerPowerSaveModeReceiver(true, true);
 
         // required for Connect to SSID profile preference +
         // wifi connection type = (dis)connected +
@@ -2081,35 +2081,35 @@ public class PhoneProfilesService extends Service
         }
         */
 
-        scheduleWifiJob(true, true, true, false, false, false, false);
-        scheduleBluetoothJob(true, true, true, false, false, false);
-        scheduleGeofenceScannerJob(true, true, true, false, false);
+        scheduleWifiJob(true,  true, false, false, false, false);
+        scheduleBluetoothJob(true,  true, false, false, false);
+        scheduleGeofenceScannerJob(true,  true, false, false);
         scheduleSearchCalendarEventsJob(true, true, true);
 
-        startGeofenceScanner(true, true, true, false);
-        scheduleGeofenceScannerJob(true, true, true, false, false);
+        startGeofenceScanner(true, true, false);
+        scheduleGeofenceScannerJob(true,  true, false, false);
         startPhoneStateScanner(true, true, true, false, false);
         startOrientationScanner(true, true, true);
     }
 
     private void unregisterReceiversAndJobs() {
         PPApplication.logE("[RJS] PhoneProfilesService.unregisterReceiversAndJobs", "xxx");
-        registerAllTheTimeRequiredReceivers(false, true);
-        registerBatteryEventReceiver(false, true, false);
-        registerBatteryChangedReceiver(false, true, false);
-        registerReceiverForPeripheralsSensor(false, true, false);
-        registerReceiverForSMSSensor(false, true, false);
-        registerReceiverForCalendarSensor(false, true, false);
-        registerReceiverForRadioSwitchMobileDataSensor(false, true, false);
-        registerReceiverForRadioSwitchNFCSensor(false, true, false);
-        registerReceiverForRadioSwitchAirplaneModeSensor(false, true, false);
-        registerForegroundApplicationChangedReceiver(false, true, false);
+        registerAllTheTimeRequiredReceivers(false);
+        registerBatteryEventReceiver(false, false);
+        registerBatteryChangedReceiver(false, false);
+        registerReceiverForPeripheralsSensor(false, false);
+        registerReceiverForSMSSensor(false, false);
+        registerReceiverForCalendarSensor(false, false);
+        registerReceiverForRadioSwitchMobileDataSensor(false, false);
+        registerReceiverForRadioSwitchNFCSensor(false, false);
+        registerReceiverForRadioSwitchAirplaneModeSensor(false, false);
+        registerForegroundApplicationChangedReceiver(false, false);
         registerLocationModeChangedBroadcastReceiver(false, true, false);
         registerBluetoothStateChangedBroadcastReceiver(false, true, false, false);
         registerBluetoothConnectionBroadcastReceiver(false, true, false, false);
         registerBluetoothScannerReceivers(false, true, false, false);
         registerWifiAPStateChangeBroadcastReceiver(false, true, false, false);
-        registerPowerSaveModeReceiver(false, true, false);
+        registerPowerSaveModeReceiver(false, false);
         registerWifiStateChangedBroadcastReceiver(false, true, false, false);
         registerWifiConnectionBroadcastReceiver(false, true, false, false);
         registerWifiScannerReceiver(false, true, false, false);
@@ -2120,45 +2120,45 @@ public class PhoneProfilesService extends Service
         //SMSBroadcastReceiver.unregisterSMSContentObserver(appContext);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(appContext);
 
-        scheduleWifiJob(false, true, false, false, false, false, false);
-        scheduleBluetoothJob(false, true, false, false, false, false);
-        scheduleGeofenceScannerJob(false, true, false, false, false);
+        scheduleWifiJob(false,  false, false, false, false, false);
+        scheduleBluetoothJob(false,  false, false, false, false);
+        scheduleGeofenceScannerJob(false,  false, false, false);
         scheduleSearchCalendarEventsJob(false, true, false);
 
-        startGeofenceScanner(false, true, false, false);
-        scheduleGeofenceScannerJob(false, true, false, false, false);
+        startGeofenceScanner(false, false, false);
+        scheduleGeofenceScannerJob(false,  false, false, false);
         startPhoneStateScanner(false, true, false, false, false);
         startOrientationScanner(false, true, false);
     }
 
     private void reregisterReceiversAndJobs() {
         PPApplication.logE("[RJS] PhoneProfilesService.reregisterReceiversAndJobs", "xxx");
-        registerBatteryEventReceiver(true, true, true);
-        registerBatteryChangedReceiver(true, true, true);
-        registerReceiverForPeripheralsSensor(true, true, true);
-        registerReceiverForSMSSensor(true, true, true);
-        registerReceiverForCalendarSensor(true, true, true);
-        registerReceiverForRadioSwitchMobileDataSensor(true, true, true);
-        registerReceiverForRadioSwitchNFCSensor(true, true, true);
-        registerReceiverForRadioSwitchAirplaneModeSensor(true, true, true);
-        registerForegroundApplicationChangedReceiver(true, true, true);
+        registerBatteryEventReceiver(true, true);
+        registerBatteryChangedReceiver(true, true);
+        registerReceiverForPeripheralsSensor(true, true);
+        registerReceiverForSMSSensor(true, true);
+        registerReceiverForCalendarSensor(true, true);
+        registerReceiverForRadioSwitchMobileDataSensor(true, true);
+        registerReceiverForRadioSwitchNFCSensor(true, true);
+        registerReceiverForRadioSwitchAirplaneModeSensor(true, true);
+        registerForegroundApplicationChangedReceiver(true, true);
         registerLocationModeChangedBroadcastReceiver(true, true, true);
         registerBluetoothStateChangedBroadcastReceiver(true, true, true, false);
         registerBluetoothConnectionBroadcastReceiver(true, true, true, false);
         registerBluetoothScannerReceivers(true, true, true, false);
         registerWifiAPStateChangeBroadcastReceiver(true, true, true, false);
-        registerPowerSaveModeReceiver(true, true, true);
+        registerPowerSaveModeReceiver(true, true);
         registerWifiStateChangedBroadcastReceiver(true, true, true, false);
         registerWifiConnectionBroadcastReceiver(true, true, true, false);
         registerWifiScannerReceiver(true, true, true, false);
 
-        scheduleWifiJob(true, true, true, false, false, false, false);
-        scheduleBluetoothJob(true, true, true, false, false, false);
-        scheduleGeofenceScannerJob(true, true, true, false, false);
+        scheduleWifiJob(true,  true, false, false, false, false);
+        scheduleBluetoothJob(true,  true, false, false, false);
+        scheduleGeofenceScannerJob(true,  true, false, false);
         scheduleSearchCalendarEventsJob(true, false, true);
 
-        startGeofenceScanner(true, true, true, false);
-        scheduleGeofenceScannerJob(true, true, true, false, false);
+        startGeofenceScanner(true, true, false);
+        scheduleGeofenceScannerJob(true,  true, false, false);
         startPhoneStateScanner(true, true, true, false, false);
         startOrientationScanner(true, true, true);
     }
@@ -2332,7 +2332,7 @@ public class PhoneProfilesService extends Service
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
                     dataWrapper.getActivateProfileHelper().initialize(dataWrapper, appContext);
-                    dataWrapper.getDatabaseHandler().deleteAllEventTimelines(true);
+                    dataWrapper.getDatabaseHandler().deleteAllEventTimelines();
 
                     MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
 
@@ -2481,13 +2481,13 @@ public class PhoneProfilesService extends Service
                     switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
                         case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_GEOFENCE_SCANNER");
-                            startGeofenceScanner(true, true, true, false);
-                            scheduleGeofenceScannerJob(true, true, true, false, false);
+                            startGeofenceScanner(true, true, false);
+                            scheduleGeofenceScannerJob(true,  true, false, false);
                             break;
                         case PPApplication.SCANNER_STOP_GEOFENCE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_GEOFENCE_SCANNER");
-                            startGeofenceScanner(false, true, false, false);
-                            scheduleGeofenceScannerJob(false, true, false, false, false);
+                            startGeofenceScanner(false, false, false);
+                            scheduleGeofenceScannerJob(false,  false, false, false);
                             break;
                         case PPApplication.SCANNER_START_ORIENTATION_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_ORIENTATION_SCANNER");
@@ -2537,14 +2537,14 @@ public class PhoneProfilesService extends Service
                             registerWifiStateChangedBroadcastReceiver(true, false, true, false);
                             registerWifiAPStateChangeBroadcastReceiver(true, false, true, false);
                             registerWifiScannerReceiver(true, false, true, false);
-                            scheduleWifiJob(true, true, true, forScreenOn, false, false, true);
+                            scheduleWifiJob(true,  true, forScreenOn, false, false, true);
                             break;
                         case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER");
                             registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
                             registerBluetoothStateChangedBroadcastReceiver(true, false, true, false);
                             registerBluetoothScannerReceivers(true, false, true, false);
-                            scheduleBluetoothJob(true, true, true, forScreenOn, false, true);
+                            scheduleBluetoothJob(true,  true, forScreenOn, false, true);
                             break;
                         case PPApplication.SCANNER_RESTART_PHONE_STATE_SCANNER:
                              PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_PHONE_STATE_SCANNER");
@@ -2557,8 +2557,8 @@ public class PhoneProfilesService extends Service
                         case PPApplication.SCANNER_RESTART_GEOFENCE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_GEOFENCE_SCANNER");
                             registerLocationModeChangedBroadcastReceiver(true, false, true);
-                            startGeofenceScanner(true, true, true, forScreenOn);
-                            scheduleGeofenceScannerJob(true, true, true, forScreenOn, true);
+                            startGeofenceScanner(true, true, forScreenOn);
+                            scheduleGeofenceScannerJob(true,  true, forScreenOn, true);
                             break;
                         case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
@@ -3442,7 +3442,7 @@ public class PhoneProfilesService extends Service
                     contactLookupCursor.close();
                 }
             } catch (SecurityException e) {
-                Permissions.grantPlayRingtoneNotificationPermissions(context, true, true);
+                Permissions.grantPlayRingtoneNotificationPermissions(context, true);
                 newRingtone = "";
             } catch (Exception e) {
                 newRingtone = "";
@@ -3455,7 +3455,7 @@ public class PhoneProfilesService extends Service
                     else
                         newRingtone = "";
                 } catch (SecurityException e) {
-                    Permissions.grantPlayRingtoneNotificationPermissions(context, true, true);
+                    Permissions.grantPlayRingtoneNotificationPermissions(context, true);
                     newRingtone = "";
                 } catch (Exception e) {
                     newRingtone = "";
@@ -3623,7 +3623,7 @@ public class PhoneProfilesService extends Service
                         PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "focus not granted");
                 } catch (SecurityException e) {
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", " security exception");
-                    Permissions.grantPlayRingtoneNotificationPermissions(this, true, true);
+                    Permissions.grantPlayRingtoneNotificationPermissions(this, true);
                     ringingMediaPlayer = null;
                     PhoneProfilesService.startHandlerThread();
                     final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
@@ -4041,7 +4041,7 @@ public class PhoneProfilesService extends Service
 
                 } catch (SecurityException e) {
                     PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "security exception");
-                    Permissions.grantPlayRingtoneNotificationPermissions(this, true, false);
+                    Permissions.grantPlayRingtoneNotificationPermissions(this, false);
                     eventNotificationMediaPlayer = null;
                     eventNotificationIsPlayed = false;
                 } catch (Exception e) {

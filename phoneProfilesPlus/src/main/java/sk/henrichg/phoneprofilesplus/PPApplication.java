@@ -153,7 +153,7 @@ public class PPApplication extends Application {
     public static final int PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND = 2;
     public static final int PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND = 3;
     public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM = 4;
-    public static final int PREFERENCE_NOT_ALLOWED_NOT_CONFIGURED_IN_SYSTEM_SETTINGS = 5;
+    private static final int PREFERENCE_NOT_ALLOWED_NOT_CONFIGURED_IN_SYSTEM_SETTINGS = 5;
     public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION = 6;
 
     // global internal preferences
@@ -199,7 +199,6 @@ public class PPApplication extends Application {
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
     public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
     public static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
-    //public static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
     public static final GeofenceScannerLastLocationMutex geofenceScannerLastLocationMutex = new GeofenceScannerLastLocationMutex();
     public static final GeofenceScannerMutex geofenceScannerMutex = new GeofenceScannerMutex();
     public static final WifiBluetoothScannerMutex wifiBluetoothscannerMutex = new WifiBluetoothScannerMutex();
@@ -332,6 +331,7 @@ public class PPApplication extends Application {
         logFile.delete();
     }
 
+    @SuppressWarnings("UnusedAssignment")
     @SuppressLint("SimpleDateFormat")
     static private void logIntoFile(String type, String tag, String text)
     {
@@ -446,7 +446,7 @@ public class PPApplication extends Application {
         return intent.toString() + " " + bundleToString(intent.getExtras());
     }
 
-    public static String bundleToString(Bundle bundle) {
+    private static String bundleToString(Bundle bundle) {
         StringBuilder out = new StringBuilder("Bundle[");
 
         if (bundle == null) {
@@ -775,6 +775,7 @@ public class PPApplication extends Application {
                     if (f.exists()) {
                         try {
                             InputStream is = new FileInputStream("/sys/fs/selinux/enforce");
+                            //noinspection TryFinallyCanBeTryWithResources
                             try {
                                 enforcing = (is.read() == '1');
                             } finally {
@@ -960,13 +961,14 @@ public class PPApplication extends Application {
         return stringBuilder.toString();
     }
 
-    private static void commandWait(Command cmd) throws Exception {
+    private static void commandWait(Command cmd) /*throws Exception*/ {
         int waitTill = 50;
         int waitTillMultiplier = 2;
         int waitTillLimit = 3200; // 6350 msec (3200 * 2 - 50)
 
-        while (!cmd.isFinished() && waitTill<=waitTillLimit) {
-            synchronized (cmd) {
+        //noinspection SynchronizationOnLocalVariableOrMethodParameter
+        synchronized (cmd) {
+            while (!cmd.isFinished() && waitTill<=waitTillLimit) {
                 try {
                     if (!cmd.isFinished()) {
                         cmd.wait(waitTill);
@@ -1103,7 +1105,7 @@ public class PPApplication extends Application {
     }
     */
 
-    public static void stopGeofenceScanner(Context context, boolean exitApp) {
+    private static void stopGeofenceScanner(Context context/*, boolean exitApp*/) {
         try {
             PPApplication.logE("[RJS] PPApplication.stopGeofenceScanner", "xxx");
             Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -1111,7 +1113,7 @@ public class PPApplication extends Application {
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_GEOFENCE_SCANNER);
-            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, exitApp);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true/*exitApp*/);
             //TODO Android O
             //if (Build.VERSION.SDK_INT < 26)
                 context.startService(lIntent);
@@ -1155,7 +1157,7 @@ public class PPApplication extends Application {
     }
     */
 
-    public static void stopOrientationScanner(Context context, boolean exitApp) {
+    private static void stopOrientationScanner(Context context/*, boolean exitApp*/) {
         try {
             PPApplication.logE("[RJS] PPApplication.stopOrientationScanner", "xxx");
             Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -1163,7 +1165,7 @@ public class PPApplication extends Application {
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_ORIENTATION_SCANNER);
-            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, exitApp);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true/*exitApp*/);
             //TODO Android O
             //if (Build.VERSION.SDK_INT < 26)
                 context.startService(lIntent);
@@ -1172,7 +1174,7 @@ public class PPApplication extends Application {
         } catch (Exception ignored) {}
     }
 
-    public static void restartOrientationScanner(Context context, boolean forScreenOn) {
+    public static void restartOrientationScanner(Context context/*, boolean forScreenOn*/) {
         try {
             PPApplication.logE("[RJS] PPApplication.restartOrientationScanner", "xxx");
             Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -1180,7 +1182,7 @@ public class PPApplication extends Application {
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ORIENTATION_SCANNER);
-            lIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true/*forScreenOn*/);
             //TODO Android O
             //if (Build.VERSION.SDK_INT < 26)
             context.startService(lIntent);
@@ -1207,7 +1209,7 @@ public class PPApplication extends Application {
     }
     */
 
-    public static void stopPhoneStateScanner(Context context, boolean exitApp) {
+    private static void stopPhoneStateScanner(Context context/*, boolean exitApp*/) {
         try {
             PPApplication.logE("[RJS] PPApplication.stopPhoneStateScanner", "xxx");
             Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -1215,7 +1217,7 @@ public class PPApplication extends Application {
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_PHONE_STATE_SCANNER);
-            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, exitApp);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true/*exitApp*/);
             //TODO Android O
             //if (Build.VERSION.SDK_INT < 26)
                 context.startService(lIntent);
@@ -1310,7 +1312,7 @@ public class PPApplication extends Application {
                                boolean setApplicationStarted, boolean shutdown) {
         if (!shutdown) {
             // stop all events
-            dataWrapper.stopAllEvents(false, false);
+            dataWrapper.stopAllEvents(false);
 
             // remove notifications
             ImportantInfoNotification.removeNotification(context);
@@ -1323,9 +1325,9 @@ public class PPApplication extends Application {
             Profile.setActivatedProfileForDuration(context, 0);
 
             if (PhoneProfilesService.instance != null) {
-                PPApplication.stopGeofenceScanner(context, true);
-                PPApplication.stopOrientationScanner(context, true);
-                PPApplication.stopPhoneStateScanner(context, true);
+                PPApplication.stopGeofenceScanner(context);
+                PPApplication.stopOrientationScanner(context);
+                PPApplication.stopPhoneStateScanner(context);
             }
 
             if (PPApplication.brightnessHandler != null) {

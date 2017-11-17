@@ -295,7 +295,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         super.onDestroy();
     }
 
-    public void doOnActivityResult(int requestCode, int resultCode, Intent data)
+    public void doOnActivityResult(int requestCode, int resultCode/*, Intent data*/)
     {
         //Log.d("EventPreferencesFragment.doOnActivityResult", "requestCode="+requestCode);
 
@@ -341,7 +341,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        doOnActivityResult(requestCode, resultCode, data);
+        doOnActivityResult(requestCode, resultCode);
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)

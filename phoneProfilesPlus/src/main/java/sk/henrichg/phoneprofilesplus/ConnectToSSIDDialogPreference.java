@@ -91,7 +91,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                ConnectToSSIDDialogPreference.this.onShow(dialog);
+                ConnectToSSIDDialogPreference.this.onShow(/*dialog*/);
             }
         });
 
@@ -120,7 +120,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void onShow(DialogInterface dialog) {
+    private void onShow(/*DialogInterface dialog*/) {
 
         asyncTask = new AsyncTask<Void, Integer, Void>() {
 

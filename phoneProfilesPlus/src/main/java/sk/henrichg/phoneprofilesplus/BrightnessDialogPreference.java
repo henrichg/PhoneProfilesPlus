@@ -121,7 +121,7 @@ public class BrightnessDialogPreference extends
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                BrightnessDialogPreference.this.onShow(dialog);
+                BrightnessDialogPreference.this.onShow(/*dialog*/);
             }
         });
 
@@ -200,7 +200,7 @@ public class BrightnessDialogPreference extends
         }
     }
 
-    private void onShow(DialogInterface dialog) {
+    private void onShow(/*DialogInterface dialog*/) {
         if (Permissions.grantBrightnessDialogPermissions(_context, this))
             enableViews();
     }
@@ -347,6 +347,7 @@ public class BrightnessDialogPreference extends
     public void onProgressChanged(SeekBar seek, int newValue,
                                   boolean fromUser) {
         // Round the value to the closest integer value.
+        //noinspection ConstantConditions
         if (stepSize >= 1) {
             value = Math.round(newValue/stepSize)*stepSize;
         }
@@ -539,6 +540,7 @@ public class BrightnessDialogPreference extends
         final SavedState myState = new SavedState(superState);
 
         Dialog dialog = getDialog();
+        //noinspection StatementWithEmptyBody
         if (dialog == null || !dialog.isShowing()) {
             //myState.isDialogShowing = superState.isDialogShowing;
             //myState.dialogBundle = dialogBundle;

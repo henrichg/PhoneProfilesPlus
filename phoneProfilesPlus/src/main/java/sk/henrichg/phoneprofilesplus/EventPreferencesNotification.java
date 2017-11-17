@@ -213,7 +213,7 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
+    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         if (Event.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled, this._applications,
                                                         this._permanentRun, this._duration, this._endWhenRemoved);
@@ -273,7 +273,7 @@ class EventPreferencesNotification extends EventPreferences {
                 if (durationPreference != null)
                     durationPreference.setEnabled(enabled);
             }
-            setCategorySummary(prefMng, "", preferences, context);
+            setCategorySummary(prefMng, preferences, context);
         }
         else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) prefMng.findPreference("eventPreferenceScreen");
@@ -281,12 +281,6 @@ class EventPreferencesNotification extends EventPreferences {
             if ((preferenceCategory != null) && (preferenceScreen != null))
                 preferenceScreen.removePreference(preferenceCategory);
         }
-    }
-
-    @Override
-    public boolean activateReturnProfile()
-    {
-        return true;
     }
 
     long computeAlarm()

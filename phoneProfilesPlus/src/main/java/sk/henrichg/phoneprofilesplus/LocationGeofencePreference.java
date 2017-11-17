@@ -309,7 +309,7 @@ public class LocationGeofencePreference extends DialogPreference {
                         return true;
                     case R.id.location_geofence_pref_item_menu_delete:
                         if (geofenceId > 0) {
-                            if (!dataWrapper.getDatabaseHandler().isGeofenceUsed(geofenceId, false)) {
+                            if (!dataWrapper.getDatabaseHandler().isGeofenceUsed(geofenceId)) {
                                 dataWrapper.getDatabaseHandler().deleteGeofence(geofenceId);
                                 refreshListView();
                                 //updateGUIWithGeofence(0);

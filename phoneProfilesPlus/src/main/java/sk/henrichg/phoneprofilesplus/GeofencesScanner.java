@@ -120,6 +120,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         PPApplication.logE("GeofenceScanner.onConnectionFailed", "xxx");
+        //noinspection StatementWithEmptyBody
         if (mResolvingError) {
             // Already attempting to resolve an error.
             //return;

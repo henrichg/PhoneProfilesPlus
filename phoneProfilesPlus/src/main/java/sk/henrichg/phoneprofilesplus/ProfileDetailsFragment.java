@@ -13,8 +13,8 @@ import android.widget.TextView;
 public class ProfileDetailsFragment extends Fragment {
 
     public long profile_id;
-    public int editMode;
-    public int predefinedProfileIndex;
+    //public int editMode;
+    //public int predefinedProfileIndex;
 
 
     public ProfileDetailsFragment() {

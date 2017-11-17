@@ -80,7 +80,7 @@ class SearchCalendarEventsJob extends Job {
                 } else
                     return;
             } else {
-                _cancelJob(context);
+                _cancelJob();
                 jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
                 jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
             }
@@ -118,7 +118,7 @@ class SearchCalendarEventsJob extends Job {
         }
     }
 
-    private static void _cancelJob(final Context context) {
+    private static void _cancelJob(/*final Context context*/) {
         try {
             JobManager jobManager = JobManager.instance();
             jobManager.cancelAllForTag(JOB_TAG_SHORT);
@@ -135,14 +135,14 @@ class SearchCalendarEventsJob extends Job {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    _cancelJob(context);
+                    _cancelJob();
                     if (countDownLatch != null)
                         countDownLatch.countDown();
                 }
             });
         }
         else {
-            _cancelJob(context);
+            _cancelJob();
             if (countDownLatch != null)
                 countDownLatch.countDown();
         }

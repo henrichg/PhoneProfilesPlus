@@ -248,7 +248,7 @@ class EventPreferencesBluetooth extends EventPreferences {
     }
 
     @Override
-    public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
+    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         if (Event.isEventPreferenceAllowed(PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesBluetooth tmp = new EventPreferencesBluetooth(this._event, this._enabled, this._adapterName, this._connectionType, this._devicesType);
             if (preferences != null)
@@ -274,12 +274,6 @@ class EventPreferencesBluetooth extends EventPreferences {
     public boolean isRunnable(Context context)
     {
         return super.isRunnable(context) && (!this._adapterName.isEmpty());
-    }
-
-    @Override
-    public boolean activateReturnProfile()
-    {
-        return true;
     }
 
     /*

@@ -116,7 +116,7 @@ class EventsHandler {
                 else
                     oldRingtone = "";
             } catch (SecurityException e) {
-                Permissions.grantPlayRingtoneNotificationPermissions(context, true, false);
+                Permissions.grantPlayRingtoneNotificationPermissions(context, false);
                 oldRingtone = "";
             } catch (Exception e) {
                 oldRingtone = "";

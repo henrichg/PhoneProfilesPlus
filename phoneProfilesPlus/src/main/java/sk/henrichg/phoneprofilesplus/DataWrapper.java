@@ -107,6 +107,7 @@ public class DataWrapper {
 
         if (forGUI)
         {
+            //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = newProfileList.iterator(); it.hasNext();) {
                 Profile profile = it.next();
                 profile.generateIconBitmap(context, monochrome, monochromeValue);
@@ -117,11 +118,11 @@ public class DataWrapper {
         return newProfileList;
     }
 
-    void setProfileList(List<Profile> profileList, boolean recycleBitmaps)
+    void setProfileList(List<Profile> profileList/*, boolean recycleBitmaps*/)
     {
-        if (recycleBitmaps)
+        /*if (recycleBitmaps)
             invalidateProfileList();
-        else
+        else*/
             if (this.profileList != null)
                 this.profileList.clear();
         this.profileList = profileList;
@@ -751,7 +752,7 @@ public class DataWrapper {
     */
 
     // stops all events associated with profile
-    void stopEventsForProfile(Profile profile, boolean saveEventStatus)
+    void stopEventsForProfile(Profile profile/*, boolean saveEventStatus*/)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
@@ -760,7 +761,7 @@ public class DataWrapper {
             //if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
             //	(event._fkProfileStart == profile._id))
             if (event._fkProfileStart == profile._id)
-                event.stopEvent(this, eventTimelineList, false, true, saveEventStatus, false, false);
+                event.stopEvent(this, eventTimelineList, false, true, true/*saveEventStatus*/, false);
         }
         PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
         restartEvents(false, true, false);
@@ -808,7 +809,7 @@ public class DataWrapper {
     }
 
     // stops all events
-    void stopAllEvents(boolean saveEventStatus, boolean activateReturnProfile)
+    void stopAllEvents(boolean saveEventStatus/*, boolean activateReturnProfile*/)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
@@ -823,7 +824,7 @@ public class DataWrapper {
                 if (event != null)
                 {
                 //if (event.getStatusFromDB(this) != Event.ESTATUS_STOP)
-                    event.stopEvent(this, eventTimelineList, activateReturnProfile, true, saveEventStatus, false, false);
+                    event.stopEvent(this, eventTimelineList, false/*activateReturnProfile*/, true, saveEventStatus, false);
                 }
             }
         }
@@ -1270,7 +1271,7 @@ public class DataWrapper {
 
             if (profile._askForDuration) {
                 FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper,
-                        monochrome, monochromeValue, _startupSource, true);
+                        monochrome, monochromeValue, _startupSource);
                 dlg.show();
             }
             else {
@@ -1318,7 +1319,7 @@ public class DataWrapper {
         {
             if (profile._askForDuration && interactive) {
                 FastAccessDurationDialog dlg = new FastAccessDurationDialog(activity, profile, this,
-                        monochrome, monochromeValue, startupSource, true);
+                        monochrome, monochromeValue, startupSource);
                 dlg.show();
             }
             else {
@@ -1573,8 +1574,8 @@ public class DataWrapper {
             boolean isPowerSaveMode = isPowerSaveMode(context);
             PPApplication.logE("*** DataWrapper.doHandleEvents", "isPowerSaveMode=" + isPowerSaveMode);
 
-            boolean isCharging = false;
-            int batteryPct = -100;
+            boolean isCharging;
+            int batteryPct;
 
             // get battery status
             IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
@@ -1709,6 +1710,7 @@ public class DataWrapper {
                 {
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING)
                     {
+                        //noinspection StatementWithEmptyBody
                         if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING) ||
                             ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED)))
                             ;//eventStart = eventStart && true;
@@ -1718,6 +1720,7 @@ public class DataWrapper {
                     else
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED)
                     {
+                        //noinspection StatementWithEmptyBody
                         if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED)
                             ;//eventStart = eventStart && true;
                         else
@@ -1726,6 +1729,7 @@ public class DataWrapper {
                     else
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED)
                     {
+                        //noinspection StatementWithEmptyBody
                         if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ANSWERED)
                             ;//eventStart = eventStart && true;
                         else
@@ -1758,18 +1762,14 @@ public class DataWrapper {
                 IntentFilter iFilter = new IntentFilter(Intent.ACTION_DOCK_EVENT);
                 Intent dockStatus = context.registerReceiver(null, iFilter);
 
-                boolean isDocked = false;
-                boolean isCar = false;
-                boolean isDesk = false;
-
                 if (dockStatus != null)
                 {
                     int dockState = dockStatus.getIntExtra(Intent.EXTRA_DOCK_STATE, -1);
-                    isDocked = dockState != Intent.EXTRA_DOCK_STATE_UNDOCKED;
-                    isCar = dockState == Intent.EXTRA_DOCK_STATE_CAR;
-                    isDesk = dockState == Intent.EXTRA_DOCK_STATE_DESK ||
-                             dockState == Intent.EXTRA_DOCK_STATE_LE_DESK ||
-                             dockState == Intent.EXTRA_DOCK_STATE_HE_DESK;
+                    boolean isDocked = dockState != Intent.EXTRA_DOCK_STATE_UNDOCKED;
+                    boolean isCar = dockState == Intent.EXTRA_DOCK_STATE_CAR;
+                    boolean isDesk = dockState == Intent.EXTRA_DOCK_STATE_DESK ||
+                                     dockState == Intent.EXTRA_DOCK_STATE_LE_DESK ||
+                                     dockState == Intent.EXTRA_DOCK_STATE_HE_DESK;
 
                     if (isDocked)
                     {
@@ -2847,7 +2847,7 @@ public class DataWrapper {
                             if (!event._isInDelayStart) {
                                 // no delay alarm is set
                                 // start event
-                                event.startEvent(this, eventTimelineList, false, interactive, reactivate, true, mergedProfile);
+                                event.startEvent(this, eventTimelineList, interactive, reactivate, mergedProfile);
                                 PPApplication.logE("[***] DataWrapper.doHandleEvents", "mergedProfile._id=" + mergedProfile._id);
                             }
                         }
@@ -2855,7 +2855,7 @@ public class DataWrapper {
                         if (forDelayStartAlarm && event._isInDelayStart) {
                             // called for delay alarm
                             // start event
-                            event.startEvent(this, eventTimelineList, false, interactive, reactivate, true, mergedProfile);
+                            event.startEvent(this, eventTimelineList, interactive, reactivate, mergedProfile);
                         }
                     }
                 } else if (((newEventStatus == Event.ESTATUS_PAUSE) || restartEvent) && statePause) {
@@ -2982,7 +2982,7 @@ public class DataWrapper {
         });
     }
 
-    void restartEventsWithRescan(boolean showToast, boolean interactive)
+    void restartEventsWithRescan(/*boolean showToast, boolean interactive*/)
     {
         PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","xxx");
 
@@ -2991,7 +2991,7 @@ public class DataWrapper {
         resetAllEventsInDelayEnd(false);
         // ignore manual profile activation
         // and unblock forceRun events
-        restartEvents(true, true, interactive);
+        restartEvents(true, true, true/*interactive*/);
 
         if (ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
@@ -3011,13 +3011,13 @@ public class DataWrapper {
         }
 
 
-        if (showToast)
-        {
+        //if (showToast)
+        //{
             Toast msg = Toast.makeText(context,
                     context.getResources().getString(R.string.toast_events_restarted),
                     Toast.LENGTH_SHORT);
             msg.show();
-        }
+        //}
     }
 
     void restartEventsWithAlert(Activity activity)
@@ -3056,7 +3056,7 @@ public class DataWrapper {
                     if (finish)
                         _activity.finish();
 
-                    restartEventsWithRescan(true, true);
+                    restartEventsWithRescan();
 
                     /*final Handler handler = new Handler(context.getMainLooper());
                     handler.postDelayed(new Runnable() {
@@ -3096,7 +3096,7 @@ public class DataWrapper {
             if (finish)
                 activity.finish();
 
-            restartEventsWithRescan(true, true);
+            restartEventsWithRescan();
 
             /*final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -3109,12 +3109,12 @@ public class DataWrapper {
     }
 
     @SuppressLint("NewApi")
-    void restartEventsWithDelay(int delay, boolean unblockEventsRun, boolean interactive)
+    void restartEventsWithDelay(int delay, boolean unblockEventsRun/*, boolean interactive*/)
     {
         PPApplication.logE("DataWrapper.restartEventsWithDelay","xxx");
 
         final boolean _unblockEventsRun = unblockEventsRun;
-        final boolean _interactive = interactive;
+        final boolean _interactive = false/*interactive*/;
 
         PhoneProfilesService.startHandlerThread();
         final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());

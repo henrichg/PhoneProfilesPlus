@@ -184,7 +184,7 @@ class EventPreferencesNFC extends EventPreferences {
     }
 
     @Override
-    public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
+    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         if (Event.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesNFC tmp = new EventPreferencesNFC(this._event, this._enabled, this._nfcTags, this._permanentRun, this._duration);
             if (preferences != null)
@@ -236,12 +236,6 @@ class EventPreferencesNFC extends EventPreferences {
             if (durationPreference != null)
                 durationPreference.setEnabled(enabled);
         }
-    }
-
-    @Override
-    public boolean activateReturnProfile()
-    {
-        return true;
     }
 
     long computeAlarm()

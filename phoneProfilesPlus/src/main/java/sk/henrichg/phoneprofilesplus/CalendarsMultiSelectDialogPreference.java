@@ -116,7 +116,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                CalendarsMultiSelectDialogPreference.this.onShow(dialog);
+                CalendarsMultiSelectDialogPreference.this.onShow(/*dialog*/);
             }
         });
 
@@ -238,7 +238,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         }.execute();
     }
 
-    private void onShow(DialogInterface dialog) {
+    private void onShow(/*DialogInterface dialog*/) {
         if (Permissions.grantCalendarDialogPermissions(_context, this))
             refreshListView(true);
     }

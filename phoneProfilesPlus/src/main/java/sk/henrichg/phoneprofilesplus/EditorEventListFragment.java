@@ -90,7 +90,7 @@ public class EditorEventListFragment extends Fragment
      */
     // invoked when start profile preference fragment/activity needed
     interface OnStartEventPreferences {
-        void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex, boolean startTargetHelps);
+        void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex/*, boolean startTargetHelps*/);
     }
 
     /**
@@ -98,7 +98,7 @@ public class EditorEventListFragment extends Fragment
      * nothing. Used only when this fragment is not attached to an activity.
      */
     private static final OnStartEventPreferences sDummyOnStartEventPreferencesCallback = new OnStartEventPreferences() {
-        public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex, boolean startTargetHelps) {
+        public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex/*, boolean startTargetHelps*/) {
         }
     };
 
@@ -168,14 +168,14 @@ public class EditorEventListFragment extends Fragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        doOnViewCreated(view, savedInstanceState);
+        doOnViewCreated(view/*, savedInstanceState*/);
 
         boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
         if (startTargetHelps)
             showTargetHelps();
     }
 
-    private void doOnViewCreated(View view, Bundle savedInstanceState)
+    private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
         //super.onActivityCreated(savedInstanceState);
 
@@ -278,7 +278,7 @@ public class EditorEventListFragment extends Fragment
                 // get local profileList
                 List<Profile> profileList = _dataWrapper.getProfileList();
                 // set local profile list into activity dataWrapper
-                fragment.dataWrapper.setProfileList(profileList, false);
+                fragment.dataWrapper.setProfileList(profileList);
 
                 // get local eventList
                 List<Event> eventList = _dataWrapper.getEventList();
@@ -368,7 +368,7 @@ public class EditorEventListFragment extends Fragment
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartEventPreferencesCallback.onStartEventPreferences(event, editMode, predefinedEventIndex, true);
+        onStartEventPreferencesCallback.onStartEventPreferences(event, editMode, predefinedEventIndex);
     }
 
     void runStopEvent(Event event)
@@ -388,7 +388,7 @@ public class EditorEventListFragment extends Fragment
             } else {
                 // stop event
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-                event.stopEvent(dataWrapper, eventTimelineList, true, false, true, false, false); // activate return profile
+                event.stopEvent(dataWrapper, eventTimelineList, true, false, true, false); // activate return profile
                 // redraw event list
                 updateListView(event, false, false, true);
                 // restart events
@@ -453,7 +453,7 @@ public class EditorEventListFragment extends Fragment
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartEventPreferencesCallback.onStartEventPreferences(origEvent, editMode, 0, true);
+        onStartEventPreferencesCallback.onStartEventPreferences(origEvent, editMode, 0);
 
     }
 
@@ -466,7 +466,7 @@ public class EditorEventListFragment extends Fragment
         listView.getRecycledViewPool().clear();
 
         List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-        event.stopEvent(dataWrapper, eventTimelineList, false, true, true, false, false);
+        event.stopEvent(dataWrapper, eventTimelineList, false, true, true, false);
         // restart events
         PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
         dataWrapper.restartEvents(false, true, false);
@@ -485,7 +485,7 @@ public class EditorEventListFragment extends Fragment
         //else
         //    context.startForegroundService(serviceIntent);
 
-        onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
+        onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
     }
 
     public void showEditMenu(View view)
@@ -571,7 +571,7 @@ public class EditorEventListFragment extends Fragment
                 public void onClick(DialogInterface dialog, int which) {
                     listView.getRecycledViewPool().clear();
 
-                    dataWrapper.stopAllEvents(true, false);
+                    dataWrapper.stopAllEvents(true);
 
                     databaseHandler.deleteAllEvents();
 
@@ -588,7 +588,7 @@ public class EditorEventListFragment extends Fragment
                     //else
                     //    context.startForegroundService(serviceIntent);
 
-                    onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
+                    onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
@@ -607,7 +607,7 @@ public class EditorEventListFragment extends Fragment
         if (eventListAdapter != null) {
             if ((newEvent) && (event != null))
                 // add event into listview
-                eventListAdapter.addItem(event, false);
+                eventListAdapter.addItem(event);
         }
 
         if (eventList != null) {

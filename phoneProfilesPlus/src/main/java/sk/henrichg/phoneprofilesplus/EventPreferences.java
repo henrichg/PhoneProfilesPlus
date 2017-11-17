@@ -29,10 +29,12 @@ class EventPreferences {
         return true;
     }
 
+    /*
     boolean activateReturnProfile()
     {
         return true;
     }
+    */
 
     void loadSharedPreferences(SharedPreferences preferences)
     {
@@ -59,7 +61,7 @@ class EventPreferences {
     {
     }
 
-    void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
     }
 
     void checkPreferences(PreferenceManager prefMng, Context context)

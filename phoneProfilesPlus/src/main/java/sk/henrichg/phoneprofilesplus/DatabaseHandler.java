@@ -2891,6 +2891,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (database == null)
                 db.beginTransaction();
+            //noinspection TryFinallyCanBeTryWithResources
             try {
 
                 if (cursor.moveToFirst()) {
@@ -5122,7 +5123,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting all events from timeline
-    void deleteAllEventTimelines(boolean updateEventStatus) {
+    void deleteAllEventTimelines(/*boolean updateEventStatus*/) {
         synchronized (databaseHandlerMutex) {
             //SQLiteDatabase db = this.getWritableDatabase();
             SQLiteDatabase db = getMyWritableDatabase();
@@ -5136,10 +5137,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 db.delete(TABLE_EVENT_TIMELINE, null, null);
 
-                if (updateEventStatus) {
+                //if (updateEventStatus) {
                     db.update(TABLE_EVENTS, values, KEY_E_STATUS + " = ?",
                             new String[]{String.valueOf(Event.ESTATUS_RUNNING)});
-                }
+                //}
 
                 db.setTransactionSuccessful();
 
@@ -5505,6 +5506,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             Cursor cursor = db.rawQuery(selectQuery, null);
 
+            //noinspection TryFinallyCanBeTryWithResources
             try {
 
                 // delete geofence
@@ -5774,16 +5776,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    boolean isGeofenceUsed(long geofenceId, boolean onlyEnabledEvents) {
+    boolean isGeofenceUsed(long geofenceId/*, boolean onlyEnabledEvents*/) {
         synchronized (databaseHandlerMutex) {
             String selectQuery = "SELECT " + KEY_E_LOCATION_GEOFENCES +
                     " FROM " + TABLE_EVENTS +
                     " WHERE " + KEY_E_LOCATION_ENABLED + "=1";
 
+            /*
             if (onlyEnabledEvents)
                 selectQuery = selectQuery + " AND " + KEY_E_STATUS + " IN (" +
                         String.valueOf(Event.ESTATUS_PAUSE) + "," +
                         String.valueOf(Event.ESTATUS_RUNNING) + ")";
+            */
 
             //SQLiteDatabase db = this.getReadableDatabase();
             SQLiteDatabase db = getMyWritableDatabase();
@@ -7610,6 +7614,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             Cursor eventsCursor = db.rawQuery(selectEventsQuery, null);
 
             db.beginTransaction();
+            //noinspection TryFinallyCanBeTryWithResources
             try {
 
                 if (profilesCursor.moveToFirst()) {

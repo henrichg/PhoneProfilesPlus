@@ -118,7 +118,7 @@ public class NFCTagPreference extends DialogPreference {
                 String tag = nfcTagName.getText().toString();
                 addNfcTag(tag);
                 DatabaseHandler.getInstance(context).addNFCTag(tag);
-                refreshListView(false, tag);
+                refreshListView(tag);
             }
         });
 
@@ -146,7 +146,7 @@ public class NFCTagPreference extends DialogPreference {
         listAdapter = new NFCTagPreferenceAdapter(context, this);
         nfcTagListView.setAdapter(listAdapter);
 
-        refreshListView(false, "");
+        refreshListView("");
 
         nfcTagListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -217,7 +217,7 @@ public class NFCTagPreference extends DialogPreference {
                                         break;
                                     default:
                                 }
-                                refreshListView(false, "");
+                                refreshListView("");
                                 return true;
                             }
                         })
@@ -321,9 +321,9 @@ public class NFCTagPreference extends DialogPreference {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void refreshListView(boolean forRescan, final String scrollToTag)
+    private void refreshListView(/*boolean forRescan, */final String scrollToTag)
     {
-        final boolean _forRescan = forRescan;
+        //final boolean _forRescan = forRescan;
 
         rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
 
@@ -336,10 +336,12 @@ public class NFCTagPreference extends DialogPreference {
 
                 _nfcTagList = new ArrayList<>();
 
+                /*
                 if (_forRescan) {
                     dataRelativeLayout.setVisibility(View.GONE);
                     progressLinearLayout.setVisibility(View.VISIBLE);
                 }
+                */
             }
 
             @Override
@@ -385,10 +387,12 @@ public class NFCTagPreference extends DialogPreference {
                 nfcTagList = new ArrayList<>(_nfcTagList);
                 listAdapter.notifyDataSetChanged();
 
+                /*
                 if (_forRescan) {
                     progressLinearLayout.setVisibility(View.GONE);
                     dataRelativeLayout.setVisibility(View.VISIBLE);
                 }
+                */
 
                 if (!scrollToTag.isEmpty()) {
                     for (int position = 0; position < nfcTagList.size() - 1; position++) {
@@ -460,13 +464,13 @@ public class NFCTagPreference extends DialogPreference {
                                 value = value + nfcTagName.getText().toString();
                                 DatabaseHandler.getInstance(context).updateNFCTag(tag, nfcTagName.getText().toString());
                             }
-                            refreshListView(false, "");
+                            refreshListView("");
                         }
                         return true;
                     case R.id.nfc_tag_pref_dlg_item_menu_delete:
                         removeNfcTag(tag);
                         DatabaseHandler.getInstance(context).deleteNFCTag(tag);
-                        refreshListView(false, "");
+                        refreshListView("");
                         return true;
                     default:
                         return false;

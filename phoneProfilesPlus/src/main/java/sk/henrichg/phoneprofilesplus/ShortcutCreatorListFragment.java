@@ -61,10 +61,10 @@ public class ShortcutCreatorListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        doOnViewCreated(view, savedInstanceState);
+        doOnViewCreated(view);
     }
 
-    private void doOnViewCreated(View view, Bundle savedInstanceState)
+    private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
         listView = view.findViewById(R.id.shortcut_profiles_list);
 
@@ -134,7 +134,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                 profileList.add(0, profile);
 
                 // set copy local profile list into activity profilesDataWrapper
-                fragment.dataWrapper.setProfileList(profileList, false);
+                fragment.dataWrapper.setProfileList(profileList);
                 // set reference of profile list from profilesDataWrapper
                 fragment.profileList = fragment.dataWrapper.getProfileList();
 

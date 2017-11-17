@@ -16,8 +16,9 @@ class HandlerWithContext extends Handler {
         mContext = new WeakReference<>(context);
     }
 
+    /*
     public Context getContext() {
         return mContext.get();
     }
-
+    */
 }

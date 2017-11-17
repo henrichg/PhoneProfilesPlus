@@ -51,7 +51,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.restartBluetoothScanner(appContext, true);
                     PPApplication.restartGeofenceScanner(appContext, true);
                     PPApplication.restartPhoneStateScanner(appContext, true);
-                    PPApplication.restartOrientationScanner(appContext, true);
+                    PPApplication.restartOrientationScanner(appContext);
                 }
                 else if ((action != null) && action.equals(Intent.ACTION_SCREEN_OFF)) {
                     PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
@@ -60,7 +60,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.restartBluetoothScanner(appContext, true);
                     PPApplication.restartGeofenceScanner(appContext, true);
                     PPApplication.restartPhoneStateScanner(appContext, true);
-                    PPApplication.restartOrientationScanner(appContext, true);
+                    PPApplication.restartOrientationScanner(appContext);
 
                     //boolean lockDeviceEnabled = false;
                     if (PPApplication.lockDeviceActivity != null) {

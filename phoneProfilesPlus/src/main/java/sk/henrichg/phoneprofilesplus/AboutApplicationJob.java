@@ -89,7 +89,7 @@ class AboutApplicationJob extends Job {
 
             PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
 
-            scheduleJob(context);
+            scheduleJob(/*context*/);
         }
         else {
             PPApplication.setDonationNotificationCount(context, MAX_DONATION_NOTIFICATION_COUNT);
@@ -104,7 +104,7 @@ class AboutApplicationJob extends Job {
         return Result.SUCCESS;
     }
 
-    static void scheduleJob(final Context context) {
+    static void scheduleJob(/*final Context context*/) {
         PPApplication.logE("AboutApplicationJob.scheduleJob", "xxx");
 
         PhoneProfilesService.startHandlerThread();

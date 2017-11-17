@@ -7,7 +7,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 public class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
 
-    public static final String EXTRA_REFRESH_ICONS = "refresh_icons";
+    private static final String EXTRA_REFRESH_ICONS = "refresh_icons";
     public static final String EXTRA_REFRESH_ALSO_EDITOR = "refresh_also_editor";
 
     @Override

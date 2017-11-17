@@ -30,13 +30,13 @@ class MobileCellNamesDialog {
     private final boolean showFilterItems;
     private final DialogPreference preference;
 
-    final MaterialDialog mDialog;
+    private final MaterialDialog mDialog;
     private final EditText cellName;
 
-    private LinearLayout linlaProgress;
-    private RelativeLayout rellaDialog;
+    private final LinearLayout linlaProgress;
+    private final RelativeLayout rellaDialog;
 
-    private MobileCellNamesDialogAdapter listAdapter;
+    private final MobileCellNamesDialogAdapter listAdapter;
 
     private AsyncTask asyncTask = null;
 
@@ -133,7 +133,7 @@ class MobileCellNamesDialog {
 
         asyncTask = new AsyncTask<Void, Integer, Void>() {
 
-            List<String> _cellNamesList = new ArrayList<>();
+            final List<String> _cellNamesList = new ArrayList<>();
 
             @Override
             protected void onPreExecute()

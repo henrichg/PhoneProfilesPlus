@@ -60,6 +60,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         boolean news1804 = ((versionCode >= 1804) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1772 = ((versionCode >= 1772) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
 
+        //noinspection StatementWithEmptyBody
         if (newsLatest) {
             // empty this, for switch off news
             news = true;

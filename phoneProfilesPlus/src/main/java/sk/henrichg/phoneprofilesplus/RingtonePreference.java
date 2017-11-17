@@ -118,7 +118,7 @@ public class RingtonePreference extends DialogPreference {
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                RingtonePreference.this.onShow(dialog);
+                RingtonePreference.this.onShow(/*dialog*/);
             }
         });
 
@@ -131,7 +131,7 @@ public class RingtonePreference extends DialogPreference {
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)
             {
                 RingtonePreferenceAdapter.ViewHolder viewHolder = (RingtonePreferenceAdapter.ViewHolder) item.getTag();
-                setRingtone((String)listAdapter.getItem(position), viewHolder.radioBtn);
+                setRingtone((String)listAdapter.getItem(position)/*, viewHolder.radioBtn*/);
                 viewHolder.radioBtn.setChecked(true);
                 playRingtone(true);
             }
@@ -158,7 +158,7 @@ public class RingtonePreference extends DialogPreference {
         mDialog.show();
     }
 
-    private void onShow(DialogInterface dialog) {
+    private void onShow(/*DialogInterface dialog*/) {
         if (Permissions.grantRingtonePreferenceDialogPermissions(prefContext, this))
             refreshListView();
     }
@@ -281,7 +281,7 @@ public class RingtonePreference extends DialogPreference {
         setSummary(ringtoneName);
     }
 
-    void setRingtone(String newRingtone, RadioButton newCheckedRadioButton)
+    void setRingtone(String newRingtone/*, RadioButton newCheckedRadioButton*/)
     {
         ringtone = newRingtone;
 

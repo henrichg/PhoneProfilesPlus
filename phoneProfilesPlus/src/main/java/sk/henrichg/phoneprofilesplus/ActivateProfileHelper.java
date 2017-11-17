@@ -64,7 +64,7 @@ import static android.content.Context.POWER_SERVICE;
 
 public class ActivateProfileHelper {
 
-    private DataWrapper dataWrapper;
+    //private DataWrapper dataWrapper;
 
     private Context context;
 
@@ -103,13 +103,13 @@ public class ActivateProfileHelper {
 
     public void initialize(DataWrapper dataWrapper, Context c)
     {
-        this.dataWrapper = dataWrapper;
+        //this.dataWrapper = dataWrapper;
         this.context = c;
     }
 
     void deinitialize()
     {
-        dataWrapper = null;
+        //dataWrapper = null;
         context = null;
     }
 
@@ -2535,7 +2535,7 @@ public class ActivateProfileHelper {
     }
     */
 
-    static boolean telephonyServiceExists(Context context, String preference) {
+    static boolean telephonyServiceExists(/*Context context, */String preference) {
         try {
             Object serviceManager = PPApplication.getServiceManager("phone");
             if (serviceManager != null) {
@@ -2611,7 +2611,7 @@ public class ActivateProfileHelper {
         }
     }
 
-    static boolean wifiServiceExists(Context context, String preference) {
+    static boolean wifiServiceExists(/*Context context, */String preference) {
         try {
             Object serviceManager = PPApplication.getServiceManager("wifi");
             if (serviceManager != null) {
@@ -3199,6 +3199,7 @@ public class ActivateProfileHelper {
         int waitTillMultiplier = 2;
         int waitTillLimit = 3200; //7 tries, 6350 msec
 
+        //noinspection SynchronizationOnLocalVariableOrMethodParameter
         synchronized (cmd) {
             while (!cmd.isFinished() && waitTill<=waitTillLimit) {
                 try {

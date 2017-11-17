@@ -62,7 +62,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
     //Deals with actual events
     private class PhoneCallStartEndDetector {
         int lastState = TelephonyManager.CALL_STATE_IDLE;
-        Date callStartTime;
+        //Date callStartTime;
         boolean inCall;
         boolean isIncoming;
         String savedNumber;  //because the passed incoming is only valid in ringing
@@ -90,7 +90,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
                 case TelephonyManager.CALL_STATE_RINGING:
                     inCall = false;
                     isIncoming = true;
-                    callStartTime = new Date();
+                    //callStartTime = new Date();
                     String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
                     savedNumber = incomingNumber;
                     onIncomingCallStarted(incomingNumber/*, callStartTime*/);
@@ -100,14 +100,14 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
                     if(lastState != TelephonyManager.CALL_STATE_RINGING){
                         inCall = true;
                         isIncoming = false;
-                        callStartTime = new Date();
+                        //callStartTime = new Date();
                         onOutgoingCallAnswered(savedNumber/*, callStartTime*/);
                     }
                     else
                     {
                         inCall = true;
                         isIncoming = true;
-                        callStartTime = new Date();
+                        //callStartTime = new Date();
                         onIncomingCallAnswered(savedNumber/*, callStartTime*/);
                     }
                     break;

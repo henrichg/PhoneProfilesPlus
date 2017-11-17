@@ -174,7 +174,7 @@ class GeofenceScannerJob extends Job {
                             return;
                     }
                 } else {
-                    _cancelJob(context);
+                    _cancelJob();
                     jobBuilder = new JobRequest.Builder(JOB_TAG_START);
                     if (forScreenOn)
                         jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
@@ -221,7 +221,7 @@ class GeofenceScannerJob extends Job {
         //    PPApplication.logE("GeofenceScannerJob.scheduleJob", "scanner is not started");
     }
 
-    private static void _cancelJob(final Context context) {
+    private static void _cancelJob(/*final Context context*/) {
         try {
             JobManager jobManager = JobManager.instance();
             jobManager.cancelAllForTag(JOB_TAG_START);
@@ -238,14 +238,14 @@ class GeofenceScannerJob extends Job {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    _cancelJob(context);
+                    _cancelJob();
                     if (countDownLatch != null)
                         countDownLatch.countDown();
                 }
             });
         }
         else {
-            _cancelJob(context);
+            _cancelJob();
             if (countDownLatch != null)
                 countDownLatch.countDown();
         }

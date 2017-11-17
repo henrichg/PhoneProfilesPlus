@@ -99,6 +99,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                 //    startForegroundService(serviceIntent);
             }
 
+            //noinspection SingleStatementInBlock
             if (action.equals(ACTION_ACTIVATE_PROFILE)) {
                 if (profile_id != 0) {
                     Profile profile = dataWrapper.getProfileById(profile_id, false);
@@ -114,7 +115,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                 }
             } else if (action.equals(ACTION_RESTART_EVENTS)) {
-                dataWrapper.restartEventsWithRescan(true, true);
+                dataWrapper.restartEventsWithRescan();
                 dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
             } else if (action.equals(ACTION_ENABLE_RUN_FOR_EVENT)) {
                 if (event_id != 0) {
@@ -151,7 +152,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                     Event event = dataWrapper.getEventById(event_id);
                     if (event.getStatus() != Event.ESTATUS_STOP) {
-                        event.stopEvent(dataWrapper, eventTimelineList, true, false, true, true, false); // activate return profile
+                        event.stopEvent(dataWrapper, eventTimelineList, true, false, true, true); // activate return profile
                         dataWrapper.restartEvents(false, true, true);
                     }
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);

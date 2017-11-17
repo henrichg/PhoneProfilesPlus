@@ -36,7 +36,7 @@ import java.util.List;
 public class MobileCellsPreference extends DialogPreference {
 
     private String value;
-    String persistedValue;
+    private String persistedValue;
     private List<MobileCellsData> cellsList = null;
     List<MobileCellsData> filteredCellsList = null;
 

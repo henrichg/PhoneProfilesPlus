@@ -11,7 +11,7 @@ class MobileCellNamesDialogAdapter extends BaseAdapter {
 
     private LayoutInflater inflater = null;
 
-    MobileCellNamesDialog dialog;
+    private final MobileCellNamesDialog dialog;
 
     MobileCellNamesDialogAdapter(Context context, MobileCellNamesDialog dialog)
     {

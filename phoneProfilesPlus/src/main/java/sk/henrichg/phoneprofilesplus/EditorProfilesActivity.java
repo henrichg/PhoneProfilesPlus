@@ -345,7 +345,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         // Pass string arrays to EditorDrawerListAdapter
         // use action bar themed context
         //drawerAdapter = new EditorDrawerListAdapter(drawerListView, getSupportActionBar().getThemedContext(), drawerItemsTitle, drawerItemsSubtitle, drawerItemsIcon);
-        EditorDrawerListAdapter drawerAdapter = new EditorDrawerListAdapter(drawerListView, getBaseContext(), drawerItemsTitle, drawerItemsSubtitle, drawerItemsIcon);
+        EditorDrawerListAdapter drawerAdapter = new EditorDrawerListAdapter(/*drawerListView, */getBaseContext(), drawerItemsTitle, drawerItemsSubtitle, drawerItemsIcon);
         
         // Set the MenuListAdapter to the ListView
         drawerListView.setAdapter(drawerAdapter);
@@ -599,7 +599,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 menuItem.setVisible(false);
         }
 
-        PhoneProfilesHelper.isPPHelperInstalled(getApplicationContext(), PhoneProfilesHelper.PPHELPER_CURRENT_VERSION);
+        PhoneProfilesHelper.isPPHelperInstalled(getApplicationContext());
 
         menuItem = menu.findItem(R.id.menu_pphelper_uninstall);
         if (menuItem != null)
@@ -970,7 +970,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     profile.generatePreferencesIndicator(getBaseContext(), false, 0);
 
                     // redraw list fragment , notifications, widgets after finish ProfilePreferencesActivity
-                    redrawProfileListFragment(profile, newProfileMode, predefinedProfileIndex, true);
+                    redrawProfileListFragment(profile, newProfileMode, predefinedProfileIndex);
 
                     Profile mappedProfile = Profile.getMappedProfile(profile, getApplicationContext());
                     Permissions.grantProfilePermissions(getApplicationContext(), mappedProfile, false, false,
@@ -1013,7 +1013,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     Event event = getDataWrapper().getDatabaseHandler().getEvent(event_id);
 
                     // redraw list fragment , notifications, widgets after finish EventPreferencesActivity
-                    redrawEventListFragment(event, newEventMode, predefinedEventIndex, true);
+                    redrawEventListFragment(event, newEventMode, predefinedEventIndex);
 
                     Permissions.grantEventPermissions(getApplicationContext(), event, false);
                 }
@@ -1218,7 +1218,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 @Override
                 protected Integer doInBackground(Void... params) {
-                    this.dataWrapper.stopAllEvents(true, false);
+                    this.dataWrapper.stopAllEvents(true);
 
                     int ret = this.dataWrapper.getDatabaseHandler().importDB(_applicationDataPath);
                     //Log.d("EditorProfilesActivity.doImportData"," importDB ret="+ret);
@@ -1291,7 +1291,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         // restart events
                         if (Event.getGlobalEventsRunning(getApplicationContext())) {
                             PPApplication.logE("$$$ restartEvents", "from EditorProfilesActivity.doImportData.onPostExecute");
-                            dataWrapper.restartEventsWithDelay(3, false, false);
+                            dataWrapper.restartEventsWithDelay(3, false);
                         }
 
                         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);
@@ -1338,9 +1338,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
-    private void importDataAlert(boolean remoteExport)
+    private void importDataAlert(/*boolean remoteExport*/)
     {
-        final boolean _remoteExport = remoteExport;
+        //final boolean _remoteExport = remoteExport;
 
         AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(this);
         /*if (remoteExport)
@@ -1358,7 +1358,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         dialogBuilder2.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                if (_remoteExport)
+                /*if (_remoteExport)
                 {
                     // start RemoteExportDataActivity
                     Intent intent = new Intent("phoneprofiles.intent.action.EXPORTDATA");
@@ -1370,7 +1370,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     else
                         importExportErrorDialog(1);
                 }
-                else
+                else*/
                     doImportData(PPApplication.EXPORT_PATH);
             }
         });
@@ -1405,7 +1405,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             dialogBuilder.show();
         }
         else*/
-            importDataAlert(false);
+            importDataAlert();
     }
 
     @SuppressLint("ApplySharedPref")
@@ -1572,8 +1572,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 {
                     Editor editor = ApplicationPreferences.preferences.edit();
                     editor.putLong(SP_DATA_DETAILS_DATA_ID, ((ProfileDetailsFragment) fragment).profile_id);
-                    editor.putInt(SP_DATA_DETAILS_EDIT_MODE, ((ProfileDetailsFragment) fragment).editMode);
-                    editor.putInt(SP_DATA_DETAILS_PREDEFINED_PROFILE_INDEX, ((ProfileDetailsFragment) fragment).predefinedProfileIndex);
+                    //editor.putInt(SP_DATA_DETAILS_EDIT_MODE, ((ProfileDetailsFragment) fragment).editMode);
+                    //editor.putInt(SP_DATA_DETAILS_PREDEFINED_PROFILE_INDEX, ((ProfileDetailsFragment) fragment).predefinedProfileIndex);
                     editor.apply();
                 }
             }
@@ -1585,21 +1585,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                 {
                     Editor editor = ApplicationPreferences.preferences.edit();
                     editor.putLong(SP_DATA_DETAILS_DATA_ID, ((EventDetailsFragment) fragment).event_id);
-                    editor.putInt(SP_DATA_DETAILS_EDIT_MODE, ((EventDetailsFragment) fragment).editMode);
-                    editor.putInt(SP_DATA_DETAILS_PREDEFINED_EVENT_INDEX, ((EventDetailsFragment) fragment).predefinedEventIndex);
+                    //editor.putInt(SP_DATA_DETAILS_EDIT_MODE, ((EventDetailsFragment) fragment).editMode);
+                    //editor.putInt(SP_DATA_DETAILS_PREDEFINED_EVENT_INDEX, ((EventDetailsFragment) fragment).predefinedEventIndex);
                     editor.apply();
                 }
             }
         }
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    /*    drawerSelectedItem = savedInstanceState.getInt("editor_drawer_selected_item", -1);
-        selectDrawerItem(drawerSelectedItem, false);
-        orderSelectedItem = savedInstanceState.getInt("editor_order_selected_item", -1);
-        changeEventOrder(orderSelectedItem);  */
     }
 
      @Override
@@ -1645,7 +1636,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         startActivityForResult(intent, REQUEST_CODE_PROFILE_PREFERENCES);
     }
 
-    public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex, boolean startTargetHelps) {
+    public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex/*, boolean startTargetHelps*/) {
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
@@ -1662,7 +1653,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
                 arguments.putInt(EXTRA_NEW_PROFILE_MODE, editMode);
                 arguments.putInt(EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
-                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, true/*startTargetHelps*/);
                 ProfileDetailsFragment fragment = new ProfileDetailsFragment();
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
@@ -1721,7 +1712,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
-    private void redrawProfileListFragment(Profile profile, int newProfileMode, int predefinedProfileIndex, boolean startTargetHelps) {
+    private void redrawProfileListFragment(Profile profile, int newProfileMode, int predefinedProfileIndex/*, boolean startTargetHelps*/) {
         // redraw list fragment, notification a widgets
 
         EditorProfileListFragment fragment = (EditorProfileListFragment) getFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1741,7 +1732,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 PhoneProfilesService.instance.showProfileNotification(activeProfile, fragment.dataWrapper);
             fragment.dataWrapper.getActivateProfileHelper().updateWidget(true);
         }
-        redrawProfilePreferences(profile, newProfileMode, predefinedProfileIndex, startTargetHelps);
+        redrawProfilePreferences(profile, newProfileMode, predefinedProfileIndex, true/*startTargetHelps*/);
     }
 
     private void startEventPreferenceActivity(Event event, int editMode, int predefinedEventIndex) {
@@ -1755,7 +1746,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
     }
 
-    public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex, boolean startTargetHelps) {
+    public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex/*, boolean startTargetHelps*/) {
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
@@ -1772,7 +1763,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments.putLong(PPApplication.EXTRA_EVENT_ID, event._id);
                 arguments.putInt(EXTRA_NEW_EVENT_MODE, editMode);
                 arguments.putInt(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
-                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
+                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, true/*startTargetHelps*/);
                 EventDetailsFragment fragment = new EventDetailsFragment();
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
@@ -1804,7 +1795,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         startEventPreferenceActivity(event, EditorEventListFragment.EDIT_MODE_EDIT, 0);
     }
 
-    private void redrawEventListFragment(Event event, int newEventMode, int predefinedEventIndex, boolean startTargetHelps) {
+    private void redrawEventListFragment(Event event, int newEventMode, int predefinedEventIndex/*, boolean startTargetHelps*/) {
         // redraw list fragment, notification and widgets
         EditorEventListFragment fragment = (EditorEventListFragment) getFragmentManager().findFragmentById(R.id.editor_list_container);
         if (fragment != null) {
@@ -1815,7 +1806,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     (newEventMode == EditorEventListFragment.EDIT_MODE_DUPLICATE));
             fragment.updateListView(event, newEvent, false, false);
         }
-        redrawEventPreferences(event, newEventMode, predefinedEventIndex, startTargetHelps);
+        redrawEventPreferences(event, newEventMode, predefinedEventIndex, true/*startTargetHelps*/);
     }
 
     private void redrawEventPreferences(Event event, int newEventMode, int predefinedEventIndex, boolean startTargetHelps) {

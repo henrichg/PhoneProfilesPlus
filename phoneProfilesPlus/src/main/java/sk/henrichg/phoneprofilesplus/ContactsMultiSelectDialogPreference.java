@@ -105,7 +105,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                ContactsMultiSelectDialogPreference.this.onShow(dialog);
+                ContactsMultiSelectDialogPreference.this.onShow(/*dialog*/);
             }
         });
 
@@ -197,7 +197,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         }.execute();
     }
 
-    private void onShow(DialogInterface dialog) {
+    private void onShow(/*DialogInterface dialog*/) {
         if (Permissions.grantContactsDialogPermissions(_context, this))
             refreshListView(true);
     }

@@ -74,7 +74,7 @@ public class DonationFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                donateGoogleOnClick(v);
+                donateGoogleOnClick(/*v*/);
             }
         });
 
@@ -287,7 +287,7 @@ public class DonationFragment extends Fragment {
     /**
      * Donate button executes donations based on selection in spinner
      */
-    private void donateGoogleOnClick(View view) {
+    private void donateGoogleOnClick(/*View view*/) {
         final int index;
         index = mGoogleSpinner.getSelectedItemPosition();
         if (mDebug) Log.d(TAG, "selected item in spinner: " + index);

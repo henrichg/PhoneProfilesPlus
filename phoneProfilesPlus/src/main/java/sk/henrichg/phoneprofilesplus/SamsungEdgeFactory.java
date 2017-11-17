@@ -225,7 +225,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         Collections.sort(newProfileList, new ProfileComparator());
 
         dataWrapper.invalidateProfileList();
-        dataWrapper.setProfileList(newProfileList, false);
+        dataWrapper.setProfileList(newProfileList);
         profileList = newProfileList;
     }
 

@@ -35,12 +35,12 @@ class PhoneProfilesHelper {
 
     static AsyncTask uninstallAsyncTask = null;
 
-    static boolean isPPHelperInstalled(Context context, int minVersion)
+    static void isPPHelperInstalled(Context context/*, int minVersion*/)
     {
         PPHelperVersion = -1;
 
         if (nowPPHelperUninstalled)
-            return false;
+            return;// false;
 
         // get package version
         try {
@@ -51,7 +51,7 @@ class PhoneProfilesHelper {
             PPApplication.logE("PhoneProfilesHelper.isPPHelperInstalled", "not found");
             //e.printStackTrace();
         }
-        return PPHelperVersion >= minVersion;
+        //return PPHelperVersion >= PPHELPER_CURRENT_VERSION;
     }
 
     static private boolean doUninstallPPHelper(Activity activity)
@@ -195,10 +195,10 @@ class PhoneProfilesHelper {
 
                         if (result)
                         {
-                            restartAndroid(_activity, /*2,*/ false);
+                            restartAndroid(_activity);
                         }
                         else
-                            installUnInstallPPhelperErrorDialog(_activity, /*2,*/ false);
+                            installUnInstallPPhelperErrorDialog(_activity);
                     }
 
                     private void lockScreenOrientation() {
@@ -223,10 +223,10 @@ class PhoneProfilesHelper {
         dialogBuilder.show();
     }
 
-    static private void restartAndroid(Activity activity, /*int installUninstall,*/ boolean finishActivity)
+    static private void restartAndroid(Activity activity/*, int installUninstall, boolean finishActivity*/)
     {
         final Activity _activity = activity;
-        final boolean _finishActivity = finishActivity;
+        //final boolean _finishActivity = finishActivity;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.phoneprofilehepler_reboot_title_uninstall);
@@ -240,20 +240,20 @@ class PhoneProfilesHelper {
                 RootTools.restartAndroid();
             }
         });
-        dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+        dialogBuilder.setNegativeButton(R.string.alert_button_no, null/*new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (_finishActivity)
                     _activity.finish();
             }
-        });
-        dialogBuilder.setOnCancelListener(new OnCancelListener() {
+        }*/);
+        /*dialogBuilder.setOnCancelListener(new OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
                 if (_finishActivity)
                     _activity.finish();
             }
-        });
+        });*/
 
         dialogBuilder.show();
     }
@@ -268,6 +268,7 @@ class PhoneProfilesHelper {
 
         OK = true;
 
+        //noinspection SynchronizationOnLocalVariableOrMethodParameter
         synchronized (cmd) {
             while (!cmd.isFinished() && waitTill<=waitTillLimit) {
                 try {
@@ -289,10 +290,10 @@ class PhoneProfilesHelper {
         return OK;
     }
 
-    static private void installUnInstallPPhelperErrorDialog(Activity activity, /*int installUninstall,*/ boolean finishActivity)
+    static private void installUnInstallPPhelperErrorDialog(Activity activity/*, int installUninstall, boolean finishActivity*/)
     {
         final Activity _activity = activity;
-        final boolean _finishActivity = finishActivity;
+        //final boolean _finishActivity = finishActivity;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         int resString;
@@ -309,20 +310,20 @@ class PhoneProfilesHelper {
         dialogBuilder.setMessage(resString);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
-        dialogBuilder.setPositiveButton(android.R.string.ok, new OnClickListener() {
+        dialogBuilder.setPositiveButton(android.R.string.ok, null/*new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (_finishActivity)
                     _activity.finish();
             }
-        });
-        dialogBuilder.setOnCancelListener(new OnCancelListener() {
+        }*/);
+        /*dialogBuilder.setOnCancelListener(new OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
                 if (_finishActivity)
                     _activity.finish();
             }
-        });
+        });*/
 
         dialogBuilder.show();
     }

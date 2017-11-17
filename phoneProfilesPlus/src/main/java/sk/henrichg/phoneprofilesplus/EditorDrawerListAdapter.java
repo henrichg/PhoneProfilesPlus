@@ -16,7 +16,7 @@ class EditorDrawerListAdapter extends BaseAdapter {
     private final String[] drawerItemsSubtitle;
     private final Integer[] drawerItemsIcon;
     
-    EditorDrawerListAdapter(ListView listView, Context context,
+    EditorDrawerListAdapter(/*ListView listView, */Context context,
                                     String[] itemTitle,
                                     String[] itemSubtitle,
                                     Integer[] itemIcon)

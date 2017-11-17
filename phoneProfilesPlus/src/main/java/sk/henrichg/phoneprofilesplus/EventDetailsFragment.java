@@ -15,8 +15,8 @@ import android.widget.TextView;
 public class EventDetailsFragment extends Fragment {
 
     public long event_id;
-    public int editMode;
-    public int predefinedEventIndex;
+    //public int editMode;
+    //public int predefinedEventIndex;
 
     public EventDetailsFragment() {
         // Required empty public constructor

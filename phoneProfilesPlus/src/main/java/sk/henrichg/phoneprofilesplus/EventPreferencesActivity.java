@@ -204,7 +204,7 @@ public class EventPreferencesActivity extends PreferenceActivity
     {
         PreferenceFragment fragment = getFragment();
         if (fragment != null)
-            ((EventPreferencesNestedFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
+            ((EventPreferencesNestedFragment)fragment).doOnActivityResult(requestCode, resultCode);
     }
 
     private Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex,
@@ -349,7 +349,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                 // pause event
                 event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null, false);
                 // stop event
-                event.stopEvent(dataWrapper, eventTimelineList, true, false, true, false, false);
+                event.stopEvent(dataWrapper, eventTimelineList, true, false, true, false);
             }
             else
                 // pause event

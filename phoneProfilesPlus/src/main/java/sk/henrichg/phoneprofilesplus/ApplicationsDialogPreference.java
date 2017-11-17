@@ -159,7 +159,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                ApplicationsDialogPreference.this.onShow(dialog);
+                ApplicationsDialogPreference.this.onShow(/*dialog*/);
             }
         });
 
@@ -201,7 +201,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void onShow(DialogInterface dialog) {
+    private void onShow(/*DialogInterface dialog*/) {
 
         asyncTask = new AsyncTask<Void, Integer, Void>() {
 

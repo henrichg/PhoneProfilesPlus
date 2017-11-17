@@ -55,9 +55,9 @@ final class WifiApManager {
         }
     }
 
-    boolean setWifiApState(boolean enabled) {
+    void setWifiApState(boolean enabled) {
         WifiConfiguration wifiConfiguration = getWifiApConfiguration();
-        return setWifiApState(wifiConfiguration, enabled);
+        /*return*/ setWifiApState(wifiConfiguration, enabled);
     }
 
     // not working in Android 8+ :-/

@@ -150,7 +150,7 @@ class EventPreferencesLocation extends EventPreferences {
     }
 
     @Override
-    public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
+    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         if (Event.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesLocation tmp = new EventPreferencesLocation(this._event, this._enabled, this._geofences, this._whenOutside);
             if (preferences != null)
@@ -192,13 +192,7 @@ class EventPreferencesLocation extends EventPreferences {
         if (preference != null) preference.setEnabled(enabled);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         setSummary(prefMng, PREF_EVENT_LOCATION_GEOFENCES, preferences, context);
-        setCategorySummary(prefMng, "", preferences, context);
-    }
-
-    @Override
-    public boolean activateReturnProfile()
-    {
-        return true;
+        setCategorySummary(prefMng, preferences, context);
     }
 
     /*

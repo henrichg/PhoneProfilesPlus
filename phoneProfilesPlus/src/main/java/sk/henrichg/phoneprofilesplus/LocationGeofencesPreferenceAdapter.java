@@ -57,7 +57,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         rowData.name  = view.findViewById(R.id.location_pref_dlg_item_name);
         rowData.itemEditMenu = view.findViewById(R.id.location_pref_dlg_item_edit_menu);
 
-        getView(rowData, context, cursor, true);
+        getView(rowData, cursor/*, true*/);
 
         view.setTag(rowData);
 
@@ -68,10 +68,10 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
 
         ViewHolder rowData = (ViewHolder) view.getTag();
-        getView(rowData, context, cursor, false);
+        getView(rowData, cursor/*, false*/);
     }
 
-    private void getView(final ViewHolder rowData, Context context, Cursor cursor, boolean newView) {
+    private void getView(final ViewHolder rowData, /*Context context,*/ Cursor cursor/*, boolean newView*/) {
         boolean checked = cursor.getInt(KEY_G_CHECKED) == 1;
         long id = cursor.getLong(KEY_G_ID);
 
@@ -81,7 +81,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
             rowData.checkBox.setChecked(checked);
             rowData.checkBox.setTag(id);
         }
-        if (preference.dataWrapper.getDatabaseHandler().isGeofenceUsed(id, false))
+        if (preference.dataWrapper.getDatabaseHandler().isGeofenceUsed(id))
             rowData.name.setTypeface(null, Typeface.BOLD);
         else
             rowData.name.setTypeface(null, Typeface.NORMAL);

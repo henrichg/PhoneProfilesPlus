@@ -314,7 +314,7 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     @Override
-    public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
+    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         if (Event.isEventPreferenceAllowed(PREF_EVENT_ORIENTATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesOrientation tmp = new EventPreferencesOrientation(this._event, this._enabled, this._display, this._sides, this._distance, this._ignoredApplications);
             if (preferences != null)
@@ -384,13 +384,7 @@ class EventPreferencesOrientation extends EventPreferences {
             applicationsPreference.setSummaryAMSDP();
         }
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        setCategorySummary(prefMng, "", preferences, context);
-    }
-
-    @Override
-    public boolean activateReturnProfile()
-    {
-        return true;
+        setCategorySummary(prefMng, preferences, context);
     }
 
     /*

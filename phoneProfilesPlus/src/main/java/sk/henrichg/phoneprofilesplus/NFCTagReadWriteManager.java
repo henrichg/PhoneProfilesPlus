@@ -76,13 +76,11 @@ class NFCTagReadWriteManager {
 
     /*
      * To be executed on OnCreate of the activity
-     * @return true if the device has nfc capabilities
      */
-    boolean onActivityCreate() {
+    void onActivityCreate() {
         nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
         pendingIntent = PendingIntent.getActivity(activity, 0,
                 new Intent(activity, activity.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-        return nfcAdapter!=null;
     }
 
     /*
@@ -119,7 +117,7 @@ class NFCTagReadWriteManager {
             if (writeText != null)/* && NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()))*/ {
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 try {
-                    writeTag(activity, tag, writeText);
+                    writeTag(/*activity, */tag, writeText);
                     onTagWriteListener.onTagWritten();
                 } catch (NFCTagWriteException exception) {
                     onTagWriteErrorListener.onTagWriteError(exception);
@@ -169,7 +167,7 @@ class NFCTagReadWriteManager {
      * @param data x
      * @throws NFCTagWriteException
      */
-    private  void writeTag(Context context, Tag tag, String data) throws NFCTagWriteException {
+    private  void writeTag(/*Context context, */Tag tag, String data) throws NFCTagWriteException {
         // Record with actual data we care about
         //NdefRecord relayRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT, null, data.getBytes());
 

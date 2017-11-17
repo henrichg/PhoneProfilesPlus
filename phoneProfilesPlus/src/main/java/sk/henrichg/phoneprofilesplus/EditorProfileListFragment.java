@@ -87,7 +87,7 @@ public class EditorProfileListFragment extends Fragment
      */
     // invoked when start profile preference fragment/activity needed
     interface OnStartProfilePreferences {
-        void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex, boolean startTargetHelps);
+        void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex/*, boolean startTargetHelps*/);
     }
 
     /**
@@ -95,7 +95,7 @@ public class EditorProfileListFragment extends Fragment
      * nothing. Used only when this fragment is not attached to an activity.
      */
     private static final OnStartProfilePreferences sDummyOnStartProfilePreferencesCallback = new OnStartProfilePreferences() {
-        public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex, boolean startTargetHelps) {
+        public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex/*, boolean startTargetHelps*/) {
         }
     };
 
@@ -164,7 +164,7 @@ public class EditorProfileListFragment extends Fragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        doOnViewCreated(view, savedInstanceState);
+        doOnViewCreated(view/*, savedInstanceState*/);
 
         boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
         if (startTargetHelps)
@@ -172,7 +172,7 @@ public class EditorProfileListFragment extends Fragment
     }
 
     @SuppressLint("InflateParams")
-    private void doOnViewCreated(View view, Bundle savedInstanceState)
+    private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
         //super.onActivityCreated(savedInstanceState);
 
@@ -292,7 +292,7 @@ public class EditorProfileListFragment extends Fragment
                 // get local profileList
                 List<Profile> profileList = _dataWrapper.getProfileList();
                 // set local profile list into activity dataWrapper
-                fragment.dataWrapper.setProfileList(profileList, false);
+                fragment.dataWrapper.setProfileList(profileList);
                 // set reference of profile list from dataWrapper
                 fragment.profileList = fragment.dataWrapper.getProfileList();
 
@@ -400,7 +400,7 @@ public class EditorProfileListFragment extends Fragment
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartProfilePreferencesCallback.onStartProfilePreferences(profile, editMode, predefinedProfileIndex, true);
+        onStartProfilePreferencesCallback.onStartProfilePreferences(profile, editMode, predefinedProfileIndex);
     }
 
     private void duplicateProfile(Profile origProfile)
@@ -412,7 +412,7 @@ public class EditorProfileListFragment extends Fragment
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartProfilePreferencesCallback.onStartProfilePreferences(origProfile, editMode, 0, true);
+        onStartProfilePreferencesCallback.onStartProfilePreferences(origProfile, editMode, 0);
 
     }
 
@@ -434,7 +434,7 @@ public class EditorProfileListFragment extends Fragment
 
         listView.getRecycledViewPool().clear();
 
-        dataWrapper.stopEventsForProfile(profile, true);
+        dataWrapper.stopEventsForProfile(profile);
         dataWrapper.unlinkEventsFromProfile(profile);
         profileListAdapter.deleteItemNoNotify(profile);
         databaseHandler.unlinkEventsFromProfile(profile);
@@ -457,7 +457,7 @@ public class EditorProfileListFragment extends Fragment
         //else
         //    context.startForegroundService(serviceIntent);
 
-        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
+        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
     }
 
     public void showEditMenu(View view)
@@ -534,7 +534,7 @@ public class EditorProfileListFragment extends Fragment
 
                     listView.getRecycledViewPool().clear();
 
-                    dataWrapper.stopAllEvents(true, false);
+                    dataWrapper.stopAllEvents(true);
                     dataWrapper.unlinkAllEvents();
                     profileListAdapter.clearNoNotify();
                     databaseHandler.deleteAllProfiles();
@@ -558,7 +558,7 @@ public class EditorProfileListFragment extends Fragment
                     //else
                     //    context.startForegroundService(serviceIntent);
 
-                    onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
+                    onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
@@ -687,7 +687,7 @@ public class EditorProfileListFragment extends Fragment
         if (profileListAdapter != null) {
             if ((newProfile) && (profile != null))
                 // add profile into listview
-                profileListAdapter.addItem(profile, false);
+                profileListAdapter.addItem(profile);
         }
 
         if (profileList != null) {

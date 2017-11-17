@@ -294,8 +294,8 @@ class Permissions {
             return true;
     }
 
-    private static boolean checkProfileNotificationLed(Context context, Profile profile, List<PermissionType>  permissions) {
-        if (profile == null) return true;
+    private static void checkProfileNotificationLed(Context context, Profile profile, List<PermissionType>  permissions) {
+        if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             if (profile._notificationLed != 0) {
                 boolean granted = Settings.System.canWrite(context);
@@ -303,13 +303,13 @@ class Permissions {
                     setShowRequestWriteSettingsPermission(context, true);
                 if ((permissions != null) && (!granted))
                     permissions.add(new PermissionType(PERMISSION_PROFILE_NOTIFICATION_LED, permission.WRITE_SETTINGS));
-                return granted;
+                //return granted;
             }
-            else
-                return true;
+            //else
+            //    return true;
         }
-        else
-            return true;
+        //else
+        //    return true;
     }
 
     static boolean checkProfileRingtones(Context context, Profile profile, List<PermissionType>  permissions) {
@@ -454,22 +454,22 @@ class Permissions {
         }
     }
 
-    private static boolean checkCustomProfileIcon(Context context, Profile profile, List<PermissionType>  permissions) {
-        if (profile == null) return true;
+    private static void checkCustomProfileIcon(Context context, Profile profile, List<PermissionType>  permissions) {
+        if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             Profile _profile = dataWrapper.getDatabaseHandler().getProfile(profile._id, false);
-            if (_profile == null) return true;
+            if (_profile == null) return;// true;
             if (!_profile.getIsIconResourceID()) {
                 boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
                 if ((permissions != null) && (!granted))
                     permissions.add(new PermissionType(PERMISSION_PROFILE_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
-                return granted;
+                //return granted;
             }
-            else
-                return true;
+            //else
+            //    return true;
         }
-        else {
+        /*else {
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             Profile _profile = dataWrapper.getDatabaseHandler().getProfile(profile._id, false);
             if (_profile == null) return true;
@@ -478,7 +478,7 @@ class Permissions {
             }
             else
                 return true;
-        }
+        }*/
     }
 
     static boolean checkGallery(Context context) {
@@ -518,8 +518,8 @@ class Permissions {
             return hasPermission(context, permission.READ_EXTERNAL_STORAGE);
     }
 
-    private static boolean checkProfileRadioPreferences(Context context, Profile profile, List<PermissionType>  permissions) {
-        if (profile == null) return true;
+    private static void checkProfileRadioPreferences(Context context, Profile profile, List<PermissionType>  permissions) {
+        if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean grantedWriteSettings = true;
             if ((profile._deviceWiFiAP != 0)) {
@@ -539,18 +539,18 @@ class Permissions {
                     permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.READ_PHONE_STATE));
                 //permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.MODIFY_PHONE_STATE));
             }
-            return grantedWriteSettings && grantedReadPhoneState;
+            //return grantedWriteSettings && grantedReadPhoneState;
         }
-        else {
+        /*else {
             if ((profile._deviceMobileData != 0) || (profile._deviceNetworkType != 0))
                 return hasPermission(context, permission.READ_PHONE_STATE);
             else
                 return true;
-        }
+        }*/
     }
 
-    private static boolean checkProfilePhoneBroadcast(Context context, Profile profile, List<PermissionType>  permissions) {
-        if (profile == null) return true;
+    private static void checkProfilePhoneBroadcast(Context context, Profile profile, List<PermissionType>  permissions) {
+        if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             if (profile._volumeSpeakerPhone != 0) {
                 boolean grantedReadPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
@@ -561,18 +561,18 @@ class Permissions {
                     if (!grantedOutgoingCall)
                         permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
                 }
-                return grantedOutgoingCall && grantedReadPhoneState;
+                //return grantedOutgoingCall && grantedReadPhoneState;
             }
-            else
-                return true;
+            //else
+            //    return true;
         }
-        else {
+        /*else {
             if (profile._volumeSpeakerPhone != 0)
                 return hasPermission(context, permission.READ_PHONE_STATE) &&
                         hasPermission(context, permission.PROCESS_OUTGOING_CALLS);
             else
                 return true;
-        }
+        }*/
     }
 
     static boolean checkProfileAccessNotificationPolicy(Context context, Profile profile, List<PermissionType>  permissions) {
@@ -931,7 +931,7 @@ class Permissions {
             return true;
     }
 
-    static boolean grantPlayRingtoneNotificationPermissions(Context context, boolean onlyNotification, boolean alsoContacts) {
+    static void grantPlayRingtoneNotificationPermissions(Context context/*, boolean onlyNotification*/, boolean alsoContacts) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             List<PermissionType> permissions = new ArrayList<>();
             boolean granted = checkPlayRingtoneNotification(context, alsoContacts, permissions);
@@ -942,17 +942,17 @@ class Permissions {
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
-                    intent.putExtra(EXTRA_ONLY_NOTIFICATION, onlyNotification);
+                    intent.putExtra(EXTRA_ONLY_NOTIFICATION, true/*onlyNotification*/);
                     intent.putExtra(EXTRA_GRANT_ALSO_CONTACTS, alsoContacts);
                     context.startActivity(intent);
                 } catch (Exception e) {
-                    return false;
+                    //return false;
                 }
             }
-            return granted;
+            //return granted;
         }
-        else
-            return true;
+        //else
+        //    return true;
     }
 
     static boolean grantWallpaperPermissions(Context context, ImageViewPreference preference) {

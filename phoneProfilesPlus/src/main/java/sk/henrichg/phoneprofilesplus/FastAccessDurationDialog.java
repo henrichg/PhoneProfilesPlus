@@ -53,7 +53,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     @SuppressLint("SetTextI18n")
     FastAccessDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper,
                              boolean monochrome, int monochromeValue,
-                             int startupSource, boolean interactive) {
+                             int startupSource/*, boolean interactive*/) {
 
         mMax = 86400;
         mMin = 0;
@@ -66,7 +66,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mMonochrome = monochrome;
         mMonochromeValue = monochromeValue;
         mStartupSource = startupSource;
-        mInteractive = interactive;
+        mInteractive = true/*interactive*/;
 
         /*
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)

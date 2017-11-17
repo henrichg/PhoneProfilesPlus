@@ -205,7 +205,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     }
 
     @Override
-    public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
+    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         if (Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesRadioSwitch tmp = new EventPreferencesRadioSwitch(this._event, this._enabled,
                     this._wifi, this._bluetooth, this._mobileData, this._gps, this._nfc, this._airplaneMode);
@@ -263,12 +263,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE);
         if (preference != null)
             preference.setEnabled(enabled);
-    }
-
-    @Override
-    public boolean activateReturnProfile()
-    {
-        return true;
     }
 
     /*

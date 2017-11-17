@@ -89,14 +89,14 @@ public class ActivateProfileListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        doOnViewCreated(view, savedInstanceState);
+        doOnViewCreated(view/*, savedInstanceState*/);
 
         boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
         if (startTargetHelps)
             showTargetHelps();
     }
 
-    private void doOnViewCreated(View view, Bundle savedInstanceState)
+    private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
         activeProfileName = view.findViewById(R.id.act_prof_activated_profile_name);
         activeProfileIcon = view.findViewById(R.id.act_prof_activated_profile_icon);
@@ -222,7 +222,7 @@ public class ActivateProfileListFragment extends Fragment {
                 // get local profileList
                 List<Profile> profileList = dataWrapper.getProfileList();
                 // set copy local profile list into activity profilesDataWrapper
-                fragment.dataWrapper.setProfileList(profileList, false);
+                fragment.dataWrapper.setProfileList(profileList);
                 // set reference of profile list from profilesDataWrapper
                 fragment.profileList = fragment.dataWrapper.getProfileList();
 
@@ -512,7 +512,7 @@ public class ActivateProfileListFragment extends Fragment {
         //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "profileListAdapter="+profileListAdapter);
         //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "itemView="+itemView);
         if ((profileListAdapter != null) && (itemView != null))
-            profileListAdapter.showTargetHelps(getActivity(), this, itemView);
+            profileListAdapter.showTargetHelps(getActivity(), /*this,*/ itemView);
         else {
             final Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(new Runnable() {

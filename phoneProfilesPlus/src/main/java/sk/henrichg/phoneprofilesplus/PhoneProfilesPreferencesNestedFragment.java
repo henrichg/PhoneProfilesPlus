@@ -666,7 +666,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         super.onDestroy();
     }
 
-    public void doOnActivityResult(int requestCode, int resultCode, Intent data)
+    public void doOnActivityResult(int requestCode, int resultCode/*, Intent data*/)
     {
         if ((requestCode == RESULT_APPLICATION_PERMISSIONS) ||
             (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) ||
@@ -738,7 +738,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        doOnActivityResult(requestCode, resultCode, data);
+        doOnActivityResult(requestCode, resultCode);
     }
 
     @Override

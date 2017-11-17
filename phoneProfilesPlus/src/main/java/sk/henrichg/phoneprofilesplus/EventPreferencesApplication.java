@@ -167,7 +167,7 @@ class EventPreferencesApplication extends EventPreferences {
     }
 
     @Override
-    public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
+    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         if (Event.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesApplication tmp = new EventPreferencesApplication(this._event, this._enabled, this._applications);
             if (preferences != null)
@@ -213,7 +213,7 @@ class EventPreferencesApplication extends EventPreferences {
                 applicationsPreference.setSummaryAMSDP();
             }
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            setCategorySummary(prefMng, "", preferences, context);
+            setCategorySummary(prefMng, preferences, context);
         //}
         /*else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) prefMng.findPreference("eventPreferenceScreen");
@@ -221,12 +221,6 @@ class EventPreferencesApplication extends EventPreferences {
             if (preferenceCategory != null)
                 preferenceScreen.removePreference(preferenceCategory);
         }*/
-    }
-
-    @Override
-    public boolean activateReturnProfile()
-    {
-        return true;
     }
 
     /*

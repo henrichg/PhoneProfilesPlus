@@ -33,6 +33,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
                 Profile profile = dataWrapper.getActivatedProfile();
                 profile = Profile.getMappedProfile(profile, appContext);
 
+                //noinspection StatementWithEmptyBody
                 if (profile != null) {
 
                     //Log.e("AlarmClockBroadcastReceiver", "profile is activated");

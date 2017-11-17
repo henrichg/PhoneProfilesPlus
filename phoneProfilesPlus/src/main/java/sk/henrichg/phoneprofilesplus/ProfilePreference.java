@@ -76,12 +76,14 @@ public class ProfilePreference extends DialogPreference {
                     }
                 });
 
+        /*
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 ProfilePreference.this.onShow(dialog);
             }
         });
+        */
 
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
@@ -183,10 +185,12 @@ public class ProfilePreference extends DialogPreference {
         }
     }
 
+    /*
     private void onShow(DialogInterface dialog) {
         //if (Permissions.grantRingtonePreferencesDialogPermissions(prefContext, this))
         //    refreshListView();
     }
+    */
 
     public void onDismiss (DialogInterface dialog)
     {

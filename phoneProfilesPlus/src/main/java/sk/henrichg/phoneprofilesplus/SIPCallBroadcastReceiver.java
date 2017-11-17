@@ -12,9 +12,11 @@ public class SIPCallBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         CallsCounter.logCounter(context, "SIPCallBroadcastReceiver.onReceive", "SIPCallBroadcastReceiver_onReceive");
 
+        /*
         SipAudioCall incomingCall = null;
 
         try {
+
 
             SipAudioCall.Listener listener = new SipAudioCall.Listener() {
 
@@ -63,6 +65,7 @@ public class SIPCallBroadcastReceiver extends BroadcastReceiver {
 
         } catch (Exception ignored) {
         }
+        */
 
     }
 }

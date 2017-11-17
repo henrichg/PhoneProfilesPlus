@@ -313,6 +313,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult result) {
+        //noinspection StatementWithEmptyBody
         if (mResolvingError) {
             // Already attempting to resolve an error.
             //return;

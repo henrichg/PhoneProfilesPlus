@@ -753,37 +753,37 @@ class Event {
         }
         setCategorySummary(prefMng, key, preferences, context);
         _eventPreferencesTime.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesTime.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesTime.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesBattery.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesBattery.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesBattery.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesCall.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesCall.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesCall.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesPeripherals.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesPeripherals.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesPeripherals.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesCalendar.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesCalendar.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesCalendar.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesWifi.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesWifi.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesWifi.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesScreen.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesScreen.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesScreen.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesBluetooth.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesBluetooth.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesBluetooth.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesSMS.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesSMS.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesSMS.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesNotification.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesNotification.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesNotification.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesApplication.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesApplication.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesApplication.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesLocation.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesLocation.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesLocation.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesOrientation.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesOrientation.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesOrientation.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesMobileCells.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesMobileCells.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesMobileCells.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesNFC.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesNFC.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesNFC.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesRadioSwitch.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesRadioSwitch.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesRadioSwitch.setCategorySummary(prefMng, preferences, context);
     }
 
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
@@ -808,37 +808,37 @@ class Event {
         setSummary(prefMng, PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, preferences, context);
         setCategorySummary(prefMng, "", preferences, context);
         _eventPreferencesTime.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesTime.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesTime.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesBattery.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesBattery.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesBattery.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesCall.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesCall.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesCall.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesPeripherals.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesPeripherals.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesPeripherals.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesCalendar.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesCalendar.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesCalendar.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesWifi.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesWifi.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesWifi.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesScreen.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesScreen.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesScreen.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesBluetooth.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesBluetooth.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesBluetooth.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesSMS.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesSMS.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesSMS.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesNotification.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesNotification.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesNotification.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesApplication.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesApplication.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesApplication.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesLocation.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesLocation.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesLocation.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesOrientation.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesOrientation.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesOrientation.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesMobileCells.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesMobileCells.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesMobileCells.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesNFC.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesNFC.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesNFC.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesRadioSwitch.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesRadioSwitch.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesRadioSwitch.setCategorySummary(prefMng, preferences, context);
     }
 
     public String getPreferencesDescription(Context context)
@@ -976,17 +976,17 @@ class Event {
 
     void startEvent(DataWrapper dataWrapper,
                             List<EventTimeline> eventTimelineList,
-                            boolean ignoreGlobalPref,
+                            //boolean ignoreGlobalPref,
                             boolean interactive,
                             boolean reactivate,
-                            boolean log,
+                            //boolean log,
                             Profile mergedProfile)
     {
         // remove delay alarm
         removeDelayStartAlarm(dataWrapper); // for start delay
         removeDelayEndAlarm(dataWrapper); // for end delay
 
-        if ((!getGlobalEventsRunning(dataWrapper.context)) && (!ignoreGlobalPref))
+        if ((!getGlobalEventsRunning(dataWrapper.context))/* && (!ignoreGlobalPref)*/)
             // events are globally stopped
             return;
 
@@ -1089,7 +1089,7 @@ class Event {
         this._status = ESTATUS_RUNNING;
         dataWrapper.getDatabaseHandler().updateEventStatus(this);
 
-        if (log && (status != this._status)) {
+        if (/*log && */(status != this._status)) {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTART, _name, null, null, 0);
         }
 
@@ -1206,7 +1206,7 @@ class Event {
                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
                 PPApplication.logE("$$$ restartEvents", "from Event.doActivateEndProfile");
-                dataWrapper.restartEventsWithDelay(5, true, false);
+                dataWrapper.restartEventsWithDelay(5, true);
                 profileActivated = true;
             }
 
@@ -1353,8 +1353,8 @@ class Event {
                             boolean activateReturnProfile,
                             boolean ignoreGlobalPref,
                             boolean saveEventStatus,
-                            boolean log,
-                            boolean allowRestart)
+                            boolean log/*,
+                            boolean allowRestart*/)
     {
         // remove delay alarm
         removeDelayStartAlarm(dataWrapper); // for start delay
@@ -1369,7 +1369,7 @@ class Event {
 
         if (this._status != ESTATUS_STOP)
         {
-            pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, false, null, allowRestart);
+            pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, false, null, false/*allowRestart*/);
         }
 
         setSystemEvent(dataWrapper.context, ESTATUS_STOP);

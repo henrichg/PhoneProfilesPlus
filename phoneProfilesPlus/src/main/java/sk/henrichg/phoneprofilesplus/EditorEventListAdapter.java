@@ -223,16 +223,16 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     }
     */
 
-    void addItem(Event event, boolean refresh)
+    void addItem(Event event/*, boolean refresh*/)
     {
         if (eventList == null)
             return;
 
-        if (refresh)
-            fragment.listView.getRecycledViewPool().clear();
+        //if (refresh)
+        //    fragment.listView.getRecycledViewPool().clear();
         eventList.add(event);
-        if (refresh)
-            notifyDataSetChanged();
+        //if (refresh)
+        //    notifyDataSetChanged();
     }
 
     void deleteItemNoNotify(Event event)
