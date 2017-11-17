@@ -186,6 +186,12 @@ class MobileCellNamesDialog {
                 }
 
                 listAdapter.notifyDataSetChanged();
+
+                if (!showFilterItems) {
+                    cellName.setFocusable(true);
+                    cellName.requestFocus();
+                }
+
             }
 
         }.execute();
