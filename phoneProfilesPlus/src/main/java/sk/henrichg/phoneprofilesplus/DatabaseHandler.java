@@ -603,6 +603,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(CREATE_NFC_TAGS_TABLE);
 
+
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_AUTOROTATE ON " + TABLE_PROFILES + " (" + KEY_DEVICE_AUTOROTATE + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_CONNECT_TO_SSID ON " + TABLE_PROFILES + " (" + KEY_DEVICE_CONNECT_TO_SSID + ")");
 
