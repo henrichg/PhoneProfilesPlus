@@ -243,27 +243,27 @@ public class EditorEventListFragment extends Fragment
     private static class LoadEventListAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private final WeakReference<EditorEventListFragment> fragmentWeakRef;
-        private final DataWrapper dataWrapper;
-        private final int filterType;
-        private final int orderType;
+        private final DataWrapper _dataWrapper;
+        private final int _filterType;
+        private final int _orderType;
 
         private LoadEventListAsyncTask (EditorEventListFragment fragment, int filterType, int orderType) {
-            this.fragmentWeakRef = new WeakReference<>(fragment);
-            this.filterType = filterType;
-            this.orderType = orderType;
-            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
+            fragmentWeakRef = new WeakReference<>(fragment);
+            _filterType = filterType;
+            _orderType = orderType;
+            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            dataWrapper.getProfileList();
+            _dataWrapper.getProfileList();
 
-            List<Event> eventList = dataWrapper.getEventList();
+            List<Event> eventList = _dataWrapper.getEventList();
             //Log.d("EditorEventListFragment.LoadEventListAsyncTask","filterType="+filterType);
-            if (filterType == FILTER_TYPE_START_ORDER)
-                EditorEventListFragment.sortList(eventList, ORDER_TYPE_START_ORDER, dataWrapper);
+            if (_filterType == FILTER_TYPE_START_ORDER)
+                EditorEventListFragment.sortList(eventList, ORDER_TYPE_START_ORDER, _dataWrapper);
             else
-                EditorEventListFragment.sortList(eventList, orderType, dataWrapper);
+                EditorEventListFragment.sortList(eventList, _orderType, _dataWrapper);
 
             return null;
         }
@@ -272,22 +272,22 @@ public class EditorEventListFragment extends Fragment
         protected void onPostExecute(Void response) {
             super.onPostExecute(response);
             
-            EditorEventListFragment fragment = this.fragmentWeakRef.get(); 
+            EditorEventListFragment fragment = fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
                 // get local profileList
-                List<Profile> profileList = dataWrapper.getProfileList();
+                List<Profile> profileList = _dataWrapper.getProfileList();
                 // set local profile list into activity dataWrapper
                 fragment.dataWrapper.setProfileList(profileList, false);
 
                 // get local eventList
-                List<Event> eventList = dataWrapper.getEventList();
+                List<Event> eventList = _dataWrapper.getEventList();
                 // set local event list into activity dataWrapper
                 fragment.dataWrapper.setEventList(eventList);
                 // set reference of profile list from dataWrapper
                 fragment.eventList = fragment.dataWrapper.getEventList();
 
-                fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.dataWrapper, fragment.filterType, fragment);
+                fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.dataWrapper, _filterType, fragment);
 
                 // added touch helper for drag and drop items
                 ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.eventListAdapter, false, false);
@@ -300,29 +300,34 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
-    private boolean isAsyncTaskPendingOrRunning() {
+    boolean isAsyncTaskPendingOrRunning() {
         return this.asyncTaskContext != null &&
               this.asyncTaskContext.get() != null &&
               !this.asyncTaskContext.get().getStatus().equals(AsyncTask.Status.FINISHED);
     }
 
+    void stopRunningAsyncTask() {
+        this.asyncTaskContext.get().cancel(true);
+    }
+
     @Override
     public void onDestroy()
     {
-        if (!isAsyncTaskPendingOrRunning())
-        {
-            if (listView != null)
-                listView.setAdapter(null);
-            if (eventListAdapter != null)
-                eventListAdapter.release();
-
-            eventList = null;
-            databaseHandler = null;
-
-            if (dataWrapper != null)
-                dataWrapper.invalidateDataWrapper();
-            dataWrapper = null;
+        if (isAsyncTaskPendingOrRunning()) {
+            stopRunningAsyncTask();
         }
+
+        if (listView != null)
+            listView.setAdapter(null);
+        if (eventListAdapter != null)
+            eventListAdapter.release();
+
+        eventList = null;
+        databaseHandler = null;
+
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
+        dataWrapper = null;
 
         super.onDestroy();
 
@@ -648,6 +653,10 @@ public class EditorEventListFragment extends Fragment
 
     public void changeListOrder(int orderType)
     {
+        if (isAsyncTaskPendingOrRunning()) {
+            this.asyncTaskContext.get().cancel(true);
+        }
+
         this.orderType = orderType;
         if (eventListAdapter != null) {
             listView.getRecycledViewPool().clear();

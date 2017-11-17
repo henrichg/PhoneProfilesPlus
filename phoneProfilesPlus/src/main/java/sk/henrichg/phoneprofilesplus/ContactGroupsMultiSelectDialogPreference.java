@@ -34,6 +34,8 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 
     private ContactGroupsMultiSelectPreferenceAdapter listAdapter;
 
+    private AsyncTask asyncTask = null;
+
     public ContactGroupsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -136,7 +138,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
     @SuppressLint("StaticFieldLeak")
     public void refreshListView(final boolean notForUnselect) {
 
-        new AsyncTask<Void, Integer, Void>() {
+        asyncTask = new AsyncTask<Void, Integer, Void>() {
 
             @Override
             protected void onPreExecute()
@@ -185,6 +187,11 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
     public void onDismiss (DialogInterface dialog)
     {
         super.onDismiss(dialog);
+
+        if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+            asyncTask.cancel(true);
+        }
+
         EditorProfilesActivity.getContactGroupsCache().cancelCaching();
         if (!EditorProfilesActivity.getContactGroupsCache().isCached())
             EditorProfilesActivity.getContactGroupsCache().clearCache(false);

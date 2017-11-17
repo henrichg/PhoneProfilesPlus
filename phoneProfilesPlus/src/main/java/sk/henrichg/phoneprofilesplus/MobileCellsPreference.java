@@ -314,7 +314,8 @@ public class MobileCellsPreference extends DialogPreference {
     public void onDismiss(DialogInterface dialog)
     {
         super.onDismiss(dialog);
-        if ((rescanAsyncTask != null) && (!rescanAsyncTask.isCancelled()))
+
+        if ((rescanAsyncTask != null) && (!rescanAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)))
             rescanAsyncTask.cancel(true);
 
         MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);

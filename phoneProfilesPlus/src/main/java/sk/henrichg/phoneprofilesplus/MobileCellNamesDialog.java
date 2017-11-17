@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
@@ -39,6 +40,8 @@ class MobileCellNamesDialog {
 
     private MobileCellNamesDialogAdapter listAdapter;
 
+    private AsyncTask asyncTask = null;
+
     MobileCellNamesDialog(final Context context, final DialogPreference preference, final boolean showFilterItems) {
 
         this.context = context;
@@ -68,6 +71,14 @@ class MobileCellNamesDialog {
                         }
                     });
         }
+        dialogBuilder.dismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+                    asyncTask.cancel(true);
+                }
+            }
+        });
 
         mDialog = dialogBuilder.build();
         View layout = mDialog.getCustomView();
@@ -117,11 +128,12 @@ class MobileCellNamesDialog {
 
     }
 
+
     @SuppressLint("StaticFieldLeak")
     public void show() {
         mDialog.show();
 
-        new AsyncTask<Void, Integer, Void>() {
+        asyncTask = new AsyncTask<Void, Integer, Void>() {
 
             List<String> _cellNamesList = new ArrayList<>();
 

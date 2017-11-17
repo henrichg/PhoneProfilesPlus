@@ -248,32 +248,32 @@ public class EditorProfileListFragment extends Fragment
     private static class LoadProfileListAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private final WeakReference<EditorProfileListFragment> fragmentWeakRef;
-        private final DataWrapper dataWrapper;
-        private final int filterType;
+        private final DataWrapper _dataWrapper;
+        private final int _filterType;
         boolean defaultProfilesGenerated = false;
         boolean defaultEventsGenerated = false;
 
         private LoadProfileListAsyncTask (EditorProfileListFragment fragment, int filterType) {
-            this.fragmentWeakRef = new WeakReference<>(fragment);
-            this.filterType = filterType;
-            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
+            fragmentWeakRef = new WeakReference<>(fragment);
+            _filterType = filterType;
+            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            List<Profile> profileList = dataWrapper.getProfileList();
+            List<Profile> profileList = _dataWrapper.getProfileList();
             if (profileList.size() == 0)
             {
                 // no profiles in DB, generate default profiles and events
 
-                profileList = dataWrapper.getPredefinedProfileList();
+                profileList = _dataWrapper.getPredefinedProfileList();
                 defaultProfilesGenerated = true;
 
-                dataWrapper.generatePredefinedEventList();
+                _dataWrapper.generatePredefinedEventList();
                 defaultEventsGenerated = true;
             }
             // sort list
-            if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
+            if (_filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
                 EditorProfileListFragment.sortAlphabetically(profileList);
             else
                 EditorProfileListFragment.sortByPOrder(profileList);
@@ -285,18 +285,18 @@ public class EditorProfileListFragment extends Fragment
         protected void onPostExecute(Void response) {
             super.onPostExecute(response);
             
-            EditorProfileListFragment fragment = this.fragmentWeakRef.get(); 
+            EditorProfileListFragment fragment = fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
 
                 // get local profileList
-                List<Profile> profileList = dataWrapper.getProfileList();
+                List<Profile> profileList = _dataWrapper.getProfileList();
                 // set local profile list into activity dataWrapper
                 fragment.dataWrapper.setProfileList(profileList, false);
                 // set reference of profile list from dataWrapper
                 fragment.profileList = fragment.dataWrapper.getProfileList();
 
-                fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.dataWrapper, fragment.filterType, fragment);
+                fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.dataWrapper, _filterType, fragment);
 
                 // added touch helper for drag and drop items
                 ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.profileListAdapter, false, false);
@@ -328,35 +328,39 @@ public class EditorProfileListFragment extends Fragment
                             Toast.LENGTH_SHORT);
                     msg.show();
                 }
-            
             }
         }
     }
 
-    private boolean isAsyncTaskPendingOrRunning() {
+    boolean isAsyncTaskPendingOrRunning() {
         return this.asyncTaskContext != null &&
               this.asyncTaskContext.get() != null &&
               !this.asyncTaskContext.get().getStatus().equals(AsyncTask.Status.FINISHED);
     }
 
+    void stopRunningAsyncTask() {
+        this.asyncTaskContext.get().cancel(true);
+    }
+
     @Override
     public void onDestroy()
     {
-        if (!isAsyncTaskPendingOrRunning())
-        {
-            if (listView != null)
-                listView.setAdapter(null);
-            if (profileListAdapter != null)
-                profileListAdapter.release();
-
-            activateProfileHelper = null;
-            profileList = null;
-            databaseHandler = null;
-
-            if (dataWrapper != null)
-                dataWrapper.invalidateDataWrapper();
-            dataWrapper = null;
+        if (isAsyncTaskPendingOrRunning()) {
+            stopRunningAsyncTask();
         }
+
+        if (listView != null)
+            listView.setAdapter(null);
+        if (profileListAdapter != null)
+            profileListAdapter.release();
+
+        activateProfileHelper = null;
+        profileList = null;
+        databaseHandler = null;
+
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
+        dataWrapper = null;
 
         super.onDestroy();
 

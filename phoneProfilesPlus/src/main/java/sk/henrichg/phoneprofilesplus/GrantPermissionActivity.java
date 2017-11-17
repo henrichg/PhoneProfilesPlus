@@ -50,6 +50,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     private boolean started = false;
 
+    private AsyncTask geofenceEditorAsyncTask = null;
+
     private static final int WRITE_SETTINGS_REQUEST_CODE = 9090;
     private static final int PERMISSIONS_REQUEST_CODE = 9091;
     private static final int ACCESS_NOTIFICATION_POLICY_REQUEST_CODE = 9092;
@@ -430,6 +432,16 @@ public class GrantPermissionActivity extends AppCompatActivity {
             else
                 requestPermissions(4);
         }
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        if ((geofenceEditorAsyncTask != null) && !geofenceEditorAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+            geofenceEditorAsyncTask.cancel(true);
+        }
+
+        super.onDestroy();
     }
 
     private void showNotification(Context context) {
@@ -877,7 +889,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
-            new AsyncTask<Void, Void, Void>() {
+            geofenceEditorAsyncTask = new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
                     synchronized (PPApplication.geofenceScannerMutex) {

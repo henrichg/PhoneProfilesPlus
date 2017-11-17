@@ -61,6 +61,8 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
     private final DataWrapper dataWrapper;
 
+    private AsyncTask asyncTask = null;
+
     static final int RESULT_APPLICATIONS_EDITOR = 2100;
 
     public ApplicationsDialogPreference(Context context, AttributeSet attrs) {
@@ -201,7 +203,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
     @SuppressLint("StaticFieldLeak")
     private void onShow(DialogInterface dialog) {
 
-        new AsyncTask<Void, Integer, Void>() {
+        asyncTask = new AsyncTask<Void, Integer, Void>() {
 
             @Override
             protected void onPreExecute()
@@ -246,6 +248,11 @@ public class ApplicationsDialogPreference  extends DialogPreference
     public void onDismiss(DialogInterface dialog)
     {
         super.onDismiss(dialog);
+
+        if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+            asyncTask.cancel(true);
+        }
+
         EditorProfilesActivity.getApplicationsCache().cancelCaching();
         if (!EditorProfilesActivity.getApplicationsCache().isCached())
             EditorProfilesActivity.getApplicationsCache().clearCache(false);

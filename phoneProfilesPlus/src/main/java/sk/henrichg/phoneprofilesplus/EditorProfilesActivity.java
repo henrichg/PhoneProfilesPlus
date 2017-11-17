@@ -82,6 +82,9 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static ContactsCache contactsCache;
     private static ContactGroupsCache contactGroupsCache;
 
+    private AsyncTask importAsyncTask = null;
+    private AsyncTask exportAsyncTask = null;
+
     private static final String SP_DATA_DETAILS_DATA_TYPE = "data_detail_data_type";
     private static final String SP_DATA_DETAILS_DATA_ID = "data_detail_data_id";
     private static final String SP_DATA_DETAILS_EDIT_MODE = "data_detail_edit_mode";
@@ -514,6 +517,16 @@ public class EditorProfilesActivity extends AppCompatActivity
     @Override
     protected void onDestroy()
     {
+        if ((importAsyncTask != null) && !importAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+            importAsyncTask.cancel(true);
+        }
+        if ((exportAsyncTask != null) && !exportAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+            exportAsyncTask.cancel(true);
+        }
+        if ((PhoneProfilesHelper.uninstallAsyncTask != null) && !PhoneProfilesHelper.uninstallAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+            PhoneProfilesHelper.uninstallAsyncTask.cancel(true);
+        }
+
         if (!savedInstanceStateChanged)
         {
             // no destroy caches on orientation change
@@ -736,6 +749,19 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (position == 0) position = 1;
         if ((position != drawerSelectedItem) || (fragment == null))
         {
+            // stop running AsyncTask
+            if (fragment instanceof EditorProfileListFragment) {
+                if (((EditorProfileListFragment)fragment).isAsyncTaskPendingOrRunning()) {
+                    ((EditorProfileListFragment)fragment).stopRunningAsyncTask();
+                }
+            }
+            else
+            if (fragment instanceof EditorEventListFragment) {
+                if (((EditorEventListFragment)fragment).isAsyncTaskPendingOrRunning()) {
+                    ((EditorEventListFragment)fragment).stopRunningAsyncTask();
+                }
+            }
+
             drawerSelectedItem = position;
 
             // save into shared preferences
@@ -1308,7 +1334,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             }
 
-            new ImportAsyncTask().execute();
+            importAsyncTask = new ImportAsyncTask().execute();
         }
     }
 
@@ -1517,7 +1543,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             }
 
-            new ExportAsyncTask().execute();
+            exportAsyncTask = new ExportAsyncTask().execute();
         }
 
     }

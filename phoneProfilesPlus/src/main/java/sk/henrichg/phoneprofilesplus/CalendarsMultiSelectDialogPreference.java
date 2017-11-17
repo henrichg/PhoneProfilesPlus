@@ -39,10 +39,12 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
 
     private CalendarsMultiSelectPreferenceAdapter listAdapter;
 
+    private AsyncTask asyncTask = null;
+
     private static final String[] CALENDAR_PROJECTION = new String[] {
         Calendars._ID,                           // 0
         Calendars.CALENDAR_DISPLAY_NAME,         // 1
-        Calendars.CALENDAR_COLOR				 // 2
+        Calendars.CALENDAR_COLOR                 // 2
     };
 
     // The indices for the projection array above.
@@ -149,7 +151,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
     @SuppressLint("StaticFieldLeak")
     public void refreshListView(final boolean notForUnselect) {
 
-        new AsyncTask<Void, Integer, Void>() {
+        asyncTask = new AsyncTask<Void, Integer, Void>() {
 
             List<CalendarEvent> _calendarList = null;
 
@@ -244,6 +246,11 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
+
+        if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+            asyncTask.cancel(true);
+        }
+
         MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
     }
 

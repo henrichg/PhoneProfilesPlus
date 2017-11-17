@@ -348,7 +348,7 @@ class WifiBluetoothScanner {
                                             PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "waiting for classic scan end");
 
                                             // wait for scan end
-                                            waitForBluetoothScanEnd(context, null);
+                                            waitForBluetoothScanEnd(context);
 
                                             PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "classic scan ended");
 
@@ -393,7 +393,7 @@ class WifiBluetoothScanner {
                                             PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "waiting for LE scan end");
 
                                             // wait for scan end
-                                            waitForLEBluetoothScanEnd(context, null);
+                                            waitForLEBluetoothScanEnd(context);
 
                                             // send broadcast for start EventsHandler
                                         /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
@@ -670,19 +670,13 @@ class WifiBluetoothScanner {
         } while (SystemClock.uptimeMillis() - start < wifiScanDuration * 1000);
     }
 
-    private static void waitForBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
+    private static void waitForBluetoothScanEnd(Context context)
     {
         long start = SystemClock.uptimeMillis();
         do {
             if (!((BluetoothScanJob.getScanRequest(context)) ||
                     (BluetoothScanJob.getWaitForResults(context))))
                 break;
-            if (asyncTask != null)
-            {
-                if (asyncTask.isCancelled())
-                    break;
-            }
-
             //try { Thread.sleep(100); } catch (InterruptedException e) { }
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
@@ -691,7 +685,7 @@ class WifiBluetoothScanner {
         BluetoothScanJob.stopCLScan(context);
     }
 
-    private static void waitForLEBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
+    private static void waitForLEBluetoothScanEnd(Context context)
     {
         if (bluetoothLESupported(context)) {
             long start = SystemClock.uptimeMillis();
@@ -699,10 +693,6 @@ class WifiBluetoothScanner {
                 if (!((BluetoothScanJob.getLEScanRequest(context)) ||
                         (BluetoothScanJob.getWaitForLEResults(context))))
                     break;
-                if (asyncTask != null) {
-                    if (asyncTask.isCancelled())
-                        break;
-                }
 
                 //try { Thread.sleep(100); } catch (InterruptedException e) { }
                 SystemClock.sleep(100);
