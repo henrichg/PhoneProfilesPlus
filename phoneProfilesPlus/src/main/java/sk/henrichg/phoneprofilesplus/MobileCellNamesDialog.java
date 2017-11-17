@@ -123,6 +123,8 @@ class MobileCellNamesDialog {
 
         new AsyncTask<Void, Integer, Void>() {
 
+            List<String> _cellNamesList = new ArrayList<>();
+
             @Override
             protected void onPreExecute()
             {
@@ -133,14 +135,13 @@ class MobileCellNamesDialog {
 
             @Override
             protected Void doInBackground(Void... params) {
-                cellNamesList.clear();
                 if (showFilterItems) {
-                    cellNamesList.add(context.getString(R.string.mobile_cell_names_dialog_item_show_selected));
-                    cellNamesList.add(context.getString(R.string.mobile_cell_names_dialog_item_show_without_name));
-                    cellNamesList.add(context.getString(R.string.mobile_cell_names_dialog_item_show_new));
-                    cellNamesList.add(context.getString(R.string.mobile_cell_names_dialog_item_show_all));
+                    _cellNamesList.add(context.getString(R.string.mobile_cell_names_dialog_item_show_selected));
+                    _cellNamesList.add(context.getString(R.string.mobile_cell_names_dialog_item_show_without_name));
+                    _cellNamesList.add(context.getString(R.string.mobile_cell_names_dialog_item_show_new));
+                    _cellNamesList.add(context.getString(R.string.mobile_cell_names_dialog_item_show_all));
                 }
-                DatabaseHandler.getInstance(context).addMobileCellNamesToList(cellNamesList);
+                DatabaseHandler.getInstance(context).addMobileCellNamesToList(_cellNamesList);
                 return null;
             }
 
@@ -150,6 +151,8 @@ class MobileCellNamesDialog {
                 super.onPostExecute(result);
                 rellaDialog.setVisibility(View.VISIBLE);
                 linlaProgress.setVisibility(View.GONE);
+
+                cellNamesList = new ArrayList<>(_cellNamesList);
 
                 if (preference instanceof MobileCellsRegistrationDialogPreference) {
                     cellName.setText(((MobileCellsRegistrationDialogPreference) preference).mCellsName.getText().toString());
