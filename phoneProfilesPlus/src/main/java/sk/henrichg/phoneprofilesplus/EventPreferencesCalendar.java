@@ -18,7 +18,6 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract.Instances;
 import android.text.format.DateFormat;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

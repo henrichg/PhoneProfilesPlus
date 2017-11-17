@@ -43,7 +43,6 @@ import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.Pair;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -56,10 +55,7 @@ import com.stericson.RootTools.RootTools;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
 import static android.content.Context.POWER_SERVICE;
