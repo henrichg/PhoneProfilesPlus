@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -49,6 +52,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // import/export
     private final String EXPORT_DBFILENAME = DATABASE_NAME + ".backup";
+    private final Lock importExportLock = new ReentrantLock();
+    private final Condition runningImportExportCondition  = importExportLock.newCondition();
+    private final Condition runningCommandCondition = importExportLock.newCondition();
+    private boolean runningImportExport = false;
+    private boolean runningCommand = false;
 
     // profile type
     static final int PTYPE_CONNECT_TO_SSID = 1;
@@ -1974,606 +1982,690 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    private void startRunningCommand() throws Exception {
+        if (runningImportExport)
+            runningImportExportCondition.await();
+        runningCommand = true;
+    }
+
+    private void stopRunningCommand() {
+        runningCommand = false;
+        runningCommandCondition.signalAll();
+        importExportLock.unlock();
+    }
+
 // PROFILES --------------------------------------------------------------------------------
 
     // Adding new profile
     void addProfile(Profile profile, boolean merged) {
-        synchronized (databaseHandlerMutex) {
-            int porder = getMaxProfileOrder() + 1;
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
 
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
+                int porder = getMaxProfileOrder() + 1;
 
-            ContentValues values = new ContentValues();
-            values.put(KEY_NAME, profile._name); // Profile Name
-            values.put(KEY_ICON, profile._icon); // Icon
-            values.put(KEY_CHECKED, (profile._checked) ? 1 : 0); // Checked
-            values.put(KEY_PORDER, porder); // POrder
-            //values.put(KEY_PORDER, profile._porder); // POrder
-            values.put(KEY_VOLUME_RINGER_MODE, profile._volumeRingerMode);
-            values.put(KEY_VOLUME_ZEN_MODE, profile._volumeZenMode);
-            values.put(KEY_VOLUME_RINGTONE, profile._volumeRingtone);
-            values.put(KEY_VOLUME_NOTIFICATION, profile._volumeNotification);
-            values.put(KEY_VOLUME_MEDIA, profile._volumeMedia);
-            values.put(KEY_VOLUME_ALARM, profile._volumeAlarm);
-            values.put(KEY_VOLUME_SYSTEM, profile._volumeSystem);
-            values.put(KEY_VOLUME_VOICE, profile._volumeVoice);
-            values.put(KEY_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);
-            values.put(KEY_SOUND_RINGTONE, profile._soundRingtone);
-            values.put(KEY_SOUND_NOTIFICATION_CHANGE, profile._soundNotificationChange);
-            values.put(KEY_SOUND_NOTIFICATION, profile._soundNotification);
-            values.put(KEY_SOUND_ALARM_CHANGE, profile._soundAlarmChange);
-            values.put(KEY_SOUND_ALARM, profile._soundAlarm);
-            values.put(KEY_DEVICE_AIRPLANE_MODE, profile._deviceAirplaneMode);
-            values.put(KEY_DEVICE_WIFI, profile._deviceWiFi);
-            values.put(KEY_DEVICE_BLUETOOTH, profile._deviceBluetooth);
-            values.put(KEY_DEVICE_SCREEN_TIMEOUT, profile._deviceScreenTimeout);
-            values.put(KEY_DEVICE_BRIGHTNESS, profile._deviceBrightness);
-            values.put(KEY_DEVICE_WALLPAPER_CHANGE, profile._deviceWallpaperChange);
-            values.put(KEY_DEVICE_WALLPAPER, profile._deviceWallpaper);
-            values.put(KEY_DEVICE_MOBILE_DATA, profile._deviceMobileData);
-            values.put(KEY_DEVICE_MOBILE_DATA_PREFS, profile._deviceMobileDataPrefs);
-            values.put(KEY_DEVICE_GPS, profile._deviceGPS);
-            values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
-            values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
-            values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutoSync);
-            values.put(KEY_SHOW_IN_ACTIVATOR, (profile._showInActivator) ? 1 : 0);
-            values.put(KEY_DEVICE_AUTOROTATE, profile._deviceAutoRotate);
-            values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs);
-            values.put(KEY_VOLUME_SPEAKER_PHONE, profile._volumeSpeakerPhone);
-            values.put(KEY_DEVICE_NFC, profile._deviceNFC);
-            values.put(KEY_DURATION, profile._duration);
-            values.put(KEY_AFTER_DURATION_DO, profile._afterDurationDo);
-            values.put(KEY_DEVICE_KEYGUARD, profile._deviceKeyguard);
-            values.put(KEY_VIBRATE_ON_TOUCH, profile._vibrationOnTouch);
-            values.put(KEY_DEVICE_WIFI_AP, profile._deviceWiFiAP);
-            values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
-            values.put(KEY_SHOW_DURATION_BUTTON, 0);
-            values.put(KEY_ASK_FOR_DURATION, (profile._askForDuration) ? 1 : 0);
-            values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
-            values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
-            values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
-            values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
-            values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
-            values.put(KEY_LOCK_DEVICE, profile._lockDevice);
-            values.put(KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
-            values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, profile._applicationDisableWifiScanning);
-            values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, profile._applicationDisableBluetoothScanning);
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            // Insert Row
-            if (!merged) {
-                profile._id = db.insert(TABLE_PROFILES, null, values);
-                profile._porder = porder;
-            } else {
-                values.put(KEY_ID, profile._id);
-                db.insert(TABLE_MERGED_PROFILE, null, values);
+                ContentValues values = new ContentValues();
+                values.put(KEY_NAME, profile._name); // Profile Name
+                values.put(KEY_ICON, profile._icon); // Icon
+                values.put(KEY_CHECKED, (profile._checked) ? 1 : 0); // Checked
+                values.put(KEY_PORDER, porder); // POrder
+                //values.put(KEY_PORDER, profile._porder); // POrder
+                values.put(KEY_VOLUME_RINGER_MODE, profile._volumeRingerMode);
+                values.put(KEY_VOLUME_ZEN_MODE, profile._volumeZenMode);
+                values.put(KEY_VOLUME_RINGTONE, profile._volumeRingtone);
+                values.put(KEY_VOLUME_NOTIFICATION, profile._volumeNotification);
+                values.put(KEY_VOLUME_MEDIA, profile._volumeMedia);
+                values.put(KEY_VOLUME_ALARM, profile._volumeAlarm);
+                values.put(KEY_VOLUME_SYSTEM, profile._volumeSystem);
+                values.put(KEY_VOLUME_VOICE, profile._volumeVoice);
+                values.put(KEY_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);
+                values.put(KEY_SOUND_RINGTONE, profile._soundRingtone);
+                values.put(KEY_SOUND_NOTIFICATION_CHANGE, profile._soundNotificationChange);
+                values.put(KEY_SOUND_NOTIFICATION, profile._soundNotification);
+                values.put(KEY_SOUND_ALARM_CHANGE, profile._soundAlarmChange);
+                values.put(KEY_SOUND_ALARM, profile._soundAlarm);
+                values.put(KEY_DEVICE_AIRPLANE_MODE, profile._deviceAirplaneMode);
+                values.put(KEY_DEVICE_WIFI, profile._deviceWiFi);
+                values.put(KEY_DEVICE_BLUETOOTH, profile._deviceBluetooth);
+                values.put(KEY_DEVICE_SCREEN_TIMEOUT, profile._deviceScreenTimeout);
+                values.put(KEY_DEVICE_BRIGHTNESS, profile._deviceBrightness);
+                values.put(KEY_DEVICE_WALLPAPER_CHANGE, profile._deviceWallpaperChange);
+                values.put(KEY_DEVICE_WALLPAPER, profile._deviceWallpaper);
+                values.put(KEY_DEVICE_MOBILE_DATA, profile._deviceMobileData);
+                values.put(KEY_DEVICE_MOBILE_DATA_PREFS, profile._deviceMobileDataPrefs);
+                values.put(KEY_DEVICE_GPS, profile._deviceGPS);
+                values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
+                values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
+                values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutoSync);
+                values.put(KEY_SHOW_IN_ACTIVATOR, (profile._showInActivator) ? 1 : 0);
+                values.put(KEY_DEVICE_AUTOROTATE, profile._deviceAutoRotate);
+                values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs);
+                values.put(KEY_VOLUME_SPEAKER_PHONE, profile._volumeSpeakerPhone);
+                values.put(KEY_DEVICE_NFC, profile._deviceNFC);
+                values.put(KEY_DURATION, profile._duration);
+                values.put(KEY_AFTER_DURATION_DO, profile._afterDurationDo);
+                values.put(KEY_DEVICE_KEYGUARD, profile._deviceKeyguard);
+                values.put(KEY_VIBRATE_ON_TOUCH, profile._vibrationOnTouch);
+                values.put(KEY_DEVICE_WIFI_AP, profile._deviceWiFiAP);
+                values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
+                values.put(KEY_SHOW_DURATION_BUTTON, 0);
+                values.put(KEY_ASK_FOR_DURATION, (profile._askForDuration) ? 1 : 0);
+                values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
+                values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
+                values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
+                values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
+                values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
+                values.put(KEY_LOCK_DEVICE, profile._lockDevice);
+                values.put(KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
+                values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, profile._applicationDisableWifiScanning);
+                values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, profile._applicationDisableBluetoothScanning);
+
+                // Insert Row
+                if (!merged) {
+                    profile._id = db.insert(TABLE_PROFILES, null, values);
+                    profile._porder = porder;
+                } else {
+                    values.put(KEY_ID, profile._id);
+                    db.insert(TABLE_MERGED_PROFILE, null, values);
+                }
+                //db.close(); // Closing database connection
+            } catch (Exception ignored) {
             }
-            //db.close(); // Closing database connection
+        } finally {
+            stopRunningCommand();
         }
     }
 
     // Getting single profile
     Profile getProfile(long profile_id, boolean merged) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            String tableName = TABLE_PROFILES;
-            if (merged)
-                tableName = TABLE_MERGED_PROFILE;
-            Cursor cursor = db.query(tableName,
-                    new String[]{KEY_ID,
-                            KEY_NAME,
-                            KEY_ICON,
-                            KEY_CHECKED,
-                            KEY_PORDER,
-                            KEY_VOLUME_RINGER_MODE,
-                            KEY_VOLUME_RINGTONE,
-                            KEY_VOLUME_NOTIFICATION,
-                            KEY_VOLUME_MEDIA,
-                            KEY_VOLUME_ALARM,
-                            KEY_VOLUME_SYSTEM,
-                            KEY_VOLUME_VOICE,
-                            KEY_SOUND_RINGTONE_CHANGE,
-                            KEY_SOUND_RINGTONE,
-                            KEY_SOUND_NOTIFICATION_CHANGE,
-                            KEY_SOUND_NOTIFICATION,
-                            KEY_SOUND_ALARM_CHANGE,
-                            KEY_SOUND_ALARM,
-                            KEY_DEVICE_AIRPLANE_MODE,
-                            KEY_DEVICE_WIFI,
-                            KEY_DEVICE_BLUETOOTH,
-                            KEY_DEVICE_SCREEN_TIMEOUT,
-                            KEY_DEVICE_BRIGHTNESS,
-                            KEY_DEVICE_WALLPAPER_CHANGE,
-                            KEY_DEVICE_WALLPAPER,
-                            KEY_DEVICE_MOBILE_DATA,
-                            KEY_DEVICE_MOBILE_DATA_PREFS,
-                            KEY_DEVICE_GPS,
-                            KEY_DEVICE_RUN_APPLICATION_CHANGE,
-                            KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
-                            KEY_DEVICE_AUTOSYNC,
-                            KEY_SHOW_IN_ACTIVATOR,
-                            KEY_DEVICE_AUTOROTATE,
-                            KEY_DEVICE_LOCATION_SERVICE_PREFS,
-                            KEY_VOLUME_SPEAKER_PHONE,
-                            KEY_DEVICE_NFC,
-                            KEY_DURATION,
-                            KEY_AFTER_DURATION_DO,
-                            KEY_VOLUME_ZEN_MODE,
-                            KEY_DEVICE_KEYGUARD,
-                            KEY_VIBRATE_ON_TOUCH,
-                            KEY_DEVICE_WIFI_AP,
-                            KEY_DEVICE_POWER_SAVE_MODE,
-                            KEY_SHOW_DURATION_BUTTON,
-                            KEY_ASK_FOR_DURATION,
-                            KEY_DEVICE_NETWORK_TYPE,
-                            KEY_NOTIFICATION_LED,
-                            KEY_VIBRATE_WHEN_RINGING,
-                            KEY_DEVICE_WALLPAPER_FOR,
-                            KEY_HIDE_STATUS_BAR_ICON,
-                            KEY_LOCK_DEVICE,
-                            KEY_DEVICE_CONNECT_TO_SSID,
-                            KEY_APPLICATION_DISABLE_WIFI_SCANNING,
-                            KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING
-                    },
-                    KEY_ID + "=?",
-                    new String[]{String.valueOf(profile_id)}, null, null, null, null);
+        importExportLock.lock();
+        try {
 
             Profile profile = null;
 
-            if (cursor != null) {
-                cursor.moveToFirst();
+            try {
+                startRunningCommand();
 
-                if (cursor.getCount() > 0) {
-                    profile = new Profile(Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID))),
-                            cursor.getString(cursor.getColumnIndex(KEY_NAME)),
-                            cursor.getString(cursor.getColumnIndex(KEY_ICON)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_CHECKED))) == 1,
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_PORDER))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_RINGER_MODE))),
-                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_RINGTONE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_NOTIFICATION)),
-                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_MEDIA)),
-                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ALARM)),
-                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_SYSTEM)),
-                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_VOICE)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE_CHANGE))),
-                            cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE))),
-                            cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM_CHANGE))),
-                            cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AIRPLANE_MODE))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BLUETOOTH))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_SCREEN_TIMEOUT))),
-                            cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BRIGHTNESS)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE))),
-                            cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_PREFS))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_GPS))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_CHANGE))),
-                            cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOSYNC))),
-                            cursor.isNull(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR)) || (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR))) == 1),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOROTATE))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LOCATION_SERVICE_PREFS))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_SPEAKER_PHONE))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NFC))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DURATION))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_AFTER_DURATION_DO))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ZEN_MODE))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_KEYGUARD))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_ON_TOUCH))),
-                            cursor.isNull(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP)) ? 0 : Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ASK_FOR_DURATION))) == 1,
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_NOTIFICATION_LED))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_WHEN_RINGING))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOR))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HIDE_STATUS_BAR_ICON))) == 1,
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_LOCK_DEVICE))),
-                            cursor.getString(cursor.getColumnIndex(KEY_DEVICE_CONNECT_TO_SSID)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_WIFI_SCANNING))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)))
-                    );
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                String tableName = TABLE_PROFILES;
+                if (merged)
+                    tableName = TABLE_MERGED_PROFILE;
+                Cursor cursor = db.query(tableName,
+                        new String[]{KEY_ID,
+                                KEY_NAME,
+                                KEY_ICON,
+                                KEY_CHECKED,
+                                KEY_PORDER,
+                                KEY_VOLUME_RINGER_MODE,
+                                KEY_VOLUME_RINGTONE,
+                                KEY_VOLUME_NOTIFICATION,
+                                KEY_VOLUME_MEDIA,
+                                KEY_VOLUME_ALARM,
+                                KEY_VOLUME_SYSTEM,
+                                KEY_VOLUME_VOICE,
+                                KEY_SOUND_RINGTONE_CHANGE,
+                                KEY_SOUND_RINGTONE,
+                                KEY_SOUND_NOTIFICATION_CHANGE,
+                                KEY_SOUND_NOTIFICATION,
+                                KEY_SOUND_ALARM_CHANGE,
+                                KEY_SOUND_ALARM,
+                                KEY_DEVICE_AIRPLANE_MODE,
+                                KEY_DEVICE_WIFI,
+                                KEY_DEVICE_BLUETOOTH,
+                                KEY_DEVICE_SCREEN_TIMEOUT,
+                                KEY_DEVICE_BRIGHTNESS,
+                                KEY_DEVICE_WALLPAPER_CHANGE,
+                                KEY_DEVICE_WALLPAPER,
+                                KEY_DEVICE_MOBILE_DATA,
+                                KEY_DEVICE_MOBILE_DATA_PREFS,
+                                KEY_DEVICE_GPS,
+                                KEY_DEVICE_RUN_APPLICATION_CHANGE,
+                                KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
+                                KEY_DEVICE_AUTOSYNC,
+                                KEY_SHOW_IN_ACTIVATOR,
+                                KEY_DEVICE_AUTOROTATE,
+                                KEY_DEVICE_LOCATION_SERVICE_PREFS,
+                                KEY_VOLUME_SPEAKER_PHONE,
+                                KEY_DEVICE_NFC,
+                                KEY_DURATION,
+                                KEY_AFTER_DURATION_DO,
+                                KEY_VOLUME_ZEN_MODE,
+                                KEY_DEVICE_KEYGUARD,
+                                KEY_VIBRATE_ON_TOUCH,
+                                KEY_DEVICE_WIFI_AP,
+                                KEY_DEVICE_POWER_SAVE_MODE,
+                                KEY_SHOW_DURATION_BUTTON,
+                                KEY_ASK_FOR_DURATION,
+                                KEY_DEVICE_NETWORK_TYPE,
+                                KEY_NOTIFICATION_LED,
+                                KEY_VIBRATE_WHEN_RINGING,
+                                KEY_DEVICE_WALLPAPER_FOR,
+                                KEY_HIDE_STATUS_BAR_ICON,
+                                KEY_LOCK_DEVICE,
+                                KEY_DEVICE_CONNECT_TO_SSID,
+                                KEY_APPLICATION_DISABLE_WIFI_SCANNING,
+                                KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING
+                        },
+                        KEY_ID + "=?",
+                        new String[]{String.valueOf(profile_id)}, null, null, null, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        profile = new Profile(Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID))),
+                                cursor.getString(cursor.getColumnIndex(KEY_NAME)),
+                                cursor.getString(cursor.getColumnIndex(KEY_ICON)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_CHECKED))) == 1,
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_PORDER))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_RINGER_MODE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_RINGTONE)),
+                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_NOTIFICATION)),
+                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_MEDIA)),
+                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ALARM)),
+                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_SYSTEM)),
+                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_VOICE)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE_CHANGE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM_CHANGE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AIRPLANE_MODE))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BLUETOOTH))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_SCREEN_TIMEOUT))),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BRIGHTNESS)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_PREFS))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_GPS))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_CHANGE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOSYNC))),
+                                cursor.isNull(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR)) || (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR))) == 1),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOROTATE))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LOCATION_SERVICE_PREFS))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_SPEAKER_PHONE))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NFC))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DURATION))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_AFTER_DURATION_DO))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ZEN_MODE))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_KEYGUARD))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_ON_TOUCH))),
+                                cursor.isNull(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP)) ? 0 : Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ASK_FOR_DURATION))) == 1,
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_NOTIFICATION_LED))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_WHEN_RINGING))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOR))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HIDE_STATUS_BAR_ICON))) == 1,
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_LOCK_DEVICE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_CONNECT_TO_SSID)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_WIFI_SCANNING))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)))
+                        );
+                    }
+
+                    cursor.close();
                 }
 
-                cursor.close();
+                //db.close();
+
+            } catch (Exception ignored) {
             }
-
-            //db.close();
-
-            // return profile
             return profile;
+        } finally {
+            stopRunningCommand();
         }
     }
 
     // Getting All Profiles
     List<Profile> getAllProfiles() {
-        synchronized (databaseHandlerMutex) {
+        importExportLock.lock();
+        try {
+
             List<Profile> profileList = new ArrayList<>();
 
-            // Select All Query
-            final String selectQuery = "SELECT " + KEY_ID + "," +
-                    KEY_NAME + "," +
-                    KEY_ICON + "," +
-                    KEY_CHECKED + "," +
-                    KEY_PORDER + "," +
-                    KEY_VOLUME_RINGER_MODE + "," +
-                    KEY_VOLUME_RINGTONE + "," +
-                    KEY_VOLUME_NOTIFICATION + "," +
-                    KEY_VOLUME_MEDIA + "," +
-                    KEY_VOLUME_ALARM + "," +
-                    KEY_VOLUME_SYSTEM + "," +
-                    KEY_VOLUME_VOICE + "," +
-                    KEY_SOUND_RINGTONE_CHANGE + "," +
-                    KEY_SOUND_RINGTONE + "," +
-                    KEY_SOUND_NOTIFICATION_CHANGE + "," +
-                    KEY_SOUND_NOTIFICATION + "," +
-                    KEY_SOUND_ALARM_CHANGE + "," +
-                    KEY_SOUND_ALARM + "," +
-                    KEY_DEVICE_AIRPLANE_MODE + "," +
-                    KEY_DEVICE_WIFI + "," +
-                    KEY_DEVICE_BLUETOOTH + "," +
-                    KEY_DEVICE_SCREEN_TIMEOUT + "," +
-                    KEY_DEVICE_BRIGHTNESS + "," +
-                    KEY_DEVICE_WALLPAPER_CHANGE + "," +
-                    KEY_DEVICE_WALLPAPER + "," +
-                    KEY_DEVICE_MOBILE_DATA + "," +
-                    KEY_DEVICE_MOBILE_DATA_PREFS + "," +
-                    KEY_DEVICE_GPS + "," +
-                    KEY_DEVICE_RUN_APPLICATION_CHANGE + "," +
-                    KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME + "," +
-                    KEY_DEVICE_AUTOSYNC + "," +
-                    KEY_SHOW_IN_ACTIVATOR + "," +
-                    KEY_DEVICE_AUTOROTATE + "," +
-                    KEY_DEVICE_LOCATION_SERVICE_PREFS + "," +
-                    KEY_VOLUME_SPEAKER_PHONE + "," +
-                    KEY_DEVICE_NFC + "," +
-                    KEY_DURATION + "," +
-                    KEY_AFTER_DURATION_DO + "," +
-                    KEY_VOLUME_ZEN_MODE + "," +
-                    KEY_DEVICE_KEYGUARD + "," +
-                    KEY_VIBRATE_ON_TOUCH + "," +
-                    KEY_DEVICE_WIFI_AP + "," +
-                    KEY_DEVICE_POWER_SAVE_MODE + "," +
-                    KEY_SHOW_DURATION_BUTTON + "," +
-                    KEY_ASK_FOR_DURATION + "," +
-                    KEY_DEVICE_NETWORK_TYPE + "," +
-                    KEY_NOTIFICATION_LED + "," +
-                    KEY_VIBRATE_WHEN_RINGING + "," +
-                    KEY_DEVICE_WALLPAPER_FOR + "," +
-                    KEY_HIDE_STATUS_BAR_ICON + "," +
-                    KEY_LOCK_DEVICE + "," +
-                    KEY_DEVICE_CONNECT_TO_SSID + "," +
-                    KEY_APPLICATION_DISABLE_WIFI_SCANNING + "," +
-                    KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING +
-                    " FROM " + TABLE_PROFILES;
+            try {
+                startRunningCommand();
 
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
+                // Select All Query
+                final String selectQuery = "SELECT " + KEY_ID + "," +
+                        KEY_NAME + "," +
+                        KEY_ICON + "," +
+                        KEY_CHECKED + "," +
+                        KEY_PORDER + "," +
+                        KEY_VOLUME_RINGER_MODE + "," +
+                        KEY_VOLUME_RINGTONE + "," +
+                        KEY_VOLUME_NOTIFICATION + "," +
+                        KEY_VOLUME_MEDIA + "," +
+                        KEY_VOLUME_ALARM + "," +
+                        KEY_VOLUME_SYSTEM + "," +
+                        KEY_VOLUME_VOICE + "," +
+                        KEY_SOUND_RINGTONE_CHANGE + "," +
+                        KEY_SOUND_RINGTONE + "," +
+                        KEY_SOUND_NOTIFICATION_CHANGE + "," +
+                        KEY_SOUND_NOTIFICATION + "," +
+                        KEY_SOUND_ALARM_CHANGE + "," +
+                        KEY_SOUND_ALARM + "," +
+                        KEY_DEVICE_AIRPLANE_MODE + "," +
+                        KEY_DEVICE_WIFI + "," +
+                        KEY_DEVICE_BLUETOOTH + "," +
+                        KEY_DEVICE_SCREEN_TIMEOUT + "," +
+                        KEY_DEVICE_BRIGHTNESS + "," +
+                        KEY_DEVICE_WALLPAPER_CHANGE + "," +
+                        KEY_DEVICE_WALLPAPER + "," +
+                        KEY_DEVICE_MOBILE_DATA + "," +
+                        KEY_DEVICE_MOBILE_DATA_PREFS + "," +
+                        KEY_DEVICE_GPS + "," +
+                        KEY_DEVICE_RUN_APPLICATION_CHANGE + "," +
+                        KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME + "," +
+                        KEY_DEVICE_AUTOSYNC + "," +
+                        KEY_SHOW_IN_ACTIVATOR + "," +
+                        KEY_DEVICE_AUTOROTATE + "," +
+                        KEY_DEVICE_LOCATION_SERVICE_PREFS + "," +
+                        KEY_VOLUME_SPEAKER_PHONE + "," +
+                        KEY_DEVICE_NFC + "," +
+                        KEY_DURATION + "," +
+                        KEY_AFTER_DURATION_DO + "," +
+                        KEY_VOLUME_ZEN_MODE + "," +
+                        KEY_DEVICE_KEYGUARD + "," +
+                        KEY_VIBRATE_ON_TOUCH + "," +
+                        KEY_DEVICE_WIFI_AP + "," +
+                        KEY_DEVICE_POWER_SAVE_MODE + "," +
+                        KEY_SHOW_DURATION_BUTTON + "," +
+                        KEY_ASK_FOR_DURATION + "," +
+                        KEY_DEVICE_NETWORK_TYPE + "," +
+                        KEY_NOTIFICATION_LED + "," +
+                        KEY_VIBRATE_WHEN_RINGING + "," +
+                        KEY_DEVICE_WALLPAPER_FOR + "," +
+                        KEY_HIDE_STATUS_BAR_ICON + "," +
+                        KEY_LOCK_DEVICE + "," +
+                        KEY_DEVICE_CONNECT_TO_SSID + "," +
+                        KEY_APPLICATION_DISABLE_WIFI_SCANNING + "," +
+                        KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING +
+                        " FROM " + TABLE_PROFILES;
 
-            Cursor cursor = db.rawQuery(selectQuery, null);
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            // looping through all rows and adding to list
-            if (cursor.moveToFirst()) {
-                do {
-                    Profile profile = new Profile();
-                    profile._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID)));
-                    profile._name = cursor.getString(cursor.getColumnIndex(KEY_NAME));
-                    profile._icon = (cursor.getString(cursor.getColumnIndex(KEY_ICON)));
-                    profile._checked = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_CHECKED))) == 1;
-                    profile._porder = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_PORDER))));
-                    profile._volumeRingerMode = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_RINGER_MODE)));
-                    profile._volumeRingtone = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_RINGTONE));
-                    profile._volumeNotification = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_NOTIFICATION));
-                    profile._volumeMedia = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_MEDIA));
-                    profile._volumeAlarm = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ALARM));
-                    profile._volumeSystem = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_SYSTEM));
-                    profile._volumeVoice = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_VOICE));
-                    profile._soundRingtoneChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE_CHANGE)));
-                    profile._soundRingtone = cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE));
-                    profile._soundNotificationChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE)));
-                    profile._soundNotification = cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION));
-                    profile._soundAlarmChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM_CHANGE)));
-                    profile._soundAlarm = cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM));
-                    profile._deviceAirplaneMode = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AIRPLANE_MODE)));
-                    profile._deviceWiFi = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI)));
-                    profile._deviceBluetooth = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BLUETOOTH)));
-                    profile._deviceScreenTimeout = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_SCREEN_TIMEOUT)));
-                    profile._deviceBrightness = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BRIGHTNESS));
-                    profile._deviceWallpaperChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE)));
-                    profile._deviceWallpaper = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER));
-                    profile._deviceMobileData = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA)));
-                    profile._deviceMobileDataPrefs = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_PREFS)));
-                    profile._deviceGPS = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_GPS)));
-                    profile._deviceRunApplicationChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_CHANGE)));
-                    profile._deviceRunApplicationPackageName = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME));
-                    profile._deviceAutoSync = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOSYNC)));
-                    profile._showInActivator = cursor.isNull(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR)) || (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR))) == 1);
-                    profile._deviceAutoRotate = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOROTATE)));
-                    profile._deviceLocationServicePrefs = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LOCATION_SERVICE_PREFS)));
-                    profile._volumeSpeakerPhone = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_SPEAKER_PHONE)));
-                    profile._deviceNFC = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NFC)));
-                    profile._duration = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DURATION)));
-                    profile._afterDurationDo = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_AFTER_DURATION_DO)));
-                    profile._volumeZenMode = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ZEN_MODE)));
-                    profile._deviceKeyguard = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_KEYGUARD)));
-                    profile._vibrationOnTouch = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_ON_TOUCH)));
-                    profile._deviceWiFiAP = cursor.isNull(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP)) ? 0 : Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP)));
-                    profile._devicePowerSaveMode = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE)));
-                    profile._askForDuration = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ASK_FOR_DURATION))) == 1;
-                    profile._deviceNetworkType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE)));
-                    profile._notificationLed = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_NOTIFICATION_LED)));
-                    profile._vibrateWhenRinging = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_WHEN_RINGING)));
-                    profile._deviceWallpaperFor = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOR)));
-                    profile._hideStatusBarIcon = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HIDE_STATUS_BAR_ICON))) == 1);
-                    profile._lockDevice = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_LOCK_DEVICE)));
-                    profile._deviceConnectToSSID = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_CONNECT_TO_SSID));
-                    profile._applicationDisableWifiScanning = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_WIFI_SCANNING)));
-                    profile._applicationDisableBluetoothScanning = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)));
-                    // Adding contact to list
-                    profileList.add(profile);
-                } while (cursor.moveToNext());
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        Profile profile = new Profile();
+                        profile._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                        profile._name = cursor.getString(cursor.getColumnIndex(KEY_NAME));
+                        profile._icon = (cursor.getString(cursor.getColumnIndex(KEY_ICON)));
+                        profile._checked = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_CHECKED))) == 1;
+                        profile._porder = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_PORDER))));
+                        profile._volumeRingerMode = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_RINGER_MODE)));
+                        profile._volumeRingtone = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_RINGTONE));
+                        profile._volumeNotification = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_NOTIFICATION));
+                        profile._volumeMedia = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_MEDIA));
+                        profile._volumeAlarm = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ALARM));
+                        profile._volumeSystem = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_SYSTEM));
+                        profile._volumeVoice = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_VOICE));
+                        profile._soundRingtoneChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE_CHANGE)));
+                        profile._soundRingtone = cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE));
+                        profile._soundNotificationChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE)));
+                        profile._soundNotification = cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION));
+                        profile._soundAlarmChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM_CHANGE)));
+                        profile._soundAlarm = cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM));
+                        profile._deviceAirplaneMode = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AIRPLANE_MODE)));
+                        profile._deviceWiFi = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI)));
+                        profile._deviceBluetooth = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BLUETOOTH)));
+                        profile._deviceScreenTimeout = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_SCREEN_TIMEOUT)));
+                        profile._deviceBrightness = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BRIGHTNESS));
+                        profile._deviceWallpaperChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE)));
+                        profile._deviceWallpaper = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER));
+                        profile._deviceMobileData = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA)));
+                        profile._deviceMobileDataPrefs = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_PREFS)));
+                        profile._deviceGPS = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_GPS)));
+                        profile._deviceRunApplicationChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_CHANGE)));
+                        profile._deviceRunApplicationPackageName = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME));
+                        profile._deviceAutoSync = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOSYNC)));
+                        profile._showInActivator = cursor.isNull(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR)) || (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR))) == 1);
+                        profile._deviceAutoRotate = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOROTATE)));
+                        profile._deviceLocationServicePrefs = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LOCATION_SERVICE_PREFS)));
+                        profile._volumeSpeakerPhone = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_SPEAKER_PHONE)));
+                        profile._deviceNFC = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NFC)));
+                        profile._duration = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DURATION)));
+                        profile._afterDurationDo = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_AFTER_DURATION_DO)));
+                        profile._volumeZenMode = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ZEN_MODE)));
+                        profile._deviceKeyguard = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_KEYGUARD)));
+                        profile._vibrationOnTouch = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_ON_TOUCH)));
+                        profile._deviceWiFiAP = cursor.isNull(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP)) ? 0 : Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP)));
+                        profile._devicePowerSaveMode = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE)));
+                        profile._askForDuration = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ASK_FOR_DURATION))) == 1;
+                        profile._deviceNetworkType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE)));
+                        profile._notificationLed = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_NOTIFICATION_LED)));
+                        profile._vibrateWhenRinging = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_WHEN_RINGING)));
+                        profile._deviceWallpaperFor = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOR)));
+                        profile._hideStatusBarIcon = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HIDE_STATUS_BAR_ICON))) == 1);
+                        profile._lockDevice = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_LOCK_DEVICE)));
+                        profile._deviceConnectToSSID = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_CONNECT_TO_SSID));
+                        profile._applicationDisableWifiScanning = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_WIFI_SCANNING)));
+                        profile._applicationDisableBluetoothScanning = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)));
+                        // Adding contact to list
+                        profileList.add(profile);
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+                //db.close();
+
+            } catch (Exception ignored) {
             }
 
-            cursor.close();
-            //db.close();
-
-            // return profile list
             return profileList;
+
+        } finally {
+            stopRunningCommand();
         }
     }
 
     // Updating single profile
     void updateProfile(Profile profile) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
 
-            ContentValues values = new ContentValues();
-            values.put(KEY_NAME, profile._name);
-            values.put(KEY_ICON, profile._icon);
-            values.put(KEY_CHECKED, (profile._checked) ? 1 : 0);
-            values.put(KEY_PORDER, profile._porder);
-            values.put(KEY_VOLUME_RINGER_MODE, profile._volumeRingerMode);
-            values.put(KEY_VOLUME_ZEN_MODE, profile._volumeZenMode);
-            values.put(KEY_VOLUME_RINGTONE, profile._volumeRingtone);
-            values.put(KEY_VOLUME_NOTIFICATION, profile._volumeNotification);
-            values.put(KEY_VOLUME_MEDIA, profile._volumeMedia);
-            values.put(KEY_VOLUME_ALARM, profile._volumeAlarm);
-            values.put(KEY_VOLUME_SYSTEM, profile._volumeSystem);
-            values.put(KEY_VOLUME_VOICE, profile._volumeVoice);
-            values.put(KEY_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);
-            values.put(KEY_SOUND_RINGTONE, profile._soundRingtone);
-            values.put(KEY_SOUND_NOTIFICATION_CHANGE, profile._soundNotificationChange);
-            values.put(KEY_SOUND_NOTIFICATION, profile._soundNotification);
-            values.put(KEY_SOUND_ALARM_CHANGE, profile._soundAlarmChange);
-            values.put(KEY_SOUND_ALARM, profile._soundAlarm);
-            values.put(KEY_DEVICE_AIRPLANE_MODE, profile._deviceAirplaneMode);
-            values.put(KEY_DEVICE_WIFI, profile._deviceWiFi);
-            values.put(KEY_DEVICE_BLUETOOTH, profile._deviceBluetooth);
-            values.put(KEY_DEVICE_SCREEN_TIMEOUT, profile._deviceScreenTimeout);
-            values.put(KEY_DEVICE_BRIGHTNESS, profile._deviceBrightness);
-            values.put(KEY_DEVICE_WALLPAPER_CHANGE, profile._deviceWallpaperChange);
-            values.put(KEY_DEVICE_WALLPAPER, profile._deviceWallpaper);
-            values.put(KEY_DEVICE_MOBILE_DATA, profile._deviceMobileData);
-            values.put(KEY_DEVICE_MOBILE_DATA_PREFS, profile._deviceMobileDataPrefs);
-            values.put(KEY_DEVICE_GPS, profile._deviceGPS);
-            values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
-            values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
-            values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutoSync);
-            values.put(KEY_SHOW_IN_ACTIVATOR, (profile._showInActivator) ? 1 : 0);
-            values.put(KEY_DEVICE_AUTOROTATE, profile._deviceAutoRotate);
-            values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs);
-            values.put(KEY_VOLUME_SPEAKER_PHONE, profile._volumeSpeakerPhone);
-            values.put(KEY_DEVICE_NFC, profile._deviceNFC);
-            values.put(KEY_DURATION, profile._duration);
-            values.put(KEY_AFTER_DURATION_DO, profile._afterDurationDo);
-            values.put(KEY_DEVICE_KEYGUARD, profile._deviceKeyguard);
-            values.put(KEY_VIBRATE_ON_TOUCH, profile._vibrationOnTouch);
-            values.put(KEY_DEVICE_WIFI_AP, profile._deviceWiFiAP);
-            values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
-            values.put(KEY_SHOW_DURATION_BUTTON, 0);
-            values.put(KEY_ASK_FOR_DURATION, (profile._askForDuration) ? 1 : 0);
-            values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
-            values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
-            values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
-            values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
-            values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
-            values.put(KEY_LOCK_DEVICE, profile._lockDevice);
-            values.put(KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
-            values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, profile._applicationDisableWifiScanning);
-            values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, profile._applicationDisableBluetoothScanning);
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            // updating row
-            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                    new String[]{String.valueOf(profile._id)});
-            //db.close();
+                ContentValues values = new ContentValues();
+                values.put(KEY_NAME, profile._name);
+                values.put(KEY_ICON, profile._icon);
+                values.put(KEY_CHECKED, (profile._checked) ? 1 : 0);
+                values.put(KEY_PORDER, profile._porder);
+                values.put(KEY_VOLUME_RINGER_MODE, profile._volumeRingerMode);
+                values.put(KEY_VOLUME_ZEN_MODE, profile._volumeZenMode);
+                values.put(KEY_VOLUME_RINGTONE, profile._volumeRingtone);
+                values.put(KEY_VOLUME_NOTIFICATION, profile._volumeNotification);
+                values.put(KEY_VOLUME_MEDIA, profile._volumeMedia);
+                values.put(KEY_VOLUME_ALARM, profile._volumeAlarm);
+                values.put(KEY_VOLUME_SYSTEM, profile._volumeSystem);
+                values.put(KEY_VOLUME_VOICE, profile._volumeVoice);
+                values.put(KEY_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);
+                values.put(KEY_SOUND_RINGTONE, profile._soundRingtone);
+                values.put(KEY_SOUND_NOTIFICATION_CHANGE, profile._soundNotificationChange);
+                values.put(KEY_SOUND_NOTIFICATION, profile._soundNotification);
+                values.put(KEY_SOUND_ALARM_CHANGE, profile._soundAlarmChange);
+                values.put(KEY_SOUND_ALARM, profile._soundAlarm);
+                values.put(KEY_DEVICE_AIRPLANE_MODE, profile._deviceAirplaneMode);
+                values.put(KEY_DEVICE_WIFI, profile._deviceWiFi);
+                values.put(KEY_DEVICE_BLUETOOTH, profile._deviceBluetooth);
+                values.put(KEY_DEVICE_SCREEN_TIMEOUT, profile._deviceScreenTimeout);
+                values.put(KEY_DEVICE_BRIGHTNESS, profile._deviceBrightness);
+                values.put(KEY_DEVICE_WALLPAPER_CHANGE, profile._deviceWallpaperChange);
+                values.put(KEY_DEVICE_WALLPAPER, profile._deviceWallpaper);
+                values.put(KEY_DEVICE_MOBILE_DATA, profile._deviceMobileData);
+                values.put(KEY_DEVICE_MOBILE_DATA_PREFS, profile._deviceMobileDataPrefs);
+                values.put(KEY_DEVICE_GPS, profile._deviceGPS);
+                values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
+                values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
+                values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutoSync);
+                values.put(KEY_SHOW_IN_ACTIVATOR, (profile._showInActivator) ? 1 : 0);
+                values.put(KEY_DEVICE_AUTOROTATE, profile._deviceAutoRotate);
+                values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs);
+                values.put(KEY_VOLUME_SPEAKER_PHONE, profile._volumeSpeakerPhone);
+                values.put(KEY_DEVICE_NFC, profile._deviceNFC);
+                values.put(KEY_DURATION, profile._duration);
+                values.put(KEY_AFTER_DURATION_DO, profile._afterDurationDo);
+                values.put(KEY_DEVICE_KEYGUARD, profile._deviceKeyguard);
+                values.put(KEY_VIBRATE_ON_TOUCH, profile._vibrationOnTouch);
+                values.put(KEY_DEVICE_WIFI_AP, profile._deviceWiFiAP);
+                values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
+                values.put(KEY_SHOW_DURATION_BUTTON, 0);
+                values.put(KEY_ASK_FOR_DURATION, (profile._askForDuration) ? 1 : 0);
+                values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
+                values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
+                values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
+                values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
+                values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
+                values.put(KEY_LOCK_DEVICE, profile._lockDevice);
+                values.put(KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
+                values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, profile._applicationDisableWifiScanning);
+                values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, profile._applicationDisableBluetoothScanning);
+
+                // updating row
+                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                        new String[]{String.valueOf(profile._id)});
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
         }
     }
 
     // Deleting single profile
     void deleteProfile(Profile profile) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            db.beginTransaction();
+        importExportLock.lock();
+        try {
             try {
+                startRunningCommand();
 
-                // unlink shortcuts from profile
-                String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
-                for (String split : splits) {
-                    boolean shortcut = ApplicationsCache.isShortcut(split);
-                    if (shortcut) {
-                        long shortcutId = ApplicationsCache.getShortcutId(split);
-                        deleteShortcut(shortcutId);
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                db.beginTransaction();
+                try {
+
+                    // unlink shortcuts from profile
+                    String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
+                    for (String split : splits) {
+                        boolean shortcut = ApplicationsCache.isShortcut(split);
+                        if (shortcut) {
+                            long shortcutId = ApplicationsCache.getShortcutId(split);
+                            deleteShortcut(shortcutId);
+                        }
                     }
+
+                    db.delete(TABLE_PROFILES, KEY_ID + " = ?",
+                            new String[]{String.valueOf(profile._id)});
+
+                    // unlink profile from events
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_E_FK_PROFILE_START, 0);
+                    db.update(TABLE_EVENTS, values, KEY_E_FK_PROFILE_START + " = ?",
+                            new String[]{String.valueOf(profile._id)});
+
+                    ContentValues values2 = new ContentValues();
+                    values2.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
+                    db.update(TABLE_EVENTS, values2, KEY_E_FK_PROFILE_END + " = ?",
+                            new String[]{String.valueOf(profile._id)});
+
+                    ContentValues values3 = new ContentValues();
+                    values3.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
+                    db.update(TABLE_EVENTS, values3, KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " = ?",
+                            new String[]{String.valueOf(profile._id)});
+
+                    db.setTransactionSuccessful();
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
                 }
 
-                db.delete(TABLE_PROFILES, KEY_ID + " = ?",
-                        new String[]{String.valueOf(profile._id)});
-
-                // unlink profile from events
-                ContentValues values = new ContentValues();
-                values.put(KEY_E_FK_PROFILE_START, 0);
-                db.update(TABLE_EVENTS, values, KEY_E_FK_PROFILE_START + " = ?",
-                        new String[]{String.valueOf(profile._id)});
-
-                ContentValues values2 = new ContentValues();
-                values2.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
-                db.update(TABLE_EVENTS, values2, KEY_E_FK_PROFILE_END + " = ?",
-                        new String[]{String.valueOf(profile._id)});
-
-                ContentValues values3 = new ContentValues();
-                values3.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
-                db.update(TABLE_EVENTS, values3, KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " = ?",
-                        new String[]{String.valueOf(profile._id)});
-
-                db.setTransactionSuccessful();
-            } catch (Exception e) {
-                //Error in between database transaction
-            } finally {
-                db.endTransaction();
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
     // Deleting all profiles
     void deleteAllProfiles() {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            db.beginTransaction();
-
+        importExportLock.lock();
+        try {
             try {
-                db.delete(TABLE_PROFILES, null, null);
+                startRunningCommand();
 
-                db.delete(TABLE_SHORTCUTS, null, null);
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-                // unlink profiles from events
-                ContentValues values = new ContentValues();
-                values.put(KEY_E_FK_PROFILE_START, 0);
-                values.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
-                values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
-                db.update(TABLE_EVENTS, values, null, null);
+                db.beginTransaction();
 
-                db.setTransactionSuccessful();
-            } catch (Exception e) {
-                //Error in between database transaction
-            } finally {
-                db.endTransaction();
+                try {
+                    db.delete(TABLE_PROFILES, null, null);
+
+                    db.delete(TABLE_SHORTCUTS, null, null);
+
+                    // unlink profiles from events
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_E_FK_PROFILE_START, 0);
+                    values.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
+                    values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
+                    db.update(TABLE_EVENTS, values, null, null);
+
+                    db.setTransactionSuccessful();
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
     // Getting profiles Count
     int getProfilesCount(boolean forActivator, Context context) {
-        synchronized (databaseHandlerMutex) {
-            final String countQuery;
-            if (forActivator)
-                countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES + " WHERE " + KEY_SHOW_IN_ACTIVATOR + "=1";
-            else
-                countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES;
+        importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                startRunningCommand();
 
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
+                final String countQuery;
+                if (forActivator)
+                    countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES + " WHERE " + KEY_SHOW_IN_ACTIVATOR + "=1";
+                else
+                    countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES;
 
-            Cursor cursor = db.rawQuery(countQuery, null);
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            int r;
+                Cursor cursor = db.rawQuery(countQuery, null);
 
-            if (cursor != null) {
-                cursor.moveToFirst();
-                r = Integer.parseInt(cursor.getString(0));
-                cursor.close();
-            } else
-                r = 0;
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    r = Integer.parseInt(cursor.getString(0));
+                    cursor.close();
+                } else
+                    r = 0;
 
-            //db.close();
+                //db.close();
 
-            if (forActivator && (!ApplicationPreferences.applicationActivatorHeader(context))) {
-                Profile profile = getActivatedProfile();
-                if ((profile != null) && (!profile._showInActivator)) {
-                    r++;
+                if (forActivator && (!ApplicationPreferences.applicationActivatorHeader(context))) {
+                    Profile profile = getActivatedProfile();
+                    if ((profile != null) && (!profile._showInActivator)) {
+                        r++;
+                    }
                 }
-            }
 
+            } catch (Exception ignored) {
+            }
             return r;
+        } finally {
+            stopRunningCommand();
         }
     }
 
     // Getting max(porder)
     private int getMaxProfileOrder() {
-        synchronized (databaseHandlerMutex) {
-            String countQuery = "SELECT MAX(" + KEY_PORDER + ") FROM " + TABLE_PROFILES;
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
+        importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                startRunningCommand();
 
-            Cursor cursor = db.rawQuery(countQuery, null);
+                String countQuery = "SELECT MAX(" + KEY_PORDER + ") FROM " + TABLE_PROFILES;
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            int r;
+                Cursor cursor = db.rawQuery(countQuery, null);
 
-            if (cursor.getCount() == 0) {
-                r = 0;
-            } else {
-                if (cursor.moveToFirst()) {
-                    r = cursor.getInt(0);
-                } else {
+                if (cursor.getCount() == 0) {
                     r = 0;
+                } else {
+                    if (cursor.moveToFirst()) {
+                        r = cursor.getInt(0);
+                    } else {
+                        r = 0;
+                    }
                 }
+
+                cursor.close();
+                //db.close();
+
+            } catch (Exception ignored) {
             }
-
-            cursor.close();
-            //db.close();
-
             return r;
+        } finally {
+            stopRunningCommand();
         }
     }
 
     private void doActivateProfile(Profile profile, boolean activate)
     {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            db.beginTransaction();
+        importExportLock.lock();
+        try {
             try {
-                // update all profiles checked to false
-                ContentValues valuesAll = new ContentValues();
-                valuesAll.put(KEY_CHECKED, 0);
-                db.update(TABLE_PROFILES, valuesAll, null, null);
+                startRunningCommand();
 
-                // updating checked = true for profile
-                //profile.setChecked(true);
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-                if (activate && (profile != null)) {
-                    ContentValues values = new ContentValues();
-                    //values.put(KEY_CHECKED, (profile.getChecked()) ? 1 : 0);
-                    values.put(KEY_CHECKED, 1);
+                db.beginTransaction();
+                try {
+                    // update all profiles checked to false
+                    ContentValues valuesAll = new ContentValues();
+                    valuesAll.put(KEY_CHECKED, 0);
+                    db.update(TABLE_PROFILES, valuesAll, null, null);
 
-                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                            new String[]{String.valueOf(profile._id)});
+                    // updating checked = true for profile
+                    //profile.setChecked(true);
+
+                    if (activate && (profile != null)) {
+                        ContentValues values = new ContentValues();
+                        //values.put(KEY_CHECKED, (profile.getChecked()) ? 1 : 0);
+                        values.put(KEY_CHECKED, 1);
+
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[]{String.valueOf(profile._id)});
+                    }
+
+                    db.setTransactionSuccessful();
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
                 }
 
-                db.setTransactionSuccessful();
-            } catch (Exception e) {
-                //Error in between database transaction
-            } finally {
-                db.endTransaction();
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
@@ -2589,458 +2681,442 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     Profile getActivatedProfile()
     {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
+        importExportLock.lock();
+        try {
+            Profile profile = null;
+            try {
+                startRunningCommand();
 
-            Profile profile;
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            Cursor cursor = db.query(TABLE_PROFILES,
-                    new String[]{KEY_ID,
-                            KEY_NAME,
-                            KEY_ICON,
-                            KEY_CHECKED,
-                            KEY_PORDER,
-                            KEY_VOLUME_RINGER_MODE,
-                            KEY_VOLUME_RINGTONE,
-                            KEY_VOLUME_NOTIFICATION,
-                            KEY_VOLUME_MEDIA,
-                            KEY_VOLUME_ALARM,
-                            KEY_VOLUME_SYSTEM,
-                            KEY_VOLUME_VOICE,
-                            KEY_SOUND_RINGTONE_CHANGE,
-                            KEY_SOUND_RINGTONE,
-                            KEY_SOUND_NOTIFICATION_CHANGE,
-                            KEY_SOUND_NOTIFICATION,
-                            KEY_SOUND_ALARM_CHANGE,
-                            KEY_SOUND_ALARM,
-                            KEY_DEVICE_AIRPLANE_MODE,
-                            KEY_DEVICE_WIFI,
-                            KEY_DEVICE_BLUETOOTH,
-                            KEY_DEVICE_SCREEN_TIMEOUT,
-                            KEY_DEVICE_BRIGHTNESS,
-                            KEY_DEVICE_WALLPAPER_CHANGE,
-                            KEY_DEVICE_WALLPAPER,
-                            KEY_DEVICE_MOBILE_DATA,
-                            KEY_DEVICE_MOBILE_DATA_PREFS,
-                            KEY_DEVICE_GPS,
-                            KEY_DEVICE_RUN_APPLICATION_CHANGE,
-                            KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
-                            KEY_DEVICE_AUTOSYNC,
-                            KEY_SHOW_IN_ACTIVATOR,
-                            KEY_DEVICE_AUTOROTATE,
-                            KEY_DEVICE_LOCATION_SERVICE_PREFS,
-                            KEY_VOLUME_SPEAKER_PHONE,
-                            KEY_DEVICE_NFC,
-                            KEY_DURATION,
-                            KEY_AFTER_DURATION_DO,
-                            KEY_VOLUME_ZEN_MODE,
-                            KEY_DEVICE_KEYGUARD,
-                            KEY_VIBRATE_ON_TOUCH,
-                            KEY_DEVICE_WIFI_AP,
-                            KEY_DEVICE_POWER_SAVE_MODE,
-                            KEY_SHOW_DURATION_BUTTON,
-                            KEY_ASK_FOR_DURATION,
-                            KEY_DEVICE_NETWORK_TYPE,
-                            KEY_NOTIFICATION_LED,
-                            KEY_VIBRATE_WHEN_RINGING,
-                            KEY_DEVICE_WALLPAPER_FOR,
-                            KEY_HIDE_STATUS_BAR_ICON,
-                            KEY_LOCK_DEVICE,
-                            KEY_DEVICE_CONNECT_TO_SSID,
-                            KEY_APPLICATION_DISABLE_WIFI_SCANNING,
-                            KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING
-                    },
-                    KEY_CHECKED + "=?",
-                    new String[]{"1"}, null, null, null, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
+                Cursor cursor = db.query(TABLE_PROFILES,
+                        new String[]{KEY_ID,
+                                KEY_NAME,
+                                KEY_ICON,
+                                KEY_CHECKED,
+                                KEY_PORDER,
+                                KEY_VOLUME_RINGER_MODE,
+                                KEY_VOLUME_RINGTONE,
+                                KEY_VOLUME_NOTIFICATION,
+                                KEY_VOLUME_MEDIA,
+                                KEY_VOLUME_ALARM,
+                                KEY_VOLUME_SYSTEM,
+                                KEY_VOLUME_VOICE,
+                                KEY_SOUND_RINGTONE_CHANGE,
+                                KEY_SOUND_RINGTONE,
+                                KEY_SOUND_NOTIFICATION_CHANGE,
+                                KEY_SOUND_NOTIFICATION,
+                                KEY_SOUND_ALARM_CHANGE,
+                                KEY_SOUND_ALARM,
+                                KEY_DEVICE_AIRPLANE_MODE,
+                                KEY_DEVICE_WIFI,
+                                KEY_DEVICE_BLUETOOTH,
+                                KEY_DEVICE_SCREEN_TIMEOUT,
+                                KEY_DEVICE_BRIGHTNESS,
+                                KEY_DEVICE_WALLPAPER_CHANGE,
+                                KEY_DEVICE_WALLPAPER,
+                                KEY_DEVICE_MOBILE_DATA,
+                                KEY_DEVICE_MOBILE_DATA_PREFS,
+                                KEY_DEVICE_GPS,
+                                KEY_DEVICE_RUN_APPLICATION_CHANGE,
+                                KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
+                                KEY_DEVICE_AUTOSYNC,
+                                KEY_SHOW_IN_ACTIVATOR,
+                                KEY_DEVICE_AUTOROTATE,
+                                KEY_DEVICE_LOCATION_SERVICE_PREFS,
+                                KEY_VOLUME_SPEAKER_PHONE,
+                                KEY_DEVICE_NFC,
+                                KEY_DURATION,
+                                KEY_AFTER_DURATION_DO,
+                                KEY_VOLUME_ZEN_MODE,
+                                KEY_DEVICE_KEYGUARD,
+                                KEY_VIBRATE_ON_TOUCH,
+                                KEY_DEVICE_WIFI_AP,
+                                KEY_DEVICE_POWER_SAVE_MODE,
+                                KEY_SHOW_DURATION_BUTTON,
+                                KEY_ASK_FOR_DURATION,
+                                KEY_DEVICE_NETWORK_TYPE,
+                                KEY_NOTIFICATION_LED,
+                                KEY_VIBRATE_WHEN_RINGING,
+                                KEY_DEVICE_WALLPAPER_FOR,
+                                KEY_HIDE_STATUS_BAR_ICON,
+                                KEY_LOCK_DEVICE,
+                                KEY_DEVICE_CONNECT_TO_SSID,
+                                KEY_APPLICATION_DISABLE_WIFI_SCANNING,
+                                KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING
+                        },
+                        KEY_CHECKED + "=?",
+                        new String[]{"1"}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
 
-                int rc = cursor.getCount();
+                    int rc = cursor.getCount();
 
-                if (rc == 1) {
+                    if (rc == 1) {
 
-                    profile = new Profile(Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID))),
-                            cursor.getString(cursor.getColumnIndex(KEY_NAME)),
-                            cursor.getString(cursor.getColumnIndex(KEY_ICON)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_CHECKED))) == 1,
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_PORDER))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_RINGER_MODE))),
-                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_RINGTONE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_NOTIFICATION)),
-                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_MEDIA)),
-                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ALARM)),
-                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_SYSTEM)),
-                            cursor.getString(cursor.getColumnIndex(KEY_VOLUME_VOICE)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE_CHANGE))),
-                            cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE))),
-                            cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM_CHANGE))),
-                            cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AIRPLANE_MODE))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BLUETOOTH))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_SCREEN_TIMEOUT))),
-                            cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BRIGHTNESS)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE))),
-                            cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_PREFS))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_GPS))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_CHANGE))),
-                            cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOSYNC))),
-                            cursor.isNull(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR)) || (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR))) == 1),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOROTATE))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LOCATION_SERVICE_PREFS))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_SPEAKER_PHONE))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NFC))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DURATION))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_AFTER_DURATION_DO))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ZEN_MODE))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_KEYGUARD))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_ON_TOUCH))),
-                            cursor.isNull(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP)) ? 0 : Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ASK_FOR_DURATION))) == 1,
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_NOTIFICATION_LED))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_WHEN_RINGING))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOR))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HIDE_STATUS_BAR_ICON))) == 1,
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_LOCK_DEVICE))),
-                            cursor.getString(cursor.getColumnIndex(KEY_DEVICE_CONNECT_TO_SSID)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_WIFI_SCANNING))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)))
-                    );
+                        profile = new Profile(Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID))),
+                                cursor.getString(cursor.getColumnIndex(KEY_NAME)),
+                                cursor.getString(cursor.getColumnIndex(KEY_ICON)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_CHECKED))) == 1,
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_PORDER))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_RINGER_MODE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_RINGTONE)),
+                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_NOTIFICATION)),
+                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_MEDIA)),
+                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ALARM)),
+                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_SYSTEM)),
+                                cursor.getString(cursor.getColumnIndex(KEY_VOLUME_VOICE)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE_CHANGE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM_CHANGE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AIRPLANE_MODE))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BLUETOOTH))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_SCREEN_TIMEOUT))),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_BRIGHTNESS)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_PREFS))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_GPS))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_CHANGE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOSYNC))),
+                                cursor.isNull(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR)) || (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR))) == 1),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_AUTOROTATE))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LOCATION_SERVICE_PREFS))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_SPEAKER_PHONE))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NFC))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DURATION))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_AFTER_DURATION_DO))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VOLUME_ZEN_MODE))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_KEYGUARD))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_ON_TOUCH))),
+                                cursor.isNull(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP)) ? 0 : Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ASK_FOR_DURATION))) == 1,
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_NOTIFICATION_LED))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_VIBRATE_WHEN_RINGING))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOR))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HIDE_STATUS_BAR_ICON))) == 1,
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_LOCK_DEVICE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_CONNECT_TO_SSID)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_WIFI_SCANNING))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)))
+                        );
+                    } else
+                        profile = null;
+
+                    cursor.close();
                 } else
                     profile = null;
 
-                cursor.close();
-            } else
-                profile = null;
+                //db.close();
 
-            //db.close();
-
-            // return profile
+            } catch (Exception ignored) {
+            }
             return profile;
+        } finally {
+            stopRunningCommand();
         }
     }
 
     long getProfileIdByName(String name)
     {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
+        importExportLock.lock();
+        try {
             long id = 0;
+            try {
+                startRunningCommand();
 
-            Cursor cursor = db.query(TABLE_PROFILES,
-                    new String[]{KEY_ID},
-                    KEY_NAME + "=?",
-                    new String[]{name}, null, null, null, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-                int rc = cursor.getCount();
+                Cursor cursor = db.query(TABLE_PROFILES,
+                        new String[]{KEY_ID},
+                        KEY_NAME + "=?",
+                        new String[]{name}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
 
-                if (rc == 1) {
-                    id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                    int rc = cursor.getCount();
+
+                    if (rc == 1) {
+                        id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                    }
+
+                    cursor.close();
                 }
 
-                cursor.close();
+                //db.close();
+
+            } catch (Exception ignored) {
             }
-
-            //db.close();
-
-            // return id
             return id;
+        } finally {
+            stopRunningCommand();
         }
     }
 
     void setProfileOrder(List<Profile> list)
     {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-
-            db.beginTransaction();
+        importExportLock.lock();
+        try {
             try {
+                startRunningCommand();
 
-                for (int i = 0; i < list.size(); i++) {
-                    Profile profile = list.get(i);
-                    profile._porder = i + 1;
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-                    values.put(KEY_PORDER, profile._porder);
+                ContentValues values = new ContentValues();
 
-                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                            new String[]{String.valueOf(profile._id)});
+                db.beginTransaction();
+                try {
+
+                    for (int i = 0; i < list.size(); i++) {
+                        Profile profile = list.get(i);
+                        profile._porder = i + 1;
+
+                        values.put(KEY_PORDER, profile._porder);
+
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[]{String.valueOf(profile._id)});
+                    }
+
+                    db.setTransactionSuccessful();
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
                 }
 
-                db.setTransactionSuccessful();
-            } catch (Exception e) {
-                //Error in between database transaction
-            } finally {
-                db.endTransaction();
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
-
-    /*
-    void setChecked(List<Profile> list)
-    {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-
-            db.beginTransaction();
-            try {
-
-                for (Profile profile : list) {
-                    values.put(KEY_CHECKED, profile._checked);
-
-                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                            new String[]{String.valueOf(profile._id)});
-                }
-
-                db.setTransactionSuccessful();
-            } catch (Exception e) {
-                //Error in between database transaction
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-    */
-
-    /*
-    public int getActiveProfileSpeakerphone()
-    {
-        //SQLiteDatabase db = this.getReadableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        Cursor cursor = db.query(TABLE_PROFILES,
-                new String[]{KEY_VOLUME_SPEAKER_PHONE},
-                KEY_CHECKED + "=?",
-                new String[]{"1"}, null, null, null, null);
-
-        int speakerPhone;
-
-        if (cursor != null)
-        {
-            cursor.moveToFirst();
-
-            int rc = cursor.getCount();
-
-            if (rc == 1)
-            {
-                speakerPhone = Integer.parseInt(cursor.getString(0));
-            }
-            else
-                speakerPhone = 0;
-
-            cursor.close();
-        }
-        else
-            speakerPhone = 0;
-        //db.close();
-
-        return speakerPhone;
-    }
-    */
 
     void getProfileIcon(Profile profile)
     {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
 
-            Cursor cursor = db.query(TABLE_PROFILES,
-                    new String[]{KEY_ICON},
-                    KEY_ID + "=?",
-                    new String[]{Long.toString(profile._id)}, null, null, null, null);
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            if (cursor != null) {
-                if (cursor.moveToFirst())
-                    profile._icon = cursor.getString(cursor.getColumnIndex(KEY_ICON));
-                cursor.close();
+                Cursor cursor = db.query(TABLE_PROFILES,
+                        new String[]{KEY_ICON},
+                        KEY_ID + "=?",
+                        new String[]{Long.toString(profile._id)}, null, null, null, null);
+
+                if (cursor != null) {
+                    if (cursor.moveToFirst())
+                        profile._icon = cursor.getString(cursor.getColumnIndex(KEY_ICON));
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
     void saveMergedProfile(Profile profile) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            db.beginTransaction();
-
+        importExportLock.lock();
+        try {
             try {
-                db.delete(TABLE_MERGED_PROFILE, null, null);
+                startRunningCommand();
 
-                addProfile(profile, true);
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-                db.setTransactionSuccessful();
-            } catch (Exception e) {
-                //Error in between database transaction
-            } finally {
-                db.endTransaction();
+                db.beginTransaction();
+
+                try {
+                    db.delete(TABLE_MERGED_PROFILE, null, null);
+
+                    addProfile(profile, true);
+
+                    db.setTransactionSuccessful();
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
     private void changePictureFilePathToUri(SQLiteDatabase database) {
-        synchronized (databaseHandlerMutex) {
-            SQLiteDatabase db;
-            if (database == null) {
-                //SQLiteDatabase db = this.getWritableDatabase();
-                db = getMyWritableDatabase();
-            } else
-                db = database;
-
-            final String selectQuery = "SELECT " + KEY_ID + "," +
-                    KEY_ICON + "," +
-                    KEY_DEVICE_WALLPAPER_CHANGE + "," +
-                    KEY_DEVICE_WALLPAPER +
-                    " FROM " + TABLE_PROFILES;
-
-            Cursor cursor = db.rawQuery(selectQuery, null);
-
-            if (database == null)
-                db.beginTransaction();
-            //noinspection TryFinallyCanBeTryWithResources
+        importExportLock.lock();
+        try {
             try {
+                startRunningCommand();
 
-                if (cursor.moveToFirst()) {
-                    do {
-                        long id = cursor.getLong(cursor.getColumnIndex(KEY_ID));
-                        String icon = cursor.getString(cursor.getColumnIndex(KEY_ICON));
-                        int wallpaperChange = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE));
-                        String wallpaper = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER));
+                SQLiteDatabase db;
+                if (database == null) {
+                    //SQLiteDatabase db = this.getWritableDatabase();
+                    db = getMyWritableDatabase();
+                } else
+                    db = database;
 
-                        PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "id=" + id);
-                        PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon=" + icon);
-                        PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaperChange=" + wallpaperChange);
-                        PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper=" + wallpaper);
+                final String selectQuery = "SELECT " + KEY_ID + "," +
+                        KEY_ICON + "," +
+                        KEY_DEVICE_WALLPAPER_CHANGE + "," +
+                        KEY_DEVICE_WALLPAPER +
+                        " FROM " + TABLE_PROFILES;
 
-                        ContentValues values = new ContentValues();
+                Cursor cursor = db.rawQuery(selectQuery, null);
 
-                        try {
-                            String[] splits = icon.split("\\|");
-                            String iconIdentifier = splits[0];
-                            String isIconResourceId = splits[1];
-                            String useCustomColorForIcon = "0";
-                            String iconCustomColor = "0";
-                            if (splits.length == 4) {
-                                useCustomColorForIcon = splits[2];
-                                iconCustomColor = splits[3];
-                            }
+                if (database == null)
+                    db.beginTransaction();
+                //noinspection TryFinallyCanBeTryWithResources
+                try {
 
-                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "isIconResourceId=" + isIconResourceId);
+                    if (cursor.moveToFirst()) {
+                        do {
+                            long id = cursor.getLong(cursor.getColumnIndex(KEY_ID));
+                            String icon = cursor.getString(cursor.getColumnIndex(KEY_ICON));
+                            int wallpaperChange = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE));
+                            String wallpaper = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER));
 
-                            if (!isIconResourceId.equals("1")) {
-                                Uri imageUri = ImageViewPreference.getImageContentUri(context, iconIdentifier);
-                                PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon uri=" + imageUri);
-                                if (imageUri != null)
-                                    values.put(KEY_ICON, imageUri.toString() + "|" +
-                                            isIconResourceId + "|" +
-                                            useCustomColorForIcon + "|" +
-                                            iconCustomColor);
-                                else
-                                    values.put(KEY_ICON, "ic_profile_default|1|0|0");
-                            }
-                        } catch (Exception e) {
-                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", e.getMessage());
-                            values.put(KEY_ICON, "ic_profile_default|1|0|0");
-                        }
-                        if (wallpaperChange == 1) {
+                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "id=" + id);
+                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon=" + icon);
+                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaperChange=" + wallpaperChange);
+                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper=" + wallpaper);
+
+                            ContentValues values = new ContentValues();
+
                             try {
-                                String[] splits = wallpaper.split("\\|");
-                                Uri imageUri = ImageViewPreference.getImageContentUri(context, splits[0]);
-                                PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper uri=" + imageUri);
-                                if (imageUri != null)
-                                    values.put(KEY_DEVICE_WALLPAPER, imageUri.toString());
-                                else {
-                                    values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
-                                    values.put(KEY_DEVICE_WALLPAPER, "-");
+                                String[] splits = icon.split("\\|");
+                                String iconIdentifier = splits[0];
+                                String isIconResourceId = splits[1];
+                                String useCustomColorForIcon = "0";
+                                String iconCustomColor = "0";
+                                if (splits.length == 4) {
+                                    useCustomColorForIcon = splits[2];
+                                    iconCustomColor = splits[3];
+                                }
+
+                                PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "isIconResourceId=" + isIconResourceId);
+
+                                if (!isIconResourceId.equals("1")) {
+                                    Uri imageUri = ImageViewPreference.getImageContentUri(context, iconIdentifier);
+                                    PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon uri=" + imageUri);
+                                    if (imageUri != null)
+                                        values.put(KEY_ICON, imageUri.toString() + "|" +
+                                                isIconResourceId + "|" +
+                                                useCustomColorForIcon + "|" +
+                                                iconCustomColor);
+                                    else
+                                        values.put(KEY_ICON, "ic_profile_default|1|0|0");
                                 }
                             } catch (Exception e) {
                                 PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", e.getMessage());
-                                values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
-                                values.put(KEY_DEVICE_WALLPAPER, "-");
+                                values.put(KEY_ICON, "ic_profile_default|1|0|0");
                             }
-                        } else
-                            values.put(KEY_DEVICE_WALLPAPER, "-");
+                            if (wallpaperChange == 1) {
+                                try {
+                                    String[] splits = wallpaper.split("\\|");
+                                    Uri imageUri = ImageViewPreference.getImageContentUri(context, splits[0]);
+                                    PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper uri=" + imageUri);
+                                    if (imageUri != null)
+                                        values.put(KEY_DEVICE_WALLPAPER, imageUri.toString());
+                                    else {
+                                        values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
+                                        values.put(KEY_DEVICE_WALLPAPER, "-");
+                                    }
+                                } catch (Exception e) {
+                                    PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", e.getMessage());
+                                    values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
+                                    values.put(KEY_DEVICE_WALLPAPER, "-");
+                                }
+                            } else
+                                values.put(KEY_DEVICE_WALLPAPER, "-");
 
-                        PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "values.size()=" + values.size());
-                        if (values.size() > 0) {
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?", new String[]{String.valueOf(id)});
-                        }
+                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "values.size()=" + values.size());
+                            if (values.size() > 0) {
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?", new String[]{String.valueOf(id)});
+                            }
 
-                    } while (cursor.moveToNext());
+                        } while (cursor.moveToNext());
+                    }
+
+                    if (database == null)
+                        db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", e.getMessage());
+                } finally {
+                    if (database == null)
+                        db.endTransaction();
+                    cursor.close();
                 }
 
-                if (database == null)
-                    db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", e.getMessage());
-            } finally {
-                if (database == null)
-                    db.endTransaction();
-                cursor.close();
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
     int getTypeProfilesCount(int profileType, boolean sharedProfile)
     {
-        synchronized (databaseHandlerMutex) {
-            final String countQuery;
-            String profileTypeChecked = "";
-            if (profileType == PTYPE_CONNECT_TO_SSID) {
-                if (!sharedProfile)
-                    profileTypeChecked = profileTypeChecked + KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_JUSTANY + "\"";
-                else
-                    profileTypeChecked = profileTypeChecked + KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_DEFAULTPROFILE + "\"";
+        importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                startRunningCommand();
+
+                final String countQuery;
+                String profileTypeChecked = "";
+                if (profileType == PTYPE_CONNECT_TO_SSID) {
+                    if (!sharedProfile)
+                        profileTypeChecked = profileTypeChecked + KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_JUSTANY + "\"";
+                    else
+                        profileTypeChecked = profileTypeChecked + KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_DEFAULTPROFILE + "\"";
+                }
+
+                countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES +
+                        " WHERE " + profileTypeChecked;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(countQuery, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    r = Integer.parseInt(cursor.getString(0));
+                    cursor.close();
+                } else
+                    r = 0;
+
+                //db.close();
+
+            } catch (Exception ignored) {
             }
-
-            countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES +
-                    " WHERE " + profileTypeChecked;
-
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(countQuery, null);
-
-            int r;
-
-            if (cursor != null) {
-                cursor.moveToFirst();
-                r = Integer.parseInt(cursor.getString(0));
-                cursor.close();
-            } else
-                r = 0;
-
-            //db.close();
-
             return r;
+        } finally {
+            stopRunningCommand();
         }
     }
 
@@ -3048,424 +3124,463 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Adding new event
     void addEvent(Event event) {
-        synchronized (databaseHandlerMutex) {
-            int startOrder = getMaxEventStartOrder() + 1;
-
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_NAME, event._name); // Event Name
-            values.put(KEY_E_START_ORDER, startOrder); // start order
-            values.put(KEY_E_FK_PROFILE_START, event._fkProfileStart); // profile start
-            values.put(KEY_E_FK_PROFILE_END, event._fkProfileEnd); // profile end
-            values.put(KEY_E_STATUS, event.getStatus()); // event status
-            values.put(KEY_E_NOTIFICATION_SOUND, event._notificationSound); // notification sound
-            values.put(KEY_E_NOTIFICATION_VIBRATE, event._notificationVibrate); // notification vibrate
-            values.put(KEY_E_FORCE_RUN, event._forceRun ? 1 : 0); // force run when manual profile activation
-            values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0); // temporary blocked
-            values.put(KEY_E_PRIORITY, event._priority); // priority
-            values.put(KEY_E_DELAY_START, event._delayStart); // delay for start
-            values.put(KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0); // event is in delay before start
-            values.put(KEY_E_AT_END_DO, event._atEndDo); //at end of event do
-            values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0); // manual profile activation
-            values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, event._fkProfileStartWhenActivated); // start when profile is activated
-            values.put(KEY_E_DELAY_END, event._delayEnd); // delay for end
-            values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0); // event is in delay after pause
-            values.put(KEY_E_START_STATUS_TIME, event._startStatusTime); // time for status RUNNING
-            values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime); // time for change status from RUNNING to PAUSE
-            values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0); // no pause event by manual profile activation
-
-            db.beginTransaction();
-
+        importExportLock.lock();
+        try {
             try {
-                // Inserting Row
-                event._id = db.insert(TABLE_EVENTS, null, values);
-                updateEventPreferences(event, db);
+                startRunningCommand();
 
-                db.setTransactionSuccessful();
+                int startOrder = getMaxEventStartOrder() + 1;
 
-            } catch (Exception e) {
-                //Error in between database transaction
-            } finally {
-                db.endTransaction();
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_NAME, event._name); // Event Name
+                values.put(KEY_E_START_ORDER, startOrder); // start order
+                values.put(KEY_E_FK_PROFILE_START, event._fkProfileStart); // profile start
+                values.put(KEY_E_FK_PROFILE_END, event._fkProfileEnd); // profile end
+                values.put(KEY_E_STATUS, event.getStatus()); // event status
+                values.put(KEY_E_NOTIFICATION_SOUND, event._notificationSound); // notification sound
+                values.put(KEY_E_NOTIFICATION_VIBRATE, event._notificationVibrate); // notification vibrate
+                values.put(KEY_E_FORCE_RUN, event._forceRun ? 1 : 0); // force run when manual profile activation
+                values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0); // temporary blocked
+                values.put(KEY_E_PRIORITY, event._priority); // priority
+                values.put(KEY_E_DELAY_START, event._delayStart); // delay for start
+                values.put(KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0); // event is in delay before start
+                values.put(KEY_E_AT_END_DO, event._atEndDo); //at end of event do
+                values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0); // manual profile activation
+                values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, event._fkProfileStartWhenActivated); // start when profile is activated
+                values.put(KEY_E_DELAY_END, event._delayEnd); // delay for end
+                values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0); // event is in delay after pause
+                values.put(KEY_E_START_STATUS_TIME, event._startStatusTime); // time for status RUNNING
+                values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime); // time for change status from RUNNING to PAUSE
+                values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0); // no pause event by manual profile activation
+
+                db.beginTransaction();
+
+                try {
+                    // Inserting Row
+                    event._id = db.insert(TABLE_EVENTS, null, values);
+                    updateEventPreferences(event, db);
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close(); // Closing database connection
+            } catch (Exception ignored) {
             }
-
-            //db.close(); // Closing database connection
+        } finally {
+            stopRunningCommand();
         }
     }
 
     // Getting single event
     Event getEvent(long event_id) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.query(TABLE_EVENTS,
-                    new String[]{KEY_E_ID,
-                            KEY_E_NAME,
-                            KEY_E_START_ORDER,
-                            KEY_E_FK_PROFILE_START,
-                            KEY_E_FK_PROFILE_END,
-                            KEY_E_STATUS,
-                            KEY_E_NOTIFICATION_SOUND,
-                            KEY_E_NOTIFICATION_VIBRATE,
-                            KEY_E_FORCE_RUN,
-                            KEY_E_BLOCKED,
-                            KEY_E_PRIORITY,
-                            KEY_E_DELAY_START,
-                            KEY_E_IS_IN_DELAY_START,
-                            KEY_E_AT_END_DO,
-                            KEY_E_MANUAL_PROFILE_ACTIVATION,
-                            KEY_E_FK_PROFILE_START_WHEN_ACTIVATED,
-                            KEY_E_DELAY_END,
-                            KEY_E_IS_IN_DELAY_END,
-                            KEY_E_START_STATUS_TIME,
-                            KEY_E_PAUSE_STATUS_TIME,
-                            KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION
-                    },
-                    KEY_E_ID + "=?",
-                    new String[]{String.valueOf(event_id)}, null, null, null, null);
-
+        importExportLock.lock();
+        try {
             Event event = null;
+            try {
+                startRunningCommand();
 
-            if (cursor != null) {
-                cursor.moveToFirst();
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-                if (cursor.getCount() > 0) {
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{KEY_E_ID,
+                                KEY_E_NAME,
+                                KEY_E_START_ORDER,
+                                KEY_E_FK_PROFILE_START,
+                                KEY_E_FK_PROFILE_END,
+                                KEY_E_STATUS,
+                                KEY_E_NOTIFICATION_SOUND,
+                                KEY_E_NOTIFICATION_VIBRATE,
+                                KEY_E_FORCE_RUN,
+                                KEY_E_BLOCKED,
+                                KEY_E_PRIORITY,
+                                KEY_E_DELAY_START,
+                                KEY_E_IS_IN_DELAY_START,
+                                KEY_E_AT_END_DO,
+                                KEY_E_MANUAL_PROFILE_ACTIVATION,
+                                KEY_E_FK_PROFILE_START_WHEN_ACTIVATED,
+                                KEY_E_DELAY_END,
+                                KEY_E_IS_IN_DELAY_END,
+                                KEY_E_START_STATUS_TIME,
+                                KEY_E_PAUSE_STATUS_TIME,
+                                KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION
+                        },
+                        KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event_id)}, null, null, null, null);
 
-                    event = new Event(Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_ID))),
-                            cursor.getString(cursor.getColumnIndex(KEY_E_NAME)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_START_ORDER))),
-                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_START))),
-                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_END))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_STATUS))),
-                            cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND)),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_FORCE_RUN))) == 1,
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLOCKED))) == 1,
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_PRIORITY))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_DELAY_START))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_START))) == 1,
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_AT_END_DO))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_MANUAL_PROFILE_ACTIVATION))) == 1,
-                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_DELAY_END))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_END))) == 1,
-                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_START_STATUS_TIME))),
-                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_PAUSE_STATUS_TIME))),
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE))) == 1,
-                            Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION))) == 1
-                    );
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+
+                        event = new Event(Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_ID))),
+                                cursor.getString(cursor.getColumnIndex(KEY_E_NAME)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_START_ORDER))),
+                                Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_START))),
+                                Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_END))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_STATUS))),
+                                cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_FORCE_RUN))) == 1,
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLOCKED))) == 1,
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_PRIORITY))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_DELAY_START))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_START))) == 1,
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_AT_END_DO))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_MANUAL_PROFILE_ACTIVATION))) == 1,
+                                Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_DELAY_END))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_END))) == 1,
+                                Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_START_STATUS_TIME))),
+                                Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_PAUSE_STATUS_TIME))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE))) == 1,
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION))) == 1
+                        );
+                    }
+
+                    cursor.close();
                 }
 
-                cursor.close();
+                if (event != null)
+                    getEventPreferences(event, db);
+
+                //db.close();
+
+            } catch (Exception ignored) {
             }
-
-            if (event != null)
-                getEventPreferences(event, db);
-
-            //db.close();
-
-            // return profile
             return event;
+        } finally {
+            stopRunningCommand();
         }
     }
 
     // Getting All Events
     List<Event> getAllEvents() {
-        synchronized (databaseHandlerMutex) {
+        importExportLock.lock();
+        try {
             List<Event> eventList = new ArrayList<>();
+            try {
+                startRunningCommand();
 
-            // Select All Query
-            final String selectQuery = "SELECT " + KEY_E_ID + "," +
-                    KEY_E_NAME + "," +
-                    KEY_E_FK_PROFILE_START + "," +
-                    KEY_E_FK_PROFILE_END + "," +
-                    KEY_E_STATUS + "," +
-                    KEY_E_NOTIFICATION_SOUND + "," +
-                    KEY_E_NOTIFICATION_VIBRATE + "," +
-                    KEY_E_FORCE_RUN + "," +
-                    KEY_E_BLOCKED + "," +
-                    KEY_E_PRIORITY + "," +
-                    KEY_E_DELAY_START + "," +
-                    KEY_E_IS_IN_DELAY_START + "," +
-                    KEY_E_AT_END_DO + "," +
-                    KEY_E_MANUAL_PROFILE_ACTIVATION + "," +
-                    KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + "," +
-                    KEY_E_DELAY_END + "," +
-                    KEY_E_IS_IN_DELAY_END + "," +
-                    KEY_E_START_STATUS_TIME + "," +
-                    KEY_E_PAUSE_STATUS_TIME + "," +
-                    KEY_E_START_ORDER + "," +
-                    KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION +
-                    " FROM " + TABLE_EVENTS +
-                    " ORDER BY " + KEY_E_ID;
+                // Select All Query
+                final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                        KEY_E_NAME + "," +
+                        KEY_E_FK_PROFILE_START + "," +
+                        KEY_E_FK_PROFILE_END + "," +
+                        KEY_E_STATUS + "," +
+                        KEY_E_NOTIFICATION_SOUND + "," +
+                        KEY_E_NOTIFICATION_VIBRATE + "," +
+                        KEY_E_FORCE_RUN + "," +
+                        KEY_E_BLOCKED + "," +
+                        KEY_E_PRIORITY + "," +
+                        KEY_E_DELAY_START + "," +
+                        KEY_E_IS_IN_DELAY_START + "," +
+                        KEY_E_AT_END_DO + "," +
+                        KEY_E_MANUAL_PROFILE_ACTIVATION + "," +
+                        KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + "," +
+                        KEY_E_DELAY_END + "," +
+                        KEY_E_IS_IN_DELAY_END + "," +
+                        KEY_E_START_STATUS_TIME + "," +
+                        KEY_E_PAUSE_STATUS_TIME + "," +
+                        KEY_E_START_ORDER + "," +
+                        KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION +
+                        " FROM " + TABLE_EVENTS +
+                        " ORDER BY " + KEY_E_ID;
 
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            Cursor cursor = db.rawQuery(selectQuery, null);
+                Cursor cursor = db.rawQuery(selectQuery, null);
 
-            // looping through all rows and adding to list
-            if (cursor.moveToFirst()) {
-                do {
-                    Event event = new Event();
-                    event._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_ID)));
-                    event._name = cursor.getString(cursor.getColumnIndex(KEY_E_NAME));
-                    event._fkProfileStart = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_START)));
-                    event._fkProfileEnd = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_END)));
-                    event.setStatus(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_STATUS))));
-                    event._notificationSound = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND));
-                    event._notificationVibrate = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE))) == 1;
-                    event._forceRun = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_FORCE_RUN))) == 1;
-                    event._blocked = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLOCKED))) == 1;
-                    event._priority = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_PRIORITY)));
-                    event._delayStart = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_DELAY_START)));
-                    event._isInDelayStart = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_START))) == 1;
-                    event._atEndDo = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_AT_END_DO)));
-                    event._manualProfileActivation = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_MANUAL_PROFILE_ACTIVATION))) == 1;
-                    event._fkProfileStartWhenActivated = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED)));
-                    event._delayEnd = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_DELAY_END)));
-                    event._isInDelayEnd = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_END))) == 1;
-                    event._startStatusTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_START_STATUS_TIME)));
-                    event._pauseStatusTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_PAUSE_STATUS_TIME)));
-                    event._startOrder = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_START_ORDER)));
-                    event._noPauseByManualActivation = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION))) == 1;
-                    event.createEventPreferences();
-                    getEventPreferences(event, db);
-                    // Adding contact to list
-                    eventList.add(event);
-                } while (cursor.moveToNext());
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        Event event = new Event();
+                        event._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_ID)));
+                        event._name = cursor.getString(cursor.getColumnIndex(KEY_E_NAME));
+                        event._fkProfileStart = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_START)));
+                        event._fkProfileEnd = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_END)));
+                        event.setStatus(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_STATUS))));
+                        event._notificationSound = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND));
+                        event._notificationVibrate = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE))) == 1;
+                        event._forceRun = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_FORCE_RUN))) == 1;
+                        event._blocked = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLOCKED))) == 1;
+                        event._priority = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_PRIORITY)));
+                        event._delayStart = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_DELAY_START)));
+                        event._isInDelayStart = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_START))) == 1;
+                        event._atEndDo = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_AT_END_DO)));
+                        event._manualProfileActivation = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_MANUAL_PROFILE_ACTIVATION))) == 1;
+                        event._fkProfileStartWhenActivated = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED)));
+                        event._delayEnd = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_DELAY_END)));
+                        event._isInDelayEnd = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_END))) == 1;
+                        event._startStatusTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_START_STATUS_TIME)));
+                        event._pauseStatusTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_PAUSE_STATUS_TIME)));
+                        event._startOrder = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_START_ORDER)));
+                        event._noPauseByManualActivation = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION))) == 1;
+                        event.createEventPreferences();
+                        getEventPreferences(event, db);
+                        // Adding contact to list
+                        eventList.add(event);
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+                //db.close();
+
+            } catch (Exception ignored) {
             }
-
-            cursor.close();
-            //db.close();
-
-            // return event list
             return eventList;
+        } finally {
+            stopRunningCommand();
         }
     }
 
     // Updating single event
     void updateEvent(Event event) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_NAME, event._name);
-            values.put(KEY_E_START_ORDER, event._startOrder);
-            values.put(KEY_E_FK_PROFILE_START, event._fkProfileStart);
-            values.put(KEY_E_FK_PROFILE_END, event._fkProfileEnd);
-            values.put(KEY_E_STATUS, event.getStatus());
-            values.put(KEY_E_NOTIFICATION_SOUND, event._notificationSound);
-            values.put(KEY_E_NOTIFICATION_VIBRATE, event._notificationVibrate ? 1 : 0);
-            values.put(KEY_E_FORCE_RUN, event._forceRun ? 1 : 0);
-            values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0);
-            //values.put(KEY_E_UNDONE_PROFILE, 0);
-            values.put(KEY_E_PRIORITY, event._priority);
-            values.put(KEY_E_DELAY_START, event._delayStart);
-            values.put(KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0);
-            values.put(KEY_E_AT_END_DO, event._atEndDo);
-            values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0);
-            values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, event._fkProfileStartWhenActivated);
-            values.put(KEY_E_DELAY_END, event._delayEnd);
-            values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0);
-            values.put(KEY_E_START_STATUS_TIME, event._startStatusTime);
-            values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime);
-            values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0);
-
-            db.beginTransaction();
-
+        importExportLock.lock();
+        try {
             try {
-                // updating row
-                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                        new String[]{String.valueOf(event._id)});
-                updateEventPreferences(event, db);
+                startRunningCommand();
 
-                db.setTransactionSuccessful();
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateEvent", e.toString());
-            } finally {
-                db.endTransaction();
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_NAME, event._name);
+                values.put(KEY_E_START_ORDER, event._startOrder);
+                values.put(KEY_E_FK_PROFILE_START, event._fkProfileStart);
+                values.put(KEY_E_FK_PROFILE_END, event._fkProfileEnd);
+                values.put(KEY_E_STATUS, event.getStatus());
+                values.put(KEY_E_NOTIFICATION_SOUND, event._notificationSound);
+                values.put(KEY_E_NOTIFICATION_VIBRATE, event._notificationVibrate ? 1 : 0);
+                values.put(KEY_E_FORCE_RUN, event._forceRun ? 1 : 0);
+                values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0);
+                //values.put(KEY_E_UNDONE_PROFILE, 0);
+                values.put(KEY_E_PRIORITY, event._priority);
+                values.put(KEY_E_DELAY_START, event._delayStart);
+                values.put(KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0);
+                values.put(KEY_E_AT_END_DO, event._atEndDo);
+                values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0);
+                values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, event._fkProfileStartWhenActivated);
+                values.put(KEY_E_DELAY_END, event._delayEnd);
+                values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0);
+                values.put(KEY_E_START_STATUS_TIME, event._startStatusTime);
+                values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime);
+                values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+                    updateEventPreferences(event, db);
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateEvent", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
     // Deleting single event
     void deleteEvent(Event event) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-            db.delete(TABLE_EVENTS, KEY_E_ID + " = ?",
-                    new String[]{String.valueOf(event._id)});
-            //db.close();
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+                db.delete(TABLE_EVENTS, KEY_E_ID + " = ?",
+                        new String[]{String.valueOf(event._id)});
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
         }
     }
 
     // Deleting all events
     void deleteAllEvents() {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-            db.delete(TABLE_EVENTS, null, null);
-            //db.close();
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+                db.delete(TABLE_EVENTS, null, null);
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
         }
     }
-
-    /*
-    // Getting events Count
-    public int getEventsCount() {
-        final String countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS;
-        //SQLiteDatabase db = this.getReadableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        Cursor cursor = db.rawQuery(countQuery, null);
-
-        int r;
-
-        if (cursor != null)
-        {
-            cursor.moveToFirst();
-            r = Integer.parseInt(cursor.getString(0));
-            cursor.close();
-        }
-        else
-            r = 0;
-
-        //db.close();
-
-        return r;
-    }
-    */
 
     void unlinkEventsFromProfile(Profile profile)
     {
-        synchronized (databaseHandlerMutex) {
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            db.beginTransaction();
-
+        importExportLock.lock();
+        try {
             try {
-                ContentValues values = new ContentValues();
-                values.put(KEY_E_FK_PROFILE_START, 0);
-                // updating row
-                db.update(TABLE_EVENTS, values, KEY_E_FK_PROFILE_START + " = ?",
-                        new String[]{String.valueOf(profile._id)});
+                startRunningCommand();
 
-                ContentValues values2 = new ContentValues();
-                values2.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
-                // updating row
-                db.update(TABLE_EVENTS, values2, KEY_E_FK_PROFILE_END + " = ?",
-                        new String[]{String.valueOf(profile._id)});
+                SQLiteDatabase db = getMyWritableDatabase();
 
-                ContentValues values3 = new ContentValues();
-                values3.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
-                // updating row
-                db.update(TABLE_EVENTS, values3, KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " = ?",
-                        new String[]{String.valueOf(profile._id)});
+                db.beginTransaction();
 
-                db.setTransactionSuccessful();
+                try {
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_E_FK_PROFILE_START, 0);
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_FK_PROFILE_START + " = ?",
+                            new String[]{String.valueOf(profile._id)});
 
-            } catch (Exception e) {
-                //Error in between database transaction
-            } finally {
-                db.endTransaction();
+                    ContentValues values2 = new ContentValues();
+                    values2.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
+                    // updating row
+                    db.update(TABLE_EVENTS, values2, KEY_E_FK_PROFILE_END + " = ?",
+                            new String[]{String.valueOf(profile._id)});
+
+                    ContentValues values3 = new ContentValues();
+                    values3.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
+                    // updating row
+                    db.update(TABLE_EVENTS, values3, KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " = ?",
+                            new String[]{String.valueOf(profile._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
     void unlinkAllEvents()
     {
-        synchronized (databaseHandlerMutex) {
-            SQLiteDatabase db = getMyWritableDatabase();
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
 
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_FK_PROFILE_START, 0);
-            values.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
-            values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            // updating row
-            db.update(TABLE_EVENTS, values, null, null);
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_FK_PROFILE_START, 0);
+                values.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
+                values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
 
-            //db.close();
+                // updating row
+                db.update(TABLE_EVENTS, values, null, null);
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
         }
     }
 
     // Getting max(startOrder)
     private int getMaxEventStartOrder() {
-        synchronized (databaseHandlerMutex) {
-            String countQuery = "SELECT MAX(" + KEY_E_START_ORDER + ") FROM " + TABLE_EVENTS;
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
+        importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                startRunningCommand();
 
-            Cursor cursor = db.rawQuery(countQuery, null);
+                String countQuery = "SELECT MAX(" + KEY_E_START_ORDER + ") FROM " + TABLE_EVENTS;
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            int r;
+                Cursor cursor = db.rawQuery(countQuery, null);
 
-            if (cursor.getCount() == 0) {
-                r = 0;
-            } else {
-                if (cursor.moveToFirst()) {
-                    r = cursor.getInt(0);
-                } else {
+                if (cursor.getCount() == 0) {
                     r = 0;
+                } else {
+                    if (cursor.moveToFirst()) {
+                        r = cursor.getInt(0);
+                    } else {
+                        r = 0;
+                    }
                 }
+
+                cursor.close();
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            cursor.close();
-            //db.close();
-
             return r;
+        } finally {
+            stopRunningCommand();
         }
     }
 
     void setEventStartOrder(List<Event> list)
     {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-
-            db.beginTransaction();
+        importExportLock.lock();
+        try {
             try {
+                startRunningCommand();
 
-                for (int i = 0; i < list.size(); i++) {
-                    Event event = list.get(i);
-                    event._startOrder = i + 1;
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-                    values.put(KEY_E_START_ORDER, event._startOrder);
+                ContentValues values = new ContentValues();
 
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                            new String[]{String.valueOf(event._id)});
+                db.beginTransaction();
+                try {
+
+                    for (int i = 0; i < list.size(); i++) {
+                        Event event = list.get(i);
+                        event._startOrder = i + 1;
+
+                        values.put(KEY_E_START_ORDER, event._startOrder);
+
+                        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                new String[]{String.valueOf(event._id)});
+                    }
+
+                    db.setTransactionSuccessful();
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
                 }
 
-                db.setTransactionSuccessful();
-            } catch (Exception e) {
-                //Error in between database transaction
-            } finally {
-                db.endTransaction();
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
-
-    /*
-    public void getEventPreferences(Event event) {
-        //SQLiteDatabase db = this.getReadableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-        getEventPreferences(event, db);
-        //db.close();
-    }
-    */
 
     private void getEventPreferences(Event event, SQLiteDatabase db) {
         getEventPreferencesTime(event, db);
@@ -3965,18 +4080,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    /*
-    public int updateEventPreferences(Event event) {
-        //SQLiteDatabase db = this.getReadableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-        int r = updateEventPreferences(event, db);
-        //db.close();
-        return r;
-    }
-    */
-
     private void updateEventPreferences(Event event, SQLiteDatabase db) {
-
         updateEventPreferencesTime(event, db);
         updateEventPreferencesBattery(event, db);
         updateEventPreferencesCall(event, db);
@@ -4260,684 +4364,265 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     int getEventStatus(Event event)
     {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
+        importExportLock.lock();
+        try {
             int eventStatus = 0;
+            try {
+                startRunningCommand();
 
-            Cursor cursor = db.query(TABLE_EVENTS,
-                    new String[]{
-                            KEY_E_STATUS
-                    },
-                    KEY_E_ID + "=?",
-                    new String[]{String.valueOf(event._id)}, null, null, null, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-                if (cursor.getCount() > 0) {
-                    eventStatus = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_STATUS)));
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{
+                                KEY_E_STATUS
+                        },
+                        KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        eventStatus = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_STATUS)));
+                    }
+
+                    cursor.close();
                 }
 
-                cursor.close();
+                //db.close();
+
+            } catch (Exception ignored) {
             }
-
-            //db.close();
-
             return eventStatus;
+        } finally {
+            stopRunningCommand();
         }
     }
 
     void updateEventStatus(Event event)
     {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            int status = event.getStatus();
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_STATUS, status);
-
-            db.beginTransaction();
-
+        importExportLock.lock();
+        try {
             try {
-                // updating row
-                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                        new String[]{String.valueOf(event._id)});
+                startRunningCommand();
 
-                db.setTransactionSuccessful();
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateEventStatus", e.toString());
-            } finally {
-                db.endTransaction();
+                int status = event.getStatus();
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_STATUS, status);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateEventStatus", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
     void updateEventBlocked(Event event)
     {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0);
-
-            db.beginTransaction();
-
+        importExportLock.lock();
+        try {
             try {
-                // updating row
-                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                        new String[]{String.valueOf(event._id)});
+                startRunningCommand();
 
-                db.setTransactionSuccessful();
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateEventBlocked", e.toString());
-            } finally {
-                db.endTransaction();
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateEventBlocked", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
     void unblockAllEvents()
     {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_BLOCKED, 0);
-
-            db.beginTransaction();
-
+        importExportLock.lock();
+        try {
             try {
-                // updating rows
-                db.update(TABLE_EVENTS, values, null, null);
+                startRunningCommand();
 
-                db.setTransactionSuccessful();
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.unblockAllEvents", e.toString());
-            } finally {
-                db.endTransaction();
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_BLOCKED, 0);
+
+                db.beginTransaction();
+
+                try {
+                    // updating rows
+                    db.update(TABLE_EVENTS, values, null, null);
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.unblockAllEvents", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
     private void updateAllEventsStatus(int fromStatus, int toStatus)
     {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_STATUS, toStatus);
-
-            db.beginTransaction();
-
+        importExportLock.lock();
+        try {
             try {
-                // updating rows
-                db.update(TABLE_EVENTS, values, KEY_E_STATUS + " = ?",
-                        new String[]{String.valueOf(fromStatus)});
+                startRunningCommand();
 
-                db.setTransactionSuccessful();
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateAllEventsStatus", e.toString());
-            } finally {
-                db.endTransaction();
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_STATUS, toStatus);
+
+                db.beginTransaction();
+
+                try {
+                    // updating rows
+                    db.update(TABLE_EVENTS, values, KEY_E_STATUS + " = ?",
+                            new String[]{String.valueOf(fromStatus)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateAllEventsStatus", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
     int getTypeEventsCount(int eventType)
     {
-        synchronized (databaseHandlerMutex) {
-            final String countQuery;
-            String eventTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
-            if (eventType == ETYPE_TIME)
-                eventTypeChecked = eventTypeChecked + KEY_E_TIME_ENABLED + "=1";
-            else if (eventType == ETYPE_BATTERY)
-                eventTypeChecked = eventTypeChecked + KEY_E_BATTERY_ENABLED + "=1";
-            else if (eventType == ETYPE_CALL)
-                eventTypeChecked = eventTypeChecked + KEY_E_CALL_ENABLED + "=1";
-            else if (eventType == ETYPE_PERIPHERAL)
-                eventTypeChecked = eventTypeChecked + KEY_E_PERIPHERAL_ENABLED + "=1";
-            else if (eventType == ETYPE_CALENDAR)
-                eventTypeChecked = eventTypeChecked + KEY_E_CALENDAR_ENABLED + "=1";
-            else if (eventType == ETYPE_WIFICONNECTED)
-                eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
-                        "(" + KEY_E_WIFI_CONNECTION_TYPE + "=0 OR " + KEY_E_WIFI_CONNECTION_TYPE + "=2)";
-            else if (eventType == ETYPE_WIFIINFRONT)
-                eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
-                        "(" + KEY_E_WIFI_CONNECTION_TYPE + "=1 OR " + KEY_E_WIFI_CONNECTION_TYPE + "=3)";
-            else if (eventType == ETYPE_SCREEN)
-                eventTypeChecked = eventTypeChecked + KEY_E_SCREEN_ENABLED + "=1";
-            else if (eventType == ETYPE_BLUETOOTHCONNECTED)
-                eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " +
-                        "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=0 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=2)";
-            else if (eventType == ETYPE_BLUETOOTHINFRONT)
-                eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " +
-                        "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=1 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=3)";
-            else if (eventType == ETYPE_SMS)
-                eventTypeChecked = eventTypeChecked + KEY_E_SMS_ENABLED + "=1";
-            else if (eventType == ETYPE_NOTIFICATION)
-                eventTypeChecked = eventTypeChecked + KEY_E_NOTIFICATION_ENABLED + "=1";
-            else if (eventType == ETYPE_APPLICATION)
-                eventTypeChecked = eventTypeChecked + KEY_E_APPLICATION_ENABLED + "=1";
-            else if (eventType == ETYPE_LOCATION)
-                eventTypeChecked = eventTypeChecked + KEY_E_LOCATION_ENABLED + "=1";
-            else if (eventType == ETYPE_ORIENTATION)
-                eventTypeChecked = eventTypeChecked + KEY_E_ORIENTATION_ENABLED + "=1";
-            else if (eventType == ETYPE_MOBILE_CELLS)
-                eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1";
-            else if (eventType == ETYPE_NFC)
-                eventTypeChecked = eventTypeChecked + KEY_E_NFC_ENABLED + "=1";
-            else if (eventType == ETYPE_RADIO_SWITCH)
-                eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1";
-            else if (eventType == ETYPE_RADIO_SWITCH_WIFI)
-                eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                        KEY_E_RADIO_SWITCH_WIFI + "!=0";
-            else if (eventType == ETYPE_RADIO_SWITCH_BLUETOOTH)
-                eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                        KEY_E_RADIO_SWITCH_BLUETOOTH + "!=0";
-            else if (eventType == ETYPE_RADIO_SWITCH_MOBILE_DATA)
-                eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                        KEY_E_RADIO_SWITCH_MOBILE_DATA + "!=0";
-            else if (eventType == ETYPE_RADIO_SWITCH_GPS)
-                eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                        KEY_E_RADIO_SWITCH_GPS + "!=0";
-            else if (eventType == ETYPE_RADIO_SWITCH_NFC)
-                eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                        KEY_E_RADIO_SWITCH_NFC + "!=0";
-            else if (eventType == ETYPE_RADIO_SWITCH_AIRPLANE_MODE)
-                eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                        KEY_E_RADIO_SWITCH_AIRPLANE_MODE + "!=0";
-
-            countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
-                    " WHERE " + eventTypeChecked;
-
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(countQuery, null);
-
-            int r;
-
-            if (cursor != null) {
-                cursor.moveToFirst();
-                r = Integer.parseInt(cursor.getString(0));
-                cursor.close();
-            } else
-                r = 0;
-
-            //db.close();
-
-            return r;
-        }
-    }
-
-    void updateEventCalendarTimes(Event event)
-    {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_CALENDAR_EVENT_START_TIME, event._eventPreferencesCalendar._startTime);
-            values.put(KEY_E_CALENDAR_EVENT_END_TIME, event._eventPreferencesCalendar._endTime);
-            values.put(KEY_E_CALENDAR_EVENT_FOUND, event._eventPreferencesCalendar._eventFound ? 1 : 0);
-
-            db.beginTransaction();
-
-            try {
-                // updating row
-                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                        new String[]{String.valueOf(event._id)});
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateEventCalendarTimes", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    void setEventCalendarTimes(Event event)
-    {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.query(TABLE_EVENTS,
-                    new String[]{
-                            KEY_E_CALENDAR_EVENT_START_TIME,
-                            KEY_E_CALENDAR_EVENT_END_TIME,
-                            KEY_E_CALENDAR_EVENT_FOUND
-                    },
-                    KEY_E_ID + "=?",
-                    new String[]{String.valueOf(event._id)}, null, null, null, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
-
-                if (cursor.getCount() > 0) {
-                    event._eventPreferencesCalendar._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_START_TIME)));
-                    event._eventPreferencesCalendar._endTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_END_TIME)));
-                    event._eventPreferencesCalendar._eventFound = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_FOUND))) == 1);
-                }
-
-                cursor.close();
-            }
-
-            //db.close();
-        }
-    }
-
-    /*
-    boolean isSSIDScanned(String SSID, int connectionType)
-    {
-        final String countQuery;
-        String eventTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
-
-        eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
-                                                KEY_E_WIFI_CONNECTION_TYPE + "=" + connectionType+ " AND " +
-                                                "\"" + SSID + "\" LIKE " + KEY_E_WIFI_SSID + " ESCAPE '\\'";
-
-        countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
-                     " WHERE " + eventTypeChecked;
-
-        //SQLiteDatabase db = this.getReadableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        Cursor cursor = db.rawQuery(countQuery, null);
-
-        int r;
-
-        if (cursor != null)
-        {
-            cursor.moveToFirst();
-            r = Integer.parseInt(cursor.getString(0));
-            cursor.close();
-        }
-        else
-            r = 0;
-
-        //db.close();
-
-        return r != 0;
-    }
-    */
-
-    boolean getEventInDelayStart(Event event)
-    {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            int eventInDelay = 0;
-
-            Cursor cursor = db.query(TABLE_EVENTS,
-                    new String[]{
-                            KEY_E_IS_IN_DELAY_START
-                    },
-                    KEY_E_ID + "=?",
-                    new String[]{String.valueOf(event._id)}, null, null, null, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
-
-                if (cursor.getCount() > 0) {
-                    eventInDelay = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_START)));
-                }
-
-                cursor.close();
-            }
-
-            //db.close();
-
-            return (eventInDelay == 1);
-        }
-    }
-
-    void updateEventInDelayStart(Event event)
-    {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0);
-            values.put(KEY_E_START_STATUS_TIME, event._startStatusTime);
-
-            db.beginTransaction();
-
-            try {
-                // updating row
-                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                        new String[]{String.valueOf(event._id)});
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateEventInDelayStart", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    void resetAllEventsInDelayStart()
-    {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_IS_IN_DELAY_START, 0);
-
-            db.beginTransaction();
-
-            try {
-                // updating rows
-                db.update(TABLE_EVENTS, values, null, null);
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.resetAllEventsInDelayStart", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    boolean getEventInDelayEnd(Event event)
-    {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            int eventInDelay = 0;
-
-            Cursor cursor = db.query(TABLE_EVENTS,
-                    new String[]{
-                            KEY_E_IS_IN_DELAY_END
-                    },
-                    KEY_E_ID + "=?",
-                    new String[]{String.valueOf(event._id)}, null, null, null, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
-
-                if (cursor.getCount() > 0) {
-                    eventInDelay = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_END)));
-                }
-
-                cursor.close();
-            }
-
-            //db.close();
-
-            return (eventInDelay == 1);
-        }
-    }
-
-    void updateEventInDelayEnd(Event event)
-    {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0);
-            values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime);
-
-            db.beginTransaction();
-
-            try {
-                // updating row
-                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                        new String[]{String.valueOf(event._id)});
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateEventInDelayEnd", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    /*
-    int resetAllEventsInDelayEnd()
-    {
-        //SQLiteDatabase db = this.getWritableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_E_IS_IN_DELAY_END, 0);
-
-        int r = 0;
-
-        db.beginTransaction();
-
+        importExportLock.lock();
         try {
-            // updating rows
-            r = db.update(TABLE_EVENTS, values, null, null);
-
-            db.setTransactionSuccessful();
-
-        } catch (Exception e){
-            //Error in between database transaction
-            Log.e("DatabaseHandler.resetAllEventsInDelayEnd", e.toString());
-            r = 0;
-        } finally {
-            db.endTransaction();
-        }
-
-        //db.close();
-
-        return r;
-
-    }
-    */
-
-    /*
-    boolean isBluetoothAdapterNameScanned(String adapterName, int connectionType)
-    {
-        final String countQuery;
-        String eventTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
-
-        eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " +
-                                                KEY_E_BLUETOOTH_CONNECTION_TYPE + "=" + connectionType + " AND " +
-                                                "\"" + adapterName + "\" LIKE " + KEY_E_BLUETOOTH_ADAPTER_NAME + " ESCAPE '\\'";
-
-
-        countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
-                     " WHERE " + eventTypeChecked;
-
-        //SQLiteDatabase db = this.getReadableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        Cursor cursor = db.rawQuery(countQuery, null);
-
-        int r;
-
-        if (cursor != null)
-        {
-            cursor.moveToFirst();
-            r = Integer.parseInt(cursor.getString(0));
-            cursor.close();
-        }
-        else
-            r = 0;
-
-        //db.close();
-
-        return r != 0;
-    }
-    */
-
-    void updateSMSStartTime(Event event)
-    {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_SMS_START_TIME, event._eventPreferencesSMS._startTime);
-
-            db.beginTransaction();
-
+            int r = 0;
             try {
-                // updating row
-                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                        new String[]{String.valueOf(event._id)});
+                startRunningCommand();
 
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateSMSStartTimes", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    void getSMSStartTime(Event event)
-    {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.query(TABLE_EVENTS,
-                    new String[]{
-                            KEY_E_SMS_START_TIME
-                    },
-                    KEY_E_ID + "=?",
-                    new String[]{String.valueOf(event._id)}, null, null, null, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
-
-                if (cursor.getCount() > 0) {
-                    event._eventPreferencesSMS._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_SMS_START_TIME)));
-                }
-
-                cursor.close();
-            }
-
-            //db.close();
-        }
-    }
-
-    void updateNotificationStartTime(Event event)
-    {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_NOTIFICATION_START_TIME, event._eventPreferencesNotification._startTime);
-
-            db.beginTransaction();
-
-            try {
-                // updating row
-                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                        new String[]{String.valueOf(event._id)});
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateNotificationStartTimes", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    void getNotificationStartTime(Event event)
-    {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.query(TABLE_EVENTS,
-                    new String[]{
-                            KEY_E_NOTIFICATION_START_TIME
-                    },
-                    KEY_E_ID + "=?",
-                    new String[]{String.valueOf(event._id)}, null, null, null, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
-
-                if (cursor.getCount() > 0) {
-                    event._eventPreferencesNotification._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_START_TIME)));
-                }
-
-                cursor.close();
-            }
-
-            //db.close();
-        }
-    }
-
-    int getBluetoothDevicesTypeCount(int devicesType, int forceScan)
-    {
-        synchronized (databaseHandlerMutex) {
-            if (forceScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                 final String countQuery;
-                String devicesTypeChecked = "";
-                devicesTypeChecked = devicesTypeChecked + KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
-                devicesTypeChecked = devicesTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND ";
-                devicesTypeChecked = devicesTypeChecked + "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=1 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=3) AND ";
-                if (devicesType == EventPreferencesBluetooth.DTYPE_CLASSIC)
-                    devicesTypeChecked = devicesTypeChecked + KEY_E_BLUETOOTH_DEVICES_TYPE + "=0";
-                else if (devicesType == EventPreferencesBluetooth.DTYPE_LE)
-                    devicesTypeChecked = devicesTypeChecked + KEY_E_BLUETOOTH_DEVICES_TYPE + "=1";
+                String eventTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
+                if (eventType == ETYPE_TIME)
+                    eventTypeChecked = eventTypeChecked + KEY_E_TIME_ENABLED + "=1";
+                else if (eventType == ETYPE_BATTERY)
+                    eventTypeChecked = eventTypeChecked + KEY_E_BATTERY_ENABLED + "=1";
+                else if (eventType == ETYPE_CALL)
+                    eventTypeChecked = eventTypeChecked + KEY_E_CALL_ENABLED + "=1";
+                else if (eventType == ETYPE_PERIPHERAL)
+                    eventTypeChecked = eventTypeChecked + KEY_E_PERIPHERAL_ENABLED + "=1";
+                else if (eventType == ETYPE_CALENDAR)
+                    eventTypeChecked = eventTypeChecked + KEY_E_CALENDAR_ENABLED + "=1";
+                else if (eventType == ETYPE_WIFICONNECTED)
+                    eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
+                            "(" + KEY_E_WIFI_CONNECTION_TYPE + "=0 OR " + KEY_E_WIFI_CONNECTION_TYPE + "=2)";
+                else if (eventType == ETYPE_WIFIINFRONT)
+                    eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
+                            "(" + KEY_E_WIFI_CONNECTION_TYPE + "=1 OR " + KEY_E_WIFI_CONNECTION_TYPE + "=3)";
+                else if (eventType == ETYPE_SCREEN)
+                    eventTypeChecked = eventTypeChecked + KEY_E_SCREEN_ENABLED + "=1";
+                else if (eventType == ETYPE_BLUETOOTHCONNECTED)
+                    eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " +
+                            "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=0 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=2)";
+                else if (eventType == ETYPE_BLUETOOTHINFRONT)
+                    eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " +
+                            "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=1 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=3)";
+                else if (eventType == ETYPE_SMS)
+                    eventTypeChecked = eventTypeChecked + KEY_E_SMS_ENABLED + "=1";
+                else if (eventType == ETYPE_NOTIFICATION)
+                    eventTypeChecked = eventTypeChecked + KEY_E_NOTIFICATION_ENABLED + "=1";
+                else if (eventType == ETYPE_APPLICATION)
+                    eventTypeChecked = eventTypeChecked + KEY_E_APPLICATION_ENABLED + "=1";
+                else if (eventType == ETYPE_LOCATION)
+                    eventTypeChecked = eventTypeChecked + KEY_E_LOCATION_ENABLED + "=1";
+                else if (eventType == ETYPE_ORIENTATION)
+                    eventTypeChecked = eventTypeChecked + KEY_E_ORIENTATION_ENABLED + "=1";
+                else if (eventType == ETYPE_MOBILE_CELLS)
+                    eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1";
+                else if (eventType == ETYPE_NFC)
+                    eventTypeChecked = eventTypeChecked + KEY_E_NFC_ENABLED + "=1";
+                else if (eventType == ETYPE_RADIO_SWITCH)
+                    eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1";
+                else if (eventType == ETYPE_RADIO_SWITCH_WIFI)
+                    eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                            KEY_E_RADIO_SWITCH_WIFI + "!=0";
+                else if (eventType == ETYPE_RADIO_SWITCH_BLUETOOTH)
+                    eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                            KEY_E_RADIO_SWITCH_BLUETOOTH + "!=0";
+                else if (eventType == ETYPE_RADIO_SWITCH_MOBILE_DATA)
+                    eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                            KEY_E_RADIO_SWITCH_MOBILE_DATA + "!=0";
+                else if (eventType == ETYPE_RADIO_SWITCH_GPS)
+                    eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                            KEY_E_RADIO_SWITCH_GPS + "!=0";
+                else if (eventType == ETYPE_RADIO_SWITCH_NFC)
+                    eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                            KEY_E_RADIO_SWITCH_NFC + "!=0";
+                else if (eventType == ETYPE_RADIO_SWITCH_AIRPLANE_MODE)
+                    eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                            KEY_E_RADIO_SWITCH_AIRPLANE_MODE + "!=0";
 
                 countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
-                        " WHERE " + devicesTypeChecked;
+                        " WHERE " + eventTypeChecked;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();
 
                 Cursor cursor = db.rawQuery(countQuery, null);
-
-                int r;
 
                 if (cursor != null) {
                     cursor.moveToFirst();
@@ -4948,96 +4633,572 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
 
-                return r;
-            } else
-                return 999;
+            } catch (Exception ignored) {
+            }
+            return r;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updateEventCalendarTimes(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_CALENDAR_EVENT_START_TIME, event._eventPreferencesCalendar._startTime);
+                values.put(KEY_E_CALENDAR_EVENT_END_TIME, event._eventPreferencesCalendar._endTime);
+                values.put(KEY_E_CALENDAR_EVENT_FOUND, event._eventPreferencesCalendar._eventFound ? 1 : 0);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateEventCalendarTimes", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void setEventCalendarTimes(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{
+                                KEY_E_CALENDAR_EVENT_START_TIME,
+                                KEY_E_CALENDAR_EVENT_END_TIME,
+                                KEY_E_CALENDAR_EVENT_FOUND
+                        },
+                        KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        event._eventPreferencesCalendar._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_START_TIME)));
+                        event._eventPreferencesCalendar._endTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_END_TIME)));
+                        event._eventPreferencesCalendar._eventFound = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_FOUND))) == 1);
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    boolean getEventInDelayStart(Event event)
+    {
+        importExportLock.lock();
+        try {
+            int eventInDelay = 0;
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{
+                                KEY_E_IS_IN_DELAY_START
+                        },
+                        KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        eventInDelay = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_START)));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+            return (eventInDelay == 1);
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updateEventInDelayStart(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0);
+                values.put(KEY_E_START_STATUS_TIME, event._startStatusTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateEventInDelayStart", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void resetAllEventsInDelayStart()
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_IS_IN_DELAY_START, 0);
+
+                db.beginTransaction();
+
+                try {
+                    // updating rows
+                    db.update(TABLE_EVENTS, values, null, null);
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.resetAllEventsInDelayStart", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    boolean getEventInDelayEnd(Event event)
+    {
+        importExportLock.lock();
+        try {
+            int eventInDelay = 0;
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{
+                                KEY_E_IS_IN_DELAY_END
+                        },
+                        KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        eventInDelay = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_END)));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+            return (eventInDelay == 1);
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updateEventInDelayEnd(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0);
+                values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateEventInDelayEnd", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updateSMSStartTime(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_SMS_START_TIME, event._eventPreferencesSMS._startTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateSMSStartTimes", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void getSMSStartTime(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{
+                                KEY_E_SMS_START_TIME
+                        },
+                        KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        event._eventPreferencesSMS._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_SMS_START_TIME)));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updateNotificationStartTime(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_NOTIFICATION_START_TIME, event._eventPreferencesNotification._startTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateNotificationStartTimes", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void getNotificationStartTime(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{
+                                KEY_E_NOTIFICATION_START_TIME
+                        },
+                        KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        event._eventPreferencesNotification._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_START_TIME)));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    int getBluetoothDevicesTypeCount(int devicesType, int forceScan)
+    {
+        importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                startRunningCommand();
+
+                if (forceScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+                    final String countQuery;
+                    String devicesTypeChecked = "";
+                    devicesTypeChecked = devicesTypeChecked + KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
+                    devicesTypeChecked = devicesTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND ";
+                    devicesTypeChecked = devicesTypeChecked + "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=1 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=3) AND ";
+                    if (devicesType == EventPreferencesBluetooth.DTYPE_CLASSIC)
+                        devicesTypeChecked = devicesTypeChecked + KEY_E_BLUETOOTH_DEVICES_TYPE + "=0";
+                    else if (devicesType == EventPreferencesBluetooth.DTYPE_LE)
+                        devicesTypeChecked = devicesTypeChecked + KEY_E_BLUETOOTH_DEVICES_TYPE + "=1";
+
+                    countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
+                            " WHERE " + devicesTypeChecked;
+
+                    //SQLiteDatabase db = this.getReadableDatabase();
+                    SQLiteDatabase db = getMyWritableDatabase();
+
+                    Cursor cursor = db.rawQuery(countQuery, null);
+
+                    if (cursor != null) {
+                        cursor.moveToFirst();
+                        r = Integer.parseInt(cursor.getString(0));
+                        cursor.close();
+                    } else
+                        r = 0;
+
+                    //db.close();
+
+                } else
+                    r = 999;
+            } catch (Exception ignored) {
+            }
+            return r;
+        } finally {
+            stopRunningCommand();
         }
     }
 
     void updateNFCStartTime(Event event)
     {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_NFC_START_TIME, event._eventPreferencesNFC._startTime);
-
-            db.beginTransaction();
-
+        importExportLock.lock();
+        try {
             try {
-                // updating row
-                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                        new String[]{String.valueOf(event._id)});
+                startRunningCommand();
 
-                db.setTransactionSuccessful();
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateNFCStartTimes", e.toString());
-            } finally {
-                db.endTransaction();
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_NFC_START_TIME, event._eventPreferencesNFC._startTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateNFCStartTimes", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
     void getNFCStartTime(Event event)
     {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
 
-            Cursor cursor = db.query(TABLE_EVENTS,
-                    new String[]{
-                            KEY_E_NFC_START_TIME
-                    },
-                    KEY_E_ID + "=?",
-                    new String[]{String.valueOf(event._id)}, null, null, null, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-                if (cursor.getCount() > 0) {
-                    event._eventPreferencesNFC._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_NFC_START_TIME)));
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{
+                                KEY_E_NFC_START_TIME
+                        },
+                        KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        event._eventPreferencesNFC._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_NFC_START_TIME)));
+                    }
+
+                    cursor.close();
                 }
 
-                cursor.close();
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
     int getBatteryEventWithLevelCount()
     {
-        synchronized (databaseHandlerMutex) {
-            final String countQuery;
-            String eventChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
-            eventChecked = eventChecked + KEY_E_BATTERY_ENABLED + "=1" + " AND ";
-            eventChecked = eventChecked + "(" + KEY_E_BATTERY_LEVEL_LOW + ">0" + " OR ";
-            eventChecked = eventChecked +       KEY_E_BATTERY_LEVEL_HIGHT + "<100" +")";
+        importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                startRunningCommand();
 
-            countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
-                    " WHERE " + eventChecked;
+                final String countQuery;
+                String eventChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
+                eventChecked = eventChecked + KEY_E_BATTERY_ENABLED + "=1" + " AND ";
+                eventChecked = eventChecked + "(" + KEY_E_BATTERY_LEVEL_LOW + ">0" + " OR ";
+                eventChecked = eventChecked + KEY_E_BATTERY_LEVEL_HIGHT + "<100" + ")";
 
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
+                countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
+                        " WHERE " + eventChecked;
 
-            Cursor cursor = db.rawQuery(countQuery, null);
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            int r;
+                Cursor cursor = db.rawQuery(countQuery, null);
 
-            if (cursor != null) {
-                cursor.moveToFirst();
-                r = Integer.parseInt(cursor.getString(0));
-                cursor.close();
-            } else
-                r = 0;
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    r = Integer.parseInt(cursor.getString(0));
+                    cursor.close();
+                } else
+                    r = 0;
 
-            //db.close();
+                //db.close();
 
+            } catch (Exception ignored) {
+            }
             return r;
+        } finally {
+            stopRunningCommand();
         }
     }
 
@@ -5045,1397 +5206,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Adding time line
     void addEventTimeline(EventTimeline eventTimeline) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_ET_FK_EVENT, eventTimeline._fkEvent); // Event id
-            values.put(KEY_ET_FK_PROFILE_RETURN, eventTimeline._fkProfileEndActivated); // Profile id returned on pause/stop event
-            values.put(KEY_ET_EORDER, getMaxEOrderET() + 1); // event running order
-
-            db.beginTransaction();
-
-            try {
-                // Inserting Row
-                eventTimeline._id = db.insert(TABLE_EVENT_TIMELINE, null, values);
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close(); // Closing database connection
-        }
-    }
-
-    // Getting max(eorder)
-    private int getMaxEOrderET() {
-        synchronized (databaseHandlerMutex) {
-            String countQuery = "SELECT MAX(" + KEY_ET_EORDER + ") FROM " + TABLE_EVENT_TIMELINE;
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(countQuery, null);
-
-            int r;
-
-            if (cursor.getCount() == 0) {
-                r = 0;
-            } else {
-                if (cursor.moveToFirst()) {
-                    r = cursor.getInt(0);
-                } else {
-                    r = 0;
-                }
-            }
-
-            cursor.close();
-            //db.close();
-
-            return r;
-        }
-    }
-
-    // Getting all event timeline
-    List<EventTimeline> getAllEventTimelines() {
-        synchronized (databaseHandlerMutex) {
-            List<EventTimeline> eventTimelineList = new ArrayList<>();
-
-            // Select All Query
-            final String selectQuery = "SELECT " + KEY_ET_ID + "," +
-                    KEY_ET_FK_EVENT + "," +
-                    KEY_ET_FK_PROFILE_RETURN + "," +
-                    KEY_ET_EORDER +
-                    " FROM " + TABLE_EVENT_TIMELINE +
-                    " ORDER BY " + KEY_ET_EORDER;
-
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(selectQuery, null);
-
-            // looping through all rows and adding to list
-            if (cursor.moveToFirst()) {
-                do {
-                    EventTimeline eventTimeline = new EventTimeline();
-
-                    eventTimeline._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ET_ID)));
-                    eventTimeline._fkEvent = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ET_FK_EVENT)));
-                    eventTimeline._fkProfileEndActivated = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ET_FK_PROFILE_RETURN)));
-                    eventTimeline._eorder = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ET_EORDER)));
-
-                    // Adding event timeline to list
-                    eventTimelineList.add(eventTimeline);
-                } while (cursor.moveToNext());
-            }
-
-            cursor.close();
-            //db.close();
-
-            // return event timeline list
-            return eventTimelineList;
-        }
-    }
-
-    // Deleting event timeline
-    void deleteEventTimeline(EventTimeline eventTimeline) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-            db.delete(TABLE_EVENT_TIMELINE, KEY_ET_ID + " = ?",
-                    new String[]{String.valueOf(eventTimeline._id)});
-            //db.close();
-        }
-    }
-
-    // Deleting all events from timeline
-    void deleteAllEventTimelines(/*boolean updateEventStatus*/) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_STATUS, Event.ESTATUS_PAUSE);
-
-            db.beginTransaction();
-
-            try {
-
-                db.delete(TABLE_EVENT_TIMELINE, null, null);
-
-                //if (updateEventStatus) {
-                    db.update(TABLE_EVENTS, values, KEY_E_STATUS + " = ?",
-                            new String[]{String.valueOf(Event.ESTATUS_RUNNING)});
-                //}
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.deleteAllEventTimelines", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    /*
-    // Getting Count in timelines
-    int getEventTimelineCount() {
-        final String countQuery = "SELECT  count(*) FROM " + TABLE_EVENT_TIMELINE;
-        //SQLiteDatabase db = this.getReadableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        Cursor cursor = db.rawQuery(countQuery, null);
-
-        int r;
-
-        if (cursor != null)
-        {
-            cursor.moveToFirst();
-            r = Integer.parseInt(cursor.getString(0));
-        }
-        else
-            r = 0;
-
-        cursor.close();
-        //db.close();
-
-        return r;
-    }
-    */
-
-    /*
-    void updateProfileReturnET(List<EventTimeline> eventTimelineList)
-    {
-        //SQLiteDatabase db = this.getWritableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        db.beginTransaction();
-
+        importExportLock.lock();
         try {
-
-            for (EventTimeline eventTimeline : eventTimelineList)
-            {
-                values.put(KEY_ET_FK_PROFILE_RETURN, eventTimeline._fkProfileEndActivated);
-
-                // updating row
-                db.update(TABLE_EVENT_TIMELINE, values, KEY_ET_ID + " = ?",
-                    new String[] { String.valueOf(eventTimeline._id) });
-            }
-
-            db.setTransactionSuccessful();
-
-        } catch (Exception e){
-            //Error in between database transaction
-            Log.e("DatabaseHandler.updateProfileReturnET", e.toString());
-        } finally {
-            db.endTransaction();
-        }
-
-        //db.close();
-        
-    }
-    */
-
-// ACTIVITY LOG -------------------------------------------------------------------
-
-    // Adding activity log
-    void addActivityLog(int deleteOldActivityLogs, int logType, String eventName, String profileName, String profileIcon,
-                        int durationDelay) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_AL_LOG_TYPE, logType);
-            values.put(KEY_AL_EVENT_NAME, eventName);
-            values.put(KEY_AL_PROFILE_NAME, profileName);
-            values.put(KEY_AL_PROFILE_ICON, profileIcon);
-            if (durationDelay > 0)
-                values.put(KEY_AL_DURATION_DELAY, durationDelay);
-
-            db.beginTransaction();
-
             try {
-                if (deleteOldActivityLogs > 0) {
-                    // delete older than 7 days old records
-                    db.delete(TABLE_ACTIVITY_LOG, KEY_AL_LOG_DATE_TIME +
-                            " < date('now','-" + deleteOldActivityLogs + " days')", null);
-                }
+                startRunningCommand();
 
-                // Inserting Row
-                db.insert(TABLE_ACTIVITY_LOG, null, values);
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close(); // Closing database connection
-        }
-    }
-
-    void clearActivityLog() {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            //db.beginTransaction();
-
-            try {
-                db.delete(TABLE_ACTIVITY_LOG, null, null);
-
-                // db.setTransactionSuccessful();
-            } catch (Exception ignored) {
-                //Error in between database transaction
-                //} finally {
-                //db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    Cursor getActivityLogCursor() {
-        synchronized (databaseHandlerMutex) {
-            final String selectQuery = "SELECT " + KEY_AL_ID + "," +
-                    KEY_AL_LOG_DATE_TIME + "," +
-                    KEY_AL_LOG_TYPE + "," +
-                    KEY_AL_EVENT_NAME + "," +
-                    KEY_AL_PROFILE_NAME + "," +
-                    KEY_AL_PROFILE_ICON + "," +
-                    KEY_AL_DURATION_DELAY +
-                    " FROM " + TABLE_ACTIVITY_LOG +
-                    " ORDER BY " + KEY_AL_ID + " DESC";
-
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            return db.rawQuery(selectQuery, null);
-        }
-    }
-
-// GEOFENCES ----------------------------------------------------------------------
-
-    // Adding new geofence
-    void addGeofence(Geofence geofence) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_G_NAME, geofence._name); // geofence Name
-            values.put(KEY_G_LATITUDE, geofence._latitude);
-            values.put(KEY_G_LONGITUDE, geofence._longitude);
-            values.put(KEY_G_RADIUS, geofence._radius);
-            values.put(KEY_G_CHECKED, 0);
-            values.put(KEY_G_TRANSITION, 0);
-
-            db.beginTransaction();
-
-            try {
-                // Inserting Row
-                geofence._id = db.insert(TABLE_GEOFENCES, null, values);
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close(); // Closing database connection
-        }
-    }
-
-    // Getting single geofence
-    Geofence getGeofence(long geofenceId) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.query(TABLE_GEOFENCES,
-                    new String[]{KEY_G_ID,
-                            KEY_G_NAME,
-                            KEY_G_LATITUDE,
-                            KEY_G_LONGITUDE,
-                            KEY_G_RADIUS
-                    },
-                    KEY_G_ID + "=?",
-                    new String[]{String.valueOf(geofenceId)}, null, null, null, null);
-
-            Geofence geofence = null;
-
-            if (cursor != null) {
-                cursor.moveToFirst();
-
-                if (cursor.getCount() > 0) {
-                    geofence = new Geofence();
-                    geofence._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_G_ID)));
-                    geofence._name = cursor.getString(cursor.getColumnIndex(KEY_G_NAME));
-                    geofence._latitude = cursor.getDouble(cursor.getColumnIndex(KEY_G_LATITUDE));
-                    geofence._longitude = cursor.getDouble(cursor.getColumnIndex(KEY_G_LONGITUDE));
-                    geofence._radius = cursor.getFloat(cursor.getColumnIndex(KEY_G_RADIUS));
-                }
-
-                cursor.close();
-            }
-
-            //db.close();
-
-            return geofence;
-        }
-    }
-
-    // Getting All geofences
-    List<Geofence> getAllGeofences() {
-        synchronized (databaseHandlerMutex) {
-            List<Geofence> geofenceList = new ArrayList<>();
-
-            // Select All Query
-            final String selectQuery = "SELECT " + KEY_G_ID + "," +
-                    KEY_G_NAME + "," +
-                    KEY_G_LATITUDE + "," +
-                    KEY_G_LONGITUDE + "," +
-                    KEY_G_RADIUS +
-                    " FROM " + TABLE_GEOFENCES +
-                    " ORDER BY " + KEY_G_ID;
-
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(selectQuery, null);
-
-            // looping through all rows and adding to list
-            if (cursor.moveToFirst()) {
-                do {
-                    Geofence geofence = new Geofence();
-                    geofence._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_G_ID)));
-                    geofence._name = cursor.getString(cursor.getColumnIndex(KEY_G_NAME));
-                    geofence._latitude = cursor.getDouble(cursor.getColumnIndex(KEY_G_LATITUDE));
-                    geofence._longitude = cursor.getDouble(cursor.getColumnIndex(KEY_G_LONGITUDE));
-                    geofence._radius = cursor.getFloat(cursor.getColumnIndex(KEY_G_RADIUS));
-                    geofenceList.add(geofence);
-                } while (cursor.moveToNext());
-            }
-
-            cursor.close();
-            //db.close();
-
-            return geofenceList;
-        }
-    }
-
-    // Updating single geofence
-    void updateGeofence(Geofence geofence) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_G_NAME, geofence._name);
-            values.put(KEY_G_LATITUDE, geofence._latitude);
-            values.put(KEY_G_LONGITUDE, geofence._longitude);
-            values.put(KEY_G_RADIUS, geofence._radius);
-            values.put(KEY_G_CHECKED, 0);
-
-            db.beginTransaction();
-
-            try {
-                // updating row
-                db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?",
-                        new String[]{String.valueOf(geofence._id)});
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateEvent", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    void updateGeofenceTransition(long geofenceId, int geofenceTransition) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            //db.beginTransaction();
-
-            try {
                 ContentValues values = new ContentValues();
-                values.put(KEY_G_TRANSITION, geofenceTransition);
-                db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?", new String[]{String.valueOf(geofenceId)});
-
-                //db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateGeofenceTransition", e.toString());
-                //} finally {
-                //db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    void clearAllGeofenceTransitions() {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            //db.beginTransaction();
-
-            try {
-                ContentValues values = new ContentValues();
-                values.put(KEY_G_TRANSITION, 0);
-                db.update(TABLE_GEOFENCES, values, null, null);
-
-                //db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.clearAllGeofenceTransitions", e.toString());
-                //} finally {
-                //db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    // Deleting single geofence
-    void deleteGeofence(long geofenceId) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            db.beginTransaction();
-
-            final String selectQuery = "SELECT " + KEY_E_ID + "," +
-                    KEY_E_LOCATION_GEOFENCES +
-                    " FROM " + TABLE_EVENTS;
-
-            Cursor cursor = db.rawQuery(selectQuery, null);
-
-            //noinspection TryFinallyCanBeTryWithResources
-            try {
-
-                // delete geofence
-                db.delete(TABLE_GEOFENCES, KEY_G_ID + " = ?",
-                        new String[]{String.valueOf(geofenceId)});
-
-                // looping through all rows and adding to list
-                if (cursor.moveToFirst()) {
-                    do {
-                        String geofences = cursor.getString(cursor.getColumnIndex(KEY_E_LOCATION_GEOFENCES));
-                        String[] splits = geofences.split("\\|");
-                        boolean found = false;
-                        geofences = "";
-                        for (String geofence : splits) {
-                            if (!geofence.isEmpty()) {
-                                if (!geofence.equals(Long.toString(geofenceId))) {
-                                    if (!geofences.isEmpty())
-                                        //noinspection StringConcatenationInLoop
-                                        geofences = geofences + "|";
-                                    //noinspection StringConcatenationInLoop
-                                    geofences = geofences + geofence;
-                                } else
-                                    found = true;
-                            }
-                        }
-                        if (found) {
-                            // unlink geofence from events
-                            ContentValues values = new ContentValues();
-                            values.put(KEY_E_LOCATION_GEOFENCES, geofences);
-                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{String.valueOf(cursor.getString(cursor.getColumnIndex(KEY_E_ID)))});
-                        }
-                    } while (cursor.moveToNext());
-                }
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.deleteGeofence", e.toString());
-            } finally {
-                db.endTransaction();
-                cursor.close();
-            }
-
-            //db.close();
-        }
-    }
-
-    /*
-    void deleteGeofence(Geofence geofence) {
-        deleteGeofence(geofence._id);
-    }
-    */
-
-    /*
-    // Deleting all geofences
-    void deleteAllGeofences() {
-        //SQLiteDatabase db = this.getWritableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        db.beginTransaction();
-
-        try {
-
-            db.delete(TABLE_GEOFENCES, null, null);
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_LOCATION_GEOFENCES, "");
-            db.update(TABLE_EVENTS, values, null, null);
-
-            db.setTransactionSuccessful();
-
-        } catch (Exception e){
-            //Error in between database transaction
-            Log.e("DatabaseHandler.deleteGeofence", e.toString());
-        } finally {
-            db.endTransaction();
-        }
-
-        //db.close();
-    }
-    */
-
-    void checkGeofence(String geofences, int check) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-
-            db.beginTransaction();
-
-            try {
-                if (!geofences.isEmpty()) {
-                    // check geofences
-                    String[] splits = geofences.split("\\|");
-                    for (String geofence : splits) {
-                        if (!geofence.isEmpty()) {
-                            int _check = check;
-                            if (check == 2) {
-                                final String selectQuery = "SELECT " + KEY_G_CHECKED +
-                                        " FROM " + TABLE_GEOFENCES +
-                                        " WHERE " + KEY_G_ID + "=" + geofence;
-                                Cursor cursor = db.rawQuery(selectQuery, null);
-                                if (cursor != null) {
-                                    if (cursor.moveToFirst())
-                                        _check = (cursor.getInt(cursor.getColumnIndex(KEY_G_CHECKED)) == 0) ? 1 : 0;
-                                    cursor.close();
-                                }
-                            }
-                            if (_check != 2) {
-                                values.clear();
-                                values.put(KEY_G_CHECKED, _check);
-                                db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?", new String[]{geofence});
-                            }
-                        }
-                    }
-                } else {
-                    // uncheck geofences
-                    values.clear();
-                    values.put(KEY_G_CHECKED, 0);
-                    db.update(TABLE_GEOFENCES, values, null, null);
-                }
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.checkGeofence", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    Cursor getGeofencesCursor() {
-        synchronized (databaseHandlerMutex) {
-            final String selectQuery = "SELECT " + KEY_G_ID + "," +
-                    KEY_G_LATITUDE + "," +
-                    KEY_G_LONGITUDE + "," +
-                    KEY_G_RADIUS + "," +
-                    KEY_G_NAME + "," +
-                    KEY_G_CHECKED +
-                    " FROM " + TABLE_GEOFENCES +
-                    " ORDER BY " + KEY_G_NAME + " ASC";
-
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            return db.rawQuery(selectQuery, null);
-        }
-    }
-
-    String getGeofenceName(long geofenceId) {
-        synchronized (databaseHandlerMutex) {
-            final String countQuery = "SELECT " + KEY_G_NAME +
-                    " FROM " + TABLE_GEOFENCES +
-                    " WHERE " + KEY_G_ID + "=" + String.valueOf(geofenceId);
-
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(countQuery, null);
-
-            String r = "";
-
-            if (cursor != null) {
-                if (cursor.moveToFirst())
-                    r = cursor.getString(cursor.getColumnIndex(KEY_G_NAME));
-                cursor.close();
-            }
-
-            //db.close();
-
-            return r;
-        }
-    }
-
-    String getCheckedGeofences() {
-        synchronized (databaseHandlerMutex) {
-            final String countQuery = "SELECT " + KEY_G_ID + ","
-                    + KEY_G_CHECKED +
-                    " FROM " + TABLE_GEOFENCES;
-
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(countQuery, null);
-
-            String value = "";
-
-            if (cursor != null) {
-                if (cursor.moveToFirst()) {
-                    do {
-                        if (cursor.getInt(cursor.getColumnIndex(KEY_G_CHECKED)) == 1) {
-                            if (!value.isEmpty())
-                                //noinspection StringConcatenationInLoop
-                                value = value + "|";
-                            //noinspection StringConcatenationInLoop
-                            value = value + cursor.getLong(cursor.getColumnIndex(KEY_G_ID));
-                        }
-                    } while (cursor.moveToNext());
-                }
-                cursor.close();
-            }
-
-            //db.close();
-
-            return value;
-        }
-    }
-
-    /*
-    int getGeofencePosition(long geofenceId) {
-        final String selectQuery = "SELECT " + KEY_G_ID +
-                                    " FROM " + TABLE_GEOFENCES +
-                                " ORDER BY " + KEY_G_NAME + " ASC";
-
-        //SQLiteDatabase db = this.getReadableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
-        int position = -1;
-        if (cursor.moveToFirst()) {
-            do {
-                ++position;
-                if (cursor.getLong(0) == geofenceId) {
-                    break;
-                }
-
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        //db.close();
-
-        // return event timeline list
-        return position;
-    }
-    */
-
-    int getGeofenceCount() {
-        synchronized (databaseHandlerMutex) {
-            String countQuery = "SELECT  count(*) FROM " + TABLE_GEOFENCES;
-
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(countQuery, null);
-
-            int r;
-
-            if (cursor != null) {
-                cursor.moveToFirst();
-                r = Integer.parseInt(cursor.getString(0));
-                cursor.close();
-            } else
-                r = 0;
-
-            //db.close();
-
-            return r;
-        }
-    }
-
-    boolean isGeofenceUsed(long geofenceId/*, boolean onlyEnabledEvents*/) {
-        synchronized (databaseHandlerMutex) {
-            String selectQuery = "SELECT " + KEY_E_LOCATION_GEOFENCES +
-                    " FROM " + TABLE_EVENTS +
-                    " WHERE " + KEY_E_LOCATION_ENABLED + "=1";
-
-            /*
-            if (onlyEnabledEvents)
-                selectQuery = selectQuery + " AND " + KEY_E_STATUS + " IN (" +
-                        String.valueOf(Event.ESTATUS_PAUSE) + "," +
-                        String.valueOf(Event.ESTATUS_RUNNING) + ")";
-            */
-
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(selectQuery, null);
-
-            boolean found = false;
-
-            // looping through all rows and adding to list
-            if (cursor.moveToFirst()) {
-                do {
-                    String geofences = cursor.getString(cursor.getColumnIndex(KEY_E_LOCATION_GEOFENCES));
-                    String[] splits = geofences.split("\\|");
-                    for (String geofence : splits) {
-                        if (!geofence.isEmpty()) {
-                            if (geofence.equals(Long.toString(geofenceId))) {
-                                found = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (found)
-                        break;
-                } while (cursor.moveToNext());
-            }
-
-            cursor.close();
-            //db.close();
-
-            return found;
-        }
-    }
-
-    int getGeofenceTransition(long geofenceId) {
-        synchronized (databaseHandlerMutex) {
-            final String countQuery = "SELECT " + KEY_G_TRANSITION +
-                    " FROM " + TABLE_GEOFENCES +
-                    " WHERE " + KEY_G_ID + "=" + String.valueOf(geofenceId);
-
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(countQuery, null);
-
-            int r = 0;
-
-            if (cursor != null) {
-                if (cursor.moveToFirst())
-                    r = cursor.getInt(cursor.getColumnIndex(KEY_G_TRANSITION));
-                cursor.close();
-            }
-
-            //db.close();
-
-            return r;
-        }
-    }
-
-// SHORTCUTS ----------------------------------------------------------------------
-
-    // Adding new shortcut
-    void addShortcut(Shortcut shortcut) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_S_INTENT, shortcut._intent);
-            values.put(KEY_S_NAME, shortcut._name);
-
-            db.beginTransaction();
-
-            try {
-                // Inserting Row
-                shortcut._id = db.insert(TABLE_SHORTCUTS, null, values);
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close(); // Closing database connection
-        }
-    }
-
-    // Getting single shortcut
-    Shortcut getShortcut(long shortcutId) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.query(TABLE_SHORTCUTS,
-                    new String[]{KEY_S_ID,
-                            KEY_S_INTENT,
-                            KEY_S_NAME
-                    },
-                    KEY_S_ID + "=?",
-                    new String[]{String.valueOf(shortcutId)}, null, null, null, null);
-
-            Shortcut shortcut = null;
-
-            if (cursor != null) {
-                cursor.moveToFirst();
-
-                if (cursor.getCount() > 0) {
-                    shortcut = new Shortcut();
-                    shortcut._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_S_ID)));
-                    shortcut._intent = cursor.getString(cursor.getColumnIndex(KEY_S_INTENT));
-                    shortcut._name = cursor.getString(cursor.getColumnIndex(KEY_S_NAME));
-                }
-
-                cursor.close();
-            }
-
-            //db.close();
-
-            return shortcut;
-        }
-    }
-
-    /*
-    // Updating single shortcut
-    int updateShortcut(Shortcut shortcut) {
-        //SQLiteDatabase db = this.getWritableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_S_INTENT, shortcut._intent);
-        values.put(KEY_S_NAME, shortcut._name);
-
-        int r = 0;
-
-        db.beginTransaction();
-
-        try {
-            // updating row
-            r = db.update(TABLE_SHORTCUTS, values, KEY_S_ID + " = ?",
-                    new String[] { String.valueOf(shortcut._id) });
-
-            db.setTransactionSuccessful();
-
-        } catch (Exception e){
-            //Error in between database transaction
-            Log.e("DatabaseHandler.updateShortcut", e.toString());
-            r = 0;
-        } finally {
-            db.endTransaction();
-        }
-
-        //db.close();
-
-        return r;
-    }
-    */
-
-    // Deleting single shortcut
-    void deleteShortcut(long shortcutId) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            db.beginTransaction();
-
-            try {
-
-                // delete geofence
-                db.delete(TABLE_SHORTCUTS, KEY_S_ID + " = ?",
-                        new String[]{String.valueOf(shortcutId)});
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.deleteShortcut", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-// MOBILE_CELLS ----------------------------------------------------------------------
-
-    // Adding new mobile cell
-    private void addMobileCell(MobileCell mobileCell) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_MC_CELL_ID, mobileCell._cellId);
-            values.put(KEY_MC_NAME, mobileCell._name);
-            values.put(KEY_MC_NEW, mobileCell._new ? 1 : 0);
-            values.put(KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
-
-            db.beginTransaction();
-
-            try {
-                // Inserting Row
-                mobileCell._id = db.insert(TABLE_MOBILE_CELLS, null, values);
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close(); // Closing database connection
-        }
-    }
-
-    /*
-    // Getting single mobile cell
-    MobileCell getMobileCell(long mobileCellId) {
-        //SQLiteDatabase db = this.getReadableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        Cursor cursor = db.query(TABLE_MOBILE_CELLS,
-                new String[]{KEY_MC_ID,
-                        KEY_MC_CELL_ID,
-                        KEY_MC_NAME,
-                        KEY_MC_NEW,
-                        KEY_MC_LAST_CONNECTED_TIME
-                },
-                KEY_MC_ID + "=?",
-                new String[]{String.valueOf(mobileCellId)}, null, null, null, null);
-
-        MobileCell mobileCell = null;
-
-        if (cursor != null)
-        {
-            cursor.moveToFirst();
-
-            if (cursor.getCount() > 0)
-            {
-                mobileCell = new MobileCell();
-                mobileCell._id = Long.parseLong(cursor.getString(0));
-                mobileCell._cellId = cursor.getInt(1);
-                mobileCell._name = cursor.getString(2);
-                mobileCell._new = cursor.getInt(3) == 1;
-                mobileCell._lastConnectedTime = cursor.getLong(4);
-            }
-
-            cursor.close();
-        }
-
-        //db.close();
-
-        return mobileCell;
-    }
-    */
-
-    // Updating single mobile cell
-    private void updateMobileCell(MobileCell mobileCell) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_MC_CELL_ID, mobileCell._cellId);
-            values.put(KEY_MC_NAME, mobileCell._name);
-            values.put(KEY_MC_NEW, mobileCell._new ? 1 : 0);
-            values.put(KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
-
-            db.beginTransaction();
-
-            try {
-                // updating row
-                db.update(TABLE_MOBILE_CELLS, values, KEY_MC_ID + " = ?",
-                        new String[]{String.valueOf(mobileCell._id)});
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateMobileCell", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    /*
-    // Deleting single mobile cell
-    void deleteMobileCellId(long mobileCellId) {
-        //SQLiteDatabase db = this.getWritableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        db.beginTransaction();
-
-        try {
-
-            // delete geofence
-            db.delete(TABLE_MOBILE_CELLS, KEY_MC_ID + " = ?",
-                    new String[]{String.valueOf(mobileCellId)});
-
-            db.setTransactionSuccessful();
-
-        } catch (Exception e){
-            //Error in between database transaction
-            Log.e("DatabaseHandler.deleteMobileCell", e.toString());
-        } finally {
-            db.endTransaction();
-        }
-
-        //db.close();
-    }
-    */
-
-    // add mobile cells to list
-    void addMobileCellsToList(List<MobileCellsData> cellsList) {
-        synchronized (databaseHandlerMutex) {
-            // Select All Query
-            final String selectQuery = "SELECT " + KEY_MC_CELL_ID + "," +
-                    KEY_MC_NAME + "," +
-                    KEY_MC_NEW + "," +
-                    KEY_MC_LAST_CONNECTED_TIME +
-                    " FROM " + TABLE_MOBILE_CELLS;
-
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(selectQuery, null);
-
-            // looping through all rows and adding to list
-            if (cursor.moveToFirst()) {
-                do {
-                    int cellId = cursor.getInt(cursor.getColumnIndex(KEY_MC_CELL_ID));
-                    String name = cursor.getString(cursor.getColumnIndex(KEY_MC_NAME));
-                    boolean _new = cursor.getInt(cursor.getColumnIndex(KEY_MC_NEW)) == 1;
-                    long lastConnectedTime = cursor.getLong(cursor.getColumnIndex(KEY_MC_LAST_CONNECTED_TIME));
-                    //Log.d("DatabaseHandler.addMobileCellsToList", "cellId="+cellId + " new="+_new);
-                    boolean found = false;
-                    for (MobileCellsData cell : cellsList) {
-                        if (cell.cellId == cellId) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        MobileCellsData cell = new MobileCellsData(cellId, name, false, _new, lastConnectedTime);
-                        cellsList.add(cell);
-                    }
-                } while (cursor.moveToNext());
-            }
-
-            cursor.close();
-            //db.close();
-        }
-    }
-
-    void saveMobileCellsList(List<MobileCellsData> cellsList, boolean _new, boolean renameExistingCell) {
-        synchronized (databaseHandlerMutex) {
-            // Select All Query
-            final String selectQuery = "SELECT " + KEY_MC_ID + "," +
-                    KEY_MC_CELL_ID + "," +
-                    KEY_MC_NAME + "," +
-                    KEY_MC_LAST_CONNECTED_TIME +
-                    " FROM " + TABLE_MOBILE_CELLS;
-
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(selectQuery, null);
-
-            for (MobileCellsData cell : cellsList) {
-                boolean found = false;
-                long foundedDbId = 0;
-                String foundedCellName = "";
-                long foundedLastConnectedTime = 0;
-                if (cursor.moveToFirst()) {
-                    do {
-                        String dbCellId = Integer.toString(cursor.getInt(cursor.getColumnIndex(KEY_MC_CELL_ID)));
-                        if (dbCellId.equals(Integer.toString(cell.cellId))) {
-                            foundedDbId = cursor.getLong(cursor.getColumnIndex(KEY_MC_ID));
-                            foundedCellName = cursor.getString(cursor.getColumnIndex(KEY_MC_NAME));
-                            foundedLastConnectedTime = cursor.getLong(cursor.getColumnIndex(KEY_MC_LAST_CONNECTED_TIME));
-                            found = true;
-                            break;
-                        }
-                    } while (cursor.moveToNext());
-                }
-                if (!found) {
-                    //Log.d("DatabaseHandler.saveMobileCellsList", "!found");
-                    MobileCell mobileCell = new MobileCell();
-                    mobileCell._cellId = cell.cellId;
-                    mobileCell._name = cell.name;
-                    mobileCell._new = true;
-                    mobileCell._lastConnectedTime = cell.lastConnectedTime;
-                    addMobileCell(mobileCell);
-                } else {
-                    //Log.d("DatabaseHandler.saveMobileCellsList", "found="+foundedDbId+" cell.new="+cell._new+" new="+_new);
-                    MobileCell mobileCell = new MobileCell();
-                    mobileCell._id = foundedDbId;
-                    mobileCell._cellId = cell.cellId;
-                    if (renameExistingCell)
-                        mobileCell._name = cell.name;
-                    else
-                        mobileCell._name = foundedCellName;
-                    mobileCell._new = _new && cell._new;
-                    if (cell.connected)
-                        mobileCell._lastConnectedTime = cell.lastConnectedTime;
-                    else
-                        mobileCell._lastConnectedTime = foundedLastConnectedTime;
-                    updateMobileCell(mobileCell);
-                }
-            }
-
-            cursor.close();
-            //db.close();
-        }
-    }
-
-    void renameMobileCellsList(List<MobileCellsData> cellsList, String name, boolean _new, String value) {
-        synchronized (databaseHandlerMutex) {
-            // Select All Query
-            final String selectQuery = "SELECT " + KEY_MC_ID + "," +
-                    KEY_MC_CELL_ID +
-                    " FROM " + TABLE_MOBILE_CELLS;
-
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(selectQuery, null);
-
-            for (MobileCellsData cell : cellsList) {
-                boolean found = false;
-                long foundedDbId = 0;
-                if (cursor.moveToFirst()) {
-                    do {
-                        String dbCellId = Integer.toString(cursor.getInt(cursor.getColumnIndex(KEY_MC_CELL_ID)));
-                        if (dbCellId.equals(Integer.toString(cell.cellId))) {
-                            foundedDbId = cursor.getLong(cursor.getColumnIndex(KEY_MC_ID));
-                            found = true;
-                            break;
-                        }
-                    } while (cursor.moveToNext());
-                }
-                if (found) {
-                    if (_new) {
-                        if (cell._new) {
-                            cell.name = name;
-                            MobileCell mobileCell = new MobileCell();
-                            mobileCell._id = foundedDbId;
-                            mobileCell._cellId = cell.cellId;
-                            mobileCell._name = cell.name;
-                            mobileCell._new = true;
-                            mobileCell._lastConnectedTime = cell.lastConnectedTime;
-                            updateMobileCell(mobileCell);
-                        }
-                    } else {
-                        String[] splits = value.split("\\|");
-                        for (String valueCell : splits) {
-                            if (valueCell.equals(Integer.toString(cell.cellId))) {
-                                cell.name = name;
-                                MobileCell mobileCell = new MobileCell();
-                                mobileCell._id = foundedDbId;
-                                mobileCell._cellId = cell.cellId;
-                                mobileCell._name = cell.name;
-                                mobileCell._new = cell._new;
-                                mobileCell._lastConnectedTime = cell.lastConnectedTime;
-                                updateMobileCell(mobileCell);
-                            }
-                        }
-                    }
-                }
-            }
-
-            cursor.close();
-            //db.close();
-        }
-    }
-
-    void deleteMobileCell(int mobileCell) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            db.beginTransaction();
-
-            try {
-                // delete geofence
-                db.delete(TABLE_MOBILE_CELLS, KEY_MC_CELL_ID + " = ?",
-                        new String[]{String.valueOf(mobileCell)});
-
-                db.setTransactionSuccessful();
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.deleteMobileCell", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    void updateMobileCellLastConnectedTime(int mobileCell, long lastConnectedTime) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_MC_LAST_CONNECTED_TIME, lastConnectedTime);
-
-            db.beginTransaction();
-
-            try {
-                // updating row
-                db.update(TABLE_MOBILE_CELLS, values, KEY_MC_CELL_ID + " = ?",
-                        new String[]{String.valueOf(mobileCell)});
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateMobileCellLastConnectedTime", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-    void addMobileCellNamesToList(List<String> cellNamesList) {
-        synchronized (databaseHandlerMutex) {
-            // Select All Query
-            final String selectQuery = "SELECT " + KEY_MC_NAME +
-                                        " FROM " + TABLE_MOBILE_CELLS +
-                                        " WHERE " + KEY_MC_NAME + " IS NOT NULL" +
-                                        " AND " + KEY_MC_NAME + " <> ''" +
-                                        " GROUP BY " + KEY_MC_NAME +
-                                        " ORDER BY " + KEY_MC_NAME;
-
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(selectQuery, null);
-
-            // looping through all rows and adding to list
-            if (cursor.moveToFirst()) {
-                do {
-                    String name = cursor.getString(cursor.getColumnIndex(KEY_MC_NAME));
-                    cellNamesList.add(name);
-                } while (cursor.moveToNext());
-            }
-
-            cursor.close();
-            //db.close();
-        }
-    }
-
-// NFC_TAGS ----------------------------------------------------------------------
-
-    /*
-    // Adding new nfc tag
-    void addNFCTag(NFCTag nfcTag) {
-
-        //SQLiteDatabase db = this.getWritableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_NT_NAME, nfcTag._name);
-
-        db.beginTransaction();
-
-        try {
-            // Inserting Row
-            nfcTag._id = db.insert(TABLE_NFC_TAGS, null, values);
-
-            db.setTransactionSuccessful();
-
-        } catch (Exception e){
-            //Error in between database transaction
-        } finally {
-            db.endTransaction();
-        }
-
-        //db.close(); // Closing database connection
-    }
-    */
-
-    // Adding new nfc tag
-    void addNFCTag(String nfcTag) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.query(TABLE_NFC_TAGS,
-                    new String[]{KEY_NT_NAME},
-                    KEY_NT_NAME + "=?",
-                    new String[]{nfcTag}, null, null, null, null);
-
-            boolean found = false;
-            if (cursor != null) {
-                cursor.moveToFirst();
-                found = cursor.getCount() > 0;
-                cursor.close();
-            }
-
-            if (!found) {
-                ContentValues values = new ContentValues();
-                values.put(KEY_NT_NAME, nfcTag);
+                values.put(KEY_ET_FK_EVENT, eventTimeline._fkEvent); // Event id
+                values.put(KEY_ET_FK_PROFILE_RETURN, eventTimeline._fkProfileEndActivated); // Profile id returned on pause/stop event
+                values.put(KEY_ET_EORDER, getMaxEOrderET() + 1); // event running order
 
                 db.beginTransaction();
 
                 try {
                     // Inserting Row
-                    db.insert(TABLE_NFC_TAGS, null, values);
+                    eventTimeline._id = db.insert(TABLE_EVENT_TIMELINE, null, values);
 
                     db.setTransactionSuccessful();
 
@@ -6444,210 +5232,1842 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } finally {
                     db.endTransaction();
                 }
-            }
 
-            //db.close(); // Closing database connection
+                //db.close(); // Closing database connection
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
         }
     }
 
-    /*
-    // Getting single nfc tag
-    NFCTag getNFCTag(long nfcTagId) {
-        //SQLiteDatabase db = this.getReadableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
+    // Getting max(eorder)
+    private int getMaxEOrderET() {
+        importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                startRunningCommand();
 
-        Cursor cursor = db.query(TABLE_NFC_TAGS,
-                new String[]{KEY_NT_ID,
-                        KEY_NT_NAME
-                },
-                KEY_NT_ID + "=?",
-                new String[]{String.valueOf(nfcTagId)}, null, null, null, null);
+                String countQuery = "SELECT MAX(" + KEY_ET_EORDER + ") FROM " + TABLE_EVENT_TIMELINE;
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-        NFCTag nfcTag = null;
+                Cursor cursor = db.rawQuery(countQuery, null);
 
-        if (cursor != null)
-        {
-            cursor.moveToFirst();
+                if (cursor.getCount() == 0) {
+                    r = 0;
+                } else {
+                    if (cursor.moveToFirst()) {
+                        r = cursor.getInt(0);
+                    } else {
+                        r = 0;
+                    }
+                }
 
-            if (cursor.getCount() > 0)
-            {
-                nfcTag = new NFCTag();
-                nfcTag._id = Long.parseLong(cursor.getString(0));
-                nfcTag._name = cursor.getString(1);
+                cursor.close();
+                //db.close();
+
+            } catch (Exception ignored) {
             }
-
-            cursor.close();
+            return r;
+        } finally {
+            stopRunningCommand();
         }
-
-        //db.close();
-
-        return nfcTag;
     }
-    */
+
+    // Getting all event timeline
+    List<EventTimeline> getAllEventTimelines() {
+        importExportLock.lock();
+        try {
+            List<EventTimeline> eventTimelineList = new ArrayList<>();
+            try {
+                startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT " + KEY_ET_ID + "," +
+                        KEY_ET_FK_EVENT + "," +
+                        KEY_ET_FK_PROFILE_RETURN + "," +
+                        KEY_ET_EORDER +
+                        " FROM " + TABLE_EVENT_TIMELINE +
+                        " ORDER BY " + KEY_ET_EORDER;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        EventTimeline eventTimeline = new EventTimeline();
+
+                        eventTimeline._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ET_ID)));
+                        eventTimeline._fkEvent = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ET_FK_EVENT)));
+                        eventTimeline._fkProfileEndActivated = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ET_FK_PROFILE_RETURN)));
+                        eventTimeline._eorder = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ET_EORDER)));
+
+                        // Adding event timeline to list
+                        eventTimelineList.add(eventTimeline);
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+            return eventTimelineList;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    // Deleting event timeline
+    void deleteEventTimeline(EventTimeline eventTimeline) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+                db.delete(TABLE_EVENT_TIMELINE, KEY_ET_ID + " = ?",
+                        new String[]{String.valueOf(eventTimeline._id)});
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    // Deleting all events from timeline
+    void deleteAllEventTimelines(/*boolean updateEventStatus*/) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_STATUS, Event.ESTATUS_PAUSE);
+
+                db.beginTransaction();
+
+                try {
+
+                    db.delete(TABLE_EVENT_TIMELINE, null, null);
+
+                    //if (updateEventStatus) {
+                    db.update(TABLE_EVENTS, values, KEY_E_STATUS + " = ?",
+                            new String[]{String.valueOf(Event.ESTATUS_RUNNING)});
+                    //}
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.deleteAllEventTimelines", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+// ACTIVITY LOG -------------------------------------------------------------------
+
+    // Adding activity log
+    void addActivityLog(int deleteOldActivityLogs, int logType, String eventName, String profileName, String profileIcon,
+                        int durationDelay) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_AL_LOG_TYPE, logType);
+                values.put(KEY_AL_EVENT_NAME, eventName);
+                values.put(KEY_AL_PROFILE_NAME, profileName);
+                values.put(KEY_AL_PROFILE_ICON, profileIcon);
+                if (durationDelay > 0)
+                    values.put(KEY_AL_DURATION_DELAY, durationDelay);
+
+                db.beginTransaction();
+
+                try {
+                    if (deleteOldActivityLogs > 0) {
+                        // delete older than 7 days old records
+                        db.delete(TABLE_ACTIVITY_LOG, KEY_AL_LOG_DATE_TIME +
+                                " < date('now','-" + deleteOldActivityLogs + " days')", null);
+                    }
+
+                    // Inserting Row
+                    db.insert(TABLE_ACTIVITY_LOG, null, values);
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close(); // Closing database connection
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void clearActivityLog() {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                //db.beginTransaction();
+
+                try {
+                    db.delete(TABLE_ACTIVITY_LOG, null, null);
+
+                    // db.setTransactionSuccessful();
+                } catch (Exception ignored) {
+                    //Error in between database transaction
+                    //} finally {
+                    //db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    Cursor getActivityLogCursor() {
+        importExportLock.lock();
+        try {
+            Cursor cursor = null;
+            try {
+                startRunningCommand();
+
+                final String selectQuery = "SELECT " + KEY_AL_ID + "," +
+                        KEY_AL_LOG_DATE_TIME + "," +
+                        KEY_AL_LOG_TYPE + "," +
+                        KEY_AL_EVENT_NAME + "," +
+                        KEY_AL_PROFILE_NAME + "," +
+                        KEY_AL_PROFILE_ICON + "," +
+                        KEY_AL_DURATION_DELAY +
+                        " FROM " + TABLE_ACTIVITY_LOG +
+                        " ORDER BY " + KEY_AL_ID + " DESC";
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                cursor = db.rawQuery(selectQuery, null);
+            } catch (Exception ignored) {
+            }
+            return cursor;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+// GEOFENCES ----------------------------------------------------------------------
+
+    // Adding new geofence
+    void addGeofence(Geofence geofence) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_G_NAME, geofence._name); // geofence Name
+                values.put(KEY_G_LATITUDE, geofence._latitude);
+                values.put(KEY_G_LONGITUDE, geofence._longitude);
+                values.put(KEY_G_RADIUS, geofence._radius);
+                values.put(KEY_G_CHECKED, 0);
+                values.put(KEY_G_TRANSITION, 0);
+
+                db.beginTransaction();
+
+                try {
+                    // Inserting Row
+                    geofence._id = db.insert(TABLE_GEOFENCES, null, values);
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close(); // Closing database connection
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    // Getting single geofence
+    Geofence getGeofence(long geofenceId) {
+        importExportLock.lock();
+        try {
+            Geofence geofence = null;
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_GEOFENCES,
+                        new String[]{KEY_G_ID,
+                                KEY_G_NAME,
+                                KEY_G_LATITUDE,
+                                KEY_G_LONGITUDE,
+                                KEY_G_RADIUS
+                        },
+                        KEY_G_ID + "=?",
+                        new String[]{String.valueOf(geofenceId)}, null, null, null, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        geofence = new Geofence();
+                        geofence._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_G_ID)));
+                        geofence._name = cursor.getString(cursor.getColumnIndex(KEY_G_NAME));
+                        geofence._latitude = cursor.getDouble(cursor.getColumnIndex(KEY_G_LATITUDE));
+                        geofence._longitude = cursor.getDouble(cursor.getColumnIndex(KEY_G_LONGITUDE));
+                        geofence._radius = cursor.getFloat(cursor.getColumnIndex(KEY_G_RADIUS));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+            return geofence;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    // Getting All geofences
+    List<Geofence> getAllGeofences() {
+        importExportLock.lock();
+        try {
+            List<Geofence> geofenceList = new ArrayList<>();
+            try {
+                startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT " + KEY_G_ID + "," +
+                        KEY_G_NAME + "," +
+                        KEY_G_LATITUDE + "," +
+                        KEY_G_LONGITUDE + "," +
+                        KEY_G_RADIUS +
+                        " FROM " + TABLE_GEOFENCES +
+                        " ORDER BY " + KEY_G_ID;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        Geofence geofence = new Geofence();
+                        geofence._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_G_ID)));
+                        geofence._name = cursor.getString(cursor.getColumnIndex(KEY_G_NAME));
+                        geofence._latitude = cursor.getDouble(cursor.getColumnIndex(KEY_G_LATITUDE));
+                        geofence._longitude = cursor.getDouble(cursor.getColumnIndex(KEY_G_LONGITUDE));
+                        geofence._radius = cursor.getFloat(cursor.getColumnIndex(KEY_G_RADIUS));
+                        geofenceList.add(geofence);
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+            return geofenceList;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    // Updating single geofence
+    void updateGeofence(Geofence geofence) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_G_NAME, geofence._name);
+                values.put(KEY_G_LATITUDE, geofence._latitude);
+                values.put(KEY_G_LONGITUDE, geofence._longitude);
+                values.put(KEY_G_RADIUS, geofence._radius);
+                values.put(KEY_G_CHECKED, 0);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?",
+                            new String[]{String.valueOf(geofence._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateEvent", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updateGeofenceTransition(long geofenceId, int geofenceTransition) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                //db.beginTransaction();
+
+                try {
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_G_TRANSITION, geofenceTransition);
+                    db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?", new String[]{String.valueOf(geofenceId)});
+
+                    //db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateGeofenceTransition", e.toString());
+                    //} finally {
+                    //db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void clearAllGeofenceTransitions() {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                //db.beginTransaction();
+
+                try {
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_G_TRANSITION, 0);
+                    db.update(TABLE_GEOFENCES, values, null, null);
+
+                    //db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.clearAllGeofenceTransitions", e.toString());
+                    //} finally {
+                    //db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    // Deleting single geofence
+    void deleteGeofence(long geofenceId) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                db.beginTransaction();
+
+                final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                        KEY_E_LOCATION_GEOFENCES +
+                        " FROM " + TABLE_EVENTS;
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                //noinspection TryFinallyCanBeTryWithResources
+                try {
+
+                    // delete geofence
+                    db.delete(TABLE_GEOFENCES, KEY_G_ID + " = ?",
+                            new String[]{String.valueOf(geofenceId)});
+
+                    // looping through all rows and adding to list
+                    if (cursor.moveToFirst()) {
+                        do {
+                            String geofences = cursor.getString(cursor.getColumnIndex(KEY_E_LOCATION_GEOFENCES));
+                            String[] splits = geofences.split("\\|");
+                            boolean found = false;
+                            geofences = "";
+                            for (String geofence : splits) {
+                                if (!geofence.isEmpty()) {
+                                    if (!geofence.equals(Long.toString(geofenceId))) {
+                                        if (!geofences.isEmpty())
+                                            //noinspection StringConcatenationInLoop
+                                            geofences = geofences + "|";
+                                        //noinspection StringConcatenationInLoop
+                                        geofences = geofences + geofence;
+                                    } else
+                                        found = true;
+                                }
+                            }
+                            if (found) {
+                                // unlink geofence from events
+                                ContentValues values = new ContentValues();
+                                values.put(KEY_E_LOCATION_GEOFENCES, geofences);
+                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{String.valueOf(cursor.getString(cursor.getColumnIndex(KEY_E_ID)))});
+                            }
+                        } while (cursor.moveToNext());
+                    }
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.deleteGeofence", e.toString());
+                } finally {
+                    db.endTransaction();
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void checkGeofence(String geofences, int check) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+
+                db.beginTransaction();
+
+                try {
+                    if (!geofences.isEmpty()) {
+                        // check geofences
+                        String[] splits = geofences.split("\\|");
+                        for (String geofence : splits) {
+                            if (!geofence.isEmpty()) {
+                                int _check = check;
+                                if (check == 2) {
+                                    final String selectQuery = "SELECT " + KEY_G_CHECKED +
+                                            " FROM " + TABLE_GEOFENCES +
+                                            " WHERE " + KEY_G_ID + "=" + geofence;
+                                    Cursor cursor = db.rawQuery(selectQuery, null);
+                                    if (cursor != null) {
+                                        if (cursor.moveToFirst())
+                                            _check = (cursor.getInt(cursor.getColumnIndex(KEY_G_CHECKED)) == 0) ? 1 : 0;
+                                        cursor.close();
+                                    }
+                                }
+                                if (_check != 2) {
+                                    values.clear();
+                                    values.put(KEY_G_CHECKED, _check);
+                                    db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?", new String[]{geofence});
+                                }
+                            }
+                        }
+                    } else {
+                        // uncheck geofences
+                        values.clear();
+                        values.put(KEY_G_CHECKED, 0);
+                        db.update(TABLE_GEOFENCES, values, null, null);
+                    }
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.checkGeofence", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    Cursor getGeofencesCursor() {
+        importExportLock.lock();
+        try {
+            Cursor cursor = null;
+            try {
+                startRunningCommand();
+
+                final String selectQuery = "SELECT " + KEY_G_ID + "," +
+                        KEY_G_LATITUDE + "," +
+                        KEY_G_LONGITUDE + "," +
+                        KEY_G_RADIUS + "," +
+                        KEY_G_NAME + "," +
+                        KEY_G_CHECKED +
+                        " FROM " + TABLE_GEOFENCES +
+                        " ORDER BY " + KEY_G_NAME + " ASC";
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                cursor = db.rawQuery(selectQuery, null);
+            } catch (Exception ignored) {
+            }
+            return cursor;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    String getGeofenceName(long geofenceId) {
+        importExportLock.lock();
+        try {
+            String r = "";
+            try {
+                startRunningCommand();
+
+                final String countQuery = "SELECT " + KEY_G_NAME +
+                        " FROM " + TABLE_GEOFENCES +
+                        " WHERE " + KEY_G_ID + "=" + String.valueOf(geofenceId);
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(countQuery, null);
+
+                if (cursor != null) {
+                    if (cursor.moveToFirst())
+                        r = cursor.getString(cursor.getColumnIndex(KEY_G_NAME));
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+            return r;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    String getCheckedGeofences() {
+        importExportLock.lock();
+        try {
+            String value = "";
+            try {
+                startRunningCommand();
+
+                final String countQuery = "SELECT " + KEY_G_ID + ","
+                        + KEY_G_CHECKED +
+                        " FROM " + TABLE_GEOFENCES;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(countQuery, null);
+
+                if (cursor != null) {
+                    if (cursor.moveToFirst()) {
+                        do {
+                            if (cursor.getInt(cursor.getColumnIndex(KEY_G_CHECKED)) == 1) {
+                                if (!value.isEmpty())
+                                    //noinspection StringConcatenationInLoop
+                                    value = value + "|";
+                                //noinspection StringConcatenationInLoop
+                                value = value + cursor.getLong(cursor.getColumnIndex(KEY_G_ID));
+                            }
+                        } while (cursor.moveToNext());
+                    }
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+            return value;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    int getGeofenceCount() {
+        importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                startRunningCommand();
+
+                String countQuery = "SELECT  count(*) FROM " + TABLE_GEOFENCES;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(countQuery, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    r = Integer.parseInt(cursor.getString(0));
+                    cursor.close();
+                } else
+                    r = 0;
+
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+            return r;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    boolean isGeofenceUsed(long geofenceId/*, boolean onlyEnabledEvents*/) {
+        importExportLock.lock();
+        try {
+            boolean found = false;
+            try {
+                startRunningCommand();
+
+                String selectQuery = "SELECT " + KEY_E_LOCATION_GEOFENCES +
+                        " FROM " + TABLE_EVENTS +
+                        " WHERE " + KEY_E_LOCATION_ENABLED + "=1";
+
+                /*
+                if (onlyEnabledEvents)
+                    selectQuery = selectQuery + " AND " + KEY_E_STATUS + " IN (" +
+                            String.valueOf(Event.ESTATUS_PAUSE) + "," +
+                            String.valueOf(Event.ESTATUS_RUNNING) + ")";
+                */
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        String geofences = cursor.getString(cursor.getColumnIndex(KEY_E_LOCATION_GEOFENCES));
+                        String[] splits = geofences.split("\\|");
+                        for (String geofence : splits) {
+                            if (!geofence.isEmpty()) {
+                                if (geofence.equals(Long.toString(geofenceId))) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (found)
+                            break;
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+            return found;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    int getGeofenceTransition(long geofenceId) {
+        importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                startRunningCommand();
+
+                final String countQuery = "SELECT " + KEY_G_TRANSITION +
+                        " FROM " + TABLE_GEOFENCES +
+                        " WHERE " + KEY_G_ID + "=" + String.valueOf(geofenceId);
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(countQuery, null);
+
+                if (cursor != null) {
+                    if (cursor.moveToFirst())
+                        r = cursor.getInt(cursor.getColumnIndex(KEY_G_TRANSITION));
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+            return r;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+// SHORTCUTS ----------------------------------------------------------------------
+
+    // Adding new shortcut
+    void addShortcut(Shortcut shortcut) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_S_INTENT, shortcut._intent);
+                values.put(KEY_S_NAME, shortcut._name);
+
+                db.beginTransaction();
+
+                try {
+                    // Inserting Row
+                    shortcut._id = db.insert(TABLE_SHORTCUTS, null, values);
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close(); // Closing database connection
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    // Getting single shortcut
+    Shortcut getShortcut(long shortcutId) {
+        importExportLock.lock();
+        try {
+            Shortcut shortcut = null;
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_SHORTCUTS,
+                        new String[]{KEY_S_ID,
+                                KEY_S_INTENT,
+                                KEY_S_NAME
+                        },
+                        KEY_S_ID + "=?",
+                        new String[]{String.valueOf(shortcutId)}, null, null, null, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        shortcut = new Shortcut();
+                        shortcut._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_S_ID)));
+                        shortcut._intent = cursor.getString(cursor.getColumnIndex(KEY_S_INTENT));
+                        shortcut._name = cursor.getString(cursor.getColumnIndex(KEY_S_NAME));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+            return shortcut;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    // Deleting single shortcut
+    void deleteShortcut(long shortcutId) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                db.beginTransaction();
+
+                try {
+
+                    // delete geofence
+                    db.delete(TABLE_SHORTCUTS, KEY_S_ID + " = ?",
+                            new String[]{String.valueOf(shortcutId)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.deleteShortcut", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+// MOBILE_CELLS ----------------------------------------------------------------------
+
+    // Adding new mobile cell
+    private void addMobileCell(MobileCell mobileCell) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_MC_CELL_ID, mobileCell._cellId);
+                values.put(KEY_MC_NAME, mobileCell._name);
+                values.put(KEY_MC_NEW, mobileCell._new ? 1 : 0);
+                values.put(KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
+
+                db.beginTransaction();
+
+                try {
+                    // Inserting Row
+                    mobileCell._id = db.insert(TABLE_MOBILE_CELLS, null, values);
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close(); // Closing database connection
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    // Updating single mobile cell
+    private void updateMobileCell(MobileCell mobileCell) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_MC_CELL_ID, mobileCell._cellId);
+                values.put(KEY_MC_NAME, mobileCell._name);
+                values.put(KEY_MC_NEW, mobileCell._new ? 1 : 0);
+                values.put(KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_MOBILE_CELLS, values, KEY_MC_ID + " = ?",
+                            new String[]{String.valueOf(mobileCell._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateMobileCell", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    // add mobile cells to list
+    void addMobileCellsToList(List<MobileCellsData> cellsList) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT " + KEY_MC_CELL_ID + "," +
+                        KEY_MC_NAME + "," +
+                        KEY_MC_NEW + "," +
+                        KEY_MC_LAST_CONNECTED_TIME +
+                        " FROM " + TABLE_MOBILE_CELLS;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        int cellId = cursor.getInt(cursor.getColumnIndex(KEY_MC_CELL_ID));
+                        String name = cursor.getString(cursor.getColumnIndex(KEY_MC_NAME));
+                        boolean _new = cursor.getInt(cursor.getColumnIndex(KEY_MC_NEW)) == 1;
+                        long lastConnectedTime = cursor.getLong(cursor.getColumnIndex(KEY_MC_LAST_CONNECTED_TIME));
+                        //Log.d("DatabaseHandler.addMobileCellsToList", "cellId="+cellId + " new="+_new);
+                        boolean found = false;
+                        for (MobileCellsData cell : cellsList) {
+                            if (cell.cellId == cellId) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            MobileCellsData cell = new MobileCellsData(cellId, name, false, _new, lastConnectedTime);
+                            cellsList.add(cell);
+                        }
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void saveMobileCellsList(List<MobileCellsData> cellsList, boolean _new, boolean renameExistingCell) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT " + KEY_MC_ID + "," +
+                        KEY_MC_CELL_ID + "," +
+                        KEY_MC_NAME + "," +
+                        KEY_MC_LAST_CONNECTED_TIME +
+                        " FROM " + TABLE_MOBILE_CELLS;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                for (MobileCellsData cell : cellsList) {
+                    boolean found = false;
+                    long foundedDbId = 0;
+                    String foundedCellName = "";
+                    long foundedLastConnectedTime = 0;
+                    if (cursor.moveToFirst()) {
+                        do {
+                            String dbCellId = Integer.toString(cursor.getInt(cursor.getColumnIndex(KEY_MC_CELL_ID)));
+                            if (dbCellId.equals(Integer.toString(cell.cellId))) {
+                                foundedDbId = cursor.getLong(cursor.getColumnIndex(KEY_MC_ID));
+                                foundedCellName = cursor.getString(cursor.getColumnIndex(KEY_MC_NAME));
+                                foundedLastConnectedTime = cursor.getLong(cursor.getColumnIndex(KEY_MC_LAST_CONNECTED_TIME));
+                                found = true;
+                                break;
+                            }
+                        } while (cursor.moveToNext());
+                    }
+                    if (!found) {
+                        //Log.d("DatabaseHandler.saveMobileCellsList", "!found");
+                        MobileCell mobileCell = new MobileCell();
+                        mobileCell._cellId = cell.cellId;
+                        mobileCell._name = cell.name;
+                        mobileCell._new = true;
+                        mobileCell._lastConnectedTime = cell.lastConnectedTime;
+                        addMobileCell(mobileCell);
+                    } else {
+                        //Log.d("DatabaseHandler.saveMobileCellsList", "found="+foundedDbId+" cell.new="+cell._new+" new="+_new);
+                        MobileCell mobileCell = new MobileCell();
+                        mobileCell._id = foundedDbId;
+                        mobileCell._cellId = cell.cellId;
+                        if (renameExistingCell)
+                            mobileCell._name = cell.name;
+                        else
+                            mobileCell._name = foundedCellName;
+                        mobileCell._new = _new && cell._new;
+                        if (cell.connected)
+                            mobileCell._lastConnectedTime = cell.lastConnectedTime;
+                        else
+                            mobileCell._lastConnectedTime = foundedLastConnectedTime;
+                        updateMobileCell(mobileCell);
+                    }
+                }
+
+                cursor.close();
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void renameMobileCellsList(List<MobileCellsData> cellsList, String name, boolean _new, String value) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT " + KEY_MC_ID + "," +
+                        KEY_MC_CELL_ID +
+                        " FROM " + TABLE_MOBILE_CELLS;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                for (MobileCellsData cell : cellsList) {
+                    boolean found = false;
+                    long foundedDbId = 0;
+                    if (cursor.moveToFirst()) {
+                        do {
+                            String dbCellId = Integer.toString(cursor.getInt(cursor.getColumnIndex(KEY_MC_CELL_ID)));
+                            if (dbCellId.equals(Integer.toString(cell.cellId))) {
+                                foundedDbId = cursor.getLong(cursor.getColumnIndex(KEY_MC_ID));
+                                found = true;
+                                break;
+                            }
+                        } while (cursor.moveToNext());
+                    }
+                    if (found) {
+                        if (_new) {
+                            if (cell._new) {
+                                cell.name = name;
+                                MobileCell mobileCell = new MobileCell();
+                                mobileCell._id = foundedDbId;
+                                mobileCell._cellId = cell.cellId;
+                                mobileCell._name = cell.name;
+                                mobileCell._new = true;
+                                mobileCell._lastConnectedTime = cell.lastConnectedTime;
+                                updateMobileCell(mobileCell);
+                            }
+                        } else {
+                            String[] splits = value.split("\\|");
+                            for (String valueCell : splits) {
+                                if (valueCell.equals(Integer.toString(cell.cellId))) {
+                                    cell.name = name;
+                                    MobileCell mobileCell = new MobileCell();
+                                    mobileCell._id = foundedDbId;
+                                    mobileCell._cellId = cell.cellId;
+                                    mobileCell._name = cell.name;
+                                    mobileCell._new = cell._new;
+                                    mobileCell._lastConnectedTime = cell.lastConnectedTime;
+                                    updateMobileCell(mobileCell);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                cursor.close();
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void deleteMobileCell(int mobileCell) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                db.beginTransaction();
+
+                try {
+                    // delete geofence
+                    db.delete(TABLE_MOBILE_CELLS, KEY_MC_CELL_ID + " = ?",
+                            new String[]{String.valueOf(mobileCell)});
+
+                    db.setTransactionSuccessful();
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.deleteMobileCell", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updateMobileCellLastConnectedTime(int mobileCell, long lastConnectedTime) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_MC_LAST_CONNECTED_TIME, lastConnectedTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_MOBILE_CELLS, values, KEY_MC_CELL_ID + " = ?",
+                            new String[]{String.valueOf(mobileCell)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateMobileCellLastConnectedTime", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void addMobileCellNamesToList(List<String> cellNamesList) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT " + KEY_MC_NAME +
+                        " FROM " + TABLE_MOBILE_CELLS +
+                        " WHERE " + KEY_MC_NAME + " IS NOT NULL" +
+                        " AND " + KEY_MC_NAME + " <> ''" +
+                        " GROUP BY " + KEY_MC_NAME +
+                        " ORDER BY " + KEY_MC_NAME;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        String name = cursor.getString(cursor.getColumnIndex(KEY_MC_NAME));
+                        cellNamesList.add(name);
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+// NFC_TAGS ----------------------------------------------------------------------
+
+    // Adding new nfc tag
+    void addNFCTag(String nfcTag) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_NFC_TAGS,
+                        new String[]{KEY_NT_NAME},
+                        KEY_NT_NAME + "=?",
+                        new String[]{nfcTag}, null, null, null, null);
+
+                boolean found = false;
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    found = cursor.getCount() > 0;
+                    cursor.close();
+                }
+
+                if (!found) {
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_NT_NAME, nfcTag);
+
+                    db.beginTransaction();
+
+                    try {
+                        // Inserting Row
+                        db.insert(TABLE_NFC_TAGS, null, values);
+
+                        db.setTransactionSuccessful();
+
+                    } catch (Exception e) {
+                        //Error in between database transaction
+                    } finally {
+                        db.endTransaction();
+                    }
+                }
+
+                //db.close(); // Closing database connection
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
 
     // Getting All nfc tags
     List<NFCTag> getAllNFCTags() {
-        synchronized (databaseHandlerMutex) {
-            List<NFCTag> nfcTagList = new ArrayList<>();
-
-            // Select All Query
-            final String selectQuery = "SELECT " + KEY_NT_ID + "," +
-                    KEY_NT_NAME +
-                    " FROM " + TABLE_NFC_TAGS +
-                    " ORDER BY " + KEY_NT_NAME;
-
-            //SQLiteDatabase db = this.getReadableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            Cursor cursor = db.rawQuery(selectQuery, null);
-
-            // looping through all rows and adding to list
-            if (cursor.moveToFirst()) {
-                do {
-                    NFCTag nfcTag = new NFCTag();
-                    nfcTag._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_NT_ID)));
-                    nfcTag._name = cursor.getString(cursor.getColumnIndex(KEY_NT_NAME));
-                    nfcTagList.add(nfcTag);
-                } while (cursor.moveToNext());
-            }
-
-            cursor.close();
-            //db.close();
-
-            return nfcTagList;
-        }
-    }
-
-    /*
-    // Updating single nfc tag
-    int updateNFCTag(NFCTag nfcTag) {
-        //SQLiteDatabase db = this.getWritableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_NT_NAME, nfcTag._name);
-
-        int r = 0;
-
-        db.beginTransaction();
-
+        importExportLock.lock();
         try {
-            // updating row
-            r = db.update(TABLE_NFC_TAGS, values, KEY_NT_ID + " = ?",
-                    new String[] { String.valueOf(nfcTag._id) });
+            List<NFCTag> nfcTagList = new ArrayList<>();
+            try {
+                startRunningCommand();
 
-            db.setTransactionSuccessful();
+                // Select All Query
+                final String selectQuery = "SELECT " + KEY_NT_ID + "," +
+                        KEY_NT_NAME +
+                        " FROM " + TABLE_NFC_TAGS +
+                        " ORDER BY " + KEY_NT_NAME;
 
-        } catch (Exception e){
-            //Error in between database transaction
-            Log.e("DatabaseHandler.updateNFCTag", e.toString());
-            r = 0;
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        NFCTag nfcTag = new NFCTag();
+                        nfcTag._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_NT_ID)));
+                        nfcTag._name = cursor.getString(cursor.getColumnIndex(KEY_NT_NAME));
+                        nfcTagList.add(nfcTag);
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+            return nfcTagList;
         } finally {
-            db.endTransaction();
+            stopRunningCommand();
         }
-
-        //db.close();
-
-        return r;
     }
-    */
 
     // Updating single nfc tag
     void updateNFCTag(String oldNfcTag, String newNfcTag) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(KEY_NT_NAME, newNfcTag);
-
-            db.beginTransaction();
-
-            try {
-                // updating row
-                db.update(TABLE_NFC_TAGS, values, KEY_NT_NAME + " = ?",
-                        new String[]{oldNfcTag});
-
-                db.setTransactionSuccessful();
-
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.updateNFCTag", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
-            //db.close();
-        }
-    }
-
-
-    /*
-    // Deleting single nfc tag
-    void deleteNFCTag(long nfcTagId) {
-        //SQLiteDatabase db = this.getWritableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        db.beginTransaction();
-
+        importExportLock.lock();
         try {
+            try {
+                startRunningCommand();
 
-            // delete geofence
-            db.delete(TABLE_NFC_TAGS, KEY_NT_ID + " = ?",
-                    new String[]{String.valueOf(nfcTagId)});
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-            db.setTransactionSuccessful();
+                ContentValues values = new ContentValues();
+                values.put(KEY_NT_NAME, newNfcTag);
 
-        } catch (Exception e){
-            //Error in between database transaction
-            Log.e("DatabaseHandler.deleteNFCTag", e.toString());
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_NFC_TAGS, values, KEY_NT_NAME + " = ?",
+                            new String[]{oldNfcTag});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateNFCTag", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
         } finally {
-            db.endTransaction();
+            stopRunningCommand();
         }
-
-        //db.close();
     }
-    */
 
     // Deleting single nfc tag
     void deleteNFCTag(String nfcTag) {
-        synchronized (databaseHandlerMutex) {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            db.beginTransaction();
-
+        importExportLock.lock();
+        try {
             try {
+                startRunningCommand();
 
-                // delete geofence
-                db.delete(TABLE_NFC_TAGS, KEY_NT_NAME + " = ?",
-                        new String[]{nfcTag});
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
 
-                db.setTransactionSuccessful();
+                db.beginTransaction();
 
-            } catch (Exception e) {
-                //Error in between database transaction
-                Log.e("DatabaseHandler.deleteNFCTag", e.toString());
-            } finally {
-                db.endTransaction();
+                try {
+
+                    // delete geofence
+                    db.delete(TABLE_NFC_TAGS, KEY_NT_NAME + " = ?",
+                            new String[]{nfcTag});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.deleteNFCTag", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
             }
-
-            //db.close();
+        } finally {
+            stopRunningCommand();
         }
     }
 
 // OTHERS -------------------------------------------------------------------------
 
+    int disableNotAllowedPreferences(Context context)
+    {
+        importExportLock.lock();
+        try {
+            int ret = 0;
+            try {
+                startRunningCommand();
+
+                final String selectProfilesQuery = "SELECT " + KEY_ID + "," +
+                        KEY_DEVICE_AIRPLANE_MODE + "," +
+                        KEY_DEVICE_WIFI + "," +
+                        KEY_DEVICE_BLUETOOTH + "," +
+                        KEY_DEVICE_MOBILE_DATA + "," +
+                        KEY_DEVICE_MOBILE_DATA_PREFS + "," +
+                        KEY_DEVICE_GPS + "," +
+                        KEY_DEVICE_LOCATION_SERVICE_PREFS + "," +
+                        KEY_DEVICE_NFC + "," +
+                        KEY_VOLUME_RINGER_MODE + "," +
+                        KEY_DEVICE_WIFI_AP + "," +
+                        KEY_DEVICE_POWER_SAVE_MODE + "," +
+                        KEY_VOLUME_ZEN_MODE + "," +
+                        KEY_DEVICE_NETWORK_TYPE + "," +
+                        KEY_NOTIFICATION_LED + "," +
+                        KEY_VIBRATE_WHEN_RINGING + "," +
+                        KEY_DEVICE_CONNECT_TO_SSID + "," +
+                        KEY_APPLICATION_DISABLE_WIFI_SCANNING + "," +
+                        KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING +
+                        " FROM " + TABLE_PROFILES;
+                final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
+                        KEY_E_WIFI_ENABLED + "," +
+                        KEY_E_BLUETOOTH_ENABLED + "," +
+                        KEY_E_NOTIFICATION_ENABLED + "," +
+                        KEY_E_ORIENTATION_ENABLED + "," +
+                        KEY_E_MOBILE_CELLS_ENABLED + "," +
+                        KEY_E_NFC_ENABLED + "," +
+                        KEY_E_RADIO_SWITCH_ENABLED +
+                        " FROM " + TABLE_EVENTS;
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+
+                Cursor profilesCursor = db.rawQuery(selectProfilesQuery, null);
+                Cursor eventsCursor = db.rawQuery(selectEventsQuery, null);
+
+                db.beginTransaction();
+                //noinspection TryFinallyCanBeTryWithResources
+                try {
+
+                    if (profilesCursor.moveToFirst()) {
+                        do {
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_AIRPLANE_MODE))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_DEVICE_AIRPLANE_MODE, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_WIFI))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_DEVICE_WIFI, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_BLUETOOTH))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_DEVICE_BLUETOOTH, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_DEVICE_MOBILE_DATA, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_PREFS))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_DEVICE_MOBILE_DATA_PREFS, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_GPS))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_DEVICE_GPS, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_LOCATION_SERVICE_PREFS))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_NFC))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_DEVICE_NFC, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_WIFI_AP))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_DEVICE_WIFI_AP, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if (Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_VOLUME_RINGER_MODE))) == 5) {
+                                boolean notRemove = ActivateProfileHelper.canChangeZenMode(context, true);
+                                if (!notRemove) {
+                                    int zenMode = profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_VOLUME_ZEN_MODE));
+                                    int ringerMode = 0;
+                                    switch (zenMode) {
+                                        case 1:
+                                            ringerMode = 1;
+                                            break;
+                                        case 2:
+                                            ringerMode = 4;
+                                            break;
+                                        case 3:
+                                            ringerMode = 4;
+                                            break;
+                                        case 4:
+                                            ringerMode = 2;
+                                            break;
+                                        case 5:
+                                            ringerMode = 3;
+                                            break;
+                                        case 6:
+                                            ringerMode = 4;
+                                            break;
+                                    }
+                                    values.clear();
+                                    values.put(KEY_VOLUME_RINGER_MODE, ringerMode);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                                }
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context)
+                                            == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_DEVICE_POWER_SAVE_MODE, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, context)
+                                            == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_DEVICE_NETWORK_TYPE, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_NOTIFICATION_LED))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, context)
+                                            == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_NOTIFICATION_LED, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_VIBRATE_WHEN_RINGING))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, context)
+                                            == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_VIBRATE_WHEN_RINGING, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, context) == PPApplication.PREFERENCE_NOT_ALLOWED) {
+                                values.clear();
+                                values.put(KEY_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_APPLICATION_DISABLE_WIFI_SCANNING))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+                        } while (profilesCursor.moveToNext());
+                    }
+
+                    //-----------------------
+
+                    if (eventsCursor.moveToFirst()) {
+                        do {
+                            if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_WIFI_ENABLED))) != 0) &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_E_WIFI_ENABLED, 0);
+                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
+                            }
+                            if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_BLUETOOTH_ENABLED))) != 0) &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_E_BLUETOOTH_ENABLED, 0);
+                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
+                            }
+                            if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_NOTIFICATION_ENABLED))) != 0) &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_E_NOTIFICATION_ENABLED, 0);
+                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
+                            }
+                            if (Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ORIENTATION_ENABLED))) != 0) {
+                                boolean enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null) &&
+                                        (PhoneProfilesService.getMagneticFieldSensor(context.getApplicationContext()) != null);
+                                if (!enabled) {
+                                    values.clear();
+                                    values.put(KEY_E_ORIENTATION_DISPLAY, "");
+                                    values.put(KEY_E_ORIENTATION_SIDES, "");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
+                                }
+                                enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null);
+                                if (!enabled) {
+                                    values.clear();
+                                    values.put(KEY_E_ORIENTATION_SIDES, "");
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
+                                }
+                                enabled = (PhoneProfilesService.getProximitySensor(context.getApplicationContext()) != null);
+                                if (!enabled) {
+                                    values.clear();
+                                    values.put(KEY_E_ORIENTATION_DISTANCE, 0);
+                                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
+                                }
+                            }
+                            if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_MOBILE_CELLS_ENABLED))) != 0) &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_E_MOBILE_CELLS_ENABLED, 0);
+                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
+                            }
+
+                            if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_NFC_ENABLED))) != 0) &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_E_NFC_ENABLED, 0);
+                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
+                            }
+
+                            if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_RADIO_SWITCH_ENABLED))) != 0) &&
+                                    (Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_E_RADIO_SWITCH_ENABLED, 0);
+                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
+                            }
+
+                        } while (eventsCursor.moveToNext());
+                    }
+
+                    db.setTransactionSuccessful();
+
+                    ret = 1;
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    ret = 0;
+                    Log.e("DatabaseHandler.disableNotAllowedPreferences", e.toString());
+                } finally {
+                    db.endTransaction();
+                    profilesCursor.close();
+                    eventsCursor.close();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+            return ret;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    private void startRunningImportExport() throws Exception {
+        if (runningCommand)
+            runningCommandCondition.await();
+        runningImportExport = true;
+    }
+
+    private void stopRunningImportExport() {
+        runningImportExport = false;
+        runningImportExportCondition.signalAll();
+        importExportLock.unlock();
+    }
+
     private boolean tableExists(String tableName, SQLiteDatabase db)
     {
-        Cursor c;
-
         boolean tableExists = false;
 
         /* get cursor on it */
         try
         {
-            c = db.query(tableName, null,
+            Cursor c = db.query(tableName, null,
                 null, null, null, null, null);
             tableExists = true;
             c.close();
@@ -6661,277 +7081,52 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //@SuppressWarnings("resource")
     int importDB(String applicationDataPath) {
-        synchronized (databaseHandlerMutex) {
+        importExportLock.lock();
+        try {
             int ret = 0;
-            List<Long> exportedDBEventProfileIds = new ArrayList<>();
-            List<Long> importDBEventProfileIds = new ArrayList<>();
-            long profileId;
-
-            // Close SQLiteOpenHelper so it will commit the created empty
-            // database to internal storage
-            //close();
-
             try {
-                File sd = Environment.getExternalStorageDirectory();
-                //File data = Environment.getDataDirectory();
+                startRunningImportExport();
 
-                //File dataDB = new File(data, DB_FILEPATH + "/" + DATABASE_NAME);
-                File exportedDB = new File(sd, applicationDataPath + "/" + EXPORT_DBFILENAME);
+                List<Long> exportedDBEventProfileIds = new ArrayList<>();
+                List<Long> importDBEventProfileIds = new ArrayList<>();
+                long profileId;
 
-                if (exportedDB.exists()) {
-                    SQLiteDatabase exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
+                // Close SQLiteOpenHelper so it will commit the created empty
+                // database to internal storage
+                //close();
 
-                    if (exportedDBObj.getVersion() <= DATABASE_VERSION) {
-                        SQLiteDatabase db = getMyWritableDatabase();
+                try {
+                    File sd = Environment.getExternalStorageDirectory();
+                    //File data = Environment.getDataDirectory();
 
-                        Cursor cursorExportedDB = null;
-                        String[] columnNamesExportedDB;
-                        Cursor cursorImportDB = null;
-                        ContentValues values = new ContentValues();
+                    //File dataDB = new File(data, DB_FILEPATH + "/" + DATABASE_NAME);
+                    File exportedDB = new File(sd, applicationDataPath + "/" + EXPORT_DBFILENAME);
 
-                        try {
-                            db.beginTransaction();
+                    if (exportedDB.exists()) {
+                        SQLiteDatabase exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
 
-                            db.execSQL("DELETE FROM " + TABLE_PROFILES);
+                        if (exportedDBObj.getVersion() <= DATABASE_VERSION) {
+                            SQLiteDatabase db = getMyWritableDatabase();
 
-                            // cursor for profiles exportedDB
-                            cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_PROFILES, null);
-                            columnNamesExportedDB = cursorExportedDB.getColumnNames();
+                            Cursor cursorExportedDB = null;
+                            String[] columnNamesExportedDB;
+                            Cursor cursorImportDB = null;
+                            ContentValues values = new ContentValues();
 
-                            // cursor for profiles of destination db
-                            cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_PROFILES, null);
+                            try {
+                                db.beginTransaction();
 
-                            int duration = 0;
-                            int zenMode = 0;
+                                db.execSQL("DELETE FROM " + TABLE_PROFILES);
 
-                            if (cursorExportedDB.moveToFirst()) {
-                                do {
-                                    values.clear();
-                                    for (int i = 0; i < columnNamesExportedDB.length; i++) {
-                                        // put only when columnNamesExportedDB[i] exists in cursorImportDB
-                                        if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
-                                            String value = cursorExportedDB.getString(i);
-
-                                            // update values
-                                            if (((exportedDBObj.getVersion() < 1002) && (applicationDataPath.equals(PPApplication.EXPORT_PATH)))
-                                                    ||
-                                                    ((exportedDBObj.getVersion() < 52) && (applicationDataPath.equals(GlobalGUIRoutines.REMOTE_EXPORT_PATH)))) {
-                                                if (columnNamesExportedDB[i].equals(KEY_DEVICE_AUTOROTATE)) {
-                                                    // change values:
-                                                    // autorotate off -> rotation 0
-                                                    // autorotate on -> autorotate
-                                                    if (value.equals("1") || value.equals("3"))
-                                                        value = "1";
-                                                    if (value.equals("2"))
-                                                        value = "2";
-                                                }
-                                            }
-                                            if (exportedDBObj.getVersion() < 1156) {
-                                                if (columnNamesExportedDB[i].equals(KEY_DEVICE_BRIGHTNESS)) {
-                                                    if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-                                                    {
-                                                        //value|noChange|automatic|defaultProfile
-                                                        String[] splits = value.split("\\|");
-
-                                                        if (splits[2].equals("1")) // automatic is set
-                                                        {
-                                                            // hm, found brightness values without default profile :-/
-                                                        /*if (splits.length == 4)
-                                                            value = adaptiveBrightnessValue+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
-                                                        else
-                                                            value = adaptiveBrightnessValue+"|"+splits[1]+"|"+splits[2]+"|0";
-                                                        */
-                                                            if (splits.length == 4)
-                                                                value = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + "|" + splits[1] + "|" + splits[2] + "|" + splits[3];
-                                                            else
-                                                                value = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + "|" + splits[1] + "|" + splits[2] + "|0";
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            if (exportedDBObj.getVersion() < 1165) {
-                                                if (columnNamesExportedDB[i].equals(KEY_DEVICE_BRIGHTNESS)) {
-                                                    //value|noChange|automatic|defaultProfile
-                                                    String[] splits = value.split("\\|");
-
-                                                    int perc = Integer.parseInt(splits[0]);
-                                                    perc = (int) Profile.convertBrightnessToPercents(perc, 255, 1);
-
-                                                    // hm, found brightness values without default profile :-/
-                                                    if (splits.length == 4)
-                                                        value = perc + "|" + splits[1] + "|" + splits[2] + "|" + splits[3];
-                                                    else
-                                                        value = perc + "|" + splits[1] + "|" + splits[2] + "|0";
-                                                }
-                                            }
-                                            if (exportedDBObj.getVersion() < 1175) {
-                                                if (columnNamesExportedDB[i].equals(KEY_DEVICE_BRIGHTNESS)) {
-                                                    if (android.os.Build.VERSION.SDK_INT < 21) {
-                                                        //value|noChange|automatic|defaultProfile
-                                                        String[] splits = value.split("\\|");
-
-                                                        if (splits[2].equals("1")) // automatic is set
-                                                        {
-                                                            int perc = 50;
-
-                                                            // hm, found brightness values without default profile :-/
-                                                            if (splits.length == 4)
-                                                                value = perc + "|" + splits[1] + "|" + splits[2] + "|" + splits[3];
-                                                            else
-                                                                value = perc + "|" + splits[1] + "|" + splits[2] + "|0";
-                                                        }
-                                                    }
-                                                }
-                                            }
-
-                                            values.put(columnNamesExportedDB[i], value);
-                                        }
-                                        if (columnNamesExportedDB[i].equals(KEY_DURATION))
-                                            duration = cursorExportedDB.getInt(i);
-                                        if (columnNamesExportedDB[i].equals(KEY_VOLUME_ZEN_MODE))
-                                            zenMode = cursorExportedDB.getInt(i);
-                                    }
-
-                                    // for non existent fields set default value
-                                    if (exportedDBObj.getVersion() < 19) {
-                                        values.put(KEY_DEVICE_MOBILE_DATA, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 20) {
-                                        values.put(KEY_DEVICE_MOBILE_DATA_PREFS, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 21) {
-                                        values.put(KEY_DEVICE_GPS, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 22) {
-                                        values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, 0);
-                                        values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, "-");
-                                    }
-                                    if (exportedDBObj.getVersion() < 24) {
-                                        values.put(KEY_DEVICE_AUTOSYNC, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 31) {
-                                        values.put(KEY_DEVICE_AUTOSYNC, 0);
-                                    }
-                                    if (applicationDataPath.equals(GlobalGUIRoutines.REMOTE_EXPORT_PATH)
-                                            ||
-                                            ((exportedDBObj.getVersion() < 26) && (applicationDataPath.equals(PPApplication.EXPORT_PATH)))) {
-                                        values.put(KEY_SHOW_IN_ACTIVATOR, 1);
-                                    }
-                                    if (((exportedDBObj.getVersion() < 1001) && (applicationDataPath.equals(PPApplication.EXPORT_PATH)))
-                                            ||
-                                            ((exportedDBObj.getVersion() < 51) && (applicationDataPath.equals(GlobalGUIRoutines.REMOTE_EXPORT_PATH)))) {
-                                        values.put(KEY_DEVICE_AUTOROTATE, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1015) {
-                                        values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1020) {
-                                        values.put(KEY_VOLUME_SPEAKER_PHONE, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1035) {
-                                        values.put(KEY_DEVICE_NFC, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1120) {
-                                        values.put(KEY_DURATION, 0);
-                                        values.put(KEY_AFTER_DURATION_DO, Profile.AFTERDURATIONDO_RESTARTEVENTS);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1150) {
-                                        values.put(KEY_VOLUME_ZEN_MODE, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1160) {
-                                        values.put(KEY_DEVICE_KEYGUARD, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1210) {
-                                        values.put(KEY_VIBRATE_ON_TOUCH, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1330) {
-                                        values.put(KEY_DEVICE_WIFI_AP, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1350) {
-                                        values.put(KEY_DURATION, duration * 60); // conversion to seconds
-                                    }
-                                    if (exportedDBObj.getVersion() < 1410) {
-                                        if ((zenMode == 6) && (android.os.Build.VERSION.SDK_INT < 23))
-                                            values.put(KEY_VOLUME_ZEN_MODE, 3); // Alarms only zen mode is supported from Android 6.0
-                                    }
-                                    if (exportedDBObj.getVersion() < 1420) {
-                                        values.put(KEY_DEVICE_POWER_SAVE_MODE, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1550) {
-                                        values.put(KEY_SHOW_DURATION_BUTTON, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1560) {
-                                        values.put(KEY_ASK_FOR_DURATION, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1570) {
-                                        values.put(KEY_DEVICE_NETWORK_TYPE, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1580) {
-                                        values.put(KEY_NOTIFICATION_LED, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1630) {
-                                        values.put(KEY_VIBRATE_WHEN_RINGING, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1660) {
-                                        values.put(KEY_DEVICE_WALLPAPER_FOR, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1810) {
-                                        values.put(KEY_HIDE_STATUS_BAR_ICON, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1820) {
-                                        values.put(KEY_LOCK_DEVICE, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1860) {
-                                        values.put(KEY_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1870) {
-                                        values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, 0);
-                                        values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, 0);
-                                    }
-
-                                    ///////////////////////////////////////////////////////
-
-                                    // Inserting Row do db z SQLiteOpenHelper
-                                    profileId = db.insert(TABLE_PROFILES, null, values);
-                                    // save profile ids
-                                    exportedDBEventProfileIds.add(cursorExportedDB.getLong(cursorExportedDB.getColumnIndex(KEY_ID)));
-                                    importDBEventProfileIds.add(profileId);
-
-                                } while (cursorExportedDB.moveToNext());
-                            }
-
-                            if (exportedDBObj.getVersion() < 1890) {
-                                changePictureFilePathToUri(null);
-                            }
-
-                            cursorExportedDB.close();
-                            cursorImportDB.close();
-
-                            db.execSQL("DELETE FROM " + TABLE_EVENTS);
-
-                            int exportedDBObjVersion = 0;
-
-                            if (tableExists(TABLE_EVENTS, exportedDBObj)) {
-                                // cursor for events exportedDB
-                                cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_EVENTS, null);
+                                // cursor for profiles exportedDB
+                                cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_PROFILES, null);
                                 columnNamesExportedDB = cursorExportedDB.getColumnNames();
 
                                 // cursor for profiles of destination db
-                                cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_EVENTS, null);
+                                cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_PROFILES, null);
 
-                                int batteryLevel = 15;
-                                int batteryDetectorType = 0;
-                                long fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
-                                long startTime = 0;
-                                long endTime = 0;
-                                int priority = 0;
-                                int delayStart = 0;
-                                int useEndTime = 0;
-                                int undoneProfile = 0;
-                                long geofenceId = 0;
-                                String calendarSearchString = "";
-                                String wifiSSID = "";
-                                String bluetoothAdapterName = "";
+                                int duration = 0;
+                                int zenMode = 0;
 
                                 if (cursorExportedDB.moveToFirst()) {
                                     do {
@@ -6939,993 +7134,920 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         for (int i = 0; i < columnNamesExportedDB.length; i++) {
                                             // put only when columnNamesExportedDB[i] exists in cursorImportDB
                                             if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
-                                                if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START) ||
-                                                        columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) ||
-                                                        columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED)) {
-                                                    // imported profile has new id
-                                                    // map old profile id to new imported id
-                                                    int profileIdx = exportedDBEventProfileIds.indexOf(cursorExportedDB.getLong(i));
-                                                    if (profileIdx != -1)
-                                                        values.put(columnNamesExportedDB[i], importDBEventProfileIds.get(profileIdx));
-                                                    else {
-                                                        if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) &&
-                                                                (cursorExportedDB.getLong(i) == Profile.PROFILE_NO_ACTIVATE))
-                                                            values.put(columnNamesExportedDB[i], Profile.PROFILE_NO_ACTIVATE);
-                                                        else if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED) &&
-                                                                (cursorExportedDB.getLong(i) == Profile.PROFILE_NO_ACTIVATE))
-                                                            values.put(columnNamesExportedDB[i], Profile.PROFILE_NO_ACTIVATE);
-                                                        else
-                                                            values.put(columnNamesExportedDB[i], 0);
-                                                    }
-                                                } else
-                                                    values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
-                                            }
+                                                String value = cursorExportedDB.getString(i);
 
-                                            if (columnNamesExportedDB[i].equals(KEY_E_BATTERY_LEVEL))
-                                                batteryLevel = cursorExportedDB.getInt(i);
-                                            if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END))
-                                                fkProfileEnd = cursorExportedDB.getLong(i);
-                                            if (columnNamesExportedDB[i].equals(KEY_E_START_TIME))
-                                                startTime = cursorExportedDB.getLong(i);
-                                            if (columnNamesExportedDB[i].equals(KEY_E_END_TIME))
-                                                endTime = cursorExportedDB.getLong(i);
-                                            if (columnNamesExportedDB[i].equals(KEY_E_PRIORITY))
-                                                priority = cursorExportedDB.getInt(i);
-                                            if (columnNamesExportedDB[i].equals(KEY_E_DELAY_START))
-                                                delayStart = cursorExportedDB.getInt(i);
-                                            if (columnNamesExportedDB[i].equals(KEY_E_USE_END_TIME))
-                                                useEndTime = cursorExportedDB.getInt(i);
-                                            if (columnNamesExportedDB[i].equals(KEY_E_UNDONE_PROFILE)) {
-                                                if (cursorExportedDB.isNull(i))
-                                                    undoneProfile = 0;
-                                                else
-                                                    undoneProfile = cursorExportedDB.getInt(i);
+                                                // update values
+                                                if (((exportedDBObj.getVersion() < 1002) && (applicationDataPath.equals(PPApplication.EXPORT_PATH)))
+                                                        ||
+                                                        ((exportedDBObj.getVersion() < 52) && (applicationDataPath.equals(GlobalGUIRoutines.REMOTE_EXPORT_PATH)))) {
+                                                    if (columnNamesExportedDB[i].equals(KEY_DEVICE_AUTOROTATE)) {
+                                                        // change values:
+                                                        // autorotate off -> rotation 0
+                                                        // autorotate on -> autorotate
+                                                        if (value.equals("1") || value.equals("3"))
+                                                            value = "1";
+                                                        if (value.equals("2"))
+                                                            value = "2";
+                                                    }
+                                                }
+                                                if (exportedDBObj.getVersion() < 1156) {
+                                                    if (columnNamesExportedDB[i].equals(KEY_DEVICE_BRIGHTNESS)) {
+                                                        if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
+                                                        {
+                                                            //value|noChange|automatic|defaultProfile
+                                                            String[] splits = value.split("\\|");
+
+                                                            if (splits[2].equals("1")) // automatic is set
+                                                            {
+                                                                // hm, found brightness values without default profile :-/
+                                                            /*if (splits.length == 4)
+                                                                value = adaptiveBrightnessValue+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
+                                                            else
+                                                                value = adaptiveBrightnessValue+"|"+splits[1]+"|"+splits[2]+"|0";
+                                                            */
+                                                                if (splits.length == 4)
+                                                                    value = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + "|" + splits[1] + "|" + splits[2] + "|" + splits[3];
+                                                                else
+                                                                    value = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + "|" + splits[1] + "|" + splits[2] + "|0";
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                if (exportedDBObj.getVersion() < 1165) {
+                                                    if (columnNamesExportedDB[i].equals(KEY_DEVICE_BRIGHTNESS)) {
+                                                        //value|noChange|automatic|defaultProfile
+                                                        String[] splits = value.split("\\|");
+
+                                                        int perc = Integer.parseInt(splits[0]);
+                                                        perc = (int) Profile.convertBrightnessToPercents(perc, 255, 1);
+
+                                                        // hm, found brightness values without default profile :-/
+                                                        if (splits.length == 4)
+                                                            value = perc + "|" + splits[1] + "|" + splits[2] + "|" + splits[3];
+                                                        else
+                                                            value = perc + "|" + splits[1] + "|" + splits[2] + "|0";
+                                                    }
+                                                }
+                                                if (exportedDBObj.getVersion() < 1175) {
+                                                    if (columnNamesExportedDB[i].equals(KEY_DEVICE_BRIGHTNESS)) {
+                                                        if (android.os.Build.VERSION.SDK_INT < 21) {
+                                                            //value|noChange|automatic|defaultProfile
+                                                            String[] splits = value.split("\\|");
+
+                                                            if (splits[2].equals("1")) // automatic is set
+                                                            {
+                                                                int perc = 50;
+
+                                                                // hm, found brightness values without default profile :-/
+                                                                if (splits.length == 4)
+                                                                    value = perc + "|" + splits[1] + "|" + splits[2] + "|" + splits[3];
+                                                                else
+                                                                    value = perc + "|" + splits[1] + "|" + splits[2] + "|0";
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                values.put(columnNamesExportedDB[i], value);
                                             }
-                                            if (columnNamesExportedDB[i].equals(KEY_E_CALENDAR_SEARCH_STRING))
-                                                calendarSearchString = cursorExportedDB.getString(i);
-                                            if (columnNamesExportedDB[i].equals(KEY_E_WIFI_SSID))
-                                                wifiSSID = cursorExportedDB.getString(i);
-                                            if (columnNamesExportedDB[i].equals(KEY_E_BLUETOOTH_ADAPTER_NAME))
-                                                bluetoothAdapterName = cursorExportedDB.getString(i);
-                                            if (columnNamesExportedDB[i].equals(KEY_E_LOCATION_FK_GEOFENCE))
-                                                geofenceId = cursorExportedDB.getLong(i);
+                                            if (columnNamesExportedDB[i].equals(KEY_DURATION))
+                                                duration = cursorExportedDB.getInt(i);
+                                            if (columnNamesExportedDB[i].equals(KEY_VOLUME_ZEN_MODE))
+                                                zenMode = cursorExportedDB.getInt(i);
                                         }
 
                                         // for non existent fields set default value
-                                        if (exportedDBObj.getVersion() < 30) {
-                                            values.put(KEY_E_USE_END_TIME, 0);
+                                        if (exportedDBObj.getVersion() < 19) {
+                                            values.put(KEY_DEVICE_MOBILE_DATA, 0);
                                         }
-                                        if (exportedDBObj.getVersion() < 32) {
-                                            values.put(KEY_E_STATUS, 0);
+                                        if (exportedDBObj.getVersion() < 20) {
+                                            values.put(KEY_DEVICE_MOBILE_DATA_PREFS, 0);
                                         }
-                                        if (exportedDBObj.getVersion() < 1016) {
-                                            values.put(KEY_E_BATTERY_LEVEL, 15);
+                                        if (exportedDBObj.getVersion() < 21) {
+                                            values.put(KEY_DEVICE_GPS, 0);
                                         }
-
-                                        if (exportedDBObj.getVersion() < 1022) {
-                                            values.put(KEY_E_NOTIFICATION_SOUND, "");
+                                        if (exportedDBObj.getVersion() < 22) {
+                                            values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, 0);
+                                            values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, "-");
                                         }
-
-                                        if (exportedDBObj.getVersion() < 1023) {
-                                            values.put(KEY_E_BATTERY_LEVEL_LOW, 0);
-                                            values.put(KEY_E_BATTERY_LEVEL_HIGHT, 100);
-                                            values.put(KEY_E_BATTERY_CHARGING, 0);
-                                            if (batteryDetectorType == 0)
-                                                values.put(KEY_E_BATTERY_LEVEL_HIGHT, batteryLevel);
-                                            if (batteryDetectorType == 1)
-                                                values.put(KEY_E_BATTERY_LEVEL_LOW, batteryLevel);
-                                            if (batteryDetectorType == 2)
-                                                values.put(KEY_E_BATTERY_CHARGING, 1);
+                                        if (exportedDBObj.getVersion() < 24) {
+                                            values.put(KEY_DEVICE_AUTOSYNC, 0);
                                         }
-
-                                        if (exportedDBObj.getVersion() < 1030) {
-                                            values.put(KEY_E_TIME_ENABLED, 0);
-                                            values.put(KEY_E_BATTERY_ENABLED, 0);
+                                        if (exportedDBObj.getVersion() < 31) {
+                                            values.put(KEY_DEVICE_AUTOSYNC, 0);
                                         }
-
-                                        if (exportedDBObj.getVersion() < 1040) {
-                                            values.put(KEY_E_CALL_ENABLED, 0);
-                                            values.put(KEY_E_CALL_EVENT, 0);
-                                            values.put(KEY_E_CALL_CONTACTS, "");
-                                            values.put(KEY_E_CALL_CONTACT_LIST_TYPE, 0);
+                                        if (applicationDataPath.equals(GlobalGUIRoutines.REMOTE_EXPORT_PATH)
+                                                ||
+                                                ((exportedDBObj.getVersion() < 26) && (applicationDataPath.equals(PPApplication.EXPORT_PATH)))) {
+                                            values.put(KEY_SHOW_IN_ACTIVATOR, 1);
                                         }
-
-                                        if (exportedDBObj.getVersion() < 1045) {
-                                            values.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
+                                        if (((exportedDBObj.getVersion() < 1001) && (applicationDataPath.equals(PPApplication.EXPORT_PATH)))
+                                                ||
+                                                ((exportedDBObj.getVersion() < 51) && (applicationDataPath.equals(GlobalGUIRoutines.REMOTE_EXPORT_PATH)))) {
+                                            values.put(KEY_DEVICE_AUTOROTATE, 0);
                                         }
-
-                                        if (exportedDBObj.getVersion() < 1050) {
-                                            values.put(KEY_E_FORCE_RUN, 0);
+                                        if (exportedDBObj.getVersion() < 1015) {
+                                            values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, 0);
                                         }
-
-                                        if (exportedDBObj.getVersion() < 1051) {
-                                            values.put(KEY_E_BLOCKED, 0);
+                                        if (exportedDBObj.getVersion() < 1020) {
+                                            values.put(KEY_VOLUME_SPEAKER_PHONE, 0);
                                         }
-
-                                        if (exportedDBObj.getVersion() < 1060) {
-                                            if (fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
-                                                values.put(KEY_E_UNDONE_PROFILE, 1);
-                                            else
-                                                values.put(KEY_E_UNDONE_PROFILE, 0);
+                                        if (exportedDBObj.getVersion() < 1035) {
+                                            values.put(KEY_DEVICE_NFC, 0);
                                         }
-
-                                        if (exportedDBObj.getVersion() < 1070) {
-                                            values.put(KEY_E_PRIORITY, Event.EPRIORITY_MEDIUM);
+                                        if (exportedDBObj.getVersion() < 1120) {
+                                            values.put(KEY_DURATION, 0);
+                                            values.put(KEY_AFTER_DURATION_DO, Profile.AFTERDURATIONDO_RESTARTEVENTS);
                                         }
-
-                                        if (exportedDBObj.getVersion() < 1080) {
-                                            values.put(KEY_E_PERIPHERAL_ENABLED, 0);
-                                            values.put(KEY_E_PERIPHERAL_TYPE, 0);
+                                        if (exportedDBObj.getVersion() < 1150) {
+                                            values.put(KEY_VOLUME_ZEN_MODE, 0);
                                         }
-
-                                        if (exportedDBObj.getVersion() < 1081) {
-                                            int gmtOffset = TimeZone.getDefault().getRawOffset();
-                                            values.put(KEY_E_START_TIME, startTime + gmtOffset);
-                                            values.put(KEY_E_END_TIME, endTime + gmtOffset);
+                                        if (exportedDBObj.getVersion() < 1160) {
+                                            values.put(KEY_DEVICE_KEYGUARD, 0);
                                         }
-
-                                        if (exportedDBObj.getVersion() < 1090) {
-                                            values.put(KEY_E_CALENDAR_ENABLED, 0);
-                                            values.put(KEY_E_CALENDAR_CALENDARS, "");
-                                            values.put(KEY_E_CALENDAR_SEARCH_FIELD, 0);
-                                            values.put(KEY_E_CALENDAR_SEARCH_STRING, "");
+                                        if (exportedDBObj.getVersion() < 1210) {
+                                            values.put(KEY_VIBRATE_ON_TOUCH, 0);
                                         }
-
-                                        if (exportedDBObj.getVersion() < 1095) {
-                                            values.put(KEY_E_CALENDAR_EVENT_START_TIME, 0);
-                                            values.put(KEY_E_CALENDAR_EVENT_END_TIME, 0);
-                                            values.put(KEY_E_CALENDAR_EVENT_FOUND, 0);
+                                        if (exportedDBObj.getVersion() < 1330) {
+                                            values.put(KEY_DEVICE_WIFI_AP, 0);
                                         }
-
-                                        if (exportedDBObj.getVersion() < 1100) {
-                                            switch (priority) {
-                                                case -2:
-                                                    values.put(KEY_E_PRIORITY, -4);
-                                                    break;
-                                                case -1:
-                                                    values.put(KEY_E_PRIORITY, -2);
-                                                    break;
-                                                case 1:
-                                                    values.put(KEY_E_PRIORITY, 2);
-                                                    break;
-                                                case 2:
-                                                    values.put(KEY_E_PRIORITY, 4);
-                                                    break;
-                                            }
+                                        if (exportedDBObj.getVersion() < 1350) {
+                                            values.put(KEY_DURATION, duration * 60); // conversion to seconds
+                                        }
+                                        if (exportedDBObj.getVersion() < 1410) {
+                                            if ((zenMode == 6) && (android.os.Build.VERSION.SDK_INT < 23))
+                                                values.put(KEY_VOLUME_ZEN_MODE, 3); // Alarms only zen mode is supported from Android 6.0
+                                        }
+                                        if (exportedDBObj.getVersion() < 1420) {
+                                            values.put(KEY_DEVICE_POWER_SAVE_MODE, 0);
+                                        }
+                                        if (exportedDBObj.getVersion() < 1550) {
+                                            values.put(KEY_SHOW_DURATION_BUTTON, 0);
+                                        }
+                                        if (exportedDBObj.getVersion() < 1560) {
+                                            values.put(KEY_ASK_FOR_DURATION, 0);
+                                        }
+                                        if (exportedDBObj.getVersion() < 1570) {
+                                            values.put(KEY_DEVICE_NETWORK_TYPE, 0);
+                                        }
+                                        if (exportedDBObj.getVersion() < 1580) {
+                                            values.put(KEY_NOTIFICATION_LED, 0);
+                                        }
+                                        if (exportedDBObj.getVersion() < 1630) {
+                                            values.put(KEY_VIBRATE_WHEN_RINGING, 0);
+                                        }
+                                        if (exportedDBObj.getVersion() < 1660) {
+                                            values.put(KEY_DEVICE_WALLPAPER_FOR, 0);
+                                        }
+                                        if (exportedDBObj.getVersion() < 1810) {
+                                            values.put(KEY_HIDE_STATUS_BAR_ICON, 0);
+                                        }
+                                        if (exportedDBObj.getVersion() < 1820) {
+                                            values.put(KEY_LOCK_DEVICE, 0);
+                                        }
+                                        if (exportedDBObj.getVersion() < 1860) {
+                                            values.put(KEY_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
+                                        }
+                                        if (exportedDBObj.getVersion() < 1870) {
+                                            values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, 0);
+                                            values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, 0);
                                         }
 
-                                        if (exportedDBObj.getVersion() < 1105) {
-                                            values.put(KEY_E_WIFI_ENABLED, 0);
-                                            values.put(KEY_E_WIFI_SSID, "");
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1106) {
-                                            values.put(KEY_E_WIFI_CONNECTION_TYPE, 1);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1110) {
-                                            values.put(KEY_E_SCREEN_ENABLED, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1111) {
-                                            values.put(KEY_E_SCREEN_EVENT_TYPE, 1);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1112) {
-                                            values.put(KEY_E_DELAY_START, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1113) {
-                                            values.put(KEY_E_IS_IN_DELAY_START, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1125) {
-                                            values.put(KEY_E_SCREEN_WHEN_UNLOCKED, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1130) {
-                                            values.put(KEY_E_BLUETOOTH_ENABLED, 0);
-                                            values.put(KEY_E_BLUETOOTH_ADAPTER_NAME, "");
-                                            values.put(KEY_E_BLUETOOTH_CONNECTION_TYPE, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1140) {
-                                            values.put(KEY_E_SMS_ENABLED, 0);
-                                            //values.put(KEY_E_SMS_EVENT, 0);
-                                            values.put(KEY_E_SMS_CONTACTS, "");
-                                            values.put(KEY_E_SMS_CONTACT_LIST_TYPE, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1141) {
-                                            values.put(KEY_E_SMS_START_TIME, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1170) {
-                                            values.put(KEY_E_DELAY_START, delayStart * 60); // conversion to seconds
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1180) {
-                                            values.put(KEY_E_CALL_CONTACT_GROUPS, "");
-                                            values.put(KEY_E_SMS_CONTACT_GROUPS, "");
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1220) {
-                                            if (useEndTime != 1) {
-                                                values.put(KEY_E_END_TIME, startTime + 5000); // add 5 seconds
-                                                values.put(KEY_E_USE_END_TIME, 1);
-                                            }
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1295) {
-                                            if (undoneProfile == 0)
-                                                values.put(KEY_E_AT_END_DO, Event.EATENDDO_NONE);
-                                            else
-                                                values.put(KEY_E_AT_END_DO, Event.EATENDDO_UNDONE_PROFILE);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1300) {
-                                            values.put(KEY_E_CALENDAR_AVAILABILITY, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1310) {
-                                            values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1370) {
-                                            values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1380) {
-                                            calendarSearchString = calendarSearchString.replace("%", "\\%").replace("_", "\\_");
-                                            wifiSSID = wifiSSID.replace("%", "\\%").replace("_", "\\_");
-                                            bluetoothAdapterName = bluetoothAdapterName.replace("%", "\\%").replace("_", "\\_");
-                                            values.put(KEY_E_CALENDAR_SEARCH_STRING, calendarSearchString);
-                                            values.put(KEY_E_WIFI_SSID, wifiSSID);
-                                            values.put(KEY_E_BLUETOOTH_ADAPTER_NAME, bluetoothAdapterName);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1390) {
-                                            values.put(KEY_E_SMS_DURATION, 5);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1400) {
-                                            values.put(KEY_E_NOTIFICATION_ENABLED, 0);
-                                            values.put(KEY_E_NOTIFICATION_APPLICATIONS, "");
-                                            values.put(KEY_E_NOTIFICATION_START_TIME, 0);
-                                            values.put(KEY_E_NOTIFICATION_DURATION, 5);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1430) {
-                                            values.put(KEY_E_BATTERY_POWER_SAVE_MODE, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1434) {
-                                            values.put(KEY_E_BLUETOOTH_DEVICES_TYPE, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1450) {
-                                            values.put(KEY_E_APPLICATION_ENABLED, 0);
-                                            values.put(KEY_E_APPLICATION_APPLICATIONS, "");
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1460) {
-                                            values.put(KEY_E_NOTIFICATION_END_WHEN_REMOVED, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1470) {
-                                            values.put(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1500) {
-                                            values.put(KEY_E_LOCATION_ENABLED, 0);
-                                            values.put(KEY_E_LOCATION_FK_GEOFENCE, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1520) {
-                                            values.put(KEY_E_LOCATION_WHEN_OUTSIDE, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1530) {
-                                            values.put(KEY_E_DELAY_END, 0);
-                                            values.put(KEY_E_IS_IN_DELAY_END, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1540) {
-                                            values.put(KEY_E_START_STATUS_TIME, 0);
-                                            values.put(KEY_E_PAUSE_STATUS_TIME, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1600) {
-                                            values.put(KEY_E_ORIENTATION_ENABLED, 0);
-                                            values.put(KEY_E_ORIENTATION_SIDES, "");
-                                            values.put(KEY_E_ORIENTATION_DISTANCE, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1610) {
-                                            values.put(KEY_E_ORIENTATION_DISPLAY, "");
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1620) {
-                                            values.put(KEY_E_ORIENTATION_IGNORE_APPLICATIONS, "");
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1670) {
-                                            values.put(KEY_E_MOBILE_CELLS_ENABLED, 0);
-                                            values.put(KEY_E_MOBILE_CELLS_WHEN_OUTSIDE, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1680) {
-                                            values.put(KEY_E_MOBILE_CELLS_CELLS, "");
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1710) {
-                                            if (geofenceId != 0)
-                                                values.put(KEY_E_LOCATION_GEOFENCES, String.valueOf(geofenceId));
-                                            else
-                                                values.put(KEY_E_LOCATION_GEOFENCES, "");
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1720) {
-                                            values.put(KEY_E_START_ORDER, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1750) {
-                                            values.put(KEY_E_NFC_ENABLED, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1770) {
-                                            values.put(KEY_E_NFC_NFC_TAGS, "");
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1780) {
-                                            values.put(KEY_E_NFC_DURATION, 5);
-                                            values.put(KEY_E_NFC_START_TIME, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1790) {
-                                            values.put(KEY_E_NFC_PERMANENT_RUN, 1);
-                                            values.put(KEY_E_NOTIFICATION_PERMANENT_RUN, 0);
-                                            values.put(KEY_E_SMS_PERMANENT_RUN, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1830) {
-                                            values.put(KEY_E_CALENDAR_START_BEFORE_EVENT, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1840) {
-                                            values.put(KEY_E_RADIO_SWITCH_ENABLED, 0);
-                                            values.put(KEY_E_RADIO_SWITCH_WIFI, 0);
-                                            values.put(KEY_E_RADIO_SWITCH_BLUETOOTH, 0);
-                                            values.put(KEY_E_RADIO_SWITCH_MOBILE_DATA, 0);
-                                            values.put(KEY_E_RADIO_SWITCH_GPS, 0);
-                                            values.put(KEY_E_RADIO_SWITCH_NFC, 0);
-                                            values.put(KEY_E_RADIO_SWITCH_AIRPLANE_MODE, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1900) {
-                                            int gmtOffset = TimeZone.getDefault().getRawOffset();
-                                            values.put(KEY_E_START_TIME, startTime - gmtOffset);
-                                            values.put(KEY_E_END_TIME, endTime - gmtOffset);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1910) {
-                                            values.put(KEY_E_NOTIFICATION_VIBRATE, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1920) {
-                                            values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, 0);
-                                        }
-
-                                        if (exportedDBObj.getVersion() < 1930)
-                                        {
-                                            Calendar calendar = Calendar.getInstance();
-
-                                            calendar.setTimeInMillis(startTime);
-                                            values.put(KEY_E_START_TIME, calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE));
-                                            calendar.setTimeInMillis(endTime);
-                                            values.put(KEY_E_END_TIME, calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE));
-                                        }
+                                        ///////////////////////////////////////////////////////
 
                                         // Inserting Row do db z SQLiteOpenHelper
-                                        db.insert(TABLE_EVENTS, null, values);
+                                        profileId = db.insert(TABLE_PROFILES, null, values);
+                                        // save profile ids
+                                        exportedDBEventProfileIds.add(cursorExportedDB.getLong(cursorExportedDB.getColumnIndex(KEY_ID)));
+                                        importDBEventProfileIds.add(profileId);
 
                                     } while (cursorExportedDB.moveToNext());
                                 }
 
-                                exportedDBObjVersion = exportedDBObj.getVersion();
-                                cursorExportedDB.close();
-                                cursorImportDB.close();
-                            }
-
-                            if (exportedDBObjVersion < 1740) {
-                                // initialize startOrder
-                                final String selectQuery = "SELECT " + KEY_E_ID +
-                                        " FROM " + TABLE_EVENTS +
-                                        " ORDER BY " + KEY_E_PRIORITY;
-
-                                Cursor cursor = db.rawQuery(selectQuery, null);
-
-                                int startOrder = 0;
-                                if (cursor.moveToFirst()) {
-                                    do {
-                                        ContentValues _values = new ContentValues();
-                                        _values.put(KEY_E_START_ORDER, ++startOrder);
-                                        db.update(TABLE_EVENTS, _values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
-                                    } while (cursor.moveToNext());
+                                if (exportedDBObj.getVersion() < 1890) {
+                                    changePictureFilePathToUri(null);
                                 }
 
-                                cursor.close();
-                            }
+                                cursorExportedDB.close();
+                                cursorImportDB.close();
 
-                            db.execSQL("DELETE FROM " + TABLE_ACTIVITY_LOG);
+                                db.execSQL("DELETE FROM " + TABLE_EVENTS);
 
-                            if (tableExists(TABLE_ACTIVITY_LOG, exportedDBObj)) {
-                                // cursor for events exportedDB
-                                cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_ACTIVITY_LOG, null);
-                                columnNamesExportedDB = cursorExportedDB.getColumnNames();
+                                int exportedDBObjVersion = 0;
 
-                                // cursor for profiles of destination db
-                                cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_ACTIVITY_LOG, null);
+                                if (tableExists(TABLE_EVENTS, exportedDBObj)) {
+                                    // cursor for events exportedDB
+                                    cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_EVENTS, null);
+                                    columnNamesExportedDB = cursorExportedDB.getColumnNames();
 
-                                if (cursorExportedDB.moveToFirst()) {
-                                    do {
-                                        values.clear();
-                                        for (int i = 0; i < columnNamesExportedDB.length; i++) {
-                                            // put only when columnNamesExportedDB[i] exists in cursorImportDB
-                                            if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
-                                                values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                    // cursor for profiles of destination db
+                                    cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_EVENTS, null);
+
+                                    int batteryLevel = 15;
+                                    int batteryDetectorType = 0;
+                                    long fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
+                                    long startTime = 0;
+                                    long endTime = 0;
+                                    int priority = 0;
+                                    int delayStart = 0;
+                                    int useEndTime = 0;
+                                    int undoneProfile = 0;
+                                    long geofenceId = 0;
+                                    String calendarSearchString = "";
+                                    String wifiSSID = "";
+                                    String bluetoothAdapterName = "";
+
+                                    if (cursorExportedDB.moveToFirst()) {
+                                        do {
+                                            values.clear();
+                                            for (int i = 0; i < columnNamesExportedDB.length; i++) {
+                                                // put only when columnNamesExportedDB[i] exists in cursorImportDB
+                                                if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
+                                                    if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START) ||
+                                                            columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) ||
+                                                            columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED)) {
+                                                        // imported profile has new id
+                                                        // map old profile id to new imported id
+                                                        int profileIdx = exportedDBEventProfileIds.indexOf(cursorExportedDB.getLong(i));
+                                                        if (profileIdx != -1)
+                                                            values.put(columnNamesExportedDB[i], importDBEventProfileIds.get(profileIdx));
+                                                        else {
+                                                            if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) &&
+                                                                    (cursorExportedDB.getLong(i) == Profile.PROFILE_NO_ACTIVATE))
+                                                                values.put(columnNamesExportedDB[i], Profile.PROFILE_NO_ACTIVATE);
+                                                            else if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED) &&
+                                                                    (cursorExportedDB.getLong(i) == Profile.PROFILE_NO_ACTIVATE))
+                                                                values.put(columnNamesExportedDB[i], Profile.PROFILE_NO_ACTIVATE);
+                                                            else
+                                                                values.put(columnNamesExportedDB[i], 0);
+                                                        }
+                                                    } else
+                                                        values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                                }
+
+                                                if (columnNamesExportedDB[i].equals(KEY_E_BATTERY_LEVEL))
+                                                    batteryLevel = cursorExportedDB.getInt(i);
+                                                if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END))
+                                                    fkProfileEnd = cursorExportedDB.getLong(i);
+                                                if (columnNamesExportedDB[i].equals(KEY_E_START_TIME))
+                                                    startTime = cursorExportedDB.getLong(i);
+                                                if (columnNamesExportedDB[i].equals(KEY_E_END_TIME))
+                                                    endTime = cursorExportedDB.getLong(i);
+                                                if (columnNamesExportedDB[i].equals(KEY_E_PRIORITY))
+                                                    priority = cursorExportedDB.getInt(i);
+                                                if (columnNamesExportedDB[i].equals(KEY_E_DELAY_START))
+                                                    delayStart = cursorExportedDB.getInt(i);
+                                                if (columnNamesExportedDB[i].equals(KEY_E_USE_END_TIME))
+                                                    useEndTime = cursorExportedDB.getInt(i);
+                                                if (columnNamesExportedDB[i].equals(KEY_E_UNDONE_PROFILE)) {
+                                                    if (cursorExportedDB.isNull(i))
+                                                        undoneProfile = 0;
+                                                    else
+                                                        undoneProfile = cursorExportedDB.getInt(i);
+                                                }
+                                                if (columnNamesExportedDB[i].equals(KEY_E_CALENDAR_SEARCH_STRING))
+                                                    calendarSearchString = cursorExportedDB.getString(i);
+                                                if (columnNamesExportedDB[i].equals(KEY_E_WIFI_SSID))
+                                                    wifiSSID = cursorExportedDB.getString(i);
+                                                if (columnNamesExportedDB[i].equals(KEY_E_BLUETOOTH_ADAPTER_NAME))
+                                                    bluetoothAdapterName = cursorExportedDB.getString(i);
+                                                if (columnNamesExportedDB[i].equals(KEY_E_LOCATION_FK_GEOFENCE))
+                                                    geofenceId = cursorExportedDB.getLong(i);
                                             }
-                                        }
 
-                                        // for non existent fields set default value
-                                    /*if (exportedDBObj.getVersion() < 30)
-                                    {
-                                        values.put(KEY_E_USE_END_TIME, 0);
+                                            // for non existent fields set default value
+                                            if (exportedDBObj.getVersion() < 30) {
+                                                values.put(KEY_E_USE_END_TIME, 0);
+                                            }
+                                            if (exportedDBObj.getVersion() < 32) {
+                                                values.put(KEY_E_STATUS, 0);
+                                            }
+                                            if (exportedDBObj.getVersion() < 1016) {
+                                                values.put(KEY_E_BATTERY_LEVEL, 15);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1022) {
+                                                values.put(KEY_E_NOTIFICATION_SOUND, "");
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1023) {
+                                                values.put(KEY_E_BATTERY_LEVEL_LOW, 0);
+                                                values.put(KEY_E_BATTERY_LEVEL_HIGHT, 100);
+                                                values.put(KEY_E_BATTERY_CHARGING, 0);
+                                                if (batteryDetectorType == 0)
+                                                    values.put(KEY_E_BATTERY_LEVEL_HIGHT, batteryLevel);
+                                                if (batteryDetectorType == 1)
+                                                    values.put(KEY_E_BATTERY_LEVEL_LOW, batteryLevel);
+                                                if (batteryDetectorType == 2)
+                                                    values.put(KEY_E_BATTERY_CHARGING, 1);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1030) {
+                                                values.put(KEY_E_TIME_ENABLED, 0);
+                                                values.put(KEY_E_BATTERY_ENABLED, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1040) {
+                                                values.put(KEY_E_CALL_ENABLED, 0);
+                                                values.put(KEY_E_CALL_EVENT, 0);
+                                                values.put(KEY_E_CALL_CONTACTS, "");
+                                                values.put(KEY_E_CALL_CONTACT_LIST_TYPE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1045) {
+                                                values.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1050) {
+                                                values.put(KEY_E_FORCE_RUN, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1051) {
+                                                values.put(KEY_E_BLOCKED, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1060) {
+                                                if (fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
+                                                    values.put(KEY_E_UNDONE_PROFILE, 1);
+                                                else
+                                                    values.put(KEY_E_UNDONE_PROFILE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1070) {
+                                                values.put(KEY_E_PRIORITY, Event.EPRIORITY_MEDIUM);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1080) {
+                                                values.put(KEY_E_PERIPHERAL_ENABLED, 0);
+                                                values.put(KEY_E_PERIPHERAL_TYPE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1081) {
+                                                int gmtOffset = TimeZone.getDefault().getRawOffset();
+                                                values.put(KEY_E_START_TIME, startTime + gmtOffset);
+                                                values.put(KEY_E_END_TIME, endTime + gmtOffset);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1090) {
+                                                values.put(KEY_E_CALENDAR_ENABLED, 0);
+                                                values.put(KEY_E_CALENDAR_CALENDARS, "");
+                                                values.put(KEY_E_CALENDAR_SEARCH_FIELD, 0);
+                                                values.put(KEY_E_CALENDAR_SEARCH_STRING, "");
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1095) {
+                                                values.put(KEY_E_CALENDAR_EVENT_START_TIME, 0);
+                                                values.put(KEY_E_CALENDAR_EVENT_END_TIME, 0);
+                                                values.put(KEY_E_CALENDAR_EVENT_FOUND, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1100) {
+                                                switch (priority) {
+                                                    case -2:
+                                                        values.put(KEY_E_PRIORITY, -4);
+                                                        break;
+                                                    case -1:
+                                                        values.put(KEY_E_PRIORITY, -2);
+                                                        break;
+                                                    case 1:
+                                                        values.put(KEY_E_PRIORITY, 2);
+                                                        break;
+                                                    case 2:
+                                                        values.put(KEY_E_PRIORITY, 4);
+                                                        break;
+                                                }
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1105) {
+                                                values.put(KEY_E_WIFI_ENABLED, 0);
+                                                values.put(KEY_E_WIFI_SSID, "");
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1106) {
+                                                values.put(KEY_E_WIFI_CONNECTION_TYPE, 1);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1110) {
+                                                values.put(KEY_E_SCREEN_ENABLED, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1111) {
+                                                values.put(KEY_E_SCREEN_EVENT_TYPE, 1);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1112) {
+                                                values.put(KEY_E_DELAY_START, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1113) {
+                                                values.put(KEY_E_IS_IN_DELAY_START, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1125) {
+                                                values.put(KEY_E_SCREEN_WHEN_UNLOCKED, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1130) {
+                                                values.put(KEY_E_BLUETOOTH_ENABLED, 0);
+                                                values.put(KEY_E_BLUETOOTH_ADAPTER_NAME, "");
+                                                values.put(KEY_E_BLUETOOTH_CONNECTION_TYPE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1140) {
+                                                values.put(KEY_E_SMS_ENABLED, 0);
+                                                //values.put(KEY_E_SMS_EVENT, 0);
+                                                values.put(KEY_E_SMS_CONTACTS, "");
+                                                values.put(KEY_E_SMS_CONTACT_LIST_TYPE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1141) {
+                                                values.put(KEY_E_SMS_START_TIME, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1170) {
+                                                values.put(KEY_E_DELAY_START, delayStart * 60); // conversion to seconds
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1180) {
+                                                values.put(KEY_E_CALL_CONTACT_GROUPS, "");
+                                                values.put(KEY_E_SMS_CONTACT_GROUPS, "");
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1220) {
+                                                if (useEndTime != 1) {
+                                                    values.put(KEY_E_END_TIME, startTime + 5000); // add 5 seconds
+                                                    values.put(KEY_E_USE_END_TIME, 1);
+                                                }
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1295) {
+                                                if (undoneProfile == 0)
+                                                    values.put(KEY_E_AT_END_DO, Event.EATENDDO_NONE);
+                                                else
+                                                    values.put(KEY_E_AT_END_DO, Event.EATENDDO_UNDONE_PROFILE);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1300) {
+                                                values.put(KEY_E_CALENDAR_AVAILABILITY, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1310) {
+                                                values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1370) {
+                                                values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1380) {
+                                                calendarSearchString = calendarSearchString.replace("%", "\\%").replace("_", "\\_");
+                                                wifiSSID = wifiSSID.replace("%", "\\%").replace("_", "\\_");
+                                                bluetoothAdapterName = bluetoothAdapterName.replace("%", "\\%").replace("_", "\\_");
+                                                values.put(KEY_E_CALENDAR_SEARCH_STRING, calendarSearchString);
+                                                values.put(KEY_E_WIFI_SSID, wifiSSID);
+                                                values.put(KEY_E_BLUETOOTH_ADAPTER_NAME, bluetoothAdapterName);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1390) {
+                                                values.put(KEY_E_SMS_DURATION, 5);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1400) {
+                                                values.put(KEY_E_NOTIFICATION_ENABLED, 0);
+                                                values.put(KEY_E_NOTIFICATION_APPLICATIONS, "");
+                                                values.put(KEY_E_NOTIFICATION_START_TIME, 0);
+                                                values.put(KEY_E_NOTIFICATION_DURATION, 5);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1430) {
+                                                values.put(KEY_E_BATTERY_POWER_SAVE_MODE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1434) {
+                                                values.put(KEY_E_BLUETOOTH_DEVICES_TYPE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1450) {
+                                                values.put(KEY_E_APPLICATION_ENABLED, 0);
+                                                values.put(KEY_E_APPLICATION_APPLICATIONS, "");
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1460) {
+                                                values.put(KEY_E_NOTIFICATION_END_WHEN_REMOVED, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1470) {
+                                                values.put(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1500) {
+                                                values.put(KEY_E_LOCATION_ENABLED, 0);
+                                                values.put(KEY_E_LOCATION_FK_GEOFENCE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1520) {
+                                                values.put(KEY_E_LOCATION_WHEN_OUTSIDE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1530) {
+                                                values.put(KEY_E_DELAY_END, 0);
+                                                values.put(KEY_E_IS_IN_DELAY_END, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1540) {
+                                                values.put(KEY_E_START_STATUS_TIME, 0);
+                                                values.put(KEY_E_PAUSE_STATUS_TIME, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1600) {
+                                                values.put(KEY_E_ORIENTATION_ENABLED, 0);
+                                                values.put(KEY_E_ORIENTATION_SIDES, "");
+                                                values.put(KEY_E_ORIENTATION_DISTANCE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1610) {
+                                                values.put(KEY_E_ORIENTATION_DISPLAY, "");
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1620) {
+                                                values.put(KEY_E_ORIENTATION_IGNORE_APPLICATIONS, "");
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1670) {
+                                                values.put(KEY_E_MOBILE_CELLS_ENABLED, 0);
+                                                values.put(KEY_E_MOBILE_CELLS_WHEN_OUTSIDE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1680) {
+                                                values.put(KEY_E_MOBILE_CELLS_CELLS, "");
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1710) {
+                                                if (geofenceId != 0)
+                                                    values.put(KEY_E_LOCATION_GEOFENCES, String.valueOf(geofenceId));
+                                                else
+                                                    values.put(KEY_E_LOCATION_GEOFENCES, "");
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1720) {
+                                                values.put(KEY_E_START_ORDER, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1750) {
+                                                values.put(KEY_E_NFC_ENABLED, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1770) {
+                                                values.put(KEY_E_NFC_NFC_TAGS, "");
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1780) {
+                                                values.put(KEY_E_NFC_DURATION, 5);
+                                                values.put(KEY_E_NFC_START_TIME, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1790) {
+                                                values.put(KEY_E_NFC_PERMANENT_RUN, 1);
+                                                values.put(KEY_E_NOTIFICATION_PERMANENT_RUN, 0);
+                                                values.put(KEY_E_SMS_PERMANENT_RUN, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1830) {
+                                                values.put(KEY_E_CALENDAR_START_BEFORE_EVENT, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1840) {
+                                                values.put(KEY_E_RADIO_SWITCH_ENABLED, 0);
+                                                values.put(KEY_E_RADIO_SWITCH_WIFI, 0);
+                                                values.put(KEY_E_RADIO_SWITCH_BLUETOOTH, 0);
+                                                values.put(KEY_E_RADIO_SWITCH_MOBILE_DATA, 0);
+                                                values.put(KEY_E_RADIO_SWITCH_GPS, 0);
+                                                values.put(KEY_E_RADIO_SWITCH_NFC, 0);
+                                                values.put(KEY_E_RADIO_SWITCH_AIRPLANE_MODE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1900) {
+                                                int gmtOffset = TimeZone.getDefault().getRawOffset();
+                                                values.put(KEY_E_START_TIME, startTime - gmtOffset);
+                                                values.put(KEY_E_END_TIME, endTime - gmtOffset);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1910) {
+                                                values.put(KEY_E_NOTIFICATION_VIBRATE, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1920) {
+                                                values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1930) {
+                                                Calendar calendar = Calendar.getInstance();
+
+                                                calendar.setTimeInMillis(startTime);
+                                                values.put(KEY_E_START_TIME, calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE));
+                                                calendar.setTimeInMillis(endTime);
+                                                values.put(KEY_E_END_TIME, calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE));
+                                            }
+
+                                            // Inserting Row do db z SQLiteOpenHelper
+                                            db.insert(TABLE_EVENTS, null, values);
+
+                                        } while (cursorExportedDB.moveToNext());
+                                    }
+
+                                    exportedDBObjVersion = exportedDBObj.getVersion();
+                                    cursorExportedDB.close();
+                                    cursorImportDB.close();
+                                }
+
+                                if (exportedDBObjVersion < 1740) {
+                                    // initialize startOrder
+                                    final String selectQuery = "SELECT " + KEY_E_ID +
+                                            " FROM " + TABLE_EVENTS +
+                                            " ORDER BY " + KEY_E_PRIORITY;
+
+                                    Cursor cursor = db.rawQuery(selectQuery, null);
+
+                                    int startOrder = 0;
+                                    if (cursor.moveToFirst()) {
+                                        do {
+                                            ContentValues _values = new ContentValues();
+                                            _values.put(KEY_E_START_ORDER, ++startOrder);
+                                            db.update(TABLE_EVENTS, _values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
+                                        } while (cursor.moveToNext());
+                                    }
+
+                                    cursor.close();
+                                }
+
+                                db.execSQL("DELETE FROM " + TABLE_ACTIVITY_LOG);
+
+                                if (tableExists(TABLE_ACTIVITY_LOG, exportedDBObj)) {
+                                    // cursor for events exportedDB
+                                    cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_ACTIVITY_LOG, null);
+                                    columnNamesExportedDB = cursorExportedDB.getColumnNames();
+
+                                    // cursor for profiles of destination db
+                                    cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_ACTIVITY_LOG, null);
+
+                                    if (cursorExportedDB.moveToFirst()) {
+                                        do {
+                                            values.clear();
+                                            for (int i = 0; i < columnNamesExportedDB.length; i++) {
+                                                // put only when columnNamesExportedDB[i] exists in cursorImportDB
+                                                if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
+                                                    values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                                }
+                                            }
+
+                                            // for non existent fields set default value
+                                        /*if (exportedDBObj.getVersion() < 30)
+                                        {
+                                            values.put(KEY_E_USE_END_TIME, 0);
+                                        }*/
+
+                                            // Inserting Row do db z SQLiteOpenHelper
+                                            db.insert(TABLE_ACTIVITY_LOG, null, values);
+
+                                        } while (cursorExportedDB.moveToNext());
+                                    }
+
+                                    cursorExportedDB.close();
+                                    cursorImportDB.close();
+
+                                }
+
+                                db.execSQL("DELETE FROM " + TABLE_GEOFENCES);
+
+                                if (tableExists(TABLE_GEOFENCES, exportedDBObj)) {
+                                    // cursor for events exportedDB
+                                    cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_GEOFENCES, null);
+                                    columnNamesExportedDB = cursorExportedDB.getColumnNames();
+
+                                    // cursor for profiles of destination db
+                                    cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_GEOFENCES, null);
+
+                                    if (cursorExportedDB.moveToFirst()) {
+                                        do {
+                                            values.clear();
+                                            for (int i = 0; i < columnNamesExportedDB.length; i++) {
+                                                // put only when columnNamesExportedDB[i] exists in cursorImportDB
+                                                if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
+                                                    values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                                }
+                                            }
+
+                                            // for non existent fields set default value
+                                            if (exportedDBObj.getVersion() < 1480) {
+                                                values.put(KEY_G_CHECKED, 0);
+                                            }
+                                            if (exportedDBObj.getVersion() < 1510) {
+                                                values.put(KEY_G_TRANSITION, 0);
+                                            }
+
+                                            // Inserting Row do db z SQLiteOpenHelper
+                                            db.insert(TABLE_GEOFENCES, null, values);
+
+                                        } while (cursorExportedDB.moveToNext());
+                                    }
+
+                                    cursorExportedDB.close();
+                                    cursorImportDB.close();
+
+                                }
+
+                                db.execSQL("DELETE FROM " + TABLE_SHORTCUTS);
+
+                                if (tableExists(TABLE_SHORTCUTS, exportedDBObj)) {
+                                    // cursor for events exportedDB
+                                    cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_SHORTCUTS, null);
+                                    columnNamesExportedDB = cursorExportedDB.getColumnNames();
+
+                                    // cursor for profiles of destination db
+                                    cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_SHORTCUTS, null);
+
+                                    if (cursorExportedDB.moveToFirst()) {
+                                        do {
+                                            values.clear();
+                                            for (int i = 0; i < columnNamesExportedDB.length; i++) {
+                                                // put only when columnNamesExportedDB[i] exists in cursorImportDB
+                                                if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
+                                                    values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                                }
+                                            }
+
+                                            // for non existent fields set default value
+                                    /*if (exportedDBObj.getVersion() < 1480) {
+                                        values.put(KEY_G_CHECKED, 0);
+                                    }
+                                    if (exportedDBObj.getVersion() < 1510) {
+                                        values.put(KEY_G_TRANSITION, 0);
                                     }*/
 
-                                        // Inserting Row do db z SQLiteOpenHelper
-                                        db.insert(TABLE_ACTIVITY_LOG, null, values);
+                                            // Inserting Row do db z SQLiteOpenHelper
+                                            db.insert(TABLE_SHORTCUTS, null, values);
 
-                                    } while (cursorExportedDB.moveToNext());
+                                        } while (cursorExportedDB.moveToNext());
+                                    }
+
+                                    cursorExportedDB.close();
+                                    cursorImportDB.close();
+
                                 }
 
-                                cursorExportedDB.close();
-                                cursorImportDB.close();
+                                db.execSQL("DELETE FROM " + TABLE_MOBILE_CELLS);
 
-                            }
+                                if (tableExists(TABLE_MOBILE_CELLS, exportedDBObj)) {
+                                    // cursor for exportedDB
+                                    cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_MOBILE_CELLS, null);
+                                    columnNamesExportedDB = cursorExportedDB.getColumnNames();
 
-                            db.execSQL("DELETE FROM " + TABLE_GEOFENCES);
+                                    // cursor of destination db
+                                    cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_MOBILE_CELLS, null);
 
-                            if (tableExists(TABLE_GEOFENCES, exportedDBObj)) {
-                                // cursor for events exportedDB
-                                cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_GEOFENCES, null);
-                                columnNamesExportedDB = cursorExportedDB.getColumnNames();
-
-                                // cursor for profiles of destination db
-                                cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_GEOFENCES, null);
-
-                                if (cursorExportedDB.moveToFirst()) {
-                                    do {
-                                        values.clear();
-                                        for (int i = 0; i < columnNamesExportedDB.length; i++) {
-                                            // put only when columnNamesExportedDB[i] exists in cursorImportDB
-                                            if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
-                                                values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                    if (cursorExportedDB.moveToFirst()) {
+                                        do {
+                                            values.clear();
+                                            for (int i = 0; i < columnNamesExportedDB.length; i++) {
+                                                // put only when columnNamesExportedDB[i] exists in cursorImportDB
+                                                if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
+                                                    values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                                }
                                             }
-                                        }
 
-                                        // for non existent fields set default value
-                                        if (exportedDBObj.getVersion() < 1480) {
-                                            values.put(KEY_G_CHECKED, 0);
-                                        }
-                                        if (exportedDBObj.getVersion() < 1510) {
-                                            values.put(KEY_G_TRANSITION, 0);
-                                        }
-
-                                        // Inserting Row do db z SQLiteOpenHelper
-                                        db.insert(TABLE_GEOFENCES, null, values);
-
-                                    } while (cursorExportedDB.moveToNext());
-                                }
-
-                                cursorExportedDB.close();
-                                cursorImportDB.close();
-
-                            }
-
-                            db.execSQL("DELETE FROM " + TABLE_SHORTCUTS);
-
-                            if (tableExists(TABLE_SHORTCUTS, exportedDBObj)) {
-                                // cursor for events exportedDB
-                                cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_SHORTCUTS, null);
-                                columnNamesExportedDB = cursorExportedDB.getColumnNames();
-
-                                // cursor for profiles of destination db
-                                cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_SHORTCUTS, null);
-
-                                if (cursorExportedDB.moveToFirst()) {
-                                    do {
-                                        values.clear();
-                                        for (int i = 0; i < columnNamesExportedDB.length; i++) {
-                                            // put only when columnNamesExportedDB[i] exists in cursorImportDB
-                                            if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
-                                                values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                            // for non existent fields set default value
+                                            if (exportedDBObj.getVersion() < 1700) {
+                                                values.put(KEY_MC_NEW, 0);
                                             }
-                                        }
-
-                                        // for non existent fields set default value
-                                /*if (exportedDBObj.getVersion() < 1480) {
-                                    values.put(KEY_G_CHECKED, 0);
-                                }
-                                if (exportedDBObj.getVersion() < 1510) {
-                                    values.put(KEY_G_TRANSITION, 0);
-                                }*/
-
-                                        // Inserting Row do db z SQLiteOpenHelper
-                                        db.insert(TABLE_SHORTCUTS, null, values);
-
-                                    } while (cursorExportedDB.moveToNext());
-                                }
-
-                                cursorExportedDB.close();
-                                cursorImportDB.close();
-
-                            }
-
-                            db.execSQL("DELETE FROM " + TABLE_MOBILE_CELLS);
-
-                            if (tableExists(TABLE_MOBILE_CELLS, exportedDBObj)) {
-                                // cursor for exportedDB
-                                cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_MOBILE_CELLS, null);
-                                columnNamesExportedDB = cursorExportedDB.getColumnNames();
-
-                                // cursor of destination db
-                                cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_MOBILE_CELLS, null);
-
-                                if (cursorExportedDB.moveToFirst()) {
-                                    do {
-                                        values.clear();
-                                        for (int i = 0; i < columnNamesExportedDB.length; i++) {
-                                            // put only when columnNamesExportedDB[i] exists in cursorImportDB
-                                            if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
-                                                values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                            if (exportedDBObj.getVersion() < 1800) {
+                                                values.put(KEY_MC_LAST_CONNECTED_TIME, 0);
                                             }
-                                        }
 
-                                        // for non existent fields set default value
-                                        if (exportedDBObj.getVersion() < 1700) {
-                                            values.put(KEY_MC_NEW, 0);
-                                        }
-                                        if (exportedDBObj.getVersion() < 1800) {
-                                            values.put(KEY_MC_LAST_CONNECTED_TIME, 0);
-                                        }
+                                            // Inserting Row do db z SQLiteOpenHelper
+                                            db.insert(TABLE_MOBILE_CELLS, null, values);
 
-                                        // Inserting Row do db z SQLiteOpenHelper
-                                        db.insert(TABLE_MOBILE_CELLS, null, values);
+                                        } while (cursorExportedDB.moveToNext());
+                                    }
 
-                                    } while (cursorExportedDB.moveToNext());
+                                    cursorExportedDB.close();
+                                    cursorImportDB.close();
+
                                 }
 
-                                cursorExportedDB.close();
-                                cursorImportDB.close();
+                                db.execSQL("DELETE FROM " + TABLE_NFC_TAGS);
 
-                            }
+                                if (tableExists(TABLE_NFC_TAGS, exportedDBObj)) {
+                                    // cursor for events exportedDB
+                                    cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_NFC_TAGS, null);
+                                    columnNamesExportedDB = cursorExportedDB.getColumnNames();
 
-                            db.execSQL("DELETE FROM " + TABLE_NFC_TAGS);
+                                    // cursor for profiles of destination db
+                                    cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_NFC_TAGS, null);
 
-                            if (tableExists(TABLE_NFC_TAGS, exportedDBObj)) {
-                                // cursor for events exportedDB
-                                cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_NFC_TAGS, null);
-                                columnNamesExportedDB = cursorExportedDB.getColumnNames();
-
-                                // cursor for profiles of destination db
-                                cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_NFC_TAGS, null);
-
-                                if (cursorExportedDB.moveToFirst()) {
-                                    do {
-                                        values.clear();
-                                        for (int i = 0; i < columnNamesExportedDB.length; i++) {
-                                            // put only when columnNamesExportedDB[i] exists in cursorImportDB
-                                            if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
-                                                values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                    if (cursorExportedDB.moveToFirst()) {
+                                        do {
+                                            values.clear();
+                                            for (int i = 0; i < columnNamesExportedDB.length; i++) {
+                                                // put only when columnNamesExportedDB[i] exists in cursorImportDB
+                                                if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
+                                                    values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                                }
                                             }
-                                        }
 
-                                        // for non existent fields set default value
-                                /*if (exportedDBObj.getVersion() < 1480) {
-                                    values.put(KEY_G_CHECKED, 0);
+                                            // for non existent fields set default value
+                                    /*if (exportedDBObj.getVersion() < 1480) {
+                                        values.put(KEY_G_CHECKED, 0);
+                                    }
+                                    if (exportedDBObj.getVersion() < 1510) {
+                                        values.put(KEY_G_TRANSITION, 0);
+                                    }*/
+
+                                            // Inserting Row do db z SQLiteOpenHelper
+                                            db.insert(TABLE_NFC_TAGS, null, values);
+
+                                        } while (cursorExportedDB.moveToNext());
+                                    }
+
+                                    cursorExportedDB.close();
+                                    cursorImportDB.close();
+
                                 }
-                                if (exportedDBObj.getVersion() < 1510) {
-                                    values.put(KEY_G_TRANSITION, 0);
-                                }*/
 
-                                        // Inserting Row do db z SQLiteOpenHelper
-                                        db.insert(TABLE_NFC_TAGS, null, values);
+                                db.setTransactionSuccessful();
 
-                                    } while (cursorExportedDB.moveToNext());
-                                }
-
-                                cursorExportedDB.close();
-                                cursorImportDB.close();
-
+                                ret = 1;
+                            } finally {
+                                db.endTransaction();
+                                if ((cursorExportedDB != null) && (!cursorExportedDB.isClosed()))
+                                    cursorExportedDB.close();
+                                if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
+                                    cursorImportDB.close();
+                                //db.close();
                             }
-
-                            db.setTransactionSuccessful();
-
-                            ret = 1;
-                        } finally {
-                            db.endTransaction();
-                            if ((cursorExportedDB != null) && (!cursorExportedDB.isClosed()))
-                                cursorExportedDB.close();
-                            if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
-                                cursorImportDB.close();
-                            //db.close();
+                        } else {
+                            //    exportedDBObj.close();
+                            ret = 0;
                         }
                     }
-                    else {
-                    //    exportedDBObj.close();
-                        ret = 0;
-                    }
+                } catch (Exception e) {
+                    Log.e("DatabaseHandler.importDB", e.toString());
+                    ret = 0;
                 }
-            } catch (Exception e) {
-                Log.e("DatabaseHandler.importDB", e.toString());
-                ret = 0;
-            }
 
-            updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
-            deactivateProfile();
-            unblockAllEvents();
+                updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
+                deactivateProfile();
+                unblockAllEvents();
 
+            } catch (Exception ignored) {}
             return ret;
-        }
-    }
-
-    int disableNotAllowedPreferences(Context context)
-    {
-        synchronized (databaseHandlerMutex) {
-            int ret;
-
-            final String selectProfilesQuery = "SELECT " + KEY_ID + "," +
-                    KEY_DEVICE_AIRPLANE_MODE + "," +
-                    KEY_DEVICE_WIFI + "," +
-                    KEY_DEVICE_BLUETOOTH + "," +
-                    KEY_DEVICE_MOBILE_DATA + "," +
-                    KEY_DEVICE_MOBILE_DATA_PREFS + "," +
-                    KEY_DEVICE_GPS + "," +
-                    KEY_DEVICE_LOCATION_SERVICE_PREFS + "," +
-                    KEY_DEVICE_NFC + "," +
-                    KEY_VOLUME_RINGER_MODE + "," +
-                    KEY_DEVICE_WIFI_AP + "," +
-                    KEY_DEVICE_POWER_SAVE_MODE + "," +
-                    KEY_VOLUME_ZEN_MODE + "," +
-                    KEY_DEVICE_NETWORK_TYPE + "," +
-                    KEY_NOTIFICATION_LED + "," +
-                    KEY_VIBRATE_WHEN_RINGING + "," +
-                    KEY_DEVICE_CONNECT_TO_SSID + "," +
-                    KEY_APPLICATION_DISABLE_WIFI_SCANNING + "," +
-                    KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING +
-                    " FROM " + TABLE_PROFILES;
-            final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
-                    KEY_E_WIFI_ENABLED + "," +
-                    KEY_E_BLUETOOTH_ENABLED + "," +
-                    KEY_E_NOTIFICATION_ENABLED + "," +
-                    KEY_E_ORIENTATION_ENABLED + "," +
-                    KEY_E_MOBILE_CELLS_ENABLED + "," +
-                    KEY_E_NFC_ENABLED + "," +
-                    KEY_E_RADIO_SWITCH_ENABLED +
-                    " FROM " + TABLE_EVENTS;
-
-            //SQLiteDatabase db = this.getWritableDatabase();
-            SQLiteDatabase db = getMyWritableDatabase();
-
-            ContentValues values = new ContentValues();
-
-            Cursor profilesCursor = db.rawQuery(selectProfilesQuery, null);
-            Cursor eventsCursor = db.rawQuery(selectEventsQuery, null);
-
-            db.beginTransaction();
-            //noinspection TryFinallyCanBeTryWithResources
-            try {
-
-                if (profilesCursor.moveToFirst()) {
-                    do {
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_AIRPLANE_MODE))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_DEVICE_AIRPLANE_MODE, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_WIFI))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_DEVICE_WIFI, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_BLUETOOTH))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_DEVICE_BLUETOOTH, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_DEVICE_MOBILE_DATA, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_PREFS))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_DEVICE_MOBILE_DATA_PREFS, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_GPS))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_DEVICE_GPS, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_LOCATION_SERVICE_PREFS))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_NFC))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_DEVICE_NFC, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_WIFI_AP))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_DEVICE_WIFI_AP, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if (Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_VOLUME_RINGER_MODE))) == 5) {
-                            boolean notRemove = ActivateProfileHelper.canChangeZenMode(context, true);
-                            if (!notRemove) {
-                                int zenMode = profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_VOLUME_ZEN_MODE));
-                                int ringerMode = 0;
-                                switch (zenMode) {
-                                    case 1:
-                                        ringerMode = 1;
-                                        break;
-                                    case 2:
-                                        ringerMode = 4;
-                                        break;
-                                    case 3:
-                                        ringerMode = 4;
-                                        break;
-                                    case 4:
-                                        ringerMode = 2;
-                                        break;
-                                    case 5:
-                                        ringerMode = 3;
-                                        break;
-                                    case 6:
-                                        ringerMode = 4;
-                                        break;
-                                }
-                                values.clear();
-                                values.put(KEY_VOLUME_RINGER_MODE, ringerMode);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                            }
-                        }
-
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context)
-                                        == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_DEVICE_POWER_SAVE_MODE, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, context)
-                                        == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_DEVICE_NETWORK_TYPE, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_NOTIFICATION_LED))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, context)
-                                        == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_NOTIFICATION_LED, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_VIBRATE_WHEN_RINGING))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, context)
-                                        == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_VIBRATE_WHEN_RINGING, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, context) == PPApplication.PREFERENCE_NOT_ALLOWED) {
-                            values.clear();
-                            values.put(KEY_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_APPLICATION_DISABLE_WIFI_SCANNING))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-
-                        if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING))) != 0) &&
-                                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
-                        }
-                    } while (profilesCursor.moveToNext());
-                }
-
-                //-----------------------
-
-                if (eventsCursor.moveToFirst()) {
-                    do {
-                        if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_WIFI_ENABLED))) != 0) &&
-                                (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_E_WIFI_ENABLED, 0);
-                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
-                        }
-                        if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_BLUETOOTH_ENABLED))) != 0) &&
-                                (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_E_BLUETOOTH_ENABLED, 0);
-                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
-                        }
-                        if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_NOTIFICATION_ENABLED))) != 0) &&
-                                (Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_E_NOTIFICATION_ENABLED, 0);
-                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
-                        }
-                        if (Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ORIENTATION_ENABLED))) != 0) {
-                            boolean enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null) &&
-                                    (PhoneProfilesService.getMagneticFieldSensor(context.getApplicationContext()) != null);
-                            if (!enabled) {
-                                values.clear();
-                                values.put(KEY_E_ORIENTATION_DISPLAY, "");
-                                values.put(KEY_E_ORIENTATION_SIDES, "");
-                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                                        new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
-                            }
-                            enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null);
-                            if (!enabled) {
-                                values.clear();
-                                values.put(KEY_E_ORIENTATION_SIDES, "");
-                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                                        new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
-                            }
-                            enabled = (PhoneProfilesService.getProximitySensor(context.getApplicationContext()) != null);
-                            if (!enabled) {
-                                values.clear();
-                                values.put(KEY_E_ORIENTATION_DISTANCE, 0);
-                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                                        new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
-                            }
-                        }
-                        if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_MOBILE_CELLS_ENABLED))) != 0) &&
-                                (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_E_MOBILE_CELLS_ENABLED, 0);
-                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
-                        }
-
-                        if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_NFC_ENABLED))) != 0) &&
-                                (Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_E_NFC_ENABLED, 0);
-                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
-                        }
-
-                        if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_RADIO_SWITCH_ENABLED))) != 0) &&
-                                (Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
-                            values.clear();
-                            values.put(KEY_E_RADIO_SWITCH_ENABLED, 0);
-                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                                    new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
-                        }
-
-                    } while (eventsCursor.moveToNext());
-                }
-
-                db.setTransactionSuccessful();
-
-                ret = 1;
-            } catch (Exception e) {
-                //Error in between database transaction
-                ret = 0;
-                Log.e("DatabaseHandler.disableNotAllowedPreferences", e.toString());
-            } finally {
-                db.endTransaction();
-                profilesCursor.close();
-                eventsCursor.close();
-            }
-
-            //db.close();
-            return ret;
+        } finally {
+            stopRunningImportExport();
         }
     }
 
     @SuppressWarnings("resource")
     int exportDB()
     {
-        synchronized (databaseHandlerMutex) {
+        importExportLock.lock();
+        try {
             int ret = 0;
-
             try {
+                startRunningImportExport();
 
-                File sd = Environment.getExternalStorageDirectory();
-                File data = Environment.getDataDirectory();
+                try {
 
-                File dataDB = new File(data, GlobalGUIRoutines.DB_FILEPATH + "/" + DATABASE_NAME);
-                File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + EXPORT_DBFILENAME);
+                    File sd = Environment.getExternalStorageDirectory();
+                    File data = Environment.getDataDirectory();
 
-                if (dataDB.exists()) {
-                    // close db
-                    close();
+                    File dataDB = new File(data, GlobalGUIRoutines.DB_FILEPATH + "/" + DATABASE_NAME);
+                    File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + EXPORT_DBFILENAME);
 
-                    File exportDir = new File(sd, PPApplication.EXPORT_PATH);
-                    if (!(exportDir.exists() && exportDir.isDirectory())) {
-                        //noinspection ResultOfMethodCallIgnored
-                        exportDir.mkdirs();
+                    if (dataDB.exists()) {
+                        // close db
+                        close();
+
+                        File exportDir = new File(sd, PPApplication.EXPORT_PATH);
+                        if (!(exportDir.exists() && exportDir.isDirectory())) {
+                            //noinspection ResultOfMethodCallIgnored
+                            exportDir.mkdirs();
+                        }
+
+                        FileChannel src = new FileInputStream(dataDB).getChannel();
+                        FileChannel dst = new FileOutputStream(exportedDB).getChannel();
+                        dst.transferFrom(src, 0, src.size());
+                        src.close();
+                        dst.close();
+
+                        ret = 1;
                     }
-
-                    FileChannel src = new FileInputStream(dataDB).getChannel();
-                    FileChannel dst = new FileOutputStream(exportedDB).getChannel();
-                    dst.transferFrom(src, 0, src.size());
-                    src.close();
-                    dst.close();
-
-                    ret = 1;
+                } catch (Exception e) {
+                    Log.e("DatabaseHandler.exportDB", e.toString());
                 }
-            } catch (Exception e) {
-                Log.e("DatabaseHandler.exportDB", e.toString());
-            }
 
+            } catch (Exception ignored) {}
             return ret;
+        } finally {
+            stopRunningImportExport();
         }
     }
 
