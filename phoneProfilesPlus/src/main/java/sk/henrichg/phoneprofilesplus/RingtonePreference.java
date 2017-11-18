@@ -95,6 +95,7 @@ public class RingtonePreference extends DialogPreference {
                         if (shouldPersist())
                         {
                             // set summary
+                            PPApplication.logE("RingtonePreference._setSummary", "OK button");
                             _setSummary(ringtone);
 
                             // save to preferences
@@ -232,6 +233,7 @@ public class RingtonePreference extends DialogPreference {
             ringtone = value;
             persistString(value);
         }
+        PPApplication.logE("RingtonePreference._setSummary", "onSetInitialValue");
         _setSummary(ringtone);
     }
 
@@ -382,6 +384,7 @@ public class RingtonePreference extends DialogPreference {
         final int position = uris.indexOf(ringtone);
         listView.setSelection(position);
 
+        PPApplication.logE("RingtonePreference._setSummary", "refreshListView");
         _setSummary(ringtone);
     }
 

@@ -367,6 +367,8 @@ class EventsHandler {
             int runningEventCountE = eventTimelineList.size();
 
             Profile activatedProfile = dataWrapper.getActivatedProfileFromDB();
+            long backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
+            boolean notifyBackgroundProfile = false;
 
             if (!dataWrapper.getIsManualProfileActivation()) {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "active profile is NOT activated manually");
@@ -375,14 +377,15 @@ class EventsHandler {
                 if (runningEventCountE == 0) {
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "no events running");
                     // no events running
-                    long profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
-                    if (profileId != Profile.PROFILE_NO_ACTIVATE) {
+                    backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
+                    if (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) {
                         PPApplication.logE("$$$ EventsHandler.handleEvents", "default profile is set");
                         long activatedProfileId = 0;
                         if (activatedProfile != null)
                             activatedProfileId = activatedProfile._id;
-                        if ((activatedProfileId != profileId) || isRestart) {
-                            mergedProfile.mergeProfiles(profileId, dataWrapper);
+                        if ((activatedProfileId != backgroundProfileId) || isRestart) {
+                            notifyBackgroundProfile = true;
+                            mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper);
                             PPApplication.logE("$$$ EventsHandler.handleEvents", "activated default profile");
                         }
                     }
@@ -396,11 +399,12 @@ class EventsHandler {
             } else {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "active profile is activated manually");
                 // manual profile activation
-                long profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
-                if (profileId != Profile.PROFILE_NO_ACTIVATE) {
+                backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
+                if (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) {
                     if (activatedProfile == null) {
                         // if not profile activated, activate Default profile
-                        mergedProfile.mergeProfiles(profileId, dataWrapper);
+                        notifyBackgroundProfile = true;
+                        mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper);
                         PPApplication.logE("$$$ EventsHandler.handleEvents", "not activated profile");
                     }
                 }
@@ -409,6 +413,8 @@ class EventsHandler {
 
             String eventNotificationSound = "";
             boolean eventNotificationVibrate = false;
+            String backgroundProfileNotificationSound = "";
+            boolean backgroundProfileNotificationVibrate = false;
 
             if ((!isRestart) && (runningEventCountE > runningEventCount0)) {
                 // only when not restart events and running events is increased, play event notification sound
@@ -419,6 +425,13 @@ class EventsHandler {
                     eventNotificationSound = event._notificationSound;
                     eventNotificationVibrate = event._notificationVibrate;
                 }
+            }
+            else
+            if ((!isRestart) && (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) && notifyBackgroundProfile) {
+                // only when not restart events and activated is background profile, play event notification sound
+
+                backgroundProfileNotificationSound = ApplicationPreferences.applicationBackgroundProfileNotificationSound(context);
+                backgroundProfileNotificationVibrate = ApplicationPreferences.applicationBackgroundProfileNotificationVibrate(context);
             }
 
             PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile=" + mergedProfile);
@@ -433,8 +446,15 @@ class EventsHandler {
                 dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true);
 
-                if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound, eventNotificationVibrate);
+                if (!eventNotificationSound.isEmpty() || eventNotificationVibrate) {
+                    if (PhoneProfilesService.instance != null)
+                        PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound, eventNotificationVibrate);
+                }
+                else
+                if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
+                    if (PhoneProfilesService.instance != null)
+                        PhoneProfilesService.instance.playEventNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                }
 
                 // wait for profile activation
                 //try { Thread.sleep(500); } catch (InterruptedException e) { }
@@ -448,8 +468,15 @@ class EventsHandler {
                 if ((prId0 != prId) || (prId == 0))*/
                 dataWrapper.updateNotificationAndWidgets(activatedProfile);
 
-                if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound, eventNotificationVibrate);
+                if (!eventNotificationSound.isEmpty() || eventNotificationVibrate) {
+                    if (PhoneProfilesService.instance != null)
+                        PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound, eventNotificationVibrate);
+                }
+                else
+                if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
+                    if (PhoneProfilesService.instance != null)
+                        PhoneProfilesService.instance.playEventNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                }
 
             }
 

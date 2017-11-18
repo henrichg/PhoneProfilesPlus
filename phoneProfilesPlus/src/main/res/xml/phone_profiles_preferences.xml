@@ -276,6 +276,18 @@
             android:key="applicationBackgroundProfile"
             android:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
             henrichg:addNoActivateItem="1" />
+        <sk.henrichg.phoneprofilesplus.RingtonePreference
+            android:key="applicationBackgroundProfileNotificationSound"
+            android:summary="@string/array_pref_no_change"
+            android:title="@string/phone_profiles_pref_backgroundProfileNotificationSound"
+            app:ringtoneType="notification"
+            app:showSilent="true"
+            app:showDefault="true" />
+        <CheckBoxPreference
+            android:key="applicationBackgroundProfileNotificationVibrate"
+            android:title="@string/phone_profiles_pref_backgroundProfileNotificationVibrate"
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch"/>
         <CheckBoxPreference
             android:key="applicationAlert"
             android:title="@string/phone_profiles_pref_applicationAlert"

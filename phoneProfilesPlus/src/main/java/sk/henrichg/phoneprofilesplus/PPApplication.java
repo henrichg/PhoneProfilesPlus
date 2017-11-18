@@ -61,7 +61,7 @@ public class PPApplication extends Application {
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
 
-                                         +"|----------- DatabaseHandler"
+                                         +"|RingtonePreference._setSummary"
 
                                          //+"|"+CallsCounter.LOG_TAG
                                          //+"|[RJS] PPApplication"
