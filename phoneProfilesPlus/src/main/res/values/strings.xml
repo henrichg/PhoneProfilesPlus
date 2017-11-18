@@ -1116,4 +1116,6 @@
     <string name="import_profiles_alert_error_database_newer_version">The backed-up database is in a newer version.</string>
     <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>
     <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>
+    <string name="profile_preferences_durationNotificationSound">Duration end: Notification sound</string>
+    <string name="profile_preferences_durationNotificationVibrate">Duration end: Notify by vibration</string>
 </resources>

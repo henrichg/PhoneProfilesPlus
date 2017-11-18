@@ -74,6 +74,8 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
             setSummary(Profile.PREF_PROFILE_DURATION);
             setSummary(Profile.PREF_PROFILE_AFTER_DURATION_DO);
             setSummary(Profile.PREF_PROFILE_ASK_FOR_DURATION);
+            setSummary(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND);
+            setSummary(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE);
             setSummary(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON);
         }
         setSummary(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);

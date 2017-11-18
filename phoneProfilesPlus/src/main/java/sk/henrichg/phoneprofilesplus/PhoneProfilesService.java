@@ -174,9 +174,9 @@ public class PhoneProfilesService extends Service
     private int usedRingingStream = AudioManager.STREAM_MUSIC;
     //private int usedNotificationStream = AudioManager.STREAM_MUSIC;
 
-    private MediaPlayer eventNotificationMediaPlayer = null;
-    private boolean eventNotificationIsPlayed = false;
-    private Timer eventNotificationPlayTimer = null;
+    private MediaPlayer notificationMediaPlayer = null;
+    private boolean notificationIsPlayed = false;
+    private Timer notificationPlayTimer = null;
 
     public static String connectToSSID = Profile.CONNECTTOSSID_JUSTANY;
     public static boolean connectToSSIDStarted = false;
@@ -3563,18 +3563,18 @@ public class PhoneProfilesService extends Service
 
             //stopSimulatingNotificationTone(true);
 
-            if (eventNotificationPlayTimer != null) {
-                eventNotificationPlayTimer.cancel();
-                eventNotificationPlayTimer = null;
+            if (notificationPlayTimer != null) {
+                notificationPlayTimer.cancel();
+                notificationPlayTimer = null;
             }
-            if ((eventNotificationMediaPlayer != null) && eventNotificationIsPlayed) {
+            if ((notificationMediaPlayer != null) && notificationIsPlayed) {
                 try {
-                    if (eventNotificationMediaPlayer.isPlaying())
-                        eventNotificationMediaPlayer.stop();
+                    if (notificationMediaPlayer.isPlaying())
+                        notificationMediaPlayer.stop();
                 } catch (Exception ignored) {}
-                eventNotificationMediaPlayer.release();
-                eventNotificationIsPlayed = false;
-                eventNotificationMediaPlayer = null;
+                notificationMediaPlayer.release();
+                notificationIsPlayed = false;
+                notificationMediaPlayer = null;
             }
 
             if ((ringtone != null) && !ringtone.isEmpty()) {
@@ -3948,13 +3948,11 @@ public class PhoneProfilesService extends Service
 
     //---------------------------
 
-    public void playEventNotificationSound (final String eventNotificationSound, final boolean eventNotificationVibrate) {
-        PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "eventNotificationVibrate=" + eventNotificationVibrate);
-
-        if (eventNotificationVibrate) {
+    public void playNotificationSound (final String notificationSound, final boolean notificationVibrate) {
+        if (notificationVibrate) {
             Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             if ((vibrator != null) && vibrator.hasVibrator()) {
-                PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "vibration");
+                PPApplication.logE("PhoneProfilesService.playNotificationSound", "vibration");
                 //TODO Android O
                 //if (Build.VERSION.SDK_INT >= 26) {
                 //    vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
@@ -3969,88 +3967,88 @@ public class PhoneProfilesService extends Service
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
-            if (eventNotificationPlayTimer != null) {
-                eventNotificationPlayTimer.cancel();
-                eventNotificationPlayTimer = null;
+            if (notificationPlayTimer != null) {
+                notificationPlayTimer.cancel();
+                notificationPlayTimer = null;
             }
-            if ((eventNotificationMediaPlayer != null) && eventNotificationIsPlayed) {
+            if ((notificationMediaPlayer != null) && notificationIsPlayed) {
                 try {
-                    if (eventNotificationMediaPlayer.isPlaying())
-                        eventNotificationMediaPlayer.stop();
+                    if (notificationMediaPlayer.isPlaying())
+                        notificationMediaPlayer.stop();
                 } catch (Exception ignored) {}
-                eventNotificationMediaPlayer.release();
-                eventNotificationIsPlayed = false;
-                eventNotificationMediaPlayer = null;
+                notificationMediaPlayer.release();
+                notificationIsPlayed = false;
+                notificationMediaPlayer = null;
             }
 
-            if (!eventNotificationSound.isEmpty())
+            if (!notificationSound.isEmpty())
             {
-                Uri notificationUri = Uri.parse(eventNotificationSound);
+                Uri notificationUri = Uri.parse(notificationSound);
 
                 try {
                     RingerModeChangeReceiver.internalChange = true;
 
-                    eventNotificationMediaPlayer = new MediaPlayer();
-                    eventNotificationMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    eventNotificationMediaPlayer.setDataSource(this, notificationUri);
-                    eventNotificationMediaPlayer.prepare();
-                    eventNotificationMediaPlayer.setLooping(false);
+                    notificationMediaPlayer = new MediaPlayer();
+                    notificationMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    notificationMediaPlayer.setDataSource(this, notificationUri);
+                    notificationMediaPlayer.prepare();
+                    notificationMediaPlayer.setLooping(false);
 
                     /*
                     oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
                     int notificationVolume = ActivateProfileHelper.getNotificationVolume(this);
 
-                    PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "notificationVolume=" + notificationVolume);
+                    PPApplication.logE("PhoneProfilesService.playNotificationSound", "notificationVolume=" + notificationVolume);
 
                     int maximumNotificationValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
                     int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
                     float percentage = (float) notificationVolume / maximumNotificationValue * 100.0f;
-                    int mediaEventNotificationVolume = Math.round(maximumMediaValue / 100.0f * percentage);
+                    int mediaNotificationVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
-                    PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "mediaEventNotificationVolume=" + mediaEventNotificationVolume);
+                    PPApplication.logE("PhoneProfilesService.playNotificationSound", "mediaNotificationVolume=" + mediaNotificationVolume);
 
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaEventNotificationVolume, 0);
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaNotificationVolume, 0);
                     */
 
-                    eventNotificationMediaPlayer.start();
+                    notificationMediaPlayer.start();
 
-                    eventNotificationIsPlayed = true;
+                    notificationIsPlayed = true;
 
                     //final Context context = this;
-                    eventNotificationPlayTimer = new Timer();
-                    eventNotificationPlayTimer.schedule(new TimerTask() {
+                    notificationPlayTimer = new Timer();
+                    notificationPlayTimer.schedule(new TimerTask() {
                         @Override
                         public void run() {
 
-                            if (eventNotificationMediaPlayer != null) {
+                            if (notificationMediaPlayer != null) {
                                 try {
-                                    if (eventNotificationMediaPlayer.isPlaying())
-                                        eventNotificationMediaPlayer.stop();
+                                    if (notificationMediaPlayer.isPlaying())
+                                        notificationMediaPlayer.stop();
                                 } catch (Exception ignored) {}
-                                eventNotificationMediaPlayer.release();
+                                notificationMediaPlayer.release();
 
                                 //audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
-                                PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "event notification stopped");
+                                PPApplication.logE("PhoneProfilesService.playNotificationSound", "notification stopped");
                             }
 
-                            eventNotificationIsPlayed = false;
-                            eventNotificationMediaPlayer = null;
-                            eventNotificationPlayTimer = null;
+                            notificationIsPlayed = false;
+                            notificationMediaPlayer = null;
+                            notificationPlayTimer = null;
                         }
-                    }, eventNotificationMediaPlayer.getDuration());
+                    }, notificationMediaPlayer.getDuration());
 
                 } catch (SecurityException e) {
-                    PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "security exception");
+                    PPApplication.logE("PhoneProfilesService.playNotificationSound", "security exception");
                     Permissions.grantPlayRingtoneNotificationPermissions(this, false);
-                    eventNotificationMediaPlayer = null;
-                    eventNotificationIsPlayed = false;
+                    notificationMediaPlayer = null;
+                    notificationIsPlayed = false;
                 } catch (Exception e) {
-                    PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "exception");
+                    PPApplication.logE("PhoneProfilesService.playNotificationSound", "exception");
                     //e.printStackTrace();
-                    eventNotificationMediaPlayer = null;
-                    eventNotificationIsPlayed = false;
+                    notificationMediaPlayer = null;
+                    notificationIsPlayed = false;
                 }
 
             }

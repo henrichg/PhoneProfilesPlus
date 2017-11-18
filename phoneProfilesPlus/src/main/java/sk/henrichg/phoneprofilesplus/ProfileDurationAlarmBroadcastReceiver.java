@@ -51,6 +51,14 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                         (profile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING)) {
                                     // alarm is from activated profile
 
+                                    if (!profile._durationNotificationSound.isEmpty() || profile._durationNotificationVibrate) {
+                                        if (PhoneProfilesService.instance != null) {
+                                            PPApplication.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "play notification");
+                                            PhoneProfilesService.instance.playNotificationSound(profile._durationNotificationSound, profile._durationNotificationVibrate);
+                                            //PPApplication.sleep(500);
+                                        }
+                                    }
+
                                     long activateProfileId = 0;
                                     if (profile._afterDurationDo == Profile.AFTERDURATIONDO_BACKGROUNPROFILE) {
                                         activateProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(appContext));
@@ -83,6 +91,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     }
                                 }
                             }
+
 
                             dataWrapper.invalidateDataWrapper();
 

@@ -30,6 +30,9 @@ public class Profile {
     int _porder;
     int _duration;
     int _afterDurationDo;
+    boolean _askForDuration;
+    String _durationNotificationSound;
+    boolean _durationNotificationVibrate;
     int _volumeRingerMode;
     int _volumeZenMode;
     String _volumeRingtone;
@@ -66,7 +69,6 @@ public class Profile {
     int _vibrationOnTouch;
     int _deviceWiFiAP;
     int _devicePowerSaveMode;
-    boolean _askForDuration;
     int _deviceNetworkType;
     int _notificationLed;
     int _vibrateWhenRinging;
@@ -116,13 +118,14 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_NFC = "prf_pref_deviceNFC";
     static final String PREF_PROFILE_DURATION = "prf_pref_duration";
     static final String PREF_PROFILE_AFTER_DURATION_DO = "prf_pref_afterDurationDo";
+    static final String PREF_PROFILE_ASK_FOR_DURATION = "prf_pref_askForDuration";
+    static final String PREF_PROFILE_DURATION_NOTIFICATION_SOUND = "prf_pref_durationNotificationSound";
+    static final String PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE = "prf_pref_durationNotificationVibrate";
     static final String PREF_PROFILE_DEVICE_KEYGUARD = "prf_pref_deviceKeyguard";
     static final String PREF_PROFILE_VIBRATION_ON_TOUCH = "prf_pref_vibrationOnTouch";
     static final String PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS = "prf_pref_volumeUnlinkVolumesAppSettings";
     static final String PREF_PROFILE_DEVICE_WIFI_AP = "prf_pref_deviceWiFiAP";
     static final String PREF_PROFILE_DEVICE_POWER_SAVE_MODE = "prf_pref_devicePowerSaveMode";
-    //static final String PREF_PROFILE_SHOW_DURATION_BUTTON = "prf_pref_showDurationButton";
-    static final String PREF_PROFILE_ASK_FOR_DURATION = "prf_pref_askForDuration";
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE = "prf_pref_deviceNetworkType";
     static final String PREF_PROFILE_NOTIFICATION_LED = "prf_pref_notificationLed";
     static final String PREF_PROFILE_VIBRATE_WHEN_RINGING = "prf_pref_vibrateWhenRinging";
@@ -295,7 +298,9 @@ public class Profile {
                    int lockDevice,
                    String deviceConnectToSSID,
                    int applicationDisableWifiScanning,
-                   int applicationDisableBluetoothScanning)
+                   int applicationDisableBluetoothScanning,
+                   String durationNotificationSound,
+                   boolean durationNotificationVibrate)
     {
         this._id = id;
         this._name = name;
@@ -336,12 +341,14 @@ public class Profile {
         this._deviceNFC = deviceNFC;
         this._duration = duration;
         this._afterDurationDo = afterDurationDo;
+        this._askForDuration = askForDuration;
+        this._durationNotificationSound = durationNotificationSound;
+        this._durationNotificationVibrate = durationNotificationVibrate;
         this._deviceKeyguard = deviceKeyguard;
         this._deviceKeyguard = deviceKeyguard;
         this._vibrationOnTouch = vibrationOnTouch;
         this._deviceWiFiAP = deviceWifiAP;
         this._devicePowerSaveMode = devicePowerSaveMode;
-        this._askForDuration = askForDuration;
         this._deviceNetworkType = deviceNetworkType;
         this._notificationLed = notificationLed;
         this._vibrateWhenRinging = vibrateWhenRinging;
@@ -408,7 +415,9 @@ public class Profile {
                    int lockDevice,
                    String deviceConnectToSSID,
                    int applicationDisableWifiScanning,
-                   int applicationDisableBluetoothScanning)
+                   int applicationDisableBluetoothScanning,
+                   String durationNotificationSound,
+                   boolean durationNotificationVibrate)
     {
         this._name = name;
         this._icon = icon;
@@ -448,11 +457,13 @@ public class Profile {
         this._deviceNFC = deviceNFC;
         this._duration = duration;
         this._afterDurationDo = afterDurationDo;
+        this._askForDuration = askForDuration;
+        this._durationNotificationSound = durationNotificationSound;
+        this._durationNotificationVibrate = durationNotificationVibrate;
         this._deviceKeyguard = deviceKeyguard;
         this._vibrationOnTouch = vibrationOnTouch;
         this._deviceWiFiAP = deviceWiFiAP;
         this._devicePowerSaveMode = devicePowerSaveMode;
-        this._askForDuration = askForDuration;
         this._deviceNetworkType = deviceNetworkType;
         this._notificationLed = notificationLed;
         this._vibrateWhenRinging = vibrateWhenRinging;
@@ -508,11 +519,13 @@ public class Profile {
         this._deviceNFC = profile._deviceNFC;
         this._duration = profile._duration;
         this._afterDurationDo = profile._afterDurationDo;
+        this._askForDuration = profile._askForDuration;
+        this._durationNotificationSound = profile._durationNotificationSound;
+        this._durationNotificationVibrate = profile._durationNotificationVibrate;
         this._deviceKeyguard = profile._deviceKeyguard;
         this._vibrationOnTouch = profile._vibrationOnTouch;
         this._deviceWiFiAP = profile._deviceWiFiAP;
         this._devicePowerSaveMode = profile._devicePowerSaveMode;
-        this._askForDuration = profile._askForDuration;
         this._deviceNetworkType = profile._deviceNetworkType;
         this._notificationLed = profile._notificationLed;
         this._vibrateWhenRinging = profile._vibrateWhenRinging;
@@ -541,6 +554,8 @@ public class Profile {
             this._preferencesIndicator = withProfile._preferencesIndicator;
             this._duration = 0;
             this._afterDurationDo = AFTERDURATIONDO_RESTARTEVENTS;
+            this._durationNotificationSound = withProfile._durationNotificationSound;
+            this._durationNotificationVibrate = withProfile._durationNotificationVibrate;
             this._hideStatusBarIcon = withProfile._hideStatusBarIcon;
             this._deviceConnectToSSID = withProfile._deviceConnectToSSID;
 
@@ -813,7 +828,6 @@ public class Profile {
 
     @SuppressWarnings("StringConcatenationInLoop")
     void setVolumeRingtoneValue(int value) {
-
         try {
             String[] splits = _volumeRingtone.split("\\|");
             splits[0] = String.valueOf(value);
@@ -1402,6 +1416,8 @@ public class Profile {
         profile._porder = 0;
         profile._duration = 0;
         profile._afterDurationDo = Profile.AFTERDURATIONDO_RESTARTEVENTS;
+        profile._durationNotificationSound = "";
+        profile._durationNotificationVibrate = false;
         profile._volumeRingerMode = Integer.parseInt(preferences.getString(PREF_PROFILE_VOLUME_RINGER_MODE, "1")); // ring
         profile._volumeZenMode = Integer.parseInt(preferences.getString(PREF_PROFILE_VOLUME_ZEN_MODE, "1")); // all
         profile._volumeRingtone = preferences.getString(PREF_PROFILE_VOLUME_RINGTONE, getVolumeLevelString(71, maximumValueRing) + "|0|0");
@@ -1508,7 +1524,9 @@ public class Profile {
                     profile._lockDevice,
                     profile._deviceConnectToSSID,
                     profile._applicationDisableWifiScanning,
-                    profile._applicationDisableBluetoothScanning);
+                    profile._applicationDisableBluetoothScanning,
+                    profile._durationNotificationSound,
+                    profile._durationNotificationVibrate);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == 99) {

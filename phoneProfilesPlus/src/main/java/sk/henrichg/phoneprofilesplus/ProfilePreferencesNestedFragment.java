@@ -404,7 +404,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         Preference preference = prefMng.findPreference(key);
         String title = "";
         if ((preference != null) && (preference.isEnabled())) {
-            if (key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION)) {
+            if (key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
+                key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE)) {
                 boolean defaultValue =
                         getResources().getBoolean(
                                 GlobalGUIRoutines.getResourceId(preference.getKey(), "bool", context));
@@ -449,10 +450,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
         if (key.equals(Profile.PREF_PROFILE_DURATION) ||
             key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO) ||
-            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION)) {
+            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
+            key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND) ||
+            key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND)) {
             String title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DURATION, false);
             String afterDurationDoTitle = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_DO, false);
-            if ((!afterDurationDoTitle.isEmpty()) && (!title.isEmpty())) {
+            if (!title.isEmpty()) {
                 _bold = true;
                 summary = summary + title + " • ";
                 summary = summary + afterDurationDoTitle;
@@ -462,6 +465,19 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
+            }
+            if (bold) {
+                // any of duration preferences are set
+                title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND, false);
+                if (!title.isEmpty()) {
+                    if (!summary.isEmpty()) summary = summary + " • ";
+                    summary = summary + title;
+                }
+                title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, false);
+                if (!title.isEmpty()) {
+                    if (!summary.isEmpty()) summary = summary + " • ";
+                    summary = summary + title;
+                }
             }
             preferenceScreen = prefMng.findPreference("prf_pref_activationDurationCategory");
         }
@@ -1084,11 +1100,34 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, /*index > 0*/false, false, false, false);
+                String defaultValue =
+                        getResources().getString(
+                                GlobalGUIRoutines.getResourceId(key, "string", context));
+                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, value != defaultValue, false, false, false);
                 setCategorySummary(listPreference, /*index > 0*/false);
             }
         }
         if (key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION))
+        {
+            String sValue = value.toString();
+            CheckBoxPreference checkBoxPreference = (CheckBoxPreference)prefMng.findPreference(key);
+            if (checkBoxPreference != null) {
+                boolean show = sValue.equals("true");
+                GlobalGUIRoutines.setPreferenceTitleStyle(checkBoxPreference, show, false, false, false);
+                setCategorySummary(checkBoxPreference, show);
+            }
+        }
+        if (key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND))
+        {
+            String sValue = value.toString();
+            RingtonePreference ringtonePreference = (RingtonePreference) prefMng.findPreference(key);
+            if (ringtonePreference != null) {
+                boolean show = !sValue.isEmpty();
+                GlobalGUIRoutines.setPreferenceTitleStyle(ringtonePreference, show, false, false, false);
+                setCategorySummary(ringtonePreference, show);
+            }
+        }
+        if (key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE))
         {
             String sValue = value.toString();
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference)prefMng.findPreference(key);
@@ -1167,6 +1206,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         String value;
         if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
             key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
+            key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE) ||
             key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON)) {
             boolean b = preferences.getBoolean(key, false);
             value = Boolean.toString(b);
@@ -1349,6 +1389,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
             key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
+            key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE) ||
             key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON)) {
             boolean bValue = sharedPreferences.getBoolean(key, false);
             value = Boolean.toString(bValue);

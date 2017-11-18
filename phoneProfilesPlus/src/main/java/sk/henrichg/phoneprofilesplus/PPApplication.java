@@ -61,7 +61,7 @@ public class PPApplication extends Application {
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
 
-                                         +"|RingtonePreference._setSummary"
+                                         +"|ProfileDurationAlarmBroadcastReceiver"
 
                                          //+"|"+CallsCounter.LOG_TAG
                                          //+"|[RJS] PPApplication"

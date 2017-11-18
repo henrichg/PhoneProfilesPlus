@@ -317,7 +317,9 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                     origProfile._lockDevice,
                     origProfile._deviceConnectToSSID,
                     origProfile._applicationDisableWifiScanning,
-                    origProfile._applicationDisableBluetoothScanning);
+                    origProfile._applicationDisableBluetoothScanning,
+                    origProfile._durationNotificationSound,
+                    origProfile._durationNotificationVibrate);
             showSaveMenu = true;
         }
         else
@@ -365,6 +367,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                 editor.putString(Profile.PREF_PROFILE_DURATION, Integer.toString(profile._duration));
                 editor.putString(Profile.PREF_PROFILE_AFTER_DURATION_DO, Integer.toString(profile._afterDurationDo));
                 editor.putBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, profile._askForDuration);
+                editor.putString(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND, profile._durationNotificationSound);
+                editor.putBoolean(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, profile._durationNotificationVibrate);
                 editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, profile._hideStatusBarIcon);
             }
             editor.putString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, Integer.toString(profile._volumeRingerMode));
@@ -441,6 +445,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             profile._duration = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DURATION, ""));
             profile._afterDurationDo = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO, ""));
             profile._askForDuration = preferences.getBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, false);
+            profile._durationNotificationSound = preferences.getString(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND, "");
+            profile._durationNotificationVibrate = preferences.getBoolean(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, false);
 
             profile._hideStatusBarIcon = preferences.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
 

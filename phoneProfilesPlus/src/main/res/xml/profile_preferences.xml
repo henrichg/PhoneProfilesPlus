@@ -55,6 +55,18 @@
                 android:defaultValue="@bool/prf_pref_askForDuration"
                 android:widgetLayout="@layout/mp_preference_switch"
                 android:disableDependentsState="true"/>
+            <sk.henrichg.phoneprofilesplus.RingtonePreference
+                android:key="prf_pref_durationNotificationSound"
+                android:summary="@string/array_pref_no_change"
+                android:title="@string/profile_preferences_durationNotificationSound"
+                app:ringtoneType="notification"
+                app:showSilent="true"
+                app:showDefault="true" />
+            <CheckBoxPreference
+                android:key="prf_pref_durationNotificationVibrate"
+                android:title="@string/profile_preferences_durationNotificationVibrate"
+                android:defaultValue="false"
+                android:widgetLayout="@layout/mp_preference_switch"/>
         </PreferenceScreen>
         <CheckBoxPreference
             android:key="prf_pref_hideStatusBarIcon"

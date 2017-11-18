@@ -448,12 +448,12 @@ class EventsHandler {
 
                 if (!eventNotificationSound.isEmpty() || eventNotificationVibrate) {
                     if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound, eventNotificationVibrate);
+                        PhoneProfilesService.instance.playNotificationSound(eventNotificationSound, eventNotificationVibrate);
                 }
                 else
                 if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
                     if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.playEventNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                        PhoneProfilesService.instance.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
                 }
 
                 // wait for profile activation
@@ -470,12 +470,12 @@ class EventsHandler {
 
                 if (!eventNotificationSound.isEmpty() || eventNotificationVibrate) {
                     if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound, eventNotificationVibrate);
+                        PhoneProfilesService.instance.playNotificationSound(eventNotificationSound, eventNotificationVibrate);
                 }
                 else
                 if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
                     if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.playEventNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                        PhoneProfilesService.instance.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
                 }
 
             }

@@ -182,7 +182,9 @@ public class DataWrapper {
                   0,
                   Profile.CONNECTTOSSID_JUSTANY,
                   0,
-                  0
+                  0,
+                  "",
+                  false
             );
     }
 
