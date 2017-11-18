@@ -29,7 +29,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // singleton fields
     private static DatabaseHandler instance;
     private static SQLiteDatabase writableDb;
-    private static final DatabaseHandlerMutex databaseHandlerMutex = new DatabaseHandlerMutex();
 
     private final Context context;
     
