@@ -1095,20 +1095,24 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
     */
 
-    private void importExportErrorDialog(int importExport)
+    private void importExportErrorDialog(int importExport, int result)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        int resString;
+        String title;
         if (importExport == 1)
-            resString = R.string.import_profiles_alert_title;
+            title = getString(R.string.import_profiles_alert_title);
         else
-            resString = R.string.export_profiles_alert_title;
-        dialogBuilder.setTitle(resString);
-        if (importExport == 1)
-            resString = R.string.import_profiles_alert_error;
+            title = getString(R.string.export_profiles_alert_title);
+        dialogBuilder.setTitle(title);
+        String message;
+        if (importExport == 1) {
+            message = getString(R.string.import_profiles_alert_error);
+            if (result == -999)
+                message = message + ". " + getString(R.string.import_profiles_alert_error_database_newer_version);
+        }
         else
-            resString = R.string.export_profiles_alert_error;
-        dialogBuilder.setMessage(resString);
+            message = getString(R.string.export_profiles_alert_error);
+        dialogBuilder.setMessage(message);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setPositiveButton(android.R.string.ok, null);
         dialogBuilder.show();
@@ -1219,17 +1223,18 @@ public class EditorProfilesActivity extends AppCompatActivity
                     this.dataWrapper.stopAllEvents(true);
 
                     int ret = this.dataWrapper.getDatabaseHandler().importDB(_applicationDataPath);
-                    //Log.d("EditorProfilesActivity.doImportData"," importDB ret="+ret);
-
-                    this.dataWrapper.getDatabaseHandler().updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
-                    this.dataWrapper.getDatabaseHandler().deactivateProfile();
-                    this.dataWrapper.getDatabaseHandler().unblockAllEvents();
-
                     if (ret == 1) {
-                        // check for hardware capability and update data
-                        ret = this.dataWrapper.getDatabaseHandler().disableNotAllowedPreferences(getApplicationContext());
-                        //Log.d("EditorProfilesActivity.doImportData"," disableNotAllowedPreferences ret="+ret);
+                        this.dataWrapper.getDatabaseHandler().updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
+                        this.dataWrapper.getDatabaseHandler().deactivateProfile();
+                        this.dataWrapper.getDatabaseHandler().unblockAllEvents();
+                        this.dataWrapper.getDatabaseHandler().disableNotAllowedPreferences(getApplicationContext());
+                        this.dataWrapper.invalidateProfileList();
+                        this.dataWrapper.invalidateEventList();
+                        Event.setEventsBlocked(getApplicationContext(), false);
+                        this.dataWrapper.getDatabaseHandler().unblockAllEvents();
+                        Event.setForceRunEventRunning(getApplicationContext(), false);
                     }
+
                     if (ret == 1) {
                         File sd = Environment.getExternalStorageDirectory();
                         File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
@@ -1246,6 +1251,19 @@ public class EditorProfilesActivity extends AppCompatActivity
                         }
                     }
 
+                    if (ret == 1) {
+                        ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                        Editor editor = ApplicationPreferences.preferences.edit();
+                        editor.putInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
+                        editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
+                        editor.apply();
+
+                        Permissions.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
+                        Permissions.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
+                        Permissions.setShowRequestDrawOverlaysPermission(getApplicationContext(), true);
+                        WifiBluetoothScanner.setShowEnableLocationNotification(getApplicationContext(), true);
+                    }
+
                     return ret;
                 }
 
@@ -1258,28 +1276,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                     unlockScreenOrientation();
 
                     if (result == 1) {
-                        dataWrapper.invalidateProfileList();
-                        dataWrapper.invalidateEventList();
-
-                        dataWrapper.updateNotificationAndWidgets(null);
+                        this.dataWrapper.updateNotificationAndWidgets(null);
                         //dataWrapper.getActivateProfileHelper().showNotification(null, "");
                         //dataWrapper.getActivateProfileHelper().updateWidget();
-
-                        PPApplication.logE("$$$ setEventsBlocked", "EditorProfilesActivity.doImportData.onPostExecute, false");
-                        Event.setEventsBlocked(getApplicationContext(), false);
-                        dataWrapper.getDatabaseHandler().unblockAllEvents();
-                        Event.setForceRunEventRunning(getApplicationContext(), false);
-
-                        ApplicationPreferences.getSharedPreferences(dataWrapper.context);
-                        Editor editor = ApplicationPreferences.preferences.edit();
-                        editor.putInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
-                        editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
-                        editor.apply();
-
-                        Permissions.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
-                        Permissions.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
-                        WifiBluetoothScanner.setShowEnableLocationNotification(getApplicationContext(), true);
-                        //ActivateProfileHelper.setScreenUnlocked(getApplicationContext(), true);
 
                         Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
@@ -1292,11 +1291,10 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         // restart events
                         if (Event.getGlobalEventsRunning(getApplicationContext())) {
-                            PPApplication.logE("$$$ restartEvents", "from EditorProfilesActivity.doImportData.onPostExecute");
-                            dataWrapper.restartEventsWithDelay(3, false);
+                            this.dataWrapper.restartEventsWithDelay(3, false);
                         }
 
-                        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);
+                        this.dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);
 
                         // toast notification
                         Toast msg = Toast.makeText(getApplicationContext(),
@@ -1316,7 +1314,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //else
                         //    startForegroundService(serviceIntent);
 
-                        importExportErrorDialog(1);
+                        importExportErrorDialog(1, result);
                     }
 
                 }
@@ -1526,7 +1524,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         msg.show();
 
                     } else {
-                        importExportErrorDialog(2);
+                        importExportErrorDialog(2, result);
                     }
                 }
 

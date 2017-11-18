@@ -1113,4 +1113,5 @@
     <string name="mobile_cell_names_dialog_item_show_all">[ All ]</string>
     <string name="array_pref_change_selection_mobile_cells_select_all_visible">Select all visible</string>
     <string name="array_pref_mobile_cells_rename_all_visible">All visible</string>
+    <string name="import_profiles_alert_error_database_newer_version">The backed-up database is in a newer version.</string>
 </resources>

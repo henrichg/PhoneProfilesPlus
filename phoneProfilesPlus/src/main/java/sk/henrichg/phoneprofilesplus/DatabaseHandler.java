@@ -6731,11 +6731,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 // OTHERS -------------------------------------------------------------------------
 
-    int disableNotAllowedPreferences(Context context)
+    void disableNotAllowedPreferences(Context context)
     {
         importExportLock.lock();
         try {
-            int ret = 0;
             try {
                 startRunningCommand();
 
@@ -7026,11 +7025,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     db.setTransactionSuccessful();
-
-                    ret = 1;
                 } catch (Exception e) {
                     //Error in between database transaction
-                    ret = 0;
                     Log.e("DatabaseHandler.disableNotAllowedPreferences", e.toString());
                 } finally {
                     db.endTransaction();
@@ -7041,7 +7037,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
             } catch (Exception ignored) {
             }
-            return ret;
         } finally {
             stopRunningCommand();
         }
@@ -7989,7 +7984,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
                         } else {
                             //    exportedDBObj.close();
-                            ret = 0;
+                            ret = -999;
                         }
                     }
                 } catch (Exception e) {
