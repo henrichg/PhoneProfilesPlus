@@ -1221,6 +1221,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                     int ret = this.dataWrapper.getDatabaseHandler().importDB(_applicationDataPath);
                     //Log.d("EditorProfilesActivity.doImportData"," importDB ret="+ret);
 
+                    this.dataWrapper.getDatabaseHandler().updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
+                    this.dataWrapper.getDatabaseHandler().deactivateProfile();
+                    this.dataWrapper.getDatabaseHandler().unblockAllEvents();
+
                     if (ret == 1) {
                         // check for hardware capability and update data
                         ret = this.dataWrapper.getDatabaseHandler().disableNotAllowedPreferences(getApplicationContext());

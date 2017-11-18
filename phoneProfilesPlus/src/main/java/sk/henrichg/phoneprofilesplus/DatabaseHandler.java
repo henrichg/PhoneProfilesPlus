@@ -4509,7 +4509,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    private void updateAllEventsStatus(int fromStatus, int toStatus)
+    void updateAllEventsStatus(int fromStatus, int toStatus)
     {
         importExportLock.lock();
         try {
@@ -7048,8 +7048,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     private void startRunningImportExport() throws Exception {
+        PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "lock");
+        PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "runningCommand="+runningCommand);
         if (runningCommand)
             runningCommandCondition.await();
+        PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "continue");
         runningImportExport = true;
     }
 
@@ -7057,6 +7060,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         runningImportExport = false;
         runningImportExportCondition.signalAll();
         importExportLock.unlock();
+        PPApplication.logE("----------- DatabaseHandler.stopRunningImportExport", "ulock");
     }
 
     private boolean tableExists(String tableName, SQLiteDatabase db)
@@ -7992,10 +7996,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Log.e("DatabaseHandler.importDB", e.toString());
                     ret = 0;
                 }
-
-                updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
-                deactivateProfile();
-                unblockAllEvents();
 
             } catch (Exception ignored) {}
             return ret;
