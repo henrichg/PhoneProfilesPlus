@@ -767,10 +767,17 @@ class BluetoothScanJob extends Job {
 
         boolean found = false;
         for (BluetoothDeviceData _device : tmpScanLEResults) {
-
             if (_device.address.equals(device.address)) {
                 found = true;
                 break;
+            }
+        }
+        if (!found) {
+            for (BluetoothDeviceData _device : tmpScanLEResults) {
+                if (_device.getName().equals(device.getName())) {
+                    found = true;
+                    break;
+                }
             }
         }
         if (!found) {

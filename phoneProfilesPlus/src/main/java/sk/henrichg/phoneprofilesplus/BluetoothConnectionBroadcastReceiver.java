@@ -50,8 +50,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
         if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED) ||
                 action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED) ||
-                action.equals(BluetoothDevice.ACTION_NAME_CHANGED)/* ||
-                action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED)*/) {
+                action.equals(BluetoothDevice.ACTION_NAME_CHANGED) ||
+                action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED)) {
             // BluetoothConnectionBroadcastReceiver
 
             final BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
@@ -225,6 +225,14 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     break;
                 }
             }
+            if (!found) {
+                for (BluetoothDeviceData _device : connectedDevices) {
+                    if (_device.getName().equals(device.getName())) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
             PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDevice","found="+found);
             if (!found) {
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -249,6 +257,16 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                     break;
                 }
                 ++index;
+            }
+            if (!found) {
+                index = 0;
+                for (BluetoothDeviceData _device : connectedDevices) {
+                    if (_device.getName().equals(device.getName())) {
+                        found = true;
+                        break;
+                    }
+                    ++index;
+                }
             }
             PPApplication.logE("BluetoothConnectionBroadcastReceiver.removeConnectedDevice","found="+found);
             if (found)
@@ -289,10 +307,20 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     private void changeDeviceName(BluetoothDevice device, String deviceName)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
+            boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
                 if (_device.address.equals(device.getAddress()) && !deviceName.isEmpty()) {
                     _device.setName(deviceName);
+                    found = true;
                     break;
+                }
+            }
+            if (!found) {
+                for (BluetoothDeviceData _device : connectedDevices) {
+                    if (_device.getName().equals(device.getName()) && !deviceName.isEmpty()) {
+                        _device.setName(deviceName);
+                        break;
+                    }
                 }
             }
         }
