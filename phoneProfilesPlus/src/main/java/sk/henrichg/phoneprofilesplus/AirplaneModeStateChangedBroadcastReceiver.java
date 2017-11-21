@@ -42,7 +42,7 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
 
-                            if (wakeLock != null)
+                            if ((wakeLock != null) && wakeLock.isHeld())
                                 wakeLock.release();
                         }
                     });

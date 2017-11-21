@@ -2929,7 +2929,7 @@ public class DataWrapper {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE, false);
 
-                    if (wakeLock != null)
+                    if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();
                 }
             });
@@ -2978,7 +2978,7 @@ public class DataWrapper {
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS, interactive);
 
-                if (wakeLock != null)
+                if ((wakeLock != null) && wakeLock.isHeld())
                     wakeLock.release();
             }
         });

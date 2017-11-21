@@ -134,7 +134,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 addBluetoothName(btName);
                 boolean found = false;
                 for (BluetoothDeviceData customBtNameData : customBluetoothList) {
-                    if (customBtNameData.getName().equals(btName)) {
+                    if (customBtNameData.getName().equalsIgnoreCase(btName)) {
                         found = true;
                         break;
                     }
@@ -438,7 +438,7 @@ public class BluetoothNamePreference extends DialogPreference {
                         boolean exists = false;
                         for (BluetoothDeviceData btNameData : _bluetoothList)
                         {
-                            if (customBTName.getName().equals(btNameData.getName())) {
+                            if (customBTName.getName().equalsIgnoreCase(btNameData.getName())) {
                                 exists = true;
                                 break;
                             }
@@ -569,7 +569,7 @@ public class BluetoothNamePreference extends DialogPreference {
                                 value = value + bluetoothName.getText().toString();
                             }
                             for (BluetoothDeviceData customBluetoothName : customBluetoothList) {
-                                if (customBluetoothName.getName().equals(btName)) {
+                                if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
                                     customBluetoothName.name = bluetoothName.getText().toString();
                                     break;
                                 }
@@ -581,7 +581,7 @@ public class BluetoothNamePreference extends DialogPreference {
                         removeBluetoothName(btName);
                         for (BluetoothDeviceData customBluetoothName : customBluetoothList)
                         {
-                            if (customBluetoothName.getName().equals(btName)) {
+                            if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
                                 customBluetoothList.remove(customBluetoothName);
                                 break;
                             }

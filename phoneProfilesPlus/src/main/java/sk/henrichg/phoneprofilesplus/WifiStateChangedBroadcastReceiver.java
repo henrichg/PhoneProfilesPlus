@@ -107,7 +107,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                 PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
                                                 WifiScanJob.startScan(appContext);
 
-                                                if (wakeLock != null)
+                                                if ((wakeLock != null) && wakeLock.isHeld())
                                                     wakeLock.release();
                                             }
                                         }, 5000);
@@ -135,7 +135,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                                                 WifiScanJob.fillWifiConfigurationList(appContext);
 
-                                                if (wakeLock != null)
+                                                if ((wakeLock != null) && wakeLock.isHeld())
                                                     wakeLock.release();
                                             }
                                         });
@@ -157,7 +157,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
 
-                        if (wakeLock != null)
+                        if ((wakeLock != null) && wakeLock.isHeld())
                             wakeLock.release();
                     }
                 });

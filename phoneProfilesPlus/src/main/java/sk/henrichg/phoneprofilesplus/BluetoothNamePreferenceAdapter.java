@@ -71,10 +71,10 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
             holder = (ViewHolder)vi.getTag();
         }
 
-        if (bluetoothDevice.getName().equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE))
+        if (bluetoothDevice.getName().equalsIgnoreCase(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE))
             holder.bluetoothName.setText("[DU] " + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb));
         else
-        if (bluetoothDevice.getName().equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))
+        if (bluetoothDevice.getName().equalsIgnoreCase(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))
             holder.bluetoothName.setText("[DU] " + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb));
         else {
             if (android.os.Build.VERSION.SDK_INT >= 18) {

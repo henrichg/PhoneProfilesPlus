@@ -129,7 +129,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         //    startForegroundService(serviceIntent);
                     } catch (Exception ignored) {}
 
-                    if (wakeLock != null)
+                    if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();
                     return;
                 }
@@ -206,7 +206,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                 PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "end of handler post");
 
-                if (wakeLock != null)
+                if ((wakeLock != null) && wakeLock.isHeld())
                     wakeLock.release();
             }
         });

@@ -178,7 +178,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             startService(appContext);
                     }
 
-                    if (wakeLock != null)
+                    if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();
                 }
             });

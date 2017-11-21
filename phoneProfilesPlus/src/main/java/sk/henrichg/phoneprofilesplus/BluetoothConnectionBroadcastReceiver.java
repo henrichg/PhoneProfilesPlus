@@ -135,7 +135,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
 
-                    if (wakeLock != null)
+                    if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();
                 }
             });
@@ -227,7 +227,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             }
             if (!found) {
                 for (BluetoothDeviceData _device : connectedDevices) {
-                    if (_device.getName().equals(device.getName())) {
+                    if (_device.getName().equalsIgnoreCase(device.getName())) {
                         found = true;
                         break;
                     }
@@ -261,7 +261,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             if (!found) {
                 index = 0;
                 for (BluetoothDeviceData _device : connectedDevices) {
-                    if (_device.getName().equals(device.getName())) {
+                    if (_device.getName().equalsIgnoreCase(device.getName())) {
                         found = true;
                         break;
                     }
@@ -317,7 +317,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             }
             if (!found) {
                 for (BluetoothDeviceData _device : connectedDevices) {
-                    if (_device.getName().equals(device.getName()) && !deviceName.isEmpty()) {
+                    if (_device.getName().equalsIgnoreCase(device.getName()) && !deviceName.isEmpty()) {
                         _device.setName(deviceName);
                         break;
                     }

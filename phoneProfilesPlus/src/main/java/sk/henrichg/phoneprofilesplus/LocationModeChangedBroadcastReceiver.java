@@ -53,7 +53,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
 
-                    if (wakeLock != null)
+                    if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();
                 }
             });

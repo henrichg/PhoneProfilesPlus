@@ -118,7 +118,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                     }
                                     if (!found) {
                                         for (BluetoothDeviceData _device : WifiBluetoothScanner.tmpBluetoothScanResults) {
-                                            if (_device.getName().equals(device.getName())) {
+                                            if (_device.getName().equalsIgnoreCase(device.getName())) {
                                                 found = true;
                                                 break;
                                             }
@@ -141,7 +141,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
 
-                    if (wakeLock != null)
+                    if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();
                 }
             });

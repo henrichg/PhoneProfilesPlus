@@ -774,7 +774,7 @@ class BluetoothScanJob extends Job {
         }
         if (!found) {
             for (BluetoothDeviceData _device : tmpScanLEResults) {
-                if (_device.getName().equals(device.getName())) {
+                if (_device.getName().equalsIgnoreCase(device.getName())) {
                     found = true;
                     break;
                 }
@@ -829,7 +829,7 @@ class BluetoothScanJob extends Job {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE, false);
 
-                        if (wakeLock != null)
+                        if ((wakeLock != null) && wakeLock.isHeld())
                             wakeLock.release();
                     }
                 }, 5000);

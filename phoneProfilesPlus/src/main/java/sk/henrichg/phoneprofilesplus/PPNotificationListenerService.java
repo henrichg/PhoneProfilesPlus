@@ -105,7 +105,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                     eventsHandler.setEventNotificationParameters("posted");
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION, false);
 
-                    if (wakeLock != null)
+                    if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();
                 }
             });
@@ -156,7 +156,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                     eventsHandler.setEventNotificationParameters("removed");
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION, false);
 
-                    if (wakeLock != null)
+                    if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();
                 }
             });

@@ -78,7 +78,7 @@ public class ForegroundApplicationChangedBroadcastReceiver extends BroadcastRece
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION, false);
 
-                                if (wakeLock != null)
+                                if ((wakeLock != null) && wakeLock.isHeld())
                                     wakeLock.release();
                             }
                         });
@@ -108,7 +108,7 @@ public class ForegroundApplicationChangedBroadcastReceiver extends BroadcastRece
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION, false);
 
-                    if (wakeLock != null)
+                    if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();
                 }
             });

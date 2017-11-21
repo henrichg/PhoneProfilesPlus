@@ -2242,7 +2242,7 @@ public class PhoneProfilesService extends Service
                     showProfileNotification(activatedProfile, dataWrapper);
                     PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "after end of Handler.run");
 
-                    if (wakeLock != null)
+                    if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();
                 }
             });
@@ -2292,7 +2292,7 @@ public class PhoneProfilesService extends Service
 
                     if (PPApplication.getApplicationStarted(appContext, false)) {
                         PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application already started");
-                        if (wakeLock != null)
+                        if ((wakeLock != null) && wakeLock.isHeld())
                             wakeLock.release();
                         return;
                     }
@@ -2371,7 +2371,7 @@ public class PhoneProfilesService extends Service
 
                     dataWrapper.invalidateDataWrapper();
 
-                    if (wakeLock != null)
+                    if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();
                 }
             });
@@ -3203,7 +3203,7 @@ public class PhoneProfilesService extends Service
                     EventsHandler eventsHandler = new EventsHandler(context);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION, false);
 
-                    if (wakeLock != null)
+                    if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();
                 }
             });

@@ -43,7 +43,7 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START, false);
 
-                    if (wakeLock != null)
+                    if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();
                 }
             });
