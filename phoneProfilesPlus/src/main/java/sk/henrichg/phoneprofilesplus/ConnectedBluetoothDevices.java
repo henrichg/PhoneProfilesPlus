@@ -57,33 +57,36 @@ class ConnectedBluetoothDevices {
 
         bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
         PPApplication.sleep(500);
-        devices = mBluetoothA2dp.getConnectedDevices();
-        if (devices.size() > 0)
-            PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "A2DP size="+devices.size());
-        addConnectedDevices(devices, connectedDevices);
-        bluetoothAdapter.closeProfileProxy(BluetoothProfile.A2DP, mBluetoothA2dp);
-        mBluetoothA2dp = null;
-        //PPApplication.sleep(500);
+        if (mBluetoothA2dp != null) {
+            devices = mBluetoothA2dp.getConnectedDevices();
+            if (devices.size() > 0)
+                PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "A2DP size=" + devices.size());
+            addConnectedDevices(devices, connectedDevices);
+            bluetoothAdapter.closeProfileProxy(BluetoothProfile.A2DP, mBluetoothA2dp);
+            mBluetoothA2dp = null;
+        }
 
         bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
         PPApplication.sleep(500);
-        devices = mBluetoothHeadset.getConnectedDevices();
-        if (devices.size() > 0)
-            PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "HEADSET size="+devices.size());
-        addConnectedDevices(devices, connectedDevices);
-        bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEADSET, mBluetoothHeadset);
-        mBluetoothHeadset = null;
-        //PPApplication.sleep(500);
+        if (mBluetoothHeadset != null) {
+            devices = mBluetoothHeadset.getConnectedDevices();
+            if (devices.size() > 0)
+                PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "HEADSET size=" + devices.size());
+            addConnectedDevices(devices, connectedDevices);
+            bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEADSET, mBluetoothHeadset);
+            mBluetoothHeadset = null;
+        }
 
         bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
         PPApplication.sleep(500);
-        devices = mBluetoothHealth.getConnectedDevices();
-        if (devices.size() > 0)
-            PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "HEALTH size="+devices.size());
-        addConnectedDevices(devices, connectedDevices);
-        bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, mBluetoothHealth);
-        mBluetoothHealth = null;
-        //PPApplication.sleep(500);
+        if (mBluetoothHealth != null) {
+            devices = mBluetoothHealth.getConnectedDevices();
+            if (devices.size() > 0)
+                PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "HEALTH size=" + devices.size());
+            addConnectedDevices(devices, connectedDevices);
+            bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, mBluetoothHealth);
+            mBluetoothHealth = null;
+        }
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
             final BluetoothManager bluetoothManager = (BluetoothManager)context.getSystemService(Context.BLUETOOTH_SERVICE);
