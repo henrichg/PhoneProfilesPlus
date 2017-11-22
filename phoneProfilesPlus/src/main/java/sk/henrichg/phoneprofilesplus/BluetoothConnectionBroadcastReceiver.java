@@ -348,7 +348,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static boolean isBluetoothConnected(Context context, BluetoothDeviceData deviceData, String sensorDeviceName)
+    static boolean isBluetoothConnected(BluetoothDeviceData deviceData, String sensorDeviceName)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             if ((deviceData == null) && sensorDeviceName.isEmpty())
