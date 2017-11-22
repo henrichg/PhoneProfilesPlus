@@ -73,7 +73,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //getConnectedDevices(appContext);
+                    getConnectedDevices(appContext);
 
                     if (device != null) {
 
@@ -85,7 +85,6 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                 PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getAddress()=" + device.getAddress());
                             //}
 
-                            /*
                             if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED))
                                 addConnectedDevice(device);
                             else if (action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
@@ -93,11 +92,10 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                     changeDeviceName(device, newName);
                             } else
                                 removeConnectedDevice(device);
-                            */
                         } catch (Exception ignored) {
                         }
 
-                        //saveConnectedDevices(appContext);
+                        saveConnectedDevices(appContext);
 
 
                         if (Event.getGlobalEventsRunning(appContext)) {
@@ -138,11 +136,10 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
     }
 
-    /*
     private static final String CONNECTED_DEVICES_COUNT_PREF = "count";
     private static final String CONNECTED_DEVICES_DEVICE_PREF = "device";
 
-    private static void getConnectedDevices(Context context)
+    static void getConnectedDevices(Context context)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
 
@@ -209,7 +206,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    private void addConnectedDevice(BluetoothDevice device)
+    void addConnectedDevice(BluetoothDevice device)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDevice","device.name="+device.getName());
@@ -322,10 +319,37 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
+    static void addConnectedDeviceData(List<BluetoothDeviceData> detectedDevices)
+    {
+        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
+            for (BluetoothDeviceData device : detectedDevices) {
+                PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDeviceData", "device.name=" + device.getName());
+                PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDeviceData", "device.address=" + device.getAddress());
+                boolean found = false;
+                for (BluetoothDeviceData _device : connectedDevices) {
+                    if (_device.getAddress().equals(device.getAddress())) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    for (BluetoothDeviceData _device : connectedDevices) {
+                        if (_device.getName().equalsIgnoreCase(device.getName())) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDeviceData", "found=" + found);
+                if (!found) {
+                    connectedDevices.add(device);
+                }
+            }
+        }
+    }
+
     static boolean isBluetoothConnected(Context context, BluetoothDeviceData deviceData, String sensorDeviceName)
     {
-        getConnectedDevices(context);
-
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             if ((deviceData == null) && sensorDeviceName.isEmpty())
                 return (connectedDevices != null) && (connectedDevices.size() > 0);
@@ -363,5 +387,5 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             }
         }
     }
-    */
+
 }

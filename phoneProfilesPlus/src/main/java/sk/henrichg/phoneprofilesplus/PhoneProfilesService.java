@@ -52,6 +52,7 @@ import android.widget.RemoteViews;
 import com.crashlytics.android.Crashlytics;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -1103,7 +1104,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void registerBluetoothConnectionBroadcastReceiver(boolean register, boolean unregister, boolean checkDatabase, boolean forceRegister) {
-        Context appContext = getApplicationContext();
+        final Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerBluetoothConnectionBroadcastReceiver", "PhoneProfilesService_registerBluetoothConnectionBroadcastReceiver");
         PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothConnectionBroadcastReceiver", "xxx");
         if (!forceRegister && BluetoothNamePreference.forceRegister)
@@ -1145,6 +1146,30 @@ public class PhoneProfilesService extends Service
                     if (bluetoothConnectionBroadcastReceiver == null) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBluetoothConnectionBroadcastReceiver->REGISTER", "PhoneProfilesService_registerBluetoothConnectionBroadcastReceiver");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothConnectionBroadcastReceiver", "REGISTER");
+
+                        // add not registered bluetooth devices (but not watches :-( )
+                        PhoneProfilesService.startHandlerThread();
+                        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothConnectionBroadcastReceiver.onReceive");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+                                BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
+                                List<BluetoothDeviceData> connectedDevices = ConnectedBluetoothDevices.getConnectedDevices(appContext);
+                                BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
+                                BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+
+                                if ((wakeLock != null) && wakeLock.isHeld())
+                                    wakeLock.release();
+                                        }
+                        });
+
                         bluetoothConnectionBroadcastReceiver = new BluetoothConnectionBroadcastReceiver();
                         IntentFilter intentFilter14 = new IntentFilter();
                         intentFilter14.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);

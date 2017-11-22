@@ -14,9 +14,6 @@ import java.util.Calendar;
 import java.util.List;
 
 class ConnectedBluetoothDevices {
-
-    private static BluetoothAdapter mBluetoothAdapter;
-
     private static BluetoothHeadset mBluetoothHeadset;
     private static BluetoothHealth mBluetoothHealth;
     private static BluetoothA2dp mBluetoothA2dp;
@@ -24,54 +21,69 @@ class ConnectedBluetoothDevices {
     static List<BluetoothDeviceData> getConnectedDevices(Context context) {
         final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
 
-        mBluetoothAdapter = BluetoothScanJob.getBluetoothAdapter(context);
+        BluetoothAdapter bluetoothAdapter = BluetoothScanJob.getBluetoothAdapter(context);
         BluetoothProfile.ServiceListener profileListener = new BluetoothProfile.ServiceListener() {
             public void onServiceConnected(int profile, BluetoothProfile proxy) {
                 if (profile == BluetoothProfile.HEADSET) {
-                    PPApplication.logE("------ ConnectedBluetoothDevices.addConnectedDevice", "HEADSET service connected");
+                    PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "HEADSET service connected");
                     mBluetoothHeadset = (BluetoothHeadset) proxy;
                 }
                 if (profile == BluetoothProfile.HEALTH) {
-                    PPApplication.logE("------ ConnectedBluetoothDevices.addConnectedDevice", "HEALTH service connected");
+                    PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "HEALTH service connected");
                     mBluetoothHealth = (BluetoothHealth) proxy;
                 }
                 if (profile == BluetoothProfile.A2DP) {
-                    PPApplication.logE("------ ConnectedBluetoothDevices.addConnectedDevice", "A2DP service connected");
+                    PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "A2DP service connected");
                     mBluetoothA2dp = (BluetoothA2dp) proxy;
                 }
             }
             public void onServiceDisconnected(int profile) {
                 if (profile == BluetoothProfile.HEADSET) {
-                    PPApplication.logE("------ ConnectedBluetoothDevices.addConnectedDevice", "HEADSET service disconnected");
+                    PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "HEADSET service disconnected");
                     mBluetoothHeadset = null;
                 }
                 if (profile == BluetoothProfile.HEALTH) {
-                    PPApplication.logE("------ ConnectedBluetoothDevices.addConnectedDevice", "HEALTH service disconnected");
+                    PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "HEALTH service disconnected");
                     mBluetoothHealth = null;
                 }
                 if (profile == BluetoothProfile.A2DP) {
-                    PPApplication.logE("------ ConnectedBluetoothDevices.addConnectedDevice", "A2DP service disconnected");
+                    PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "A2DP service disconnected");
                     mBluetoothA2dp = null;
                 }
             }
         };
-        mBluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
-        mBluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
-        mBluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
 
+        List<BluetoothDevice> devices;
+
+        bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
         PPApplication.sleep(500);
-
-        List<BluetoothDevice> devices = mBluetoothHeadset.getConnectedDevices();
-        addConnectedDevices(devices, connectedDevices);
-        mBluetoothAdapter.closeProfileProxy(BluetoothProfile.HEADSET, mBluetoothHeadset);
-
-        devices = mBluetoothHealth.getConnectedDevices();
-        addConnectedDevices(devices, connectedDevices);
-        mBluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, mBluetoothHealth);
-
         devices = mBluetoothA2dp.getConnectedDevices();
+        if (devices.size() > 0)
+            PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "A2DP size="+devices.size());
         addConnectedDevices(devices, connectedDevices);
-        mBluetoothAdapter.closeProfileProxy(BluetoothProfile.A2DP, mBluetoothA2dp);
+        bluetoothAdapter.closeProfileProxy(BluetoothProfile.A2DP, mBluetoothA2dp);
+        mBluetoothA2dp = null;
+        //PPApplication.sleep(500);
+
+        bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
+        PPApplication.sleep(500);
+        devices = mBluetoothHeadset.getConnectedDevices();
+        if (devices.size() > 0)
+            PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "HEADSET size="+devices.size());
+        addConnectedDevices(devices, connectedDevices);
+        bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEADSET, mBluetoothHeadset);
+        mBluetoothHeadset = null;
+        //PPApplication.sleep(500);
+
+        bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
+        PPApplication.sleep(500);
+        devices = mBluetoothHealth.getConnectedDevices();
+        if (devices.size() > 0)
+            PPApplication.logE("------ ConnectedBluetoothDevices.getConnectedDevices", "HEALTH size="+devices.size());
+        addConnectedDevices(devices, connectedDevices);
+        bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, mBluetoothHealth);
+        mBluetoothHealth = null;
+        //PPApplication.sleep(500);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
             final BluetoothManager bluetoothManager = (BluetoothManager)context.getSystemService(Context.BLUETOOTH_SERVICE);
@@ -109,8 +121,11 @@ class ConnectedBluetoothDevices {
                 }
                 PPApplication.logE("------ ConnectedBluetoothDevices.addConnectedDevice", "found=" + found);
                 if (!found) {
+                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                    Calendar now = Calendar.getInstance();
+                    long timestamp = now.getTimeInMillis() - gmtOffset;
                     connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
-                            BluetoothScanJob.getBluetoothType(device), false, 0));
+                            BluetoothScanJob.getBluetoothType(device), false, timestamp));
                 }
             }
         //}
