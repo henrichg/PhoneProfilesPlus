@@ -47,11 +47,13 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    /*
                     // remove connected devices list
                     if (bluetoothState == BluetoothAdapter.STATE_OFF) {
                         BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, false);
                         BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                     }
+                    */
 
                     if (Event.getGlobalEventsRunning(appContext))
                     {

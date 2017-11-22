@@ -2116,24 +2116,35 @@ public class DataWrapper {
 
                     PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "-- eventAdapterName=" + event._eventPreferencesBluetooth._adapterName);
 
-                    if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, "")) {
+                    List<BluetoothDeviceData> connectedDevices = ConnectedBluetoothDevices.getConnectedDevices(context);
 
-                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth connected");
+                    //if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, null, "")) {
+                    if (ConnectedBluetoothDevices.isBluetoothConnected(connectedDevices,null, "")) {
+
+                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "any device connected");
 
                         boolean connected = false;
                         String[] splits = event._eventPreferencesBluetooth._adapterName.split("\\|");
                         for (String _bluetoothName : splits) {
                             if (_bluetoothName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE)) {
+                                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "any device connected");
                                 connected = true;
                                 break;
                             } else if (_bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
                                 for (BluetoothDeviceData data : boundedDevicesList) {
-                                    connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, data.getName());
+                                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "boundedDevice.name="+data.getName());
+                                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "boundedDevice.address="+data.getAddress());
+                                    //connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, data, "");
+                                    connected = ConnectedBluetoothDevices.isBluetoothConnected(connectedDevices, data, "");
                                     if (connected)
                                         break;
                                 }
-                            } else
-                                connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, _bluetoothName);
+                                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "paired device connected="+connected);
+                            } else {
+                                //connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, null, _bluetoothName);
+                                connected = ConnectedBluetoothDevices.isBluetoothConnected(connectedDevices,null, _bluetoothName);
+                                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "event sensor device connected="+connected);
+                            }
                             if (connected)
                                 break;
                         }
@@ -2152,7 +2163,7 @@ public class DataWrapper {
                             }
                         }
                     } else {
-                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth not connected");
+                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "not any device connected");
 
                         if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) {
                             // for this connectionTypes, BT must not be connected to event BT adapter

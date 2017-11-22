@@ -85,8 +85,10 @@ public class PPApplication extends Application {
                                          */
                                          //+"|GeofenceScanner"
                                          //+"|GeofenceScannerJob"
-                                         //+"|DataWrapper.doHandleEvents"
-                                         //+"|BluetoothConnectionBroadcastReceiver"
+
+                                         +"|[BTScan] DataWrapper.doHandleEvents"
+                                         +"|ConnectedBluetoothDevices"
+                                         +"|BluetoothConnectionBroadcastReceiver"
                                          //+"|BluetoothStateChangedBroadcastReceiver"
                                          //+"|BluetoothScanBroadcastReceiver"
                                          //+"|BluetoothScanJob"

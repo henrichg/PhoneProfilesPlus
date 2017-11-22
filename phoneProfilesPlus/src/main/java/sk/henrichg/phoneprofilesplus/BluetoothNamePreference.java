@@ -456,7 +456,9 @@ public class BluetoothNamePreference extends DialogPreference {
                 boolean found;
                 String[] splits = value.split("\\|");
                 for (String _bluetoothName : splits) {
-                    if (!_bluetoothName.isEmpty()) {
+                    if (!_bluetoothName.isEmpty() &&
+                            !_bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE) &&
+                            !_bluetoothName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE)) {
                         found = false;
                         for (BluetoothDeviceData bluetoothName : _bluetoothList) {
                             if (_bluetoothName.equals(bluetoothName.getName())) {
