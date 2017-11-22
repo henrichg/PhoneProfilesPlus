@@ -457,7 +457,9 @@ public class WifiSSIDPreference extends DialogPreference {
                 boolean found;
                 String[] splits = value.split("\\|");
                 for (String _ssid : splits) {
-                    if (!_ssid.isEmpty()) {
+                    if (!_ssid.isEmpty() &&
+                            !_ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE) &&
+                            !_ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
                         found = false;
                         for (WifiSSIDData ssid : _SSIDList) {
                             if (_ssid.equals(ssid.ssid)) {
