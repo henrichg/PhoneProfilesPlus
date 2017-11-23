@@ -61,7 +61,9 @@ public class PPApplication extends Application {
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
 
-                                         //+"|ProfileDurationAlarmBroadcastReceiver"
+
+                                         +"|ProfileDurationAlarmBroadcastReceiver"
+                                         +"|$$$ DataWrapper._activateProfile"
 
                                          //+"|"+CallsCounter.LOG_TAG
                                          //+"|[RJS] PPApplication"
@@ -86,10 +88,10 @@ public class PPApplication extends Application {
                                          //+"|GeofenceScanner"
                                          //+"|GeofenceScannerJob"
 
-                                         +"|%%%%%%% DataWrapper.doHandleEvents"
-                                         +"|[BTScan] DataWrapper.doHandleEvents"
-                                         +"|BluetoothConnectedDevices"
-                                         +"|BluetoothConnectionBroadcastReceiver"
+                                         //+"|%%%%%%% DataWrapper.doHandleEvents"
+                                         //+"|[BTScan] DataWrapper.doHandleEvents"
+                                         //+"|BluetoothConnectedDevices"
+                                         //+"|BluetoothConnectionBroadcastReceiver"
                                          //+"|BluetoothStateChangedBroadcastReceiver"
                                          //+"|BluetoothScanBroadcastReceiver"
                                          //+"|BluetoothScanJob"

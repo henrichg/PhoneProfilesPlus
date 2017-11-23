@@ -540,7 +540,7 @@ public class Profile {
         this._preferencesIndicator = profile._preferencesIndicator;
     }
 
-    void mergeProfiles(long withProfileId, DataWrapper dataWrapper)
+    void mergeProfiles(long withProfileId, DataWrapper dataWrapper, boolean setDuration)
     {
         PPApplication.logE("$$$ Profile.mergeProfiles","withProfileId="+withProfileId);
 
@@ -552,8 +552,14 @@ public class Profile {
             this._icon = withProfile._icon;
             this._iconBitmap = withProfile._iconBitmap;
             this._preferencesIndicator = withProfile._preferencesIndicator;
-            this._duration = 0;
-            this._afterDurationDo = AFTERDURATIONDO_RESTARTEVENTS;
+            if (!withProfile._askForDuration && setDuration) {
+                this._duration = withProfile._duration;
+                this._afterDurationDo = withProfile._afterDurationDo;
+            }
+            else {
+                this._duration = 0;
+                this._afterDurationDo = AFTERDURATIONDO_RESTARTEVENTS;
+            }
             this._durationNotificationSound = withProfile._durationNotificationSound;
             this._durationNotificationVibrate = withProfile._durationNotificationVibrate;
             this._hideStatusBarIcon = withProfile._hideStatusBarIcon;

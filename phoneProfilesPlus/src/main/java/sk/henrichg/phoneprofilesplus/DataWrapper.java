@@ -1170,6 +1170,7 @@ public class DataWrapper {
 
             activateProfileHelper.execute(profile, /*merged, */_interactive);
 
+            // activation with duration
             if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
                 (startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&
                 (startupSource != PPApplication.STARTUP_SOURCE_LAUNCHER_START))
@@ -1184,6 +1185,7 @@ public class DataWrapper {
                 if (activatedProfile != null)
                     profileId = activatedProfile._id;
                 PPApplication.logE("$$$ DataWrapper._activateProfile","setActivatedProfileForDuration profileId="+profileId);
+                PPApplication.logE("$$$ DataWrapper._activateProfile","setActivatedProfileForDuration duration="+profileDuration);
                 Profile.setActivatedProfileForDuration(context, profileId);
 
                 ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, context);
