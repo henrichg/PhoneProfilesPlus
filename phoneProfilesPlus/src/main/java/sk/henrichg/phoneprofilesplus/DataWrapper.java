@@ -1533,10 +1533,10 @@ public class DataWrapper {
         boolean nfcPassed = true;
         boolean radioSwitchPassed = true;
 
-        PPApplication.logE("%%% DataWrapper.doHandleEvents","--- start --------------------------");
-        PPApplication.logE("%%% DataWrapper.doHandleEvents","------- event._id="+event._id);
-        PPApplication.logE("%%% DataWrapper.doHandleEvents","------- event._name="+event._name);
-        PPApplication.logE("%%% DataWrapper.doHandleEvents","------- sensorType="+sensorType);
+        PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents","--- start --------------------------");
+        PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents","------- event._id="+event._id);
+        PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents","------- event._name="+event._name);
+        PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents","------- sensorType="+sensorType);
 
         if (event._eventPreferencesTime._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
@@ -2115,6 +2115,7 @@ public class DataWrapper {
                     PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetoothEnabled=true");
 
                     PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "-- eventAdapterName=" + event._eventPreferencesBluetooth._adapterName);
+
 
                     //List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(context);
                     BluetoothConnectionBroadcastReceiver.getConnectedDevices(context);

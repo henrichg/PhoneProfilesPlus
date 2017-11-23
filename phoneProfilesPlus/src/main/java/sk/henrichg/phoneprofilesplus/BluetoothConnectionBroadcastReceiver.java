@@ -86,8 +86,9 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                 PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getAddress()=" + device.getAddress());
                             //}
 
-                            if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED))
+                            if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
                                 addConnectedDevice(device);
+                            }
                             else if (action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
                                 if (newName != null)
                                     changeDeviceName(device, newName);
