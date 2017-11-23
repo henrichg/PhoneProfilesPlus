@@ -227,11 +227,11 @@ class EventsHandler {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                     if (sensorType.equals(SENSOR_TYPE_NOTIFICATION)) {
                         // search for notification events, save start time
-                        PPApplication.logE("EventsHandler.handleEvents", "search for notification events");
+                        PPApplication.logE("[NOTIF] EventsHandler.handleEvents", "search for notification events");
                         for (Event _event : eventList) {
                             if (_event.getStatus() != Event.ESTATUS_STOP) {
                                 if (_event._eventPreferencesNotification._enabled) {
-                                    PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
+                                    PPApplication.logE("[NOTIF] EventsHandler.handleEvents", "event._id=" + _event._id);
                                 /*_event._eventPreferencesNotification.saveStartTime(dataWrapper,
                                 intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),
                                 intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));*/

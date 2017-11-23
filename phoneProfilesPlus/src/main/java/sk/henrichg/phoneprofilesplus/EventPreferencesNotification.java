@@ -309,7 +309,7 @@ class EventPreferencesNotification extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        PPApplication.logE("EventPreferencesNotification.setSystemRunningEvent","xxx");
+        PPApplication.logE("EventPreferencesNotification.setSystemEventForStart","xxx");
 
         removeAlarm(context);
     }
@@ -322,7 +322,7 @@ class EventPreferencesNotification extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
 
-        PPApplication.logE("EventPreferencesNotification.setSystemPauseEvent","xxx");
+        PPApplication.logE("EventPreferencesNotification.setSystemEventForPause","xxx");
 
         removeAlarm(context);
 
@@ -398,6 +398,9 @@ class EventPreferencesNotification extends EventPreferences {
 
     void saveStartTime(DataWrapper dataWrapper) {
         if (!_endWhenRemoved) {
+            PPApplication.logE("EventPreferencesNotification.saveStartTime", "!_endWhenRemoved");
+            PPApplication.logE("EventPreferencesNotification.saveStartTime", "this._applications="+this._applications);
+
             PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
 
             boolean notificationFound = false;
@@ -405,10 +408,13 @@ class EventPreferencesNotification extends EventPreferences {
             String[] splits = this._applications.split("\\|");
             for (String split : splits) {
                 String packageName = split;
-                if (ApplicationsCache.isShortcut(split))
-                    packageName = ApplicationsCache.getPackageName(split);
+                //if (ApplicationsCache.isShortcut(split))
+                packageName = ApplicationsCache.getPackageName(split);
+
+                PPApplication.logE("EventPreferencesNotification.saveStartTime", "packageName="+packageName);
 
                 PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(packageName);
+                PPApplication.logE("EventPreferencesNotification.saveStartTime", "notification="+notification);
                 if (notification != null) {
                     notificationFound = true;
                     _startTime = notification.time;
@@ -427,6 +433,7 @@ class EventPreferencesNotification extends EventPreferences {
             }
         }
         else {
+            PPApplication.logE("EventPreferencesNotification.saveStartTime", "_endWhenRemoved");
             this._startTime = 0;
             dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
         }

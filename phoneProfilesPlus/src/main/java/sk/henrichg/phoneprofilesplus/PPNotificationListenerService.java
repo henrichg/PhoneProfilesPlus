@@ -18,6 +18,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -69,12 +70,12 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (sbn.getPackageName().equals(context.getPackageName()))
             return;
 
-        //PPApplication.logE("#### PPNotificationListenerService.onNotificationPosted","xxx");
+        PPApplication.logE("#### PPNotificationListenerService.onNotificationPosted","xxx");
 
-        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
-        //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-        //String alarmTimeS = sdf.format(sbn.getPostTime());
-        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
+        PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
+        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+        String alarmTimeS = sdf.format(sbn.getPostTime());
+        PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
 
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
         long time = sbn.getPostTime() + gmtOffset;
@@ -465,6 +466,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
     private void addNotifiedPackage(String packageName, long time)
     {
         synchronized (PPApplication.notificationsChangeMutex) {
+            PPApplication.logE("PPNotificationListenerService.addNotifiedPackage", "packageName=" + packageName);
+            PPApplication.logE("PPNotificationListenerService.addNotifiedPackage", "time=" + time);
 
             if (notifications == null)
                 notifications = new ArrayList<>();
@@ -476,6 +479,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                     break;
                 }
             }
+            PPApplication.logE("PPNotificationListenerService.addNotifiedPackage", "found=" + found);
             if (!found) {
                 notifications.add(new PostedNotificationData(packageName, time));
             }
@@ -507,14 +511,18 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public static PostedNotificationData getNotificationPosted(String packageName)
     {
         synchronized (PPApplication.notificationsChangeMutex) {
+            //packageName = ApplicationsCache.getPackageName(packageName);
+            PPApplication.logE("PPNotificationListenerService.getNotificationPosted", "packageName=" + packageName);
 
             if (notifications == null)
                 notifications = new ArrayList<>();
 
             for (PostedNotificationData _notification : notifications) {
                 String _packageName = _notification.getPackageName();
-                if (packageName.equals(_packageName))
+                if (packageName.equals(_packageName)) {
+                    PPApplication.logE("PPNotificationListenerService.getNotificationPosted", "_packageName returned=" + _packageName);
                     return _notification;
+                }
             }
 
             return null;

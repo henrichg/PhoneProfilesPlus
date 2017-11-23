@@ -62,8 +62,11 @@ public class PPApplication extends Application {
                                          +"|ShutdownBroadcastReceiver"
 
 
-                                         +"|ProfileDurationAlarmBroadcastReceiver"
-                                         +"|$$$ DataWrapper._activateProfile"
+                                         //+"|ProfileDurationAlarmBroadcastReceiver"
+                                         //+"|$$$ DataWrapper._activateProfile"
+                                         +"|PPNotificationListenerService"
+                                         +"|[NOTIF] EventsHandler.handleEvents"
+                                         +"|EventPreferencesNotification"
 
                                          //+"|"+CallsCounter.LOG_TAG
                                          //+"|[RJS] PPApplication"
