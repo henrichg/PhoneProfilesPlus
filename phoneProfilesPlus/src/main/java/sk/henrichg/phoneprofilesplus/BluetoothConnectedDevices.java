@@ -55,8 +55,9 @@ class BluetoothConnectedDevices {
 
         List<BluetoothDevice> devices;
 
+        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "A2DP start");
         bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
-        int i = 10;
+        int i = 30;
         while ((mBluetoothA2dp == null) && (i > 0)){
             PPApplication.sleep(100);
             --i;
@@ -69,8 +70,9 @@ class BluetoothConnectedDevices {
             mBluetoothA2dp = null;
         }
 
+        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET start");
         bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
-        i = 10;
+        i = 30;
         while ((mBluetoothHeadset == null) && (i > 0)){
             PPApplication.sleep(100);
             --i;
@@ -83,8 +85,9 @@ class BluetoothConnectedDevices {
             mBluetoothHeadset = null;
         }
 
+        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH start");
         bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
-        i = 10;
+        i = 30;
         while ((mBluetoothHealth == null) && (i > 0)){
             PPApplication.sleep(100);
             --i;
