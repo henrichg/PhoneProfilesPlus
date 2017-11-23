@@ -284,7 +284,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void registerAllTheTimeRequiredReceivers(boolean register/*, boolean unregister*/) {
-        Context appContext = getApplicationContext();
+        final Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
         PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "xxx");
         //if (unregister) {
@@ -372,6 +372,18 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered device idle mode");
+            if (bluetoothConnectionBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER bluetooth connection", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER bluetooth connection");
+                try {
+                    appContext.unregisterReceiver(bluetoothConnectionBroadcastReceiver);
+                    bluetoothConnectionBroadcastReceiver = null;
+                } catch (Exception e) {
+                    bluetoothConnectionBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered bluetooth connection");
         //}
         if (register) {
             if (shutdownBroadcastReceiver == null) {
@@ -469,6 +481,45 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered device idle mode");
+
+            // required for (un)register connected bluetooth devices
+            if (bluetoothConnectionBroadcastReceiver == null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER bluetooth connection", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER bluetooth connection");
+
+                // add not registered bluetooth devices (but not watches :-( )
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneProfilesService.registerAllTheTimeRequiredReceivers.bluetoothConnection");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
+                        List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(appContext);
+                        BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
+                        BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+
+                        if ((wakeLock != null) && wakeLock.isHeld())
+                            wakeLock.release();
+                    }
+                });
+
+                bluetoothConnectionBroadcastReceiver = new BluetoothConnectionBroadcastReceiver();
+                IntentFilter intentFilter14 = new IntentFilter();
+                intentFilter14.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
+                intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+                intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
+                intentFilter14.addAction(BluetoothDevice.ACTION_NAME_CHANGED);
+                appContext.registerReceiver(bluetoothConnectionBroadcastReceiver, intentFilter14);
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered bluetooth connection");
         }
     }
 
@@ -1161,7 +1212,7 @@ public class PhoneProfilesService extends Service
                                 }
 
                                 BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
-                                List<BluetoothDeviceData> connectedDevices = ConnectedBluetoothDevices.getConnectedDevices(appContext);
+                                List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(appContext);
                                 BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
 
@@ -2017,7 +2068,7 @@ public class PhoneProfilesService extends Service
 
         // required for bluetooth connection type = (dis)connected +
         // bluetooth scanner
-        registerBluetoothConnectionBroadcastReceiver(true, true, true, false);
+        //registerBluetoothConnectionBroadcastReceiver(true, true, true, false);
 
         // required for bluetooth scanner
         registerBluetoothScannerReceivers(true, true, true, false);
@@ -2131,7 +2182,7 @@ public class PhoneProfilesService extends Service
         registerForegroundApplicationChangedReceiver(false, false);
         registerLocationModeChangedBroadcastReceiver(false, true, false);
         registerBluetoothStateChangedBroadcastReceiver(false, true, false, false);
-        registerBluetoothConnectionBroadcastReceiver(false, true, false, false);
+        //registerBluetoothConnectionBroadcastReceiver(false, true, false, false);
         registerBluetoothScannerReceivers(false, true, false, false);
         registerWifiAPStateChangeBroadcastReceiver(false, true, false, false);
         registerPowerSaveModeReceiver(false, false);
@@ -2169,7 +2220,7 @@ public class PhoneProfilesService extends Service
         registerForegroundApplicationChangedReceiver(true, true);
         registerLocationModeChangedBroadcastReceiver(true, true, true);
         registerBluetoothStateChangedBroadcastReceiver(true, true, true, false);
-        registerBluetoothConnectionBroadcastReceiver(true, true, true, false);
+        //registerBluetoothConnectionBroadcastReceiver(true, true, true, false);
         registerBluetoothScannerReceivers(true, true, true, false);
         registerWifiAPStateChangeBroadcastReceiver(true, true, true, false);
         registerPowerSaveModeReceiver(true, true);
@@ -2546,13 +2597,13 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
-                            registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
+                            //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
                             registerBluetoothStateChangedBroadcastReceiver(true, false, true, false);
                             registerBluetoothScannerReceivers(true, false, true, false);
                             break;
                         case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
-                            registerBluetoothConnectionBroadcastReceiver(true, false, false, true);
+                            //registerBluetoothConnectionBroadcastReceiver(true, false, false, true);
                             registerBluetoothStateChangedBroadcastReceiver(true, false, false, true);
                             registerBluetoothScannerReceivers(true, false, false, true);
                             break;
@@ -2566,7 +2617,7 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER");
-                            registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
+                            //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
                             registerBluetoothStateChangedBroadcastReceiver(true, false, true, false);
                             registerBluetoothScannerReceivers(true, false, true, false);
                             scheduleBluetoothJob(true,  true, forScreenOn, false, true);

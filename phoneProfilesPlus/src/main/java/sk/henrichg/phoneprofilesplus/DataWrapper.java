@@ -2116,11 +2116,11 @@ public class DataWrapper {
 
                     PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "-- eventAdapterName=" + event._eventPreferencesBluetooth._adapterName);
 
-                    //List<BluetoothDeviceData> connectedDevices = ConnectedBluetoothDevices.getConnectedDevices(context);
+                    //List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(context);
                     BluetoothConnectionBroadcastReceiver.getConnectedDevices(context);
 
                     if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "")) {
-                    //if (ConnectedBluetoothDevices.isBluetoothConnected(connectedDevices,null, "")) {
+                    //if (BluetoothConnectedDevices.isBluetoothConnected(connectedDevices,null, "")) {
 
                         PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "any device connected");
 
@@ -2136,14 +2136,14 @@ public class DataWrapper {
                                     PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "boundedDevice.name="+data.getName());
                                     PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "boundedDevice.address="+data.getAddress());
                                     connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(data, "");
-                                    //connected = ConnectedBluetoothDevices.isBluetoothConnected(connectedDevices, data, "");
+                                    //connected = BluetoothConnectedDevices.isBluetoothConnected(connectedDevices, data, "");
                                     if (connected)
                                         break;
                                 }
                                 PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "paired device connected="+connected);
                             } else {
                                 connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, _bluetoothName);
-                                //connected = ConnectedBluetoothDevices.isBluetoothConnected(connectedDevices,null, _bluetoothName);
+                                //connected = BluetoothConnectedDevices.isBluetoothConnected(connectedDevices,null, _bluetoothName);
                                 PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "event sensor device connected="+connected);
                             }
                             if (connected)
