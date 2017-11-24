@@ -50,7 +50,7 @@ public class PPApplication extends Application {
     static String PACKAGE_NAME;
 
     private static final boolean logIntoLogCat = true;
-    private static final boolean logIntoFile = false;
+    private static final boolean logIntoFile = true;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
@@ -64,9 +64,9 @@ public class PPApplication extends Application {
 
                                          //+"|ProfileDurationAlarmBroadcastReceiver"
                                          //+"|$$$ DataWrapper._activateProfile"
-                                         +"|PPNotificationListenerService"
-                                         +"|[NOTIF] EventsHandler.handleEvents"
-                                         +"|EventPreferencesNotification"
+                                         //+"|PPNotificationListenerService"
+                                         //+"|[NOTIF] EventsHandler.handleEvents"
+                                         //+"|EventPreferencesNotification"
 
                                          //+"|"+CallsCounter.LOG_TAG
                                          //+"|[RJS] PPApplication"
@@ -92,9 +92,9 @@ public class PPApplication extends Application {
                                          //+"|GeofenceScannerJob"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
-                                         //+"|[BTScan] DataWrapper.doHandleEvents"
-                                         //+"|BluetoothConnectedDevices"
-                                         //+"|BluetoothConnectionBroadcastReceiver"
+                                         +"|[BTScan] DataWrapper.doHandleEvents"
+                                         +"|BluetoothConnectedDevices"
+                                         +"|BluetoothConnectionBroadcastReceiver"
                                          //+"|BluetoothStateChangedBroadcastReceiver"
                                          //+"|BluetoothScanBroadcastReceiver"
                                          //+"|BluetoothScanJob"
