@@ -9,7 +9,7 @@ public class ShutdownBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("ShutdownBroadcastReceiver.onReceive", "xxx");
-        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
-        PPApplication.exitApp(context.getApplicationContext(), dataWrapper, null, false, true);
+        //DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
+        PPApplication.exitApp(context.getApplicationContext(), null, null, false, true);
     }
 }
