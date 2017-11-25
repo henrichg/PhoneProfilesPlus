@@ -338,8 +338,8 @@
     <string name="event_type_screen">Screen</string>
     <string name="event_preferences_category_eventScreenParameters">Screen parameters</string>
     <string name="event_preferences_screen_event_type">Event type</string>
-    <string name="event_preferences_delayStart">Delay (seconds)</string>
-    <string name="profile_preferences_duration">Duration (seconds)</string>
+    <string name="event_preferences_delayStart">Delay</string>
+    <string name="profile_preferences_duration">Duration</string>
     <string name="profile_preferences_afterDurationDo">When duration expires</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Do nothing</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">Undo the profile</string>
@@ -370,7 +370,7 @@
     <string name="event_preferences_sms_contacts">Contacts</string>
     <string name="toast_events_restarted">Events restarted</string>
     <string name="phone_profiles_pref_notificationStatusBarPermanent">Ongoing notification</string>
-    <string name="phone_profiles_pref_notificationStatusBarCancel">Cancel after (seconds)</string>
+    <string name="phone_profiles_pref_notificationStatusBarCancel">Cancel after</string>
     <string name="event_name_background_profile">Default profile</string>
     <string name="phoneprofilehepler_uninstall_error_no_root">PPHelper uninstallation requires ROOT</string>
     <string name="phoneprofilehepler_reboot_title_uninstall">PPHelper uninstallation</string>
@@ -469,7 +469,7 @@
     <string name="profile_preferences_zenMode_none_summary">No interruptions; not even alarms</string>
     <string name="profile_preferences_zenMode_priority_summary">Priority interruptions only</string>
     <string name="profile_preferences_zenMode_all_summary">All interruptions</string>
-    <string name="event_preferences_duration">Duration (seconds)</string>
+    <string name="event_preferences_duration">Duration</string>
     <string name="pref_event_duration">Duration</string>
     <string name="applications_multiselect_summary_text_selected">Selected</string>
     <string name="applications_multiselect_summary_text_not_selected">None selected</string>
@@ -546,10 +546,10 @@
     <string name="array_pref_powerSaveMode_off">Off</string>
     <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Turn on at 5% battery</string>
     <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Turn on at 15% battery</string>
-    <string name="important_info_profile_ringerMode_root">In Android 6 (Marshmallow), it is not possible to change the \"Vibrate when ringing\" system setting on non-rooted devices.</string>
-    <string name="important_info_profile_adaptiveBrightness_root">In Android 6 (Marshmallow), it is not possible to change the level of \"Adaptive brightness\" on non-rooted devices.</string>
-    <string name="important_info_profile_wifiScanning_location">In Android 6 (Marshmallow), for Wi-Fi scanning to work, you must enable Location and Wi-Fi scanning in Location settings.</string>
-    <string name="important_info_profile_bluetoothScanning_location">In Android 6 (Marshmallow), for Bluetooth LE scanning to work, you must enable Location and Bluetooth scanning in Location settings.</string>
+    <string name="important_info_profile_ringerMode_root">In Android 6, it is not possible to change the \"Vibrate when ringing\" system setting on non-rooted devices.</string>
+    <string name="important_info_profile_adaptiveBrightness_root">In Android 6+, it is not possible to change the level of \"Adaptive brightness\" on non-rooted devices.</string>
+    <string name="important_info_profile_wifiScanning_location">In Android 6+, for Wi-Fi scanning to work, you must enable Location and Wi-Fi scanning in Location settings.</string>
+    <string name="important_info_profile_bluetoothScanning_location">In Android 6+, for Bluetooth LE scanning to work, you must enable Location and Bluetooth scanning in Location settings.</string>
     <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Power save mode</string>
     <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>
     <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>
@@ -954,7 +954,7 @@
     <string name="profile_preferences_lockDevice_deviceAdminSettings_summary_activated">Already enabled</string>
     <string name="lockDevice_screenOff_text">Quick screen off lock</string>
     <string name="event_preferences_calendar_start_before_event">Start before the event</string>
-    <string name="event_preferences_startBeforeEvent">Start before the event (seconds)</string>
+    <string name="event_preferences_startBeforeEvent">Start before the event</string>
     <string name="event_preferences_category_eventRadioSwitchParameters">Radio parameters</string>
     <string name="event_preference_sensor_radioSwitch_summary">This sensor will start an event by switching radios (on/off). Parameters: Wi-Fi, Bluetooth, Mobile data, GPS, NFC, Airplane mode.</string>
     <string name="event_type_radioSwitch">Radios</string>
