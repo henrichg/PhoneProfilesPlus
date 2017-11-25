@@ -146,6 +146,7 @@ class BluetoothConnectedDevices {
         //}
     }
 
+    /*
     static boolean isBluetoothConnected(List<BluetoothDeviceData> connectedDevices, BluetoothDeviceData deviceData, String sensorDeviceName)
     {
         //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
@@ -185,5 +186,6 @@ class BluetoothConnectedDevices {
             }
         //}
     }
+    */
 
 }

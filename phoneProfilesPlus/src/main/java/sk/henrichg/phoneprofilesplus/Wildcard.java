@@ -22,6 +22,7 @@ class Wildcard {
      * @param more wildcard for more characters
      * @return      <code>true</code> if string matches the pattern, otherwise <code>false</code>
      */
+    @SuppressWarnings("SameParameterValue")
     static boolean match(String string, String pattern, char one, char more, boolean caseInsensitive) {
         return match(string, pattern, one, more, 0, 0, caseInsensitive);
     }

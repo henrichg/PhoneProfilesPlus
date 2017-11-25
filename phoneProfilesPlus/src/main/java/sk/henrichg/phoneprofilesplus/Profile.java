@@ -832,7 +832,7 @@ public class Profile {
         return value == 1;
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
+    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
     void setVolumeRingtoneValue(int value) {
         try {
             String[] splits = _volumeRingtone.split("\\|");
@@ -883,7 +883,7 @@ public class Profile {
         return value == 1;
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
+    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
     void setVolumeNotificationValue(int value) {
 
         try {
@@ -1181,6 +1181,7 @@ public class Profile {
         return convertPercentsToBrightnessAdaptiveValue(perc, context);
     }
 
+    @SuppressWarnings("SameParameterValue")
     static long convertBrightnessToPercents(int value, int maxValue, int minValue)
     {
         long perc;

@@ -26,7 +26,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
     //private int appWidgetId;
     private List<Profile> profileList = new ArrayList<>();
 
-    SamsungEdgeFactory(Context ctxt, Intent intent) {
+    SamsungEdgeFactory(Context ctxt, @SuppressWarnings("unused") Intent intent) {
         context = ctxt;
         /*appWidgetId=intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                                        AppWidgetManager.INVALID_APPWIDGET_ID);*/

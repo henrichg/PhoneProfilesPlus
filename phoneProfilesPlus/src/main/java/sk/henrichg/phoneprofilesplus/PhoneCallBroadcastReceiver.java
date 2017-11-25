@@ -46,10 +46,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     {
         PPApplication.logE("##### PhoneCallBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(savedContext, false))
-            return false;
-
-        return true;
+        return PPApplication.getApplicationStarted(savedContext, false);
     }
 
     protected void onEndReceive()

@@ -1866,7 +1866,7 @@ public class PhoneProfilesService extends Service
                             if (!SearchCalendarEventsJob.isJobScheduled()) {
                                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsJob->SCHEDULE", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
                                 PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "SCHEDULE");
-                                SearchCalendarEventsJob.scheduleJob(appContext, handler, true);
+                                SearchCalendarEventsJob.scheduleJob(/*appContext, */handler, true);
                             }
                             else
                                 PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "scheduled");

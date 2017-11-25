@@ -386,7 +386,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         
     }
 
-    private void setLayoutParamsMotorola(Context context, int spanX, int spanY, int appWidgetId)
+    private void setLayoutParamsMotorola(Context context, @SuppressWarnings("unused") int spanX, int spanY, int appWidgetId)
     {
         isKeyguard = false;
         isLargeLayout = spanY != 1;

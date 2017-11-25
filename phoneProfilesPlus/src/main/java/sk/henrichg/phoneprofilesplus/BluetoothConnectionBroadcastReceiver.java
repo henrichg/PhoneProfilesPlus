@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,7 +12,6 @@ import android.os.SystemClock;
 
 import com.google.gson.Gson;
 
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -212,7 +210,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    void addConnectedDevice(BluetoothDevice device)
+    private void addConnectedDevice(BluetoothDevice device)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDevice","device.name="+device.getName());

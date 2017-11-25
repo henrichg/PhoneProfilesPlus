@@ -407,9 +407,9 @@ class EventPreferencesNotification extends EventPreferences {
 
             String[] splits = this._applications.split("\\|");
             for (String split : splits) {
-                String packageName = split;
+                //String packageName = split;
                 //if (ApplicationsCache.isShortcut(split))
-                packageName = ApplicationsCache.getPackageName(split);
+                String packageName = ApplicationsCache.getPackageName(split);
 
                 PPApplication.logE("EventPreferencesNotification.saveStartTime", "packageName="+packageName);
 

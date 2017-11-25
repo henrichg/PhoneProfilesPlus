@@ -50,7 +50,7 @@ class SearchCalendarEventsJob extends Job {
 
         }
 
-        SearchCalendarEventsJob.scheduleJob(appContext, null, false);
+        SearchCalendarEventsJob.scheduleJob(/*appContext, */null, false);
 
         try {
             countDownLatch.await();
@@ -96,7 +96,7 @@ class SearchCalendarEventsJob extends Job {
         }
     }
 
-    static void scheduleJob(final Context context, final Handler _handler, final boolean shortInterval) {
+    static void scheduleJob(/*final Context context, */final Handler _handler, final boolean shortInterval) {
         PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "shortInterval="+shortInterval);
 
         if (_handler == null) {

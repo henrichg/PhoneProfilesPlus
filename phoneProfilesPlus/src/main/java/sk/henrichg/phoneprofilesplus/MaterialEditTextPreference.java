@@ -61,6 +61,7 @@ public class MaterialEditTextPreference extends EditTextPreference {
     }
 
 
+    @SuppressLint("PrivateResource")
     private void init(Context context, AttributeSet attrs) {
         MaterialDialogsPrefUtil.setLayoutResource(context, this, attrs);
         int fallback;

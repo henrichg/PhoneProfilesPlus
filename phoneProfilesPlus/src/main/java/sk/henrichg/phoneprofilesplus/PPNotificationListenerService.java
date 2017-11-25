@@ -73,6 +73,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         PPApplication.logE("#### PPNotificationListenerService.onNotificationPosted","xxx");
 
         PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
         String alarmTimeS = sdf.format(sbn.getPostTime());
         PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);

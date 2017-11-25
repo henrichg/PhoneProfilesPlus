@@ -3066,6 +3066,7 @@ public class DataWrapper {
                     if (_activity instanceof ActivateProfileActivity)
                         finish = ApplicationPreferences.applicationClose(context);
                     else
+                    //noinspection RedundantIfStatement
                     if (_activity instanceof RestartEventsFromNotificationActivity)
                         finish = true;
                     else
@@ -3104,6 +3105,7 @@ public class DataWrapper {
             if (activity instanceof ActivateProfileActivity)
                 finish = ApplicationPreferences.applicationClose(context);
             else
+            //noinspection RedundantIfStatement
             if (activity instanceof RestartEventsFromNotificationActivity) {
                 finish = true;
             }
