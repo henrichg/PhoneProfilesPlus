@@ -2259,37 +2259,6 @@ public class PhoneProfilesService extends Service
         final Context appContext = getApplicationContext();
 
         if ((intent == null) || (!intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false))) {
-            /*PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "before start thread");
-            final Context _this = this;
-            final boolean _onlyStart = onlyStart;
-            final boolean _startOnBoot = startOnBoot;
-            new Thread(){
-                public void run() {
-                    Handler h = new Handler(Looper.getMainLooper());
-                    h.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            // set service foreground
-                            final DataWrapper dataWrapper =  new DataWrapper(_this, true, false, 0);
-                            Profile activatedProfile = null;
-                            if (_onlyStart && _startOnBoot) {
-                                if (ApplicationPreferences.applicationActivate(_this) &&
-                                        ApplicationPreferences.applicationStartEvents(_this)) {
-                                    activatedProfile = dataWrapper.getActivatedProfile();
-                                }
-                                else
-                                if (ApplicationPreferences.applicationActivate(_this))
-                                    activatedProfile = dataWrapper.getActivatedProfile();
-                            }
-                            else
-                                activatedProfile = dataWrapper.getActivatedProfile();
-                            showProfileNotification(activatedProfile, dataWrapper);
-                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "after end of Handler.run");
-                        }
-                    });
-                };
-            }.start();
-            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "after start thread");*/
             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "before start of handler");
             final Context _this = this;
             final boolean _onlyStart = onlyStart;
