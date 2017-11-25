@@ -60,19 +60,21 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     void connect(boolean resetUseGPS) {
         PPApplication.logE("GeofenceScanner.connect", "mResolvingError="+mResolvingError);
-        if (!mResolvingError) {
-            //if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
-            if (resetUseGPS)
-                useGPS = true;
-            mGoogleApiClient.connect();
-        }
+        try {
+            if (!mResolvingError) {
+                //if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
+                if (resetUseGPS)
+                    useGPS = true;
+                mGoogleApiClient.connect();
+            }
+        } catch (Exception ignored) {}
     }
 
     void connectForResolve() {
-        PPApplication.logE("GeofenceScanner.disconnect", "xxx");
+        PPApplication.logE("GeofenceScanner.connectForResolve", "xxx");
         try {
-            if (!mGoogleApiClient.isConnecting() && !mGoogleApiClient.isConnected()) {
-                PPApplication.logE("GeofenceScanner.disconnect", "not connected, connect it");
+            if ((mGoogleApiClient != null) && !mGoogleApiClient.isConnecting() && !mGoogleApiClient.isConnected()) {
+                PPApplication.logE("GeofenceScanner.connectForResolve", "not connected, connect it");
                 //if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
                 mGoogleApiClient.connect();
             }
@@ -82,10 +84,12 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     void disconnect() {
         PPApplication.logE("GeofenceScanner.disconnect", "xxx");
         try {
-            if (mGoogleApiClient.isConnected()) {
-                stopLocationUpdates();
+            if (mGoogleApiClient != null) {
+                if (mGoogleApiClient.isConnected()) {
+                    stopLocationUpdates();
+                }
+                mGoogleApiClient.disconnect();
             }
-            mGoogleApiClient.disconnect();
             //useGPS = true; diconnect is called from scren on/off broadcast therefore not change this
         } catch (Exception ignored) {}
     }
@@ -94,7 +98,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     public void onConnected(Bundle bundle) {
         PPApplication.logE("GeofenceScanner.onConnected", "xxx");
         try {
-            if (mGoogleApiClient.isConnected()) {
+            if ((mGoogleApiClient != null) && mGoogleApiClient.isConnected()) {
                 useGPS = true;
                 clearAllEventGeofences();
                 updateTransitionsByLastKnownLocation(false);
@@ -120,11 +124,12 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         PPApplication.logE("GeofenceScanner.onConnectionFailed", "xxx");
-        //noinspection StatementWithEmptyBody
-        if (mResolvingError) {
-            // Already attempting to resolve an error.
-            //return;
-        } else if (connectionResult.hasResolution()) {
+        try {
+            //noinspection StatementWithEmptyBody
+            if (mResolvingError) {
+                // Already attempting to resolve an error.
+                //return;
+            } else if (connectionResult.hasResolution()) {
             /*try {
                 mResolvingError = true;
                 connectionResult.startResolutionForResult(this, REQUEST_RESOLVE_ERROR);
@@ -132,18 +137,19 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 // There was an error with the resolution intent. Try again.
                 mGoogleApiClient.connect();
             }*/
-            showErrorNotification(connectionResult.getErrorCode());
-            mResolvingError = true;
-        } else {
-            // Show dialog using GoogleApiAvailability.getErrorDialog()
-            showErrorNotification(connectionResult.getErrorCode());
-            mResolvingError = true;
-        }
+                showErrorNotification(connectionResult.getErrorCode());
+                mResolvingError = true;
+            } else {
+                // Show dialog using GoogleApiAvailability.getErrorDialog()
+                showErrorNotification(connectionResult.getErrorCode());
+                mResolvingError = true;
+            }
+        } catch (Exception ignored) {}
     }
 
     boolean isConnected() {
         try {
-            return mGoogleApiClient.isConnected();
+            return (mGoogleApiClient != null) && mGoogleApiClient.isConnected();
         } catch (Exception ignored) {
             return false;
         }
@@ -345,7 +351,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     @SuppressLint("MissingPermission")
     void updateTransitionsByLastKnownLocation(final boolean startEventsHandler) {
         try {
-            if (Permissions.checkLocation(context) && mGoogleApiClient.isConnected()) {
+            if (Permissions.checkLocation(context) && (mGoogleApiClient != null) && mGoogleApiClient.isConnected()) {
                 PPApplication.logE("GeofenceScanner.updateTransitionsByLastKnownLocation", "xxx");
                 FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
                 final Context appContext = context.getApplicationContext();
