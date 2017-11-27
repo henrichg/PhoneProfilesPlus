@@ -16,8 +16,8 @@ android {
         multiDexEnabled true
 
         compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_7
-            targetCompatibility JavaVersion.VERSION_1_7
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
         }
 
         resConfigs "en", "ar", "bg", "ca", "cs", "de", "el", "es", "fa", "fr", "hi", "hu", "in", "it",
@@ -64,11 +64,11 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
         transitive = true
     }
-    compile 'com.evernote:android-job:1.2.0'
+    compile 'com.evernote:android-job:1.2.1'
 
     compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
-    compile 'com.afollestad.material-dialogs:core:0.9.5.0'
+    compile 'com.afollestad.material-dialogs:core:0.9.6.0'
     compile 'com.labo.kaji:relativepopupwindow:0.3.1'
     compile 'com.github.KeepSafe:TapTargetView:master-SNAPSHOT'
     compile 'com.code-troopers.betterpickers:library:3.1.0'
