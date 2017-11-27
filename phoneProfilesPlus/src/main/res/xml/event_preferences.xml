@@ -733,7 +733,7 @@
             <Preference
                 android:key="eventOrientationAccessibilitySettings"
                 android:title="@string/event_preferences_applications_AccessibilitySettings_title"
-                android:summary="@string/event_preferences_orientation_AccessibilitySettings_summary"
+                android:summary="@string/event_preferences_orientation_AccessibilitySettingsForExtender_summary"
                 android:dependency="eventOrientationEnabled"
                 android:widgetLayout="@layout/start_activity_preference" >
             </Preference>
