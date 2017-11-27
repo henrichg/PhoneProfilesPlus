@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
 
+import java.util.Date;
+
 import static android.content.Context.POWER_SERVICE;
 
 public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
@@ -34,6 +36,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     static final int CALL_EVENT_OUTGOING_CALL_ANSWERED = 4;
     static final int CALL_EVENT_INCOMING_CALL_ENDED = 5;
     static final int CALL_EVENT_OUTGOING_CALL_ENDED = 6;
+    static final int CALL_EVENT_MISSED_CALL = 7;
 
     static final int LINKMODE_NONE = 0;
     static final int LINKMODE_LINK = 1;
@@ -41,6 +44,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
     static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
     static final String PREF_EVENT_CALL_PHONE_NUMBER = "eventCallPhoneNumber";
+    static final String PREF_EVENT_CALL_EVENT_TIME = "eventCallEventTime";
 
     protected boolean onStartReceive()
     {
@@ -53,42 +57,44 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     {
     }
 
-    protected void onIncomingCallStarted(String number/*, Date start*/)
+    protected void onIncomingCallStarted(String number, Date eventTime)
     {
-        doCall(savedContext, SERVICE_PHONE_EVENT_START, true, number);
+        doCall(savedContext, SERVICE_PHONE_EVENT_START, true, false, number, eventTime);
     }
 
-    protected void onOutgoingCallStarted(String number/*, Date start*/)
+    protected void onOutgoingCallStarted(String number, Date eventTime)
     {
-        doCall(savedContext, SERVICE_PHONE_EVENT_START, false, number);
+        doCall(savedContext, SERVICE_PHONE_EVENT_START, false, false, number, eventTime);
     }
     
-    protected void onIncomingCallAnswered(String number/*, Date start*/)
+    protected void onIncomingCallAnswered(String number, Date eventTime)
     {
-        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, true, number);
+        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, true, false, number, eventTime);
     }
 
-    protected void onOutgoingCallAnswered(String number/*, Date start*/)
+    protected void onOutgoingCallAnswered(String number, Date eventTime)
     {
-        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, false, number);
+        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, false, false, number, eventTime);
     }
     
-    protected void onIncomingCallEnded(String number/*, Date start, Date end*/)
+    protected void onIncomingCallEnded(String number, Date eventTime)
     {
-        doCall(savedContext, SERVICE_PHONE_EVENT_END, true, number);
+        doCall(savedContext, SERVICE_PHONE_EVENT_END, true, false, number, eventTime);
     }
 
-    protected void onOutgoingCallEnded(String number/*, Date start, Date end*/)
+    protected void onOutgoingCallEnded(String number, Date eventTime)
     {
-        doCall(savedContext, SERVICE_PHONE_EVENT_END, false, number);
+        doCall(savedContext, SERVICE_PHONE_EVENT_END, false, false, number, eventTime);
     }
 
-    protected void onMissedCall(String number/*, Date start*/)
+    protected void onMissedCall(String number, Date eventTime)
     {
-        doCall(savedContext, SERVICE_PHONE_EVENT_END, true, number);
+        doCall(savedContext, SERVICE_PHONE_EVENT_END, true, true, number, eventTime);
     }
 
-    private void doCall(final Context context, final int phoneEvent, final boolean incoming, final String number) {
+    private void doCall(final Context context, final int phoneEvent,
+                            final boolean incoming, final boolean missed,
+                            final String number, final Date eventTime) {
         final Context appContext = context.getApplicationContext();
         PhoneProfilesService.startHandlerThread();
         final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
@@ -96,21 +102,21 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
             @Override
             public void run() {
                 switch (phoneEvent) {
-                    case PhoneCallBroadcastReceiver.SERVICE_PHONE_EVENT_START:
-                        callStarted(incoming, number, appContext);
+                    case SERVICE_PHONE_EVENT_START:
+                        callStarted(incoming, number, eventTime, appContext);
                         break;
-                    case PhoneCallBroadcastReceiver.SERVICE_PHONE_EVENT_ANSWER:
-                        callAnswered(incoming, number, appContext);
+                    case SERVICE_PHONE_EVENT_ANSWER:
+                        callAnswered(incoming, number, eventTime, appContext);
                         break;
-                    case PhoneCallBroadcastReceiver.SERVICE_PHONE_EVENT_END:
-                        callEnded(incoming, number, appContext);
+                    case SERVICE_PHONE_EVENT_END:
+                        callEnded(incoming, missed, number, eventTime, appContext);
                         break;
                 }
             }
         });
     }
 
-    private void doCallEvent(int eventType, String phoneNumber, Context context)
+    private void doCallEvent(int eventType, String phoneNumber, Date eventTime, Context context)
     {
         PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
         PowerManager.WakeLock wakeLock = null;
@@ -121,8 +127,9 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, eventType);
-        editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
+        editor.putInt(PREF_EVENT_CALL_EVENT_TYPE, eventType);
+        editor.putString(PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
+        editor.putLong(PREF_EVENT_CALL_EVENT_TIME, eventTime.getTime());
         editor.apply();
 
         linkUnlinkExecuted = false;
@@ -136,7 +143,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
             wakeLock.release();
     }
 
-    private void callStarted(boolean incoming, String phoneNumber, Context context)
+    private void callStarted(boolean incoming, String phoneNumber, Date eventTime, Context context)
     {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
@@ -144,7 +151,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         speakerphoneSelected = false;
 
         if (incoming) {
-            doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, context);
+            doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, eventTime, context);
         }
     }
 
@@ -173,7 +180,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         }
     }
 
-    private void callAnswered(boolean incoming, String phoneNumber, Context context)
+    private void callAnswered(boolean incoming, String phoneNumber, Date eventTime, Context context)
     {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
@@ -197,12 +204,12 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
             PhoneProfilesService.instance.stopSimulatingRingingCall(true);
 
         if (incoming)
-            doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, context);
+            doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, eventTime, context);
         else
-            doCallEvent(CALL_EVENT_OUTGOING_CALL_ANSWERED, phoneNumber, context);
+            doCallEvent(CALL_EVENT_OUTGOING_CALL_ANSWERED, phoneNumber, eventTime, context);
     }
 
-    private void callEnded(boolean incoming, String phoneNumber, Context context)
+    private void callEnded(boolean incoming, boolean missed, String phoneNumber, Date eventTime, Context context)
     {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
@@ -234,10 +241,14 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         // audio mode is set to MODE_NORMAL by system
         //Log.e("PhoneCallBroadcastReceiver", "callEnded (before unlink/EventsHandler) audioMode="+audioManager.getMode());
 
-        if (incoming)
-            doCallEvent(CALL_EVENT_INCOMING_CALL_ENDED, phoneNumber, context);
+        if (incoming) {
+            if (missed)
+                doCallEvent(CALL_EVENT_MISSED_CALL, phoneNumber, eventTime, context);
+            else
+                doCallEvent(CALL_EVENT_INCOMING_CALL_ENDED, phoneNumber, eventTime, context);
+        }
         else
-            doCallEvent(CALL_EVENT_OUTGOING_CALL_ENDED, phoneNumber, context);
+            doCallEvent(CALL_EVENT_OUTGOING_CALL_ENDED, phoneNumber, eventTime, context);
 
     }
 

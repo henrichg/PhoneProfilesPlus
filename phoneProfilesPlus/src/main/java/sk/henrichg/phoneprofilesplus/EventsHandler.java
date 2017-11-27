@@ -65,6 +65,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_BLUETOOTH_SCANNER = "bluetoothScanner";
     static final String SENSOR_TYPE_SCREEN = "screen";
     static final String SENSOR_TYPE_DEVICE_IDLE_MODE = "deviceIdleMode";
+    static final String SENSOR_TYPE_PHONE_CALL_EVENT_END = "phoneCallEventEnd";
 
     public EventsHandler(Context context) {
         this.context = context;
@@ -209,6 +210,8 @@ class EventsHandler {
                     dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
                     _event._eventPreferencesNFC._startTime = 0;
                     dataWrapper.getDatabaseHandler().updateNFCStartTime(_event);
+                    _event._eventPreferencesCall._startTime = 0;
+                    dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
                 }
             } else {
                 // for no-restart events, stet startTime to actual time
@@ -232,9 +235,9 @@ class EventsHandler {
                             if (_event.getStatus() != Event.ESTATUS_STOP) {
                                 if (_event._eventPreferencesNotification._enabled) {
                                     PPApplication.logE("[NOTIF] EventsHandler.handleEvents", "event._id=" + _event._id);
-                                /*_event._eventPreferencesNotification.saveStartTime(dataWrapper,
-                                intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),
-                                intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));*/
+                                    /*_event._eventPreferencesNotification.saveStartTime(dataWrapper,
+                                    intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),
+                                    intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));*/
                                     if (eventNotificationPostedRemoved.equals("posted"))
                                         _event._eventPreferencesNotification.saveStartTime(dataWrapper);
 
@@ -251,6 +254,19 @@ class EventsHandler {
                             if (_event._eventPreferencesNFC._enabled) {
                                 PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                                 _event._eventPreferencesNFC.saveStartTime(dataWrapper, eventNFCTagName, eventNFCDate);
+                            }
+                        }
+                    }
+                }
+                if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
+                    // search for call events, save start time
+                    PPApplication.logE("EventsHandler.handleEvents", "search for call events");
+                    for (Event _event : eventList) {
+                        if (_event.getStatus() != Event.ESTATUS_STOP) {
+                            if (_event._eventPreferencesCall._enabled &&
+                                    (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)) {
+                                PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
+                                _event._eventPreferencesCall.saveStartTime(dataWrapper);
                             }
                         }
                     }
@@ -546,6 +562,9 @@ class EventsHandler {
             eventType = DatabaseHandler.ETYPE_NOTIFICATION;
         else
         if (broadcastReceiverType.equals(SENSOR_TYPE_PHONE_CALL))
+            eventType = DatabaseHandler.ETYPE_CALL;
+        else
+        if (broadcastReceiverType.equals(SENSOR_TYPE_PHONE_CALL_EVENT_END))
             eventType = DatabaseHandler.ETYPE_CALL;
         else
         /*if (broadcastReceiverType.equals(SENSOR_TYPE_RESTART_EVENTS))

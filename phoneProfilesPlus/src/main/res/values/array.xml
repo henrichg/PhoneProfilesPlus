@@ -389,11 +389,13 @@
     <item>@string/array_event_pref_ringing</item>
     <item>@string/array_event_pref_incall_started</item>
     <item>@string/array_event_pref_outcall_answered</item>
+    <item>@string/array_event_pref_missed_call</item>
 </string-array>
 <string-array name="eventCallEventsValues">
     <item>0</item>
     <item>1</item>
     <item>2</item>
+    <item>3</item>
 </string-array>
 <string-array name="eventCallContactListTypeArray">
     <item>@string/array_event_pref_contact_list_type_white_list</item>

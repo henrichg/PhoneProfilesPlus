@@ -801,6 +801,8 @@ public class DataWrapper {
                     getDatabaseHandler().updateNotificationStartTime(event);
                     event._eventPreferencesNFC._startTime = 0;
                     getDatabaseHandler().updateNFCStartTime(event);
+                    event._eventPreferencesCall._startTime = 0;
+                    getDatabaseHandler().updateCallStartTime(event);
                 }
             }
         }
@@ -1739,6 +1741,43 @@ public class DataWrapper {
                         else
                             callPassed = false;
                     }
+                    else
+                    if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)
+                    {
+                        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                        long startTime = event._eventPreferencesCall._startTime - gmtOffset;
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String alarmTimeS = sdf.format(startTime);
+                        PPApplication.logE("DataWrapper.doHandleEvents", "startTime=" + alarmTimeS);
+
+                        // compute end datetime
+                        long endAlarmTime = event._eventPreferencesCall.computeAlarm();
+                        alarmTimeS = sdf.format(endAlarmTime);
+                        PPApplication.logE("DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+
+                        Calendar now = Calendar.getInstance();
+                        long nowAlarmTime = now.getTimeInMillis();
+                        alarmTimeS = sdf.format(nowAlarmTime);
+                        PPApplication.logE("DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+
+                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
+                            //noinspection StatementWithEmptyBody
+                            if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL)
+                                ;//eventStart = eventStart && true;
+                            else
+                                callPassed = false;
+                        }
+                        else if (!event._eventPreferencesCall._permanentRun) {
+                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END))
+                                callPassed = false;
+                            else
+                                callPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                        }
+                        else {
+                            callPassed = nowAlarmTime >= startTime;
+                        }
+                    }
 
                     if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
                         (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED))
@@ -1754,6 +1793,12 @@ public class DataWrapper {
             }
             else
                 callPassed = false;
+
+            if (!callPassed) {
+                event._eventPreferencesCall._startTime = 0;
+                getDatabaseHandler().updateCallStartTime(event);
+            }
+
         }
 
         if (event._eventPreferencesPeripherals._enabled &&

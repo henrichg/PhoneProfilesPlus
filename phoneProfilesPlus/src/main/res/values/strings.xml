@@ -1118,4 +1118,5 @@
     <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>
     <string name="profile_preferences_durationNotificationSound">Duration end: Notification sound</string>
     <string name="profile_preferences_durationNotificationVibrate">Duration end: Notify by vibration</string>
+    <string name="array_event_pref_missed_call">Missed call</string>
 </resources>

@@ -302,6 +302,21 @@
                 android:entryValues="@array/eventCallContactListTypeValues"
                 android:dependency="eventCallEnabled"
                 app:useStockLayout="true" />
+            <CheckBoxPreference
+                android:key="eventCallPermanentRun"
+                android:title="@string/pref_event_permanentRun"
+                android:summary="@string/pref_event_permanentRun_summary"
+                android:defaultValue="true"
+                android:dependency="eventCallEnabled"
+                android:widgetLayout="@layout/mp_preference_switch" />
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
+                android:key="eventCallDuration"
+                android:summary="@string/event_preferences_duration"
+                android:title="@string/event_preferences_duration"
+                android:defaultValue="5"
+                henrichg:dMin="5"
+                henrichg:dMax="86400"
+                android:dependency="eventCallEnabled" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventSMSParameters"
