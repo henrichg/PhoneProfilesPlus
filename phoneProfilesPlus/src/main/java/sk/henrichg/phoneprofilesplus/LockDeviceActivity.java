@@ -82,7 +82,6 @@ public class LockDeviceActivity extends AppCompatActivity {
                 if (PPApplication.lockDeviceActivity != null) {
                     PPApplication.logE("LockDeviceActivity.handler", "xxx");
                     PPApplication.lockDeviceActivity.finish();
-                    PPApplication.lockDeviceActivity.overridePendingTransition(0, 0);
                 }
             }
         }, 20000);
