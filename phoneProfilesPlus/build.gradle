@@ -16,8 +16,8 @@ android {
         multiDexEnabled true
 
         compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
+            sourceCompatibility JavaVersion.VERSION_1_7
+            targetCompatibility JavaVersion.VERSION_1_7
         }
 
         resConfigs "en", "ar", "bg", "ca", "cs", "de", "el", "es", "fa", "fr", "hi", "hu", "in", "it",
