@@ -250,7 +250,9 @@ public class EventPreferencesActivity extends PreferenceActivity
                     origEvent._startStatusTime,
                     origEvent._pauseStatusTime,
                     origEvent._notificationVibrate,
-                    origEvent._noPauseByManualActivation
+                    origEvent._noPauseByManualActivation,
+                    origEvent._repeatNotification,
+                    origEvent._repeatNotificationInterval
             );
             event.copyEventPreferences(origEvent);
             showSaveMenu = true;

@@ -945,7 +945,9 @@ public class DataWrapper {
                 0,
                 0,
                 false,
-                false
+                false,
+                false,
+                15
          );
     }
 
@@ -2385,17 +2387,17 @@ public class DataWrapper {
 
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String alarmTimeS = sdf.format(startTime);
-                        PPApplication.logE("DataWrapper.doHandleEvents", "startTime=" + alarmTimeS);
+                        PPApplication.logE("[NOTIF] DataWrapper.doHandleEvents", "startTime=" + alarmTimeS);
 
                         // compute end datetime
                         long endAlarmTime = event._eventPreferencesNotification.computeAlarm();
                         alarmTimeS = sdf.format(endAlarmTime);
-                        PPApplication.logE("DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                        PPApplication.logE("[NOTIF] DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
 
                         Calendar now = Calendar.getInstance();
                         long nowAlarmTime = now.getTimeInMillis();
                         alarmTimeS = sdf.format(nowAlarmTime);
-                        PPApplication.logE("DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                        PPApplication.logE("[NOTIF] DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
 
                         if (sensorType.equals(EventsHandler.SENSOR_TYPE_NOTIFICATION))
                             notificationPassed = true;
@@ -2412,6 +2414,8 @@ public class DataWrapper {
                 } else {
                     notificationPassed = event._eventPreferencesNotification.isNotificationVisible(this);
                 }
+
+                PPApplication.logE("[NOTIF] DataWrapper.doHandleEvents", "notificationPassed=" + notificationPassed);
 
                 if (!notificationPassed) {
                     event._eventPreferencesNotification._startTime = 0;

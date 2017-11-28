@@ -427,8 +427,7 @@ class EventsHandler {
             }
             ////////////////
 
-            String eventNotificationSound = "";
-            boolean eventNotificationVibrate = false;
+            Event notifyEvent = null;
             String backgroundProfileNotificationSound = "";
             boolean backgroundProfileNotificationVibrate = false;
 
@@ -436,11 +435,7 @@ class EventsHandler {
                 // only when not restart events and running events is increased, play event notification sound
 
                 EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE - 1);
-                Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
-                if (event != null) {
-                    eventNotificationSound = event._notificationSound;
-                    eventNotificationVibrate = event._notificationVibrate;
-                }
+                notifyEvent = dataWrapper.getEventById(eventTimeline._fkEvent);
             }
             else
             if ((!isRestart) && (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) && notifyBackgroundProfile) {
@@ -462,14 +457,11 @@ class EventsHandler {
                 dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true);
 
-                if (!eventNotificationSound.isEmpty() || eventNotificationVibrate) {
-                    if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.playNotificationSound(eventNotificationSound, eventNotificationVibrate);
-                }
-                else
-                if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
-                    if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                if (!((notifyEvent != null) && notifyEvent.notifyEventStart(context))) {
+                    if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
+                        if (PhoneProfilesService.instance != null)
+                            PhoneProfilesService.instance.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                    }
                 }
 
                 // wait for profile activation
@@ -484,14 +476,11 @@ class EventsHandler {
                 if ((prId0 != prId) || (prId == 0))*/
                 dataWrapper.updateNotificationAndWidgets(activatedProfile);
 
-                if (!eventNotificationSound.isEmpty() || eventNotificationVibrate) {
-                    if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.playNotificationSound(eventNotificationSound, eventNotificationVibrate);
-                }
-                else
-                if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
-                    if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                if (!((notifyEvent != null) && notifyEvent.notifyEventStart(context))) {
+                    if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
+                        if (PhoneProfilesService.instance != null)
+                            PhoneProfilesService.instance.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                    }
                 }
 
             }

@@ -90,6 +90,19 @@
                 android:title="@string/event_preferences_notificationVibrate"
                 android:defaultValue="false"
                 android:widgetLayout="@layout/mp_preference_switch"/>
+            <CheckBoxPreference
+                android:key="eventNotificationRepeat"
+                android:title="@string/event_preferences_notificationRepeat"
+                android:defaultValue="false"
+                android:widgetLayout="@layout/mp_preference_switch"/>
+            <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+                android:key="eventNotificationRepeatInterval"
+                android:summary="@string/event_preferences_notificationRepeatInterval"
+                android:title="@string/event_preferences_notificationRepeatInterval"
+                android:defaultValue="15"
+                henrichg:min="1"
+                henrichg:max="300"
+                android:dependency="eventNotificationRepeat"/>
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory

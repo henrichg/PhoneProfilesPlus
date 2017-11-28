@@ -1119,4 +1119,9 @@
     <string name="profile_preferences_durationNotificationSound">Duration end: Notification sound</string>
     <string name="profile_preferences_durationNotificationVibrate">Duration end: Notify by vibration</string>
     <string name="array_event_pref_missed_call">Missed call</string>
+    <string name="start_event_notification_title">Event started</string>
+    <string name="start_event_notification_text1">Event name</string>
+    <string name="start_event_notification_text2">Clear this notification to stop notify it.</string>
+    <string name="event_preferences_notificationRepeat">Repeat notification</string>
+    <string name="event_preferences_notificationRepeatInterval">Repeat notification interval (minutes)</string>
 </resources>

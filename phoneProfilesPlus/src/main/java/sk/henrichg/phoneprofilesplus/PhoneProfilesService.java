@@ -2378,6 +2378,8 @@ public class PhoneProfilesService extends Service
                     ProfileDurationAlarmBroadcastReceiver.removeAlarm(appContext);
                     Profile.setActivatedProfileForDuration(appContext, 0);
 
+                    StartEventNotificationBroadcastReceiver.removeAlarm(appContext);
+
                     DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
                     dataWrapper.getActivateProfileHelper().initialize(appContext);
                     dataWrapper.getDatabaseHandler().deleteAllEventTimelines();

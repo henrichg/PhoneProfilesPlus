@@ -484,6 +484,11 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+        <receiver
+            android:name=".StartEventNotificationBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
 
         <!-- pending intents -->
         <receiver
@@ -498,6 +503,14 @@
             android:name=".RestartEventsFromNotificationBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".StartEventNotificationDeletedReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.START_EVENT_NOTIFICATION_DELETED"/>
+            </intent-filter>
         </receiver>
 
         <!--

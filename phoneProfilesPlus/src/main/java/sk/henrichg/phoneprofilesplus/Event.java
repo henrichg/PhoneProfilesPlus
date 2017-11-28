@@ -3,6 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.os.Build;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -30,6 +33,8 @@ class Event {
     private int _status;
     String _notificationSound;
     boolean _notificationVibrate;
+    boolean _repeatNotification;
+    int _repeatNotificationInterval;
     boolean _forceRun;
     boolean _blocked;
     int _priority;
@@ -88,6 +93,8 @@ class Event {
     private static final String PREF_EVENT_PROFILE_END = "eventProfileEnd";
     private static final String PREF_EVENT_NOTIFICATION_SOUND = "eventNotificationSound";
     private static final String PREF_EVENT_NOTIFICATION_VIBRATE = "eventNotificationVibrate";
+    private static final String PREF_EVENT_NOTIFICATION_REPEAT = "eventNotificationRepeat";
+    private static final String PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL = "eventNotificationRepeatInterval";
     private static final String PREF_EVENT_FORCE_RUN = "eventForceRun";
     //static final String PREF_EVENT_UNDONE_PROFILE = "eventUndoneProfile";
     static final String PREF_EVENT_PRIORITY = "eventPriority";
@@ -132,7 +139,9 @@ class Event {
                  long startStatusTime,
                  long pauseStatusTime,
                  boolean notificationVibrate,
-                 boolean noPauseByManualActivation)
+                 boolean noPauseByManualActivation,
+                 boolean repeatNotification,
+                 int repeatNotificationInterval)
     {
         this._id = id;
         this._name = name;
@@ -142,6 +151,8 @@ class Event {
         this._status = status;
         this._notificationSound = notificationSound;
         this._notificationVibrate = notificationVibrate;
+        this._repeatNotification = repeatNotification;
+        this._repeatNotificationInterval = repeatNotificationInterval;
         this._forceRun = forceRun;
         this._blocked = blocked;
         //this._undoneProfile = undoneProfile;
@@ -183,7 +194,9 @@ class Event {
                  long startStatusTime,
                  long pauseStatusTime,
                  boolean notificationVibrate,
-                 boolean noPauseByManualActivation)
+                 boolean noPauseByManualActivation,
+                 boolean repeatNotification,
+                 int repeatNotificationInterval)
     {
         this._name = name;
         this._startOrder = startOrder;
@@ -192,6 +205,8 @@ class Event {
         this._status = status;
         this._notificationSound = notificationSound;
         this._notificationVibrate = notificationVibrate;
+        this._repeatNotification = repeatNotification;
+        this._repeatNotificationInterval = repeatNotificationInterval;
         this._forceRun = forceRun;
         this._blocked = blocked;
         //this._undoneProfile = undoneProfile;
@@ -220,6 +235,8 @@ class Event {
         this._status = event._status;
         this._notificationSound = event._notificationSound;
         this._notificationVibrate = event._notificationVibrate;
+        this._repeatNotification = event._repeatNotification;
+        this._repeatNotificationInterval = event._repeatNotificationInterval;
         this._forceRun = event._forceRun;
         this._blocked = event._blocked;
         //this._undoneProfile = event._undoneProfile;
@@ -455,6 +472,8 @@ class Event {
         editor.putBoolean(PREF_EVENT_ENABLED, this._status != ESTATUS_STOP);
         editor.putString(PREF_EVENT_NOTIFICATION_SOUND, this._notificationSound);
         editor.putBoolean(PREF_EVENT_NOTIFICATION_VIBRATE, this._notificationVibrate);
+        editor.putBoolean(PREF_EVENT_NOTIFICATION_REPEAT, this._repeatNotification);
+        editor.putString(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL, String.valueOf(this._repeatNotificationInterval));
         editor.putBoolean(PREF_EVENT_FORCE_RUN, this._forceRun);
         //editor.putBoolean(PREF_EVENT_UNDONE_PROFILE, this._undoneProfile);
         editor.putString(PREF_EVENT_PRIORITY, Integer.toString(this._priority));
@@ -491,6 +510,8 @@ class Event {
         this._status = (preferences.getBoolean(PREF_EVENT_ENABLED, false)) ? ESTATUS_PAUSE : ESTATUS_STOP;
         this._notificationSound = preferences.getString(PREF_EVENT_NOTIFICATION_SOUND, "");
         this._notificationVibrate = preferences.getBoolean(PREF_EVENT_NOTIFICATION_VIBRATE, false);
+        this._repeatNotification = preferences.getBoolean(PREF_EVENT_NOTIFICATION_REPEAT, false);
+        this._repeatNotificationInterval = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL, "15"));
         this._forceRun = preferences.getBoolean(PREF_EVENT_FORCE_RUN, false);
         //this._undoneProfile = preferences.getBoolean(PREF_EVENT_UNDONE_PROFILE, true);
         this._priority = Integer.parseInt(preferences.getString(PREF_EVENT_PRIORITY, Integer.toString(EPRIORITY_MEDIUM)));
@@ -615,9 +636,23 @@ class Event {
             }
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, delay > 0, false, false, false);
         }
+        if (key.equals(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                preference.setSummary(value);
+                int iValue;
+                try {
+                    iValue = Integer.parseInt(value);
+                } catch (Exception e) {
+                    iValue = 0;
+                }
+                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, iValue != 15, false, false, false);
+            }
+        }
         if (key.equals(PREF_EVENT_FORCE_RUN) ||
             key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION) ||
             key.equals(PREF_EVENT_NOTIFICATION_VIBRATE) ||
+            key.equals(PREF_EVENT_NOTIFICATION_REPEAT) ||
             key.equals(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION)) {
             Preference preference = prefMng.findPreference(key);
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, value.equals("true"), false, false, false);
@@ -631,6 +666,8 @@ class Event {
                 key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION) ||
                 key.equals(PREF_EVENT_NOTIFICATION_SOUND) ||
                 key.equals(PREF_EVENT_NOTIFICATION_VIBRATE) ||
+                key.equals(PREF_EVENT_NOTIFICATION_REPEAT) ||
+                key.equals(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL) ||
                 key.equals(PREF_EVENT_DELAY_START) ||
                 key.equals(PREF_EVENT_DELAY_END) ||
                 key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE)) {
@@ -641,6 +678,7 @@ class Event {
             boolean delayEndChanged;
             boolean notificationSoundChanged;
             boolean notificationVibrateChanged;
+            boolean notificationRepeatChanged;
 
             long fkProfileStartWhenActivated;
             int delayStart;
@@ -657,6 +695,7 @@ class Event {
                 delayEnd = this._delayEnd;
                 notificationSoundChanged = !this._notificationSound.isEmpty();
                 notificationVibrateChanged = this._notificationVibrate;
+                notificationRepeatChanged = this._repeatNotification;
             }
             else {
                 //forceRunChanged = preferences.getBoolean(PREF_EVENT_FORCE_RUN, false);
@@ -669,6 +708,7 @@ class Event {
                 delayEnd = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_END, "0"));
                 notificationSoundChanged = !preferences.getString(PREF_EVENT_NOTIFICATION_SOUND, "").isEmpty();
                 notificationVibrateChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_VIBRATE, false);
+                notificationRepeatChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_REPEAT, false);;
             }
             Preference preference = prefMng.findPreference("eventStartOthersCategory");
             if (preference != null) {
@@ -677,7 +717,8 @@ class Event {
                                 profileStartWhenActivatedChanged ||
                                 delayStartChanged ||
                                 notificationSoundChanged ||
-                                notificationVibrateChanged);
+                                notificationVibrateChanged ||
+                                notificationRepeatChanged);
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, bold, false, false, false);
                 if (bold) {
                     String summary = "";
@@ -707,6 +748,10 @@ class Event {
                     if (notificationVibrateChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_notificationVibrate);
+                    }
+                    if (notificationRepeatChanged) {
+                        if (!summary.isEmpty()) summary = summary + " • ";
+                        summary = summary + context.getString(R.string.event_preferences_notificationRepeat);
                     }
                     preference.setSummary(summary);
                 }
@@ -738,6 +783,7 @@ class Event {
             key.equals(PREF_EVENT_PROFILE_START) ||
             key.equals(PREF_EVENT_PROFILE_END) ||
             key.equals(PREF_EVENT_NOTIFICATION_SOUND) ||
+            key.equals(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL) ||
             key.equals(PREF_EVENT_PRIORITY) ||
             key.equals(PREF_EVENT_DELAY_START) ||
             key.equals(PREF_EVENT_DELAY_END) ||
@@ -747,6 +793,7 @@ class Event {
         if (key.equals(PREF_EVENT_FORCE_RUN) ||
             key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION) ||
             key.equals(PREF_EVENT_NOTIFICATION_VIBRATE) ||
+            key.equals(PREF_EVENT_NOTIFICATION_REPEAT) ||
             key.equals(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, Boolean.toString(value), context);
@@ -798,6 +845,8 @@ class Event {
         setSummary(prefMng, PREF_EVENT_PROFILE_END, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_VIBRATE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_REPEAT, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL, preferences, context);
         setSummary(prefMng, PREF_EVENT_PRIORITY, preferences, context);
         setSummary(prefMng, PREF_EVENT_DELAY_START, preferences, context);
         setSummary(prefMng, PREF_EVENT_DELAY_END, preferences, context);
@@ -1840,6 +1889,61 @@ class Event {
         Editor editor = ApplicationPreferences.preferences.edit();
         editor.putBoolean(PREF_FORCE_RUN_EVENT_RUNNING, forceRunEventRunning);
         editor.apply();
+    }
+
+    //----------------------------------
+
+    boolean notifyEventStart(Context context) {
+        String notificationSound = _notificationSound;
+        boolean notificationVibrate = _notificationVibrate;
+
+        if (!notificationSound.isEmpty() || notificationVibrate) {
+
+            PPApplication.logE("Event.notifyEventStart", "event._id="+_id);
+
+            if (_repeatNotification) {
+                NotificationCompat.Builder mBuilder;
+
+                String nTitle = context.getString(R.string.start_event_notification_title);
+                String nText = context.getString(R.string.start_event_notification_text1);
+                nText = nText + ": " + _name;
+                nText = nText + ". " + context.getString(R.string.start_event_notification_text2);
+                if (android.os.Build.VERSION.SDK_INT < 24) {
+                    nTitle = context.getString(R.string.app_name);
+                    nText = context.getString(R.string.start_event_notification_title) + ": " + nText;
+                }
+                mBuilder = new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                        .setContentTitle(nTitle) // title for notification
+                        .setContentText(nText)
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
+                        .setAutoCancel(false); // clear notification after click
+
+                PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pi);
+                mBuilder.setPriority(Notification.PRIORITY_MAX);
+                if (android.os.Build.VERSION.SDK_INT >= 21) {
+                    mBuilder.setCategory(Notification.CATEGORY_EVENT);
+                    mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
+                }
+
+                Intent deleteIntent = new Intent(StartEventNotificationDeletedReceiver.START_EVENT_NOTIFICATION_DELETED_ACTION);
+                PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, 0, deleteIntent, 0);
+                mBuilder.setDeleteIntent(deletePendingIntent);
+
+                NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                if (mNotificationManager != null)
+                    mNotificationManager.notify(PPApplication.EVENT_START_NOTIFICATION_ID, mBuilder.build());
+
+                StartEventNotificationBroadcastReceiver.setAlarm(this, context);
+            }
+
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.playNotificationSound(notificationSound, notificationVibrate);
+
+            return true;
+        }
+        return false;
     }
 
 }

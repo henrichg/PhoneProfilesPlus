@@ -123,9 +123,9 @@ class EventPreferencesCall extends EventPreferences {
 
             if (this._callEvent == CALL_EVENT_MISSED_CALL) {
                 if (this._permanentRun)
-                    descr = descr + context.getString(R.string.pref_event_permanentRun);
+                    descr = descr + "; " + context.getString(R.string.pref_event_permanentRun);
                 else
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
+                    descr = descr + "; " + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
             }
         }
 

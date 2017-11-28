@@ -61,6 +61,9 @@ public class PPApplication extends Application {
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
 
+                                         +"|Event.notifyEventStart"
+                                         +"|StartEventNotificationBroadcastReceiver"
+                                         +"|StartEventNotificationDeletedReceiver"
 
                                          //+"|ProfileDurationAlarmBroadcastReceiver"
                                          //+"|$$$ DataWrapper._activateProfile"
@@ -68,7 +71,7 @@ public class PPApplication extends Application {
                                          //+"|[NOTIF] EventsHandler.handleEvents"
                                          //+"|EventPreferencesNotification"
 
-                                         +"|[CALL] DataWrapper.doHandleEvents"
+                                         //+"|[CALL] DataWrapper.doHandleEvents"
 
                                          //+"|"+CallsCounter.LOG_TAG
                                          //+"|[RJS] PPApplication"
@@ -142,6 +145,7 @@ public class PPApplication extends Application {
     static final int MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID = 700430;
     static final int ABOUT_APPLICATION_DONATE_NOTIFICATION_ID = 700431;
     static final int ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID = 700432;
+    static final int EVENT_START_NOTIFICATION_ID = 700433;
 
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
     static final String DEFAULT_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
@@ -1340,6 +1344,9 @@ public class PPApplication extends Application {
             // remove alarm for profile duration
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
             Profile.setActivatedProfileForDuration(context, 0);
+
+            // remove alarm for start event
+            StartEventNotificationBroadcastReceiver.removeAlarm(context);
 
             if (PhoneProfilesService.instance != null) {
                 PPApplication.stopGeofenceScanner(context);
