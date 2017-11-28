@@ -640,13 +640,13 @@ class Event {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value);
-                int iValue;
+                /*int iValue;
                 try {
                     iValue = Integer.parseInt(value);
                 } catch (Exception e) {
                     iValue = 0;
                 }
-                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, iValue != 15, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, iValue != 15, false, false, false);*/
             }
         }
         if (key.equals(PREF_EVENT_FORCE_RUN) ||
@@ -708,7 +708,7 @@ class Event {
                 delayEnd = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_END, "0"));
                 notificationSoundChanged = !preferences.getString(PREF_EVENT_NOTIFICATION_SOUND, "").isEmpty();
                 notificationVibrateChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_VIBRATE, false);
-                notificationRepeatChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_REPEAT, false);;
+                notificationRepeatChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_REPEAT, false);
             }
             Preference preference = prefMng.findPreference("eventStartOthersCategory");
             if (preference != null) {
