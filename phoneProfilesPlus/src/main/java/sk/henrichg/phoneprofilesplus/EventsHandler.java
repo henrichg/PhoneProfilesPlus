@@ -693,8 +693,18 @@ class EventsHandler {
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
                 editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                editor.putLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
                 editor.apply();
             }
+        }
+        else
+        if (sensorType.equals(SENSOR_TYPE_PHONE_CALL_EVENT_END)) {
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
+            editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
+            editor.putLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
+            editor.apply();
         }
         /*else
         if (broadcastReceiverType.equals(SENSOR_TYPE_SMS)) {

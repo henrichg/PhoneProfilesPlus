@@ -2369,6 +2369,7 @@ public class PhoneProfilesService extends Service
                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                     editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
                     editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                    editor.putLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
                     editor.apply();
 
                     // show info notification
