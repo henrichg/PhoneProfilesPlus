@@ -953,9 +953,11 @@ public class ActivateProfileHelper {
                 int linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_NONE;
                 if (ActivateProfileHelper.getMergedRingNotificationVolumes(appContext) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(appContext)) {
                     if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING) ||
-                            (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED)) {
+                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL)) {
                         linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_UNLINK;
-                        if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED)
+                        if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                            (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL))
                             linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_LINK;
                     }
                 }
