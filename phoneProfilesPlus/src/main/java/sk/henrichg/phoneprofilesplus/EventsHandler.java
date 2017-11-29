@@ -619,28 +619,31 @@ class EventsHandler {
         PPApplication.logE("EventsHandler.doEndService","callEventType="+callEventType);
 
         if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
-
-            if (!PhoneCallBroadcastReceiver.linkUnlinkExecuted) {
-                // no profile is activated from EventsHandler
-                // link, unlink volumes for activated profile
-                boolean linkUnlink = false;
-                if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)
-                    linkUnlink = true;
-                if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED)
-                    linkUnlink = true;
-                if (linkUnlink) {
-                    Profile profile = dataWrapper.getActivatedProfile();
-                    profile = Profile.getMappedProfile(profile, context);
-                    if (profile != null) {
-                        PPApplication.logE("EventsHandler.doEndService", "callEventType=" + callEventType);
-                        //ExecuteVolumeProfilePrefsJob.start(context, profile._id, false, false);
-                        dataWrapper.getActivateProfileHelper().executeForVolumes(profile, false);
-                        // wait for link/unlink
-                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(1000);
-                        PPApplication.sleep(1000);
+            if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
+                    ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
+                if (!PhoneCallBroadcastReceiver.linkUnlinkExecuted) {
+                    // no profile is activated from EventsHandler
+                    // link, unlink volumes for activated profile
+                    boolean linkUnlink = false;
+                    if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)
+                        linkUnlink = true;
+                    if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED)
+                        linkUnlink = true;
+                    if (linkUnlink) {
+                        Profile profile = dataWrapper.getActivatedProfile();
+                        profile = Profile.getMappedProfile(profile, context);
+                        if (profile != null) {
+                            PPApplication.logE("EventsHandler.doEndService", "callEventType=" + callEventType);
+                            //ExecuteVolumeProfilePrefsJob.start(context, profile._id, false, false);
+                            dataWrapper.getActivateProfileHelper().executeForVolumes(profile, false);
+                            // wait for link/unlink
+                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(1000);
+                            PPApplication.sleep(1000);
+                        }
                     }
-                }
+                } else
+                    PhoneCallBroadcastReceiver.linkUnlinkExecuted = false;
             } else
                 PhoneCallBroadcastReceiver.linkUnlinkExecuted = false;
 
