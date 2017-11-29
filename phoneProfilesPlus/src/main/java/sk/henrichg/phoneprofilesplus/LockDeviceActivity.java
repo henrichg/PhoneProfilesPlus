@@ -91,6 +91,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                     windowManager.removeViewImmediate(view);
             } catch (Exception ignored) {}
 
+        LockDeviceActivityFinishBroadcastReceiver.removeAlarm(getApplicationContext());
         PPApplication.lockDeviceActivity = null;
         if (Permissions.checkLockDevice(getApplicationContext()))
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
