@@ -3182,6 +3182,7 @@ public class DataWrapper {
     }
 
     @SuppressLint("NewApi")
+    // delay is in seconds, max 5
     void restartEventsWithDelay(int delay, boolean unblockEventsRun/*, boolean interactive*/)
     {
         PPApplication.logE("DataWrapper.restartEventsWithDelay","xxx");

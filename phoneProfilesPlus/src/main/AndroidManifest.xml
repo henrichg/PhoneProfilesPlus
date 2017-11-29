@@ -489,6 +489,16 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+        <receiver
+            android:name=".GeofencesScannerSwitchGPSBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".LockDeviceActivityFinishBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
 
         <!-- pending intents -->
         <receiver

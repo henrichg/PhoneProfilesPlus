@@ -34,7 +34,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     private final Location lastLocation;
 
     private LocationRequest mLocationRequest;
-    private static boolean useGPS = true; // must be static
+    static boolean useGPS = true; // must be static
     boolean mUpdatesStarted = false;
     boolean mTransitionsUpdated = false;
 
@@ -87,6 +87,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             if (mGoogleApiClient != null) {
                 if (mGoogleApiClient.isConnected()) {
                     stopLocationUpdates();
+                    GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
                 }
                 mGoogleApiClient.disconnect();
             }
@@ -299,25 +300,16 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
         if (ApplicationPreferences.applicationEventLocationUseGPS(context)) {
             // recursive call this for switch usage of GPS
-            int delay = 60000; // one minute with GPS ON
-            if (!useGPS)
-                delay = 60000 * 30;  // 30 minutes with GPS OFF
-            final Handler handler = new Handler(context.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    useGPS = !useGPS;
-                    stopLocationUpdates();
-                    startLocationUpdates();
-                }
-            }, delay);
+            GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm(context);
         }
+        else
+            GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
     }
 
     /**
      * Removes location updates from the FusedLocationApi.
      */
-    private void stopLocationUpdates() {
+    void stopLocationUpdates() {
         // It is a good practice to remove location requests when the activity is in a paused or
         // stopped state. Doing so helps battery performance and is especially
         // recommended in applications that request frequent location updates.

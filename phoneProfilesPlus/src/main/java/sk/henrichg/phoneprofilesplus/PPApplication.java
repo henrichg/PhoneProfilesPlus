@@ -1345,8 +1345,9 @@ public class PPApplication extends Application {
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
             Profile.setActivatedProfileForDuration(context, 0);
 
-            // remove alarm for start event
             StartEventNotificationBroadcastReceiver.removeAlarm(context);
+            GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
+            LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
 
             if (PhoneProfilesService.instance != null) {
                 PPApplication.stopGeofenceScanner(context);
