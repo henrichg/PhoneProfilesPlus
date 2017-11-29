@@ -621,7 +621,9 @@ class EventsHandler {
         if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
             if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
                     ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
+                PPApplication.logE("EventsHandler.doEndService","unlink enabled");
                 if (!PhoneCallBroadcastReceiver.linkUnlinkExecuted) {
+                    PPApplication.logE("EventsHandler.doEndService","profile is not activated from EventsHandler");
                     // no profile is activated from EventsHandler
                     // link, unlink volumes for activated profile
                     boolean linkUnlink = false;
@@ -633,7 +635,6 @@ class EventsHandler {
                         Profile profile = dataWrapper.getActivatedProfile();
                         profile = Profile.getMappedProfile(profile, context);
                         if (profile != null) {
-                            PPApplication.logE("EventsHandler.doEndService", "callEventType=" + callEventType);
                             //ExecuteVolumeProfilePrefsJob.start(context, profile._id, false, false);
                             dataWrapper.getActivateProfileHelper().executeForVolumes(profile, false);
                             // wait for link/unlink
