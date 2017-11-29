@@ -4014,6 +4014,7 @@ public class PhoneProfilesService extends Service
             }
         }
 
+        PPApplication.logE("PhoneProfilesService.playNotificationSound", "ringingCallIsSimulating="+ringingCallIsSimulating);
         if ((!ringingCallIsSimulating)/* && (!notificationToneIsSimulating)*/) {
 
             if (audioManager == null )
@@ -4033,11 +4034,14 @@ public class PhoneProfilesService extends Service
                 notificationMediaPlayer = null;
             }
 
+            PPApplication.logE("PhoneProfilesService.playNotificationSound", "notificationSound="+notificationSound);
             if (!notificationSound.isEmpty())
             {
                 int ringerMode = ActivateProfileHelper.getRingerMode(getApplicationContext());
                 int zenMode = ActivateProfileHelper.getZenMode(getApplicationContext());
-                if (ActivateProfileHelper.isAudibleRinging(ringerMode, zenMode)) {
+                boolean isAudible = ActivateProfileHelper.isAudibleRinging(ringerMode, zenMode);
+                PPApplication.logE("PhoneProfilesService.playNotificationSound", "isAudible="+isAudible);
+                if (isAudible) {
 
                     Uri notificationUri = Uri.parse(notificationSound);
 

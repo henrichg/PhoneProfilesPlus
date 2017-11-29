@@ -64,6 +64,7 @@ public class PPApplication extends Application {
                                          +"|Event.notifyEventStart"
                                          +"|StartEventNotificationBroadcastReceiver"
                                          +"|StartEventNotificationDeletedReceiver"
+                                         +"|PhoneProfilesService.playNotificationSound"
 
                                          //+"|ProfileDurationAlarmBroadcastReceiver"
                                          //+"|$$$ DataWrapper._activateProfile"
