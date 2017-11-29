@@ -629,7 +629,8 @@ class EventsHandler {
                     boolean linkUnlink = false;
                     if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)
                         linkUnlink = true;
-                    if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED)
+                    if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                            (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL))
                         linkUnlink = true;
                     if (linkUnlink) {
                         Profile profile = dataWrapper.getActivatedProfile();
@@ -681,7 +682,8 @@ class EventsHandler {
                 PhoneCallBroadcastReceiver.speakerphoneOnExecuted = false;
 
             if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                    (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                    (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED) ||
+                    (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL)) {
                 ApplicationPreferences.getSharedPreferences(context);
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
