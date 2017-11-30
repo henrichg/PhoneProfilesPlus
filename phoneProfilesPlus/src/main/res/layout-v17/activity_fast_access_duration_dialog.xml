@@ -30,8 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="5dp">
+            android:layout_marginEnd="12dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -102,36 +101,68 @@
 
         </LinearLayout>
 
-        <SeekBar
-            android:id="@+id/duration_pref_dlg_hours"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            android:max="24"
-            android:rotation="180"
-            android:splitTrack="false"
-            tools:ignore="UnusedAttribute"/>
-        <SeekBar
-            android:id="@+id/duration_pref_dlg_minutes"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/duration_pref_dlg_activation_hours_label"
+                android:textSize="12sp"/>
+            <SeekBar
+                android:id="@+id/duration_pref_dlg_hours"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:max="24"
+                android:rotation="180"
+                android:splitTrack="false"
+                tools:ignore="UnusedAttribute"/>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            android:max="59"
-            android:rotation="180"
-            android:splitTrack="false"
-            tools:ignore="UnusedAttribute"/>
-        <SeekBar
-            android:id="@+id/duration_pref_dlg_seconds"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/duration_pref_dlg_activation_minutes_label"
+                android:textSize="12sp"/>
+            <SeekBar
+                android:id="@+id/duration_pref_dlg_minutes"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:max="59"
+                android:rotation="180"
+                android:splitTrack="false"
+                tools:ignore="UnusedAttribute"/>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            android:max="59"
-            android:rotation="180"
-            android:splitTrack="false"
-            tools:ignore="UnusedAttribute"/>
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/duration_pref_dlg_activation_seconds_label"
+                android:textSize="12sp"/>
+            <SeekBar
+                android:id="@+id/duration_pref_dlg_seconds"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:max="59"
+                android:rotation="180"
+                android:splitTrack="false"
+                tools:ignore="UnusedAttribute"/>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -140,7 +171,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginStart="29dp"
+        android:layout_marginStart="12dp"
         android:textSize="16sp"
         android:text="@string/profile_preferences_afterDurationDo" />
 
@@ -148,7 +179,7 @@
         android:id="@+id/fast_access_duration_dlg_after_do_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
+        android:layout_marginStart="4dp"
         android:entries="@array/afterProfileDurationDoArray" />
 
 </LinearLayout>
