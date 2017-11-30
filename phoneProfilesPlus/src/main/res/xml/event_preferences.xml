@@ -78,6 +78,11 @@
                 android:defaultValue="0"
                 henrichg:dMin="0"
                 henrichg:dMax="86400" />
+            <Preference
+                android:key="eventNotificationSoundInfo"
+                android:title="@string/event_preferences_notificationSound"
+                android:summary="@string/preferences_durationNotificationSoundInfo_summary"
+                android:widgetLayout="@layout/info_preference" />
             <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="eventNotificationSound"
                 android:summary="@string/array_pref_no_change"

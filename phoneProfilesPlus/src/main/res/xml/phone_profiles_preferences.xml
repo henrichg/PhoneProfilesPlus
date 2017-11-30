@@ -276,6 +276,11 @@
             android:key="applicationBackgroundProfile"
             android:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
             henrichg:addNoActivateItem="1" />
+        <Preference
+            android:key="applicationBackgroundProfileNotificationSoundInfo"
+            android:title="@string/phone_profiles_pref_backgroundProfileNotificationSound"
+            android:summary="@string/preferences_durationNotificationSoundInfo_summary"
+            android:widgetLayout="@layout/info_preference" />
         <sk.henrichg.phoneprofilesplus.RingtonePreference
             android:key="applicationBackgroundProfileNotificationSound"
             android:summary="@string/array_pref_no_change"
