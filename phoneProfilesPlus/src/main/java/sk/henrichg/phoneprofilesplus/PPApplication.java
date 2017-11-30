@@ -61,7 +61,7 @@ public class PPApplication extends Application {
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
 
-                                         +"|EventsHandler.doEndService"
+                                         +"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
 
                                          //+"|Event.notifyEventStart"
                                          //+"|StartEventNotificationBroadcastReceiver"

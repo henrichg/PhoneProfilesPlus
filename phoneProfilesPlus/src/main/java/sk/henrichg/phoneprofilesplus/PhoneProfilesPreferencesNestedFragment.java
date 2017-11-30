@@ -36,9 +36,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     private static final int RESULT_APPLICATION_PERMISSIONS = 1990;
     private static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS = "permissionsWriteSystemSettingsPermissions";
     private static final int RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS = 1991;
-    private static final String PREF_WIFI_SCANNING_SYSTEM_SETTINGS = "applicationEventWiFiScanningSystemSettings";
-    private static final String PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS = "applicationEventBluetoothScanningSystemSettings";
-    private static final int RESULT_SCANNING_SYSTEM_SETTINGS = 1992;
+    private static final String PREF_WIFI_LOCATION_SYSTEM_SETTINGS = "applicationEventWiFiLocationSystemSettings";
+    private static final String PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = "applicationEventBluetoothLocationSystemSettings";
+    private static final int RESULT_WIFI_BLUETOOTH_LOCATION_SETTINGS = 1992;
     private static final String PREF_POWER_SAVE_MODE_SETTINGS = "applicationPowerSaveMode";
     private static final int RESULT_POWER_SAVE_MODE_SETTINGS = 1993;
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
@@ -54,6 +54,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     private static final String PREF_DRAW_OVERLAYS_PERMISSIONS = "permissionsDrawOverlaysPermissions";
     private static final int RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS = 1998;
     private static final String PREF_AUTOSTART_PERMISSION_MIUI = "applicationAutoStartMIUI";
+    private static final String PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS = "applicationEventWiFiKeepOnSystemSettings";
+    private static final int RESULT_WIFI_KEEP_ON_SETTINGS = 1999;
 
     @Override
     public int addPreferencesFromResource() {
@@ -290,13 +292,17 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
             int locationMode = Settings.Secure.getInt(getActivity().getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
 
+            /*
             if (WifiScanJob.wifi == null)
                 WifiScanJob.wifi = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
             boolean isScanAlwaysAvailable = WifiScanJob.wifi.isScanAlwaysAvailable();
 
-            if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!isScanAlwaysAvailable)) {
-                preference = prefMng.findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
+            PPApplication.logE("PhoneProfilesPreferencesNestedFragment.onActivityCreated", "locationMode="+locationMode);
+            PPApplication.logE("PhoneProfilesPreferencesNestedFragment.onActivityCreated", "isScanAlwaysAvailable="+isScanAlwaysAvailable);
+
+            if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!isScanAlwaysAvailable)) {*/
+                preference = prefMng.findPreference(PREF_WIFI_LOCATION_SYSTEM_SETTINGS);
                 if (preference != null) {
                     //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                     preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -306,7 +312,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                             if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getActivity().getApplicationContext())) {
                                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
+                                startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_LOCATION_SETTINGS);
                             }
                             else {
                                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -319,16 +325,39 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         }
                     });
                 }
-            }
+            /*}
             else {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("wifiScanningCategory");
                 preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
                 if (preference != null)
                     preferenceCategory.removePreference(preference);
+            }*/
+
+            preference = prefMng.findPreference(PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS);
+            if (preference != null) {
+                //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_WIFI_IP_SETTINGS, getActivity().getApplicationContext())) {
+                            Intent intent = new Intent(Settings.ACTION_WIFI_IP_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SETTINGS);
+                        } else {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            dialogBuilder.show();
+                        }
+                        return false;
+                    }
+                });
             }
 
-            if (locationMode == Settings.Secure.LOCATION_MODE_OFF) {
-                preference = prefMng.findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
+            //if (locationMode == Settings.Secure.LOCATION_MODE_OFF) {
+                preference = prefMng.findPreference(PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
                 if (preference != null) {
                     //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                     preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -337,7 +366,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                             if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getActivity().getApplicationContext())) {
                                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
+                                startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_LOCATION_SETTINGS);
                             }
                             else {
                                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -350,13 +379,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         }
                     });
                 }
-            }
+            /*}
             else {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("bluetoothScanninCategory");
                 preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
                 if (preference != null)
                     preferenceCategory.removePreference(preference);
-            }
+            }*/
 
             preference = prefMng.findPreference(PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
             if (preference != null) {
@@ -390,12 +419,12 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 preferenceScreen.removePreference(preferenceCategory);
 
             preferenceCategory = (PreferenceScreen) findPreference("wifiScanningCategory");
-            Preference preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
+            Preference preference = findPreference(PREF_WIFI_LOCATION_SYSTEM_SETTINGS);
             if (preference != null)
                 preferenceCategory.removePreference(preference);
 
             preferenceCategory = (PreferenceScreen) findPreference("bluetoothScanninCategory");
-            preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
+            preference = findPreference(PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
             if (preference != null)
                 preferenceCategory.removePreference(preference);
 
