@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.telephony.TelephonyManager;
 
+import java.util.Date;
+
 public abstract class PhoneCallReceiver extends BroadcastReceiver {
 
     private static TelephonyManager telephony;
@@ -48,19 +50,19 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
 
     //Derived classes should override these to respond to specific events of interest
     protected abstract boolean onStartReceive();
-    protected abstract void onIncomingCallStarted(String number/*, Date start*/);
-    protected abstract void onOutgoingCallStarted(String number/*, Date start*/);
-    protected abstract void onOutgoingCallAnswered(String number/*, Date start*/);
-    protected abstract void onIncomingCallAnswered(String number/*, Date start*/);
-    protected abstract void onIncomingCallEnded(String number/*, Date start, Date end*/);
-    protected abstract void onOutgoingCallEnded(String number/*, Date start, Date end*/);
-    protected abstract void onMissedCall(String number/*, Date start*/);
+    protected abstract void onIncomingCallStarted(String number, Date eventTime);
+    protected abstract void onOutgoingCallStarted(String number, Date eventTime);
+    protected abstract void onOutgoingCallAnswered(String number, Date eventTime);
+    protected abstract void onIncomingCallAnswered(String number, Date eventTime);
+    protected abstract void onIncomingCallEnded(String number, Date eventTime);
+    protected abstract void onOutgoingCallEnded(String number, Date eventTime);
+    protected abstract void onMissedCall(String number, Date eventTime);
     protected abstract void onEndReceive();
 
     //Deals with actual events
     private class PhoneCallStartEndDetector {
         int lastState = TelephonyManager.CALL_STATE_IDLE;
-        //Date callStartTime;
+        Date eventTime;
         boolean inCall;
         boolean isIncoming;
         String savedNumber;  //because the passed incoming is only valid in ringing
@@ -72,8 +74,8 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
             inCall = false;
             isIncoming = false;
             savedNumber = number;
-            //callStartTime = new Date();
-            onOutgoingCallStarted(savedNumber/*, callStartTime*/);
+            eventTime = new Date();
+            onOutgoingCallStarted(savedNumber, eventTime);
         }
 
         //Incoming call-  goes from IDLE to RINGING when it rings, to OFF HOOK when it's answered, to IDLE when its hung up
@@ -88,40 +90,41 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
                 case TelephonyManager.CALL_STATE_RINGING:
                     inCall = false;
                     isIncoming = true;
-                    //callStartTime = new Date();
+                    eventTime = new Date();
                     String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
                     savedNumber = incomingNumber;
-                    onIncomingCallStarted(incomingNumber/*, callStartTime*/);
+                    onIncomingCallStarted(incomingNumber, eventTime);
                     break;
                 case TelephonyManager.CALL_STATE_OFFHOOK:
                     //Transition of ringing->off hook are pickups of incoming calls.  Nothing down on them
                     if(lastState != TelephonyManager.CALL_STATE_RINGING){
                         inCall = true;
                         isIncoming = false;
-                        //callStartTime = new Date();
-                        onOutgoingCallAnswered(savedNumber/*, callStartTime*/);
+                        eventTime = new Date();
+                        onOutgoingCallAnswered(savedNumber, eventTime);
                     }
                     else
                     {
                         inCall = true;
                         isIncoming = true;
-                        //callStartTime = new Date();
-                        onIncomingCallAnswered(savedNumber/*, callStartTime*/);
+                        eventTime = new Date();
+                        onIncomingCallAnswered(savedNumber, eventTime);
                     }
                     break;
                 case TelephonyManager.CALL_STATE_IDLE:
                     //Went to idle-  this is the end of a call.  What type depends on previous state(s)
                     if(!inCall){
                         //Ring but no pickup-  a miss
-                        onMissedCall(savedNumber/*, callStartTime*/);
+                        eventTime = new Date();
+                        onMissedCall(savedNumber, eventTime);
                     }
                     else 
                     {
                         if(isIncoming){
-                            onIncomingCallEnded(savedNumber/*, callStartTime, new Date()*/);
+                            onIncomingCallEnded(savedNumber, eventTime);
                         }
                         else{
-                            onOutgoingCallEnded(savedNumber/*, callStartTime, new Date()*/);
+                            onOutgoingCallEnded(savedNumber, eventTime);
                         }
                         inCall = false;
                     }

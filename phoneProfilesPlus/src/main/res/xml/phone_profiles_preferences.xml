@@ -276,6 +276,11 @@
             android:key="applicationBackgroundProfile"
             android:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
             henrichg:addNoActivateItem="1" />
+        <Preference
+            android:key="applicationBackgroundProfileNotificationSoundInfo"
+            android:title="@string/phone_profiles_pref_backgroundProfileNotificationSound"
+            android:summary="@string/preferences_durationNotificationSoundInfo_summary"
+            android:widgetLayout="@layout/info_preference" />
         <sk.henrichg.phoneprofilesplus.RingtonePreference
             android:key="applicationBackgroundProfileNotificationSound"
             android:summary="@string/array_pref_no_change"
@@ -367,9 +372,15 @@
         android:title="@string/phone_profiles_pref_category_wifi_scanning"
         android:widgetLayout="@layout/start_activity_preference">
         <Preference
-            android:key="applicationEventWiFiScanningSystemSettings"
-            android:title="@string/phone_profiles_pref_eventWiFiScanningSystemSettings"
-            android:summary="@string/phone_profiles_pref_eventWiFiScanningSystemSettings_summary"
+            android:key="applicationEventWiFiLocationSystemSettings"
+            android:title="@string/phone_profiles_pref_eventLocationSystemSettings"
+            android:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
+            android:widgetLayout="@layout/start_activity_preference" >
+        </Preference>
+        <Preference
+            android:key="applicationEventWiFiKeepOnSystemSettings"
+            android:title="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings"
+            android:summary="@string/phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary"
             android:widgetLayout="@layout/start_activity_preference" >
         </Preference>
         <CheckBoxPreference
@@ -413,9 +424,9 @@
         android:title="@string/phone_profiles_pref_category_bluetooth_scanning"
         android:widgetLayout="@layout/start_activity_preference">
         <Preference
-            android:key="applicationEventBluetoothScanningSystemSettings"
-            android:title="@string/phone_profiles_pref_eventBluetoothScanningSystemSettings"
-            android:summary="@string/phone_profiles_pref_eventBluetoothScanningSystemSettings_summary"
+            android:key="applicationEventBluetoothLocationSystemSettings"
+            android:title="@string/phone_profiles_pref_eventLocationSystemSettings"
+            android:summary="@string/phone_profiles_pref_eventBluetoothLocationSystemSettings_summary"
             android:widgetLayout="@layout/start_activity_preference" >
         </Preference>
         <CheckBoxPreference

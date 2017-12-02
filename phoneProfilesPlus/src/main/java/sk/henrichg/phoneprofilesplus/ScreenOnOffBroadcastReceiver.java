@@ -66,7 +66,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     if (PPApplication.lockDeviceActivity != null) {
                         //lockDeviceEnabled = true;
                         PPApplication.lockDeviceActivity.finish();
-                        PPApplication.lockDeviceActivity.overridePendingTransition(0, 0);
                     }
 
                     //ActivateProfileHelper.setScreenUnlocked(appContext, false);

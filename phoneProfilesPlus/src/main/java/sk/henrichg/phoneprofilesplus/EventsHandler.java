@@ -65,6 +65,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_BLUETOOTH_SCANNER = "bluetoothScanner";
     static final String SENSOR_TYPE_SCREEN = "screen";
     static final String SENSOR_TYPE_DEVICE_IDLE_MODE = "deviceIdleMode";
+    static final String SENSOR_TYPE_PHONE_CALL_EVENT_END = "phoneCallEventEnd";
 
     public EventsHandler(Context context) {
         this.context = context;
@@ -209,6 +210,8 @@ class EventsHandler {
                     dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
                     _event._eventPreferencesNFC._startTime = 0;
                     dataWrapper.getDatabaseHandler().updateNFCStartTime(_event);
+                    _event._eventPreferencesCall._startTime = 0;
+                    dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
                 }
             } else {
                 // for no-restart events, stet startTime to actual time
@@ -251,6 +254,19 @@ class EventsHandler {
                             if (_event._eventPreferencesNFC._enabled) {
                                 PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                                 _event._eventPreferencesNFC.saveStartTime(dataWrapper, eventNFCTagName, eventNFCDate);
+                            }
+                        }
+                    }
+                }
+                if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
+                    // search for call events, save start time
+                    PPApplication.logE("EventsHandler.handleEvents", "search for call events");
+                    for (Event _event : eventList) {
+                        if (_event.getStatus() != Event.ESTATUS_STOP) {
+                            if (_event._eventPreferencesCall._enabled &&
+                                    (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)) {
+                                PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
+                                _event._eventPreferencesCall.saveStartTime(dataWrapper);
                             }
                         }
                     }
@@ -411,8 +427,7 @@ class EventsHandler {
             }
             ////////////////
 
-            String eventNotificationSound = "";
-            boolean eventNotificationVibrate = false;
+            Event notifyEvent = null;
             String backgroundProfileNotificationSound = "";
             boolean backgroundProfileNotificationVibrate = false;
 
@@ -420,11 +435,7 @@ class EventsHandler {
                 // only when not restart events and running events is increased, play event notification sound
 
                 EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE - 1);
-                Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
-                if (event != null) {
-                    eventNotificationSound = event._notificationSound;
-                    eventNotificationVibrate = event._notificationVibrate;
-                }
+                notifyEvent = dataWrapper.getEventById(eventTimeline._fkEvent);
             }
             else
             if ((!isRestart) && (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) && notifyBackgroundProfile) {
@@ -446,14 +457,11 @@ class EventsHandler {
                 dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true);
 
-                if (!eventNotificationSound.isEmpty() || eventNotificationVibrate) {
-                    if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.playNotificationSound(eventNotificationSound, eventNotificationVibrate);
-                }
-                else
-                if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
-                    if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                if (!((notifyEvent != null) && notifyEvent.notifyEventStart(context))) {
+                    if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
+                        if (PhoneProfilesService.instance != null)
+                            PhoneProfilesService.instance.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                    }
                 }
 
                 // wait for profile activation
@@ -468,14 +476,11 @@ class EventsHandler {
                 if ((prId0 != prId) || (prId == 0))*/
                 dataWrapper.updateNotificationAndWidgets(activatedProfile);
 
-                if (!eventNotificationSound.isEmpty() || eventNotificationVibrate) {
-                    if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.playNotificationSound(eventNotificationSound, eventNotificationVibrate);
-                }
-                else
-                if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
-                    if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                if (!((notifyEvent != null) && notifyEvent.notifyEventStart(context))) {
+                    if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
+                        if (PhoneProfilesService.instance != null)
+                            PhoneProfilesService.instance.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                    }
                 }
 
             }
@@ -548,6 +553,9 @@ class EventsHandler {
         if (broadcastReceiverType.equals(SENSOR_TYPE_PHONE_CALL))
             eventType = DatabaseHandler.ETYPE_CALL;
         else
+        if (broadcastReceiverType.equals(SENSOR_TYPE_PHONE_CALL_EVENT_END))
+            eventType = DatabaseHandler.ETYPE_CALL;
+        else
         /*if (broadcastReceiverType.equals(SENSOR_TYPE_RESTART_EVENTS))
             eventType = DatabaseHandler.ETYPE_???;
         else*/
@@ -611,28 +619,33 @@ class EventsHandler {
         PPApplication.logE("EventsHandler.doEndService","callEventType="+callEventType);
 
         if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
-
-            if (!PhoneCallBroadcastReceiver.linkUnlinkExecuted) {
-                // no profile is activated from EventsHandler
-                // link, unlink volumes for activated profile
-                boolean linkUnlink = false;
-                if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)
-                    linkUnlink = true;
-                if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED)
-                    linkUnlink = true;
-                if (linkUnlink) {
-                    Profile profile = dataWrapper.getActivatedProfile();
-                    profile = Profile.getMappedProfile(profile, context);
-                    if (profile != null) {
-                        PPApplication.logE("EventsHandler.doEndService", "callEventType=" + callEventType);
-                        //ExecuteVolumeProfilePrefsJob.start(context, profile._id, false, false);
-                        dataWrapper.getActivateProfileHelper().executeForVolumes(profile, false);
-                        // wait for link/unlink
-                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(1000);
-                        PPApplication.sleep(1000);
+            if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
+                    ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
+                PPApplication.logE("EventsHandler.doEndService","unlink enabled");
+                if (!PhoneCallBroadcastReceiver.linkUnlinkExecuted) {
+                    PPApplication.logE("EventsHandler.doEndService","profile is not activated from EventsHandler");
+                    // no profile is activated from EventsHandler
+                    // link, unlink volumes for activated profile
+                    boolean linkUnlink = false;
+                    if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)
+                        linkUnlink = true;
+                    if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                            (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL))
+                        linkUnlink = true;
+                    if (linkUnlink) {
+                        Profile profile = dataWrapper.getActivatedProfile();
+                        profile = Profile.getMappedProfile(profile, context);
+                        if (profile != null) {
+                            //ExecuteVolumeProfilePrefsJob.start(context, profile._id, false, false);
+                            dataWrapper.getActivateProfileHelper().executeForVolumes(profile, false);
+                            // wait for link/unlink
+                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(1000);
+                            PPApplication.sleep(1000);
+                        }
                     }
-                }
+                } else
+                    PhoneCallBroadcastReceiver.linkUnlinkExecuted = false;
             } else
                 PhoneCallBroadcastReceiver.linkUnlinkExecuted = false;
 
@@ -669,13 +682,24 @@ class EventsHandler {
                 PhoneCallBroadcastReceiver.speakerphoneOnExecuted = false;
 
             if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                    (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                    (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED) ||
+                    (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL)) {
                 ApplicationPreferences.getSharedPreferences(context);
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
                 editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                editor.putLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
                 editor.apply();
             }
+        }
+        else
+        if (sensorType.equals(SENSOR_TYPE_PHONE_CALL_EVENT_END)) {
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
+            editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
+            editor.putLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
+            editor.apply();
         }
         /*else
         if (broadcastReceiverType.equals(SENSOR_TYPE_SMS)) {

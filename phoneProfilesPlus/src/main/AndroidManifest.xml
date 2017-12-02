@@ -106,6 +106,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:largeHeap="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <!-- support for 18.5:9 display (Samsung Galaxy S8, LG G6) -->
@@ -478,6 +479,26 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+        <receiver
+            android:name=".MissedCallEventEndBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".StartEventNotificationBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".GeofencesScannerSwitchGPSBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".LockDeviceActivityFinishBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
 
         <!-- pending intents -->
         <receiver
@@ -492,6 +513,14 @@
             android:name=".RestartEventsFromNotificationBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".StartEventNotificationDeletedReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.START_EVENT_NOTIFICATION_DELETED"/>
+            </intent-filter>
         </receiver>
 
         <!--

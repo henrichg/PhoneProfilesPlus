@@ -78,6 +78,11 @@
                 android:defaultValue="0"
                 henrichg:dMin="0"
                 henrichg:dMax="86400" />
+            <Preference
+                android:key="eventNotificationSoundInfo"
+                android:title="@string/event_preferences_notificationSound"
+                android:summary="@string/preferences_durationNotificationSoundInfo_summary"
+                android:widgetLayout="@layout/info_preference" />
             <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="eventNotificationSound"
                 android:summary="@string/array_pref_no_change"
@@ -90,6 +95,19 @@
                 android:title="@string/event_preferences_notificationVibrate"
                 android:defaultValue="false"
                 android:widgetLayout="@layout/mp_preference_switch"/>
+            <CheckBoxPreference
+                android:key="eventNotificationRepeat"
+                android:title="@string/event_preferences_notificationRepeat"
+                android:defaultValue="false"
+                android:widgetLayout="@layout/mp_preference_switch"/>
+            <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+                android:key="eventNotificationRepeatInterval"
+                android:summary="@string/event_preferences_notificationRepeatInterval"
+                android:title="@string/event_preferences_notificationRepeatInterval"
+                android:defaultValue="15"
+                henrichg:min="1"
+                henrichg:max="300"
+                android:dependency="eventNotificationRepeat"/>
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory
@@ -302,6 +320,21 @@
                 android:entryValues="@array/eventCallContactListTypeValues"
                 android:dependency="eventCallEnabled"
                 app:useStockLayout="true" />
+            <CheckBoxPreference
+                android:key="eventCallPermanentRun"
+                android:title="@string/pref_event_permanentRun"
+                android:summary="@string/pref_event_permanentRun_summary"
+                android:defaultValue="true"
+                android:dependency="eventCallEnabled"
+                android:widgetLayout="@layout/mp_preference_switch" />
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
+                android:key="eventCallDuration"
+                android:summary="@string/event_preferences_duration"
+                android:title="@string/event_preferences_duration"
+                android:defaultValue="5"
+                henrichg:dMin="5"
+                henrichg:dMax="86400"
+                android:dependency="eventCallEnabled" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventSMSParameters"
@@ -733,7 +766,7 @@
             <Preference
                 android:key="eventOrientationAccessibilitySettings"
                 android:title="@string/event_preferences_applications_AccessibilitySettings_title"
-                android:summary="@string/event_preferences_orientation_AccessibilitySettings_summary"
+                android:summary="@string/event_preferences_orientation_AccessibilitySettingsForExtender_summary"
                 android:dependency="eventOrientationEnabled"
                 android:widgetLayout="@layout/start_activity_preference" >
             </Preference>

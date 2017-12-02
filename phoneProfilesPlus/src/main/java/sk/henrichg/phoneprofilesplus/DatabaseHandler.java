@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1950;
+    private static final int DATABASE_VERSION = 1970;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -270,6 +270,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_RADIO_SWITCH_AIRPLANE_MODE = "radioSwitchAirplaneMode";
     private static final String KEY_E_NOTIFICATION_VIBRATE = "notificationVibrate";
     private static final String KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
+    private static final String KEY_E_CALL_DURATION = "callDuration";
+    private static final String KEY_E_CALL_PERMANENT_RUN = "callPermanentRun";
+    private static final String KEY_E_CALL_START_TIME = "callStartTime";
+    private static final String KEY_E_NOTIFICATION_SOUND_REPEAT = "notificationSoundRepeat";
+    private static final String KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL = "notificationSoundRepeatInterval";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -546,7 +551,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_RADIO_SWITCH_NFC + " INTEGER,"
                 + KEY_E_RADIO_SWITCH_AIRPLANE_MODE + " INTEGER,"
                 + KEY_E_NOTIFICATION_VIBRATE + " INTEGER,"
-                + KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + " INTEGER"
+                + KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + " INTEGER,"
+                + KEY_E_CALL_DURATION + " INTEGER,"
+                + KEY_E_CALL_PERMANENT_RUN + " INTEGER,"
+                + KEY_E_CALL_START_TIME + " INTEGER,"
+                + KEY_E_NOTIFICATION_SOUND_REPEAT + " INTEGER,"
+                + KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1983,10 +1993,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DURATION_NOTIFICATION_VIBRATE + "=0");
         }
 
+        if (oldVersion < 1960)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALL_DURATION + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALL_PERMANENT_RUN + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALL_START_TIME + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_DURATION + "=5");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_PERMANENT_RUN + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_START_TIME + "=0");
+        }
+
+        if (oldVersion < 1970)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_SOUND_REPEAT + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SOUND_REPEAT + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL + "=15");
+        }
+
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
-
 
     private void startRunningCommand() throws Exception {
         if (runningImportExport)
@@ -3158,6 +3187,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_STATUS, event.getStatus()); // event status
                 values.put(KEY_E_NOTIFICATION_SOUND, event._notificationSound); // notification sound
                 values.put(KEY_E_NOTIFICATION_VIBRATE, event._notificationVibrate); // notification vibrate
+                values.put(KEY_E_NOTIFICATION_SOUND_REPEAT, event._repeatNotification); // repeat notification sound
+                values.put(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL, event._repeatNotificationInterval); // repeat notification sound interval
                 values.put(KEY_E_FORCE_RUN, event._forceRun ? 1 : 0); // force run when manual profile activation
                 values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0); // temporary blocked
                 values.put(KEY_E_PRIORITY, event._priority); // priority
@@ -3215,6 +3246,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_E_STATUS,
                                 KEY_E_NOTIFICATION_SOUND,
                                 KEY_E_NOTIFICATION_VIBRATE,
+                                KEY_E_NOTIFICATION_SOUND_REPEAT,
+                                KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL,
                                 KEY_E_FORCE_RUN,
                                 KEY_E_BLOCKED,
                                 KEY_E_PRIORITY,
@@ -3257,7 +3290,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_START_STATUS_TIME))),
                                 Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_PAUSE_STATUS_TIME))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE))) == 1,
-                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION))) == 1
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION))) == 1,
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_REPEAT))) == 1,
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL)))
                         );
                     }
 
@@ -3293,6 +3328,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_STATUS + "," +
                         KEY_E_NOTIFICATION_SOUND + "," +
                         KEY_E_NOTIFICATION_VIBRATE + "," +
+                        KEY_E_NOTIFICATION_SOUND_REPEAT + "," +
+                        KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL + "," +
                         KEY_E_FORCE_RUN + "," +
                         KEY_E_BLOCKED + "," +
                         KEY_E_PRIORITY + "," +
@@ -3326,6 +3363,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         event.setStatus(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_STATUS))));
                         event._notificationSound = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND));
                         event._notificationVibrate = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE))) == 1;
+                        event._repeatNotification = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_REPEAT))) == 1;
+                        event._repeatNotificationInterval = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL)));
                         event._forceRun = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_FORCE_RUN))) == 1;
                         event._blocked = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLOCKED))) == 1;
                         event._priority = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_PRIORITY)));
@@ -3376,6 +3415,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_STATUS, event.getStatus());
                 values.put(KEY_E_NOTIFICATION_SOUND, event._notificationSound);
                 values.put(KEY_E_NOTIFICATION_VIBRATE, event._notificationVibrate ? 1 : 0);
+                values.put(KEY_E_NOTIFICATION_SOUND_REPEAT, event._repeatNotification ? 1 : 0);
+                values.put(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL, event._repeatNotificationInterval);
                 values.put(KEY_E_FORCE_RUN, event._forceRun ? 1 : 0);
                 values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0);
                 //values.put(KEY_E_UNDONE_PROFILE, 0);
@@ -3716,7 +3757,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_CALL_EVENT,
                         KEY_E_CALL_CONTACTS,
                         KEY_E_CALL_CONTACT_LIST_TYPE,
-                        KEY_E_CALL_CONTACT_GROUPS
+                        KEY_E_CALL_CONTACT_GROUPS,
+                        KEY_E_CALL_DURATION,
+                        KEY_E_CALL_PERMANENT_RUN,
+                        KEY_E_CALL_START_TIME
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -3733,6 +3777,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._contacts = cursor.getString(cursor.getColumnIndex(KEY_E_CALL_CONTACTS));
                 eventPreferences._contactListType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALL_CONTACT_LIST_TYPE)));
                 eventPreferences._contactGroups = cursor.getString(cursor.getColumnIndex(KEY_E_CALL_CONTACT_GROUPS));
+                eventPreferences._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_CALL_START_TIME)));
+                eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_CALL_DURATION));
+                eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALL_PERMANENT_RUN))) == 1);
             }
             cursor.close();
         }
@@ -4166,6 +4213,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_CALL_CONTACTS, eventPreferences._contacts);
         values.put(KEY_E_CALL_CONTACT_LIST_TYPE, eventPreferences._contactListType);
         values.put(KEY_E_CALL_CONTACT_GROUPS, eventPreferences._contactGroups);
+        values.put(KEY_E_CALL_START_TIME, eventPreferences._startTime);
+        values.put(KEY_E_CALL_DURATION, eventPreferences._duration);
+        values.put(KEY_E_CALL_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -5213,6 +5263,77 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception ignored) {
             }
             return r;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updateCallStartTime(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_CALL_START_TIME, event._eventPreferencesCall._startTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateCallStartTimes", e.toString());
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void getCallStartTime(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{
+                                KEY_E_CALL_START_TIME
+                        },
+                        KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        event._eventPreferencesCall._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_CALL_START_TIME)));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
         } finally {
             stopRunningCommand();
         }
@@ -7763,6 +7884,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 values.put(KEY_E_START_TIME, calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE));
                                                 calendar.setTimeInMillis(endTime);
                                                 values.put(KEY_E_END_TIME, calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE));
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1960) {
+                                                values.put(KEY_E_CALL_DURATION, 5);
+                                                values.put(KEY_E_CALL_PERMANENT_RUN, 0);
+                                                values.put(KEY_E_CALL_START_TIME, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1970) {
+                                                values.put(KEY_E_NOTIFICATION_SOUND_REPEAT, 0);
+                                                values.put(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL, 15);
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper

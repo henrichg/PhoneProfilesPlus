@@ -55,6 +55,11 @@
                 android:defaultValue="@bool/prf_pref_askForDuration"
                 android:widgetLayout="@layout/mp_preference_switch"
                 android:disableDependentsState="true"/>
+            <Preference
+                android:key="prf_pref_durationNotificationSoundInfo"
+                android:title="@string/profile_preferences_durationNotificationSound"
+                android:summary="@string/preferences_durationNotificationSoundInfo_summary"
+                android:widgetLayout="@layout/info_preference" />
             <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="prf_pref_durationNotificationSound"
                 android:summary="@string/array_pref_no_change"

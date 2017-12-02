@@ -49,7 +49,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -61,12 +61,20 @@ public class PPApplication extends Application {
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
 
+                                         +"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
+
+                                         //+"|Event.notifyEventStart"
+                                         //+"|StartEventNotificationBroadcastReceiver"
+                                         //+"|StartEventNotificationDeletedReceiver"
+                                         //+"|PhoneProfilesService.playNotificationSound"
 
                                          //+"|ProfileDurationAlarmBroadcastReceiver"
                                          //+"|$$$ DataWrapper._activateProfile"
                                          //+"|PPNotificationListenerService"
                                          //+"|[NOTIF] EventsHandler.handleEvents"
                                          //+"|EventPreferencesNotification"
+
+                                         //+"|[CALL] DataWrapper.doHandleEvents"
 
                                          //+"|"+CallsCounter.LOG_TAG
                                          //+"|[RJS] PPApplication"
@@ -92,9 +100,9 @@ public class PPApplication extends Application {
                                          //+"|GeofenceScannerJob"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
-                                         +"|[BTScan] DataWrapper.doHandleEvents"
-                                         +"|BluetoothConnectedDevices"
-                                         +"|BluetoothConnectionBroadcastReceiver"
+                                         //+"|[BTScan] DataWrapper.doHandleEvents"
+                                         //+"|BluetoothConnectedDevices"
+                                         //+"|BluetoothConnectionBroadcastReceiver"
                                          //+"|BluetoothStateChangedBroadcastReceiver"
                                          //+"|BluetoothScanBroadcastReceiver"
                                          //+"|BluetoothScanJob"
@@ -140,6 +148,7 @@ public class PPApplication extends Application {
     static final int MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID = 700430;
     static final int ABOUT_APPLICATION_DONATE_NOTIFICATION_ID = 700431;
     static final int ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID = 700432;
+    static final int EVENT_START_NOTIFICATION_ID = 700433;
 
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
     static final String DEFAULT_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
@@ -1338,6 +1347,10 @@ public class PPApplication extends Application {
             // remove alarm for profile duration
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
             Profile.setActivatedProfileForDuration(context, 0);
+
+            StartEventNotificationBroadcastReceiver.removeAlarm(context);
+            GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
+            LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
 
             if (PhoneProfilesService.instance != null) {
                 PPApplication.stopGeofenceScanner(context);

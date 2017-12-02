@@ -75,17 +75,7 @@ public class LockDeviceActivity extends AppCompatActivity {
         getWindow().setAttributes(aParams);
         */
 
-        PhoneProfilesService.startHandlerThread();
-        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                if (PPApplication.lockDeviceActivity != null) {
-                    PPApplication.logE("LockDeviceActivity.handler", "xxx");
-                    PPApplication.lockDeviceActivity.finish();
-                    PPApplication.lockDeviceActivity.overridePendingTransition(0, 0);
-                }
-            }
-        }, 20000);
+        LockDeviceActivityFinishBroadcastReceiver.setAlarm(getApplicationContext());
     }
 
     @Override
@@ -101,6 +91,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                     windowManager.removeViewImmediate(view);
             } catch (Exception ignored) {}
 
+        LockDeviceActivityFinishBroadcastReceiver.removeAlarm(getApplicationContext());
         PPApplication.lockDeviceActivity = null;
         if (Permissions.checkLockDevice(getApplicationContext()))
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
