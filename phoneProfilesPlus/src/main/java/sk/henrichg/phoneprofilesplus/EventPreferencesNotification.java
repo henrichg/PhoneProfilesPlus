@@ -426,6 +426,7 @@ class EventPreferencesNotification extends EventPreferences {
             }
 
             if (notificationFound)
+
                 _startTime = notification.time;
             else
             if (this._permanentRun)
