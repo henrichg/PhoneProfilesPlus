@@ -381,14 +381,16 @@ class EventPreferencesNotification extends EventPreferences {
         }
     }
 
+    // search if any configured package names are visible in status bar
     boolean isNotificationVisible(DataWrapper dataWrapper) {
-
+        // get all saved notifications
         PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
 
         String[] splits = this._applications.split("\\|");
         for (String split : splits) {
+            // get only package name = remove activity
             String packageName = ApplicationsCache.getPackageName(split);
-
+            // search for package name in saved package names
             PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(packageName);
             if (notification != null)
                 return true;
@@ -401,28 +403,32 @@ class EventPreferencesNotification extends EventPreferences {
             PPApplication.logE("EventPreferencesNotification.saveStartTime", "!_endWhenRemoved");
             PPApplication.logE("EventPreferencesNotification.saveStartTime", "this._applications="+this._applications);
 
+            // get all saved notifications
             PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
 
             boolean notificationFound = false;
+            PostedNotificationData notification = null;
 
             String[] splits = this._applications.split("\\|");
             for (String split : splits) {
-                //String packageName = split;
-                //if (ApplicationsCache.isShortcut(split))
+                // get only package name = remove activity
                 String packageName = ApplicationsCache.getPackageName(split);
 
                 PPApplication.logE("EventPreferencesNotification.saveStartTime", "packageName="+packageName);
 
-                PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(packageName);
+                // search for package name in saved package names
+                notification = PPNotificationListenerService.getNotificationPosted(packageName);
                 PPApplication.logE("EventPreferencesNotification.saveStartTime", "notification="+notification);
                 if (notification != null) {
                     notificationFound = true;
-                    _startTime = notification.time;
                     break;
                 }
             }
 
-            if ((!notificationFound) && this._permanentRun)
+            if (notificationFound)
+                _startTime = notification.time;
+            else
+            if (this._permanentRun)
                 _startTime = 0;
 
             dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);

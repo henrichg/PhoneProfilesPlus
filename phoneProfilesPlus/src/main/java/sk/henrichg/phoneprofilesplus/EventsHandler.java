@@ -232,9 +232,9 @@ class EventsHandler {
                             if (_event.getStatus() != Event.ESTATUS_STOP) {
                                 if (_event._eventPreferencesNotification._enabled) {
                                     PPApplication.logE("[NOTIF] EventsHandler.handleEvents", "event._id=" + _event._id);
-                                /*_event._eventPreferencesNotification.saveStartTime(dataWrapper,
-                                intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),
-                                intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));*/
+                                    /*_event._eventPreferencesNotification.saveStartTime(dataWrapper,
+                                    intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),
+                                    intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));*/
                                     if (eventNotificationPostedRemoved.equals("posted"))
                                         _event._eventPreferencesNotification.saveStartTime(dataWrapper);
 
