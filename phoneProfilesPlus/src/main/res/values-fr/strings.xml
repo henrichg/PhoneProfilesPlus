@@ -528,10 +528,6 @@
   <string name="permissions_for_calendar_dialog_text2">S\'il vous plaît validez les boîtes de dialogue suivante. La liste de calendrier pourra être affichée.</string>
   <string name="permissions_for_contacts_dialog_text1">Obtenir la liste de contacts de nécessite certaines autorisations.</string>
   <string name="permissions_for_contacts_dialog_text2">S\'il vous plaît validez les boîtes de dialogue suivante. La liste de contacts pourra être affichée.</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">Balayage WiFi - panneau de configuration</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">S\'il vous plaît activer localisation et balayage Wi-Fi dans le panneau de configuration. Sans cela, va balayage de Wi-fi ne fonctionnera pas.</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Balayage Bluetooth - panneau de configuration</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">S\'il vous plaît activer localisation et Balayage Bluetooth dans le panneau de configuration. Sans cela, la Bluetooth ne fonctionne ne pas.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Scan Wi-Fi en mode économie d\'énergie</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Scan Bluetooth en mode économie d\'énergie</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">Intervalle de 1x</string>

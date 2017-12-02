@@ -528,10 +528,6 @@
   <string name="permissions_for_calendar_dialog_text2">Si prega di concederle nella finestra successiva. Successivamente verrà visualizzato il calendario.</string>
   <string name="permissions_for_contacts_dialog_text1">Ottenere l\'elenco dei contatti richiede alcune autorizzazioni.</string>
   <string name="permissions_for_contacts_dialog_text2">Si prega di concederle nella finestra successiva. Successivamente verrà visualizzata la lista contatti.</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">Scansione Wi-Fi - Impostazioni di Sistema</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">Si prega di abilitare la Posizione e la scansione Wi-Fi nelle impostazioni di sistema. Senza queste, la scansione Wi-Fi, non può funzionare.</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Scansione Bluetooth - Impostazioni di Sistema</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Si prega di abilitare la Posizione e la scansione Bluetooth nelle impostazioni di sistema. Senza queste, la scansione Bluetooth, non può funzionare.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Scansione Wi-Fi in modalità Risparmio Energetico</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Scansione Bluetooth in modalità Risparmio Energetico</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">Intervallo 1x</string>

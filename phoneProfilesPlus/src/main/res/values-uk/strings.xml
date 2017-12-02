@@ -528,10 +528,6 @@
   <string name="permissions_for_calendar_dialog_text2">Дозвольте у наступних діалогових вікнах. Після цього буде показано список календаря.</string>
   <string name="permissions_for_contacts_dialog_text1">Щоб отримати список контактів, потрібні додаткові дозволи.</string>
   <string name="permissions_for_contacts_dialog_text2">Дозвольте у наступних діалогових вікнах. Після цього буде показано список контактів.</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">Сканування WiFi - Налаштування системи</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">Будь ласка, увімкніть місцезнаходження та Wi-Fi сканування в налаштуваннях системи. Без цього, сканування Wi-Fi не працюватиме.</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Bluetooth сканування - Системні налаштування</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Будь ласка, увімкніть місцезнаходження та Bluetooth сканування в налаштуваннях системи. Без цього, сканування Bluetooth не працюватиме.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Сканування Wi-Fi в режимі енергозбереження</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Сканування Bluetooth в режимі енергозбереження</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1x інтервал</string>

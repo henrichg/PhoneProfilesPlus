@@ -528,10 +528,6 @@
   <string name="permissions_for_calendar_dialog_text2">Lütfen sonraki iletişim kutularında izinleri verin. Ondan sonra takvim listesi gösterilecek.</string>
   <string name="permissions_for_contacts_dialog_text1">Kişiler listesini almak için bazı izinler lazımdır.</string>
   <string name="permissions_for_contacts_dialog_text2">Lütfen sonraki iletişim kutularında izinleri verin. Ondan sonra takvim listesi gösterilecek.</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">Wi-Fi Tarama - Sistem Ayarları</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">Lütfen \"Sistem Ayarları\" → \"Konum ve Wi-Fi Tarama\" ayarlarında PhoneProfilesPlus\'a izin verin. Bu yapılmadan, Wi-fi tarama çalışmayacak.</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Bluetooth Tarama - Sistem Ayarları</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Lütfen sistem ayarlarında, Konum ve Bluetooth tarama ayarlarında PhoneProfilesPlus\'a izin verin. Bu yapılmadan, Bluetooth tarama çalışmayacak.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Güç Tasarrufu modunda Wi-Fi taraması</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Güç tasarrufu modunda Bluetooth taraması</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1x aralıkla</string>

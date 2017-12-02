@@ -528,10 +528,6 @@
   <string name="permissions_for_calendar_dialog_text2">請在下一個對話方塊中授予他們。然後將顯示行事曆清單。</string>
   <string name="permissions_for_contacts_dialog_text1">獲取聯絡人清單需要某些許可權。</string>
   <string name="permissions_for_contacts_dialog_text2">請在下一個對話方塊中授予他們。然後將顯示行事曆清單。</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">Wi-fi 掃描 - 系統設定</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">請在系統設置中啟用位置和 Wi-fi 掃描。沒有這個，Wi-fi 掃描將不會運作。</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">藍牙掃描 - 系統設定</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">請在系統設定中啟用位置和藍牙掃描。沒有這個，藍牙掃描將不運作。</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Wi-Fi 掃描在省電模式</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">藍牙掃描在省電模式</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1x 間隔</string>

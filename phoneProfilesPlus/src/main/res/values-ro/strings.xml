@@ -528,10 +528,6 @@
   <string name="permissions_for_calendar_dialog_text2">Please grant them in next dialog. Calendar list will then be shown.</string>
   <string name="permissions_for_contacts_dialog_text1">Get contacts list requires some permissions.</string>
   <string name="permissions_for_contacts_dialog_text2">Please grant them in next dialog. Contact list will then be shown.</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">Wi-Fi scanning - System Settings</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">Please enable Location and Wi-Fi scanning in System Settings. Without this, Wi-fi scanning will not work.</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Bluetooth scanning - System Settings</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Please enable Location and Bluetooth scanning in System Settings. Without this, Bluetooth scanning will not work.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Wi-Fi scan in Power Save mode</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Bluetooth scan in Power Save mode</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1x interval</string>

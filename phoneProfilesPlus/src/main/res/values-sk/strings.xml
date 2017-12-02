@@ -528,10 +528,6 @@
   <string name="permissions_for_calendar_dialog_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa zobrazí zoznam kalendárov.</string>
   <string name="permissions_for_contacts_dialog_text1">Prístup k zozname kontaktov vyžaduje niektoré povolenia.</string>
   <string name="permissions_for_contacts_dialog_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa zobrazí zoznam kontaktov.</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">Skenovanie Wi-Fi - nastavenia systému</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">Prosím, zapnite Polohu a skenovanie Wi-Fi v nastaveniach systému. Bez toho Wi-fi skenovanie nebude fungovať.</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Skenovanie Bluetooth - nastavenia systému</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Prosím, zapnite Polohu a skenovanie Bluetooth v nastaveniach systému. Bez toho, skenovanie Bluetooth nebude fungovať.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Wi-Fi skenovanie v režime Šetrič batérie</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Bluetooth skenovanie v režime Šetrič batérie</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1x interval</string>

@@ -528,10 +528,6 @@
   <string name="permissions_for_calendar_dialog_text2">Por favor, acéptalos en las pantallas siguientes. Después se mostrará la lista de calendario.</string>
   <string name="permissions_for_contacts_dialog_text1">Obtener la lista de contactos requiere algunos permisos.</string>
   <string name="permissions_for_contacts_dialog_text2">Por favor, acéptalos en las pantallas siguientes. Después se mostrará la lista de contactos.</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">Escaneo Wi-fi - Ajustes del sitema</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">Por favor activa la localización y el escaneo Wi-Fi en ajustes de sistema. Sin esto, el escaneo Wi-Fi no funcionará.</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Escáner Bluetooth - Ajustes de Sistema</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Por favor activa la localización y el escaneo Bluetooth en ajustes de sistema. Sin esto, el escaneo Bluetooth no funcionará.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Escáner Wi-Fi en modo Ahorro de Energia</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Escáner Bluetooth en modo Ahorro de Energia</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1x intervalo</string>

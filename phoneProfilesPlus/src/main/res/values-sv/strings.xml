@@ -528,10 +528,6 @@
   <string name="permissions_for_calendar_dialog_text2">Vänligen ge dem i nästa fönster. Sedan visas kalenderlistan.</string>
   <string name="permissions_for_contacts_dialog_text1">Hämta kalenderlistan kräver vissa behörigheter.</string>
   <string name="permissions_for_contacts_dialog_text2">Vänligen ge dem i nästa fönster. Sedan visas kalenderlistan.</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">WiFi scanning - Systeminställningar</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">Vänligen aktivera Plats och Wi-Fi skanning i Systeminställningar. Utan detta, kommer Wi-fi skanning inte att fungera.</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Bluetooth skanning - Systeminställningar</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Vänligen aktivera Plats och Bluetooth skanning i systeminställningarna. Utan detta, kommer Bluetooth skanning inte att fungera.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Wi-Fi scan i strömsparläge</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Bluetooth scan i strömsparläge</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1 x intervall</string>

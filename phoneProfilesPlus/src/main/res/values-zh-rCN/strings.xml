@@ -528,10 +528,6 @@
   <string name="permissions_for_calendar_dialog_text2">请在下一个对话框中授权，然后将显示日历列表。</string>
   <string name="permissions_for_contacts_dialog_text1">获取联系人列表需要某些权限。</string>
   <string name="permissions_for_contacts_dialog_text2">请在下一个对话框中授权，然后将显示联系人列表。</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">Wi-Fi 扫描-系统设置</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">请在系统设置中启用定位和 Wi-Fi 扫描，否则 Wi-Fi 扫描无法工作。</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">蓝牙扫描-系统设置</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">请在系统设置中启用定位和蓝牙扫描，否则蓝牙扫描无法工作。</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">省电模式下的 Wi-Fi 扫描</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">省电模式下的蓝牙扫描</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1x 时间间隔</string>

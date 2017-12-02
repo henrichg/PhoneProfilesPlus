@@ -528,10 +528,6 @@
   <string name="permissions_for_calendar_dialog_text2">Add meg az adatokat. Azután a naptár listában látható lesz.</string>
   <string name="permissions_for_contacts_dialog_text1">A kontakt listához engedély kell.</string>
   <string name="permissions_for_contacts_dialog_text2">Add meg az adatokat. Azután a kontakt listában látható lesz.</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">WiFi keresés - Rendszer beállítások</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">Kérem, engedélyezze a helyzet és a Wi-Fi keresést rendszer beállításaiban. E nélkül, a Wi-Fi keresés nem működik.</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Bluetooth keresés - rendszer beállítások</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Kérjük, engedélyezze a helyzet és Bluetooth keresés rendszer beállításait. E nélkül a Bluetooth, keresés nem működik.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Wi-Fi keresés energiatakarékos üzemmódban</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Bluetooth keresés energiatakarékos üzemmódban</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1x intervallum</string>

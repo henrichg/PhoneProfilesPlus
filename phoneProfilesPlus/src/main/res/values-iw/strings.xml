@@ -528,10 +528,6 @@
   <string name="permissions_for_calendar_dialog_text2">אנא התירו אותן בתיבות דו-שיח הבאות. לאחר מכן תוצג רשימת היומנים.</string>
   <string name="permissions_for_contacts_dialog_text1">קבלת רשימת אנשי הקשר דורשת הרשאות מסוימות.</string>
   <string name="permissions_for_contacts_dialog_text2">אנא התירו אותן בתיבות דו-שיח הבאות. לאחר מכן תוצג רשימת אנשי הקשר.</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">סריקת Wi-fi - הגדרות מערכת</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">אנא התירו מיקום וסריקת Wi-fi. ללא זאת, סריקת Wi-fi לא תפעל.</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">סריקת Bluetooth - הגדרות מערכת</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">אנא התירו מיקום וסריקת Bluetooth בהגדרות המערכת. ללא זאת, סריקת Bluetooth לא תפעל.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">סריקת Wi-Fi במצב חיסכון בצריכת חשמל</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">סריקת Bluetooth במצב חיסכון בצריכת חשמל</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">מרווח x1</string>

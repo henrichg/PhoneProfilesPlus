@@ -528,10 +528,6 @@
   <string name="permissions_for_calendar_dialog_text2">Sta het toe in de volgende schermen. Vervolgens zal de kalender lijst getoond worden.</string>
   <string name="permissions_for_contacts_dialog_text1">Contactenlijst ophalen vereist bepaalde machtigingen.</string>
   <string name="permissions_for_contacts_dialog_text2">Sta het toe in de volgende schermen. Vervolgen zal de contactenlijst getoond worden.</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">WiFi scannen - Systeem instellingen</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">Zet Locatie en WiFi scannen aan in de Systeeminstellingen. Zonder dit kan WiFi scannen niet werken.</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Bluetooth scannen - systeeminstellingen</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Zet Locatie en Bluetooth scannen aan in Systeeminstellingen. Zonder dit kan Bluetooth scannen niet werken.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Wi-Fi scan in Energiebesparingsmodus</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Bluetooth scan in Energiebesparingsmodus</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1 x interval</string>

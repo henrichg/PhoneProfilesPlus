@@ -528,10 +528,6 @@
   <string name="permissions_for_calendar_dialog_text2">Bitte erteile sie in den nächsten Dialogen. Dann wird die Kalenderliste angezeigt.</string>
   <string name="permissions_for_contacts_dialog_text1">Die Kontakteliste zu erhalten erfordert Berechtigungen.</string>
   <string name="permissions_for_contacts_dialog_text2">Bitte erteile sie in den nächsten Dialogen. Dann wird die Kontakteliste angezeigt.</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">WLAN-Suche - Systemeinstellungen</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">Bitte aktiviere GPS und WLAN in den Systemeinstellungen. Sonst wird der WLAN-Scan nicht funktionieren.</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Bluetooth-Suche - Systemeinstellungen</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Bitte aktiviere GPS und Bluetooth in den Systemeinstellungen. Sonst wird der Bluetooth-Scan nicht funktionieren.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">WLAN-Suche im Energiesparmodus</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Bluetooth-Suche im Energiesparmodus</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1x Intervall</string>
