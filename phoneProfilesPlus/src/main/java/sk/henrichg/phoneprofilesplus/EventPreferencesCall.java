@@ -355,6 +355,10 @@ class EventPreferencesCall extends EventPreferences {
                 dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
             }
         }
+        else {
+            _startTime = 0;
+            dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
+        }
     }
 
 }
