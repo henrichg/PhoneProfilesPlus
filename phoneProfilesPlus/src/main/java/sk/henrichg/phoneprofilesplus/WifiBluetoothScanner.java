@@ -782,11 +782,11 @@ class WifiBluetoothScanner {
                     String notificationBigText;
 
                     if (scanType.equals(SCANNER_TYPE_WIFI)) {
-                        notificationText = context.getString(R.string.phone_profiles_pref_eventWiFiScanningSystemSettings);
-                        notificationBigText = context.getString(R.string.phone_profiles_pref_eventWiFiScanningSystemSettings_summary);
+                        notificationText = context.getString(R.string.phone_profiles_pref_eventLocationSystemSettings);
+                        notificationBigText = context.getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary);
                     } else {
-                        notificationText = context.getString(R.string.phone_profiles_pref_eventBluetoothScanningSystemSettings);
-                        notificationBigText = context.getString(R.string.phone_profiles_pref_eventBluetoothScanningSystemSettings_summary);
+                        notificationText = context.getString(R.string.phone_profiles_pref_eventLocationSystemSettings);
+                        notificationBigText = context.getString(R.string.phone_profiles_pref_eventBluetoothLocationSystemSettings_summary);
                     }
 
                     String nTitle = notificationText;
