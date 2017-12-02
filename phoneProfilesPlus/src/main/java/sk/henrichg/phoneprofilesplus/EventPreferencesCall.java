@@ -344,13 +344,15 @@ class EventPreferencesCall extends EventPreferences {
             long callTime = ApplicationPreferences.preferences.getLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
             if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL) {
                 _startTime = callTime;
-                if (_permanentRun)
-                    _startTime = 0;
 
                 dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
 
                 if (_event.getStatus() == Event.ESTATUS_RUNNING)
                     setSystemEventForPause(dataWrapper.context);
+            }
+            else {
+                _startTime = 0;
+                dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
             }
         }
     }

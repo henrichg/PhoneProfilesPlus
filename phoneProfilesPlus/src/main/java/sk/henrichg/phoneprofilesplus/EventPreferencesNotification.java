@@ -399,49 +399,41 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     void saveStartTime(DataWrapper dataWrapper) {
-        if (!_endWhenRemoved) {
-            PPApplication.logE("EventPreferencesNotification.saveStartTime", "!_endWhenRemoved");
-            PPApplication.logE("EventPreferencesNotification.saveStartTime", "this._applications="+this._applications);
+        PPApplication.logE("EventPreferencesNotification.saveStartTime", "!_endWhenRemoved");
+        PPApplication.logE("EventPreferencesNotification.saveStartTime", "this._applications="+this._applications);
 
-            // get all saved notifications
-            PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
+        // get all saved notifications
+        PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
 
-            boolean notificationFound = false;
-            PostedNotificationData notification = null;
+        boolean notificationFound = false;
+        PostedNotificationData notification = null;
 
-            String[] splits = this._applications.split("\\|");
-            for (String split : splits) {
-                // get only package name = remove activity
-                String packageName = ApplicationsCache.getPackageName(split);
+        String[] splits = this._applications.split("\\|");
+        for (String split : splits) {
+            // get only package name = remove activity
+            String packageName = ApplicationsCache.getPackageName(split);
 
-                PPApplication.logE("EventPreferencesNotification.saveStartTime", "packageName="+packageName);
+            PPApplication.logE("EventPreferencesNotification.saveStartTime", "packageName="+packageName);
 
-                // search for package name in saved package names
-                notification = PPNotificationListenerService.getNotificationPosted(packageName);
-                PPApplication.logE("EventPreferencesNotification.saveStartTime", "notification="+notification);
-                if (notification != null) {
-                    notificationFound = true;
-                    break;
-                }
-            }
-
-            if (notificationFound)
-                _startTime = notification.time;
-            else
-            if (this._permanentRun)
-                _startTime = 0;
-
-            dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
-
-            if (notificationFound) {
-                if (_event.getStatus() == Event.ESTATUS_RUNNING)
-                    setSystemEventForPause(dataWrapper.context);
+            // search for package name in saved package names
+            notification = PPNotificationListenerService.getNotificationPosted(packageName);
+            PPApplication.logE("EventPreferencesNotification.saveStartTime", "notification="+notification);
+            if (notification != null) {
+                notificationFound = true;
+                break;
             }
         }
-        else {
-            PPApplication.logE("EventPreferencesNotification.saveStartTime", "_endWhenRemoved");
-            this._startTime = 0;
-            dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
+
+        if (notificationFound)
+            _startTime = notification.time;
+        else
+            _startTime = 0;
+
+        dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
+
+        if (notificationFound) {
+            if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                setSystemEventForPause(dataWrapper.context);
         }
     }
 
