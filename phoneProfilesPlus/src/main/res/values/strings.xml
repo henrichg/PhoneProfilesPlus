@@ -1123,7 +1123,7 @@
     <string name="duration_pref_dlg_activation_hours_label">Hours:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Minutes:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Seconds:</string>
-    <string name="preferences_durationNotificationSoundInfo_summary">For this notification is used media channel. So the volume for media is used.</string>
+    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>
     <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Please enable Location and Wi-Fi scanning in System Settings. Without this, Wi-fi scanning will not work.</string>
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Please enable Location and Bluetooth scanning in System Settings. Without this, Bluetooth scanning will not work.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Keep Wi-Fi on\" system setting</string>

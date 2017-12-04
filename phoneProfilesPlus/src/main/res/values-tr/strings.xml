@@ -335,8 +335,8 @@
   <string name="event_type_screen">Ekran</string>
   <string name="event_preferences_category_eventScreenParameters">Ekran değerleri</string>
   <string name="event_preferences_screen_event_type">Durum türü</string>
-  <string name="event_preferences_delayStart">Gecikme (sn)</string>
-  <string name="profile_preferences_duration">Süre (sn)</string>
+  <string name="event_preferences_delayStart">Gecikme</string>
+  <string name="profile_preferences_duration">Süre</string>
   <string name="profile_preferences_afterDurationDo">Müddet bittince yapılacaklar</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Hiçbiri</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Tercihi geri al</string>
@@ -367,7 +367,7 @@
   <string name="event_preferences_sms_contacts">Kişiler</string>
   <string name="toast_events_restarted">Durumlar tekrar başladı</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Kalıcı bildirim</string>
-  <string name="phone_profiles_pref_notificationStatusBarCancel">(Saniye) Sonra iptal et</string>
+  <string name="phone_profiles_pref_notificationStatusBarCancel">Sonra iptal et</string>
   <string name="event_name_background_profile">Varsayılan tercih</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">PPHelper\'ın kaldırılması için kök izni lazım</string>
   <string name="phoneprofilehepler_reboot_title_uninstall">PPHelper\'ı kaldır</string>
@@ -466,7 +466,7 @@
   <string name="profile_preferences_zenMode_none_summary">Kesinti yok. Alarm da dahil</string>
   <string name="profile_preferences_zenMode_priority_summary">öncelik yalnızca kesintiler</string>
   <string name="profile_preferences_zenMode_all_summary">Kesintilerin tamamı</string>
-  <string name="event_preferences_duration">Süre (sn)</string>
+  <string name="event_preferences_duration">Süre</string>
   <string name="pref_event_duration">Süre</string>
   <string name="applications_multiselect_summary_text_selected">Seçilen</string>
   <string name="applications_multiselect_summary_text_not_selected">Seçilmedi</string>
@@ -539,10 +539,10 @@
   <string name="array_pref_powerSaveMode_off">Kapalı</string>
   <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Pil %5 iken aç</string>
   <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Pil %15 iken aç</string>
-  <string name="important_info_profile_ringerMode_root">(Marshmallow) Android 6\'da sistem ayarı olan \"Çalarken titret\"i değiştirmek, kök erişimi olmayan cihazlarda mümkün değildir.</string>
-  <string name="important_info_profile_adaptiveBrightness_root">(Marshmallow) Android 6\'da sistem ayarı olan \"Otomatik parlaklık\"ı değiştirmek, kök erişimi olmayan cihazlarda mümkün değildir.</string>
-  <string name="important_info_profile_wifiScanning_location">(Marshmallow) Android 6\'da Wi-Fi tarama için \"Sistem Ayarları\" → \"Konum\" → \"Konum ve Wi-Fi tarama\" ayarlarında PhoneProfilesPlus\'a izin verilmelidir.</string>
-  <string name="important_info_profile_bluetoothScanning_location">(Marshmallow) Android 6\'da Bluetooth LE tarama için \"Sistem Ayarları\" → \"Konum\" → \"Konum ve Bluetooth tarama\" ayarlarında PhoneProfilesPlus\'a izin verilmelidir.</string>
+  <string name="important_info_profile_ringerMode_root">Android 6\'da sistem ayarı olan \"Çalarken titret\"i değiştirmek, kök erişimi olmayan cihazlarda mümkün değildir.</string>
+  <string name="important_info_profile_adaptiveBrightness_root">Android 6+\'da sistem ayarı olan \"Otomatik parlaklık\"ı değiştirmek, kök erişimi olmayan cihazlarda mümkün değildir.</string>
+  <string name="important_info_profile_wifiScanning_location">Android 6+\'da Wi-Fi tarama için \"Sistem Ayarları\" → \"Konum\" → \"Konum ve Wi-Fi tarama\" ayarlarında PhoneProfilesPlus\'a izin verilmelidir.</string>
+  <string name="important_info_profile_bluetoothScanning_location">Android 6+\'da Bluetooth LE tarama için \"Sistem Ayarları\" → \"Konum\" → \"Konum ve Bluetooth tarama\" ayarlarında PhoneProfilesPlus\'a izin verilmelidir.</string>
   <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Güç tasarrufu modu</string>
   <string name="event_preferences_bluetooth_devices_type">Taranan cihazların türü</string>
   <string name="array_event_pref_bluetoothDevicesType_classic">Klasik enerjili [CL]</string>
@@ -581,7 +581,7 @@
   <string name="important_info_profile_activation_text11">- Kırmızı renk parlak: Durumlar durduruldu - Düzenleyici menüsündeki \"Durumların çalışmasına izin ver\" maddesi ile Durumların çalışmasına izin verilebilir.</string>
   <string name="important_info_profile_activation_restart_events_icon">Durumları tekrar başlat simgesi:</string>
   <string name="important_info_profile_activation_traffic_light_icon">\"Trafik ışığı\" simgesi:</string>
-  <string name="important_info_android_doze_mode">Android 6\'da \"Doze modu\" ve \"Uygulama bekletme\" uygulanmaktadır. Durumlar vasıtasıyla tercihi faaliyete geçirmede sorun yaşanırsa șunlara dikkat edin:\nEğer cihazı bir süre şarja takmadan ekranı kapalı bırakıyorsanız, sistem Pil ayarlarında \"Pil\" → \"Pil en iyi duruma getirme\" → \"En iyi duruma getirilmedi\" ayarlarında PhoneProfilesPlus\'ı eklemeniz lazımdır.</string>
+  <string name="important_info_android_doze_mode">Android 6+\'da \"Doze modu\" ve \"Uygulama bekletme\" uygulanmaktadır. Durumlar vasıtasıyla tercihi faaliyete geçirmede sorun yaşanırsa șunlara dikkat edin:\nEğer cihazı bir süre şarja takmadan ekranı kapalı bırakıyorsanız, sistem Pil ayarlarında \"Pil\" → \"Pil en iyi duruma getirme\" → \"En iyi duruma getirilmedi\" ayarlarında PhoneProfilesPlus\'ı eklemeniz lazımdır.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Çalarken titret</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">Android 6\'da bu sistem ayarı yalnızca kök erişimli (root edilmiş) cihazlarda değiştirilebilir. Etkilenenler zil modları ve titreşimli kesinti türleridir.</string>
   <string name="info_notification_event_states">Durum, 5 vaziyette olabilir:</string>
@@ -642,7 +642,7 @@
   <string name="profile_preferences_deviceNetworkType">(R) Şebeke ağ türü</string>
   <string name="array_pref_powerSaveMode_useSystem">Pil tasarrufunu kullan</string>
   <string name="phone_profiles_pref_applicationBatterySaver">Pil Tasarrufu</string>
-  <string name="phone_profiles_pref_applicationBatterySaver_system">Sistem ayarları yapılandırması</string>
+  <string name="phone_profiles_pref_applicationBatterySaver_system">Sistem Ayarları değişiklikleri</string>
   <string name="phone_profiles_pref_notificationTextColor">Bildirim metin rengi</string>
   <string name="array_pref_color_white">Beyaz</string>
   <string name="array_pref_color_black">Siyah</string>
@@ -700,7 +700,7 @@
   <string name="about_application_source_code">Kaynak kodu:</string>
   <string name="about_application_transaltions">Tercümeler:</string>
   <string name="about_application_rate_in_gplay">Lütfen bu uygulamaya Google Play\'de puan veriniz</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">Uygulama, sistemde yapılandırılmış dili kullanır.</string>
+  <string name="phone_profiles_pref_systemLanguage_summary">Uygulama, sistemde ayarlanmış dili kullanır.</string>
   <string name="permission_group_name_access_notification_policy">Rahatsız Etmeyin Modu\'na erişim</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">\"Rahatsız Etmeyin Modu\'na erişim\"e izin vermediniz. Bunun için tekrar sorulmasın mı?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Rahatsız Etmeyin Modu\'na erişim</string>
@@ -741,8 +741,8 @@
   <string name="preference_not_allowed_reason_service_not_found">\"hizmet\" aracı bulunamadı</string>
   <string name="preference_not_allowed_reason_not_supported">sistem tarafından imkânsız</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Şebeke hücrelerinin kaydı</string>
-  <string name="wifi_ssid_pref_dlg_configured_ssids_chb">Sistemde yapılandırılmış SSID\'lerin tamamı</string>
-  <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">Sistemde yapılandırılmış Bluetooth isimlerinin tamamı</string>
+  <string name="wifi_ssid_pref_dlg_configured_ssids_chb">Sistemde ayarlanmış SSID\'lerin tamamı</string>
+  <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">Sistemde ayarlanmış Bluetooth isimlerinin tamamı</string>
   <string name="wifi_ssid_pref_dlg_all_ssids_chb">SSID\'lerin tamamı</string>
   <string name="bluetooth_name_pref_dlg_all_bt_names_chb">Bluetooth isimlerinin tamamı</string>
   <string name="editor_drawer_list_item_events_start_order">Başlama sırası</string>
@@ -750,14 +750,14 @@
   <string name="info_notification_event_priority_new">4. Her Durumun \"Öncelik\"i vardır. Daha yüksek öncelik ile çalışan başka bir Durum varsa istenen Durum başlatılmaz.</string>
   <string name="info_notification_event_start_order">Durumlar \"Başlama sırası\" ile çalışır. Durumların başlama sırasını Düzenleyici\'deki durumlar görünümünde \"Başlama sırası\" kısmında ayarlayabilirsiniz. Bu görünümde, durumu \"Sıra düzenleyici\" vasıtasıyla yukarı/aşağı sürükleyebilirsiniz.</string>
   <string name="info_notification_event_start_order_handler_icon">Sıra düzenleyici:</string>
-  <string name="info_notification_activate_profile_from_tasker">Tercihi, Tasker uygulamasından faal edebilirsiniz. \"System\"/\"Send Intent\" vazifesini şu değerler ile yapılandırın:</string>
+  <string name="info_notification_activate_profile_from_tasker">Tercihi, Tasker uygulamasından faal edebilirsiniz. \"System\"/\"Send Intent\" vazifesini şu değerler ile ayarlayın:</string>
   <string name="phone_profiles_pref_notificationHideInLockscreen">Kilit ekranında gizle</string>
   <string name="phone_profiles_pref_deleteOldActivityLogs">Eski faaliyet kütüklerini (günler) sil</string>
   <string name="phone_profiles_pref_applicationWidgetIconBackground">Arkaplan șeffaflığı (widget)</string>
   <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Arkaplan hafifliği (widget)</string>
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Metin hafifliği (widget)</string>
   <string name="altype_eventStop">durum durdurma</string>
-  <string name="info_notification_manage_events_from_tasker">Durumları Tasker uygulamasından yönetebilirsiniz. \"System\"/\"Send Intent\" vazifesini şu değerler ile yapılandırın:</string>
+  <string name="info_notification_manage_events_from_tasker">Durumları Tasker uygulamasından yönetebilirsiniz. \"System\"/\"Send Intent\" vazifesini şu değerler ile ayarlayın:</string>
   <string name="info_notification_manage_events_from_tasker_restart_events">- Durumları tekrar başlatmak için:</string>
   <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- Durumların çalışmasına izin vermek için:</string>
   <string name="info_notification_manage_events_from_tasker_pause_event">- Durumlara fasıla vermek için:</string>
@@ -811,7 +811,7 @@
   <string name="permissions_draw_overlays_not_allowed_confirm">\"Diğer uygulamaların üzerinde çalış\"a izin vermediniz. Bunun için tekrar sorulmasın mı?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Diğer uygulamaların üzerinde çalış</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Lütfen \"PhoneProfilesPlus\" uygulamasını bulup izin verin.</string>
-  <string name="preference_not_allowed_reason_not_configured_in_system_settings">sistem ayarlarında yapılandırılmamış</string>
+  <string name="preference_not_allowed_reason_not_configured_in_system_settings">sistem ayarlarında ayarlanmamış</string>
   <string name="important_into_huawei_protected_apps">Cihazınız Huawei ise, lütfen PhoneProfilesPlus korunmasını, \"Gelişmiş Ayarlar\" → \"Pil Yöneticisi\" → \"Korunan uygulamalar\"da etkinleştirin. Bu olmadan, uygulamanız düzgün çalışmaz.</string>
   <string name="important_into_xiaomi_no_restrictions">Cihazınız Xiaomi ise, lütfen \"Kısıtlama yok\" ayarında, PhoneProfilesPlus için \"Ayarlar\" → \"Pil &amp; performans\" → \"Uygulama pil kullanımı yöneticisi\" → \"Uygulamaları Seç\"te ayarlayın. Bu olmadan, uygulamanız düzgün çalışmaz.</string>
   <string name="important_into_samsung_no_save_power">Cihazınız Samsung ise, lütfen \"Uygulama güç tasarrufu\"nu PhoneProfilesPlus için \"Ayarlar\" → \"Pil\" → \"Uygulama güç tasarrufu\" → \"Ayrıntı\"dan kapatın. Bu olmadan, uygulamanız düzgün çalışmaz.</string>
@@ -828,7 +828,7 @@
   <string name="editor_event_list_item_event_status">Durum göstergesi</string>
   <string name="editor_event_list_item_profile_start_icon">Durum tercih başlatma simgesi</string>
   <string name="editor_event_list_item_profile_end_icon">Durum tercih bitirme simgesi</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">Her bir tercihin değerleri için, Paylaşılan tercihi ayarlayabilirsiniz. Paylaşılan tercih değerlerini yapılandırmak için buraya dokunun.</string>
+  <string name="profile_preferences_sourceProfileInfo_summary">Herbir tercih şartını, \"Paylaşılan Tercih\"i kullanmak için ayarlayabilirsiniz. faaliyete geçirme sırasında değerler, paylaşılan tercihten kullanılacaktır. Paylaşılan tercih şartlarını ayarlamak için buraya dokunun.</string>
   <string name="run_stop_events_indicator">Durumları Çalıştır/Durdur başlatma göstergesi</string>
   <string name="run_stop_indicator_popup_window_important_infos">Daha fazla malumat için \"Mühim malumat\"a bakın (Düzenleyici alt araç çubuğundaki soru işareti simgesine dokunun).</string>
   <string name="important_info_how_to_show_ppp">Bu mühim malumat, Düzenleyici üzerinde araç çubuğundaki soru işareti simgesi vasıtasıyla da görüntülenebilir.</string>
@@ -838,7 +838,7 @@
   <string name="preference_not_allowed_reason_detail_secure_lock">mümkün olmayan güvenlik kilidi</string>
   <string name="preference_not_allowed_reason_detail_cant_be_change">değiştirilemez</string>
   <string name="event_preferences_sensorsInfo_title">Sensör kabiliyetleri</string>
-  <string name="event_preferences_sensorsInfo_summary">\"Sensöre izin ver\" şartı ile işaretlenmiş sensörlerin tamamının değerleri karşılanınca durum başlatılır. Eğer herhangi bir sensör değeri karşılanmazsa çalışan durum sona erecek. Bu durumda sadece ihtiyaç duyulan sensörler için \"Sensöre izin ver\"i seçin. \"Sensöre izin ver\" ile seçilmiş sensör ismi, kalın metin ile işaretlenir.\n\nBazı sensör değerleri lüzumludur. Lüzumlu değer ismi, altı çizili metin ile işaretlenir. Lüzumlu herhangi bir değer yapılandırılmadı ise durum başlatılmaz ve \"Sensöre izin ver\" değeri işaretlenmemiş demektir.</string>
+  <string name="event_preferences_sensorsInfo_summary">\"Sensöre izin ver\" şartı ile işaretlenmiş sensörlerin tamamının değerleri karşılanınca durum başlatılır. Eğer herhangi bir sensör değeri karşılanmazsa çalışan durum sona erecek. Bu durumda sadece ihtiyaç duyulan sensörler için \"Sensöre izin ver\"i seçin. \"Sensöre izin ver\" ile seçilmiş sensör ismi, kalın metin ile işaretlenir.\n\nBazı sensör değerleri lüzumludur. Lüzumlu değer ismi, altı çizili metin ile işaretlenir. Lüzumlu herhangi bir değer ayarlanmadı ise durum başlatılmaz ve \"Sensöre izin ver\" değeri işaretlenmemiş demektir.</string>
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Renkli simge</string>
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Bazı cihazlar durum çubuğundaki renkli simgelere imkân vermez.</string>
   <string name="pref_dlg_change_selection_title">Seçimi değiştir</string>
@@ -854,18 +854,18 @@
   <string name="profile_preferences_category_profileActivationParameters">Faaliyet değerleri</string>
   <string name="profile_preferences_category_profileDeviceParameters">Cihaz değerleri</string>
   <string name="profile_preferences_volumeNotificationVolume0_title">Bildirim sesini değiştir</string>
-  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Bildirim sesi \"PhoneProfiles Sessiz\" olarak yapılandırıldı.</string>
-  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Gerçek sessiz bildirimleri için bildirim ses hacmi = 0 şartı \"PhoneProfiles sessiz\"i bildirim sesi olarak yapılandırmaktır.</string>
-  <string name="profile_preferences_volumeNotificationVolume0_question">Bildirim sesi \"PhoneProfiles Sessiz\" olarak yapılandırılsın mı?</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Bildirim sesi \"PhoneProfiles Sessiz\" olarak ayarlandı.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Gerçek sessiz bildirimleri için bildirim ses hacmi = 0 şartı \"PhoneProfiles sessiz\"i bildirim sesi olarak ayarlanmaktır.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_question">Bildirim sesi \"PhoneProfiles Sessiz\" olarak ayarlansın mı?</string>
   <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Bildirim sesi \"PhoneProfiles Sessiz\" yüklü değil. Lütfen Düzenleyici menüsünden tekrar yüklemeyi bir deneyin.</string>
-  <string name="info_notification_unlink_ringer_notification_volumes">Cihazınızın zil ve bildirim ses hacimleri birleştirilmiş. \"Zil ve bildirim ses hacimlerini ayır\"ı kullanabilirsiniz. Yapılandırmak için buraya dokunun.</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Cihazınızın zil ve bildirim ses hacimleri birleştirilmiş. \"Zil ve bildirim ses hacimlerini ayır\"ı kullanabilirsiniz. Ayarlamak için buraya dokunun.</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Cihazınızın zil ve bildirim ses hacimleri birleştirilmiş. Ses hacimlerini ayırmak isterseniz bu değeri işaretleyin.</string>
   <string name="phone_profiles_pref_eventUsePriorityAppSettings">Öncelik kullan</string>
   <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Uygulama ayarlarında \"Öncelik\" değerini kullanmaya izin verin.</string>
   <string name="phone_profiles_pref_notificationStatusBarNew">Durum çubuğu bildirimi</string>
-  <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Şu anda yapılandırılan:</string>
+  <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Şu anda ayarlanan:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Zil sesi hacmi = 0</string>
-  <string name="profile_preferences_volumeRingtone0Info_summary">Zil sesi hacmi = 0 cihazı sessiz moda yapılandırır. Bildirim hacmi göz ardı edilir.</string>
+  <string name="profile_preferences_volumeRingtone0Info_summary">Zil sesi hacmi = 0 cihazı sessiz moda ayarlar. Bildirim hacmi göz ardı edilir.</string>
   <string name="phone_profiles_pref_notificationStatusBarInfo_title">Mühim malumat!</string>
   <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Devam eden durum çubuğu bildirimi için PhoneProfilesHizmeti lüzumludur. Bildirim ile PhoneProfilesHizmeti \"ön plan hizmetine\" değiştirilir. Ve bu tür bir hizmet Android tarafından bitirilemez. PhoneProfilesHizmeti\'nin kalıcı olarak çalışması lazım değildir.</string>
   <string name="phone_profiles_pref_notificationStatusBarRequired">PhoneProfilesHizmeti arka plan hizmeti için lüzumludur</string>
@@ -918,8 +918,8 @@
   <string name="editor_activity_targetHelps_eventOrderHandler_title">Sıra düzenleyici</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Durumun \"Başlatma sırası\"nı değiştirmek için bununla durumu yukarı/aşağı sürükleyin.</string>
   <string name="activator_activity_targetHelps_editor_title">Düzenleyici</string>
-  <string name="activator_activity_targetHelps_editor_description_ppp">Düzenleyici\'yi açmak için buna dokunun. Düzenleyicide tercihleri, durumları, uygulama ayarlarını değiştirmeyi… ayarlayabilirsiniz.</string>
-  <string name="activator_activity_targetHelps_editor_description_pp">Düzenleyici\'yi açmak için buna dokunun. Düzenleyicide tercihleri, uygulama ayarlarını değiştirmeyi… ayarlayabilirsiniz.</string>
+  <string name="activator_activity_targetHelps_editor_description_ppp">Tercihleri, durumları, uygulama ayarlarını vs. ayarlayabileceğiniz Düzenleyici\'yi açmak için buna dokunun.</string>
+  <string name="activator_activity_targetHelps_editor_description_pp">Tercihleri, durumları, uygulama ayarlarını vs. ayarlayabileceğiniz Düzenleyici\'yi açmak için buna dokunun.</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Tercihi faal yap</string>
   <string name="activator_activity_targetHelps_activateProfile_description">Tercihi faal yapmak için buraya dokunun.</string>
   <string name="profile_preference_activity_targetHelps_save_title">Tercihi Kaydet</string>
@@ -947,7 +947,7 @@
   <string name="profile_preferences_lockDevice_deviceAdminSettings_summary_activated">Zaten izin verilmiş</string>
   <string name="lockDevice_screenOff_text">Hızlı ekran kapatma kilidi</string>
   <string name="event_preferences_calendar_start_before_event">Olaydan önce başlat</string>
-  <string name="event_preferences_startBeforeEvent">Olaydan (sn.) önce başlat</string>
+  <string name="event_preferences_startBeforeEvent">Olaydan önce başlat</string>
   <string name="event_preferences_category_eventRadioSwitchParameters">Radyo değerleri</string>
   <string name="event_preference_sensor_radioSwitch_summary">Bu sensör, durumun radyoların (açık/kapalı) geçişi yaparken başlatılması içindir. Değerler: Wi-fi, Bluetooth, Şebeke interneti GPS, NFC, Uçak modu.</string>
   <string name="event_type_radioSwitch">Radyolar</string>
@@ -1038,25 +1038,25 @@
   <string name="important_info_quick_guide_1">PhoneProfilesPlus (PPP) iki parçaya sahiptir:</string>
   <string name="important_info_quick_guide_2">1. <b>Tercihler:</b> Hangi cihaz ayarlarının değiştirileceğini tayin eder.</string>
   <string name="important_info_quick_guide_3">1. <b>Durumlar:</b> Cihaz ayarlarının hangi durumlarda değiştirileceğini tayin eder.</string>
-  <string name="important_info_quick_guide_profiles_1"><b>Tercihler:</b> Zil modu, ses seviyeleri, zil ve bildirim sesleri, radyolar (Wi-Fi, Bluetooth, mobil veri, vb.) gibi cihaz ayarlarını yapılandırmaya izin verin. Bir tercih faal olduğunda, bu tercihle alakalı ayarlar kalıcıdır. Ayarları değiştirmek istiyorsanız, başka bir tercih faaliyete geçirilmelidir.</string>
+  <string name="important_info_quick_guide_profiles_1"><b>Tercihler:</b> Zil modu, ses seviyeleri, zil ve bildirim sesleri, radyolar (Wi-Fi, Bluetooth, mobil veri, vb.) gibi cihaz ayarlarını değiştirmeye izin verin. Bir tercih faal olduğunda, bu tercihle alakalı ayarlar kalıcıdır. Ayarları değiştirmek istiyorsanız, başka bir tercih faaliyete geçirilmelidir.</string>
   <string name="important_info_quick_guide_profiles_2">Tercihler, el ile veya bir Durum tarafından faaliyete geçirilebilir.</string>
   <string name="important_info_quick_guide_profiles_3">PPP Muharrik vasıtasıyla El ile bir tercihi faaliyete geçirebilirsiniz (açılır penceredeki kullanılabilir tercih listesi ile). Muharrik, PPP başlatma simgesi, PPP bildirim, PPP widgetleri, DashClock widget ve Samsung Edge cihazlarında kenar paneli vasıtasıyla görüntülenebilir. PPP 4 x 4 widget, tercih kısayolu veya Samsung Edge cihazlarda kenar paneli ile doğrudan bir tercihi faaliyete geçirebilirsiniz.</string>
-  <string name="important_info_quick_guide_events_1"><b>Durumlar:</b> Bir tercih faaliyete geçtiğinde neler yapılacağını ayarlamanızı sağlar. Durumların bir başlangıç ve bir bitişi vardır. Bir durumun başında ve sonunda olacağını yapılandırabilirsiniz.</string>
-  <string name="important_info_quick_guide_events_2">Durumlar, daha önce tetiklenen bir durumdan önce yerine getirilmesi gereken önemli sensör yapılandırma değerlerini içerir. Herhangi bir sensör geçemezse durum sona erer (fasıla).</string>
+  <string name="important_info_quick_guide_events_1"><b>Durumlar:</b> Bir tercih faaliyete geçtiğinde neler yapılacağını ayarlamanızı sağlar. Durumların bir başlangıç ve bir bitişi vardır. Bir durumun başında ve sonunda olacağını ayarlayabilirsiniz.</string>
+  <string name="important_info_quick_guide_events_2">Durumlar, daha önce tetiklenen bir durumdan önce yerine getirilmesi gereken önemli sensör ayarlama değerlerini içerir. Herhangi bir sensör geçemezse durum sona erer (fasıla).</string>
   <string name="important_info_quick_guide_sensors_1">Sensör örnekleri:</string>
   <string name="important_info_quick_guide_sensors_2"><b>• Zaman değerleri:</b> Haftanın belirli bir gününde veya belirli bir zamanda Başlangıç ve Bitiş.</string>
   <string name="important_info_quick_guide_sensors_3"><b>• Wi-Fi değerleri:</b>Wi-Fi SSID (yakın bağlı, cihaz) ile Başlangıç ve Bitiş. Yakınımdaki özelliği, cihaz konumunu tesbit etmede faydalıdır. Misalen: cihaz ev Wi-Fi ağı tarama aralığı içinde olduğunda Durum başlar.</string>
   <string name="important_info_quick_guide_sensors_4"><b>• Bluetooth değerleri:</b> Wi-Fi değerlerine benzer. Araba Bluetooth için kullanışlıdır.</string>
   <string name="important_info_quick_guide_sensors_5"><b>• Konum değerleri:</b> Cihaz konumu (GPS) ile Başlangıç ve Bitiş. Cihaz sistem ayarlarında konum hizmetlerini açmanız gerekir.</string>
   <string name="important_info_quick_guide_sensors_6"><b>• Mobil hücre değerleri:</b> Mobil telefon verici baz istasyonları bağlantısı veya bağlantısının kesilmesi ile Başlangıç ve Bitiş.</string>
-  <string name="important_info_quick_guide_sensors_7"><b>• Arama değerleri:</b> Yapılandırılmış kişiler ile Başlangıç ve bitiş. Misalen seçilen kişi aradığında.</string>
+  <string name="important_info_quick_guide_sensors_7"><b>• Arama değerleri:</b> Ayarlanmış kişiler ile Başlangıç ve bitiş. Misalen seçilen kişi aradığında.</string>
   <string name="important_info_quick_guide_sensors_8"><b>• Aksesuarları değerleri:</b> Misalen, kulaklık bağlandığında, bir durumu başlatmak.</string>
   <string name="important_info_quick_guide_sensors_9"><b>• NFC değerleri:</b> Bir durumu NFC etiketleri ile başlatın.</string>
   <string name="important_info_quick_guide_events_3">El ile bir tercih (bir Durum tarafından değil) faaliyete geçirirseniz, çalışan durumların tamamı sona erer (fasıla verir). Durumlar, el ile tercih faaliyete geçirme müddetince başlatılamaz. Fakat, bu hareketi \"El ile faaliyete geçirmeyi ihmal et\" durum değeri ayarı hükümsüz kılabilirsiniz.</string>
-  <string name="important_info_quick_guide_editor_1">Tercih ve Durumlar, Muharrik ile ulaşılabilen Düzenleyici\'de yapılandırılır. Düzenleyici içinde tercih ve durumları ekleme, çoğaltma, güncelleştirme ve silme işlemleri yapabilirsiniz. Düzenleyicide görünümünü değiştirmenize imkan sağlayan bir sol yan panel vardır. Tercih ve durum listeleri arasında geçiş yapmak için kullanın.</string>
+  <string name="important_info_quick_guide_editor_1">Tercih ve Durumlar, Muharrik ile ulaşılabilen Düzenleyici\'de ayarlanır. Düzenleyici içinde tercih ve durumları ekleme, çoğaltma, güncelleştirme ve silme işlemleri yapabilirsiniz. Düzenleyicide görünümünü değiştirmenize imkan sağlayan bir sol yan panel vardır. Tercih ve durum listeleri arasında geçiş yapmak için kullanın.</string>
   <string name="event_preferences_noPauseByManualActivation">El ile faaliyete geçirmeyle duraklatılmasın</string>
   <string name="event_preferences_noPauseByManualActivation_summary">Bu durum, el ile faaliyete geçirilmiş bir tercih çalışırken durmasın</string>
-  <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Etiket ismi yapılandırılmamış.</string>
+  <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Etiket ismi ayarlanmamış.</string>
   <string name="phone_profiles_pref_applicationLanguage_ar">عربى</string>
   <string name="phone_profiles_pref_applicationLanguage_bg">Български</string>
   <string name="phone_profiles_pref_applicationLanguage_hi">हिंदी</string>
@@ -1081,4 +1081,48 @@
   <string name="email_chooser">Şununla e-posta gönder:</string>
   <string name="web_browser_chooser">Şununla internet adresine bak:</string>
   <string name="google_play_chooser">Şununla Google Play\'e bak:</string>
+  <string name="preference_not_allowed_reason_not_extender_installed">PhoneProfilesPlusExtender yüklü değil</string>
+  <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">Erişilebilirlik ayarlarında PhoneProfilesPlusExtender\'a izin verilmemiş</string>
+  <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">\"Uygulamalar şartları\"nı faal edebilmek için sistem ayarlarında \"Erişilebilirlik\" tercihlerinde PhoneProfilesExtender\'a izin verin.</string>
+  <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">\"Uygulamalar için ihmal et\" değerleri açmak için \"Sistem Ayarları\" → \"Erişilebilirlik\" ayarlarında PhoneProfilesExtender\'a izin verin.</string>
+  <string name="event_preferences_applications_PPPExtender_title">PhoneProfilesPlusExtender</string>
+  <string name="event_preferences_applications_PPPExtender_install_summary">\"Uygulamalar\" şartlarına izin vermek için PhoneProfilesPlusExtender yüklemek için buraya dokunun.</string>
+  <string name="event_preferences_orientation_PPPExtender_title">PhoneProfilesPlusExtender</string>
+  <string name="event_preferences_orientation_PPPExtender_install_summary">\"Uygulamalar\" şartlarına izin vermeyi sağlayan PhoneProfilesPlusExtender\'ı yüklemek için buraya dokunun.</string>
+  <string name="event_preferences_applications_PPPExtender_upgrade_summary">Değişiklikleri kontrol etmek ve PhoneProfilesExtender\'ı güncellemek için buraya dokunun.</string>
+  <string name="event_preferences_orientation_PPPExtender_upgrade_summary">Değişiklikleri kontrol etmek ve PhoneProfilesExtender\'ı güncellemek için buraya dokunun.</string>
+  <string name="important_info_accessibility_service_text1">Erişebilirlik hizmetleri hakkında Google kuralları değişikliği sebebiyle, sensör durumları \"Uygulama şartları\" ve \"Ekran döndürme şartları\" için PhoneProfilesExtender\'ı yüklemeniz icab ediyor. Daha fazla malumat için bu sensörlerin şartlarına bakınız.</string>
+  <string name="about_application_extender_source_code">Kaynak kod - Extender:</string>
+  <string name="pref_dlg_info_about_wildcards_4">Daha fazla kelime ayarlayabilirsiniz. \"|\" karakteri ile ayırın.</string>
+  <string name="profile_preferences_sourceProfileInfoX_title">Paylaşılan tercih kabiliyeti.</string>
+  <string name="profile_preferences_sourceProfileInfoX_summary">Herbir tercih şartını, \"Paylaşılan Tercih\"i kullanmak için ayarlayabilirsiniz. Faaliyete geçirme sırasında değerler, paylaşılan tercihten kullanılacaktır.</string>
+  <string name="editor_activity_targetHelps_backgroundProfileButton_title">Varsayılan tercih</string>
+  <string name="editor_activity_targetHelps_backgroundProfileButton_description">Bu tercih herhangi bir durum çalışmıyorken faal olacak. Ayarlamak için buraya dokunun.</string>
+  <string name="mobile_cell_names_dialog_title">Hücre isimleri</string>
+  <string name="mobile_cell_names_dialog_filter_title">Hücre isimleri filtresi</string>
+  <string name="mobile_cell_names_dialog_item_show_selected">[ Seçilen ]</string>
+  <string name="mobile_cell_names_dialog_item_show_without_name">[ İsim hariç ]</string>
+  <string name="mobile_cell_names_dialog_item_show_new">[ Yeni (N) ]</string>
+  <string name="mobile_cell_names_dialog_item_show_all">[ Tamamı ]</string>
+  <string name="array_pref_change_selection_mobile_cells_select_all_visible">Görünenlerin tamamını seç</string>
+  <string name="array_pref_mobile_cells_rename_all_visible">Görünenlerin tamamı</string>
+  <string name="import_profiles_alert_error_database_newer_version">Yedeklenen veri tabanı yeni bir sürümde.</string>
+  <string name="phone_profiles_pref_backgroundProfileNotificationSound">Varsayılan tercih: Bildirim sesi</string>
+  <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Varsayılan tercih: Titreşimle ikaz et</string>
+  <string name="profile_preferences_durationNotificationSound">Müddet sonu: Bildirim sesi</string>
+  <string name="profile_preferences_durationNotificationVibrate">Müddet sonu: Titreşimle ikaz et</string>
+  <string name="array_event_pref_missed_call">Cevapsız çağrı</string>
+  <string name="start_event_notification_title">Event started</string>
+  <string name="start_event_notification_text1">Event name</string>
+  <string name="start_event_notification_text2">Clear this notification to stop notifying it.</string>
+  <string name="event_preferences_notificationRepeat">Repeat notification</string>
+  <string name="event_preferences_notificationRepeatInterval">Repeat notification interval (minutes)</string>
+  <string name="duration_pref_dlg_activation_hours_label">Hours:</string>
+  <string name="duration_pref_dlg_activation_minutes_label">Minutes:</string>
+  <string name="duration_pref_dlg_activation_seconds_label">Seconds:</string>
+  <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>
+  <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Please enable Location and Wi-Fi scanning in System Settings. Without this, Wi-fi scanning will not work.</string>
+  <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Please enable Location and Bluetooth scanning in System Settings. Without this, Bluetooth scanning will not work.</string>
+  <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Keep Wi-Fi on\" system setting</string>
+  <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Please configure \"Keep Wi-Fi on during sleep\" to \"Always\". Without this, Wi-Fi scanning will not work during device sleep.</string>
 </resources>
