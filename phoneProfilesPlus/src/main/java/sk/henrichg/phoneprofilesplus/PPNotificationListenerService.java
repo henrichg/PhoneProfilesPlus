@@ -526,6 +526,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 }
             }
 
+            PPApplication.logE("PPNotificationListenerService.getNotificationPosted", "_packageName returned=null");
             return null;
         }
     }

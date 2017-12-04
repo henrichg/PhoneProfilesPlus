@@ -303,6 +303,7 @@ class EventPreferencesNotification extends EventPreferences {
     }
     */
 
+    /*
     @Override
     public void setSystemEventForStart(Context context)
     {
@@ -313,7 +314,7 @@ class EventPreferencesNotification extends EventPreferences {
 
         PPApplication.logE("EventPreferencesNotification.setSystemEventForStart","xxx");
 
-        //removeAlarm(context);
+        removeAlarm(context);
     }
 
     @Override
@@ -326,13 +327,14 @@ class EventPreferencesNotification extends EventPreferences {
 
         PPApplication.logE("EventPreferencesNotification.setSystemEventForPause","xxx");
 
-        //removeAlarm(context);
+        removeAlarm(context);
 
-        //if (!(isRunnable(context) && _enabled))
-        //    return;
+        if (!(isRunnable(context) && _enabled))
+            return;
 
-        //setAlarm(computeAlarm(), context);
+        setAlarm(computeAlarm(), context);
     }
+    */
 
     /*
     @Override
