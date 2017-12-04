@@ -27,7 +27,7 @@ class EventsHandler {
 
     private String eventSMSPhoneNumber;
     private long eventSMSDate;
-    private String eventNotificationPostedRemoved;
+    //private String eventNotificationPostedRemoved;
     private String eventNFCTagName;
     private long eventNFCDate;
 
@@ -732,9 +732,11 @@ class EventsHandler {
         eventSMSDate = date;
     }
 
+    /*
     void setEventNotificationParameters(String postedRemoved) {
         eventNotificationPostedRemoved = postedRemoved;
     }
+    */
 
     void setEventNFCParameters(String tagName, long date) {
         eventNFCTagName = tagName;

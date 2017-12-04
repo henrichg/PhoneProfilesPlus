@@ -176,7 +176,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                 if (location[0] + eventsRunStopIndicator.getWidth() - measuredW < 0)
                     x = -(location[0] + eventsRunStopIndicator.getWidth() - measuredW);
-                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","presah="+(location[0] + eventsRunStopIndicator.getWidth() - measuredW));
 
                 popup.setClippingEnabled(false);
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,

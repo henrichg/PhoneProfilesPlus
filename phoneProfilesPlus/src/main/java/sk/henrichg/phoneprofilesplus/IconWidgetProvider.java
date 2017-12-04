@@ -28,7 +28,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
         Profile profile = dataWrapper.getActivatedProfile();
 
-        // get all IconWidgetProvider widgets in laucher
+        // get all IconWidgetProvider widgets in launcher
         ComponentName thisWidget = new ComponentName(context, IconWidgetProvider.class);
         int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 

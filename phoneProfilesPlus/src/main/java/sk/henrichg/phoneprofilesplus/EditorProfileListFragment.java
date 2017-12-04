@@ -593,11 +593,6 @@ public class EditorProfileListFragment extends Fragment
             }
             else
             {
-                //Resources resources = getResources();
-                //int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
-                //int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
-                //Bitmap bitmap = BitmapResampler.resample(profile.getIconIdentifier(), width, height);
-                //activeProfileIcon.setImageBitmap(bitmap);
                 activeProfileIcon.setImageBitmap(profile._iconBitmap);
             }
         }

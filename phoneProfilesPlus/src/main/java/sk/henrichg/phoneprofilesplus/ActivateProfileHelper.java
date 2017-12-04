@@ -160,7 +160,7 @@ public class ActivateProfileHelper {
             }
         }
 
-        // setip WiFi AP
+        // setup WiFi AP
         boolean canChangeWifi = true;
         if (profile._deviceWiFiAP != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, context) == PPApplication.PREFERENCE_ALLOWED) {

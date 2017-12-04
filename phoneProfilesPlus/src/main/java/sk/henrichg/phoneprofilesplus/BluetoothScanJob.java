@@ -45,7 +45,7 @@ class BluetoothScanJob extends Job {
 
     @NonNull
     @Override
-    protected Result onRunJob(Params params) {
+    protected Result onRunJob(@NonNull Params params) {
         PPApplication.logE("BluetoothScanJob.onRunJob", "xxx");
 
         Context context = getContext();

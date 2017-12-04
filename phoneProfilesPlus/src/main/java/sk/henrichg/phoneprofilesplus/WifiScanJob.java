@@ -37,7 +37,7 @@ class WifiScanJob extends Job {
 
     @NonNull
     @Override
-    protected Result onRunJob(Params params) {
+    protected Result onRunJob(@NonNull Params params) {
         PPApplication.logE("WifiScanJob.onRunJob", "xxx");
 
         Context context = getContext();

@@ -23,7 +23,7 @@ class EventPreferencesBluetooth extends EventPreferences {
     static final int DTYPE_CLASSIC = 0;
     static final int DTYPE_LE = 1;
 
-    //static final String PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
+    //static final String PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS = "eventEnableBluetoothScanningAppSettings";
     static final String PREF_EVENT_BLUETOOTH_ENABLED = "eventBluetoothEnabled";
     private static final String PREF_EVENT_BLUETOOTH_ADAPTER_NAME = "eventBluetoothAdapterNAME";
     private static final String PREF_EVENT_BLUETOOTH_CONNECTION_TYPE = "eventBluetoothConnectionType";

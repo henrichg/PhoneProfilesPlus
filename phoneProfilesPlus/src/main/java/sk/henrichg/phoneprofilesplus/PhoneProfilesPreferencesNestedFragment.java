@@ -289,7 +289,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 }*/
             }
 
-            int locationMode = Settings.Secure.getInt(getActivity().getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
+            //int locationMode = Settings.Secure.getInt(getActivity().getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
 
             /*
             if (WifiScanJob.wifi == null)

@@ -978,14 +978,14 @@ class Permissions {
             try {
                 if (event._eventPreferencesCall._enabled || event._eventPreferencesOrientation._enabled) {
                     boolean grantedPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
-                    boolean grantedOtgoingCall = ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED;
+                    boolean grantedOutgoingCall = ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
                         if (!grantedPhoneState)
                             permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
-                        if (!grantedOtgoingCall)
+                        if (!grantedOutgoingCall)
                             permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
                     }
-                    return grantedPhoneState && grantedOtgoingCall;
+                    return grantedPhoneState && grantedOutgoingCall;
                 } else
                     return true;
             } catch (Exception e) {

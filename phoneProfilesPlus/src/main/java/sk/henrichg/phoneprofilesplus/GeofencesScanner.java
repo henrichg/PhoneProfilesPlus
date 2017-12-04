@@ -90,7 +90,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 }
                 mGoogleApiClient.disconnect();
             }
-            //useGPS = true; diconnect is called from scren on/off broadcast therefore not change this
+            //useGPS = true; disconnect is called from screen on/off broadcast therefore not change this
         } catch (Exception ignored) {}
     }
 

@@ -78,6 +78,7 @@ public class DonationFragment extends Fragment {
             }
         });
 
+        //noinspection SpellCheckingInspection
         String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2OCdv8Qm0HysEnlWAiKhNoQ7Xg9OfhHdJD9ERxlFEpKsGeToSqVbhojq4IuhTz7/vFf6QkxG/mYOMp+RbxKhiDrWIfk49hcUNT0sUNfsTNK580mU0PKmEyHDADw52kPLAlG9or/bqc/R9xhMqbsLTBzahkk8ybYmTAASDo1ksivemeFB5cNjQO+9aIDr90z7MjXp5JMPfnsMeWs800a83IEKd0J34cUpqxruPFKHqJZdgk9fM85BbV1xhv9E0uSMQFjbhHcL9D7xnX5CK9OSkkawzGvtuHuKgz24+/ItDyKoJuCm2lZCIbBxeOZtbHqGKBNblqW4w3n2ioetlMXjowIDAQAB";
 
         // Create the helper, passing it our context and the public key to verify signatures with
