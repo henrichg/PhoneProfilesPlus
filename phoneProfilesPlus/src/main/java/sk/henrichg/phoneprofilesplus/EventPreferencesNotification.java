@@ -1,9 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,9 +11,6 @@ import android.os.Build;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 class EventPreferencesNotification extends EventPreferences {
 
