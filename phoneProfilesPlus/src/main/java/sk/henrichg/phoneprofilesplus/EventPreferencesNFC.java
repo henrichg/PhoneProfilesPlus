@@ -315,51 +315,56 @@ class EventPreferencesNFC extends EventPreferences {
     private void setAlarm(long alarmTime, Context context)
     {
         if (!_permanentRun) {
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String result = sdf.format(alarmTime);
-            PPApplication.logE("EventPreferencesNFC.setAlarm", "endTime=" + result);
+            if (_startTime > 0) {
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(alarmTime);
+                PPApplication.logE("EventPreferencesNFC.setAlarm", "endTime=" + result);
 
-            Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
-            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
+                Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
+                //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-            if (alarmManager != null) {
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                else if (android.os.Build.VERSION.SDK_INT >= 19)
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                else
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+                if (alarmManager != null) {
+                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                    else if (android.os.Build.VERSION.SDK_INT >= 19)
+                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                    else
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                }
             }
         }
     }
 
     void saveStartTime(DataWrapper dataWrapper, String tagName, long startTime) {
-        PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagName=" + tagName);
+        if (this._startTime == 0) {
+            // alarm for end is not set
 
-        boolean tagFound = false;
+            PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagName=" + tagName);
 
-        String[] splits = this._nfcTags.split("\\|");
-        for (String tag : splits) {
-            if (tag.equals(tagName))
-                tagFound = true;
-        }
+            boolean tagFound = false;
 
-        PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagFound=" + tagFound);
+            String[] splits = this._nfcTags.split("\\|");
+            for (String tag : splits) {
+                if (tag.equals(tagName))
+                    tagFound = true;
+            }
 
-        if (tagFound)
-            this._startTime = startTime;
-        else
-        if (this._permanentRun)
-            this._startTime = 0;
+            PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagFound=" + tagFound);
 
-        dataWrapper.getDatabaseHandler().updateNFCStartTime(_event);
+            if (tagFound)
+                this._startTime = startTime;
+            else
+                this._startTime = 0;
 
-        if (tagFound) {
-            if (_event.getStatus() == Event.ESTATUS_RUNNING)
-                setSystemEventForPause(dataWrapper.context);
+            dataWrapper.getDatabaseHandler().updateNFCStartTime(_event);
+
+            if (tagFound) {
+                if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                    setSystemEventForPause(dataWrapper.context);
+            }
         }
     }
 

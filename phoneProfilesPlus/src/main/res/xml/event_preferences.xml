@@ -660,7 +660,7 @@
                 app:addShortcuts="0"
                 app:systemSettings="notifications"
                 android:dependency="eventNotificationEnabled" />
-            <CheckBoxPreference
+            <!--<CheckBoxPreference
                 android:key="eventNotificationEndWhenRemoved"
                 android:title="@string/event_preferences_notifications_end_when_removed"
                 android:defaultValue="false"
@@ -680,7 +680,7 @@
                 android:defaultValue="5"
                 henrichg:dMin="5"
                 henrichg:dMax="86400"
-                android:dependency="eventNotificationEnabled" />
+                android:dependency="eventNotificationEnabled" /> -->
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventApplicationCategory"

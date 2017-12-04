@@ -797,8 +797,8 @@ public class DataWrapper {
                     // for "push" events, set startTime to 0
                     event._eventPreferencesSMS._startTime = 0;
                     getDatabaseHandler().updateSMSStartTime(event);
-                    event._eventPreferencesNotification._startTime = 0;
-                    getDatabaseHandler().updateNotificationStartTime(event);
+                    //event._eventPreferencesNotification._startTime = 0;
+                    //getDatabaseHandler().updateNotificationStartTime(event);
                     event._eventPreferencesNFC._startTime = 0;
                     getDatabaseHandler().updateNFCStartTime(event);
                     event._eventPreferencesCall._startTime = 0;
@@ -2378,7 +2378,7 @@ public class DataWrapper {
                 (Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                if (!event._eventPreferencesNotification._endWhenRemoved) {
+                /*if (!event._eventPreferencesNotification._endWhenRemoved) {
 
                     if (event._eventPreferencesNotification._startTime > 0) {
                         // compute start time
@@ -2402,8 +2402,9 @@ public class DataWrapper {
                         if (sensorType.equals(EventsHandler.SENSOR_TYPE_NOTIFICATION))
                             notificationPassed = true;
                         else if (!event._eventPreferencesNotification._permanentRun) {
-                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_NOTIFICATION_EVENT_END))
+                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_NOTIFICATION_EVENT_END)) {
                                 notificationPassed = false;
+                            }
                             else
                                 notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
                         }
@@ -2411,16 +2412,16 @@ public class DataWrapper {
                             notificationPassed = nowAlarmTime >= startTime;
                     } else
                         notificationPassed = false;
-                } else {
+                } else {*/
                     notificationPassed = event._eventPreferencesNotification.isNotificationVisible(this);
-                }
+                //}
 
                 PPApplication.logE("[NOTIF] DataWrapper.doHandleEvents", "notificationPassed=" + notificationPassed);
 
-                if (!notificationPassed) {
+                /*if (!notificationPassed) {
                     event._eventPreferencesNotification._startTime = 0;
                     getDatabaseHandler().updateNotificationStartTime(event);
-                }
+                }*/
             }
             else {
                 ignoreNotification = true;

@@ -315,49 +315,52 @@ class EventPreferencesCall extends EventPreferences {
 
     private void setAlarm(long alarmTime, Context context) {
         if (!_permanentRun) {
-            @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String result = sdf.format(alarmTime);
-            PPApplication.logE("EventPreferencesSMS.setAlarm", "endTime=" + result);
+            if (_startTime > 0) {
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(alarmTime);
+                PPApplication.logE("EventPreferencesSMS.setAlarm", "endTime=" + result);
 
-            Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
-            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
+                Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
+                //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-            if (alarmManager != null) {
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                else if (android.os.Build.VERSION.SDK_INT >= 19)
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                else
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+                if (alarmManager != null) {
+                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                    else if (android.os.Build.VERSION.SDK_INT >= 19)
+                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                    else
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                }
             }
         }
     }
 
     void saveStartTime(DataWrapper dataWrapper) {
-        if (Permissions.checkContacts(dataWrapper.context)) {
-            ApplicationPreferences.getSharedPreferences(dataWrapper.context);
-            int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
-            long callTime = ApplicationPreferences.preferences.getLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
-            if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL) {
-                _startTime = callTime;
+        if (this._startTime == 0) {
+            // alarm for end is not set
+            if (Permissions.checkContacts(dataWrapper.context)) {
+                ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
+                long callTime = ApplicationPreferences.preferences.getLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
+                if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL) {
+                    _startTime = callTime;
 
-                dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
+                    dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
 
-                if (_event.getStatus() == Event.ESTATUS_RUNNING)
-                    setSystemEventForPause(dataWrapper.context);
-            }
-            else {
+                    if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                        setSystemEventForPause(dataWrapper.context);
+                } else {
+                    _startTime = 0;
+                    dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
+                }
+            } else {
                 _startTime = 0;
                 dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
             }
-        }
-        else {
-            _startTime = 0;
-            dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
         }
     }
 

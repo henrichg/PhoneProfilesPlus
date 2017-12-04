@@ -3974,10 +3974,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_ENABLED))) == 1);
                 eventPreferences._applications = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_APPLICATIONS));
-                eventPreferences._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_START_TIME)));
-                eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_DURATION));
-                eventPreferences._endWhenRemoved = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_END_WHEN_REMOVED))) == 1);
-                eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_PERMANENT_RUN))) == 1);
+                //eventPreferences._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_START_TIME)));
+                //eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_DURATION));
+                //eventPreferences._endWhenRemoved = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_END_WHEN_REMOVED))) == 1);
+                //eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_PERMANENT_RUN))) == 1);
             }
             cursor.close();
         }
@@ -4325,10 +4325,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         values.put(KEY_E_NOTIFICATION_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_NOTIFICATION_APPLICATIONS, eventPreferences._applications);
-        values.put(KEY_E_NOTIFICATION_START_TIME, eventPreferences._startTime);
-        values.put(KEY_E_NOTIFICATION_DURATION, eventPreferences._duration);
-        values.put(KEY_E_NOTIFICATION_END_WHEN_REMOVED, (eventPreferences._endWhenRemoved) ? 1 : 0);
-        values.put(KEY_E_NOTIFICATION_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
+        //values.put(KEY_E_NOTIFICATION_START_TIME, eventPreferences._startTime);
+        //values.put(KEY_E_NOTIFICATION_DURATION, eventPreferences._duration);
+        //values.put(KEY_E_NOTIFICATION_END_WHEN_REMOVED, (eventPreferences._endWhenRemoved) ? 1 : 0);
+        //values.put(KEY_E_NOTIFICATION_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -5041,6 +5041,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    /*
     void updateNotificationStartTime(Event event)
     {
         importExportLock.lock();
@@ -5111,6 +5112,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
+    */
 
     int getBluetoothDevicesTypeCount(int devicesType, int forceScan)
     {

@@ -206,8 +206,8 @@ class EventsHandler {
                 for (Event _event : eventList) {
                     _event._eventPreferencesSMS._startTime = 0;
                     dataWrapper.getDatabaseHandler().updateSMSStartTime(_event);
-                    _event._eventPreferencesNotification._startTime = 0;
-                    dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
+                    //_event._eventPreferencesNotification._startTime = 0;
+                    //dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
                     _event._eventPreferencesNFC._startTime = 0;
                     dataWrapper.getDatabaseHandler().updateNFCStartTime(_event);
                     _event._eventPreferencesCall._startTime = 0;
@@ -227,7 +227,7 @@ class EventsHandler {
                         }
                     }
                 }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                     if (sensorType.equals(SENSOR_TYPE_NOTIFICATION)) {
                         // search for notification events, save start time
                         PPApplication.logE("[NOTIF] EventsHandler.handleEvents", "search for notification events");
@@ -235,9 +235,6 @@ class EventsHandler {
                             if (_event.getStatus() != Event.ESTATUS_STOP) {
                                 if (_event._eventPreferencesNotification._enabled) {
                                     PPApplication.logE("[NOTIF] EventsHandler.handleEvents", "event._id=" + _event._id);
-                                    /*_event._eventPreferencesNotification.saveStartTime(dataWrapper,
-                                    intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),
-                                    intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));*/
                                     if (eventNotificationPostedRemoved.equals("posted"))
                                         _event._eventPreferencesNotification.saveStartTime(dataWrapper);
 
@@ -245,7 +242,7 @@ class EventsHandler {
                             }
                         }
                     }
-                }
+                }*/
                 if (sensorType.equals(SENSOR_TYPE_NFC_TAG)) {
                     // search for nfc events, save start time
                     PPApplication.logE("EventsHandler.handleEvents", "search for nfc events");

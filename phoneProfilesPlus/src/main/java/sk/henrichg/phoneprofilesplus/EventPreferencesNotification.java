@@ -22,34 +22,34 @@ import java.util.Calendar;
 class EventPreferencesNotification extends EventPreferences {
 
     String _applications;
-    long _startTime;
-    boolean _permanentRun;
-    int _duration;
-    boolean _endWhenRemoved;
+    //long _startTime;
+    //boolean _permanentRun;
+    //int _duration;
+    //boolean _endWhenRemoved;
 
     static final String PREF_EVENT_NOTIFICATION_ENABLED = "eventNotificationEnabled";
     private static final String PREF_EVENT_NOTIFICATION_APPLICATIONS = "eventNotificationApplications";
-    private static final String PREF_EVENT_NOTIFICATION_PERMANENT_RUN = "eventNotificationPermanentRun";
-    private static final String PREF_EVENT_NOTIFICATION_DURATION = "eventNotificationDuration";
-    private static final String PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED = "eventNotificationEndWhenRemoved";
+    //private static final String PREF_EVENT_NOTIFICATION_PERMANENT_RUN = "eventNotificationPermanentRun";
+    //private static final String PREF_EVENT_NOTIFICATION_DURATION = "eventNotificationDuration";
+    //private static final String PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED = "eventNotificationEndWhenRemoved";
 
     private static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategory";
 
     EventPreferencesNotification(Event event,
                                         boolean enabled,
-                                        String applications,
+                                        String applications/*,
                                         boolean permanentRun,
                                         int duration,
-                                        boolean endWhenRemoved)
+                                        boolean endWhenRemoved*/)
     {
         super(event, enabled);
 
         this._applications = applications;
-        this._permanentRun = permanentRun;
-        this._duration = duration;
-        this._endWhenRemoved = endWhenRemoved;
+        //this._permanentRun = permanentRun;
+        //this._duration = duration;
+        //this._endWhenRemoved = endWhenRemoved;
 
-        this._startTime = 0;
+        //this._startTime = 0;
     }
 
     @Override
@@ -57,11 +57,11 @@ class EventPreferencesNotification extends EventPreferences {
     {
         this._enabled = fromEvent._eventPreferencesNotification._enabled;
         this._applications = fromEvent._eventPreferencesNotification._applications;
-        this._permanentRun = fromEvent._eventPreferencesNotification._permanentRun;
-        this._duration = fromEvent._eventPreferencesNotification._duration;
-        this._endWhenRemoved = fromEvent._eventPreferencesNotification._endWhenRemoved;
+        //this._permanentRun = fromEvent._eventPreferencesNotification._permanentRun;
+        //this._duration = fromEvent._eventPreferencesNotification._duration;
+        //this._endWhenRemoved = fromEvent._eventPreferencesNotification._endWhenRemoved;
 
-        this._startTime = 0;
+        //this._startTime = 0;
     }
 
     @Override
@@ -71,9 +71,9 @@ class EventPreferencesNotification extends EventPreferences {
             Editor editor = preferences.edit();
             editor.putBoolean(PREF_EVENT_NOTIFICATION_ENABLED, _enabled);
             editor.putString(PREF_EVENT_NOTIFICATION_APPLICATIONS, this._applications);
-            editor.putBoolean(PREF_EVENT_NOTIFICATION_PERMANENT_RUN, this._permanentRun);
-            editor.putString(PREF_EVENT_NOTIFICATION_DURATION, String.valueOf(this._duration));
-            editor.putBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, _endWhenRemoved);
+            //editor.putBoolean(PREF_EVENT_NOTIFICATION_PERMANENT_RUN, this._permanentRun);
+            //editor.putString(PREF_EVENT_NOTIFICATION_DURATION, String.valueOf(this._duration));
+            //editor.putBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, _endWhenRemoved);
             editor.apply();
         }
     }
@@ -84,9 +84,9 @@ class EventPreferencesNotification extends EventPreferences {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             this._enabled = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
             this._applications = preferences.getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "");
-            this._permanentRun = preferences.getBoolean(PREF_EVENT_NOTIFICATION_PERMANENT_RUN, false);
-            this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_DURATION, "5"));
-            this._endWhenRemoved = preferences.getBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, false);
+            //this._permanentRun = preferences.getBoolean(PREF_EVENT_NOTIFICATION_PERMANENT_RUN, false);
+            //this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_DURATION, "5"));
+            //this._endWhenRemoved = preferences.getBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, false);
         }
     }
 
@@ -139,15 +139,15 @@ class EventPreferencesNotification extends EventPreferences {
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                 }
             }
-            descr = descr + "(S) "+context.getString(R.string.event_preferences_notifications_applications) + ": " + selectedApplications + "; ";
-            if (this._endWhenRemoved)
+            descr = descr + "(S) "+context.getString(R.string.event_preferences_notifications_applications) + ": " + selectedApplications;// + "; ";
+            /*if (this._endWhenRemoved)
                 descr = descr + context.getString(R.string.event_preferences_notifications_end_when_removed);
             else {
                 if (this._permanentRun)
                     descr = descr + context.getString(R.string.pref_event_permanentRun);
                 else
                     descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
-            }
+            }*/
         }
 
         return descr;
@@ -163,15 +163,15 @@ class EventPreferencesNotification extends EventPreferences {
                     GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, true);
                 }
             }
-            if (key.equals(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED)) {
+            /*if (key.equals(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED)) {
                 Preference preferencePermanentRun = prefMng.findPreference(PREF_EVENT_NOTIFICATION_PERMANENT_RUN);
                 Preference preferenceDuration = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
                 if (preferencePermanentRun != null)
                     preferencePermanentRun.setEnabled(value.equals("false"));
                 if (preferenceDuration != null)
                     preferenceDuration.setEnabled(value.equals("false"));
-            }
-            if (key.equals(PREF_EVENT_NOTIFICATION_PERMANENT_RUN)) {
+            }*/
+            /*if (key.equals(PREF_EVENT_NOTIFICATION_PERMANENT_RUN)) {
                 Preference preferenceEndWhenRemoved = prefMng.findPreference(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED);
                 Preference preferenceDuration = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
                 boolean endWhenRemoved = false;
@@ -181,42 +181,42 @@ class EventPreferencesNotification extends EventPreferences {
                 }
                 if (preferenceDuration != null)
                     preferenceDuration.setEnabled(value.equals("false") && (!endWhenRemoved));
-            }
+            }*/
         }
     }
 
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS) ||
-            key.equals(PREF_EVENT_NOTIFICATION_DURATION))
+        if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)/* ||
+            key.equals(PREF_EVENT_NOTIFICATION_DURATION)*/)
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
-        if (key.equals(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED)) {
+        /*if (key.equals(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true": "false", context);
-        }
-        if (key.equals(PREF_EVENT_NOTIFICATION_PERMANENT_RUN)) {
+        }*/
+        /*if (key.equals(PREF_EVENT_NOTIFICATION_PERMANENT_RUN)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true": "false", context);
-        }
+        }*/
     }
 
     @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_APPLICATIONS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_PERMANENT_RUN, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_DURATION, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_NOTIFICATION_PERMANENT_RUN, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_NOTIFICATION_DURATION, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, preferences, context);
     }
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         if (Event.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
-            EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled, this._applications,
-                                                        this._permanentRun, this._duration, this._endWhenRemoved);
+            EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled, this._applications/*,
+                                                        this._permanentRun, this._duration, this._endWhenRemoved*/);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -252,27 +252,27 @@ class EventPreferencesNotification extends EventPreferences {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             boolean enabled = PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
             ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
-            Preference endWhenRemovedPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED);
-            Preference permanentRunPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_PERMANENT_RUN);
-            Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
+            //Preference endWhenRemovedPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED);
+            //Preference permanentRunPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_PERMANENT_RUN);
+            //Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
             if (applicationsPreference != null) {
                 applicationsPreference.setEnabled(enabled);
                 applicationsPreference.setSummaryAMSDP();
             }
-            if (endWhenRemovedPreference != null)
+            /*if (endWhenRemovedPreference != null)
                 endWhenRemovedPreference.setEnabled(enabled);
             if (permanentRunPreference != null)
-                permanentRunPreference.setEnabled(enabled);
+                permanentRunPreference.setEnabled(enabled);*/
 
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (preferences != null) {
+            /*if (preferences != null) {
                 boolean endWhenRemoved = preferences.getBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, false);
                 enabled = enabled && (!endWhenRemoved);
                 boolean permanentRun = preferences.getBoolean(PREF_EVENT_NOTIFICATION_PERMANENT_RUN, false);
                 enabled = enabled && (!permanentRun);
                 if (durationPreference != null)
                     durationPreference.setEnabled(enabled);
-            }
+            }*/
             setCategorySummary(prefMng, preferences, context);
         }
         else {
@@ -283,6 +283,7 @@ class EventPreferencesNotification extends EventPreferences {
         }
     }
 
+    /*
     long computeAlarm()
     {
         PPApplication.logE("EventPreferencesNotification.computeAlarm","xxx");
@@ -300,6 +301,7 @@ class EventPreferencesNotification extends EventPreferences {
 
         return alarmTime;
     }
+    */
 
     @Override
     public void setSystemEventForStart(Context context)
@@ -311,7 +313,7 @@ class EventPreferencesNotification extends EventPreferences {
 
         PPApplication.logE("EventPreferencesNotification.setSystemEventForStart","xxx");
 
-        removeAlarm(context);
+        //removeAlarm(context);
     }
 
     @Override
@@ -324,14 +326,15 @@ class EventPreferencesNotification extends EventPreferences {
 
         PPApplication.logE("EventPreferencesNotification.setSystemEventForPause","xxx");
 
-        removeAlarm(context);
+        //removeAlarm(context);
 
-        if (!(isRunnable(context) && _enabled))
-            return;
+        //if (!(isRunnable(context) && _enabled))
+        //    return;
 
-        setAlarm(computeAlarm(), context);
+        //setAlarm(computeAlarm(), context);
     }
 
+    /*
     @Override
     public void removeSystemEvent(Context context)
     {
@@ -360,26 +363,29 @@ class EventPreferencesNotification extends EventPreferences {
     private void setAlarm(long alarmTime, Context context)
     {
         if (!_endWhenRemoved && !_permanentRun) {
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String result = sdf.format(alarmTime);
-            PPApplication.logE("EventPreferencesNotification.setAlarm", "endTime=" + result);
+            if (_startTime > 0) {
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(alarmTime);
+                PPApplication.logE("EventPreferencesNotification.setAlarm", "endTime=" + result);
 
-            Intent intent = new Intent(context, NotificationEventEndBroadcastReceiver.class);
-            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
+                Intent intent = new Intent(context, NotificationEventEndBroadcastReceiver.class);
+                //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-            if (alarmManager != null) {
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                else if (android.os.Build.VERSION.SDK_INT >= 19)
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                else
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+                if (alarmManager != null) {
+                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                    else if (android.os.Build.VERSION.SDK_INT >= 19)
+                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                    else
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                }
             }
         }
     }
+    */
 
     // search if any configured package names are visible in status bar
     boolean isNotificationVisible(DataWrapper dataWrapper) {
@@ -398,43 +404,49 @@ class EventPreferencesNotification extends EventPreferences {
         return false;
     }
 
+    /*
     void saveStartTime(DataWrapper dataWrapper) {
-        PPApplication.logE("EventPreferencesNotification.saveStartTime", "!_endWhenRemoved");
-        PPApplication.logE("EventPreferencesNotification.saveStartTime", "this._applications="+this._applications);
+        PPApplication.logE("EventPreferencesNotification.saveStartTime", "startTime="+this._startTime);
+        if (this._startTime == 0) {
+            // alarm for end is not set
 
-        // get all saved notifications
-        PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
+            PPApplication.logE("EventPreferencesNotification.saveStartTime", "this._applications=" + this._applications);
 
-        boolean notificationFound = false;
-        PostedNotificationData notification = null;
+            // get all saved notifications
+            PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
 
-        String[] splits = this._applications.split("\\|");
-        for (String split : splits) {
-            // get only package name = remove activity
-            String packageName = ApplicationsCache.getPackageName(split);
+            boolean notificationFound = false;
+            PostedNotificationData notification = null;
 
-            PPApplication.logE("EventPreferencesNotification.saveStartTime", "packageName="+packageName);
+            String[] splits = this._applications.split("\\|");
+            for (String split : splits) {
+                // get only package name = remove activity
+                String packageName = ApplicationsCache.getPackageName(split);
 
-            // search for package name in saved package names
-            notification = PPNotificationListenerService.getNotificationPosted(packageName);
-            PPApplication.logE("EventPreferencesNotification.saveStartTime", "notification="+notification);
-            if (notification != null) {
-                notificationFound = true;
-                break;
+                PPApplication.logE("EventPreferencesNotification.saveStartTime", "packageName=" + packageName);
+
+                // search for package name in saved package names
+                notification = PPNotificationListenerService.getNotificationPosted(packageName);
+                PPApplication.logE("EventPreferencesNotification.saveStartTime", "notification=" + notification);
+                if (notification != null) {
+                    notificationFound = true;
+                    break;
+                }
+            }
+
+            if (notificationFound)
+                _startTime = notification.time;
+            else
+                _startTime = 0;
+
+            dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
+
+            if (notificationFound) {
+                if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                    setSystemEventForPause(dataWrapper.context);
             }
         }
-
-        if (notificationFound)
-            _startTime = notification.time;
-        else
-            _startTime = 0;
-
-        dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
-
-        if (notificationFound) {
-            if (_event.getStatus() == Event.ESTATUS_RUNNING)
-                setSystemEventForPause(dataWrapper.context);
-        }
     }
+    */
 
 }

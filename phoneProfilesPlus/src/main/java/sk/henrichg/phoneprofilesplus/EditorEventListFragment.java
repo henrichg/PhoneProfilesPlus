@@ -739,7 +739,7 @@ public class EditorEventListFragment extends Fragment
             event._isInDelayEnd = dataWrapper.getDatabaseHandler().getEventInDelayEnd(event);
             dataWrapper.getDatabaseHandler().setEventCalendarTimes(event);
             dataWrapper.getDatabaseHandler().getSMSStartTime(event);
-            dataWrapper.getDatabaseHandler().getNotificationStartTime(event);
+            //dataWrapper.getDatabaseHandler().getNotificationStartTime(event);
             dataWrapper.getDatabaseHandler().getNFCStartTime(event);
             dataWrapper.getDatabaseHandler().getCallStartTime(event);
         }
