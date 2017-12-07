@@ -22,7 +22,7 @@ class AboutApplicationJob extends Job {
 
     static final int MAX_DONATION_NOTIFICATION_COUNT = 3;
 
-    private static CountDownLatch countDownLatch = null;
+    //private static CountDownLatch countDownLatch = null;
 
     @NonNull
     @Override
@@ -36,7 +36,7 @@ class AboutApplicationJob extends Job {
             // application is not started
             return Result.SUCCESS;
 
-        countDownLatch = new CountDownLatch(1);
+        //countDownLatch = new CountDownLatch(1);
 
         int daysAfterFirstStart = PPApplication.getDaysAfterFirstStart(context)+1;
         PPApplication.logE("AboutApplicationJob.onRunJob", "daysAfterFirstStart="+daysAfterFirstStart);
@@ -89,59 +89,70 @@ class AboutApplicationJob extends Job {
 
             PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
 
-            scheduleJob(/*context*/);
+            scheduleJob(/*context*/false);
         }
         else {
             PPApplication.setDonationNotificationCount(context, MAX_DONATION_NOTIFICATION_COUNT);
         }
 
+        /*
         try {
             countDownLatch.await();
         } catch (InterruptedException ignored) {
         }
         countDownLatch = null;
-        PPApplication.logE("AboutApplicationJob.onRunJob", "return");
+        PPApplication.logE("AboutApplicationJob.onRunJob", "return");*/
         return Result.SUCCESS;
     }
 
-    static void scheduleJob(/*final Context context*/) {
+    private static void _scheduleJob(/*final Context context*/) {
+        JobManager jobManager = null;
+        try {
+            jobManager = JobManager.instance();
+        } catch (Exception ignored) { }
+
+        if (jobManager != null) {
+            final JobRequest.Builder jobBuilder;
+            int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
+            PPApplication.logE("AboutApplicationJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
+            if (requestsForTagSize == 0) {
+                jobBuilder = new JobRequest.Builder(JOB_TAG);
+                // each 24 hours
+                jobBuilder.setPeriodic(TimeUnit.DAYS.toMillis(1));
+            } else
+                return;
+
+            PPApplication.logE("AboutApplicationJob.scheduleJob", "build and schedule");
+
+            try {
+                jobBuilder
+                        .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                        .build()
+                        .schedule();
+            } catch (Exception ignored) { }
+        }
+    }
+
+    static void scheduleJob(/*final Context context*/final boolean useHandler) {
         PPApplication.logE("AboutApplicationJob.scheduleJob", "xxx");
 
-        PhoneProfilesService.startHandlerThread();
-        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                JobManager jobManager = null;
-                try {
-                    jobManager = JobManager.instance();
-                } catch (Exception ignored) { }
-
-                if (jobManager != null) {
-                    final JobRequest.Builder jobBuilder;
-                    int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
-                    PPApplication.logE("AboutApplicationJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
-                    if (requestsForTagSize == 0) {
-                        jobBuilder = new JobRequest.Builder(JOB_TAG);
-                        // each 24 hours
-                        jobBuilder.setPeriodic(TimeUnit.DAYS.toMillis(1));
-                    } else
-                        return;
-
-                    PPApplication.logE("AboutApplicationJob.scheduleJob", "build and schedule");
-
-                    try {
-                        jobBuilder
-                                .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
-                                .build()
-                                .schedule();
-                    } catch (Exception ignored) { }
+        if (useHandler) {
+            PhoneProfilesService.startHandlerThread();
+            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    _scheduleJob();
+                    /*if (countDownLatch != null)
+                        countDownLatch.countDown();*/
                 }
-
-                if (countDownLatch != null)
-                    countDownLatch.countDown();
-            }
-        });
+            });
+        }
+        else {
+            _scheduleJob();
+            /*if (countDownLatch != null)
+                countDownLatch.countDown();*/
+        }
     }
 
     /*

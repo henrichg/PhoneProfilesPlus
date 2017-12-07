@@ -16,7 +16,7 @@ class SearchCalendarEventsJob extends Job {
     static final String JOB_TAG  = "SearchCalendarEventsJob";
     static final String JOB_TAG_SHORT  = "SearchCalendarEventsJob_short";
 
-    private static CountDownLatch countDownLatch = null;
+    //private static CountDownLatch countDownLatch = null;
 
     @NonNull
     @Override
@@ -30,7 +30,7 @@ class SearchCalendarEventsJob extends Job {
             // application is not started
             return Result.SUCCESS;
 
-        countDownLatch = new CountDownLatch(1);
+        //countDownLatch = new CountDownLatch(1);
 
         if (Event.getGlobalEventsRunning(appContext))
         {
@@ -50,14 +50,14 @@ class SearchCalendarEventsJob extends Job {
 
         }
 
-        SearchCalendarEventsJob.scheduleJob(/*appContext, */null, false);
+        SearchCalendarEventsJob.scheduleJob(/*appContext, */false,null, false);
 
-        try {
+        /*try {
             countDownLatch.await();
         } catch (InterruptedException ignored) {
         }
         countDownLatch = null;
-        PPApplication.logE("SearchCalendarEventsJob.onRunJob", "return");
+        PPApplication.logE("SearchCalendarEventsJob.onRunJob", "return");*/
         return Result.SUCCESS;
     }
 
@@ -96,25 +96,25 @@ class SearchCalendarEventsJob extends Job {
         }
     }
 
-    static void scheduleJob(/*final Context context, */final Handler _handler, final boolean shortInterval) {
+    static void scheduleJob(/*final Context context, */final boolean useHandler, final Handler _handler, final boolean shortInterval) {
         PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "shortInterval="+shortInterval);
 
-        if (_handler == null) {
+        if (useHandler && (_handler == null)) {
             PhoneProfilesService.startHandlerThread();
             final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
                     _scheduleJob(shortInterval);
-                    if (countDownLatch != null)
-                        countDownLatch.countDown();
+                    /*if (countDownLatch != null)
+                        countDownLatch.countDown();*/
                 }
             });
         }
         else {
             _scheduleJob(shortInterval);
-            if (countDownLatch != null)
-                countDownLatch.countDown();
+            /*if (countDownLatch != null)
+                countDownLatch.countDown();*/
         }
     }
 
@@ -126,25 +126,25 @@ class SearchCalendarEventsJob extends Job {
         } catch (Exception ignored) {}
     }
 
-    static void cancelJob(/*final Context context, */final Handler _handler) {
+    static void cancelJob(/*final Context context, */final boolean useHandler, final Handler _handler) {
         PPApplication.logE("SearchCalendarEventsJob.cancelJob", "xxx");
 
-        if (_handler == null) {
+        if (useHandler && (_handler == null)) {
             PhoneProfilesService.startHandlerThread();
             final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
                     _cancelJob();
-                    if (countDownLatch != null)
-                        countDownLatch.countDown();
+                    /*if (countDownLatch != null)
+                        countDownLatch.countDown();*/
                 }
             });
         }
         else {
             _cancelJob();
-            if (countDownLatch != null)
-                countDownLatch.countDown();
+            /*if (countDownLatch != null)
+                countDownLatch.countDown();*/
         }
     }
 

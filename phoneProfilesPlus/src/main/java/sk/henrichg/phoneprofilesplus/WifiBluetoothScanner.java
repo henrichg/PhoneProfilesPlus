@@ -138,7 +138,7 @@ class WifiBluetoothScanner {
                         if (!scan) {
                             // wifi scan events not exists
                             PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "alarms removed");
-                            WifiScanJob.cancelJob(context, null);
+                            WifiScanJob.cancelJob(context, true, null);
                         } else {
                             PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "can scan");
 
@@ -282,7 +282,7 @@ class WifiBluetoothScanner {
                         if (!scan) {
                             // bluetooth scan events not exists
                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "no bt scan events");
-                            BluetoothScanJob.cancelJob(context, null);
+                            BluetoothScanJob.cancelJob(context, true, null);
                         } else {
                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "scan=true");
 

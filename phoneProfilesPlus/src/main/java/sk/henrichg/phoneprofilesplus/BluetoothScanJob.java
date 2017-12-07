@@ -41,7 +41,7 @@ class BluetoothScanJob extends Job {
     private static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS = "eventBluetoothWaitForLEResults";
     private static final String PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN = "eventBluetoothEnabledForScan";
 
-    private static CountDownLatch countDownLatch = null;
+    //private static CountDownLatch countDownLatch = null;
 
     @NonNull
     @Override
@@ -52,18 +52,11 @@ class BluetoothScanJob extends Job {
 
         CallsCounter.logCounter(context, "BluetoothScanJob.onRunJob", "BluetoothScanJob_onRunJob");
 
-        countDownLatch = new CountDownLatch(1);
+        //countDownLatch = new CountDownLatch(1);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
                 PPApplication.PREFERENCE_ALLOWED) {
-            BluetoothScanJob.cancelJob(context, null);
-
-            try {
-                countDownLatch.await();
-            } catch (InterruptedException ignored) {
-            }
-            countDownLatch = null;
-            PPApplication.logE("BluetoothScanJob.onRunJob", "return");
+            BluetoothScanJob.cancelJob(context, false, null);
             return Result.SUCCESS;
         }
 
@@ -71,16 +64,7 @@ class BluetoothScanJob extends Job {
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
             PPApplication.logE("BluetoothScanJob.onRunJob", "update in power save mode is not allowed = cancel job");
-            BluetoothScanJob.cancelJob(context, null);
-            //removeAlarm(context/*, false*/);
-            //removeAlarm(context/*, true*/);
-
-            try {
-                countDownLatch.await();
-            } catch (InterruptedException ignored) {
-            }
-            countDownLatch = null;
-            PPApplication.logE("BluetoothScanJob.onRunJob", "return");
+            BluetoothScanJob.cancelJob(context, false, null);
             return Result.SUCCESS;
         }
 
@@ -92,13 +76,13 @@ class BluetoothScanJob extends Job {
             startScanner(context, false);
         }
 
-        BluetoothScanJob.scheduleJob(context, null, false, false);
+        BluetoothScanJob.scheduleJob(context, false, null, false, false);
 
-        try {
+        /*try {
             countDownLatch.await();
         } catch (InterruptedException ignored) {
         }
-        countDownLatch = null;
+        countDownLatch = null;*/
         PPApplication.logE("BluetoothScanJob.onRunJob", "return");
         return Result.SUCCESS;
     }
@@ -156,27 +140,27 @@ class BluetoothScanJob extends Job {
         }
     }
 
-    static void scheduleJob(final Context context, final Handler _handler, final boolean shortInterval, final boolean forScreenOn) {
+    static void scheduleJob(final Context context, final boolean useHandler, final Handler _handler, final boolean shortInterval, final boolean forScreenOn) {
         PPApplication.logE("BluetoothScanJob.scheduleJob", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
                 == PPApplication.PREFERENCE_ALLOWED) {
-            if (_handler == null) {
+            if (useHandler && (_handler == null)) {
                 PhoneProfilesService.startHandlerThread();
                 final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
                         _scheduleJob(context, shortInterval, forScreenOn);
-                        if (countDownLatch != null)
-                            countDownLatch.countDown();
+                        /*if (countDownLatch != null)
+                            countDownLatch.countDown();*/
                     }
                 });
             }
             else {
                 _scheduleJob(context, shortInterval, forScreenOn);
-                if (countDownLatch != null)
-                    countDownLatch.countDown();
+                /*if (countDownLatch != null)
+                    countDownLatch.countDown();*/
             }
         }
         else
@@ -199,25 +183,25 @@ class BluetoothScanJob extends Job {
         } catch (Exception ignored) {}
     }
 
-    static void cancelJob(final Context context, final Handler _handler) {
+    static void cancelJob(final Context context, final boolean useHandler, final Handler _handler) {
         PPApplication.logE("BluetoothScanJob.cancelJob", "xxx");
 
-        if (_handler == null) {
+        if (useHandler && (_handler == null)) {
             PhoneProfilesService.startHandlerThread();
             final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
                     _cancelJob(context);
-                    if (countDownLatch != null)
-                        countDownLatch.countDown();
+                    /*if (countDownLatch != null)
+                        countDownLatch.countDown();*/
                 }
             });
         }
         else {
             _cancelJob(context);
-            if (countDownLatch != null)
-                countDownLatch.countDown();
+            /*if (countDownLatch != null)
+                countDownLatch.countDown();*/
         }
     }
 

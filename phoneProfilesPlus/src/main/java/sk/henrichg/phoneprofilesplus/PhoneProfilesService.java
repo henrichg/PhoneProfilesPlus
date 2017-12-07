@@ -240,7 +240,7 @@ public class PhoneProfilesService extends Service
 
         registerReceiversAndJobs();
 
-        AboutApplicationJob.scheduleJob(/*getApplicationContext()*/);
+        AboutApplicationJob.scheduleJob(/*getApplicationContext()*/true);
 
         ringingMediaPlayer = null;
         //notificationMediaPlayer = null;
@@ -1642,7 +1642,7 @@ public class PhoneProfilesService extends Service
         if (WifiScanJob.isJobScheduled()) {
             CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleWifiJob->CANCEL", "PhoneProfilesService_scheduleWifiJob");
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "CANCEL");
-            WifiScanJob.cancelJob(context, _handler);
+            WifiScanJob.cancelJob(context, true, _handler);
         }
         else
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "not scheduled");
@@ -1681,12 +1681,12 @@ public class PhoneProfilesService extends Service
                                 if (!WifiScanJob.isJobScheduled()) {
                                     CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleWifiJob->SCHEDULE", "PhoneProfilesService_scheduleWifiJob");
                                     PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "SCHEDULE");
-                                    WifiScanJob.scheduleJob(appContext, handler, true, forScreenOn, afterEnableWifi);
+                                    WifiScanJob.scheduleJob(appContext, true, handler, true, forScreenOn, afterEnableWifi);
                                 }
                                 else {
                                     PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "scheduled");
                                     if (rescan)
-                                        WifiScanJob.scheduleJob(appContext, handler, true, forScreenOn, afterEnableWifi);
+                                        WifiScanJob.scheduleJob(appContext, true, handler, true, forScreenOn, afterEnableWifi);
                                 }
                             } else
                                 cancelWifiJob(appContext, handler);
@@ -1705,7 +1705,7 @@ public class PhoneProfilesService extends Service
         if (BluetoothScanJob.isJobScheduled()) {
             CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleBluetoothJob->CANCEL", "PhoneProfilesService_scheduleBluetoothJob");
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "CANCEL");
-            BluetoothScanJob.cancelJob(context, _handler);
+            BluetoothScanJob.cancelJob(context, true, _handler);
         }
         else
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "not scheduled");
@@ -1743,12 +1743,12 @@ public class PhoneProfilesService extends Service
                                 if (!BluetoothScanJob.isJobScheduled()) {
                                     CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleBluetoothJob->SCHEDULE", "PhoneProfilesService_scheduleBluetoothJob");
                                     PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "SCHEDULE");
-                                    BluetoothScanJob.scheduleJob(appContext, handler, true, forScreenOn);
+                                    BluetoothScanJob.scheduleJob(appContext, true, handler, true, forScreenOn);
                                 }
                                 else {
                                     PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "scheduled");
                                     if (rescan)
-                                        BluetoothScanJob.scheduleJob(appContext, handler, true, forScreenOn);
+                                        BluetoothScanJob.scheduleJob(appContext, true, handler, true, forScreenOn);
                                 }
                             } else
                                 cancelBluetoothJob(appContext, handler);
@@ -1767,7 +1767,7 @@ public class PhoneProfilesService extends Service
         if (GeofenceScannerJob.isJobScheduled()) {
             CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleGeofenceScannerJob->CANCEL", "PhoneProfilesService_scheduleGeofenceScannerJob");
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "CANCEL");
-            GeofenceScannerJob.cancelJob(_handler);
+            GeofenceScannerJob.cancelJob(true, _handler);
         }
         else
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "not scheduled");
@@ -1806,7 +1806,7 @@ public class PhoneProfilesService extends Service
                                         if (isGeofenceScannerStarted())
                                             getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
                                     }
-                                    GeofenceScannerJob.scheduleJob(appContext, handler, true, forScreenOn);
+                                    GeofenceScannerJob.scheduleJob(appContext, true, handler, true, forScreenOn);
                                 }
                                 else {
                                     PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "scheduled");
@@ -1815,7 +1815,7 @@ public class PhoneProfilesService extends Service
                                             if (isGeofenceScannerStarted())
                                                 getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
                                         }
-                                        GeofenceScannerJob.scheduleJob(appContext, handler, true, forScreenOn);
+                                        GeofenceScannerJob.scheduleJob(appContext, true, handler, true, forScreenOn);
                                     }
                                 }
                             } else
@@ -1835,7 +1835,7 @@ public class PhoneProfilesService extends Service
         if (SearchCalendarEventsJob.isJobScheduled()) {
             CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleSearchCalendarEventsJob->CANCEL", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "CANCEL");
-            SearchCalendarEventsJob.cancelJob(_handler);
+            SearchCalendarEventsJob.cancelJob(true, _handler);
         }
         else
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "not scheduled");
@@ -1866,7 +1866,7 @@ public class PhoneProfilesService extends Service
                             if (!SearchCalendarEventsJob.isJobScheduled()) {
                                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsJob->SCHEDULE", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
                                 PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "SCHEDULE");
-                                SearchCalendarEventsJob.scheduleJob(/*appContext, */handler, true);
+                                SearchCalendarEventsJob.scheduleJob(/*appContext, */true, handler, true);
                             }
                             else
                                 PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "scheduled");

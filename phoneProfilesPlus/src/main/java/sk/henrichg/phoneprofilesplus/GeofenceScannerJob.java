@@ -17,7 +17,7 @@ class GeofenceScannerJob extends Job {
     static final String JOB_TAG  = "GeofenceScannerJob";
     static final String JOB_TAG_START  = "GeofenceScannerJob_start";
 
-    private static CountDownLatch countDownLatch = null;
+    //private static CountDownLatch countDownLatch = null;
 
     @NonNull
     @Override
@@ -28,22 +28,13 @@ class GeofenceScannerJob extends Job {
 
         CallsCounter.logCounter(context, "GeofenceScannerJob.onRunJob", "GeofenceScannerJob_onRunJob");
 
-        countDownLatch = new CountDownLatch(1);
+        //countDownLatch = new CountDownLatch(1);
 
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
             PPApplication.logE("GeofenceScannerJob.onRunJob", "update in power save mode is not allowed = cancel job");
-            GeofenceScannerJob.cancelJob(null);
-            //removeAlarm(context/*, false*/);
-            //removeAlarm(context/*, true*/);
-
-            try {
-                countDownLatch.await();
-            } catch (InterruptedException ignored) {
-            }
-            countDownLatch = null;
-            PPApplication.logE("GeofenceScannerJob.onRunJob", "return");
+            GeofenceScannerJob.cancelJob(false,null);
             return Result.SUCCESS;
         }
 
@@ -82,37 +73,19 @@ class GeofenceScannerJob extends Job {
                 context.startService(serviceIntent);
                 //else
                 //    context.startForegroundService(serviceIntent);
-
-                /*
-                // Fixed: java.lang.NullPointerException: Calling thread must be a prepared Looper thread.
-                //        com.google.android.gms.internal.zzccb.requestLocationUpdates(Unknown Source)
-                //        ! Must be main looper !
-                final CountDownLatch _countDownLatch = new CountDownLatch(1);
-                final Handler handler = new Handler(context.getMainLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.getGeofencesScanner() != null))
-                            PhoneProfilesService.getGeofencesScanner().startLocationUpdates();
-                        _countDownLatch.countDown();
-                    }
-                });
-                try {
-                    _countDownLatch.await();
-                } catch (InterruptedException ignored) {
-                }
-                */
             }
         }
 
-        GeofenceScannerJob.scheduleJob(context, null, false, false);
+        GeofenceScannerJob.scheduleJob(context, false, null, false, false);
 
+        /*
         try {
             countDownLatch.await();
         } catch (InterruptedException ignored) {
         }
         countDownLatch = null;
         PPApplication.logE("GeofenceScannerJob.onRunJob", "return");
+        */
         return Result.SUCCESS;
     }
 
@@ -195,26 +168,26 @@ class GeofenceScannerJob extends Job {
         }
     }
 
-    static void scheduleJob(final Context context, final Handler _handler, final boolean startScanning, final boolean forScreenOn) {
+    static void scheduleJob(final Context context, final boolean useHandler, final Handler _handler, final boolean startScanning, final boolean forScreenOn) {
         PPApplication.logE("GeofenceScannerJob.scheduleJob", "startScanning="+startScanning);
 
         //if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
-            if (_handler == null) {
+            if (useHandler && (_handler == null)) {
                 PhoneProfilesService.startHandlerThread();
                 final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
                         _scheduleJob(context, startScanning, forScreenOn);
-                        if (countDownLatch != null)
-                            countDownLatch.countDown();
+                        /*if (countDownLatch != null)
+                            countDownLatch.countDown();*/
                     }
                 });
             }
             else {
                 _scheduleJob(context, startScanning, forScreenOn);
-                if (countDownLatch != null)
-                    countDownLatch.countDown();
+                /*if (countDownLatch != null)
+                    countDownLatch.countDown();*/
             }
         //}
         //else
@@ -229,25 +202,25 @@ class GeofenceScannerJob extends Job {
         } catch (Exception ignored) {}
     }
 
-    static void cancelJob(/*final Context context, */final Handler _handler) {
+    static void cancelJob(/*final Context context, */final boolean useHandler, final Handler _handler) {
         PPApplication.logE("GeofenceScannerJob.cancelJob", "xxx");
 
-        if (_handler == null) {
+        if (useHandler && (_handler == null)) {
             PhoneProfilesService.startHandlerThread();
             final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
                     _cancelJob();
-                    if (countDownLatch != null)
-                        countDownLatch.countDown();
+                    /*if (countDownLatch != null)
+                        countDownLatch.countDown();*/
                 }
             });
         }
         else {
             _cancelJob();
-            if (countDownLatch != null)
-                countDownLatch.countDown();
+            /*if (countDownLatch != null)
+                countDownLatch.countDown();*/
         }
     }
 
