@@ -74,10 +74,10 @@ dependencies {
     compile 'com.code-troopers.betterpickers:library:3.1.0'
     compile 'mobi.upod:time-duration-picker:1.1.3'
 
-    compile project(':RootShell')
-    compile project(':RootTools')
     compile project(':QuickScroll')
 
+    compile(name:'RootShell', ext:'aar')
+    compile(name:'RootTools', ext:'aar')
     provided files('libs/hidden-apis.jar')
     provided files('libs/hidden-apis_2.jar')
     compile files('libs/sdk-v1.0.0.jar')

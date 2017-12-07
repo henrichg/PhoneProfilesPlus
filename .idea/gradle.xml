@@ -10,8 +10,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/QuickScroll" />
-            <option value="$PROJECT_DIR$/RootShell" />
-            <option value="$PROJECT_DIR$/RootTools" />
             <option value="$PROJECT_DIR$/phoneProfilesPlus" />
           </set>
         </option>
