@@ -49,7 +49,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -71,9 +71,9 @@ public class PPApplication extends Application {
                                          //+"|ProfileDurationAlarmBroadcastReceiver"
                                          //+"|$$$ DataWrapper._activateProfile"
 
-                                         +"|PPNotificationListenerService"
-                                         +"|[NOTIF] EventsHandler.handleEvents"
-                                         +"|EventPreferencesNotification"
+                                         //+"|PPNotificationListenerService"
+                                         //+"|[NOTIF] EventsHandler.handleEvents"
+                                         //+"|EventPreferencesNotification"
 
                                          //+"|[CALL] DataWrapper.doHandleEvents"
 
@@ -108,8 +108,10 @@ public class PPApplication extends Application {
                                          //+"|BluetoothScanBroadcastReceiver"
                                          //+"|BluetoothScanJob"
 
-                                         //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
-                                         //+"|ForegroundApplicationChangedBroadcastReceiver"
+                                         +"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
+                                         +"|ForegroundApplicationChangedBroadcastReceiver.onReceive"
+                                         +"|PhoneProfilesService.runEventsHandlerForOrientationChange"
+                                         +"|PhoneProfilesService.onSensorChanged"
             ;
 
 

@@ -3272,7 +3272,8 @@ public class PhoneProfilesService extends Service
         //    return;
 
         if (sensorType == Sensor.TYPE_PROXIMITY) {
-            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity value="+event.values[0]);
+            PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity value="+event.values[0]);
+            PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity mMaxProximityDistance="+mMaxProximityDistance);
             //if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
             //if (event.timestamp - tmpDistanceTimestamp >= 250000000L /*1000000000L*/) {
             //    tmpDistanceTimestamp = event.timestamp;
