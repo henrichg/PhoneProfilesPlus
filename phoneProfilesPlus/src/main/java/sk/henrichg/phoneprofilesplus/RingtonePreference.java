@@ -12,6 +12,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
@@ -50,6 +51,7 @@ public class RingtonePreference extends DialogPreference {
     private static MediaPlayer mediaPlayer = null;
     private static int oldMediaVolume = -1;
     private static Timer playTimer = null;
+    private static boolean ringtoneIsPlayed = false;
 
     public RingtonePreference(Context context, AttributeSet attrs)
     {
@@ -388,25 +390,33 @@ public class RingtonePreference extends DialogPreference {
         _setSummary(ringtone);
     }
 
-    void playRingtone(final boolean play) {
+    private void stopPlayRingtone() {
         final AudioManager audioManager = (AudioManager)prefContext.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
             if (playTimer != null) {
                 playTimer.cancel();
                 playTimer = null;
             }
-            if (mediaPlayer != null) {
+            if ((mediaPlayer != null) && ringtoneIsPlayed) {
                 try {
                     if (mediaPlayer.isPlaying())
                         mediaPlayer.stop();
                 } catch (Exception ignored) {
                 }
                 mediaPlayer.release();
+                ringtoneIsPlayed = false;
                 mediaPlayer = null;
 
                 if (oldMediaVolume > -1)
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
             }
+        }
+    }
+    void playRingtone(final boolean play) {
+        stopPlayRingtone();
+
+        final AudioManager audioManager = (AudioManager)prefContext.getSystemService(Context.AUDIO_SERVICE);
+        if (audioManager != null) {
 
             if (!play) return;
 
@@ -449,13 +459,13 @@ public class RingtonePreference extends DialogPreference {
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaVolume, 0);
 
                 mediaPlayer.start();
+                ringtoneIsPlayed = true;
 
                 //final Context context = this;
                 playTimer = new Timer();
                 playTimer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-
                         if (mediaPlayer != null) {
                             try {
                                 if (mediaPlayer.isPlaying())
@@ -469,18 +479,45 @@ public class RingtonePreference extends DialogPreference {
                             PPApplication.logE("RingtonePreference.playRingtone", "play stopped");
                         }
 
+                        ringtoneIsPlayed = false;
                         mediaPlayer = null;
+
+                        PhoneProfilesService.startHandlerThread();
+                        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                RingerModeChangeReceiver.internalChange = false;
+                            }
+                        }, 3000);
+
                         playTimer = null;
                     }
                 }, mediaPlayer.getDuration());
 
             } catch (SecurityException e) {
                 PPApplication.logE("RingtonePreference.playRingtone", "security exception");
-                mediaPlayer = null;
+                stopPlayRingtone();
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        RingerModeChangeReceiver.internalChange = false;
+                    }
+                }, 3000);
             } catch (Exception e) {
                 PPApplication.logE("RingtonePreference.playRingtone", "exception");
                 //e.printStackTrace();
-                mediaPlayer = null;
+                stopPlayRingtone();
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        RingerModeChangeReceiver.internalChange = false;
+                    }
+                }, 3000);
             }
         }
     }

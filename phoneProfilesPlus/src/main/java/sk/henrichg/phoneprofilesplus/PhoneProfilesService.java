@@ -4000,6 +4000,22 @@ public class PhoneProfilesService extends Service
 
     //---------------------------
 
+    private void stopPlayNotificationSound() {
+        if (notificationPlayTimer != null) {
+            notificationPlayTimer.cancel();
+            notificationPlayTimer = null;
+        }
+        if ((notificationMediaPlayer != null) && notificationIsPlayed) {
+            try {
+                if (notificationMediaPlayer.isPlaying())
+                    notificationMediaPlayer.stop();
+            } catch (Exception ignored) {}
+            notificationMediaPlayer.release();
+            notificationIsPlayed = false;
+            notificationMediaPlayer = null;
+        }
+    }
+
     public void playNotificationSound (final String notificationSound, final boolean notificationVibrate) {
         if (notificationVibrate) {
             Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
@@ -4020,19 +4036,7 @@ public class PhoneProfilesService extends Service
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
-            if (notificationPlayTimer != null) {
-                notificationPlayTimer.cancel();
-                notificationPlayTimer = null;
-            }
-            if ((notificationMediaPlayer != null) && notificationIsPlayed) {
-                try {
-                    if (notificationMediaPlayer.isPlaying())
-                        notificationMediaPlayer.stop();
-                } catch (Exception ignored) {}
-                notificationMediaPlayer.release();
-                notificationIsPlayed = false;
-                notificationMediaPlayer = null;
-            }
+            stopPlayNotificationSound();
 
             PPApplication.logE("PhoneProfilesService.playNotificationSound", "notificationSound="+notificationSound);
             if (!notificationSound.isEmpty())
@@ -4096,20 +4100,43 @@ public class PhoneProfilesService extends Service
 
                                 notificationIsPlayed = false;
                                 notificationMediaPlayer = null;
+
+                                PhoneProfilesService.startHandlerThread();
+                                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        RingerModeChangeReceiver.internalChange = false;
+                                    }
+                                }, 3000);
+
                                 notificationPlayTimer = null;
                             }
                         }, notificationMediaPlayer.getDuration());
 
                     } catch (SecurityException e) {
                         PPApplication.logE("PhoneProfilesService.playNotificationSound", "security exception");
+                        stopPlayNotificationSound();
+                        PhoneProfilesService.startHandlerThread();
+                        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                RingerModeChangeReceiver.internalChange = false;
+                            }
+                        }, 3000);
                         Permissions.grantPlayRingtoneNotificationPermissions(this, false);
-                        notificationMediaPlayer = null;
-                        notificationIsPlayed = false;
                     } catch (Exception e) {
                         PPApplication.logE("PhoneProfilesService.playNotificationSound", "exception");
-                        //e.printStackTrace();
-                        notificationMediaPlayer = null;
-                        notificationIsPlayed = false;
+                        stopPlayNotificationSound();
+                        PhoneProfilesService.startHandlerThread();
+                        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                RingerModeChangeReceiver.internalChange = false;
+                            }
+                        }, 3000);
                     }
                 }
             }
