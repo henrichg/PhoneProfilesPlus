@@ -49,7 +49,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static final boolean logIntoLogCat = true;
+    private static final boolean logIntoLogCat = false;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -110,8 +110,8 @@ public class PPApplication extends Application {
 
                                          +"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
                                          +"|ForegroundApplicationChangedBroadcastReceiver.onReceive"
-                                         +"|PhoneProfilesService.runEventsHandlerForOrientationChange"
-                                         +"|PhoneProfilesService.onSensorChanged"
+                                         //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
+                                         //+"|PhoneProfilesService.onSensorChanged"
             ;
 
 
