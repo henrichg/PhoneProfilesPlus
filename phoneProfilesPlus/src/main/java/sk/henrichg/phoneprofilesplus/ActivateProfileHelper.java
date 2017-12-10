@@ -200,7 +200,7 @@ public class ActivateProfileHelper {
                     PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled="+isWifiAPEnabled);
                     PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-canChangeWifi="+canChangeWifi);
                     if (setWifiAPState) {
-                        setWifiAP(wifiApManager, isWifiAPEnabled);
+                        setWifiAP(wifiApManager, isWifiAPEnabled, context);
                         //try { Thread.sleep(200); } catch (InterruptedException e) { }
                         //SystemClock.sleep(200);
                         PPApplication.sleep(200);
@@ -2626,7 +2626,7 @@ public class ActivateProfileHelper {
         }
     }
 
-    private void setWifiAP(WifiApManager wifiApManager, boolean enable) {
+    private void setWifiAP(WifiApManager wifiApManager, boolean enable, Context context) {
         PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-enable="+enable);
 
         if (Build.VERSION.SDK_INT < 26) {
@@ -2674,7 +2674,9 @@ public class ActivateProfileHelper {
                             }
                         }
                     }
-                } catch(Exception ignored) {
+                } catch(Exception e) {
+                    Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
+                    PPApplication.logE("$$$ WifiAP", Log.getStackTraceString(e));
                 }
             }
         }
