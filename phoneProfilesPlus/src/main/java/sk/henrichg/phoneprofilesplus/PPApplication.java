@@ -108,8 +108,8 @@ public class PPApplication extends Application {
                                          //+"|BluetoothScanBroadcastReceiver"
                                          //+"|BluetoothScanJob"
 
-                                         +"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
-                                         +"|ForegroundApplicationChangedBroadcastReceiver.onReceive"
+                                         //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
+                                         //+"|ForegroundApplicationChangedBroadcastReceiver.onReceive"
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
                                          //+"|PhoneProfilesService.onSensorChanged"
             ;

@@ -338,7 +338,7 @@
   <string name="event_preferences_delayStart">Задержка</string>
   <string name="profile_preferences_duration">Продолжительность</string>
   <string name="profile_preferences_afterDurationDo">По окончанию действия профиля</string>
-  <string name="array_pref_afterProfileDurationDo_nothing">Ничего</string>
+  <string name="array_pref_afterProfileDurationDo_nothing">Ничего не делать</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Отменить данный профиль</string>
   <string name="array_pref_afterProfileDurationDo_backgroundProfile">Активировать профиль по умолчанию</string>
   <string name="phone_profiles_pref_applicationGridLayout">В виде сетки</string>
@@ -458,7 +458,7 @@
   <string name="important_into_sony_stamina_mode">Для устройств Sony включите, пожалуйста, режим «Stamina» в «Управлении питанием». Также добавьте PhoneProfilesPlus в список «Приложения, активные в режиме ожидания». Без этого приложение не будет работать правильно.</string>
   <string name="important_info_profile_settings">Некоторые настройки профиля требуют изменений в системных настройках. Эти настройки отмечены «(S)».</string>
   <string name="profile_preferences_volumeNotificationsAccessSettings_title">Доступ к уведомлениям</string>
-  <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Включить службу PhoneProfilesPlus в настройках системы \"Доступ к уведомлениям\" для активации пункта \"Типы режима оповещения\" в настройках профиля.</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Для активации параметра \"Типы режима оповещения\" включите службу PhoneProfilesPlus в настройках системы \"Доступ к уведомлениям\".</string>
   <string name="array_pref_zenModeArray_allWithVibration">Все с вибросигналом</string>
   <string name="array_pref_zenModeArray_priorityWithVibration">Важные с вибросигналом</string>
   <string name="important_info_news">Новости</string>
@@ -473,7 +473,7 @@
   <string name="event_type_notifications">Уведомления</string>
   <string name="event_preferences_category_eventNotificationsParameters">Параметры уведомлений</string>
   <string name="event_preferences_notifications_applications">Приложения</string>
-  <string name="event_preferences_volumeNotificationsAccessSettings_summary">Включить службу PhoneProfilesPlus в настройках системы \"Доступ к уведомлениям\" для активации пункта \"Типы режима оповещения\" в настройках профиля.</string>
+  <string name="event_preferences_volumeNotificationsAccessSettings_summary">Для активации параметров уведомлений включите службу PhoneProfilesPlus в настройках системы \"Доступ к уведомлениям\".</string>
   <string name="array_pref_zenModeArray_alarms">Только уведомления</string>
   <string name="profile_preferences_zenMode_alarms_summary">Только оповещения</string>
   <string name="phone_profiles_pref_applicationShortcutEmblem">Добавить иконку на ярлык</string>
