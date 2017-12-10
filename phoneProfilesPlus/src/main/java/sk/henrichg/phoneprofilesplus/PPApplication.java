@@ -49,7 +49,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -177,6 +177,7 @@ public class PPApplication extends Application {
     public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM = 4;
     private static final int PREFERENCE_NOT_ALLOWED_NOT_CONFIGURED_IN_SYSTEM_SETTINGS = 5;
     public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION = 6;
+    public static final int PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED = 7;
 
     // global internal preferences
     private static final String PREF_APPLICATION_STARTED = "applicationStarted";
@@ -608,6 +609,8 @@ public class PPApplication extends Application {
                 return context.getString(R.string.preference_not_allowed_reason_not_supported) + " (" + notAllowedReasonDetail + ")";
             case PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION:
                 return context.getString(R.string.preference_not_allowed_reason_not_supported_by_application) + " (" + notAllowedReasonDetail + ")";
+            case PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED:
+                return context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
             default: return context.getString(R.string.empty_string);
         }
     }

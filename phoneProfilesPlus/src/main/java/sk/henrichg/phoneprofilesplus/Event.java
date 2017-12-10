@@ -1813,13 +1813,25 @@ class Event {
             }
         }
         else
+        if (preferenceKey.equals(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED))
+        {
+            //if (ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            //else
+            //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
+        }
+        else
         if (preferenceKey.equals(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED))
         {
             boolean enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null) &&
                     (PhoneProfilesService.getMagneticFieldSensor(context.getApplicationContext()) != null) &&
                     (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null);
-            if (enabled)
-                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            if (enabled) {
+                //if (ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
+                    featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                //else
+                //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
+            }
             else
                 PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }

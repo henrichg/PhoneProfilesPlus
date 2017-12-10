@@ -350,46 +350,56 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     void setSummaryAMSDP()
     {
         String prefDataSummary = _context.getString(R.string.applications_multiselect_summary_text_not_selected);
+        boolean ok = true;
         if (systemSettings.equals("notifications") && (!PPNotificationListenerService.isNotificationListenerServiceEnabled(_context))) {
+            ok = false;
             prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                     ": "+_context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
         }
         else
-        if (systemSettings.equals("accessibility") && (!ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(_context))) {
-            prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                    ": "+_context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+        if (systemSettings.equals("accessibility")) {
+            if (!ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(_context)) {
+                ok = false;
+                prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                        ": " + _context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+            }
+            else
+            if (!ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled(_context)) {
+                ok = false;
+                prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        ": "+_context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+            }
         }
-        else
-        if (!value.isEmpty() && !value.equals("-")) {
-            String[] splits = value.split("\\|");
-            prefDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
-            if (splits.length == 1) {
-                PackageManager packageManager = _context.getPackageManager();
-                if (!ApplicationsCache.isShortcut(splits[0])) {
-                    if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
-                        ApplicationInfo app;
-                        try {
-                            app = packageManager.getApplicationInfo(splits[0], 0);
-                            if (app != null)
-                                prefDataSummary = packageManager.getApplicationLabel(app).toString();
-                        } catch (Exception e) {
-                            //e.printStackTrace();
+        if (ok) {
+            if (!value.isEmpty() && !value.equals("-")) {
+                String[] splits = value.split("\\|");
+                prefDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                if (splits.length == 1) {
+                    PackageManager packageManager = _context.getPackageManager();
+                    if (!ApplicationsCache.isShortcut(splits[0])) {
+                        if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
+                            ApplicationInfo app;
+                            try {
+                                app = packageManager.getApplicationInfo(splits[0], 0);
+                                if (app != null)
+                                    prefDataSummary = packageManager.getApplicationLabel(app).toString();
+                            } catch (Exception e) {
+                                //e.printStackTrace();
+                            }
+                        } else {
+                            Intent intent = new Intent();
+                            intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
+                            ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                            if (info != null)
+                                prefDataSummary = info.loadLabel(packageManager).toString();
                         }
-                    }
-                    else {
+                    } else {
                         Intent intent = new Intent();
                         intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
                         ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
                         if (info != null)
                             prefDataSummary = info.loadLabel(packageManager).toString();
                     }
-                }
-                else {
-                    Intent intent = new Intent();
-                    intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
-                    ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-                    if (info != null)
-                        prefDataSummary = info.loadLabel(packageManager).toString();
                 }
             }
         }
