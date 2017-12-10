@@ -120,15 +120,18 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             switch (filterType)
             {
                 case EditorEventListFragment.FILTER_TYPE_RUNNING:
-                    if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_RUNNING)
+                    //if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_RUNNING)
+                    if (event.getStatus() == Event.ESTATUS_RUNNING)
                         ++count;
                     break;
                 case EditorEventListFragment.FILTER_TYPE_PAUSED:
-                    if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_PAUSE)
+                    //if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_PAUSE)
+                    if (event.getStatus() == Event.ESTATUS_PAUSE)
                         ++count;
                     break;
                 case EditorEventListFragment.FILTER_TYPE_STOPPED:
-                    if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP)
+                    //if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP)
+                    if (event.getStatus() == Event.ESTATUS_STOP)
                         ++count;
                     break;
             }
@@ -154,15 +157,18 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 switch (filterType)
                 {
                     case EditorEventListFragment.FILTER_TYPE_RUNNING:
-                        if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_RUNNING)
+                        //if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_RUNNING)
+                        if (event.getStatus() == Event.ESTATUS_RUNNING)
                             ++pos;
                         break;
                     case EditorEventListFragment.FILTER_TYPE_PAUSED:
-                        if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_PAUSE)
+                        //if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_PAUSE)
+                        if (event.getStatus() == Event.ESTATUS_PAUSE)
                             ++pos;
                         break;
                     case EditorEventListFragment.FILTER_TYPE_STOPPED:
-                        if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP)
+                        //if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP)
+                        if (event.getStatus() == Event.ESTATUS_STOP)
                             ++pos;
                         break;
                 }
@@ -196,15 +202,18 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     ++pos;
                     break;
                 case EditorEventListFragment.FILTER_TYPE_RUNNING:
-                    if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_RUNNING)
+                    //if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_RUNNING)
+                    if (event.getStatus() == Event.ESTATUS_RUNNING)
                         ++pos;
                     break;
                 case EditorEventListFragment.FILTER_TYPE_PAUSED:
-                    if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_PAUSE)
+                    //if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_PAUSE)
+                    if (event.getStatus() == Event.ESTATUS_PAUSE)
                         ++pos;
                     break;
                 case EditorEventListFragment.FILTER_TYPE_STOPPED:
-                    if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP)
+                    //if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP)
+                    if (event.getStatus() == Event.ESTATUS_STOP)
                         ++pos;
                     break;
             }
