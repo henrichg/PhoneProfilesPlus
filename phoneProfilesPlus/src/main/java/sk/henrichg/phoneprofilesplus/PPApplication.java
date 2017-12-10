@@ -113,7 +113,7 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
                                          //+"|PhoneProfilesService.onSensorChanged"
 
-                                         +"$$$ WifiAP"
+                                         +"|$$$ WifiAP"
             ;
 
 
