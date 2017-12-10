@@ -14,6 +14,8 @@ class ImportantInfoNotification {
     // this version code must by <= version code in dependencies.gradle
     static final int VERSION_CODE_FOR_NEWS = 3641;
 
+    static boolean newExtender = true;
+
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
 
@@ -50,7 +52,7 @@ class ImportantInfoNotification {
     static private boolean canShowNotification(int packageVersionCode, int savedVersionCode) {
         boolean news = false;
 
-        boolean newsLatest = (packageVersionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        boolean newsLatest = (packageVersionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS) || newExtender;
         boolean news1804 = ((packageVersionCode >= 1804) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1772 = ((packageVersionCode >= 1772) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean afterInstall = savedVersionCode == 0;

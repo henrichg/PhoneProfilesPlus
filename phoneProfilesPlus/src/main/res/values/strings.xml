@@ -1128,4 +1128,5 @@
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Please enable Location and Bluetooth scanning in System Settings. Without this, Bluetooth scanning will not work.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Keep Wi-Fi on\" system setting</string>
     <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Please configure \"Keep Wi-Fi on during sleep\" to \"Always\". Without this, Wi-Fi scanning will not work during device sleep.</string>
+    <string name="important_info_accessibility_service_new_version">Please install new version of PhoneProfilesPlusExtender for event sensors \"Applications parameters\" and \"Orientation parameters\". Look at parameters of these sensors for more information.</string>
 </resources>
