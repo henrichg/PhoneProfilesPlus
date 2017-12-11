@@ -68,7 +68,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
         //Log.d("------ ProfilePreferencesNestedFragment.onCreate", "startupSource="+startupSource);
 
-        context = getActivity().getApplicationContext();
+        context = getActivity().getBaseContext();
 
         prefMng = getPreferenceManager();
         preferences = prefMng.getSharedPreferences();
