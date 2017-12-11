@@ -54,6 +54,7 @@ public class MobileCellsRegistrationService extends Service {
                 // broadcast for application preferences
                 Intent intent = new Intent(ACTION_COUNT_DOWN_TICK);
                 intent.putExtra(EXTRA_COUNTDOWN, millisUntilFinished);
+                intent.setPackage(context.getPackageName());
                 sendBroadcast(intent);
             }
 
@@ -67,6 +68,7 @@ public class MobileCellsRegistrationService extends Service {
                 // broadcast for application preferences
                 Intent intent = new Intent(ACTION_COUNT_DOWN_TICK);
                 intent.putExtra(EXTRA_COUNTDOWN, 0L);
+                intent.setPackage(context.getPackageName());
                 sendBroadcast(intent);
 
                 stopSelf();
