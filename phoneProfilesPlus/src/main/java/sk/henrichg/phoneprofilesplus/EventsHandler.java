@@ -645,24 +645,28 @@ class EventsHandler {
             } else
                 PhoneCallBroadcastReceiver.linkUnlinkExecuted = false;
 
-            if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)) {
-                // start PhoneProfilesService for ringing call simulation
-                try {
-                    Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-                    lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                    lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
-                    lIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
-                    lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
-                    lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
-                    lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
-                    lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
-                    lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
-                    //TODO Android O
-                    //if (Build.VERSION.SDK_INT < 26)
-                    context.startService(lIntent);
-                    //else
-                    //    context.startForegroundService(lIntent);
-                } catch (Exception ignored) {}
+            if (eventsExists(sensorType)) {
+                // doEndHandler is called even if no event exists, but ringing call simualtion is only for event with call sensor
+                if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)) {
+                    // start PhoneProfilesService for ringing call simulation
+                    try {
+                        Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+                        lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                        lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+                        lIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
+                        lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
+                        lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+                        lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
+                        lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
+                        lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
+                        //TODO Android O
+                        //if (Build.VERSION.SDK_INT < 26)
+                        context.startService(lIntent);
+                        //else
+                        //    context.startForegroundService(lIntent);
+                    } catch (Exception ignored) {
+                    }
+                }
             }
 
             if (!PhoneCallBroadcastReceiver.speakerphoneOnExecuted) {
