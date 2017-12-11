@@ -90,18 +90,19 @@ class AboutApplicationJob extends Job {
             PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
 
             scheduleJob(/*context*/false);
+
+            /*
+            try {
+                countDownLatch.await();
+            } catch (InterruptedException ignored) {
+            }
+            countDownLatch = null;
+            PPApplication.logE("AboutApplicationJob.onRunJob", "return");*/
         }
         else {
             PPApplication.setDonationNotificationCount(context, MAX_DONATION_NOTIFICATION_COUNT);
         }
 
-        /*
-        try {
-            countDownLatch.await();
-        } catch (InterruptedException ignored) {
-        }
-        countDownLatch = null;
-        PPApplication.logE("AboutApplicationJob.onRunJob", "return");*/
         return Result.SUCCESS;
     }
 
