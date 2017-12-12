@@ -58,7 +58,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                             PhoneProfilesService.instance.scheduleGeofenceScannerJob(true,  true, true, false);
                         }
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-                        if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
+                        if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                             // rescan mobile cells
                             synchronized (PPApplication.phoneStateScannerMutex) {
                                 if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {

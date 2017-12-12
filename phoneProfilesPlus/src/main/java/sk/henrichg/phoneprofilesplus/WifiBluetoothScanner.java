@@ -125,7 +125,7 @@ class WifiBluetoothScanner {
 
                         // check if wifi scan events exists
                         //lock();
-                        boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
+                        boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT, false) > 0;
                         //unlock();
                         int forceScan = getForceOneWifiScan(context);
                         boolean scan = (wifiEventsExists || (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
@@ -263,7 +263,7 @@ class WifiBluetoothScanner {
 
                         // check if bluetooth scan events exists
                         //lock();
-                        boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0;
+                        boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT, false) > 0;
                         int forceScan = getForceOneBluetoothScan(dataWrapper.context);
                         int forceScanLE = getForceOneLEBluetoothScan(context);
                         boolean classicDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_CLASSIC, forceScanLE) > 0;
@@ -550,7 +550,7 @@ class WifiBluetoothScanner {
             {
                 if (ApplicationPreferences.applicationEventWifiEnableWifi(dataWrapper.context) || (forceScan != FORCE_ONE_SCAN_DISABLED))
                 {
-                    boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
+                    boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT, false) > 0;
                     boolean scan = ((wifiEventsExists && ApplicationPreferences.applicationEventWifiEnableWifi(dataWrapper.context)) ||
                             (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                     if (scan)
@@ -617,7 +617,7 @@ class WifiBluetoothScanner {
         {
             if (ApplicationPreferences.applicationEventBluetoothEnableBluetooth(dataWrapper.context) || (forceScan != FORCE_ONE_SCAN_DISABLED))
             {
-                boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0;
+                boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT, false) > 0;
                 boolean scan = ((bluetoothEventsExists && ApplicationPreferences.applicationEventBluetoothEnableBluetooth(dataWrapper.context)) ||
                         (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                 if (scan)

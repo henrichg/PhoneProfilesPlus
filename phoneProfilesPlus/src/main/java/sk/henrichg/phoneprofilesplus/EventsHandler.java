@@ -101,6 +101,8 @@ class EventsHandler {
             ApplicationPreferences.getSharedPreferences(context);
             callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
 
+            // save ringer mode, zen mode, ringtone before handle events
+            // used by ringing call simualtion
             oldRingerMode = ActivateProfileHelper.getRingerMode(context);
             oldZenMode = ActivateProfileHelper.getZenMode(context);
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -170,7 +172,7 @@ class EventsHandler {
             }
             */
 
-            if (!eventsExists(sensorType)) {
+            if (!eventsExists(sensorType, false)) {
                 // events not exists
 
                 doEndHandler();
@@ -502,7 +504,7 @@ class EventsHandler {
         }
     }
 
-    private boolean eventsExists(String broadcastReceiverType) {
+    private boolean eventsExists(String broadcastReceiverType, boolean onlyRunning) {
         int eventType = 0;
         if (broadcastReceiverType.equals(SENSOR_TYPE_BATTERY))
             eventType = DatabaseHandler.ETYPE_BATTERY;
@@ -605,7 +607,7 @@ class EventsHandler {
             eventType = DatabaseHandler.ETYPE_RADIO_SWITCH;
 
         if (eventType > 0)
-            return dataWrapper.getDatabaseHandler().getTypeEventsCount(eventType) > 0;
+            return dataWrapper.getDatabaseHandler().getTypeEventsCount(eventType, onlyRunning) > 0;
         else
             return true;
     }
@@ -645,8 +647,8 @@ class EventsHandler {
             } else
                 PhoneCallBroadcastReceiver.linkUnlinkExecuted = false;
 
-            if (eventsExists(sensorType)) {
-                // doEndHandler is called even if no event exists, but ringing call simualtion is only for event with call sensor
+            if (eventsExists(sensorType, true)) {
+                // doEndHandler is called even if no event exists, but ringing call simualtion is only for running event with call sensor
                 if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)) {
                     // start PhoneProfilesService for ringing call simulation
                     try {
@@ -654,6 +656,8 @@ class EventsHandler {
                         lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                         lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
                         lIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
+                        // add saved ringer mode, zen mode, ringtone before handle events as parameters
+                        // ringing call simulator compare this with new (actual values), changed by currently activated profile
                         lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
                         lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
                         lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);

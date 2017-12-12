@@ -4613,7 +4613,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    int getTypeEventsCount(int eventType)
+    int getTypeEventsCount(int eventType, boolean onlyRunning)
     {
         importExportLock.lock();
         try {
@@ -4622,7 +4622,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 startRunningCommand();
 
                 final String countQuery;
-                String eventTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
+                String eventTypeChecked;
+                if (onlyRunning)
+                    eventTypeChecked = KEY_E_STATUS + "=2" + " AND ";  //  only running events
+                else
+                    eventTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
                 if (eventType == ETYPE_TIME)
                     eventTypeChecked = eventTypeChecked + KEY_E_TIME_ENABLED + "=1";
                 else if (eventType == ETYPE_BATTERY)
