@@ -2260,7 +2260,6 @@ public class PhoneProfilesService extends Service
 
         if ((intent == null) || (!intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false))) {
             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "before start of handler");
-            final Context _this = this;
             final boolean _onlyStart = onlyStart;
             final boolean _startOnBoot = startOnBoot;
             PhoneProfilesService.startHandlerThread();
@@ -2276,13 +2275,13 @@ public class PhoneProfilesService extends Service
                     }
 
                     // set service foreground
-                    final DataWrapper dataWrapper = new DataWrapper(_this, true, false, 0);
+                    final DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
                     Profile activatedProfile = null;
                     if (_onlyStart && _startOnBoot) {
-                        if (ApplicationPreferences.applicationActivate(_this) &&
-                                ApplicationPreferences.applicationStartEvents(_this)) {
+                        if (ApplicationPreferences.applicationActivate(appContext) &&
+                                ApplicationPreferences.applicationStartEvents(appContext)) {
                             activatedProfile = dataWrapper.getActivatedProfile();
-                        } else if (ApplicationPreferences.applicationActivate(_this))
+                        } else if (ApplicationPreferences.applicationActivate(appContext))
                             activatedProfile = dataWrapper.getActivatedProfile();
                     } else
                         activatedProfile = dataWrapper.getActivatedProfile();
