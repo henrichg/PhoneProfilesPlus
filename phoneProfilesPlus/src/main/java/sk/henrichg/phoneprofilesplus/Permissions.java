@@ -609,7 +609,7 @@ class Permissions {
                 if (permissions != null) {
                     if (!grantedLocation) {
                         permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.READ_PHONE_STATE));
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                     }
                 }
                 //return grantedWriteSettings && grantedReadPhoneState && grantedLocation;
