@@ -114,6 +114,8 @@ class BluetoothScanJob extends Job {
                     PPApplication.logE("BluetoothScanJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
                     if (requestsForTagSize == 0) {
                         if (TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL)
+                            // must be set min interval because:
+                            //   java.lang.IllegalArgumentException: intervalMs is out of range of [900000, 9223372036854775807] (too low)
                             jobBuilder.setPeriodic(JobRequest.MIN_INTERVAL);
                         else
                             jobBuilder.setPeriodic(TimeUnit.MINUTES.toMillis(interval));
