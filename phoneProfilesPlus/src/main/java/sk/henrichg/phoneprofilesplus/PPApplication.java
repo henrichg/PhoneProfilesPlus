@@ -49,7 +49,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -94,9 +94,9 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.executeForRadios"
                                          //+"|$$$ WifiAP"
 
-                                         /*
+
                                          +"|WifiScanJob"
-                                         +"|$$$ WifiScanBroadcastReceiver.onReceive"
+                                         /*+"|$$$ WifiScanBroadcastReceiver.onReceive"
                                          +"|----- DataWrapper.doHandleEvents"
                                          */
                                          //+"|GeofenceScanner"
@@ -115,7 +115,7 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
                                          //+"|PhoneProfilesService.onSensorChanged"
 
-                                         +"|$$$ WifiAP"
+                                         //+"|$$$ WifiAP"
             ;
 
 

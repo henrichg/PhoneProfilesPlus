@@ -29,7 +29,7 @@ import static android.content.Context.POWER_SERVICE;
 class BluetoothScanJob extends Job {
 
     static final String JOB_TAG  = "BluetoothScanJob";
-    //static final String JOB_TAG_SHORT  = "BluetoothScanJob_short";
+    static final String JOB_TAG_SHORT  = "BluetoothScanJob_short";
 
     public static BluetoothAdapter bluetooth = null;
 
@@ -96,7 +96,7 @@ class BluetoothScanJob extends Job {
         if (jobManager != null) {
             final JobRequest.Builder jobBuilder;
             if (!shortInterval) {
-                //jobManager.cancelAllForTag(JOB_TAG_SHORT);
+                jobManager.cancelAllForTag(JOB_TAG_SHORT);
 
                 int interval = ApplicationPreferences.applicationEventBluetoothScanInterval(context);
                 //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
@@ -122,7 +122,7 @@ class BluetoothScanJob extends Job {
                 }
             } else {
                 _cancelJob(context);
-                jobBuilder = new JobRequest.Builder(JOB_TAG/*_SHORT*/);
+                jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
                 if (forScreenOn)
                     jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
                 else
@@ -178,7 +178,7 @@ class BluetoothScanJob extends Job {
 
         try {
             JobManager jobManager = JobManager.instance();
-            //jobManager.cancelAllForTag(JOB_TAG_SHORT);
+            jobManager.cancelAllForTag(JOB_TAG_SHORT);
             jobManager.cancelAllForTag(JOB_TAG);
         } catch (Exception ignored) {}
     }
@@ -210,8 +210,8 @@ class BluetoothScanJob extends Job {
 
         try {
             JobManager jobManager = JobManager.instance();
-            return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0)/* ||
-                    (jobManager.getAllJobRequestsForTag(JOB_TAG_SHORT).size() != 0)*/;
+            return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0) ||
+                    (jobManager.getAllJobRequestsForTag(JOB_TAG_SHORT).size() != 0);
         } catch (Exception e) {
             return  false;
         }
