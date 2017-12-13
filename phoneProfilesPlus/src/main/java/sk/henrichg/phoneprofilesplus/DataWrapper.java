@@ -1934,28 +1934,36 @@ public class DataWrapper {
 
                 boolean wifiConnected = false;
 
-                ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                if (android.os.Build.VERSION.SDK_INT >= 21) {
-                    Network[] networks = connManager.getAllNetworks();
-                    if ((networks != null) && (networks.length > 0)) {
-                        for (Network ntk : networks) {
-                            try {
-                                NetworkInfo ntkInfo = connManager.getNetworkInfo(ntk);
-                                if (ntkInfo != null) {
-                                    if (ntkInfo.getType() == ConnectivityManager.TYPE_WIFI && ntkInfo.isConnected()) {
-                                        if (wifiInfo != null) {
-                                            wifiConnected = true;
-                                            break;
+                ConnectivityManager connManager = null;
+                try {
+                    connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                } catch (Exception ignored) {
+                    // java.lang.NullPointerException: missing IConnectivityManager
+                    // Dual SIM?? Bug in Android ???
+                }
+                if (connManager != null) {
+                    if (android.os.Build.VERSION.SDK_INT >= 21) {
+                        Network[] networks = connManager.getAllNetworks();
+                        if ((networks != null) && (networks.length > 0)) {
+                            for (Network ntk : networks) {
+                                try {
+                                    NetworkInfo ntkInfo = connManager.getNetworkInfo(ntk);
+                                    if (ntkInfo != null) {
+                                        if (ntkInfo.getType() == ConnectivityManager.TYPE_WIFI && ntkInfo.isConnected()) {
+                                            if (wifiInfo != null) {
+                                                wifiConnected = true;
+                                                break;
+                                            }
                                         }
                                     }
+                                } catch (Exception ignored) {
                                 }
-                            } catch (Exception ignored) {}
+                            }
                         }
+                    } else {
+                        NetworkInfo ntkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                        wifiConnected = (ntkInfo != null) && ntkInfo.isConnected();
                     }
-                }
-                else {
-                    NetworkInfo ntkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-                    wifiConnected = (ntkInfo != null) && ntkInfo.isConnected();
                 }
 
                 if (wifiConnected)

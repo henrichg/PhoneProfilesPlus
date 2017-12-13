@@ -1686,7 +1686,13 @@ public class Profile {
         {
             boolean mobileDataSupported;
             if (!PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
-                ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                ConnectivityManager cm = null;
+                try {
+                    cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                } catch (Exception ignored) {
+                    // java.lang.NullPointerException: missing IConnectivityManager
+                    // Dual SIM?? Bug in Android ???
+                }
                 if (cm != null) {
                     /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                         Network[] networks = cm.getAllNetworks();
