@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 class WifiScanJob extends Job {
 
     static final String JOB_TAG  = "WifiScanJob";
-    static final String JOB_TAG_SHORT  = "WifiScanJob_short";
+    //static final String JOB_TAG_SHORT  = "WifiScanJob_short";
 
     public static WifiManager wifi = null;
     private static WifiManager.WifiLock wifiLock = null;
@@ -89,7 +89,7 @@ class WifiScanJob extends Job {
         if (jobManager != null) {
             final JobRequest.Builder jobBuilder;
             if (!shortInterval) {
-                jobManager.cancelAllForTag(JOB_TAG_SHORT);
+                //jobManager.cancelAllForTag(JOB_TAG_SHORT);
 
                 int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
                 //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
@@ -115,7 +115,7 @@ class WifiScanJob extends Job {
                 }
             } else {
                 _cancelJob(context);
-                jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
+                jobBuilder = new JobRequest.Builder(JOB_TAG/*_SHORT*/);
                 if (afterEnableWifi)
                     jobBuilder.setExact(TimeUnit.SECONDS.toMillis(2));
                 else if (forScreenOn)
@@ -172,7 +172,7 @@ class WifiScanJob extends Job {
 
         try {
             JobManager jobManager = JobManager.instance();
-            jobManager.cancelAllForTag(JOB_TAG_SHORT);
+            //jobManager.cancelAllForTag(JOB_TAG_SHORT);
             jobManager.cancelAllForTag(JOB_TAG);
         } catch (Exception ignored) {}
     }
@@ -204,8 +204,8 @@ class WifiScanJob extends Job {
 
         try {
             JobManager jobManager = JobManager.instance();
-            return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0) ||
-                    (jobManager.getAllJobRequestsForTag(JOB_TAG_SHORT).size() != 0);
+            return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0)/* ||
+                    (jobManager.getAllJobRequestsForTag(JOB_TAG_SHORT).size() != 0)*/;
         } catch (Exception e) {
             return false;
         }

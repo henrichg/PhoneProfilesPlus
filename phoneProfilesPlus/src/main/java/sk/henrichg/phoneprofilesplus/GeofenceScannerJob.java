@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 class GeofenceScannerJob extends Job {
 
     static final String JOB_TAG  = "GeofenceScannerJob";
-    static final String JOB_TAG_START  = "GeofenceScannerJob_start";
+    //static final String JOB_TAG_START  = "GeofenceScannerJob_start";
 
     //private static CountDownLatch countDownLatch = null;
 
@@ -106,7 +106,7 @@ class GeofenceScannerJob extends Job {
                 final JobRequest.Builder jobBuilder;
                 if (!startScanning) {
 
-                    jobManager.cancelAllForTag(JOB_TAG_START);
+                    //jobManager.cancelAllForTag(JOB_TAG_START);
 
                     if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
                         PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=" + PhoneProfilesService.getGeofencesScanner().mUpdatesStarted);
@@ -148,7 +148,7 @@ class GeofenceScannerJob extends Job {
                     }
                 } else {
                     _cancelJob();
-                    jobBuilder = new JobRequest.Builder(JOB_TAG_START);
+                    jobBuilder = new JobRequest.Builder(JOB_TAG/*_START*/);
                     if (forScreenOn)
                         jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
                     else
@@ -197,7 +197,7 @@ class GeofenceScannerJob extends Job {
     private static void _cancelJob(/*final Context context*/) {
         try {
             JobManager jobManager = JobManager.instance();
-            jobManager.cancelAllForTag(JOB_TAG_START);
+            //jobManager.cancelAllForTag(JOB_TAG_START);
             jobManager.cancelAllForTag(JOB_TAG);
         } catch (Exception ignored) {}
     }
@@ -229,8 +229,8 @@ class GeofenceScannerJob extends Job {
 
         try {
             JobManager jobManager = JobManager.instance();
-            return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0) ||
-                    (jobManager.getAllJobRequestsForTag(JOB_TAG_START).size() != 0);
+            return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0)/* ||
+                    (jobManager.getAllJobRequestsForTag(JOB_TAG_START).size() != 0)*/;
         } catch (Exception e) {
             return false;
         }
