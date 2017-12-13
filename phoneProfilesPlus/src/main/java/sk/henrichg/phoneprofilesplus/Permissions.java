@@ -586,7 +586,7 @@ class Permissions {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 boolean grantedWriteSettings = true;
-                if ((profile._deviceWiFiAP != 0)) {
+                if (profile._deviceWiFiAP != 0) {
                     grantedWriteSettings = Settings.System.canWrite(context);
                     if (grantedWriteSettings)
                         setShowRequestWriteSettingsPermission(context, true);
@@ -603,7 +603,16 @@ class Permissions {
                         permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.READ_PHONE_STATE));
                     //permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.MODIFY_PHONE_STATE));
                 }
-                //return grantedWriteSettings && grantedReadPhoneState;
+                boolean grantedLocation = true;
+                if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY))
+                    grantedLocation = checkLocation(context);
+                if (permissions != null) {
+                    if (!grantedLocation) {
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.READ_PHONE_STATE));
+                    }
+                }
+                //return grantedWriteSettings && grantedReadPhoneState && grantedLocation;
             } catch (Exception ignored) {
                 //return false;
             }
@@ -612,6 +621,8 @@ class Permissions {
             try {
                 if ((profile._deviceMobileData != 0) || (profile._deviceNetworkType != 0))
                     return hasPermission(context, permission.READ_PHONE_STATE);
+                if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY))
+                    return checkLocation(context);
                 else
                     return true;
             } catch (Exception e) {

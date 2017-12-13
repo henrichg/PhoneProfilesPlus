@@ -262,45 +262,47 @@ public class ActivateProfileHelper {
             // connect to SSID
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, context) == PPApplication.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
-                    WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                    if (wifiManager != null) {
-                        int wifiState = wifiManager.getWifiState();
-                        if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+                    if (Permissions.checkLocation(context)) {
+                        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                        if (wifiManager != null) {
+                            int wifiState = wifiManager.getWifiState();
+                            if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
 
-                            // check if wifi is connected
-                            ConnectivityManager connManager = null;
-                            try {
-                                connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                            } catch (Exception ignored) {
-                                // java.lang.NullPointerException: missing IConnectivityManager
-                                // Dual SIM?? Bug in Android ???
-                            }
-                            if (connManager != null) {
-                                NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
-                                boolean wifiConnected = (activeNetwork != null) &&
-                                        (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
-                                        activeNetwork.isConnected();
-                                WifiInfo wifiInfo = null;
-                                if (wifiConnected)
-                                    wifiInfo = wifiManager.getConnectionInfo();
+                                // check if wifi is connected
+                                ConnectivityManager connManager = null;
+                                try {
+                                    connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                                } catch (Exception ignored) {
+                                    // java.lang.NullPointerException: missing IConnectivityManager
+                                    // Dual SIM?? Bug in Android ???
+                                }
+                                if (connManager != null) {
+                                    NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
+                                    boolean wifiConnected = (activeNetwork != null) &&
+                                            (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
+                                            activeNetwork.isConnected();
+                                    WifiInfo wifiInfo = null;
+                                    if (wifiConnected)
+                                        wifiInfo = wifiManager.getConnectionInfo();
 
-                                List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
-                                if (list != null) {
-                                    for (WifiConfiguration i : list) {
-                                        if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {
-                                            if (wifiConnected) {
-                                                if (!wifiInfo.getSSID().equals(i.SSID)) {
+                                    List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
+                                    if (list != null) {
+                                        for (WifiConfiguration i : list) {
+                                            if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {
+                                                if (wifiConnected) {
+                                                    if (!wifiInfo.getSSID().equals(i.SSID)) {
 
-                                                    PhoneProfilesService.connectToSSIDStarted = true;
+                                                        PhoneProfilesService.connectToSSIDStarted = true;
 
-                                                    // connected to another SSID
-                                                    wifiManager.disconnect();
+                                                        // connected to another SSID
+                                                        wifiManager.disconnect();
+                                                        wifiManager.enableNetwork(i.networkId, true);
+                                                        wifiManager.reconnect();
+                                                    }
+                                                } else
                                                     wifiManager.enableNetwork(i.networkId, true);
-                                                    wifiManager.reconnect();
-                                                }
-                                            } else
-                                                wifiManager.enableNetwork(i.networkId, true);
-                                            break;
+                                                break;
+                                            }
                                         }
                                     }
                                 }
