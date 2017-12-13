@@ -46,6 +46,7 @@ import android.provider.Telephony;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -2905,6 +2906,7 @@ public class PhoneProfilesService extends Service
                 phoneProfilesNotification = notificationBuilder.build();
             } catch (Exception e) {
                 phoneProfilesNotification = null;
+                PPApplication.logE("PhoneProfilesService.showProfileNotification", "build crash="+ Log.getStackTraceString(e));
             }
 
             if (phoneProfilesNotification != null) {

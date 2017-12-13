@@ -56,10 +56,12 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.onCreate"
                                          //+"|PhoneProfilesService.onStartCommand"
                                          //+"|PhoneProfilesService.doForFirstStart"
+                                         +"|PhoneProfilesService.showProfileNotification"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
+
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
 
