@@ -525,6 +525,11 @@
         android:key="orientationScanningCategory"
         android:title="@string/phone_profiles_pref_category_orientation_scanning"
         android:widgetLayout="@layout/start_activity_preference">
+        <Preference
+            android:key="applicationEventOrientationScanIntervalInfo"
+            android:title="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
+            android:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
+            android:widgetLayout="@layout/exclamation_preference" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationEventOrientationScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventOrientationScanInterval"

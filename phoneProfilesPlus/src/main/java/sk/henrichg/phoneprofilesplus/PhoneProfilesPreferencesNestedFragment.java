@@ -520,6 +520,12 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             preference.setSummary(summary);
         }
 
+        preference = prefMng.findPreference("applicationEventOrientationScanIntervalInfo");
+        if (preference != null) {
+            summary = getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary1) + " 10 " +
+                    getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary3);
+            preference.setSummary(summary);
+        }
     }
 
     /*
