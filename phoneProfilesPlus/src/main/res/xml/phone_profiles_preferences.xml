@@ -332,6 +332,11 @@
             android:key="applicationEventLocationsEditor"
             android:title="@string/phone_profiles_pref_applicationEventLocationsEditor"
             henrichg:onlyEdit="1" />
+        <Preference
+            android:key="applicationEventLocationUpdateIntervalInfo"
+            android:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
+            android:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
+            android:widgetLayout="@layout/exclamation_preference" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationEventLocationUpdateInterval"
             android:summary="@string/phone_profiles_pref_applicationEventLocationScanInterval"
@@ -389,6 +394,11 @@
             android:summary="@string/phone_profiles_pref_applicationEventWifiEnableWifi_summary"
             android:defaultValue="true"
             android:widgetLayout="@layout/mp_preference_switch" />
+        <Preference
+            android:key="applicationEventWifiScanIntervalInfo"
+            android:title="@string/phone_profiles_pref_applicationEventWifiScanInterval"
+            android:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
+            android:widgetLayout="@layout/exclamation_preference" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationEventWifiScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventWifiScanInterval"
@@ -435,6 +445,11 @@
             android:summary="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary"
             android:defaultValue="true"
             android:widgetLayout="@layout/mp_preference_switch" />
+        <Preference
+            android:key="applicationEventBluetoothScanIntervalInfo"
+            android:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
+            android:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
+            android:widgetLayout="@layout/exclamation_preference" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationEventBluetoothScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"

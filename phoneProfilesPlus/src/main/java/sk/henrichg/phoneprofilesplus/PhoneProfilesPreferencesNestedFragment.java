@@ -20,6 +20,10 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 
+import com.evernote.android.job.JobRequest;
+
+import java.util.concurrent.TimeUnit;
+
 import static android.app.Activity.RESULT_CANCELED;
 
 public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
@@ -499,6 +503,23 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 preferenceCategory.removePreference(preference);
             }
         }
+        long jobMinInterval = TimeUnit.MILLISECONDS.toMinutes(JobRequest.MIN_INTERVAL);
+        String summary = getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary1) + " " +
+                Long.toString(jobMinInterval) + " " +
+                getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary2);
+        preference = prefMng.findPreference("applicationEventLocationUpdateIntervalInfo");
+        if (preference != null) {
+            preference.setSummary(summary);
+        }
+        preference = prefMng.findPreference("applicationEventWifiScanIntervalInfo");
+        if (preference != null) {
+            preference.setSummary(summary);
+        }
+        preference = prefMng.findPreference("applicationEventBluetoothScanIntervalInfo");
+        if (preference != null) {
+            preference.setSummary(summary);
+        }
+
     }
 
     /*
