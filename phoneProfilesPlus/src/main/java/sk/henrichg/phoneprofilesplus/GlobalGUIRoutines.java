@@ -16,6 +16,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.preference.Preference;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageButton;
 import android.text.Html;
@@ -35,6 +37,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.text.Collator;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -279,32 +282,6 @@ class GlobalGUIRoutines {
             }
         }
     }
-
-    /* using is MaterialDialogsPrefUtil version
-    static void registerOnActivityDestroyListener(Preference preference, PreferenceManager.OnActivityDestroyListener listener) {
-        try {
-            PreferenceManager pm = preference.getPreferenceManager();
-            Method method = pm.getClass().getDeclaredMethod(
-                    "registerOnActivityDestroyListener",
-                    PreferenceManager.OnActivityDestroyListener.class);
-            method.setAccessible(true);
-            method.invoke(pm, listener);
-        } catch (Exception ignored) {
-        }
-    }
-
-    static void unregisterOnActivityDestroyListener(Preference preference, PreferenceManager.OnActivityDestroyListener listener) {
-        try {
-            PreferenceManager pm = preference.getPreferenceManager();
-            Method method = pm.getClass().getDeclaredMethod(
-                    "unregisterOnActivityDestroyListener",
-                    PreferenceManager.OnActivityDestroyListener.class);
-            method.setAccessible(true);
-            method.invoke(pm, listener);
-        } catch (Exception ignored) {
-        }
-    }
-    */
 
     /**
      * Sets the specified image button to the given state, while modifying or
@@ -605,6 +582,32 @@ class GlobalGUIRoutines {
             return activities.size() > 0;
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    static void registerOnActivityDestroyListener(@NonNull Preference preference, @NonNull PreferenceManager.OnActivityDestroyListener listener) {
+        try {
+            PreferenceManager pm = preference.getPreferenceManager();
+            @SuppressLint("PrivateApi")
+            Method method = pm.getClass().getDeclaredMethod(
+                    "registerOnActivityDestroyListener",
+                    PreferenceManager.OnActivityDestroyListener.class);
+            method.setAccessible(true);
+            method.invoke(pm, listener);
+        } catch (Exception ignored) {
+        }
+    }
+
+    static void unregisterOnActivityDestroyListener(@NonNull Preference preference, @NonNull PreferenceManager.OnActivityDestroyListener listener) {
+        try {
+            PreferenceManager pm = preference.getPreferenceManager();
+            @SuppressLint("PrivateApi")
+            Method method = pm.getClass().getDeclaredMethod(
+                    "unregisterOnActivityDestroyListener",
+                    PreferenceManager.OnActivityDestroyListener.class);
+            method.setAccessible(true);
+            method.invoke(pm, listener);
+        } catch (Exception ignored) {
         }
     }
 

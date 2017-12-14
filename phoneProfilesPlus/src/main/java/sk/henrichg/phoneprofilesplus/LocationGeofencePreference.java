@@ -183,7 +183,7 @@ public class LocationGeofencePreference extends DialogPreference {
             }
         });
 
-        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -197,7 +197,7 @@ public class LocationGeofencePreference extends DialogPreference {
     {
         super.onDismiss(dialog);
         dataWrapper.getDatabaseHandler().checkGeofence("", 0);
-        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
         Cursor cursor = listAdapter.getCursor();
         if (cursor != null)
             cursor.close();

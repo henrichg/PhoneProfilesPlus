@@ -126,7 +126,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         listAdapter = new ContactGroupsMultiSelectPreferenceAdapter(_context);
         listView.setAdapter(listAdapter);
 
-        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -195,7 +195,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         EditorProfilesActivity.getContactGroupsCache().cancelCaching();
         if (!EditorProfilesActivity.getContactGroupsCache().isCached())
             EditorProfilesActivity.getContactGroupsCache().clearCache(false);
-        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 
     @Override

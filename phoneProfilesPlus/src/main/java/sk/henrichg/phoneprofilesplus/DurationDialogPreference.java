@@ -171,7 +171,7 @@ public class DurationDialogPreference extends DialogPreference
 
         mTextViewRange.setText(sMin + " - " + sMax);
 
-        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -183,7 +183,7 @@ public class DurationDialogPreference extends DialogPreference
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 
     @Override

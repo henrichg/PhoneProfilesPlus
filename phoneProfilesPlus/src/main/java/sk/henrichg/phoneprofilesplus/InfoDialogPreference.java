@@ -36,7 +36,7 @@ public class InfoDialogPreference extends DialogPreference {
         dialogBuilder.setMessage(infoText);
         dialogBuilder.setPositiveButton(android.R.string.ok, null);
 
-        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         mDialog = dialogBuilder.show();
     }
@@ -44,7 +44,7 @@ public class InfoDialogPreference extends DialogPreference {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 
     @Override

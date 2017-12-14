@@ -225,7 +225,7 @@ public class NFCTagPreference extends DialogPreference {
             }
         });
 
-        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -240,7 +240,7 @@ public class NFCTagPreference extends DialogPreference {
         super.onDismiss(dialog);
         if ((rescanAsyncTask != null) && (!rescanAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)))
             rescanAsyncTask.cancel(true);
-        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 
     @Override

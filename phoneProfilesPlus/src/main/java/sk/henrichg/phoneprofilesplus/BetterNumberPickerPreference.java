@@ -118,7 +118,7 @@ class BetterNumberPickerPreference extends DialogPreference {
         else
             mNumberPicker.setTheme(R.style.BetterPickersDialogFragment_Light);
 
-        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -130,7 +130,7 @@ class BetterNumberPickerPreference extends DialogPreference {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 
     @Override

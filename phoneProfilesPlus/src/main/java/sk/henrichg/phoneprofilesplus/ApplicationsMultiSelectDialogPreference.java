@@ -193,7 +193,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         quickscroll.setIndicatorColor(colorQSHandlebarActive, colorQSHandlebarActive, Color.WHITE);
         quickscroll.setFixedSize(1);
 
-        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -259,7 +259,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         EditorProfilesActivity.getApplicationsCache().cancelCaching();
         if (!EditorProfilesActivity.getApplicationsCache().isCached())
             EditorProfilesActivity.getApplicationsCache().clearCache(false);
-        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 
     @Override

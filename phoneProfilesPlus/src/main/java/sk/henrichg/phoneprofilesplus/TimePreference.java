@@ -76,7 +76,7 @@ public class TimePreference extends DialogPreference {
 
         mBuilder.customView(picker, false);
 
-        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         mDialog = mBuilder.build();
         if (state != null)
@@ -89,7 +89,7 @@ public class TimePreference extends DialogPreference {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 
     @Override

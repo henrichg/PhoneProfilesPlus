@@ -168,7 +168,7 @@ public class BrightnessDialogPreference extends
 
         enableViews();
 
-        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -223,7 +223,7 @@ public class BrightnessDialogPreference extends
             layoutParams.screenBrightness = savedBrightness / (float) 255;
         win.setAttributes(layoutParams);
 
-        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 
     @Override
@@ -578,12 +578,6 @@ public class BrightnessDialogPreference extends
         automatic = myState.automatic;
         defaultProfile = myState.defaultProfile;
         disableDefaultProfile = myState.disableDefaultProfile;
-
-        // not show dialog, because is called from NestedFragment
-        // the same error as in MaterialDialogPreference
-        //if (myState.isDialogShowing) {
-        //    showDialog(myState.dialogBundle);
-        //}
 
         setSummaryBDP();
         notifyChanged();

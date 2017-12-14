@@ -151,7 +151,7 @@ public class RingtonePreference extends DialogPreference {
         ringtone = value;
         PPApplication.logE("RingtonePreference.showDialog", "ringtone="+ringtone);
 
-        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -170,7 +170,7 @@ public class RingtonePreference extends DialogPreference {
         super.onDismiss(dialog);
         PPApplication.logE("RingtonePreference.onDismiss", "ringtone="+ringtone);
         playRingtone(false);
-        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 
     @Override

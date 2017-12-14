@@ -98,7 +98,7 @@ public class NumberPickerPreference extends DialogPreference {
         GlobalGUIRoutines.setSeparatorColorForNumberPicker(mNumberPicker, tv.data);
         GlobalGUIRoutines.updateTextAttributesForNumberPicker(mNumberPicker, 18);
 
-        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -110,7 +110,7 @@ public class NumberPickerPreference extends DialogPreference {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 
     @Override

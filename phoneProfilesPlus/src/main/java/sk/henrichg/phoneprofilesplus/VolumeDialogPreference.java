@@ -163,7 +163,7 @@ public class VolumeDialogPreference extends
         valueText.setEnabled((noChange == 0) && (defaultProfile == 0));
         seekBar.setEnabled((noChange == 0) && (defaultProfile == 0));
 
-        MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -328,7 +328,7 @@ public class VolumeDialogPreference extends
             } catch (Exception ignored) {}
             mediaPlayer.release();
         }
-        MaterialDialogsPrefUtil.unregisterOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 
     @Override

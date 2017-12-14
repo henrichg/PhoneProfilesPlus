@@ -151,6 +151,7 @@
     <orderEntry type="library" name="io.fabric.sdk.android:fabric-1.4.1" level="project" />
     <orderEntry type="library" name="RootTools:@aar" level="project" />
     <orderEntry type="library" name="com.crashlytics.sdk.android:crashlytics-core-2.4.1" level="project" />
+    <orderEntry type="library" name="com.afollestad.material-dialogs:commons-0.9.6.0" level="project" />
     <orderEntry type="library" name="com.crashlytics.sdk.android:beta-1.2.7" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-location-11.6.2" level="project" />
     <orderEntry type="library" name="mobi.upod:time-duration-picker-1.1.3" level="project" />
