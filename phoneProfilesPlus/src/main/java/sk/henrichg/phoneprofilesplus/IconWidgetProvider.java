@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.widget.RemoteViews;
 
 public class IconWidgetProvider extends AppWidgetProvider {
@@ -86,7 +87,23 @@ public class IconWidgetProvider extends AppWidgetProvider {
             if (applicationWidgetIconBackground.equals("50")) alpha = 0x80;
             if (applicationWidgetIconBackground.equals("75")) alpha = 0xC0;
             if (applicationWidgetIconBackground.equals("100")) alpha = 0xFF;
-            remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
+            boolean roundedCorners = true;
+            if (roundedCorners) {
+                remoteViews.setInt(R.id.widget_icon_root, "setBackgroundColor", 0x00000000);
+                remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", Color.argb(alpha, red, green, blue));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                    remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", alpha);
+                else
+                    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", alpha);
+            }
+            else {
+                remoteViews.setInt(R.id.widget_icon_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
+                remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", 0x00000000);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                    remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", 0);
+                else
+                    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", 0);
+            }
 
             if (isIconResourceID)
             {

@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/widget_profile_list_root"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_marginTop="20dp"
-    android:layout_marginBottom="20dp" >
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/widget_profile_list_root"
+             android:layout_width="match_parent"
+             android:layout_height="60dp"
+             android:gravity="center" >
 
-    <!-- This RelativeLayout si required for center vertical its content -->
+    <ImageView
+        android:id="@+id/widget_profile_list_background"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/rounded_widget_background"
+        android:contentDescription="@string/empty_string" />
+
     <RelativeLayout
         android:id="@+id/widget_profile_list_header"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_centerVertical="true"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="10dp"
-        tools:ignore="UselessParent">
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_gravity="center">
 
         <ImageView
             android:id="@+id/widget_profile_list_header_restart_events"
@@ -80,4 +81,4 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+</FrameLayout>

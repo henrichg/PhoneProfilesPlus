@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/widget_one_row_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/widget_margin"
-    android:gravity="center" >
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/widget_icon_root"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:gravity="center" >
+
+    <ImageView
+        android:id="@+id/widget_icon_background"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/rounded_widget_background"
+        android:contentDescription="@string/empty_string" />
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center" >
 
     <ImageView
         android:id="@+id/icon_widget_icon"
@@ -15,4 +26,6 @@
         android:src="@drawable/ic_profile_default" 
         android:contentDescription="@string/profile_preferences_profileIcon"/>
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</FrameLayout>

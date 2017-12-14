@@ -1,31 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/widget_profile_list_root"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/widget_profile_list_root"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:gravity="center" >
 
-    <ListView
-        android:id="@+id/widget_profile_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dip"
-        android:divider="@android:color/transparent"
-        android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay" />
-
-    <TextView
-        android:id="@+id/widget_profiles_list_empty"
+    <ImageView
+        android:id="@+id/widget_profile_list_background"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:shadowColor="#ffffffff"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="3"
-        android:text="@string/profile_list_empty"
-        android:gravity="center"
-        android:fontFamily="sans-serif-condensed"
-        android:textSize="15sp" />
+        android:scaleType="fitXY"
+        android:src="@drawable/rounded_widget_background"
+        android:contentDescription="@string/empty_string" />
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/widget_profile_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:divider="@android:color/transparent"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay" />
+
+        <TextView
+            android:id="@+id/widget_profiles_list_empty"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:shadowColor="#ffffffff"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="3"
+            android:text="@string/profile_list_empty"
+            android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

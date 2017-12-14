@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.RemoteViews;
 
@@ -98,7 +99,23 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         if (applicationWidgetListBackground.equals("50")) alpha = 0x80;
         if (applicationWidgetListBackground.equals("75")) alpha = 0xC0;
         if (applicationWidgetListBackground.equals("100")) alpha = 0xFF;
-        widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
+        boolean roundedCorners = true;
+        if (roundedCorners) {
+            widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", 0x00000000);
+            widget.setInt(R.id.widget_profile_list_background, "setColorFilter", Color.argb(alpha, red, green, blue));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                widget.setInt(R.id.widget_profile_list_background, "setImageAlpha", alpha);
+            else
+                widget.setInt(R.id.widget_profile_list_background, "setAlpha", alpha);
+        }
+        else {
+            widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
+            widget.setInt(R.id.widget_profile_list_background, "setColorFilter", 0x00000000);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                widget.setInt(R.id.widget_profile_list_background, "setImageAlpha", 0);
+            else
+                widget.setInt(R.id.widget_profile_list_background, "setAlpha", 0);
+        }
 
 
         // header
