@@ -91,6 +91,8 @@ class ApplicationPreferences {
     private static final String PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventMobileCellScanOnlyWhenScreenIsOn";
     private static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventOrientationScanOnlyWhenScreenIsOn";
     static final String PREF_APPLICATION_RESTART_EVENTS_ALERT = "applicationRestartEventsAlert";
+    private static final String PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS = "applicationWidgetListRoundedCorners";
+    private static final String PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS = "applicationWidgetIconRoundedCorners";
 
     static SharedPreferences getSharedPreferences(Context context) {
         if (preferences == null)
@@ -437,6 +439,14 @@ class ApplicationPreferences {
 
     static boolean applicationRestartEventsWithAlert(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_RESTART_EVENTS_ALERT, true);
+    }
+
+    static boolean applicationWidgetListRoundedCorners(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, true);
+    }
+
+    static boolean applicationWidgetIconRoundedCorners(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS, true);
     }
 
 }

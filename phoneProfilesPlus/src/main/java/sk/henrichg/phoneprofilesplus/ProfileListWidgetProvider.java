@@ -99,7 +99,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         if (applicationWidgetListBackground.equals("50")) alpha = 0x80;
         if (applicationWidgetListBackground.equals("75")) alpha = 0xC0;
         if (applicationWidgetListBackground.equals("100")) alpha = 0xFF;
-        boolean roundedCorners = true;
+        boolean roundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners(context);
         if (roundedCorners) {
             widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", 0x00000000);
             widget.setInt(R.id.widget_profile_list_background, "setColorFilter", Color.argb(alpha, red, green, blue));

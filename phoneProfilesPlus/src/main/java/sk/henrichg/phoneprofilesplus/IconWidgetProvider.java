@@ -87,7 +87,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             if (applicationWidgetIconBackground.equals("50")) alpha = 0x80;
             if (applicationWidgetIconBackground.equals("75")) alpha = 0xC0;
             if (applicationWidgetIconBackground.equals("100")) alpha = 0xFF;
-            boolean roundedCorners = true;
+            boolean roundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners(context);
             if (roundedCorners) {
                 remoteViews.setInt(R.id.widget_icon_root, "setBackgroundColor", 0x00000000);
                 remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", Color.argb(alpha, red, green, blue));

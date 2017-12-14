@@ -651,6 +651,11 @@
             android:entries="@array/widgetLightnessArray"
             android:entryValues="@array/widgetLightnessValues"
             app:useStockLayout="true" />
+        <CheckBoxPreference
+            android:key="applicationWidgetListRoundedCorners"
+            android:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
             android:summary="100"
@@ -697,6 +702,11 @@
             android:entries="@array/widgetLightnessArray"
             android:entryValues="@array/widgetLightnessValues"
             app:useStockLayout="true" />
+        <CheckBoxPreference
+            android:key="applicationWidgetIconRoundedCorners"
+            android:title="@string/phone_profiles_pref_applicationWidgetIconRoundedCorners"
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <CheckBoxPreference
             android:key="applicationWidgetIconHideProfileName"
             android:title="@string/phone_profiles_pref_applicationWidgetIconHideProfileName"

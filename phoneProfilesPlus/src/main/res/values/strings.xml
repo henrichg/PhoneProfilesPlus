@@ -1132,4 +1132,6 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Please do not configure interval to value less then</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minutes. This greatly increases the battery consumption.</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">seconds. This greatly increases the battery consumption.</string>
+    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>
 </resources>
