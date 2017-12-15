@@ -74,7 +74,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         if (newsLatest) {
             // empty this, for switch off news
             news = true;
-            if (!extenderInstalled) {
+            if (extenderInstalled) {
                 TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text1);
                 infoText1.setVisibility(View.GONE);
             }
