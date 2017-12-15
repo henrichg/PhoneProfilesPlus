@@ -30,7 +30,7 @@ class ImportantInfoNotification {
             if (packageVersionCode > savedVersionCode) {
                 //Log.d("ImportantInfoNotification.showInfoNotification","show");
                 //boolean show = (versionCode >= VERSION_CODE_FOR_NEWS);
-                boolean show = canShowNotification(packageVersionCode, savedVersionCode);
+                boolean show = canShowNotification(packageVersionCode, savedVersionCode, context);
                 setShowInfoNotificationOnStart(context, show, packageVersionCode);
             }
             else
@@ -49,10 +49,11 @@ class ImportantInfoNotification {
         }
     }
 
-    static private boolean canShowNotification(int packageVersionCode, int savedVersionCode) {
+    static private boolean canShowNotification(int packageVersionCode, int savedVersionCode, Context context) {
         boolean news = false;
 
-        boolean newsLatest = (packageVersionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS) || newExtender;
+        boolean extenderInstalled = ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context);
+        boolean newsLatest = (packageVersionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS) || (newExtender && extenderInstalled);
         boolean news1804 = ((packageVersionCode >= 1804) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1772 = ((packageVersionCode >= 1772) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean afterInstall = savedVersionCode == 0;
