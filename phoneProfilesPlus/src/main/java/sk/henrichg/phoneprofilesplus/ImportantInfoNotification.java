@@ -27,7 +27,7 @@ class ImportantInfoNotification {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             packageVersionCode = pInfo.versionCode;
             savedVersionCode = getShowInfoNotificationOnStartVersion(context);
-            if (packageVersionCode > savedVersionCode) {
+            if ((packageVersionCode > savedVersionCode) || newExtender){
                 //Log.d("ImportantInfoNotification.showInfoNotification","show");
                 //boolean show = (versionCode >= VERSION_CODE_FOR_NEWS);
                 boolean show = canShowNotification(packageVersionCode, savedVersionCode, context);
