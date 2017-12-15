@@ -60,7 +60,8 @@ public class ImportantInfoHelpFragment extends Fragment {
         boolean news1804 = ((versionCode >= 1804) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1772 = ((versionCode >= 1772) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
 
-        if (ImportantInfoNotification.newExtender) {
+        boolean extenderInstalled = ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context);
+        if (ImportantInfoNotification.newExtender && extenderInstalled) {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
             infoText1.setVisibility(View.VISIBLE);
         }
@@ -73,7 +74,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         if (newsLatest) {
             // empty this, for switch off news
             news = true;
-            if (ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context)) {
+            if (!extenderInstalled) {
                 TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text1);
                 infoText1.setVisibility(View.GONE);
             }
