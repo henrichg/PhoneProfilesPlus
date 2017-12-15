@@ -1321,6 +1321,27 @@ class Event {
 
         if (exists)
         {
+            // clear start event notitifcation
+            if (_repeatNotification) {
+                boolean clearNotification = true;
+                for (int i = eventTimelineList.size()-1; i > 0; i--)
+                {
+                    EventTimeline _eventTimeline = eventTimelineList.get(i);
+                    Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
+                    if ((event != null) && (event._repeatNotification) && (event._id != this._id)) {
+                        // not clear, notification is from another event
+                        clearNotification = false;
+                        break;
+                    }
+                }
+                if (clearNotification) {
+                    NotificationManager notificationManager = (NotificationManager) dataWrapper.context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    if (notificationManager != null)
+                        notificationManager.cancel(PPApplication.EVENT_START_NOTIFICATION_ID);
+                    StartEventNotificationBroadcastReceiver.removeAlarm(dataWrapper.context);
+                }
+            }
+
             eventTimeline = eventTimelineList.get(eventPosition);
 
             // remove event from timeline
