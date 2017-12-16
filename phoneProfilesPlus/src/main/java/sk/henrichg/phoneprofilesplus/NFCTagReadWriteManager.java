@@ -139,16 +139,18 @@ class NFCTagReadWriteManager {
 
                 // get NDEF tag details
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-                Ndef ndefTag = Ndef.get(tag);
-                //int tagSize = ndefTag.getMaxSize();         // tag size
-                tagIsWritable = ndefTag.isWritable();   // is tag writable?
-                //String tagType = ndefTag.getType();            // tag type
+                if (tag != null) {
+                    Ndef ndefTag = Ndef.get(tag);
+                    //int tagSize = ndefTag.getMaxSize();         // tag size
+                    tagIsWritable = ndefTag.isWritable();   // is tag writable?
+                    //String tagType = ndefTag.getType();            // tag type
 
-                Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-                if (rawMsgs != null) {
-                    NdefRecord[] records = ((NdefMessage) rawMsgs[0]).getRecords();
-                    String text = ndefRecordToString(records[0]);
-                    onTagReadListener.onTagRead(text);
+                    Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+                    if (rawMsgs != null) {
+                        NdefRecord[] records = ((NdefMessage) rawMsgs[0]).getRecords();
+                        String text = ndefRecordToString(records[0]);
+                        onTagReadListener.onTagRead(text);
+                    }
                 }
             }
         }
