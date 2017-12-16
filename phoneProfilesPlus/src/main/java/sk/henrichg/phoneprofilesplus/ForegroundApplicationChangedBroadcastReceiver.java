@@ -130,10 +130,12 @@ public class ForegroundApplicationChangedBroadcastReceiver extends BroadcastRece
                     manager.getEnabledAccessibilityServiceList(AccessibilityEvent.TYPES_ALL_MASK);
 
             for (AccessibilityServiceInfo service : runningServices) {
-                PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled", "serviceId="+service.getId());
-                if (EXTENDER_ACCESSIBILITY_SERVICE_ID.equals(service.getId())) {
-                    PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled", "true");
-                    return true;
+                if (service != null) {
+                    PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled", "serviceId=" + service.getId());
+                    if (EXTENDER_ACCESSIBILITY_SERVICE_ID.equals(service.getId())) {
+                        PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled", "true");
+                        return true;
+                    }
                 }
             }
             PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled", "false");
