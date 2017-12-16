@@ -171,11 +171,11 @@ public class ForegroundApplicationChangedBroadcastReceiver extends BroadcastRece
     }
 
     static boolean isEnabled(Context context) {
-        int installed = isExtenderInstalled(context);
+        int extenderVersion = isExtenderInstalled(context);
         boolean enabled = false;
-        if (installed > 0)
+        if (extenderVersion >= ImportantInfoNotification.VERSION_CODE_EXTENDER)
             enabled = isAccessibilityServiceEnabled(context);
-        return  (installed > 0) && enabled;
+        return  (extenderVersion >= ImportantInfoNotification.VERSION_CODE_EXTENDER) && enabled;
     }
 
     static public String getApplicationInForeground(Context context)
