@@ -167,7 +167,7 @@ class EventPreferencesOrientation extends EventPreferences {
                         ": "+context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
             }
             else
-            if (extenderVersion < ImportantInfoNotification.VERSION_CODE_EXTENDER) {
+            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER) {
                 selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
             }

@@ -14,9 +14,6 @@ class ImportantInfoNotification {
     // this version code must by <= version code in dependencies.gradle
     static final int VERSION_CODE_FOR_NEWS = 3670;
 
-    static boolean newExtender = true;
-    static final int VERSION_CODE_EXTENDER = 60;
-
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
 
@@ -28,7 +25,7 @@ class ImportantInfoNotification {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             packageVersionCode = pInfo.versionCode;
             savedVersionCode = getShowInfoNotificationOnStartVersion(context);
-            if ((packageVersionCode > savedVersionCode) || newExtender){
+            if ((packageVersionCode > savedVersionCode) || PPApplication.newExtender){
                 //Log.d("ImportantInfoNotification.showInfoNotification","show");
                 //boolean show = (versionCode >= VERSION_CODE_FOR_NEWS);
                 boolean show = canShowNotification(packageVersionCode, savedVersionCode, context);
@@ -80,8 +77,8 @@ class ImportantInfoNotification {
             }
         }
 
-        if (newExtender) {
-            if (ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context) < VERSION_CODE_EXTENDER)
+        if (PPApplication.newExtender) {
+            if (ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context) < PPApplication.VERSION_CODE_EXTENDER)
                 news = true;
         }
 
