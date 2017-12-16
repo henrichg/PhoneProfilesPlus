@@ -358,7 +358,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         }
         else
         if (systemSettings.equals("accessibility")) {
-            if (!ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(_context)) {
+            if (ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(_context) == 0) {
                 ok = false;
                 prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + _context.getString(R.string.preference_not_allowed_reason_not_extender_installed);

@@ -161,7 +161,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 descr = descr + "; " + context.getString(R.string.event_preferences_orientation_distance) + ": " + distanceNames[i];
 
             String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (!ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context.getApplicationContext())) {
+            if (ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()) == 0) {
                 selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
             }
@@ -236,7 +236,7 @@ class EventPreferencesOrientation extends EventPreferences {
         if (key.equals(PREF_EVENT_ORIENTATION_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context))
+                if (ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context) > 0)
                     preference.setSummary(R.string.event_preferences_orientation_PPPExtender_upgrade_summary);
                 else
                     preference.setSummary(R.string.event_preferences_orientation_PPPExtender_install_summary);
