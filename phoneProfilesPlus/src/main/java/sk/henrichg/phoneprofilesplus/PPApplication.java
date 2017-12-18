@@ -1346,7 +1346,7 @@ public class PPApplication extends Application {
     }
 
     public static void exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
-                               boolean setApplicationStarted, boolean shutdown) {
+                               boolean shutdown) {
         if (!shutdown) {
             // stop all events
             dataWrapper.stopAllEvents(false);
@@ -1356,20 +1356,6 @@ public class PPApplication extends Application {
             Permissions.removeNotifications(context);
 
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
-
-            // remove alarm for profile duration
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-            Profile.setActivatedProfileForDuration(context, 0);
-
-            StartEventNotificationBroadcastReceiver.removeAlarm(context);
-            GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
-            LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
-
-            if (PhoneProfilesService.instance != null) {
-                PPApplication.stopGeofenceScanner(context);
-                PPApplication.stopOrientationScanner(context);
-                PPApplication.stopPhoneStateScanner(context);
-            }
 
             if (PPApplication.brightnessHandler != null) {
                 PPApplication.brightnessHandler.post(new Runnable() {
@@ -1390,20 +1376,25 @@ public class PPApplication extends Application {
             }
 
             PPApplication.initRoot();
+        }
 
-            //PPApplication.cleanPhoneProfilesServiceMessenger(context);
+        ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+        Profile.setActivatedProfileForDuration(context, 0);
+        StartEventNotificationBroadcastReceiver.removeAlarm(context);
+        GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
+        LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
 
-            Permissions.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
-            Permissions.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
-            Permissions.setShowRequestDrawOverlaysPermission(context.getApplicationContext(), true);
-            WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
-            //ActivateProfileHelper.setScreenUnlocked(context, true);
+        context.stopService(new Intent(context, PhoneProfilesService.class));
 
-            context.stopService(new Intent(context, PhoneProfilesService.class));
+        Permissions.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
+        Permissions.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
+        Permissions.setShowRequestDrawOverlaysPermission(context.getApplicationContext(), true);
+        WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
+        //ActivateProfileHelper.setScreenUnlocked(context, true);
 
-            if (setApplicationStarted)
-                PPApplication.setApplicationStarted(context, false);
+        PPApplication.setApplicationStarted(context, false);
 
+        if (!shutdown) {
             if (activity != null) {
                 Handler handler = new Handler(context.getMainLooper());
                 Runnable r = new Runnable() {
@@ -1414,8 +1405,6 @@ public class PPApplication extends Application {
                 handler.postDelayed(r, 500);
             }
         }
-        else
-            context.stopService(new Intent(context, PhoneProfilesService.class));
     }
 
 }
