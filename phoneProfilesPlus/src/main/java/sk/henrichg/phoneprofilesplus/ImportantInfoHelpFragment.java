@@ -55,36 +55,36 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         boolean news = false;
         boolean newsLatest = (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        boolean news3670 = ((versionCode >= 3740) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news3640 = ((versionCode >= 3640) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news2190 = ((versionCode >= 2190) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1804 = ((versionCode >= 1804) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1772 = ((versionCode >= 1772) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
 
-        boolean extenderInstalled = ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context);
-        if (ImportantInfoNotification.newExtender && extenderInstalled) {
-            TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
-            infoText1.setVisibility(View.VISIBLE);
-        }
-        else {
-            TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
-            infoText1.setVisibility(View.GONE);
-        }
+        int extenderVersion = ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context);
 
         //noinspection StatementWithEmptyBody
         if (newsLatest) {
             // empty this, for switch off news
+        }
+        else {
+            // empty this, for switch off news
+        }
+
+        if (news3670) {
             news = true;
-            if (extenderInstalled) {
+            if (extenderVersion > 0) {
+                news = false;
                 TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text1);
                 infoText1.setVisibility(View.GONE);
             }
         }
         else {
-            // empty this, for switch off news
+            TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text1);
+            infoText1.setVisibility(View.GONE);
         }
 
         if (news3640) {
-            // empty this, for switch off news
             news = true;
         }
         else {
@@ -415,6 +415,16 @@ public class ImportantInfoHelpFragment extends Fragment {
         spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(getActivity())), 0, str.length(),
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoTextGrant1Command.setText(spannable);
+
+        if (PPApplication.newExtender && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER)) {
+            news = true;
+            TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
+            infoText1.setVisibility(View.VISIBLE);
+        }
+        else {
+            TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
+            infoText1.setVisibility(View.GONE);
+        }
 
         if (!news) {
             TextView infoTextNews = view.findViewById(R.id.activity_info_notification_dialog_news);

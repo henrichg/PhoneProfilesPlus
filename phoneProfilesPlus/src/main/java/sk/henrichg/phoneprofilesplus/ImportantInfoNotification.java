@@ -12,9 +12,7 @@ import android.support.v4.app.NotificationCompat;
 class ImportantInfoNotification {
 
     // this version code must by <= version code in dependencies.gradle
-    static final int VERSION_CODE_FOR_NEWS = 3641;
-
-    static boolean newExtender = true;
+    static final int VERSION_CODE_FOR_NEWS = 3670;
 
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
@@ -27,7 +25,7 @@ class ImportantInfoNotification {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             packageVersionCode = pInfo.versionCode;
             savedVersionCode = getShowInfoNotificationOnStartVersion(context);
-            if ((packageVersionCode > savedVersionCode) || newExtender){
+            if ((packageVersionCode > savedVersionCode) || PPApplication.newExtender){
                 //Log.d("ImportantInfoNotification.showInfoNotification","show");
                 //boolean show = (versionCode >= VERSION_CODE_FOR_NEWS);
                 boolean show = canShowNotification(packageVersionCode, savedVersionCode, context);
@@ -52,14 +50,18 @@ class ImportantInfoNotification {
     static private boolean canShowNotification(int packageVersionCode, int savedVersionCode, Context context) {
         boolean news = false;
 
-        boolean extenderInstalled = ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context);
-        boolean newsLatest = (packageVersionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS) || (newExtender && extenderInstalled);
+        boolean newsLatest = (packageVersionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        boolean news3670 = ((packageVersionCode >= 3670) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1804 = ((packageVersionCode >= 1804) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1772 = ((packageVersionCode >= 1772) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean afterInstall = savedVersionCode == 0;
 
         if (newsLatest) {
             // change to false for not show notification
+            news = false;
+        }
+
+        if (news3670) {
             news = true;
         }
 
@@ -73,6 +75,11 @@ class ImportantInfoNotification {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 news = true;
             }
+        }
+
+        if (PPApplication.newExtender) {
+            if (ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context) < PPApplication.VERSION_CODE_EXTENDER)
+                news = true;
         }
 
         if (afterInstall)

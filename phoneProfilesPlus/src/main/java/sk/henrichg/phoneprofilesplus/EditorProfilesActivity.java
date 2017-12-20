@@ -82,6 +82,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private AsyncTask importAsyncTask = null;
     private AsyncTask exportAsyncTask = null;
+    private boolean doImport = false;
 
     private static final String SP_DATA_DETAILS_DATA_TYPE = "data_detail_data_type";
     private static final String SP_DATA_DETAILS_DATA_ID = "data_detail_data_id";
@@ -516,6 +517,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     {
         if ((importAsyncTask != null) && !importAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
             importAsyncTask.cancel(true);
+            doImport = false;
         }
         if ((exportAsyncTask != null) && !exportAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
             exportAsyncTask.cancel(true);
@@ -693,7 +695,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             startActivity(intent);
             return true;
         case R.id.menu_exit:
-            PPApplication.exitApp(getApplicationContext(), getDataWrapper(), this, true, false);
+            PPApplication.exitApp(getApplicationContext(), getDataWrapper(), this, false);
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -1200,6 +1202,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 protected void onPreExecute() {
                     super.onPreExecute();
 
+                    doImport = true;
+
                     lockScreenOrientation();
                     this.dialog.setCancelable(false);
                     this.dialog.setCanceledOnTouchOutside(false);
@@ -1301,6 +1305,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 Toast.LENGTH_SHORT);
                         msg.show();
 
+                        doImport = false;
+
                         // refresh activity
                         GlobalGUIRoutines.reloadActivity(activity, true);
                     } else {
@@ -1312,6 +1318,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         startService(serviceIntent);
                         //else
                         //    startForegroundService(serviceIntent);
+
+                        doImport = false;
 
                         importExportErrorDialog(1, result);
                     }
@@ -1915,6 +1923,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                if (doImport)
+                    return;
+
                 setEventsRunStopIndicator();
                 invalidateOptionsMenu();
 

@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -130,10 +132,12 @@ public class ForegroundApplicationChangedBroadcastReceiver extends BroadcastRece
                     manager.getEnabledAccessibilityServiceList(AccessibilityEvent.TYPES_ALL_MASK);
 
             for (AccessibilityServiceInfo service : runningServices) {
-                PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled", "serviceId="+service.getId());
-                if (EXTENDER_ACCESSIBILITY_SERVICE_ID.equals(service.getId())) {
-                    PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled", "true");
-                    return true;
+                if (service != null) {
+                    PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled", "serviceId=" + service.getId());
+                    if (EXTENDER_ACCESSIBILITY_SERVICE_ID.equals(service.getId())) {
+                        PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled", "true");
+                        return true;
+                    }
                 }
             }
             PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled", "false");
@@ -143,22 +147,35 @@ public class ForegroundApplicationChangedBroadcastReceiver extends BroadcastRece
         return false;
     }
 
-    static boolean isExtenderInstalled(Context context) {
+    static int isExtenderInstalled(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            return packageManager.getApplicationInfo("sk.henrichg.phoneprofilesplusextender", 0).enabled;
+            ApplicationInfo appInfo = packageManager.getApplicationInfo("sk.henrichg.phoneprofilesplusextender", 0);
+            boolean installed = appInfo.enabled;
+            if (installed) {
+                PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled", "installed=true");
+                PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
+                int version = pInfo.versionCode;
+                PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled", "version="+version);
+                return version;
+            }
+            else {
+                PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled", "installed=false");
+                return 0;
+            }
         }
         catch (Exception e) {
-            return false;
+            PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled", "exception");
+            return 0;
         }
     }
 
     static boolean isEnabled(Context context) {
-        boolean installed = isExtenderInstalled(context);
+        int extenderVersion = isExtenderInstalled(context);
         boolean enabled = false;
-        if (installed)
+        if (extenderVersion >= PPApplication.VERSION_CODE_EXTENDER)
             enabled = isAccessibilityServiceEnabled(context);
-        return  installed && enabled;
+        return  (extenderVersion >= PPApplication.VERSION_CODE_EXTENDER) && enabled;
     }
 
     static public String getApplicationInForeground(Context context)
