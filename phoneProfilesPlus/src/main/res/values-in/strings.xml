@@ -1086,9 +1086,9 @@ Konteks | Permintaan Konteks</string>
   <string name="fast_access_duration_activate_with_button">Bertindak. dengan</string>
   <string name="fast_access_duration_activate_without_button">Bertindak. tanpa</string>
   <string name="applications_editor_dialog_startApplicationDelay">Keterlambatan startup:</string>
-  <string name="number_picker_min_error">Harap masukan angka lebih besar dari atau sama dengan % 1$s</string>
-  <string name="number_picker_max_error">Harap masukan angka kurang dari atau sama dengan % 1 $ s</string>
-  <string name="number_picker_min_max_error">Harap masukan angka antara % 1 $ s dan % 2 $ s</string>
+  <string name="number_picker_min_error">Harap masukan angka lebih besar dari atau sama dengan %1$s</string>
+  <string name="number_picker_max_error">Harap masukan angka kurang dari atau sama dengan %1$s</string>
+  <string name="number_picker_min_max_error">Harap masukan angka antara %1$s dan %2$s</string>
   <string name="email_chooser">Kirim e-mail menggunakan</string>
   <string name="web_browser_chooser">Lihat tautan web menggunakan</string>
   <string name="google_play_chooser">Lihat Google Play menggunakan</string>
