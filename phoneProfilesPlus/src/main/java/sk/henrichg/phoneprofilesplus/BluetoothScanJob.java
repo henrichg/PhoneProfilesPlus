@@ -778,55 +778,57 @@ class BluetoothScanJob extends Job {
     }
 
     static void finishScan(final Context context) {
-        PPApplication.logE("BluetoothScanJob.finishScan","BluetoothScanBroadcastReceiver: discoveryStarted="+ WifiBluetoothScanner.bluetoothDiscoveryStarted);
+        synchronized (PPApplication.bluetoothScanResultsMutex) {
+            PPApplication.logE("BluetoothScanJob.finishScan", "BluetoothScanBroadcastReceiver: discoveryStarted=" + WifiBluetoothScanner.bluetoothDiscoveryStarted);
 
-        if (WifiBluetoothScanner.bluetoothDiscoveryStarted) {
+            if (WifiBluetoothScanner.bluetoothDiscoveryStarted) {
 
-            WifiBluetoothScanner.bluetoothDiscoveryStarted = false;
+                WifiBluetoothScanner.bluetoothDiscoveryStarted = false;
 
-            List<BluetoothDeviceData> scanResults = new ArrayList<>();
+                List<BluetoothDeviceData> scanResults = new ArrayList<>();
 
-            if (WifiBluetoothScanner.tmpBluetoothScanResults != null) {
+                if (WifiBluetoothScanner.tmpBluetoothScanResults != null) {
 
-                for (BluetoothDeviceData device : WifiBluetoothScanner.tmpBluetoothScanResults) {
-                    scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0));
-                }
-            }
-
-            BluetoothScanJob.saveCLScanResults(context, scanResults);
-
-            BluetoothScanJob.setWaitForResults(context, false);
-
-            int forceOneScan = WifiBluetoothScanner.getForceOneBluetoothScan(context);
-            WifiBluetoothScanner.setForceOneBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
-
-            if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
-            {
-                // start job
-                final Context appContext = context.getApplicationContext();
-                PhoneProfilesService.startHandlerThread();
-                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothScanJob.finishScan.Handler.postDelayed");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
-
-                        // start events handler
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE, false);
-
-                        if ((wakeLock != null) && wakeLock.isHeld())
-                            wakeLock.release();
+                    for (BluetoothDeviceData device : WifiBluetoothScanner.tmpBluetoothScanResults) {
+                        scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0));
                     }
-                }, 5000);
-            }
+                }
 
-            WifiBluetoothScanner.tmpBluetoothScanResults = null;
+                BluetoothScanJob.saveCLScanResults(context, scanResults);
+
+                BluetoothScanJob.setWaitForResults(context, false);
+
+                int forceOneScan = WifiBluetoothScanner.getForceOneBluetoothScan(context);
+                WifiBluetoothScanner.setForceOneBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+
+                if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
+                {
+                    // start job
+                    final Context appContext = context.getApplicationContext();
+                    PhoneProfilesService.startHandlerThread();
+                    final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothScanJob.finishScan.Handler.postDelayed");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            // start events handler
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE, false);
+
+                            if ((wakeLock != null) && wakeLock.isHeld())
+                                wakeLock.release();
+                        }
+                    }, 5000);
+                }
+
+                WifiBluetoothScanner.tmpBluetoothScanResults = null;
+            }
         }
     }
 

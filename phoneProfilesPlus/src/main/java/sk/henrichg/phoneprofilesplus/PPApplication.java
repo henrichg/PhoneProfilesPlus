@@ -235,6 +235,7 @@ public class PPApplication extends Application {
     public static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
     public static final PhoneStateScannerMutex phoneStateScannerMutex = new PhoneStateScannerMutex();
     public static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
+    public static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
     public static final BluetoothLEScanResultsMutex bluetoothLEScanResultsMutex = new BluetoothLEScanResultsMutex();
 
     //public static boolean isPowerSaveMode = false;
