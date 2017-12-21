@@ -25,7 +25,7 @@ class ImportantInfoNotification {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             packageVersionCode = pInfo.versionCode;
             savedVersionCode = getShowInfoNotificationOnStartVersion(context);
-            if ((packageVersionCode > savedVersionCode) || PPApplication.newExtender){
+            if ((packageVersionCode > savedVersionCode)/* || PPApplication.newExtender*/){
                 //Log.d("ImportantInfoNotification.showInfoNotification","show");
                 //boolean show = (versionCode >= VERSION_CODE_FOR_NEWS);
                 boolean show = canShowNotification(packageVersionCode, savedVersionCode, context);
@@ -51,10 +51,12 @@ class ImportantInfoNotification {
         boolean news = false;
 
         boolean newsLatest = (packageVersionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
-        boolean news3670 = ((packageVersionCode >= 3670) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        boolean news3670 = (packageVersionCode >= 3670); // news for PhoneProfilesPlusExtender - show it when not activated
         boolean news1804 = ((packageVersionCode >= 1804) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1772 = ((packageVersionCode >= 1772) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean afterInstall = savedVersionCode == 0;
+
+        int extenderVersion = ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context);
 
         if (newsLatest) {
             // change to false for not show notification
@@ -62,7 +64,10 @@ class ImportantInfoNotification {
         }
 
         if (news3670) {
-            news = true;
+            if (extenderVersion > 0)
+                news = false; // Extender is installed
+            else
+                news = true;
         }
 
         if (news1804) {
@@ -78,7 +83,6 @@ class ImportantInfoNotification {
         }
 
         if (PPApplication.newExtender) {
-            int extenderVersion = ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context);
             if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER))
                 news = true;
         }

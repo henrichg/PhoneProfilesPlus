@@ -55,7 +55,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         boolean news = false;
         boolean newsLatest = (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
-        boolean news3670 = ((versionCode >= 3670) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        boolean news3670 = (versionCode >= 3670); // news for PhoneProfilesPlusExtender - show it when not activated
         boolean news3640 = ((versionCode >= 3640) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news2190 = ((versionCode >= 2190) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1804 = ((versionCode >= 1804) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
@@ -73,7 +73,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         if (news3670) {
             news = true;
-            if (extenderVersion > 0) {
+            if (extenderVersion > 0) { // extender is installed
                 news = false;
                 TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text1);
                 infoText1.setVisibility(View.GONE);
