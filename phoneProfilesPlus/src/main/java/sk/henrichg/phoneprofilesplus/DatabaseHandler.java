@@ -1889,7 +1889,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         if (oldVersion < 1890) {
-            changePictureFilePathToUri(db);
+            changePictureFilePathToUri(db, false);
         }
 
         if (oldVersion < 1900)
@@ -3008,11 +3008,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    private void changePictureFilePathToUri(SQLiteDatabase database) {
-        importExportLock.lock();
+    private void changePictureFilePathToUri(SQLiteDatabase database, boolean lock) {
+        if (lock)
+            importExportLock.lock();
         try {
             try {
-                startRunningCommand();
+                if (lock)
+                    startRunningCommand();
 
                 SQLiteDatabase db;
                 if (database == null) {
@@ -3119,7 +3121,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception ignored) {
             }
         } finally {
-            stopRunningCommand();
+            if (lock)
+                stopRunningCommand();
         }
     }
 
@@ -7468,7 +7471,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 }
 
                                 if (exportedDBObj.getVersion() < 1890) {
-                                    changePictureFilePathToUri(null);
+                                    changePictureFilePathToUri(null, false);
                                 }
 
                                 cursorExportedDB.close();
