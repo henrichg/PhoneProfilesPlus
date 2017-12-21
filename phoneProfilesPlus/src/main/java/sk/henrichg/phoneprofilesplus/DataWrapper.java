@@ -2944,14 +2944,17 @@ public class DataWrapper {
                     PPApplication.logE("[***] DataWrapper.doHandleEvents", "pause event");
                     PPApplication.logE("[***] DataWrapper.doHandleEvents", "event._name=" + event._name);
 
-                    if (event._isInDelayStart)
+                    if (event._isInDelayStart) {
+                        PPApplication.logE("[***] DataWrapper.doHandleEvents", "isInDelayStart");
                         event.removeDelayStartAlarm(this);
+                    }
                     else {
                         if (!forDelayEndAlarm) {
+                            PPApplication.logE("[***] DataWrapper.doHandleEvents", "!forDelayEndAlarm");
                             // called not for delay alarm
-                            /*if (restartEvent) {
+                            if (restartEvent) {
                                 event._isInDelayEnd = false;
-                            } else*/ {
+                            } else {
                                 if (!event._isInDelayEnd) {
                                     // if not delay alarm is set, set it
                                     event.setDelayEndAlarm(this); // for end delay
