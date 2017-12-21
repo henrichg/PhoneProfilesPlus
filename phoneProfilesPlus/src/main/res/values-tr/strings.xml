@@ -1125,4 +1125,11 @@
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Konum ve Bluetooth taramasını Sistem Ayarları\'nda açın. Bluetooth taraması için bu gereklidir.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Wi-Fi açık tut\" Sistem ayarı</string>
   <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">\"Wi-Fi\'yi uyku modunda bırak\" seçeneğini \"her zaman\" olarak yapılandırın. Uyku esnasında Wi-Fi taramasının çalışması için bu gereklidir.</string>
+  <string name="important_info_accessibility_service_new_version">Lutfen, durum sensörleri \"Uygulama şartları\" ve \"Ekran döndürme şartları\" için PhoneProfilesExtender\'ın yeni sürümünü yükleyiniz. Daha fazla malumat için bu sensörlerin şartlarına bakınız.</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Lütfen aralık değerini şundan daha az olarak ayarlamayın:</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">dakika. Bu pil tüketimini gayet artırır.</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">saniye. Bu pil tüketimini gayet artırır.</string>
+  <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Kavisli köşeler (widget)</string>
+  <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Kavisli köşeler</string>
+  <string name="preference_not_allowed_reason_extender_not_upgraded">phoneProfilesPlusExtender yükseltilmemiş</string>
 </resources>

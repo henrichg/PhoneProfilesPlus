@@ -1125,4 +1125,11 @@
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Please enable Location and Bluetooth scanning in System Settings. Without this, Bluetooth scanning will not work.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Keep Wi-Fi on\" system setting</string>
   <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Please configure \"Keep Wi-Fi on during sleep\" to \"Always\". Without this, Wi-Fi scanning will not work during device sleep.</string>
+  <string name="important_info_accessibility_service_new_version">Please install new version of PhoneProfilesPlusExtender for event sensors \"Applications parameters\" and \"Orientation parameters\". Look at parameters of these sensors for more information.</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Please do not configure interval to value less then</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minutes. This greatly increases the battery consumption.</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">seconds. This greatly increases the battery consumption.</string>
+  <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners (widget)</string>
+  <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>
+  <string name="preference_not_allowed_reason_extender_not_upgraded">not upgraded PhoneProfilesPlusExtender</string>
 </resources>

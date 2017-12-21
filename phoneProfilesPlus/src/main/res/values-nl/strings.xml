@@ -1125,4 +1125,11 @@
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Zet locatie en Bluetooth scanning aan bij de Systeeminstellingen. Dit is nodig voor Bluetooth scannen.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Wi-Fi ingeschakeld laten\" Systeeminstelling</string>
   <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Configureer \"Wi-Fi ingeschakeld laten in slaapstand\" naar \"altijd\". Dit is nodig om Wi-Fi scannen te laten werken tijdens de slaapstand.</string>
+  <string name="important_info_accessibility_service_new_version">Installeer de nieuwe versie van PhoneProfilesPlusExtender voor de eventsensors \"Toepassing parameters\" en \"Oriëntatie parameters\". Kijk bij de parameters van deze sensors voor meer informatie.</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Configureer de interval waarde niet minder dan</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minuten. Dit vergroot het batterijverbruik aanzienlijk.</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">seconden. Dit vergroot het batterijverbruik aanzienlijk.</string>
+  <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Afgeronde hoeken (widget)</string>
+  <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Afgeronde hoeken</string>
+  <string name="preference_not_allowed_reason_extender_not_upgraded">PhoneProfilesPlusExtender is niet bijgewerkt</string>
 </resources>

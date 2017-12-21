@@ -1125,4 +1125,11 @@
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Prosím, zapněte Polohu a skenování Bluetooth v nastavení systému. Bez toho skenování Bluetooth nebude fungovat.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">Systémové nastavení \"Ponechat Wi-Fi zapnuto\"</string>
   <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Nakonfigurujte \"Ponechat Wi-Fi zapnuto během spánku\" na \"Vždy\". Bez toho skenování Wi-Fi nebude fungovat během spánku zařízení.</string>
+  <string name="important_info_accessibility_service_new_version">Prosím, nainstalujte novou verzi PhoneProfilesPlusExtender pro senzory události \"Parametry aplikací\" a \"Parametry orientace\". Podívejte se na parametry těchto senzorů pro více informací.</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Prosím nenastavujte interval na menší hodnotu než</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minut. Výrazně to zvyšuje spotřebu baterie.</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">sekund. Výrazně to zvyšuje spotřebu baterie.</string>
+  <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Zaoblené rohy (widget)</string>
+  <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Zaoblené rohy</string>
+  <string name="preference_not_allowed_reason_extender_not_upgraded">není aktualizován PhoneProfilesPlusExtender</string>
 </resources>

@@ -337,7 +337,7 @@
   <string name="event_preferences_screen_event_type">Тип события</string>
   <string name="event_preferences_delayStart">Задержка</string>
   <string name="profile_preferences_duration">Продолжительность</string>
-  <string name="profile_preferences_afterDurationDo">По окончанию действия профиля</string>
+  <string name="profile_preferences_afterDurationDo">По окончании действия профиля</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Ничего не делать</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Отменить данный профиль</string>
   <string name="array_pref_afterProfileDurationDo_backgroundProfile">Активировать профиль по умолчанию</string>
@@ -399,7 +399,7 @@
   <string name="menu_activity_log">Журнал событий</string>
   <string name="altype_profileActivation">Активация профиля</string>
   <string name="altype_afterDuration_undoProfile">По окончанию - отменить профиль</string>
-  <string name="altype_afterDuration_backgroundProfile">По окончанию - профиль по умолчанию</string>
+  <string name="altype_afterDuration_backgroundProfile">По окончании - профиль по умолчанию</string>
   <string name="altype_afterDuration_restartEvents">По окончанию - перезапустить события</string>
   <string name="altype_eventStart">Запуск события</string>
   <string name="altype_eventStartDelay">Запуск события с задержкой</string>
@@ -508,7 +508,7 @@
   <string name="permissions_for_import_app_data_text2">Пожалуйста, предоставьте их в следующем диалоговом окне. Затем данные будут восстановлены.</string>
   <string name="permissions_write_settings_not_allowed_confirm">Вы не разрешили «Изменить настройки». Не спрашивать больше?</string>
   <string name="phone_profiles_pref_category_permissions">Разрешения</string>
-  <string name="phone_profiles_pref_writeSystemSettingPermissions">Системные настройки</string>
+  <string name="phone_profiles_pref_writeSystemSettingPermissions">Изменить системные настройки</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions_summary">Найдите приложение «PhoneProfilesPlus» и включите его.</string>
   <string name="phone_profiles_pref_applicationPermissions">Разрешения для приложения</string>
   <string name="phone_profiles_pref_applicationPermissions_summary">Пожалуйста, включите разрешения приложения в разделе «Разрешения».</string>
@@ -532,7 +532,7 @@
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Сканирование Bluetooth в режиме энергосбережения</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1x интервал</string>
   <string name="array_pref_scanInPowerSaveMode_2xInterval">2x интервал</string>
-  <string name="array_pref_scanInPowerSaveMode_noScan">Без сканирования</string>
+  <string name="array_pref_scanInPowerSaveMode_noScan">Не сканировать</string>
   <string name="pref_event_battery_power_save_mode">Режим энергосбережения</string>
   <string name="event_preferences_battery_power_save_mode">Режим энергосбережения</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Настройки режима энергосбережения</string>
@@ -686,7 +686,7 @@
   <string name="permissions_for_play_ringtone_notification_big_text_notification">Воспроизведение выбранного звонка/уведомления требует дополнительных разрешений.</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Приложения, ярлыки</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Запуск приложений, ярлыки</string>
-  <string name="applications_editor_dialog_title">Установка приложения, ярлык</string>
+  <string name="applications_editor_dialog_title">Выберите приложение, ярлык</string>
   <string name="important_info_how_to_show">Эта важная информация может быть просмотрена в Редакторе при нажатии на значке вопросительного знака в панели инструментов.</string>
   <string name="important_info_profile_interactive">Некоторые параметры профиля являются интерактивными. Они показывают окно системных настроек. Эти параметры отмечены «(I)».</string>
   <string name="important_info_orange_text">Примечание: оранжевый текст в этой информации является активным. Нажмите на него, чтобы открыть соответствующие настройки.</string>
@@ -725,8 +725,8 @@
   <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Настройка параметров мобильных вышек в параметрах приложения.</string>
   <string name="phone_profiles_pref_category_mobile_cells_scanning">Настройки мобильных вышек</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Регистрация вышек</string>
-  <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Сканирование мобильных вышек в режим энергосбережения</string>
-  <string name="array_pref_scanInPowerSaveMode_scan">Сканирование</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Сканирование мобильных вышек в режиме энергосбережения</string>
+  <string name="array_pref_scanInPowerSaveMode_scan">Сканировать</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Пересканирование мобильных вышек</string>
   <string name="mobile_cells_registration_pref_dlg_start_button">Старт</string>
   <string name="mobile_cells_registration_pref_dlg_stop_button">Стоп</string>
@@ -745,8 +745,8 @@
   <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">Все Bluetooth соединения, настроенные в системе</string>
   <string name="wifi_ssid_pref_dlg_all_ssids_chb">Все SSID</string>
   <string name="bluetooth_name_pref_dlg_all_bt_names_chb">Все имена Bluetooth-устройств</string>
-  <string name="editor_drawer_list_item_events_start_order">Началу задачи</string>
-  <string name="editor_drawer_order_start_order">Начало задачи</string>
+  <string name="editor_drawer_list_item_events_start_order">По времени начала</string>
+  <string name="editor_drawer_order_start_order">Времени начала</string>
   <string name="info_notification_event_priority_new">Каждое событие имеет \"Приоритет\". Событие не запустится, если уже выполняется событие с более высоким приоритетом.</string>
   <string name="info_notification_event_start_order">События запускаются из \"Старт задач\". Вы можете установить порядок запуска задач в редакторе в \"Старт задач\". Вы можете перетащить вверх/вниз \"обработчик задачи\".</string>
   <string name="info_notification_event_start_order_handler_icon">Обработчик задачи:</string>
@@ -860,7 +860,7 @@
   <string name="profile_preferences_volumeNotificationVolume0_question">Настроить мелодию уведомления «PhoneProfiles Silent»?</string>
   <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Мелодия уведомления «PhoneProfiles Silent» не установлена. Пожалуйста, установите его из меню редактора и попробуйте еще раз.</string>
   <string name="info_notification_unlink_ringer_notification_volumes">В Вашем устройстве устройстве объединены громкость мелодии звонка и уведомлений. Можно использовать «Разные громкости мелодии звонка и уведомлений». Нажмите здесь, чтобы настроить.</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">В Вашем устройстве устройстве объединены громкость мелодии звонка и уведомлений. Если Вы хотите изменить это, проверьте этот параметр.</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Уровни громкости мелодии звонка и уведомлений в вашем устройстве объединены. Если Вы хотите разделить их, включите этот параметр.</string>
   <string name="phone_profiles_pref_eventUsePriorityAppSettings">Использовать приоритет</string>
   <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Включить использование параметра «Приоритет» в настройках приложения.</string>
   <string name="phone_profiles_pref_notificationStatusBarNew">Уведомление в строке состояния</string>
@@ -868,10 +868,10 @@
   <string name="profile_preferences_volumeRingtone0Info_title">Громкость звонка = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">Громкость звонка = 0 настраивает устройство в тихий режим. Громкость уведомления игнорируется.</string>
   <string name="phone_profiles_pref_notificationStatusBarInfo_title">Важная информация!</string>
-  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Текущее состояние уведомления панели требуется для службы PhoneProfilesService. С уведомлением PhoneProfilesService изменено на «foreground service». Этот тип службы система Android не завершает. Служба PhoneProfilesService должна постоянно работать.</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Чтобы служба PhoneProfilesService работала правильно, ей требуется постоянное наличие уведомления в строке состояния. С ним PhoneProfilesService становится службой переднего плана. Этот тип службы система Android не завершает. Служба PhoneProfilesService должна работать постоянно.</string>
   <string name="phone_profiles_pref_notificationStatusBarRequired">Требуется для фоновой службы PhoneProfilesService</string>
   <string name="event_preferences_event_priorityInfo_summary">Приоритет: событие не будет запущено, если выполняется событие с более высоким приоритетом.</string>
-  <string name="profile_preferences_preferenceTypesInfo_title">Тип предпочтений</string>
+  <string name="profile_preferences_preferenceTypesInfo_title">Типы параметров</string>
   <string name="event_preference_bluetooth_bt_types">Типы Bluetooth: [CL] обычный, [LE] с низким энергопотреблением, [DU] двойной.</string>
   <string name="event_preference_sensor_time_summary">Этот датчик предназначен для начала события по времени. Параметры: Время начала, время окончания, дни недели.</string>
   <string name="event_preference_sensor_calendar_summary">Этот датчик предназначен для запуска события из календаря. Параметры: Календари, поле поиска (имя события, описание,…), Строка поиска, игнорировать события «Весь день», Доступность (Занят, Свободен,…).</string>
@@ -965,11 +965,11 @@
   <string name="event_preferences_radioSwitch_info_summary">Состояния всех радиомодулей должны быть настроены до начала события. Настройте только те радиомодули, которые вам необходимы.</string>
   <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Любой</string>
   <string name="profile_preferences_deviceConnectToSSID">Подключение к SSID</string>
-  <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Слияние набора</string>
-  <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Поддерживать подключение</string>
-  <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Звуки объеденены</string>
-  <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Звуки разъеденены</string>
-  <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Использовать это, если слияние определение неправильно.</string>
+  <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Задать объединённость уровней громкости</string>
+  <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Автоопределение</string>
+  <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Уровни громкости объединены</string>
+  <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Уровни громкости разделены</string>
+  <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Используйте, если объединённость определяется неправильно.</string>
   <string name="profile_preferences_category_application">Функции приложения</string>
   <string name="profile_preferences_applicationDisableWifiScanning">Отключить сканирование Wi-Fi</string>
   <string name="profile_preferences_applicationDisableBluetoothScanning">Отключить сканирование Bluetooth</string>
@@ -997,7 +997,7 @@
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">Включить (игнорировать точку доступа)</string>
   <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Переключить (игнорировать точку доступа)</string>
   <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Обнаружение объёмного слияния</string>
-  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">В Вашем устройстве не объединены мелодии звонка и уведомлений.</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Уровни громкости для звонка и уведомлений в вашем устройстве не объединены.</string>
   <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
   <string name="array_pref_value_el">el</string>
   <string name="samsung_edge_name">PhoneProfilesPlus</string>
@@ -1072,7 +1072,7 @@
   <string name="phone_profiles_pref_systemAutoStartMIUI">Разрешение автозапуска</string>
   <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Нажмите здесь, чтобы включить автозапуск для PhoneProfilesPlus</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Сканировать только когда экран включен</string>
-  <string name="phone_profiles_pref_applicationRestartEventsAlert">Подтвердите перезагрузку событий</string>
+  <string name="phone_profiles_pref_applicationRestartEventsAlert">Подтверждать перезагрузку событий</string>
   <string name="fast_access_duration_activate_with_button">Акт. с</string>
   <string name="fast_access_duration_activate_without_button">Акт. без</string>
   <string name="applications_editor_dialog_startApplicationDelay">Задержка запуска:</string>
@@ -1109,7 +1109,7 @@
   <string name="array_pref_mobile_cells_rename_all_visible">Все видимые</string>
   <string name="import_profiles_alert_error_database_newer_version">Резервная копия базы данных имеет более позднюю версию.</string>
   <string name="phone_profiles_pref_backgroundProfileNotificationSound">Профиль по умолчанию: звук уведомлений</string>
-  <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Профиль по умолчанию: уведомления на вибро</string>
+  <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Профиль по умолчанию: уведомлять вибрацией</string>
   <string name="profile_preferences_durationNotificationSound">Окончание: звуковое уведомление</string>
   <string name="profile_preferences_durationNotificationVibrate">Окончание: вибро уведомление</string>
   <string name="array_event_pref_missed_call">Пропущенный вызов</string>
@@ -1126,4 +1126,11 @@
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Пожалуйста, включите Местоположение и сканирование Bluetooth в Настройках устройства. Без этого сканирование Bluetooth работать не будет.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">Системная настройка \"Работа Wi-Fi в режиме сна\"</string>
   <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Настройте, пожалуйста, параметр \"Работа Wi-Fi в режиме сна\" на \"Всегда работает\". Без этого сканирование Wi-Fi не будет работать в спящем режиме.</string>
+  <string name="important_info_accessibility_service_new_version">Пожалуйста, установите новую версию PhoneProfilesPlusExtender для датчиков событий «Параметры приложений» и «Параметры ориентации». Посмотрите на параметры этих датчиков для получения дополнительной информации.</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Пожалуйста, не устанавливайте интервал для значения меньше, чем</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">минут. Это значительно увеличивает расход батареи.</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">секунд. Это значительно увеличивает расход батареи.</string>
+  <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Скруглённые углы (виджет)</string>
+  <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Скруглённые углы</string>
+  <string name="preference_not_allowed_reason_extender_not_upgraded">PhoneProfilesPlusExtender не обновлён</string>
 </resources>
