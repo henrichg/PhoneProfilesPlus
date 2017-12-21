@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 
@@ -20,6 +22,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
+
+import static android.content.Context.POWER_SERVICE;
 
 class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                          GoogleApiClient.OnConnectionFailedListener,
@@ -355,14 +359,31 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                         if (location != null) {
                             synchronized (PPApplication.geofenceScannerLastLocationMutex) {
                                 lastLocation.set(location);
-                                updateGeofencesInDB();
-                                if (startEventsHandler) {
-                                    // start job
-                                    //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_LOCATION_MODE);
-                                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE, false);
-                                }
                             }
+                            PhoneProfilesService.startHandlerThread();
+                            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                    PowerManager.WakeLock wakeLock = null;
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "GeofenceScanner.updateTransitionsByLastKnownLocation");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    updateGeofencesInDB();
+                                    if (startEventsHandler) {
+                                        // start job
+                                        //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_LOCATION_MODE);
+                                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE, false);
+                                    }
+
+                                    if ((wakeLock != null) && wakeLock.isHeld())
+                                        wakeLock.release();
+                                }
+                            });
                         }
                     }
                 });
