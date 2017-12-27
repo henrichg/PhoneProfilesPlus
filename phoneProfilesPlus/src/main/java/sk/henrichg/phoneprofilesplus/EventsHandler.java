@@ -637,7 +637,7 @@ class EventsHandler {
                         profile = Profile.getMappedProfile(profile, context);
                         if (profile != null) {
                             //ExecuteVolumeProfilePrefsJob.start(context, profile._id, false, false);
-                            dataWrapper.getActivateProfileHelper().executeForVolumes(profile, false, dataWrapper.context);
+                            dataWrapper.getActivateProfileHelper().executeForVolumes(profile, false, context);
                             // wait for link/unlink
                             //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                             //SystemClock.sleep(1000);
