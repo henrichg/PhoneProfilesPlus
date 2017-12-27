@@ -301,9 +301,13 @@ public class EditorEventListFragment extends Fragment
     }
 
     boolean isAsyncTaskPendingOrRunning() {
-        return this.asyncTaskContext != null &&
-              this.asyncTaskContext.get() != null &&
-              !this.asyncTaskContext.get().getStatus().equals(AsyncTask.Status.FINISHED);
+        try {
+            return this.asyncTaskContext != null &&
+                    this.asyncTaskContext.get() != null &&
+                    !this.asyncTaskContext.get().getStatus().equals(AsyncTask.Status.FINISHED);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     void stopRunningAsyncTask() {
