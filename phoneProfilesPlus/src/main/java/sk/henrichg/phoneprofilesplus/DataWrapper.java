@@ -483,7 +483,7 @@ public class DataWrapper {
                 forGUI, monochrome, monochromeValue,
                 startupSource, interactive, null, true)) {
             getActivateProfileHelper().initialize(context);
-            _activateProfile(profile, merged, startupSource, interactive, null);
+            _activateProfile(profile, merged, startupSource, interactive, null, false);
         }
     }
 
@@ -1120,7 +1120,7 @@ public class DataWrapper {
 //----- Activate profile ---------------------------------------------------------------------------------------------
 
     void _activateProfile(Profile _profile, boolean merged, int startupSource,
-                                    boolean _interactive, Activity _activity)
+                                    boolean _interactive, Activity _activity, boolean useBackgroundThread)
     {
         // remove last configured profile duration alarm
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
@@ -1172,7 +1172,7 @@ public class DataWrapper {
                     (profile._duration > 0))
                 profileDuration = profile._duration;
 
-            activateProfileHelper.execute(profile, /*merged, */_interactive);
+            activateProfileHelper.execute(profile, /*merged, */_interactive, useBackgroundThread);
 
             // activation with duration
             if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
@@ -1292,7 +1292,7 @@ public class DataWrapper {
                         if (Permissions.grantProfilePermissions(context, _profile, false, false,
                                 forGUI, monochrome, monochromeValue,
                                 _startupSource, true, _activity, true))
-                            _dataWrapper._activateProfile(_profile, false, _startupSource, true, _activity);
+                            _dataWrapper._activateProfile(_profile, false, _startupSource, true, _activity, true);
                         else {
                             Intent returnIntent = new Intent();
                             _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
@@ -1347,7 +1347,7 @@ public class DataWrapper {
                             forGUI, monochrome, monochromeValue,
                             startupSource, false, null, true);
                 if (granted)
-                    _activateProfile(profile, false, startupSource, interactive, activity);
+                    _activateProfile(profile, false, startupSource, interactive, activity, true);
             }
         }
     }
@@ -1382,7 +1382,7 @@ public class DataWrapper {
             _activity.finish();
     }
 
-    public void activateProfile(long profile_id, int startupSource, Activity activity)
+    public void activateProfile(final long profile_id, final int startupSource, final Activity activity)
     {
         Profile profile;
 
@@ -1477,7 +1477,6 @@ public class DataWrapper {
 
             finishActivity(startupSource, true, activity);
         }
-
     }
 
     void activateProfileAfterDuration(long profile_id)
@@ -1489,7 +1488,7 @@ public class DataWrapper {
                 forGUI, monochrome, monochromeValue,
                 startupSource, true, null, true)) {
             getActivateProfileHelper().initialize(context);
-            _activateProfile(profile, false, startupSource, true, null);
+            _activateProfile(profile, false, startupSource, true, null, true);
         }
     }
 

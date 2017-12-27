@@ -949,7 +949,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.removeProfileNotification(context);
             if (activateProfile)
                 dataWrapper._activateProfile(profile, mergedProfile, startupSource, interactive,
-                        Permissions.profileActivationActivity);
+                        Permissions.profileActivationActivity, true);
         }
         Permissions.releaseReferences();
         if (mergedNotification)

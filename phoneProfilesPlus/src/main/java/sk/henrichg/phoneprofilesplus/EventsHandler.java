@@ -159,6 +159,8 @@ class EventsHandler {
                 doEndHandler();
                 dataWrapper.invalidateDataWrapper();
 
+                PPApplication.logE("@@@ EventsHandler.handleEvents", "-- end: events globally stopped --------------------------------");
+
                 return;
             }
 
@@ -635,7 +637,7 @@ class EventsHandler {
                         profile = Profile.getMappedProfile(profile, context);
                         if (profile != null) {
                             //ExecuteVolumeProfilePrefsJob.start(context, profile._id, false, false);
-                            dataWrapper.getActivateProfileHelper().executeForVolumes(profile, false);
+                            dataWrapper.getActivateProfileHelper().executeForVolumes(profile, false, dataWrapper.context);
                             // wait for link/unlink
                             //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                             //SystemClock.sleep(1000);
@@ -651,6 +653,7 @@ class EventsHandler {
                 // doEndHandler is called even if no event exists, but ringing call simualtion is only for running event with call sensor
                 if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)) {
                     // start PhoneProfilesService for ringing call simulation
+                    PPApplication.logE("EventsHandler.doEndService","start simulating ringing call");
                     try {
                         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
                         lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);

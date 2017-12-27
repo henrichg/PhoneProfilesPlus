@@ -939,99 +939,80 @@ public class ActivateProfileHelper {
         }
     }
 
-    void executeForVolumes(final Profile profile, final boolean forProfileActivation) {
-        final Context appContext = context.getApplicationContext();
-        PhoneProfilesService.startHandlerThread();
-        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForVolumes");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
-
-                // link, unlink volumes during activation of profile
-                // required for phone call events
-                ApplicationPreferences.getSharedPreferences(appContext);
-                int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
-                int linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_NONE;
-                if (ActivateProfileHelper.getMergedRingNotificationVolumes(appContext) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(appContext)) {
-                    if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING) ||
-                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL)) {
-                        linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_UNLINK;
-                        if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                            (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL))
-                            linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_LINK;
-                    }
-                }
-
-                if (linkUnlink != PhoneCallBroadcastReceiver.LINKMODE_NONE)
-                    // link, unlink is executed, not needed do it from EventsHandler
-                    PhoneCallBroadcastReceiver.linkUnlinkExecuted = true;
-
-                if (profile != null)
-                    PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile.name="+profile._name);
-                else
-                    PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile=null");
-
-                if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
-                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
-                    PhoneCallBroadcastReceiver.setSpeakerphoneOn(profile, appContext);
-                    PhoneCallBroadcastReceiver.speakerphoneOnExecuted = true;
-                }
-
-                if (profile != null)
-                {
-                    setTones(appContext, profile);
-
-                    if (/*Permissions.checkProfileVolumePreferences(context, profile) &&*/
-                            Permissions.checkProfileAccessNotificationPolicy(appContext, profile, null)) {
-
-                        final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
-
-                        changeRingerModeForVolumeEqual0(profile, audioManager);
-                        changeNotificationVolumeForVolumeEqual0(appContext, profile);
-
-                        RingerModeChangeReceiver.internalChange = true;
-
-                        setRingerMode(appContext, profile, audioManager, true, /*linkUnlink,*/ forProfileActivation);
-                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
-                        //setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation);
-                        //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
-                        setRingerMode(appContext, profile, audioManager, false, /*linkUnlink,*/ forProfileActivation);
-                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
-                        PPApplication.sleep(500);
-                        setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation);
-                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
-
-                        //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(500);
-                        PPApplication.sleep(500);
-
-                        PhoneProfilesService.startHandlerThread();
-                        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "disable ringer mode change internal change");
-                                RingerModeChangeReceiver.internalChange = false;
-                            }
-                        }, 3000);
-
-                    }
-
-                    setTones(appContext, profile);
-                }
-
-                if ((wakeLock != null) && wakeLock.isHeld())
-                    wakeLock.release();
+    void executeForVolumes(final Profile profile, final boolean forProfileActivation, final Context context) {
+        // link, unlink volumes during activation of profile
+        // required for phone call events
+        ApplicationPreferences.getSharedPreferences(context);
+        int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
+        int linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_NONE;
+        if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
+            if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING) ||
+                (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL)) {
+                linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_UNLINK;
+                if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                    (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL))
+                    linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_LINK;
             }
-        });
+        }
+
+        if (linkUnlink != PhoneCallBroadcastReceiver.LINKMODE_NONE)
+            // link, unlink is executed, not needed do it from EventsHandler
+            PhoneCallBroadcastReceiver.linkUnlinkExecuted = true;
+
+        if (profile != null)
+            PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile.name="+profile._name);
+        else
+            PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile=null");
+
+        if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
+                (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
+            PhoneCallBroadcastReceiver.setSpeakerphoneOn(profile, context);
+            PhoneCallBroadcastReceiver.speakerphoneOnExecuted = true;
+        }
+
+        if (profile != null)
+        {
+            setTones(context, profile);
+
+            if (/*Permissions.checkProfileVolumePreferences(context, profile) &&*/
+                    Permissions.checkProfileAccessNotificationPolicy(context, profile, null)) {
+
+                final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
+                changeRingerModeForVolumeEqual0(profile, audioManager);
+                changeNotificationVolumeForVolumeEqual0(context, profile);
+
+                RingerModeChangeReceiver.internalChange = true;
+
+                setRingerMode(context, profile, audioManager, true, /*linkUnlink,*/ forProfileActivation);
+                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
+                //setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation);
+                //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
+                setRingerMode(context, profile, audioManager, false, /*linkUnlink,*/ forProfileActivation);
+                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
+                PPApplication.sleep(500);
+                setVolumes(context, profile, audioManager, linkUnlink, forProfileActivation);
+                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
+
+                //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                //SystemClock.sleep(500);
+                PPApplication.sleep(500);
+
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "disable ringer mode change internal change");
+                        RingerModeChangeReceiver.internalChange = false;
+                    }
+                }, 3000);
+
+            }
+
+            setTones(context, profile);
+        }
     }
 
     private void setNotificationLed(int value) {
@@ -1565,7 +1546,7 @@ public class ActivateProfileHelper {
         });
     }
 
-    public void execute(Profile _profile, /*boolean merged, */boolean _interactive)
+    public void execute(final Profile _profile, /*boolean merged, */boolean _interactive, boolean useBackgroundThread)
     {
         PPApplication.logE("##### ActivateProfileHelper.execute", "xxx");
 
@@ -1575,9 +1556,19 @@ public class ActivateProfileHelper {
         final Profile profile = Profile.getMappedProfile(_profile, context);
 
         // setup volume
-        // run job for execute volumes
-        //ExecuteVolumeProfilePrefsJob.start(context, profile._id, merged, true);
-        executeForVolumes(profile, true);
+        if (useBackgroundThread) {
+            final Context appContext = context.getApplicationContext();
+            PhoneProfilesService.startHandlerThread();
+            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    executeForVolumes(profile, true, appContext);
+                }
+            });
+        }
+        else
+            executeForVolumes(profile, true, context);
 
         // set vibration on touch
         if (Permissions.checkProfileVibrationOnTouch(context, profile, null)) {
@@ -3282,6 +3273,7 @@ public class ActivateProfileHelper {
 
     static void setRingerMode(Context context, int mode)
     {
+        PPApplication.logE("ActivateProfileHelper.(s)setRingerMode","mode="+mode);
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_RINGER_MODE, mode);
@@ -3296,6 +3288,7 @@ public class ActivateProfileHelper {
 
     static void setZenMode(Context context, int mode)
     {
+        PPApplication.logE("ActivateProfileHelper.(s)setZenMode","mode="+mode);
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_ZEN_MODE, mode);

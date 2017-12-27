@@ -116,7 +116,18 @@ public class PPApplication extends Application {
                                          //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
                                          //+"|PhoneProfilesService.onSensorChanged"
-                                         +"|ForegroundApplicationChangedBroadcastReceiver"
+                                         //+"|ForegroundApplicationChangedBroadcastReceiver"
+
+                                         /*
+                                         +"|PhoneProfilesService.doSimulatingRingingCall"
+                                         +"|PhoneProfilesService.startSimulatingRingingCall"
+                                         +"|PhoneProfilesService.stopSimulatingRingingCall"
+                                         +"|PhoneProfilesService.onAudioFocusChange"
+                                         +"|ActivateProfileHelper.(s)setRingerMode"
+                                         +"|ActivateProfileHelper.(s)setZenMode"
+                                         //+"|@@@ EventsHandler.handleEvents"
+                                         +"|EventsHandler.doEndService"
+                                         */
 
                                          //+"|$$$ WifiAP"
             ;
