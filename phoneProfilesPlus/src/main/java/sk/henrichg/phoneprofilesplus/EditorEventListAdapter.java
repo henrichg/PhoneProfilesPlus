@@ -288,6 +288,9 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         //Log.d("----- EditorEventListAdapter.onItemMove", "fromPosition="+fromPosition);
         //Log.d("----- EditorEventListAdapter.onItemMove", "toPosition="+toPosition);
 
+        if ((fromPosition < 0) || (toPosition < 0))
+            return false;
+
         // convert positions from adapter into profileList
         int plFrom = eventList.indexOf(getItem(fromPosition));
         int plTo = eventList.indexOf(getItem(toPosition));
