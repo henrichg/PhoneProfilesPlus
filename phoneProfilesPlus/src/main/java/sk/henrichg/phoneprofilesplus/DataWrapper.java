@@ -473,7 +473,7 @@ public class DataWrapper {
     }
 
     void activateProfileFromEvent(long profile_id, boolean interactive, boolean manual,
-                                         boolean merged)
+                                         boolean merged, boolean useBackgroundThread)
     {
         int startupSource = PPApplication.STARTUP_SOURCE_SERVICE;
         if (manual)
@@ -483,7 +483,7 @@ public class DataWrapper {
                 forGUI, monochrome, monochromeValue,
                 startupSource, interactive, null, true)) {
             getActivateProfileHelper().initialize(context);
-            _activateProfile(profile, merged, startupSource, interactive, null, false);
+            _activateProfile(profile, merged, startupSource, interactive, null, useBackgroundThread);
         }
     }
 
@@ -763,14 +763,14 @@ public class DataWrapper {
             //if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
             //	(event._fkProfileStart == profile._id))
             if (event._fkProfileStart == profile._id)
-                event.stopEvent(this, eventTimelineList, false, true, true/*saveEventStatus*/, false);
+                event.stopEvent(this, eventTimelineList, false, true, true/*saveEventStatus*/, false, true);
         }
         PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
         restartEvents(false, true, false);
     }
 
     // pauses all events
-    void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/)
+    void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/, boolean useBackgroundThread)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
@@ -782,7 +782,7 @@ public class DataWrapper {
 
                 if (status == Event.ESTATUS_RUNNING) {
                     if (!(event._forceRun && event._noPauseByManualActivation))
-                        event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, true, null, false);
+                        event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, true, null, false, useBackgroundThread);
                 }
 
                 setEventBlocked(event, false);
@@ -828,7 +828,8 @@ public class DataWrapper {
                 if (event != null)
                 {
                 //if (event.getStatusFromDB(this) != Event.ESTATUS_STOP)
-                    event.stopEvent(this, eventTimelineList, false/*activateReturnProfile*/, true, saveEventStatus, false);
+                    event.stopEvent(this, eventTimelineList, false/*activateReturnProfile*/,
+                            true, saveEventStatus, false, true);
                 }
             }
         }
@@ -1153,7 +1154,7 @@ public class DataWrapper {
 
             // pause all events
             // for forceRun events set system events and block all events
-            pauseAllEvents(false, true/*, true*/);
+            pauseAllEvents(false, true/*, true*/, useBackgroundThread);
 
             ActivateProfileHelper.lockRefresh = false;
         }
@@ -2926,7 +2927,7 @@ public class DataWrapper {
                             if (!event._isInDelayStart) {
                                 // no delay alarm is set
                                 // start event
-                                event.startEvent(this, eventTimelineList, interactive, reactivate, mergedProfile);
+                                event.startEvent(this, eventTimelineList, interactive, reactivate, mergedProfile, false);
                                 PPApplication.logE("[***] DataWrapper.doHandleEvents", "mergedProfile._id=" + mergedProfile._id);
                             }
                         }
@@ -2934,7 +2935,7 @@ public class DataWrapper {
                         if (forDelayStartAlarm && event._isInDelayStart) {
                             // called for delay alarm
                             // start event
-                            event.startEvent(this, eventTimelineList, interactive, reactivate, mergedProfile);
+                            event.startEvent(this, eventTimelineList, interactive, reactivate, mergedProfile, false);
                         }
                     }
                 } else if (((newEventStatus == Event.ESTATUS_PAUSE) || restartEvent) && statePause) {
@@ -2966,14 +2967,16 @@ public class DataWrapper {
                             if (!event._isInDelayEnd) {
                                 // no delay alarm is set
                                 // pause event
-                                event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile, !restartEvent);
+                                event.pauseEvent(this, eventTimelineList, true, false,
+                                        false, true, mergedProfile, !restartEvent, false);
                             }
                         }
 
                         if (forDelayEndAlarm && event._isInDelayEnd) {
                             // called for delay alarm
                             // pause event
-                            event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile, !restartEvent);
+                            event.pauseEvent(this, eventTimelineList, true, false,
+                                    false, true, mergedProfile, !restartEvent, false);
                         }
                     }
                 }
@@ -3363,7 +3366,7 @@ public class DataWrapper {
             resetAllEventsInDelayStart(false);
             resetAllEventsInDelayEnd(false);
             // no set system events, unblock all events, no activate return profile
-            pauseAllEvents(true, false/*, false*/);
+            pauseAllEvents(true, false/*, false*/, true);
             Event.setGlobalEventsRunning(context, false);
 
             Intent serviceIntent = new Intent(context, PhoneProfilesService.class);

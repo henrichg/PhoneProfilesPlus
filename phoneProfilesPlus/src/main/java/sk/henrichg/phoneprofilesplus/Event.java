@@ -1031,7 +1031,8 @@ class Event {
                             boolean interactive,
                             boolean reactivate,
                             //boolean log,
-                            Profile mergedProfile)
+                            Profile mergedProfile,
+                            boolean useBackgroundThread)
     {
         // remove delay alarm
         removeDelayStartAlarm(dataWrapper); // for start delay
@@ -1155,12 +1156,12 @@ class Event {
             PPApplication.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);
 
             if (mergedProfile == null)
-                dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, false);
+                dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, false, useBackgroundThread);
             else {
                 mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper, true);
                 if (this._manualProfileActivation) {
                     dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
-                    dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, true, true);
+                    dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, true, true, useBackgroundThread);
                     mergedProfile._id = 0;
                 }
             }
@@ -1180,7 +1181,8 @@ class Event {
                                         EventTimeline eventTimeline,
                                         boolean activateReturnProfile,
                                         Profile mergedProfile,
-                                        boolean allowRestart)
+                                        boolean allowRestart,
+                                        boolean useBackgroundThread)
     {
 
         if (!(eventPosition == (timeLineSize-1)))
@@ -1215,7 +1217,7 @@ class Event {
                 {
                     PPApplication.logE("Event.pauseEvent","activate end profile");
                     if (mergedProfile == null)
-                        dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, false, false);
+                        dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, false, false, useBackgroundThread);
                     else
                         mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper, false);
                     activatedProfileId = _fkProfileEnd;
@@ -1243,7 +1245,7 @@ class Event {
                     if (eventTimeline._fkProfileEndActivated != 0)
                     {
                         if (mergedProfile == null)
-                            dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, false, false);
+                            dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, false, false, useBackgroundThread);
                         else
                             mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper, false);
                         profileActivated = true;
@@ -1277,7 +1279,8 @@ class Event {
                             boolean noSetSystemEvent,
                             boolean log,
                             Profile mergedProfile,
-                            boolean allowRestart)
+                            boolean allowRestart,
+                            boolean useBackgroundThread)
     {
         // remove delay alarm
         removeDelayStartAlarm(dataWrapper); // for start delay
@@ -1413,7 +1416,8 @@ class Event {
         {
             doActivateEndProfile(dataWrapper, eventPosition, timeLineSize,
                     eventTimelineList, eventTimeline,
-                    activateReturnProfile, mergedProfile, allowRestart);
+                    activateReturnProfile, mergedProfile, allowRestart,
+                    useBackgroundThread);
 
         }
 
@@ -1425,8 +1429,9 @@ class Event {
                             boolean activateReturnProfile,
                             boolean ignoreGlobalPref,
                             boolean saveEventStatus,
-                            boolean log/*,
-                            boolean allowRestart*/)
+                            boolean log,
+                            //boolean allowRestart,
+                            boolean useBackgroundThread)
     {
         // remove delay alarm
         removeDelayStartAlarm(dataWrapper); // for start delay
@@ -1441,7 +1446,7 @@ class Event {
 
         if (this._status != ESTATUS_STOP)
         {
-            pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, false, null, false/*allowRestart*/);
+            pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, false, null, false/*allowRestart*/, useBackgroundThread);
         }
 
         setSystemEvent(dataWrapper.context, ESTATUS_STOP);

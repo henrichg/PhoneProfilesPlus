@@ -349,13 +349,16 @@ public class EventPreferencesActivity extends PreferenceActivity
             if (event.getStatus() == Event.ESTATUS_STOP)
             {
                 // pause event
-                event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null, false);
+                event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                        false, false, null, false, true);
                 // stop event
-                event.stopEvent(dataWrapper, eventTimelineList, true, false, true, false);
+                event.stopEvent(dataWrapper, eventTimelineList, true, false,
+                        true, false, true);
             }
             else
                 // pause event
-                event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null, false);
+                event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                        false, false, null, false, true);
             // restart Events
             PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
             dataWrapper.restartEvents(false, true, false);

@@ -383,7 +383,8 @@ public class EditorEventListFragment extends Fragment
             if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP) {
                 // pause event
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-                event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null, false); // activate return profile
+                event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                        false, false, null, false, true); // activate return profile
                 // redraw event list
                 updateListView(event, false, false, true);
                 // restart events
@@ -392,7 +393,8 @@ public class EditorEventListFragment extends Fragment
             } else {
                 // stop event
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-                event.stopEvent(dataWrapper, eventTimelineList, true, false, true, false); // activate return profile
+                event.stopEvent(dataWrapper, eventTimelineList, true, false,
+                        true, false, true); // activate return profile
                 // redraw event list
                 updateListView(event, false, false, true);
                 // restart events
@@ -470,7 +472,8 @@ public class EditorEventListFragment extends Fragment
         listView.getRecycledViewPool().clear();
 
         List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-        event.stopEvent(dataWrapper, eventTimelineList, false, true, true, false);
+        event.stopEvent(dataWrapper, eventTimelineList, false, true,
+                true, false, true);
         // restart events
         PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
         dataWrapper.restartEvents(false, true, false);

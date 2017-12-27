@@ -122,7 +122,8 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                     Event event = dataWrapper.getEventById(event_id);
                     if (event.getStatus() != Event.ESTATUS_RUNNING) {
-                        event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, true, null, false); // activate return profile
+                        event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                                false, true, null, false, true); // activate return profile
                         dataWrapper.restartEvents(false, true, true);
                     }
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
@@ -137,7 +138,8 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                     Event event = dataWrapper.getEventById(event_id);
                     if (event.getStatus() == Event.ESTATUS_RUNNING) {
-                        event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, true, null, false); // activate return profile
+                        event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                                false, true, null, false, true); // activate return profile
                         //dataWrapper.restartEvents(false, true, true);
                     }
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
@@ -152,7 +154,8 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                     Event event = dataWrapper.getEventById(event_id);
                     if (event.getStatus() != Event.ESTATUS_STOP) {
-                        event.stopEvent(dataWrapper, eventTimelineList, true, false, true, true); // activate return profile
+                        event.stopEvent(dataWrapper, eventTimelineList, true, false,
+                                true, true, true); // activate return profile
                         dataWrapper.restartEvents(false, true, true);
                     }
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);

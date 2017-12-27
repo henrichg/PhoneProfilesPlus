@@ -455,7 +455,7 @@ class EventsHandler {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "profile._deviceRunApplicationPackageName=" + mergedProfile._deviceRunApplicationPackageName);
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "interactive=" + interactive);
                 dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
-                dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true);
+                dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, false);
 
                 if (!((notifyEvent != null) && notifyEvent.notifyEventStart(context))) {
                     if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
