@@ -70,7 +70,11 @@ class BluetoothConnectedDevices {
                     PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "A2DP size=" + devices.size());
                     addConnectedDevices(devices, connectedDevices);
                     bluetoothAdapter.closeProfileProxy(BluetoothProfile.A2DP, mBluetoothA2dp);
-                    mBluetoothA2dp = null;
+                    i = 30;
+                    while ((mBluetoothA2dp != null) && (i > 0)) {
+                        PPApplication.sleep(100);
+                        --i;
+                    }
                 }
 
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET start");
@@ -85,7 +89,11 @@ class BluetoothConnectedDevices {
                     PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET size=" + devices.size());
                     addConnectedDevices(devices, connectedDevices);
                     bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEADSET, mBluetoothHeadset);
-                    mBluetoothHeadset = null;
+                    i = 30;
+                    while ((mBluetoothHeadset != null) && (i > 0)) {
+                        PPApplication.sleep(100);
+                        --i;
+                    }
                 }
 
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH start");
@@ -100,7 +108,11 @@ class BluetoothConnectedDevices {
                     PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH size=" + devices.size());
                     addConnectedDevices(devices, connectedDevices);
                     bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, mBluetoothHealth);
-                    mBluetoothHealth = null;
+                    i = 30;
+                    while ((mBluetoothHealth != null) && (i > 0)) {
+                        PPApplication.sleep(100);
+                        --i;
+                    }
                 }
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
