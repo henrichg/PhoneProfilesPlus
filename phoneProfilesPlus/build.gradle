@@ -61,7 +61,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:11.8.0'
 
     implementation 'com.google.code.gson:gson:2.8.0'
-    implementation('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
+    implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true
     }
 
