@@ -1272,7 +1272,11 @@ public class ActivateProfileHelper {
                         case 3:
                             // must be AudioManager.RINGER_MODE_SILENT, because, ZENMODE_NONE set it to silent
                             // without this, duplicate set this zen mode not working
-                            setZenMode(context, ZENMODE_NONE, audioManager, AudioManager.RINGER_MODE_SILENT);
+                            setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
+                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(1000);
+                            PPApplication.sleep(1000);
+                            setZenMode(context, ZENMODE_NONE, audioManager, AudioManager.RINGER_MODE_NORMAL);
                             break;
                         case 4:
                             setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_VIBRATE);
@@ -1285,7 +1289,11 @@ public class ActivateProfileHelper {
                         case 6:
                             // must be AudioManager.RINGER_MODE_SILENT, because, ZENMODE_ALARMS set it to silent
                             // without this, duplicate set this zen mode not working
-                            setZenMode(context, ZENMODE_ALARMS, audioManager, AudioManager.RINGER_MODE_SILENT);
+                            setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
+                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(1000);
+                            PPApplication.sleep(1000);
+                            setZenMode(context, ZENMODE_ALARMS, audioManager, AudioManager.RINGER_MODE_NORMAL);
                             break;
                     }
                     break;
