@@ -1894,7 +1894,7 @@ public class ActivateProfileHelper {
                         }
                     }*/
                     try {
-                        Intent intent = new Intent();
+                        Intent intent = new Intent(Intent.ACTION_MAIN, null);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setComponent(new ComponentName("com.android.settings","com.android.settings.Settings$DataUsageSummaryActivity"));
                         context.startActivity(intent);
