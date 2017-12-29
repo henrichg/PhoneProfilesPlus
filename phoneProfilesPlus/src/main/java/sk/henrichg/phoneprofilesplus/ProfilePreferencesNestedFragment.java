@@ -19,6 +19,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
@@ -150,7 +151,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                      (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
                     );*/
-            final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), true);
+            final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), false);
+            PPApplication.logE("ProfilePreferencesNestedFragment.onActivityCreated","canEnableZenMode="+canEnableZenMode);
 
             ListPreference zenModePreference = (ListPreference)prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
             if (zenModePreference != null) {
@@ -164,9 +166,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
             Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
             if (notificationAccessPreference != null) {
-                boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
-                if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
-                        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
+                if (canEnableZenMode) {
                     PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_soundProfileCategory");
                     preferenceCategory.removePreference(notificationAccessPreference);
                 } else {
@@ -178,14 +178,29 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                             entries[6] = "(S) " + getString(R.string.array_pref_ringerModeArray_ZenMode);
                         ringerModePreference.setEntries(entries);
                     }
-                    /*Preference preference = prefMng.findPreference("prf_pref_volumeZenMode");
-                    if (preference != null) {
-                        preference.setTitle("(S) "+getString(R.string.profile_preferences_volumeZenMode));
-                    }*/
+
+                    boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                    @SuppressLint("InlinedApi")
+                    final boolean showDoNotDisturbPermission =
+                            (android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                            GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
+                    if (showDoNotDisturbPermission) {
+                        notificationAccessPreference.setTitle(getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions));
+                        notificationAccessPreference.setSummary(getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions_summary));
+                    }
+
                     //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
                     notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
+                            boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                            if (showDoNotDisturbPermission) {
+                                @SuppressLint("InlinedApi")
+                                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                            }
+                            else
                             if (GlobalGUIRoutines.activityActionExists("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", context)) {
                                 Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
@@ -826,7 +841,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                          (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
                         );*/
-                final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), true);
+                final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), false);
 
                 if (!canEnableZenMode)
                 {

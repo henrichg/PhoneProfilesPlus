@@ -67,6 +67,7 @@ public class PPApplication extends Application {
 
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
+                                         +"|ProfilePreferencesNestedFragment.onActivityCreated"
 
                                          //+"|Event.notifyEventStart"
                                          //+"|StartEventNotificationBroadcastReceiver"
