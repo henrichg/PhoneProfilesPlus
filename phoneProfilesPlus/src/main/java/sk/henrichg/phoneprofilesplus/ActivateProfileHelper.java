@@ -2162,7 +2162,7 @@ public class ActivateProfileHelper {
 
     void updateWidget(boolean alsoEditor)
     {
-        if (lockRefresh)
+        if (lockRefresh || EditorProfilesActivity.doImport)
             // no refresh widgets
             return;
 

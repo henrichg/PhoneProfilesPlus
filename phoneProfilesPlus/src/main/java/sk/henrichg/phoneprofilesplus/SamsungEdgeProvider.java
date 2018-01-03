@@ -243,6 +243,9 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
+        if (EditorProfilesActivity.doImport)
+            return;
+
         String action = intent.getAction();
 
         createProfilesDataWrapper(context);

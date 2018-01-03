@@ -82,7 +82,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private AsyncTask importAsyncTask = null;
     private AsyncTask exportAsyncTask = null;
-    private boolean doImport = false;
+    static boolean doImport = false;
 
     private static final String SP_DATA_DETAILS_DATA_TYPE = "data_detail_data_type";
     private static final String SP_DATA_DETAILS_DATA_ID = "data_detail_data_id";
@@ -1274,6 +1274,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 protected void onPostExecute(Integer result) {
                     super.onPostExecute(result);
 
+                    doImport = false;
+
                     if (this.dialog.isShowing())
                         this.dialog.dismiss();
                     unlockScreenOrientation();
@@ -1305,8 +1307,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 Toast.LENGTH_SHORT);
                         msg.show();
 
-                        doImport = false;
-
                         // refresh activity
                         GlobalGUIRoutines.reloadActivity(activity, true);
                     } else {
@@ -1318,8 +1318,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                         startService(serviceIntent);
                         //else
                         //    startForegroundService(serviceIntent);
-
-                        doImport = false;
 
                         importExportErrorDialog(1, result);
                     }
