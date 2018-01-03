@@ -174,7 +174,6 @@ class Permissions {
     private static List<PermissionType> checkProfilePermissions(Context context, Profile profile) {
         List<PermissionType>  permissions = new ArrayList<>();
         if (profile == null) return permissions;
-        //Log.e("Permissions", "checkProfilePermissions - profile.icon="+profile._icon);
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             /*if (!checkProfileVolumePreferences(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_VOLUME_PREFERENCES, permission.WRITE_SETTINGS));
@@ -285,10 +284,14 @@ class Permissions {
 
     static boolean checkProfileVibrateWhenRinging(Context context, Profile profile, List<PermissionType>  permissions) {
         if (profile == null) return true;
+        PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "profile._name=" + profile._name);
+        PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "permissions=" + permissions);
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
+                PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "profile._vibrateWhenRinging=" + profile._vibrateWhenRinging);
                 if (profile._vibrateWhenRinging != 0) {
                     boolean granted = Settings.System.canWrite(context);
+                    PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "granted=" + granted);
                     if (granted)
                         setShowRequestWriteSettingsPermission(context, true);
                     else if (permissions != null)
@@ -296,6 +299,22 @@ class Permissions {
                     return granted;
                 } else
                     return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        else
+            return true;
+    }
+
+    static boolean checkVibrateWhenRinging(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            try {
+                boolean granted = Settings.System.canWrite(context);
+                PPApplication.logE("Permissions.checkVibrateWhenRinging", "granted=" + granted);
+                if (granted)
+                    setShowRequestWriteSettingsPermission(context, true);
+                return granted;
             } catch (Exception e) {
                 return false;
             }

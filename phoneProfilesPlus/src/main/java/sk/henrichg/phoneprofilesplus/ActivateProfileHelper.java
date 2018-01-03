@@ -836,7 +836,7 @@ public class ActivateProfileHelper {
         if (lValue != -1) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, context)
                     == PPApplication.PREFERENCE_ALLOWED) {
-                if (Permissions.checkProfileVibrateWhenRinging(context, profile, null)) {
+                if (Permissions.checkVibrateWhenRinging(context)) {
                     if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
                         Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", lValue);
                     else {
