@@ -1365,63 +1365,67 @@ public class PPApplication extends Application {
 
     public static void exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
                                boolean shutdown) {
-        if (!shutdown) {
-            // stop all events
-            dataWrapper.stopAllEvents(false);
+        try {
+            if (!shutdown) {
+                // stop all events
+                dataWrapper.stopAllEvents(false);
 
-            // remove notifications
-            ImportantInfoNotification.removeNotification(context);
-            Permissions.removeNotifications(context);
+                // remove notifications
+                ImportantInfoNotification.removeNotification(context);
+                Permissions.removeNotifications(context);
 
-            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
+                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 
-            if (PPApplication.brightnessHandler != null) {
-                PPApplication.brightnessHandler.post(new Runnable() {
-                    public void run() {
-                        ActivateProfileHelper.removeBrightnessView(context);
+                if (PPApplication.brightnessHandler != null) {
+                    PPApplication.brightnessHandler.post(new Runnable() {
+                        public void run() {
+                            ActivateProfileHelper.removeBrightnessView(context);
 
-                    }
-                });
+                        }
+                    });
+                }
+                if (PPApplication.screenTimeoutHandler != null) {
+                    PPApplication.screenTimeoutHandler.post(new Runnable() {
+                        public void run() {
+                            ActivateProfileHelper.screenTimeoutUnlock(context);
+                            ActivateProfileHelper.removeBrightnessView(context);
+
+                        }
+                    });
+                }
+
+                PPApplication.initRoot();
             }
-            if (PPApplication.screenTimeoutHandler != null) {
-                PPApplication.screenTimeoutHandler.post(new Runnable() {
-                    public void run() {
-                        ActivateProfileHelper.screenTimeoutUnlock(context);
-                        ActivateProfileHelper.removeBrightnessView(context);
 
-                    }
-                });
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+            Profile.setActivatedProfileForDuration(context, 0);
+            StartEventNotificationBroadcastReceiver.removeAlarm(context);
+            GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
+            LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
+
+            context.stopService(new Intent(context, PhoneProfilesService.class));
+
+            Permissions.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
+            Permissions.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
+            Permissions.setShowRequestDrawOverlaysPermission(context.getApplicationContext(), true);
+            WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
+            //ActivateProfileHelper.setScreenUnlocked(context, true);
+
+            PPApplication.setApplicationStarted(context, false);
+
+            if (!shutdown) {
+                if (activity != null) {
+                    Handler handler = new Handler(context.getMainLooper());
+                    Runnable r = new Runnable() {
+                        public void run() {
+                            activity.finish();
+                        }
+                    };
+                    handler.postDelayed(r, 500);
+                }
             }
+        } catch (Exception ignored) {
 
-            PPApplication.initRoot();
-        }
-
-        ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-        Profile.setActivatedProfileForDuration(context, 0);
-        StartEventNotificationBroadcastReceiver.removeAlarm(context);
-        GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
-        LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
-
-        context.stopService(new Intent(context, PhoneProfilesService.class));
-
-        Permissions.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
-        Permissions.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
-        Permissions.setShowRequestDrawOverlaysPermission(context.getApplicationContext(), true);
-        WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
-        //ActivateProfileHelper.setScreenUnlocked(context, true);
-
-        PPApplication.setApplicationStarted(context, false);
-
-        if (!shutdown) {
-            if (activity != null) {
-                Handler handler = new Handler(context.getMainLooper());
-                Runnable r = new Runnable() {
-                    public void run() {
-                        activity.finish();
-                    }
-                };
-                handler.postDelayed(r, 500);
-            }
         }
     }
 
