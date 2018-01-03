@@ -1458,40 +1458,46 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         {
             //Uri selectedImage = data.getData();
             String  d = data.getDataString();
-            Uri selectedImage = Uri.parse(d);
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                try {
-                    final int takeFlags = data.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION;
-                    ContentResolver resolver = getActivity().getContentResolver();
-                    //noinspection WrongConstant
-                    resolver.takePersistableUriPermission(selectedImage, takeFlags);
-                } catch (Exception ignored) {}
-            }
+            if (d != null) {
+                Uri selectedImage = Uri.parse(d);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    try {
+                        final int takeFlags = data.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                        ContentResolver resolver = getActivity().getContentResolver();
+                        //noinspection WrongConstant
+                        resolver.takePersistableUriPermission(selectedImage, takeFlags);
+                    } catch (Exception ignored) {
+                    }
+                }
 
-            if (ProfilePreferencesFragment.changedImageViewPreference != null) {
-                // set image identifier for get bitmap path
-                ProfilePreferencesFragment.changedImageViewPreference.setImageIdentifier(selectedImage.toString());
-                ProfilePreferencesFragment.changedImageViewPreference = null;
+                if (ProfilePreferencesFragment.changedImageViewPreference != null) {
+                    // set image identifier for get bitmap path
+                    ProfilePreferencesFragment.changedImageViewPreference.setImageIdentifier(selectedImage.toString());
+                    ProfilePreferencesFragment.changedImageViewPreference = null;
+                }
             }
         }
         if (requestCode == ProfileIconPreference.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
         {
             //Uri selectedImage = data.getData();
             String  d = data.getDataString();
-            Uri selectedImage = Uri.parse(d);
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                try {
-                    final int takeFlags = data.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION;
-                    ContentResolver resolver = getActivity().getContentResolver();
-                    //noinspection WrongConstant
-                    resolver.takePersistableUriPermission(selectedImage, takeFlags);
-                } catch (Exception ignored) {}
-            }
+            if (d != null) {
+                Uri selectedImage = Uri.parse(d);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    try {
+                        final int takeFlags = data.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                        ContentResolver resolver = getActivity().getContentResolver();
+                        //noinspection WrongConstant
+                        resolver.takePersistableUriPermission(selectedImage, takeFlags);
+                    } catch (Exception ignored) {
+                    }
+                }
 
-            if (ProfilePreferencesFragment.changedProfileIconPreference != null) {
-                // set image identifier ant type for get bitmap path
-                ProfilePreferencesFragment.changedProfileIconPreference.setImageIdentifierAndType(selectedImage.toString(), false, true);
-                ProfilePreferencesFragment.changedProfileIconPreference = null;
+                if (ProfilePreferencesFragment.changedProfileIconPreference != null) {
+                    // set image identifier ant type for get bitmap path
+                    ProfilePreferencesFragment.changedProfileIconPreference.setImageIdentifierAndType(selectedImage.toString(), false, true);
+                    ProfilePreferencesFragment.changedProfileIconPreference = null;
+                }
             }
         }
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
