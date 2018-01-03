@@ -65,9 +65,10 @@ public class PPApplication extends Application {
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
 
-                                         +"|Permissions.grantProfilePermissions"
-                                         +"|Permissions.checkProfileVibrateWhenRinging"
-                                         +"|Permissions.checkVibrateWhenRinging"
+                                         //+"|Permissions.grantProfilePermissions"
+                                         //+"|Permissions.checkProfileVibrateWhenRinging"
+                                         //+"|Permissions.checkVibrateWhenRinging"
+                                         +"|ActivateProfileHelper.setZenMode"
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
