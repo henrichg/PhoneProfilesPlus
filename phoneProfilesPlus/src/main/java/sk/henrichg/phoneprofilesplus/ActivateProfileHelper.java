@@ -2761,8 +2761,10 @@ public class ActivateProfileHelper {
                                 int wifiState = wifiManager.getWifiState();
                                 boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
                                 PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-isWifiEnabled="+isWifiEnabled);
-                                if (isWifiEnabled)
+                                if (isWifiEnabled) {
                                     wifiManager.setWifiEnabled(false);
+                                    PPApplication.sleep(1000);
+                                }
                             }
                         }
                         synchronized (PPApplication.startRootCommandMutex) {
@@ -3272,6 +3274,15 @@ public class ActivateProfileHelper {
         int waitTill = 50;
         int waitTillMultiplier = 2;
         int waitTillLimit = 3200; //7 tries, 6350 msec
+        // 1.              50
+        // 2. 2 * 50 =    100
+        // 3. 2 * 100 =   200
+        // 4. 2 * 200 =   400
+        // 5. 2 * 400 =   800
+        // 6. 2 * 800 =  1600
+        // 7. 2 * 1600 = 3200
+        // ------------------
+        //               6350
 
         //noinspection SynchronizationOnLocalVariableOrMethodParameter
         synchronized (cmd) {
