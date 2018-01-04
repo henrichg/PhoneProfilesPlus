@@ -52,7 +52,7 @@ public class PPApplication extends Application {
     static boolean newExtender = true;
     static final int VERSION_CODE_EXTENDER = 60;
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -69,6 +69,11 @@ public class PPApplication extends Application {
                                          //+"|Permissions.checkProfileVibrateWhenRinging"
                                          //+"|Permissions.checkVibrateWhenRinging"
                                          +"|ActivateProfileHelper.setZenMode"
+                                         +"|ActivateProfileHelper.setRingerMode"
+                                         +"|ActivateProfileHelper.setVolumes"
+                                         +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
+                                         +"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
+                                         +"|ActivateProfileHelper.setVibrateWhenRinging"
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"

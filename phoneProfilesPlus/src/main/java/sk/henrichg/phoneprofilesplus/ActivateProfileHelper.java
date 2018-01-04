@@ -480,7 +480,7 @@ public class ActivateProfileHelper {
     }
 
     static boolean isAudibleRinging(int ringerMode, int zenMode) {
-        return (!((ringerMode == 3) || (ringerMode == 4) ||
+        return (!(/* HENO */(ringerMode == 3) || (ringerMode == 4) ||
                   ((ringerMode == 5) && ((zenMode == 3) || (zenMode == 4) || (zenMode == 5) || (zenMode == 6)))
                  ));
     }
@@ -788,6 +788,7 @@ public class ActivateProfileHelper {
                 //SystemClock.sleep(500);
                 PPApplication.sleep(500);
 
+                /* HENO */
                 if ((zenMode != _zenMode) || (zenMode == ZENMODE_PRIORITY)) {
                     PPNotificationListenerService.requestInterruptionFilter(context, zenMode);
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(context, zenMode);
@@ -821,6 +822,8 @@ public class ActivateProfileHelper {
     }
 
     private void setVibrateWhenRinging(Context context, Profile profile, int value) {
+        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "profile="+profile);
+        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "value="+value);
         int lValue = value;
         if (profile != null) {
             switch (profile._vibrateWhenRinging) {
@@ -833,15 +836,19 @@ public class ActivateProfileHelper {
             }
         }
 
+        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "lValue="+lValue);
         if (lValue != -1) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, context)
                     == PPApplication.PREFERENCE_ALLOWED) {
                 if (Permissions.checkVibrateWhenRinging(context)) {
-                    if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
+                    if (android.os.Build.VERSION.SDK_INT < 23) {    // Not working in Android M (exception)
                         Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", lValue);
+                        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "wibrate when ringing set (API < 23)");
+                    }
                     else {
                         try {
                             Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
+                            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "wibrate when ringing set (API >= 23)");
                         } catch (Exception ee) {
                             Log.e("ActivateProfileHelper.setVibrateWhenRinging", ee.toString());
 
@@ -855,15 +862,22 @@ public class ActivateProfileHelper {
                                         //RootTools.closeAllShells();
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         commandWait(command);
+                                        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "wibrate when ringing set (API >= 23 with root)");
                                     } catch (Exception e) {
                                         Log.e("ActivateProfileHelper.setVibrateWhenRinging", "Error on run su: " + e.toString());
                                     }
                                 }
                             }
+                            else
+                                PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "not rooted");
                         }
                     }
                 }
+                else
+                    PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "not permission granted");
             }
+            else
+                PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "not profile preferences allowed");
         }
     }
 
@@ -1033,6 +1047,7 @@ public class ActivateProfileHelper {
         if (profile.getVolumeRingtoneChange()) {
 
             if (profile.getVolumeRingtoneValue() == 0) {
+                // HENO
                 profile.setVolumeRingtoneValue(1);
 
                 // for profile ringer/zen mode = "only vibrate" do not change ringer mode to Silent
@@ -1065,6 +1080,7 @@ public class ActivateProfileHelper {
         if (profile.getVolumeNotificationChange() && getMergedRingNotificationVolumes(context)) {
             if (profile.getVolumeNotificationValue() == 0) {
                 PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "changed notification value to 1");
+                // HENO
                 profile.setVolumeNotificationValue(1);
             }
         }
@@ -1195,6 +1211,7 @@ public class ActivateProfileHelper {
 
             switch (ringerMode) {
                 case 1:  // Ring
+                    PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=RING");
                     setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL); not needed, called from setZenMode
                     try {
@@ -1210,6 +1227,7 @@ public class ActivateProfileHelper {
                     setVibrateWhenRinging(context, null, 0);
                     break;
                 case 2:  // Ring & Vibrate
+                    PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=RING & VIBRATE");
                     setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL); not needed, called from setZenMode
                     try {
@@ -1225,6 +1243,7 @@ public class ActivateProfileHelper {
                     setVibrateWhenRinging(context, null, 1);
                     break;
                 case 3:  // Vibrate
+                    PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=VIBRATE");
                     setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_VIBRATE);
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE); not needed, called from setZenMode
                     try {
@@ -1240,6 +1259,7 @@ public class ActivateProfileHelper {
                     setVibrateWhenRinging(context, null, 1);
                     break;
                 case 4:  // Silent
+                    PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=SILENT");
                     if (android.os.Build.VERSION.SDK_INT >= 21) {
                         //setZenMode(ZENMODE_SILENT, audioManager, AudioManager.RINGER_MODE_SILENT);
                         setZenMode(context, ZENMODE_SILENT, audioManager, AudioManager.RINGER_MODE_NORMAL);
@@ -1260,16 +1280,20 @@ public class ActivateProfileHelper {
                     setVibrateWhenRinging(context, null, 0);
                     break;
                 case 5: // Zen mode
+                    PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=ZEN MODE");
                     switch (zenMode) {
                         case 1:
+                            PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALL");
                             setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
                             setVibrateWhenRinging(context, profile, -1);
                             break;
                         case 2:
+                            PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY");
                             setZenMode(context, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_NORMAL);
                             setVibrateWhenRinging(context, profile, -1);
                             break;
                         case 3:
+                            PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=NONE");
                             // must be set to ALL and after to NONE
                             // without this, duplicate set this zen mode not working
                             setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
@@ -1279,14 +1303,17 @@ public class ActivateProfileHelper {
                             setZenMode(context, ZENMODE_NONE, audioManager, AudioManager.RINGER_MODE_NORMAL);
                             break;
                         case 4:
+                            PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALL & VIBRATE");
                             setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_VIBRATE);
                             setVibrateWhenRinging(context, null, 1);
                             break;
                         case 5:
+                            PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY & VIBRATE");
                             setZenMode(context, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_VIBRATE);
                             setVibrateWhenRinging(context, null, 1);
                             break;
                         case 6:
+                            PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALARMS");
                             // must be set to ALL and after to ALARMS
                             // without this, duplicate set this zen mode not working
                             setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
