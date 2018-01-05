@@ -336,7 +336,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
             // restart Events
             PPApplication.logE("$$$ restartEvents","from EventPreferencesFragment.savePreferences");
-            dataWrapper.restartEvents(false, true, false);
+            dataWrapper.restartEvents(false, true/*, false*/);
         }
         else
         if (event_id > 0)
@@ -361,7 +361,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                         false, false, null, false, true);
             // restart Events
             PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
-            dataWrapper.restartEvents(false, true, false);
+            dataWrapper.restartEvents(false, true/*, false*/);
 
         }
     }

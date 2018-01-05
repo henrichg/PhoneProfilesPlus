@@ -100,8 +100,8 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
                         if (Permissions.grantProfilePermissions(mActivity, mProfile, false, false,
                                 true, mMonochrome, mMonochromeValue,
-                                mStartupSource, true, mActivity, true))
-                            mDataWrapper._activateProfile(mProfile, false, mStartupSource, true, mActivity, true);
+                                mStartupSource, /*true,*/ mActivity, true))
+                            mDataWrapper._activateProfile(mProfile, false, mStartupSource, /*true,*/ mActivity, true);
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -121,8 +121,8 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
                         if (Permissions.grantProfilePermissions(mActivity, mProfile, false, false,
                                 true, mMonochrome, mMonochromeValue,
-                                mStartupSource, true, mActivity, true))
-                            mDataWrapper._activateProfile(mProfile, false, mStartupSource, true, mActivity, true);
+                                mStartupSource, /*true,*/ mActivity, true))
+                            mDataWrapper._activateProfile(mProfile, false, mStartupSource, /*true,*/ mActivity, true);
                     }
                 })
                 .dismissListener(new DialogInterface.OnDismissListener() {

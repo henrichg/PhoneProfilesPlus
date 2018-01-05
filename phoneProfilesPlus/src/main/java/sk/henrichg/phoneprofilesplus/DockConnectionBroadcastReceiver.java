@@ -45,7 +45,7 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
                         }
 
                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DOCK_CONNECTION, false);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DOCK_CONNECTION/*, false*/);
 
                         if ((wakeLock != null) && wakeLock.isHeld())
                             wakeLock.release();

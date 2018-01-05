@@ -70,7 +70,7 @@ class EventsHandler {
         this.context = context;
     }
     
-    void handleEvents(String sensorType, boolean _interactive) {
+    void handleEvents(String sensorType/*, boolean _interactive*/) {
         synchronized (PPApplication.eventsHandlerMutex) {
             CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
 
@@ -80,7 +80,7 @@ class EventsHandler {
 
             PPApplication.logE("#### EventsHandler.handleEvents", "-- start --------------------------------");
 
-            boolean interactive;
+            //boolean interactive;
 
             this.sensorType = sensorType;
             PPApplication.logE("#### EventsHandler.handleEvents", "sensorType=" + this.sensorType);
@@ -189,7 +189,7 @@ class EventsHandler {
 
             boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS);
 
-            interactive = (!isRestart) || _interactive;
+            //interactive = (!isRestart) || _interactive;
 
             if (sensorType.equals(SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED) ||
                     sensorType.equals(SENSOR_TYPE_SEARCH_CALENDAR_EVENTS)) {
@@ -305,7 +305,7 @@ class EventsHandler {
                     if (_event.getStatus() != Event.ESTATUS_STOP)
                         // only pause events
                         // pause also paused events
-                        dataWrapper.doHandleEvents(_event, true, true, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, true, true, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, sensorType);
                 }
 
                 // get running events count
@@ -322,7 +322,7 @@ class EventsHandler {
                     if (_event.getStatus() != Event.ESTATUS_STOP)
                         // only start events
                         // start all events
-                        dataWrapper.doHandleEvents(_event, false, true, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, false, true, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, sensorType);
                 }
             } else {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "NO restart events");
@@ -342,7 +342,7 @@ class EventsHandler {
                         // only pause events
                         // pause only running events
                         //noinspection ConstantConditions
-                        dataWrapper.doHandleEvents(_event, true, false, interactive, forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, true, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile, sensorType);
                 }
 
                 // get running events count
@@ -360,7 +360,7 @@ class EventsHandler {
                         // only start events
                         // start only paused events
                         //noinspection ConstantConditions
-                        dataWrapper.doHandleEvents(_event, false, false, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, false, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, sensorType);
                 }
             }
 
@@ -453,9 +453,9 @@ class EventsHandler {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "profileName=" + mergedProfile._name);
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "profileId=" + mergedProfile._id);
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "profile._deviceRunApplicationPackageName=" + mergedProfile._deviceRunApplicationPackageName);
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "interactive=" + interactive);
+                //PPApplication.logE("$$$ EventsHandler.handleEvents", "interactive=" + interactive);
                 dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
-                dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, false);
+                dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ false, true, false);
 
                 if (!((notifyEvent != null) && notifyEvent.notifyEventStart(context))) {
                     if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {

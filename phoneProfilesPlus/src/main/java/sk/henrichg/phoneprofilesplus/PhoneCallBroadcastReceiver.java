@@ -137,7 +137,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         // start events handler
         EventsHandler eventsHandler = new EventsHandler(context);
-        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL, false);
+        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL/*, false*/);
 
         if ((wakeLock != null) && wakeLock.isHeld())
             wakeLock.release();

@@ -149,7 +149,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     // start job
                     //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_SCREEN);
                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN, false);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN/*, false*/);
                     //}
 
                     /* Not needed for SCREEN_ON are restarted all scanners

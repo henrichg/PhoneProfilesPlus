@@ -50,7 +50,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
 
                 // start events handler
                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_POWER_SAVE_MODE, false);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_POWER_SAVE_MODE/*, false*/);
 
                 if ((wakeLock != null) && wakeLock.isHeld())
                     wakeLock.release();

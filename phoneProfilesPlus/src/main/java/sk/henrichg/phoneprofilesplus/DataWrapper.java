@@ -472,7 +472,7 @@ public class DataWrapper {
             profile._checked = true;
     }
 
-    void activateProfileFromEvent(long profile_id, boolean interactive, boolean manual,
+    void activateProfileFromEvent(long profile_id, /*boolean interactive,*/ boolean manual,
                                          boolean merged, boolean useBackgroundThread)
     {
         int startupSource = PPApplication.STARTUP_SOURCE_SERVICE;
@@ -481,9 +481,9 @@ public class DataWrapper {
         Profile profile = getProfileById(profile_id, merged);
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 forGUI, monochrome, monochromeValue,
-                startupSource, interactive, null, true)) {
+                startupSource, /*interactive,*/ null, true)) {
             getActivateProfileHelper().initialize(context);
-            _activateProfile(profile, merged, startupSource, interactive, null, useBackgroundThread);
+            _activateProfile(profile, merged, startupSource, /*interactive,*/ null, useBackgroundThread);
         }
     }
 
@@ -766,7 +766,7 @@ public class DataWrapper {
                 event.stopEvent(this, eventTimelineList, false, true, true/*saveEventStatus*/, false, true);
         }
         PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
-        restartEvents(false, true, false);
+        restartEvents(false, true/*, false*/);
     }
 
     // pauses all events
@@ -880,7 +880,7 @@ public class DataWrapper {
         if (startedFromService) {
             if (ApplicationPreferences.applicationActivate(context) &&
                     ApplicationPreferences.applicationStartEvents(context)) {
-                restartEvents(false, false, false);
+                restartEvents(false, false/*, false*/);
             }
             else {
                 Event.setGlobalEventsRunning(context, false);
@@ -888,7 +888,7 @@ public class DataWrapper {
             }
         }
         else {
-            restartEvents(false, false, false);
+            restartEvents(false, false/*, false*/);
         }
     }
 
@@ -1121,7 +1121,7 @@ public class DataWrapper {
 //----- Activate profile ---------------------------------------------------------------------------------------------
 
     void _activateProfile(Profile _profile, boolean merged, int startupSource,
-                                    boolean _interactive, Activity _activity, boolean useBackgroundThread)
+                                    /*boolean _interactive,*/ Activity _activity, boolean useBackgroundThread)
     {
         // remove last configured profile duration alarm
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
@@ -1173,7 +1173,7 @@ public class DataWrapper {
                     (profile._duration > 0))
                 profileDuration = profile._duration;
 
-            activateProfileHelper.execute(profile, /*merged, */_interactive, useBackgroundThread);
+            activateProfileHelper.execute(profile, /*merged, *//*_interactive,*/ useBackgroundThread);
 
             // activation with duration
             if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
@@ -1261,10 +1261,10 @@ public class DataWrapper {
         //Log.d("DataWrapper.showToastAfterActivation", "-- end");
     }
 
-    private void activateProfileWithAlert(Profile profile, int startupSource, final boolean interactive,
+    private void activateProfileWithAlert(Profile profile, int startupSource, /*final boolean interactive,*/
                                             Activity activity)
     {
-        if (interactive && (ApplicationPreferences.applicationActivateWithAlert(context) ||
+        if (/*interactive &&*/ (ApplicationPreferences.applicationActivateWithAlert(context) ||
                             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR)))
         {
             // set theme and language for dialog alert ;-)
@@ -1292,8 +1292,8 @@ public class DataWrapper {
                     public void onClick(DialogInterface dialog, int which) {
                         if (Permissions.grantProfilePermissions(context, _profile, false, false,
                                 forGUI, monochrome, monochromeValue,
-                                _startupSource, true, _activity, true))
-                            _dataWrapper._activateProfile(_profile, false, _startupSource, true, _activity, true);
+                                _startupSource, /*true,*/ _activity, true))
+                            _dataWrapper._activateProfile(_profile, false, _startupSource, /*true,*/ _activity, true);
                         else {
                             Intent returnIntent = new Intent();
                             _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
@@ -1326,14 +1326,14 @@ public class DataWrapper {
         }
         else
         {
-            if (profile._askForDuration && interactive) {
+            if (profile._askForDuration/* && interactive*/) {
                 FastAccessDurationDialog dlg = new FastAccessDurationDialog(activity, profile, this,
                         monochrome, monochromeValue, startupSource);
                 dlg.show();
             }
             else {
                 boolean granted;
-                if (interactive) {
+                //if (interactive) {
                     // set theme and language for dialog alert ;-)
                     // not working on Android 2.3.x
                     GlobalGUIRoutines.setTheme(activity, true, false, false);
@@ -1341,14 +1341,14 @@ public class DataWrapper {
 
                     granted = Permissions.grantProfilePermissions(context, profile, false, false,
                             forGUI, monochrome, monochromeValue,
-                            startupSource, true, activity, true);
-                }
+                            startupSource, /*true,*/ activity, true);
+                /*}
                 else
                     granted = Permissions.grantProfilePermissions(context, profile, false, true,
                             forGUI, monochrome, monochromeValue,
-                            startupSource, false, null, true);
+                            startupSource, false, null, true);*/
                 if (granted)
-                    _activateProfile(profile, false, startupSource, interactive, activity, true);
+                    _activateProfile(profile, false, startupSource, /*interactive,*/ activity, true);
             }
         }
     }
@@ -1391,7 +1391,7 @@ public class DataWrapper {
         profile = getActivatedProfile();
 
         boolean actProfile = false;
-        boolean interactive = false;
+        //boolean interactive = false;
         if ((startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
             (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
             (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
@@ -1403,7 +1403,7 @@ public class DataWrapper {
             // activation is invoked from shortcut, widget, Activator, Editor, service,
             // do profile activation
             actProfile = true;
-            interactive = ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE));
+            //interactive = ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE));
         }
         else
         if (startupSource == PPApplication.STARTUP_SOURCE_BOOT)
@@ -1456,7 +1456,7 @@ public class DataWrapper {
         if (actProfile && (profile != null))
         {
             // profile activation
-            activateProfileWithAlert(profile, startupSource, interactive, activity);
+            activateProfileWithAlert(profile, startupSource, /*interactive,*/ activity);
         }
         else
         {
@@ -1487,15 +1487,15 @@ public class DataWrapper {
         if (profile == null) return;
         if (Permissions.grantProfilePermissions(context, profile, false, true,
                 forGUI, monochrome, monochromeValue,
-                startupSource, true, null, true)) {
+                startupSource, /*true,*/ null, true)) {
             getActivateProfileHelper().initialize(context);
-            _activateProfile(profile, false, startupSource, true, null, true);
+            _activateProfile(profile, false, startupSource, /*true,*/ null, true);
         }
     }
 
     @SuppressLint({ "NewApi", "SimpleDateFormat" })
     void doHandleEvents(Event event, boolean statePause,
-                                    boolean restartEvent, boolean interactive,
+                                    boolean restartEvent, /*boolean interactive,*/
                                     boolean forDelayStartAlarm, boolean forDelayEndAlarm,
                                     boolean reactivate, Profile mergedProfile,
                                     String sensorType)
@@ -2927,7 +2927,7 @@ public class DataWrapper {
                             if (!event._isInDelayStart) {
                                 // no delay alarm is set
                                 // start event
-                                event.startEvent(this, eventTimelineList, interactive, reactivate, mergedProfile, false);
+                                event.startEvent(this, eventTimelineList, /*interactive,*/ reactivate, mergedProfile, false);
                                 PPApplication.logE("[***] DataWrapper.doHandleEvents", "mergedProfile._id=" + mergedProfile._id);
                             }
                         }
@@ -2935,7 +2935,7 @@ public class DataWrapper {
                         if (forDelayStartAlarm && event._isInDelayStart) {
                             // called for delay alarm
                             // start event
-                            event.startEvent(this, eventTimelineList, interactive, reactivate, mergedProfile, false);
+                            event.startEvent(this, eventTimelineList, /*interactive,*/ reactivate, mergedProfile, false);
                         }
                     }
                 } else if (((newEventStatus == Event.ESTATUS_PAUSE) || restartEvent) && statePause) {
@@ -2986,7 +2986,7 @@ public class DataWrapper {
         PPApplication.logE("%%% DataWrapper.doHandleEvents","--- end --------------------------");
     }
 
-    void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile, final boolean interactive)
+    void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile/*, final boolean interactive*/)
     {
         if (!Event.getGlobalEventsRunning(context))
             // events are globally stopped
@@ -3010,7 +3010,7 @@ public class DataWrapper {
                     }
 
                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE, false);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE/*, false*/);
 
                     if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();
@@ -3059,7 +3059,7 @@ public class DataWrapper {
                 }
 
                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS, interactive);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS/*, interactive*/);
 
                 if ((wakeLock != null) && wakeLock.isHeld())
                     wakeLock.release();
@@ -3076,7 +3076,7 @@ public class DataWrapper {
         resetAllEventsInDelayEnd(false);
         // ignore manual profile activation
         // and unblock forceRun events
-        restartEvents(true, true, true/*interactive*/);
+        restartEvents(true, true/*, true/*interactive*/);
 
         if (ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
@@ -3202,7 +3202,7 @@ public class DataWrapper {
         PPApplication.logE("DataWrapper.restartEventsWithDelay","xxx");
 
         final boolean _unblockEventsRun = unblockEventsRun;
-        final boolean _interactive = false/*interactive*/;
+        //final boolean _interactive = false/*interactive*/;
 
         PhoneProfilesService.startHandlerThread();
         final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
@@ -3210,7 +3210,7 @@ public class DataWrapper {
             @Override
             public void run() {
                 PPApplication.logE("DataWrapper.restartEventsWithDelay","restart");
-                restartEvents(_unblockEventsRun, true, _interactive);
+                restartEvents(_unblockEventsRun, true/*, _interactive*/);
             }
         }, delay * 1000);
     }

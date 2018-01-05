@@ -1505,7 +1505,7 @@ public class ActivateProfileHelper {
         //}
     }
 
-    public void execute(final Profile _profile, /*boolean merged, */boolean _interactive, boolean useBackgroundThread)
+    public void execute(final Profile _profile, /*boolean merged, *//*boolean _interactive,*/ boolean useBackgroundThread)
     {
         PPApplication.logE("##### ActivateProfileHelper.execute", "xxx");
 
@@ -1893,7 +1893,7 @@ public class ActivateProfileHelper {
             }
         }
 
-        if (_interactive)
+        if (true/*_interactive*/)
         {
             // preferences, which requires user interaction
 

@@ -1028,7 +1028,7 @@ class Event {
     void startEvent(DataWrapper dataWrapper,
                             List<EventTimeline> eventTimelineList,
                             //boolean ignoreGlobalPref,
-                            boolean interactive,
+                            //boolean interactive,
                             boolean reactivate,
                             //boolean log,
                             Profile mergedProfile,
@@ -1156,12 +1156,12 @@ class Event {
             PPApplication.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);
 
             if (mergedProfile == null)
-                dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, false, useBackgroundThread);
+                dataWrapper.activateProfileFromEvent(this._fkProfileStart, /*interactive,*/ false, false, useBackgroundThread);
             else {
                 mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper, true);
                 if (this._manualProfileActivation) {
                     dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
-                    dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, true, true, useBackgroundThread);
+                    dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ true, true, useBackgroundThread);
                     mergedProfile._id = 0;
                 }
             }
@@ -1217,7 +1217,7 @@ class Event {
                 {
                     PPApplication.logE("Event.pauseEvent","activate end profile");
                     if (mergedProfile == null)
-                        dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, false, false, useBackgroundThread);
+                        dataWrapper.activateProfileFromEvent(_fkProfileEnd, /*false,*/ false, false, useBackgroundThread);
                     else
                         mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper, false);
                     activatedProfileId = _fkProfileEnd;
@@ -1245,7 +1245,7 @@ class Event {
                     if (eventTimeline._fkProfileEndActivated != 0)
                     {
                         if (mergedProfile == null)
-                            dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, false, false, useBackgroundThread);
+                            dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, /*false,*/ false, false, useBackgroundThread);
                         else
                             mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper, false);
                         profileActivated = true;

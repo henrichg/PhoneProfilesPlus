@@ -100,7 +100,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                             PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "start EventsHandler (2)");
                                             //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
                                             EventsHandler eventsHandler = new EventsHandler(appContext);
-                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, false);
+                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER/*, false*/);
 
                                             if ((wakeLock != null) && wakeLock.isHeld())
                                                 wakeLock.release();

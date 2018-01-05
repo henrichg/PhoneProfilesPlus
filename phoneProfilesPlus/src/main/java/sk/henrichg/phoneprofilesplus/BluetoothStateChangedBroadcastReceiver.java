@@ -92,7 +92,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                                 // start events handler
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH/*, false*/);
 
                                 //}
 
@@ -105,7 +105,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 */
 
                                 // start events handler
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_STATE, false);
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_STATE/*, false*/);
 
                                 //}
                             }

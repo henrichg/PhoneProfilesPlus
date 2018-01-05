@@ -215,7 +215,7 @@ class WifiBluetoothScanner {
                                                 public void run() {
                                                     //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
                                                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, false);
+                                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER/*, false*/);
                                                 }
                                             }, 5000);
                                             //WifiScanBroadcastReceiver.setAlarm(context);

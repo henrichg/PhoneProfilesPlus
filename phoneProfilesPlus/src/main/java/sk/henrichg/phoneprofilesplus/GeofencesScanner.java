@@ -377,7 +377,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                         // start job
                                         //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_LOCATION_MODE);
                                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE, false);
+                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE/*, false*/);
                                     }
 
                                     if ((wakeLock != null) && wakeLock.isHeld())

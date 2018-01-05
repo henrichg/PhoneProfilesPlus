@@ -3254,7 +3254,7 @@ public class PhoneProfilesService extends Service
 
                     // start events handler
                     EventsHandler eventsHandler = new EventsHandler(context);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION, false);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION/*, false*/);
 
                     if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();

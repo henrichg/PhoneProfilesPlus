@@ -38,7 +38,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private boolean monochrome;
     private int monochromeValue;
     private int startupSource;
-    private boolean interactive;
+    //private boolean interactive;
     private String applicationDataPath;
     private boolean activateProfile;
     private boolean grantAlsoContacts;
@@ -79,7 +79,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         monochrome = intent.getBooleanExtra(Permissions.EXTRA_MONOCHROME, false);
         monochromeValue = intent.getIntExtra(Permissions.EXTRA_MONOCHROME_VALUE, 0xFF);
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
-        interactive = intent.getBooleanExtra(Permissions.EXTRA_INTERACTIVE, true);
+        //interactive = intent.getBooleanExtra(Permissions.EXTRA_INTERACTIVE, true);
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
         activateProfile = intent.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, true) && (profile_id != Profile.DEFAULT_PROFILE_ID);
         grantAlsoContacts = intent.getBooleanExtra(Permissions.EXTRA_GRANT_ALSO_CONTACTS, true);
@@ -551,7 +551,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         intent.putParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES, (ArrayList<Permissions.PermissionType>) permissions);
         intent.putExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);
         intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
-        intent.putExtra(Permissions.EXTRA_INTERACTIVE, interactive);
+        //intent.putExtra(Permissions.EXTRA_INTERACTIVE, interactive);
 
         PendingIntent pi = PendingIntent.getActivity(context, grantType, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
@@ -844,7 +844,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 Permissions.wifiSSIDPreference.refreshListView(true, "");
             if (Permissions.bluetoothNamePreference != null)
                 Permissions.bluetoothNamePreference.refreshListView(true, "");
-            dataWrapper.restartEvents(false, true, false);
+            dataWrapper.restartEvents(false, true/*, false*/);
             if (PhoneProfilesService.instance != null) {
                 PhoneProfilesService.instance.scheduleWifiJob(true, true, false, false, Permissions.wifiSSIDPreference != null, false);
                 PhoneProfilesService.instance.scheduleBluetoothJob(true,  true, false, Permissions.bluetoothNamePreference != null, false);
@@ -856,7 +856,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG) {
             if (Permissions.calendarsMultiSelectDialogPreference != null)
                 Permissions.calendarsMultiSelectDialogPreference.refreshListView(true);
-            dataWrapper.restartEvents(false, true, false);
+            dataWrapper.restartEvents(false, true/*, false*/);
             finish();
         }
         else
@@ -865,7 +865,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 Permissions.contactsMultiSelectDialogPreference.refreshListView(true);
             if (Permissions.contactGroupsMultiSelectDialogPreference != null)
                 Permissions.contactGroupsMultiSelectDialogPreference.refreshListView(true);
-            dataWrapper.restartEvents(false, true, false);
+            dataWrapper.restartEvents(false, true/*, false*/);
             finish();
         }
         else
@@ -873,7 +873,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //finishAffinity();
             finish();
             Permissions.removeEventNotification(context);
-            dataWrapper.restartEvents(false, true, false);
+            dataWrapper.restartEvents(false, true/*, false*/);
             for (Permissions.PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
                     permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -912,7 +912,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     if (Permissions.locationGeofenceEditorActivity != null)
                         Permissions.locationGeofenceEditorActivity.refreshActivity(true);
 
-                    dataWrapper.restartEvents(false, true, false);
+                    dataWrapper.restartEvents(false, true/*, false*/);
 
                     finish();
                 }
@@ -928,7 +928,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG) {
             if (Permissions.mobileCellsPreference != null)
                 Permissions.mobileCellsPreference.refreshListView(true);
-            dataWrapper.restartEvents(false, true, false);
+            dataWrapper.restartEvents(false, true/*, false*/);
             finish();
         }
         else
@@ -942,13 +942,13 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
             PPApplication.logE("GrantPermissionActivity.finishGrant", "profile");
             PPApplication.logE("GrantPermissionActivity.finishGrant", "startupSource="+startupSource);
-            PPApplication.logE("GrantPermissionActivity.finishGrant", "interactive="+interactive);
+            //PPApplication.logE("GrantPermissionActivity.finishGrant", "interactive="+interactive);
 
             //finishAffinity();
             finish();
             Permissions.removeProfileNotification(context);
             if (activateProfile)
-                dataWrapper._activateProfile(profile, mergedProfile, startupSource, interactive,
+                dataWrapper._activateProfile(profile, mergedProfile, startupSource, /*interactive,*/
                         Permissions.profileActivationActivity, true);
         }
         Permissions.releaseReferences();

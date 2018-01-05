@@ -40,7 +40,7 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
                     }
 
                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END, false);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END/*, false*/);
 
                     if ((wakeLock != null) && wakeLock.isHeld())
                         wakeLock.release();

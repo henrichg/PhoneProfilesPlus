@@ -41,7 +41,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
                     public void run() {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.setEventNFCParameters(_tagRead, _time);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_TAG, false);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_TAG/*, false*/);
                     }
                 });
 
