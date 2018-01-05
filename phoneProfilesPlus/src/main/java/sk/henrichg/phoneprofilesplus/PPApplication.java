@@ -68,12 +68,12 @@ public class PPApplication extends Application {
                                          //+"|Permissions.grantProfilePermissions"
                                          //+"|Permissions.checkProfileVibrateWhenRinging"
                                          //+"|Permissions.checkVibrateWhenRinging"
-                                         +"|ActivateProfileHelper.setZenMode"
+                                         /*+"|ActivateProfileHelper.setZenMode"
                                          +"|ActivateProfileHelper.setRingerMode"
                                          +"|ActivateProfileHelper.setVolumes"
                                          +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
                                          +"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
-                                         +"|ActivateProfileHelper.setVibrateWhenRinging"
+                                         +"|ActivateProfileHelper.setVibrateWhenRinging"*/
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
@@ -139,7 +139,7 @@ public class PPApplication extends Application {
                                          +"|EventsHandler.doEndService"
                                          */
 
-                                         //+"|$$$ WifiAP"
+                                         +"|$$$ WifiAP"
             ;
 
 
