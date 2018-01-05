@@ -1957,18 +1957,22 @@ public class ActivateProfileHelper {
                             Intent intent = new Intent(Intent.ACTION_MAIN, null);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
+                            //intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.TetherSettings"));
                             context.startActivity(intent);
                         } catch (Exception ignored) {
+                            //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
                         }
                     }
                     else {
                         Intent intent = new Intent(Intent.ACTION_MAIN, null);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
-                        String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
-                        String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
-                                            context.getString(R.string.profile_preferences_deviceMobileDataPrefs);
-                        showNotificationForInteractiveParameters(title, text, intent, PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID);
+                        if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                            String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                    context.getString(R.string.profile_preferences_deviceMobileDataPrefs);
+                            showNotificationForInteractiveParameters(title, text, intent, PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID);
+                        }
                     }
                 }
             }
@@ -1987,11 +1991,13 @@ public class ActivateProfileHelper {
                     }
                     else {
                         final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
-                        String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
-                                        context.getString(R.string.profile_preferences_deviceLocationServicePrefs);
-                        showNotificationForInteractiveParameters(title, text, intent, PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID);
+                        if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                            String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                    context.getString(R.string.profile_preferences_deviceLocationServicePrefs);
+                            showNotificationForInteractiveParameters(title, text, intent, PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID);
+                        }
                     }
                 }
             //}
