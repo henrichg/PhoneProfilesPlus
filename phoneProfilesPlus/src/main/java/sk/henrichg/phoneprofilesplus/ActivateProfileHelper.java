@@ -1893,7 +1893,37 @@ public class ActivateProfileHelper {
             }
         }
 
-        if (true/*_interactive*/)
+        if (profile._deviceRunApplicationChange == 1)
+        {
+            if (useBackgroundThread) {
+                final Context appContext = context.getApplicationContext();
+                PhoneProfilesService.startHandlerThread();
+                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForRadios");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        executeForRunApplications(profile, appContext);
+
+                        if ((wakeLock != null) && wakeLock.isHeld())
+                            wakeLock.release();
+                    }
+                });
+            }
+            else
+                executeForRunApplications(profile, context);
+        }
+
+        PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
+        KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+        if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked())
+        //if (_interactive*/)
         {
             // preferences, which requires user interaction
 
@@ -1942,33 +1972,6 @@ public class ActivateProfileHelper {
                     }
                 }
             //}
-
-            if (profile._deviceRunApplicationChange == 1)
-            {
-                if (useBackgroundThread) {
-                    final Context appContext = context.getApplicationContext();
-                    PhoneProfilesService.startHandlerThread();
-                    final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForRadios");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
-
-                            executeForRunApplications(profile, appContext);
-
-                            if ((wakeLock != null) && wakeLock.isHeld())
-                                wakeLock.release();
-                        }
-                    });
-                }
-                else
-                    executeForRunApplications(profile, context);
-            }
         }
 
 //        throw new RuntimeException("test Crashlytics + TopExceptionHandler");
