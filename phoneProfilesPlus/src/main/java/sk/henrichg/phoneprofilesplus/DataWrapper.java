@@ -860,19 +860,19 @@ public class DataWrapper {
         if (ApplicationPreferences.applicationActivate(context))
         {
             Profile profile = getDatabaseHandler().getActivatedProfile();
-            long profileId;
-            if (profile != null)
-                profileId = profile._id;
-            else
-            {
-                profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
+            if (profile == null) {
+                long profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
                 if (profileId == Profile.PROFILE_NO_ACTIVATE)
-                    profileId = 0;
+                    profile = null;
+                else
+                    profile = getDatabaseHandler().getProfile(profileId, false);
             }
-            activateProfile(profileId, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);
+            _activateProfile(profile, false, PPApplication.STARTUP_SOURCE_BOOT,
+                                    /*boolean _interactive,*/ null, true);
         }
         else
-            activateProfile(0, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);
+            _activateProfile(null, false, PPApplication.STARTUP_SOURCE_BOOT,
+                                    /*boolean _interactive,*/ null, true);
     }
 
     private void startEventsOnBoot(boolean startedFromService)
