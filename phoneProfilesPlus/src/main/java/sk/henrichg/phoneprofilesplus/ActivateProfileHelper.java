@@ -4,7 +4,9 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
 import android.appwidget.AppWidgetManager;
@@ -37,6 +39,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.provider.Settings.Global;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
@@ -1922,40 +1925,50 @@ public class ActivateProfileHelper {
 
         PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
         KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-        if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked())
         //if (_interactive*/)
-        {
+        //{
             // preferences, which requires user interaction
 
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context) == PPApplication.PREFERENCE_ALLOWED)
             {
                 if (profile._deviceMobileDataPrefs == 1)
                 {
-                    /*try {
-                        final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        final ComponentName componentName = new ComponentName("com.android.phone", "com.android.phone.Settings");
-                        intent.setComponent(componentName);
-                        context.startActivity(intent);
-                        PPApplication.logE("#### ActivateProfileHelper.execute","mobile data prefs. 1");
-                    } catch (Exception e) {
-                        PPApplication.logE("#### ActivateProfileHelper.execute","mobile data prefs. 1 E="+e);
-                        try {
+                    if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
+                        /*try {
                             final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            final ComponentName componentName = new ComponentName("com.android.phone", "com.android.phone.Settings");
+                            intent.setComponent(componentName);
                             context.startActivity(intent);
-                            PPApplication.logE("#### ActivateProfileHelper.execute","mobile data prefs. 2");
-                        } catch (Exception e2) {
-                            e2.printStackTrace();
-                            PPApplication.logE("#### ActivateProfileHelper.execute","mobile data prefs. 2 E="+e2);
+                            PPApplication.logE("#### ActivateProfileHelper.execute","mobile data prefs. 1");
+                        } catch (Exception e) {
+                            PPApplication.logE("#### ActivateProfileHelper.execute","mobile data prefs. 1 E="+e);
+                            try {
+                                final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent);
+                                PPApplication.logE("#### ActivateProfileHelper.execute","mobile data prefs. 2");
+                            } catch (Exception e2) {
+                                e2.printStackTrace();
+                                PPApplication.logE("#### ActivateProfileHelper.execute","mobile data prefs. 2 E="+e2);
+                            }
+                        }*/
+                        try {
+                            Intent intent = new Intent(Intent.ACTION_MAIN, null);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
+                            context.startActivity(intent);
+                        } catch (Exception ignored) {
                         }
-                    }*/
-                    try {
+                    }
+                    else {
                         Intent intent = new Intent(Intent.ACTION_MAIN, null);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.setComponent(new ComponentName("com.android.settings","com.android.settings.Settings$DataUsageSummaryActivity"));
-                        context.startActivity(intent);
-                    } catch (Exception ignored) {
+                        intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
+                        String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                        String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                            context.getString(R.string.profile_preferences_deviceMobileDataPrefs);
+                        showNotificationForInteractiveParameters(title, text, intent, PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID);
                     }
                 }
             }
@@ -1964,17 +1977,53 @@ public class ActivateProfileHelper {
             //{  No check only GPS
                 if (profile._deviceLocationServicePrefs == 1)
                 {
-                    try {
+                    if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
+                        try {
+                            final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    else {
                         final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
-                    } catch (Exception ignored) {
+                        String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                        String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                        context.getString(R.string.profile_preferences_deviceLocationServicePrefs);
+                        showNotificationForInteractiveParameters(title, text, intent, PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID);
                     }
                 }
             //}
-        }
+        //}
 
 //        throw new RuntimeException("test Crashlytics + TopExceptionHandler");
+    }
+
+    private void showNotificationForInteractiveParameters(String title, String text, Intent intent, int notificationId) {
+        String nTitle = title;
+        String nText = text;
+        if (android.os.Build.VERSION.SDK_INT < 24) {
+            nTitle = context.getString(R.string.app_name);
+            nText = title+": "+text;
+        }
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setContentTitle(nTitle) // title for notification
+                .setContentText(nText) // message for notification
+                .setAutoCancel(true); // clear notification after click
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pi);
+        mBuilder.setPriority(Notification.PRIORITY_MAX);
+        if (android.os.Build.VERSION.SDK_INT >= 21)
+        {
+            mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
+            mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
+        }
+        NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (mNotificationManager != null)
+            mNotificationManager.notify(notificationId, mBuilder.build());
     }
 
     void setScreenTimeout(int screenTimeout, Context context) {

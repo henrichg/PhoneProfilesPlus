@@ -180,6 +180,8 @@ public class PPApplication extends Application {
     static final int ABOUT_APPLICATION_DONATE_NOTIFICATION_ID = 700431;
     static final int ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID = 700432;
     static final int EVENT_START_NOTIFICATION_ID = 700433;
+    static final int PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID = 700434;
+    static final int PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID = 700435;
 
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
     static final String DEFAULT_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
