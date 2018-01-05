@@ -1934,39 +1934,57 @@ public class ActivateProfileHelper {
                 if (profile._deviceMobileDataPrefs == 1)
                 {
                     if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
-                        /*try {
-                            final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            final ComponentName componentName = new ComponentName("com.android.phone", "com.android.phone.Settings");
-                            intent.setComponent(componentName);
-                            context.startActivity(intent);
-                            PPApplication.logE("#### ActivateProfileHelper.execute","mobile data prefs. 1");
-                        } catch (Exception e) {
-                            PPApplication.logE("#### ActivateProfileHelper.execute","mobile data prefs. 1 E="+e);
-                            try {
-                                final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                context.startActivity(intent);
-                                PPApplication.logE("#### ActivateProfileHelper.execute","mobile data prefs. 2");
-                            } catch (Exception e2) {
-                                e2.printStackTrace();
-                                PPApplication.logE("#### ActivateProfileHelper.execute","mobile data prefs. 2 E="+e2);
-                            }
-                        }*/
+                        boolean ok = true;
                         try {
                             Intent intent = new Intent(Intent.ACTION_MAIN, null);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
+
                             //intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.TetherSettings"));
+
                             context.startActivity(intent);
-                        } catch (Exception ignored) {
-                            //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
+                        } catch (Exception e) {
+                            ok = false;
+                        }
+                        if (!ok) {
+                            ok = true;
+                            try {
+                                final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                final ComponentName componentName = new ComponentName("com.android.phone", "com.android.phone.Settings");
+                                intent.setComponent(componentName);
+                                context.startActivity(intent);
+                            } catch (Exception e) {
+                                ok = false;
+                            }
+                        }
+                        if (!ok) {
+                            try {
+                                final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent);
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
                     else {
+                        boolean ok = false;
                         Intent intent = new Intent(Intent.ACTION_MAIN, null);
                         intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
-                        if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
+                        if (GlobalGUIRoutines.activityIntentExists(intent, context))
+                            ok = true;
+                        if (!ok) {
+                            intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                            intent.setComponent(new ComponentName("com.android.phone", "com.android.phone.Settings"));
+                            if (GlobalGUIRoutines.activityIntentExists(intent, context))
+                                ok = true;
+                        }
+                        if (!ok) {
+                            intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                            if (GlobalGUIRoutines.activityIntentExists(intent, context))
+                                ok = true;
+                        }
+                        if (ok) {
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
                             String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
