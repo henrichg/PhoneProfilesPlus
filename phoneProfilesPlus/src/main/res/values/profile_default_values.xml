@@ -53,4 +53,5 @@
     <string name="prf_pref_deviceConnectToSSID">^just_any^</string>
     <string name="prf_pref_applicationDisableWifiScanning">0</string>
     <string name="prf_pref_applicationDisableBluetoothScanning">0</string>
+    <string name="prf_pref_deviceWiFiAPPrefs">0</string>
 </resources>
