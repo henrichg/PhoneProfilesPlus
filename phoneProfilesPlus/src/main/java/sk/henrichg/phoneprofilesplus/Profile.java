@@ -78,6 +78,7 @@ public class Profile {
     String _deviceConnectToSSID;
     int _applicationDisableWifiScanning;
     int _applicationDisableBluetoothScanning;
+    int _deviceWiFiAPPrefs;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -137,6 +138,7 @@ public class Profile {
     static final String PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING = "prf_pref_applicationDisableBluetoothScanning";
     // no preferences, but checked from isProfilePreferenceAllowed
     static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
+    static final String PREF_PROFILE_DEVICE_WIFI_AP_PREFS = "prf_pref_deviceWiFiAPPrefs";
 
     static final int AFTERDURATIONDO_NOTHING = 0;
     static final int AFTERDURATIONDO_UNDOPROFILE = 1;
@@ -300,7 +302,8 @@ public class Profile {
                    int applicationDisableWifiScanning,
                    int applicationDisableBluetoothScanning,
                    String durationNotificationSound,
-                   boolean durationNotificationVibrate)
+                   boolean durationNotificationVibrate,
+                   int deviceWiFiAPPrefs)
     {
         this._id = id;
         this._name = name;
@@ -358,6 +361,7 @@ public class Profile {
         this._deviceConnectToSSID = deviceConnectToSSID;
         this._applicationDisableWifiScanning = applicationDisableWifiScanning;
         this._applicationDisableBluetoothScanning = applicationDisableBluetoothScanning;
+        this._deviceWiFiAPPrefs = deviceWiFiAPPrefs;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -417,7 +421,8 @@ public class Profile {
                    int applicationDisableWifiScanning,
                    int applicationDisableBluetoothScanning,
                    String durationNotificationSound,
-                   boolean durationNotificationVibrate)
+                   boolean durationNotificationVibrate,
+                   int deviceWiFiAPPrefs)
     {
         this._name = name;
         this._icon = icon;
@@ -473,6 +478,7 @@ public class Profile {
         this._deviceConnectToSSID = deviceConnectToSSID;
         this._applicationDisableWifiScanning = applicationDisableWifiScanning;
         this._applicationDisableBluetoothScanning = applicationDisableBluetoothScanning;
+        this._deviceWiFiAPPrefs = deviceWiFiAPPrefs;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -535,6 +541,7 @@ public class Profile {
         this._deviceConnectToSSID = profile._deviceConnectToSSID;
         this._applicationDisableWifiScanning = profile._applicationDisableWifiScanning;
         this._applicationDisableBluetoothScanning = profile._applicationDisableBluetoothScanning;
+        this._deviceWiFiAPPrefs = profile._deviceWiFiAPPrefs;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -724,6 +731,8 @@ public class Profile {
                 this._applicationDisableWifiScanning = withProfile._applicationDisableWifiScanning;
             if (withProfile._applicationDisableBluetoothScanning != 0)
                 this._applicationDisableBluetoothScanning = withProfile._applicationDisableBluetoothScanning;
+            if (withProfile._deviceWiFiAPPrefs != 0)
+                this._deviceWiFiAPPrefs = withProfile._deviceWiFiAPPrefs;
 
             dataWrapper.getDatabaseHandler().activateProfile(withProfile);
             dataWrapper.setProfileActive(withProfile);
@@ -1468,6 +1477,7 @@ public class Profile {
         profile._deviceConnectToSSID = preferences.getString(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
         profile._applicationDisableWifiScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, "0"));
         profile._applicationDisableBluetoothScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, "0"));
+        profile._deviceWiFiAPPrefs = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_WIFI_AP_PREFS, "0"));
 
         return profile;
     }
@@ -1533,7 +1543,8 @@ public class Profile {
                     profile._applicationDisableWifiScanning,
                     profile._applicationDisableBluetoothScanning,
                     profile._durationNotificationSound,
-                    profile._durationNotificationVibrate);
+                    profile._durationNotificationVibrate,
+                    profile._deviceWiFiAPPrefs);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == 99) {
@@ -1631,6 +1642,8 @@ public class Profile {
                 mappedProfile._applicationDisableWifiScanning = defaultProfile._applicationDisableWifiScanning;
             if (profile._applicationDisableBluetoothScanning == 99)
                 mappedProfile._applicationDisableBluetoothScanning = defaultProfile._applicationDisableBluetoothScanning;
+            if (profile._deviceWiFiAPPrefs == 99)
+                mappedProfile._deviceWiFiAPPrefs = defaultProfile._deviceWiFiAPPrefs;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;
@@ -2020,6 +2033,16 @@ public class Profile {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH))
                 // device has bluetooth
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS))
+        {
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI))
+            {
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            }
             else
                 PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
