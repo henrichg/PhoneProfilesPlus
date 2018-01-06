@@ -68,6 +68,7 @@
             android:layout_below="@id/notification_activated_profile_name"
             android:layout_toRightOf="@id/notification_activated_profile_icon"
             android:layout_toEndOf="@id/notification_activated_profile_icon"
+            android:layout_marginTop="2dp"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
             android:adjustViewBounds="true"
