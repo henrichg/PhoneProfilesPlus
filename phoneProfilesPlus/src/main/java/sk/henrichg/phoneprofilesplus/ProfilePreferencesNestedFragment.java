@@ -621,6 +621,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_WIFI) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_GPS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
@@ -669,6 +670,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 summary = summary + title;
             }
             title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI_AP, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -924,6 +931,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             key.equals(Profile.PREF_PROFILE_DEVICE_GPS) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_NFC) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
@@ -1036,7 +1044,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             key.equals(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH) ||
             key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR) ||
-            key.equals(Profile.PREF_PROFILE_LOCK_DEVICE))
+            key.equals(Profile.PREF_PROFILE_LOCK_DEVICE) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS))
         {
             int canChange = PPApplication.PREFERENCE_ALLOWED;
             if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))

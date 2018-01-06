@@ -319,7 +319,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                     origProfile._applicationDisableWifiScanning,
                     origProfile._applicationDisableBluetoothScanning,
                     origProfile._durationNotificationSound,
-                    origProfile._durationNotificationVibrate);
+                    origProfile._durationNotificationVibrate,
+                    origProfile._deviceWiFiAPPrefs);
             showSaveMenu = true;
         }
         else
@@ -414,6 +415,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             editor.putString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
             editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, Integer.toString(profile._applicationDisableWifiScanning));
             editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, Integer.toString(profile._applicationDisableBluetoothScanning));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, Integer.toString(profile._deviceWiFiAPPrefs));
             editor.apply();
         }
     }
@@ -512,6 +514,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, "");
         profile._applicationDisableWifiScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, ""));
         profile._applicationDisableBluetoothScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, ""));
+        profile._deviceWiFiAPPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, ""));
 
         if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
         {

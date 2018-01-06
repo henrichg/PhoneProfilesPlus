@@ -178,6 +178,11 @@ class ProfilePreferencesIndicator {
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off;
                 }
             }
+            /*// wifi AP preferences
+            if (profile._deviceWiFiAPPrefs == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, context) == PPApplication.PREFERENCE_ALLOWED)
+                    drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_pref;
+            }*/
             // bluetooth
             if (profile._deviceBluetooth != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, context) == PPApplication.PREFERENCE_ALLOWED) {

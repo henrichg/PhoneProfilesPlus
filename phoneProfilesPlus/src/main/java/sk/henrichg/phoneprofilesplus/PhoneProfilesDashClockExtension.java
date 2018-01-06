@@ -231,6 +231,11 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         indicator1 = addIntoIndicator(indicator1, "wp0");
                 }
             }
+            // wifi AP preferences
+            if (profile._deviceWiFiAPPrefs == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, this) == PPApplication.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "wpP");
+            }
             // bluetooth
             if (profile._deviceBluetooth != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, this) == PPApplication.PREFERENCE_ALLOWED) {
