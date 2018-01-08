@@ -1132,4 +1132,7 @@
   <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Zaoblené rohy (miniapl.)</string>
   <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Zaoblené rohy</string>
   <string name="preference_not_allowed_reason_extender_not_upgraded">nie je aktualizovaný PhoneProfilesPlusExtender</string>
+  <string name="profile_activation_interactive_preference_notification_title">Aktivovaný profil:</string>
+  <string name="profile_activation_interactive_preference_notification_text">Kliknite tu pre otvorenie:</string>
+  <string name="profile_preferences_deviceWiFiAPPrefs">(I) Nastavenia Wi-Fi prístupového bodu</string>
 </resources>

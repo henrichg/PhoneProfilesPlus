@@ -1132,4 +1132,7 @@
   <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Runde Ecken (Widget)</string>
   <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Runde Ecken</string>
   <string name="preference_not_allowed_reason_extender_not_upgraded">PhoneProfilesPlusExtender nicht aktualisiert</string>
+  <string name="profile_activation_interactive_preference_notification_title">Activated profile:</string>
+  <string name="profile_activation_interactive_preference_notification_text">Click here to open:</string>
+  <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi hotspot preferences</string>
 </resources>

@@ -1132,4 +1132,7 @@
   <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Lekerekített sarkok (widget)</string>
   <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Lekerekített sarkok</string>
   <string name="preference_not_allowed_reason_extender_not_upgraded">nem frissítette a PhoneProfilesPlusExtender-t</string>
+  <string name="profile_activation_interactive_preference_notification_title">Aktivált profil:</string>
+  <string name="profile_activation_interactive_preference_notification_text">Kattintson ide a megnyitáshoz:</string>
+  <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi hotspot beállítások</string>
 </resources>

@@ -1133,4 +1133,7 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Coins arrondis (widget)</string>
   <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Coins arrondis</string>
   <string name="preference_not_allowed_reason_extender_not_upgraded">PhoneProfilesPlusExtender non mise à niveau</string>
+  <string name="profile_activation_interactive_preference_notification_title">Profil actif :</string>
+  <string name="profile_activation_interactive_preference_notification_text">Cliquez ici pour ouvrir :</string>
+  <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi préférences hotspot</string>
 </resources>

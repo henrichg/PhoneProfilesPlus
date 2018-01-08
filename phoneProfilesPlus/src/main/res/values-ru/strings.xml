@@ -1133,4 +1133,7 @@
   <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Скруглённые углы (виджет)</string>
   <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Скруглённые углы</string>
   <string name="preference_not_allowed_reason_extender_not_upgraded">PhoneProfilesPlusExtender не обновлён</string>
+  <string name="profile_activation_interactive_preference_notification_title">Активированный профиль:</string>
+  <string name="profile_activation_interactive_preference_notification_text">Нажмите сюда, чтобы открыть:</string>
+  <string name="profile_preferences_deviceWiFiAPPrefs">(I) Настройки точки доступа Wi-Fi</string>
 </resources>

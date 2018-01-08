@@ -1132,4 +1132,7 @@
   <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Afgeronde hoeken (widget)</string>
   <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Afgeronde hoeken</string>
   <string name="preference_not_allowed_reason_extender_not_upgraded">PhoneProfilesPlusExtender is niet bijgewerkt</string>
+  <string name="profile_activation_interactive_preference_notification_title">Actief profiel:</string>
+  <string name="profile_activation_interactive_preference_notification_text">Klik hier om te openen:</string>
+  <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi hotspot voorkeuren</string>
 </resources>

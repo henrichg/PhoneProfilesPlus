@@ -1125,11 +1125,14 @@
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Harap aktifkan Pemindaian Lokasi dan Bluetooth di Pengaturan Sistem. Tanpa ini, pemindaian Bluetooth tidak akan bekerja.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">Pengaturan jaringan \"Keep Wi-Fi on\"</string>
   <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Konfigurasikan \"Jaga Wi-Fi saat tidur\" menjadi \"Selalu\". Tanpa ini, pemindaian Wi-Fi tidak akan bekerja saat perangkat tidur.</string>
-  <string name="important_info_accessibility_service_new_version">Please install new version of PhoneProfilesPlusExtender for event sensors \"Applications parameters\" and \"Orientation parameters\". Look at parameters of these sensors for more information.</string>
+  <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender to use the event sensors \"Applications parameters\" and \"Orientation parameters\". Check the parameters of these sensors for more information.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Please do not configure interval to value less then</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minutes. This greatly increases the battery consumption.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">seconds. This greatly increases the battery consumption.</string>
   <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners (widget)</string>
   <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>
   <string name="preference_not_allowed_reason_extender_not_upgraded">not upgraded PhoneProfilesPlusExtender</string>
+  <string name="profile_activation_interactive_preference_notification_title">Activated profile:</string>
+  <string name="profile_activation_interactive_preference_notification_text">Click here to open:</string>
+  <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi hotspot preferences</string>
 </resources>

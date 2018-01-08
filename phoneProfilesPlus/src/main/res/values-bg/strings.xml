@@ -1020,7 +1020,7 @@
   <string name="event_preferences_notificationVibrate">Notify by vibration</string>
   <string name="important_info_profile_grant">Some profile preferences require permission WRITE_SECURE_SETTINGS. ROOT is not required. These preferences are marked with \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">For more information, look at the \"Profiles\" section further below.</string>
-  <string name="profile_preferences_typesInfoGrant">For more informations look at \"Important information\", section \"Profiles\".</string>
+  <string name="profile_preferences_typesInfoGrant">For more information see \"Important information\", section \"Profiles\".</string>
   <string name="important_info_profile_grant_1_howTo_1">Profile parameters marked with (GX) need special permission for PhoneProfilesPlus. This is done through your PC with installed adb.</string>
   <string name="important_info_profile_grant_1_howTo_2">If you do not have adb installed on your PC:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Download SDK Platform Tools from:</string>
@@ -1092,7 +1092,7 @@
   <string name="event_preferences_orientation_PPPExtender_install_summary">To enable \"Ignore for applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
   <string name="event_preferences_applications_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
   <string name="event_preferences_orientation_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
-  <string name="important_info_accessibility_service_text1">Due to change of rules by Google, about usage of Accessibility services, you must install PhoneProfilesPlusExtender for event sensors \"Applications parameters\" and \"Orientation parameters\". Look at parameters of these sensors for more information.</string>
+  <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the event sensors \"Applications parameters\" and \"Orientation parameters\". Check the parameters of these sensors for more information.</string>
   <string name="about_application_extender_source_code">Source code - Extender:</string>
   <string name="pref_dlg_info_about_wildcards_4">You can configure more strings. Separate it with character \"|\".</string>
   <string name="profile_preferences_sourceProfileInfoX_title">Shared profile functionality.</string>
@@ -1126,11 +1126,14 @@
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Please enable Location and Bluetooth scanning in System Settings. Without this, Bluetooth scanning will not work.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Keep Wi-Fi on\" system setting</string>
   <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Please configure \"Keep Wi-Fi on during sleep\" to \"Always\". Without this, Wi-Fi scanning will not work during device sleep.</string>
-  <string name="important_info_accessibility_service_new_version">Please install new version of PhoneProfilesPlusExtender for event sensors \"Applications parameters\" and \"Orientation parameters\". Look at parameters of these sensors for more information.</string>
+  <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender to use the event sensors \"Applications parameters\" and \"Orientation parameters\". Check the parameters of these sensors for more information.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Please do not configure interval to value less then</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minutes. This greatly increases the battery consumption.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">seconds. This greatly increases the battery consumption.</string>
   <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners (widget)</string>
   <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>
   <string name="preference_not_allowed_reason_extender_not_upgraded">not upgraded PhoneProfilesPlusExtender</string>
+  <string name="profile_activation_interactive_preference_notification_title">Activated profile:</string>
+  <string name="profile_activation_interactive_preference_notification_text">Click here to open:</string>
+  <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi hotspot preferences</string>
 </resources>

@@ -1132,4 +1132,7 @@
   <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Kavisli köşeler (widget)</string>
   <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Kavisli köşeler</string>
   <string name="preference_not_allowed_reason_extender_not_upgraded">phoneProfilesPlusExtender yükseltilmemiş</string>
+  <string name="profile_activation_interactive_preference_notification_title">Faal tercih:</string>
+  <string name="profile_activation_interactive_preference_notification_text">Açmak için buraya dokunun:</string>
+  <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi hotspot tercihleri</string>
 </resources>

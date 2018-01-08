@@ -1020,7 +1020,7 @@ Non chiedere nuovamente?</string>
   <string name="event_preferences_notificationVibrate">Notifica con vibrazione</string>
   <string name="important_info_profile_grant">Some profile preferences require permission WRITE_SECURE_SETTINGS. ROOT is not required. These preferences are marked with \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">For more information, look at the \"Profiles\" section further below.</string>
-  <string name="profile_preferences_typesInfoGrant">For more informations look at \"Important information\", section \"Profiles\".</string>
+  <string name="profile_preferences_typesInfoGrant">For more information see \"Important information\", section \"Profiles\".</string>
   <string name="important_info_profile_grant_1_howTo_1">I parametri del profilo contrassegnati con (GX) richiedono una specifica autorizzazione per PhoneProfilesPlus. Questa può essere concessa usando adb installato sul tuo PC.</string>
   <string name="important_info_profile_grant_1_howTo_2">Se non hai installato adb sul tuo PC:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Scarica SDK Platform Tools da:</string>
@@ -1133,4 +1133,7 @@ Non chiedere nuovamente?</string>
   <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners (widget)</string>
   <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>
   <string name="preference_not_allowed_reason_extender_not_upgraded">not upgraded PhoneProfilesPlusExtender</string>
+  <string name="profile_activation_interactive_preference_notification_title">Activated profile:</string>
+  <string name="profile_activation_interactive_preference_notification_text">Click here to open:</string>
+  <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi hotspot preferences</string>
 </resources>
