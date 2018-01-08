@@ -209,6 +209,7 @@ public class PPApplication extends Application {
     private static final int PREFERENCE_NOT_ALLOWED_NOT_CONFIGURED_IN_SYSTEM_SETTINGS = 5;
     public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION = 6;
     private static final int PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED = 7;
+    public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION = 8;
 
     // global internal preferences
     private static final String PREF_APPLICATION_STARTED = "applicationStarted";
@@ -644,6 +645,8 @@ public class PPApplication extends Application {
                 return context.getString(R.string.preference_not_allowed_reason_not_supported_by_application) + " (" + notAllowedReasonDetail + ")";
             case PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED:
                 return context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+            case PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION:
+                return context.getString(R.string.preference_not_allowed_reason_not_supported_android_version);
             default: return context.getString(R.string.empty_string);
         }
     }

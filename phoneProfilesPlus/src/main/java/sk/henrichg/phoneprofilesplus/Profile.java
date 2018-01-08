@@ -1842,7 +1842,8 @@ public class Profile {
                     }
                 }
                 else
-                if (PPApplication.isRooted())
+                    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
+                /*if (PPApplication.isRooted())
                 {
                     // device is rooted
                     if (ActivateProfileHelper.wifiServiceExists(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
@@ -1856,7 +1857,7 @@ public class Profile {
                     }
                 }
                 else
-                    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;*/
             }
             else
                 PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
