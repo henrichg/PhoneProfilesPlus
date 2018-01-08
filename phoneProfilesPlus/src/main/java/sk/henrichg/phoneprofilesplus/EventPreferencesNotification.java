@@ -60,7 +60,7 @@ class EventPreferencesNotification extends EventPreferences {
     @Override
     public void loadSharedPreferences(SharedPreferences preferences)
     {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             Editor editor = preferences.edit();
             editor.putBoolean(PREF_EVENT_NOTIFICATION_ENABLED, _enabled);
             editor.putString(PREF_EVENT_NOTIFICATION_APPLICATIONS, this._applications);
@@ -68,19 +68,19 @@ class EventPreferencesNotification extends EventPreferences {
             //editor.putString(PREF_EVENT_NOTIFICATION_DURATION, String.valueOf(this._duration));
             //editor.putBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, _endWhenRemoved);
             editor.apply();
-        }
+        //}
     }
 
     @Override
     public void saveSharedPreferences(SharedPreferences preferences)
     {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             this._enabled = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
             this._applications = preferences.getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "");
             //this._permanentRun = preferences.getBoolean(PREF_EVENT_NOTIFICATION_PERMANENT_RUN, false);
             //this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_DURATION, "5"));
             //this._endWhenRemoved = preferences.getBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, false);
-        }
+        //}
     }
 
     @Override
@@ -149,7 +149,7 @@ class EventPreferencesNotification extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)) {
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null) {
@@ -175,7 +175,7 @@ class EventPreferencesNotification extends EventPreferences {
                 if (preferenceDuration != null)
                     preferenceDuration.setEnabled(value.equals("false") && (!endWhenRemoved));
             }*/
-        }
+        //}
     }
 
     @Override
@@ -242,7 +242,7 @@ class EventPreferencesNotification extends EventPreferences {
 
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             boolean enabled = PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
             ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
             //Preference endWhenRemovedPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED);
@@ -267,13 +267,13 @@ class EventPreferencesNotification extends EventPreferences {
                     durationPreference.setEnabled(enabled);
             }*/
             setCategorySummary(prefMng, preferences, context);
-        }
+        /*}
         else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) prefMng.findPreference("eventPreferenceScreen");
             PreferenceScreen preferenceCategory = (PreferenceScreen) prefMng.findPreference("eventNotificationCategory");
             if ((preferenceCategory != null) && (preferenceScreen != null))
                 preferenceScreen.removePreference(preferenceCategory);
-        }
+        }*/
     }
 
     /*

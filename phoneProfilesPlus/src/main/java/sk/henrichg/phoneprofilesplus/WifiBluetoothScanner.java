@@ -65,17 +65,17 @@ class WifiBluetoothScanner {
             PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "scannerType=" + scannerType);
 
             // for Airplane mode ON, no scan
-            if (android.os.Build.VERSION.SDK_INT >= 17) {
+            //if (android.os.Build.VERSION.SDK_INT >= 17) {
                 if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0) {
                     PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "-- END - airplane mode ON -------");
                     return;
                 }
-            } else {
+            /*} else {
                 if (Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0) {
                     PPApplication.logE("%%%% WifiBluetoothScanner.doScan", "-- END - airplane mode ON -------");
                     return;
                 }
-            }
+            }*/
 
             // check power save mode
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
@@ -541,7 +541,7 @@ class WifiBluetoothScanner {
 
                 // this must be disabled because scanning not working, when wifi is disabled after disabled WiFi AP
                 // Tested and scanning working ;-)
-                if (android.os.Build.VERSION.SDK_INT >= 18)
+                //if (android.os.Build.VERSION.SDK_INT >= 18)
                     isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
             }
             PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi","isScanAlwaysAvailable="+isScanAlwaysAvailable);
@@ -746,7 +746,7 @@ class WifiBluetoothScanner {
 
     @SuppressLint("InlinedApi")
     static boolean bluetoothLESupported(Context context) {
-        return ((android.os.Build.VERSION.SDK_INT >= 18) &&
+        return (/*(android.os.Build.VERSION.SDK_INT >= 18) &&*/
                 PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH_LE));
     }
 

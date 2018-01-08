@@ -88,18 +88,18 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             if (roundedCorners) {
                 remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
                 remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(alpha, red, green, blue));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                     remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alpha);
-                else
-                    remoteViews.setInt(R.id.widget_one_row_background, "setAlpha", alpha);
+                //else
+                //    remoteViews.setInt(R.id.widget_one_row_background, "setAlpha", alpha);
             }
             else {
                 remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
                 remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", 0x00000000);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                     remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", 0);
-                else
-                    remoteViews.setInt(R.id.widget_one_row_background, "setAlpha", 0);
+                //else
+                //    remoteViews.setInt(R.id.widget_one_row_background, "setAlpha", 0);
             }
 
             if (isIconResourceID)

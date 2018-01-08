@@ -516,15 +516,15 @@ class GlobalGUIRoutines {
             Display display = windowManager.getDefaultDisplay();
             Point size = new Point();
 
-            if (Build.VERSION.SDK_INT >= 17) {
+            //if (Build.VERSION.SDK_INT >= 17) {
                 display.getRealSize(size);
-            } else /*if (Build.VERSION.SDK_INT >= 14)*/ {
+            /*} else {
                 try {
                     size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
                     size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
                 } catch (Exception ignored) {
                 }
-            }
+            }*/
 
             return size;
         }

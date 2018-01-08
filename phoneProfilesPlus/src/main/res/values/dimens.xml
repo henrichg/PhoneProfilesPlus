@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <dimen name="widget_margin">8dp</dimen>
-
     <!-- Match 56dp default ActionBar height on portrait orientation -->
     <dimen name="naw_drawer_margin_offset">-8dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->

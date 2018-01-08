@@ -77,7 +77,7 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
         if (bluetoothDevice.getName().equalsIgnoreCase(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))
             holder.bluetoothName.setText("[DU] " + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb));
         else {
-            if (android.os.Build.VERSION.SDK_INT >= 18) {
+            //if (android.os.Build.VERSION.SDK_INT >= 18) {
                 String sType;
                 if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_CLASSIC)
                     sType = "CL";
@@ -89,8 +89,8 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
                     sType = "??";
 
                 holder.bluetoothName.setText("[" + sType + "] " + bluetoothDevice.getName());
-            } else
-                holder.bluetoothName.setText(bluetoothDevice.getName());
+            //} else
+            //    holder.bluetoothName.setText(bluetoothDevice.getName());
         }
 
         holder.checkBox.setTag(position);

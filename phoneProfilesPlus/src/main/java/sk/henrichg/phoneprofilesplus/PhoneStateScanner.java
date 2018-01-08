@@ -167,7 +167,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         }
                     } else if (_cellInfo instanceof CellInfoWcdma) {
                         //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma info="+_cellInfo);
-                        if (android.os.Build.VERSION.SDK_INT >= 18) {
+                        //if (android.os.Build.VERSION.SDK_INT >= 18) {
                             CellIdentityWcdma identityWcdma = ((CellInfoWcdma) _cellInfo).getCellIdentity();
                             if (identityWcdma.getCid() != Integer.MAX_VALUE) {
                                 //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid=" + identityWcdma.getCid());
@@ -176,7 +176,7 @@ class PhoneStateScanner extends PhoneStateListener {
                                     lastConnectedTime = Calendar.getInstance().getTimeInMillis();
                                 }
                             }
-                        }
+                        //}
                         //else {
                         //    PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid=not supported for API level < 18");
                         //}
@@ -335,7 +335,7 @@ class PhoneStateScanner extends PhoneStateListener {
     */
 
     void getRegisteredCell() {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+        //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getAllCellInfo();
         getCellLocation();
     }

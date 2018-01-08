@@ -702,6 +702,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
+    /*
     // fix for bug in LG stock ROM Android <= 4.1
     // https://code.google.com/p/android/issues/detail?id=78154
     @Override
@@ -727,6 +728,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
         return super.onKeyUp(keyCode, event);
     }
+    */
 
     /////
 

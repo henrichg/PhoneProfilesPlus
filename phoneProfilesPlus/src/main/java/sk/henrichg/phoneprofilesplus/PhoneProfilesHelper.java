@@ -72,10 +72,10 @@ class PhoneProfilesHelper {
         }
 
         String destinationFile = "PhoneProfilesHelper.apk";
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2)
+        //if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2)
             destinationFile = "/system/priv-app/"+destinationFile;
-        else
-            destinationFile = "/system/app/"+destinationFile;
+        //else
+        //    destinationFile = "/system/app/"+destinationFile;
 
         if (PPApplication.isSELinuxEnforcing())
             Shell.defaultContext = Shell.ShellContext.RECOVERY;

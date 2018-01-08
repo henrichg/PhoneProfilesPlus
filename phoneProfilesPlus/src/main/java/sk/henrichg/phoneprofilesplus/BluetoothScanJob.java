@@ -222,15 +222,15 @@ class BluetoothScanJob extends Job {
 
     static BluetoothAdapter getBluetoothAdapter(Context context) {
         BluetoothAdapter adapter;
-        if (android.os.Build.VERSION.SDK_INT < 18)
+        /*if (android.os.Build.VERSION.SDK_INT < 18)
             adapter = BluetoothAdapter.getDefaultAdapter();
-        else {
+        else {*/
             BluetoothManager bluetoothManager = (BluetoothManager)context.getSystemService(Context.BLUETOOTH_SERVICE);
             if (bluetoothManager != null)
                 adapter = bluetoothManager.getAdapter();
             else
                 adapter = null;
-        }
+        //}
         return adapter;
     }
 
@@ -528,10 +528,10 @@ class BluetoothScanJob extends Job {
     }
 
     static int getBluetoothType(BluetoothDevice device) {
-        if (android.os.Build.VERSION.SDK_INT >= 18)
+        //if (android.os.Build.VERSION.SDK_INT >= 18)
             return device.getType();
-        else
-            return 1; // BluetoothDevice.DEVICE_TYPE_CLASSIC
+        //else
+        //    return 1; // BluetoothDevice.DEVICE_TYPE_CLASSIC
     }
 
     static void fillBoundedDevicesList(Context context)

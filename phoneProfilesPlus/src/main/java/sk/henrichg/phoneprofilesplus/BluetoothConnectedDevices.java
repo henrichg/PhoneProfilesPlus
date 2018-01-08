@@ -115,7 +115,7 @@ class BluetoothConnectedDevices {
                     }
                 }
 
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                //if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
                     final BluetoothManager bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
                     if (bluetoothManager != null) {
                         devices = bluetoothManager.getConnectedDevices(BluetoothProfile.GATT);
@@ -123,7 +123,7 @@ class BluetoothConnectedDevices {
                         devices = bluetoothManager.getConnectedDevices(BluetoothProfile.GATT_SERVER);
                         addConnectedDevices(devices, connectedDevices);
                     }
-                }
+                //}
             } catch (Exception ignored) {}
         }
 

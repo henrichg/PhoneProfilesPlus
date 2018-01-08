@@ -49,7 +49,7 @@ public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
-    static boolean newExtender = true;
+    static final boolean newExtender = true;
     static final int VERSION_CODE_EXTENDER = 60;
 
     private static final boolean logIntoLogCat = false;
@@ -208,7 +208,7 @@ public class PPApplication extends Application {
     public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM = 4;
     private static final int PREFERENCE_NOT_ALLOWED_NOT_CONFIGURED_IN_SYSTEM_SETTINGS = 5;
     public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION = 6;
-    public static final int PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED = 7;
+    private static final int PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED = 7;
 
     // global internal preferences
     private static final String PREF_APPLICATION_STARTED = "applicationStarted";
@@ -832,7 +832,7 @@ public class PPApplication extends Application {
 
                 // First known firmware with SELinux built-in was a 4.2 (17)
                 // leak
-                if (android.os.Build.VERSION.SDK_INT >= 17) {
+                //if (android.os.Build.VERSION.SDK_INT >= 17) {
                     // Detect enforcing through sysfs, not always present
                     File f = new File("/sys/fs/selinux/enforce");
                     if (f.exists()) {
@@ -848,14 +848,14 @@ public class PPApplication extends Application {
                         }
                     }
 
-                /*
-                // 4.4+ builds are enforcing by default, take the gamble
-                if (!enforcing)
-                {
-                    enforcing = (android.os.Build.VERSION.SDK_INT >= 19);
-                }
-                */
-                }
+                    /*
+                    // 4.4+ builds are enforcing by default, take the gamble
+                    if (!enforcing)
+                    {
+                        enforcing = (android.os.Build.VERSION.SDK_INT >= 19);
+                    }
+                    */
+                //}
 
                 isSELinuxEnforcing = enforcing;
                 //isSELinuxEnforcingChecked = true;
@@ -994,9 +994,7 @@ public class PPApplication extends Application {
                             field.setAccessible(true);
                             code = field.getInt(field);
                             break;
-                        } catch (IllegalAccessException e) {
-                            Log.e("PPApplication.getTransactionCode", e.toString());
-                        } catch (IllegalArgumentException e) {
+                        } catch (Exception e) {
                             Log.e("PPApplication.getTransactionCode", e.toString());
                         }
                     }
@@ -1168,7 +1166,8 @@ public class PPApplication extends Application {
     }
     */
 
-    private static void stopGeofenceScanner(Context context/*, boolean exitApp*/) {
+    /*
+    private static void stopGeofenceScanner(Context context) {
         try {
             PPApplication.logE("[RJS] PPApplication.stopGeofenceScanner", "xxx");
             Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -1176,7 +1175,7 @@ public class PPApplication extends Application {
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_GEOFENCE_SCANNER);
-            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true/*exitApp*/);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true);
             //TODO Android O
             //if (Build.VERSION.SDK_INT < 26)
                 context.startService(lIntent);
@@ -1184,6 +1183,7 @@ public class PPApplication extends Application {
             //    context.startForegroundService(lIntent);
         } catch (Exception ignored) {}
     }
+    */
 
     public static void restartGeofenceScanner(Context context, boolean forScreenOn) {
         try {
@@ -1220,7 +1220,8 @@ public class PPApplication extends Application {
     }
     */
 
-    private static void stopOrientationScanner(Context context/*, boolean exitApp*/) {
+    /*
+    private static void stopOrientationScanner(Context context) {
         try {
             PPApplication.logE("[RJS] PPApplication.stopOrientationScanner", "xxx");
             Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -1228,7 +1229,7 @@ public class PPApplication extends Application {
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_ORIENTATION_SCANNER);
-            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true/*exitApp*/);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true);
             //TODO Android O
             //if (Build.VERSION.SDK_INT < 26)
                 context.startService(lIntent);
@@ -1236,6 +1237,7 @@ public class PPApplication extends Application {
             //    context.startForegroundService(lIntent);
         } catch (Exception ignored) {}
     }
+    */
 
     public static void restartOrientationScanner(Context context/*, boolean forScreenOn*/) {
         try {
@@ -1272,7 +1274,8 @@ public class PPApplication extends Application {
     }
     */
 
-    private static void stopPhoneStateScanner(Context context/*, boolean exitApp*/) {
+    /*
+    private static void stopPhoneStateScanner(Context context) {
         try {
             PPApplication.logE("[RJS] PPApplication.stopPhoneStateScanner", "xxx");
             Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -1280,7 +1283,7 @@ public class PPApplication extends Application {
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_PHONE_STATE_SCANNER);
-            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true/*exitApp*/);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true);
             //TODO Android O
             //if (Build.VERSION.SDK_INT < 26)
                 context.startService(lIntent);
@@ -1288,6 +1291,7 @@ public class PPApplication extends Application {
             //    context.startForegroundService(lIntent);
         } catch (Exception ignored) {}
     }
+    */
 
     public static void forceStartPhoneStateScanner(Context context) {
         try {

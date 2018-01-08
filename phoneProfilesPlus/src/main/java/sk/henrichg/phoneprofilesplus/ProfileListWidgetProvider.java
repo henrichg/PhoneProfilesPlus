@@ -103,18 +103,18 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         if (roundedCorners) {
             widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", 0x00000000);
             widget.setInt(R.id.widget_profile_list_background, "setColorFilter", Color.argb(alpha, red, green, blue));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                 widget.setInt(R.id.widget_profile_list_background, "setImageAlpha", alpha);
-            else
-                widget.setInt(R.id.widget_profile_list_background, "setAlpha", alpha);
+            //else
+            //    widget.setInt(R.id.widget_profile_list_background, "setAlpha", alpha);
         }
         else {
             widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
             widget.setInt(R.id.widget_profile_list_background, "setColorFilter", 0x00000000);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                 widget.setInt(R.id.widget_profile_list_background, "setImageAlpha", 0);
-            else
-                widget.setInt(R.id.widget_profile_list_background, "setAlpha", 0);
+            //else
+            //    widget.setInt(R.id.widget_profile_list_background, "setAlpha", 0);
         }
 
 

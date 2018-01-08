@@ -140,10 +140,10 @@ public class BluetoothNamePreference extends DialogPreference {
                     }
                 }
                 if (!found) {
-                    if (android.os.Build.VERSION.SDK_INT >= 18)
+                    //if (android.os.Build.VERSION.SDK_INT >= 18)
                         customBluetoothList.add(new BluetoothDeviceData(btName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true, 0));
-                    else
-                        customBluetoothList.add(new BluetoothDeviceData(btName, "", 0, true, 0));
+                    //else
+                    //    customBluetoothList.add(new BluetoothDeviceData(btName, "", 0, true, 0));
                 }
                 refreshListView(false, btName);
             }
@@ -445,10 +445,10 @@ public class BluetoothNamePreference extends DialogPreference {
                             }
                         }
                         if (!exists) {
-                            if (android.os.Build.VERSION.SDK_INT >= 18)
+                            //if (android.os.Build.VERSION.SDK_INT >= 18)
                                 _bluetoothList.add(new BluetoothDeviceData(customBTName.getName(), "", BluetoothDevice.DEVICE_TYPE_DUAL, true, 0));
-                            else
-                                _bluetoothList.add(new BluetoothDeviceData(customBTName.getName(), "", 0, true, 0));
+                            //else
+                            //    _bluetoothList.add(new BluetoothDeviceData(customBTName.getName(), "", 0, true, 0));
                         }
                     }
                 }
@@ -468,28 +468,28 @@ public class BluetoothNamePreference extends DialogPreference {
                             }
                         }
                         if (!found) {
-                            if (android.os.Build.VERSION.SDK_INT >= 18) {
+                            //if (android.os.Build.VERSION.SDK_INT >= 18) {
                                 _bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true, 0));
                                 customBluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true, 0));
-                            }
+                            /*}
                             else {
                                 _bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", 0, true, 0));
                                 customBluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", 0, true, 0));
-                            }
+                            }*/
                         }
                     }
                 }
 
                 Collections.sort(_bluetoothList, new SortList());
 
-                if (android.os.Build.VERSION.SDK_INT >= 18) {
+                //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false, 0));
                     _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false, 0));
-                }
+                /*}
                 else {
                     _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", 0, false, 0));
                     _bluetoothList.add(0, new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", 0, false, 0));
-                }
+                }*/
 
                 return null;
             }

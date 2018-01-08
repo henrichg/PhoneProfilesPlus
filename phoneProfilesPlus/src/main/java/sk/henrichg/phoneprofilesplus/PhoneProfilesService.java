@@ -264,10 +264,10 @@ public class PhoneProfilesService extends Service
         removeProfileNotification(this);
 
         if (handlerThread != null) {
-            if (Build.VERSION.SDK_INT >= 18)
+            //if (Build.VERSION.SDK_INT >= 18)
                 handlerThread.quitSafely();
-            else
-                handlerThread.quit();
+            //else
+            //    handlerThread.quit();
             handlerThread = null;
         }
 
@@ -918,14 +918,14 @@ public class PhoneProfilesService extends Service
                     if (nfcStateChangedBroadcastReceiver == null) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor->REGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchNFCSensor");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor", "REGISTER");
-                        if (android.os.Build.VERSION.SDK_INT >= 18) {
+                        //if (android.os.Build.VERSION.SDK_INT >= 18) {
                             if (PPApplication.hasSystemFeature(this, PackageManager.FEATURE_NFC)) {
                                 nfcStateChangedBroadcastReceiver = new NFCStateChangedBroadcastReceiver();
                                 IntentFilter intentFilter21 = new IntentFilter(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED);
                                 appContext.registerReceiver(nfcStateChangedBroadcastReceiver, intentFilter21);
                                 //PPApplication.logE("$$$ PhoneProfilesService.onCreate", "registered");
                             }
-                        }
+                        //}
                     }
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor", "registered");
@@ -966,10 +966,10 @@ public class PhoneProfilesService extends Service
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor->REGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchMobileDataSensor");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "REGISTER");
                         mobileDataStateChangedContentObserver = new MobileDataStateChangedContentObserver(appContext, new Handler());
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+                        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
                             appContext.getContentResolver().registerContentObserver(Settings.Global.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
-                        else
-                            appContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
+                        //else
+                        //    appContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
                     }
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "registered");
@@ -2357,7 +2357,7 @@ public class PhoneProfilesService extends Service
                         ActivateProfileHelper.setRingerVolume(appContext, audioManager.getStreamVolume(AudioManager.STREAM_RING));
                         ActivateProfileHelper.setNotificationVolume(appContext, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
                         RingerModeChangeReceiver.setRingerMode(appContext, audioManager);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
+                        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
                             PPNotificationListenerService.setZenMode(appContext, audioManager);
                         InterruptionFilterChangedBroadcastReceiver.setZenMode(appContext, audioManager);
                     }
