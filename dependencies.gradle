@@ -7,8 +7,6 @@
 // 3500 = added is "Confirm restart events"; removed "None", "Restart events" from rescan parameters; continue donation notification
 
 ext.ppVersions = [
-        minSdk: 19,
-        targetSdk: 25,
         compileSdk: 27,
         buildTools: '27.0.3',
         publishVersion: '3.5.7b',

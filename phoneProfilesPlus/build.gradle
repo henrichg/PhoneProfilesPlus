@@ -9,8 +9,8 @@ android {
     //noinspection GroovyMissingReturnStatement
     defaultConfig {
         applicationId "sk.henrichg.phoneprofilesplus"
-        minSdkVersion ppVersions.minSdk
-        targetSdkVersion ppVersions.targetSdk
+        minSdkVersion 19
+        targetSdkVersion 25
         versionCode ppVersions.publishVersionCode
         versionName ppVersions.publishVersion
         multiDexEnabled true
