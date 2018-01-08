@@ -6,9 +6,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/important_info_left_margin"
         android:paddingStart="@dimen/important_info_left_margin"
-        android:paddingRight="@dimen/important_info_right_margin"
         android:paddingEnd="@dimen/important_info_right_margin"
         android:paddingTop="@dimen/important_info_top_margin"
         android:paddingBottom="@dimen/important_info_bottom_margin" >

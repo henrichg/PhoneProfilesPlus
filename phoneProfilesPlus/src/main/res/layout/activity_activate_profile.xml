@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
  
-    <LinearLayout 
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="3dp"
         android:orientation="vertical"
         android:background="?attr/colorPrimary"
         android:elevation="3dp"
-        tools:ignore="UnusedAttribute" >
+        tools:ignore="UnusedAttribute">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/act_prof_tollbar"
@@ -36,10 +36,8 @@
                     android:id="@+id/act_prof_run_stop_indicator"
                     android:layout_width="40dp"
                     android:layout_height="13dp"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/run_stop_indicator_margin_end"
                     android:layout_marginEnd="@dimen/run_stop_indicator_margin_end"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/run_stop_events_indicator"

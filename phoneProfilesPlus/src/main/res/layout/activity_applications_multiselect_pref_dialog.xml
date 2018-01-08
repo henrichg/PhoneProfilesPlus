@@ -42,16 +42,13 @@
                 android:id="@+id/applications_pref_dlg_quickscroll"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"/>
 
             <ListView
                 android:id="@+id/applications_multiselect_pref_dlg_listview"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_toLeftOf="@id/applications_pref_dlg_quickscroll"
                 android:layout_toStartOf="@id/applications_pref_dlg_quickscroll"
                 android:overScrollMode="never"
                 android:scrollbars="none"

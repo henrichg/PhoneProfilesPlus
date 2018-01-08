@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_marginLeft="20dp"
-              android:layout_marginRight="20dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp">
 
     <TextView
         android:id="@+id/duration_pref_dlg_range"
@@ -36,8 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp">
+                android:layout_marginEnd="10dp">
 
                 <TextView
                     android:id="@+id/duration_pref_dlg_value_label"
@@ -61,9 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
                         android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
                         android:textSize="20sp"
                         android:maxLines="1"/>
                     <TextView
@@ -72,7 +69,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_toEndOf="@id/duration_pref_dlg_value"
-                        android:layout_toRightOf="@id/duration_pref_dlg_value"
                         android:textSize="12sp"
                         android:text="\u25BC"
                         tools:ignore="HardcodedText"/>
@@ -96,10 +92,10 @@
                     android:id="@+id/duration_pref_dlg_ends"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right|end"
+                    android:layout_gravity="end"
                     android:text="00:00:00"
                     android:textSize="20sp"
-                    tools:ignore="HardcodedText,RtlHardcoded"/>
+                    tools:ignore="HardcodedText"/>
 
             </LinearLayout>
 
@@ -175,8 +171,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginLeft="29dp"
+        android:layout_marginStart="12dp"
         android:textSize="16sp"
         android:text="@string/profile_preferences_afterDurationDo" />
 
@@ -184,8 +179,7 @@
         android:id="@+id/fast_access_duration_dlg_after_do_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
-        android:layout_marginLeft="21dp"
+        android:layout_marginStart="4dp"
         android:entries="@array/afterProfileDurationDoArray" />
 
 </LinearLayout>

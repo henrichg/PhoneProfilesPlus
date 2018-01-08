@@ -13,7 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:orientation="horizontal" >
 
@@ -34,9 +33,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/applications_pref_dlg_item_buttons_root"
         android:layout_toStartOf="@id/applications_pref_dlg_item_buttons_root"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true" >
 
@@ -44,27 +41,23 @@
             android:id="@+id/applications_pref_dlg_item_drag_handle"
             android:layout_width="25dp"
             android:layout_height="45dp"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/preference_item_drag_handle"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:layout_marginLeft="3dp"
             android:layout_marginStart="3dp"
             android:scaleType="center"
             android:src="?attr/dragHandleIcon"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true" />
 
         <ImageView
             android:id="@+id/applications_pref_dlg_item_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/applications_pref_dlg_item_drag_handle"
             android:layout_toEndOf="@id/applications_pref_dlg_item_drag_handle"
-            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:contentDescription="@string/applications_editor_dialog_item_icon"
             android:padding="3dp"
@@ -76,9 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_toRightOf="@id/applications_pref_dlg_item_icon"
             android:layout_toEndOf="@id/applications_pref_dlg_item_icon"
             android:text="@string/empty_string"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -88,9 +79,7 @@
             android:id="@+id/applications_pref_dlg_item_app_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
-            android:layout_toRightOf="@id/applications_pref_dlg_item_icon"
             android:layout_toEndOf="@id/applications_pref_dlg_item_icon"
             android:layout_below="@id/applications_pref_dlg_item_app_name"
             android:text="@string/empty_string"
@@ -102,9 +91,7 @@
             android:id="@+id/applications_pref_dlg_item_startApplicationDelay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_toRightOf="@id/applications_pref_dlg_item_icon"
             android:layout_toEndOf="@id/applications_pref_dlg_item_icon"
             android:layout_below="@id/applications_pref_dlg_item_app_type"
             android:text="Startup delay: 00:00:00"

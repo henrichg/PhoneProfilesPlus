@@ -15,11 +15,8 @@
             android:id="@+id/applications_editor_dialog_startApplicationDelay_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:textSize="15sp"
@@ -28,9 +25,7 @@
             android:id="@+id/applications_editor_dialog_startApplicationDelay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
-            android:layout_toRightOf="@id/applications_editor_dialog_startApplicationDelay_label"
             android:layout_toEndOf="@id/applications_editor_dialog_startApplicationDelay_label"
             android:textSize="18sp"/>
         <TextView
@@ -38,7 +33,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:layout_toRightOf="@id/applications_editor_dialog_startApplicationDelay"
             android:layout_toEndOf="@id/applications_editor_dialog_startApplicationDelay"
             android:textSize="12sp"
             android:text="\u25BC"
@@ -74,16 +68,13 @@
                 android:id="@+id/applications_editor_dialog_quickscroll"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"/>
 
             <ListView
                 android:id="@+id/applications_editor_dialog_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_toLeftOf="@id/applications_editor_dialog_quickscroll"
                 android:layout_toStartOf="@id/applications_editor_dialog_quickscroll"
                 android:clipToPadding="false"
                 android:overScrollMode="never"

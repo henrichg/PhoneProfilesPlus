@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="48dp" >
+                android:layout_width="match_parent"
+                android:layout_height="48dp" >
 
     <RadioButton
         android:id="@+id/connect_to_ssid_pref_dlg_item_radiobutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_centerVertical="true"
         android:checked="false"
@@ -18,7 +17,6 @@
         android:id="@+id/connect_to_ssid_pref_dlg_item_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/connect_to_ssid_pref_dlg_item_radiobutton"
         android:layout_toEndOf="@id/connect_to_ssid_pref_dlg_item_radiobutton"
         android:layout_centerVertical="true"
         android:paddingLeft="10dp"

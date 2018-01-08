@@ -10,9 +10,7 @@
         android:id="@+id/widget_profile_list_item_profile_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="3dp"
         android:layout_marginStart="3dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/profile_preferences_profileIcon"
@@ -26,10 +24,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/widget_profile_list_item_profile_icon"
         android:layout_toEndOf="@id/widget_profile_list_item_profile_icon"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:shadowColor="#ffffffff"
         android:shadowDx="1"
         android:shadowDy="1"
@@ -45,14 +42,13 @@
         android:layout_width="match_parent"
         android:layout_height="15dp"
         android:layout_below="@id/widget_profile_list_item_profile_name"
-        android:layout_toRightOf="@id/widget_profile_list_item_profile_icon"
         android:layout_toEndOf="@id/widget_profile_list_item_profile_icon"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string"
         android:scaleType="@integer/profilePrefIndicatorScaleType"
         android:src="@drawable/ic_profile_pref_volume_on"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp" />
     
         
 </RelativeLayout>

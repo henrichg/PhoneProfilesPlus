@@ -3,9 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:paddingStart="20dp"
-    android:paddingEnd="20dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp" >
+    android:paddingEnd="20dp" >
 
     <ImageView
         android:id="@+id/profile_pref_dlg_item_icon"
@@ -23,20 +21,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/profile_pref_dlg_item_icon"
-        android:layout_toRightOf="@id/profile_pref_dlg_item_icon" >
+        android:layout_toEndOf="@id/profile_pref_dlg_item_icon" >
 
         <TextView
             android:id="@+id/profile_pref_dlg_item_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
             android:layout_marginStart="3dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:text="@string/profile_name_default"
             android:textSize="15sp"
             android:maxLines="1"/>
@@ -49,8 +44,8 @@
             android:contentDescription="@string/empty_string"
             android:scaleType="@integer/profilePrefIndicatorScaleType"
             android:src="@drawable/ic_profile_pref_volume_on"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp" />
 
     </LinearLayout>
 

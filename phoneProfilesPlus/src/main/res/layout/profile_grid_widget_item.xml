@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/widget_profile_list_item"
-              android:layout_width="match_parent"
-              android:layout_height="85dp"
-              android:orientation="vertical" >
+    android:id="@+id/widget_profile_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="85dp"
+    android:orientation="vertical" >
 
     <ImageView
         android:id="@+id/widget_profile_list_item_profile_icon"
@@ -14,7 +14,7 @@
         android:maxHeight="50dp"
         android:maxWidth="50dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_profile_default"
+        android:src="@drawable/ic_profile_default" 
         android:contentDescription="@string/profile_preferences_profileIcon"/>
 
     <TextView
@@ -31,6 +31,6 @@
         android:textSize="13sp"
         android:fontFamily="sans-serif-condensed"
         android:textColor="#ffffffff" />
-
+        
 </LinearLayout>
 

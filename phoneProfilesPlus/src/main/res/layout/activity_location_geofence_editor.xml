@@ -30,7 +30,6 @@
                 android:id="@+id/location_editor_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:text="@android:string/ok"
@@ -41,7 +40,6 @@
                 android:id="@+id/location_editor_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf = "@id/location_editor_ok"
                 android:layout_toStartOf = "@id/location_editor_ok"
                 android:layout_centerVertical="true"
                 android:text="@android:string/cancel"
@@ -75,7 +73,6 @@
                 android:id="@+id/location_pref_dlg_radius_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:text="@string/event_preferences_location_radius" />
@@ -83,7 +80,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/location_pref_dlg_radius_label"
                 android:layout_toEndOf="@id/location_pref_dlg_radius_label"
                 android:layout_centerVertical="true" >
 
@@ -101,7 +97,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/location_pref_dlg_radius_seekbar_label"
-                    android:max="50" />
+                    android:max="50"
+                    android:splitTrack="false"
+                    tools:ignore="UnusedAttribute"/>
 
             </RelativeLayout>
 
@@ -118,9 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_action_location_my_location"
@@ -131,9 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_toLeftOf = "@id/location_editor_my_location"
                 android:layout_toStartOf = "@id/location_editor_my_location"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_action_location_address"
@@ -145,7 +139,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf = "@id/location_editor_address_btn"
                 android:layout_toStartOf = "@id/location_editor_address_btn"
                 android:layout_centerVertical="true"
                 android:selectAllOnFocus="true"
