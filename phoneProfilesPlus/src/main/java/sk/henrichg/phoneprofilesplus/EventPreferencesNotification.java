@@ -436,15 +436,22 @@ class EventPreferencesNotification extends EventPreferences {
         // com.android.server.telecom - missed call
 
         if (this._inCall) {
+            // Nexus/Pixel??? stock ROM
             PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted("com.google.android.dialer", false);
             if (notification != null)
                 return true;
+            // Samsung, MIUI, Sony
             notification = PPNotificationListenerService.getNotificationPosted("android.incallui", true);
             if (notification != null)
                 return true;
         }
         if (this._missedCall) {
+            // Samsung, MIUI, Nexus/Pixel??? stock ROM
             PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted("com.android.server.telecom", false);
+            if (notification != null)
+                return true;
+            // LG
+            notification = PPNotificationListenerService.getNotificationPosted("com.android.phone", false);
             if (notification != null)
                 return true;
         }
