@@ -1117,7 +1117,7 @@ Non chiedere nuovamente?</string>
   <string name="start_event_notification_text1">Nome dell\'evento</string>
   <string name="start_event_notification_text2">Annulla ed interrompere la notifica.</string>
   <string name="event_preferences_notificationRepeat">Ripetere la notifica</string>
-  <string name="event_preferences_notificationRepeatInterval">Intervallo di ripetizione notifica (minuti)</string>
+  <string name="event_preferences_notificationRepeatInterval">Intervallo di ripetizione notifica</string>
   <string name="duration_pref_dlg_activation_hours_label">Ore:</string>
   <string name="duration_pref_dlg_activation_minutes_label">Minuti:</string>
   <string name="duration_pref_dlg_activation_seconds_label">Secondi:</string>

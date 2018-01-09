@@ -1116,7 +1116,7 @@
   <string name="start_event_notification_text1">Nama acara</string>
   <string name="start_event_notification_text2">Hapus pemberitahuan ini untuk berhenti memberitahukannya.</string>
   <string name="event_preferences_notificationRepeat">Pemberitahuan berulang</string>
-  <string name="event_preferences_notificationRepeatInterval">Interval pemberitahuan berulang (menit)</string>
+  <string name="event_preferences_notificationRepeatInterval">Interval pemberitahuan berulang</string>
   <string name="duration_pref_dlg_activation_hours_label">Jam:</string>
   <string name="duration_pref_dlg_activation_minutes_label">Menit:</string>
   <string name="duration_pref_dlg_activation_seconds_label">Detik:</string>

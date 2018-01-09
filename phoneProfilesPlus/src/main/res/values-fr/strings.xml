@@ -1117,7 +1117,7 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="start_event_notification_text1">Nom de l’événement</string>
   <string name="start_event_notification_text2">Désactivez cette notification d’arrêter sa notification.</string>
   <string name="event_preferences_notificationRepeat">Répétez la notification</string>
-  <string name="event_preferences_notificationRepeatInterval">Intervalle (minutes) de répétition de la notification</string>
+  <string name="event_preferences_notificationRepeatInterval">Intervalle de répétition de la notification</string>
   <string name="duration_pref_dlg_activation_hours_label">heure :</string>
   <string name="duration_pref_dlg_activation_minutes_label">Minutes :</string>
   <string name="duration_pref_dlg_activation_seconds_label">Secondes :</string>

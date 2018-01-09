@@ -1116,7 +1116,7 @@
   <string name="start_event_notification_text1">Esemény neve</string>
   <string name="start_event_notification_text2">Törölje ezt az értesítést, hogy abba hagyja, ezt az értesítőt.</string>
   <string name="event_preferences_notificationRepeat">Értesítés ismétlés</string>
-  <string name="event_preferences_notificationRepeatInterval">Értesítés ismétlés intervallum (perc)</string>
+  <string name="event_preferences_notificationRepeatInterval">Értesítés ismétlés intervallum</string>
   <string name="duration_pref_dlg_activation_hours_label">Órák:</string>
   <string name="duration_pref_dlg_activation_minutes_label">Percek:</string>
   <string name="duration_pref_dlg_activation_seconds_label">Másodpercek:</string>

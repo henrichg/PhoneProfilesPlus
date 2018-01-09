@@ -71,7 +71,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
         //if (!_permanentRun) {
 
             Calendar now = Calendar.getInstance();
-            now.add(Calendar.MINUTE, event._repeatNotificationInterval);
+            now.add(Calendar.SECOND, event._repeatNotificationInterval);
             long alarmTime = now.getTimeInMillis();
 
             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");

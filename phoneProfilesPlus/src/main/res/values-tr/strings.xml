@@ -1116,7 +1116,7 @@
   <string name="start_event_notification_text1">Durum ismi</string>
   <string name="start_event_notification_text2">Bildirimi durdurmak için bu bildirimi devre dışı bırakın.</string>
   <string name="event_preferences_notificationRepeat">Bildirimi tekrarla</string>
-  <string name="event_preferences_notificationRepeatInterval">Bildirim tekrarlama araliğı (dakika)</string>
+  <string name="event_preferences_notificationRepeatInterval">Bildirim tekrarlama araliğı</string>
   <string name="duration_pref_dlg_activation_hours_label">Saat:</string>
   <string name="duration_pref_dlg_activation_minutes_label">Dakika:</string>
   <string name="duration_pref_dlg_activation_seconds_label">Saniye:</string>

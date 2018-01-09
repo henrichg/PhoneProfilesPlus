@@ -100,14 +100,14 @@
                 android:title="@string/event_preferences_notificationRepeat"
                 android:defaultValue="false"
                 android:widgetLayout="@layout/mp_preference_switch"/>
-            <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventNotificationRepeatInterval"
                 android:summary="@string/event_preferences_notificationRepeatInterval"
                 android:title="@string/event_preferences_notificationRepeatInterval"
-                android:defaultValue="15"
-                henrichg:min="1"
-                henrichg:max="300"
-                android:dependency="eventNotificationRepeat"/>
+                android:defaultValue="900"
+                henrichg:dMin="10"
+                henrichg:dMax="86400"
+                android:dependency="eventNotificationRepeat" />
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory

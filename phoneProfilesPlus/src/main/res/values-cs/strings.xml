@@ -1116,7 +1116,7 @@
   <string name="start_event_notification_text1">Název události</string>
   <string name="start_event_notification_text2">Vymažte toto oznámení, aby se přestalo oznamovat.</string>
   <string name="event_preferences_notificationRepeat">Opakované oznámení</string>
-  <string name="event_preferences_notificationRepeatInterval">Interval opakování oznámení (minuty)</string>
+  <string name="event_preferences_notificationRepeatInterval">Interval opakování oznámení</string>
   <string name="duration_pref_dlg_activation_hours_label">Hodiny:</string>
   <string name="duration_pref_dlg_activation_minutes_label">Minuty:</string>
   <string name="duration_pref_dlg_activation_seconds_label">Sekundy:</string>

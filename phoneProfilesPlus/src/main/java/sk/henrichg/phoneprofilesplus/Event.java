@@ -511,7 +511,7 @@ class Event {
         this._notificationSound = preferences.getString(PREF_EVENT_NOTIFICATION_SOUND, "");
         this._notificationVibrate = preferences.getBoolean(PREF_EVENT_NOTIFICATION_VIBRATE, false);
         this._repeatNotification = preferences.getBoolean(PREF_EVENT_NOTIFICATION_REPEAT, false);
-        this._repeatNotificationInterval = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL, "15"));
+        this._repeatNotificationInterval = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL, "900"));
         this._forceRun = preferences.getBoolean(PREF_EVENT_FORCE_RUN, false);
         //this._undoneProfile = preferences.getBoolean(PREF_EVENT_UNDONE_PROFILE, true);
         this._priority = Integer.parseInt(preferences.getString(PREF_EVENT_PRIORITY, Integer.toString(EPRIORITY_MEDIUM)));
@@ -636,19 +636,21 @@ class Event {
             }
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, delay > 0, false, false, false);
         }
+        /*
         if (key.equals(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value);
-                /*int iValue;
-                try {
-                    iValue = Integer.parseInt(value);
-                } catch (Exception e) {
-                    iValue = 0;
-                }
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, iValue != 15, false, false, false);*/
+                //int iValue;
+                //try {
+                //    iValue = Integer.parseInt(value);
+                //} catch (Exception e) {
+                //    iValue = 0;
+                //}
+                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, iValue != 15, false, false, false);
             }
         }
+        */
         if (key.equals(PREF_EVENT_FORCE_RUN) ||
             key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION) ||
             key.equals(PREF_EVENT_NOTIFICATION_VIBRATE) ||

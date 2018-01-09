@@ -1116,7 +1116,7 @@
   <string name="start_event_notification_text1">Event naam</string>
   <string name="start_event_notification_text2">Schakel deze notificatie uit om notificatie te stoppen.</string>
   <string name="event_preferences_notificationRepeat">Herhaal notificatie</string>
-  <string name="event_preferences_notificationRepeatInterval">Herhaal notificatie interval (minuten)</string>
+  <string name="event_preferences_notificationRepeatInterval">Herhaal notificatie interval</string>
   <string name="duration_pref_dlg_activation_hours_label">Uren:</string>
   <string name="duration_pref_dlg_activation_minutes_label">Minuten:</string>
   <string name="duration_pref_dlg_activation_seconds_label">Seconden:</string>

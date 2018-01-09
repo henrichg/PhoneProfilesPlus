@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1980;
+    private static final int DATABASE_VERSION = 1990;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -2026,6 +2026,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_WIFI_AP_PREFS + "=0");
+        }
+
+        if (oldVersion < 1990) {
+            final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                    KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL +
+                    " FROM " + TABLE_EVENTS;
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    ContentValues values = new ContentValues();
+
+                    int repeatInterval = cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL));
+
+                    values.put(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL, repeatInterval * 60);
+
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -7539,6 +7561,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     String calendarSearchString = "";
                                     String wifiSSID = "";
                                     String bluetoothAdapterName = "";
+                                    int notificationRepeatInterval = 0;
 
                                     if (cursorExportedDB.moveToFirst()) {
                                         do {
@@ -7596,6 +7619,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     bluetoothAdapterName = cursorExportedDB.getString(i);
                                                 if (columnNamesExportedDB[i].equals(KEY_E_LOCATION_FK_GEOFENCE))
                                                     geofenceId = cursorExportedDB.getLong(i);
+                                                if (columnNamesExportedDB[i].equals(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL))
+                                                    notificationRepeatInterval = cursorExportedDB.getInt(i);
                                             }
 
                                             // for non existent fields set default value
@@ -7941,6 +7966,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             if (exportedDBObj.getVersion() < 1970) {
                                                 values.put(KEY_E_NOTIFICATION_SOUND_REPEAT, 0);
                                                 values.put(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL, 15);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 1990) {
+                                                values.put(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL, notificationRepeatInterval * 60);
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper

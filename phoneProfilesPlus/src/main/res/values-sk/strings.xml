@@ -1116,7 +1116,7 @@
   <string name="start_event_notification_text1">Názov udalosti</string>
   <string name="start_event_notification_text2">Vymažte toto upozornenie, aby sa prestalo oznamovať.</string>
   <string name="event_preferences_notificationRepeat">Opakovaná notifikácia</string>
-  <string name="event_preferences_notificationRepeatInterval">Interval opakovania oznámenia (minúty)</string>
+  <string name="event_preferences_notificationRepeatInterval">Interval opakovania oznámenia</string>
   <string name="duration_pref_dlg_activation_hours_label">Hodiny:</string>
   <string name="duration_pref_dlg_activation_minutes_label">Minúty:</string>
   <string name="duration_pref_dlg_activation_seconds_label">Sekundy:</string>

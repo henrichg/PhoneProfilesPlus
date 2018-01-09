@@ -1116,7 +1116,7 @@
   <string name="start_event_notification_text1">Event Name</string>
   <string name="start_event_notification_text2">Benachrichtigung löschen um sie nicht mehr anzuzeigen.</string>
   <string name="event_preferences_notificationRepeat">Wiederhole Benachrichtigung</string>
-  <string name="event_preferences_notificationRepeatInterval">Benachrichtigungsintervall (Minuten)</string>
+  <string name="event_preferences_notificationRepeatInterval">Benachrichtigungsintervall</string>
   <string name="duration_pref_dlg_activation_hours_label">Stunden:</string>
   <string name="duration_pref_dlg_activation_minutes_label">Minuten:</string>
   <string name="duration_pref_dlg_activation_seconds_label">Sekunden:</string>

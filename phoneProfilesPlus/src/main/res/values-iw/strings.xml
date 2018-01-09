@@ -1120,7 +1120,7 @@
   <string name="start_event_notification_text1">Event name</string>
   <string name="start_event_notification_text2">Clear this notification to stop notifying it.</string>
   <string name="event_preferences_notificationRepeat">Repeat notification</string>
-  <string name="event_preferences_notificationRepeatInterval">Repeat notification interval (minutes)</string>
+  <string name="event_preferences_notificationRepeatInterval">Repeat notification interval</string>
   <string name="duration_pref_dlg_activation_hours_label">Hours:</string>
   <string name="duration_pref_dlg_activation_minutes_label">Minutes:</string>
   <string name="duration_pref_dlg_activation_seconds_label">Seconds:</string>

@@ -1117,7 +1117,7 @@
   <string name="start_event_notification_text1">Название события</string>
   <string name="start_event_notification_text2">Уберите это уведомление, чтобы остановить уведомления.</string>
   <string name="event_preferences_notificationRepeat">Повторение уведомления</string>
-  <string name="event_preferences_notificationRepeatInterval">Интервал повтора уведомлений (минут)</string>
+  <string name="event_preferences_notificationRepeatInterval">Интервал повтора уведомлений</string>
   <string name="duration_pref_dlg_activation_hours_label">Часы:</string>
   <string name="duration_pref_dlg_activation_minutes_label">Минуты:</string>
   <string name="duration_pref_dlg_activation_seconds_label">Секунды:</string>
