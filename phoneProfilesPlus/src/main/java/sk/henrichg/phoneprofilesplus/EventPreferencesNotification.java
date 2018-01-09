@@ -446,7 +446,7 @@ class EventPreferencesNotification extends EventPreferences {
                 return true;
         }
         if (this._missedCall) {
-            // Samsung, MIUI, Nexus/Pixel??? stock ROM
+            // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
             PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted("com.android.server.telecom", false);
             if (notification != null)
                 return true;
