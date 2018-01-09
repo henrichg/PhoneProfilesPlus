@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1990;
+    private static final int DATABASE_VERSION = 2000;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -276,6 +276,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_CALL_START_TIME = "callStartTime";
     private static final String KEY_E_NOTIFICATION_SOUND_REPEAT = "notificationSoundRepeat";
     private static final String KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL = "notificationSoundRepeatInterval";
+    private static final String KEY_E_NOTIFICATION_IN_CALL = "notificationRingingCall";
+    private static final String KEY_E_NOTIFICATION_MISSED_CALL = "notificationMissedCall";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -558,7 +560,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_CALL_PERMANENT_RUN + " INTEGER,"
                 + KEY_E_CALL_START_TIME + " INTEGER,"
                 + KEY_E_NOTIFICATION_SOUND_REPEAT + " INTEGER,"
-                + KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL + " INTEGER"
+                + KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL + " INTEGER,"
+                + KEY_E_NOTIFICATION_IN_CALL + " INTEGER,"
+                + KEY_E_NOTIFICATION_MISSED_CALL + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -2048,6 +2052,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
             cursor.close();
+        }
+
+        if (oldVersion < 2000)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_IN_CALL + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_MISSED_CALL + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_IN_CALL + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_MISSED_CALL + "=0");
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -4009,7 +4022,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_NOTIFICATION_START_TIME,
                         KEY_E_NOTIFICATION_DURATION,
                         KEY_E_NOTIFICATION_END_WHEN_REMOVED,
-                        KEY_E_NOTIFICATION_PERMANENT_RUN
+                        KEY_E_NOTIFICATION_PERMANENT_RUN,
+                        KEY_E_NOTIFICATION_IN_CALL,
+                        KEY_E_NOTIFICATION_MISSED_CALL
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -4023,6 +4038,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_ENABLED))) == 1);
                 eventPreferences._applications = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_APPLICATIONS));
+                eventPreferences._inCall = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_IN_CALL))) == 1);
+                eventPreferences._missedCall = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_MISSED_CALL))) == 1);
                 //eventPreferences._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_START_TIME)));
                 //eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_DURATION));
                 //eventPreferences._endWhenRemoved = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_END_WHEN_REMOVED))) == 1);
@@ -4374,6 +4391,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         values.put(KEY_E_NOTIFICATION_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_NOTIFICATION_APPLICATIONS, eventPreferences._applications);
+        values.put(KEY_E_NOTIFICATION_IN_CALL, (eventPreferences._inCall) ? 1 : 0);
+        values.put(KEY_E_NOTIFICATION_MISSED_CALL, (eventPreferences._missedCall) ? 1 : 0);
         //values.put(KEY_E_NOTIFICATION_START_TIME, eventPreferences._startTime);
         //values.put(KEY_E_NOTIFICATION_DURATION, eventPreferences._duration);
         //values.put(KEY_E_NOTIFICATION_END_WHEN_REMOVED, (eventPreferences._endWhenRemoved) ? 1 : 0);
@@ -7970,6 +7989,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                             if (exportedDBObj.getVersion() < 1990) {
                                                 values.put(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL, notificationRepeatInterval * 60);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 2000) {
+                                                values.put(KEY_E_NOTIFICATION_IN_CALL, 0);
+                                                values.put(KEY_E_NOTIFICATION_MISSED_CALL, 0);
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper

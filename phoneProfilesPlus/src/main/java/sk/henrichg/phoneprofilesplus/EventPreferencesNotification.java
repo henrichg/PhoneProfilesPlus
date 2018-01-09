@@ -15,6 +15,8 @@ import android.preference.PreferenceScreen;
 class EventPreferencesNotification extends EventPreferences {
 
     String _applications;
+    boolean _inCall;
+    boolean _missedCall;
     //long _startTime;
     //boolean _permanentRun;
     //int _duration;
@@ -22,6 +24,8 @@ class EventPreferencesNotification extends EventPreferences {
 
     static final String PREF_EVENT_NOTIFICATION_ENABLED = "eventNotificationEnabled";
     private static final String PREF_EVENT_NOTIFICATION_APPLICATIONS = "eventNotificationApplications";
+    private static final String PREF_EVENT_NOTIFICATION_IN_CALL = "eventNotificationInCall";
+    private static final String PREF_EVENT_NOTIFICATION_MISSED_CALL = "eventNotificationMissedCall";
     //private static final String PREF_EVENT_NOTIFICATION_PERMANENT_RUN = "eventNotificationPermanentRun";
     //private static final String PREF_EVENT_NOTIFICATION_DURATION = "eventNotificationDuration";
     //private static final String PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED = "eventNotificationEndWhenRemoved";
@@ -30,7 +34,9 @@ class EventPreferencesNotification extends EventPreferences {
 
     EventPreferencesNotification(Event event,
                                         boolean enabled,
-                                        String applications/*,
+                                        String applications,
+                                        boolean inCall,
+                                        boolean missedCall/*,
                                         boolean permanentRun,
                                         int duration,
                                         boolean endWhenRemoved*/)
@@ -38,6 +44,8 @@ class EventPreferencesNotification extends EventPreferences {
         super(event, enabled);
 
         this._applications = applications;
+        this._inCall = inCall;
+        this._missedCall = missedCall;
         //this._permanentRun = permanentRun;
         //this._duration = duration;
         //this._endWhenRemoved = endWhenRemoved;
@@ -50,6 +58,8 @@ class EventPreferencesNotification extends EventPreferences {
     {
         this._enabled = fromEvent._eventPreferencesNotification._enabled;
         this._applications = fromEvent._eventPreferencesNotification._applications;
+        this._inCall = fromEvent._eventPreferencesNotification._inCall;
+        this._missedCall = fromEvent._eventPreferencesNotification._missedCall;
         //this._permanentRun = fromEvent._eventPreferencesNotification._permanentRun;
         //this._duration = fromEvent._eventPreferencesNotification._duration;
         //this._endWhenRemoved = fromEvent._eventPreferencesNotification._endWhenRemoved;
@@ -64,6 +74,8 @@ class EventPreferencesNotification extends EventPreferences {
             Editor editor = preferences.edit();
             editor.putBoolean(PREF_EVENT_NOTIFICATION_ENABLED, _enabled);
             editor.putString(PREF_EVENT_NOTIFICATION_APPLICATIONS, this._applications);
+            editor.putBoolean(PREF_EVENT_NOTIFICATION_IN_CALL, this._inCall);
+            editor.putBoolean(PREF_EVENT_NOTIFICATION_MISSED_CALL, this._missedCall);
             //editor.putBoolean(PREF_EVENT_NOTIFICATION_PERMANENT_RUN, this._permanentRun);
             //editor.putString(PREF_EVENT_NOTIFICATION_DURATION, String.valueOf(this._duration));
             //editor.putBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, _endWhenRemoved);
@@ -77,6 +89,8 @@ class EventPreferencesNotification extends EventPreferences {
         //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             this._enabled = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
             this._applications = preferences.getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "");
+            this._inCall = preferences.getBoolean(PREF_EVENT_NOTIFICATION_IN_CALL, false);
+            this._missedCall = preferences.getBoolean(PREF_EVENT_NOTIFICATION_MISSED_CALL, false);
             //this._permanentRun = preferences.getBoolean(PREF_EVENT_NOTIFICATION_PERMANENT_RUN, false);
             //this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_DURATION, "5"));
             //this._endWhenRemoved = preferences.getBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, false);
@@ -105,6 +119,14 @@ class EventPreferencesNotification extends EventPreferences {
                         ": "+context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
             }
             else {
+                if (this._inCall) {
+                    descr = descr + context.getString(R.string.event_preferences_notifications_inCall);
+                }
+                if (this._missedCall) {
+                    if (this._inCall)
+                        descr = descr + "; ";
+                    descr = descr + context.getString(R.string.event_preferences_notifications_missedCall);
+                }
                 if (!this._applications.isEmpty() && !this._applications.equals("-")) {
                     String[] splits = this._applications.split("\\|");
                     if (splits.length == 1) {
@@ -132,6 +154,8 @@ class EventPreferencesNotification extends EventPreferences {
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                 }
             }
+            if (this._inCall || this._missedCall)
+                descr = descr + "; ";
             descr = descr + "(S) "+context.getString(R.string.event_preferences_notifications_applications) + ": " + selectedApplications;// + "; ";
             /*if (this._endWhenRemoved)
                 descr = descr + context.getString(R.string.event_preferences_notifications_end_when_removed);
@@ -150,10 +174,17 @@ class EventPreferencesNotification extends EventPreferences {
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            if (key.equals(PREF_EVENT_NOTIFICATION_IN_CALL) ||
+                key.equals(PREF_EVENT_NOTIFICATION_MISSED_CALL)) {
+                Preference preference = prefMng.findPreference(key);
+                if (preference != null) {
+                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, value.equals("true"), false, false, false);
+                }
+            }
             if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)) {
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null) {
-                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, true);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, false, false, true);
                 }
             }
             /*if (key.equals(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED)) {
@@ -186,10 +217,11 @@ class EventPreferencesNotification extends EventPreferences {
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
-        /*if (key.equals(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED)) {
+        if (key.equals(PREF_EVENT_NOTIFICATION_IN_CALL) ||
+            key.equals(PREF_EVENT_NOTIFICATION_MISSED_CALL)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true": "false", context);
-        }*/
+        }
         /*if (key.equals(PREF_EVENT_NOTIFICATION_PERMANENT_RUN)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true": "false", context);
@@ -199,6 +231,8 @@ class EventPreferencesNotification extends EventPreferences {
     @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_IN_CALL, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_MISSED_CALL, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_APPLICATIONS, preferences, context);
         //setSummary(prefMng, PREF_EVENT_NOTIFICATION_PERMANENT_RUN, preferences, context);
         //setSummary(prefMng, PREF_EVENT_NOTIFICATION_DURATION, preferences, context);
@@ -208,7 +242,8 @@ class EventPreferencesNotification extends EventPreferences {
     @Override
     public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         if (Event.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
-            EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled, this._applications/*,
+            EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled,
+                                                        this._applications, this._inCall, this._missedCall/*,
                                                         this._permanentRun, this._duration, this._endWhenRemoved*/);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -235,7 +270,7 @@ class EventPreferencesNotification extends EventPreferences {
 
         boolean runnable = super.isRunnable(context);
 
-        runnable = runnable && (!_applications.isEmpty());
+        runnable = runnable && (_inCall || _missedCall || (!_applications.isEmpty()));
 
         return runnable;
     }
@@ -245,12 +280,20 @@ class EventPreferencesNotification extends EventPreferences {
         //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             boolean enabled = PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
             ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
+            Preference ringingCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
+            Preference missedCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
             //Preference endWhenRemovedPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED);
             //Preference permanentRunPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_PERMANENT_RUN);
             //Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
             if (applicationsPreference != null) {
                 applicationsPreference.setEnabled(enabled);
                 applicationsPreference.setSummaryAMSDP();
+            }
+            if (ringingCallPreference != null) {
+                ringingCallPreference.setEnabled(enabled);
+            }
+            if (missedCallPreference != null) {
+                missedCallPreference.setEnabled(enabled);
             }
             /*if (endWhenRemovedPreference != null)
                 endWhenRemovedPreference.setEnabled(enabled);
@@ -387,12 +430,31 @@ class EventPreferencesNotification extends EventPreferences {
         // get all saved notifications
         PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
 
+        // com.android.incallui - in call
+        // com.samsung.android.incallui - in call
+        // com.google.android.dialer - in call
+        // com.android.server.telecom - missed call
+
+        if (this._inCall) {
+            PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted("com.google.android.dialer", false);
+            if (notification != null)
+                return true;
+            notification = PPNotificationListenerService.getNotificationPosted("android.incallui", true);
+            if (notification != null)
+                return true;
+        }
+        if (this._missedCall) {
+            PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted("com.android.server.telecom", false);
+            if (notification != null)
+                return true;
+        }
+
         String[] splits = this._applications.split("\\|");
         for (String split : splits) {
             // get only package name = remove activity
             String packageName = ApplicationsCache.getPackageName(split);
             // search for package name in saved package names
-            PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(packageName);
+            PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(packageName, false);
             if (notification != null)
                 return true;
         }

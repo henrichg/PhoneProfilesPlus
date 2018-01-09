@@ -653,6 +653,18 @@
                 android:dependency="eventNotificationEnabled"
                 android:widgetLayout="@layout/start_activity_preference" >
             </Preference>
+            <CheckBoxPreference
+                android:key="eventNotificationInCall"
+                android:title="@string/event_preferences_notifications_inCall"
+                android:defaultValue="false"
+                android:dependency="eventNotificationEnabled"
+                android:widgetLayout="@layout/mp_preference_switch" />
+            <CheckBoxPreference
+                android:key="eventNotificationMissedCall"
+                android:title="@string/event_preferences_notifications_missedCall"
+                android:defaultValue="false"
+                android:dependency="eventNotificationEnabled"
+                android:widgetLayout="@layout/mp_preference_switch" />
             <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
                 android:defaultValue="@string/dash_string"
                 android:key="eventNotificationApplications"

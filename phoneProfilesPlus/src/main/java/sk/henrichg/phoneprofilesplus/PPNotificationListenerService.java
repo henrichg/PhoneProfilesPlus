@@ -58,19 +58,15 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onNotificationPosted(StatusBarNotification sbn) {
         CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationPosted", "PPNotificationListenerService_onNotificationPosted");
 
-        //Log.d(TAG, "**********  onNotificationPosted");
+        PPApplication.logE("PPNotificationListenerService.onNotificationPosted","sbn="+sbn);
 
         if (sbn == null)
             return;
-
-        //Log.e(TAG, "ID :" + sbn.getId() + "t" + sbn.getNotification().tickerText + "t" + sbn.getPackageName());
 
         final Context context = getApplicationContext();
 
         if (sbn.getPackageName().equals(context.getPackageName()))
             return;
-
-        PPApplication.logE("#### PPNotificationListenerService.onNotificationPosted","xxx");
 
         PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
         @SuppressLint("SimpleDateFormat")
@@ -118,19 +114,17 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onNotificationRemoved(StatusBarNotification sbn) {
         CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationRemoved", "PPNotificationListenerService_onNotificationRemoved");
 
-        //Log.d(TAG, "********** onNotificationRemoved");
+        PPApplication.logE("PPNotificationListenerService.onNotificationRemoved","sbn="+sbn);
 
         if (sbn == null)
             return;
-
-        //Log.e(TAG, "ID :" + sbn.getId() + "t" + sbn.getNotification().tickerText + "t" + sbn.getPackageName());
 
         final Context context = getApplicationContext();
 
         if (sbn.getPackageName().equals(context.getPackageName()))
             return;
 
-        //PPApplication.logE("#### PPNotificationListenerService.onNotificationRemoved","xxx");
+        PPApplication.logE("PPNotificationListenerService.onNotificationRemoved","packageName="+sbn.getPackageName());
 
         getNotifiedPackages(context);
         removeNotifiedPackage(sbn.getPackageName());
@@ -510,7 +504,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
     }
 
-    public static PostedNotificationData getNotificationPosted(String packageName)
+    public static PostedNotificationData getNotificationPosted(String packageName, boolean checkEnd)
     {
         synchronized (PPApplication.notificationsChangeMutex) {
             //packageName = ApplicationsCache.getPackageName(packageName);
@@ -521,9 +515,17 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
             for (PostedNotificationData _notification : notifications) {
                 String _packageName = _notification.getPackageName();
-                if (packageName.equals(_packageName)) {
-                    PPApplication.logE("PPNotificationListenerService.getNotificationPosted", "_packageName returned=" + _packageName);
-                    return _notification;
+                if (checkEnd) {
+                    if (_packageName.endsWith(packageName)) {
+                        PPApplication.logE("PPNotificationListenerService.getNotificationPosted", "_packageName returned=" + _packageName);
+                        return _notification;
+                    }
+                }
+                else {
+                    if (_packageName.equals(packageName)) {
+                        PPApplication.logE("PPNotificationListenerService.getNotificationPosted", "_packageName returned=" + _packageName);
+                        return _notification;
+                    }
                 }
             }
 

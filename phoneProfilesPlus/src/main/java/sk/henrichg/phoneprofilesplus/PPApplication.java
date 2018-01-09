@@ -52,7 +52,7 @@ public class PPApplication extends Application {
     static final boolean newExtender = true;
     static final int VERSION_CODE_EXTENDER = 60;
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -86,9 +86,9 @@ public class PPApplication extends Application {
                                          //+"|ProfileDurationAlarmBroadcastReceiver"
                                          //+"|$$$ DataWrapper._activateProfile"
 
-                                         //+"|PPNotificationListenerService"
-                                         //+"|[NOTIF] EventsHandler.handleEvents"
-                                         //+"|EventPreferencesNotification"
+                                         +"|PPNotificationListenerService"
+                                         +"|[NOTIF] EventsHandler.handleEvents"
+                                         +"|EventPreferencesNotification"
 
                                          //+"|[CALL] DataWrapper.doHandleEvents"
 
@@ -139,7 +139,7 @@ public class PPApplication extends Application {
                                          +"|EventsHandler.doEndService"
                                          */
 
-                                         +"|$$$ WifiAP"
+                                         //+"|$$$ WifiAP"
             ;
 
 
