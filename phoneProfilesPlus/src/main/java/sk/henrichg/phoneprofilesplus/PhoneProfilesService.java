@@ -2382,6 +2382,8 @@ public class PhoneProfilesService extends Service
                     GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(appContext);
                     LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);
 
+                    PPNotificationListenerService.clearNotifiedPackages(appContext);
+
                     DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
                     dataWrapper.getActivateProfileHelper().initialize(appContext);
                     dataWrapper.getDatabaseHandler().deleteAllEventTimelines();

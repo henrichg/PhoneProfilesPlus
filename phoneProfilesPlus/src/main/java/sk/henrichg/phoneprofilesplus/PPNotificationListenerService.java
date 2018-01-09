@@ -504,6 +504,17 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
     }
 
+    static void clearNotifiedPackages(Context context) {
+        synchronized (PPApplication.notificationsChangeMutex) {
+
+            if (notifications == null)
+                notifications = new ArrayList<>();
+            notifications.clear();
+
+            saveNotifiedPackages(context);
+        }
+    }
+
     public static PostedNotificationData getNotificationPosted(String packageName, boolean checkEnd)
     {
         synchronized (PPApplication.notificationsChangeMutex) {
