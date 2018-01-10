@@ -57,6 +57,12 @@ class ImportantInfoNotification {
         boolean afterInstall = savedVersionCode == 0;
 
         int extenderVersion = ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context);
+        int applicationSensorsCount = 0;
+        int orientationSensorsCount = 0;
+        if (extenderVersion == 0) {
+            applicationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
+            orientationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
+        }
 
         if (newsLatest) {
             // change to false for not show notification
@@ -64,10 +70,11 @@ class ImportantInfoNotification {
         }
 
         if (news3670) {
-            if (extenderVersion > 0)
-                news = false; // Extender is installed
-            else
+            if ((extenderVersion > 0) || ((applicationSensorsCount == 0) && (orientationSensorsCount == 0)))
+                news = false; // Extender is installed or not needed
+            else {
                 news = true;
+            }
         }
 
         if (news1804) {

@@ -62,6 +62,12 @@ public class ImportantInfoHelpFragment extends Fragment {
         boolean news1772 = ((versionCode >= 1772) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
 
         int extenderVersion = ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context);
+        int applicationSensorsCount = 0;
+        int orientationSensorsCount = 0;
+        if (extenderVersion == 0) {
+            applicationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
+            orientationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
+        }
 
         //noinspection StatementWithEmptyBody
         if (newsLatest) {
@@ -73,7 +79,8 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         if (news3670) {
             news = true;
-            if (extenderVersion > 0) { // extender is installed
+            if ((extenderVersion > 0) || ((applicationSensorsCount == 0) && (orientationSensorsCount == 0))) {
+                // extender is installed or not needed
                 news = false;
                 TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text1);
                 infoText1.setVisibility(View.GONE);
