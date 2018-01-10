@@ -861,19 +861,19 @@ public class DataWrapper {
         if (ApplicationPreferences.applicationActivate(context))
         {
             Profile profile = getDatabaseHandler().getActivatedProfile();
-            if (profile == null) {
-                long profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
+            long profileId;
+            if (profile != null)
+                profileId = profile._id;
+            else
+            {
+                profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
                 if (profileId == Profile.PROFILE_NO_ACTIVATE)
-                    profile = null;
-                else
-                    profile = getDatabaseHandler().getProfile(profileId, false);
+                    profileId = 0;
             }
-            _activateProfile(profile, false, PPApplication.STARTUP_SOURCE_BOOT,
-                                    /*boolean _interactive,*/ null, true);
+            activateProfile(profileId, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);
         }
         else
-            _activateProfile(null, false, PPApplication.STARTUP_SOURCE_BOOT,
-                                    /*boolean _interactive,*/ null, true);
+            activateProfile(0, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);;
     }
 
     private void startEventsOnBoot(boolean startedFromService)
@@ -1457,7 +1457,11 @@ public class DataWrapper {
         if (actProfile && (profile != null))
         {
             // profile activation
-            activateProfileWithAlert(profile, startupSource, /*interactive,*/ activity);
+            if (startupSource == PPApplication.STARTUP_SOURCE_BOOT)
+                _activateProfile(profile, false, PPApplication.STARTUP_SOURCE_BOOT,
+                                        /*boolean _interactive,*/ null, true);
+            else
+                activateProfileWithAlert(profile, startupSource, /*interactive,*/ activity);
         }
         else
         {
