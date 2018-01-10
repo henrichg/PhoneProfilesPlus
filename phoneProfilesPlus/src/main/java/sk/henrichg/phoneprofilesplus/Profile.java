@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -13,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
@@ -1841,8 +1843,10 @@ public class Profile {
                         PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                     }
                 }
-                else
+                else {
                     PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
+                    PPApplication.notAllowedReasonDetail = Build.VERSION.RELEASE;
+                }
                 /*if (PPApplication.isRooted())
                 {
                     // device is rooted
