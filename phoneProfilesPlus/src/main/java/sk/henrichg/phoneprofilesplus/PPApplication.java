@@ -86,9 +86,9 @@ public class PPApplication extends Application {
                                          //+"|ProfileDurationAlarmBroadcastReceiver"
                                          //+"|$$$ DataWrapper._activateProfile"
 
-                                         +"|PPNotificationListenerService"
-                                         +"|[NOTIF] EventsHandler.handleEvents"
-                                         +"|EventPreferencesNotification"
+                                         //+"|PPNotificationListenerService"
+                                         //+"|[NOTIF] EventsHandler.handleEvents"
+                                         //+"|EventPreferencesNotification"
 
                                          //+"|[CALL] DataWrapper.doHandleEvents"
 
@@ -193,6 +193,7 @@ public class PPApplication extends Application {
     static final String BLUETOOTH_CL_SCAN_RESULTS_PREFS_NAME = "bluetooth_cl_scan_results";
     static final String BLUETOOTH_LE_SCAN_RESULTS_PREFS_NAME = "bluetooth_le_scan_results";
     static final String PERMISSIONS_PREFS_NAME = "permissions_list";
+    static final String PERMISSIONS_STATUS_PREFS_NAME = "permissions_status";
     static final String POSTED_NOTIFICATIONS_PREFS_NAME = "posted_notifications";
 
     //public static final String RESCAN_TYPE_SCREEN_ON = "1";

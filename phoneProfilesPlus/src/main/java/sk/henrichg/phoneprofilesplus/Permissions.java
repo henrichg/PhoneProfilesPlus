@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -90,12 +91,22 @@ class Permissions {
     static MobileCellsPreference mobileCellsPreference = null;
     static RingtonePreference ringtonePreference = null;
 
-
     private static final String PREF_SHOW_REQUEST_WRITE_SETTINGS_PERMISSION = "show_request_write_settings_permission";
     private static final String PREF_MERGED_PERMISSIONS = "merged_permissions";
     private static final String PREF_MERGED_PERMISSIONS_COUNT = "merged_permissions_count";
     private static final String PREF_SHOW_REQUEST_ACCESS_NOTIFICATION_POLICY_PERMISSION = "show_request_access_notification_policy_permission";
     private static final String PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION = "show_request_draw_overlays_permission";
+
+    private static final String PREF_PERMISSIONS_CHANGED = "permissionsChanged";
+    private static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSION = "writeSystemSettingsPermission";
+    private static final String PREF_NOTIFICATION_POLICY_PERMISSION = "notificationPolicyPermission";
+    private static final String PREF_DRAW_OVERLAY_PERMISSION= "drawOverlayPermission";
+    private static final String PREF_CALENDAR_PERMISSION = "calendarPermission";
+    private static final String PREF_CONTACTS_PERMISSION = "contactsPermission";
+    private static final String PREF_LOCATION_PERMISSION = "locationPermission";
+    private static final String PREF_SMS_PERMISSION = "smsPermission";
+    private static final String PREF_PHONE_PERMISSION = "phonePermission";
+    private static final String PREF_STORAGE_PERMISSION = "storagePermission";
 
     static class PermissionType implements Parcelable {
         final int type;
@@ -576,6 +587,18 @@ class Permissions {
         }
     }
 
+    static boolean checkStorage(Context context) {
+        try {
+            if (android.os.Build.VERSION.SDK_INT >= 23)
+                return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
+                        (ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+            else
+                return hasPermission(context, permission.READ_EXTERNAL_STORAGE);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     /*
     static boolean checkNFC(Context context) {
         try {
@@ -648,6 +671,18 @@ class Permissions {
                 return false;
             }
         }*/
+    }
+
+    static boolean checkPhone(Context context) {
+        try {
+            if (android.os.Build.VERSION.SDK_INT >= 23) {
+                return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) &&
+                        (ContextCompat.checkSelfPermission(context, permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED);
+            } else
+                return hasPermission(context, permission.READ_CALENDAR);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private static void checkProfilePhoneBroadcast(Context context, Profile profile, List<PermissionType>  permissions) {
@@ -902,6 +937,19 @@ class Permissions {
             } catch (Exception e) {
                 return false;
             }
+        }
+    }
+
+    static boolean checkSMS(Context context) {
+        try {
+            if (android.os.Build.VERSION.SDK_INT >= 23) {
+                return (ContextCompat.checkSelfPermission(context, permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED) &&
+                        (ContextCompat.checkSelfPermission(context, permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) &&
+                        (ContextCompat.checkSelfPermission(context, permission.RECEIVE_MMS) == PackageManager.PERMISSION_GRANTED);
+            } else
+                return hasPermission(context, permission.READ_CALENDAR);
+        } catch (Exception e) {
+            return false;
         }
     }
 
@@ -1668,6 +1716,85 @@ class Permissions {
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.apply();
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.M)
+    static void saveAllPermissions(Context context, boolean permissionsChanged) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean(PREF_WRITE_SYSTEM_SETTINGS_PERMISSION, Settings.System.canWrite(context));
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        editor.putBoolean(PREF_NOTIFICATION_POLICY_PERMISSION, (mNotificationManager != null) && (mNotificationManager.isNotificationPolicyAccessGranted()));
+        editor.putBoolean(PREF_DRAW_OVERLAY_PERMISSION, Settings.canDrawOverlays(context));
+        editor.putBoolean(PREF_CALENDAR_PERMISSION, Permissions.checkCalendar(context));
+        editor.putBoolean(PREF_CONTACTS_PERMISSION, Permissions.checkContacts(context));
+        editor.putBoolean(PREF_LOCATION_PERMISSION, Permissions.checkLocation(context));
+        editor.putBoolean(PREF_SMS_PERMISSION, Permissions.checkSMS(context));
+        editor.putBoolean(PREF_PHONE_PERMISSION, Permissions.checkPhone(context));
+        editor.putBoolean(PREF_STORAGE_PERMISSION, Permissions.checkStorage(context));
+
+        editor.putBoolean(PREF_PERMISSIONS_CHANGED, permissionsChanged);
+
+        editor.apply();
+    }
+
+    static void disablePermissionsChanged(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(PREF_PERMISSIONS_CHANGED, false);
+        editor.apply();
+    }
+
+    static boolean getPermissionsChanged(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_PERMISSIONS_CHANGED, false);
+    }
+
+    static boolean getWriteSystemSettingsPermission(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_WRITE_SYSTEM_SETTINGS_PERMISSION, false);
+    }
+
+    static boolean getNotificationPolicyPermission(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_NOTIFICATION_POLICY_PERMISSION, false);
+    }
+
+    static boolean getDrawOverlayPermission(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_DRAW_OVERLAY_PERMISSION, false);
+    }
+
+    static boolean getCalendarPermission(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_CALENDAR_PERMISSION, false);
+    }
+
+    static boolean getContactsPermission(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_CONTACTS_PERMISSION, false);
+    }
+
+    static boolean getLocationPermission(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_LOCATION_PERMISSION, false);
+    }
+
+    static boolean getSMSPermission(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_SMS_PERMISSION, false);
+    }
+
+    static boolean getPhonePermission(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_PHONE_PERMISSION, false);
+    }
+
+    static boolean getStoragePermission(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_STORAGE_PERMISSION, false);
     }
 
 }

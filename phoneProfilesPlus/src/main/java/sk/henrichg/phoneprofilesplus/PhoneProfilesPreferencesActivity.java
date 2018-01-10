@@ -2,11 +2,15 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -87,6 +91,8 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         bluetoothScanInterval = Integer.valueOf(ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "10"));
         locationScanInterval = Integer.valueOf(ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "5"));
 
+        Permissions.disablePermissionsChanged(this);
+
         fragment = createFragment(false);
 
         setPreferenceFragment(fragment);
@@ -165,6 +171,10 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, ApplicationPreferences.notificationStatusBar(this));
         Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, ApplicationPreferences.notificationStatusBarPermanent(this));
         Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar(this));
+
+        if (Permissions.getPermissionsChanged(getApplicationContext())) {
+            invalidateEditor = true;
+        }
 
         if (!activeLanguage.equals(ApplicationPreferences.applicationLanguage(getApplicationContext())))
         {

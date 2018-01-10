@@ -19,12 +19,11 @@ import android.preference.TwoStatePreference;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.evernote.android.job.JobRequest;
 
 import java.util.concurrent.TimeUnit;
-
-import static android.app.Activity.RESULT_CANCELED;
 
 public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                               implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -719,20 +718,68 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
             Context context = getActivity().getApplicationContext();
 
+            boolean finishActivity = false;
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                boolean permissionsChanged = Permissions.getPermissionsChanged(context);
+
                 if (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) {
-                    if (Settings.System.canWrite(context))
+                    boolean canWrite = Settings.System.canWrite(context);
+                    permissionsChanged = Permissions.getWriteSystemSettingsPermission(context) != canWrite;
+                    if (canWrite)
                         Permissions.setShowRequestWriteSettingsPermission(context, true);
                 }
                 if (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) {
                     NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    if ((mNotificationManager != null) && (mNotificationManager.isNotificationPolicyAccessGranted()))
+                    boolean notificationPolicyGranted = (mNotificationManager != null) && (mNotificationManager.isNotificationPolicyAccessGranted());
+                    permissionsChanged = Permissions.getNotificationPolicyPermission(context) != notificationPolicyGranted;
+                    if (notificationPolicyGranted)
                         Permissions.setShowRequestAccessNotificationPolicyPermission(context, true);
                 }
                 if (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS) {
-                    if (Settings.canDrawOverlays(context))
+                    boolean canDrawOverlays = Settings.canDrawOverlays(context);
+                    permissionsChanged = Permissions.getDrawOverlayPermission(context) != canDrawOverlays;
+                    if (canDrawOverlays)
                         Permissions.setShowRequestDrawOverlaysPermission(context, true);
                 }
+                if (requestCode == RESULT_APPLICATION_PERMISSIONS) {
+                    boolean calendarPermission = Permissions.checkCalendar(context);
+                    permissionsChanged = Permissions.getCalendarPermission(context) != calendarPermission;
+                    // finish Editor when permission is disabled
+                    finishActivity = permissionsChanged && (!calendarPermission);
+                    if (!permissionsChanged) {
+                        boolean contactsPermission = Permissions.checkContacts(context);
+                        permissionsChanged = Permissions.getContactsPermission(context) != contactsPermission;
+                        // finish Editor when permission is disabled
+                        finishActivity = permissionsChanged && (!contactsPermission);
+                    }
+                    if (!permissionsChanged) {
+                        boolean locationPermission = Permissions.checkLocation(context);
+                        permissionsChanged = Permissions.getLocationPermission(context) != locationPermission;
+                        // finish Editor when permission is disabled
+                        finishActivity = permissionsChanged && (!locationPermission);
+                    }
+                    if (!permissionsChanged) {
+                        boolean smsPermission = Permissions.checkSMS(context);
+                        permissionsChanged = Permissions.getSMSPermission(context) != smsPermission;
+                        // finish Editor when permission is disabled
+                        finishActivity = permissionsChanged && (!smsPermission);
+                    }
+                    if (!permissionsChanged) {
+                        boolean phonePermission = Permissions.checkPhone(context);
+                        permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
+                        // finish Editor when permission is disabled
+                        finishActivity = permissionsChanged && (!phonePermission);
+                    }
+                    if (!permissionsChanged) {
+                        boolean storagePermission = Permissions.checkStorage(context);
+                        permissionsChanged = Permissions.getStoragePermission(context) != storagePermission;
+                        // finish Editor when permission is disabled
+                        finishActivity = permissionsChanged && (!storagePermission);
+                    }
+                }
+
+                Permissions.saveAllPermissions(context, permissionsChanged);
             }
 
             DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
@@ -746,15 +793,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 PhoneProfilesService.instance.showProfileNotification(activatedProfile, dataWrapper);
             activateProfileHelper.updateWidget(true);
 
-            /*
-            Intent intent5 = new Intent();
-            intent5.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
-            intent5.putExtra(RefreshGUIBroadcastReceiver.EXTRA_REFRESH_ICONS, true);
-            context.sendBroadcast(intent5);
-            */
-
-            getActivity().setResult(RESULT_CANCELED);
-            getActivity().finishAffinity();
+            if (finishActivity) {
+                getActivity().setResult(Activity.RESULT_CANCELED);
+                getActivity().finishAffinity();
+            }
+            else {
+                getActivity().setResult(Activity.RESULT_OK);
+            }
         }
 
         if (requestCode == RESULT_LOCATION_SYSTEM_SETTINGS) {
