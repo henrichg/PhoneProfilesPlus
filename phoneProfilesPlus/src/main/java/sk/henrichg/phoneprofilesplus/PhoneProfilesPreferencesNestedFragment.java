@@ -518,12 +518,30 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         if (preference != null) {
             preference.setSummary(summary);
         }
-
         preference = prefMng.findPreference("applicationEventOrientationScanIntervalInfo");
         if (preference != null) {
             summary = getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary1) + " 10 " +
                     getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary3);
             preference.setSummary(summary);
+        }
+        preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE);
+        if (preference != null) {
+            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, false)) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+            }
+            else {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+            }
         }
     }
 
@@ -587,6 +605,25 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
                 if (_preference != null)
                     _preference.setEnabled(show);
+            }
+        }
+
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE)) {
+            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, false)) {
+                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+            }
+            else {
+                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
+                if (_preference != null)
+                    _preference.setEnabled(true);
             }
         }
 
@@ -684,6 +721,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 _preference.setEnabled(colorful);
             }
         }
+
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
