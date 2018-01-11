@@ -716,11 +716,10 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) ||
             (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS)) {
 
-            Context context = getActivity().getApplicationContext();
-
-            boolean finishActivity = false;
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Context context = getActivity().getApplicationContext();
+
+                boolean finishActivity = false;
                 boolean permissionsChanged = Permissions.getPermissionsChanged(context);
 
                 if (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) {
@@ -780,25 +779,28 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 }
 
                 Permissions.saveAllPermissions(context, permissionsChanged);
-            }
 
-            DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
+                if (permissionsChanged) {
+                    DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 
-            ActivateProfileHelper activateProfileHelper = dataWrapper.getActivateProfileHelper();
-            activateProfileHelper.initialize(context);
+                    ActivateProfileHelper activateProfileHelper = dataWrapper.getActivateProfileHelper();
+                    activateProfileHelper.initialize(context);
 
-            Profile activatedProfile = dataWrapper.getActivatedProfile();
-            dataWrapper.refreshProfileIcon(activatedProfile, false, 0);
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.showProfileNotification(activatedProfile, dataWrapper);
-            activateProfileHelper.updateWidget(true);
+                    Profile activatedProfile = dataWrapper.getActivatedProfile();
+                    dataWrapper.refreshProfileIcon(activatedProfile, false, 0);
+                    if (PhoneProfilesService.instance != null)
+                        PhoneProfilesService.instance.showProfileNotification(activatedProfile, dataWrapper);
+                    activateProfileHelper.updateWidget(true);
 
-            if (finishActivity) {
-                getActivity().setResult(Activity.RESULT_CANCELED);
-                getActivity().finishAffinity();
-            }
-            else {
-                getActivity().setResult(Activity.RESULT_OK);
+                    if (finishActivity) {
+                        getActivity().setResult(Activity.RESULT_CANCELED);
+                        getActivity().finishAffinity();
+                    } else {
+                        getActivity().setResult(Activity.RESULT_OK);
+                    }
+                }
+                else
+                    getActivity().setResult(Activity.RESULT_CANCELED);
             }
         }
 
