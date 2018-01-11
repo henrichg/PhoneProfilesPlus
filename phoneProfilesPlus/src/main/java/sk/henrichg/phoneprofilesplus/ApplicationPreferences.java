@@ -461,4 +461,12 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR, "-1"); // white color
     }
 
+    static boolean applicationWidgetIconBackgroundType(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, false);
+    }
+
+    static String applicationWidgetIconBackgroundColor(Context context) {
+        return getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR, "-1"); // white color
+    }
+
 }
