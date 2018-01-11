@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.color.ColorChooserDialog;
 
 public class ProfileIconPreference extends DialogPreference {
 
@@ -35,6 +36,7 @@ public class ProfileIconPreference extends DialogPreference {
 
     private MaterialDialog mDialog;
     private ProfileIconColorChooserDialog mColorDialog;
+    //private ColorChooserDialog mColorDialog;
 
     private ImageView imageView;
     private ProfileIconPreferenceAdapter adapter;
@@ -210,6 +212,8 @@ public class ProfileIconPreference extends DialogPreference {
         super.onActivityDestroy();
         if (mColorDialog != null && mColorDialog.mDialog != null && mColorDialog.mDialog.isShowing())
             mColorDialog.mDialog.dismiss();
+        //if (mColorDialog != null && mColorDialog.isVisible())
+        //    mColorDialog.dismiss();
         if (mDialog != null && mDialog.isShowing())
             mDialog.dismiss();
     }
@@ -435,6 +439,19 @@ public class ProfileIconPreference extends DialogPreference {
         mColorDialog = new ProfileIconColorChooserDialog(prefContext, this, useCustomColor, customColor,
                                                             ProfileIconPreferenceAdapter.getIconColor(imageIdentifier));
         mColorDialog.show();
+
+        /*
+        mColorDialog  = new ColorChooserDialog.Builder(prefContext, R.string.colorChooser_pref_dialog_title)
+                .titleSub(R.string.colorChooser_pref_dialog_title)  // title of dialog when viewing shades of a color
+                .accentMode(false)  // when true, will display accent palette instead of primary palette
+                .doneButton(android.R.string.ok)  // changes label of the done button
+                .cancelButton(android.R.string.cancel)  // changes label of the cancel button
+                .backButton(R.string.empty_string)  // changes label of the back button
+                .preselect(customColor)  // optionally preselects a color
+                .dynamicButtonColor(false)  // defaults to true, false will disable changing action buttons' color to currently selected color
+                .build();
+        mColorDialog.show(); // an AppCompatActivity which implements ColorCallback
+        */
     }
 
     private void updateIcon(boolean inDialog) {
