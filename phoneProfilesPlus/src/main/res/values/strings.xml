@@ -1144,4 +1144,6 @@
     <string name="colorChooser_pref_dialog_defaultIconColor">Default icon color</string>
     <string name="phone_profiles_pref_applicationWidgetBackgroundType">Color background type</string>
     <string name="phone_profiles_pref_applicationWidgetColorB">Background color</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Color background type (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColorB">Background color (widget)</string>
 </resources>
