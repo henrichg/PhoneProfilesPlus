@@ -55,13 +55,22 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         int red = 0;
         int green;
         int blue;
-        String applicationWidgetListLightnessB = ApplicationPreferences.applicationSamsungEdgeLightnessB(context);
-        if (applicationWidgetListLightnessB.equals("0")) red = 0x00;
-        if (applicationWidgetListLightnessB.equals("25")) red = 0x40;
-        if (applicationWidgetListLightnessB.equals("50")) red = 0x80;
-        if (applicationWidgetListLightnessB.equals("75")) red = 0xC0;
-        if (applicationWidgetListLightnessB.equals("100")) red = 0xFF;
-        green = red; blue = red;
+        if (ApplicationPreferences.applicationSamsungEdgeBackgroundType(context)) {
+            int bgColor = Integer.valueOf(ApplicationPreferences.applicationSamsungEdgeBackgroundColor(context));
+            red = Color.red(bgColor);
+            green = Color.green(bgColor);
+            blue = Color.blue(bgColor);
+        }
+        else {
+            String applicationWidgetListLightnessB = ApplicationPreferences.applicationSamsungEdgeLightnessB(context);
+            if (applicationWidgetListLightnessB.equals("0")) red = 0x00;
+            if (applicationWidgetListLightnessB.equals("25")) red = 0x40;
+            if (applicationWidgetListLightnessB.equals("50")) red = 0x80;
+            if (applicationWidgetListLightnessB.equals("75")) red = 0xC0;
+            if (applicationWidgetListLightnessB.equals("100")) red = 0xFF;
+            green = red;
+            blue = red;
+        }
         int alpha = 0x40;
         String applicationWidgetListBackground = ApplicationPreferences.applicationSamsungEdgeBackground(context);
         if (applicationWidgetListBackground.equals("0")) alpha = 0x00;

@@ -789,6 +789,11 @@
             android:entries="@array/widgetBackgroundArray"
             android:entryValues="@array/widgetBackgroundValues"
             app:useStockLayout="true" />
+        <CheckBoxPreference
+            android:key="applicationSamsungEdgeBackgroundType"
+            android:title="@string/phone_profiles_pref_applicationWidgetBackgroundType"
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
             android:summary="0"
@@ -797,6 +802,10 @@
             android:entries="@array/widgetLightnessArray"
             android:entryValues="@array/widgetLightnessValues"
             app:useStockLayout="true" />
+        <sk.henrichg.phoneprofilesplus.ColorChooserPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetColorB"
+            android:key="applicationSamsungEdgeBackgroundColor"
+            android:defaultValue="-1" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
             android:summary="100"
