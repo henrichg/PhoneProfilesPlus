@@ -643,6 +643,11 @@
             android:entries="@array/widgetBackgroundArray"
             android:entryValues="@array/widgetBackgroundValues"
             app:useStockLayout="true" />
+        <CheckBoxPreference
+            android:key="applicationWidgetListBackgroundType"
+            android:title="@string/phone_profiles_pref_applicationWidgetBackgroundType"
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
             android:summary="0"
@@ -651,6 +656,11 @@
             android:entries="@array/widgetLightnessArray"
             android:entryValues="@array/widgetLightnessValues"
             app:useStockLayout="true" />
+        <sk.henrichg.phoneprofilesplus.ColorChooserPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetColorB"
+            android:summary="0"
+            android:key="applicationWidgetListBackgroundColor"
+            android:defaultValue="0" />
         <CheckBoxPreference
             android:key="applicationWidgetListRoundedCorners"
             android:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"

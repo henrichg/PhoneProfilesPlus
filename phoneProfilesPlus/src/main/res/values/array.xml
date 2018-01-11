@@ -627,7 +627,6 @@
     <item>3</item>
 </string-array>
 <array name="colorChooserDialog_colors">
-    <item>#3F51B5</item>
     <item>#FFFFFF</item>
     <item>#AEAEAE</item>
     <item>#1F1F1F</item>

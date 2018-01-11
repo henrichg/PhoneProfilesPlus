@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -9,72 +10,88 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.os.Bundle;
+import android.preference.DialogPreference;
 import android.support.v7.widget.GridLayout;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
-class ProfileIconColorChooserDialog implements View.OnClickListener {
+public class ColorChooserPreference extends DialogPreference implements View.OnClickListener {
 
-    private final ProfileIconPreference profileIconPreference;
-    final MaterialDialog mDialog;
+    private String value;
+
+    MaterialDialog mDialog;
     private final Context context;
 
-    private final int[] mColors;
-    private final int defaultColor;
+    private int[] mColors;
 
-    ProfileIconColorChooserDialog(Context context, ProfileIconPreference preference, boolean useCustomColor, int selectedColor, int defaultColor)
-    {
-        profileIconPreference = preference;
+    public ColorChooserPreference(Context context, AttributeSet attrs) {
+        super(context, attrs);
+
         this.context = context;
-
-        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
-                .title(R.string.colorChooser_pref_dialog_title)
-                //.disableDefaultFonts()
-                .customView(R.layout.profile_icon_color_chooser, false)
-                .negativeText(android.R.string.cancel);
-
-        mDialog = dialogBuilder.build();
-
-        View layout = mDialog.getCustomView();
 
         final TypedArray ta = context.getResources().obtainTypedArray(R.array.colorChooserDialog_colors);
         mColors = new int[ta.length()];
-        int preselect = -1;
         for (int i = 0; i < ta.length(); i++) {
             mColors[i] = ta.getColor(i, 0);
-            if (useCustomColor && (mColors[i] == selectedColor))
-                preselect = i;
         }
         ta.recycle();
 
-        this.defaultColor = defaultColor;
+        setWidgetLayoutResource(R.layout.dialog_color_chooser_preference); // resource na layout custom preference - TextView-ImageView
 
-        final FrameLayout defaultColorLayout = layout.findViewById(R.id.dialog_color_chooser_default_color);
+    }
 
-        defaultColorLayout.setTag(-1);
-        defaultColorLayout.setOnClickListener(this);
-        defaultColorLayout.getChildAt(0).setVisibility(preselect == -1 ? View.VISIBLE : View.GONE);
+    //@Override
+    protected void onBindView(View view)
+    {
+        super.onBindView(view);
 
-        Drawable selector = createSelector(defaultColor);
+        FrameLayout layout = view.findViewById(R.id.dialog_color_chooser_pref_color);
+
+        int color = Integer.valueOf(value);
+
+        Drawable selector = createSelector(color);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             int[][] states = new int[][]{
                     new int[]{-android.R.attr.state_pressed},
                     new int[]{android.R.attr.state_pressed}
             };
             int[] colors = new int[]{
-                    shiftColor(defaultColor),
-                    defaultColor
+                    shiftColor(color),
+                    color
             };
             ColorStateList rippleColors = new ColorStateList(states, colors);
-            setBackgroundCompat(defaultColorLayout, new RippleDrawable(rippleColors, selector, null));
+            setBackgroundCompat(layout, new RippleDrawable(rippleColors, selector, null));
         } else {
-            setBackgroundCompat(defaultColorLayout, selector);
+            setBackgroundCompat(layout, selector);
         }
 
+        setSummary(R.string.empty_string);
+    }
 
+    @Override
+    protected void showDialog(Bundle state) {
+        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
+                .title(getDialogTitle())
+                .icon(getDialogIcon())
+                //.disableDefaultFonts()
+                .negativeText(getNegativeButtonText())
+                .content(getDialogMessage())
+                .customView(R.layout.dialog_color_chooser, false);
+
+        mDialog = mBuilder.build();
+        View layout = mDialog.getCustomView();
+
+        int preselect = 0;
+        for (int i = 0; i < mColors.length; i++) {
+            if (mColors[i] == Integer.valueOf(value)) {
+                preselect = i;
+                break;
+            }
+        }
 
         final GridLayout list = layout.findViewById(R.id.dialog_color_chooser_grid);
 
@@ -84,7 +101,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
             child.setOnClickListener(this);
             child.getChildAt(0).setVisibility(preselect == i ? View.VISIBLE : View.GONE);
 
-            selector = createSelector(mColors[i]);
+            Drawable selector = createSelector(mColors[i]);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 int[][] states = new int[][]{
                         new int[]{-android.R.attr.state_pressed},
@@ -101,16 +118,26 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
             }
         }
 
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
+
+        if (state != null)
+            mDialog.onRestoreInstanceState(state);
+
+        mDialog.setOnDismissListener(this);
+        mDialog.show();
     }
 
     @Override
     public void onClick(View v) {
         if (v.getTag() != null) {
             Integer index = (Integer) v.getTag();
-            int color = defaultColor;
-            if (index > -1)
-                color = mColors[index];
-            profileIconPreference.setCustomColor(index > -1, color);
+
+            value = String.valueOf(mColors[index]);
+            if (callChangeListener(value))
+            {
+                persistString(value);
+            }
+
             mDialog.dismiss();
         }
     }
@@ -128,12 +155,10 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
 
     private Drawable createSelector(int color) {
         int position = -1;
-        if (color != defaultColor) {
-            for (int i = 0; i < mColors.length; i++) {
-                if (mColors[i] == color) {
-                    position = i;
-                    break;
-                }
+        for (int i = 0; i < mColors.length; i++) {
+            if (mColors[i] == color) {
+                position = i;
+                break;
             }
         }
 
@@ -166,8 +191,39 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
         return stateListDrawable;
     }
 
-    public void show() {
-        mDialog.show();
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
+    }
+
+    @Override
+    protected Object onGetDefaultValue(TypedArray ta, int index)
+    {
+        super.onGetDefaultValue(ta, index);
+        return ta.getString(index);
+    }
+
+    @Override
+    protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
+
+        if(restoreValue)
+        {
+            value = getPersistedString(value);
+        }
+        else
+        {
+            value = (String)defaultValue;
+            persistString(value);
+        }
+        
     }
 
 }

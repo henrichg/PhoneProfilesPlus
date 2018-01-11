@@ -1141,4 +1141,7 @@
     <string name="preference_not_allowed_reason_not_supported_android_version">not supported Android version</string>
     <string name="event_preferences_notifications_inCall">In call</string>
     <string name="event_preferences_notifications_missedCall">Missed call</string>
+    <string name="colorChooser_pref_dialog_defaultIconColor">Default icon color</string>
+    <string name="phone_profiles_pref_applicationWidgetBackgroundType">Color background type</string>
+    <string name="phone_profiles_pref_applicationWidgetColorB">Background color</string>
 </resources>
