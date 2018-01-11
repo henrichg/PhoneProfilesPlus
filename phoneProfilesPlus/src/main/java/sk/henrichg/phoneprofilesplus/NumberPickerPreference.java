@@ -47,6 +47,8 @@ public class NumberPickerPreference extends DialogPreference {
 
     @Override
     protected void showDialog(Bundle state) {
+        value = getPersistedString(value);
+
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
                 .icon(getDialogIcon())

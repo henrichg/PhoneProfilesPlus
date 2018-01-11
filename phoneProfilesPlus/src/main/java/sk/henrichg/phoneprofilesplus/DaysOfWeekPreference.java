@@ -68,6 +68,8 @@ public class DaysOfWeekPreference extends DialogPreference {
     }
 
     protected void showDialog(Bundle state) {
+        getValueDOWMDP();
+
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
                 .icon(getDialogIcon())
