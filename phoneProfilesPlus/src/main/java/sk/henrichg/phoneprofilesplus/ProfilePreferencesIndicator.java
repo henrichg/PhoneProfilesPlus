@@ -280,7 +280,7 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, context) == PPApplication.PREFERENCE_ALLOWED)
                     drawables[countDrawables++] = R.drawable.ic_profile_pref_lock;
             }
-            /*// disable wifi scanning
+            // disable wifi scanning
             if (profile._applicationDisableWifiScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, context) == PPApplication.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableWifiScanning == 1) || (profile._applicationDisableWifiScanning == 3))
@@ -297,7 +297,7 @@ class ProfilePreferencesIndicator {
                     if (profile._applicationDisableBluetoothScanning == 2)
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth_off;
                 }
-            }*/
+            }
         }
         else
             countDrawables = -1;
