@@ -94,7 +94,7 @@
             <ImageView
                 android:id="@+id/notification_activated_profile_pref_indicator"
                 android:layout_width="match_parent"
-                android:layout_height="14dp"
+                android:layout_height="15dp"
                 android:layout_below="@id/notification_activated_profile_name"
                 android:layout_toEndOf="@id/notification_activated_profile_icon"
                 android:layout_marginTop="2dp"
