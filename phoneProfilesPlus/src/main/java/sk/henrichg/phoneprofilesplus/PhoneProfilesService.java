@@ -2503,10 +2503,10 @@ public class PhoneProfilesService extends Service
 
                 if (intent.getBooleanExtra(EXTRA_START_LOCATION_UPDATES, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_START_LOCATION_UPDATES");
-                    synchronized (PPApplication.geofenceScannerMutex) {
+                    //synchronized (PPApplication.geofenceScannerMutex) {
                         if (PhoneProfilesService.getGeofencesScanner() != null)
                             PhoneProfilesService.getGeofencesScanner().startLocationUpdates();
-                    }
+                    //}
                 }
 
                 if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_JOBS, false)) {
