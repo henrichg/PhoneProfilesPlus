@@ -298,6 +298,15 @@ class ProfilePreferencesIndicator {
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth_off;
                 }
             }
+            // disable location scanning
+            if (profile._applicationDisableLocationScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, context) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableLocationScanning == 1) || (profile._applicationDisableLocationScanning == 3))
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location;
+                    if (profile._applicationDisableLocationScanning == 2)
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location_off;
+                }
+            }
         }
         else
             countDrawables = -1;

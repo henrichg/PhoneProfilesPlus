@@ -321,6 +321,11 @@
         android:key="locationScanningCategory"
         android:title="@string/phone_profiles_pref_category_location"
         android:widgetLayout="@layout/start_activity_preference">
+        <CheckBoxPreference
+            android:key="applicationEventLocationEnableScannig"
+            android:title="@string/phone_profiles_pref_applicationEventLocationEnableScanning"
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <Preference
             android:key="applicationEventLocationSystemSettings"
             android:title="@string/phone_profiles_pref_eventLocationSystemSettings"

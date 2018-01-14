@@ -277,9 +277,9 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             if (profile._deviceKeyguard != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_KEYGUARD, this) == PPApplication.PREFERENCE_ALLOWED) {
                     if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3))
-                        indicator1 = addIntoIndicator(indicator1, "ls1");
+                        indicator1 = addIntoIndicator(indicator1, "kg1");
                     if (profile._deviceKeyguard == 2)
-                        indicator1 = addIntoIndicator(indicator1, "ls0");
+                        indicator1 = addIntoIndicator(indicator1, "kg0");
                 }
             }
             // brightness/auto-brightness
@@ -350,6 +350,15 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         indicator1 = addIntoIndicator(indicator1, "bs1");
                     if (profile._applicationDisableBluetoothScanning == 2)
                         indicator1 = addIntoIndicator(indicator1, "bs0");
+                }
+            }
+            // disable location scanning
+            if (profile._applicationDisableLocationScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableLocationScanning == 1) || (profile._applicationDisableLocationScanning == 3))
+                        indicator1 = addIntoIndicator(indicator1, "ls1");
+                    if (profile._applicationDisableLocationScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "ls0");
                 }
             }
         }

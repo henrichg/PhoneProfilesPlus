@@ -124,6 +124,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_REREGISTER_RECEIVERS_AND_JOBS = "reregister_receivers_and_jobs";
     static final String EXTRA_FOR_SCREEN_ON = "for_screen_on";
     static final String EXTRA_START_LOCATION_UPDATES = "start_location_updates";
+    static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
 
     //-----------------------
 
@@ -2504,8 +2505,17 @@ public class PhoneProfilesService extends Service
                 if (intent.getBooleanExtra(EXTRA_START_LOCATION_UPDATES, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_START_LOCATION_UPDATES");
                     //synchronized (PPApplication.geofenceScannerMutex) {
-                        if (PhoneProfilesService.getGeofencesScanner() != null)
+                        if (PhoneProfilesService.getGeofencesScanner() != null) {
+                            GeofencesScanner.useGPS = true;
                             PhoneProfilesService.getGeofencesScanner().startLocationUpdates();
+                        }
+                    //}
+                }
+                if (intent.getBooleanExtra(EXTRA_STOP_LOCATION_UPDATES, false)) {
+                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_STOP_LOCATION_UPDATES");
+                    //synchronized (PPApplication.geofenceScannerMutex) {
+                    if (PhoneProfilesService.getGeofencesScanner() != null)
+                        PhoneProfilesService.getGeofencesScanner().stopLocationUpdates();
                     //}
                 }
 

@@ -274,6 +274,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
      * Requests location updates from the FusedLocationApi.
      */
     void startLocationUpdates() {
+        if (!ApplicationPreferences.applicationEventLocationEnableScannig(context))
+            return;
+
         // The final argument to {@code requestLocationUpdates()} is a LocationListener
         // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
         synchronized (PPApplication.geofenceScannerMutex) {
