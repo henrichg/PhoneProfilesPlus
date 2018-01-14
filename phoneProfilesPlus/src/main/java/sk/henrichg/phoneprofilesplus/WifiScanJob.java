@@ -343,7 +343,7 @@ class WifiScanJob extends Job {
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
         Profile profile = dataWrapper.getActivatedProfile();
         profile = Profile.getMappedProfile(profile, context);
-        if (fromDialog || (profile == null) || (profile._applicationDisableWifiScanning != 1)) {
+        if (fromDialog || (profile == null) || ApplicationPreferences.applicationEventWifiEnableScannig(context)) {
             if (fromDialog)
                 setScanRequest(context, true);
 

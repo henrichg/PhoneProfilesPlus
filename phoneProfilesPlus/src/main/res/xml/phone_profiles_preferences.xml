@@ -376,6 +376,11 @@
         android:key="wifiScanningCategory"
         android:title="@string/phone_profiles_pref_category_wifi_scanning"
         android:widgetLayout="@layout/start_activity_preference">
+        <CheckBoxPreference
+            android:key="applicationEventWifiEnableScannig"
+            android:title="@string/phone_profiles_pref_applicationEventWifiEnableScanning"
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <Preference
             android:key="applicationEventWiFiLocationSystemSettings"
             android:title="@string/phone_profiles_pref_eventLocationSystemSettings"
@@ -389,9 +394,8 @@
             android:widgetLayout="@layout/start_activity_preference" >
         </Preference>
         <CheckBoxPreference
-            android:key="applicationEventWifiEnableWifi"
-            android:title="@string/phone_profiles_pref_applicationEventWifiEnableWifi"
-            android:summary="@string/phone_profiles_pref_applicationEventWifiEnableWifi_summary"
+            android:key="applicationEventWifiScanIfWifiOff"
+            android:title="@string/phone_profiles_pref_applicationEventWifiScanIfWifiOff"
             android:defaultValue="true"
             android:widgetLayout="@layout/mp_preference_switch" />
         <Preference
@@ -433,6 +437,11 @@
         android:key="bluetoothScanninCategory"
         android:title="@string/phone_profiles_pref_category_bluetooth_scanning"
         android:widgetLayout="@layout/start_activity_preference">
+        <CheckBoxPreference
+            android:key="applicationEventBluetoothEnableScannig"
+            android:title="@string/phone_profiles_pref_applicationEventBluetoothEnableScanning"
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <Preference
             android:key="applicationEventBluetoothLocationSystemSettings"
             android:title="@string/phone_profiles_pref_eventLocationSystemSettings"
@@ -440,9 +449,8 @@
             android:widgetLayout="@layout/start_activity_preference" >
         </Preference>
         <CheckBoxPreference
-            android:key="applicationEventBluetoothEnableBluetooth"
-            android:title="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth"
-            android:summary="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary"
+            android:key="applicationEventBluetoothScanIfBluetoothOff"
+            android:title="@string/phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff"
             android:defaultValue="true"
             android:widgetLayout="@layout/mp_preference_switch" />
         <Preference

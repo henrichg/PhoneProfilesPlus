@@ -5,6 +5,8 @@
 // 2700 = not show Activator and Editor target helps
 // 3200 = show target helps for shared profile toolbar item
 // 3500 = added is "Confirm restart events"; removed "None", "Restart events" from rescan parameters; continue donation notification
+// 3900 = replaced applicationEventWifiEnableWifi with applicationEventBluetoothEnableBluetooth
+//        and applicationEventWifiScanIfWifiOff with applicationEventBluetoothScanIfBluetoothOff
 
 ext.ppVersions = [
         compileSdk: 27,

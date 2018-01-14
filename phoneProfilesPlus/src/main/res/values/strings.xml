@@ -331,7 +331,6 @@
     <string name="array_event_pref_wifiConnectionType_inFront">Nearby (within scanning range)</string>
     <string name="event_preferences_wifi_connection_type">Connection type</string>
     <string name="phone_profiles_pref_applicationEventWifiScanInterval">Wi-Fi scan interval (minutes)</string>
-    <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Enable Wi-Fi scanning</string>
     <string name="phone_profiles_pref_applicationEventBackgroundProfile">Default profile</string>
     <string name="profile_preference_profile_end_no_activate">Don\'t activate</string>
     <string name="profile_preference_profile_not_set">Profile not set</string>
@@ -480,8 +479,6 @@
     <string name="array_pref_zenModeArray_alarms">Alarms only</string>
     <string name="profile_preferences_zenMode_alarms_summary">Interrupt only with alarms</string>
     <string name="phone_profiles_pref_applicationShortcutEmblem">Add emblem to shortcut</string>
-    <string name="phone_profiles_pref_applicationEventWifiEnableWifi_summary">Even if Wi-Fi is disabled</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary">Even if Bluetooth is disabled</string>
     <string name="permission_group_name_write_settings">Modify system settings</string>
     <string name="permission_group_name_storage">Storage</string>
     <string name="permission_group_name_phone">Phone</string>
@@ -1146,4 +1143,8 @@
     <string name="phone_profiles_pref_applicationWidgetColorB">Background color</string>
     <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Color background type (widget)</string>
     <string name="phone_profiles_pref_applicationWidgetIconColorB">Background color (widget)</string>
+    <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Enable Wi-Fi scanning</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Scan even if Wi-Fi is disabled</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Enable Bluetooth scanning</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Scan even if Bluetooth is disabled</string>
 </resources>

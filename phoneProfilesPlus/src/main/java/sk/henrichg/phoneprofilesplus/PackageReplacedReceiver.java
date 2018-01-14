@@ -151,6 +151,16 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 if (PPApplication.getDaysAfterFirstStart(appContext) == 8)
                                     PPApplication.setDonationNotificationCount(appContext, 1);
                             }
+
+                            if (actualVersionCode <= 3900) {
+                                ApplicationPreferences.getSharedPreferences(appContext);
+                                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF,
+                                        ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, true));
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF,
+                                        ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true));
+                                editor.apply();
+                            }
                         }
                     } catch (Exception e) {
                         //e.printStackTrace();

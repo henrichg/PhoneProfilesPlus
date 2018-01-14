@@ -483,7 +483,7 @@ class BluetoothScanJob extends Job {
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
         Profile profile = dataWrapper.getActivatedProfile();
         profile = Profile.getMappedProfile(profile, context);
-        if (fromDialog || (profile == null) || (profile._applicationDisableBluetoothScanning != 1)) {
+        if (fromDialog || (profile == null) || ApplicationPreferences.applicationEventBluetoothEnableScannig(context)) {
             if (fromDialog) {
                 try {
                     Intent scanServiceIntent = new Intent(context, WifiBluetoothScannerService.class);

@@ -548,10 +548,10 @@ class WifiBluetoothScanner {
             isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
             if (!isWifiEnabled)
             {
-                if (ApplicationPreferences.applicationEventWifiEnableWifi(dataWrapper.context) || (forceScan != FORCE_ONE_SCAN_DISABLED))
+                if (ApplicationPreferences.applicationEventWifiScanIfWifiOff(dataWrapper.context) || (forceScan != FORCE_ONE_SCAN_DISABLED))
                 {
                     boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT, false) > 0;
-                    boolean scan = ((wifiEventsExists && ApplicationPreferences.applicationEventWifiEnableWifi(dataWrapper.context)) ||
+                    boolean scan = ((wifiEventsExists && ApplicationPreferences.applicationEventWifiScanIfWifiOff(dataWrapper.context)) ||
                             (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                     if (scan)
                     {
@@ -615,10 +615,10 @@ class WifiBluetoothScanner {
         boolean isBluetoothEnabled = bluetoothState == BluetoothAdapter.STATE_ON;
         if (!isBluetoothEnabled)
         {
-            if (ApplicationPreferences.applicationEventBluetoothEnableBluetooth(dataWrapper.context) || (forceScan != FORCE_ONE_SCAN_DISABLED))
+            if (ApplicationPreferences.applicationEventBluetoothScanIfBluetoothOff(dataWrapper.context) || (forceScan != FORCE_ONE_SCAN_DISABLED))
             {
                 boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT, false) > 0;
-                boolean scan = ((bluetoothEventsExists && ApplicationPreferences.applicationEventBluetoothEnableBluetooth(dataWrapper.context)) ||
+                boolean scan = ((bluetoothEventsExists && ApplicationPreferences.applicationEventBluetoothScanIfBluetoothOff(dataWrapper.context)) ||
                         (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                 if (scan)
                 {
