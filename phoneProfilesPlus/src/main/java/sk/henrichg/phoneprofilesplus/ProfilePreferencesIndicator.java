@@ -307,6 +307,24 @@ class ProfilePreferencesIndicator {
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location_off;
                 }
             }
+            // disable mobile cell scanning
+            if (profile._applicationDisableMobileCellScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, context) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableMobileCellScanning == 1) || (profile._applicationDisableMobileCellScanning == 3))
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell;
+                    if (profile._applicationDisableMobileCellScanning == 2)
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell_off;
+                }
+            }
+            // disable orientation scanning
+            if (profile._applicationDisableOrientationScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, context) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableOrientationScanning == 1) || (profile._applicationDisableOrientationScanning == 3))
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation;
+                    if (profile._applicationDisableOrientationScanning == 2)
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_off;
+                }
+            }
         }
         else
             countDrawables = -1;

@@ -82,6 +82,8 @@ public class Profile {
     int _applicationDisableBluetoothScanning;
     int _deviceWiFiAPPrefs;
     int _applicationDisableLocationScanning;
+    int _applicationDisableMobileCellScanning;
+    int _applicationDisableOrientationScanning;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -143,6 +145,8 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
     static final String PREF_PROFILE_DEVICE_WIFI_AP_PREFS = "prf_pref_deviceWiFiAPPrefs";
     static final String PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING = "prf_pref_applicationDisableLocationScanning";
+    static final String PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING = "prf_pref_applicationDisableMobileCellScanning";
+    static final String PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING = "prf_pref_applicationDisableOrientationScanning";
 
     static final int AFTERDURATIONDO_NOTHING = 0;
     static final int AFTERDURATIONDO_UNDOPROFILE = 1;
@@ -308,7 +312,9 @@ public class Profile {
                    String durationNotificationSound,
                    boolean durationNotificationVibrate,
                    int deviceWiFiAPPrefs,
-                   int applicationDisableLocationScanning)
+                   int applicationDisableLocationScanning,
+                   int applicationDisableMobileCellScanning,
+                   int applicationDisableOrientationScanning)
     {
         this._id = id;
         this._name = name;
@@ -368,6 +374,8 @@ public class Profile {
         this._applicationDisableBluetoothScanning = applicationDisableBluetoothScanning;
         this._deviceWiFiAPPrefs = deviceWiFiAPPrefs;
         this._applicationDisableLocationScanning = applicationDisableLocationScanning;
+        this._applicationDisableMobileCellScanning = applicationDisableMobileCellScanning;
+        this._applicationDisableOrientationScanning = applicationDisableOrientationScanning;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -429,7 +437,9 @@ public class Profile {
                    String durationNotificationSound,
                    boolean durationNotificationVibrate,
                    int deviceWiFiAPPrefs,
-                   int applicationDisableLocationScanning)
+                   int applicationDisableLocationScanning,
+                   int applicationDisableMobileCellScanning,
+                   int applicationDisableOrientationScanning)
     {
         this._name = name;
         this._icon = icon;
@@ -487,6 +497,8 @@ public class Profile {
         this._applicationDisableBluetoothScanning = applicationDisableBluetoothScanning;
         this._deviceWiFiAPPrefs = deviceWiFiAPPrefs;
         this._applicationDisableLocationScanning = applicationDisableLocationScanning;
+        this._applicationDisableMobileCellScanning = applicationDisableMobileCellScanning;
+        this._applicationDisableOrientationScanning = applicationDisableOrientationScanning;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -551,6 +563,8 @@ public class Profile {
         this._applicationDisableBluetoothScanning = profile._applicationDisableBluetoothScanning;
         this._deviceWiFiAPPrefs = profile._deviceWiFiAPPrefs;
         this._applicationDisableLocationScanning = profile._applicationDisableLocationScanning;
+        this._applicationDisableMobileCellScanning = profile._applicationDisableMobileCellScanning;
+        this._applicationDisableOrientationScanning = profile._applicationDisableOrientationScanning;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -744,6 +758,10 @@ public class Profile {
                 this._deviceWiFiAPPrefs = withProfile._deviceWiFiAPPrefs;
             if (withProfile._applicationDisableLocationScanning != 0)
                 this._applicationDisableLocationScanning = withProfile._applicationDisableLocationScanning;
+            if (withProfile._applicationDisableMobileCellScanning != 0)
+                this._applicationDisableMobileCellScanning = withProfile._applicationDisableMobileCellScanning;
+            if (withProfile._applicationDisableOrientationScanning != 0)
+                this._applicationDisableOrientationScanning = withProfile._applicationDisableOrientationScanning;
 
             dataWrapper.getDatabaseHandler().activateProfile(withProfile);
             dataWrapper.setProfileActive(withProfile);
@@ -1490,6 +1508,8 @@ public class Profile {
         profile._applicationDisableBluetoothScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, "0"));
         profile._deviceWiFiAPPrefs = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_WIFI_AP_PREFS, "0"));
         profile._applicationDisableLocationScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, "0"));
+        profile._applicationDisableMobileCellScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, "0"));
+        profile._applicationDisableOrientationScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, "0"));
 
         return profile;
     }
@@ -1557,7 +1577,9 @@ public class Profile {
                     profile._durationNotificationSound,
                     profile._durationNotificationVibrate,
                     profile._deviceWiFiAPPrefs,
-                    profile._applicationDisableLocationScanning);
+                    profile._applicationDisableLocationScanning,
+                    profile._applicationDisableMobileCellScanning,
+                    profile._applicationDisableOrientationScanning);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == 99) {
@@ -1659,6 +1681,10 @@ public class Profile {
                 mappedProfile._deviceWiFiAPPrefs = defaultProfile._deviceWiFiAPPrefs;
             if (profile._applicationDisableLocationScanning == 99)
                 mappedProfile._applicationDisableLocationScanning = defaultProfile._applicationDisableLocationScanning;
+            if (profile._applicationDisableMobileCellScanning == 99)
+                mappedProfile._applicationDisableMobileCellScanning = defaultProfile._applicationDisableMobileCellScanning;
+            if (profile._applicationDisableOrientationScanning == 99)
+                mappedProfile._applicationDisableOrientationScanning = defaultProfile._applicationDisableOrientationScanning;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;
@@ -2061,6 +2087,25 @@ public class Profile {
             {
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             }
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING))
+        {
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING))
+        {
+            boolean enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null) &&
+                    (PhoneProfilesService.getMagneticFieldSensor(context.getApplicationContext()) != null) &&
+                    (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null);
+            if (enabled)
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else
                 PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }

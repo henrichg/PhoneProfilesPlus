@@ -321,7 +321,9 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                     origProfile._durationNotificationSound,
                     origProfile._durationNotificationVibrate,
                     origProfile._deviceWiFiAPPrefs,
-                    origProfile._applicationDisableLocationScanning);
+                    origProfile._applicationDisableLocationScanning,
+                    origProfile._applicationDisableMobileCellScanning,
+                    origProfile._applicationDisableOrientationScanning);
             showSaveMenu = true;
         }
         else
@@ -418,6 +420,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, Integer.toString(profile._applicationDisableBluetoothScanning));
             editor.putString(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, Integer.toString(profile._deviceWiFiAPPrefs));
             editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, Integer.toString(profile._applicationDisableLocationScanning));
+            editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, Integer.toString(profile._applicationDisableMobileCellScanning));
+            editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, Integer.toString(profile._applicationDisableOrientationScanning));
             editor.apply();
         }
     }
@@ -518,6 +522,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         profile._applicationDisableBluetoothScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, ""));
         profile._deviceWiFiAPPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, ""));
         profile._applicationDisableLocationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, ""));
+        profile._applicationDisableMobileCellScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, ""));
+        profile._applicationDisableOrientationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, ""));
 
         if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
         {

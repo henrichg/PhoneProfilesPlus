@@ -1944,6 +1944,20 @@ public class ActivateProfileHelper {
             editor.apply();
             PPApplication.restartGeofenceScanner(context, false);
         }
+        if (profile._applicationDisableMobileCellScanning != 0) {
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, profile._applicationDisableMobileCellScanning == 2);
+            editor.apply();
+            PPApplication.restartPhoneStateScanner(context, false);
+        }
+        if (profile._applicationDisableOrientationScanning != 0) {
+            ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, profile._applicationDisableOrientationScanning == 2);
+            editor.apply();
+            PPApplication.restartOrientationScanner(context);
+        }
 
         PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
         KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);

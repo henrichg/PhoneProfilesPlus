@@ -361,6 +361,24 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         indicator1 = addIntoIndicator(indicator1, "ls0");
                 }
             }
+            // disable mobile cell scanning
+            if (profile._applicationDisableMobileCellScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableMobileCellScanning == 1) || (profile._applicationDisableMobileCellScanning == 3))
+                        indicator1 = addIntoIndicator(indicator1, "ms1");
+                    if (profile._applicationDisableMobileCellScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "ms0");
+                }
+            }
+            // disable orientation scanning
+            if (profile._applicationDisableOrientationScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableOrientationScanning == 1) || (profile._applicationDisableOrientationScanning == 3))
+                        indicator1 = addIntoIndicator(indicator1, "os1");
+                    if (profile._applicationDisableOrientationScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "os0");
+                }
+            }
         }
         /////////////////////////////////////////////////////////////
 

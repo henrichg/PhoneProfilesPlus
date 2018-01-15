@@ -55,4 +55,6 @@
     <string name="prf_pref_applicationDisableBluetoothScanning">0</string>
     <string name="prf_pref_deviceWiFiAPPrefs">0</string>
     <string name="prf_pref_applicationDisableLocationScanning">0</string>
+    <string name="prf_pref_applicationDisableMobileCellScanning">0</string>
+    <string name="prf_pref_applicationDisableOrientationScanning">0</string>
 </resources>

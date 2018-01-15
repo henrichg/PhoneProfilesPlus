@@ -455,6 +455,22 @@
                 android:entries="@array/applicationDisableScanningArray"
                 android:entryValues="@array/applicationDisableScanningValues"
                 app:useStockLayout="true" />
+            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+                android:title="@string/profile_preferences_applicationDisableMobileCellScanning"
+                android:summary="@string/array_pref_no_change"
+                android:key="prf_pref_applicationDisableMobileCellScanning"
+                android:defaultValue="@string/prf_pref_applicationDisableMobileCellScanning"
+                android:entries="@array/applicationDisableScanningArray"
+                android:entryValues="@array/applicationDisableScanningValues"
+                app:useStockLayout="true" />
+            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+                android:title="@string/profile_preferences_applicationDisableOrientationScanning"
+                android:summary="@string/array_pref_no_change"
+                android:key="prf_pref_applicationDisableOrientationScanning"
+                android:defaultValue="@string/prf_pref_applicationDisableOrientationScanning"
+                android:entries="@array/applicationDisableScanningArray"
+                android:entryValues="@array/applicationDisableScanningValues"
+                app:useStockLayout="true" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/profile_preferences_category_others"
