@@ -15,6 +15,7 @@ class EventPreferencesMobileCells extends EventPreferences {
     private static final String PREF_EVENT_MOBILE_CELLS_CELLS = "eventMobileCellsCells";
     private static final String PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE = "eventMobileCellsStartWhenOutside";
     private static final String PREF_EVENT_MOBILE_CELLS_REGISTRATION = "eventMobileCellsRegistration";
+    private static final String PREF_EVENT_MOBILE_CELLS_APP_SETTINGS = "eventMobileCellsScaningAppSettings";
 
     private static final String PREF_EVENT_MOBILE_CELLS_CATEGORY = "eventMobileCellsCategory";
 
@@ -91,6 +92,16 @@ class EventPreferencesMobileCells extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_MOBILE_CELLS_APP_SETTINGS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                if (!ApplicationPreferences.applicationEventMobileCellEnableScannig(context))
+                    preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
+                            context.getResources().getString(R.string.phone_profiles_pref_eventMobileCellsAppSettings_summary));
+                else
+                    preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_eventMobileCellsAppSettings_summary));
+            }
+        }
         if (key.equals(PREF_EVENT_MOBILE_CELLS_CELLS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -116,7 +127,8 @@ class EventPreferencesMobileCells extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_MOBILE_CELLS_CELLS))
+        if (key.equals(PREF_EVENT_MOBILE_CELLS_CELLS) ||
+            key.equals(PREF_EVENT_MOBILE_CELLS_APP_SETTINGS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -126,6 +138,7 @@ class EventPreferencesMobileCells extends EventPreferences {
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELLS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_APP_SETTINGS, preferences, context);
     }
 
     @Override
@@ -163,17 +176,16 @@ class EventPreferencesMobileCells extends EventPreferences {
         return runnable;
     }
 
-    /*
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        final boolean enabled = ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext());
-        Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELLS);
-        if (preference != null) preference.setEnabled(enabled);
+        //final boolean enabled = ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext());
+        //Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELLS);
+        //if (preference != null) preference.setEnabled(enabled);
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELLS, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELLS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_APP_SETTINGS, preferences, context);
         setCategorySummary(prefMng, preferences, context);
     }
-    */
 
     /*
     @Override

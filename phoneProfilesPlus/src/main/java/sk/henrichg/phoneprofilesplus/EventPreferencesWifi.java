@@ -19,10 +19,10 @@ class EventPreferencesWifi extends EventPreferences {
     static final int CTYPE_NOTCONNECTED = 2;
     static final int CTYPE_NOTINFRONT = 3;
 
-    //static final String PREF_EVENT_WIFI_ENABLE_SCANNING_APP_SETTINGS = "eventEnableWiFiScaningAppSettings";
     static final String PREF_EVENT_WIFI_ENABLED = "eventWiFiEnabled";
     private static final String PREF_EVENT_WIFI_SSID = "eventWiFiSSID";
     private static final String PREF_EVENT_WIFI_CONNECTION_TYPE = "eventWiFiConnectionType";
+    private static final String PREF_EVENT_WIFI_APP_SETTINGS = "eventEnableWiFiScaningAppSettings";
 
     private static final String PREF_EVENT_WIFI_CATEGORY = "eventWifiCategory";
 
@@ -120,13 +120,16 @@ class EventPreferencesWifi extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
-        /*if (key.equals(PREF_EVENT_WIFI_ENABLE_SCANNING_APP_SETTINGS)) {
+        if (key.equals(PREF_EVENT_WIFI_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                preference.setSummary(context.getResources().getString(R.string.menu_settings) + ": " +
-                        context.getResources().getString(R.string.phone_profiles_pref_applicationEventWifiEnableWifi));
+                if (!ApplicationPreferences.applicationEventWifiEnableScannig(context))
+                    preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
+                            context.getResources().getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary));
+                else
+                    preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary));
             }
-        }*/
+        }
         if (key.equals(PREF_EVENT_WIFI_SSID))
         {
             Preference preference = prefMng.findPreference(key);
@@ -173,7 +176,8 @@ class EventPreferencesWifi extends EventPreferences {
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_WIFI_SSID) ||
-            key.equals(PREF_EVENT_WIFI_CONNECTION_TYPE))
+            key.equals(PREF_EVENT_WIFI_CONNECTION_TYPE) ||
+            key.equals(PREF_EVENT_WIFI_APP_SETTINGS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -182,9 +186,9 @@ class EventPreferencesWifi extends EventPreferences {
     @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        //setSummary(prefMng, PREF_EVENT_WIFI_ENABLE_SCANNING_APP_SETTINGS, preferences, context);
         setSummary(prefMng, PREF_EVENT_WIFI_SSID, preferences, context);
         setSummary(prefMng, PREF_EVENT_WIFI_CONNECTION_TYPE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_WIFI_APP_SETTINGS, preferences, context);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context)
                 != PPApplication.PREFERENCE_ALLOWED)
@@ -228,17 +232,16 @@ class EventPreferencesWifi extends EventPreferences {
         return super.isRunnable(context) && (!this._SSID.isEmpty());
     }
 
-    /*
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        final boolean enabled = ApplicationPreferences.applicationEventWifiEnableScannig(context.getApplicationContext());
+        /*final boolean enabled = ApplicationPreferences.applicationEventWifiEnableScannig(context.getApplicationContext());
         Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_SSID);
-        if (preference != null) preference.setEnabled(enabled);
+        if (preference != null) preference.setEnabled(enabled);*/
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        setSummary(prefMng, PREF_EVENT_WIFI_SSID, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_WIFI_SSID, preferences, context);
+        setSummary(prefMng, PREF_EVENT_WIFI_APP_SETTINGS, preferences, context);
         setCategorySummary(prefMng, preferences, context);
     }
-    */
 
     /*
     @Override

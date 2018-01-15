@@ -23,11 +23,11 @@ class EventPreferencesBluetooth extends EventPreferences {
     static final int DTYPE_CLASSIC = 0;
     static final int DTYPE_LE = 1;
 
-    //static final String PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS = "eventEnableBluetoothScanningAppSettings";
     static final String PREF_EVENT_BLUETOOTH_ENABLED = "eventBluetoothEnabled";
     private static final String PREF_EVENT_BLUETOOTH_ADAPTER_NAME = "eventBluetoothAdapterNAME";
     private static final String PREF_EVENT_BLUETOOTH_CONNECTION_TYPE = "eventBluetoothConnectionType";
     private static final String PREF_EVENT_BLUETOOTH_DEVICES_TYPE = "eventBluetoothDevicesType";
+    private static final String PREF_EVENT_BLUETOOTH_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
 
     private static final String PREF_EVENT_BLUETOOTH_CATEGORY = "eventBluetoothCategory";
 
@@ -139,13 +139,16 @@ class EventPreferencesBluetooth extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
-        /*if (key.equals(PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS)) {
+        if (key.equals(PREF_EVENT_BLUETOOTH_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                preference.setSummary(context.getResources().getString(R.string.menu_settings) + ": " +
-                        context.getResources().getString(R.string.phone_profiles_pref_applicationEventBluetoothEnableBluetooth));
+                if (!ApplicationPreferences.applicationEventBluetoothEnableScannig(context))
+                    preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
+                            context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary));
+                else
+                    preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary));
             }
-        }*/
+        }
         if (key.equals(PREF_EVENT_BLUETOOTH_ADAPTER_NAME))
         {
             Preference preference = prefMng.findPreference(key);
@@ -219,7 +222,8 @@ class EventPreferencesBluetooth extends EventPreferences {
     {
         if (key.equals(PREF_EVENT_BLUETOOTH_ADAPTER_NAME) ||
             key.equals(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE)||
-            key.equals(PREF_EVENT_BLUETOOTH_DEVICES_TYPE))
+            key.equals(PREF_EVENT_BLUETOOTH_DEVICES_TYPE) ||
+            key.equals(PREF_EVENT_BLUETOOTH_APP_SETTINGS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -232,6 +236,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_ADAPTER_NAME, preferences, context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, preferences, context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_DEVICES_TYPE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BLUETOOTH_APP_SETTINGS, preferences, context);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
                 != PPApplication.PREFERENCE_ALLOWED)
@@ -278,17 +283,16 @@ class EventPreferencesBluetooth extends EventPreferences {
         return super.isRunnable(context) && (!this._adapterName.isEmpty());
     }
 
-    /*
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        final boolean enabled = ApplicationPreferences.applicationEventBluetoothEnableScannig(context.getApplicationContext());
-        Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
-        if (preference != null) preference.setEnabled(enabled);
+        //final boolean enabled = ApplicationPreferences.applicationEventBluetoothEnableScannig(context.getApplicationContext());
+        //Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
+        //if (preference != null) preference.setEnabled(enabled);
         SharedPreferences preferences = prefMng.getSharedPreferences();
-        setSummary(prefMng, PREF_EVENT_BLUETOOTH_ADAPTER_NAME, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_BLUETOOTH_ADAPTER_NAME, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BLUETOOTH_APP_SETTINGS, preferences, context);
         setCategorySummary(prefMng, preferences, context);
     }
-    */
 
     /*
     @Override

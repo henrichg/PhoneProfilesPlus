@@ -316,7 +316,6 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             event._eventPreferencesLocation.checkPreferences(prefMng, context);
         }
         if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {
-            //Log.d("EventPreferencesFragment.doOnActivityResult", "xxx");
             if (EventPreferencesFragment.changedLocationGeofencePreference != null) {
                 if(resultCode == Activity.RESULT_OK){
                     //long geofenceId = data.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);

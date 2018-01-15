@@ -14,6 +14,7 @@ class EventPreferencesLocation extends EventPreferences {
     static final String PREF_EVENT_LOCATION_ENABLED = "eventLocationEnabled";
     private static final String PREF_EVENT_LOCATION_GEOFENCES = "eventLocationGeofences";
     private static final String PREF_EVENT_LOCATION_WHEN_OUTSIDE = "eventLocationStartWhenOutside";
+    private static final String PREF_EVENT_LOCATION_APP_SETTINGS = "eventLocationScanningSystemSettings";
 
     private static final String PREF_EVENT_LOCATION_CATEGORY = "eventLocationCategory";
 
@@ -107,6 +108,16 @@ class EventPreferencesLocation extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_LOCATION_APP_SETTINGS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                if (!ApplicationPreferences.applicationEventLocationEnableScannig(context))
+                    preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
+                            context.getResources().getString(R.string.phone_profiles_pref_eventLocationAppSettings_summary));
+                else
+                    preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_eventLocationAppSettings_summary));
+            }
+        }
         if (key.equals(PREF_EVENT_LOCATION_GEOFENCES)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -142,7 +153,8 @@ class EventPreferencesLocation extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_LOCATION_GEOFENCES))
+        if (key.equals(PREF_EVENT_LOCATION_GEOFENCES) ||
+            key.equals(PREF_EVENT_LOCATION_APP_SETTINGS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -152,6 +164,7 @@ class EventPreferencesLocation extends EventPreferences {
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_LOCATION_GEOFENCES, preferences, context);
+        setSummary(prefMng, PREF_EVENT_LOCATION_APP_SETTINGS, preferences, context);
     }
 
     @Override
@@ -198,6 +211,7 @@ class EventPreferencesLocation extends EventPreferences {
         if (preference != null) preference.setEnabled(enabled);
         SharedPreferences preferences = prefMng.getSharedPreferences();
         setSummary(prefMng, PREF_EVENT_LOCATION_GEOFENCES, preferences, context);
+        setSummary(prefMng, PREF_EVENT_LOCATION_APP_SETTINGS, preferences, context);
         setCategorySummary(prefMng, preferences, context);
     }
 

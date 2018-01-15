@@ -28,6 +28,7 @@ class EventPreferencesOrientation extends EventPreferences {
     private static final String PREF_EVENT_ORIENTATION_DISTANCE = "eventOrientationDistance";
     private static final String PREF_EVENT_ORIENTATION_INSTALL_EXTENDER = "eventOrientationInstallExtender";
     private static final String PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS = "eventOrientationIgnoredApplications";
+    private static final String PREF_EVENT_ORIENTATION_APP_SETTINGS = "eventEnableOrientationScanningAppSettings";
 
     private static final String PREF_EVENT_ORIENTATION_CATEGORY = "eventOrientationCategory";
 
@@ -215,6 +216,16 @@ class EventPreferencesOrientation extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_ORIENTATION_APP_SETTINGS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                if (!ApplicationPreferences.applicationEventOrientationEnableScannig(context))
+                    preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
+                            context.getResources().getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary));
+                else
+                    preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary));
+            }
+        }
         if (key.equals(PREF_EVENT_ORIENTATION_DISPLAY)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -302,7 +313,8 @@ class EventPreferencesOrientation extends EventPreferences {
         }
 
         if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS) ||
-                key.equals(PREF_EVENT_ORIENTATION_INSTALL_EXTENDER))
+            key.equals(PREF_EVENT_ORIENTATION_INSTALL_EXTENDER) ||
+            key.equals(PREF_EVENT_ORIENTATION_APP_SETTINGS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -317,6 +329,7 @@ class EventPreferencesOrientation extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_ORIENTATION_DISTANCE, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_INSTALL_EXTENDER, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_ORIENTATION_APP_SETTINGS, preferences, context);
     }
 
     @Override
@@ -390,6 +403,7 @@ class EventPreferencesOrientation extends EventPreferences {
             applicationsPreference.setSummaryAMSDP();
         }
         SharedPreferences preferences = prefMng.getSharedPreferences();
+        setSummary(prefMng, PREF_EVENT_ORIENTATION_APP_SETTINGS, preferences, context);
         setCategorySummary(prefMng, preferences, context);
     }
 
