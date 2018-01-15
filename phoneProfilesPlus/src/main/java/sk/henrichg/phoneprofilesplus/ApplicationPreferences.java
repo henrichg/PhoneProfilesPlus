@@ -104,6 +104,8 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING = "applicationEventBluetoothEnableScannig";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF = "applicationEventBluetoothScanIfBluetoothOff";
     static final String PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING = "applicationEventLocationEnableScannig";
+    static final String PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING = "applicationEventMobileCellEnableScannig";
+    static final String PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING = "applicationEventOrientationEnableScannig";
 
     static SharedPreferences getSharedPreferences(Context context) {
         if (preferences == null)
@@ -502,6 +504,14 @@ class ApplicationPreferences {
 
     static boolean applicationEventLocationEnableScannig(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, true);
+    }
+
+    static boolean applicationEventMobileCellEnableScannig(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, true);
+    }
+
+    static boolean applicationEventOrientationEnableScannig(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, true);
     }
 
 }

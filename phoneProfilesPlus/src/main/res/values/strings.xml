@@ -1149,4 +1149,6 @@
     <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Scan even if Bluetooth is disabled</string>
     <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Enable location scanning</string>
     <string name="profile_preferences_applicationDisableLocationScanning">Disable location scanning</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Enable mobile cell scanning</string>
+    <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Enable orientation scanning</string>
 </resources>

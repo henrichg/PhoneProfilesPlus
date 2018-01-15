@@ -150,28 +150,30 @@ class EventPreferencesBluetooth extends EventPreferences {
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                String[] splits = value.split("\\|");
-                for (String _bluetoothName : splits) {
-                    if (_bluetoothName.isEmpty()) {
-                        preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);
-                    }
-                    else
-                    if (splits.length == 1) {
-                        if (value.equals(ALL_BLUETOOTH_NAMES_VALUE))
-                            preference.setSummary(R.string.bluetooth_name_pref_dlg_all_bt_names_chb);
-                        else
-                        if (value.equals(CONFIGURED_BLUETOOTH_NAMES_VALUE))
-                            preference.setSummary(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
-                        else
-                            preference.setSummary(_bluetoothName);
-                    }
-                    else {
-                        String selectedBluetoothNames = context.getString(R.string.applications_multiselect_summary_text_selected);
-                        selectedBluetoothNames = selectedBluetoothNames + " " + splits.length;
-                        preference.setSummary(selectedBluetoothNames);
-                        break;
-                    }
+                /*if (!ApplicationPreferences.applicationEventBluetoothEnableScannig(context.getApplicationContext())) {
+                    preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                            ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
                 }
+                else {*/
+                    String[] splits = value.split("\\|");
+                    for (String _bluetoothName : splits) {
+                        if (_bluetoothName.isEmpty()) {
+                            preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);
+                        } else if (splits.length == 1) {
+                            if (value.equals(ALL_BLUETOOTH_NAMES_VALUE))
+                                preference.setSummary(R.string.bluetooth_name_pref_dlg_all_bt_names_chb);
+                            else if (value.equals(CONFIGURED_BLUETOOTH_NAMES_VALUE))
+                                preference.setSummary(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
+                            else
+                                preference.setSummary(_bluetoothName);
+                        } else {
+                            String selectedBluetoothNames = context.getString(R.string.applications_multiselect_summary_text_selected);
+                            selectedBluetoothNames = selectedBluetoothNames + " " + splits.length;
+                            preference.setSummary(selectedBluetoothNames);
+                            break;
+                        }
+                    }
+                //}
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
         }
@@ -275,6 +277,18 @@ class EventPreferencesBluetooth extends EventPreferences {
     {
         return super.isRunnable(context) && (!this._adapterName.isEmpty());
     }
+
+    /*
+    @Override
+    public void checkPreferences(PreferenceManager prefMng, Context context) {
+        final boolean enabled = ApplicationPreferences.applicationEventBluetoothEnableScannig(context.getApplicationContext());
+        Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
+        if (preference != null) preference.setEnabled(enabled);
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setSummary(prefMng, PREF_EVENT_BLUETOOTH_ADAPTER_NAME, preferences, context);
+        setCategorySummary(prefMng, preferences, context);
+    }
+    */
 
     /*
     @Override

@@ -94,14 +94,20 @@ class EventPreferencesMobileCells extends EventPreferences {
         if (key.equals(PREF_EVENT_MOBILE_CELLS_CELLS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (value.isEmpty())
-                    preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);
-                else {
-                    String[] splits = value.split("\\|");
-                    String selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
-                    selectedCells = selectedCells + " " + splits.length;
-                    preference.setSummary(selectedCells);
+                /*if (!ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext())) {
+                    preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                            ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
                 }
+                else {*/
+                    if (value.isEmpty())
+                        preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);
+                    else {
+                        String[] splits = value.split("\\|");
+                        String selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
+                        selectedCells = selectedCells + " " + splits.length;
+                        preference.setSummary(selectedCells);
+                    }
+                //}
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
         }
@@ -160,6 +166,12 @@ class EventPreferencesMobileCells extends EventPreferences {
     /*
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
+        final boolean enabled = ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext());
+        Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELLS);
+        if (preference != null) preference.setEnabled(enabled);
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELLS, preferences, context);
+        setCategorySummary(prefMng, preferences, context);
     }
     */
 

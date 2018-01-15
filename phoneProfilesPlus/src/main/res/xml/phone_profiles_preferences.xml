@@ -330,25 +330,29 @@
             android:key="applicationEventLocationSystemSettings"
             android:title="@string/phone_profiles_pref_eventLocationSystemSettings"
             android:summary="@string/phone_profiles_pref_eventLocationSystemSettings_summary"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:dependency="applicationEventLocationEnableScannig" >
         </Preference>
         <sk.henrichg.phoneprofilesplus.LocationGeofencePreference
             android:defaultValue="0"
             android:key="applicationEventLocationsEditor"
             android:title="@string/phone_profiles_pref_applicationEventLocationsEditor"
-            henrichg:onlyEdit="1" />
+            henrichg:onlyEdit="1"
+            android:dependency="applicationEventLocationEnableScannig" />
         <Preference
             android:key="applicationEventLocationUpdateIntervalInfo"
             android:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
-            android:widgetLayout="@layout/exclamation_preference" />
+            android:widgetLayout="@layout/exclamation_preference"
+            android:dependency="applicationEventLocationEnableScannig" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationEventLocationUpdateInterval"
             android:summary="@string/phone_profiles_pref_applicationEventLocationScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
             android:defaultValue="15"
             henrichg:min="1"
-            henrichg:max="300" />
+            henrichg:max="300"
+            android:dependency="applicationEventLocationEnableScannig" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationEventLocationUpdateInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventLocationScanInPowerSaveMode"
@@ -356,12 +360,14 @@
             android:defaultValue="1"
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
-            app:useStockLayout="true" />
+            app:useStockLayout="true"
+            android:dependency="applicationEventLocationEnableScannig" />
         <CheckBoxPreference
             android:key="applicationEventLocationScanOnlyWhenScreenIsOn"
             android:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
             android:defaultValue="false"
-            android:widgetLayout="@layout/mp_preference_switch" />
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:dependency="applicationEventLocationEnableScannig" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventLocationRescan"
             android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
@@ -369,12 +375,14 @@
             android:defaultValue="1"
             android:entries="@array/applicationEventRescanArray"
             android:entryValues="@array/applicationEventRescanValues"
-            app:useStockLayout="true" />
+            app:useStockLayout="true"
+            android:dependency="applicationEventLocationEnableScannig" />
         <CheckBoxPreference
             android:key="applicationEventLocationUseGPS"
             android:title="@string/phone_profiles_pref_applicationEventLocationsUseGPS"
             android:defaultValue="false"
-            android:widgetLayout="@layout/mp_preference_switch" />
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:dependency="applicationEventLocationEnableScannig" />
     </PreferenceScreen>
 
     <PreferenceScreen
@@ -390,31 +398,36 @@
             android:key="applicationEventWiFiLocationSystemSettings"
             android:title="@string/phone_profiles_pref_eventLocationSystemSettings"
             android:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:dependency="applicationEventWifiEnableScannig" >
         </Preference>
         <Preference
             android:key="applicationEventWiFiKeepOnSystemSettings"
             android:title="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings"
             android:summary="@string/phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:dependency="applicationEventWifiEnableScannig" >
         </Preference>
         <CheckBoxPreference
             android:key="applicationEventWifiScanIfWifiOff"
             android:title="@string/phone_profiles_pref_applicationEventWifiScanIfWifiOff"
             android:defaultValue="true"
-            android:widgetLayout="@layout/mp_preference_switch" />
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:dependency="applicationEventWifiEnableScannig" />
         <Preference
             android:key="applicationEventWifiScanIntervalInfo"
             android:title="@string/phone_profiles_pref_applicationEventWifiScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
-            android:widgetLayout="@layout/exclamation_preference" />
+            android:widgetLayout="@layout/exclamation_preference"
+            android:dependency="applicationEventWifiEnableScannig" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationEventWifiScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventWifiScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventWifiScanInterval" 
             android:defaultValue="15"
             henrichg:min="1"
-            henrichg:max="300" />
+            henrichg:max="300"
+            android:dependency="applicationEventWifiEnableScannig" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationEventWifiScanInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventWifiScanInPowerSaveMode"
@@ -422,12 +435,14 @@
             android:defaultValue="1"
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
-            app:useStockLayout="true" />
+            app:useStockLayout="true"
+            android:dependency="applicationEventWifiEnableScannig" />
         <CheckBoxPreference
             android:key="applicationEventWifiScanOnlyWhenScreenIsOn"
             android:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
             android:defaultValue="false"
-            android:widgetLayout="@layout/mp_preference_switch" />
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:dependency="applicationEventWifiEnableScannig" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventWifiRescan"
             android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
@@ -435,7 +450,8 @@
             android:defaultValue="1"
             android:entries="@array/applicationEventRescanArray"
             android:entryValues="@array/applicationEventRescanValues"
-            app:useStockLayout="true" />
+            app:useStockLayout="true"
+            android:dependency="applicationEventWifiEnableScannig" />
     </PreferenceScreen>
 
     <PreferenceScreen
@@ -451,32 +467,37 @@
             android:key="applicationEventBluetoothLocationSystemSettings"
             android:title="@string/phone_profiles_pref_eventLocationSystemSettings"
             android:summary="@string/phone_profiles_pref_eventBluetoothLocationSystemSettings_summary"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:dependency="applicationEventBluetoothEnableScannig" >
         </Preference>
         <CheckBoxPreference
             android:key="applicationEventBluetoothScanIfBluetoothOff"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff"
             android:defaultValue="true"
-            android:widgetLayout="@layout/mp_preference_switch" />
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:dependency="applicationEventBluetoothEnableScannig" />
         <Preference
             android:key="applicationEventBluetoothScanIntervalInfo"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
-            android:widgetLayout="@layout/exclamation_preference" />
+            android:widgetLayout="@layout/exclamation_preference"
+            android:dependency="applicationEventBluetoothEnableScannig" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationEventBluetoothScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
             android:defaultValue="15"
             henrichg:min="1"
-            henrichg:max="300" />
+            henrichg:max="300"
+            android:dependency="applicationEventBluetoothEnableScannig" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationEventBluetoothLEScanDuration"
             android:summary="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
             android:defaultValue="10"
             henrichg:min="5"
-            henrichg:max="30" />
+            henrichg:max="30"
+            android:dependency="applicationEventBluetoothEnableScannig" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationEventBluetoothScanInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode"
@@ -484,12 +505,14 @@
             android:defaultValue="1"
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
-            app:useStockLayout="true" />
+            app:useStockLayout="true"
+            android:dependency="applicationEventBluetoothEnableScannig" />
         <CheckBoxPreference
             android:key="applicationEventBluetoothScanOnlyWhenScreenIsOn"
             android:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
             android:defaultValue="false"
-            android:widgetLayout="@layout/mp_preference_switch" />
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:dependency="applicationEventBluetoothEnableScannig" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventBluetoothRescan"
             android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
@@ -497,20 +520,27 @@
             android:defaultValue="1"
             android:entries="@array/applicationEventRescanArray"
             android:entryValues="@array/applicationEventRescanValues"
-            app:useStockLayout="true" />
+            app:useStockLayout="true"
+            android:dependency="applicationEventBluetoothEnableScannig" />
     </PreferenceScreen>
 
     <PreferenceScreen
         android:key="mobileCellsScanningCategory"
         android:title="@string/phone_profiles_pref_category_mobile_cells_scanning"
         android:widgetLayout="@layout/start_activity_preference">
+        <CheckBoxPreference
+            android:key="applicationEventMobileCellEnableScannig"
+            android:title="@string/phone_profiles_pref_applicationEventMobileCellEnableScanning"
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <sk.henrichg.phoneprofilesplus.MobileCellsRegistrationDialogPreference
             android:key="applicationEventMobileCellsRegistration"
             android:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
             android:title="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
             android:defaultValue="0"
             henrichg:dMin="0"
-            henrichg:dMax="86400" />
+            henrichg:dMax="86400"
+            android:dependency="applicationEventMobileCellEnableScannig" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationEventMobileCellScanInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode"
@@ -518,12 +548,14 @@
             android:defaultValue="1"
             android:entries="@array/scanInPowerSaveModeMobileCellsArray"
             android:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
-            app:useStockLayout="true" />
+            app:useStockLayout="true"
+            android:dependency="applicationEventMobileCellEnableScannig" />
         <CheckBoxPreference
             android:key="applicationEventMobileCellScanOnlyWhenScreenIsOn"
             android:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
             android:defaultValue="false"
-            android:widgetLayout="@layout/mp_preference_switch" />
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:dependency="applicationEventMobileCellEnableScannig" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventMobileCellsRescan"
             android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
@@ -531,25 +563,33 @@
             android:defaultValue="1"
             android:entries="@array/applicationEventRescanArray"
             android:entryValues="@array/applicationEventRescanValues"
-            app:useStockLayout="true" />
+            app:useStockLayout="true"
+            android:dependency="applicationEventMobileCellEnableScannig" />
     </PreferenceScreen>
 
     <PreferenceScreen
         android:key="orientationScanningCategory"
         android:title="@string/phone_profiles_pref_category_orientation_scanning"
         android:widgetLayout="@layout/start_activity_preference">
+        <CheckBoxPreference
+            android:key="applicationEventOrientationEnableScannig"
+            android:title="@string/phone_profiles_pref_applicationEventOrientationEnableScanning"
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <Preference
             android:key="applicationEventOrientationScanIntervalInfo"
             android:title="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
-            android:widgetLayout="@layout/exclamation_preference" />
+            android:widgetLayout="@layout/exclamation_preference"
+            android:dependency="applicationEventOrientationEnableScannig" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             android:key="applicationEventOrientationScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
             android:defaultValue="10"
             henrichg:min="5"
-            henrichg:max="60" />
+            henrichg:max="60"
+            android:dependency="applicationEventOrientationEnableScannig" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationEventOrientationScanInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode"
@@ -557,12 +597,14 @@
             android:defaultValue="1"
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
-            app:useStockLayout="true" />
+            app:useStockLayout="true"
+            android:dependency="applicationEventOrientationEnableScannig" />
         <CheckBoxPreference
             android:key="applicationEventOrientationScanOnlyWhenScreenIsOn"
             android:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
             android:defaultValue="true"
-            android:widgetLayout="@layout/mp_preference_switch" />
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:dependency="applicationEventOrientationEnableScannig" />
     </PreferenceScreen>
 
     <PreferenceScreen

@@ -40,6 +40,8 @@ class PhoneStateScanner extends PhoneStateListener {
     int registeredCell = Integer.MAX_VALUE;
     long lastConnectedTime = 0;
 
+    static boolean forceStart = false;
+
     static boolean enabledAutoRegistration = false;
     static int durationForAutoRegistration = 0;
     static String cellsNameForAutoRegistration = "";
@@ -341,9 +343,11 @@ class PhoneStateScanner extends PhoneStateListener {
     }
 
     void rescanMobileCells() {
-        getRegisteredCell();
-        doAutoRegistration();
-        sendBroadcast();
+        if (ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext()) || PhoneStateScanner.forceStart) {
+            getRegisteredCell();
+            doAutoRegistration();
+            sendBroadcast();
+        }
     }
 
     private void sendBroadcast() {

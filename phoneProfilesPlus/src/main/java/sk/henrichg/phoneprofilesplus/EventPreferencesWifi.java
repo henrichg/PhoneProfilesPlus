@@ -131,28 +131,30 @@ class EventPreferencesWifi extends EventPreferences {
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                String[] splits = value.split("\\|");
-                for (String _ssid : splits) {
-                    if (_ssid.isEmpty()) {
-                        preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);
-                    }
-                    else
-                    if (splits.length == 1) {
-                        if (_ssid.equals(ALL_SSIDS_VALUE))
-                            preference.setSummary(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
-                        else
-                        if (_ssid.equals(CONFIGURED_SSIDS_VALUE))
-                            preference.setSummary(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
-                        else
-                            preference.setSummary(_ssid);
-                    }
-                    else {
-                        String selectedSSIDs = context.getString(R.string.applications_multiselect_summary_text_selected);
-                        selectedSSIDs = selectedSSIDs + " " + splits.length;
-                        preference.setSummary(selectedSSIDs);
-                        break;
-                    }
+                /*if (!ApplicationPreferences.applicationEventWifiEnableScannig(context.getApplicationContext())) {
+                    preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                            ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
                 }
+                else {*/
+                    String[] splits = value.split("\\|");
+                    for (String _ssid : splits) {
+                        if (_ssid.isEmpty()) {
+                            preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);
+                        } else if (splits.length == 1) {
+                            if (_ssid.equals(ALL_SSIDS_VALUE))
+                                preference.setSummary(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
+                            else if (_ssid.equals(CONFIGURED_SSIDS_VALUE))
+                                preference.setSummary(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+                            else
+                                preference.setSummary(_ssid);
+                        } else {
+                            String selectedSSIDs = context.getString(R.string.applications_multiselect_summary_text_selected);
+                            selectedSSIDs = selectedSSIDs + " " + splits.length;
+                            preference.setSummary(selectedSSIDs);
+                            break;
+                        }
+                    }
+                //}
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
         }
@@ -225,6 +227,18 @@ class EventPreferencesWifi extends EventPreferences {
     {
         return super.isRunnable(context) && (!this._SSID.isEmpty());
     }
+
+    /*
+    @Override
+    public void checkPreferences(PreferenceManager prefMng, Context context) {
+        final boolean enabled = ApplicationPreferences.applicationEventWifiEnableScannig(context.getApplicationContext());
+        Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_SSID);
+        if (preference != null) preference.setEnabled(enabled);
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setSummary(prefMng, PREF_EVENT_WIFI_SSID, preferences, context);
+        setCategorySummary(prefMng, preferences, context);
+    }
+    */
 
     /*
     @Override

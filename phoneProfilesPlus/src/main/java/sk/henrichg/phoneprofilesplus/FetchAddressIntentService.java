@@ -32,6 +32,7 @@ public class FetchAddressIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         CallsCounter.logCounter(getApplicationContext(), "FetchAddressIntentService.onHandleIntent", "FetchAddressIntentService_onHandleIntent");
+        //Log.e("FetchAddressIntentService.onHandleIntent","xxx");
 
         if (intent == null) return;
 
@@ -41,7 +42,7 @@ public class FetchAddressIntentService extends IntentService {
 
         // Check if receiver was properly registered.
         if (mReceiver == null) {
-            Log.wtf("FetchAddressIntentService", "No receiver received. There is nowhere to send the results.");
+            Log.e("FetchAddressIntentService", "No receiver received. There is nowhere to send the results.");
             return;
         }
 
@@ -52,7 +53,7 @@ public class FetchAddressIntentService extends IntentService {
         // Make sure that the location data was really sent over through an extra. If it wasn't,
         // send an error error message and return.
         if (location == null) {
-            Log.wtf("FetchAddressIntentService", errorMessage);
+            Log.e("FetchAddressIntentService", errorMessage);
             deliverResultToReceiver(LocationGeofenceEditorActivity.FAILURE_RESULT, "No location data provided");
             return;
         }
@@ -88,14 +89,17 @@ public class FetchAddressIntentService extends IntentService {
                     getApplicationContext().getString(R.string.event_preferences_location_no_address_found));
         } else {
             Address address = addresses.get(0);
+            //Log.e("FetchAddressIntentService", "address="+address);
+            //Log.e("FetchAddressIntentService", "getMaxAddressLineIndex()="+address.getMaxAddressLineIndex());
             ArrayList<String> addressFragments = new ArrayList<>();
 
             // Fetch the address lines using getAddressLine,
             // join them, and send them to the thread.
-            for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+            for(int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
+                //Log.e("FetchAddressIntentService", "adressLine="+address.getAddressLine(i));
                 addressFragments.add(address.getAddressLine(i));
             }
-            Log.i("FetchAddressIntentService", "Address found");
+            //Log.e("FetchAddressIntentService", "Address found");
             deliverResultToReceiver(LocationGeofenceEditorActivity.SUCCESS_RESULT,
                     TextUtils.join(System.getProperty("line.separator"), addressFragments));
         }

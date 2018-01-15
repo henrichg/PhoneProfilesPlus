@@ -1928,30 +1928,21 @@ public class ActivateProfileHelper {
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, profile._applicationDisableWifiScanning == 2);
             editor.apply();
+            PPApplication.restartWifiScanner(context, false);
         }
         if (profile._applicationDisableBluetoothScanning != 0) {
             ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, profile._applicationDisableBluetoothScanning == 2);
             editor.apply();
+            PPApplication.restartBluetoothScanner(context, false);
         }
         if (profile._applicationDisableLocationScanning != 0) {
             ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, profile._applicationDisableLocationScanning == 2);
             editor.apply();
-
-            Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
-            if (profile._applicationDisableLocationScanning == 1)
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_STOP_LOCATION_UPDATES, true);
-            else
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_LOCATION_UPDATES, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            //TODO Android O
-            //if (Build.VERSION.SDK_INT < 26)
-            context.startService(serviceIntent);
-            //else
-            //    context.startForegroundService(serviceIntent);
+            PPApplication.restartGeofenceScanner(context, false);
         }
 
         PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);

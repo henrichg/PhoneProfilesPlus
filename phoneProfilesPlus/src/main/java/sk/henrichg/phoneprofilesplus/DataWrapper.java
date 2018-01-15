@@ -2048,70 +2048,73 @@ public class DataWrapper {
             if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT) ||
                 (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))
             {
-                if (!done)
-                {
-                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    if (!pm.isScreenOn() && ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(context)) {
-                        // ignore for screen Off
+                if (!done) {
+                    if (!ApplicationPreferences.applicationEventWifiEnableScannig(context)) {
+                        // ignore for disabled scanning
                         ignoreWifi = true;
-                    }
-                    else {
+                    } else {
+                        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                        if (!pm.isScreenOn() && ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(context)) {
+                            // ignore for screen Off
+                            ignoreWifi = true;
+                        } else {
 
-                        wifiPassed = false;
+                            wifiPassed = false;
 
-                        List<WifiSSIDData> scanResults = WifiScanJob.getScanResults(context);
+                            List<WifiSSIDData> scanResults = WifiScanJob.getScanResults(context);
 
-                        //PPApplication.logE("----- DataWrapper.doHandleEvents","scanResults="+scanResults);
+                            //PPApplication.logE("----- DataWrapper.doHandleEvents","scanResults="+scanResults);
 
-                        if (scanResults != null) {
-                            PPApplication.logE("----- DataWrapper.doHandleEvents", "scanResults != null");
-                            PPApplication.logE("----- DataWrapper.doHandleEvents", "scanResults.size=" + scanResults.size());
-                            //PPApplication.logE("----- DataWrapper.doHandleEvents","-- eventSSID="+event._eventPreferencesWifi._SSID);
+                            if (scanResults != null) {
+                                PPApplication.logE("----- DataWrapper.doHandleEvents", "scanResults != null");
+                                PPApplication.logE("----- DataWrapper.doHandleEvents", "scanResults.size=" + scanResults.size());
+                                //PPApplication.logE("----- DataWrapper.doHandleEvents","-- eventSSID="+event._eventPreferencesWifi._SSID);
 
-                            for (WifiSSIDData result : scanResults) {
-                                PPApplication.logE("----- DataWrapper.doHandleEvents", "scanSSID=" + result.ssid);
-                                PPApplication.logE("----- DataWrapper.doHandleEvents", "scanBSSID=" + result.bssid);
-                                String[] splits = event._eventPreferencesWifi._SSID.split("\\|");
-                                for (String _ssid : splits) {
-                                    if (_ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
-                                        PPApplication.logE("----- DataWrapper.doHandleEvents", "all ssids");
-                                        wifiPassed = true;
-                                        break;
-                                    } else if (_ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE)) {
-                                        PPApplication.logE("----- DataWrapper.doHandleEvents", "configured ssids");
-                                        for (WifiSSIDData data : wifiConfigurationList) {
-                                            PPApplication.logE("----- DataWrapper.doHandleEvents", "configured SSID=" + data.ssid.replace("\"", ""));
-                                            if (WifiScanJob.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
+                                for (WifiSSIDData result : scanResults) {
+                                    PPApplication.logE("----- DataWrapper.doHandleEvents", "scanSSID=" + result.ssid);
+                                    PPApplication.logE("----- DataWrapper.doHandleEvents", "scanBSSID=" + result.bssid);
+                                    String[] splits = event._eventPreferencesWifi._SSID.split("\\|");
+                                    for (String _ssid : splits) {
+                                        if (_ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
+                                            PPApplication.logE("----- DataWrapper.doHandleEvents", "all ssids");
+                                            wifiPassed = true;
+                                            break;
+                                        } else if (_ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE)) {
+                                            PPApplication.logE("----- DataWrapper.doHandleEvents", "configured ssids");
+                                            for (WifiSSIDData data : wifiConfigurationList) {
+                                                PPApplication.logE("----- DataWrapper.doHandleEvents", "configured SSID=" + data.ssid.replace("\"", ""));
+                                                if (WifiScanJob.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
+                                                    PPApplication.logE("----- DataWrapper.doHandleEvents", "wifi found");
+                                                    wifiPassed = true;
+                                                    break;
+                                                }
+                                            }
+                                            if (wifiPassed)
+                                                break;
+                                        } else {
+                                            PPApplication.logE("----- DataWrapper.doHandleEvents", "event SSID=" + event._eventPreferencesWifi._SSID);
+                                            if (WifiScanJob.compareSSID(result, _ssid, wifiConfigurationList)) {
                                                 PPApplication.logE("----- DataWrapper.doHandleEvents", "wifi found");
                                                 wifiPassed = true;
                                                 break;
                                             }
                                         }
-                                        if (wifiPassed)
-                                            break;
-                                    } else {
-                                        PPApplication.logE("----- DataWrapper.doHandleEvents", "event SSID=" + event._eventPreferencesWifi._SSID);
-                                        if (WifiScanJob.compareSSID(result, _ssid, wifiConfigurationList)) {
-                                            PPApplication.logE("----- DataWrapper.doHandleEvents", "wifi found");
-                                            wifiPassed = true;
-                                            break;
-                                        }
                                     }
+                                    if (wifiPassed)
+                                        break;
                                 }
-                                if (wifiPassed)
-                                    break;
-                            }
 
-                            PPApplication.logE("----- DataWrapper.doHandleEvents", "wifiPassed=" + wifiPassed);
+                                PPApplication.logE("----- DataWrapper.doHandleEvents", "wifiPassed=" + wifiPassed);
 
-                            if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT)
-                                // if wifi is not in front of event SSID, then passed
-                                wifiPassed = !wifiPassed;
+                                if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT)
+                                    // if wifi is not in front of event SSID, then passed
+                                    wifiPassed = !wifiPassed;
 
-                            PPApplication.logE("----- DataWrapper.doHandleEvents", "wifiPassed=" + wifiPassed);
+                                PPApplication.logE("----- DataWrapper.doHandleEvents", "wifiPassed=" + wifiPassed);
 
-                        } else
-                            PPApplication.logE("----- DataWrapper.doHandleEvents", "scanResults == null");
+                            } else
+                                PPApplication.logE("----- DataWrapper.doHandleEvents", "scanResults == null");
+                        }
                     }
                 }
             }
@@ -2259,80 +2262,85 @@ public class DataWrapper {
                 (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))
             {
                 if (!done) {
-                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    if (!pm.isScreenOn() && ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(context)) {
-                        // ignore for screen Off
+                    if (!ApplicationPreferences.applicationEventBluetoothEnableScannig(context)) {
+                        // ignore for disabled scanning
                         ignoreBluetooth = true;
                     }
                     else {
-                        bluetoothPassed = false;
+                        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                        if (!pm.isScreenOn() && ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(context)) {
+                            // ignore for screen Off
+                            ignoreBluetooth = true;
+                        } else {
+                            bluetoothPassed = false;
 
-                        List<BluetoothDeviceData> scanResults = BluetoothScanJob.getScanResults(context);
+                            List<BluetoothDeviceData> scanResults = BluetoothScanJob.getScanResults(context);
 
-                        if (scanResults != null) {
-                            //PPApplication.logE("@@@ DataWrapper.doHandleEvents","-- eventAdapterName="+event._eventPreferencesBluetooth._adapterName);
+                            if (scanResults != null) {
+                                //PPApplication.logE("@@@ DataWrapper.doHandleEvents","-- eventAdapterName="+event._eventPreferencesBluetooth._adapterName);
 
-                            for (BluetoothDeviceData device : scanResults) {
-                                String[] splits = event._eventPreferencesBluetooth._adapterName.split("\\|");
-                                for (String _bluetoothName : splits) {
-                                    if (_bluetoothName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE)) {
-                                        bluetoothPassed = true;
-                                        break;
-                                    } else if (_bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
-                                        for (BluetoothDeviceData data : boundedDevicesList) {
-                                            String _device = device.getName().toUpperCase();
-                                            String _adapterName = data.getName().toUpperCase();
-                                            if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
-                                                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth found");
-                                                //PPApplication.logE("@@@ DataWrapper.doHandleEvents","bluetoothAdapterName="+device.getName());
-                                                //PPApplication.logE("@@@ DataWrapper.doHandleEvents","bluetoothAddress="+device.getAddress());
-                                                bluetoothPassed = true;
-                                                break;
-                                            }
-                                        }
-                                        if (bluetoothPassed)
+                                for (BluetoothDeviceData device : scanResults) {
+                                    String[] splits = event._eventPreferencesBluetooth._adapterName.split("\\|");
+                                    for (String _bluetoothName : splits) {
+                                        if (_bluetoothName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE)) {
+                                            bluetoothPassed = true;
                                             break;
-                                    } else {
-                                        String _device = device.getName().toUpperCase();
-                                        if ((device.getName() == null) || device.getName().isEmpty()) {
-                                            // scanned device has not name (hidden BT?)
-                                            if ((device.getAddress() != null) && (!device.getAddress().isEmpty())) {
-                                                // device has address
-                                                for (BluetoothDeviceData data : boundedDevicesList) {
-                                                    if ((data.getAddress() != null) && data.getAddress().equals(device.getAddress())) {
-                                                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth found");
-                                                        //PPApplication.logE("@@@ DataWrapper.doHandleEvents","bluetoothAdapterName="+device.getName());
-                                                        //PPApplication.logE("@@@ DataWrapper.doHandleEvents","bluetoothAddress="+device.getAddress());
-                                                        bluetoothPassed = true;
-                                                        break;
-                                                    }
+                                        } else if (_bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
+                                            for (BluetoothDeviceData data : boundedDevicesList) {
+                                                String _device = device.getName().toUpperCase();
+                                                String _adapterName = data.getName().toUpperCase();
+                                                if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
+                                                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth found");
+                                                    //PPApplication.logE("@@@ DataWrapper.doHandleEvents","bluetoothAdapterName="+device.getName());
+                                                    //PPApplication.logE("@@@ DataWrapper.doHandleEvents","bluetoothAddress="+device.getAddress());
+                                                    bluetoothPassed = true;
+                                                    break;
                                                 }
                                             }
-                                        } else {
-                                            String _adapterName = _bluetoothName.toUpperCase();
-                                            if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
-                                                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth found");
-                                                //PPApplication.logE("@@@ DataWrapper.doHandleEvents","bluetoothAdapterName="+device.getName());
-                                                //PPApplication.logE("@@@ DataWrapper.doHandleEvents","bluetoothAddress="+device.getAddress());
-                                                bluetoothPassed = true;
+                                            if (bluetoothPassed)
                                                 break;
+                                        } else {
+                                            String _device = device.getName().toUpperCase();
+                                            if ((device.getName() == null) || device.getName().isEmpty()) {
+                                                // scanned device has not name (hidden BT?)
+                                                if ((device.getAddress() != null) && (!device.getAddress().isEmpty())) {
+                                                    // device has address
+                                                    for (BluetoothDeviceData data : boundedDevicesList) {
+                                                        if ((data.getAddress() != null) && data.getAddress().equals(device.getAddress())) {
+                                                            PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth found");
+                                                            //PPApplication.logE("@@@ DataWrapper.doHandleEvents","bluetoothAdapterName="+device.getName());
+                                                            //PPApplication.logE("@@@ DataWrapper.doHandleEvents","bluetoothAddress="+device.getAddress());
+                                                            bluetoothPassed = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            } else {
+                                                String _adapterName = _bluetoothName.toUpperCase();
+                                                if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
+                                                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth found");
+                                                    //PPApplication.logE("@@@ DataWrapper.doHandleEvents","bluetoothAdapterName="+device.getName());
+                                                    //PPApplication.logE("@@@ DataWrapper.doHandleEvents","bluetoothAddress="+device.getAddress());
+                                                    bluetoothPassed = true;
+                                                    break;
+                                                }
                                             }
                                         }
                                     }
+                                    if (bluetoothPassed)
+                                        break;
                                 }
-                                if (bluetoothPassed)
-                                    break;
-                            }
 
-                            if (!bluetoothPassed)
-                                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth not found");
+                                if (!bluetoothPassed)
+                                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth not found");
 
-                            if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT)
-                                // if bluetooth is not in front of event BT adapter name, then passed
-                                bluetoothPassed = !bluetoothPassed;
-                        } else
-                            PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "scanResults == null");
+                                if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT)
+                                    // if bluetooth is not in front of event BT adapter name, then passed
+                                    bluetoothPassed = !bluetoothPassed;
+                            } else
+                                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "scanResults == null");
 
+                        }
                     }
                 }
             }
@@ -2472,39 +2480,45 @@ public class DataWrapper {
                 (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event, null))
         {
-            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            if (!pm.isScreenOn() && ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context)) {
-                // ignore for screen Off
-                PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents","ignore for screen off");
+            if (!ApplicationPreferences.applicationEventLocationEnableScannig(context)) {
+                // ignore for disabled location scanner
+                PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "ignore for disabled scanner");
                 ignoreLocation = true;
             }
-            else {
-                synchronized (PPApplication.geofenceScannerMutex) {
-                    if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted() &&
-                            PhoneProfilesService.getGeofencesScanner().mTransitionsUpdated) {
-                        locationPassed = false;
+            else{
+                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                if (!pm.isScreenOn() && ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context)) {
+                    // ignore for screen Off
+                    PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "ignore for screen off");
+                    ignoreLocation = true;
+                } else {
+                    synchronized (PPApplication.geofenceScannerMutex) {
+                        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted() &&
+                                PhoneProfilesService.getGeofencesScanner().mTransitionsUpdated) {
+                            locationPassed = false;
 
-                        String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
-                        PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents","geofences="+event._eventPreferencesLocation._geofences);
-                        for (String _geofence : splits) {
-                            if (!_geofence.isEmpty()) {
-                                PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents","geofence="+getDatabaseHandler().getGeofenceName(Long.valueOf(_geofence)));
+                            String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
+                            PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "geofences=" + event._eventPreferencesLocation._geofences);
+                            for (String _geofence : splits) {
+                                if (!_geofence.isEmpty()) {
+                                    PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "geofence=" + getDatabaseHandler().getGeofenceName(Long.valueOf(_geofence)));
 
-                                int geofenceTransition = getDatabaseHandler().getGeofenceTransition(Long.valueOf(_geofence));
-                                PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents","geofenceTransition="+geofenceTransition);
+                                    int geofenceTransition = getDatabaseHandler().getGeofenceTransition(Long.valueOf(_geofence));
+                                    PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "geofenceTransition=" + geofenceTransition);
 
-                                if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
-                                    locationPassed = true;
-                                    break;
+                                    if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
+                                        locationPassed = true;
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                        PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents","locationPassed="+locationPassed);
+                            PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "locationPassed=" + locationPassed);
 
-                        if (event._eventPreferencesLocation._whenOutside)
-                            locationPassed = !locationPassed;
-                    } else {
-                        ignoreLocation = true;
+                            if (event._eventPreferencesLocation._whenOutside)
+                                locationPassed = !locationPassed;
+                        } else {
+                            ignoreLocation = true;
+                        }
                     }
                 }
             }
@@ -2522,6 +2536,10 @@ public class DataWrapper {
                 (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) &&
                 (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                 // ignore changes during call
+                ignoreOrientation = true;
+            }
+            else
+            if (!ApplicationPreferences.applicationEventOrientationEnableScannig(context)) {
                 ignoreOrientation = true;
             }
             else
@@ -2629,33 +2647,36 @@ public class DataWrapper {
                 (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event, null))
         {
-            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            if (!pm.isScreenOn() && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(context)) {
-                // ignore for screen Off
+            if (!ApplicationPreferences.applicationEventMobileCellEnableScannig(context)) {
                 ignoreMobileCell = true;
             }
             else {
-                synchronized (PPApplication.phoneStateScannerMutex) {
-                    if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
-                        String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
-                        if (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE) {
-                            String registeredCell = Integer.toString(PhoneProfilesService.phoneStateScanner.registeredCell);
-                            boolean found = false;
-                            for (String cell : splits) {
-                                if (cell.equals(registeredCell)) {
-                                    found = true;
-                                    break;
+                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                if (!pm.isScreenOn() && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(context)) {
+                    // ignore for screen Off
+                    ignoreMobileCell = true;
+                } else {
+                    synchronized (PPApplication.phoneStateScannerMutex) {
+                        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
+                            String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
+                            if (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE) {
+                                String registeredCell = Integer.toString(PhoneProfilesService.phoneStateScanner.registeredCell);
+                                boolean found = false;
+                                for (String cell : splits) {
+                                    if (cell.equals(registeredCell)) {
+                                        found = true;
+                                        break;
+                                    }
                                 }
-                            }
-                            mobileCellPassed = found;
-                        }
-                        else
-                            ignoreMobileCell = true;
+                                mobileCellPassed = found;
+                            } else
+                                ignoreMobileCell = true;
 
-                        if (event._eventPreferencesMobileCells._whenOutside)
-                            mobileCellPassed = !mobileCellPassed;
-                    } else
-                        ignoreMobileCell = true;
+                            if (event._eventPreferencesMobileCells._whenOutside)
+                                mobileCellPassed = !mobileCellPassed;
+                        } else
+                            ignoreMobileCell = true;
+                    }
                 }
             }
         }
