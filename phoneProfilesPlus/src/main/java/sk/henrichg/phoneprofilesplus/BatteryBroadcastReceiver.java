@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -13,15 +14,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
     static boolean isCharging = false;
     static int batteryPct = -100;
-    static boolean batteryLow = false;
-    static boolean batteryOK = false;
-
-    /*
-    public static final String EXTRA_IS_CHARGING = "isCharging";
-    public static final String EXTRA_BATTERY_PCT = "batteryPct";
-    public static final String EXTRA_STATUS_RECEIVED = "statusReceived";
-    public static final String EXTRA_LEVEL_RECEIVED = "levelReceived";
-    */
+    //static boolean batteryLow = false;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -45,17 +38,43 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             _isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                     status == BatteryManager.BATTERY_STATUS_FULL;
         }
+        /*else {
+            IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+            Intent batteryStatus = context.registerReceiver(null, ifilter);
+            if (batteryStatus != null) {
+                status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+                if (status != -1) {
+                    statusReceived = true;
+                    _isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                            status == BatteryManager.BATTERY_STATUS_FULL;
+                }
+            }
+        }*/
 
         boolean levelReceived = false;
         int pct = -100;
         int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = 0;
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "level=" + level);
         if (level != -1) {
             levelReceived = true;
-            int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+            scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
             pct = Math.round(level / (float) scale * 100);
         }
+        /*else {
+            IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+            Intent batteryStatus = context.registerReceiver(null, ifilter);
+            if (batteryStatus != null) {
+                level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+                if (level != -1) {
+                    levelReceived = true;
+                    scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+                    pct = Math.round(level / (float) scale * 100);
+                }
+            }
+        }*/
 
+        //int _batteryLow = -1;
         String action = intent.getAction();
         if (action != null) {
             if (action.equals(Intent.ACTION_POWER_CONNECTED)) {
@@ -64,33 +83,42 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             } else if (action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
                 statusReceived = true;
                 _isCharging = false;
-            }
+            } /*else if (action.equals(Intent.ACTION_BATTERY_LOW)) {
+                statusReceived = true;
+                _batteryLow = 1;
+            } else if (action.equals(Intent.ACTION_BATTERY_OKAY)) {
+                statusReceived = true;
+                _batteryLow = 0;
+            }*/
         }
 
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "action=" + action);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "isCharging=" + isCharging);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_isCharging=" + _isCharging);
+        //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryLow=" + batteryLow);
+        //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_batteryLow=" + _batteryLow);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryPct=" + batteryPct);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "pct=" + pct);
 
-        if ((statusReceived && (isCharging != _isCharging)) || (levelReceived && (batteryPct != pct))) {
+        /* In Samsung S8 lowLevel is configured to 105 :-(
+        int _level = appContext.getResources().getInteger(com.android.internal.R.integer.config_lowBatteryWarningLevel);
+        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "lowLevel=" + Math.round(_level / (float) scale * 100));
+        */
+
+        if ((statusReceived && (isCharging != _isCharging)) ||
+                //(statusReceived && (_batteryLow != -1) && (batteryLow != (_batteryLow == 1))) ||
+                (levelReceived && (batteryPct != pct))) {
             PPApplication.logE("BatteryBroadcastReceiver.onReceive", "state changed");
 
-            if (statusReceived)
+            if (statusReceived) {
                 isCharging = _isCharging;
+                //if (_batteryLow != -1)
+                //    batteryLow = (_batteryLow == 1);
+            }
             if (levelReceived)
                 batteryPct = pct;
 
             //BatteryJob.start(appContext, isCharging, batteryPct, statusReceived, levelReceived);
-
-            Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            //TODO Android O
-            //if (Build.VERSION.SDK_INT < 26)
-            appContext.startService(serviceIntent);
-            //else
-            //    context.startForegroundService(serviceIntent);
 
             if (Event.getGlobalEventsRunning(appContext)) {
                 PPApplication.startHandlerThread();
