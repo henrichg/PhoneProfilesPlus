@@ -36,7 +36,6 @@ import android.nfc.NfcAdapter;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.Vibrator;
@@ -64,8 +63,6 @@ public class PhoneProfilesService extends Service
 {
     public static PhoneProfilesService instance = null;
     private static boolean serviceRunning = false;
-
-    public static HandlerThread handlerThread = null;
 
     private static KeyguardManager keyguardManager = null;
     @SuppressWarnings("deprecation")
@@ -212,8 +209,6 @@ public class PhoneProfilesService extends Service
             //e.printStackTrace();
         }
 
-        startHandlerThread();
-
         /*
         ApplicationPreferences.getSharedPreferences(appContext);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
@@ -264,25 +259,10 @@ public class PhoneProfilesService extends Service
 
         removeProfileNotification(this);
 
-        if (handlerThread != null) {
-            //if (Build.VERSION.SDK_INT >= 18)
-                handlerThread.quitSafely();
-            //else
-            //    handlerThread.quit();
-            handlerThread = null;
-        }
-
         instance = null;
         serviceRunning = false;
 
         super.onDestroy();
-    }
-
-    static void startHandlerThread() {
-        if (handlerThread == null) {
-            handlerThread = new HandlerThread("PPHandlerThread");
-            handlerThread.start();
-        }
     }
 
     private void registerAllTheTimeRequiredReceivers(boolean register) {
@@ -490,8 +470,8 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER bluetooth connection");
 
                 // add not registered bluetooth devices (but not watches :-( )
-                PhoneProfilesService.startHandlerThread();
-                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                PPApplication.startHandlerThread();
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -1211,8 +1191,8 @@ public class PhoneProfilesService extends Service
                         PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothConnectionBroadcastReceiver", "REGISTER");
 
                         // add not registered bluetooth devices (but not watches :-( )
-                        PhoneProfilesService.startHandlerThread();
-                        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                        PPApplication.startHandlerThread();
+                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -1682,8 +1662,8 @@ public class PhoneProfilesService extends Service
         if (!forceStart && WifiSSIDPreference.forceRegister)
             return;
 
-        PhoneProfilesService.startHandlerThread();
-        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -1745,8 +1725,8 @@ public class PhoneProfilesService extends Service
         if (!forceStart && BluetoothNamePreference.forceRegister)
             return;
 
-        PhoneProfilesService.startHandlerThread();
-        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -1805,8 +1785,8 @@ public class PhoneProfilesService extends Service
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob", "PhoneProfilesService_scheduleGeofenceScannerJob");
         PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "xxx");
 
-        PhoneProfilesService.startHandlerThread();
-        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -1874,8 +1854,8 @@ public class PhoneProfilesService extends Service
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsJob", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
         PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "xxx");
 
-        PhoneProfilesService.startHandlerThread();
-        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -2300,8 +2280,8 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "before start of handler");
             final boolean _onlyStart = onlyStart;
             final boolean _startOnBoot = startOnBoot;
-            PhoneProfilesService.startHandlerThread();
-            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+            PPApplication.startHandlerThread();
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -2338,8 +2318,8 @@ public class PhoneProfilesService extends Service
             //FirstStartJob.start(appContext, startOnBoot);
 
             final boolean _startOnBoot = startOnBoot;
-            PhoneProfilesService.startHandlerThread();
-            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+            PPApplication.startHandlerThread();
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -3262,8 +3242,8 @@ public class PhoneProfilesService extends Service
 
     private void runEventsHandlerForOrientationChange(final Context context) {
         if (Event.getGlobalEventsRunning(context)) {
-            PhoneProfilesService.startHandlerThread();
-            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+            PPApplication.startHandlerThread();
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -3739,8 +3719,8 @@ public class PhoneProfilesService extends Service
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", " security exception");
                     Permissions.grantPlayRingtoneNotificationPermissions(this, true);
                     ringingMediaPlayer = null;
-                    PhoneProfilesService.startHandlerThread();
-                    final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                    PPApplication.startHandlerThread();
+                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -3751,8 +3731,8 @@ public class PhoneProfilesService extends Service
                 } catch (Exception e) {
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "exception");
                     ringingMediaPlayer = null;
-                    PhoneProfilesService.startHandlerThread();
-                    final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                    PPApplication.startHandlerThread();
+                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -3789,8 +3769,8 @@ public class PhoneProfilesService extends Service
             }
         //}
         ringingCallIsSimulating = false;
-        PhoneProfilesService.startHandlerThread();
-        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -4161,8 +4141,8 @@ public class PhoneProfilesService extends Service
                                 notificationIsPlayed = false;
                                 notificationMediaPlayer = null;
 
-                                PhoneProfilesService.startHandlerThread();
-                                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                                PPApplication.startHandlerThread();
+                                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
@@ -4177,8 +4157,8 @@ public class PhoneProfilesService extends Service
                     } catch (SecurityException e) {
                         PPApplication.logE("PhoneProfilesService.playNotificationSound", "security exception");
                         stopPlayNotificationSound();
-                        PhoneProfilesService.startHandlerThread();
-                        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                        PPApplication.startHandlerThread();
+                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -4189,8 +4169,8 @@ public class PhoneProfilesService extends Service
                     } catch (Exception e) {
                         PPApplication.logE("PhoneProfilesService.playNotificationSound", "exception");
                         stopPlayNotificationSound();
-                        PhoneProfilesService.startHandlerThread();
-                        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                        PPApplication.startHandlerThread();
+                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {

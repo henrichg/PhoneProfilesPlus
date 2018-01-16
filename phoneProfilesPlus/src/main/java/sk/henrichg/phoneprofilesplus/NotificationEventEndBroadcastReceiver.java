@@ -37,8 +37,8 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
             {*/
                 // start job
                 //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION_EVENT_END);
-                PhoneProfilesService.startHandlerThread();
-                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                PPApplication.startHandlerThread();
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

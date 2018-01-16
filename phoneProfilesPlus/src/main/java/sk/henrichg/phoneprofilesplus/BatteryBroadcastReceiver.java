@@ -13,6 +13,8 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
     static boolean isCharging = false;
     static int batteryPct = -100;
+    static boolean batteryLow = false;
+    static boolean batteryOK = false;
 
     /*
     public static final String EXTRA_IS_CHARGING = "isCharging";
@@ -65,6 +67,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             }
         }
 
+        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "action=" + action);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "isCharging=" + isCharging);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_isCharging=" + _isCharging);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryPct=" + batteryPct);
@@ -90,8 +93,8 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             //    context.startForegroundService(serviceIntent);
 
             if (Event.getGlobalEventsRunning(appContext)) {
-                PhoneProfilesService.startHandlerThread();
-                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                PPApplication.startHandlerThread();
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

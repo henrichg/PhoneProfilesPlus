@@ -482,8 +482,8 @@ public class RingtonePreference extends DialogPreference {
                         ringtoneIsPlayed = false;
                         mediaPlayer = null;
 
-                        PhoneProfilesService.startHandlerThread();
-                        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                        PPApplication.startHandlerThread();
+                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -498,8 +498,8 @@ public class RingtonePreference extends DialogPreference {
             } catch (SecurityException e) {
                 PPApplication.logE("RingtonePreference.playRingtone", "security exception");
                 stopPlayRingtone();
-                PhoneProfilesService.startHandlerThread();
-                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                PPApplication.startHandlerThread();
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -510,8 +510,8 @@ public class RingtonePreference extends DialogPreference {
                 PPApplication.logE("RingtonePreference.playRingtone", "exception");
                 //e.printStackTrace();
                 stopPlayRingtone();
-                PhoneProfilesService.startHandlerThread();
-                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                PPApplication.startHandlerThread();
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {

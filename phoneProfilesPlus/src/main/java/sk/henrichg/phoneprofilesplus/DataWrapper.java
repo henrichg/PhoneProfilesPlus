@@ -3026,8 +3026,8 @@ public class DataWrapper {
         if (Event.getEventsBlocked(context) && (!unblockEventsRun)) {
             //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE);
             final Context appContext = context.getApplicationContext();
-            PhoneProfilesService.startHandlerThread();
-            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+            PPApplication.startHandlerThread();
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -3075,8 +3075,8 @@ public class DataWrapper {
 
         //EventsHandlerJob.startForRestartEvents(context, interactive);
         final Context appContext = context.getApplicationContext();
-        PhoneProfilesService.startHandlerThread();
-        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -3233,8 +3233,8 @@ public class DataWrapper {
         final boolean _unblockEventsRun = unblockEventsRun;
         //final boolean _interactive = false/*interactive*/;
 
-        PhoneProfilesService.startHandlerThread();
-        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -997,8 +997,8 @@ public class ActivateProfileHelper {
                 //SystemClock.sleep(500);
                 PPApplication.sleep(500);
 
-                PhoneProfilesService.startHandlerThread();
-                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                PPApplication.startHandlerThread();
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -1520,8 +1520,8 @@ public class ActivateProfileHelper {
         // setup volume
         if (useBackgroundThread) {
             final Context appContext = context.getApplicationContext();
-            PhoneProfilesService.startHandlerThread();
-            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+            PPApplication.startHandlerThread();
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -1557,8 +1557,8 @@ public class ActivateProfileHelper {
         //// setup radio preferences
         if (useBackgroundThread) {
             final Context appContext = context.getApplicationContext();
-            PhoneProfilesService.startHandlerThread();
-            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+            PPApplication.startHandlerThread();
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -1712,8 +1712,8 @@ public class ActivateProfileHelper {
                                 // run service for execute radios
                                 if (useBackgroundThread) {
                                     final Context appContext = context.getApplicationContext();
-                                    PhoneProfilesService.startHandlerThread();
-                                    final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                                    PPApplication.startHandlerThread();
+                                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
@@ -1811,8 +1811,8 @@ public class ActivateProfileHelper {
             if (profile._deviceWallpaperChange == 1) {
                 if (useBackgroundThread) {
                     final Context appContext = context.getApplicationContext();
-                    PhoneProfilesService.startHandlerThread();
-                    final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                    PPApplication.startHandlerThread();
+                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -1838,8 +1838,8 @@ public class ActivateProfileHelper {
         // set power save mode
         if (useBackgroundThread) {
             final Context appContext = context.getApplicationContext();
-            PhoneProfilesService.startHandlerThread();
-            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+            PPApplication.startHandlerThread();
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -1870,8 +1870,8 @@ public class ActivateProfileHelper {
                     if (!keyguardLocked) {
                         if (useBackgroundThread) {
                             final Context appContext = context.getApplicationContext();
-                            PhoneProfilesService.startHandlerThread();
-                            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                            PPApplication.startHandlerThread();
+                            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -1900,8 +1900,8 @@ public class ActivateProfileHelper {
         {
             if (useBackgroundThread) {
                 final Context appContext = context.getApplicationContext();
-                PhoneProfilesService.startHandlerThread();
-                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                PPApplication.startHandlerThread();
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -2170,8 +2170,8 @@ public class ActivateProfileHelper {
                 break;
         }
         setActivatedProfileScreenTimeout(context, 0);
-        PhoneProfilesService.startHandlerThread();
-        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

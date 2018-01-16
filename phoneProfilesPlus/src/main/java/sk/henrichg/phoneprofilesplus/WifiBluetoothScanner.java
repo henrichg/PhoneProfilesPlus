@@ -98,8 +98,8 @@ class WifiBluetoothScanner {
                 }
             }
 
-            PhoneProfilesService.startHandlerThread();
-            final Handler wifiBluetoothChangeHandler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+            PPApplication.startHandlerThread();
+            final Handler wifiBluetoothChangeHandler = new Handler(PPApplication.handlerThread.getLooper());
 
             PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "before synchronized block - scannerType=" + scannerType);
 
@@ -208,8 +208,8 @@ class WifiBluetoothScanner {
                                         {
                                             // start job
                                             final Context appContext = context.getApplicationContext();
-                                            PhoneProfilesService.startHandlerThread();
-                                            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                                            PPApplication.startHandlerThread();
+                                            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                                             handler.postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {

@@ -98,8 +98,8 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
         {
             if (broadcast)
             {
-                PhoneProfilesService.startHandlerThread();
-                final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                PPApplication.startHandlerThread();
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Parcelable;
 import android.support.multidex.MultiDex;
 import android.util.Log;
@@ -53,7 +54,7 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER = 60;
 
     private static final boolean logIntoLogCat = true;
-    private static final boolean logIntoFile = false;
+    private static final boolean logIntoFile = true;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
@@ -140,6 +141,8 @@ public class PPApplication extends Application {
                                          */
 
                                          //+"|$$$ WifiAP"
+
+                                         +"|BatteryBroadcastReceiver.onReceive"
             ;
 
 
@@ -242,6 +245,8 @@ public class PPApplication extends Application {
     static final int SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER = 15;
     static final int SCANNER_RESTART_BLUETOOTH_SCANNER = 16;
 
+    public static HandlerThread handlerThread = null;
+
     public static Handler toastHandler;
     public static Handler brightnessHandler;
     public static Handler screenTimeoutHandler;
@@ -317,6 +322,8 @@ public class PPApplication extends Application {
 
         PACKAGE_NAME = this.getPackageName();
 
+        startHandlerThread();
+
         JobConfig.setForceAllowApi14(true); // https://github.com/evernote/android-job/issues/197
         JobManager.create(this).addJobCreator(new PPJobsCreator());
 
@@ -377,6 +384,13 @@ public class PPApplication extends Application {
             return true;
         }
         return false;
+    }
+
+    static void startHandlerThread() {
+        if (handlerThread == null) {
+            handlerThread = new HandlerThread("PPHandlerThread");
+            handlerThread.start();
+        }
     }
 
     //--------------------------------------------------------------

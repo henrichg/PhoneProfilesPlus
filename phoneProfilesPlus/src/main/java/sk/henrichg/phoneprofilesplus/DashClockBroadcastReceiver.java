@@ -20,8 +20,8 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
 
         //DashClockJob.start(context.getApplicationContext());
         //final Context appContext = context.getApplicationContext();
-        PhoneProfilesService.startHandlerThread();
-        final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {

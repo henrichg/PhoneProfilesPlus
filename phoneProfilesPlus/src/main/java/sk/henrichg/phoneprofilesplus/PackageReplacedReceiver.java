@@ -23,8 +23,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             final Context appContext = context.getApplicationContext();
 
-            PhoneProfilesService.startHandlerThread();
-            final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+            PPApplication.startHandlerThread();
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -37,8 +37,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                     // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
                     PPApplication.startedOnBoot = true;
-                    PhoneProfilesService.startHandlerThread();
-                    final Handler handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
+                    PPApplication.startHandlerThread();
+                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -175,14 +175,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         if (PhoneProfilesService.instance != null) {
                             // stop PhoneProfilesService
                             appContext.stopService(new Intent(appContext, PhoneProfilesService.class));
-                            PhoneProfilesService.startHandlerThread();
-                            final Handler _handler = new Handler(PhoneProfilesService.handlerThread.getLooper());
-                            Runnable r = new Runnable() {
-                                public void run() {
-                                    startService(appContext);
-                                }
-                            };
-                            _handler.postDelayed(r, 2000);
+                            PPApplication.sleep(2000);
+                            startService(appContext);
                         }
                         else
                             startService(appContext);
@@ -197,6 +191,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
     }
 
     private void startService(Context context) {
+        PPApplication.logE("@@@ PackageReplacedReceiver.startService", "xxx");
+
         // must by false for avoiding starts/pause events before restart events
         PPApplication.setApplicationStarted(context, false);
 
