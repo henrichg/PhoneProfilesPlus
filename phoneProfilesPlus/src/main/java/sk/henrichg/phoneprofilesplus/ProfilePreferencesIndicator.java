@@ -256,6 +256,15 @@ class ProfilePreferencesIndicator {
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led_off;
                 }
             }
+            /*// heads-up notifications
+            if (profile._headsUpNotifications != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, context) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._headsUpNotifications == 1) || (profile._headsUpNotifications == 3))
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications;
+                    if (profile._headsUpNotifications == 2)
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off;
+                }
+            }*/
             // power save mode
             if (profile._devicePowerSaveMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context) == PPApplication.PREFERENCE_ALLOWED) {

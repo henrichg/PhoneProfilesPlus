@@ -323,7 +323,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                     origProfile._deviceWiFiAPPrefs,
                     origProfile._applicationDisableLocationScanning,
                     origProfile._applicationDisableMobileCellScanning,
-                    origProfile._applicationDisableOrientationScanning);
+                    origProfile._applicationDisableOrientationScanning,
+                    origProfile._headsUpNotifications);
             showSaveMenu = true;
         }
         else
@@ -422,6 +423,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, Integer.toString(profile._applicationDisableLocationScanning));
             editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, Integer.toString(profile._applicationDisableMobileCellScanning));
             editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, Integer.toString(profile._applicationDisableOrientationScanning));
+            editor.putString(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, Integer.toString(profile._headsUpNotifications));
             editor.apply();
         }
     }
@@ -524,6 +526,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         profile._applicationDisableLocationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, ""));
         profile._applicationDisableMobileCellScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, ""));
         profile._applicationDisableOrientationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, ""));
+        profile._headsUpNotifications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, ""));
 
         if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
         {

@@ -1043,6 +1043,36 @@ public class ActivateProfileHelper {
         }
     }
 
+    private void setHeadsUpNotifications(int value) {
+        Log.e("ActivateProfileHelper.setHeadsUpNotifications", "xxx");
+        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, context)
+                == PPApplication.PREFERENCE_ALLOWED) {
+            if (android.os.Build.VERSION.SDK_INT >= 21) {
+                if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                    Log.e("ActivateProfileHelper.setHeadsUpNotifications", "WRITE_SECURE_SETTINGS");
+                    Settings.Global.putInt(context.getContentResolver(), "heads_up_notifications_enabled", value);
+                }
+                else
+                if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                    Log.e("ActivateProfileHelper.setHeadsUpNotifications", "ROOT");
+                    synchronized (PPApplication.startRootCommandMutex) {
+                        String command1 = "settings put global " + "heads_up_notifications_enabled" + " " + value;
+                        //if (PPApplication.isSELinuxEnforcing())
+                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                        Command command = new Command(0, false, command1); //, command2);
+                        try {
+                            //RootTools.closeAllShells();
+                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                            commandWait(command);
+                        } catch (Exception e) {
+                            Log.e("ActivateProfileHelper.setHeadsUpNotifications", "Error on run su: " + e.toString());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private void changeRingerModeForVolumeEqual0(Profile profile, AudioManager audioManager) {
         PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneChange=" + profile.getVolumeRingtoneChange());
         PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneValue=" + profile.getVolumeRingtoneValue());
@@ -1957,6 +1987,18 @@ public class ActivateProfileHelper {
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, profile._applicationDisableOrientationScanning == 2);
             editor.apply();
             PPApplication.restartOrientationScanner(context);
+        }
+
+        // set heads-up notifications
+        if (profile._headsUpNotifications != 0) {
+            switch (profile._headsUpNotifications) {
+                case 1:
+                    setHeadsUpNotifications(1);
+                    break;
+                case 2:
+                    setHeadsUpNotifications(0);
+                    break;
+            }
         }
 
         PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);

@@ -426,6 +426,14 @@
                 android:entries="@array/notificationLedArray"
                 android:entryValues="@array/notificationLedValues"
                 app:useStockLayout="true" />
+            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+                android:title="@string/profile_preferences_headsUpNotifications"
+                android:summary="@string/array_pref_no_change"
+                android:key="prf_pref_headsUpNotifications"
+                android:defaultValue="@string/prf_pref_headsUpNotifications"
+                android:entries="@array/headsUpNotificationsArray"
+                android:entryValues="@array/headsUpNotificationsValues"
+                app:useStockLayout="true" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/profile_preferences_category_application"

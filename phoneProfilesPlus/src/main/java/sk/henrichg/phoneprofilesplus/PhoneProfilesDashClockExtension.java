@@ -310,6 +310,15 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         indicator1 = addIntoIndicator(indicator1, "nl0");
                 }
             }
+            // heads-up notifications
+            if (profile._headsUpNotifications != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._headsUpNotifications == 1) || (profile._headsUpNotifications == 3))
+                        indicator1 = addIntoIndicator(indicator1, "pn1");
+                    if (profile._headsUpNotifications == 2)
+                        indicator1 = addIntoIndicator(indicator1, "pn0");
+                }
+            }
             // power save mode
             if (profile._devicePowerSaveMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, this) == PPApplication.PREFERENCE_ALLOWED) {

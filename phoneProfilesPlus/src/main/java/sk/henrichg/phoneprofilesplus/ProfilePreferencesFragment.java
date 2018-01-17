@@ -123,6 +123,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
         setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING);
         setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING);
         setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING);
+        setSummary(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS);
 
         //}
     }

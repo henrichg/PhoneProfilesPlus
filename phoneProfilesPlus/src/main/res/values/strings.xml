@@ -1154,4 +1154,5 @@
     <string name="phone_profiles_pref_applicationEventScanningDisabled">Scanning disabled!</string>
     <string name="profile_preferences_applicationDisableMobileCellScanning">Disable mobile cell scanning</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Disable orientation scanning</string>
+    <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
 </resources>

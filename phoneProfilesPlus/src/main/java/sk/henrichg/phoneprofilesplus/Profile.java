@@ -84,6 +84,7 @@ public class Profile {
     int _applicationDisableLocationScanning;
     int _applicationDisableMobileCellScanning;
     int _applicationDisableOrientationScanning;
+    int _headsUpNotifications;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -141,12 +142,12 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_CONNECT_TO_SSID = "prf_pref_deviceConnectToSSID";
     static final String PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING = "prf_pref_applicationDisableWifiScanning";
     static final String PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING = "prf_pref_applicationDisableBluetoothScanning";
-    // no preferences, but checked from isProfilePreferenceAllowed
     static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
     static final String PREF_PROFILE_DEVICE_WIFI_AP_PREFS = "prf_pref_deviceWiFiAPPrefs";
     static final String PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING = "prf_pref_applicationDisableLocationScanning";
     static final String PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING = "prf_pref_applicationDisableMobileCellScanning";
     static final String PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING = "prf_pref_applicationDisableOrientationScanning";
+    static final String PREF_PROFILE_HEADS_UP_NOTIFICATIONS = "prf_pref_headsUpNotifications";
 
     static final int AFTERDURATIONDO_NOTHING = 0;
     static final int AFTERDURATIONDO_UNDOPROFILE = 1;
@@ -314,7 +315,8 @@ public class Profile {
                    int deviceWiFiAPPrefs,
                    int applicationDisableLocationScanning,
                    int applicationDisableMobileCellScanning,
-                   int applicationDisableOrientationScanning)
+                   int applicationDisableOrientationScanning,
+                   int headsUpNotifications)
     {
         this._id = id;
         this._name = name;
@@ -376,6 +378,7 @@ public class Profile {
         this._applicationDisableLocationScanning = applicationDisableLocationScanning;
         this._applicationDisableMobileCellScanning = applicationDisableMobileCellScanning;
         this._applicationDisableOrientationScanning = applicationDisableOrientationScanning;
+        this._headsUpNotifications = headsUpNotifications;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -439,7 +442,8 @@ public class Profile {
                    int deviceWiFiAPPrefs,
                    int applicationDisableLocationScanning,
                    int applicationDisableMobileCellScanning,
-                   int applicationDisableOrientationScanning)
+                   int applicationDisableOrientationScanning,
+                   int headsUpNotifications)
     {
         this._name = name;
         this._icon = icon;
@@ -499,6 +503,7 @@ public class Profile {
         this._applicationDisableLocationScanning = applicationDisableLocationScanning;
         this._applicationDisableMobileCellScanning = applicationDisableMobileCellScanning;
         this._applicationDisableOrientationScanning = applicationDisableOrientationScanning;
+        this._headsUpNotifications = headsUpNotifications;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -565,6 +570,7 @@ public class Profile {
         this._applicationDisableLocationScanning = profile._applicationDisableLocationScanning;
         this._applicationDisableMobileCellScanning = profile._applicationDisableMobileCellScanning;
         this._applicationDisableOrientationScanning = profile._applicationDisableOrientationScanning;
+        this._headsUpNotifications = profile._headsUpNotifications;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -762,6 +768,8 @@ public class Profile {
                 this._applicationDisableMobileCellScanning = withProfile._applicationDisableMobileCellScanning;
             if (withProfile._applicationDisableOrientationScanning != 0)
                 this._applicationDisableOrientationScanning = withProfile._applicationDisableOrientationScanning;
+            if (withProfile._headsUpNotifications != 0)
+                this._headsUpNotifications = withProfile._headsUpNotifications;
 
             dataWrapper.getDatabaseHandler().activateProfile(withProfile);
             dataWrapper.setProfileActive(withProfile);
@@ -1510,11 +1518,12 @@ public class Profile {
         profile._applicationDisableLocationScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, "0"));
         profile._applicationDisableMobileCellScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, "0"));
         profile._applicationDisableOrientationScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, "0"));
+        profile._headsUpNotifications = Integer.parseInt(preferences.getString(PREF_PROFILE_HEADS_UP_NOTIFICATIONS, "0"));
 
         return profile;
     }
 
-    static public Profile getMappedProfile(Profile profile, Context context)
+    static Profile getMappedProfile(Profile profile, Context context)
     {
         if (profile != null)
         {
@@ -1579,7 +1588,8 @@ public class Profile {
                     profile._deviceWiFiAPPrefs,
                     profile._applicationDisableLocationScanning,
                     profile._applicationDisableMobileCellScanning,
-                    profile._applicationDisableOrientationScanning);
+                    profile._applicationDisableOrientationScanning,
+                    profile._headsUpNotifications);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == 99) {
@@ -1685,6 +1695,8 @@ public class Profile {
                 mappedProfile._applicationDisableMobileCellScanning = defaultProfile._applicationDisableMobileCellScanning;
             if (profile._applicationDisableOrientationScanning == 99)
                 mappedProfile._applicationDisableOrientationScanning = defaultProfile._applicationDisableOrientationScanning;
+            if (profile._headsUpNotifications == 99)
+                mappedProfile._headsUpNotifications = defaultProfile._headsUpNotifications;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;
@@ -2108,6 +2120,33 @@ public class Profile {
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
             else
                 PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS))
+        {
+            int value = Settings.Global.getInt(context.getContentResolver(), "heads_up_notifications_enabled", -10);
+            if ((value != -10) && (android.os.Build.VERSION.SDK_INT >= 21)) {
+                if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                    featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                }
+                else
+                if (PPApplication.isRooted()) {
+                    // device is rooted
+                    if (PPApplication.settingsBinaryExists())
+                        featurePresented = PPApplication.PREFERENCE_ALLOWED;
+                    else
+                        PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                }
+                else
+                    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+            }
+            else
+            if (value != -10)
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            else {
+                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
+            }
         }
         else
             featurePresented = PPApplication.PREFERENCE_ALLOWED;

@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2020;
+    private static final int DATABASE_VERSION = 2030;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -171,6 +171,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_APPLICATION_DISABLE_LOCATION_SCANNING = "applicationDisableLocationScanning";
     private static final String KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING = "applicationDisableMobileCellScanning";
     private static final String KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING = "applicationDisableOrientationScanning";
+    private static final String KEY_HEADS_UP_NOTIFICATIONS = "headsUpNotifications";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -446,7 +447,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_DEVICE_WIFI_AP_PREFS + " INTEGER,"
                 + KEY_APPLICATION_DISABLE_LOCATION_SCANNING + " INTEGER,"
                 + KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + " INTEGER,"
-                + KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + " INTEGER"
+                + KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + " INTEGER,"
+                + KEY_HEADS_UP_NOTIFICATIONS + " INTEGER"
                 + ")";
     }
 
@@ -2098,6 +2100,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + "=0");
         }
 
+        if (oldVersion < 2030)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_HEADS_UP_NOTIFICATIONS + " INTEGER");
+            if (!doMergedTableCreate) {
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_HEADS_UP_NOTIFICATIONS + " INTEGER");
+            }
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_HEADS_UP_NOTIFICATIONS + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_HEADS_UP_NOTIFICATIONS + "=0");
+        }
+
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -2188,6 +2201,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_APPLICATION_DISABLE_LOCATION_SCANNING, profile._applicationDisableLocationScanning);
                 values.put(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, profile._applicationDisableMobileCellScanning);
                 values.put(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, profile._applicationDisableOrientationScanning);
+                values.put(KEY_HEADS_UP_NOTIFICATIONS, profile._headsUpNotifications);
 
                 // Insert Row
                 if (!merged) {
@@ -2280,7 +2294,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_DEVICE_WIFI_AP_PREFS,
                                 KEY_APPLICATION_DISABLE_LOCATION_SCANNING,
                                 KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING,
-                                KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING
+                                KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING,
+                                KEY_HEADS_UP_NOTIFICATIONS
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -2347,7 +2362,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP_PREFS))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_LOCATION_SCANNING))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING))),
-                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING)))
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS)))
                         );
                     }
 
@@ -2431,9 +2447,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_APPLICATION_DISABLE_WIFI_SCANNING + "," +
                         KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + "," +
                         KEY_DEVICE_WIFI_AP_PREFS + "," +
-                        KEY_APPLICATION_DISABLE_LOCATION_SCANNING +"," +
-                        KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING +"," +
-                        KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING +
+                        KEY_APPLICATION_DISABLE_LOCATION_SCANNING + "," +
+                        KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + "," +
+                        KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + "," +
+                        KEY_HEADS_UP_NOTIFICATIONS +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -2504,6 +2521,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._applicationDisableLocationScanning = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_LOCATION_SCANNING)));
                         profile._applicationDisableMobileCellScanning = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING)));
                         profile._applicationDisableOrientationScanning = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING)));
+                        profile._headsUpNotifications = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS)));
                         // Adding contact to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -2591,6 +2609,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_APPLICATION_DISABLE_LOCATION_SCANNING, profile._applicationDisableLocationScanning);
                 values.put(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, profile._applicationDisableMobileCellScanning);
                 values.put(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, profile._applicationDisableOrientationScanning);
+                values.put(KEY_HEADS_UP_NOTIFICATIONS, profile._headsUpNotifications);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -2901,7 +2920,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_DEVICE_WIFI_AP_PREFS,
                                 KEY_APPLICATION_DISABLE_LOCATION_SCANNING,
                                 KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING,
-                                KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING
+                                KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING,
+                                KEY_HEADS_UP_NOTIFICATIONS
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -2970,7 +2990,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WIFI_AP_PREFS))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_LOCATION_SCANNING))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING))),
-                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING)))
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS)))
                         );
                     } else
                         profile = null;
@@ -7028,7 +7049,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DEVICE_CONNECT_TO_SSID + "," +
                         KEY_APPLICATION_DISABLE_WIFI_SCANNING + "," +
                         KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + "," +
-                        KEY_DEVICE_WIFI_AP_PREFS +
+                        KEY_DEVICE_WIFI_AP_PREFS + "," +
+                        KEY_HEADS_UP_NOTIFICATIONS +
                         " FROM " + TABLE_PROFILES;
                 final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
                         KEY_E_WIFI_ENABLED + "," +
@@ -7221,6 +7243,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_WIFI_AP_PREFS, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, context)
+                                            == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_HEADS_UP_NOTIFICATIONS, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                         new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
                             }
@@ -7601,6 +7632,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         if (exportedDBObj.getVersion() < 2020) {
                                             values.put(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, 0);
                                             values.put(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, 0);
+                                        }
+                                        if (exportedDBObj.getVersion() < 2030) {
+                                            values.put(KEY_HEADS_UP_NOTIFICATIONS, 0);
                                         }
 
                                         ///////////////////////////////////////////////////////
