@@ -27,14 +27,13 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
 
         //PowerSaveModeJob.start(appContext);
 
-        Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
-        serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
-        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-        //TODO Android O
-        //if (Build.VERSION.SDK_INT < 26)
-        appContext.startService(serviceIntent);
-        //else
-        //    context.startForegroundService(serviceIntent);
+        // required for reschedule jobs for power save mode
+        PPApplication.restartAllScanners(appContext, true);
+        /*PPApplication.restartWifiScanner(appContext, true);
+        PPApplication.restartBluetoothScanner(appContext, true);
+        PPApplication.restartGeofenceScanner(appContext, true);
+        PPApplication.restartPhoneStateScanner(appContext, true);
+        PPApplication.restartOrientationScanner(appContext);*/
 
         PPApplication.startHandlerThread();
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

@@ -2629,7 +2629,7 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_RESTART_PHONE_STATE_SCANNER:
                              PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_PHONE_STATE_SCANNER");
-                            PhoneStateScanner.forceStart = false;
+                             PhoneStateScanner.forceStart = false;
                              startPhoneStateScanner(true, true, true, false, true);
                             break;
                         case PPApplication.SCANNER_FORCE_START_PHONE_STATE_SCANNER:
@@ -2645,6 +2645,30 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
+                            startOrientationScanner(true, false, true);
+                            break;
+
+                        case PPApplication.SCANNER_RESTART_ALL_SCANNERS:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_ALL_SCANNERS");
+
+                            registerWifiConnectionBroadcastReceiver(true, true, false);
+                            registerWifiStateChangedBroadcastReceiver(true, true, false);
+                            registerWifiAPStateChangeBroadcastReceiver(true, true, false);
+                            registerWifiScannerReceiver(true, true, false);
+                            scheduleWifiJob(true,  true, forScreenOn, false, false, true);
+
+                            //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
+                            registerBluetoothStateChangedBroadcastReceiver(true, true, false);
+                            registerBluetoothScannerReceivers(true, true, false);
+                            scheduleBluetoothJob(true,  true, forScreenOn, false, true);
+
+                            PhoneStateScanner.forceStart = false;
+                            startPhoneStateScanner(true, true, true, false, true);
+
+                            registerLocationModeChangedBroadcastReceiver(true, true);
+                            startGeofenceScanner(true, true, forScreenOn);
+                            scheduleGeofenceScannerJob(true,  true, forScreenOn, true);
+
                             startOrientationScanner(true, false, true);
                             break;
                     }

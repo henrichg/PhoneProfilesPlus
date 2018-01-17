@@ -54,7 +54,7 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER = 60;
 
     private static final boolean logIntoLogCat = true;
-    private static final boolean logIntoFile = false;
+    private static final boolean logIntoFile = true;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
@@ -143,6 +143,7 @@ public class PPApplication extends Application {
                                          //+"|$$$ WifiAP"
 
                                          +"|BatteryBroadcastReceiver.onReceive"
+                                         +"|PowerSaveModeBroadcastReceiver.onReceive"
             ;
 
 
@@ -244,6 +245,8 @@ public class PPApplication extends Application {
     static final int SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER = 14;
     static final int SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER = 15;
     static final int SCANNER_RESTART_BLUETOOTH_SCANNER = 16;
+
+    static final int SCANNER_RESTART_ALL_SCANNERS = 50;
 
     public static HandlerThread handlerThread = null;
 
@@ -1116,7 +1119,6 @@ public class PPApplication extends Application {
         } catch (Exception ignored) {}
     }
 
-
     public static void forceRegisterReceiversForBluetoothScanner(Context context) {
         try {
             PPApplication.logE("[RJS] PPApplication.forceRegisterReceiversForBluetoothScanner", "xxx");
@@ -1344,6 +1346,22 @@ public class PPApplication extends Application {
         } catch (Exception ignored) {}
     }
 
+    public static void restartAllScanners(Context context, boolean forScreenOn) {
+        try {
+            PPApplication.logE("[RJS] PPApplication.restartWifiScanner", "xxx");
+            Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ALL_SCANNERS);
+            lIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
+            //TODO Android O
+            //if (Build.VERSION.SDK_INT < 26)
+            context.startService(lIntent);
+            //else
+            //    context.startForegroundService(lIntent);
+        } catch (Exception ignored) {}
+    }
 
     //---------------------------------------------------------------
 
