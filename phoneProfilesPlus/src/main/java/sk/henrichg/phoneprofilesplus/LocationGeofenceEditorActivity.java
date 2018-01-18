@@ -130,7 +130,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
 
         if (geofenceId > 0) {
-            geofence = dataWrapper.getDatabaseHandler().getGeofence(geofenceId);
+            geofence = DatabaseHandler.getInstance(getApplicationContext()).getGeofence(geofenceId);
             mLocation = new Location("LOC");
             mLocation.setLatitude(geofence._latitude);
             mLocation.setLongitude(geofence._longitude);
@@ -139,7 +139,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             geofenceId = 0;
             geofence = new Geofence();
             geofence._name = getString(R.string.event_preferences_location_new_location_name) + "_" +
-                                String.valueOf(dataWrapper.getDatabaseHandler().getGeofenceCount()+1);
+                                String.valueOf(DatabaseHandler.getInstance(getApplicationContext()).getGeofenceCount()+1);
             geofence._radius = 100;
         }
 
@@ -186,9 +186,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                     geofence._longitude = mLocation.getLongitude();
 
                     if (geofenceId > 0) {
-                        dataWrapper.getDatabaseHandler().updateGeofence(geofence);
+                        DatabaseHandler.getInstance(getApplicationContext()).updateGeofence(geofence);
                     } else {
-                        dataWrapper.getDatabaseHandler().addGeofence(geofence);
+                        DatabaseHandler.getInstance(getApplicationContext()).addGeofence(geofence);
                         /*synchronized (PPApplication.geofenceScannerMutex) {
                             // start location updates
                             if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
@@ -196,7 +196,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                         }*/
                     }
 
-                    dataWrapper.getDatabaseHandler().checkGeofence(String.valueOf(geofence._id), 1);
+                    DatabaseHandler.getInstance(getApplicationContext()).checkGeofence(String.valueOf(geofence._id), 1);
 
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, geofence._id);

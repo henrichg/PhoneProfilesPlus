@@ -313,7 +313,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
     private void savePreferences(int new_event_mode, int predefinedEventIndex)
     {
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext().getApplicationContext(), false, false, 0);
+        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
         Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
         if (event == null)
             return;
@@ -331,7 +331,7 @@ public class EventPreferencesActivity extends PreferenceActivity
             event.saveSharedPreferences(preferences, dataWrapper.context);
 
             // add event into DB
-            dataWrapper.getDatabaseHandler().addEvent(event);
+            DatabaseHandler.getInstance(dataWrapper.context).addEvent(event);
             event_id = event._id;
 
             // restart Events
@@ -344,7 +344,7 @@ public class EventPreferencesActivity extends PreferenceActivity
             event.saveSharedPreferences(preferences, dataWrapper.context);
 
             // update event in DB
-            dataWrapper.getDatabaseHandler().updateEvent(event);
+            DatabaseHandler.getInstance(dataWrapper.context).updateEvent(event);
 
             if (event.getStatus() == Event.ESTATUS_STOP)
             {

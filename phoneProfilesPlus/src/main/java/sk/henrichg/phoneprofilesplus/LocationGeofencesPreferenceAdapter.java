@@ -81,7 +81,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
             rowData.checkBox.setChecked(checked);
             rowData.checkBox.setTag(id);
         }
-        if (preference.dataWrapper.getDatabaseHandler().isGeofenceUsed(id))
+        if (DatabaseHandler.getInstance(preference.dataWrapper.context).isGeofenceUsed(id))
             rowData.name.setTypeface(null, Typeface.BOLD);
         else
             rowData.name.setTypeface(null, Typeface.NORMAL);
@@ -93,7 +93,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
                     CheckBox chb = (CheckBox) v;
 
                     long id = (long) chb.getTag();
-                    preference.dataWrapper.getDatabaseHandler().checkGeofence(String.valueOf(id), 2);
+                    DatabaseHandler.getInstance(preference.dataWrapper.context).checkGeofence(String.valueOf(id), 2);
 
                     //preference.updateGUIWithGeofence(id);
 
@@ -122,7 +122,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
 
     public void reload(DataWrapper dataWrapper) {
         //selectedRB = null;
-        changeCursor(dataWrapper.getDatabaseHandler().getGeofencesCursor());
+        changeCursor(DatabaseHandler.getInstance(dataWrapper.context).getGeofencesCursor());
     }
 
 }

@@ -1023,7 +1023,7 @@ class Event {
             }
         }
 
-        dataWrapper.getDatabaseHandler().addEventTimeline(eventTimeline);
+        DatabaseHandler.getInstance(dataWrapper.context).addEventTimeline(eventTimeline);
         eventTimelineList.add(eventTimeline);
     }
 
@@ -1112,7 +1112,7 @@ class Event {
             {
                 // remove event from timeline
                 eventTimelineList.remove(eventTimeline);
-                dataWrapper.getDatabaseHandler().deleteEventTimeline(eventTimeline);
+                DatabaseHandler.getInstance(dataWrapper.context).deleteEventTimeline(eventTimeline);
 
                 if (eventPosition < (timeLineSize-1))
                 {
@@ -1141,7 +1141,7 @@ class Event {
         setSystemEvent(dataWrapper.context, ESTATUS_RUNNING);
         int status = this._status;
         this._status = ESTATUS_RUNNING;
-        dataWrapper.getDatabaseHandler().updateEventStatus(this);
+        DatabaseHandler.getInstance(dataWrapper.context).updateEventStatus(this);
 
         if (/*log && */(status != this._status)) {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTART, _name, null, null, 0);
@@ -1162,7 +1162,7 @@ class Event {
             else {
                 mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper, true);
                 if (this._manualProfileActivation) {
-                    dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
+                    DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ true, true, useBackgroundThread);
                     mergedProfile._id = 0;
                 }
@@ -1351,7 +1351,7 @@ class Event {
 
             // remove event from timeline
             eventTimelineList.remove(eventTimeline);
-            dataWrapper.getDatabaseHandler().deleteEventTimeline(eventTimeline);
+            DatabaseHandler.getInstance(dataWrapper.context).deleteEventTimeline(eventTimeline);
 
             if (eventPosition < (timeLineSize-1)) // event is not in end of timeline and no only one event in timeline
             {
@@ -1378,7 +1378,7 @@ class Event {
             setSystemEvent(dataWrapper.context, ESTATUS_PAUSE);
         int status = this._status;
         this._status = ESTATUS_PAUSE;
-        dataWrapper.getDatabaseHandler().updateEventStatus(this);
+        DatabaseHandler.getInstance(dataWrapper.context).updateEventStatus(this);
 
         if (log && (status != this._status)) {
             int alType = DatabaseHandler.ALTYPE_EVENTEND_NONE;
@@ -1455,7 +1455,7 @@ class Event {
         int status = this._status;
         this._status = ESTATUS_STOP;
         if (saveEventStatus)
-            dataWrapper.getDatabaseHandler().updateEventStatus(this);
+            DatabaseHandler.getInstance(dataWrapper.context).updateEventStatus(this);
 
         if (log && (status != this._status)) {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTOP, _name, null, null, 0);
@@ -1471,7 +1471,7 @@ class Event {
 
     int getStatusFromDB(DataWrapper dataWrapper)
     {
-        return dataWrapper.getDatabaseHandler().getEventStatus(this);
+        return DatabaseHandler.getInstance(dataWrapper.context).getEventStatus(this);
     }
 
     public void setStatus(int status)
@@ -1625,7 +1625,7 @@ class Event {
             this._isInDelayStart = false;
         }
 
-        dataWrapper.getDatabaseHandler().updateEventInDelayStart(this);
+        DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayStart(this);
 
         if (_isInDelayStart) {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTARTDELAY, _name, null, null, _delayStart);
@@ -1667,7 +1667,7 @@ class Event {
         }
         this._isInDelayStart = false;
         this._startStatusTime = 0;
-        dataWrapper.getDatabaseHandler().updateEventInDelayStart(this);
+        DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayStart(this);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
@@ -1747,7 +1747,7 @@ class Event {
             this._isInDelayEnd = false;
         }
 
-        dataWrapper.getDatabaseHandler().updateEventInDelayEnd(this);
+        DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayEnd(this);
 
         if (_isInDelayEnd) {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTENDDELAY, _name, null, null, _delayEnd);
@@ -1806,7 +1806,7 @@ class Event {
             }
         }
         this._isInDelayEnd = false;
-        dataWrapper.getDatabaseHandler().updateEventInDelayEnd(this);
+        DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayEnd(this);
     }
 
     static int isEventPreferenceAllowed(String preferenceKey, Context context)

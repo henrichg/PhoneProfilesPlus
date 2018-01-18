@@ -771,7 +771,7 @@ public class Profile {
             if (withProfile._headsUpNotifications != 0)
                 this._headsUpNotifications = withProfile._headsUpNotifications;
 
-            dataWrapper.getDatabaseHandler().activateProfile(withProfile);
+            DatabaseHandler.getInstance(dataWrapper.context).activateProfile(withProfile);
             dataWrapper.setProfileActive(withProfile);
 
             String profileIcon = withProfile._icon;

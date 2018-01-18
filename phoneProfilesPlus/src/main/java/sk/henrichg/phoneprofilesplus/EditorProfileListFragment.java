@@ -43,7 +43,6 @@ public class EditorProfileListFragment extends Fragment
 
     public DataWrapper dataWrapper;
     ActivateProfileHelper activateProfileHelper;
-    DatabaseHandler databaseHandler;
 
     private List<Profile> profileList;
 
@@ -136,8 +135,6 @@ public class EditorProfileListFragment extends Fragment
                     EditorProfileListFragment.FILTER_TYPE_ALL;
 
         dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
-
-        databaseHandler = dataWrapper.getDatabaseHandler();
 
         activateProfileHelper = dataWrapper.getActivateProfileHelper();
         activateProfileHelper.initialize(getActivity().getApplicationContext());
@@ -360,7 +357,6 @@ public class EditorProfileListFragment extends Fragment
 
         activateProfileHelper = null;
         profileList = null;
-        databaseHandler = null;
 
         if (dataWrapper != null)
             dataWrapper.invalidateDataWrapper();
@@ -441,8 +437,8 @@ public class EditorProfileListFragment extends Fragment
         dataWrapper.stopEventsForProfile(profile);
         dataWrapper.unlinkEventsFromProfile(profile);
         profileListAdapter.deleteItemNoNotify(profile);
-        databaseHandler.unlinkEventsFromProfile(profile);
-        databaseHandler.deleteProfile(profile);
+        DatabaseHandler.getInstance(dataWrapper.context).unlinkEventsFromProfile(profile);
+        DatabaseHandler.getInstance(dataWrapper.context).deleteProfile(profile);
 
         profileListAdapter.notifyDataSetChanged();
         //Profile profile = databaseHandler.getActivatedProfile();
@@ -541,8 +537,8 @@ public class EditorProfileListFragment extends Fragment
                     dataWrapper.stopAllEvents(true);
                     dataWrapper.unlinkAllEvents();
                     profileListAdapter.clearNoNotify();
-                    databaseHandler.deleteAllProfiles();
-                    databaseHandler.unlinkAllEvents();
+                    DatabaseHandler.getInstance(dataWrapper.context).deleteAllProfiles();
+                    DatabaseHandler.getInstance(dataWrapper.context).unlinkAllEvents();
 
                     profileListAdapter.notifyDataSetChanged();
 
@@ -748,7 +744,7 @@ public class EditorProfileListFragment extends Fragment
         if (profileFromAdapter != null)
             profileFromAdapter._checked = false;
 
-        Profile profileFromDB = dataWrapper.getDatabaseHandler().getActivatedProfile();
+        Profile profileFromDB = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
         if (profileFromDB != null) {
             PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile activated");
             Profile profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, false);

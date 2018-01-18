@@ -39,7 +39,6 @@ public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
     public DataWrapper dataWrapper;
-    DatabaseHandler databaseHandler;
 
     private List<Event> eventList;
 
@@ -147,8 +146,6 @@ public class EditorEventListFragment extends Fragment
 
         dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
         dataWrapper.getActivateProfileHelper().initialize(getActivity().getApplicationContext());
-
-        databaseHandler = dataWrapper.getDatabaseHandler();
 
         getActivity().getIntent();
 
@@ -327,7 +324,6 @@ public class EditorEventListFragment extends Fragment
             eventListAdapter.release();
 
         eventList = null;
-        databaseHandler = null;
 
         if (dataWrapper != null)
             dataWrapper.invalidateDataWrapper();
@@ -408,14 +404,14 @@ public class EditorEventListFragment extends Fragment
                 // pause event
                 event.setStatus(Event.ESTATUS_PAUSE);
                 // update event in DB
-                dataWrapper.getDatabaseHandler().updateEvent(event);
+                DatabaseHandler.getInstance(dataWrapper.context).updateEvent(event);
                 // redraw event list
                 updateListView(event, false, false, true);
             } else {
                 // stop event
                 event.setStatus(Event.ESTATUS_STOP);
                 // update event in DB
-                dataWrapper.getDatabaseHandler().updateEvent(event);
+                DatabaseHandler.getInstance(dataWrapper.context).updateEvent(event);
                 // redraw event list
                 updateListView(event, false, false, true);
             }
@@ -479,7 +475,7 @@ public class EditorEventListFragment extends Fragment
         dataWrapper.restartEvents(false, true/*, false*/);
 
         eventListAdapter.deleteItemNoNotify(event);
-        databaseHandler.deleteEvent(event);
+        DatabaseHandler.getInstance(dataWrapper.context).deleteEvent(event);
 
         eventListAdapter.notifyDataSetChanged();
 
@@ -580,7 +576,7 @@ public class EditorEventListFragment extends Fragment
 
                     dataWrapper.stopAllEvents(true);
 
-                    databaseHandler.deleteAllEvents();
+                    DatabaseHandler.getInstance(dataWrapper.context).deleteAllEvents();
 
                     eventListAdapter.clear();
                     // this is in eventListAdapter.clear()
@@ -740,15 +736,15 @@ public class EditorEventListFragment extends Fragment
             return;
 
         for (Event event : eventList) {
-            int status = dataWrapper.getDatabaseHandler().getEventStatus(event);
+            int status = DatabaseHandler.getInstance(dataWrapper.context).getEventStatus(event);
             event.setStatus(status);
-            event._isInDelayStart = dataWrapper.getDatabaseHandler().getEventInDelayStart(event);
-            event._isInDelayEnd = dataWrapper.getDatabaseHandler().getEventInDelayEnd(event);
-            dataWrapper.getDatabaseHandler().setEventCalendarTimes(event);
-            dataWrapper.getDatabaseHandler().getSMSStartTime(event);
-            //dataWrapper.getDatabaseHandler().getNotificationStartTime(event);
-            dataWrapper.getDatabaseHandler().getNFCStartTime(event);
-            dataWrapper.getDatabaseHandler().getCallStartTime(event);
+            event._isInDelayStart = DatabaseHandler.getInstance(dataWrapper.context).getEventInDelayStart(event);
+            event._isInDelayEnd = DatabaseHandler.getInstance(dataWrapper.context).getEventInDelayEnd(event);
+            DatabaseHandler.getInstance(dataWrapper.context).setEventCalendarTimes(event);
+            DatabaseHandler.getInstance(dataWrapper.context).getSMSStartTime(event);
+            //DatabaseHandler.getInstance(dataWrapper.context).getNotificationStartTime(event);
+            DatabaseHandler.getInstance(dataWrapper.context).getNFCStartTime(event);
+            DatabaseHandler.getInstance(dataWrapper.context).getCallStartTime(event);
         }
         updateListView(null, false, refreshIcons, setPosition);
     }

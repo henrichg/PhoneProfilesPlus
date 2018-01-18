@@ -78,7 +78,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
         */
 
         this.context = context;
-        dataWrapper = new DataWrapper(context, false, false, 0);
+        dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
 
         applicationsList = new ArrayList<>();
 
@@ -429,7 +429,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
                     if (info != null) {
                         long shortcutId = ApplicationsCache.getShortcutId(splits[0]);
                         if (shortcutId > 0) {
-                            Shortcut shortcut = dataWrapper.getDatabaseHandler().getShortcut(shortcutId);
+                            Shortcut shortcut = DatabaseHandler.getInstance(context.getApplicationContext()).getShortcut(shortcutId);
                             if (shortcut != null)
                                 prefSummary = shortcut._name;
                         }
@@ -591,7 +591,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
     private void deleteApplication(Application application) {
 
         if (application.shortcutId > 0)
-            dataWrapper.getDatabaseHandler().deleteShortcut(application.shortcutId);
+            DatabaseHandler.getInstance(context.getApplicationContext()).deleteShortcut(application.shortcutId);
 
         applicationsList.remove(application);
         applicationsListView.getRecycledViewPool().clear();
@@ -654,9 +654,9 @@ public class ApplicationsDialogPreference  extends DialogPreference
         shortcut._intent = intentDescription;
         shortcut._name = shortcutName;
         if (application.shortcutId > 0) {
-            dataWrapper.getDatabaseHandler().deleteShortcut(application.shortcutId);
+            DatabaseHandler.getInstance(context.getApplicationContext()).deleteShortcut(application.shortcutId);
         }
-        dataWrapper.getDatabaseHandler().addShortcut(shortcut);
+        DatabaseHandler.getInstance(context.getApplicationContext()).addShortcut(shortcut);
         application.shortcutId = shortcut._id;
         application.startApplicationDelay = startApplicationDelay;
 

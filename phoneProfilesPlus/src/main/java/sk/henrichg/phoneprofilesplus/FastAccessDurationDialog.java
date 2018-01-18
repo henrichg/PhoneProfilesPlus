@@ -96,7 +96,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         mProfile._duration = iValue;
                         if (mAfterDo != -1)
                             mProfile._afterDurationDo = mAfterDo;
-                        mDataWrapper.getDatabaseHandler().updateProfile(mProfile);
+                        DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
 
                         if (Permissions.grantProfilePermissions(mActivity, mProfile, false, false,
                                 true, mMonochrome, mMonochromeValue,
@@ -117,7 +117,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         updateEndsTimer = null;
 
                         mProfile._duration = 0;
-                        mDataWrapper.getDatabaseHandler().updateProfile(mProfile);
+                        DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
 
                         if (Permissions.grantProfilePermissions(mActivity, mProfile, false, false,
                                 true, mMonochrome, mMonochromeValue,

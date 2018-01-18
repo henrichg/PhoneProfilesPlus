@@ -359,7 +359,7 @@ class EventPreferencesNFC extends EventPreferences {
             else
                 this._startTime = 0;
 
-            dataWrapper.getDatabaseHandler().updateNFCStartTime(_event);
+            DatabaseHandler.getInstance(dataWrapper.context).updateNFCStartTime(_event);
 
             if (tagFound) {
                 if (_event.getStatus() == Event.ESTATUS_RUNNING)

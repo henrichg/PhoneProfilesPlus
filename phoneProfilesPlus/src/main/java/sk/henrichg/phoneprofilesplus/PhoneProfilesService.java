@@ -2403,7 +2403,7 @@ public class PhoneProfilesService extends Service
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
                     dataWrapper.getActivateProfileHelper().initialize(appContext);
-                    dataWrapper.getDatabaseHandler().deleteAllEventTimelines();
+                    DatabaseHandler.getInstance(appContext).deleteAllEventTimelines();
 
                     MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
 
@@ -3203,7 +3203,7 @@ public class PhoneProfilesService extends Service
                 return;
 
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
-            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) == 0)
+            if (DatabaseHandler.getInstance(getApplicationContext()).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) == 0)
                 return;
 
             int interval = ApplicationPreferences.applicationEventOrientationScanInterval(this);

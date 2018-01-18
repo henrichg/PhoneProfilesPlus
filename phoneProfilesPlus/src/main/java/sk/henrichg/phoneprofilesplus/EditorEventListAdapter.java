@@ -305,7 +305,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             }
         }
 
-        fragment.databaseHandler.setEventStartOrder(eventList);  // set events _startOrder and write it into db
+        DatabaseHandler.getInstance(dataWrapper.context).setEventStartOrder(eventList);  // set events _startOrder and write it into db
 
         notifyItemMoved(fromPosition, toPosition);
         return true;

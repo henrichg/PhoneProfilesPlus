@@ -62,7 +62,7 @@ public class ActivityLogActivity extends AppCompatActivity {
         listView = findViewById(R.id.activity_log_list);
 
         // Setup cursor adapter using cursor from last step
-        activityLogAdapter = new ActivityLogAdapter(getBaseContext(), dataWrapper.getDatabaseHandler().getActivityLogCursor());
+        activityLogAdapter = new ActivityLogAdapter(getBaseContext(), DatabaseHandler.getInstance(getApplicationContext()).getActivityLogCursor());
 
         // Attach cursor adapter to the ListView
         listView.setAdapter(activityLogAdapter);
@@ -115,7 +115,7 @@ public class ActivityLogActivity extends AppCompatActivity {
                 dialogBuilder.setMessage(R.string.activity_log_clear_alert_message);
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        dataWrapper.getDatabaseHandler().clearActivityLog();
+                        DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
                         activityLogAdapter.reload(dataWrapper);
                     }
                 });

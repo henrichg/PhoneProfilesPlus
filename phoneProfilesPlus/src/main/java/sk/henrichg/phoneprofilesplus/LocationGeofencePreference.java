@@ -60,7 +60,7 @@ public class LocationGeofencePreference extends DialogPreference {
         if (onlyEdit == 0) {
             String value = "";
             value = getPersistedString(value);
-            dataWrapper.getDatabaseHandler().checkGeofence(value, 1);
+            DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1);
         }
 
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
@@ -91,7 +91,7 @@ public class LocationGeofencePreference extends DialogPreference {
             mBuilder.onNeutral(new MaterialDialog.SingleButtonCallback() {
                 @Override
                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                    dataWrapper.getDatabaseHandler().checkGeofence("", 0);
+                    DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence("", 0);
                     refreshListView();
                 }
             });
@@ -120,7 +120,7 @@ public class LocationGeofencePreference extends DialogPreference {
 
         ListView geofencesListView = layout.findViewById(R.id.location_pref_dlg_listview);
 
-        listAdapter = new LocationGeofencesPreferenceAdapter(context, dataWrapper.getDatabaseHandler().getGeofencesCursor(), this);
+        listAdapter = new LocationGeofencesPreferenceAdapter(context, DatabaseHandler.getInstance(context.getApplicationContext()).getGeofencesCursor(), this);
         geofencesListView.setAdapter(listAdapter);
 
         refreshListView();
@@ -141,7 +141,7 @@ public class LocationGeofencePreference extends DialogPreference {
 
                 long gid = viewHolder.geofenceId;
                 if (onlyEdit == 0) {
-                    dataWrapper.getDatabaseHandler().checkGeofence(String.valueOf(gid), 2);
+                    DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(String.valueOf(gid), 2);
                     //viewHolder.radioButton.setChecked(true);
                     //updateGUIWithGeofence(gid);
                     refreshListView();
@@ -196,7 +196,7 @@ public class LocationGeofencePreference extends DialogPreference {
     public void onDismiss(DialogInterface dialog)
     {
         super.onDismiss(dialog);
-        dataWrapper.getDatabaseHandler().checkGeofence("", 0);
+        DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence("", 0);
         GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
         Cursor cursor = listAdapter.getCursor();
         if (cursor != null)
@@ -223,11 +223,11 @@ public class LocationGeofencePreference extends DialogPreference {
             if (restoreValue) {
                 String value = "";
                 value = getPersistedString(value);
-                dataWrapper.getDatabaseHandler().checkGeofence(value, 1);
+                DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1);
             } else {
                 String value = (String) defaultValue;
                 persistString(value);
-                dataWrapper.getDatabaseHandler().checkGeofence(value, 1);
+                DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1);
             }
         }
     }    
@@ -235,7 +235,7 @@ public class LocationGeofencePreference extends DialogPreference {
     private void persistGeofence(boolean reset) {
         if (onlyEdit == 0) {
             if (shouldPersist()) {
-                String value = dataWrapper.getDatabaseHandler().getCheckedGeofences();
+                String value = DatabaseHandler.getInstance(context.getApplicationContext()).getCheckedGeofences();
                 if (callChangeListener(value)) {
                     if (reset)
                         persistString("");
@@ -289,7 +289,7 @@ public class LocationGeofencePreference extends DialogPreference {
     public void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
-        Context context = view.getContext();
+        final Context context = view.getContext();
         PopupMenu popup;
         if (android.os.Build.VERSION.SDK_INT >= 19)
             popup = new PopupMenu(context, view, Gravity.END);
@@ -309,8 +309,8 @@ public class LocationGeofencePreference extends DialogPreference {
                         return true;
                     case R.id.location_geofence_pref_item_menu_delete:
                         if (geofenceId > 0) {
-                            if (!dataWrapper.getDatabaseHandler().isGeofenceUsed(geofenceId)) {
-                                dataWrapper.getDatabaseHandler().deleteGeofence(geofenceId);
+                            if (!DatabaseHandler.getInstance(context.getApplicationContext()).isGeofenceUsed(geofenceId)) {
+                                DatabaseHandler.getInstance(context.getApplicationContext()).deleteGeofence(geofenceId);
                                 refreshListView();
                                 //updateGUIWithGeofence(0);
                                 /*if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {

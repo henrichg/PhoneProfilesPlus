@@ -368,7 +368,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     }
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
+                    if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_STATE/*, false*/);

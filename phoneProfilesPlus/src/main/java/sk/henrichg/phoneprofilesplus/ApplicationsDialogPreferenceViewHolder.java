@@ -34,7 +34,7 @@ class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder imp
         this.context = context;
         this.preference = preference;
 
-        dataWrapper = new DataWrapper(context, false, false, 0);
+        dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
 
         dragHandle = itemView.findViewById(R.id.applications_pref_dlg_item_drag_handle);
         imageViewIcon = itemView.findViewById(R.id.applications_pref_dlg_item_icon);
@@ -55,7 +55,7 @@ class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder imp
         imageViewIcon.setImageBitmap(EditorProfilesActivity.getApplicationsCache().getApplicationIcon(application, false));
         String text = application.appLabel;
         if (application.shortcutId > 0) {
-            Shortcut shortcut = dataWrapper.getDatabaseHandler().getShortcut(application.shortcutId);
+            Shortcut shortcut = DatabaseHandler.getInstance(context.getApplicationContext()).getShortcut(application.shortcutId);
             if (shortcut != null)
                 text = shortcut._name;
         }

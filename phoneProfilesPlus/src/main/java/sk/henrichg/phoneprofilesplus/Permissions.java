@@ -523,8 +523,8 @@ class Permissions {
         if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
-                DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-                Profile _profile = dataWrapper.getDatabaseHandler().getProfile(profile._id, false);
+                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
+                Profile _profile = DatabaseHandler.getInstance(dataWrapper.context).getProfile(profile._id, false);
                 if (_profile == null) return;// true;
                 if (!_profile.getIsIconResourceID()) {
                     boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;

@@ -104,7 +104,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         popupHeight = popupHeight + (25f + 1f + 3f) * scale;
 
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
-        int profileCount = dataWrapper.getDatabaseHandler().getProfilesCount(true, getApplicationContext());
+        int profileCount = DatabaseHandler.getInstance(getApplicationContext()).getProfilesCount(true, getApplicationContext());
         dataWrapper.invalidateDataWrapper();
 
         if (!ApplicationPreferences.applicationActivatorGridLayout(getApplicationContext()))

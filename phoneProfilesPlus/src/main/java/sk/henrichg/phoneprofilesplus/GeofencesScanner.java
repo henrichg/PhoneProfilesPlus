@@ -50,7 +50,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     GeofencesScanner(Context context) {
         this.context = context;
-        dataWrapper = new DataWrapper(context, false, false, 0);
+        dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
 
         // Create a GoogleApiClient instance
         mGoogleApiClient = new GoogleApiClient.Builder(context)
@@ -175,7 +175,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     void updateGeofencesInDB() {
         synchronized (PPApplication.geofenceScannerLastLocationMutex) {
-            List<Geofence> geofences = dataWrapper.getDatabaseHandler().getAllGeofences();
+            List<Geofence> geofences = DatabaseHandler.getInstance(dataWrapper.context).getAllGeofences();
 
             //boolean change = false;
 
@@ -194,14 +194,14 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 else
                     transitionType = com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT;
 
-                int savedTransition = dataWrapper.getDatabaseHandler().getGeofenceTransition(geofence._id);
+                int savedTransition = DatabaseHandler.getInstance(dataWrapper.context).getGeofenceTransition(geofence._id);
 
                 if (savedTransition != transitionType) {
                     PPApplication.logE("GeofenceScanner.updateGeofencesInDB", "geofence._name=" + geofence._name);
                     PPApplication.logE("GeofenceScanner.updateGeofencesInDB", "transitionType=" + transitionType);
                     PPApplication.logE("GeofenceScanner.updateGeofencesInDB", "savedTransition=" + savedTransition);
 
-                    dataWrapper.getDatabaseHandler().updateGeofenceTransition(geofence._id, transitionType);
+                    DatabaseHandler.getInstance(dataWrapper.context).updateGeofenceTransition(geofence._id, transitionType);
                     //change = true;
                 }
             }
@@ -212,7 +212,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     void clearAllEventGeofences() {
         // clear all geofence transitions
-        dataWrapper.getDatabaseHandler().clearAllGeofenceTransitions();
+        DatabaseHandler.getInstance(dataWrapper.context).clearAllGeofenceTransitions();
         mTransitionsUpdated = false;
     }
 

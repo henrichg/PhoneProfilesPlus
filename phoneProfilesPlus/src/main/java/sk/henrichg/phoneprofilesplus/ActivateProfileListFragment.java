@@ -419,7 +419,7 @@ public class ActivateProfileListFragment extends Fragment {
         if (profileFromAdapter != null)
             profileFromAdapter._checked = false;
 
-        Profile profileFromDB = dataWrapper.getDatabaseHandler().getActivatedProfile();
+        Profile profileFromDB = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
         if (profileFromDB != null) {
             Profile profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, false);
             if (profileFromDataWrapper != null)

@@ -436,7 +436,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         else
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
 
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext().getApplicationContext(), false, false, 0);
+        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
         Profile profile = createProfile(startupSource, getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, true);
 
         //Log.d("------ ProfilePreferencesActivity.savePreferences", "startupSource="+startupSource);
@@ -534,14 +534,14 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                     (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE))
             {
                 // add profile into DB
-                dataWrapper.getDatabaseHandler().addProfile(profile, false);
+                DatabaseHandler.getInstance(getApplicationContext()).addProfile(profile, false);
                 profile_id = profile._id;
 
             }
             else
             if (profile_id > 0)
             {
-                dataWrapper.getDatabaseHandler().updateProfile(profile);
+                DatabaseHandler.getInstance(getApplicationContext()).updateProfile(profile);
             }
         }
     }

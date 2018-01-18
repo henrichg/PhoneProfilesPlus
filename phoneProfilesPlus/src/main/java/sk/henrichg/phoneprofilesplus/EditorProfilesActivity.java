@@ -965,7 +965,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (profile_id > 0)
                 {
                     //noinspection ConstantConditions
-                    Profile profile = getDataWrapper().getDatabaseHandler().getProfile(profile_id, false);
+                    Profile profile = DatabaseHandler.getInstance(getApplicationContext()).getProfile(profile_id, false);
                     // generate bitmaps
                     profile.generateIconBitmap(getBaseContext(), false, 0);
                     profile.generatePreferencesIndicator(getBaseContext(), false, 0);
@@ -1011,7 +1011,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (event_id > 0)
                 {
                     //noinspection ConstantConditions
-                    Event event = getDataWrapper().getDatabaseHandler().getEvent(event_id);
+                    Event event = DatabaseHandler.getInstance(getApplicationContext()).getEvent(event_id);
 
                     // redraw list fragment , notifications, widgets after finish EventPreferencesActivity
                     redrawEventListFragment(event, newEventMode, predefinedEventIndex);
@@ -1227,16 +1227,16 @@ public class EditorProfilesActivity extends AppCompatActivity
                 protected Integer doInBackground(Void... params) {
                     this.dataWrapper.stopAllEvents(true);
 
-                    int ret = this.dataWrapper.getDatabaseHandler().importDB(_applicationDataPath);
+                    int ret = DatabaseHandler.getInstance(this.dataWrapper.context).importDB(_applicationDataPath);
                     if (ret == 1) {
-                        this.dataWrapper.getDatabaseHandler().updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
-                        this.dataWrapper.getDatabaseHandler().deactivateProfile();
-                        this.dataWrapper.getDatabaseHandler().unblockAllEvents();
-                        this.dataWrapper.getDatabaseHandler().disableNotAllowedPreferences(getApplicationContext());
+                        DatabaseHandler.getInstance(this.dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
+                        DatabaseHandler.getInstance(this.dataWrapper.context).deactivateProfile();
+                        DatabaseHandler.getInstance(this.dataWrapper.context).unblockAllEvents();
+                        DatabaseHandler.getInstance(this.dataWrapper.context).disableNotAllowedPreferences(getApplicationContext());
                         this.dataWrapper.invalidateProfileList();
                         this.dataWrapper.invalidateEventList();
                         Event.setEventsBlocked(getApplicationContext(), false);
-                        this.dataWrapper.getDatabaseHandler().unblockAllEvents();
+                        DatabaseHandler.getInstance(this.dataWrapper.context).unblockAllEvents();
                         Event.setForceRunEventRunning(getApplicationContext(), false);
                     }
 
@@ -1498,7 +1498,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 @Override
                 protected Integer doInBackground(Void... params) {
 
-                    int ret = dataWrapper.getDatabaseHandler().exportDB();
+                    int ret = DatabaseHandler.getInstance(this.dataWrapper.context).exportDB();
                     if (ret == 1) {
                         File sd = Environment.getExternalStorageDirectory();
                         File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);

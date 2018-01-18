@@ -95,7 +95,7 @@ class EventsHandler {
 
             //PPApplication.setApplicationStarted(context, true);
 
-            dataWrapper = new DataWrapper(context, true, false, 0);
+            dataWrapper = new DataWrapper(context.getApplicationContext(), true, false, 0);
             dataWrapper.getActivateProfileHelper().initialize(context);
 
             ApplicationPreferences.getSharedPreferences(context);
@@ -208,13 +208,13 @@ class EventsHandler {
                 // for restart events, set startTime to 0
                 for (Event _event : eventList) {
                     _event._eventPreferencesSMS._startTime = 0;
-                    dataWrapper.getDatabaseHandler().updateSMSStartTime(_event);
+                    DatabaseHandler.getInstance(context.getApplicationContext()).updateSMSStartTime(_event);
                     //_event._eventPreferencesNotification._startTime = 0;
                     //dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
                     _event._eventPreferencesNFC._startTime = 0;
-                    dataWrapper.getDatabaseHandler().updateNFCStartTime(_event);
+                    DatabaseHandler.getInstance(context.getApplicationContext()).updateNFCStartTime(_event);
                     _event._eventPreferencesCall._startTime = 0;
-                    dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
+                    DatabaseHandler.getInstance(context.getApplicationContext()).updateCallStartTime(_event);
                 }
             } else {
                 // for no-restart events, stet startTime to actual time
@@ -454,7 +454,7 @@ class EventsHandler {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "profileId=" + mergedProfile._id);
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "profile._deviceRunApplicationPackageName=" + mergedProfile._deviceRunApplicationPackageName);
                 //PPApplication.logE("$$$ EventsHandler.handleEvents", "interactive=" + interactive);
-                dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
+                DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ false, true, false);
 
                 if (!((notifyEvent != null) && notifyEvent.notifyEventStart(context))) {
@@ -609,7 +609,7 @@ class EventsHandler {
             eventType = DatabaseHandler.ETYPE_RADIO_SWITCH;
 
         if (eventType > 0)
-            return dataWrapper.getDatabaseHandler().getTypeEventsCount(eventType, onlyRunning) > 0;
+            return DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType, onlyRunning) > 0;
         else
             return true;
     }

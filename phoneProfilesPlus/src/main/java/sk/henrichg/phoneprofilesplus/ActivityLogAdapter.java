@@ -138,6 +138,6 @@ class ActivityLogAdapter extends CursorAdapter {
     }
 
     public void reload(DataWrapper dataWrapper) {
-        changeCursor(dataWrapper.getDatabaseHandler().getActivityLogCursor());
+        changeCursor(DatabaseHandler.getInstance(dataWrapper.context.getApplicationContext()).getActivityLogCursor());
     }
 }

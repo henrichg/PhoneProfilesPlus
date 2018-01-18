@@ -427,7 +427,7 @@ class EventPreferencesSMS extends EventPreferences {
                 else
                     this._startTime = 0;
 
-                dataWrapper.getDatabaseHandler().updateSMSStartTime(_event);
+                DatabaseHandler.getInstance(dataWrapper.context).updateSMSStartTime(_event);
 
                 if (phoneNumberFound) {
                     if (_event.getStatus() == Event.ESTATUS_RUNNING)
@@ -435,7 +435,7 @@ class EventPreferencesSMS extends EventPreferences {
                 }
             } else {
                 this._startTime = 0;
-                dataWrapper.getDatabaseHandler().updateSMSStartTime(_event);
+                DatabaseHandler.getInstance(dataWrapper.context).updateSMSStartTime(_event);
             }
         }
     }

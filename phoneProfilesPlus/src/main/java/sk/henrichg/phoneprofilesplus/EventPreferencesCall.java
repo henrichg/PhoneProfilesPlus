@@ -349,17 +349,17 @@ class EventPreferencesCall extends EventPreferences {
                 if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL) {
                     _startTime = callTime;
 
-                    dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
+                    DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
 
                     if (_event.getStatus() == Event.ESTATUS_RUNNING)
                         setSystemEventForPause(dataWrapper.context);
                 } else {
                     _startTime = 0;
-                    dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
+                    DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
                 }
             } else {
                 _startTime = 0;
-                dataWrapper.getDatabaseHandler().updateCallStartTime(_event);
+                DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
             }
         }
     }
