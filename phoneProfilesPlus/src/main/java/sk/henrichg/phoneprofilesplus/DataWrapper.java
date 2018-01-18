@@ -46,7 +46,6 @@ public class DataWrapper {
     private boolean monochrome = false;
     private int monochromeValue = 0xFF;
 
-    private DatabaseHandler databaseHandler = null;
     private ActivateProfileHelper activateProfileHelper = null;
     private List<Profile> profileList = null;
     private List<Event> eventList = null;
@@ -61,8 +60,6 @@ public class DataWrapper {
         context = c;
 
         setParameters(fgui, mono, monoVal);
-
-        databaseHandler = getDatabaseHandler();
     }
 
     void setParameters(
@@ -73,15 +70,6 @@ public class DataWrapper {
         forGUI = fgui;
         monochrome = mono;
         monochromeValue = monoVal;
-    }
-
-    public DatabaseHandler getDatabaseHandler()
-    {
-        if (databaseHandler == null)
-            // parameter must by application context
-            databaseHandler = DatabaseHandler.getInstance(context);
-
-        return databaseHandler;
     }
 
     public ActivateProfileHelper getActivateProfileHelper()
@@ -103,7 +91,7 @@ public class DataWrapper {
     }
 
     List<Profile> getNewProfileList() {
-        List<Profile> newProfileList = getDatabaseHandler().getAllProfiles();
+        List<Profile> newProfileList = DatabaseHandler.getInstance(context).getAllProfiles();
 
         if (forGUI)
         {
@@ -354,7 +342,7 @@ public class DataWrapper {
 
         if (profile != null) {
             if (saveToDB)
-                getDatabaseHandler().addProfile(profile, false);
+                DatabaseHandler.getInstance(context).addProfile(profile, false);
         }
 
         return profile;
@@ -363,7 +351,7 @@ public class DataWrapper {
     List<Profile>  getPredefinedProfileList()
     {
         invalidateProfileList();
-        getDatabaseHandler().deleteAllProfiles();
+        DatabaseHandler.getInstance(context).deleteAllProfiles();
 
         for (int index = 0; index < 6; index++)
             getPredefinedProfile(index, true);
@@ -387,7 +375,7 @@ public class DataWrapper {
 
     Profile getActivatedProfileFromDB()
     {
-        Profile profile = getDatabaseHandler().getActivatedProfile();
+        Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
         if (forGUI && (profile != null))
         {
             profile.generateIconBitmap(context, monochrome, monochromeValue);
@@ -424,7 +412,7 @@ public class DataWrapper {
     {
         if (profileList == null)
         {
-            Profile profile = getDatabaseHandler().getFirstProfile();
+            Profile profile = DatabaseHandler.getInstance(context).getFirstProfile();
             if (forGUI && (profile != null))
             {
                 profile.generateIconBitmap(context, monochrome, monochromeValue);
@@ -451,7 +439,7 @@ public class DataWrapper {
             return -1;
 
         if (profileList == null)
-            return getDatabaseHandler().getProfilePosition(profile);
+            return DatabaseHandler.getInstance(context).getProfilePosition(profile);
         else
         {
             for (int i = 0; i < profileList.size(); i++)
@@ -515,7 +503,7 @@ public class DataWrapper {
 
     private Profile getProfileByIdFromDB(long id, boolean merged)
     {
-        Profile profile = getDatabaseHandler().getProfile(id, merged);
+        Profile profile = DatabaseHandler.getInstance(context).getProfile(id, merged);
         if (forGUI && (profile != null))
         {
             profile.generateIconBitmap(context, monochrome, monochromeValue);
@@ -611,7 +599,7 @@ public class DataWrapper {
         if (profile != null) {
             boolean isIconResourceID = profile.getIsIconResourceID();
             String iconIdentifier = profile.getIconIdentifier();
-            getDatabaseHandler().getProfileIcon(profile);
+            DatabaseHandler.getInstance(context).getProfileIcon(profile);
             if (isIconResourceID && iconIdentifier.equals("ic_profile_default") && (!profile.getIsIconResourceID())) {
                 profile.generateIconBitmap(context, monochrome, monochromeValue);
                 profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
@@ -625,7 +613,7 @@ public class DataWrapper {
     {
         if (eventList == null)
         {
-            eventList = getDatabaseHandler().getAllEvents();
+            eventList = DatabaseHandler.getInstance(context).getAllEvents();
         }
 
         return eventList;
@@ -650,7 +638,7 @@ public class DataWrapper {
     {
         if (eventList == null)
         {
-            Event event = getDatabaseHandler().getFirstEvent();
+            Event event = DatabaseHandler.getInstance(context).getFirstEvent();
             return event;
         }
         else
@@ -672,7 +660,7 @@ public class DataWrapper {
             return - 1;
 
         if (eventList == null)
-            return getDatabaseHandler().getEventPosition(event);
+            return DatabaseHandler.getInstance(context).getEventPosition(event);
         else
         {
             for (int i = 0; i < eventList.size(); i++)
@@ -724,7 +712,7 @@ public class DataWrapper {
     {
         if (eventList == null)
         {
-            return getDatabaseHandler().getEvent(id);
+            return DatabaseHandler.getInstance(context).getEvent(id);
         }
         else
         {
@@ -737,7 +725,7 @@ public class DataWrapper {
             }
 
             // when filter is set and profile not found, get profile from db
-            return getDatabaseHandler().getEvent(id);
+            return DatabaseHandler.getInstance(context).getEvent(id);
         }
     }
 
@@ -801,13 +789,13 @@ public class DataWrapper {
                 if (!(event._forceRun && event._noPauseByManualActivation)) {
                     // for "push" events, set startTime to 0
                     event._eventPreferencesSMS._startTime = 0;
-                    getDatabaseHandler().updateSMSStartTime(event);
+                    DatabaseHandler.getInstance(context).updateSMSStartTime(event);
                     //event._eventPreferencesNotification._startTime = 0;
-                    //getDatabaseHandler().updateNotificationStartTime(event);
+                    //DatabaseHandler.getInstance(context).updateNotificationStartTime(event);
                     event._eventPreferencesNFC._startTime = 0;
-                    getDatabaseHandler().updateNFCStartTime(event);
+                    DatabaseHandler.getInstance(context).updateNFCStartTime(event);
                     event._eventPreferencesCall._startTime = 0;
-                    getDatabaseHandler().updateCallStartTime(event);
+                    DatabaseHandler.getInstance(context).updateCallStartTime(event);
                 }
             }
         }
@@ -864,7 +852,7 @@ public class DataWrapper {
     {
         if (ApplicationPreferences.applicationActivate(context))
         {
-            Profile profile = getDatabaseHandler().getActivatedProfile();
+            Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
             long profileId;
             if (profile != null)
                 profileId = profile._id;
@@ -912,7 +900,7 @@ public class DataWrapper {
                 if (event != null)
                     event._blocked = false;
             }
-            getDatabaseHandler().unblockAllEvents();
+            DatabaseHandler.getInstance(context).unblockAllEvents();
             Event.setForceRunEventRunning(context, false);
         }
 
@@ -961,7 +949,7 @@ public class DataWrapper {
     {
         if (profileList == null)
         {
-            return getDatabaseHandler().getProfileIdByName(name);
+            return DatabaseHandler.getInstance(context).getProfileIdByName(name);
         }
         else
         {
@@ -1090,7 +1078,7 @@ public class DataWrapper {
 
         if (event != null) {
             if (saveToDB)
-                getDatabaseHandler().addEvent(event);
+                DatabaseHandler.getInstance(context).addEvent(event);
         }
 
         return event;
@@ -1099,7 +1087,7 @@ public class DataWrapper {
     void generatePredefinedEventList()
     {
         invalidateEventList();
-        getDatabaseHandler().deleteAllEvents();
+        DatabaseHandler.getInstance(context).deleteAllEvents();
 
         for (int index = 0; index < 5; index++)
             getPredefinedEvent(index, true);
@@ -1110,14 +1098,13 @@ public class DataWrapper {
 
     List<EventTimeline> getEventTimelineList()
     {
-        return getDatabaseHandler().getAllEventTimelines();
+        return DatabaseHandler.getInstance(context).getAllEventTimelines();
     }
 
     public void invalidateDataWrapper()
     {
         invalidateProfileList();
         invalidateEventList();
-        databaseHandler = null;
         if (activateProfileHelper != null)
             activateProfileHelper.deinitialize();
         activateProfileHelper = null;
@@ -1164,7 +1151,7 @@ public class DataWrapper {
             ActivateProfileHelper.lockRefresh = false;
         }
 
-        databaseHandler.activateProfile(profile);
+        DatabaseHandler.getInstance(context).activateProfile(profile);
         setProfileActive(profile);
 
         String profileIcon = "";
@@ -1469,7 +1456,7 @@ public class DataWrapper {
         }
         else
         {
-            databaseHandler.activateProfile(profile);
+            DatabaseHandler.getInstance(context).activateProfile(profile);
             setProfileActive(profile);
 
             if (PhoneProfilesService.instance != null)
@@ -1812,7 +1799,7 @@ public class DataWrapper {
 
             if (!callPassed) {
                 event._eventPreferencesCall._startTime = 0;
-                getDatabaseHandler().updateCallStartTime(event);
+                DatabaseHandler.getInstance(context).updateCallStartTime(event);
             }
 
         }
@@ -2395,7 +2382,7 @@ public class DataWrapper {
 
             if (!smsPassed) {
                 event._eventPreferencesSMS._startTime = 0;
-                getDatabaseHandler().updateSMSStartTime(event);
+                DatabaseHandler.getInstance(context).updateSMSStartTime(event);
             }
         }
 
@@ -2445,7 +2432,7 @@ public class DataWrapper {
 
                 /*if (!notificationPassed) {
                     event._eventPreferencesNotification._startTime = 0;
-                    getDatabaseHandler().updateNotificationStartTime(event);
+                    DatabaseHandler.getInstance(context).updateNotificationStartTime(event);
                 }*/
             /*}
             else {
@@ -2504,9 +2491,9 @@ public class DataWrapper {
                             PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "geofences=" + event._eventPreferencesLocation._geofences);
                             for (String _geofence : splits) {
                                 if (!_geofence.isEmpty()) {
-                                    PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "geofence=" + getDatabaseHandler().getGeofenceName(Long.valueOf(_geofence)));
+                                    PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "geofence=" + DatabaseHandler.getInstance(context).getGeofenceName(Long.valueOf(_geofence)));
 
-                                    int geofenceTransition = getDatabaseHandler().getGeofenceTransition(Long.valueOf(_geofence));
+                                    int geofenceTransition = DatabaseHandler.getInstance(context).getGeofenceTransition(Long.valueOf(_geofence));
                                     PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "geofenceTransition=" + geofenceTransition);
 
                                     if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
@@ -2723,7 +2710,7 @@ public class DataWrapper {
 
             if (!nfcPassed) {
                 event._eventPreferencesNFC._startTime = 0;
-                getDatabaseHandler().updateNFCStartTime(event);
+                DatabaseHandler.getInstance(context).updateNFCStartTime(event);
             }
         }
 
@@ -3065,12 +3052,12 @@ public class DataWrapper {
                 if (event != null)
                     event._blocked = false;
             }
-            getDatabaseHandler().unblockAllEvents();
+            DatabaseHandler.getInstance(context).unblockAllEvents();
             Event.setForceRunEventRunning(context, false);
         }
 
         if (!keepActivatedProfile) {
-            getDatabaseHandler().deactivateProfile();
+            DatabaseHandler.getInstance(context).deactivateProfile();
             setProfileActive(null);
         }
 
@@ -3248,7 +3235,7 @@ public class DataWrapper {
     void setEventBlocked(Event event, boolean blocked)
     {
         event._blocked = blocked;
-        getDatabaseHandler().updateEventBlocked(event);
+        DatabaseHandler.getInstance(context).updateEventBlocked(event);
     }
 
     // returns true if:
@@ -3361,7 +3348,7 @@ public class DataWrapper {
                 event.removeDelayStartAlarm(this);
             }
         }
-        getDatabaseHandler().resetAllEventsInDelayStart();
+        DatabaseHandler.getInstance(context).resetAllEventsInDelayStart();
     }
 
     private void resetAllEventsInDelayEnd(boolean onlyFromDb)
@@ -3372,7 +3359,7 @@ public class DataWrapper {
                 event.removeDelayEndAlarm(this);
             }
         }
-        getDatabaseHandler().resetAllEventsInDelayStart();
+        DatabaseHandler.getInstance(context).resetAllEventsInDelayStart();
     }
 
     public void addActivityLog(int logType, String eventName, String profileName, String profileIcon,
@@ -3381,7 +3368,7 @@ public class DataWrapper {
             //if (ApplicationPreferences.preferences == null)
             //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
-            getDatabaseHandler().addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs(context),
+            DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs(context),
                                     logType, eventName, profileName, profileIcon, durationDelay);
         }
     }
