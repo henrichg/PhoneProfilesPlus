@@ -3687,8 +3687,8 @@ public class PhoneProfilesService extends Service
                 try {
                     if (notificationMediaPlayer.isPlaying())
                         notificationMediaPlayer.stop();
+                    notificationMediaPlayer.release();
                 } catch (Exception ignored) {}
-                notificationMediaPlayer.release();
                 notificationIsPlayed = false;
                 notificationMediaPlayer = null;
             }
@@ -3779,8 +3779,8 @@ public class PhoneProfilesService extends Service
                 try {
                     if (ringingMediaPlayer.isPlaying())
                         ringingMediaPlayer.stop();
+                    ringingMediaPlayer.release();
                 } catch (Exception ignored) {}
-                ringingMediaPlayer.release();
                 ringingMediaPlayer = null;
 
                 if (ringingCallIsSimulating)
@@ -4073,8 +4073,8 @@ public class PhoneProfilesService extends Service
             try {
                 if (notificationMediaPlayer.isPlaying())
                     notificationMediaPlayer.stop();
+                notificationMediaPlayer.release();
             } catch (Exception ignored) {}
-            notificationMediaPlayer.release();
             notificationIsPlayed = false;
             notificationMediaPlayer = null;
         }
@@ -4154,9 +4154,9 @@ public class PhoneProfilesService extends Service
                                     try {
                                         if (notificationMediaPlayer.isPlaying())
                                             notificationMediaPlayer.stop();
+                                        notificationMediaPlayer.release();
                                     } catch (Exception ignored) {
                                     }
-                                    notificationMediaPlayer.release();
 
                                     //audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
                                     PPApplication.logE("PhoneProfilesService.playNotificationSound", "notification stopped");

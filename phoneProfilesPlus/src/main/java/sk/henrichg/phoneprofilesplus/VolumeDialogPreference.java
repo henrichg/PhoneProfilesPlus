@@ -325,8 +325,8 @@ public class VolumeDialogPreference extends
             try {
                 if (mediaPlayer.isPlaying())
                     mediaPlayer.stop();
+                mediaPlayer.release();
             } catch (Exception ignored) {}
-            mediaPlayer.release();
         }
         GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }

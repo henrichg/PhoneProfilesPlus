@@ -401,9 +401,9 @@ public class RingtonePreference extends DialogPreference {
                 try {
                     if (mediaPlayer.isPlaying())
                         mediaPlayer.stop();
+                    mediaPlayer.release();
                 } catch (Exception ignored) {
                 }
-                mediaPlayer.release();
                 ringtoneIsPlayed = false;
                 mediaPlayer = null;
 
@@ -470,9 +470,9 @@ public class RingtonePreference extends DialogPreference {
                             try {
                                 if (mediaPlayer.isPlaying())
                                     mediaPlayer.stop();
+                                mediaPlayer.release();
                             } catch (Exception ignored) {
                             }
-                            mediaPlayer.release();
 
                             if (oldMediaVolume > -1)
                                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
