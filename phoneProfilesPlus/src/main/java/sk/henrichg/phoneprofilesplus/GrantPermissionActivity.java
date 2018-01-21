@@ -677,8 +677,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     requestPermissions(3);
                 }
             }
-            else
+            else {
                 requestPermissions(3);
+            }
         }
         if (requestCode == DRAW_OVERLAYS_REQUEST_CODE) {
             if (!Settings.canDrawOverlays(context)) {
@@ -716,7 +717,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.M)
     private void requestPermissions(int iteration) {
-
+        PPApplication.logE("GrantPermissionActivity.requestPermission","iteration="+iteration);
         if (iteration == 1) {
             boolean writeSettingsFound = false;
             for (Permissions.PermissionType permissionType : permissions) {

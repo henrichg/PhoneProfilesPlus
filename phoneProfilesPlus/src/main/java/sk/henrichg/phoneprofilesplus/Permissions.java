@@ -430,7 +430,7 @@ class Permissions {
             return true;
     }
 
-    static boolean checkScreenBrightness(Context context) {
+    static boolean checkScreenBrightness(Context context, List<PermissionType>  permissions) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 boolean grantedWriteSettings = Settings.System.canWrite(context);
@@ -439,6 +439,12 @@ class Permissions {
                 boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
                 if (grantedDrawOverlays)
                     setShowRequestDrawOverlaysPermission(context, true);
+                if (permissions != null) {
+                    if (!grantedWriteSettings)
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
+                    if (!grantedDrawOverlays)
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_TIMEOUT, permission.SYSTEM_ALERT_WINDOW));
+                }
                 return grantedWriteSettings && grantedDrawOverlays;
             } catch (Exception e) {
                 return false;
@@ -1227,12 +1233,10 @@ class Permissions {
 
     static boolean grantBrightnessDialogPermissions(Context context, BrightnessDialogPreference preference) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkScreenBrightness(context);
+            List<PermissionType> permissions = new ArrayList<>();
+            boolean granted = checkScreenBrightness(context, permissions);
             if (!granted) {
                 try {
-                    List<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
-
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity

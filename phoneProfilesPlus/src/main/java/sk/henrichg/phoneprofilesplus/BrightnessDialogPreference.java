@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
@@ -193,7 +194,7 @@ public class BrightnessDialogPreference extends
     }
 
     void enableViews() {
-        if (Permissions.checkScreenBrightness(_context)) {
+        if (Permissions.checkScreenBrightness(_context, null)) {
             valueText.setEnabled((adaptiveAllowed || automatic == 0) && (noChange == 0) && (defaultProfile == 0));
             seekBar.setEnabled((adaptiveAllowed || automatic == 0) && (noChange == 0) && (defaultProfile == 0));
             automaticChBox.setEnabled((noChange == 0) && (defaultProfile == 0));
@@ -214,7 +215,7 @@ public class BrightnessDialogPreference extends
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
 
-        if (Permissions.checkScreenBrightness(_context)) {
+        if (Permissions.checkScreenBrightness(_context, null)) {
             Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, savedBrightnessMode);
             Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, savedBrightness);
             setAdaptiveBrightness(savedAdaptiveBrightness);
@@ -291,7 +292,7 @@ public class BrightnessDialogPreference extends
 
         if (/*(isAutomatic) || */(_noChange == 1))
         {
-            if (Permissions.checkScreenBrightness(_context)) {
+            if (Permissions.checkScreenBrightness(_context, null)) {
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, savedBrightnessMode);
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, savedBrightness);
                 setAdaptiveBrightness(savedAdaptiveBrightness);
@@ -307,7 +308,7 @@ public class BrightnessDialogPreference extends
         }
         else
         {
-            if (Permissions.checkScreenBrightness(_context)) {
+            if (Permissions.checkScreenBrightness(_context, null)) {
                 if (_automatic == 1)
                     Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                 else
@@ -330,7 +331,7 @@ public class BrightnessDialogPreference extends
     }
 
     private void setBrightnessFromSeekBar(int value) {
-        if (Permissions.checkScreenBrightness(_context)) {
+        if (Permissions.checkScreenBrightness(_context, null)) {
             if (automatic == 1)
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
             else
@@ -465,7 +466,7 @@ public class BrightnessDialogPreference extends
         setSummary(prefVolumeDataSummary);
     }
 
-    private void setAdaptiveBrightness(float value) {
+    private void setAdaptiveBrightness(final float value) {
         if (adaptiveAllowed) {
             if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
                 Settings.System.putFloat(_context.getContentResolver(),
@@ -476,20 +477,27 @@ public class BrightnessDialogPreference extends
                             ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, value);
                 } catch (Exception ee) {
                     if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
-                        synchronized (PPApplication.startRootCommandMutex) {
-                            String command1 = "settings put system " + ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
-                                    Float.toString(value);
-                            //if (PPApplication.isSELinuxEnforcing())
-                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                            Command command = new Command(0, false, command1); //, command2);
-                            try {
-                                //RootTools.closeAllShells();
-                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                //commandWait(command);
-                            } catch (Exception e) {
-                                Log.e("BrightnessDialogPreference.setAdaptiveBrightness", "Error on run su: " + e.toString());
+                        PPApplication.startHandlerThread();
+                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                synchronized (PPApplication.startRootCommandMutex) {
+                                    String command1 = "settings put system " + ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
+                                            Float.toString(value);
+                                    //if (PPApplication.isSELinuxEnforcing())
+                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                    Command command = new Command(0, false, command1); //, command2);
+                                    try {
+                                        //RootTools.closeAllShells();
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        //commandWait(command);
+                                    } catch (Exception e) {
+                                        Log.e("BrightnessDialogPreference.setAdaptiveBrightness", "Error on run su: " + e.toString());
+                                    }
+                                }
                             }
-                        }
+                        });
                     }
                 }
             }
