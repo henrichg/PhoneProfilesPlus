@@ -12,7 +12,6 @@ import android.os.Build;
 import android.support.v7.widget.GridLayout;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 

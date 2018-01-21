@@ -7,7 +7,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.widget.RemoteViews;
 
 public class IconWidgetProvider extends AppWidgetProvider {
