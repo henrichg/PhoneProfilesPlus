@@ -328,7 +328,6 @@
   <string name="array_event_pref_wifiConnectionType_inFront">Yakındaki (tarama aralığı içinde)</string>
   <string name="event_preferences_wifi_connection_type">Wi-Fi bağlantı türü</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Wi-Fi tarama aralığı (dakika)</string>
-  <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Wi-Fi taraması ayarlarını aç</string>
   <string name="phone_profiles_pref_applicationEventBackgroundProfile">Varsayılan tercih</string>
   <string name="profile_preference_profile_end_no_activate">Faaliyete geçmesin</string>
   <string name="profile_preference_profile_not_set">Tercih ayarlanmadı</string>
@@ -477,8 +476,6 @@
   <string name="array_pref_zenModeArray_alarms">Sadece alarmlar</string>
   <string name="profile_preferences_zenMode_alarms_summary">Sadece alarm kesintileri</string>
   <string name="phone_profiles_pref_applicationShortcutEmblem">Amblem için kısayol ekle</string>
-  <string name="phone_profiles_pref_applicationEventWifiEnableWifi_summary">Kablosuz devre dışı olsa bile</string>
-  <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary">Bluetooth devre dışı olsa bile</string>
   <string name="permission_group_name_write_settings">Sistem ayarlarını değiştir</string>
   <string name="permission_group_name_storage">Depo</string>
   <string name="permission_group_name_phone">Telefon No</string>
@@ -712,7 +709,7 @@
   <string name="array_pref_device_wallpaper_all">Ana ekran ve Kilit ekranı</string>
   <string name="event_type_mobile_cells">Şebeke hücreleri</string>
   <string name="event_preferences_category_eventMobileCellsParameters">Şebeke hücrelerinin değerleri</string>
-  <string name="event_preferences_mobile_cells_cells">Hücreler</string>
+  <string name="event_preferences_mobile_cells_cells">Hücreler (Baz istasyonları)</string>
   <string name="event_preferences_mobile_cells_when_outside_pref_name">Şebeke hücresi dışında iken başlat</string>
   <string name="event_preferences_mobile_cells_when_outside_description">Dışarıda iken</string>
   <string name="permissions_for_mobile_cells_scan_dialog_text1">Şebeke hücrelerini taramak için bazı izinler lazımdır.</string>
@@ -1053,7 +1050,7 @@
   <string name="important_info_quick_guide_sensors_8"><b>• Aksesuarları değerleri:</b> Misalen, kulaklık bağlandığında, bir durumu başlatmak.</string>
   <string name="important_info_quick_guide_sensors_9"><b>• NFC değerleri:</b> Bir durumu NFC etiketleri ile başlatın.</string>
   <string name="important_info_quick_guide_events_3">El ile bir tercih (bir Durum tarafından değil) faaliyete geçirirseniz, çalışan durumların tamamı sona erer (fasıla verir). Durumlar, el ile tercih faaliyete geçirme müddetince başlatılamaz. Fakat, bu hareketi \"El ile faaliyete geçirmeyi ihmal et\" durum değeri ayarı hükümsüz kılabilirsiniz.</string>
-  <string name="important_info_quick_guide_editor_1">Tercih ve Durumlar, Muharrik ile ulaşılabilen Düzenleyici\'de ayarlanır. Düzenleyici içinde tercih ve durumları ekleme, çoğaltma, güncelleştirme ve silme işlemleri yapabilirsiniz. Düzenleyicide görünümünü değiştirmenize imkan sağlayan bir sol yan panel vardır. Tercih ve durum listeleri arasında geçiş yapmak için kullanın.</string>
+  <string name="important_info_quick_guide_editor_1">Tercih ve Durumlar, Muharrik ile ulaşılabilen Düzenleyici\'de ayarlanır. Düzenleyici içinde tercih ve durumları ekleme, çoğaltma, güncelleştirme ve silme işlemleri yapabilirsiniz. Düzenleyicide görünümünü değiştirmenize imkan sağlayan bir sol yan panel büyüklüğe bulunur. Tercih ve durum listeleri arasında geçiş yapmak için kullanabilirsiniz.</string>
   <string name="event_preferences_noPauseByManualActivation">El ile faaliyete geçirmeyle duraklatılmasın</string>
   <string name="event_preferences_noPauseByManualActivation_summary">Bu durum, el ile faaliyete geçirilmiş bir tercih çalışırken durmasın</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Etiket ismi ayarlanmamış.</string>
@@ -1135,4 +1132,24 @@
   <string name="profile_activation_interactive_preference_notification_title">Faal tercih:</string>
   <string name="profile_activation_interactive_preference_notification_text">Açmak için buraya dokunun:</string>
   <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi hotspot tercihleri</string>
+  <string name="preference_not_allowed_reason_not_supported_android_version">desteklenmeyen Android sürümü</string>
+  <string name="event_preferences_notifications_inCall">Çağrı halinde</string>
+  <string name="event_preferences_notifications_missedCall">Cevapsız çağrı</string>
+  <string name="colorChooser_pref_dialog_defaultIconColor">Varsayılan simge rengi</string>
+  <string name="phone_profiles_pref_applicationWidgetBackgroundType">Renk arka plan türü</string>
+  <string name="phone_profiles_pref_applicationWidgetColorB">Arka plan rengi</string>
+  <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Renkli arka plan türü (widget)</string>
+  <string name="phone_profiles_pref_applicationWidgetIconColorB">Arka plan rengi (widget)</string>
+  <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Wi-Fi taramasını aç</string>
+  <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Wi-Fi devre dışı olsa bile tara</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Bluetooth taramayı aç</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Bluetooth devre dışı olsa bile tara</string>
+  <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Konumu taranmasını aç</string>
+  <string name="profile_preferences_applicationDisableLocationScanning">Konumu taranmasını kapat</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Şebeke hücre taramasını aç</string>
+  <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Döndürme sensörü taramasını aç</string>
+  <string name="phone_profiles_pref_applicationEventScanningDisabled">Tarama kapatıldı!</string>
+  <string name="profile_preferences_applicationDisableMobileCellScanning">Şebeke hücre taramasını kapat</string>
+  <string name="profile_preferences_applicationDisableOrientationScanning">Döndürme sensörü taramasını kapat</string>
+  <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
 </resources>

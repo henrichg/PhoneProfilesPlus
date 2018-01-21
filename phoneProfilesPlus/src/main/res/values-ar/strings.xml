@@ -328,7 +328,6 @@
   <string name="array_event_pref_wifiConnectionType_inFront">Nearby (within scanning range)</string>
   <string name="event_preferences_wifi_connection_type">Connection type</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Wi-Fi scan interval (minutes)</string>
-  <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Enable Wi-Fi scanning</string>
   <string name="phone_profiles_pref_applicationEventBackgroundProfile">Default profile</string>
   <string name="profile_preference_profile_end_no_activate">Don\'t activate</string>
   <string name="profile_preference_profile_not_set">Profile not set</string>
@@ -477,8 +476,6 @@
   <string name="array_pref_zenModeArray_alarms">Alarms only</string>
   <string name="profile_preferences_zenMode_alarms_summary">Interrupt only with alarms</string>
   <string name="phone_profiles_pref_applicationShortcutEmblem">Add emblem to shortcut</string>
-  <string name="phone_profiles_pref_applicationEventWifiEnableWifi_summary">Even if Wi-Fi is disabled</string>
-  <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary">Even if Bluetooth is disabled</string>
   <string name="permission_group_name_write_settings">Modify system settings</string>
   <string name="permission_group_name_storage">Storage</string>
   <string name="permission_group_name_phone">Phone</string>
@@ -1135,4 +1132,24 @@
   <string name="profile_activation_interactive_preference_notification_title">Activated profile:</string>
   <string name="profile_activation_interactive_preference_notification_text">Click here to open:</string>
   <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi hotspot preferences</string>
+  <string name="preference_not_allowed_reason_not_supported_android_version">not supported Android version</string>
+  <string name="event_preferences_notifications_inCall">In call</string>
+  <string name="event_preferences_notifications_missedCall">Missed call</string>
+  <string name="colorChooser_pref_dialog_defaultIconColor">Default icon color</string>
+  <string name="phone_profiles_pref_applicationWidgetBackgroundType">Color background type</string>
+  <string name="phone_profiles_pref_applicationWidgetColorB">Background color</string>
+  <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Color background type (widget)</string>
+  <string name="phone_profiles_pref_applicationWidgetIconColorB">Background color (widget)</string>
+  <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Enable Wi-Fi scanning</string>
+  <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Scan even if Wi-Fi is disabled</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Enable Bluetooth scanning</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Scan even if Bluetooth is disabled</string>
+  <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Enable location scanning</string>
+  <string name="profile_preferences_applicationDisableLocationScanning">Disable location scanning</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Enable mobile cell scanning</string>
+  <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Enable orientation scanning</string>
+  <string name="phone_profiles_pref_applicationEventScanningDisabled">Scanning disabled!</string>
+  <string name="profile_preferences_applicationDisableMobileCellScanning">Disable mobile cell scanning</string>
+  <string name="profile_preferences_applicationDisableOrientationScanning">Disable orientation scanning</string>
+  <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
 </resources>

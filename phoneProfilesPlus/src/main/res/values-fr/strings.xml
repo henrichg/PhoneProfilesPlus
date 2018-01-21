@@ -328,7 +328,6 @@
   <string name="array_event_pref_wifiConnectionType_inFront">À proximité (dans la zone de balayage)</string>
   <string name="event_preferences_wifi_connection_type">Type de connexion</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Intervalle de scan WiFi (min)</string>
-  <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Activer le scan Wi-Fi</string>
   <string name="phone_profiles_pref_applicationEventBackgroundProfile">Profil par défaut</string>
   <string name="profile_preference_profile_end_no_activate">Aucune activation</string>
   <string name="profile_preference_profile_not_set">Profil non défini</string>
@@ -477,8 +476,6 @@
   <string name="array_pref_zenModeArray_alarms">Alarmes seulement</string>
   <string name="profile_preferences_zenMode_alarms_summary">Seulement les interruptions d\'alarmes</string>
   <string name="phone_profiles_pref_applicationShortcutEmblem">Ajouter symbole au raccourci</string>
-  <string name="phone_profiles_pref_applicationEventWifiEnableWifi_summary">Même si Wifi est désactivé</string>
-  <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary">Même si Bluetooth est désactivé</string>
   <string name="permission_group_name_write_settings">Changer les réglages système</string>
   <string name="permission_group_name_storage">Stockage</string>
   <string name="permission_group_name_phone">Téléphone</string>
@@ -1136,4 +1133,24 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="profile_activation_interactive_preference_notification_title">Profil actif :</string>
   <string name="profile_activation_interactive_preference_notification_text">Cliquez ici pour ouvrir :</string>
   <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi préférences hotspot</string>
+  <string name="preference_not_allowed_reason_not_supported_android_version">version Android non prise en charge</string>
+  <string name="event_preferences_notifications_inCall">Appel en cours</string>
+  <string name="event_preferences_notifications_missedCall">Appel manqué</string>
+  <string name="colorChooser_pref_dialog_defaultIconColor">Icônes colorées par défaut</string>
+  <string name="phone_profiles_pref_applicationWidgetBackgroundType">Type de couleur de fond</string>
+  <string name="phone_profiles_pref_applicationWidgetColorB">Couleur d\'arrière-plan</string>
+  <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Type de couleur de fond (widget)</string>
+  <string name="phone_profiles_pref_applicationWidgetIconColorB">Couleur d’arrière-plan (widget)</string>
+  <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Activer le scan Wi-Fi</string>
+  <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Scan, même si le WiFi est désactivé</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Activez le scan Bluetooth</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Scan même si Bluetooth est désactivé</string>
+  <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Activer le scan de localisation (Gps + Wifi)</string>
+  <string name="profile_preferences_applicationDisableLocationScanning">Désactiver le scan de localisation (Gps + Wifi)</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Activer le scan des antennes cellulaire</string>
+  <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Activer l’analyse de l’orientation</string>
+  <string name="phone_profiles_pref_applicationEventScanningDisabled">Scan désactivé !</string>
+  <string name="profile_preferences_applicationDisableMobileCellScanning">Désactiver le scan des antennes cellulaire</string>
+  <string name="profile_preferences_applicationDisableOrientationScanning">Désactiver le scan des antennes cellulaire</string>
+  <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
 </resources>

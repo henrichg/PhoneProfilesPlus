@@ -328,7 +328,6 @@
   <string name="array_event_pref_wifiConnectionType_inFront">Neďaleko (v rozsahu skenovania)</string>
   <string name="event_preferences_wifi_connection_type">Typ pripojenia</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Interval skenovania Wi-Fi (min.)</string>
-  <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Povoľ skenovanie Wi-Fi</string>
   <string name="phone_profiles_pref_applicationEventBackgroundProfile">Predvolený profil</string>
   <string name="profile_preference_profile_end_no_activate">Neaktivovať</string>
   <string name="profile_preference_profile_not_set">Nevybraný žiadny profil</string>
@@ -477,8 +476,6 @@
   <string name="array_pref_zenModeArray_alarms">Len budíky</string>
   <string name="profile_preferences_zenMode_alarms_summary">Iba budíky budú oznamované</string>
   <string name="phone_profiles_pref_applicationShortcutEmblem">Pridávať emblém do odkazu</string>
-  <string name="phone_profiles_pref_applicationEventWifiEnableWifi_summary">Aj keď Wi-Fi je vypnutá</string>
-  <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary">Aj keď Bluetooth je vypnutý</string>
   <string name="permission_group_name_write_settings">Úprava nastavení systému</string>
   <string name="permission_group_name_storage">Úložisko</string>
   <string name="permission_group_name_phone">Telefón</string>
@@ -1135,4 +1132,24 @@
   <string name="profile_activation_interactive_preference_notification_title">Aktivovaný profil:</string>
   <string name="profile_activation_interactive_preference_notification_text">Kliknite tu pre otvorenie:</string>
   <string name="profile_preferences_deviceWiFiAPPrefs">(I) Nastavenia Wi-Fi prístupového bodu</string>
+  <string name="preference_not_allowed_reason_not_supported_android_version">nepodporovaná verzia Androidu</string>
+  <string name="event_preferences_notifications_inCall">Počas hovoru</string>
+  <string name="event_preferences_notifications_missedCall">Zmeškaný hovor</string>
+  <string name="colorChooser_pref_dialog_defaultIconColor">Predvolená farba ikony</string>
+  <string name="phone_profiles_pref_applicationWidgetBackgroundType">Farebný typ pozadia</string>
+  <string name="phone_profiles_pref_applicationWidgetColorB">Farba pozadia</string>
+  <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Farebný typ pozadia (miniapl.)</string>
+  <string name="phone_profiles_pref_applicationWidgetIconColorB">Farba pozadia (miniapl.)</string>
+  <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Povoliť skenovanie Wi-Fi</string>
+  <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Skenovať aj keď Wi-Fi je vypnutá</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Povoiť skenovanie Bluetooth</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Skenovať aj keď Bluetooth je vypnutý</string>
+  <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Povoliť skenovanie polohy</string>
+  <string name="profile_preferences_applicationDisableLocationScanning">Zakázať skenovanie polohy</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Povoliť skenovanie mobilných buniek</string>
+  <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Povoliť skenovanie orientácie</string>
+  <string name="phone_profiles_pref_applicationEventScanningDisabled">Skenovanie je zakázané!</string>
+  <string name="profile_preferences_applicationDisableMobileCellScanning">Zakázať skenovanie mobilných buniek</string>
+  <string name="profile_preferences_applicationDisableOrientationScanning">Zakázať skenovanie orientácie</string>
+  <string name="profile_preferences_headsUpNotifications">(G1) (R) Vyskakovacie notifikácie</string>
 </resources>

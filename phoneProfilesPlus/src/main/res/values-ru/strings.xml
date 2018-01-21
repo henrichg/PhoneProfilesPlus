@@ -328,7 +328,6 @@
   <string name="array_event_pref_wifiConnectionType_inFront">Рядом (в диапазоне сканирования)</string>
   <string name="event_preferences_wifi_connection_type">Тип соединения</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Интервал сканирования Wi-Fi (мин)</string>
-  <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Включить сканирование Wi-Fi</string>
   <string name="phone_profiles_pref_applicationEventBackgroundProfile">Профиль по умолчанию</string>
   <string name="profile_preference_profile_end_no_activate">Не активировать</string>
   <string name="profile_preference_profile_not_set">Профиль не выбран</string>
@@ -398,9 +397,9 @@
   <string name="title_activity_activity_log">Журнал событий</string>
   <string name="menu_activity_log">Журнал событий</string>
   <string name="altype_profileActivation">Активация профиля</string>
-  <string name="altype_afterDuration_undoProfile">По окончанию - отменить профиль</string>
+  <string name="altype_afterDuration_undoProfile">По окончании - отменить профиль</string>
   <string name="altype_afterDuration_backgroundProfile">По окончании - профиль по умолчанию</string>
-  <string name="altype_afterDuration_restartEvents">По окончанию - перезапустить события</string>
+  <string name="altype_afterDuration_restartEvents">По окончании - перезапустить события</string>
   <string name="altype_eventStart">Запуск события</string>
   <string name="altype_eventStartDelay">Запуск события с задержкой</string>
   <string name="altype_eventEnd_none">Приостановить событие</string>
@@ -417,7 +416,7 @@
   <string name="profile_preferences_vibrationOnTouch">Вибрация при нажатии</string>
   <string name="phone_profiles_pref_notificationShowInStatusBar">Показывать в строке состояния</string>
   <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Показать в строке состояния и на экране блокировки</string>
-  <string name="menu_activity_log_reload">Перезагрузка</string>
+  <string name="menu_activity_log_reload">Перезагрузить</string>
   <string name="event_preferences_atEndDo">И выполнить</string>
   <string name="array_pref_atEndDo_none">Ничего</string>
   <string name="array_pref_atEndDo_undoneProfile">Отменить данный профиль</string>
@@ -477,8 +476,6 @@
   <string name="array_pref_zenModeArray_alarms">Только уведомления</string>
   <string name="profile_preferences_zenMode_alarms_summary">Только оповещения</string>
   <string name="phone_profiles_pref_applicationShortcutEmblem">Добавить иконку на ярлык</string>
-  <string name="phone_profiles_pref_applicationEventWifiEnableWifi_summary">Даже если Wi-fi отключен</string>
-  <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary">Даже если Bluetooth отключен</string>
   <string name="permission_group_name_write_settings">Изменение настроек системы</string>
   <string name="permission_group_name_storage">Хранилище</string>
   <string name="permission_group_name_phone">Номер телефона</string>
@@ -1136,4 +1133,24 @@
   <string name="profile_activation_interactive_preference_notification_title">Активированный профиль:</string>
   <string name="profile_activation_interactive_preference_notification_text">Нажмите сюда, чтобы открыть:</string>
   <string name="profile_preferences_deviceWiFiAPPrefs">(I) Настройки точки доступа Wi-Fi</string>
+  <string name="preference_not_allowed_reason_not_supported_android_version">неподдерживаемая версия Android</string>
+  <string name="event_preferences_notifications_inCall">Входящий вызов</string>
+  <string name="event_preferences_notifications_missedCall">Пропущенный вызов</string>
+  <string name="colorChooser_pref_dialog_defaultIconColor">Цвет иконки по умолчанию</string>
+  <string name="phone_profiles_pref_applicationWidgetBackgroundType">Тип цвета фона</string>
+  <string name="phone_profiles_pref_applicationWidgetColorB">Цвет фона</string>
+  <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Тип цвета фона (виджет)</string>
+  <string name="phone_profiles_pref_applicationWidgetIconColorB">Цвет фона (виджет)</string>
+  <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Включить сканирование Wi-Fi</string>
+  <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Сканировать, даже если Wi-Fi отключён</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Включить сканирование Bluetooth</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Сканировать, даже если Bluetooth отключён</string>
+  <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Включить сканирование местоположения</string>
+  <string name="profile_preferences_applicationDisableLocationScanning">Отключить сканирование местоположения</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Включить сканирование мобильных вышек</string>
+  <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Включить сканирование ориентации</string>
+  <string name="phone_profiles_pref_applicationEventScanningDisabled">Сканирование отключено!</string>
+  <string name="profile_preferences_applicationDisableMobileCellScanning">Отключить сканирование мобильных вышек</string>
+  <string name="profile_preferences_applicationDisableOrientationScanning">Отключить сканирование ориентации</string>
+  <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
 </resources>

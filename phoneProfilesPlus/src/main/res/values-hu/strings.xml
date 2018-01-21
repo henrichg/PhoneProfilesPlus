@@ -328,7 +328,6 @@
   <string name="array_event_pref_wifiConnectionType_inFront">Közeli (hatósugaron belüli keresés)</string>
   <string name="event_preferences_wifi_connection_type">Kapcsolat típusa</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Wi-Fi keresési intervallum (perc)</string>
-  <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Engedélyezi a Wi-Fi keresést</string>
   <string name="phone_profiles_pref_applicationEventBackgroundProfile">Alapértelmezett profil</string>
   <string name="profile_preference_profile_end_no_activate">Nincs aktiválás</string>
   <string name="profile_preference_profile_not_set">Profil nincs beállítva</string>
@@ -477,8 +476,6 @@
   <string name="array_pref_zenModeArray_alarms">Csak a riasztás</string>
   <string name="profile_preferences_zenMode_alarms_summary">Csak riasztás megszakítás</string>
   <string name="phone_profiles_pref_applicationShortcutEmblem">Embléma hozzáadása az indítóhoz</string>
-  <string name="phone_profiles_pref_applicationEventWifiEnableWifi_summary">Akkor is, ha a WiFi le van tiltva</string>
-  <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary">Még akkor is, ha a Bluetooth le van tiltva</string>
   <string name="permission_group_name_write_settings">Rendszerbeállítások módosítása</string>
   <string name="permission_group_name_storage">Tárhely</string>
   <string name="permission_group_name_phone">Telefon</string>
@@ -1135,4 +1132,24 @@
   <string name="profile_activation_interactive_preference_notification_title">Aktivált profil:</string>
   <string name="profile_activation_interactive_preference_notification_text">Kattintson ide a megnyitáshoz:</string>
   <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi hotspot beállítások</string>
+  <string name="preference_not_allowed_reason_not_supported_android_version">nem támogatott Android verzió</string>
+  <string name="event_preferences_notifications_inCall">Hívásban</string>
+  <string name="event_preferences_notifications_missedCall">Nem fogadott hívás</string>
+  <string name="colorChooser_pref_dialog_defaultIconColor">Default icon color</string>
+  <string name="phone_profiles_pref_applicationWidgetBackgroundType">Color background type</string>
+  <string name="phone_profiles_pref_applicationWidgetColorB">Background color</string>
+  <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Color background type (widget)</string>
+  <string name="phone_profiles_pref_applicationWidgetIconColorB">Background color (widget)</string>
+  <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Enable Wi-Fi scanning</string>
+  <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Scan even if Wi-Fi is disabled</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Enable Bluetooth scanning</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Scan even if Bluetooth is disabled</string>
+  <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Enable location scanning</string>
+  <string name="profile_preferences_applicationDisableLocationScanning">Disable location scanning</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Enable mobile cell scanning</string>
+  <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Enable orientation scanning</string>
+  <string name="phone_profiles_pref_applicationEventScanningDisabled">Scanning disabled!</string>
+  <string name="profile_preferences_applicationDisableMobileCellScanning">Disable mobile cell scanning</string>
+  <string name="profile_preferences_applicationDisableOrientationScanning">Disable orientation scanning</string>
+  <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
 </resources>
