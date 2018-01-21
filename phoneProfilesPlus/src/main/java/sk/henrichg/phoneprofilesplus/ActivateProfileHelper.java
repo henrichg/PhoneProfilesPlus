@@ -1044,17 +1044,17 @@ public class ActivateProfileHelper {
     }
 
     private void setHeadsUpNotifications(int value) {
-        Log.e("ActivateProfileHelper.setHeadsUpNotifications", "xxx");
+        //Log.e("ActivateProfileHelper.setHeadsUpNotifications", "xxx");
         if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, context)
                 == PPApplication.PREFERENCE_ALLOWED) {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                    Log.e("ActivateProfileHelper.setHeadsUpNotifications", "WRITE_SECURE_SETTINGS");
+                    //Log.e("ActivateProfileHelper.setHeadsUpNotifications", "WRITE_SECURE_SETTINGS");
                     Settings.Global.putInt(context.getContentResolver(), "heads_up_notifications_enabled", value);
                 }
                 else
                 if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
-                    Log.e("ActivateProfileHelper.setHeadsUpNotifications", "ROOT");
+                    //Log.e("ActivateProfileHelper.setHeadsUpNotifications", "ROOT");
                     synchronized (PPApplication.startRootCommandMutex) {
                         String command1 = "settings put global " + "heads_up_notifications_enabled" + " " + value;
                         //if (PPApplication.isSELinuxEnforcing())
