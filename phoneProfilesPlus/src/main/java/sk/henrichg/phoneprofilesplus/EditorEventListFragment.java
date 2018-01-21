@@ -381,50 +381,43 @@ public class EditorEventListFragment extends Fragment
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                 event.pauseEvent(dataWrapper, eventTimelineList, true, false,
                         false, false, null, false, true); // activate return profile
-                // redraw event list
-                updateListView(event, false, false, true);
-                // restart events
-                PPApplication.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
-                dataWrapper.restartEvents(false, true/*, false*/);
             } else {
                 // stop event
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                 event.stopEvent(dataWrapper, eventTimelineList, true, false,
                         true, false, true); // activate return profile
-                // redraw event list
-                updateListView(event, false, false, true);
-                // restart events
-                PPApplication.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
-                dataWrapper.restartEvents(false, true/*, false*/);
             }
+
+            // redraw event list
+            updateListView(event, false, false, true);
+            // restart events
+            PPApplication.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
+            dataWrapper.restartEvents(false, true/*, false*/);
+
+            Intent serviceIntent = new Intent(dataWrapper.context, PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //TODO Android O
+            //if (Build.VERSION.SDK_INT < 26)
+            dataWrapper.context.startService(serviceIntent);
+            //else
+            //    context.startForegroundService(serviceIntent);
         }
         else
         {
             if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP) {
                 // pause event
                 event.setStatus(Event.ESTATUS_PAUSE);
-                // update event in DB
-                DatabaseHandler.getInstance(dataWrapper.context).updateEvent(event);
-                // redraw event list
-                updateListView(event, false, false, true);
             } else {
                 // stop event
                 event.setStatus(Event.ESTATUS_STOP);
-                // update event in DB
-                DatabaseHandler.getInstance(dataWrapper.context).updateEvent(event);
-                // redraw event list
-                updateListView(event, false, false, true);
             }
-        }
 
-        Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
-        serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
-        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-        //TODO Android O
-        //if (Build.VERSION.SDK_INT < 26)
-        getActivity().getApplicationContext().startService(serviceIntent);
-        //else
-        //    context.startForegroundService(serviceIntent);
+            // update event in DB
+            DatabaseHandler.getInstance(dataWrapper.context).updateEvent(event);
+            // redraw event list
+            updateListView(event, false, false, true);
+        }
     }
 
     private void duplicateEvent(Event origEvent)
