@@ -54,6 +54,7 @@ public class LockDeviceActivity extends AppCompatActivity {
         params.screenBrightness = 0f;
 
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //noinspection ConstantConditions
         view = layoutInflater.inflate(R.layout.activity_lock_device, null);
         view.setSystemUiVisibility(5894);
         view.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {

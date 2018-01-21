@@ -163,6 +163,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
+        //noinspection ConstantConditions
         AppCompatImageButton addButton = layout.findViewById(R.id.applications_pref_dlg_add);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());

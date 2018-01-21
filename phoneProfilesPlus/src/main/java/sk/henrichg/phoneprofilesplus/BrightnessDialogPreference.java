@@ -128,10 +128,15 @@ public class BrightnessDialogPreference extends
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
+        //noinspection ConstantConditions
         seekBar = layout.findViewById(R.id.brightnessPrefDialogSeekbar);
+        //noinspection ConstantConditions
         valueText = layout.findViewById(R.id.brightnessPrefDialogValueText);
+        //noinspection ConstantConditions
         noChangeChBox = layout.findViewById(R.id.brightnessPrefDialogNoChange);
+        //noinspection ConstantConditions
         automaticChBox = layout.findViewById(R.id.brightnessPrefDialogAutomatic);
+        //noinspection ConstantConditions
         defaultProfileChBox = layout.findViewById(R.id.brightnessPrefDialogDefaultProfile);
 
         if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness

@@ -138,6 +138,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         View layout = mDialog.getCustomView();
 
+        //noinspection ConstantConditions
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
 
         mValue = layout.findViewById(R.id.duration_pref_dlg_value);

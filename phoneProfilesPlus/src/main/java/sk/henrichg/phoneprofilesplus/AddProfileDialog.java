@@ -46,6 +46,7 @@ class AddProfileDialog
 
         mDialog = dialogBuilder.build();
 
+        //noinspection ConstantConditions
         ListView listView = mDialog.getCustomView().findViewById(R.id.profile_pref_dlg_listview);
 
         AddProfileAdapter addProfileAdapter = new AddProfileAdapter(context, profileList);

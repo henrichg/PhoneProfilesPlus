@@ -290,8 +290,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             drawerLayout.setStatusBarBackground(R.color.profile_all_primaryDark_dark);
 
         drawerListView = findViewById(R.id.editor_drawer_list);
-        @SuppressLint("InflateParams")
-        View headerView =  ((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.editor_drawer_list_header, null, false);
+        //noinspection ConstantConditions
+        @SuppressLint("InflateParams") View headerView =  ((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.editor_drawer_list_header, null, false);
         drawerListView.addHeaderView(headerView, null, false);
         drawerHeaderFilterImage = findViewById(R.id.editor_drawer_list_header_icon);
         drawerHeaderFilterTitle = findViewById(R.id.editor_drawer_list_header_title);

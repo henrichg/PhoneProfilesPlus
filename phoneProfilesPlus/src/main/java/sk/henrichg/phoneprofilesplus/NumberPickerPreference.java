@@ -88,6 +88,7 @@ public class NumberPickerPreference extends DialogPreference {
             mMin = getSharedPreferences().getInt(mMinExternalKey, mMin);
         }
 
+        //noinspection ConstantConditions
         mNumberPicker = layout.findViewById(R.id.number_picker);
 
         // Initialize state

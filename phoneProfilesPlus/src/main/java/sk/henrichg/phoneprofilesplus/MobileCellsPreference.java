@@ -141,6 +141,7 @@ public class MobileCellsPreference extends DialogPreference {
         //progressLinearLayout = layout.findViewById(R.id.mobile_cells_pref_dlg_linla_progress);
         //dataRelativeLayout = layout.findViewById(R.id.mobile_cells_pref_dlg_rella_data);
 
+        //noinspection ConstantConditions
         cellFilter = layout.findViewById(R.id.mobile_cells_pref_dlg_cells_filter_name);
         if (value.isEmpty())
             cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_all);

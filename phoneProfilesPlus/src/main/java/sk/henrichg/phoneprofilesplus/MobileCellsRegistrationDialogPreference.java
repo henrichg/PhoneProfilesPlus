@@ -135,13 +135,21 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
+        //noinspection ConstantConditions
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
+        //noinspection ConstantConditions
         mValue = layout.findViewById(R.id.duration_pref_dlg_value);
+        //noinspection ConstantConditions
         mSeekBarHours = layout.findViewById(R.id.duration_pref_dlg_hours);
+        //noinspection ConstantConditions
         mSeekBarMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
+        //noinspection ConstantConditions
         mSeekBarSeconds = layout.findViewById(R.id.duration_pref_dlg_seconds);
+        //noinspection ConstantConditions
         mCellsName = layout.findViewById(R.id.mobile_cells_registration_cells_name);
+        //noinspection ConstantConditions
         mStatus = layout.findViewById(R.id.mobile_cells_registration_status);
+        //noinspection ConstantConditions
         mRemainingTime = layout.findViewById(R.id.mobile_cells_registration_remaining_time);
 
         mCellsName.addTextChangedListener(new TextWatcher() {

@@ -76,8 +76,10 @@ class AddEventAdapter extends BaseAdapter {
         {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+                //noinspection ConstantConditions
                 vi = inflater.inflate(R.layout.add_event_list_item, parent, false);
             else
+                //noinspection ConstantConditions
                 vi = inflater.inflate(R.layout.add_event_list_item_no_indicator, parent, false);
             holder = new ViewHolder();
             holder.eventName = vi.findViewById(R.id.event_pref_dlg_item_event_name);

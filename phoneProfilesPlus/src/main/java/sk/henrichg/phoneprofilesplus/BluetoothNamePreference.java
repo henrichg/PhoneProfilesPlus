@@ -123,7 +123,9 @@ public class BluetoothNamePreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
+        //noinspection ConstantConditions
         progressLinearLayout = layout.findViewById(R.id.bluetooth_name_pref_dlg_linla_progress);
+        //noinspection ConstantConditions
         dataRelativeLayout = layout.findViewById(R.id.bluetooth_name_pref_dlg_rella_data);
 
         addIcon = layout.findViewById(R.id.bluetooth_name_pref_dlg_addIcon);

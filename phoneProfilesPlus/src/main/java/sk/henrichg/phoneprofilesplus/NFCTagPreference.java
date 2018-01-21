@@ -109,6 +109,7 @@ public class NFCTagPreference extends DialogPreference {
         //progressLinearLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_linla_progress);
         //dataRelativeLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_rella_data);
 
+        //noinspection ConstantConditions
         addIcon = layout.findViewById(R.id.nfc_tag_pref_dlg_addIcon);
         addIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +121,7 @@ public class NFCTagPreference extends DialogPreference {
             }
         });
 
+        //noinspection ConstantConditions
         nfcTagName = layout.findViewById(R.id.nfc_tag_pref_dlg_bt_name);
         nfcTagName.addTextChangedListener(new TextWatcher() {
             @Override

@@ -135,9 +135,13 @@ public class VolumeDialogPreference extends
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
+        //noinspection ConstantConditions
         seekBar = layout.findViewById(R.id.volumePrefDialogSeekbar);
+        //noinspection ConstantConditions
         valueText = layout.findViewById(R.id.volumePrefDialogValueText);
+        //noinspection ConstantConditions
         noChangeChBox = layout.findViewById(R.id.volumePrefDialogNoChange);
+        //noinspection ConstantConditions
         defaultProfileChBox = layout.findViewById(R.id.volumePrefDialogDefaultProfile);
 
         seekBar.setOnSeekBarChangeListener(this);

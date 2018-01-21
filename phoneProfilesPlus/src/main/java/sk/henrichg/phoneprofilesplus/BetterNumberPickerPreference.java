@@ -104,6 +104,7 @@ class BetterNumberPickerPreference extends DialogPreference {
             mMin = getSharedPreferences().getInt(mMinExternalKey, mMin);
         }
 
+        //noinspection ConstantConditions
         mNumberPicker = layout.findViewById(R.id.better_number_picker);
 
         // Initialize state

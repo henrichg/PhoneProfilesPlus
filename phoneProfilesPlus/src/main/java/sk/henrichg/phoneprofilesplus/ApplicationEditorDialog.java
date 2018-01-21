@@ -62,6 +62,7 @@ class ApplicationEditorDialog
         mDialog = dialogBuilder.build();
         View layout = mDialog.getCustomView();
 
+        //noinspection ConstantConditions
         mDelayValue = layout.findViewById(R.id.applications_editor_dialog_startApplicationDelay);
         mDelayValue.setText(GlobalGUIRoutines.getDurationString(startApplicationDelay));
 

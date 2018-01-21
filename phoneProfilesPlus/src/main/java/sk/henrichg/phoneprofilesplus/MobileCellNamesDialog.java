@@ -81,6 +81,7 @@ class MobileCellNamesDialog {
         mDialog = dialogBuilder.build();
         View layout = mDialog.getCustomView();
 
+        //noinspection ConstantConditions
         ListView cellNamesListView = layout.findViewById(R.id.mobile_cell_names_dlg_listview);
         cellName = layout.findViewById(R.id.mobile_cell_names_dlg_name);
         if (!showFilterItems) {

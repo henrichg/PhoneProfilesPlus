@@ -99,7 +99,9 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
+        //noinspection ConstantConditions
         listView = layout.findViewById(R.id.connect_to_ssid_pref_dlg_listview);
+        //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.connect_to_ssid_pref_dlg_linla_progress);
 
         listAdapter = new ConnectToSSIDPreferenceAdapter(context, this);

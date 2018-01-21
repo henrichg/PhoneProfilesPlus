@@ -87,6 +87,7 @@ public class DurationDialogPreference extends DialogPreference
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
+        //noinspection ConstantConditions
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
 
         mValue = layout.findViewById(R.id.duration_pref_dlg_value);

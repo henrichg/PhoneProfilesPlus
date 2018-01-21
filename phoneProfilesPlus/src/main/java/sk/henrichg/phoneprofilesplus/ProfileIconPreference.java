@@ -128,6 +128,7 @@ public class ProfileIconPreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
+        //noinspection ConstantConditions
         GridView gridView = layout.findViewById(R.id.profileicon_pref_dlg_gridview);
         adapter = new ProfileIconPreferenceAdapter(prefContext, imageIdentifier, isImageResourceID, useCustomColor, customColor);
         gridView.setAdapter(adapter);

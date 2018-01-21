@@ -122,9 +122,12 @@ public class WifiSSIDPreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
+        //noinspection ConstantConditions
         progressLinearLayout = layout.findViewById(R.id.wifi_ssid_pref_dlg_linla_progress);
+        //noinspection ConstantConditions
         dataRelativeLayout = layout.findViewById(R.id.wifi_ssid_pref_dlg_rella_data);
 
+        //noinspection ConstantConditions
         addIcon = layout.findViewById(R.id.wifi_ssid_pref_dlg_addIcon);
         addIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +147,7 @@ public class WifiSSIDPreference extends DialogPreference {
             }
         });
 
+        //noinspection ConstantConditions
         SSIDName = layout.findViewById(R.id.wifi_ssid_pref_dlg_bt_name);
         SSIDName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -164,6 +168,7 @@ public class WifiSSIDPreference extends DialogPreference {
         GlobalGUIRoutines.setImageButtonEnabled(!SSIDName.getText().toString().isEmpty(),
                 addIcon, R.drawable.ic_action_location_add, context.getApplicationContext());
 
+        //noinspection ConstantConditions
         SSIDListView = layout.findViewById(R.id.wifi_ssid_pref_dlg_listview);
         listAdapter = new WifiSSIDPreferenceAdapter(context, this);
         SSIDListView.setAdapter(listAdapter);

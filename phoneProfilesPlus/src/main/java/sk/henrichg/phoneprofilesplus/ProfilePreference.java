@@ -88,6 +88,7 @@ public class ProfilePreference extends DialogPreference {
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
+        //noinspection ConstantConditions
         ListView listView = layout.findViewById(R.id.profile_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -112,8 +112,11 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
+        //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_progress);
+        //noinspection ConstantConditions
         linlaListView = layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_listview);
+        //noinspection ConstantConditions
         ListView listView = layout.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

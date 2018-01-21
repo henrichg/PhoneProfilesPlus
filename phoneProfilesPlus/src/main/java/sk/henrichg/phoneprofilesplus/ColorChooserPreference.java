@@ -93,6 +93,7 @@ public class ColorChooserPreference extends DialogPreference implements View.OnC
             }
         }
 
+        //noinspection ConstantConditions
         final GridLayout list = layout.findViewById(R.id.dialog_color_chooser_grid);
 
         for (int i = 0; i < list.getChildCount(); i++) {
