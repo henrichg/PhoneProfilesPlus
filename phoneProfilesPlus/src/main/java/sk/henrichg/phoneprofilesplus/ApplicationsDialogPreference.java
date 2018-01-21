@@ -59,8 +59,6 @@ public class ApplicationsDialogPreference  extends DialogPreference
     private ImageView packageIcon3;
     private ImageView packageIcon4;
 
-    private final DataWrapper dataWrapper;
-
     private AsyncTask asyncTask = null;
 
     static final int RESULT_APPLICATIONS_EDITOR = 2100;
@@ -78,7 +76,6 @@ public class ApplicationsDialogPreference  extends DialogPreference
         */
 
         this.context = context;
-        dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
 
         applicationsList = new ArrayList<>();
 
@@ -215,7 +212,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
             @Override
             protected Void doInBackground(Void... params) {
-                if (!EditorProfilesActivity.getApplicationsCache().isCached())
+                if (!EditorProfilesActivity.getApplicationsCache().cached)
                     EditorProfilesActivity.getApplicationsCache().getApplicationsList(context);
 
                 getValueAMSDP();
@@ -228,7 +225,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
             {
                 super.onPostExecute(result);
 
-                if (!EditorProfilesActivity.getApplicationsCache().isCached())
+                if (!EditorProfilesActivity.getApplicationsCache().cached)
                     EditorProfilesActivity.getApplicationsCache().clearCache(false);
 
                 applicationsListView.setAdapter(listAdapter);
@@ -254,7 +251,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
         }
 
         EditorProfilesActivity.getApplicationsCache().cancelCaching();
-        if (!EditorProfilesActivity.getApplicationsCache().isCached())
+        if (!EditorProfilesActivity.getApplicationsCache().cached)
             EditorProfilesActivity.getApplicationsCache().clearCache(false);
         GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }

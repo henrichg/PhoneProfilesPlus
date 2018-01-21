@@ -14,7 +14,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
     static boolean isCharging = false;
     static int batteryPct = -100;
-    static boolean batteryLow = false;
+    //static boolean batteryLow = false;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -54,7 +54,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         boolean levelReceived = false;
         int pct = -100;
         int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-        int scale = 0;
+        int scale;
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "level=" + level);
         if (level != -1) {
             levelReceived = true;
@@ -74,7 +74,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             }
         }
 
-        int _batteryLow = -1;
+        //int _batteryLow = -1;
         String action = intent.getAction();
         if (action != null) {
             if (action.equals(Intent.ACTION_POWER_CONNECTED)) {
@@ -83,20 +83,20 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             } else if (action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
                 statusReceived = true;
                 _isCharging = false;
-            } else if (action.equals(Intent.ACTION_BATTERY_LOW)) {
+            /*} else if (action.equals(Intent.ACTION_BATTERY_LOW)) {
                 statusReceived = true;
                 _batteryLow = 1;
             } else if (action.equals(Intent.ACTION_BATTERY_OKAY)) {
                 statusReceived = true;
-                _batteryLow = 0;
+                _batteryLow = 0;*/
             }
         }
 
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "action=" + action);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "isCharging=" + isCharging);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_isCharging=" + _isCharging);
-        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryLow=" + batteryLow);
-        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_batteryLow=" + _batteryLow);
+        //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryLow=" + batteryLow);
+        //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_batteryLow=" + _batteryLow);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryPct=" + batteryPct);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "pct=" + pct);
 
@@ -106,14 +106,14 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         */
 
         if ((statusReceived && (isCharging != _isCharging)) ||
-                (statusReceived && (_batteryLow != -1) && (batteryLow != (_batteryLow == 1))) ||
+                //(statusReceived && (_batteryLow != -1) && (batteryLow != (_batteryLow == 1))) ||
                 (levelReceived && (batteryPct != pct))) {
             PPApplication.logE("BatteryBroadcastReceiver.onReceive", "state changed");
 
             if (statusReceived) {
                 isCharging = _isCharging;
-                if (_batteryLow != -1)
-                    batteryLow = (_batteryLow == 1);
+                /*if (_batteryLow != -1)
+                    batteryLow = (_batteryLow == 1);*/
             }
             if (levelReceived)
                 batteryPct = pct;

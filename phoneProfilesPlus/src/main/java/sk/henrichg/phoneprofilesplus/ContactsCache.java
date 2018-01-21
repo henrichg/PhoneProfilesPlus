@@ -10,7 +10,7 @@ import java.util.List;
 class ContactsCache {
 
     private ArrayList<Contact> contactList;
-    private boolean cached;
+    boolean cached;
     private boolean cancelled;
 
     ContactsCache()
@@ -155,11 +155,6 @@ class ContactsCache {
         if (nullList)
             contactList = null;
         cached = false;
-    }
-
-    boolean isCached()
-    {
-        return cached;
     }
 
     void cancelCaching()

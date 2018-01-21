@@ -152,7 +152,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 
             @Override
             protected Void doInBackground(Void... params) {
-                if (!EditorProfilesActivity.getContactGroupsCache().isCached())
+                if (!EditorProfilesActivity.getContactGroupsCache().cached)
                     EditorProfilesActivity.getContactGroupsCache().getContactGroupList(_context);
 
                 getValueCMSDP(notForUnselect);
@@ -165,7 +165,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
             {
                 super.onPostExecute(result);
 
-                if (!EditorProfilesActivity.getContactGroupsCache().isCached())
+                if (!EditorProfilesActivity.getContactGroupsCache().cached)
                     EditorProfilesActivity.getContactGroupsCache().clearCache(false);
 
                 listAdapter.notifyDataSetChanged();
@@ -193,7 +193,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         }
 
         EditorProfilesActivity.getContactGroupsCache().cancelCaching();
-        if (!EditorProfilesActivity.getContactGroupsCache().isCached())
+        if (!EditorProfilesActivity.getContactGroupsCache().cached)
             EditorProfilesActivity.getContactGroupsCache().clearCache(false);
         GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }

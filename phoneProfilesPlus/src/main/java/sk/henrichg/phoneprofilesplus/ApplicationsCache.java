@@ -37,7 +37,7 @@ public class ApplicationsCache {
     private LruCache<Object, Object> applicationIconsLru;
     private ArrayList<Application> applicationsNoShortcutsList;
     private LruCache<Object, Object> applicationNoShortcutIconsLru;
-    private boolean cached;
+    boolean cached;
     private boolean cancelled;
 
     public ApplicationsCache()
@@ -221,11 +221,6 @@ public class ApplicationsCache {
             applicationNoShortcutIconsLru = null;
         }
         cached = false;
-    }
-
-    boolean isCached()
-    {
-        return cached;
     }
 
     void cancelCaching()

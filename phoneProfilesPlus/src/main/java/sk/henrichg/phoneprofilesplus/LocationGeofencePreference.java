@@ -298,7 +298,6 @@ public class LocationGeofencePreference extends DialogPreference {
         new MenuInflater(context).inflate(R.menu.location_geofence_pref_item_edit, popup.getMenu());
 
         final long geofenceId = (long)view.getTag();
-        final Context _context = context;
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
@@ -320,7 +319,7 @@ public class LocationGeofencePreference extends DialogPreference {
                                 }*/
                             }
                             else {
-                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(_context);
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
                                 dialogBuilder.setTitle(R.string.event_preferences_locations_cant_delete_location_title);
                                 dialogBuilder.setMessage(R.string.event_preferences_locations_cant_delete_location_text);
                                 dialogBuilder.setPositiveButton(android.R.string.ok, null);

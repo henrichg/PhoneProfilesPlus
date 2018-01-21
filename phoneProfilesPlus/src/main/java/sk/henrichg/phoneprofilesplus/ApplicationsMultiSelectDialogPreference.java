@@ -218,7 +218,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
             @Override
             protected Void doInBackground(Void... params) {
-                if (!EditorProfilesActivity.getApplicationsCache().isCached())
+                if (!EditorProfilesActivity.getApplicationsCache().cached)
                     EditorProfilesActivity.getApplicationsCache().getApplicationsList(_context);
 
                 getValueAMSDP(notForUnselect);
@@ -231,7 +231,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             {
                 super.onPostExecute(result);
 
-                if (!EditorProfilesActivity.getApplicationsCache().isCached())
+                if (!EditorProfilesActivity.getApplicationsCache().cached)
                     EditorProfilesActivity.getApplicationsCache().clearCache(false);
 
                 listAdapter.notifyDataSetChanged();
@@ -257,7 +257,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         }
 
         EditorProfilesActivity.getApplicationsCache().cancelCaching();
-        if (!EditorProfilesActivity.getApplicationsCache().isCached())
+        if (!EditorProfilesActivity.getApplicationsCache().cached)
             EditorProfilesActivity.getApplicationsCache().clearCache(false);
         GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }

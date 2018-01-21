@@ -1120,8 +1120,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         dialogBuilder.show();
     }
 
-    @SuppressLint("ApplySharedPref")
-    @SuppressWarnings({ "unchecked" })
     private boolean importApplicationPreferences(File src, int what) {
         boolean res = false;
         ObjectInputStream input = null;
@@ -1133,6 +1131,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 else
                     prefEdit = getSharedPreferences(PPApplication.DEFAULT_PROFILE_PREFS_NAME, Activity.MODE_PRIVATE).edit();
                 prefEdit.clear();
+                //noinspection unchecked
                 Map<String, ?> entries = (Map<String, ?>) input.readObject();
                 for (Entry<String, ?> entry : entries.entrySet()) {
                     Object v = entry.getValue();
@@ -1160,7 +1159,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), true, prefEdit);
                     }
                 }
-                prefEdit.commit();
+                prefEdit.apply();
             res = true;
         } catch (FileNotFoundException e) {
             // no error, this is OK

@@ -464,7 +464,7 @@ public class ActivateProfileHelper {
 
         if (_setAirplaneMode /*&& _isAirplaneMode*/) {
             // switch ON airplane mode, set it before doExecuteForRadios
-            setAirplaneMode(context, _isAirplaneMode);
+            setAirplaneMode(/*context, */_isAirplaneMode);
             PPApplication.sleep(2500);
             PPApplication.logE("ActivateProfileHelper.executeForRadios", "after sleep");
         }
@@ -2423,7 +2423,7 @@ public class ActivateProfileHelper {
         //    return Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0;
     }
 
-    private void setAirplaneMode(Context context, boolean mode)
+    private void setAirplaneMode(/*Context context, */boolean mode)
     {
         //if (android.os.Build.VERSION.SDK_INT >= 17)
             setAirplaneMode_SDK17(/*context, */mode);
@@ -2889,7 +2889,8 @@ public class ActivateProfileHelper {
         }
     }
 
-    static boolean wifiServiceExists(/*Context context, */String preference) {
+    /*
+    static boolean wifiServiceExists(Context context, String preference) {
         try {
             Object serviceManager = PPApplication.getServiceManager("wifi");
             if (serviceManager != null) {
@@ -2904,6 +2905,7 @@ public class ActivateProfileHelper {
             return false;
         }
     }
+    */
 
     private void setWifiAP(WifiApManager wifiApManager, boolean enable, Context context) {
         PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-enable="+enable);
@@ -3018,6 +3020,7 @@ public class ActivateProfileHelper {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     private void setGPS(Context context, boolean enable)
     {
         //boolean isEnabled;

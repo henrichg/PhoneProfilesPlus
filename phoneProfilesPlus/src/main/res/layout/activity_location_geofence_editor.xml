@@ -142,7 +142,8 @@
                 android:layout_toStartOf = "@id/location_editor_address_btn"
                 android:layout_centerVertical="true"
                 android:selectAllOnFocus="true"
-                android:inputType="textNoSuggestions" />
+                android:inputType="textNoSuggestions"
+                tools:ignore="LabelFor"/>
 
         </RelativeLayout>
 

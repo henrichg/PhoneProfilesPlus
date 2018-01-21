@@ -478,6 +478,7 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR, "-1"); // white color
     }
 
+    /*
     static boolean applicationEventWifiEnableWifi(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, true);
     }
@@ -485,6 +486,7 @@ class ApplicationPreferences {
     static boolean applicationEventBluetoothEnableBluetooth(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true);
     }
+    */
 
     static boolean applicationEventWifiScanIfWifiOff(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF, true);

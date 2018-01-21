@@ -90,8 +90,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     private AddressResultReceiver mResultReceiver;
     //private boolean mAddressRequested = false;
 
-    private DataWrapper dataWrapper;
-
     private EditText geofenceNameEditText;
     private AppCompatImageButton addressButton;
     private TextView addressText;
@@ -126,8 +124,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         geofenceId = intent.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
-
-        dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
 
         if (geofenceId > 0) {
             geofence = DatabaseHandler.getInstance(getApplicationContext()).getGeofence(geofenceId);

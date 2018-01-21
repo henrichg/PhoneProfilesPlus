@@ -24,7 +24,6 @@ class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder imp
     private Application application;
 
     private final Context context;
-    private final DataWrapper dataWrapper;
     private final ApplicationsDialogPreference preference;
 
     ApplicationsDialogPreferenceViewHolder(View itemView, Context context, ApplicationsDialogPreference preference)
@@ -33,8 +32,6 @@ class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder imp
 
         this.context = context;
         this.preference = preference;
-
-        dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
 
         dragHandle = itemView.findViewById(R.id.applications_pref_dlg_item_drag_handle);
         imageViewIcon = itemView.findViewById(R.id.applications_pref_dlg_item_icon);

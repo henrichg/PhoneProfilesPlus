@@ -1903,7 +1903,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         if (oldVersion < 1890) {
-            changePictureFilePathToUri(db, false);
+            changePictureFilePathToUri(db/*, false*/);
         }
 
         if (oldVersion < 1900)
@@ -3147,13 +3147,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    private void changePictureFilePathToUri(SQLiteDatabase database, boolean lock) {
-        if (lock)
-            importExportLock.lock();
-        try {
+    private void changePictureFilePathToUri(SQLiteDatabase database/*, boolean lock*/) {
+        //if (lock)
+        //    importExportLock.lock();
+        //try {
             try {
-                if (lock)
-                    startRunningCommand();
+                //if (lock)
+                //    startRunningCommand();
 
                 SQLiteDatabase db;
                 if (database == null) {
@@ -3259,10 +3259,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
             } catch (Exception ignored) {
             }
-        } finally {
-            if (lock)
-                stopRunningCommand();
-        }
+        //} finally {
+        //    if (lock)
+        //        stopRunningCommand();
+        //}
     }
 
     int getTypeProfilesCount(int profileType, boolean sharedProfile)
@@ -7649,7 +7649,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 }
 
                                 if (exportedDBObj.getVersion() < 1890) {
-                                    changePictureFilePathToUri(null, false);
+                                    changePictureFilePathToUri(null/*, false*/);
                                 }
 
                                 cursorExportedDB.close();

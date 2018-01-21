@@ -865,7 +865,7 @@ public class DataWrapper {
             activateProfile(profileId, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);
         }
         else
-            activateProfile(0, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);;
+            activateProfile(0, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);
     }
 
     private void startEventsOnBoot(boolean startedFromService)

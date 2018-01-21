@@ -171,7 +171,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
             @Override
             protected Void doInBackground(Void... params) {
-                if (!EditorProfilesActivity.getContactsCache().isCached())
+                if (!EditorProfilesActivity.getContactsCache().cached)
                     EditorProfilesActivity.getContactsCache().getContactList(_context);
 
                 getValueCMSDP(notForUnselect);
@@ -184,7 +184,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             {
                 super.onPostExecute(result);
 
-                if (!EditorProfilesActivity.getContactsCache().isCached())
+                if (!EditorProfilesActivity.getContactsCache().cached)
                     EditorProfilesActivity.getContactsCache().clearCache(false);
 
                 listAdapter.notifyDataSetChanged();
@@ -211,7 +211,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         }
 
         EditorProfilesActivity.getContactsCache().cancelCaching();
-        if (!EditorProfilesActivity.getContactsCache().isCached())
+        if (!EditorProfilesActivity.getContactsCache().cached)
             EditorProfilesActivity.getContactsCache().clearCache(false);
         GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }

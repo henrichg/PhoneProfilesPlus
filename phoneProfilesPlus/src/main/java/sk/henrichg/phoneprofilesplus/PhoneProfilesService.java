@@ -121,7 +121,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_REREGISTER_RECEIVERS_AND_JOBS = "reregister_receivers_and_jobs";
     static final String EXTRA_FOR_SCREEN_ON = "for_screen_on";
     static final String EXTRA_START_LOCATION_UPDATES = "start_location_updates";
-    static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
+    private static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
 
     //-----------------------
 
@@ -3076,6 +3076,7 @@ public class PhoneProfilesService extends Service
             return  locationMode != Settings.Secure.LOCATION_MODE_OFF;
         }
         else {
+            //noinspection deprecation
             locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
             return  !TextUtils.isEmpty(locationProviders);
         }
@@ -3202,7 +3203,7 @@ public class PhoneProfilesService extends Service
                 // start scanning in power save mode is not allowed
                 return;
 
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
+            //DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
             if (DatabaseHandler.getInstance(getApplicationContext()).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) == 0)
                 return;
 
@@ -3783,8 +3784,11 @@ public class PhoneProfilesService extends Service
                 } catch (Exception ignored) {}
                 ringingMediaPlayer = null;
 
-                if (ringingCallIsSimulating)
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
+                try {
+                    if (ringingCallIsSimulating)
+                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
+                } catch (Exception ignored) {
+                }
                 PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "ringing stopped");
             }
             if (abandonFocus) {
