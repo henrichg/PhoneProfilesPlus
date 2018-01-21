@@ -757,21 +757,23 @@ public class PPApplication extends Application {
 
             if (_isRooted()) {
                 try {
-                    PPApplication.logE("PPApplication.isRootGranted", "start isAccessGiven");
-                    //grantChecking = true;
-                    /*try {
-                        RootTools.closeAllShells();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }*/
-                    if (RootTools.isAccessGiven()) {
-                        // root is granted
-                        PPApplication.logE("PPApplication.isRootGranted", "root granted");
-                        return true;
-                    } else {
-                        // grant denied
-                        PPApplication.logE("PPApplication.isRootGranted", "root NOT granted");
-                        return false;
+                    synchronized (PPApplication.startRootCommandMutex) {
+                        PPApplication.logE("PPApplication.isRootGranted", "start isAccessGiven");
+                        //grantChecking = true;
+                        /*try {
+                            RootTools.closeAllShells();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }*/
+                        if (RootTools.isAccessGiven()) {
+                            // root is granted
+                            PPApplication.logE("PPApplication.isRootGranted", "root granted");
+                            return true;
+                        } else {
+                            // grant denied
+                            PPApplication.logE("PPApplication.isRootGranted", "root NOT granted");
+                            return false;
+                        }
                     }
                 } catch (Exception e) {
                     Log.e("PPApplication.isRootGranted", "Error on run su: " + e.toString());
@@ -956,34 +958,34 @@ public class PPApplication extends Application {
     }
 
     static void getServicesList() {
-        if (serviceList == null)
-            serviceList = new ArrayList<>();
-        else
-            serviceList.clear();
+        synchronized (PPApplication.startRootCommandMutex) {
+            if (serviceList == null)
+                serviceList = new ArrayList<>();
+            else
+                serviceList.clear();
 
-        final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
-        Command command = new Command(0, false, "service list")
-        {
-            @Override
-            public void commandOutput(int id, String line) {
-                //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - line="+line);
-                Matcher matcher = compile.matcher(line);
-                if (matcher.find()) {
-                    //noinspection unchecked
-                    serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
-                    //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(1)="+matcher.group(1));
-                    //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(2)="+matcher.group(2));
+            final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
+            Command command = new Command(0, false, "service list") {
+                @Override
+                public void commandOutput(int id, String line) {
+                    //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - line="+line);
+                    Matcher matcher = compile.matcher(line);
+                    if (matcher.find()) {
+                        //noinspection unchecked
+                        serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
+                        //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(1)="+matcher.group(1));
+                        //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(2)="+matcher.group(2));
+                    }
+                    super.commandOutput(id, line);
                 }
-                super.commandOutput(id, line);
+            };
+            try {
+                //RootTools.closeAllShells();
+                RootTools.getShell(false).add(command);
+                commandWait(command);
+            } catch (Exception e) {
+                Log.e("PPApplication.getServicesList", "Error on run su");
             }
-        }
-                ;
-        try {
-            //RootTools.closeAllShells();
-            RootTools.getShell(false).add(command);
-            commandWait(command);
-        } catch (Exception e) {
-            Log.e("PPApplication.getServicesList", "Error on run su");
         }
     }
 
