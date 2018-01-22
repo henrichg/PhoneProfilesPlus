@@ -712,6 +712,12 @@
                 android:widgetLayout="@layout/start_activity_preference" >
             </Preference>
             <Preference
+                android:key="eventApplicationInstallExtenderInfo"
+                android:title="@string/event_preferences_PPPExtenderInstallInfo_text"
+                android:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
+                android:dependency="eventApplicationEnabled"
+                android:widgetLayout="@layout/info_preference" />
+            <Preference
                 android:key="eventApplicationAccessibilitySettings"
                 android:title="@string/event_preferences_applications_AccessibilitySettings_title"
                 android:summary="@string/event_preferences_applications_AccessibilitySettingsForExtender_summary"
@@ -775,6 +781,12 @@
                 android:dependency="eventOrientationEnabled"
                 android:widgetLayout="@layout/start_activity_preference" >
             </Preference>
+            <Preference
+                android:key="eventOrientationInstallExtenderInfo"
+                android:title="@string/event_preferences_PPPExtenderInstallInfo_text"
+                android:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
+                android:dependency="eventOrientationEnabled"
+                android:widgetLayout="@layout/info_preference" />
             <Preference
                 android:key="eventOrientationAccessibilitySettings"
                 android:title="@string/event_preferences_applications_AccessibilitySettings_title"
