@@ -34,6 +34,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -521,9 +522,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         if ((exportAsyncTask != null) && !exportAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
             exportAsyncTask.cancel(true);
         }
-        if ((PhoneProfilesHelper.uninstallAsyncTask != null) && !PhoneProfilesHelper.uninstallAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+        /*if ((PhoneProfilesHelper.uninstallAsyncTask != null) && !PhoneProfilesHelper.uninstallAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
             PhoneProfilesHelper.uninstallAsyncTask.cancel(true);
-        }
+        }*/
 
         if (!savedInstanceStateChanged)
         {
@@ -597,13 +598,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                 menuItem.setVisible(false);
         }
 
-        PhoneProfilesHelper.isPPHelperInstalled(getApplicationContext());
+
+        //PhoneProfilesHelper.isPPHelperInstalled(getApplicationContext());
 
         menuItem = menu.findItem(R.id.menu_pphelper_uninstall);
         if (menuItem != null)
         {
-            menuItem.setVisible(PhoneProfilesHelper.PPHelperVersion != -1);
+            menuItem.setVisible(/*PhoneProfilesHelper.PPHelperVersion != -1*/false);
         }
+
 
         menuItem = menu.findItem(R.id.menu_restart_events);
         if (menuItem != null)
@@ -668,9 +671,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         case R.id.menu_install_tone:
             TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, getApplicationContext(), true);
             return true;
-        case R.id.menu_pphelper_uninstall:
+        /*case R.id.menu_pphelper_uninstall:
             PhoneProfilesHelper.uninstallPPHelper(this);
-            return true;
+            return true;*/
         case R.id.menu_export:
             exportData();
 

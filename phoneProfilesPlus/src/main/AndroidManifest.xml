@@ -157,7 +157,8 @@
         </activity>
         <activity
             android:name=".EditorProfilesActivity"
-            android:label="@string/title_activity_editor">
+            android:label="@string/title_activity_editor"
+            android:theme="@style/Theme.Phoneprofilestheme_withToolbar_withDrawerLayout_material">
         </activity>
         <activity
             android:name=".ProfilePreferencesActivity"
