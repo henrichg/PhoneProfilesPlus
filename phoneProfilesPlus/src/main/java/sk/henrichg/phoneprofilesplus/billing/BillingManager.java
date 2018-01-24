@@ -59,6 +59,11 @@ public class BillingManager implements PurchasesUpdatedListener {
         startServiceConnectionIfNeeded(null);
     }
 
+    private DonationFragment getFragment() {
+        FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
+        return (DonationFragment) fragmentManager.findFragmentByTag("donationFragment");
+    }
+
     private void startServiceConnectionIfNeeded(final Runnable executeOnSuccess) {
         if (mBillingClient.isReady()) {
             if (executeOnSuccess != null) {
@@ -72,9 +77,7 @@ public class BillingManager implements PurchasesUpdatedListener {
                         Log.i(TAG, "onBillingSetupFinished() response: " + billingResponse);
 
                         if (executeOnSuccess == null) {
-                            FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
-                            DonationFragment fragment = (DonationFragment) fragmentManager.findFragmentByTag("donationFragment");
-                            fragment.handleManagerAndUiReady();
+                            getFragment().handleManagerAndUiReady();
                         }
 
                         if (executeOnSuccess != null) {
@@ -100,6 +103,9 @@ public class BillingManager implements PurchasesUpdatedListener {
             for (Purchase purchase : purchases) {
                 consumePurchase(purchase);
             }
+        }
+        else {
+            getFragment().displayAnErrorIfNeeded(responseCode);
         }
     }
 
@@ -142,7 +148,9 @@ public class BillingManager implements PurchasesUpdatedListener {
                         .setType(billingType)
                         .setSku(skuId)
                         .build();
-                mBillingClient.launchBillingFlow(mActivity, billingFlowParams);
+                int responseCode = mBillingClient.launchBillingFlow(mActivity, billingFlowParams);
+                PPApplication.logE(TAG, "startPurchaseFlow responseCode="+responseCode);
+                getFragment().displayAnErrorIfNeeded(responseCode);
             }
         };
 

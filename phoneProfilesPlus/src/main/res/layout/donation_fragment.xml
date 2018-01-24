@@ -23,7 +23,8 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:paddingBottom="15dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:textColor="@color/bpRed"/>
 
     <TextView
         android:layout_width="wrap_content"

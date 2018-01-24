@@ -115,8 +115,7 @@ public class DonationFragment extends Fragment {
                                 }
 
                                 // update the UI
-                                mLoadingView.setVisibility(View.GONE);
-                                mErrorTextView.setVisibility(View.GONE);
+                                displayAnErrorIfNeeded(BillingClient.BillingResponse.OK);
 
                                 ArrayAdapter<CharSequence> adapter;
                                 adapter = new ArrayAdapter<CharSequence>(getActivity(),
@@ -126,27 +125,57 @@ public class DonationFragment extends Fragment {
                                 btGoogle.setEnabled(true);
                             }
                             else {
-                                displayAnErrorIfNeeded();
+                                displayAnErrorIfNeeded(BillingClient.BillingResponse.FEATURE_NOT_SUPPORTED);
                             }
                         }
                     }
                 });
-
-        // Show the UI
-        displayAnErrorIfNeeded();
     }
 
-    private void displayAnErrorIfNeeded() {
+    public void displayAnErrorIfNeeded(int response) {
         if (getActivity() == null || getActivity().isFinishing()) {
             PPApplication.logE(TAG, "No need to show an error - activity is finishing already");
             return;
         }
 
         mLoadingView.setVisibility(View.GONE);
-        mErrorTextView.setVisibility(View.VISIBLE);
-        mErrorTextView.setText("error text");
-
-        // TODO: Here you will need to handle various respond codes from BillingManager
+        if (response != BillingClient.BillingResponse.OK) {
+            mErrorTextView.setVisibility(View.VISIBLE);
+            switch (response) {
+                case BillingClient.BillingResponse.BILLING_UNAVAILABLE:
+                    mErrorTextView.setText("BILLING_UNAVAILABLE");
+                    break;
+                case BillingClient.BillingResponse.DEVELOPER_ERROR:
+                    mErrorTextView.setText("DEVELOPER_ERROR");
+                    break;
+                case BillingClient.BillingResponse.ERROR:
+                    mErrorTextView.setText("ERROR");
+                    break;
+                case BillingClient.BillingResponse.FEATURE_NOT_SUPPORTED:
+                    mErrorTextView.setText("FEATURE_NOT_SUPPORTED");
+                    break;
+                case BillingClient.BillingResponse.ITEM_ALREADY_OWNED:
+                    mErrorTextView.setText("ITEM_ALREADY_OWNED");
+                    break;
+                case BillingClient.BillingResponse.ITEM_NOT_OWNED:
+                    mErrorTextView.setText("ITEM_NOT_OWNED");
+                    break;
+                case BillingClient.BillingResponse.ITEM_UNAVAILABLE:
+                    mErrorTextView.setText("ITEM_UNAVAILABLE");
+                    break;
+                case BillingClient.BillingResponse.SERVICE_DISCONNECTED:
+                    mErrorTextView.setText("SERVICE_DISCONNECTED");
+                    break;
+                case BillingClient.BillingResponse.SERVICE_UNAVAILABLE:
+                    mErrorTextView.setText("SERVICE_UNAVAILABLE");
+                    break;
+                case BillingClient.BillingResponse.USER_CANCELED:
+                    mErrorTextView.setText("USER_CANCELED");
+                    break;
+            }
+        }
+        else
+            mErrorTextView.setVisibility(View.GONE);
     }
 
 }
