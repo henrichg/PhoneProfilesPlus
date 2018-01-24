@@ -83,7 +83,7 @@ public class DonationFragment extends Fragment {
         mBillingProvider.getBillingManager().startPurchaseFlow(SKU_DETAILS.get(index).getSku(), BillingClient.SkuType.INAPP);
     }
 
-    public void handleManagerAndUiReady() {
+    public void updateGUIAfterBillingConnected() {
         // Start querying for SKUs
         PPApplication.logE(TAG, "handleManagerAndUiReady");
         final List<String> inAppSkus = mBillingProvider.getBillingManager()

@@ -77,7 +77,7 @@ public class BillingManager implements PurchasesUpdatedListener {
                         Log.i(TAG, "onBillingSetupFinished() response: " + billingResponse);
 
                         if (executeOnSuccess == null) {
-                            getFragment().handleManagerAndUiReady();
+                            getFragment().updateGUIAfterBillingConnected();
                         }
 
                         if (executeOnSuccess != null) {
