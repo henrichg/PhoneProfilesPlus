@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -132,6 +133,7 @@ public class DonationFragment extends Fragment {
                 });
     }
 
+    @SuppressLint("SetTextI18n")
     public void displayAnErrorIfNeeded(int response) {
         if (getActivity() == null || getActivity().isFinishing()) {
             PPApplication.logE(TAG, "No need to show an error - activity is finishing already");
