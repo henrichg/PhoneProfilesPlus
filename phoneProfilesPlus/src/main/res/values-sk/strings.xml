@@ -780,7 +780,7 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">Tag je zapisovateľný</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Tag nie je zapisovateľný</string>
   <string name="about_application_donate_button">Prosím prispejte</string>
-  <string name="donation_activity_title">Dar</string>
+  <string name="donation_activity_title">Príspevok</string>
   <string name="donation_button_close">Zavrieť</string>
   <string name="donation_description">Je tato aplikácia užitočná?\nPodporte jej vývoj zaslaním príspevku vývojárovi.</string>
   <string name="donation_google_android_market">Obchod Play</string>

@@ -55,14 +55,14 @@ public class DonationActivity extends AppCompatActivity implements BillingProvid
             getSupportActionBar().setTitle(R.string.donation_activity_title);
         }
 
-        // Create and initialize BillingManager which talks to BillingLibrary
-        mBillingManager = new BillingManager(this);
-
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         DonationFragment donationFragment = DonationFragment.newInstance();
 
         ft.replace(R.id.donation_activity_container, donationFragment, "donationFragment");
         ft.commit();
+
+        // Create and initialize BillingManager which talks to BillingLibrary
+        mBillingManager = new BillingManager(this);
     }
 
     @Override

@@ -76,6 +76,13 @@ public class DonationFragment extends Fragment {
     }
 
     /**
+     * Enables or disables "please wait" screen.
+     */
+    public void setWaitScreen(boolean set) {
+        mLoadingView.setVisibility(set ? View.VISIBLE : View.GONE);
+    }
+
+    /**
      * Donate button executes donations based on selection in spinner
      */
     private void donateGoogleOnClick(/*View view*/) {
@@ -140,7 +147,7 @@ public class DonationFragment extends Fragment {
             return;
         }
 
-        mLoadingView.setVisibility(View.GONE);
+        setWaitScreen(false);
         if (response != BillingClient.BillingResponse.OK) {
             mErrorTextView.setVisibility(View.VISIBLE);
             switch (response) {
