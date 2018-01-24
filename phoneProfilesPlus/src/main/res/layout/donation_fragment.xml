@@ -39,6 +39,7 @@
         android:text="@string/donation_google_android_market"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <!--
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,6 +47,7 @@
         android:paddingTop="5dp"
         android:text="@string/donation_google_android_market_description"
         android:textAppearance="@android:style/TextAppearance.Small" />
+    -->
 
     <LinearLayout
         android:layout_width="match_parent"
