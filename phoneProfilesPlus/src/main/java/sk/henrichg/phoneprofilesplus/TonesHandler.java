@@ -127,10 +127,10 @@ class TonesHandler {
         }
     }
 
-    private static void installTone(int resID, int type, String title, Context context, boolean fromMenu) {
+    private static boolean _installTone(int resID, int type, String title, Context context) {
         // Make sure the shared storage is currently writable
-        if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()))
-            return;
+        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
+            return false;
 
         String directory;
         boolean isRingtone = false;
@@ -150,7 +150,7 @@ class TonesHandler {
                 isAlarm = true;
                 break;
             default:
-                return;
+                return false;
         }
         File path = Environment.
                 getExternalStoragePublicDirectory(directory);
@@ -272,16 +272,7 @@ class TonesHandler {
             }
         }
 
-        if (fromMenu) {
-            int strId = R.string.toast_tone_installation_installed_ok;
-            if (isError)
-                strId = R.string.toast_tone_installation_installed_error;
-
-            Toast msg = Toast.makeText(context,
-                    context.getResources().getString(strId),
-                    Toast.LENGTH_SHORT);
-            msg.show();
-        }
+        return !isError;
     }
 
     static void installTone(int resID, String title, Context context, boolean fromMenu) {
@@ -292,9 +283,19 @@ class TonesHandler {
         else
             granted = Permissions.grantInstallTonePermissions(context, true);
         if (granted) {
-            installTone(resID, RingtoneManager.TYPE_RINGTONE, title, context, fromMenu);
-            installTone(resID, RingtoneManager.TYPE_NOTIFICATION, title, context, fromMenu);
-            installTone(resID, RingtoneManager.TYPE_ALARM, title, context, fromMenu);
+            boolean ringtone = _installTone(resID, RingtoneManager.TYPE_RINGTONE, title, context);
+            boolean notification = _installTone(resID, RingtoneManager.TYPE_NOTIFICATION, title, context);
+            boolean alarm = _installTone(resID, RingtoneManager.TYPE_ALARM, title, context);
+            if (fromMenu) {
+                int strId = R.string.toast_tone_installation_installed_ok;
+                if (!(ringtone && notification && alarm))
+                    strId = R.string.toast_tone_installation_installed_error;
+
+                Toast msg = Toast.makeText(context,
+                        context.getResources().getString(strId),
+                        Toast.LENGTH_SHORT);
+                msg.show();
+            }
         }
     }
 
