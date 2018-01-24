@@ -15,7 +15,12 @@ import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-public class DonationActivity extends AppCompatActivity {
+import sk.henrichg.phoneprofilesplus.billing.BillingManager;
+import sk.henrichg.phoneprofilesplus.billing.BillingProvider;
+
+public class DonationActivity extends AppCompatActivity implements BillingProvider {
+
+    private BillingManager mBillingManager;
 
     @SuppressLint("InlinedApi")
     @Override
@@ -50,11 +55,20 @@ public class DonationActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.donation_activity_title);
         }
 
+        // Create and initialize BillingManager which talks to BillingLibrary
+        mBillingManager = new BillingManager(this);
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         DonationFragment donationFragment = DonationFragment.newInstance();
 
         ft.replace(R.id.donation_activity_container, donationFragment, "donationFragment");
         ft.commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mBillingManager.destroy();
     }
 
     /**
@@ -83,6 +97,11 @@ public class DonationActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    @Override
+    public BillingManager getBillingManager() {
+        return mBillingManager;
     }
 
 }

@@ -1026,8 +1026,6 @@
   <string name="important_info_profile_grant_1_howTo_6">1. Unter Einstellungen &gt; Über das Telefon &gt; Software Informationen, sieben mal auf \"Build Number\" klicken. Dies wird die Entwicklereinstellungen unter Einstellungen aktivieren.</string>
   <string name="important_info_profile_grant_1_howTo_7">2. Unter Einstellungen &gt; Entwicklereinstellungen \"USB Debugging\" aktivieren.</string>
   <string name="important_info_profile_grant_1_howTo_8">3. On your PC, open a Command Prompt (Windows), or Terminal (Linux, OSX). Navigate to the folder where you extracted your adb files, and EXACTLY execute the following command:</string>
-  <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
-  <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="important_info_profile_grant_1_howTo_10">4. After successful execution, all profile parameters marked with (G1) will be enabled.</string>
   <string name="important_info_activity_title">Wichtige Information</string>
   <string name="important_info_quick_guide_tab">Kurzanleitung</string>

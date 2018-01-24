@@ -1029,8 +1029,6 @@
   <string name="important_info_profile_grant_1_howTo_6">1. במכשיר, עברו אל הגדרות &gt; אודות המכשיר &gt; מידע תוכנה והקישו על מספר בנייה 7 פעמים, כעת ייחשפו אפשרויות מפתח בהגדרות.</string>
   <string name="important_info_profile_grant_1_howTo_7">2. במכשיר, עברו אל הגדרות &gt; אפשרויות מפתח והתירו איתור באגים ב-USB.</string>
   <string name="important_info_profile_grant_1_howTo_8">3. במחשב, הפעילו חלון פקודה CMD (Windows), או מסוף (לינוקס, OSX), נווטו לתיקיה שבה מותקן adb והפעילו פקודה זו:</string>
-  <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
-  <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="important_info_profile_grant_1_howTo_10">4. לאחר ביצוע מוצלח, כל הפרמטרים של הפרופיל המסומנים (G1) יהיו מאופשרים.</string>
   <string name="important_info_activity_title">מידע חשוב</string>
   <string name="important_info_quick_guide_tab">מדריך מהיר</string>

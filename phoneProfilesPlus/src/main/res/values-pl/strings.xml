@@ -1027,8 +1027,6 @@ Proszę przeczytać.</string>
   <string name="important_info_profile_grant_1_howTo_6">1. Na twoim urządzeniu, przejdź do Ustawień &gt; O &gt; &gt; Informacjach o Oprogramowaniu i kliknij na numer budowania 7 razy. Odblokuje to i wyświetli Opcji Dewelopera w Ustawieniach.</string>
   <string name="important_info_profile_grant_1_howTo_7">2. Przejdź do Ustawień &gt; Opcje dewelopera i włącz debugowanie USB.</string>
   <string name="important_info_profile_grant_1_howTo_8">3. Na swoim komputerze otwórz Wiersz Poleceń (Windows), lub Terminal (Linux, OSX). Przejdź do folderu, w którym zostały wyodrębnione pliki adb, i DOKŁADNIE wykonaj następującą komendę:</string>
-  <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
-  <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="important_info_profile_grant_1_howTo_10">4. Po pomyślnym wykonaniu, wszystkie parametry profilu oznaczone (G1) zostaną włączone.</string>
   <string name="important_info_activity_title">Ważne informacje</string>
   <string name="important_info_quick_guide_tab">Szybka instrukcja</string>

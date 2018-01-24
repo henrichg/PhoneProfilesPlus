@@ -1027,8 +1027,6 @@ Non chiedere nuovamente?</string>
   <string name="important_info_profile_grant_1_howTo_6">1. Sul tuo dispositivo, vai in Impostazioni &gt; Info sul telefono e fai clic 7 volte su Numero Build. Questa procedura sbloccherà e visualizzerà la voce Opzioni Sviluppatore nelle Impostazioni.</string>
   <string name="important_info_profile_grant_1_howTo_7">2. Vai in Impostazioni &gt; Opzioni Sviluppatore e attiva Debug USB.</string>
   <string name="important_info_profile_grant_1_howTo_8">3. Sul PC, apri Prompt dei comandi (Windows) o Terminale (Linux, OSX). Passare alla cartella dove sono stati estratti i file adb ed esegui ESATTAMENTE il seguente comando:</string>
-  <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
-  <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="important_info_profile_grant_1_howTo_10">4. Dopo la corretta esecuzione, tutti i parametri del profilo contrassegnati con (G1) verranno attivati.</string>
   <string name="important_info_activity_title">Informazioni importanti</string>
   <string name="important_info_quick_guide_tab">Guida rapida</string>

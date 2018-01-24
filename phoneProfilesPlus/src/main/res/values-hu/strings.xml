@@ -1026,8 +1026,6 @@
   <string name="important_info_profile_grant_1_howTo_6">(1) a készüléken, menjen a Beállítások &gt; Névjegy &gt; Szoftver Információ és kattintás build number 7-szer. Ez kinyitja a fejlesztő lehetőségeket a Beállítások menüben.</string>
   <string name="important_info_profile_grant_1_howTo_7">2. Lépjen a Beállítások menü &gt; Fejlesztői Beállítások és engedélyezze az USB hibakeresést.</string>
   <string name="important_info_profile_grant_1_howTo_8">(3) a PC nyisson egy parancssort (Windows), illetve a terminál (Linux, OSX). Lépjen be abba a könyvtárban ahova az adb file-okat kicsomagolta dosszié hol vagy kivonat a adb fájlokat, és pontosan írja be a következő parancsot:</string>
-  <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
-  <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="important_info_profile_grant_1_howTo_10">4. a sikeres végrehajtása után minden profil paraméter amit (G1) jelölt engedélyezve lesz.</string>
   <string name="important_info_activity_title">Fontos információ</string>
   <string name="important_info_quick_guide_tab">Gyors útmutató</string>

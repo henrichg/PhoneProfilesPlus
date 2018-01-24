@@ -68,6 +68,9 @@ public class PPApplication extends Application {
 
                                          +"|GrantPermissionActivity"
 
+                                         +"|BillingManager"
+                                         +"|DonationFragment"
+
                                          //+"|Permissions.grantProfilePermissions"
                                          //+"|Permissions.checkProfileVibrateWhenRinging"
                                          //+"|Permissions.checkVibrateWhenRinging"

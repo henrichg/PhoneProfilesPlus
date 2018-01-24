@@ -1026,8 +1026,6 @@
   <string name="important_info_profile_grant_1_howTo_6">1. In de telefoon, ga naar instellingen &gt; over telefoon &gt; Software-informatie en tik 7 keer op Build versie. Je hebt nu de Ontwikkelaar Opties bij Instellingen.</string>
   <string name="important_info_profile_grant_1_howTo_7">2. In de telefoon, ga naar instellingen &gt; Opties voor Developer en zet USB Debugging aan.</string>
   <string name="important_info_profile_grant_1_howTo_8">3. Op de PC, start (Windows), CMD Terminal (Linux, OSX), ga naar de map waarin adb is geïnstalleerd en geef deze opdracht:</string>
-  <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
-  <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="important_info_profile_grant_1_howTo_10">4. Na succesvolle uitvoering worden alle parameters van het profiel met (G1) mark ingeschakeld.</string>
   <string name="important_info_activity_title">Belangrijke informatie</string>
   <string name="important_info_quick_guide_tab">Snelstart gids</string>

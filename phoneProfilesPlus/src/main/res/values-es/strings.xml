@@ -1026,8 +1026,6 @@
   <string name="important_info_profile_grant_1_howTo_6">1. On your device, go into Settings &gt; About &gt; Software Information and click on Build Number 7 times. This will unlock and display Developer Options in Settings.</string>
   <string name="important_info_profile_grant_1_howTo_7">2. Vaya a configuración &gt; Opciones de desarrollador y active la depuración de USB.</string>
   <string name="important_info_profile_grant_1_howTo_8">3. En su PC, abra la línea de comandos (Windows) o la Terminal (Línux, OSX). Vaya a la carpeta donde fueron extraídos sus archivos adb y ejecute EXACTAMENTE el siguiente comando:</string>
-  <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
-  <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="important_info_profile_grant_1_howTo_10">4. Después de haberlo realizado exitosamente, todos los parámetros de perfil identificados con (G1) serán habilitados.</string>
   <string name="important_info_activity_title">Información importante</string>
   <string name="important_info_quick_guide_tab">Guía rápida</string>

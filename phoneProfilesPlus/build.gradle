@@ -36,6 +36,15 @@ android {
             ext.enableCrashlytics = false
         }
     }
+    // this is for debuging billing
+    /*signingConfigs {
+        debug {
+            keyAlias 'xxxx'
+            keyPassword 'xxxx'
+            storePassword 'xxxx'
+            storeFile file('xxxx')
+        }
+    }*/
 
     //noinspection GroovyMissingReturnStatement
     lintOptions {
@@ -59,6 +68,7 @@ dependencies {
     implementation 'com.android.support:design:' + ppVersions.supportLib
     implementation 'com.google.android.gms:play-services-location:11.8.0'
     implementation 'com.google.android.gms:play-services-maps:11.8.0'
+    implementation 'com.android.billingclient:billing:1.0'
 
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {

@@ -1026,8 +1026,6 @@
   <string name="important_info_profile_grant_1_howTo_6">1. Pada perangkat Anda, masuk ke Settings &amp; gt; Tentang &amp; gt; Software Information dan klik Build Number 7 kali. Ini akan membuka dan menampilkan Opsi Pengembang di Setelan.</string>
   <string name="important_info_profile_grant_1_howTo_7">2. Masuk ke Settings &amp; gt; Developer Options dan aktifkan USB Debugging.</string>
   <string name="important_info_profile_grant_1_howTo_8">3. Pada PC Anda, buka Command Prompt (Windows), atau Terminal (Linux, OSX). Arahkan ke folder tempat Anda mengekstrak file adb Anda, dan EXACTLY jalankan perintah berikut:</string>
-  <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
-  <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="important_info_profile_grant_1_howTo_10">4. Setelah eksekusi berhasil, semua parameter profil yang ditandai dengan (G1) akan diaktifkan.</string>
   <string name="important_info_activity_title">Informasi penting</string>
   <string name="important_info_quick_guide_tab">Panduan cepat</string>

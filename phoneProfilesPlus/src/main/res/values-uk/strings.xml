@@ -1026,8 +1026,6 @@
   <string name="important_info_profile_grant_1_howTo_6">1. On your device, go into Settings &gt; About &gt; Software Information and click on Build Number 7 times. This will unlock and display Developer Options in Settings.</string>
   <string name="important_info_profile_grant_1_howTo_7">2. Go into Settings &gt; Developer Options and enable USB Debugging.</string>
   <string name="important_info_profile_grant_1_howTo_8">3. On your PC, open a Command Prompt (Windows), or Terminal (Linux, OSX). Navigate to the folder where you extracted your adb files, and EXACTLY execute the following command:</string>
-  <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
-  <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="important_info_profile_grant_1_howTo_10">4. Після успішної розпаковки, всі параметри із позначкою (G1) будуть увімкнені.</string>
   <string name="important_info_activity_title">Important information</string>
   <string name="important_info_quick_guide_tab">Quick guide</string>

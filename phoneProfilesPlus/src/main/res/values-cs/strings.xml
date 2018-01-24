@@ -1026,8 +1026,6 @@
   <string name="important_info_profile_grant_1_howTo_6">1. V telefonu, přejděte do nabídky Nastavení &gt; informace o telefonu &gt; informace o softwaru a klepněte na Číslo sestavy 7-krát, a budete mít v Nastaveních položku Vývojářské možnosti.</string>
   <string name="important_info_profile_grant_1_howTo_7">2. V telefonu, přejděte do nabídky Nastavení &gt; Možnosti pro vývojáře a povolte Ladění USB.</string>
   <string name="important_info_profile_grant_1_howTo_8">3. V počítači, spusťte CMD (Windows), Terminál (Linux, OSX), přejděte do složky, ve kterém je nainstalován adb a spusťte tento příkaz:</string>
-  <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
-  <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="important_info_profile_grant_1_howTo_10">4. Po úspěšném provedení, všechny parametry profilu označené značkou (G1) budou povoleny.</string>
   <string name="important_info_activity_title">Důležité informace</string>
   <string name="important_info_quick_guide_tab">Stručná příručka</string>

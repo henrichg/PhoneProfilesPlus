@@ -1027,8 +1027,6 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="important_info_profile_grant_1_howTo_6">1. dans le téléphone, allez dans Réglages &gt; à propos du téléphone &gt; informations sur le logiciel et cliquez sur numéro de Build 7 fois, vous avez maintenant un menu développeur dans les paramètres.</string>
   <string name="important_info_profile_grant_1_howTo_7">2. dans le téléphone, allez dans Paramètres &gt; Options développeur et activer le débogage USB.</string>
   <string name="important_info_profile_grant_1_howTo_8">3. dans le PC, démarrer CMD (Windows), Terminal (Linux, OSX), accédez au dossier dans lequel est installée adb, lancez cette commande :</string>
-  <string name="important_info_profile_grant_1_howTo_9a">adb shell pm grant</string>
-  <string name="important_info_profile_grant_1_howTo_9b">android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="important_info_profile_grant_1_howTo_10">4. après l’exécution réussie, tous les paramètres de profil avec la marque (G1) seront activées.</string>
   <string name="important_info_activity_title">Information importante</string>
   <string name="important_info_quick_guide_tab">Guide rapide</string>
