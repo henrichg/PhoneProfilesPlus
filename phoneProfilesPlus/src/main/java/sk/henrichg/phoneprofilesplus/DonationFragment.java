@@ -2,17 +2,10 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
-import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +23,6 @@ import java.util.List;
 
 import sk.henrichg.phoneprofilesplus.billing.BillingProvider;
 
-@SuppressWarnings("ConstantConditions")
 public class DonationFragment extends Fragment {
 
     private List<SkuDetails> SKU_DETAILS = null;
@@ -58,6 +50,7 @@ public class DonationFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        //noinspection ConstantConditions
         mLoadingView = getActivity().findViewById(R.id.donation_google_android_market_loading);
         mErrorTextView = getActivity().findViewById(R.id.donation_google_android_market_error_textview);
 
@@ -149,12 +142,14 @@ public class DonationFragment extends Fragment {
                                 // update the UI
                                 displayAnErrorIfNeeded(BillingClient.BillingResponse.OK);
 
-                                ArrayAdapter<CharSequence> adapter;
-                                adapter = new ArrayAdapter<CharSequence>(getActivity(),
-                                        android.R.layout.simple_spinner_item, prices);
-                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                mGoogleSpinner.setAdapter(adapter);
-                                btGoogle.setEnabled(true);
+                                if (getActivity() != null) {
+                                    ArrayAdapter<CharSequence> adapter;
+                                    adapter = new ArrayAdapter<CharSequence>(getActivity(),
+                                            android.R.layout.simple_spinner_item, prices);
+                                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                    mGoogleSpinner.setAdapter(adapter);
+                                    btGoogle.setEnabled(true);
+                                }
                             }
                             else {
                                 displayAnErrorIfNeeded(BillingClient.BillingResponse.FEATURE_NOT_SUPPORTED);
