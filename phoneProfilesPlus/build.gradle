@@ -88,6 +88,8 @@ dependencies {
 
     implementation project(':QuickScroll')
 
+    //implementation 'com.github.Stericson:RootTools:5.0'
+    //implementation 'com.github.Stericson:RootTools:-SNAPSHOT'
     implementation(name:'RootShell', ext:'aar')
     implementation(name:'RootTools', ext:'aar')
     compileOnly files('libs/hidden-apis.jar')
