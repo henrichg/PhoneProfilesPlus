@@ -19,7 +19,7 @@ class AboutApplicationJob extends Job {
 
     static final String JOB_TAG  = "AboutApplicationJob";
 
-    static final int MAX_DONATION_NOTIFICATION_COUNT = 3;
+    private static final int MAX_DONATION_NOTIFICATION_COUNT = 3;
 
     //private static CountDownLatch countDownLatch = null;
 
