@@ -37,28 +37,33 @@ public class DonationFragment extends Fragment {
     // Debug tag, for logging
     private static final String TAG = "DonationFragment";
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // this is really important in order to save the state across screen
+        // configuration changes for example
+        setRetainInstance(true);
+    }
+
     public static DonationFragment newInstance() {
         return new DonationFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.donation_fragment, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        PPApplication.logE(TAG, "onCreateView");
+        View root = inflater.inflate(R.layout.donation_fragment, container, false);
 
         //noinspection ConstantConditions
-        mLoadingView = getActivity().findViewById(R.id.donation_google_android_market_loading);
-        mErrorTextView = getActivity().findViewById(R.id.donation_google_android_market_error_textview);
+        mLoadingView = root.findViewById(R.id.donation_google_android_market_loading);
+        mErrorTextView = root.findViewById(R.id.donation_google_android_market_error_textview);
 
         // choose donation amount
-        mGoogleSpinner = getActivity().findViewById(
+        mGoogleSpinner = root.findViewById(
                 R.id.donation_google_android_market_spinner);
 
-        btGoogle = getActivity().findViewById(
+        btGoogle = root.findViewById(
                 R.id.donation_google_android_market_donate_button);
         btGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +74,8 @@ public class DonationFragment extends Fragment {
 
         mBillingProvider = (BillingProvider) getActivity();
 
-        Button paypalButton = getActivity().findViewById(R.id.donation_paypal_donate_button);
+        /*
+        Button paypalButton = root.findViewById(R.id.donation_paypal_donate_button);
         paypalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +89,9 @@ public class DonationFragment extends Fragment {
                 }
             }
         });
+        */
 
+        return root;
     }
 
     // We're being destroyed. It's important to dispose of the helper here!
@@ -96,7 +104,8 @@ public class DonationFragment extends Fragment {
      * Enables or disables "please wait" screen.
      */
     public void setWaitScreen(boolean set) {
-        mLoadingView.setVisibility(set ? View.VISIBLE : View.GONE);
+        if (mLoadingView != null)
+            mLoadingView.setVisibility(set ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -167,43 +176,44 @@ public class DonationFragment extends Fragment {
         }
 
         setWaitScreen(false);
-        if (response != BillingClient.BillingResponse.OK) {
-            mErrorTextView.setVisibility(View.VISIBLE);
-            switch (response) {
-                case BillingClient.BillingResponse.BILLING_UNAVAILABLE:
-                    mErrorTextView.setText("BILLING_UNAVAILABLE");
-                    break;
-                case BillingClient.BillingResponse.DEVELOPER_ERROR:
-                    mErrorTextView.setText("DEVELOPER_ERROR");
-                    break;
-                case BillingClient.BillingResponse.ERROR:
-                    mErrorTextView.setText("ERROR");
-                    break;
-                case BillingClient.BillingResponse.FEATURE_NOT_SUPPORTED:
-                    mErrorTextView.setText("FEATURE_NOT_SUPPORTED");
-                    break;
-                case BillingClient.BillingResponse.ITEM_ALREADY_OWNED:
-                    mErrorTextView.setText("ITEM_ALREADY_OWNED");
-                    break;
-                case BillingClient.BillingResponse.ITEM_NOT_OWNED:
-                    mErrorTextView.setText("ITEM_NOT_OWNED");
-                    break;
-                case BillingClient.BillingResponse.ITEM_UNAVAILABLE:
-                    mErrorTextView.setText("ITEM_UNAVAILABLE");
-                    break;
-                case BillingClient.BillingResponse.SERVICE_DISCONNECTED:
-                    mErrorTextView.setText("SERVICE_DISCONNECTED");
-                    break;
-                case BillingClient.BillingResponse.SERVICE_UNAVAILABLE:
-                    mErrorTextView.setText("SERVICE_UNAVAILABLE");
-                    break;
-                case BillingClient.BillingResponse.USER_CANCELED:
-                    mErrorTextView.setText("USER_CANCELED");
-                    break;
-            }
+        if (mErrorTextView != null) {
+            if (response != BillingClient.BillingResponse.OK) {
+                mErrorTextView.setVisibility(View.VISIBLE);
+                switch (response) {
+                    case BillingClient.BillingResponse.BILLING_UNAVAILABLE:
+                        mErrorTextView.setText("BILLING_UNAVAILABLE");
+                        break;
+                    case BillingClient.BillingResponse.DEVELOPER_ERROR:
+                        mErrorTextView.setText("DEVELOPER_ERROR");
+                        break;
+                    case BillingClient.BillingResponse.ERROR:
+                        mErrorTextView.setText("ERROR");
+                        break;
+                    case BillingClient.BillingResponse.FEATURE_NOT_SUPPORTED:
+                        mErrorTextView.setText("FEATURE_NOT_SUPPORTED");
+                        break;
+                    case BillingClient.BillingResponse.ITEM_ALREADY_OWNED:
+                        mErrorTextView.setText("ITEM_ALREADY_OWNED");
+                        break;
+                    case BillingClient.BillingResponse.ITEM_NOT_OWNED:
+                        mErrorTextView.setText("ITEM_NOT_OWNED");
+                        break;
+                    case BillingClient.BillingResponse.ITEM_UNAVAILABLE:
+                        mErrorTextView.setText("ITEM_UNAVAILABLE");
+                        break;
+                    case BillingClient.BillingResponse.SERVICE_DISCONNECTED:
+                        mErrorTextView.setText("SERVICE_DISCONNECTED");
+                        break;
+                    case BillingClient.BillingResponse.SERVICE_UNAVAILABLE:
+                        mErrorTextView.setText("SERVICE_UNAVAILABLE");
+                        break;
+                    case BillingClient.BillingResponse.USER_CANCELED:
+                        mErrorTextView.setText("USER_CANCELED");
+                        break;
+                }
+            } else
+                mErrorTextView.setVisibility(View.GONE);
         }
-        else
-            mErrorTextView.setVisibility(View.GONE);
     }
 
 }

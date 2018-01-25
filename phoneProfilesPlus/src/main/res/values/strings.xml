@@ -1155,5 +1155,5 @@
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
     <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
-    <string name="donation_paypal">PayPal</string>
+    <!--<string name="donation_paypal">PayPal</string>-->
 </resources>

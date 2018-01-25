@@ -63,6 +63,7 @@ public class BillingManager implements PurchasesUpdatedListener {
     }
 
     private void startServiceConnectionIfNeeded(final Runnable executeOnSuccess) {
+        PPApplication.logE(TAG, "startServiceConnectionIfNeeded");
         if (mBillingClient.isReady()) {
             if (executeOnSuccess != null) {
                 executeOnSuccess.run();
