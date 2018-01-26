@@ -23,7 +23,7 @@
   <string name="delete_event_alert_message">Durum silinsin mi?</string>
   <string name="toast_profile_activated_0">Tercih</string>
   <string name="toast_profile_activated_1">faaliyette</string>
-    <string name="preference_profile_no_change">Değiştirilmesin</string>
+  <string name="preference_profile_no_change">Değiştirilmesin</string>
   <string name="preference_profile_autobrightness">Otomatik parlaklık</string>
   <string name="title_activity_phone_profiles_preferences">Uygulama Ayarları</string>
   <string name="menu_exit">Çıkış</string>
@@ -152,7 +152,7 @@
   <string name="phone_preferences_actionmode_save">Kaydet</string>
   <string name="profile_preferences_showInActivator">\"Muharrik\" içinde göster</string>
   <string name="event_type_time">Zaman</string>
-    <string name="event_preferences_category_eventidentification">Durum kimliği</string>
+  <string name="event_preferences_category_eventidentification">Durum kimliği</string>
   <string name="event_preferences_eventEnabled">Çalışmaya izin ver</string>
   <string name="event_preferences_eventName">Durum ismi</string>
   <string name="event_preferences_eventProfileStart">Tercihi faal yap</string>
@@ -175,7 +175,6 @@
   <string name="event_preferences_time_startTime">Başlangıç zamanı</string>
   <string name="event_preferences_time_endTime">Bitiş zamanı</string>
   <string name="array_pref_event_all">Tamamı</string>
-  <string name="editor_drawer_open">Düzenleyici ekranınını aç</string>
   <string name="editor_drawer_title_profiles">Tercihler</string>
   <string name="editor_drawer_title_events">Durumlar</string>
   <string name="editor_drawer_list_item_profiles_all">Tamamı</string>
@@ -273,7 +272,7 @@
   <string name="event_preferences_ForceRun_summary">El ile faaliyete geçmiş bir tercih olmasına rağmen Durumu başlat</string>
   <string name="event_preferences_category_startofevent">Durum başlangıcı</string>
   <string name="event_preferences_category_endofevent">Durum sonu</string>
-    <string name="event_prefernce_profile_undone">Geri al</string>
+  <string name="event_prefernce_profile_undone">Geri al</string>
   <string name="event_preferences_priority">Öncelik</string>
   <string name="array_event_pref_priorityVeryHigh">[P:9] Çok yüksek</string>
   <string name="array_event_pref_priorityHigh">[P:7] Yüksek</string>
@@ -350,7 +349,7 @@
   <string name="array_event_pref_bluetoothConnectionType_inFront">Yakındaki (tarama aralığı içinde)</string>
   <string name="event_preferences_bluetooth_connection_type">Bluetooth bağlantı türü</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Bluetooth tarama aralığı (dakika)</string>
-    <string name="bluetooth_name_pref_dlg_rescan_button">Tekrar tara</string>
+  <string name="bluetooth_name_pref_dlg_rescan_button">Tekrar tara</string>
   <string name="wifi_ssid_pref_dlg_rescan_button">Tekrar tara</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Liste</string>
@@ -362,8 +361,8 @@
   <string name="event_name_background_profile">Varsayılan tercih</string>
   <string name="phone_profiles_pref_applicationEventWifiRescan">Wi-Fi\'yi tekrar tara</string>
   <string name="phone_profiles_pref_applicationEventBluetoothRescan">Bluetooth\'u tekrar tara</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Ekran Açık</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Ekranı aç &amp; Durumları tekrar başlat</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOn">Ekran Açık</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Ekranı aç &amp; Durumları tekrar başlat</string>
   <string name="array_pref_ringerModeArray_ZenMode">Kesintiler</string>
   <string name="profile_preferences_volumeZenMode">Kesinti türü</string>
   <string name="array_pref_zenModeArray_all">Tamamı</string>
@@ -544,11 +543,11 @@
   <string name="array_pref_value_iw">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Türk</string>
   <string name="array_pref_value_tr">tr</string>
-    <string name="event_type_applications">Uygulamalar</string>
+  <string name="event_type_applications">Uygulamalar</string>
   <string name="event_preferences_category_eventApplicationsParameters">Uygulamalar değerleri</string>
   <string name="event_preferences_applications_applications">Uygulamalar</string>
   <string name="event_preferences_applications_AccessibilitySettings_title">Erişebilirlik ayarları</string>
-    <string name="brightness_pref_dialog_adaptive_level_root_required">Uyarlama seviyesini değiştirmek için kök izni lazımdır.</string>
+  <string name="brightness_pref_dialog_adaptive_level_root_required">Uyarlama seviyesini değiştirmek için kök izni lazımdır.</string>
   <string name="important_info_profile_activation_text1">Tercih iki modda faal edilebilir:</string>
   <string name="important_info_profile_activation_text2">1. El ile faaliyete geçirmek- Muharrik, Düzenleyici, bildirim, widget veya kısayol içinde el ile faaliyete geçirilebilir. El ile faaliyete geçmişse, tercih isminin önünde \"[M]\" ifadesi gösterilir.</string>
   <string name="important_info_profile_activation_text3">2. Durum ile faaeliyete geçirmek- Durum tarafından faaliyete geçirilebilir.</string>
@@ -563,14 +562,14 @@
   <string name="important_info_profile_activation_traffic_light_icon">\"Trafik ışığı\" simgesi:</string>
   <string name="important_info_android_doze_mode">Android 6+\'da \"Doze modu\" ve \"Uygulama bekletme\" uygulanmaktadır. Durumlar vasıtasıyla tercihi faaliyete geçirmede sorun yaşanırsa șunlara dikkat edin:\nEğer cihazı bir süre şarja takmadan ekranı kapalı bırakıyorsanız, sistem Pil ayarlarında \"Pil\" → \"Pil en iyi duruma getirme\" → \"En iyi duruma getirilmedi\" ayarlarında PhoneProfilesPlus\'ı eklemeniz lazımdır.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Çalarken titret</string>
-    <string name="info_notification_event_states">Durum, 5 vaziyette olabilir:</string>
+  <string name="info_notification_event_states">Durum, 5 vaziyette olabilir:</string>
   <string name="info_notification_event_states_running">Çalışıyor: Durum başlamış ve çalışır durumdadır. Durum değerleri karşılanmıştır.</string>
   <string name="info_notification_event_states_paused">Fasıla verildi: Durum çalışmıyor. Durum değerleri yerine gelmiş değildir. Durum, değerlerin yerine gelmesini bekliyor.</string>
   <string name="info_notification_event_states_stopped">Durdu: Durum durdurulmuş ve başlatılamaz. Durum değeri olan \"Çalışmaya izin ver\" seçilmemiş.</string>
   <string name="info_notification_event_states_paused_delay">Erteleme ile fasıla verildi: Durum başladı, fakat ertelemede bekliyor. Durum değerleri karşılanmıştır.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">\"Tam gün\" Durumlarını ihmal eder</string>
   <string name="important_info_default_profile">Herhangi bir Durum çalışmadığı zaman, ayarlanmış ise \"Varsayılan tercih\" başlatılır. Varsayılan tercihi, uygulama ayarlarında \"Tercihi faaliyete geçir\" olarak ayarlayabilirsiniz. Ayarlamak için buraya dokunun.</string>
-    <string name="important_info_how_does_volume_separation_work">\"Seviye ayırma\" nasıl çalışır: Tercih faaliyete geçince, zil ses seviyesi, tercih bildirim ses seviyesi olarak ayarlanır. Arama algılandığında, bildirim ses seviyesi, tercih tarafından otomatik olarak seçtiğiniz zil sesi seviyesine ayarlanır. Çağrı bitiminden sonra bildirim ses seviyesi, tekrar otomatik olarak tercih tarafından geri ayarlanır.</string>
+  <string name="important_info_how_does_volume_separation_work">\"Seviye ayırma\" nasıl çalışır: Tercih faaliyete geçince, zil ses seviyesi, tercih bildirim ses seviyesi olarak ayarlanır. Arama algılandığında, bildirim ses seviyesi, tercih tarafından otomatik olarak seçtiğiniz zil sesi seviyesine ayarlanır. Çağrı bitiminden sonra bildirim ses seviyesi, tekrar otomatik olarak tercih tarafından geri ayarlanır.</string>
   <string name="event_type_locations">Konum</string>
   <string name="event_preferences_category_eventLocationsParameters">Konum değerleri</string>
   <string name="event_preferences_locations_location">Konum</string>
@@ -643,7 +642,7 @@
   <string name="array_event_pref_orientationDistanceType_near">Yakın</string>
   <string name="array_event_pref_orientationDistanceType_far">Uzak</string>
   <string name="event_preferences_orientation_ignoreForApplications">Uygulamalar için ihmal et</string>
-    <string name="applications_preference_applicationType_application">uygulama</string>
+  <string name="applications_preference_applicationType_application">uygulama</string>
   <string name="applications_preference_applicationType_shortcut">kısayol</string>
   <string name="phone_profiles_pref_eventWifiAppSettings">Wi-fi ayarları</string>
   <string name="phone_profiles_pref_eventWifiAppSettings_summary">Uygulama ayarlarında Wi-Fi değerlerini ayarlayın.</string>
@@ -664,7 +663,7 @@
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Uygulamalar, kısayollar</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Uygulamaları, kısayolları çalıştır</string>
   <string name="applications_editor_dialog_title">Uygulama, kısayol ayarla</string>
-    <string name="important_info_profile_interactive">Bazı tercih ayarları etkileşimlidir. Bu ayarlar, sistem ayarı ekranını gösterir. Bu ayarların yanında \"(I)\" işareti görüntülenir.</string>
+  <string name="important_info_profile_interactive">Bazı tercih ayarları etkileşimlidir. Bu ayarlar, sistem ayarı ekranını gösterir. Bu ayarların yanında \"(I)\" işareti görüntülenir.</string>
   <string name="important_info_orange_text">Not: Bu bilgideki turuncu metne dokunulabilir. Bu metne dokununca, ilgili ayarın ekranı açılır.</string>
   <string name="default_event_name_night_call">Gece araması</string>
   <string name="alert_message_enable_event">Durum çalıştırmaya izin verilmemiş. İzin verilsin mi?</string>
@@ -760,11 +759,11 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Etiket yazılamaz</string>
   <string name="about_application_donate_button">Lütfen bağış yapın</string>
   <string name="donation_activity_title">Bağış</string>
-    <string name="donation_description">Bu uygulamayı yararlı buluyor musunuz?\nGeliştiriciye bir bağış göndererek, geliştirmeye yardımcı olun.</string>
+  <string name="donation_description">Bu uygulamayı yararlı buluyor musunuz?\nGeliştiriciye bir bağış göndererek, geliştirmeye yardımcı olun.</string>
   <string name="donation_google_android_market">Google Play Mağaza</string>
   <string name="donation_google_android_market_text">Ne kadar?</string>
-    <string name="donation_google_android_market_donate_button">Bağış Yap</string>
-    <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
+  <string name="donation_google_android_market_donate_button">Bağış Yap</string>
+  <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
   <string name="phone_profiles_pref_applicationLanguage_ja">日本語</string>
   <string name="phone_profiles_pref_applicationLanguage_ko">한국어</string>
   <string name="phone_profiles_pref_applicationLanguage_te">తెలుగు</string>
@@ -802,6 +801,7 @@
   <string name="run_stop_events_indicator">Durumları Çalıştır/Durdur başlatma göstergesi</string>
   <string name="run_stop_indicator_popup_window_important_infos">Daha fazla malumat için \"Mühim malumat\"a bakın (Düzenleyici alt araç çubuğundaki soru işareti simgesine dokunun).</string>
   <string name="important_info_how_to_show_ppp">Bu mühim malumat, Düzenleyici üzerinde araç çubuğundaki soru işareti simgesi vasıtasıyla da görüntülenebilir.</string>
+  <string name="important_info_how_to_show">Bu mühim malumat, Düzenleyici üzerinde araç çubuğundaki soru işareti simgesi vasıtasıyla da görüntülenebilir.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">uygulama tarafından imkân verilmiyor</string>
   <string name="preference_not_allowed_reason_detail_old_android">eski Android sürümü</string>
   <string name="preference_not_allowed_reason_detail_network_type">ağ türüne imkân verilmiyor veya değiştirilemez</string>
@@ -898,7 +898,7 @@
   <string name="event_preference_activity_targetHelps_save_description">Durum ayarları değişikliklerini kaydetmek için buna dokunun.</string>
   <string name="about_application_privacy_policy">Gizlilik Anlaşması:</string>
   <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">Hiçbir durum çalışmıyorsa bu tercih faaliyete geçecektir.</string>
-    <string name="phone_profiles_pref_notificationTheme">Bildirim Teması</string>
+  <string name="phone_profiles_pref_notificationTheme">Bildirim Teması</string>
   <string name="array_pref_color_native">Cihaz</string>
   <string name="array_pref_color_dark">Koyu</string>
   <string name="array_pref_color_light">Açık</string>
@@ -956,7 +956,7 @@
   <string name="phone_profiles_pref_applicationLanguage_pt_BR">Português (Brasil)</string>
   <string name="array_pref_value_pt_BR">pt-BR</string>
   <string name="important_info_profile_zenModeM">Tercih → \"Zil modu\" → \"Rahatsız Etmeyin\" modu için sistem ayarlarında \"Bildirim erişim\" ayarlarında PhoneProfilesPlus\'ın seçilmesi lazımdır. Buraya dokunun ve PhoneProfilesPlus\'ı seçin.</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Android 6\'da bu sistem ayarı yalnızca kök erişimi olan (root edilmiş) cihazlarda değiştirilebilir. Etkilenenler zil modları ve titreşimli \"rahatsız etmeyin\" türleridir.</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Android 6\'da bu sistem ayarı yalnızca kök erişimi olan (root edilmiş) cihazlarda değiştirilebilir. Etkilenenler zil modları ve titreşimli \"rahatsız etmeyin\" türleridir.</string>
   <string name="setting_screen_not_found_alert">Ayar ekranı bulunamadı.</string>
   <string name="action_for_external_application_notification_title">Dış uygulama desteği (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">Tercih_ismi değeri eksik veya boş.</string>
@@ -1118,6 +1118,10 @@
   <string name="profile_preferences_headsUpNotifications">(G1) (R) açılan bildirimler</string>
   <string name="event_preferences_PPPExtenderInstallInfo_text">PhoneProfilesPlusExtender nasıl kurulur</string>
   <string name="event_preferences_PPPExtenderInstallInfo_summary">PhoneProfilesPlusExtender.apk\'nın son sürümünü GitHub\'dan indirin. Daha sonra indirilen apk ilgili bildirime tıklayın ve yükleyin.</string>
+  <string name="editor_drawer_open">Düzenleyici ekranınını aç</string>
+  <string name="donation_thanks_dialog">Bağış için teşekkür ederiz.\nGerçekten bunu takdir ediyoruz.</string>
+  <string name="donation_google_android_market_not_supported">Uygulama-içi Bağış mümkün değil. Google Play Mağaza doğru yüklenmiş mi?</string>
+  <string name="donation_google_error">Error.</string>
   <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
   <!--
     <string name="notification_channel_activated_profile">Activated profile</string>
@@ -1125,4 +1129,22 @@
     <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
     -->
   <!-- <string name="donation_paypal">PayPal</string> -->
+  <!--<string name="title_activity_image_view_preference_dialog">Change icon</string>-->
+  <!--<string name="title_activity_profile_preference_dialog">Set profile</string>-->
+  <!--<string name="event_preferences_undoneProfile">Undo the profile</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Enable Bluetooth scanning</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventRescan_none">None</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventRescan_restartEvents">Restart events</string>-->
+  <!--<string name="accessibility_service_name">PhoneProfilesPlus</string>-->
+  <!--<string name="accessibility_service_description">Allow PhoneProfilesPlus to detect which application is in the foreground. This is necessary for events with \"Applications parameters\" enabled.</string>-->
+  <!--<string name="event_preferences_applications_AccessibilitySettings_summary">To enable Application parameters, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
+  <!--<string name="event_preferences_notifications_end_when_removed">End when dismissed</string>-->
+  <!--<string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and interruption types with vibration.</string>-->
+  <!--<string name="info_notification_unlink_ringer_notification_volumes2">If your device does not have separate volumes for ringtone and notifications, keep volume separation enabled.</string>-->
+  <!--<string name="event_preferences_orientation_AccessibilitySettings_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
+  <!--<string name="donation_button_close">Close</string>-->
+  <!--<string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>-->
+  <!--<string name="donation_thanks_dialog_title">Thank you</string>-->
+  <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->
+  <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
 </resources>

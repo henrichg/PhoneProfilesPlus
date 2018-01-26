@@ -23,7 +23,7 @@
   <string name="delete_event_alert_message">Menghapus Acara?</string>
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">diaktifkan</string>
-    <string name="preference_profile_no_change">Jangan mengubah</string>
+  <string name="preference_profile_no_change">Jangan mengubah</string>
   <string name="preference_profile_autobrightness">Otomatis</string>
   <string name="title_activity_phone_profiles_preferences">Pengaturan Aplikasi</string>
   <string name="menu_exit">Keluar</string>
@@ -152,7 +152,7 @@
   <string name="phone_preferences_actionmode_save">Simpan</string>
   <string name="profile_preferences_showInActivator">Tampilkan di aktivator</string>
   <string name="event_type_time">Waktu</string>
-    <string name="event_preferences_category_eventidentification">Acara identifikasi</string>
+  <string name="event_preferences_category_eventidentification">Acara identifikasi</string>
   <string name="event_preferences_eventEnabled">Aktifkan menjalankan</string>
   <string name="event_preferences_eventName">Nama event</string>
   <string name="event_preferences_eventProfileStart">Aktifkan profil?</string>
@@ -175,7 +175,6 @@
   <string name="event_preferences_time_startTime">Waktu Mulai</string>
   <string name="event_preferences_time_endTime">Waktu Berakhir</string>
   <string name="array_pref_event_all">Semua</string>
-  <string name="editor_drawer_open">Buka laci navigasi</string>
   <string name="editor_drawer_title_profiles">Profil</string>
   <string name="editor_drawer_title_events">Acara</string>
   <string name="editor_drawer_list_item_profiles_all">Semua</string>
@@ -273,7 +272,7 @@
   <string name="event_preferences_ForceRun_summary">Mulai acara bahkan saat ada profil yang diaktifkan secara manual</string>
   <string name="event_preferences_category_startofevent">Mulai acara</string>
   <string name="event_preferences_category_endofevent">Akhir acara</string>
-    <string name="event_prefernce_profile_undone">Membuka</string>
+  <string name="event_prefernce_profile_undone">Membuka</string>
   <string name="event_preferences_priority">Prioritas</string>
   <string name="array_event_pref_priorityVeryHigh">[P: 9] Sangat tinggi</string>
   <string name="array_event_pref_priorityHigh">[P: 7] tinggi</string>
@@ -350,7 +349,7 @@
   <string name="array_event_pref_bluetoothConnectionType_inFront">Terdekat (dalam jangkauan pemindaian)</string>
   <string name="event_preferences_bluetooth_connection_type">Tipe koneksi</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Interval pemindaian Bluetooth (menit)</string>
-    <string name="bluetooth_name_pref_dlg_rescan_button">Re-scan</string>
+  <string name="bluetooth_name_pref_dlg_rescan_button">Re-scan</string>
   <string name="wifi_ssid_pref_dlg_rescan_button">Re-scan</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Daftar</string>
@@ -362,8 +361,8 @@
   <string name="event_name_background_profile">Profil standar</string>
   <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>
   <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Layar aktif</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Layar On &amp; amp; Mulai ulang acara</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOn">Layar aktif</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Layar On &amp; amp; Mulai ulang acara</string>
   <string name="array_pref_ringerModeArray_ZenMode">Gangguan</string>
   <string name="profile_preferences_volumeZenMode">Tipe interupsi</string>
   <string name="array_pref_zenModeArray_all">Semua</string>
@@ -544,11 +543,11 @@
   <string name="array_pref_value_iw">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Türkçe</string>
   <string name="array_pref_value_tr">tr</string>
-    <string name="event_type_applications">Aplikasi</string>
+  <string name="event_type_applications">Aplikasi</string>
   <string name="event_preferences_category_eventApplicationsParameters">Parameter aplikasi</string>
   <string name="event_preferences_applications_applications">Aplikasi</string>
   <string name="event_preferences_applications_AccessibilitySettings_title">Pengaturan aksesibilitas</string>
-    <string name="brightness_pref_dialog_adaptive_level_root_required">ROOT diperlukan untuk mengubah tingkat adaptif.</string>
+  <string name="brightness_pref_dialog_adaptive_level_root_required">ROOT diperlukan untuk mengubah tingkat adaptif.</string>
   <string name="important_info_profile_activation_text1">Profil dapat diaktifkan dalam salah satu dari dua mode berikut:</string>
   <string name="important_info_profile_activation_text2">1. Aktivasi manual - diaktifkan di Activator, Editor, notifikasi, widget, shortcut. Profil yang diaktifkan secara manual ditunjukkan dengan \" [M] \" di depan nama profil.</string>
   <string name="important_info_profile_activation_text3">2. Aktivasi acara - diaktifkan oleh sebuah acara.</string>
@@ -563,14 +562,14 @@
   <string name="important_info_profile_activation_traffic_light_icon">Ikon \"lampu lalu lintas\":</string>
   <string name="important_info_android_doze_mode">Android 6+ menerapkan \"mode Doze\" dan \"Standby Aplikasi\". Mengenai masalah aktivasi profil acara, jika Anda membiarkan perangkat dicabut dan stasioner untuk jangka waktu tertentu dengan layar mati, tambahkan PhoneProfilesPlus ke \"Battery\" → \"Pengoptimalan baterai\" → \"Tidak dioptimalkan\".</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Getar saat berdering</string>
-    <string name="info_notification_event_states">Sebuah acara mungkin berada di salah satu dari 5 negara bagian:</string>
+  <string name="info_notification_event_states">Sebuah acara mungkin berada di salah satu dari 5 negara bagian:</string>
   <string name="info_notification_event_states_running">Menjalankan: acara dimulai dan berjalan. Parameter acara terpenuhi.</string>
   <string name="info_notification_event_states_paused">Dijeda: acara tidak berjalan Parameter acara tidak terpenuhi. Event menunggu parameter untuk dipuaskan.</string>
   <string name="info_notification_event_states_stopped">Berhenti: acara dihentikan dan tidak bisa dimulai. Parameter acara \"Aktifkan lari\" tidak dicentang.</string>
   <string name="info_notification_event_states_paused_delay">Dijeda dengan penundaan: acara dimulai, namun menunggu penundaan berakhir. Parameter acara terpenuhi.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Abaikan \"sepanjang hari\" acara</string>
   <string name="important_info_default_profile">Bila tidak ada aktivitas yang berjalan, \"Profil default\" diaktifkan jika dikonfigurasi. Anda dapat mengkonfigurasi profil default dalam pengaturan aplikasi di \"Aktivasi Profil\". Klik disini untuk mengkonfigurasinya.</string>
-    <string name="important_info_how_does_volume_separation_work">Cara \"pemisahan volume\" bekerja: Pengaktifan profil akan menyesuaikan volume perangkat menurut tingkat profil yang sedang berjalan tingkat pemberitahuan. Saat deringan panggilan terdeteksi, tingkat volume dering dari profil berjalan disesuaikan. Setelah panggilan berakhir, tingkat volume notifikasi dari profil berjalan dipulihkan.</string>
+  <string name="important_info_how_does_volume_separation_work">Cara \"pemisahan volume\" bekerja: Pengaktifan profil akan menyesuaikan volume perangkat menurut tingkat profil yang sedang berjalan tingkat pemberitahuan. Saat deringan panggilan terdeteksi, tingkat volume dering dari profil berjalan disesuaikan. Setelah panggilan berakhir, tingkat volume notifikasi dari profil berjalan dipulihkan.</string>
   <string name="event_type_locations">Lokasi</string>
   <string name="event_preferences_category_eventLocationsParameters">Parameter lokasi</string>
   <string name="event_preferences_locations_location">Lokasi</string>
@@ -643,7 +642,7 @@
   <string name="array_event_pref_orientationDistanceType_near">Dekat</string>
   <string name="array_event_pref_orientationDistanceType_far">Jauh</string>
   <string name="event_preferences_orientation_ignoreForApplications">Abaikan untuk aplikasi</string>
-    <string name="applications_preference_applicationType_application">aplikasi</string>
+  <string name="applications_preference_applicationType_application">aplikasi</string>
   <string name="applications_preference_applicationType_shortcut">jalan pintas</string>
   <string name="phone_profiles_pref_eventWifiAppSettings">Pengaturan Wi-Fi</string>
   <string name="phone_profiles_pref_eventWifiAppSettings_summary">Setup parameter Wi-Fi di setting aplikasi.</string>
@@ -664,7 +663,7 @@
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Aplikasi, jalan pintas</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Jalankan aplikasi, jalan pintas</string>
   <string name="applications_editor_dialog_title">Setel aplikasi, shortcut</string>
-    <string name="important_info_profile_interactive">Beberapa preferensi profil bersifat interaktif. Preferensi ini menampilkan layar pengaturan sistem, dan ditandai dengan \"(I)\".</string>
+  <string name="important_info_profile_interactive">Beberapa preferensi profil bersifat interaktif. Preferensi ini menampilkan layar pengaturan sistem, dan ditandai dengan \"(I)\".</string>
   <string name="important_info_orange_text">Catatan: Teks oranye dalam informasi ini dapat diklik. Mengklik pada teks ini akan membuka layar penyiapan yang relevan.</string>
   <string name="default_event_name_night_call">Panggilan malam</string>
   <string name="alert_message_enable_event">Peluncuran acara tidak diaktifkan. Aktifkan?</string>
@@ -760,11 +759,11 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Tag tidak bisa ditulis</string>
   <string name="about_application_donate_button">Tolong donasi</string>
   <string name="donation_activity_title">Sumbangan</string>
-    <string name="donation_description">Apakah Anda menemukan aplikasi ini berguna? \ n Dukung perkembangannya dengan mengirimkan donasi ke pengembang.</string>
+  <string name="donation_description">Apakah Anda menemukan aplikasi ini berguna? \ n Dukung perkembangannya dengan mengirimkan donasi ke pengembang.</string>
   <string name="donation_google_android_market">Google Play Store</string>
   <string name="donation_google_android_market_text">Berapa banyak?</string>
-    <string name="donation_google_android_market_donate_button">Menyumbangkan</string>
-    <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
+  <string name="donation_google_android_market_donate_button">Menyumbangkan</string>
+  <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
   <string name="phone_profiles_pref_applicationLanguage_ja">日本語</string>
   <string name="phone_profiles_pref_applicationLanguage_ko">한국어</string>
   <string name="phone_profiles_pref_applicationLanguage_te">తెలుగు</string>
@@ -802,6 +801,7 @@
   <string name="run_stop_events_indicator">Aktifkan / nonaktifkan indikator aktivitas</string>
   <string name="run_stop_indicator_popup_window_important_infos">Untuk informasi lebih lanjut, tinjau layar \"Informasi penting\" di Editor melalui ikon tanda tanya di toolbar bagian bawah.</string>
   <string name="important_info_how_to_show_ppp">Informasi penting ini dapat dilihat di Editor melalui ikon tanda tanya di toolbar atas.</string>
+  <string name="important_info_how_to_show">Informasi penting ini dapat dilihat di Editor melalui ikon tanda tanya di toolbar.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">tidak didukung oleh aplikasi</string>
   <string name="preference_not_allowed_reason_detail_old_android">versi Android lama</string>
   <string name="preference_not_allowed_reason_detail_network_type">jenis jaringan yang tidak didukung atau tidak dapat diubah</string>
@@ -898,7 +898,7 @@
   <string name="event_preference_activity_targetHelps_save_description">Klik ini untuk menyimpan perubahan preferensi ac.</string>
   <string name="about_application_privacy_policy">Kebijakan pribadi:</string>
   <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">Profil ini akan aktif bila tidak ada acara yang sedang berjalan.</string>
-    <string name="phone_profiles_pref_notificationTheme">Tema pemberitahuan</string>
+  <string name="phone_profiles_pref_notificationTheme">Tema pemberitahuan</string>
   <string name="array_pref_color_native">Asli</string>
   <string name="array_pref_color_dark">Gelap</string>
   <string name="array_pref_color_light">Cahaya</string>
@@ -906,7 +906,7 @@
   <string name="profile_preferences_hideStatusBarIcon">Sembunyikan ikon bilah status</string>
   <string name="device_admin_description">Memberikan dukungan untuk beberapa tindakan PhoneProfilesPlus</string>
   <string name="device_admin_disable_warning_ppp">Menonaktifkan ini dapat menyebabkan beberapa parameter profil dan peristiwa menjadi tidak berfungsi.</string>
-  <string name="device_admin_disable_warning_pp">Menonaktifkan ini dapat menyebabkan beberapa parameter profil dan peristiwa menjadi tidak berfungsi.</string>
+  <string name="device_admin_disable_warning_pp">Menonaktifkan ini dapat menyebabkan beberapa parameter profil menjadi tidak berfungsi.</string>
   <string name="profile_preferences_lockDevice">Kunci perangkat</string>
   <string name="array_pref_lockDevice_deviceAdmin">(S) Gunakan administrator Perangkat (membuka kunci melalui sidik jari mungkin tidak bekerja)</string>
   <string name="array_pref_lockDevice_root">(R) Gunakan root (perangkat harus berakar)</string>
@@ -956,7 +956,7 @@
   <string name="phone_profiles_pref_applicationLanguage_pt_BR">Português (Brasil)</string>
   <string name="array_pref_value_pt_BR">pt-BR</string>
   <string name="important_info_profile_zenModeM">\"Jangan diganggu\" dalam profil \"Mode dering\" mengharuskan PhoneProfilesPlus dalam pengaturan sistem \"Akses notifikasi\". Klik disini dan aktifkan.</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Di Android 6: Pengaturan sistem ini hanya bisa diubah pada perangkat berakar. Terkena mode ringer dan tidak mengganggu tipe dengan getaran.</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Di Android 6: Pengaturan sistem ini hanya bisa diubah pada perangkat berakar. Terkena mode ringer dan tidak mengganggu tipe dengan getaran.</string>
   <string name="setting_screen_not_found_alert">Setting layar tidak ditemukan.</string>
   <string name="action_for_external_application_notification_title">Dukungan aplikasi eksternal (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">Parameter profil_name hilang atau kosong.</string>
@@ -1118,6 +1118,10 @@
   <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
   <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>
   <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
+  <string name="editor_drawer_open">Buka laci navigasi</string>
+  <string name="donation_thanks_dialog">Terima kasih telah menyumbang. \ n Saya sangat menghargai itu.</string>
+  <string name="donation_google_android_market_not_supported">Sumbangan dalam aplikasi tidak didukung Apakah Google Play Store terpasang dengan benar?</string>
+  <string name="donation_google_error">Error.</string>
   <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
   <!--
     <string name="notification_channel_activated_profile">Activated profile</string>
@@ -1125,4 +1129,22 @@
     <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
     -->
   <!-- <string name="donation_paypal">PayPal</string> -->
+  <!--<string name="title_activity_image_view_preference_dialog">Change icon</string>-->
+  <!--<string name="title_activity_profile_preference_dialog">Set profile</string>-->
+  <!--<string name="event_preferences_undoneProfile">Undo the profile</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Enable Bluetooth scanning</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventRescan_none">None</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventRescan_restartEvents">Restart events</string>-->
+  <!--<string name="accessibility_service_name">PhoneProfilesPlus</string>-->
+  <!--<string name="accessibility_service_description">Allow PhoneProfilesPlus to detect which application is in the foreground. This is necessary for events with \"Applications parameters\" enabled.</string>-->
+  <!--<string name="event_preferences_applications_AccessibilitySettings_summary">To enable Application parameters, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
+  <!--<string name="event_preferences_notifications_end_when_removed">End when dismissed</string>-->
+  <!--<string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and interruption types with vibration.</string>-->
+  <!--<string name="info_notification_unlink_ringer_notification_volumes2">If your device does not have separate volumes for ringtone and notifications, keep volume separation enabled.</string>-->
+  <!--<string name="event_preferences_orientation_AccessibilitySettings_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
+  <!--<string name="donation_button_close">Close</string>-->
+  <!--<string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>-->
+  <!--<string name="donation_thanks_dialog_title">Thank you</string>-->
+  <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->
+  <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
 </resources>

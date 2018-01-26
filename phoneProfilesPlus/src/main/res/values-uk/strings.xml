@@ -23,7 +23,7 @@
   <string name="delete_event_alert_message">Видалити подію?</string>
   <string name="toast_profile_activated_0">Профіль</string>
   <string name="toast_profile_activated_1">активований</string>
-    <string name="preference_profile_no_change">Не змінювати</string>
+  <string name="preference_profile_no_change">Не змінювати</string>
   <string name="preference_profile_autobrightness">Автоматично</string>
   <string name="title_activity_phone_profiles_preferences">Налаштування додатку</string>
   <string name="menu_exit">Вийти</string>
@@ -152,7 +152,7 @@
   <string name="phone_preferences_actionmode_save">Зберегти</string>
   <string name="profile_preferences_showInActivator">Показувати в активаторі</string>
   <string name="event_type_time">Час</string>
-    <string name="event_preferences_category_eventidentification">Ідентифікація події</string>
+  <string name="event_preferences_category_eventidentification">Ідентифікація події</string>
   <string name="event_preferences_eventEnabled">Активувати</string>
   <string name="event_preferences_eventName">Назва події</string>
   <string name="event_preferences_eventProfileStart">Активувати профіль</string>
@@ -175,7 +175,6 @@
   <string name="event_preferences_time_startTime">Час початку</string>
   <string name="event_preferences_time_endTime">Час завершення</string>
   <string name="array_pref_event_all">Усі</string>
-  <string name="editor_drawer_open">Відкрити бокове меню</string>
   <string name="editor_drawer_title_profiles">Профілі</string>
   <string name="editor_drawer_title_events">Події</string>
   <string name="editor_drawer_list_item_profiles_all">Усі</string>
@@ -273,7 +272,7 @@
   <string name="event_preferences_ForceRun_summary">Розпочати подію, незважаючи на те, що діє вручну активований профіль</string>
   <string name="event_preferences_category_startofevent">Розпічніть події</string>
   <string name="event_preferences_category_endofevent">Завершення події</string>
-    <string name="event_prefernce_profile_undone">Анулювати</string>
+  <string name="event_prefernce_profile_undone">Анулювати</string>
   <string name="event_preferences_priority">Пріоритет</string>
   <string name="array_event_pref_priorityVeryHigh">[P:9] Дуже високий</string>
   <string name="array_event_pref_priorityHigh">[P:7] Високий</string>
@@ -350,7 +349,7 @@
   <string name="array_event_pref_bluetoothConnectionType_inFront">Nearby (within scanning range)</string>
   <string name="event_preferences_bluetooth_connection_type">Підключення</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Інтервал (хв) сканування Bluetooth</string>
-    <string name="bluetooth_name_pref_dlg_rescan_button">Пересканувати</string>
+  <string name="bluetooth_name_pref_dlg_rescan_button">Пересканувати</string>
   <string name="wifi_ssid_pref_dlg_rescan_button">Пересканувати</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Список</string>
@@ -362,8 +361,8 @@
   <string name="event_name_background_profile">Профіль за замовчуванням</string>
   <string name="phone_profiles_pref_applicationEventWifiRescan">Пересканувати Wi-Fi</string>
   <string name="phone_profiles_pref_applicationEventBluetoothRescan">Пересканувати Bluetooth</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Увімкнення екрану</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Увімкнення екрану &amp; Перезавантаження подій</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOn">Увімкнення екрану</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Увімкнення екрану &amp; Перезавантаження подій</string>
   <string name="array_pref_ringerModeArray_ZenMode">Режими сповіщень</string>
   <string name="profile_preferences_volumeZenMode">Типи режиму сповіщень</string>
   <string name="array_pref_zenModeArray_all">Усі</string>
@@ -544,11 +543,11 @@
   <string name="array_pref_value_iw">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Türkçe</string>
   <string name="array_pref_value_tr">tr</string>
-    <string name="event_type_applications">Додатки</string>
+  <string name="event_type_applications">Додатки</string>
   <string name="event_preferences_category_eventApplicationsParameters">Параметри додатків</string>
   <string name="event_preferences_applications_applications">Додатки</string>
   <string name="event_preferences_applications_AccessibilitySettings_title">Налаштування доступності</string>
-    <string name="brightness_pref_dialog_adaptive_level_root_required">Для зміни адаптивного рівня потрібні права Суперкористувача.</string>
+  <string name="brightness_pref_dialog_adaptive_level_root_required">Для зміни адаптивного рівня потрібні права Суперкористувача.</string>
   <string name="important_info_profile_activation_text1">Профіль може бути активовано у двох режимах:</string>
   <string name="important_info_profile_activation_text2">1. Ручна активація - активований через Активатор, Редактор, сповіщення, віджет, ярлик. Активований вручну профіль відображається з «[M]» перед назвою профіля.</string>
   <string name="important_info_profile_activation_text3">2. подія активації - виконується за подією.</string>
@@ -563,14 +562,14 @@
   <string name="important_info_profile_activation_traffic_light_icon">Іконка «Світлофор»:</string>
   <string name="important_info_android_doze_mode">В Android 6+ реалізовано режим \"Doze\" та \"App Standby\". Якщо ви зіткнулись із проблемами активації профілю із подій, коли пристрій вимкнувся після вимкнення екрану, додайте PhoneProfilesPlus в список \"Батарея\"→\"Економія заряду батареї\"→\"Не економити заряд\".</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Вібрувати під час дзвінка</string>
-    <string name="info_notification_event_states">Подія може перебувати у 5-х станах:</string>
+  <string name="info_notification_event_states">Подія може перебувати у 5-х станах:</string>
   <string name="info_notification_event_states_running">Виконуєтся: подію запущено. Параметри подій задовільні.</string>
   <string name="info_notification_event_states_paused">Призупинено: подія не виконується. Параметри події не задовільні. Подія очікує задоволення параметрів.</string>
   <string name="info_notification_event_states_stopped">Зупинено: подія зупинена і не може бути запущена. Параметр події \"Дозволити виконання\" не зазначено.</string>
   <string name="info_notification_event_states_paused_delay">Призупинено із затримкою: подія виконується, але відкладено. Параметри подій задоволені.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Ігнорувати події \"Увесь день\"</string>
   <string name="important_info_default_profile">Коли жодна подія не виконується, активується «Профіль за промовчанням», якщо його налаштовано. Профіль за промовчанням можна налаштувати в параметрах додатку, пункт «Активація профілю». Натисніть тут, щоб налаштувати його.</string>
-    <string name="important_info_how_does_volume_separation_work">Як працює «розділення гучності»: активація профіля встановлює гучність пристрою на рівні гучності сповіщень. При виявленні виклику рівень гучності встановлюється в залежності від налаштувань профіля. Після закінчення виклику рівень гучності повертається до рівня гучності сповіщень профіля.</string>
+  <string name="important_info_how_does_volume_separation_work">Як працює «розділення гучності»: активація профіля встановлює гучність пристрою на рівні гучності сповіщень. При виявленні виклику рівень гучності встановлюється в залежності від налаштувань профіля. Після закінчення виклику рівень гучності повертається до рівня гучності сповіщень профіля.</string>
   <string name="event_type_locations">Місцезнаходження</string>
   <string name="event_preferences_category_eventLocationsParameters">Параметри місцезнаходження</string>
   <string name="event_preferences_locations_location">Місцезнаходження</string>
@@ -643,7 +642,7 @@
   <string name="array_event_pref_orientationDistanceType_near">Біля</string>
   <string name="array_event_pref_orientationDistanceType_far">Далеко</string>
   <string name="event_preferences_orientation_ignoreForApplications">Ігнорувати для додатків</string>
-    <string name="applications_preference_applicationType_application">додаток</string>
+  <string name="applications_preference_applicationType_application">додаток</string>
   <string name="applications_preference_applicationType_shortcut">ярлик</string>
   <string name="phone_profiles_pref_eventWifiAppSettings">Налаштування Wi-Fi</string>
   <string name="phone_profiles_pref_eventWifiAppSettings_summary">Параметри Wi-fi в налаштуваннях додатку.</string>
@@ -664,7 +663,7 @@
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Додатки, ярлики</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Запустити додатки, ярлики</string>
   <string name="applications_editor_dialog_title">Налаштувати додаток, ярлик</string>
-    <string name="important_info_profile_interactive">Деякі параметри профіля інтерактивні. Вони показують вікно налаштувань системи. Ці параметри помічені знаком «(I)».</string>
+  <string name="important_info_profile_interactive">Деякі параметри профіля інтерактивні. Вони показують вікно налаштувань системи. Ці параметри помічені знаком «(I)».</string>
   <string name="important_info_orange_text">Примітка: помаранчевий текст в цій інформації є активним. Натисніть на нього, щоб відкрити відповідні налаштування.</string>
   <string name="default_event_name_night_call">Нічний дзвінок</string>
   <string name="alert_message_enable_event">Запуск подій не дозволено? Дозволити?</string>
@@ -760,11 +759,11 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Tag is not writable</string>
   <string name="about_application_donate_button">Please donate</string>
   <string name="donation_activity_title">Donation</string>
-    <string name="donation_description">Do you find this application useful?\nSupport its development by sending a donation to the developer.</string>
+  <string name="donation_description">Do you find this application useful?\nSupport its development by sending a donation to the developer.</string>
   <string name="donation_google_android_market">Google Play Store</string>
   <string name="donation_google_android_market_text">Скільки?</string>
-    <string name="donation_google_android_market_donate_button">Пожертвувати</string>
-    <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
+  <string name="donation_google_android_market_donate_button">Пожертвувати</string>
+  <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
   <string name="phone_profiles_pref_applicationLanguage_ja">日本語</string>
   <string name="phone_profiles_pref_applicationLanguage_ko">한국어</string>
   <string name="phone_profiles_pref_applicationLanguage_te">తెలుగు</string>
@@ -802,6 +801,7 @@
   <string name="run_stop_events_indicator">Увімкнути/зупинити індикатор запуску подій</string>
   <string name="run_stop_indicator_popup_window_important_infos">Для отримання додаткової інформації перейдіть у розділ «Важлива інформація» (знак питання в нижній панелі редактора).</string>
   <string name="important_info_how_to_show_ppp">This important information can be viewed In Editor through the question mark icon in the top toolbar.</string>
+  <string name="important_info_how_to_show">Цю важливу інформацію можна переглядати в редакторі через іконку \"знак питання\" в панелі інструментів.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">не підтримуються додатком</string>
   <string name="preference_not_allowed_reason_detail_old_android">стара версія Android</string>
   <string name="preference_not_allowed_reason_detail_network_type">тип мережі, який не підтримується або не може бути змінено</string>
@@ -898,7 +898,7 @@
   <string name="event_preference_activity_targetHelps_save_description">Натисніть тут для збереження змін налаштувань подій.</string>
   <string name="about_application_privacy_policy">Політика приватності:</string>
   <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">Цей профіль буде активовано, якщо немає будь-яких подій.</string>
-    <string name="phone_profiles_pref_notificationTheme">Тема сповіщень</string>
+  <string name="phone_profiles_pref_notificationTheme">Тема сповіщень</string>
   <string name="array_pref_color_native">Вбудована</string>
   <string name="array_pref_color_dark">Темна</string>
   <string name="array_pref_color_light">Світла</string>
@@ -906,7 +906,7 @@
   <string name="profile_preferences_hideStatusBarIcon">Приховати іконку статус бару</string>
   <string name="device_admin_description">Provides support for some PhoneProfilesPlus actions</string>
   <string name="device_admin_disable_warning_ppp">Disabling this may cause some profiles and events parameters to malfunction.</string>
-  <string name="device_admin_disable_warning_pp">Disabling this may cause some profiles and events parameters to malfunction.</string>
+  <string name="device_admin_disable_warning_pp">Disabling this may cause some profiles parameters to malfunction.</string>
   <string name="profile_preferences_lockDevice">Блокування пристрою</string>
   <string name="array_pref_lockDevice_deviceAdmin">(S) Use Device administrator (unlocking via fingerprint may not work)</string>
   <string name="array_pref_lockDevice_root">(R) Use root (device must be rooted)</string>
@@ -956,7 +956,7 @@
   <string name="phone_profiles_pref_applicationLanguage_pt_BR">Português (Brasil)</string>
   <string name="array_pref_value_pt_BR">pt-BR</string>
   <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>
   <string name="setting_screen_not_found_alert">Setting screen not found.</string>
   <string name="action_for_external_application_notification_title">External app support (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">Parameter profile_name is missing or empty.</string>
@@ -1118,6 +1118,10 @@
   <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
   <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>
   <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
+  <string name="editor_drawer_open">Відкрити бокове меню</string>
+  <string name="donation_thanks_dialog">Дякуємо вам за пожертви. \nI ми дійсно цінуємо це.</string>
+  <string name="donation_google_android_market_not_supported">Всередині додатку пожертви не підтримуються. Google Play встановлено правильно?</string>
+  <string name="donation_google_error">Error.</string>
   <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
   <!--
     <string name="notification_channel_activated_profile">Activated profile</string>
@@ -1125,4 +1129,22 @@
     <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
     -->
   <!-- <string name="donation_paypal">PayPal</string> -->
+  <!--<string name="title_activity_image_view_preference_dialog">Change icon</string>-->
+  <!--<string name="title_activity_profile_preference_dialog">Set profile</string>-->
+  <!--<string name="event_preferences_undoneProfile">Undo the profile</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Enable Bluetooth scanning</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventRescan_none">None</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventRescan_restartEvents">Restart events</string>-->
+  <!--<string name="accessibility_service_name">PhoneProfilesPlus</string>-->
+  <!--<string name="accessibility_service_description">Allow PhoneProfilesPlus to detect which application is in the foreground. This is necessary for events with \"Applications parameters\" enabled.</string>-->
+  <!--<string name="event_preferences_applications_AccessibilitySettings_summary">To enable Application parameters, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
+  <!--<string name="event_preferences_notifications_end_when_removed">End when dismissed</string>-->
+  <!--<string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and interruption types with vibration.</string>-->
+  <!--<string name="info_notification_unlink_ringer_notification_volumes2">If your device does not have separate volumes for ringtone and notifications, keep volume separation enabled.</string>-->
+  <!--<string name="event_preferences_orientation_AccessibilitySettings_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
+  <!--<string name="donation_button_close">Close</string>-->
+  <!--<string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>-->
+  <!--<string name="donation_thanks_dialog_title">Thank you</string>-->
+  <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->
+  <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
 </resources>

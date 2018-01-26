@@ -23,7 +23,7 @@
   <string name="delete_event_alert_message">Törlöd az eseményt?</string>
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">aktiválva</string>
-    <string name="preference_profile_no_change">Nem változik</string>
+  <string name="preference_profile_no_change">Nem változik</string>
   <string name="preference_profile_autobrightness">Automatikus</string>
   <string name="title_activity_phone_profiles_preferences">Alkalmazás beállításai</string>
   <string name="menu_exit">Kilépés</string>
@@ -152,7 +152,7 @@
   <string name="phone_preferences_actionmode_save">Mentés</string>
   <string name="profile_preferences_showInActivator">Jelenjen meg a profilok között</string>
   <string name="event_type_time">Idő</string>
-    <string name="event_preferences_category_eventidentification">Esemény azonosító</string>
+  <string name="event_preferences_category_eventidentification">Esemény azonosító</string>
   <string name="event_preferences_eventEnabled">Futtatás engedélyezése</string>
   <string name="event_preferences_eventName">Esemény neve</string>
   <string name="event_preferences_eventProfileStart">Profil aktiválása</string>
@@ -175,7 +175,6 @@
   <string name="event_preferences_time_startTime">Kezdési időpont</string>
   <string name="event_preferences_time_endTime">Befejezés ideje</string>
   <string name="array_pref_event_all">Mindegyik</string>
-  <string name="editor_drawer_open">Irányító fiók megnyitása</string>
   <string name="editor_drawer_title_profiles">Profilok</string>
   <string name="editor_drawer_title_events">Események</string>
   <string name="editor_drawer_list_item_profiles_all">Összes</string>
@@ -273,7 +272,7 @@
   <string name="event_preferences_ForceRun_summary">Eseményt indít annak ellenére, hogy kézzel aktivál egy profilt</string>
   <string name="event_preferences_category_startofevent">Esemény kezdete</string>
   <string name="event_preferences_category_endofevent">Esemény vége</string>
-    <string name="event_prefernce_profile_undone">Visszavonás</string>
+  <string name="event_prefernce_profile_undone">Visszavonás</string>
   <string name="event_preferences_priority">Elsőbbség</string>
   <string name="array_event_pref_priorityVeryHigh">[P:9] Nagyon magas</string>
   <string name="array_event_pref_priorityHigh">[P:7] Magas</string>
@@ -350,7 +349,7 @@
   <string name="array_event_pref_bluetoothConnectionType_inFront">Közeli (hatósugaron belüli keresés)</string>
   <string name="event_preferences_bluetooth_connection_type">Kapcsolat típusa</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Bluetooth-ellenőrzés-intervallum (perc)</string>
-    <string name="bluetooth_name_pref_dlg_rescan_button">Újraellenőrzés</string>
+  <string name="bluetooth_name_pref_dlg_rescan_button">Újraellenőrzés</string>
   <string name="wifi_ssid_pref_dlg_rescan_button">Újraellenőrzés</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Lista</string>
@@ -362,8 +361,8 @@
   <string name="event_name_background_profile">Alapértelmezett profil</string>
   <string name="phone_profiles_pref_applicationEventWifiRescan">Wi-Fi újraellenőrzése</string>
   <string name="phone_profiles_pref_applicationEventBluetoothRescan">Bluetooth újraellenőrzése</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Képernyő Be</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Képernyő Be &amp; Újraindít eseményt</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOn">Képernyő Be</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Képernyő Be &amp; Újraindít eseményt</string>
   <string name="array_pref_ringerModeArray_ZenMode">Megszakítások</string>
   <string name="profile_preferences_volumeZenMode">Megszakítások típusa</string>
   <string name="array_pref_zenModeArray_all">Mindegyik</string>
@@ -544,11 +543,11 @@
   <string name="array_pref_value_iw">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Török</string>
   <string name="array_pref_value_tr">tr</string>
-    <string name="event_type_applications">Alkalmazások</string>
+  <string name="event_type_applications">Alkalmazások</string>
   <string name="event_preferences_category_eventApplicationsParameters">Alkalmazások paraméterei</string>
   <string name="event_preferences_applications_applications">Alkalmazások</string>
   <string name="event_preferences_applications_AccessibilitySettings_title">Kisegítő lehetőségek beállításai</string>
-    <string name="brightness_pref_dialog_adaptive_level_root_required">Adaptív szint változtatáshoz, ROOT jogosultság kell.</string>
+  <string name="brightness_pref_dialog_adaptive_level_root_required">Adaptív szint változtatáshoz, ROOT jogosultság kell.</string>
   <string name="important_info_profile_activation_text1">A profil aktiválás két módja:</string>
   <string name="important_info_profile_activation_text2">1. kézi aktiválás - aktiválja a Profilt, szerkesztőt, értesítést, widget, parancsikont. Kézzel aktivált profilt \"[M]\" jelöli a profil neve előtt.</string>
   <string name="important_info_profile_activation_text3">2. esemény aktiválás: - aktiválás esemény által.</string>
@@ -563,14 +562,14 @@
   <string name="important_info_profile_activation_traffic_light_icon">\"Lámpa\" ikon:</string>
   <string name="important_info_android_doze_mode">Az Android 6+ pedig megvalósított \"Alvó mód\" \"Készenléti mód\". Amikor profil aktiválási problémák vannak az események aktiválásánál az eseményekből, ha egy eszközt kihúz és helyben marad egy ideig, a képernyő kikapcsol, hozzáad PhoneProfilesPlus-hoz \"Akkumulátor\"→\"akkumulátor optimalizált\"→\"Nem optimalizált\".</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Csengetéskor rezegjen</string>
-    <string name="info_notification_event_states">Az esemény 5 állapotban lehet:</string>
+  <string name="info_notification_event_states">Az esemény 5 állapotban lehet:</string>
   <string name="info_notification_event_states_running">Futás: eseményt kezdi és futtatja. Esemény paraméterei teljesüljenek.</string>
   <string name="info_notification_event_states_paused">Szüneteltetett: esemény nem fut. Esemény paraméterek nem teljesülnek. Esemény várja paraméterek teljesülésére.</string>
   <string name="info_notification_event_states_stopped">Megállt: esemény leáll, és nem indítható. Esemény paraméter \"Futtatás aktiválás\" nincs bejelölve.</string>
   <string name="info_notification_event_states_paused_delay">Szünetel késleltetéssel: esemény elindult, de a késleltetve vár. Esemény paraméterei teljesüljenek.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Figyelmen kívül hagyja a \"Egész napos\"-eseményeket</string>
   <string name="important_info_default_profile">Nem minden esetben működik, ha aktiválva van \"Alapértelmezett profil\", ha be van állítva. Beállíthatja az alapértelmezett profilt, az alkalmazás beállításaiban \"Profil aktiválás\". Kattintson ide, hogy beállítsd.</string>
-    <string name="important_info_how_does_volume_separation_work">Hogyan működik a \"hangerő szétválasztása\": profil aktiválás a hangerőt eszköz által profil értesítések hangerejét. Hívás csengetés észlelésekor igazítja a csengetés hangerejét a profilból. Után a hívás befejeztével értesítés hangerő profilból vissza kell állítani.</string>
+  <string name="important_info_how_does_volume_separation_work">Hogyan működik a \"hangerő szétválasztása\": profil aktiválás a hangerőt eszköz által profil értesítések hangerejét. Hívás csengetés észlelésekor igazítja a csengetés hangerejét a profilból. Után a hívás befejeztével értesítés hangerő profilból vissza kell állítani.</string>
   <string name="event_type_locations">Helyszín</string>
   <string name="event_preferences_category_eventLocationsParameters">Helyszín paraméterek</string>
   <string name="event_preferences_locations_location">Helyszín</string>
@@ -643,7 +642,7 @@
   <string name="array_event_pref_orientationDistanceType_near">Közelében</string>
   <string name="array_event_pref_orientationDistanceType_far">Távoli</string>
   <string name="event_preferences_orientation_ignoreForApplications">Figyelmen kívül hagyja az alkalmazás</string>
-    <string name="applications_preference_applicationType_application">alkalmazás</string>
+  <string name="applications_preference_applicationType_application">alkalmazás</string>
   <string name="applications_preference_applicationType_shortcut">parancsikon</string>
   <string name="phone_profiles_pref_eventWifiAppSettings">Wi-Fi beállítások</string>
   <string name="phone_profiles_pref_eventWifiAppSettings_summary">Wi-fi paraméterek beállítása az alkalmazás beállításaiban.</string>
@@ -664,7 +663,7 @@
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Alkalmazások, gyorsindítók</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Futó alkalmazások, gyorsindítók</string>
   <string name="applications_editor_dialog_title">Alkalmazás beállítás, gyorsindító</string>
-    <string name="important_info_profile_interactive">Néhány profil tulajdonság interaktív. Ezeket a beállításokat a rendszertelepítő mutatja, \"(I)\"-vel jelölve.</string>
+  <string name="important_info_profile_interactive">Néhány profil tulajdonság interaktív. Ezeket a beállításokat a rendszertelepítő mutatja, \"(I)\"-vel jelölve.</string>
   <string name="important_info_orange_text">Megjegyzés: a narancssárga szövegre kattintva az arra vonatkozó beállítási képernyő nyílik meg.</string>
   <string name="default_event_name_night_call">Éjszakai hívás</string>
   <string name="alert_message_enable_event">A futtatott esemény nem engedélyezett. Engedélyezi?</string>
@@ -760,11 +759,11 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Címke nem írható</string>
   <string name="about_application_donate_button">Adományát kérjük</string>
   <string name="donation_activity_title">Adományozás</string>
-    <string name="donation_description">Hasznosnak találja ezt az alkalmazást? \nA fejlesztéshez kérem küldjön adományt.</string>
+  <string name="donation_description">Hasznosnak találja ezt az alkalmazást? \nA fejlesztéshez kérem küldjön adományt.</string>
   <string name="donation_google_android_market">Google Play Áruház</string>
   <string name="donation_google_android_market_text">Mennyit?</string>
-    <string name="donation_google_android_market_donate_button">Adomány</string>
-    <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
+  <string name="donation_google_android_market_donate_button">Adomány</string>
+  <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
   <string name="phone_profiles_pref_applicationLanguage_ja">日本語</string>
   <string name="phone_profiles_pref_applicationLanguage_ko">한국어</string>
   <string name="phone_profiles_pref_applicationLanguage_te">తెలుగు</string>
@@ -802,6 +801,7 @@
   <string name="run_stop_events_indicator">Endegélyezet/álló esemény futási visszajelzését</string>
   <string name="run_stop_indicator_popup_window_important_infos">További információért tekintse meg \"Fontos információk\" (kérdőjel ikon szerkesztő alsó eszköztár).</string>
   <string name="important_info_how_to_show_ppp">Ez a fontos információ megtekinthető a szerkesztőn keresztül ezt a kérdőjel ikon jelzi a felső eszköztáron.</string>
+  <string name="important_info_how_to_show">Fontos információ megtekinthető a szerkesztőn keresztül, ha a kérdőjel ikonra kattintasz az eszköztáron.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">alkalmazás által nem támogatott</string>
   <string name="preference_not_allowed_reason_detail_old_android">régi Android verzió</string>
   <string name="preference_not_allowed_reason_detail_network_type">hálózat típusa nem támogatott, vagy nem módosítható</string>
@@ -898,7 +898,7 @@
   <string name="event_preference_activity_targetHelps_save_description">Esemény beállítás módosításainak mentéséhez kattintson ide.</string>
   <string name="about_application_privacy_policy">Adatvédelmi Elvek:</string>
   <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">Ez a profil aktiválódik, ha valamelyik esemény nem működik.</string>
-    <string name="phone_profiles_pref_notificationTheme">Értesítés téma</string>
+  <string name="phone_profiles_pref_notificationTheme">Értesítés téma</string>
   <string name="array_pref_color_native">Natív</string>
   <string name="array_pref_color_dark">Sötét</string>
   <string name="array_pref_color_light">Világos</string>
@@ -906,7 +906,7 @@
   <string name="profile_preferences_hideStatusBarIcon">Értesítési sáv ikon elrejtése</string>
   <string name="device_admin_description">Némely PhoneProfilesPlus tevékenységet támogat</string>
   <string name="device_admin_disable_warning_ppp">Kikapcsolva ez, mert némely profil és esemény paraméter meghibásodást is okozhat.</string>
-  <string name="device_admin_disable_warning_pp">Kikapcsolva ez, mert némely profil és esemény paraméter meghibásodást is okozhat.</string>
+  <string name="device_admin_disable_warning_pp">Kikapcsolva ez, mert némely profil paraméter meghibásodást is okozhat.</string>
   <string name="profile_preferences_lockDevice">Eszközt lezár</string>
   <string name="array_pref_lockDevice_deviceAdmin">(S) Eszközadminisztrátori jogosultságot használ (ujjlenyomattal kinyitás, lehet nem működik)</string>
   <string name="array_pref_lockDevice_root">(R) Root jogosultságot használ (Root-olt eszköz kell)</string>
@@ -956,7 +956,7 @@
   <string name="phone_profiles_pref_applicationLanguage_pt_BR">Português (Brasil)</string>
   <string name="array_pref_value_pt_BR">pt-BR</string>
   <string name="important_info_profile_zenModeM">\"Ne zavarj\" profil \"Csengő mód\" - ban szükség van, a PhoneProfilesPlus a \"Értesítések hozzáférés\"-hez a rendszer beállításaiban. Kattintson ide, és engedélyezze a PhoneProfilesPlus-t.</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Android 6 a rendszer beállítás módosítható, csak a Root -olt eszköznél. Érintett csengetési mód, és nem zavarj típus rezgéssel.</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Android 6 a rendszer beállítás módosítható, csak a Root -olt eszköznél. Érintett csengetési mód, és nem zavarj típus rezgéssel.</string>
   <string name="setting_screen_not_found_alert">A beállítás képernyő nem található.</string>
   <string name="action_for_external_application_notification_title">Külső app. támogatása (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">Paraméter profile_name nem található vagy üres.</string>
@@ -1118,6 +1118,10 @@
   <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
   <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>
   <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
+  <string name="editor_drawer_open">Irányító fiók megnyitása</string>
+  <string name="donation_thanks_dialog">Köszönöm az adományt. \nI Igazán méltányolom ezt.</string>
+  <string name="donation_google_android_market_not_supported">In-App adományok nem támogatottak. A Google Play Áruház telepítve?</string>
+  <string name="donation_google_error">Error.</string>
   <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
   <!--
     <string name="notification_channel_activated_profile">Activated profile</string>
@@ -1125,4 +1129,22 @@
     <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
     -->
   <!-- <string name="donation_paypal">PayPal</string> -->
+  <!--<string name="title_activity_image_view_preference_dialog">Change icon</string>-->
+  <!--<string name="title_activity_profile_preference_dialog">Set profile</string>-->
+  <!--<string name="event_preferences_undoneProfile">Undo the profile</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Enable Bluetooth scanning</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventRescan_none">None</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventRescan_restartEvents">Restart events</string>-->
+  <!--<string name="accessibility_service_name">PhoneProfilesPlus</string>-->
+  <!--<string name="accessibility_service_description">Allow PhoneProfilesPlus to detect which application is in the foreground. This is necessary for events with \"Applications parameters\" enabled.</string>-->
+  <!--<string name="event_preferences_applications_AccessibilitySettings_summary">To enable Application parameters, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
+  <!--<string name="event_preferences_notifications_end_when_removed">End when dismissed</string>-->
+  <!--<string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and interruption types with vibration.</string>-->
+  <!--<string name="info_notification_unlink_ringer_notification_volumes2">If your device does not have separate volumes for ringtone and notifications, keep volume separation enabled.</string>-->
+  <!--<string name="event_preferences_orientation_AccessibilitySettings_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
+  <!--<string name="donation_button_close">Close</string>-->
+  <!--<string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>-->
+  <!--<string name="donation_thanks_dialog_title">Thank you</string>-->
+  <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->
+  <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
 </resources>

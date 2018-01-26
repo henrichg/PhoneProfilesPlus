@@ -23,7 +23,7 @@
   <string name="delete_event_alert_message">Ereignis löschen?</string>
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">aktiviert</string>
-    <string name="preference_profile_no_change">Nicht ändern</string>
+  <string name="preference_profile_no_change">Nicht ändern</string>
   <string name="preference_profile_autobrightness">Automatisch</string>
   <string name="title_activity_phone_profiles_preferences">App-Einstellungen</string>
   <string name="menu_exit">Beenden</string>
@@ -152,7 +152,7 @@
   <string name="phone_preferences_actionmode_save">Speichern</string>
   <string name="profile_preferences_showInActivator">Im Starter anzeigen</string>
   <string name="event_type_time">Zeit</string>
-    <string name="event_preferences_category_eventidentification">Allgemein</string>
+  <string name="event_preferences_category_eventidentification">Allgemein</string>
   <string name="event_preferences_eventEnabled">Aktivieren</string>
   <string name="event_preferences_eventName">Ereignis-Name</string>
   <string name="event_preferences_eventProfileStart">Profil aktivieren</string>
@@ -175,7 +175,6 @@
   <string name="event_preferences_time_startTime">Startzeit</string>
   <string name="event_preferences_time_endTime">Endzeit</string>
   <string name="array_pref_event_all">Täglich</string>
-  <string name="editor_drawer_open">Navigationsleiste öffnen</string>
   <string name="editor_drawer_title_profiles">Profile</string>
   <string name="editor_drawer_title_events">Ereignisse</string>
   <string name="editor_drawer_list_item_profiles_all">Alle</string>
@@ -273,7 +272,7 @@
   <string name="event_preferences_ForceRun_summary">Ereignis auch nach manuell aktiviertem Profil starten</string>
   <string name="event_preferences_category_startofevent">Ereignisstart</string>
   <string name="event_preferences_category_endofevent">Ereignisende</string>
-    <string name="event_prefernce_profile_undone">Vorheriges</string>
+  <string name="event_prefernce_profile_undone">Vorheriges</string>
   <string name="event_preferences_priority">Priorität</string>
   <string name="array_event_pref_priorityVeryHigh">[P:9] Sehr hoch</string>
   <string name="array_event_pref_priorityHigh">[P:7] Hoch</string>
@@ -350,7 +349,7 @@
   <string name="array_event_pref_bluetoothConnectionType_inFront">In der Nähe (innerhalb Scan-Reichweite)</string>
   <string name="event_preferences_bluetooth_connection_type">Verbindungstyp</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Bluetooth-Scan-Intervall (Minuten)</string>
-    <string name="bluetooth_name_pref_dlg_rescan_button">Neu scannen</string>
+  <string name="bluetooth_name_pref_dlg_rescan_button">Neu scannen</string>
   <string name="wifi_ssid_pref_dlg_rescan_button">Neu scannen</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Liste</string>
@@ -362,8 +361,8 @@
   <string name="event_name_background_profile">Standard-Profil</string>
   <string name="phone_profiles_pref_applicationEventWifiRescan">Wi-Fi scannen</string>
   <string name="phone_profiles_pref_applicationEventBluetoothRescan">Bluetooth scannen</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Bildschirm an</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Bildschirm an &amp; Ereignisse neu starten</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOn">Bildschirm an</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Bildschirm an &amp; Ereignisse neu starten</string>
   <string name="array_pref_ringerModeArray_ZenMode">Unterbrechungen</string>
   <string name="profile_preferences_volumeZenMode">Unterbrechungstyp</string>
   <string name="array_pref_zenModeArray_all">Alle</string>
@@ -544,11 +543,11 @@
   <string name="array_pref_value_iw">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Türkisch</string>
   <string name="array_pref_value_tr">tr</string>
-    <string name="event_type_applications">Anwendungen</string>
+  <string name="event_type_applications">Anwendungen</string>
   <string name="event_preferences_category_eventApplicationsParameters">Anwendungsparameter</string>
   <string name="event_preferences_applications_applications">Anwendungen</string>
   <string name="event_preferences_applications_AccessibilitySettings_title">Bedienungshilfen-Einstellungen</string>
-    <string name="brightness_pref_dialog_adaptive_level_root_required">Um die adaptive Helligkeit zu ändern ist ein Root erforderlich.</string>
+  <string name="brightness_pref_dialog_adaptive_level_root_required">Um die adaptive Helligkeit zu ändern ist ein Root erforderlich.</string>
   <string name="important_info_profile_activation_text1">Profil kann in zwei Modi aktiviert werden:</string>
   <string name="important_info_profile_activation_text2">1. manuelle Aktivierung - mit Starter, Editor, Benachrichtigung, Widget oder Verknüpfung aktiviert. Manuell aktivierte Profile werden mit \"[M]\" vor dem Profilnamen angegeben.</string>
   <string name="important_info_profile_activation_text3">2. Von Ereignis aktiviert</string>
@@ -563,14 +562,14 @@
   <string name="important_info_profile_activation_traffic_light_icon">Ampel-Symbol:</string>
   <string name="important_info_android_doze_mode">In Android 6+ gibt es den \"Tiefschlafmodus\" und \"App-Standby\". Wenn du Probleme mit der Profilaktivierung durch Ereignisse hast, wenn dein Gerät lange Zeit ungenutzt und der Bildschirm aufgeschaltet war, dann füge PhoneProfilesPlus in \"Batterie\"→\"Batterieoptimierung\"→\"Nicht optimiert\" hinzu.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Beim Klingeln vibrieren</string>
-    <string name="info_notification_event_states">Ein Ereignis kann 5 Zustände haben:</string>
+  <string name="info_notification_event_states">Ein Ereignis kann 5 Zustände haben:</string>
   <string name="info_notification_event_states_running">Läuft: Ereignis gestartet und aktiv. Ereignisparameter sind erfüllt.</string>
   <string name="info_notification_event_states_paused">Angehalten: Ereignis angehalten, bis die Parameter erfüllt sind.</string>
   <string name="info_notification_event_states_stopped">Deaktiviert: Das Ereignis ist deaktiviert und kann nicht gestartet werden. Zum Einschalten Haken bei \"Aktivieren\" setzen.</string>
   <string name="info_notification_event_states_paused_delay">Angehalten mit Verzögerung: Ereignis ist gestartet, wartet aber die eingestellte Verzögerung. Ereignisparameter sind erfüllt.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Ignoriere ganztägige Termine</string>
   <string name="important_info_default_profile">Wenn kein Ereignis ausgeführt wird, ist das \"Standardprofil\" aktiv, sofern es konfiguriert ist. Es kann in den Einstellungen unter \"Profil Aktivierung\" konfiguriert werden. Hier tippen, um es zu konfigurieren.</string>
-    <string name="important_info_how_does_volume_separation_work">Wie die \"Lautstärketrennung\" funktioniert: Wenn ein Anruf-Klingeln beginnt, wird die Lautstärke auf die \"Anruflautstärke\" gesetzt und hinterher wird die Ursprungslautstärke wiederhergestellt.</string>
+  <string name="important_info_how_does_volume_separation_work">Wie die \"Lautstärketrennung\" funktioniert: Wenn ein Anruf-Klingeln beginnt, wird die Lautstärke auf die \"Anruflautstärke\" gesetzt und hinterher wird die Ursprungslautstärke wiederhergestellt.</string>
   <string name="event_type_locations">Standort</string>
   <string name="event_preferences_category_eventLocationsParameters">Standort-Parameter</string>
   <string name="event_preferences_locations_location">Standort</string>
@@ -643,7 +642,7 @@
   <string name="array_event_pref_orientationDistanceType_near">In der Nähe</string>
   <string name="array_event_pref_orientationDistanceType_far">Weit weg</string>
   <string name="event_preferences_orientation_ignoreForApplications">Ignoriere für Anwendungen</string>
-    <string name="applications_preference_applicationType_application">App</string>
+  <string name="applications_preference_applicationType_application">App</string>
   <string name="applications_preference_applicationType_shortcut">Verknüpfung</string>
   <string name="phone_profiles_pref_eventWifiAppSettings">WLAN-Einstellungen</string>
   <string name="phone_profiles_pref_eventWifiAppSettings_summary">Richten Sie die WLAN-Parameter in den Anwendungseinstellungen ein.</string>
@@ -664,7 +663,7 @@
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Anwendungen, Verknüpfungen</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Anwendungen ausführen, Verknüpfungen</string>
   <string name="applications_editor_dialog_title">Anwendung benutzen, Verknüpfung</string>
-    <string name="important_info_profile_interactive">Einige Profileinstellungen sind interaktiv. Diese Einstellungen zeigen zusätzliche Einstellungen. Diese Einstellungen sind mit \"(I)\" gekennzeichnet.</string>
+  <string name="important_info_profile_interactive">Einige Profileinstellungen sind interaktiv. Diese Einstellungen zeigen zusätzliche Einstellungen. Diese Einstellungen sind mit \"(I)\" gekennzeichnet.</string>
   <string name="important_info_orange_text">Hinweis: Oranger Text in dieser Info ist anklickbar. Ein Klick auf diesen Text öffnet den entsprechenden Setup-Bildschirm.</string>
   <string name="default_event_name_night_call">Nächtlicher Anruf</string>
   <string name="alert_message_enable_event">Ereignis ist nicht aktiviert. Jetzt aktivieren?</string>
@@ -760,11 +759,11 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Tag ist nicht beschreibbar</string>
   <string name="about_application_donate_button">Bitte spenden Sie</string>
   <string name="donation_activity_title">Spende</string>
-    <string name="donation_description">Finden Sie diese Anwendung nützlich?\nUnterstützen Sie die Entwicklung durch eine Spende an den Entwickler.</string>
+  <string name="donation_description">Finden Sie diese Anwendung nützlich?\nUnterstützen Sie die Entwicklung durch eine Spende an den Entwickler.</string>
   <string name="donation_google_android_market">Google Play Store</string>
   <string name="donation_google_android_market_text">Wie viel?</string>
-    <string name="donation_google_android_market_donate_button">Spenden</string>
-    <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
+  <string name="donation_google_android_market_donate_button">Spenden</string>
+  <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
   <string name="phone_profiles_pref_applicationLanguage_ja">日本語</string>
   <string name="phone_profiles_pref_applicationLanguage_ko">한국어</string>
   <string name="phone_profiles_pref_applicationLanguage_te">తెలుగు</string>
@@ -802,6 +801,7 @@
   <string name="run_stop_events_indicator">Indikator für Ereignisse laufend/angehalten</string>
   <string name="run_stop_indicator_popup_window_important_infos">Für mehr Informationen siehe \"Wichtige Informationen\" (Fragezeichen unten im Editor).</string>
   <string name="important_info_how_to_show_ppp">Diese wichtigen Informationen können im Editor über das Fragezeichen-Symbol in der Symbolleiste angezeigt werden.</string>
+  <string name="important_info_how_to_show">Diese wichtigen Informationen können im Editor über das Fragezeichen-Symbol in der Symbolleiste angezeigt werden.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">nicht von der Anwendung unterstützt</string>
   <string name="preference_not_allowed_reason_detail_old_android">alte Android-Version</string>
   <string name="preference_not_allowed_reason_detail_network_type">Netzwerk-Typ nicht unterstützt oder kann nicht geändert werden</string>
@@ -898,7 +898,7 @@
   <string name="event_preference_activity_targetHelps_save_description">Klicke hier um die Änderungen im Ereignis zu speichern.</string>
   <string name="about_application_privacy_policy">Datenschutzbestimmungen:</string>
   <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">Dieses Profil wird aktiviert, wenn kein Event läuft.</string>
-    <string name="phone_profiles_pref_notificationTheme">Benachrichtigungsthema</string>
+  <string name="phone_profiles_pref_notificationTheme">Benachrichtigungsthema</string>
   <string name="array_pref_color_native">Standard</string>
   <string name="array_pref_color_dark">Dunkel</string>
   <string name="array_pref_color_light">Hell</string>
@@ -956,7 +956,7 @@
   <string name="phone_profiles_pref_applicationLanguage_pt_BR">Português (Brasil)</string>
   <string name="array_pref_value_pt_BR">pt-BR</string>
   <string name="important_info_profile_zenModeM">\"Nicht Stören\" im Klingelmodus von Profilen benötigt Benachrichtigungszugriff für PPP. Klicke hier und erlaube PPP.</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Unter Android 6 kann diese Einstellung nur auf gerooteten Geräten geändert werden. Betroffen sind der Klingel-Modus und die Nicht-Stören-Typen mit Vibration.</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Unter Android 6 kann diese Einstellung nur auf gerooteten Geräten geändert werden. Betroffen sind der Klingel-Modus und die Nicht-Stören-Typen mit Vibration.</string>
   <string name="setting_screen_not_found_alert">Einstellungs Dialog nicht gefunden.</string>
   <string name="action_for_external_application_notification_title">Tasker Unterstützung</string>
   <string name="action_for_external_application_notification_no_profile_text">Profilname ist nicht angegeben.</string>
@@ -1118,6 +1118,10 @@
   <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
   <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>
   <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
+  <string name="editor_drawer_open">Navigationsleiste öffnen</string>
+  <string name="donation_thanks_dialog">Vielen Dank für Ihre Spende,\nI die ich wirklich zu schätzen weiß.</string>
+  <string name="donation_google_android_market_not_supported">In-App-Spenden werden nicht unterstützt. Ist der Google Play Store richtig installiert?</string>
+  <string name="donation_google_error">Error.</string>
   <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
   <!--
     <string name="notification_channel_activated_profile">Activated profile</string>
@@ -1125,4 +1129,22 @@
     <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
     -->
   <!-- <string name="donation_paypal">PayPal</string> -->
+  <!--<string name="title_activity_image_view_preference_dialog">Change icon</string>-->
+  <!--<string name="title_activity_profile_preference_dialog">Set profile</string>-->
+  <!--<string name="event_preferences_undoneProfile">Undo the profile</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Enable Bluetooth scanning</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventRescan_none">None</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventRescan_restartEvents">Restart events</string>-->
+  <!--<string name="accessibility_service_name">PhoneProfilesPlus</string>-->
+  <!--<string name="accessibility_service_description">Allow PhoneProfilesPlus to detect which application is in the foreground. This is necessary for events with \"Applications parameters\" enabled.</string>-->
+  <!--<string name="event_preferences_applications_AccessibilitySettings_summary">To enable Application parameters, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
+  <!--<string name="event_preferences_notifications_end_when_removed">End when dismissed</string>-->
+  <!--<string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and interruption types with vibration.</string>-->
+  <!--<string name="info_notification_unlink_ringer_notification_volumes2">If your device does not have separate volumes for ringtone and notifications, keep volume separation enabled.</string>-->
+  <!--<string name="event_preferences_orientation_AccessibilitySettings_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
+  <!--<string name="donation_button_close">Close</string>-->
+  <!--<string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>-->
+  <!--<string name="donation_thanks_dialog_title">Thank you</string>-->
+  <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->
+  <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
 </resources>

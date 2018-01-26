@@ -23,7 +23,7 @@
   <string name="delete_event_alert_message">确定要删除事件？</string>
   <string name="toast_profile_activated_0">情景</string>
   <string name="toast_profile_activated_1">已激活</string>
-    <string name="preference_profile_no_change">不要更改</string>
+  <string name="preference_profile_no_change">不要更改</string>
   <string name="preference_profile_autobrightness">自动</string>
   <string name="title_activity_phone_profiles_preferences">应用设置</string>
   <string name="menu_exit">退出</string>
@@ -152,7 +152,7 @@
   <string name="phone_preferences_actionmode_save">保存</string>
   <string name="profile_preferences_showInActivator">在激活清单中显示</string>
   <string name="event_type_time">时间</string>
-    <string name="event_preferences_category_eventidentification">事件识别</string>
+  <string name="event_preferences_category_eventidentification">事件识别</string>
   <string name="event_preferences_eventEnabled">启用运行</string>
   <string name="event_preferences_eventName">事件名称</string>
   <string name="event_preferences_eventProfileStart">激活情景</string>
@@ -175,7 +175,6 @@
   <string name="event_preferences_time_startTime">开始时间</string>
   <string name="event_preferences_time_endTime">结束时间</string>
   <string name="array_pref_event_all">所有日期</string>
-  <string name="editor_drawer_open">打开侧边栏导航菜单</string>
   <string name="editor_drawer_title_profiles">情景</string>
   <string name="editor_drawer_title_events">事件</string>
   <string name="editor_drawer_list_item_profiles_all">所有日期</string>
@@ -273,7 +272,7 @@
   <string name="event_preferences_ForceRun_summary">即使已经手动激活也启动事件</string>
   <string name="event_preferences_category_startofevent">事件启动时</string>
   <string name="event_preferences_category_endofevent">时间结束时</string>
-    <string name="event_prefernce_profile_undone">撤销</string>
+  <string name="event_prefernce_profile_undone">撤销</string>
   <string name="event_preferences_priority">优先级</string>
   <string name="array_event_pref_priorityVeryHigh">[P:9]非常高</string>
   <string name="array_event_pref_priorityHigh">[P:7]高</string>
@@ -350,7 +349,7 @@
   <string name="array_event_pref_bluetoothConnectionType_inFront">Nearby (within scanning range)</string>
   <string name="event_preferences_bluetooth_connection_type">连接类型</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">蓝牙扫描间隔 (分钟)</string>
-    <string name="bluetooth_name_pref_dlg_rescan_button">重新扫描</string>
+  <string name="bluetooth_name_pref_dlg_rescan_button">重新扫描</string>
   <string name="wifi_ssid_pref_dlg_rescan_button">重新扫描</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">列表</string>
@@ -362,8 +361,8 @@
   <string name="event_name_background_profile">默认情景</string>
   <string name="phone_profiles_pref_applicationEventWifiRescan">重新扫描 Wi-Fi</string>
   <string name="phone_profiles_pref_applicationEventBluetoothRescan">重新扫描蓝牙</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">点亮屏幕</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">点亮屏幕并重新启动事件</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOn">点亮屏幕</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">点亮屏幕并重新启动事件</string>
   <string name="array_pref_ringerModeArray_ZenMode">中断</string>
   <string name="profile_preferences_volumeZenMode">中断类型</string>
   <string name="array_pref_zenModeArray_all">所有</string>
@@ -544,11 +543,11 @@
   <string name="array_pref_value_iw">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Türkçe</string>
   <string name="array_pref_value_tr">tr</string>
-    <string name="event_type_applications">应用程序</string>
+  <string name="event_type_applications">应用程序</string>
   <string name="event_preferences_category_eventApplicationsParameters">应用程序参数</string>
   <string name="event_preferences_applications_applications">应用程序</string>
   <string name="event_preferences_applications_AccessibilitySettings_title">辅助功能设置</string>
-    <string name="brightness_pref_dialog_adaptive_level_root_required">必须 root 才能更改自适应级别。</string>
+  <string name="brightness_pref_dialog_adaptive_level_root_required">必须 root 才能更改自适应级别。</string>
   <string name="important_info_profile_activation_text1">情景可以通过两种模式激活：</string>
   <string name="important_info_profile_activation_text2">1. 手动激活 - 在激活清单、编辑器、通知、小部件和快捷方式中激活。手动激活的情景在情景名称前以“[M]”表示。</string>
   <string name="important_info_profile_activation_text3">2. 事件激活 - 以事件激活。</string>
@@ -563,14 +562,14 @@
   <string name="important_info_profile_activation_traffic_light_icon">“红绿灯”图标：</string>
   <string name="important_info_android_doze_mode">在 Android 6+ 中实现了“打盹模式”和“应用程序待机”。如果把设备限制一段时间后屏幕熄灭，事件激活情景遇到问题，请把 PhoneProfilesPlus 添加到“电池”→“电池优化”→“未优化”中。</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">响铃时震动</string>
-    <string name="info_notification_event_states">事件有 5 个状态：</string>
+  <string name="info_notification_event_states">事件有 5 个状态：</string>
   <string name="info_notification_event_states_running">运行中: 事件已经开始并正在运行；事件参数已满足要求。</string>
   <string name="info_notification_event_states_paused">暂停: 事件没有运行；事件参数不满足要求；或事件正在等待参数满足要求。</string>
   <string name="info_notification_event_states_stopped">停止: 事件已停止，不能被启动；事件参数“允许运行”没有被选中。</string>
   <string name="info_notification_event_states_paused_delay">延迟暂停: 事件已开始，但在延迟中等待。事件参数已满足。</string>
   <string name="event_preferences_calendar_ignore_all_day_events">忽略“全天”事件</string>
   <string name="important_info_default_profile">当没有任何事件在运行时，如果已经设置，则激活的是“默认情景”。您可以在应用程序设定中的“情景激活”来设置默认情景。按这里进行设置。</string>
-    <string name="important_info_how_does_volume_separation_work">“音量区分”是如何工作的：设备音量由情景激活中的情景通知来调整音量级别。当检测到电话响了时，来电音量级别从激活情景中获取。通话完毕后，通知音量从恢复的情景中获取。</string>
+  <string name="important_info_how_does_volume_separation_work">“音量区分”是如何工作的：设备音量由情景激活中的情景通知来调整音量级别。当检测到电话响了时，来电音量级别从激活情景中获取。通话完毕后，通知音量从恢复的情景中获取。</string>
   <string name="event_type_locations">定位</string>
   <string name="event_preferences_category_eventLocationsParameters">定位参数</string>
   <string name="event_preferences_locations_location">定位</string>
@@ -643,7 +642,7 @@
   <string name="array_event_pref_orientationDistanceType_near">近</string>
   <string name="array_event_pref_orientationDistanceType_far">远</string>
   <string name="event_preferences_orientation_ignoreForApplications">忽略应用程序</string>
-    <string name="applications_preference_applicationType_application">应用程序</string>
+  <string name="applications_preference_applicationType_application">应用程序</string>
   <string name="applications_preference_applicationType_shortcut">快捷方式</string>
   <string name="phone_profiles_pref_eventWifiAppSettings">Wi-Fi 设置</string>
   <string name="phone_profiles_pref_eventWifiAppSettings_summary">在应用程序设置中设置 Wi-Fi 参数。</string>
@@ -664,7 +663,7 @@
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">应用程序/快捷方式</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">运行应用程序/快捷方式</string>
   <string name="applications_editor_dialog_title">设置应用程序/快捷方式</string>
-    <string name="important_info_profile_interactive">Some profile preferences are interactive. These preferences display system setup screens, and are marked with \"(I)\".</string>
+  <string name="important_info_profile_interactive">Some profile preferences are interactive. These preferences display system setup screens, and are marked with \"(I)\".</string>
   <string name="important_info_orange_text">注意：本信息中的橙色文本可以点击。点击此文本打开相关设置界面。</string>
   <string name="default_event_name_night_call">夜间电话</string>
   <string name="alert_message_enable_event">未启用事件运行，是否要启用？</string>
@@ -760,11 +759,11 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">标签不可写</string>
   <string name="about_application_donate_button">请捐赠</string>
   <string name="donation_activity_title">捐赠</string>
-    <string name="donation_description">你是否觉得此应用程序有用？\n捐赠给开发人员以帮助其发展。</string>
+  <string name="donation_description">你是否觉得此应用程序有用？\n捐赠给开发人员以帮助其发展。</string>
   <string name="donation_google_android_market">Google Play 商店</string>
   <string name="donation_google_android_market_text">价钱多少？</string>
-    <string name="donation_google_android_market_donate_button">捐赠</string>
-    <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
+  <string name="donation_google_android_market_donate_button">捐赠</string>
+  <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
   <string name="phone_profiles_pref_applicationLanguage_ja">日本語</string>
   <string name="phone_profiles_pref_applicationLanguage_ko">한국어</string>
   <string name="phone_profiles_pref_applicationLanguage_te">తెలుగు</string>
@@ -802,6 +801,7 @@
   <string name="run_stop_events_indicator">启用/停止事件运行指示器</string>
   <string name="run_stop_indicator_popup_window_important_infos">查看“重要信息”以获取详细内容 (编辑器底部工具栏中的问号图标)。</string>
   <string name="important_info_how_to_show_ppp">This important information can be viewed In Editor through the question mark icon in the top toolbar.</string>
+  <string name="important_info_how_to_show">此重要信息可以通过点击编辑器底部工具栏中的问号图标查看。</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">应用程序不支持</string>
   <string name="preference_not_allowed_reason_detail_old_android">旧的 Android 版本</string>
   <string name="preference_not_allowed_reason_detail_network_type">不支持的网络类型或无法更改</string>
@@ -898,7 +898,7 @@
   <string name="event_preference_activity_targetHelps_save_description">点击此处保存事件配置修改。</string>
   <string name="about_application_privacy_policy">隐私策略：</string>
   <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">如果没有任何事件在运行，则此情景将被激活。</string>
-    <string name="phone_profiles_pref_notificationTheme">通知主题</string>
+  <string name="phone_profiles_pref_notificationTheme">通知主题</string>
   <string name="array_pref_color_native">原生</string>
   <string name="array_pref_color_dark">黑色</string>
   <string name="array_pref_color_light">浅色</string>
@@ -956,7 +956,7 @@
   <string name="phone_profiles_pref_applicationLanguage_pt_BR">Português (Brasil)</string>
   <string name="array_pref_value_pt_BR">pt-BR</string>
   <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>
   <string name="setting_screen_not_found_alert">找不到设置屏幕。</string>
   <string name="action_for_external_application_notification_title">外部应用程序支持 (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">参数 profile_name 未设置或为空。</string>
@@ -1118,6 +1118,10 @@
   <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
   <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>
   <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
+  <string name="editor_drawer_open">打开侧边栏导航菜单</string>
+  <string name="donation_thanks_dialog">感谢您的捐赠。\n我对此很感激。</string>
+  <string name="donation_google_android_market_not_supported">应用内捐赠不受支持，是否正确安装了 Google Play 商店？</string>
+  <string name="donation_google_error">Error.</string>
   <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
   <!--
     <string name="notification_channel_activated_profile">Activated profile</string>
@@ -1125,4 +1129,22 @@
     <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
     -->
   <!-- <string name="donation_paypal">PayPal</string> -->
+  <!--<string name="title_activity_image_view_preference_dialog">Change icon</string>-->
+  <!--<string name="title_activity_profile_preference_dialog">Set profile</string>-->
+  <!--<string name="event_preferences_undoneProfile">Undo the profile</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Enable Bluetooth scanning</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventRescan_none">None</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventRescan_restartEvents">Restart events</string>-->
+  <!--<string name="accessibility_service_name">PhoneProfilesPlus</string>-->
+  <!--<string name="accessibility_service_description">Allow PhoneProfilesPlus to detect which application is in the foreground. This is necessary for events with \"Applications parameters\" enabled.</string>-->
+  <!--<string name="event_preferences_applications_AccessibilitySettings_summary">To enable Application parameters, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
+  <!--<string name="event_preferences_notifications_end_when_removed">End when dismissed</string>-->
+  <!--<string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and interruption types with vibration.</string>-->
+  <!--<string name="info_notification_unlink_ringer_notification_volumes2">If your device does not have separate volumes for ringtone and notifications, keep volume separation enabled.</string>-->
+  <!--<string name="event_preferences_orientation_AccessibilitySettings_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
+  <!--<string name="donation_button_close">Close</string>-->
+  <!--<string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>-->
+  <!--<string name="donation_thanks_dialog_title">Thank you</string>-->
+  <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->
+  <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
 </resources>

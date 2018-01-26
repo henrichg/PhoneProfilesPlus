@@ -23,7 +23,7 @@
   <string name="delete_event_alert_message">Vymazaž udalosť?</string>
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">aktivovaný</string>
-    <string name="preference_profile_no_change">Nemeniť</string>
+  <string name="preference_profile_no_change">Nemeniť</string>
   <string name="preference_profile_autobrightness">Automaticky</string>
   <string name="title_activity_phone_profiles_preferences">Nastavenia aplikácie</string>
   <string name="menu_exit">Ukončiť</string>
@@ -152,7 +152,7 @@
   <string name="phone_preferences_actionmode_save">Uložiť</string>
   <string name="profile_preferences_showInActivator">Zobrazuj v Aktivátore</string>
   <string name="event_type_time">Čas</string>
-    <string name="event_preferences_category_eventidentification">Identifikácia udalosti</string>
+  <string name="event_preferences_category_eventidentification">Identifikácia udalosti</string>
   <string name="event_preferences_eventEnabled">Povoľ beh</string>
   <string name="event_preferences_eventName">Názov udalosti</string>
   <string name="event_preferences_eventProfileStart">Aktivovať profil</string>
@@ -175,7 +175,6 @@
   <string name="event_preferences_time_startTime">Čas začiatku</string>
   <string name="event_preferences_time_endTime">Čas konca</string>
   <string name="array_pref_event_all">Všetko</string>
-  <string name="editor_drawer_open">Otvor navigačný panel</string>
   <string name="editor_drawer_title_profiles">Profily</string>
   <string name="editor_drawer_title_events">Udalosti</string>
   <string name="editor_drawer_list_item_profiles_all">Všetky</string>
@@ -273,7 +272,7 @@
   <string name="event_preferences_ForceRun_summary">Spustiť udalosť napriek tomu, že bol manuálne aktivovaný profil</string>
   <string name="event_preferences_category_startofevent">Štart udalosti</string>
   <string name="event_preferences_category_endofevent">Koniec udalosti</string>
-    <string name="event_prefernce_profile_undone">Vráť späť</string>
+  <string name="event_prefernce_profile_undone">Vráť späť</string>
   <string name="event_preferences_priority">Priorita</string>
   <string name="array_event_pref_priorityVeryHigh">[P:9] Veľmi vysoká</string>
   <string name="array_event_pref_priorityHigh">[P:7] Vysoká</string>
@@ -350,7 +349,7 @@
   <string name="array_event_pref_bluetoothConnectionType_inFront">V blízkosti (v rozsahu skenovania)</string>
   <string name="event_preferences_bluetooth_connection_type">Typ pripojenia</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Interval skenovania Bluetooth (min.)</string>
-    <string name="bluetooth_name_pref_dlg_rescan_button">Preskenovať</string>
+  <string name="bluetooth_name_pref_dlg_rescan_button">Preskenovať</string>
   <string name="wifi_ssid_pref_dlg_rescan_button">Preskenovať</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Zoznam</string>
@@ -362,8 +361,8 @@
   <string name="event_name_background_profile">Predvolený profil</string>
   <string name="phone_profiles_pref_applicationEventWifiRescan">Preskenuj Wi-Fi</string>
   <string name="phone_profiles_pref_applicationEventBluetoothRescan">Preskenuj Bluetooth</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOn">Zapnutie obrazovky</string>
-    <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Zapnutie obrazovky &amp; Reštart udalostí</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOn">Zapnutie obrazovky</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Zapnutie obrazovky &amp; Reštart udalostí</string>
   <string name="array_pref_ringerModeArray_ZenMode">Vyrušenia</string>
   <string name="profile_preferences_volumeZenMode">Typy vyrušení</string>
   <string name="array_pref_zenModeArray_all">Všetky</string>
@@ -544,11 +543,11 @@
   <string name="array_pref_value_iw">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Türk</string>
   <string name="array_pref_value_tr">tr</string>
-    <string name="event_type_applications">Aplikácie</string>
+  <string name="event_type_applications">Aplikácie</string>
   <string name="event_preferences_category_eventApplicationsParameters">Parametre aplikácií</string>
   <string name="event_preferences_applications_applications">Aplikácie</string>
   <string name="event_preferences_applications_AccessibilitySettings_title">Dostupnosť</string>
-    <string name="brightness_pref_dialog_adaptive_level_root_required">Zmena úrovne adaptívneho jasu vyžaduje ROOT.</string>
+  <string name="brightness_pref_dialog_adaptive_level_root_required">Zmena úrovne adaptívneho jasu vyžaduje ROOT.</string>
   <string name="important_info_profile_activation_text1">Profil je možné aktivovať v dvoch režimoch:</string>
   <string name="important_info_profile_activation_text2">1. manuálna aktivácia - aktivované v Aktivátore, Editore, cez notifikáciu, widget, odpka na profil. Manuálna aktivácia profilu je indikovaná \"[M]\" pred názvom profilu.</string>
   <string name="important_info_profile_activation_text3">2. aktivácia udalosťou - profil je aktivovaný udalosťou.</string>
@@ -563,14 +562,14 @@
   <string name="important_info_profile_activation_traffic_light_icon">Ikona \"semafór\":</string>
   <string name="important_info_android_doze_mode">V Android 6+ je implenentovaný \"Doze mode\" a \"App Standby\". Ak ste narazili na problémy s aktiváciou profilu z udalostí, ak ste nechali zariadenie v kľude a odpojené nejakú dobu, s vypnutou obrazovkou, pridajte PhoneProfilesPlus do \"Batéria\"→\"Optimalizácia batérie\"→\"Neoptimalizované\".</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Vibrovať pri zvonení</string>
-    <string name="info_notification_event_states">Udalosť môže byť v 5 stavoch:</string>
+  <string name="info_notification_event_states">Udalosť môže byť v 5 stavoch:</string>
   <string name="info_notification_event_states_running">Beží: udalosť je naštartovaná a beží. Parametre udalosti sú splnené.</string>
   <string name="info_notification_event_states_paused">Pozastavená: udalosť nebeží. Parametre udalosti nie sú splnené. Udalosť čaká na ich splnenie.</string>
   <string name="info_notification_event_states_stopped">Zastavená: udalosť je zastavená a nemôže byť spustená. Parameter udalosti \"Povoľ beh\" nie je zaškrtnutý.</string>
   <string name="info_notification_event_states_paused_delay">Pozastavená s pozdržaním: udalosť je spustená, ale čaká v pozdržaní. Parametre udalosti sú splnené.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Ignoruj \"celodenné\" udalosti</string>
   <string name="important_info_default_profile">Ak nebežia žiadne udalosti, aktivovaný je \"Predvolený profil\". Predvolený profil môžete nastaviť v nastaveniach aplikácie v \"Aktivácia profilu\". Kliknite sem na jeho nakonfigurovanie.</string>
-    <string name="important_info_how_does_volume_separation_work">Ako funguje \"oddeľovanie hlasitostí\": Aktivácia profilu nastaví hlasitosť zariadenia podľa hlasitosti notifikácií v profile. Ak je zachytený príchodzí hovor, nastaví sa hlasitosť zvonenia z profilu. Po ukončení hovoru sa spať nastaví hlasitosť notifikácií z profilu.</string>
+  <string name="important_info_how_does_volume_separation_work">Ako funguje \"oddeľovanie hlasitostí\": Aktivácia profilu nastaví hlasitosť zariadenia podľa hlasitosti notifikácií v profile. Ak je zachytený príchodzí hovor, nastaví sa hlasitosť zvonenia z profilu. Po ukončení hovoru sa spať nastaví hlasitosť notifikácií z profilu.</string>
   <string name="event_type_locations">Poloha</string>
   <string name="event_preferences_category_eventLocationsParameters">Parametre polohy</string>
   <string name="event_preferences_locations_location">Poloha</string>
@@ -643,7 +642,7 @@
   <string name="array_event_pref_orientationDistanceType_near">V blízkosti</string>
   <string name="array_event_pref_orientationDistanceType_far">Ďaleko</string>
   <string name="event_preferences_orientation_ignoreForApplications">Ignorovať pre aplikácie</string>
-    <string name="applications_preference_applicationType_application">aplikácia</string>
+  <string name="applications_preference_applicationType_application">aplikácia</string>
   <string name="applications_preference_applicationType_shortcut">odkaz</string>
   <string name="phone_profiles_pref_eventWifiAppSettings">Nastavenia Wi-Fi</string>
   <string name="phone_profiles_pref_eventWifiAppSettings_summary">Nastav parametre Wi-fi v nastaveniach aplikácie.</string>
@@ -664,7 +663,7 @@
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Aplikácie, odkazy</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Spustiť aplikácie, odkazy</string>
   <string name="applications_editor_dialog_title">Vyber aplikáciu, odkaz</string>
-    <string name="important_info_profile_interactive">Niektoré parametre profilu sú interaktívne. Tieto parametre zobrazujú obrazovku nastavenia systému. Tieto parametre sú označené \"(I)\".</string>
+  <string name="important_info_profile_interactive">Niektoré parametre profilu sú interaktívne. Tieto parametre zobrazujú obrazovku nastavenia systému. Tieto parametre sú označené \"(I)\".</string>
   <string name="important_info_orange_text">Poznámka: oranžový text v týchto informáciach je klikateľný. Kliknutím na tento text otvára príslušné obrazovky nastavení.</string>
   <string name="default_event_name_night_call">Nočný hovor</string>
   <string name="alert_message_enable_event">Povoľ beh nie je povolený. Povoliť ho?</string>
@@ -760,11 +759,11 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Tag nie je zapisovateľný</string>
   <string name="about_application_donate_button">Prosím prispejte</string>
   <string name="donation_activity_title">Príspevok</string>
-    <string name="donation_description">Je tato aplikácia užitočná?\nPodporte jej vývoj zaslaním príspevku vývojárovi.</string>
+  <string name="donation_description">Je tato aplikácia užitočná?\nPodporte jej vývoj zaslaním príspevku vývojárovi.</string>
   <string name="donation_google_android_market">Obchod Play</string>
   <string name="donation_google_android_market_text">Koľko to stojí?</string>
-    <string name="donation_google_android_market_donate_button">Prispejte</string>
-    <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
+  <string name="donation_google_android_market_donate_button">Prispejte</string>
+  <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
   <string name="phone_profiles_pref_applicationLanguage_ja">日本語</string>
   <string name="phone_profiles_pref_applicationLanguage_ko">한국어</string>
   <string name="phone_profiles_pref_applicationLanguage_te">తెలుగు</string>
@@ -802,6 +801,7 @@
   <string name="run_stop_events_indicator">Povoľ/zastav beh udalostí</string>
   <string name="run_stop_indicator_popup_window_important_infos">Pre viac informácií pozrite \"Dôležité informácie\" (ikona otáznika na spodnej nástrojovej lište editora).</string>
   <string name="important_info_how_to_show_ppp">Tieto dôležité informácie môžete zobraziť v Editore cez ikonu otáznika v hornej nástrojovej lište.</string>
+  <string name="important_info_how_to_show">Tieto dôležité informácie môžete zobraziť v Editore cez ikonu otáznika v nástrojovej lište.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">nepodporované aplikáciou</string>
   <string name="preference_not_allowed_reason_detail_old_android">stará verzia Androidu</string>
   <string name="preference_not_allowed_reason_detail_network_type">nepodporovaný typ siete alebo sa nedá zmeniť</string>
@@ -898,7 +898,7 @@
   <string name="event_preference_activity_targetHelps_save_description">Kliknite sem pre uloženie zmien parametrov udalosti.</string>
   <string name="about_application_privacy_policy">Ochrana osobných údajov:</string>
   <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">Tento profil sa aktivuje, ak nebeží žiadna udalosť.</string>
-    <string name="phone_profiles_pref_notificationTheme">Téma notifikácie</string>
+  <string name="phone_profiles_pref_notificationTheme">Téma notifikácie</string>
   <string name="array_pref_color_native">Natívna</string>
   <string name="array_pref_color_dark">Tmavá</string>
   <string name="array_pref_color_light">Svetlá</string>
@@ -956,7 +956,7 @@
   <string name="phone_profiles_pref_applicationLanguage_pt_BR">Português (Brasil)</string>
   <string name="array_pref_value_pt_BR">pt-BR</string>
   <string name="important_info_profile_zenModeM">\"Nerušiť\" v \"Móde zvonenia\" profilu vyžaduje povolenie PhoneProfilesPlus v systémovom nastavení \"Prístup k upozorneniam\". Kliknite sem a povoľte PhoneProfilesPlus.</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">V Android 6 toto systémové nastavenie je možné zmeniť len v rootnutých zariadeniach. Postihnuté sú režimy zvonenia a typy Nerušiť s vybráciou.</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">V Android 6 toto systémové nastavenie je možné zmeniť len v rootnutých zariadeniach. Postihnuté sú režimy zvonenia a typy Nerušiť s vybráciou.</string>
   <string name="setting_screen_not_found_alert">Obrazovka nastavenia nebola nájdená.</string>
   <string name="action_for_external_application_notification_title">Podpora externých apl. (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">Parameter profile_name chýba alebo je prázdny.</string>
@@ -1118,6 +1118,10 @@
   <string name="profile_preferences_headsUpNotifications">(G1) (R) Vyskakovacie notifikácie</string>
   <string name="event_preferences_PPPExtenderInstallInfo_text">Ako nainštalovať PhoneProfilesPlusExtender</string>
   <string name="event_preferences_PPPExtenderInstallInfo_summary">Stiahnite si najnovšiu verziu PhoneProfilesPlusExtender.apk z jeho GitHub. Kliknite na notifikáciu o stiahnutom apk a nainštalujte ho.</string>
+  <string name="editor_drawer_open">Otvor navigačný panel</string>
+  <string name="donation_thanks_dialog">Ďakujem za darovanie.\nNaozaj si to vážim.</string>
+  <string name="donation_google_android_market_not_supported">Platby z aplikácií nie sú podporované. Ste si istý, že je Obchod Play správne nainštalovaný?</string>
+  <string name="donation_google_error">Chyba.</string>
   <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
   <!--
     <string name="notification_channel_activated_profile">Activated profile</string>
@@ -1125,4 +1129,22 @@
     <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
     -->
   <!-- <string name="donation_paypal">PayPal</string> -->
+  <!--<string name="title_activity_image_view_preference_dialog">Change icon</string>-->
+  <!--<string name="title_activity_profile_preference_dialog">Set profile</string>-->
+  <!--<string name="event_preferences_undoneProfile">Undo the profile</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Enable Bluetooth scanning</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventRescan_none">None</string>-->
+  <!--<string name="phone_profiles_pref_applicationEventRescan_restartEvents">Restart events</string>-->
+  <!--<string name="accessibility_service_name">PhoneProfilesPlus</string>-->
+  <!--<string name="accessibility_service_description">Allow PhoneProfilesPlus to detect which application is in the foreground. This is necessary for events with \"Applications parameters\" enabled.</string>-->
+  <!--<string name="event_preferences_applications_AccessibilitySettings_summary">To enable Application parameters, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
+  <!--<string name="event_preferences_notifications_end_when_removed">End when dismissed</string>-->
+  <!--<string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and interruption types with vibration.</string>-->
+  <!--<string name="info_notification_unlink_ringer_notification_volumes2">If your device does not have separate volumes for ringtone and notifications, keep volume separation enabled.</string>-->
+  <!--<string name="event_preferences_orientation_AccessibilitySettings_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
+  <!--<string name="donation_button_close">Close</string>-->
+  <!--<string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>-->
+  <!--<string name="donation_thanks_dialog_title">Thank you</string>-->
+  <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->
+  <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
 </resources>
