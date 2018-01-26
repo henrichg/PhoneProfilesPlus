@@ -787,7 +787,6 @@
   <string name="donation_google_android_market_text">Сколько?</string>
   <string name="donation_google_android_market_not_supported_title">В приложении пожертвования не поддерживаются.</string>
   <string name="donation_google_android_market_not_supported">В приложении пожертвования не поддерживаются. Google Play Store установлен правильно?</string>
-  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google отжимает 30% от каждого пожертвования!</string>
   <string name="donation_google_android_market_donate_button">Пожертвовать</string>
   <string name="donation_thanks_dialog_title">Спасибо</string>
   <string name="donation_thanks_dialog">Спасибо за помощь.\nЯ действительно ценю это.</string>
@@ -1004,11 +1003,6 @@
   <string name="array_pref_value_zh_CN">zh-CN</string>
   <string name="action_for_external_application_notification_bad_action">Не поддерживаемое действие.</string>
   <string name="action_for_external_application_notification_no_action">Действие не определено.</string>
-  <!--
-    <string name="notification_channel_activated_profile">Activated profile</string>
-    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
-    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
-    -->
   <string name="ringtone_preference_not_set">Не задано</string>
   <string name="ringtone_preference_default_ringtone">Мелодия по умолчанию</string>
   <string name="ringtone_preference_default_notification">Звук уведомлений по умолчанию</string>
@@ -1150,5 +1144,14 @@
   <string name="phone_profiles_pref_applicationEventScanningDisabled">Сканирование отключено!</string>
   <string name="profile_preferences_applicationDisableMobileCellScanning">Отключить сканирование мобильных вышек</string>
   <string name="profile_preferences_applicationDisableOrientationScanning">Отключить сканирование ориентации</string>
-  <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
+  <string name="profile_preferences_headsUpNotifications">(G1)(R) Всплывающие уведомления</string>
+  <string name="event_preferences_PPPExtenderInstallInfo_text">Как установить PhoneProfilesPlusExtender</string>
+  <string name="event_preferences_PPPExtenderInstallInfo_summary">Загрузите последнюю версию PhoneProfilesPlusExtender.apk с GitHub. Затем нажмите на уведомление о загруженном apk и установите его.</string>
+  <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
+  <!--
+    <string name="notification_channel_activated_profile">Activated profile</string>
+    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
+    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
+    -->
+  <!-- <string name="donation_paypal">PayPal</string> -->
 </resources>

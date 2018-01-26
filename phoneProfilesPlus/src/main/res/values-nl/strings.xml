@@ -787,7 +787,6 @@
   <string name="donation_google_android_market_text">Hoeveel?</string>
   <string name="donation_google_android_market_not_supported_title">In-App donaties zijn niet ondersteund.</string>
   <string name="donation_google_android_market_not_supported">In-App donaties zijn niet ondersteund. Is Google Play Store goed geïnstalleerd?</string>
-  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google neemt 30% van elke donatie.</string>
   <string name="donation_google_android_market_donate_button">Doneer</string>
   <string name="donation_thanks_dialog_title">Dank je</string>
   <string name="donation_thanks_dialog">Dank je voor het doneren. \nIk waardeer dit.</string>
@@ -1003,11 +1002,6 @@
   <string name="array_pref_value_zh_CN">zh-CN</string>
   <string name="action_for_external_application_notification_bad_action">Niet ondersteunde actie is gespecificeerd.</string>
   <string name="action_for_external_application_notification_no_action">Actie is niet gespecificeerd.</string>
-  <!--
-    <string name="notification_channel_activated_profile">Activated profile</string>
-    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
-    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
-    -->
   <string name="ringtone_preference_not_set">Niet ingesteld</string>
   <string name="ringtone_preference_default_ringtone">Standaard beltoon</string>
   <string name="ringtone_preference_default_notification">Standaard notificatie</string>
@@ -1149,5 +1143,14 @@
   <string name="phone_profiles_pref_applicationEventScanningDisabled">Scannen uitgeschakeld!</string>
   <string name="profile_preferences_applicationDisableMobileCellScanning">Zendmast cel scannen uitschakelen</string>
   <string name="profile_preferences_applicationDisableOrientationScanning">Oriëntatie scannen uischakelen</string>
-  <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
+  <string name="profile_preferences_headsUpNotifications">(G1) (R) Pop-up notificaties</string>
+  <string name="event_preferences_PPPExtenderInstallInfo_text">Hoe installeer je PhoneProfilesPlusExtender</string>
+  <string name="event_preferences_PPPExtenderInstallInfo_summary">Download de nieuwste versie van PhoneProfilesPlusExtender.apk uit GitHub. Klik dan op de notificatie van de download en installeer de gedownloade apk.</string>
+  <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
+  <!--
+    <string name="notification_channel_activated_profile">Activated profile</string>
+    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
+    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
+    -->
+  <!-- <string name="donation_paypal">PayPal</string> -->
 </resources>

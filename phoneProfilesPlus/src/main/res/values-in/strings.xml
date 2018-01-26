@@ -787,7 +787,6 @@
   <string name="donation_google_android_market_text">Berapa banyak?</string>
   <string name="donation_google_android_market_not_supported_title">Sumbangan dalam aplikasi tidak didukung</string>
   <string name="donation_google_android_market_not_supported">Sumbangan dalam aplikasi tidak didukung Apakah Google Play Store terpasang dengan benar?</string>
-  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google mengeluarkan 30% dari setiap donasi.</string>
   <string name="donation_google_android_market_donate_button">Menyumbangkan</string>
   <string name="donation_thanks_dialog_title">Terima kasih</string>
   <string name="donation_thanks_dialog">Terima kasih telah menyumbang. \ n Saya sangat menghargai itu.</string>
@@ -1003,11 +1002,6 @@
   <string name="array_pref_value_zh_CN">zh-CN</string>
   <string name="action_for_external_application_notification_bad_action">Tindakan yang tidak didukung ditentukan</string>
   <string name="action_for_external_application_notification_no_action">Tindakan tidak ditentukan.</string>
-  <!--
-    <string name="notification_channel_activated_profile">Activated profile</string>
-    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
-    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
-    -->
   <string name="ringtone_preference_not_set">Tidak diatur</string>
   <string name="ringtone_preference_default_ringtone">Nada dering standar</string>
   <string name="ringtone_preference_default_notification">Pemberitahuan standar</string>
@@ -1121,7 +1115,7 @@
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">Pengaturan jaringan \"Keep Wi-Fi on\"</string>
   <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Konfigurasikan \"Jaga Wi-Fi saat tidur\" menjadi \"Selalu\". Tanpa ini, pemindaian Wi-Fi tidak akan bekerja saat perangkat tidur.</string>
   <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender to use the event sensors \"Applications parameters\" and \"Orientation parameters\". Check the parameters of these sensors for more information.</string>
-  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Please do not configure interval to value less then</string>
+  <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Please do not configure interval to value less than</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minutes. This greatly increases the battery consumption.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">seconds. This greatly increases the battery consumption.</string>
   <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners (widget)</string>
@@ -1150,4 +1144,13 @@
   <string name="profile_preferences_applicationDisableMobileCellScanning">Disable mobile cell scanning</string>
   <string name="profile_preferences_applicationDisableOrientationScanning">Disable orientation scanning</string>
   <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
+  <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>
+  <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
+  <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
+  <!--
+    <string name="notification_channel_activated_profile">Activated profile</string>
+    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
+    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
+    -->
+  <!-- <string name="donation_paypal">PayPal</string> -->
 </resources>

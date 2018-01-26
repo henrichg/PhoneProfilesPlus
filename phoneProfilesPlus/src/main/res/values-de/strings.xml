@@ -787,7 +787,6 @@
   <string name="donation_google_android_market_text">Wie viel?</string>
   <string name="donation_google_android_market_not_supported_title">In-App-Spenden werden nicht unterstützt.</string>
   <string name="donation_google_android_market_not_supported">In-App-Spenden werden nicht unterstützt. Ist der Google Play Store richtig installiert?</string>
-  <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google nimmt 30% jeder Spende.</string>
   <string name="donation_google_android_market_donate_button">Spenden</string>
   <string name="donation_thanks_dialog_title">Vielen Dank</string>
   <string name="donation_thanks_dialog">Vielen Dank für Ihre Spende,\nI die ich wirklich zu schätzen weiß.</string>
@@ -1003,11 +1002,6 @@
   <string name="array_pref_value_zh_CN">zh-CN</string>
   <string name="action_for_external_application_notification_bad_action">Nicht unterstütze Aktion angegeben.</string>
   <string name="action_for_external_application_notification_no_action">Aktion nicht angegeben.</string>
-  <!--
-    <string name="notification_channel_activated_profile">Activated profile</string>
-    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
-    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
-    -->
   <string name="ringtone_preference_not_set">Nicht festgelegt</string>
   <string name="ringtone_preference_default_ringtone">Standard-Klingelton</string>
   <string name="ringtone_preference_default_notification">Standard-Benachrichtigungston</string>
@@ -1150,4 +1144,13 @@
   <string name="profile_preferences_applicationDisableMobileCellScanning">Disable mobile cell scanning</string>
   <string name="profile_preferences_applicationDisableOrientationScanning">Disable orientation scanning</string>
   <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
+  <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>
+  <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
+  <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
+  <!--
+    <string name="notification_channel_activated_profile">Activated profile</string>
+    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
+    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
+    -->
+  <!-- <string name="donation_paypal">PayPal</string> -->
 </resources>
