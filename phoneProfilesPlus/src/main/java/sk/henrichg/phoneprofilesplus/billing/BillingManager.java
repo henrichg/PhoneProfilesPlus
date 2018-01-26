@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus.billing;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
@@ -18,7 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import sk.henrichg.phoneprofilesplus.DonationFragment;
+import sk.henrichg.phoneprofilesplus.NFCTagReadActivity;
 import sk.henrichg.phoneprofilesplus.PPApplication;
+import sk.henrichg.phoneprofilesplus.R;
 
 public class BillingManager implements PurchasesUpdatedListener {
 
@@ -101,6 +104,8 @@ public class BillingManager implements PurchasesUpdatedListener {
                                    List<Purchase> purchases) {
         PPApplication.logE(TAG, "onPurchasesUpdated() response: " + responseCode);
         if (responseCode == BillingClient.BillingResponse.OK) {
+            getFragment().purchaseSuccessfull();
+
             for (Purchase purchase : purchases) {
                 consumePurchase(purchase);
             }

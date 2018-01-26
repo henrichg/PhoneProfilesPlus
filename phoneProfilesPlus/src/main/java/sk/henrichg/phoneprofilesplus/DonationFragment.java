@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.SkuDetails;
@@ -160,7 +161,11 @@ public class DonationFragment extends Fragment {
                 });
     }
 
-    @SuppressLint("SetTextI18n")
+    public void purchaseSuccessfull() {
+        if (getActivity() != null)
+            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.donation_thanks_dialog), Toast.LENGTH_LONG).show();
+    }
+
     public void displayAnErrorIfNeeded(int response) {
         if (getActivity() == null || getActivity().isFinishing()) {
             PPApplication.logE(TAG, "No need to show an error - activity is finishing already");
@@ -173,34 +178,34 @@ public class DonationFragment extends Fragment {
                 mErrorTextView.setVisibility(View.VISIBLE);
                 switch (response) {
                     case BillingClient.BillingResponse.BILLING_UNAVAILABLE:
-                        mErrorTextView.setText("BILLING_UNAVAILABLE");
+                        mErrorTextView.setText(R.string.donation_google_android_market_not_supported);
                         break;
                     case BillingClient.BillingResponse.DEVELOPER_ERROR:
-                        mErrorTextView.setText("DEVELOPER_ERROR");
+                        mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponse.ERROR:
-                        mErrorTextView.setText("ERROR");
+                        mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponse.FEATURE_NOT_SUPPORTED:
-                        mErrorTextView.setText("FEATURE_NOT_SUPPORTED");
+                        mErrorTextView.setText(R.string.donation_google_android_market_not_supported);
                         break;
                     case BillingClient.BillingResponse.ITEM_ALREADY_OWNED:
-                        mErrorTextView.setText("ITEM_ALREADY_OWNED");
+                        mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponse.ITEM_NOT_OWNED:
-                        mErrorTextView.setText("ITEM_NOT_OWNED");
+                        mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponse.ITEM_UNAVAILABLE:
-                        mErrorTextView.setText("ITEM_UNAVAILABLE");
+                        mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponse.SERVICE_DISCONNECTED:
-                        mErrorTextView.setText("SERVICE_DISCONNECTED");
+                        mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponse.SERVICE_UNAVAILABLE:
-                        mErrorTextView.setText("SERVICE_UNAVAILABLE");
+                        mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponse.USER_CANCELED:
-                        mErrorTextView.setText("USER_CANCELED");
+                        mErrorTextView.setVisibility(View.GONE);
                         break;
                 }
             } else

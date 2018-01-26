@@ -1122,6 +1122,9 @@
     <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
     <string name="editor_drawer_open">Open navigation drawer</string>
+    <string name="donation_thanks_dialog">Thank you for donating.\nI really appreciate it.</string>-->
+    <string name="donation_google_android_market_not_supported">In-App Donations are not supported. Is Google Play Store installed correctly?</string>
+    <string name="donation_google_error">Error.</string>
     <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
     <!--
     <string name="notification_channel_activated_profile">Activated profile</string>
@@ -1144,9 +1147,7 @@
     <!--<string name="event_preferences_orientation_AccessibilitySettings_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
     <!--<string name="donation_button_close">Close</string>-->
     <!--<string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>-->
-    <!--<string name="donation_google_android_market_not_supported">In-App Donations are not supported. Is Google Play Store installed correctly?</string>-->
     <!--<string name="donation_thanks_dialog_title">Thank you</string>-->
-    <!--<string name="donation_thanks_dialog">Thank you for donating.\nI really appreciate it.</string>-->
     <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->
     <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
 </resources>
