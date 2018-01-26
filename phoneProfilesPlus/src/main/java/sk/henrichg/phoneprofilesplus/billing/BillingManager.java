@@ -77,7 +77,7 @@ public class BillingManager implements PurchasesUpdatedListener {
                 @Override
                 public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponse) {
                     if (billingResponse == BillingClient.BillingResponse.OK) {
-                        Log.i(TAG, "onBillingSetupFinished() response: " + billingResponse);
+                        //Log.i(TAG, "onBillingSetupFinished() response: " + billingResponse);
 
                         if (executeOnSuccess == null) {
                             getFragment().updateGUIAfterBillingConnected();
@@ -86,13 +86,13 @@ public class BillingManager implements PurchasesUpdatedListener {
                         if (executeOnSuccess != null) {
                             executeOnSuccess.run();
                         }
-                    } else {
+                    }/* else {
                         Log.w(TAG, "onBillingSetupFinished() error code: " + billingResponse);
-                    }
+                    }*/
                 }
                 @Override
                 public void onBillingServiceDisconnected() {
-                    Log.w(TAG, "onBillingServiceDisconnected()");
+                    //Log.w(TAG, "onBillingServiceDisconnected()");
                 }
             });
         }
