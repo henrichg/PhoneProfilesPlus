@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="applicationPowerSaveModeInternal">3</string>
+    <string name="applicationPowerSaveModeInternal" translatable="false">3</string>
 </resources>

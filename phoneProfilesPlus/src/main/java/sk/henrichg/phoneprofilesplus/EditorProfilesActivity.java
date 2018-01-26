@@ -83,8 +83,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     private MaterialDialog importProgressDialog = null;
     private MaterialDialog exportProgressDialog = null;
 
-    MaterialDialog uninstallPPHelperProgressDialog = null;
-
     private static final String SP_DATA_DETAILS_DATA_TYPE = "data_detail_data_type";
     private static final String SP_DATA_DETAILS_DATA_ID = "data_detail_data_id";
     private static final String SP_DATA_DETAILS_EDIT_MODE = "data_detail_edit_mode";
@@ -516,10 +514,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     @Override
     protected void onDestroy()
     {
-        if ((uninstallPPHelperProgressDialog != null) && uninstallPPHelperProgressDialog.isShowing()) {
-            uninstallPPHelperProgressDialog.dismiss();
-            uninstallPPHelperProgressDialog = null;
-        }
         if ((importProgressDialog != null) && importProgressDialog.isShowing()) {
             importProgressDialog.dismiss();
             importProgressDialog = null;
@@ -535,9 +529,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         if ((exportAsyncTask != null) && !exportAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
             exportAsyncTask.cancel(true);
         }
-        /*if ((PhoneProfilesHelper.uninstallAsyncTask != null) && !PhoneProfilesHelper.uninstallAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
-            PhoneProfilesHelper.uninstallAsyncTask.cancel(true);
-        }*/
 
         if (!savedInstanceStateChanged)
         {
@@ -611,16 +602,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 menuItem.setVisible(false);
         }
 
-
-        //PhoneProfilesHelper.isPPHelperInstalled(getApplicationContext());
-
-        menuItem = menu.findItem(R.id.menu_pphelper_uninstall);
-        if (menuItem != null)
-        {
-            menuItem.setVisible(/*PhoneProfilesHelper.PPHelperVersion != -1*/false);
-        }
-
-
         menuItem = menu.findItem(R.id.menu_restart_events);
         if (menuItem != null)
         {
@@ -684,9 +665,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         case R.id.menu_install_tone:
             TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, getApplicationContext(), true);
             return true;
-        /*case R.id.menu_pphelper_uninstall:
-            PhoneProfilesHelper.uninstallPPHelper(this);
-            return true;*/
         case R.id.menu_export:
             exportData();
 
@@ -1137,9 +1115,10 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
 
     private boolean importApplicationPreferences(File src, int what) {
-        boolean res = false;
+        boolean res = true;
         ObjectInputStream input = null;
         try {
+            try {
                 input = new ObjectInputStream(new FileInputStream(src));
                 Editor prefEdit;
                 if (what == 1)
@@ -1176,12 +1155,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }
                 }
                 prefEdit.apply();
-            res = true;
-        } catch (FileNotFoundException e) {
-            // no error, this is OK
-            //e.printStackTrace();
-            res = true;
-        } catch (Exception ignored) {
+            } catch (FileNotFoundException ignored) {
+                // no error, this is OK
+                //e.printStackTrace();
+            } catch (Exception e) {
+                res = false;
+            }
         }finally {
             try {
                 if (input != null) {
@@ -1256,17 +1235,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (ret == 1) {
                         File sd = Environment.getExternalStorageDirectory();
                         File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                        if (!importApplicationPreferences(exportFile, 1)) {
-                            ret = 0;
-                            //Log.d("EditorProfilesActivity.doImportData"," importApplicationPreferences(ApplicationPreferences) ret="+ret);
-                        }
-                        else {
+                        if (importApplicationPreferences(exportFile, 1)) {
                             exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                             if (!importApplicationPreferences(exportFile, 2)) {
                                 ret = 0;
                                 //Log.d("EditorProfilesActivity.doImportData"," importApplicationPreferences(DefaultProfilePreferences) ret="+ret);
                             }
                         }
+                        else
+                            ret = 0;
                     }
 
                     if (ret == 1) {
@@ -1419,26 +1396,26 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     @SuppressLint("ApplySharedPref")
     private boolean exportApplicationPreferences(File dst, int what) {
-        boolean res = false;
+        boolean res = true;
         ObjectOutputStream output = null;
         try {
-            output = new ObjectOutputStream(new FileOutputStream(dst));
-            SharedPreferences pref;
-            if (what == 1)
-                pref = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-            else
-                pref = getSharedPreferences(PPApplication.DEFAULT_PROFILE_PREFS_NAME, Activity.MODE_PRIVATE);
-            SharedPreferences.Editor editor = pref.edit();
-            editor.commit();
-            output.writeObject(pref.getAll());
-
-            res = true;
-        } catch (FileNotFoundException e) {
-            // this is OK
-            //e.printStackTrace();
-            res = true;
-        } catch (IOException ignored) {
-        }finally {
+            try {
+                output = new ObjectOutputStream(new FileOutputStream(dst));
+                SharedPreferences pref;
+                if (what == 1)
+                    pref = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+                else
+                    pref = getSharedPreferences(PPApplication.DEFAULT_PROFILE_PREFS_NAME, Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.commit();
+                output.writeObject(pref.getAll());
+            } catch (FileNotFoundException ignored) {
+                // this is OK
+                //e.printStackTrace();
+            } catch (IOException e) {
+                res = false;
+            }
+        } finally {
             try {
                 if (output != null) {
                     output.flush();
@@ -1503,13 +1480,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (ret == 1) {
                         File sd = Environment.getExternalStorageDirectory();
                         File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                        if (!exportApplicationPreferences(exportFile, 1))
-                            ret = 0;
-                        else {
+                        if (exportApplicationPreferences(exportFile, 1)) {
                             exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                             if (!exportApplicationPreferences(exportFile, 2))
                                 ret = 0;
                         }
+                        else
+                            ret = 0;
                     }
 
                     return ret;

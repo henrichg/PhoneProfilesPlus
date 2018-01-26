@@ -25,7 +25,7 @@ public class BillingManager implements PurchasesUpdatedListener {
     private final BillingClient mBillingClient;
     private final AppCompatActivity mActivity;
 
-    private static String TAG = "BillingManager";
+    private static final String TAG = "BillingManager";
 
     private static final HashMap<String, List<String>> SKUS;
     static

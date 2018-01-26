@@ -9,7 +9,7 @@ class RootToolsSmall {
 
     private static final HashMap<String, Boolean> BIN_MAP = new HashMap<>();
 
-    static boolean hasBinary(String binaryName) {
+    private static boolean hasBinary(String binaryName) {
         Boolean exists = BIN_MAP.get(binaryName);
         if (exists != null) {
             return exists;

@@ -92,12 +92,6 @@ public class DonationFragment extends Fragment {
         return root;
     }
 
-    // We're being destroyed. It's important to dispose of the helper here!
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
     /**
      * Enables or disables "please wait" screen.
      */

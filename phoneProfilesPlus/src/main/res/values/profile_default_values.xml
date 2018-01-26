@@ -1,61 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--suppress CheckTagEmptyBody -->
 <resources>
-    <string name="prf_pref_profileName"></string>
-    <string name="prf_pref_profileIcon">ic_profile_default|1|0|0</string>
+    <string name="prf_pref_profileIcon" translatable="false">ic_profile_default|1|0|0</string>
     <bool name="prf_pref_showInActivator">true</bool>
-    <string name="prf_pref_duration">0</string>
-    <string name="prf_pref_afterDurationDo">0</string>
+    <string name="prf_pref_duration" translatable="false">0</string>
+    <string name="prf_pref_afterDurationDo" translatable="false">0</string>
     <bool name="prf_pref_askForDuration">false</bool>
-    <string name="prf_pref_durationNotificationSound"></string>
+    <string name="prf_pref_durationNotificationSound" translatable="false"></string>
     <bool name="prf_pref_durationNotificationVibrate">false</bool>
-    <string name="prf_pref_volumeRingerMode">0</string>
-    <string name="prf_pref_volumeZenMode">0</string>
-    <string name="prf_pref_vibrationOnTouch">0</string>
-    <string name="prf_pref_volumeRingtone">-1|1|0</string>
-    <string name="prf_pref_volumeNotification">-1|1|0</string>
-    <string name="prf_pref_volumeMedia">-1|1|0</string>
-    <string name="prf_pref_volumeAlarm">-1|1|0</string>
-    <string name="prf_pref_volumeSystem">-1|1|0</string>
-    <string name="prf_pref_volumeVoice">-1|1|0</string>
-    <string name="prf_pref_volumeSpeakerPhone">0</string>
-    <string name="prf_pref_soundRingtoneChange">0</string>
-    <string name="prf_pref_soundRingtone"></string>
-    <string name="prf_pref_soundNotificationChange">0</string>
-    <string name="prf_pref_soundNotification"></string>
-    <string name="prf_pref_soundAlarmChange">0</string>
-    <string name="prf_pref_soundAlarm"></string>
-    <string name="prf_pref_deviceAirplaneMode">0</string>
-    <string name="prf_pref_deviceAutosync">0</string>
-    <string name="prf_pref_deviceMobileData">0</string>
-    <string name="prf_pref_deviceMobileDataPrefs">0</string>
-    <string name="prf_pref_deviceWiFi">0</string>
-    <string name="prf_pref_deviceWiFiAP">0</string>
-    <string name="prf_pref_deviceBluetooth">0</string>
-    <string name="prf_pref_deviceGPS">0</string>
-    <string name="prf_pref_deviceLocationServicePrefs">0</string>
-    <string name="prf_pref_deviceNFC">0</string>
-    <string name="prf_pref_deviceScreenTimeout">0</string>
-    <string name="prf_pref_deviceKeyguard">0</string>
-    <string name="prf_pref_deviceBrightness">50|1|1|0</string>
-    <string name="prf_pref_deviceAutoRotation">0</string>
-    <string name="prf_pref_devicePowerSaveMode">0</string>
-    <string name="prf_pref_deviceRunApplicationChange">0</string>
-    <string name="prf_pref_deviceRunApplicationPackageName">-</string>
-    <string name="prf_pref_deviceWallpaperChange">0</string>
-    <string name="prf_pref_deviceWallpaper">-|0</string>
-    <string name="prf_pref_deviceNetworkType">0</string>
-    <string name="prf_pref_notificationLed">0</string>
-    <string name="prf_pref_vibrateWhenRinging">0</string>
-    <string name="prf_pref_deviceWallpaperFor">0</string>
+    <string name="prf_pref_volumeRingerMode" translatable="false">0</string>
+    <string name="prf_pref_volumeZenMode" translatable="false">0</string>
+    <string name="prf_pref_vibrationOnTouch" translatable="false">0</string>
+    <string name="prf_pref_volumeRingtone" translatable="false">-1|1|0</string>
+    <string name="prf_pref_volumeNotification" translatable="false">-1|1|0</string>
+    <string name="prf_pref_volumeMedia" translatable="false">-1|1|0</string>
+    <string name="prf_pref_volumeAlarm" translatable="false">-1|1|0</string>
+    <string name="prf_pref_volumeSystem" translatable="false">-1|1|0</string>
+    <string name="prf_pref_volumeVoice" translatable="false">-1|1|0</string>
+    <string name="prf_pref_volumeSpeakerPhone" translatable="false">0</string>
+    <string name="prf_pref_soundRingtoneChange" translatable="false">0</string>
+    <string name="prf_pref_soundRingtone" translatable="false"></string>
+    <string name="prf_pref_soundNotificationChange" translatable="false">0</string>
+    <string name="prf_pref_soundNotification" translatable="false"></string>
+    <string name="prf_pref_soundAlarmChange" translatable="false">0</string>
+    <string name="prf_pref_soundAlarm" translatable="false"></string>
+    <string name="prf_pref_deviceAirplaneMode" translatable="false">0</string>
+    <string name="prf_pref_deviceAutosync" translatable="false">0</string>
+    <string name="prf_pref_deviceMobileData" translatable="false">0</string>
+    <string name="prf_pref_deviceMobileDataPrefs" translatable="false">0</string>
+    <string name="prf_pref_deviceWiFi" translatable="false">0</string>
+    <string name="prf_pref_deviceWiFiAP" translatable="false">0</string>
+    <string name="prf_pref_deviceBluetooth" translatable="false">0</string>
+    <string name="prf_pref_deviceGPS" translatable="false">0</string>
+    <string name="prf_pref_deviceLocationServicePrefs" translatable="false">0</string>
+    <string name="prf_pref_deviceNFC" translatable="false">0</string>
+    <string name="prf_pref_deviceScreenTimeout" translatable="false">0</string>
+    <string name="prf_pref_deviceKeyguard" translatable="false">0</string>
+    <string name="prf_pref_deviceBrightness" translatable="false">50|1|1|0</string>
+    <string name="prf_pref_deviceAutoRotation" translatable="false">0</string>
+    <string name="prf_pref_devicePowerSaveMode" translatable="false">0</string>
+    <string name="prf_pref_deviceRunApplicationChange" translatable="false">0</string>
+    <string name="prf_pref_deviceRunApplicationPackageName" translatable="false">-</string>
+    <string name="prf_pref_deviceWallpaperChange" translatable="false">0</string>
+    <string name="prf_pref_deviceWallpaper" translatable="false">-|0</string>
+    <string name="prf_pref_deviceNetworkType" translatable="false">0</string>
+    <string name="prf_pref_notificationLed" translatable="false">0</string>
+    <string name="prf_pref_vibrateWhenRinging" translatable="false">0</string>
+    <string name="prf_pref_deviceWallpaperFor" translatable="false">0</string>
     <bool name="prf_pref_hideStatusBarIcon">false</bool>
-    <string name="prf_pref_lockDevice">0</string>
-    <string name="prf_pref_deviceConnectToSSID">^just_any^</string>
-    <string name="prf_pref_applicationDisableWifiScanning">0</string>
-    <string name="prf_pref_applicationDisableBluetoothScanning">0</string>
-    <string name="prf_pref_deviceWiFiAPPrefs">0</string>
-    <string name="prf_pref_applicationDisableLocationScanning">0</string>
-    <string name="prf_pref_applicationDisableMobileCellScanning">0</string>
-    <string name="prf_pref_applicationDisableOrientationScanning">0</string>
-    <string name="prf_pref_headsUpNotifications">0</string>
+    <string name="prf_pref_lockDevice" translatable="false">0</string>
+    <string name="prf_pref_deviceConnectToSSID" translatable="false">^just_any^</string>
+    <string name="prf_pref_applicationDisableWifiScanning" translatable="false">0</string>
+    <string name="prf_pref_applicationDisableBluetoothScanning" translatable="false">0</string>
+    <string name="prf_pref_deviceWiFiAPPrefs" translatable="false">0</string>
+    <string name="prf_pref_applicationDisableLocationScanning" translatable="false">0</string>
+    <string name="prf_pref_applicationDisableMobileCellScanning" translatable="false">0</string>
+    <string name="prf_pref_applicationDisableOrientationScanning" translatable="false">0</string>
+    <string name="prf_pref_headsUpNotifications" translatable="false">0</string>
 </resources>
