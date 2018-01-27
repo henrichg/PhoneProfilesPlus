@@ -38,9 +38,7 @@ import java.util.List;
 public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
-    public DataWrapper dataWrapper;
-
-    private List<Event> eventList;
+    public DataWrapper activityDataWrapper;
 
     RecyclerView listView;
     private Toolbar bottomToolbar;
@@ -144,7 +142,7 @@ public class EditorEventListFragment extends Fragment
         //Log.d("EditorEventListFragment.onCreate","filterType="+filterType);
         //Log.d("EditorEventListFragment.onCreate","orderType="+orderType);
 
-        dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
 
         getActivity().getIntent();
 
@@ -224,7 +222,7 @@ public class EditorEventListFragment extends Fragment
         else
             orderLayout.setVisibility(View.VISIBLE);
 
-        if (eventList == null)
+        if (activityDataWrapper.eventList == null)
         {
             LoadEventListAsyncTask asyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
             this.asyncTaskContext = new WeakReference<>(asyncTask );
@@ -252,14 +250,13 @@ public class EditorEventListFragment extends Fragment
 
         @Override
         protected Void doInBackground(Void... params) {
-            _dataWrapper.getProfileList();
-
-            List<Event> eventList = _dataWrapper.getEventList();
+            _dataWrapper.fillProfileList();
+            _dataWrapper.fillEventList();
             //Log.d("EditorEventListFragment.LoadEventListAsyncTask","filterType="+filterType);
             if (_filterType == FILTER_TYPE_START_ORDER)
-                EditorEventListFragment.sortList(eventList, ORDER_TYPE_START_ORDER, _dataWrapper);
+                EditorEventListFragment.sortList(_dataWrapper.eventList, ORDER_TYPE_START_ORDER, _dataWrapper);
             else
-                EditorEventListFragment.sortList(eventList, _orderType, _dataWrapper);
+                EditorEventListFragment.sortList(_dataWrapper.eventList, _orderType, _dataWrapper);
 
             return null;
         }
@@ -272,18 +269,16 @@ public class EditorEventListFragment extends Fragment
             
             if ((fragment != null) && (fragment.isAdded())) {
                 // get local profileList
-                List<Profile> profileList = _dataWrapper.getProfileList();
+                _dataWrapper.fillProfileList();
                 // set local profile list into activity dataWrapper
-                fragment.dataWrapper.setProfileList(profileList);
+                fragment.activityDataWrapper.setProfileList(_dataWrapper.profileList);
 
                 // get local eventList
-                List<Event> eventList = _dataWrapper.getEventList();
+                _dataWrapper.fillEventList();
                 // set local event list into activity dataWrapper
-                fragment.dataWrapper.setEventList(eventList);
-                // set reference of profile list from dataWrapper
-                fragment.eventList = fragment.dataWrapper.getEventList();
+                fragment.activityDataWrapper.setEventList(_dataWrapper.eventList);
 
-                fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.dataWrapper, _filterType, fragment);
+                fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 
                 // added touch helper for drag and drop items
                 ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.eventListAdapter, false, false);
@@ -322,11 +317,9 @@ public class EditorEventListFragment extends Fragment
         if (eventListAdapter != null)
             eventListAdapter.release();
 
-        eventList = null;
-
-        if (dataWrapper != null)
-            dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
+        if (activityDataWrapper != null)
+            activityDataWrapper.invalidateDataWrapper();
+        activityDataWrapper = null;
 
         super.onDestroy();
 
@@ -372,18 +365,18 @@ public class EditorEventListFragment extends Fragment
 
     void runStopEvent(Event event)
     {
-        if (Event.getGlobalEventsRunning(dataWrapper.context)) {
+        if (Event.getGlobalEventsRunning(activityDataWrapper.context)) {
             // events are not globally stopped
 
-            if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP) {
+            if (event.getStatusFromDB(activityDataWrapper) == Event.ESTATUS_STOP) {
                 // pause event
-                List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-                event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList();
+                event.pauseEvent(activityDataWrapper, eventTimelineList, true, false,
                         false, false, null, false); // activate return profile
             } else {
                 // stop event
-                List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-                event.stopEvent(dataWrapper, eventTimelineList, true, false,
+                List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList();
+                event.stopEvent(activityDataWrapper, eventTimelineList, true, false,
                         true, false); // activate return profile
             }
 
@@ -391,20 +384,20 @@ public class EditorEventListFragment extends Fragment
             updateListView(event, false, false, true);
             // restart events
             PPApplication.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
-            dataWrapper.restartEvents(false, true/*, false*/);
+            activityDataWrapper.restartEvents(false, true/*, false*/);
 
-            Intent serviceIntent = new Intent(dataWrapper.context, PhoneProfilesService.class);
+            Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             //TODO Android O
             //if (Build.VERSION.SDK_INT < 26)
-            dataWrapper.context.startService(serviceIntent);
+            activityDataWrapper.context.startService(serviceIntent);
             //else
             //    context.startForegroundService(serviceIntent);
         }
         else
         {
-            if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP) {
+            if (event.getStatusFromDB(activityDataWrapper) == Event.ESTATUS_STOP) {
                 // pause event
                 event.setStatus(Event.ESTATUS_PAUSE);
             } else {
@@ -413,7 +406,7 @@ public class EditorEventListFragment extends Fragment
             }
 
             // update event in DB
-            DatabaseHandler.getInstance(dataWrapper.context).updateEvent(event);
+            DatabaseHandler.getInstance(activityDataWrapper.context).updateEvent(event);
             // redraw event list
             updateListView(event, false, false, true);
         }
@@ -453,21 +446,21 @@ public class EditorEventListFragment extends Fragment
 
     private void deleteEvent(Event event)
     {
-        if (dataWrapper.getEventById(event._id) == null)
+        if (activityDataWrapper.getEventById(event._id) == null)
             // event not exists
             return;
 
         listView.getRecycledViewPool().clear();
 
-        List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-        event.stopEvent(dataWrapper, eventTimelineList, false, true,
+        List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList();
+        event.stopEvent(activityDataWrapper, eventTimelineList, false, true,
                 true, false);
         // restart events
         PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
-        dataWrapper.restartEvents(false, true/*, false*/);
+        activityDataWrapper.restartEvents(false, true/*, false*/);
 
         eventListAdapter.deleteItemNoNotify(event);
-        DatabaseHandler.getInstance(dataWrapper.context).deleteEvent(event);
+        DatabaseHandler.getInstance(activityDataWrapper.context).deleteEvent(event);
 
         eventListAdapter.notifyDataSetChanged();
 
@@ -502,7 +495,7 @@ public class EditorEventListFragment extends Fragment
         //{
             //menuItem.setVisible(true);
 
-            if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP)
+            if (event.getStatusFromDB(activityDataWrapper) == Event.ESTATUS_STOP)
             {
                 menuItem.setTitle(R.string.event_list_item_menu_run);
             }
@@ -566,9 +559,9 @@ public class EditorEventListFragment extends Fragment
                 public void onClick(DialogInterface dialog, int which) {
                     listView.getRecycledViewPool().clear();
 
-                    dataWrapper.stopAllEvents(true);
+                    activityDataWrapper.stopAllEvents(true);
 
-                    DatabaseHandler.getInstance(dataWrapper.context).deleteAllEvents();
+                    DatabaseHandler.getInstance(activityDataWrapper.context).deleteAllEvents();
 
                     eventListAdapter.clear();
                     // this is in eventListAdapter.clear()
@@ -605,9 +598,9 @@ public class EditorEventListFragment extends Fragment
                 eventListAdapter.addItem(event);
         }
 
-        if (eventList != null) {
+        if (activityDataWrapper.eventList != null) {
             // sort list
-            sortList(eventList, orderType, dataWrapper);
+            sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
         }
 
         if (eventListAdapter != null) {
@@ -655,7 +648,7 @@ public class EditorEventListFragment extends Fragment
         this.orderType = orderType;
         if (eventListAdapter != null) {
             listView.getRecycledViewPool().clear();
-            sortList(eventList, orderType, dataWrapper);
+            sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
             eventListAdapter.notifyDataSetChanged();
         }
     }
@@ -724,19 +717,19 @@ public class EditorEventListFragment extends Fragment
 
     public void refreshGUI(boolean refreshIcons, boolean setPosition)
     {
-        if ((dataWrapper == null) || (eventList == null))
+        if ((activityDataWrapper == null) || (activityDataWrapper.eventList == null))
             return;
 
-        for (Event event : eventList) {
-            int status = DatabaseHandler.getInstance(dataWrapper.context).getEventStatus(event);
+        for (Event event : activityDataWrapper.eventList) {
+            int status = DatabaseHandler.getInstance(activityDataWrapper.context).getEventStatus(event);
             event.setStatus(status);
-            event._isInDelayStart = DatabaseHandler.getInstance(dataWrapper.context).getEventInDelayStart(event);
-            event._isInDelayEnd = DatabaseHandler.getInstance(dataWrapper.context).getEventInDelayEnd(event);
-            DatabaseHandler.getInstance(dataWrapper.context).setEventCalendarTimes(event);
-            DatabaseHandler.getInstance(dataWrapper.context).getSMSStartTime(event);
-            //DatabaseHandler.getInstance(dataWrapper.context).getNotificationStartTime(event);
-            DatabaseHandler.getInstance(dataWrapper.context).getNFCStartTime(event);
-            DatabaseHandler.getInstance(dataWrapper.context).getCallStartTime(event);
+            event._isInDelayStart = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayStart(event);
+            event._isInDelayEnd = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayEnd(event);
+            DatabaseHandler.getInstance(activityDataWrapper.context).setEventCalendarTimes(event);
+            DatabaseHandler.getInstance(activityDataWrapper.context).getSMSStartTime(event);
+            //DatabaseHandler.getInstance(activityDataWrapper.context).getNotificationStartTime(event);
+            DatabaseHandler.getInstance(activityDataWrapper.context).getNFCStartTime(event);
+            DatabaseHandler.getInstance(activityDataWrapper.context).getCallStartTime(event);
         }
         updateListView(null, false, refreshIcons, setPosition);
     }

@@ -25,8 +25,8 @@ import java.util.List;
 
 public class ActivateProfileListFragment extends Fragment {
 
-    DataWrapper dataWrapper;
-    private List<Profile> profileList = null;
+    DataWrapper activityDataWrapper;
+    //private List<Profile> profileList = null;
     private ActivateProfileListAdapter profileListAdapter = null;
     private ListView listView = null;
     private GridView gridView = null;
@@ -54,29 +54,29 @@ public class ActivateProfileListFragment extends Fragment {
         // configuration changes for example
         setRetainInstance(true);
 
-        dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
-        if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
+        if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context))
         {
-            if (ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context) && ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
+            if (ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context) && ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context))
                 rootView = inflater.inflate(R.layout.activate_profile_list, container, false);
             else
-            if (ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
+            if (ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context))
                 rootView = inflater.inflate(R.layout.activate_profile_list_no_indicator, container, false);
             else
                 rootView = inflater.inflate(R.layout.activate_profile_list_no_header, container, false);
         }
         else
         {
-            if (ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context) && ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
+            if (ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context) && ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context))
                 rootView = inflater.inflate(R.layout.activate_profile_grid, container, false);
             else
-            if (ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
+            if (ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context))
                 rootView = inflater.inflate(R.layout.activate_profile_grid_no_indicator, container, false);
             else
                 rootView = inflater.inflate(R.layout.activate_profile_grid_no_header, container, false);
@@ -99,13 +99,13 @@ public class ActivateProfileListFragment extends Fragment {
     {
         activeProfileName = view.findViewById(R.id.act_prof_activated_profile_name);
         activeProfileIcon = view.findViewById(R.id.act_prof_activated_profile_icon);
-        if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
+        if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context))
             listView = view.findViewById(R.id.act_prof_profiles_list);
         else
             gridView = view.findViewById(R.id.act_prof_profiles_grid);
 
         AbsListView absListView;
-        if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
+        if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context))
             absListView = listView;
         else
             absListView = gridView;
@@ -116,7 +116,7 @@ public class ActivateProfileListFragment extends Fragment {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (!ApplicationPreferences.applicationLongClickActivation(dataWrapper.context))
+                if (!ApplicationPreferences.applicationLongClickActivation(activityDataWrapper.context))
                     //activateProfileWithAlert(position);
                     activateProfile((Profile)profileListAdapter.getItem(position));
 
@@ -129,7 +129,7 @@ public class ActivateProfileListFragment extends Fragment {
 
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (ApplicationPreferences.applicationLongClickActivation(dataWrapper.context))
+                if (ApplicationPreferences.applicationLongClickActivation(activityDataWrapper.context))
                     //activateProfileWithAlert(position);
                     activateProfile((Profile)profileListAdapter.getItem(position));
 
@@ -140,7 +140,7 @@ public class ActivateProfileListFragment extends Fragment {
 
         //absListView.setRemoveListener(onRemove);
 
-        if (profileList == null)
+        if (activityDataWrapper.profileList == null)
         {
             LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this);
             this.asyncTaskContext = new WeakReference<>(asyncTask );
@@ -175,7 +175,7 @@ public class ActivateProfileListFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            List<Profile> profileList = dataWrapper.getProfileList();
+            dataWrapper.fillProfileList();
 
             if (!ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
             {
@@ -189,7 +189,7 @@ public class ActivateProfileListFragment extends Fragment {
 
             if (ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context)) {
                 int count = 0;
-                for (Profile profile : profileList)
+                for (Profile profile : dataWrapper.profileList)
                 {
                     if (profile._showInActivator)
                         ++count;
@@ -201,12 +201,12 @@ public class ActivateProfileListFragment extends Fragment {
                                 dataWrapper.context.getResources().getString(R.string.profile_name_default),
                                 Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_IGNORED_PROFILE);
                         profile._showInActivator = true;
-                        profileList.add(profile);
+                        dataWrapper.profileList.add(profile);
                     }
                 }
             }
 
-            Collections.sort(profileList, new ProfileComparator());
+            Collections.sort(dataWrapper.profileList, new ProfileComparator());
             return null;
         }
 
@@ -219,13 +219,13 @@ public class ActivateProfileListFragment extends Fragment {
             if ((fragment != null) && (fragment.isAdded())) {
 
                 // get local profileList
-                List<Profile> profileList = dataWrapper.getProfileList();
+                this.dataWrapper.fillProfileList();
                 // set copy local profile list into activity profilesDataWrapper
-                fragment.dataWrapper.setProfileList(profileList);
+                fragment.activityDataWrapper.setProfileList(this.dataWrapper.profileList);
                 // set reference of profile list from profilesDataWrapper
-                fragment.profileList = fragment.dataWrapper.getProfileList();
+                //fragment.profileList = fragment.activityDataWrapper.getProfileList();
 
-                if (fragment.profileList.size() == 0)
+                if (fragment.activityDataWrapper.profileList.size() == 0)
                 {
                     // no profile in list, start Editor
 
@@ -238,7 +238,7 @@ public class ActivateProfileListFragment extends Fragment {
                     return;
                 }
 
-                fragment.profileListAdapter = new ActivateProfileListAdapter(fragment, fragment.profileList, fragment.dataWrapper);
+                fragment.profileListAdapter = new ActivateProfileListAdapter(fragment, /*fragment.profileList, */fragment.activityDataWrapper);
 
                 AbsListView absListView;
                 if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
@@ -276,7 +276,7 @@ public class ActivateProfileListFragment extends Fragment {
     {
         //long nanoTimeStart = PPApplication.startMeasuringRunTime();
 
-        Profile profile = dataWrapper.getActivatedProfile();
+        Profile profile = activityDataWrapper.getActivatedProfile();
 
         updateHeader(profile);
         setProfileSelection(profile, false);
@@ -292,7 +292,7 @@ public class ActivateProfileListFragment extends Fragment {
         }
 
         AbsListView absListView;
-        if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
+        if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context))
             absListView = listView;
         else
             absListView = gridView;
@@ -301,18 +301,18 @@ public class ActivateProfileListFragment extends Fragment {
         if (profileListAdapter != null)
             profileListAdapter.release();
 
-        profileList = null;
+        //profileList = null;
 
-        if (dataWrapper != null)
-            dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
+        if (activityDataWrapper != null)
+            activityDataWrapper.invalidateDataWrapper();
+        activityDataWrapper = null;
 
         super.onDestroy();
     }
 
     private void updateHeader(Profile profile)
     {
-        if (!ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
+        if (!ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context))
             return;
 
         if (activeProfileName == null)
@@ -326,7 +326,7 @@ public class ActivateProfileListFragment extends Fragment {
         }
         else
         {
-            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper));
+            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, activityDataWrapper));
             if (profile.getIsIconResourceID())
             {
                 if (profile._iconBitmap != null)
@@ -342,7 +342,7 @@ public class ActivateProfileListFragment extends Fragment {
             }
         }
 
-        if (ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context))
+        if (ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context))
         {
             ImageView profilePrefIndicatorImageView = getActivity().findViewById(R.id.act_prof_activated_profile_pref_indicator);
             if (profilePrefIndicatorImageView != null)
@@ -361,11 +361,11 @@ public class ActivateProfileListFragment extends Fragment {
 
     private void activateProfile(Profile profile)
     {
-        if ((dataWrapper == null) || (profile == null))
+        if ((activityDataWrapper == null) || (profile == null))
             return;
 
         if (profile._porder != PORDER_FOR_IGNORED_PROFILE)
-            dataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity()/*, ""*/);
+            activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity()/*, ""*/);
     }
 
     private void setProfileSelection(Profile profile, boolean refreshIcons) {
@@ -376,7 +376,7 @@ public class ActivateProfileListFragment extends Fragment {
             if (profile != null)
                 profilePos = profileListAdapter.getItemPosition(profile);
             else {
-                if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
+                if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context))
                     profilePos = listView.getCheckedItemPosition();
                 else
                     profilePos = gridView.getCheckedItemPosition();
@@ -384,10 +384,10 @@ public class ActivateProfileListFragment extends Fragment {
 
             profileListAdapter.notifyDataSetChanged(refreshIcons);
 
-            if ((!ApplicationPreferences.applicationActivatorHeader(dataWrapper.context)) && (profilePos != ListView.INVALID_POSITION))
+            if ((!ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context)) && (profilePos != ListView.INVALID_POSITION))
             {
                 // set profile visible in list
-                if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context)) {
+                if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context)) {
                     listView.setItemChecked(profilePos, true);
                     int last = listView.getLastVisiblePosition();
                     int first = listView.getFirstVisiblePosition();
@@ -409,7 +409,7 @@ public class ActivateProfileListFragment extends Fragment {
 
     public void refreshGUI(boolean refreshIcons)
     {
-        if ((dataWrapper == null) || (profileListAdapter == null))
+        if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
 
         ((ActivateProfileActivity) getActivity()).setEventsRunStopIndicator();
@@ -418,9 +418,9 @@ public class ActivateProfileListFragment extends Fragment {
         if (profileFromAdapter != null)
             profileFromAdapter._checked = false;
 
-        Profile profileFromDB = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
+        Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
         if (profileFromDB != null) {
-            Profile profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, false);
+            Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, false);
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);

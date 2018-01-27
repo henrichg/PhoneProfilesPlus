@@ -13,26 +13,26 @@ import java.util.List;
 class ShortcutProfileListAdapter extends BaseAdapter {
 
     private Fragment fragment;
-    private List<Profile> profileList;
+    private DataWrapper activityDataWrapper;
 
-    ShortcutProfileListAdapter(Fragment f, List<Profile> pl)
+    ShortcutProfileListAdapter(Fragment f, DataWrapper dataWrapper)
     {
         fragment = f;
-        profileList = pl;
+        activityDataWrapper = dataWrapper;
     }
 
     public void release()
     {
         fragment = null;
-        profileList = null;
+        activityDataWrapper = null;
     }
 
     public int getCount() {
-        return profileList.size();
+        return activityDataWrapper.profileList.size();
     }
 
     public Object getItem(int position) {
-        return profileList.get(position);
+        return activityDataWrapper.profileList.get(position);
     }
 
     public long getItemId(int position) {
@@ -69,7 +69,7 @@ class ShortcutProfileListAdapter extends BaseAdapter {
             holder = (ViewHolder)vi.getTag();
         }
 
-        Profile profile = profileList.get(position);
+        Profile profile = activityDataWrapper.profileList.get(position);
 
         String profileName = profile.getProfileNameWithDuration(false, fragment.getActivity());
         holder.profileName.setText(profileName);

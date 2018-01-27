@@ -72,7 +72,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
         if (event != null)
         {
-            int _eventStatus = event.getStatusFromDB(editorFragment.dataWrapper);
+            int _eventStatus = event.getStatusFromDB(editorFragment.activityDataWrapper);
 
             boolean isRunnable = event.isRunnable(context);
             int statusRes = R.drawable.ic_event_status_stop_not_runnable;
@@ -130,7 +130,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             } else
                 _eventName = eventStartOrder + eventPriority + _eventName;
             if (event._fkProfileStartWhenActivated > 0) {
-                Profile profile =  editorFragment.dataWrapper.getProfileById(event._fkProfileStartWhenActivated, false);
+                Profile profile =  editorFragment.activityDataWrapper.getProfileById(event._fkProfileStartWhenActivated, false);
                 if (profile != null)
                     _eventName = _eventName + "\n" + "[#] " + profile._name;
             }
@@ -147,7 +147,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
 
             // profile start
-            Profile profile =  editorFragment.dataWrapper.getProfileById(event._fkProfileStart, false);
+            Profile profile =  editorFragment.activityDataWrapper.getProfileById(event._fkProfileStart, false);
             if (profile != null)
             {
                 String profileName = profile._name;
@@ -212,7 +212,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 if (profileEndIndicator != null)
                     profileEndIndicator.setVisibility(View.VISIBLE);
 
-                profile = editorFragment.dataWrapper.getProfileById(event._fkProfileEnd, false);
+                profile = editorFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, false);
                 if (profile != null) {
                     String profileName = profile._name;
                     if (event._delayEnd > 0)

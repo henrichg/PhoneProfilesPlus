@@ -303,7 +303,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     {
         Fragment fragment = getFragmentManager().findFragmentById(R.id.activate_profile_list);
         if (fragment != null)
-            return ((ActivateProfileListFragment)fragment).dataWrapper;
+            return ((ActivateProfileListFragment)fragment).activityDataWrapper;
         else
             return null;
     }

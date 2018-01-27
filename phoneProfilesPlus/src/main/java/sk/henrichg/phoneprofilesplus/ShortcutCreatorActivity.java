@@ -10,16 +10,12 @@ import android.view.WindowManager.LayoutParams;
 
 public class ShortcutCreatorActivity extends AppCompatActivity {
 
-    private DataWrapper dataWrapper;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         GlobalGUIRoutines.setTheme(this, true, false, false);
         GlobalGUIRoutines.setLanguage(getBaseContext());
-
-        dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 
     // set window dimensions ----------------------------------------------------------
 
@@ -95,9 +91,6 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
     {
     //	Debug.stopMethodTracing();
         super.onDestroy();
-
-        dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
     }
 
     /*

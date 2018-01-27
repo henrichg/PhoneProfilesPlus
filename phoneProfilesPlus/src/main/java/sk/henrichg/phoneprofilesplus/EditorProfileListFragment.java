@@ -41,9 +41,7 @@ import java.util.List;
 public class EditorProfileListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
-    public DataWrapper dataWrapper;
-
-    private List<Profile> profileList;
+    public DataWrapper activityDataWrapper;
 
     RecyclerView listView;
     private TextView activeProfileName;
@@ -133,7 +131,7 @@ public class EditorProfileListFragment extends Fragment
                 getArguments().getInt(FILTER_TYPE_ARGUMENT, EditorProfileListFragment.FILTER_TYPE_ALL) :
                     EditorProfileListFragment.FILTER_TYPE_ALL;
 
-        dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
 
         setHasOptionsMenu(true);
 
@@ -143,10 +141,10 @@ public class EditorProfileListFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
-        if (ApplicationPreferences.applicationEditorPrefIndicator(dataWrapper.context) && ApplicationPreferences.applicationEditorHeader(dataWrapper.context))
+        if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context) && ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
             rootView = inflater.inflate(R.layout.editor_profile_list, container, false);
         else
-        if (ApplicationPreferences.applicationEditorHeader(dataWrapper.context))
+        if (ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
             rootView = inflater.inflate(R.layout.editor_profile_list_no_indicator, container, false);
         else
             rootView = inflater.inflate(R.layout.editor_profile_list_no_header, container, false);
@@ -217,7 +215,7 @@ public class EditorProfileListFragment extends Fragment
         LinearLayout orderLayout = getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
         orderLayout.setVisibility(View.GONE);
         
-        if (profileList == null)
+        if (activityDataWrapper.profileList == null)
         {
             LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this, filterType);
             this.asyncTaskContext = new WeakReference<>(asyncTask );
@@ -230,7 +228,7 @@ public class EditorProfileListFragment extends Fragment
             // update activity for activated profile
             fragment.listView.getRecycledViewPool().clear();
             Profile profile;
-            profile = dataWrapper.getActivatedProfile();
+            profile = activityDataWrapper.getActivatedProfile();
             updateHeader(profile);
             profileListAdapter.notifyDataSetChanged(false);
             setProfileSelection(profile);
@@ -254,12 +252,12 @@ public class EditorProfileListFragment extends Fragment
 
         @Override
         protected Void doInBackground(Void... params) {
-            List<Profile> profileList = _dataWrapper.getProfileList();
-            if (profileList.size() == 0)
+            _dataWrapper.fillProfileList();
+            if (_dataWrapper.profileList.size() == 0)
             {
                 // no profiles in DB, generate default profiles and events
 
-                profileList = _dataWrapper.getPredefinedProfileList();
+                _dataWrapper.fillPredefinedProfileList();
                 defaultProfilesGenerated = true;
 
                 _dataWrapper.generatePredefinedEventList();
@@ -267,9 +265,9 @@ public class EditorProfileListFragment extends Fragment
             }
             // sort list
             if (_filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
-                EditorProfileListFragment.sortAlphabetically(profileList);
+                EditorProfileListFragment.sortAlphabetically(_dataWrapper.profileList);
             else
-                EditorProfileListFragment.sortByPOrder(profileList);
+                EditorProfileListFragment.sortByPOrder(_dataWrapper.profileList);
 
             return null;
         }
@@ -283,13 +281,11 @@ public class EditorProfileListFragment extends Fragment
             if ((fragment != null) && (fragment.isAdded())) {
 
                 // get local profileList
-                List<Profile> profileList = _dataWrapper.getProfileList();
+                _dataWrapper.fillProfileList();
                 // set local profile list into activity dataWrapper
-                fragment.dataWrapper.setProfileList(profileList);
-                // set reference of profile list from dataWrapper
-                fragment.profileList = fragment.dataWrapper.getProfileList();
+                fragment.activityDataWrapper.setProfileList(_dataWrapper.profileList);
 
-                fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.dataWrapper, _filterType, fragment);
+                fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 
                 // added touch helper for drag and drop items
                 ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.profileListAdapter, false, false);
@@ -301,14 +297,14 @@ public class EditorProfileListFragment extends Fragment
                 // update activity for activated profile
                 fragment.listView.getRecycledViewPool().clear();
                 Profile profile;
-                profile = fragment.dataWrapper.getActivatedProfile();
+                profile = fragment.activityDataWrapper.getActivatedProfile();
                 fragment.updateHeader(profile);
                 fragment.profileListAdapter.notifyDataSetChanged(false);
                 fragment.setProfileSelection(profile);
 
                 if (defaultProfilesGenerated)
                 {
-                    ActivateProfileHelper.updateWidget(fragment.dataWrapper.context, true);
+                    ActivateProfileHelper.updateWidget(fragment.activityDataWrapper.context, true);
                     Toast msg = Toast.makeText(fragment.getActivity(),
                             fragment.getResources().getString(R.string.toast_default_profiles_generated),
                             Toast.LENGTH_SHORT);
@@ -351,11 +347,9 @@ public class EditorProfileListFragment extends Fragment
         if (profileListAdapter != null)
             profileListAdapter.release();
 
-        profileList = null;
-
-        if (dataWrapper != null)
-            dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
+        if (activityDataWrapper != null)
+            activityDataWrapper.invalidateDataWrapper();
+        activityDataWrapper = null;
 
         super.onDestroy();
 
@@ -416,11 +410,11 @@ public class EditorProfileListFragment extends Fragment
         //final Profile _profile = profile;
         //final Activity activity = getActivity();
 
-        if (dataWrapper.getProfileById(profile._id, false) == null)
+        if (activityDataWrapper.getProfileById(profile._id, false) == null)
             // profile not exists
             return;
 
-        Profile activatedProfile = dataWrapper.getActivatedProfile();
+        Profile activatedProfile = activityDataWrapper.getActivatedProfile();
         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
             // remove alarm for profile duration
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
@@ -429,19 +423,19 @@ public class EditorProfileListFragment extends Fragment
 
         listView.getRecycledViewPool().clear();
 
-        dataWrapper.stopEventsForProfile(profile);
-        dataWrapper.unlinkEventsFromProfile(profile);
+        activityDataWrapper.stopEventsForProfile(profile);
+        activityDataWrapper.unlinkEventsFromProfile(profile);
         profileListAdapter.deleteItemNoNotify(profile);
-        DatabaseHandler.getInstance(dataWrapper.context).unlinkEventsFromProfile(profile);
-        DatabaseHandler.getInstance(dataWrapper.context).deleteProfile(profile);
+        DatabaseHandler.getInstance(activityDataWrapper.context).unlinkEventsFromProfile(profile);
+        DatabaseHandler.getInstance(activityDataWrapper.context).deleteProfile(profile);
 
         profileListAdapter.notifyDataSetChanged();
         //Profile profile = databaseHandler.getActivatedProfile();
         Profile _profile = profileListAdapter.getActivatedProfile();
         updateHeader(_profile);
         if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.showProfileNotification(_profile, dataWrapper);
-        ActivateProfileHelper.updateWidget(dataWrapper.context, true);
+            PhoneProfilesService.instance.showProfileNotification(_profile, activityDataWrapper);
+        ActivateProfileHelper.updateWidget(activityDataWrapper.context, true);
 
         Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
@@ -529,11 +523,11 @@ public class EditorProfileListFragment extends Fragment
 
                     listView.getRecycledViewPool().clear();
 
-                    dataWrapper.stopAllEvents(true);
-                    dataWrapper.unlinkAllEvents();
+                    activityDataWrapper.stopAllEvents(true);
+                    activityDataWrapper.unlinkAllEvents();
                     profileListAdapter.clearNoNotify();
-                    DatabaseHandler.getInstance(dataWrapper.context).deleteAllProfiles();
-                    DatabaseHandler.getInstance(dataWrapper.context).unlinkAllEvents();
+                    DatabaseHandler.getInstance(activityDataWrapper.context).deleteAllProfiles();
+                    DatabaseHandler.getInstance(activityDataWrapper.context).unlinkAllEvents();
 
                     profileListAdapter.notifyDataSetChanged();
 
@@ -541,8 +535,8 @@ public class EditorProfileListFragment extends Fragment
                     //Profile profile = profileListAdapter.getActivatedProfile();
                     updateHeader(null);
                     if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.showProfileNotification(null, dataWrapper);
-                    ActivateProfileHelper.updateWidget(dataWrapper.context, true);
+                        PhoneProfilesService.instance.showProfileNotification(null, activityDataWrapper);
+                    ActivateProfileHelper.updateWidget(activityDataWrapper.context, true);
 
                     Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
@@ -563,7 +557,7 @@ public class EditorProfileListFragment extends Fragment
 
     public void updateHeader(Profile profile)
     {
-        if (!ApplicationPreferences.applicationEditorHeader(dataWrapper.context))
+        if (!ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
             return;
 
         if ((activeProfileName == null) || (activeProfileIcon == null))
@@ -576,7 +570,7 @@ public class EditorProfileListFragment extends Fragment
         }
         else
         {
-            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper));
+            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, activityDataWrapper));
             if (profile.getIsIconResourceID())
             {
                 if (profile._iconBitmap != null)
@@ -592,7 +586,7 @@ public class EditorProfileListFragment extends Fragment
             }
         }
 
-        if (ApplicationPreferences.applicationEditorPrefIndicator(dataWrapper.context))
+        if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
         {
             ImageView profilePrefIndicatorImageView = getActivity().findViewById(R.id.activated_profile_pref_indicator);
             if (profilePrefIndicatorImageView != null)
@@ -617,7 +611,7 @@ public class EditorProfileListFragment extends Fragment
             if(resultCode == Activity.RESULT_OK)
             {
                 long profile_id = data.getLongExtra(PPApplication.EXTRA_PROFILE_ID, -1);
-                Profile profile = dataWrapper.getProfileById(profile_id, false);
+                Profile profile = activityDataWrapper.getProfileById(profile_id, false);
 
                 if (profileListAdapter != null)
                     profileListAdapter.activateProfile(profile);
@@ -632,7 +626,7 @@ public class EditorProfileListFragment extends Fragment
 
     public void activateProfile(Profile profile/*, boolean interactive*/)
     {
-        dataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity()/*, ""*/);
+        activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity()/*, ""*/);
     }
 
     private void setProfileSelection(Profile profile) {
@@ -680,12 +674,12 @@ public class EditorProfileListFragment extends Fragment
                 profileListAdapter.addItem(profile);
         }
 
-        if (profileList != null) {
+        if (activityDataWrapper.profileList != null) {
             // sort list
             if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
-                sortAlphabetically(profileList);
+                sortAlphabetically(activityDataWrapper.profileList);
             else
-                sortByPOrder(profileList);
+                sortByPOrder(activityDataWrapper.profileList);
         }
 
         if (profileListAdapter != null)
@@ -730,7 +724,7 @@ public class EditorProfileListFragment extends Fragment
 
     public void refreshGUI(boolean refreshIcons, boolean setPosition)
     {
-        if ((dataWrapper == null) || (profileListAdapter == null))
+        if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
 
         PPApplication.logE("EditorProfileListFragment.refreshGUI", "refresh");
@@ -739,10 +733,10 @@ public class EditorProfileListFragment extends Fragment
         if (profileFromAdapter != null)
             profileFromAdapter._checked = false;
 
-        Profile profileFromDB = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
+        Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
         if (profileFromDB != null) {
             PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile activated");
-            Profile profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, false);
+            Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, false);
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);

@@ -28,12 +28,12 @@ class AddEventDialog
         //int monochromeValue = 0xFF;
 
         Event event;
-        event = eventListFragment.dataWrapper.getNonInitializedEvent(context.getResources().getString(R.string.event_name_default), 0);
+        event = eventListFragment.activityDataWrapper.getNonInitializedEvent(context.getResources().getString(R.string.event_name_default), 0);
         //event.generatePreferencesIndicator(context, monochrome, monochromeValue);
         eventList.add(event);
         boolean profileNotExists = false;
         for (int index = 0; index < 6; index++) {
-            event = eventListFragment.dataWrapper.getPredefinedEvent(index, false);
+            event = eventListFragment.activityDataWrapper.getPredefinedEvent(index, false);
             //profile.generateIconBitmap(context, monochrome, monochromeValue);
             //profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
             if (event._fkProfileStart == 0)

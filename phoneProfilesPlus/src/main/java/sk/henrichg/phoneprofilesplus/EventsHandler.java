@@ -184,7 +184,7 @@ class EventsHandler {
                 return;
             }
 
-            List<Event> eventList = dataWrapper.getEventList();
+            dataWrapper.fillEventList();
 
             boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS);
 
@@ -194,7 +194,7 @@ class EventsHandler {
                     sensorType.equals(SENSOR_TYPE_SEARCH_CALENDAR_EVENTS)) {
                 // search for calendar events
                 PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "search for calendar events");
-                for (Event _event : eventList) {
+                for (Event _event : this.dataWrapper.eventList) {
                     if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
                         PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "event._id=" + _event._id);
                         _event._eventPreferencesCalendar.saveStartEndTime(dataWrapper);
@@ -205,7 +205,7 @@ class EventsHandler {
             // "push events"
             if (isRestart) {
                 // for restart events, set startTime to 0
-                for (Event _event : eventList) {
+                for (Event _event : this.dataWrapper.eventList) {
                     _event._eventPreferencesSMS._startTime = 0;
                     DatabaseHandler.getInstance(context.getApplicationContext()).updateSMSStartTime(_event);
                     //_event._eventPreferencesNotification._startTime = 0;
@@ -220,7 +220,7 @@ class EventsHandler {
                 if (sensorType.equals(SENSOR_TYPE_SMS)) {
                     // search for sms events, save start time
                     PPApplication.logE("EventsHandler.handleEvents", "search for sms events");
-                    for (Event _event : eventList) {
+                    for (Event _event : this.dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
                             if (_event._eventPreferencesSMS._enabled) {
                                 PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
@@ -248,7 +248,7 @@ class EventsHandler {
                 if (sensorType.equals(SENSOR_TYPE_NFC_TAG)) {
                     // search for nfc events, save start time
                     PPApplication.logE("EventsHandler.handleEvents", "search for nfc events");
-                    for (Event _event : eventList) {
+                    for (Event _event : this.dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
                             if (_event._eventPreferencesNFC._enabled) {
                                 PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
@@ -260,7 +260,7 @@ class EventsHandler {
                 if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
                     // search for call events, save start time
                     PPApplication.logE("EventsHandler.handleEvents", "search for call events");
-                    for (Event _event : eventList) {
+                    for (Event _event : this.dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
                             if (_event._eventPreferencesCall._enabled &&
                                     (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)) {
@@ -296,7 +296,7 @@ class EventsHandler {
 
                 // 1. pause events
                 dataWrapper.sortEventsByStartOrderDesc();
-                for (Event _event : eventList) {
+                for (Event _event : this.dataWrapper.eventList) {
                     PPApplication.logE("EventsHandler.handleEvents", "state PAUSE");
                     PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
@@ -313,7 +313,7 @@ class EventsHandler {
 
                 // 2. start events
                 dataWrapper.sortEventsByStartOrderAsc();
-                for (Event _event : eventList) {
+                for (Event _event : this.dataWrapper.eventList) {
                     PPApplication.logE("EventsHandler.handleEvents", "state RUNNING");
                     PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
@@ -332,7 +332,7 @@ class EventsHandler {
 
                 //1. pause events
                 dataWrapper.sortEventsByStartOrderDesc();
-                for (Event _event : eventList) {
+                for (Event _event : this.dataWrapper.eventList) {
                     PPApplication.logE("EventsHandler.handleEvents", "state PAUSE");
                     PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
@@ -350,7 +350,7 @@ class EventsHandler {
 
                 //2. start events
                 dataWrapper.sortEventsByStartOrderAsc();
-                for (Event _event : eventList) {
+                for (Event _event : this.dataWrapper.eventList) {
                     PPApplication.logE("EventsHandler.handleEvents", "state RUNNING");
                     PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());

@@ -98,10 +98,10 @@ public class ProfilePreference extends DialogPreference {
             }
         });
 
-        List<Profile> profileList = dataWrapper.getProfileList();
-        Collections.sort(profileList, new AlphabeticallyComparator());
+        dataWrapper.fillProfileList();
+        Collections.sort(dataWrapper.profileList, new AlphabeticallyComparator());
 
-        profilePreferenceAdapter = new ProfilePreferenceAdapter(this, prefContext, profileId, profileList);
+        profilePreferenceAdapter = new ProfilePreferenceAdapter(this, prefContext, profileId, dataWrapper.profileList);
         listView.setAdapter(profilePreferenceAdapter);
 
         int position;
@@ -116,7 +116,7 @@ public class ProfilePreference extends DialogPreference {
         {
             boolean found = false;
             position = 0;
-            for (Profile profile : profileList)
+            for (Profile profile : dataWrapper.profileList)
             {
                 if (profile._id == iProfileId)
                 {

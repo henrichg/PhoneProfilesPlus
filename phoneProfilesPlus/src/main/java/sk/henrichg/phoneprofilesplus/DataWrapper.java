@@ -46,8 +46,8 @@ public class DataWrapper {
     private boolean monochrome = false;
     private int monochromeValue = 0xFF;
 
-    private List<Profile> profileList = null;
-    private List<Event> eventList = null;
+    List<Profile> profileList = null;
+    List<Event> eventList = null;
 
     //static final String EXTRA_INTERACTIVE = "interactive";
 
@@ -71,14 +71,12 @@ public class DataWrapper {
         monochromeValue = monoVal;
     }
 
-    public List<Profile> getProfileList()
+    public void fillProfileList()
     {
         if (profileList == null)
         {
             profileList = getNewProfileList();
         }
-
-        return profileList;
     }
 
     List<Profile> getNewProfileList() {
@@ -339,7 +337,7 @@ public class DataWrapper {
         return profile;
     }
 
-    List<Profile>  getPredefinedProfileList()
+    void fillPredefinedProfileList()
     {
         invalidateProfileList();
         DatabaseHandler.getInstance(context).deleteAllProfiles();
@@ -347,7 +345,7 @@ public class DataWrapper {
         for (int index = 0; index < 6; index++)
             getPredefinedProfile(index, true);
 
-        return getProfileList();
+        fillProfileList();
     }
 
     void invalidateProfileList()
@@ -546,8 +544,7 @@ public class DataWrapper {
             return;
 
         profileList.remove(profile);
-        if (eventList == null)
-            eventList = getEventList();
+        fillEventList();
         // unlink profile from events
         for (Event event : eventList)
         {
@@ -569,8 +566,7 @@ public class DataWrapper {
     void deleteAllProfiles()
     {
         profileList.clear();
-        if (eventList == null)
-            eventList = getEventList();
+        fillEventList();
         // unlink profiles from events
         for (Event event : eventList)
         {
@@ -598,14 +594,12 @@ public class DataWrapper {
 
 //---------------------------------------------------
 
-    List<Event> getEventList()
+    void fillEventList()
     {
         if (eventList == null)
         {
             eventList = DatabaseHandler.getInstance(context).getAllEvents();
         }
-
-        return eventList;
     }
 
     void setEventList(List<Event> eventList)
@@ -672,7 +666,7 @@ public class DataWrapper {
             }
         }
 
-        getEventList();
+        fillEventList();
         if (eventList != null)
         {
             Collections.sort(eventList, new PriorityComparator());
@@ -690,7 +684,7 @@ public class DataWrapper {
             }
         }
 
-        getEventList();
+        fillEventList();
         if (eventList != null)
         {
             Collections.sort(eventList, new PriorityComparator());
@@ -740,7 +734,8 @@ public class DataWrapper {
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
-        for (Event event : getEventList())
+        fillEventList();
+        for (Event event : eventList)
         {
             //if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
             //	(event._fkProfileStart == profile._id))
@@ -756,7 +751,8 @@ public class DataWrapper {
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
-        for (Event event : getEventList())
+        fillEventList();
+        for (Event event : eventList)
         {
             if (event != null)
             {
@@ -869,7 +865,8 @@ public class DataWrapper {
 
     void unlinkEventsFromProfile(Profile profile)
     {
-        for (Event event : getEventList())
+        fillEventList();
+        for (Event event : eventList)
         {
             if (event._fkProfileStart == profile._id)
                 event._fkProfileStart = 0;
@@ -880,7 +877,8 @@ public class DataWrapper {
 
     void unlinkAllEvents()
     {
-        for (Event event : getEventList())
+        fillEventList();
+        for (Event event : eventList)
         {
             event._fkProfileStart = 0;
             event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
@@ -934,7 +932,8 @@ public class DataWrapper {
 
         if (!startedFromService) {
             Event.setEventsBlocked(context, false);
-            for (Event event : getEventList())
+            fillEventList();
+            for (Event event : eventList)
             {
                 if (event != null)
                     event._blocked = false;
@@ -3103,7 +3102,8 @@ public class DataWrapper {
             Profile.setActivatedProfileForDuration(context, 0);
 
             Event.setEventsBlocked(context, false);
-            for (Event event : getEventList())
+            fillEventList();
+            for (Event event : eventList)
             {
                 if (event != null)
                     event._blocked = false;
@@ -3399,7 +3399,8 @@ public class DataWrapper {
     private void resetAllEventsInDelayStart(boolean onlyFromDb)
     {
         if (!onlyFromDb) {
-            for (Event event : getEventList()) {
+            fillEventList();
+            for (Event event : eventList) {
                 event.removeDelayStartAlarm(this);
                 event.removeDelayStartAlarm(this);
             }
@@ -3410,7 +3411,8 @@ public class DataWrapper {
     private void resetAllEventsInDelayEnd(boolean onlyFromDb)
     {
         if (!onlyFromDb) {
-            for (Event event : getEventList()) {
+            fillEventList();
+            for (Event event : eventList) {
                 event.removeDelayEndAlarm(this);
                 event.removeDelayEndAlarm(this);
             }

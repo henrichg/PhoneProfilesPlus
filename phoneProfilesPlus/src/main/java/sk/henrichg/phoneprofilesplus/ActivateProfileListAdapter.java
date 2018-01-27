@@ -15,35 +15,33 @@ import android.widget.TextView;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
-import java.util.List;
-
 class ActivateProfileListAdapter extends BaseAdapter
 {
 
-    private List<Profile> profileList;
+    //private List<Profile> profileList;
     private ActivateProfileListFragment fragment;
-    private final DataWrapper dataWrapper;
+    private final DataWrapper activityDataWrapper;
 
     //public boolean targetHelpsSequenceStarted;
     static final String PREF_START_TARGET_HELPS = "activate_profile_list_adapter_start_target_helps";
 
-    ActivateProfileListAdapter(ActivateProfileListFragment f, List<Profile> pl, DataWrapper dataWrapper)
+    ActivateProfileListAdapter(ActivateProfileListFragment f, /*List<Profile> pl, */DataWrapper dataWrapper)
     {
         fragment = f;
-        profileList = pl;
-        this.dataWrapper = dataWrapper;
+        //profileList = pl;
+        this.activityDataWrapper = dataWrapper;
     }
 
     public void release()
     {
         fragment = null;
-        profileList = null;
+        //profileList = null;
     }
 
     public int getCount()
     {
         int count = 0;
-        for (Profile profile : profileList)
+        for (Profile profile : activityDataWrapper.profileList)
         {
             if (profile._showInActivator)
                 ++count;
@@ -60,7 +58,7 @@ class ActivateProfileListAdapter extends BaseAdapter
             Profile _profile = null;
 
             int pos = -1;
-            for (Profile profile : profileList)
+            for (Profile profile : activityDataWrapper.profileList)
             {
                 if (profile._showInActivator)
                     ++pos;
@@ -98,15 +96,15 @@ class ActivateProfileListAdapter extends BaseAdapter
         if (profile == null)
             return -1;
 
-        if (profileList == null)
+        if (activityDataWrapper.profileList == null)
             return -1;
 
         int pos = -1;
 
-        for (int i = 0; i < profileList.size(); i++)
+        for (int i = 0; i < activityDataWrapper.profileList.size(); i++)
         {
             ++pos;
-            if (profileList.get(i)._id == profile._id)
+            if (activityDataWrapper.profileList.get(i)._id == profile._id)
                 return pos;
         }
         return -1;
@@ -114,7 +112,7 @@ class ActivateProfileListAdapter extends BaseAdapter
 
     public Profile getActivatedProfile()
     {
-        for (Profile p : profileList)
+        for (Profile p : activityDataWrapper.profileList)
         {
             if (p._checked)
             {
@@ -127,8 +125,8 @@ class ActivateProfileListAdapter extends BaseAdapter
 
     public void notifyDataSetChanged(boolean refreshIcons) {
         if (refreshIcons) {
-            for (Profile profile : profileList) {
-                dataWrapper.refreshProfileIcon(profile, false, 0);
+            for (Profile profile : activityDataWrapper.profileList) {
+                activityDataWrapper.refreshProfileIcon(profile, false, 0);
             }
         }
         notifyDataSetChanged();
@@ -206,7 +204,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                             profile._checked &&
                             (!ApplicationPreferences.applicationActivatorHeader(fragment.getActivity())), true,
                     ApplicationPreferences.applicationActivatorGridLayout(fragment.getActivity()),
-                    dataWrapper);
+                    activityDataWrapper);
             holder.profileName.setText(profileName);
 
 

@@ -31,7 +31,7 @@ class AddProfileDialog
         profile.generatePreferencesIndicator(context, false, 0xFF);
         profileList.add(profile);
         for (int index = 0; index < 6; index++) {
-            profile = profileListFragment.dataWrapper.getPredefinedProfile(index, false);
+            profile = profileListFragment.activityDataWrapper.getPredefinedProfile(index, false);
             profile.generateIconBitmap(context, false, 0xFF);
             profile.generatePreferencesIndicator(context, false, 0xFF);
             profileList.add(profile);

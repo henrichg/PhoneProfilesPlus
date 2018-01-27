@@ -49,8 +49,8 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     //Log.d("ActionForExternalApplicationActivity.onCreate", "profileName="+profileName);
 
                     if (!profileName.isEmpty()) {
-                        List<Profile> profileList = dataWrapper.getProfileList();
-                        for (Profile profile : profileList) {
+                        dataWrapper.fillProfileList();
+                        for (Profile profile : this.dataWrapper.profileList) {
                             if (profile._name.trim().equals(profileName)) {
                                 profile_id = profile._id;
                                 break;
@@ -66,8 +66,8 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     //Log.d("ActionForExternalApplicationActivity.onCreate", "eventName=" + eventName);
 
                     if (!eventName.isEmpty()) {
-                        List<Event> eventList = dataWrapper.getEventList();
-                        for (Event event : eventList) {
+                        dataWrapper.fillEventList();
+                        for (Event event : this.dataWrapper.eventList) {
                             if (event._name.trim().equals(eventName)) {
                                 event_id = event._id;
                                 break;

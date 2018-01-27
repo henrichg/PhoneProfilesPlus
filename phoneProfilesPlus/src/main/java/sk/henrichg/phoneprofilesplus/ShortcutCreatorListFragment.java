@@ -26,8 +26,7 @@ import java.util.List;
 
 public class ShortcutCreatorListFragment extends Fragment {
 
-    private DataWrapper dataWrapper;
-    private List<Profile> profileList;
+    private DataWrapper activityDataWrapper;
     private ShortcutProfileListAdapter profileListAdapter;
     private ListView listView;
 
@@ -45,7 +44,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         // configuration changes for example
         setRetainInstance(true);
 
-        dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
 
     }
 
@@ -78,7 +77,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         });
 
-        if (profileList == null)
+        if (activityDataWrapper.profileList == null)
         {
             LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this);
             this.asyncTaskContext = new WeakReference<>(asyncTask );
@@ -112,8 +111,8 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            List<Profile> profileList = this.dataWrapper.getProfileList();
-            Collections.sort(profileList, new ProfileComparator());
+            this.dataWrapper.fillProfileList();
+            Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
             return null;
         }
 
@@ -126,19 +125,17 @@ public class ShortcutCreatorListFragment extends Fragment {
             if ((fragment != null) && (fragment.isAdded())) {
 
                 // get local profileList
-                List<Profile> profileList = this.dataWrapper.getProfileList();
+                this.dataWrapper.fillProfileList();
 
                 // add restart events
                 Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events),
                                             "ic_action_events_restart_color", 0);
-                profileList.add(0, profile);
+                this.dataWrapper.profileList.add(0, profile);
 
                 // set copy local profile list into activity profilesDataWrapper
-                fragment.dataWrapper.setProfileList(profileList);
-                // set reference of profile list from profilesDataWrapper
-                fragment.profileList = fragment.dataWrapper.getProfileList();
+                fragment.activityDataWrapper.setProfileList(this.dataWrapper.profileList);
 
-                fragment.profileListAdapter = new ShortcutProfileListAdapter(fragment, fragment.profileList);
+                fragment.profileListAdapter = new ShortcutProfileListAdapter(fragment, fragment.activityDataWrapper);
                 fragment.listView.setAdapter(fragment.profileListAdapter);
             }
         }
@@ -162,18 +159,16 @@ public class ShortcutCreatorListFragment extends Fragment {
         if (profileListAdapter != null)
             profileListAdapter.release();
 
-        profileList = null;
-
-        if (dataWrapper != null)
-            dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
+        if (activityDataWrapper != null)
+            activityDataWrapper.invalidateDataWrapper();
+        activityDataWrapper = null;
 
         super.onDestroy();
     }
 
     private void createShortcut(int position)
     {
-        Profile profile = profileList.get(position);
+        Profile profile = activityDataWrapper.profileList.get(position);
         boolean isIconResourceID;
         String iconIdentifier;
         Bitmap profileBitmap;
@@ -245,9 +240,9 @@ public class ShortcutCreatorListFragment extends Fragment {
             shortcutOverlayBitmap = BitmapManipulator.resampleResource(resources, R.drawable.ic_shortcut_overlay, width, height);
         }
 
-        if (ApplicationPreferences.applicationWidgetIconColor(dataWrapper.context).equals("1")) {
+        if (ApplicationPreferences.applicationWidgetIconColor(activityDataWrapper.context).equals("1")) {
             int monochromeValue = 0xFF;
-            String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness(dataWrapper.context);
+            String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness(activityDataWrapper.context);
             if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
             if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
             if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
@@ -290,7 +285,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         Canvas canvas = new Canvas(combined);
         canvas.drawBitmap(bitmap1, 0f, 0f, null);
-        if (ApplicationPreferences.applicationShortcutEmblem(dataWrapper.context))
+        if (ApplicationPreferences.applicationShortcutEmblem(activityDataWrapper.context))
             canvas.drawBitmap(bitmap2, 0f, 0f, null);
 
         return combined;

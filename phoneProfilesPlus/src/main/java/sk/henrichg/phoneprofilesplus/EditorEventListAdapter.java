@@ -20,9 +20,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 {
 
     private EditorEventListFragment fragment;
-    private DataWrapper dataWrapper;
+    private DataWrapper activityDataWrapper;
     private final int filterType;
-    private List<Event> eventList;
     //boolean released = false;
     //private int defaultColor;
 
@@ -36,8 +35,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                            OnStartDragItemListener dragStartListener)
     {
         fragment = f;
-        dataWrapper = pdw;
-        eventList = dataWrapper.getEventList();
+        activityDataWrapper = pdw;
         this.filterType = filterType;
         this.mDragStartListener = dragStartListener;
     }
@@ -71,25 +69,27 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         holder.bindEvent(event);
 
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
-            holder.dragHandle.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            mDragStartListener.onStartDrag(holder);
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            v.performClick();
-                            break;
-                        default:
-                            break;
-                    }
+            if (holder.dragHandle != null) {
+                holder.dragHandle.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                mDragStartListener.onStartDrag(holder);
+                                break;
+                            case MotionEvent.ACTION_UP:
+                                v.performClick();
+                                break;
+                            default:
+                                break;
+                        }
                     /*if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
                         mDragStartListener.onStartDrag(holder);
                     }*/
-                    return false;
-                }
-            });
+                        return false;
+                    }
+                });
+            }
         }
     }
 
@@ -98,24 +98,23 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         //released = true;
 
         fragment = null;
-        eventList = null;
-        dataWrapper = null;
+        activityDataWrapper = null;
     }
 
     @Override
     public int getItemCount() {
         fragment.textViewNoData.setVisibility(
-                ((eventList != null) && (eventList.size() > 0)) ? View.GONE : View.VISIBLE);
+                ((activityDataWrapper.eventList != null) && (activityDataWrapper.eventList.size() > 0)) ? View.GONE : View.VISIBLE);
 
-        if (eventList == null)
+        if (activityDataWrapper.eventList == null)
             return 0;
 
         if ((filterType == EditorEventListFragment.FILTER_TYPE_ALL) ||
                 (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER))
-            return eventList.size();
+            return activityDataWrapper.eventList.size();
 
         int count = 0;
-        for (Event event : eventList)
+        for (Event event : activityDataWrapper.eventList)
         {
             switch (filterType)
             {
@@ -147,12 +146,12 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         {
             if ((filterType == EditorEventListFragment.FILTER_TYPE_ALL) ||
                     (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER))
-                return eventList.get(position);
+                return activityDataWrapper.eventList.get(position);
 
             Event _event = null;
 
             int pos = -1;
-            for (Event event : eventList)
+            for (Event event : activityDataWrapper.eventList)
             {
                 switch (filterType)
                 {
@@ -185,7 +184,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     int getItemPosition(Event event)
     {
-        if (eventList == null)
+        if (activityDataWrapper.eventList == null)
             return -1;
 
         if (event == null)
@@ -193,7 +192,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
         int pos = -1;
 
-        for (int i = 0; i < eventList.size(); i++)
+        for (int i = 0; i < activityDataWrapper.eventList.size(); i++)
         {
             switch (filterType)
             {
@@ -218,7 +217,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     break;
             }
 
-            if (eventList.get(i)._id == event._id)
+            if (activityDataWrapper.eventList.get(i)._id == event._id)
                 return pos;
         }
         return -1;
@@ -234,41 +233,41 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     void addItem(Event event/*, boolean refresh*/)
     {
-        if (eventList == null)
+        if (activityDataWrapper.eventList == null)
             return;
 
         //if (refresh)
         //    fragment.listView.getRecycledViewPool().clear();
-        eventList.add(event);
+        activityDataWrapper.eventList.add(event);
         //if (refresh)
         //    notifyDataSetChanged();
     }
 
     void deleteItemNoNotify(Event event)
     {
-        if (eventList == null)
+        if (activityDataWrapper.eventList == null)
             return;
 
-        eventList.remove(event);
+        activityDataWrapper.eventList.remove(event);
     }
 
     public void clear()
     {
-        if (eventList == null)
+        if (activityDataWrapper.eventList == null)
             return;
 
         fragment.listView.getRecycledViewPool().clear();
-        eventList.clear();
+        activityDataWrapper.eventList.clear();
         notifyDataSetChanged();
     }
 
     public void notifyDataSetChanged(boolean refreshIcons) {
         if (refreshIcons) {
-            for (Event event : eventList) {
-                Profile profile = dataWrapper.getProfileById(event._fkProfileStart, false);
-                dataWrapper.refreshProfileIcon(profile, false, 0);
-                profile = dataWrapper.getProfileById(event._fkProfileEnd, false);
-                dataWrapper.refreshProfileIcon(profile, false, 0);
+            for (Event event : activityDataWrapper.eventList) {
+                Profile profile = activityDataWrapper.getProfileById(event._fkProfileStart, false);
+                activityDataWrapper.refreshProfileIcon(profile, false, 0);
+                profile = activityDataWrapper.getProfileById(event._fkProfileEnd, false);
+                activityDataWrapper.refreshProfileIcon(profile, false, 0);
             }
         }
         notifyDataSetChanged();
@@ -276,13 +275,13 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
     @Override
     public void onItemDismiss(int position) {
-        eventList.remove(position);
+        activityDataWrapper.eventList.remove(position);
         notifyItemRemoved(position);
     }
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-        if (eventList == null)
+        if (activityDataWrapper.eventList == null)
             return false;
 
         //Log.d("----- EditorEventListAdapter.onItemMove", "fromPosition="+fromPosition);
@@ -292,20 +291,20 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             return false;
 
         // convert positions from adapter into profileList
-        int plFrom = eventList.indexOf(getItem(fromPosition));
-        int plTo = eventList.indexOf(getItem(toPosition));
+        int plFrom = activityDataWrapper.eventList.indexOf(getItem(fromPosition));
+        int plTo = activityDataWrapper.eventList.indexOf(getItem(toPosition));
 
         if (plFrom < plTo) {
             for (int i = plFrom; i < plTo; i++) {
-                Collections.swap(eventList, i, i + 1);
+                Collections.swap(activityDataWrapper.eventList, i, i + 1);
             }
         } else {
             for (int i = plFrom; i > plTo; i--) {
-                Collections.swap(eventList, i, i - 1);
+                Collections.swap(activityDataWrapper.eventList, i, i - 1);
             }
         }
 
-        DatabaseHandler.getInstance(dataWrapper.context).setEventStartOrder(eventList);  // set events _startOrder and write it into db
+        DatabaseHandler.getInstance(activityDataWrapper.context).setEventStartOrder(activityDataWrapper.eventList);  // set events _startOrder and write it into db
 
         notifyItemMoved(fromPosition, toPosition);
         return true;
