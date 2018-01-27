@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.PowerManager;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
@@ -19,6 +21,8 @@ import android.support.v4.app.NotificationCompat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+
+import static android.content.Context.POWER_SERVICE;
 
 class Event {
 
@@ -1032,8 +1036,7 @@ class Event {
                             //boolean interactive,
                             boolean reactivate,
                             //boolean log,
-                            Profile mergedProfile,
-                            boolean useBackgroundThread)
+                            Profile mergedProfile)
     {
         // remove delay alarm
         removeDelayStartAlarm(dataWrapper); // for start delay
@@ -1157,12 +1160,12 @@ class Event {
             PPApplication.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);
 
             if (mergedProfile == null)
-                dataWrapper.activateProfileFromEvent(this._fkProfileStart, /*interactive,*/ false, false, useBackgroundThread);
+                dataWrapper.activateProfileFromEvent(this._fkProfileStart, /*interactive,*/ false, false);
             else {
                 mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper, true);
                 if (this._manualProfileActivation) {
                     DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
-                    dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ true, true, useBackgroundThread);
+                    dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ true, true);
                     mergedProfile._id = 0;
                 }
             }
@@ -1175,6 +1178,37 @@ class Event {
         //return;
     }
 
+    /*
+    void startEventFromMainThread(final DataWrapper dataWrapper,
+                                  final List<EventTimeline> eventTimelineList,
+                                  //final boolean ignoreGlobalPref,
+                                  //final boolean interactive,
+                                  final boolean reactivate,
+                                  //final boolean log,
+                                  final Profile mergedProfile)
+    {
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
+
+                startEvent(dataWrapper, eventTimelineList, reactivate, mergedProfile);
+
+                if ((wakeLock != null) && wakeLock.isHeld())
+                    wakeLock.release();
+            }
+        });
+    }
+    */
+
     private void doActivateEndProfile(DataWrapper dataWrapper,
                                         int eventPosition,
                                         int timeLineSize,
@@ -1182,8 +1216,7 @@ class Event {
                                         EventTimeline eventTimeline,
                                         boolean activateReturnProfile,
                                         Profile mergedProfile,
-                                        boolean allowRestart,
-                                        boolean useBackgroundThread)
+                                        boolean allowRestart)
     {
 
         if (!(eventPosition == (timeLineSize-1)))
@@ -1218,7 +1251,7 @@ class Event {
                 {
                     PPApplication.logE("Event.pauseEvent","activate end profile");
                     if (mergedProfile == null)
-                        dataWrapper.activateProfileFromEvent(_fkProfileEnd, /*false,*/ false, false, useBackgroundThread);
+                        dataWrapper.activateProfileFromEvent(_fkProfileEnd, /*false,*/ false, false);
                     else
                         mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper, false);
                     activatedProfileId = _fkProfileEnd;
@@ -1246,7 +1279,7 @@ class Event {
                     if (eventTimeline._fkProfileEndActivated != 0)
                     {
                         if (mergedProfile == null)
-                            dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, /*false,*/ false, false, useBackgroundThread);
+                            dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, /*false,*/ false, false);
                         else
                             mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper, false);
                         profileActivated = true;
@@ -1280,8 +1313,7 @@ class Event {
                             boolean noSetSystemEvent,
                             boolean log,
                             Profile mergedProfile,
-                            boolean allowRestart,
-                            boolean useBackgroundThread)
+                            boolean allowRestart)
     {
         // remove delay alarm
         removeDelayStartAlarm(dataWrapper); // for start delay
@@ -1417,22 +1449,52 @@ class Event {
         {
             doActivateEndProfile(dataWrapper, eventPosition, timeLineSize,
                     eventTimelineList, eventTimeline,
-                    activateReturnProfile, mergedProfile, allowRestart,
-                    useBackgroundThread);
+                    activateReturnProfile, mergedProfile, allowRestart);
 
         }
 
         //return;
     }
 
+    /*
+    void pauseEventFromMainThread(final DataWrapper dataWrapper,
+                                  final List<EventTimeline> eventTimelineList,
+                                  final boolean activateReturnProfile,
+                                  final boolean ignoreGlobalPref,
+                                  final boolean noSetSystemEvent,
+                                  final boolean log,
+                                  final Profile mergedProfile,
+                                  final boolean allowRestart) {
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
+
+                pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref,
+                        noSetSystemEvent, log, mergedProfile, allowRestart);
+
+                if ((wakeLock != null) && wakeLock.isHeld())
+                    wakeLock.release();
+            }
+        });
+    }
+    */
+
     void stopEvent(DataWrapper dataWrapper,
                             List<EventTimeline> eventTimelineList,
                             boolean activateReturnProfile,
                             boolean ignoreGlobalPref,
                             boolean saveEventStatus,
-                            boolean log,
-                            //boolean allowRestart,
-                            boolean useBackgroundThread)
+                            boolean log)
+                            //boolean allowRestart)
     {
         // remove delay alarm
         removeDelayStartAlarm(dataWrapper); // for start delay
@@ -1447,7 +1509,7 @@ class Event {
 
         if (this._status != ESTATUS_STOP)
         {
-            pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, false, null, false/*allowRestart*/, useBackgroundThread);
+            pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, false, null, false/*allowRestart*/);
         }
 
         setSystemEvent(dataWrapper.context, ESTATUS_STOP);
@@ -1462,6 +1524,36 @@ class Event {
 
         //return;
     }
+
+    /*
+    void stopEventFromMainThread(final DataWrapper dataWrapper,
+                                 final List<EventTimeline> eventTimelineList,
+                                 final boolean activateReturnProfile,
+                                 final boolean ignoreGlobalPref,
+                                 final boolean saveEventStatus,
+                                 final boolean log) {
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
+
+                stopEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref,
+                        saveEventStatus, log);
+
+                if ((wakeLock != null) && wakeLock.isHeld())
+                    wakeLock.release();
+            }
+        });
+    }
+    */
 
     public int getStatus()
     {

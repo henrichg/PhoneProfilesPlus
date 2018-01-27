@@ -145,7 +145,6 @@ public class EditorEventListFragment extends Fragment
         //Log.d("EditorEventListFragment.onCreate","orderType="+orderType);
 
         dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
-        dataWrapper.getActivateProfileHelper().initialize(getActivity().getApplicationContext());
 
         getActivity().getIntent();
 
@@ -380,12 +379,12 @@ public class EditorEventListFragment extends Fragment
                 // pause event
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                 event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                        false, false, null, false, true); // activate return profile
+                        false, false, null, false); // activate return profile
             } else {
                 // stop event
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                 event.stopEvent(dataWrapper, eventTimelineList, true, false,
-                        true, false, true); // activate return profile
+                        true, false); // activate return profile
             }
 
             // redraw event list
@@ -462,7 +461,7 @@ public class EditorEventListFragment extends Fragment
 
         List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
         event.stopEvent(dataWrapper, eventTimelineList, false, true,
-                true, false, true);
+                true, false);
         // restart events
         PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
         dataWrapper.restartEvents(false, true/*, false*/);

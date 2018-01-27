@@ -148,9 +148,6 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     {
         super.onStop();
 
-        final DataWrapper dataWrapper =  new DataWrapper(getApplicationContext(), true, false, 0);
-        dataWrapper.getActivateProfileHelper().initialize(getApplicationContext());
-
         Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true);
@@ -174,7 +171,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
                 //    startForegroundService(serviceIntent);
             }
         }, 500);
-        dataWrapper.getActivateProfileHelper().updateWidget(true);
+        ActivateProfileHelper.updateWidget(getApplicationContext(), true);
     }
 
     @Override

@@ -49,8 +49,6 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     //Log.d("ActionForExternalApplicationActivity.onCreate", "profileName="+profileName);
 
                     if (!profileName.isEmpty()) {
-                        dataWrapper.getActivateProfileHelper().initialize(getApplicationContext());
-
                         List<Profile> profileList = dataWrapper.getProfileList();
                         for (Profile profile : profileList) {
                             if (profile._name.trim().equals(profileName)) {
@@ -106,7 +104,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     //Log.d("ActionForExternalApplicationActivity.onCreate", "profile="+profile);
                     if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                             true, false, 0, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this, true)) {
-                        dataWrapper._activateProfile(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this, true);
+                        dataWrapper._activateProfile(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this);
                     }
                 } else {
                     showNotification(getString(R.string.action_for_external_application_notification_title),
@@ -123,7 +121,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     Event event = dataWrapper.getEventById(event_id);
                     if (event.getStatus() != Event.ESTATUS_RUNNING) {
                         event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                                false, true, null, false, true); // activate return profile
+                                false, true, null, false); // activate return profile
                         dataWrapper.restartEvents(false, true/*, true*/);
                     }
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
@@ -139,7 +137,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     Event event = dataWrapper.getEventById(event_id);
                     if (event.getStatus() == Event.ESTATUS_RUNNING) {
                         event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                                false, true, null, false, true); // activate return profile
+                                false, true, null, false); // activate return profile
                         //dataWrapper.restartEvents(false, true, true);
                     }
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
@@ -155,7 +153,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     Event event = dataWrapper.getEventById(event_id);
                     if (event.getStatus() != Event.ESTATUS_STOP) {
                         event.stopEvent(dataWrapper, eventTimelineList, true, false,
-                                true, true, true); // activate return profile
+                                true, true); // activate return profile
                         dataWrapper.restartEvents(false, true/*, true*/);
                     }
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);

@@ -46,7 +46,6 @@ public class DataWrapper {
     private boolean monochrome = false;
     private int monochromeValue = 0xFF;
 
-    private ActivateProfileHelper activateProfileHelper = null;
     private List<Profile> profileList = null;
     private List<Event> eventList = null;
 
@@ -70,14 +69,6 @@ public class DataWrapper {
         forGUI = fgui;
         monochrome = mono;
         monochromeValue = monoVal;
-    }
-
-    public ActivateProfileHelper getActivateProfileHelper()
-    {
-        if (activateProfileHelper == null)
-            activateProfileHelper = new ActivateProfileHelper();
-
-        return activateProfileHelper;
     }
 
     public List<Profile> getProfileList()
@@ -466,7 +457,7 @@ public class DataWrapper {
     }
 
     void activateProfileFromEvent(long profile_id, /*boolean interactive,*/ boolean manual,
-                                         boolean merged, boolean useBackgroundThread)
+                                         boolean merged)
     {
         int startupSource = PPApplication.STARTUP_SOURCE_SERVICE;
         if (manual)
@@ -475,17 +466,15 @@ public class DataWrapper {
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 forGUI, monochrome, monochromeValue,
                 startupSource, /*interactive,*/ null, true)) {
-            getActivateProfileHelper().initialize(context);
-            _activateProfile(profile, merged, startupSource, /*interactive,*/ null, useBackgroundThread);
+            _activateProfile(profile, merged, startupSource, /*,interactive,*/ null);
         }
     }
 
     void updateNotificationAndWidgets(Profile profile)
     {
-        getActivateProfileHelper().initialize(context);
         if (PhoneProfilesService.instance != null)
             PhoneProfilesService.instance.showProfileNotification(profile, this);
-        getActivateProfileHelper().updateWidget(true);
+        ActivateProfileHelper.updateWidget(context, true);
     }
 
     /*
@@ -756,14 +745,14 @@ public class DataWrapper {
             //if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
             //	(event._fkProfileStart == profile._id))
             if (event._fkProfileStart == profile._id)
-                event.stopEvent(this, eventTimelineList, false, true, true/*saveEventStatus*/, false, true);
+                event.stopEvent(this, eventTimelineList, false, true, true/*saveEventStatus*/, false);
         }
         PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
         restartEvents(false, true/*, false*/);
     }
 
     // pauses all events
-    void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/, boolean useBackgroundThread)
+    void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
@@ -775,7 +764,7 @@ public class DataWrapper {
 
                 if (status == Event.ESTATUS_RUNNING) {
                     if (!(event._forceRun && event._noPauseByManualActivation))
-                        event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, true, null, false, useBackgroundThread);
+                        event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, true, null, false);
                 }
 
                 setEventBlocked(event, false);
@@ -805,6 +794,31 @@ public class DataWrapper {
         Event.setEventsBlocked(context, blockEvents);
     }
 
+    /*
+    private void pauseAllEventsFromMainThread(final boolean noSetSystemEvent, final boolean blockEvents) {
+        final Context _context = context;
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                PowerManager powerManager = (PowerManager) _context.getSystemService(POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
+
+                pauseAllEvents(noSetSystemEvent, blockEvents);
+
+                if ((wakeLock != null) && wakeLock.isHeld())
+                    wakeLock.release();
+            }
+        });
+    }
+    */
+
     // stops all events
     void stopAllEvents(boolean saveEventStatus/*, boolean activateReturnProfile*/)
     {
@@ -822,11 +836,36 @@ public class DataWrapper {
                 {
                 //if (event.getStatusFromDB(this) != Event.ESTATUS_STOP)
                     event.stopEvent(this, eventTimelineList, false/*activateReturnProfile*/,
-                            true, saveEventStatus, false, true);
+                            true, saveEventStatus, false);
                 }
             }
         }
     }
+
+    /*
+    void stopAllEventsFromMainThread(final boolean saveEventStatus) {
+        final Context _context = context;
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                PowerManager powerManager = (PowerManager) _context.getSystemService(POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
+
+                dataWrapper.stopAllEvents(saveEventStatus);
+
+                if ((wakeLock != null) && wakeLock.isHeld())
+                    wakeLock.release();
+            }
+        });
+    }
+    */
 
     void unlinkEventsFromProfile(Profile profile)
     {
@@ -1105,21 +1144,18 @@ public class DataWrapper {
     {
         invalidateProfileList();
         invalidateEventList();
-        if (activateProfileHelper != null)
-            activateProfileHelper.deinitialize();
-        activateProfileHelper = null;
     }
 
 //----- Activate profile ---------------------------------------------------------------------------------------------
 
     void _activateProfile(Profile _profile, boolean merged, int startupSource,
-                                    /*boolean _interactive,*/ Activity _activity, boolean useBackgroundThread)
+                                    /*final boolean _interactive,*/ final Activity _activity)
     {
         // remove last configured profile duration alarm
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
         Profile.setActivatedProfileForDuration(context, 0);
 
-        Profile profile = Profile.getMappedProfile(_profile, context);
+        final Profile profile = Profile.getMappedProfile(_profile, context);
         //profile = filterProfileWithBatteryEvents(profile);
 
         if (profile != null)
@@ -1146,7 +1182,7 @@ public class DataWrapper {
 
             // pause all events
             // for forceRun events set system events and block all events
-            pauseAllEvents(false, true/*, true*/, useBackgroundThread);
+            pauseAllEvents(false, true/*, true*/);
 
             ActivateProfileHelper.lockRefresh = false;
         }
@@ -1165,7 +1201,26 @@ public class DataWrapper {
                     (profile._duration > 0))
                 profileDuration = profile._duration;
 
-            activateProfileHelper.execute(profile, /*merged, *//*_interactive,*/ useBackgroundThread);
+            final Context appContext = context;
+            PPApplication.startHandlerThread();
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    ActivateProfileHelper.execute(context, profile/*, merged, *//*_interactive,*/);
+
+                    if ((wakeLock != null) && wakeLock.isHeld())
+                        wakeLock.release();
+                }
+            });
 
             // activation with duration
             if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
@@ -1197,7 +1252,7 @@ public class DataWrapper {
         activatedProfile = getActivatedProfile();
         if (PhoneProfilesService.instance != null)
             PhoneProfilesService.instance.showProfileNotification(activatedProfile, this);
-        activateProfileHelper.updateWidget(true);
+        ActivateProfileHelper.updateWidget(context, true);
 
         if ((profile != null) && (!merged)) {
             addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
@@ -1211,10 +1266,10 @@ public class DataWrapper {
             {
                 // toast notification
                 if (PPApplication.toastHandler != null) {
-                    final Profile __profile = profile;
+                    //final Profile __profile = profile;
                     PPApplication.toastHandler.post(new Runnable() {
                         public void run() {
-                            showToastAfterActivation(__profile);
+                            showToastAfterActivation(profile);
                         }
                     });
                 }// else
@@ -1235,6 +1290,7 @@ public class DataWrapper {
         }
 
         finishActivity(startupSource, true, _activity);
+
     }
 
     private void showToastAfterActivation(Profile profile)
@@ -1285,7 +1341,7 @@ public class DataWrapper {
                         if (Permissions.grantProfilePermissions(context, _profile, false, false,
                                 forGUI, monochrome, monochromeValue,
                                 _startupSource, /*true,*/ _activity, true))
-                            _dataWrapper._activateProfile(_profile, false, _startupSource, /*true,*/ _activity, true);
+                            _dataWrapper._activateProfile(_profile, false, _startupSource, /*true,*/ _activity);
                         else {
                             Intent returnIntent = new Intent();
                             _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
@@ -1340,7 +1396,7 @@ public class DataWrapper {
                             forGUI, monochrome, monochromeValue,
                             startupSource, false, null, true);*/
                 if (granted)
-                    _activateProfile(profile, false, startupSource, /*interactive,*/ activity, true);
+                    _activateProfile(profile, false, startupSource, /*interactive,*/ activity);
             }
         }
     }
@@ -1450,7 +1506,7 @@ public class DataWrapper {
             // profile activation
             if (startupSource == PPApplication.STARTUP_SOURCE_BOOT)
                 _activateProfile(profile, false, PPApplication.STARTUP_SOURCE_BOOT,
-                                        /*boolean _interactive,*/ null, true);
+                                        /*boolean _interactive,*/ null);
             else
                 activateProfileWithAlert(profile, startupSource, /*interactive,*/ activity);
         }
@@ -1461,7 +1517,7 @@ public class DataWrapper {
 
             if (PhoneProfilesService.instance != null)
                 PhoneProfilesService.instance.showProfileNotification(profile, this);
-            activateProfileHelper.updateWidget(true);
+            ActivateProfileHelper.updateWidget(context, true);
 
             // for startActivityForResult
             if (activity != null)
@@ -1484,8 +1540,8 @@ public class DataWrapper {
         if (Permissions.grantProfilePermissions(context, profile, false, true,
                 forGUI, monochrome, monochromeValue,
                 startupSource, /*true,*/ null, true)) {
-            getActivateProfileHelper().initialize(context);
-            _activateProfile(profile, false, startupSource, /*true,*/ null, true);
+            // activateProfileAfterDuration is already called from handlerThread
+            _activateProfile(profile, false, startupSource, /*true,*/ null);
         }
     }
 
@@ -2944,7 +3000,7 @@ public class DataWrapper {
                             if (!event._isInDelayStart) {
                                 // no delay alarm is set
                                 // start event
-                                event.startEvent(this, eventTimelineList, /*interactive,*/ reactivate, mergedProfile, false);
+                                event.startEvent(this, eventTimelineList, /*interactive,*/ reactivate, mergedProfile);
                                 PPApplication.logE("[***] DataWrapper.doHandleEvents", "mergedProfile._id=" + mergedProfile._id);
                             }
                         }
@@ -2952,7 +3008,7 @@ public class DataWrapper {
                         if (forDelayStartAlarm && event._isInDelayStart) {
                             // called for delay alarm
                             // start event
-                            event.startEvent(this, eventTimelineList, /*interactive,*/ reactivate, mergedProfile, false);
+                            event.startEvent(this, eventTimelineList, /*interactive,*/ reactivate, mergedProfile);
                         }
                     }
                 } else if (((newEventStatus == Event.ESTATUS_PAUSE) || restartEvent) && statePause) {
@@ -2985,7 +3041,7 @@ public class DataWrapper {
                                 // no delay alarm is set
                                 // pause event
                                 event.pauseEvent(this, eventTimelineList, true, false,
-                                        false, true, mergedProfile, !restartEvent, false);
+                                        false, true, mergedProfile, !restartEvent);
                             }
                         }
 
@@ -2993,7 +3049,7 @@ public class DataWrapper {
                             // called for delay alarm
                             // pause event
                             event.pauseEvent(this, eventTimelineList, true, false,
-                                    false, true, mergedProfile, !restartEvent, false);
+                                    false, true, mergedProfile, !restartEvent);
                         }
                     }
                 }
@@ -3383,7 +3439,7 @@ public class DataWrapper {
             resetAllEventsInDelayStart(false);
             resetAllEventsInDelayEnd(false);
             // no set system events, unblock all events, no activate return profile
-            pauseAllEvents(true, false/*, false*/, true);
+            pauseAllEvents(true, false/*, false*/);
             Event.setGlobalEventsRunning(context, false);
 
             Intent serviceIntent = new Intent(context, PhoneProfilesService.class);

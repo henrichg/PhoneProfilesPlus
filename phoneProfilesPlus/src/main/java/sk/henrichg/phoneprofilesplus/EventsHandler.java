@@ -96,7 +96,6 @@ class EventsHandler {
             //PPApplication.setApplicationStarted(context, true);
 
             dataWrapper = new DataWrapper(context.getApplicationContext(), true, false, 0);
-            dataWrapper.getActivateProfileHelper().initialize(context);
 
             ApplicationPreferences.getSharedPreferences(context);
             callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
@@ -455,7 +454,7 @@ class EventsHandler {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "profile._deviceRunApplicationPackageName=" + mergedProfile._deviceRunApplicationPackageName);
                 //PPApplication.logE("$$$ EventsHandler.handleEvents", "interactive=" + interactive);
                 DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
-                dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ false, true, false);
+                dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ false, true);
 
                 if (!((notifyEvent != null) && notifyEvent.notifyEventStart(context))) {
                     if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
@@ -637,7 +636,7 @@ class EventsHandler {
                         profile = Profile.getMappedProfile(profile, context);
                         if (profile != null) {
                             //ExecuteVolumeProfilePrefsJob.start(context, profile._id, false, false);
-                            dataWrapper.getActivateProfileHelper().executeForVolumes(profile, false, context);
+                            ActivateProfileHelper.executeForVolumes(profile, false, context);
                             // wait for link/unlink
                             //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                             //SystemClock.sleep(1000);

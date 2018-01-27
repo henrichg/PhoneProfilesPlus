@@ -29,7 +29,6 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
         String profileName = intent.getStringExtra(EXTRA_PROFILE_NAME);
 
         dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
-        dataWrapper.getActivateProfileHelper().initialize(getApplicationContext());
 
         if (profileName != null) {
             profileName = profileName.trim();
@@ -69,7 +68,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "profile="+profile);
             if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                     true, false, 0, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this, true)) {
-                dataWrapper._activateProfile(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this, true);
+                dataWrapper._activateProfile(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this);
             }
         }
         else {

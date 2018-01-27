@@ -794,9 +794,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private void finishGrant() {
         final Context context = getApplicationContext();
 
-        ActivateProfileHelper activateProfileHelper = dataWrapper.getActivateProfileHelper();
-        activateProfileHelper.initialize(context);
-
         if (forGUI && (profile != null))
         {
             // regenerate profile icon
@@ -950,7 +947,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.removeProfileNotification(context);
             if (activateProfile)
                 dataWrapper._activateProfile(profile, mergedProfile, startupSource, /*interactive,*/
-                        Permissions.profileActivationActivity, true);
+                        Permissions.profileActivationActivity);
         }
         Permissions.releaseReferences();
         if (mergedNotification)
@@ -962,7 +959,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 if (PhoneProfilesService.instance != null)
                     PhoneProfilesService.instance.showProfileNotification(profile, dataWrapper);
             }
-            activateProfileHelper.updateWidget(true);
+            ActivateProfileHelper.updateWidget(getApplicationContext(), true);
 
             /*Intent intent5 = new Intent();
             intent5.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);

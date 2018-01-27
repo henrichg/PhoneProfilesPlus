@@ -2402,7 +2402,6 @@ public class PhoneProfilesService extends Service
                     PPNotificationListenerService.clearNotifiedPackages(appContext);
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
-                    dataWrapper.getActivateProfileHelper().initialize(appContext);
                     DatabaseHandler.getInstance(appContext).deleteAllEventTimelines();
 
                     MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
@@ -2423,7 +2422,7 @@ public class PhoneProfilesService extends Service
                         if (!dataWrapper.getIsManualProfileActivation()) {
                             ////// unblock all events for first start
                             //     that may be blocked in previous application run
-                            dataWrapper.pauseAllEvents(true, false/*, false*/, false);
+                            dataWrapper.pauseAllEvents(true, false/*, false*/);
                         }
 
                         dataWrapper.firstStartEvents(true);
@@ -2435,7 +2434,7 @@ public class PhoneProfilesService extends Service
 
                         ////// unblock all events for first start
                         //     that may be blocked in previous application run
-                        dataWrapper.pauseAllEvents(true, false/*, false*/, false);
+                        dataWrapper.pauseAllEvents(true, false/*, false*/);
 
                         dataWrapper.activateProfileOnBoot();
                     }

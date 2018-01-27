@@ -1704,7 +1704,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             fragment.updateHeader(activeProfile);
             if (PhoneProfilesService.instance != null)
                 PhoneProfilesService.instance.showProfileNotification(activeProfile, fragment.dataWrapper);
-            fragment.dataWrapper.getActivateProfileHelper().updateWidget(true);
+            ActivateProfileHelper.updateWidget(fragment.dataWrapper.context, true);
         }
         redrawProfilePreferences(profile, newProfileMode, predefinedProfileIndex, true/*startTargetHelps*/);
     }

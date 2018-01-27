@@ -136,6 +136,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         speakerphoneOnExecuted = false;
 
         // start events handler
+        // handlerThread is used in doCall
         EventsHandler eventsHandler = new EventsHandler(context);
         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL/*, false*/);
 

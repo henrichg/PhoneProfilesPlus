@@ -15,7 +15,6 @@ public class LauncherActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
 
         dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
-        dataWrapper.getActivateProfileHelper().initialize(getApplicationContext());
 
         Intent intent = getIntent();
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, 0);
@@ -65,7 +64,7 @@ public class LauncherActivity extends AppCompatActivity {
                 Profile profile = dataWrapper.getActivatedProfile();
                 if (PhoneProfilesService.instance != null)
                     PhoneProfilesService.instance.showProfileNotification(profile, dataWrapper);
-                dataWrapper.getActivateProfileHelper().updateWidget(true);
+                ActivateProfileHelper.updateWidget(dataWrapper.context, true);
                 startupSource = PPApplication.STARTUP_SOURCE_LAUNCHER;
             }
         }

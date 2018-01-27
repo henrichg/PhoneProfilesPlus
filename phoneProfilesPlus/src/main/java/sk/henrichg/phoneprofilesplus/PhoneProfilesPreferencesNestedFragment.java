@@ -894,14 +894,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 if (permissionsChanged) {
                     DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 
-                    ActivateProfileHelper activateProfileHelper = dataWrapper.getActivateProfileHelper();
-                    activateProfileHelper.initialize(context);
-
                     Profile activatedProfile = dataWrapper.getActivatedProfile();
                     dataWrapper.refreshProfileIcon(activatedProfile, false, 0);
                     if (PhoneProfilesService.instance != null)
                         PhoneProfilesService.instance.showProfileNotification(activatedProfile, dataWrapper);
-                    activateProfileHelper.updateWidget(true);
+                    ActivateProfileHelper.updateWidget(context, true);
 
                     if (finishActivity) {
                         getActivity().setResult(Activity.RESULT_CANCELED);

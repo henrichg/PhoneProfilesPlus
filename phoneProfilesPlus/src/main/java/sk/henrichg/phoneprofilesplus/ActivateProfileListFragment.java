@@ -55,7 +55,6 @@ public class ActivateProfileListFragment extends Fragment {
         setRetainInstance(true);
 
         dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
-        dataWrapper.getActivateProfileHelper().initialize(getActivity().getApplicationContext());
     }
 
     @Override
