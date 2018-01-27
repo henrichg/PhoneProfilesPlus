@@ -26,7 +26,6 @@ import java.util.List;
 public class ActivateProfileListFragment extends Fragment {
 
     DataWrapper activityDataWrapper;
-    //private List<Profile> profileList = null;
     private ActivateProfileListAdapter profileListAdapter = null;
     private ListView listView = null;
     private GridView gridView = null;
@@ -140,7 +139,7 @@ public class ActivateProfileListFragment extends Fragment {
 
         //absListView.setRemoveListener(onRemove);
 
-        if (activityDataWrapper.profileList == null)
+        if (!activityDataWrapper.profileListFilled)
         {
             LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this);
             this.asyncTaskContext = new WeakReference<>(asyncTask );
@@ -222,8 +221,6 @@ public class ActivateProfileListFragment extends Fragment {
                 this.dataWrapper.fillProfileList();
                 // set copy local profile list into activity profilesDataWrapper
                 fragment.activityDataWrapper.setProfileList(this.dataWrapper.profileList);
-                // set reference of profile list from profilesDataWrapper
-                //fragment.profileList = fragment.activityDataWrapper.getProfileList();
 
                 if (fragment.activityDataWrapper.profileList.size() == 0)
                 {
@@ -300,8 +297,6 @@ public class ActivateProfileListFragment extends Fragment {
             absListView.setAdapter(null);
         if (profileListAdapter != null)
             profileListAdapter.release();
-
-        //profileList = null;
 
         if (activityDataWrapper != null)
             activityDataWrapper.invalidateDataWrapper();

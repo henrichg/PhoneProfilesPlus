@@ -33,6 +33,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 public class EditorEventListFragment extends Fragment
@@ -222,15 +223,14 @@ public class EditorEventListFragment extends Fragment
         else
             orderLayout.setVisibility(View.VISIBLE);
 
-        if (activityDataWrapper.eventList == null)
-        {
-            LoadEventListAsyncTask asyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
-            this.asyncTaskContext = new WeakReference<>(asyncTask );
-            asyncTask.execute();
-        }
-        else
-        {
-            listView.setAdapter(eventListAdapter);
+        synchronized (activityDataWrapper.eventList) {
+            if (!activityDataWrapper.eventListFilled) {
+                LoadEventListAsyncTask asyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
+                this.asyncTaskContext = new WeakReference<>(asyncTask);
+                asyncTask.execute();
+            } else {
+                listView.setAdapter(eventListAdapter);
+            }
         }
     }
 
@@ -598,9 +598,11 @@ public class EditorEventListFragment extends Fragment
                 eventListAdapter.addItem(event);
         }
 
-        if (activityDataWrapper.eventList != null) {
-            // sort list
-            sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
+        synchronized (activityDataWrapper.eventList) {
+            if (activityDataWrapper.eventList != null) {
+                // sort list
+                sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
+            }
         }
 
         if (eventListAdapter != null) {
@@ -648,7 +650,9 @@ public class EditorEventListFragment extends Fragment
         this.orderType = orderType;
         if (eventListAdapter != null) {
             listView.getRecycledViewPool().clear();
-            sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
+            synchronized (activityDataWrapper.eventList) {
+                sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
+            }
             eventListAdapter.notifyDataSetChanged();
         }
     }
@@ -717,19 +721,23 @@ public class EditorEventListFragment extends Fragment
 
     public void refreshGUI(boolean refreshIcons, boolean setPosition)
     {
-        if ((activityDataWrapper == null) || (activityDataWrapper.eventList == null))
-            return;
+        synchronized (activityDataWrapper.eventList) {
+            if ((activityDataWrapper == null) || (!activityDataWrapper.eventListFilled))
+                return;
 
-        for (Event event : activityDataWrapper.eventList) {
-            int status = DatabaseHandler.getInstance(activityDataWrapper.context).getEventStatus(event);
-            event.setStatus(status);
-            event._isInDelayStart = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayStart(event);
-            event._isInDelayEnd = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayEnd(event);
-            DatabaseHandler.getInstance(activityDataWrapper.context).setEventCalendarTimes(event);
-            DatabaseHandler.getInstance(activityDataWrapper.context).getSMSStartTime(event);
-            //DatabaseHandler.getInstance(activityDataWrapper.context).getNotificationStartTime(event);
-            DatabaseHandler.getInstance(activityDataWrapper.context).getNFCStartTime(event);
-            DatabaseHandler.getInstance(activityDataWrapper.context).getCallStartTime(event);
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
+                Event event = it.next();
+                int status = DatabaseHandler.getInstance(activityDataWrapper.context).getEventStatus(event);
+                event.setStatus(status);
+                event._isInDelayStart = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayStart(event);
+                event._isInDelayEnd = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayEnd(event);
+                DatabaseHandler.getInstance(activityDataWrapper.context).setEventCalendarTimes(event);
+                DatabaseHandler.getInstance(activityDataWrapper.context).getSMSStartTime(event);
+                //DatabaseHandler.getInstance(activityDataWrapper.context).getNotificationStartTime(event);
+                DatabaseHandler.getInstance(activityDataWrapper.context).getNFCStartTime(event);
+                DatabaseHandler.getInstance(activityDataWrapper.context).getCallStartTime(event);
+            }
         }
         updateListView(null, false, refreshIcons, setPosition);
     }

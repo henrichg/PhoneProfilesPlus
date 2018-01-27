@@ -15,10 +15,10 @@ import android.widget.TextView;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
+import java.util.List;
+
 class ActivateProfileListAdapter extends BaseAdapter
 {
-
-    //private List<Profile> profileList;
     private ActivateProfileListFragment fragment;
     private final DataWrapper activityDataWrapper;
 
@@ -28,14 +28,12 @@ class ActivateProfileListAdapter extends BaseAdapter
     ActivateProfileListAdapter(ActivateProfileListFragment f, /*List<Profile> pl, */DataWrapper dataWrapper)
     {
         fragment = f;
-        //profileList = pl;
         this.activityDataWrapper = dataWrapper;
     }
 
     public void release()
     {
         fragment = null;
-        //profileList = null;
     }
 
     public int getCount()
@@ -96,7 +94,7 @@ class ActivateProfileListAdapter extends BaseAdapter
         if (profile == null)
             return -1;
 
-        if (activityDataWrapper.profileList == null)
+        if (!activityDataWrapper.profileListFilled)
             return -1;
 
         int pos = -1;

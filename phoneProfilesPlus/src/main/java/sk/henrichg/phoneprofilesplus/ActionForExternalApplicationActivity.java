@@ -67,7 +67,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
                     if (!eventName.isEmpty()) {
                         dataWrapper.fillEventList();
-                        for (Event event : this.dataWrapper.eventList) {
+                        for (Event event : dataWrapper.eventList) {
                             if (event._name.trim().equals(eventName)) {
                                 event_id = event._id;
                                 break;

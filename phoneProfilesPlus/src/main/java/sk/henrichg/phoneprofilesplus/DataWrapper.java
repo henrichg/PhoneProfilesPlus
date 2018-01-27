@@ -31,6 +31,7 @@ import android.text.format.DateFormat;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -46,8 +47,10 @@ public class DataWrapper {
     private boolean monochrome = false;
     private int monochromeValue = 0xFF;
 
-    List<Profile> profileList = null;
-    List<Event> eventList = null;
+    boolean profileListFilled = false;
+    boolean eventListFilled = false;
+    final List<Profile> profileList = Collections.synchronizedList(new ArrayList<Profile>());
+    final List<Event> eventList = Collections.synchronizedList(new ArrayList<Event>());
 
     //static final String EXTRA_INTERACTIVE = "interactive";
 
@@ -71,11 +74,14 @@ public class DataWrapper {
         monochromeValue = monoVal;
     }
 
-    public void fillProfileList()
+    void fillProfileList()
     {
-        if (profileList == null)
-        {
-            profileList = getNewProfileList();
+        synchronized (profileList) {
+            if (!profileListFilled)
+            {
+                profileList.addAll(getNewProfileList());
+                profileListFilled = true;
+            }
         }
     }
 
@@ -95,14 +101,14 @@ public class DataWrapper {
         return newProfileList;
     }
 
-    void setProfileList(List<Profile> profileList/*, boolean recycleBitmaps*/)
+    void setProfileList(List<Profile> _profileList/*, boolean recycleBitmaps*/)
     {
-        /*if (recycleBitmaps)
-            invalidateProfileList();
-        else*/
-            if (this.profileList != null)
-                this.profileList.clear();
-        this.profileList = profileList;
+        synchronized (profileList) {
+            if (profileListFilled)
+                profileList.clear();
+            profileList.addAll(_profileList);
+            profileListFilled = true;
+        }
     }
 
     static Profile getNonInitializedProfile(String name, String icon, int order)
@@ -339,27 +345,31 @@ public class DataWrapper {
 
     void fillPredefinedProfileList()
     {
-        invalidateProfileList();
-        DatabaseHandler.getInstance(context).deleteAllProfiles();
+        synchronized (profileList) {
+            invalidateProfileList();
+            DatabaseHandler.getInstance(context).deleteAllProfiles();
 
-        for (int index = 0; index < 6; index++)
-            getPredefinedProfile(index, true);
+            for (int index = 0; index < 6; index++)
+                getPredefinedProfile(index, true);
 
-        fillProfileList();
+            fillProfileList();
+        }
     }
 
     void invalidateProfileList()
     {
-        if (profileList != null)
-        {
-            for(Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
-                Profile profile = it.next();
-                profile.releaseIconBitmap();
-                profile.releasePreferencesIndicator();
-                it.remove();
+        synchronized (profileList) {
+            if (profileListFilled)
+            {
+                for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+                    Profile profile = it.next();
+                    profile.releaseIconBitmap();
+                    profile.releasePreferencesIndicator();
+                    it.remove();
+                }
             }
+            profileListFilled = false;
         }
-        profileList = null;
     }
 
     Profile getActivatedProfileFromDB()
@@ -375,20 +385,29 @@ public class DataWrapper {
 
     public Profile getActivatedProfile()
     {
-        return getActivatedProfile(profileList);
+        synchronized (profileList) {
+            if (!profileListFilled) {
+                return getActivatedProfileFromDB();
+            } else {
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+                    Profile profile = it.next();
+                    if (profile._checked)
+                        return profile;
+                }
+                // when filter is set and profile not found, get profile from db
+                return getActivatedProfileFromDB();
+            }
+        }
     }
 
     public Profile getActivatedProfile(List<Profile> profileList) {
-        if (profileList == null)
-        {
+        if (profileList == null) {
             return getActivatedProfileFromDB();
-        }
-        else
-        {
-            Profile profile;
+        } else {
             for (int i = 0; i < profileList.size(); i++)
             {
-                profile = profileList.get(i);
+                Profile profile = profileList.get(i);
                 if (profile._checked)
                     return profile;
             }
@@ -396,62 +415,22 @@ public class DataWrapper {
             return getActivatedProfileFromDB();
         }
     }
-/*	
-    public Profile getFirstProfile()
-    {
-        if (profileList == null)
-        {
-            Profile profile = DatabaseHandler.getInstance(context).getFirstProfile();
-            if (forGUI && (profile != null))
-            {
-                profile.generateIconBitmap(context, monochrome, monochromeValue);
-                profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
-            }
-            return profile;
-        }
-        else
-        {
-            Profile profile;
-            if (profileList.size() > 0)
-                profile = profileList.get(0);
-            else
-                profile = null;
 
-            return profile;
-        }
-    }
-*/	
-/*	
-    public int getProfileItemPosition(Profile profile)
-    {
-        if (profile == null)
-            return -1;
-
-        if (profileList == null)
-            return DatabaseHandler.getInstance(context).getProfilePosition(profile);
-        else
-        {
-            for (int i = 0; i < profileList.size(); i++)
-            {
-                if (profileList.get(i)._id == profile._id)
-                    return i;
-            }
-            return -1;
-        }
-    }
-*/	
     void setProfileActive(Profile profile)
     {
-        if (profileList == null)
-            return;
+        synchronized (profileList) {
+            if (!profileListFilled)
+                return;
 
-        for (Profile p : profileList)
-        {
-            p._checked = false;
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
+                profile = it.next();
+                profile._checked = false;
+            }
+
+            if (profile != null)
+                profile._checked = true;
         }
-
-        if (profile != null)
-            profile._checked = true;
     }
 
     void activateProfileFromEvent(long profile_id, /*boolean interactive,*/ boolean manual,
@@ -475,19 +454,6 @@ public class DataWrapper {
         ActivateProfileHelper.updateWidget(context, true);
     }
 
-    /*
-    public void deactivateProfile()
-    {
-        if (profileList == null)
-            return;
-
-        for (Profile p : profileList)
-        {
-            p._checked = false;
-        }
-    }
-    */
-
     private Profile getProfileByIdFromDB(long id, boolean merged)
     {
         Profile profile = DatabaseHandler.getInstance(context).getProfile(id, merged);
@@ -501,22 +467,19 @@ public class DataWrapper {
 
     public Profile getProfileById(long id, boolean merged)
     {
-        if ((profileList == null) || merged)
-        {
-            return getProfileByIdFromDB(id, merged);
-        }
-        else
-        {
-            Profile profile;
-            for (int i = 0; i < profileList.size(); i++)
-            {
-                profile = profileList.get(i);
-                if (profile._id == id)
-                    return profile;
+        synchronized (profileList) {
+            if ((!profileListFilled) || merged) {
+                return getProfileByIdFromDB(id, merged);
+            } else {
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+                    Profile profile = it.next();
+                    if (profile._id == id)
+                        return profile;
+                }
+                // when filter is set and profile not found, get profile from db
+                return getProfileByIdFromDB(id, false);
             }
-
-            // when filter is set and profile not found, get profile from db
-            return getProfileByIdFromDB(id, false);
         }
     }
 
@@ -530,28 +493,25 @@ public class DataWrapper {
         }
     }
 
-    /*
-    public void reloadProfilesData()
-    {
-        invalidateProfileList();
-        getProfileList();
-    }
-    */
-
     void deleteProfile(Profile profile)
     {
         if (profile == null)
             return;
 
-        profileList.remove(profile);
-        fillEventList();
-        // unlink profile from events
-        for (Event event : eventList)
-        {
-            if (event._fkProfileStart == profile._id)
-                event._fkProfileStart = 0;
-            if (event._fkProfileEnd == profile._id)
-                event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
+        synchronized (profileList) {
+            profileList.remove(profile);
+        }
+        synchronized (eventList) {
+            fillEventList();
+            // unlink profile from events
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                Event event = it.next();
+                if (event._fkProfileStart == profile._id)
+                    event._fkProfileStart = 0;
+                if (event._fkProfileEnd == profile._id)
+                    event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
+            }
         }
         // unlink profile from Background profile
         if (Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context)) == profile._id)
@@ -565,13 +525,18 @@ public class DataWrapper {
 
     void deleteAllProfiles()
     {
-        profileList.clear();
-        fillEventList();
-        // unlink profiles from events
-        for (Event event : eventList)
-        {
-            event._fkProfileStart = 0;
-            event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
+        synchronized (profileList) {
+            profileList.clear();
+        }
+        synchronized (eventList) {
+            fillEventList();
+            // unlink profiles from events
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                Event event = it.next();
+                event._fkProfileStart = 0;
+                event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
+            }
         }
         // unlink profiles from Background profile
         ApplicationPreferences.getSharedPreferences(context);
@@ -596,65 +561,32 @@ public class DataWrapper {
 
     void fillEventList()
     {
-        if (eventList == null)
-        {
-            eventList = DatabaseHandler.getInstance(context).getAllEvents();
+        synchronized (eventList) {
+            if (!eventListFilled) {
+                eventList.addAll(DatabaseHandler.getInstance(context).getAllEvents());
+                eventListFilled = true;
+            }
         }
     }
 
-    void setEventList(List<Event> eventList)
-    {
-        if (this.eventList != null)
-            this.eventList.clear();
-        this.eventList = eventList;
+    void setEventList(List<Event> _eventList) {
+        synchronized (eventList) {
+            if (eventListFilled)
+                eventList.clear();
+            eventList.addAll(_eventList);
+            eventListFilled = true;
+        }
     }
 
     void invalidateEventList()
     {
-        if (eventList != null)
-            eventList.clear();
-        eventList = null;
-    }
-
-/*	
-    Event getFirstEvent(int filterType)
-    {
-        if (eventList == null)
-        {
-            Event event = DatabaseHandler.getInstance(context).getFirstEvent();
-            return event;
-        }
-        else
-        {
-            Event event;
-            if (eventList.size() > 0)
-                event = eventList.get(0);
-            else
-                event = null;
-
-            return event;
+        synchronized (eventList) {
+            if (eventListFilled)
+                eventList.clear();
+            eventListFilled = false;
         }
     }
-*/	
-/*
-    int getEventItemPosition(Event event)
-    {
-        if (event == null)
-            return - 1;
 
-        if (eventList == null)
-            return DatabaseHandler.getInstance(context).getEventPosition(event);
-        else
-        {
-            for (int i = 0; i < eventList.size(); i++)
-            {
-                if (eventList.get(i)._id == event._id)
-                    return i;
-            }
-            return -1;
-        }
-    }
-*/	
     void sortEventsByStartOrderAsc()
     {
         class PriorityComparator implements Comparator<Event> {
@@ -666,9 +598,8 @@ public class DataWrapper {
             }
         }
 
-        fillEventList();
-        if (eventList != null)
-        {
+        synchronized (eventList) {
+            fillEventList();
             Collections.sort(eventList, new PriorityComparator());
         }
     }
@@ -684,31 +615,28 @@ public class DataWrapper {
             }
         }
 
-        fillEventList();
-        if (eventList != null)
-        {
+        synchronized (eventList) {
+            fillEventList();
             Collections.sort(eventList, new PriorityComparator());
         }
     }
 
     Event getEventById(long id)
     {
-        if (eventList == null)
-        {
-            return DatabaseHandler.getInstance(context).getEvent(id);
-        }
-        else
-        {
-            Event event;
-            for (int i = 0; i < eventList.size(); i++)
-            {
-                event = eventList.get(i);
-                if (event._id == id)
-                    return event;
-            }
+        synchronized (eventList) {
+            if (!eventListFilled) {
+                return DatabaseHandler.getInstance(context).getEvent(id);
+            } else {
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    if (event._id == id)
+                        return event;
+                }
 
-            // when filter is set and profile not found, get profile from db
-            return DatabaseHandler.getInstance(context).getEvent(id);
+                // when filter is set and profile not found, get profile from db
+                return DatabaseHandler.getInstance(context).getEvent(id);
+            }
         }
     }
 
@@ -721,26 +649,21 @@ public class DataWrapper {
         }
     }
 
-    /*
-    public void reloadEventsData()
-    {
-        invalidateEventList();
-        getEventList();
-    }
-    */
-
     // stops all events associated with profile
     void stopEventsForProfile(Profile profile/*, boolean saveEventStatus*/)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
-        fillEventList();
-        for (Event event : eventList)
-        {
-            //if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
-            //	(event._fkProfileStart == profile._id))
-            if (event._fkProfileStart == profile._id)
-                event.stopEvent(this, eventTimelineList, false, true, true/*saveEventStatus*/, false);
+        synchronized (eventList) {
+            fillEventList();
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                Event event = it.next();
+                //if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
+                //	(event._fkProfileStart == profile._id))
+                if (event._fkProfileStart == profile._id)
+                    event.stopEvent(this, eventTimelineList, false, true, true/*saveEventStatus*/, false);
+            }
         }
         PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
         restartEvents(false, true/*, false*/);
@@ -751,36 +674,37 @@ public class DataWrapper {
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
-        fillEventList();
-        for (Event event : eventList)
-        {
-            if (event != null)
-            {
-                int status = event.getStatusFromDB(this);
+        synchronized (eventList) {
+            fillEventList();
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                Event event = it.next();
+                if (event != null) {
+                    int status = event.getStatusFromDB(this);
 
-                if (status == Event.ESTATUS_RUNNING) {
-                    if (!(event._forceRun && event._noPauseByManualActivation))
-                        event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, true, null, false);
-                }
+                    if (status == Event.ESTATUS_RUNNING) {
+                        if (!(event._forceRun && event._noPauseByManualActivation))
+                            event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, true, null, false);
+                    }
 
-                setEventBlocked(event, false);
-                if (blockEvents && (status == Event.ESTATUS_RUNNING) && event._forceRun)
-                {
-                    // block only running forceRun events
-                    if (!event._noPauseByManualActivation)
-                        setEventBlocked(event, true);
-                }
+                    setEventBlocked(event, false);
+                    if (blockEvents && (status == Event.ESTATUS_RUNNING) && event._forceRun) {
+                        // block only running forceRun events
+                        if (!event._noPauseByManualActivation)
+                            setEventBlocked(event, true);
+                    }
 
-                if (!(event._forceRun && event._noPauseByManualActivation)) {
-                    // for "push" events, set startTime to 0
-                    event._eventPreferencesSMS._startTime = 0;
-                    DatabaseHandler.getInstance(context).updateSMSStartTime(event);
-                    //event._eventPreferencesNotification._startTime = 0;
-                    //DatabaseHandler.getInstance(context).updateNotificationStartTime(event);
-                    event._eventPreferencesNFC._startTime = 0;
-                    DatabaseHandler.getInstance(context).updateNFCStartTime(event);
-                    event._eventPreferencesCall._startTime = 0;
-                    DatabaseHandler.getInstance(context).updateCallStartTime(event);
+                    if (!(event._forceRun && event._noPauseByManualActivation)) {
+                        // for "push" events, set startTime to 0
+                        event._eventPreferencesSMS._startTime = 0;
+                        DatabaseHandler.getInstance(context).updateSMSStartTime(event);
+                        //event._eventPreferencesNotification._startTime = 0;
+                        //DatabaseHandler.getInstance(context).updateNotificationStartTime(event);
+                        event._eventPreferencesNFC._startTime = 0;
+                        DatabaseHandler.getInstance(context).updateNFCStartTime(event);
+                        event._eventPreferencesCall._startTime = 0;
+                        DatabaseHandler.getInstance(context).updateCallStartTime(event);
+                    }
                 }
             }
         }
@@ -790,7 +714,6 @@ public class DataWrapper {
         Event.setEventsBlocked(context, blockEvents);
     }
 
-    /*
     private void pauseAllEventsFromMainThread(final boolean noSetSystemEvent, final boolean blockEvents) {
         final Context _context = context;
         PPApplication.startHandlerThread();
@@ -813,14 +736,12 @@ public class DataWrapper {
             }
         });
     }
-    */
 
     // stops all events
     void stopAllEvents(boolean saveEventStatus/*, boolean activateReturnProfile*/)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
-        //for (Event event : getEventList())
         for (int i = eventTimelineList.size()-1; i >= 0; i--)
         {
             EventTimeline eventTimeline = eventTimelineList.get(i);
@@ -838,7 +759,6 @@ public class DataWrapper {
         }
     }
 
-    /*
     void stopAllEventsFromMainThread(final boolean saveEventStatus) {
         final Context _context = context;
         PPApplication.startHandlerThread();
@@ -854,34 +774,39 @@ public class DataWrapper {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                dataWrapper.stopAllEvents(saveEventStatus);
+                stopAllEvents(saveEventStatus);
 
                 if ((wakeLock != null) && wakeLock.isHeld())
                     wakeLock.release();
             }
         });
     }
-    */
 
     void unlinkEventsFromProfile(Profile profile)
     {
-        fillEventList();
-        for (Event event : eventList)
-        {
-            if (event._fkProfileStart == profile._id)
-                event._fkProfileStart = 0;
-            if (event._fkProfileEnd == profile._id)
-                event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
+        synchronized (eventList) {
+            fillEventList();
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                Event event = it.next();
+                if (event._fkProfileStart == profile._id)
+                    event._fkProfileStart = 0;
+                if (event._fkProfileEnd == profile._id)
+                    event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
+            }
         }
     }
 
     void unlinkAllEvents()
     {
-        fillEventList();
-        for (Event event : eventList)
-        {
-            event._fkProfileStart = 0;
-            event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
+        synchronized (eventList) {
+            fillEventList();
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                Event event = it.next();
+                event._fkProfileStart = 0;
+                event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
+            }
         }
     }
 
@@ -932,11 +857,13 @@ public class DataWrapper {
 
         if (!startedFromService) {
             Event.setEventsBlocked(context, false);
-            fillEventList();
-            for (Event event : eventList)
-            {
-                if (event != null)
-                    event._blocked = false;
+            synchronized (eventList) {
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    if (event != null)
+                        event._blocked = false;
+                }
             }
             DatabaseHandler.getInstance(context).unblockAllEvents();
             Event.setForceRunEventRunning(context, false);
@@ -985,18 +912,20 @@ public class DataWrapper {
 
     private long getProfileIdByName(String name)
     {
-        if (profileList == null)
+        if (!profileListFilled)
         {
             return DatabaseHandler.getInstance(context).getProfileIdByName(name);
         }
         else
         {
-            Profile profile;
-            for (int i = 0; i < profileList.size(); i++)
-            {
-                profile = profileList.get(i);
-                if (profile._name.equals(name))
-                    return profile._id;
+            synchronized (profileList) {
+                Profile profile;
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
+                    profile = it.next();
+                    if (profile._name.equals(name))
+                        return profile._id;
+                }
             }
             return 0;
         }
@@ -1290,6 +1219,31 @@ public class DataWrapper {
 
         finishActivity(startupSource, true, _activity);
 
+    }
+
+    void activateProfileFromMainThread(final Profile _profile, final boolean merged, final int startupSource,
+                                    /*final boolean _interactive,*/ final Activity _activity)
+    {
+        final Context _context = context;
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                PowerManager powerManager = (PowerManager) _context.getSystemService(POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
+
+                _activateProfile(_profile, merged, startupSource, _activity);
+
+                if ((wakeLock != null) && wakeLock.isHeld())
+                    wakeLock.release();
+            }
+        });
     }
 
     private void showToastAfterActivation(Profile profile)
@@ -3102,11 +3056,14 @@ public class DataWrapper {
             Profile.setActivatedProfileForDuration(context, 0);
 
             Event.setEventsBlocked(context, false);
-            fillEventList();
-            for (Event event : eventList)
-            {
-                if (event != null)
-                    event._blocked = false;
+            synchronized (eventList) {
+                fillEventList();
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    if (event != null)
+                        event._blocked = false;
+                }
             }
             DatabaseHandler.getInstance(context).unblockAllEvents();
             Event.setForceRunEventRunning(context, false);
@@ -3399,10 +3356,14 @@ public class DataWrapper {
     private void resetAllEventsInDelayStart(boolean onlyFromDb)
     {
         if (!onlyFromDb) {
-            fillEventList();
-            for (Event event : eventList) {
-                event.removeDelayStartAlarm(this);
-                event.removeDelayStartAlarm(this);
+            synchronized (eventList) {
+                fillEventList();
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    event.removeDelayStartAlarm(this);
+                    event.removeDelayStartAlarm(this);
+                }
             }
         }
         DatabaseHandler.getInstance(context).resetAllEventsInDelayStart();
@@ -3411,10 +3372,14 @@ public class DataWrapper {
     private void resetAllEventsInDelayEnd(boolean onlyFromDb)
     {
         if (!onlyFromDb) {
-            fillEventList();
-            for (Event event : eventList) {
-                event.removeDelayEndAlarm(this);
-                event.removeDelayEndAlarm(this);
+            synchronized (eventList) {
+                fillEventList();
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    event.removeDelayEndAlarm(this);
+                    event.removeDelayEndAlarm(this);
+                }
             }
         }
         DatabaseHandler.getInstance(context).resetAllEventsInDelayStart();

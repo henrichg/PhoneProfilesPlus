@@ -16,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -214,24 +215,23 @@ public class EditorProfileListFragment extends Fragment
 
         LinearLayout orderLayout = getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
         orderLayout.setVisibility(View.GONE);
-        
-        if (activityDataWrapper.profileList == null)
-        {
-            LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this, filterType);
-            this.asyncTaskContext = new WeakReference<>(asyncTask );
-            asyncTask.execute();
-        }
-        else
-        {
-            listView.setAdapter(profileListAdapter);
-        
-            // update activity for activated profile
-            fragment.listView.getRecycledViewPool().clear();
-            Profile profile;
-            profile = activityDataWrapper.getActivatedProfile();
-            updateHeader(profile);
-            profileListAdapter.notifyDataSetChanged(false);
-            setProfileSelection(profile);
+
+        synchronized (activityDataWrapper.profileList) {
+            if (!activityDataWrapper.profileListFilled) {
+                LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this, filterType);
+                this.asyncTaskContext = new WeakReference<>(asyncTask);
+                asyncTask.execute();
+            } else {
+                listView.setAdapter(profileListAdapter);
+
+                // update activity for activated profile
+                fragment.listView.getRecycledViewPool().clear();
+                Profile profile;
+                profile = activityDataWrapper.getActivatedProfile();
+                updateHeader(profile);
+                profileListAdapter.notifyDataSetChanged(false);
+                setProfileSelection(profile);
+            }
         }
 
     }
@@ -674,12 +674,14 @@ public class EditorProfileListFragment extends Fragment
                 profileListAdapter.addItem(profile);
         }
 
-        if (activityDataWrapper.profileList != null) {
-            // sort list
-            if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
-                sortAlphabetically(activityDataWrapper.profileList);
-            else
-                sortByPOrder(activityDataWrapper.profileList);
+        synchronized (activityDataWrapper.profileList) {
+            if (!activityDataWrapper.profileListFilled) {
+                // sort list
+                if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
+                    sortAlphabetically(activityDataWrapper.profileList);
+                else
+                    sortByPOrder(activityDataWrapper.profileList);
+            }
         }
 
         if (profileListAdapter != null)

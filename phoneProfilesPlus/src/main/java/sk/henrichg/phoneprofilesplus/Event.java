@@ -1178,7 +1178,6 @@ class Event {
         //return;
     }
 
-    /*
     void startEventFromMainThread(final DataWrapper dataWrapper,
                                   final List<EventTimeline> eventTimelineList,
                                   //final boolean ignoreGlobalPref,
@@ -1207,7 +1206,6 @@ class Event {
             }
         });
     }
-    */
 
     private void doActivateEndProfile(DataWrapper dataWrapper,
                                         int eventPosition,
@@ -1456,7 +1454,6 @@ class Event {
         //return;
     }
 
-    /*
     void pauseEventFromMainThread(final DataWrapper dataWrapper,
                                   final List<EventTimeline> eventTimelineList,
                                   final boolean activateReturnProfile,
@@ -1486,7 +1483,6 @@ class Event {
             }
         });
     }
-    */
 
     void stopEvent(DataWrapper dataWrapper,
                             List<EventTimeline> eventTimelineList,
@@ -1525,7 +1521,6 @@ class Event {
         //return;
     }
 
-    /*
     void stopEventFromMainThread(final DataWrapper dataWrapper,
                                  final List<EventTimeline> eventTimelineList,
                                  final boolean activateReturnProfile,
@@ -1553,7 +1548,6 @@ class Event {
             }
         });
     }
-    */
 
     public int getStatus()
     {

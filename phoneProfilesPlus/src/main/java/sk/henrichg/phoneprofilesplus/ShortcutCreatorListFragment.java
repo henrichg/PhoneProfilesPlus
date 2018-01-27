@@ -77,7 +77,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         });
 
-        if (activityDataWrapper.profileList == null)
+        if (!activityDataWrapper.profileListFilled)
         {
             LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this);
             this.asyncTaskContext = new WeakReference<>(asyncTask );

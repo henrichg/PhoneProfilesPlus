@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListViewHolder>
@@ -101,31 +103,33 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     @Override
     public int getItemCount() {
-        fragment.textViewNoData.setVisibility(
-                ((activityDataWrapper.profileList != null) && (activityDataWrapper.profileList.size() > 0)) ? View.GONE : View.VISIBLE);
+        synchronized (activityDataWrapper.profileList) {
+            fragment.textViewNoData.setVisibility(
+                    ((activityDataWrapper.profileListFilled) && (activityDataWrapper.profileList.size() > 0)) ? View.GONE : View.VISIBLE);
 
-        if (activityDataWrapper.profileList == null)
-            return 0;
+            if (!activityDataWrapper.profileListFilled)
+                return 0;
 
-        if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
-            return activityDataWrapper.profileList.size();
+            if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
+                return activityDataWrapper.profileList.size();
 
-        int count = 0;
-        for (Profile profile : activityDataWrapper.profileList)
-        {
-            switch (filterType)
-            {
-                case EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR:
-                    if (profile._showInActivator)
-                        ++count;
-                    break;
-                case EditorProfileListFragment.FILTER_TYPE_NO_SHOW_IN_ACTIVATOR:
-                    if (!profile._showInActivator)
-                        ++count;
-                    break;
+            int count = 0;
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Profile> it = activityDataWrapper.profileList.iterator(); it.hasNext(); ) {
+                Profile profile = it.next();
+                switch (filterType) {
+                    case EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR:
+                        if (profile._showInActivator)
+                            ++count;
+                        break;
+                    case EditorProfileListFragment.FILTER_TYPE_NO_SHOW_IN_ACTIVATOR:
+                        if (!profile._showInActivator)
+                            ++count;
+                        break;
+                }
             }
+            return count;
         }
-        return count;
     }
 
     private Profile getItem(int position)
@@ -134,17 +138,55 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             return null;
         else
         {
+            synchronized (activityDataWrapper.profileList) {
+                if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
+                    return activityDataWrapper.profileList.get(position);
 
-            if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
-                return activityDataWrapper.profileList.get(position);
+                Profile _profile = null;
 
-            Profile _profile = null;
+                int pos = -1;
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Profile> it = activityDataWrapper.profileList.iterator(); it.hasNext(); ) {
+                    Profile profile = it.next();
+                    switch (filterType) {
+                        case EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR:
+                            if (profile._showInActivator)
+                                ++pos;
+                            break;
+                        case EditorProfileListFragment.FILTER_TYPE_NO_SHOW_IN_ACTIVATOR:
+                            if (!profile._showInActivator)
+                                ++pos;
+                            break;
+                    }
+                    if (pos == position) {
+                        _profile = profile;
+                        break;
+                    }
+                }
+
+                return _profile;
+            }
+        }
+    }
+
+    int getItemPosition(Profile profile)
+    {
+        if (profile == null)
+            return -1;
+
+        synchronized (activityDataWrapper.profileList) {
+            if (!activityDataWrapper.profileListFilled)
+                return -1;
 
             int pos = -1;
-            for (Profile profile : activityDataWrapper.profileList)
-            {
-                switch (filterType)
-                {
+
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Profile> it = activityDataWrapper.profileList.iterator(); it.hasNext(); ) {
+                Profile _profile = it.next();
+                switch (filterType) {
+                    case EditorProfileListFragment.FILTER_TYPE_ALL:
+                        ++pos;
+                        break;
                     case EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR:
                         if (profile._showInActivator)
                             ++pos;
@@ -154,48 +196,12 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                             ++pos;
                         break;
                 }
-                if (pos == position)
-                {
-                    _profile = profile;
-                    break;
-                }
+
+                if (_profile._id == profile._id)
+                    return pos;
             }
-
-            return _profile;
-        }
-    }
-
-    int getItemPosition(Profile profile)
-    {
-        if (profile == null)
             return -1;
-
-        if (activityDataWrapper.profileList == null)
-            return -1;
-
-        int pos = -1;
-
-        for (int i = 0; i < activityDataWrapper.profileList.size(); i++)
-        {
-            switch (filterType)
-            {
-                case EditorProfileListFragment.FILTER_TYPE_ALL:
-                    ++pos;
-                    break;
-                case EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR:
-                    if (profile._showInActivator)
-                        ++pos;
-                    break;
-                case EditorProfileListFragment.FILTER_TYPE_NO_SHOW_IN_ACTIVATOR:
-                    if (!profile._showInActivator)
-                        ++pos;
-                    break;
-            }
-
-            if (activityDataWrapper.profileList.get(i)._id == profile._id)
-                return pos;
         }
-        return -1;
     }
 
     /*
@@ -208,12 +214,14 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     void addItem(Profile profile/*, boolean refresh*/)
     {
-        if (activityDataWrapper.profileList == null)
-            return;
+        synchronized (activityDataWrapper.profileList) {
+            if (!activityDataWrapper.profileListFilled)
+                return;
 
-        //if (refresh)
-        //    fragment.listView.getRecycledViewPool().clear();
-        activityDataWrapper.profileList.add(profile);
+            //if (refresh)
+            //    fragment.listView.getRecycledViewPool().clear();
+            activityDataWrapper.profileList.add(profile);
+        }
         //if (refresh)
         //    notifyDataSetChanged();
     }
@@ -238,14 +246,16 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     public Profile getActivatedProfile()
     {
-        if (activityDataWrapper.profileList == null)
-            return null;
+        synchronized (activityDataWrapper.profileList) {
+            if (!activityDataWrapper.profileListFilled)
+                return null;
 
-        for (Profile p : activityDataWrapper.profileList)
-        {
-            if (p._checked)
-            {
-                return p;
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Profile> it = activityDataWrapper.profileList.iterator(); it.hasNext(); ) {
+                Profile profile = it.next();
+                if (profile._checked) {
+                    return profile;
+                }
             }
         }
 
@@ -254,32 +264,38 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     public void activateProfile(Profile profile)
     {
-        if (activityDataWrapper.profileList == null)
-            return;
+        synchronized (activityDataWrapper.profileList) {
+            if (!activityDataWrapper.profileListFilled)
+                return;
 
-        fragment.listView.getRecycledViewPool().clear();
+            fragment.listView.getRecycledViewPool().clear();
 
-        for (Profile p : activityDataWrapper.profileList)
-        {
-            p._checked = false;
-        }
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Profile> it = activityDataWrapper.profileList.iterator(); it.hasNext(); ) {
+                Profile _profile = it.next();
+                _profile._checked = false;
+            }
 
-        // search for profile in profile list
-        int position = getItemPosition(profile);
-        if (position != -1)
-        {
-            // set _checked=true for profile
-            Profile _profile = activityDataWrapper.profileList.get(position);
-            if (_profile != null)
-                _profile._checked = true;
+            // search for profile in profile list
+            int position = getItemPosition(profile);
+            if (position != -1) {
+                // set _checked=true for profile
+                Profile _profile = activityDataWrapper.profileList.get(position);
+                if (_profile != null)
+                    _profile._checked = true;
+            }
         }
         notifyDataSetChanged();
     }
 
     public void notifyDataSetChanged(boolean refreshIcons) {
         if (refreshIcons) {
-            for (Profile profile : activityDataWrapper.profileList) {
-                activityDataWrapper.refreshProfileIcon(profile, false, 0);
+            synchronized (activityDataWrapper.profileList) {
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Profile> it = activityDataWrapper.profileList.iterator(); it.hasNext(); ) {
+                    Profile profile = it.next();
+                    activityDataWrapper.refreshProfileIcon(profile, false, 0);
+                }
             }
         }
         notifyDataSetChanged();
@@ -287,36 +303,41 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     @Override
     public void onItemDismiss(int position) {
-        activityDataWrapper.profileList.remove(position);
+        synchronized (activityDataWrapper.profileList) {
+            activityDataWrapper.profileList.remove(position);
+        }
         notifyItemRemoved(position);
     }
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-        if (activityDataWrapper.profileList == null)
-            return false;
+        synchronized (activityDataWrapper.profileList) {
+            if (!activityDataWrapper.profileListFilled)
+                return false;
 
-        //Log.d("----- EditorProfileListAdapter.onItemMove", "fromPosition="+fromPosition);
-        //Log.d("----- EditorProfileListAdapter.onItemMove", "toPosition="+toPosition);
+            //Log.d("----- EditorProfileListAdapter.onItemMove", "fromPosition="+fromPosition);
+            //Log.d("----- EditorProfileListAdapter.onItemMove", "toPosition="+toPosition);
 
-        if ((fromPosition < 0) || (toPosition < 0))
-            return false;
+            if ((fromPosition < 0) || (toPosition < 0))
+                return false;
 
-        // convert positions from adapter into profileList
-        int plFrom = activityDataWrapper.profileList.indexOf(getItem(fromPosition));
-        int plTo = activityDataWrapper.profileList.indexOf(getItem(toPosition));
+            // convert positions from adapter into profileList
+            int plFrom = activityDataWrapper.profileList.indexOf(getItem(fromPosition));
+            int plTo = activityDataWrapper.profileList.indexOf(getItem(toPosition));
 
-        if (plFrom < plTo) {
-            for (int i = plFrom; i < plTo; i++) {
-                Collections.swap(activityDataWrapper.profileList, i, i + 1);
+            if (plFrom < plTo) {
+                for (int i = plFrom; i < plTo; i++) {
+                    Collections.swap(activityDataWrapper.profileList, i, i + 1);
+                }
+            } else {
+                for (int i = plFrom; i > plTo; i--) {
+                    Collections.swap(activityDataWrapper.profileList, i, i - 1);
+                }
             }
-        } else {
-            for (int i = plFrom; i > plTo; i--) {
-                Collections.swap(activityDataWrapper.profileList, i, i - 1);
-            }
+
+            DatabaseHandler.getInstance(activityDataWrapper.context).setProfileOrder(activityDataWrapper.profileList);  // set profiles _porder and write it into db
         }
 
-        DatabaseHandler.getInstance(activityDataWrapper.context).setProfileOrder(activityDataWrapper.profileList);  // set profiles _porder and write it into db
         ActivateProfileHelper.updateWidget(activityDataWrapper.context, false);
 
         notifyItemMoved(fromPosition, toPosition);
