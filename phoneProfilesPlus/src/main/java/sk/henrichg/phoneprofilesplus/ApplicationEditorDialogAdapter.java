@@ -11,7 +11,7 @@ import android.widget.RadioButton;
 import com.l4digital.fastscroll.FastScroller;
 
 class ApplicationEditorDialogAdapter extends RecyclerView.Adapter<ApplicationEditorDialogViewHolder>
-                                                implements ItemTouchHelperAdapter, FastScroller.SectionIndexer
+                                                implements FastScroller.SectionIndexer
 {
     private final LayoutInflater inflater;
     private final Context context;
@@ -40,16 +40,6 @@ class ApplicationEditorDialogAdapter extends RecyclerView.Adapter<ApplicationEdi
         //System.out.println(String.valueOf(position));
 
         holder.bindApplication(application, position);
-    }
-
-    @Override
-    public boolean onItemMove(int fromPosition, int toPosition) {
-        return false;
-    }
-
-    @Override
-    public void onItemDismiss(int position) {
-
     }
 
     @Override

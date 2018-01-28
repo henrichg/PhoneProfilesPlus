@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.l4digital.fastscroll.FastScroller;
 
 class ContactsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<ContactsMultiSelectDialogPreferenceViewHolder>
-                                                implements ItemTouchHelperAdapter, FastScroller.SectionIndexer
+                                                implements FastScroller.SectionIndexer
 {
     private final ContactsMultiSelectDialogPreference preference;
 
@@ -39,16 +39,6 @@ class ContactsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Contacts
             return "*";
         else
             return contact.name.substring(0, 1);
-    }
-
-    @Override
-    public boolean onItemMove(int fromPosition, int toPosition) {
-        return false;
-    }
-
-    @Override
-    public void onItemDismiss(int position) {
-
     }
 
     public Object getItem(int position) {

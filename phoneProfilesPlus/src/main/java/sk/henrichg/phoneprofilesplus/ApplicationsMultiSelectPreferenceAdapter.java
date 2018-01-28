@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.l4digital.fastscroll.FastScroller;
 
 class ApplicationsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<ApplicationsMultiSelectDialogPreferenceViewHolder>
-                                                implements ItemTouchHelperAdapter, FastScroller.SectionIndexer
+                                                implements FastScroller.SectionIndexer
 {
     private final Context context;
 
@@ -44,16 +44,6 @@ class ApplicationsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Appl
         //System.out.println(String.valueOf(position));
 
         holder.bindApplication(application);
-    }
-
-    @Override
-    public boolean onItemMove(int fromPosition, int toPosition) {
-        return false;
-    }
-
-    @Override
-    public void onItemDismiss(int position) {
-
     }
 
     @Override
