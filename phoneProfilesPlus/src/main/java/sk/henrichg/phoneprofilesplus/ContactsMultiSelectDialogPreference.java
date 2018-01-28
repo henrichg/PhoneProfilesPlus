@@ -4,22 +4,20 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.andraskindler.quickscroll.QuickScroll;
+import com.l4digital.fastscroll.FastScrollRecyclerView;
 
 import java.util.List;
 
@@ -38,6 +36,8 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
     private ContactsMultiSelectPreferenceAdapter listAdapter;
 
     private AsyncTask asyncTask = null;
+
+    List<Contact> contactList;
 
     public ContactsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -68,7 +68,6 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                         {
                             // fill with strings of contacts separated with |
                             value = "";
-                            List<Contact> contactList = EditorProfilesActivity.getContactsCache().getList();
                             if (contactList != null)
                             {
                                 for (Contact contact : contactList)
@@ -116,37 +115,15 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         linlaProgress = layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_progress);
         //noinspection ConstantConditions
         linlaListView = layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_listview);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         //noinspection ConstantConditions
-        ListView listView = layout.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
+        FastScrollRecyclerView listView = layout.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
+        listView.setLayoutManager(layoutManager);
+        listView.setHasFixedSize(true);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View item, int position, long id)
-            {
-                Contact contact = (Contact)listAdapter.getItem(position);
-                contact.toggleChecked();
-                ContactViewHolder viewHolder = (ContactViewHolder) item.getTag();
-                viewHolder.checkBox.setChecked(contact.checked);
-            }
-        });
-
-        listAdapter = new ContactsMultiSelectPreferenceAdapter(_context);
+        listAdapter = new ContactsMultiSelectPreferenceAdapter(this);
         listView.setAdapter(listAdapter);
-
-        TypedValue tv = new TypedValue();
-        getContext().getTheme().resolveAttribute(R.attr.colorQSScrollbar, tv, true);
-        int colorQSScrollbar = tv.data;
-        getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarInactive, tv, true);
-        int colorQSHandlebarInactive = tv.data;
-        getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarActive, tv, true);
-        int colorQSHandlebarActive = tv.data;
-        getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarStroke, tv, true);
-        int colorQSHandlebarStroke = tv.data;
-
-        final QuickScroll quickscroll = layout.findViewById(R.id.contacts_multiselect_pref_dlg_quickscroll);
-        quickscroll.init(QuickScroll.TYPE_INDICATOR_WITH_HANDLE, listView, listAdapter, QuickScroll.STYLE_HOLO, colorQSScrollbar);
-        quickscroll.setHandlebarColor(colorQSHandlebarInactive, colorQSHandlebarActive, colorQSHandlebarStroke);
-        quickscroll.setIndicatorColor(colorQSHandlebarActive, colorQSHandlebarActive, Color.WHITE);
-        quickscroll.setFixedSize(1);
 
         GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
@@ -248,7 +225,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             value = getPersistedString(value);
 
         // change checked state by value
-        List<Contact> contactList = EditorProfilesActivity.getContactsCache().getList();
+        contactList = EditorProfilesActivity.getContactsCache().getList();
         if (contactList != null)
         {
             String[] splits = value.split("\\|");

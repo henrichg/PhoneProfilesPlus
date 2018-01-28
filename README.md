@@ -16,6 +16,7 @@ Required external libs
 
 - Android support library: core, appcomapt, gridlayout, cardview, recyclerview
 - Google Play services library (GMS): location, maps
+- Google Billing library: donations
 - RootTools - https://github.com/Stericson/RootTools
 - DashClock API - https://github.com/romannurik/dashclock/wiki/API
 - SystemBarTint - https://github.com/jgilfelt/SystemBarTint
