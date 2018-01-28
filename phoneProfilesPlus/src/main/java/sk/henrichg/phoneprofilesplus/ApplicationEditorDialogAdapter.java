@@ -2,15 +2,16 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 
-import com.andraskindler.quickscroll.Scrollable;
+import com.l4digital.fastscroll.FastScroller;
 
-class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
+class ApplicationEditorDialogAdapter extends RecyclerView.Adapter<ApplicationEditorDialogViewHolder>
+                                                implements ItemTouchHelperAdapter, FastScroller.SectionIndexer
 {
     private final LayoutInflater inflater;
     private final Context context;
@@ -26,28 +27,56 @@ class ApplicationEditorDialogAdapter extends BaseAdapter implements Scrollable
         this.dialog = dialog;
     }
 
-    public int getCount() {
-        return EditorProfilesActivity.getApplicationsCache().getLength(false);
+    @Override
+    public ApplicationEditorDialogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.applications_editor_dialog_list_item, parent, false);
+        return new ApplicationEditorDialogViewHolder(view, context, dialog);
+    }
+
+    @Override
+    public void onBindViewHolder(ApplicationEditorDialogViewHolder holder, int position) {
+        // Application to display
+        Application application = dialog.cachedApplicationList.get(position);
+        //System.out.println(String.valueOf(position));
+
+        holder.bindApplication(application, position);
+    }
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        return false;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+
+    }
+
+    @Override
+    public String getSectionText(int position) {
+        Application application = dialog.cachedApplicationList.get(position);
+        /*if (application.checked)
+            return "*";
+        else*/
+            return application.appLabel.substring(0, 1);
+    }
+
+    @Override
+    public int getItemCount() {
+        if (dialog.cachedApplicationList == null)
+            return 0;
+        else
+            return dialog.cachedApplicationList.size();
     }
 
     public Object getItem(int position) {
-        return EditorProfilesActivity.getApplicationsCache().getApplication(position, false);
+        return dialog.cachedApplicationList.get(position);
     }
 
     public long getItemId(int position) {
         return position;
     }
 
-    @Override
-    public String getIndicatorForPosition(int childPosition, int groupPosition) {
-        Application application = (Application) getItem(childPosition);
-        return application.appLabel.substring(0, 1);
-    }
-
-    @Override
-    public int getScrollPosition(int childPosition, int groupPosition) {
-        return childPosition;
-    }
 
     @SuppressLint("SetTextI18n")
     public View getView(int position, View convertView, ViewGroup parent)
