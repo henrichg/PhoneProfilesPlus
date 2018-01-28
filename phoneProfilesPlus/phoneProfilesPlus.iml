@@ -118,7 +118,9 @@
     <orderEntry type="library" name="com.google.android.gms:play-services-basement-license-11.8.0" level="project" />
     <orderEntry type="library" name="__local_aars__:/home/henrisko/Projekty/Android/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/libs/slook_v1.4.0.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="com.readystatesoftware.systembartint:systembartint:1.0.4@jar" level="project" />
+    <orderEntry type="library" name="com.android.support.constraint:constraint-layout-solver:1.0.2@jar" level="project" />
     <orderEntry type="library" name="com.afollestad.material-dialogs:core-0.9.6.0" level="project" />
+    <orderEntry type="library" name="com.android.support.constraint:constraint-layout-1.0.2" level="project" />
     <orderEntry type="library" name="me.zhanghai.android.materialprogressbar:library-1.4.2" level="project" />
     <orderEntry type="library" name="android.arch.lifecycle:runtime-1.0.3" level="project" />
     <orderEntry type="library" name="com.android.support:support-vector-drawable-27.0.2" level="project" />
@@ -152,6 +154,7 @@
     <orderEntry type="library" name="com.google.android.gms:play-services-maps-11.8.0" level="project" />
     <orderEntry type="library" name="io.fabric.sdk.android:fabric-1.4.1" level="project" />
     <orderEntry type="library" name="RootTools:@aar" level="project" />
+    <orderEntry type="library" name="com.l4digital.fastscroll:fastscroll-1.0.4" level="project" />
     <orderEntry type="library" name="com.afollestad.material-dialogs:commons-0.9.6.0" level="project" />
     <orderEntry type="library" name="com.crashlytics.sdk.android:beta-1.2.7" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-location-11.8.0" level="project" />

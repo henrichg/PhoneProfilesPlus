@@ -1,128 +1,64 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.andraskindler.quickscroll.Scrollable;
+import com.l4digital.fastscroll.FastScroller;
 
-class ApplicationsMultiSelectPreferenceAdapter extends BaseAdapter implements Scrollable
+class ApplicationsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<ApplicationsMultiSelectDialogPreferenceViewHolder>
+                                                implements ItemTouchHelperAdapter, FastScroller.SectionIndexer
 {
-    private final LayoutInflater inflater;
     private final Context context;
+
+    private final ApplicationsMultiSelectDialogPreference preference;
 
     private final boolean noShortcuts;
 
-    ApplicationsMultiSelectPreferenceAdapter(Context context, int addShortcuts)
+    ApplicationsMultiSelectPreferenceAdapter(Context context, ApplicationsMultiSelectDialogPreference preference, int addShortcuts)
     {
-        // Cache the LayoutInflate to avoid asking for a new one each time.
-        inflater = LayoutInflater.from(context);
         this.context = context;
+        this.preference = preference;
 
         noShortcuts = addShortcuts == 0;
     }
 
-    public int getCount() {
-        return EditorProfilesActivity.getApplicationsCache().getLength(noShortcuts);
-    }
-
-    public Object getItem(int position) {
-        return EditorProfilesActivity.getApplicationsCache().getApplication(position, noShortcuts);
-    }
-
-    public long getItemId(int position) {
-        return position;
-    }
-    
-    @SuppressLint("SetTextI18n")
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
-        PPApplication.logE("ApplicationsMultiSelectPreferenceAdapter.getView","xxx");
-
-        ApplicationsCache applicationsCache = EditorProfilesActivity.getApplicationsCache();
-
-        // Application to display
-        Application application = applicationsCache.getApplication(position, noShortcuts);
-        //System.out.println(String.valueOf(position));
-
-        // The child views in each row.
-        ImageView imageViewIcon;
-        TextView textViewAppName;
-        CheckBox checkBox;
-        TextView textViewAppType;
-
-        // Create a new row view
-        if (convertView == null)
-        {
-            if (noShortcuts)
-                convertView = inflater.inflate(R.layout.applications_multiselect_preference_ns_list_item, parent, false);
-            else
-                convertView = inflater.inflate(R.layout.applications_multiselect_preference_list_item, parent, false);
-
-            // Find the child views.
-            imageViewIcon = convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_icon);
-            textViewAppName = convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_app_name);
-            checkBox = convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_checkbox);
-            if (noShortcuts)
-                textViewAppType = null;
-            else
-                textViewAppType = convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_app_type);
-
-            // Optimization: Tag the row with it's child views, so we don't
-            // have to
-            // call findViewById() later when we reuse the row.
-            convertView.setTag(new ApplicationViewHolder(imageViewIcon, textViewAppName, textViewAppType, checkBox));
-
-            // If CheckBox is toggled, update the Application it is tagged with.
-            checkBox.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    CheckBox cb = (CheckBox) v;
-                    Application application = (Application) cb.getTag();
-                    application.checked = cb.isChecked();
-                }
-            });
-        }
-        // Reuse existing row view
+    @Override
+    public ApplicationsMultiSelectDialogPreferenceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        int resource;
+        if (noShortcuts)
+            resource = R.layout.applications_multiselect_preference_ns_list_item;
         else
-        {
-            // Because we use a ViewHolder, we avoid having to call
-            // findViewById().
-            ApplicationViewHolder viewHolder = (ApplicationViewHolder) convertView.getTag();
-            imageViewIcon = viewHolder.imageViewIcon;
-            textViewAppName = viewHolder.textViewAppName;
-            checkBox = viewHolder.checkBox;
-            textViewAppType = viewHolder.textViewAppType;
-        }
+            resource = R.layout.applications_multiselect_preference_list_item;
 
-        // Tag the CheckBox with the Application it is displaying, so that we
-        // can
-        // access the Application in onClick() when the CheckBox is toggled.
-        checkBox.setTag(application);
-
-        // Display Application data
-        imageViewIcon.setImageBitmap(applicationsCache.getApplicationIcon(application, noShortcuts));
-        textViewAppName.setText(application.appLabel);
-        if (!noShortcuts) {
-            if (application.shortcut)
-                textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_shortcut));
-            else
-                textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_application));
-        }
-
-        checkBox.setChecked(application.checked);
-
-        return convertView;
+        View view = LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
+        return new ApplicationsMultiSelectDialogPreferenceViewHolder(view, context, noShortcuts);
     }
 
     @Override
-    public String getIndicatorForPosition(int childPosition, int groupPosition) {
-        Application application = (Application) getItem(childPosition);
+    public void onBindViewHolder(ApplicationsMultiSelectDialogPreferenceViewHolder holder, int position) {
+        // Application to display
+        Application application = preference.applicationList.get(position);
+        //System.out.println(String.valueOf(position));
+
+        holder.bindApplication(application);
+    }
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        return false;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+
+    }
+
+    @Override
+    public String getSectionText(int position) {
+        Application application = preference.applicationList.get(position);
         if (application.checked)
             return "*";
         else
@@ -130,7 +66,11 @@ class ApplicationsMultiSelectPreferenceAdapter extends BaseAdapter implements Sc
     }
 
     @Override
-    public int getScrollPosition(int childPosition, int groupPosition) {
-        return childPosition;
+    public int getItemCount() {
+        if (preference.applicationList == null)
+            return 0;
+        else
+            return preference.applicationList.size();
     }
+
 }

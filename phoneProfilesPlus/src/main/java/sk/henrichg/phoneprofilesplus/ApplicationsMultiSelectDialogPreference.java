@@ -8,24 +8,22 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.andraskindler.quickscroll.QuickScroll;
+import com.l4digital.fastscroll.FastScrollRecyclerView;
 
 import java.util.List;
 
@@ -52,8 +50,11 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     private ImageView packageIcon4;
 
     private ApplicationsMultiSelectPreferenceAdapter listAdapter;
+    //private ItemTouchHelper itemTouchHelper;
 
     private AsyncTask asyncTask = null;
+
+    List<Application> applicationList;
 
     public ApplicationsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -75,6 +76,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         if (EditorProfilesActivity.getApplicationsCache() == null)
             EditorProfilesActivity.createApplicationsCache();
 
+        //applicationsCache = EditorProfilesActivity.getApplicationsCache();
     }
 
     //@Override
@@ -111,7 +113,6 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         {
                             // fill with contact strings separated with |
                             value = "";
-                            List<Application> applicationList = EditorProfilesActivity.getApplicationsCache().getList(addShortcuts == 0);
                             if (applicationList != null)
                             {
                                 for (Application application : applicationList)
@@ -164,37 +165,22 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         linlaProgress = layout.findViewById(R.id.applications_multiselect_pref_dlg_linla_progress);
         //noinspection ConstantConditions
         linlaListView = layout.findViewById(R.id.applications_multiselect_pref_dlg_linla_listview);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         //noinspection ConstantConditions
-        ListView listView = layout.findViewById(R.id.applications_multiselect_pref_dlg_listview);
+        FastScrollRecyclerView listView = layout.findViewById(R.id.applications_multiselect_pref_dlg_listview);
+        listView.setLayoutManager(layoutManager);
+        listView.setHasFixedSize(true);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View item, int position, long id)
-            {
-                Application application = (Application)listAdapter.getItem(position);
-                application.toggleChecked();
-                ApplicationViewHolder viewHolder = (ApplicationViewHolder) item.getTag();
-                viewHolder.checkBox.setChecked(application.checked);
-            }
-        });
-
-        listAdapter = new ApplicationsMultiSelectPreferenceAdapter(_context, addShortcuts);
+        listAdapter = new ApplicationsMultiSelectPreferenceAdapter(_context, this, addShortcuts);
         listView.setAdapter(listAdapter);
 
-        TypedValue tv = new TypedValue();
-        getContext().getTheme().resolveAttribute(R.attr.colorQSScrollbar, tv, true);
-        int colorQSScrollbar = tv.data;
-        getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarInactive, tv, true);
-        int colorQSHandlebarInactive = tv.data;
-        getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarActive, tv, true);
-        int colorQSHandlebarActive = tv.data;
-        getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarStroke, tv, true);
-        int colorQSHandlebarStroke = tv.data;
-
-        final QuickScroll quickscroll = layout.findViewById(R.id.applications_pref_dlg_quickscroll);
-        quickscroll.init(QuickScroll.TYPE_INDICATOR_WITH_HANDLE, listView, listAdapter, QuickScroll.STYLE_HOLO, colorQSScrollbar);
-        quickscroll.setHandlebarColor(colorQSHandlebarInactive, colorQSHandlebarActive, colorQSHandlebarStroke);
-        quickscroll.setIndicatorColor(colorQSHandlebarActive, colorQSHandlebarActive, Color.WHITE);
-        quickscroll.setFixedSize(1);
+        /*
+        // added touch helper for drag and drop items
+        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(listAdapter, false, false);
+        itemTouchHelper = new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(listView);
+        */
 
         GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
@@ -294,7 +280,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             value = getPersistedString(value);
 
         // change checked state by value
-        List<Application> applicationList = EditorProfilesActivity.getApplicationsCache().getList(addShortcuts == 0);
+        applicationList = EditorProfilesActivity.getApplicationsCache().getList(addShortcuts == 0);
         if (applicationList != null)
         {
             String[] splits = value.split("\\|");
