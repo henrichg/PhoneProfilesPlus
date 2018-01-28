@@ -423,10 +423,8 @@ public class EditorProfileListFragment extends Fragment
 
         listView.getRecycledViewPool().clear();
 
-        activityDataWrapper.stopEventsForProfile(profile);
-        activityDataWrapper.unlinkEventsFromProfile(profile);
+        activityDataWrapper.stopEventsForProfileFromMainThread(profile, true);
         profileListAdapter.deleteItemNoNotify(profile);
-        DatabaseHandler.getInstance(activityDataWrapper.context).unlinkEventsFromProfile(profile);
         DatabaseHandler.getInstance(activityDataWrapper.context).deleteProfile(profile);
 
         profileListAdapter.notifyDataSetChanged();
@@ -523,8 +521,7 @@ public class EditorProfileListFragment extends Fragment
 
                     listView.getRecycledViewPool().clear();
 
-                    activityDataWrapper.stopAllEvents(true);
-                    activityDataWrapper.unlinkAllEvents();
+                    activityDataWrapper.stopAllEventsFromMainThread(true, true);
                     profileListAdapter.clearNoNotify();
                     DatabaseHandler.getInstance(activityDataWrapper.context).deleteAllProfiles();
                     DatabaseHandler.getInstance(activityDataWrapper.context).unlinkAllEvents();

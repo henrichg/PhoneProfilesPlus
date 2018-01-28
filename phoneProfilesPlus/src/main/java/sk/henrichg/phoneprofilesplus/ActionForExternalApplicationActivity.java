@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 
@@ -117,12 +119,29 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                 dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
             } else if (action.equals(ACTION_ENABLE_RUN_FOR_EVENT)) {
                 if (event_id != 0) {
-                    List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-                    Event event = dataWrapper.getEventById(event_id);
+                    final Event event = dataWrapper.getEventById(event_id);
                     if (event.getStatus() != Event.ESTATUS_RUNNING) {
-                        event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                                false, true, null, false); // activate return profile
-                        dataWrapper.restartEvents(false, true/*, true*/);
+                        final List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+                        PPApplication.startHandlerThread();
+                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActionForExternalApplicationActivity.ACTION_ENABLE_RUN_FOR_EVENT");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+                                event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                                        false, true, null, false); // activate return profile
+                                dataWrapper.restartEvents(false, true/*, true*/);
+
+                                if ((wakeLock != null) && wakeLock.isHeld())
+                                    wakeLock.release();
+                            }
+                        });
                     }
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                 } else {
@@ -149,12 +168,29 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                 }
             } else if (action.equals(ACTION_STOP_EVENT)) {
                 if (event_id != 0) {
-                    List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-                    Event event = dataWrapper.getEventById(event_id);
+                    final List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+                    final Event event = dataWrapper.getEventById(event_id);
                     if (event.getStatus() != Event.ESTATUS_STOP) {
-                        event.stopEvent(dataWrapper, eventTimelineList, true, false,
-                                true, true); // activate return profile
-                        dataWrapper.restartEvents(false, true/*, true*/);
+                        PPApplication.startHandlerThread();
+                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActionForExternalApplicationActivity.ACTION_STOP_EVENT");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+                                event.stopEvent(dataWrapper, eventTimelineList, true, false,
+                                        true, true); // activate return profile
+                                dataWrapper.restartEvents(false, true/*, true*/);
+
+                                if ((wakeLock != null) && wakeLock.isHeld())
+                                    wakeLock.release();
+                            }
+                        });
                     }
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                 } else {

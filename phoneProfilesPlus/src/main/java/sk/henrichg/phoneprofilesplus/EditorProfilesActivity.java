@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -688,7 +689,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             startActivity(intent);
             return true;
         case R.id.menu_exit:
-            PPApplication.exitApp(getApplicationContext(), getDataWrapper(), this, false);
+             PPApplication.exitApp(getApplicationContext(), getDataWrapper(), this, false);
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -1217,7 +1218,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 @Override
                 protected Integer doInBackground(Void... params) {
-                    this.dataWrapper.stopAllEvents(true);
+                    this.dataWrapper.stopAllEvents(true, false);
 
                     int ret = DatabaseHandler.getInstance(this.dataWrapper.context).importDB(_applicationDataPath);
                     if (ret == 1) {

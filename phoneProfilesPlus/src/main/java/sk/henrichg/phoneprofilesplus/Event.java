@@ -1178,35 +1178,6 @@ class Event {
         //return;
     }
 
-    void startEventFromMainThread(final DataWrapper dataWrapper,
-                                  final List<EventTimeline> eventTimelineList,
-                                  //final boolean ignoreGlobalPref,
-                                  //final boolean interactive,
-                                  final boolean reactivate,
-                                  //final boolean log,
-                                  final Profile mergedProfile)
-    {
-        PPApplication.startHandlerThread();
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-
-                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
-
-                startEvent(dataWrapper, eventTimelineList, reactivate, mergedProfile);
-
-                if ((wakeLock != null) && wakeLock.isHeld())
-                    wakeLock.release();
-            }
-        });
-    }
-
     private void doActivateEndProfile(DataWrapper dataWrapper,
                                         int eventPosition,
                                         int timeLineSize,
@@ -1454,36 +1425,6 @@ class Event {
         //return;
     }
 
-    void pauseEventFromMainThread(final DataWrapper dataWrapper,
-                                  final List<EventTimeline> eventTimelineList,
-                                  final boolean activateReturnProfile,
-                                  final boolean ignoreGlobalPref,
-                                  final boolean noSetSystemEvent,
-                                  final boolean log,
-                                  final Profile mergedProfile,
-                                  final boolean allowRestart) {
-        PPApplication.startHandlerThread();
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-
-                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
-
-                pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref,
-                        noSetSystemEvent, log, mergedProfile, allowRestart);
-
-                if ((wakeLock != null) && wakeLock.isHeld())
-                    wakeLock.release();
-            }
-        });
-    }
-
     void stopEvent(DataWrapper dataWrapper,
                             List<EventTimeline> eventTimelineList,
                             boolean activateReturnProfile,
@@ -1519,34 +1460,6 @@ class Event {
         }
 
         //return;
-    }
-
-    void stopEventFromMainThread(final DataWrapper dataWrapper,
-                                 final List<EventTimeline> eventTimelineList,
-                                 final boolean activateReturnProfile,
-                                 final boolean ignoreGlobalPref,
-                                 final boolean saveEventStatus,
-                                 final boolean log) {
-        PPApplication.startHandlerThread();
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-
-                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
-
-                stopEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref,
-                        saveEventStatus, log);
-
-                if ((wakeLock != null) && wakeLock.isHeld())
-                    wakeLock.release();
-            }
-        });
     }
 
     public int getStatus()

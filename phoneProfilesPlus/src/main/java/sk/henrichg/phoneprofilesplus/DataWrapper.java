@@ -659,7 +659,7 @@ public class DataWrapper {
     }
 
     // stops all events associated with profile
-    void stopEventsForProfile(Profile profile/*, boolean saveEventStatus*/)
+    private void stopEventsForProfile(Profile profile, boolean alsoUnlink/*, boolean saveEventStatus*/)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
@@ -674,8 +674,43 @@ public class DataWrapper {
                     event.stopEvent(this, eventTimelineList, false, true, true/*saveEventStatus*/, false);
             }
         }
+        if (alsoUnlink) {
+            unlinkEventsFromProfile(profile);
+            DatabaseHandler.getInstance(context).unlinkEventsFromProfile(profile);
+        }
         PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
         restartEvents(false, true/*, false*/);
+    }
+
+    void stopEventsForProfileFromMainThread(final Profile profile, final boolean alsoUnlink) {
+        final DataWrapper dataWrapper = new DataWrapper(context, forGUI, monochrome, monochromeValue);
+        synchronized (profileList) {
+            dataWrapper.setProfileList(profileList);
+        }
+        synchronized (eventList) {
+            dataWrapper.setEventList(eventList);
+        }
+
+        final Context _context = context;
+        PPApplication.startHandlerThread();
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                PowerManager powerManager = (PowerManager) _context.getSystemService(POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.stopEventsForProfileFromMainThread");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
+
+                dataWrapper.stopEventsForProfile(profile, alsoUnlink);
+
+                if ((wakeLock != null) && wakeLock.isHeld())
+                    wakeLock.release();
+            }
+        });
     }
 
     // pauses all events
@@ -724,6 +759,14 @@ public class DataWrapper {
     }
 
     private void pauseAllEventsFromMainThread(final boolean noSetSystemEvent, final boolean blockEvents) {
+        final DataWrapper dataWrapper = new DataWrapper(context, forGUI, monochrome, monochromeValue);
+        synchronized (profileList) {
+            dataWrapper.setProfileList(profileList);
+        }
+        synchronized (eventList) {
+            dataWrapper.setEventList(eventList);
+        }
+
         final Context _context = context;
         PPApplication.startHandlerThread();
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -734,11 +777,11 @@ public class DataWrapper {
                 PowerManager powerManager = (PowerManager) _context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.pauseAllEventsFromMainThread");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                pauseAllEvents(noSetSystemEvent, blockEvents);
+                dataWrapper.pauseAllEvents(noSetSystemEvent, blockEvents);
 
                 if ((wakeLock != null) && wakeLock.isHeld())
                     wakeLock.release();
@@ -747,7 +790,7 @@ public class DataWrapper {
     }
 
     // stops all events
-    void stopAllEvents(boolean saveEventStatus/*, boolean activateReturnProfile*/)
+    void stopAllEvents(boolean saveEventStatus, boolean alsoDelete/*, boolean activateReturnProfile*/)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
@@ -766,9 +809,21 @@ public class DataWrapper {
                 }
             }
         }
+        if (alsoDelete) {
+            unlinkAllEvents();
+            DatabaseHandler.getInstance(context).deleteAllEvents();
+        }
     }
 
-    void stopAllEventsFromMainThread(final boolean saveEventStatus) {
+    void stopAllEventsFromMainThread(final boolean saveEventStatus, final boolean alsoDelete) {
+        final DataWrapper dataWrapper = new DataWrapper(context, forGUI, monochrome, monochromeValue);
+        synchronized (profileList) {
+            dataWrapper.setProfileList(profileList);
+        }
+        synchronized (eventList) {
+            dataWrapper.setEventList(eventList);
+        }
+
         final Context _context = context;
         PPApplication.startHandlerThread();
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -779,11 +834,11 @@ public class DataWrapper {
                 PowerManager powerManager = (PowerManager) _context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.stopAllEventsFromMainThread");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                stopAllEvents(saveEventStatus);
+                dataWrapper.stopAllEvents(saveEventStatus, alsoDelete);
 
                 if ((wakeLock != null) && wakeLock.isHeld())
                     wakeLock.release();
@@ -791,7 +846,7 @@ public class DataWrapper {
         });
     }
 
-    void unlinkEventsFromProfile(Profile profile)
+    private void unlinkEventsFromProfile(Profile profile)
     {
         synchronized (eventList) {
             fillEventList();
@@ -806,7 +861,7 @@ public class DataWrapper {
         }
     }
 
-    void unlinkAllEvents()
+    private void unlinkAllEvents()
     {
         synchronized (eventList) {
             fillEventList();
@@ -1085,7 +1140,7 @@ public class DataWrapper {
 
 //----- Activate profile ---------------------------------------------------------------------------------------------
 
-    void _activateProfile(Profile _profile, boolean merged, int startupSource
+    private void _activateProfile(Profile _profile, boolean merged, int startupSource
                                     /*,final boolean _interactive,*/)
     {
         // remove last configured profile duration alarm
@@ -1218,7 +1273,7 @@ public class DataWrapper {
                 PowerManager powerManager = (PowerManager) _context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.activateProfileFromMainThread");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -3407,7 +3462,7 @@ public class DataWrapper {
             resetAllEventsInDelayStart(false);
             resetAllEventsInDelayEnd(false);
             // no set system events, unblock all events, no activate return profile
-            pauseAllEvents(true, false/*, false*/);
+            pauseAllEventsFromMainThread(true, false/*, false*/);
             Event.setGlobalEventsRunning(context, false);
 
             Intent serviceIntent = new Intent(context, PhoneProfilesService.class);

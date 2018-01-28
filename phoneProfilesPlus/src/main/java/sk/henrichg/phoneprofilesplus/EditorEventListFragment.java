@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +36,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+
+import static android.content.Context.POWER_SERVICE;
 
 public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
@@ -363,20 +366,21 @@ public class EditorEventListFragment extends Fragment
         onStartEventPreferencesCallback.onStartEventPreferences(event, editMode, predefinedEventIndex);
     }
 
-    void runStopEvent(Event event)
+    void runStopEvent(final Event event)
     {
         if (Event.getGlobalEventsRunning(activityDataWrapper.context)) {
             // events are not globally stopped
 
+            List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList();
             if (event.getStatusFromDB(activityDataWrapper) == Event.ESTATUS_STOP) {
                 // pause event
-                List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList();
-                event.pauseEvent(activityDataWrapper, eventTimelineList, true, false,
-                        false, false, null, false); // activate return profile
+                // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
+                event.pauseEvent(activityDataWrapper, eventTimelineList, false, false,
+                        false, false, null, false);
             } else {
                 // stop event
-                List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList();
-                event.stopEvent(activityDataWrapper, eventTimelineList, true, false,
+                // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
+                event.stopEvent(activityDataWrapper, eventTimelineList, false, false,
                         true, false); // activate return profile
             }
 
@@ -444,7 +448,7 @@ public class EditorEventListFragment extends Fragment
 
     }
 
-    private void deleteEvent(Event event)
+    private void deleteEvent(final Event event)
     {
         if (activityDataWrapper.getEventById(event._id) == null)
             // event not exists
@@ -452,15 +456,12 @@ public class EditorEventListFragment extends Fragment
 
         listView.getRecycledViewPool().clear();
 
-        List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList();
-        event.stopEvent(activityDataWrapper, eventTimelineList, false, true,
-                true, false);
+        eventListAdapter.deleteItemNoNotify(event);
+        DatabaseHandler.getInstance(activityDataWrapper.context).deleteEvent(event);
+
         // restart events
         PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
         activityDataWrapper.restartEvents(false, true/*, false*/);
-
-        eventListAdapter.deleteItemNoNotify(event);
-        DatabaseHandler.getInstance(activityDataWrapper.context).deleteEvent(event);
 
         eventListAdapter.notifyDataSetChanged();
 
@@ -559,9 +560,7 @@ public class EditorEventListFragment extends Fragment
                 public void onClick(DialogInterface dialog, int which) {
                     listView.getRecycledViewPool().clear();
 
-                    activityDataWrapper.stopAllEvents(true);
-
-                    DatabaseHandler.getInstance(activityDataWrapper.context).deleteAllEvents();
+                    activityDataWrapper.stopAllEventsFromMainThread(true, false);
 
                     eventListAdapter.clear();
                     // this is in eventListAdapter.clear()

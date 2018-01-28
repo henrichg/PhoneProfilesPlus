@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.PowerManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -313,8 +315,8 @@ public class EventPreferencesActivity extends PreferenceActivity
 
     private void savePreferences(int new_event_mode, int predefinedEventIndex)
     {
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
-        Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
+        final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
+        final Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
         if (event == null)
             return;
 
@@ -323,7 +325,7 @@ public class EventPreferencesActivity extends PreferenceActivity
         SharedPreferences preferences=getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 
         // save preferences into profile
-        List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+        final List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
 
         if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                 (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
@@ -348,21 +350,58 @@ public class EventPreferencesActivity extends PreferenceActivity
 
             if (event.getStatus() == Event.ESTATUS_STOP)
             {
-                // pause event
-                event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                        false, false, null, false);
-                // stop event
-                event.stopEvent(dataWrapper, eventTimelineList, true, false,
-                        true, false);
-            }
-            else
-                // pause event
-                event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                        false, false, null, false);
-            // restart Events
-            PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
-            dataWrapper.restartEvents(false, true/*, false*/);
+                PPApplication.startHandlerThread();
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "EditorPreferencesActivity.savePreferences");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
+                        // pause event
+                        event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                                false, false, null, false);
+                        // stop event
+                        event.stopEvent(dataWrapper, eventTimelineList, true, false,
+                                true, false);
+                        // restart Events
+                        PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
+                        dataWrapper.restartEvents(false, true/*, false*/);
+
+                        if ((wakeLock != null) && wakeLock.isHeld())
+                            wakeLock.release();
+                    }
+                });
+            }
+            else {
+                PPApplication.startHandlerThread();
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "EditorPreferencesActivity.savePreferences");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        // pause event
+                        event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                                false, false, null, false);
+                        // restart Events
+                        PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
+                        dataWrapper.restartEvents(false, true/*, false*/);
+
+                        if ((wakeLock != null) && wakeLock.isHeld())
+                            wakeLock.release();
+                    }
+                });
+            }
         }
     }
 
