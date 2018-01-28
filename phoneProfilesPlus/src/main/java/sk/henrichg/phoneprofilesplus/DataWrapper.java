@@ -28,6 +28,7 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -386,14 +387,17 @@ public class DataWrapper {
     public Profile getActivatedProfile()
     {
         synchronized (profileList) {
+            Log.e("DataWrapper.getActivatedProfile", "profileListFilled="+profileListFilled);
             if (!profileListFilled) {
                 return getActivatedProfileFromDB();
             } else {
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                     Profile profile = it.next();
-                    if (profile._checked)
+                    Log.e("DataWrapper.getActivatedProfile", "profile="+profile._name);
+                    if (profile._checked) {
                         return profile;
+                    }
                 }
                 // when filter is set and profile not found, get profile from db
                 return getActivatedProfileFromDB();
@@ -405,9 +409,9 @@ public class DataWrapper {
         if (profileList == null) {
             return getActivatedProfileFromDB();
         } else {
-            for (int i = 0; i < profileList.size(); i++)
-            {
-                Profile profile = profileList.get(i);
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
+                Profile profile = it.next();
                 if (profile._checked)
                     return profile;
             }
@@ -419,13 +423,18 @@ public class DataWrapper {
     void setProfileActive(Profile profile)
     {
         synchronized (profileList) {
+            Log.e("DataWrapper.setProfileActive", "profileListFilled="+profileListFilled);
+            if (profile != null)
+                Log.e("DataWrapper.setProfileActive", "profile="+profile._name);
+            else
+                Log.e("DataWrapper.setProfileActive", "profile=null");
             if (!profileListFilled)
                 return;
 
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
-                profile = it.next();
-                profile._checked = false;
+                Profile _profile = it.next();
+                _profile._checked = false;
             }
 
             if (profile != null)
@@ -443,7 +452,7 @@ public class DataWrapper {
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 forGUI, monochrome, monochromeValue,
                 startupSource, /*interactive,*/ null, true)) {
-            _activateProfile(profile, merged, startupSource, /*,interactive,*/ null);
+            _activateProfile(profile, merged, startupSource);
         }
     }
 
@@ -1076,8 +1085,8 @@ public class DataWrapper {
 
 //----- Activate profile ---------------------------------------------------------------------------------------------
 
-    void _activateProfile(Profile _profile, boolean merged, int startupSource,
-                                    /*final boolean _interactive,*/ final Activity _activity)
+    void _activateProfile(Profile _profile, boolean merged, int startupSource
+                                    /*,final boolean _interactive,*/)
     {
         // remove last configured profile duration alarm
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
@@ -1115,8 +1124,14 @@ public class DataWrapper {
             ActivateProfileHelper.lockRefresh = false;
         }
 
-        DatabaseHandler.getInstance(context).activateProfile(profile);
-        setProfileActive(profile);
+        DatabaseHandler.getInstance(context).activateProfile(_profile);
+        setProfileActive(_profile);
+
+        activatedProfile = getActivatedProfile();
+
+        if (PhoneProfilesService.instance != null)
+            PhoneProfilesService.instance.showProfileNotification(activatedProfile, this);
+        ActivateProfileHelper.updateWidget(context, true);
 
         String profileIcon = "";
         int profileDuration = 0;
@@ -1129,26 +1144,7 @@ public class DataWrapper {
                     (profile._duration > 0))
                 profileDuration = profile._duration;
 
-            final Context appContext = context;
-            PPApplication.startHandlerThread();
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    ActivateProfileHelper.execute(context, profile/*, merged, *//*_interactive,*/);
-
-                    if ((wakeLock != null) && wakeLock.isHeld())
-                        wakeLock.release();
-                }
-            });
+            ActivateProfileHelper.execute(context, profile);
 
             // activation with duration
             if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
@@ -1177,11 +1173,6 @@ public class DataWrapper {
             }
         }
 
-        activatedProfile = getActivatedProfile();
-        if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.showProfileNotification(activatedProfile, this);
-        ActivateProfileHelper.updateWidget(context, true);
-
         if ((profile != null) && (!merged)) {
             addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
                     getProfileNameWithManualIndicator(profile, true, profileDuration > 0, false, this),
@@ -1204,26 +1195,19 @@ public class DataWrapper {
                 //    showToastAfterActivation(profile);
             }
         }
-
-        // for startActivityForResult
-        if (_activity != null)
-        {
-            Intent returnIntent = new Intent();
-            if (profile == null)
-                returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-            else
-                returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            returnIntent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
-            _activity.setResult(Activity.RESULT_OK,returnIntent);
-        }
-
-        finishActivity(startupSource, true, _activity);
-
     }
 
     void activateProfileFromMainThread(final Profile _profile, final boolean merged, final int startupSource,
-                                    /*final boolean _interactive,*/ final Activity _activity)
+                                    final Activity _activity)
     {
+        final DataWrapper dataWrapper = new DataWrapper(context, forGUI, monochrome, monochromeValue);
+        synchronized (profileList) {
+            dataWrapper.setProfileList(profileList);
+        }
+        synchronized (eventList) {
+            dataWrapper.setEventList(eventList);
+        }
+
         final Context _context = context;
         PPApplication.startHandlerThread();
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -1238,12 +1222,29 @@ public class DataWrapper {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                _activateProfile(_profile, merged, startupSource, _activity);
+                dataWrapper._activateProfile(_profile, merged, startupSource);
 
                 if ((wakeLock != null) && wakeLock.isHeld())
                     wakeLock.release();
             }
         });
+
+        // for startActivityForResult
+        if (_activity != null)
+        {
+            final Profile profile = Profile.getMappedProfile(_profile, context);
+
+            Intent returnIntent = new Intent();
+            if (profile == null)
+                returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+            else
+                returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+            returnIntent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
+            _activity.setResult(Activity.RESULT_OK,returnIntent);
+        }
+
+        finishActivity(startupSource, true, _activity);
+
     }
 
     private void showToastAfterActivation(Profile profile)
@@ -1294,7 +1295,7 @@ public class DataWrapper {
                         if (Permissions.grantProfilePermissions(context, _profile, false, false,
                                 forGUI, monochrome, monochromeValue,
                                 _startupSource, /*true,*/ _activity, true))
-                            _dataWrapper._activateProfile(_profile, false, _startupSource, /*true,*/ _activity);
+                            _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, /*true,*/ _activity);
                         else {
                             Intent returnIntent = new Intent();
                             _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
@@ -1349,7 +1350,7 @@ public class DataWrapper {
                             forGUI, monochrome, monochromeValue,
                             startupSource, false, null, true);*/
                 if (granted)
-                    _activateProfile(profile, false, startupSource, /*interactive,*/ activity);
+                    activateProfileFromMainThread(profile, false, startupSource, /*interactive,*/ activity);
             }
         }
     }
@@ -1458,7 +1459,7 @@ public class DataWrapper {
         {
             // profile activation
             if (startupSource == PPApplication.STARTUP_SOURCE_BOOT)
-                _activateProfile(profile, false, PPApplication.STARTUP_SOURCE_BOOT,
+                activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_BOOT,
                                         /*boolean _interactive,*/ null);
             else
                 activateProfileWithAlert(profile, startupSource, /*interactive,*/ activity);
@@ -1494,7 +1495,7 @@ public class DataWrapper {
                 forGUI, monochrome, monochromeValue,
                 startupSource, /*true,*/ null, true)) {
             // activateProfileAfterDuration is already called from handlerThread
-            _activateProfile(profile, false, startupSource, /*true,*/ null);
+            _activateProfile(profile, false, startupSource);
         }
     }
 

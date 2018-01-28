@@ -21,6 +21,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -946,7 +947,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             finish();
             Permissions.removeProfileNotification(context);
             if (activateProfile)
-                dataWrapper._activateProfile(profile, mergedProfile, startupSource, /*interactive,*/
+                dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, /*interactive,*/
                         Permissions.profileActivationActivity);
         }
         Permissions.releaseReferences();
