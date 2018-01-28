@@ -69,7 +69,7 @@ public class PPApplication extends Application {
 
                                          //+"|GrantPermissionActivity"
 
-                                         +"|$$$ DataWrapper._activateProfile"
+                                         //+"|$$$ DataWrapper._activateProfile"
 
                                          //+"|BillingManager"
                                          //+"|DonationFragment"

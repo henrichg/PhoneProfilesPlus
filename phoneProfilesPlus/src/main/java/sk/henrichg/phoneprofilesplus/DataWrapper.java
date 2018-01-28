@@ -387,14 +387,12 @@ public class DataWrapper {
     public Profile getActivatedProfile()
     {
         synchronized (profileList) {
-            Log.e("DataWrapper.getActivatedProfile", "profileListFilled="+profileListFilled);
             if (!profileListFilled) {
                 return getActivatedProfileFromDB();
             } else {
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                     Profile profile = it.next();
-                    Log.e("DataWrapper.getActivatedProfile", "profile="+profile._name);
                     if (profile._checked) {
                         return profile;
                     }
@@ -423,11 +421,6 @@ public class DataWrapper {
     void setProfileActive(Profile profile)
     {
         synchronized (profileList) {
-            Log.e("DataWrapper.setProfileActive", "profileListFilled="+profileListFilled);
-            if (profile != null)
-                Log.e("DataWrapper.setProfileActive", "profile="+profile._name);
-            else
-                Log.e("DataWrapper.setProfileActive", "profile=null");
             if (!profileListFilled)
                 return;
 
