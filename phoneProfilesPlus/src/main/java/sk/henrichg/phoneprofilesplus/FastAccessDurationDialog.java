@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -76,9 +77,8 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(mActivity)
                 .title(mActivity.getString(R.string.profile_preferences_duration))
-                .positiveText(R.string.fast_access_duration_activate_with_button)
+                .positiveText(android.R.string.ok)
                 .negativeText(android.R.string.cancel)
-                .neutralText(R.string.fast_access_duration_activate_without_button)
                 .customView(R.layout.activity_fast_access_duration_dialog, true)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -109,20 +109,6 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         updateEndsTimer = null;
                         mDataWrapper.finishActivity(mStartupSource, false, mActivity);
-                    }
-                })
-                .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        updateEndsTimer = null;
-
-                        mProfile._duration = 0;
-                        DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
-
-                        if (Permissions.grantProfilePermissions(mActivity, mProfile, false, false,
-                                true, mMonochrome, mMonochromeValue,
-                                mStartupSource, /*true,*/ mActivity, true))
-                            mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, /*true,*/ mActivity);
                     }
                 })
                 .dismissListener(new DialogInterface.OnDismissListener() {
@@ -263,6 +249,24 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 }
             }
         }.init(activity), 250, 250);
+
+        final Button activateWithoutButton = layout.findViewById(R.id.fast_access_duration_dlg_activate_without);
+        activateWithoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateEndsTimer = null;
+
+                mProfile._duration = 0;
+                DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
+
+                if (Permissions.grantProfilePermissions(mActivity, mProfile, false, false,
+                        true, mMonochrome, mMonochromeValue,
+                        mStartupSource, /*true,*/ mActivity, true))
+                    mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, /*true,*/ mActivity);
+
+                mDialog.dismiss();
+            }
+        });
 
     }
 

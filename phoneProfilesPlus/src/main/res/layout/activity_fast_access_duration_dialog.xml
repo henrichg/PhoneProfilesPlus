@@ -182,4 +182,13 @@
         android:layout_marginStart="4dp"
         android:entries="@array/afterProfileDurationDoArray" />
 
+    <Button
+        android:id="@+id/fast_access_duration_dlg_activate_without"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/fast_access_duration_activate_without_button_2"
+        android:textColor="?attr/colorAccent"
+        android:background="?attr/selectableItemBackground" />
+
 </LinearLayout>

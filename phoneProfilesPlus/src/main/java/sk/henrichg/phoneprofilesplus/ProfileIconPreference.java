@@ -93,7 +93,6 @@ public class ProfileIconPreference extends DialogPreference {
                         //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .neutralText(R.string.imageview_resource_file_pref_dialog_gallery_btn)
                 .autoDismiss(false)
                 .content(getDialogMessage())
                 .customView(R.layout.activity_profileicon_pref_dialog, false)
@@ -110,16 +109,6 @@ public class ProfileIconPreference extends DialogPreference {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         mDialog.dismiss();
-                    }
-                })
-                .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        // call of gallery
-                        if (Permissions.grantCustomProfileIconPermissions(prefContext, ProfileIconPreference.this)) {
-                            startGallery();
-                            mDialog.dismiss();
-                        }
                     }
                 });
 
@@ -200,6 +189,17 @@ public class ProfileIconPreference extends DialogPreference {
             @Override
             public void onClick(View v) {
                 DialogHelpPopupWindow.showPopup(mDialog, helpIcon, prefContext, R.string.profileicon_pref_dialog_info_about_status_bar_icon);
+            }
+        });
+
+        final Button customIconButton = layout.findViewById(R.id.profileicon_pref_dlg_custom_icon);
+        customIconButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Permissions.grantCustomProfileIconPermissions(prefContext, ProfileIconPreference.this)) {
+                    startGallery();
+                    mDialog.dismiss();
+                }
             }
         });
 
