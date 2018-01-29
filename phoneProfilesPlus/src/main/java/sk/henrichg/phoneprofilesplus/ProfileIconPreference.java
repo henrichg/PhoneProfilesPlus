@@ -161,6 +161,7 @@ public class ProfileIconPreference extends DialogPreference {
         else
             colorChooserButton.setVisibility(View.GONE);
 
+        /*
         final TextView helpText = layout.findViewById(R.id.profileicon_pref_dlg_helpText);
 
         final ImageView helpIcon = layout.findViewById(R.id.profileicon_pref_dlg_helpIcon);
@@ -191,6 +192,14 @@ public class ProfileIconPreference extends DialogPreference {
                 }
                 helpText.setVisibility(visibility);
                 editor.apply();
+            }
+        });
+        */
+        final ImageView helpIcon = layout.findViewById(R.id.profileicon_pref_dlg_helpIcon);
+        helpIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogHelpPopupWindow.showPopup(mDialog, helpIcon, prefContext, R.string.profileicon_pref_dialog_info_about_status_bar_icon);
             }
         });
 

@@ -179,7 +179,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                 popup.setClippingEnabled(false);
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
-                        RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y);
+                        RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
             }
         });
 

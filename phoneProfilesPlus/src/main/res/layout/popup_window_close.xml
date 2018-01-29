@@ -6,7 +6,6 @@
           android:layout_marginEnd="10dp"
           android:layout_marginTop="10dp"
           android:layout_gravity="end"
-          android:textAppearance="?android:attr/textAppearanceMedium"
           android:textColor="?attr/colorAccent"
           android:text="@string/button_close" />
 

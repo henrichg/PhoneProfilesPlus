@@ -38,14 +38,14 @@
                 android:layout_marginBottom="5dp"
                 android:background="?attr/dialogDivider" />
 
-            <TextView
+            <!-- <TextView
                 android:id="@+id/wifi_ssid_pref_dlg_helpText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="5dp"
-                android:text="@string/pref_dlg_info_about_wildcards_1" />
+                android:text="@string/pref_dlg_info_about_wildcards_1" /> -->
 
             <RelativeLayout
                 android:id="@+id/wifi_ssid_pref_dlg_et_btn2"

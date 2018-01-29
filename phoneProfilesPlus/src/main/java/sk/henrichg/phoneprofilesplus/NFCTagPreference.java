@@ -158,13 +158,8 @@ public class NFCTagPreference extends DialogPreference {
 
         });
 
+        /*
         final TextView helpText = layout.findViewById(R.id.nfc_tag_pref_dlg_helpText);
-        /*String helpString = context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
-                            context.getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
-                            context.getString(R.string.wifi_ssid_pref_dlg_info_about_wildcards) + " " +
-                            context.getString(R.string.pref_dlg_info_about_wildcards_3);
-        helpText.setText(helpString);*/
-
         final ImageView helpIcon = layout.findViewById(R.id.nfc_tag_pref_dlg_helpIcon);
         ApplicationPreferences.getSharedPreferences(context);
         if (ApplicationPreferences.preferences.getBoolean(PREF_SHOW_HELP, true)) {
@@ -195,6 +190,16 @@ public class NFCTagPreference extends DialogPreference {
                 editor.apply();
             }
         });
+        */
+        final ImageView helpIcon = layout.findViewById(R.id.nfc_tag_pref_dlg_helpIcon);
+        helpIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogHelpPopupWindow.showPopup(mDialog, helpIcon, context, R.string.nfc_tag_pref_dlg_help);
+            }
+        });
+
+
         ImageView changeSelectionIcon = layout.findViewById(R.id.nfc_tag_pref_dlg_changeSelection);
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override

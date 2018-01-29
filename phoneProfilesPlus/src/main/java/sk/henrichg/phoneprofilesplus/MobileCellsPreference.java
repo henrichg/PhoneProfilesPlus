@@ -265,8 +265,8 @@ public class MobileCellsPreference extends DialogPreference {
             }
         });
 
+        /*
         final TextView helpText = layout.findViewById(R.id.mobile_cells_pref_dlg_helpText);
-
         final ImageView helpIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
         ApplicationPreferences.getSharedPreferences(context);
         if (ApplicationPreferences.preferences.getBoolean(PREF_SHOW_HELP, true)) {
@@ -295,6 +295,14 @@ public class MobileCellsPreference extends DialogPreference {
                 }
                 helpText.setVisibility(visibility);
                 editor.apply();
+            }
+        });
+        */
+        final ImageView helpIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
+        helpIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogHelpPopupWindow.showPopup(mDialog, helpIcon, context, R.string.mobile_cells_pref_dlg_help);
             }
         });
 

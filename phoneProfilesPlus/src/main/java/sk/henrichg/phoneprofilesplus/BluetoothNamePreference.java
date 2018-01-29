@@ -200,6 +200,7 @@ public class BluetoothNamePreference extends DialogPreference {
 
         });
 
+        /*
         final TextView helpText = layout.findViewById(R.id.bluetooth_name_pref_dlg_helpText);
         String helpString = context.getString(R.string.event_preference_bluetooth_bt_types)+"\n\n"+
                 context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
@@ -238,6 +239,22 @@ public class BluetoothNamePreference extends DialogPreference {
                 editor.apply();
             }
         });
+        */
+        final ImageView helpIcon = layout.findViewById(R.id.bluetooth_name_pref_dlg_helpIcon);
+        helpIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String helpString = context.getString(R.string.event_preference_bluetooth_bt_types)+"\n\n"+
+                        context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
+                        context.getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
+                        context.getString(R.string.bluetooth_name_pref_dlg_info_about_wildcards) + " " +
+                        context.getString(R.string.pref_dlg_info_about_wildcards_3);
+
+                DialogHelpPopupWindow.showPopup(mDialog, helpIcon, context, helpString);
+            }
+        });
+
+
         ImageView changeSelectionIcon = layout.findViewById(R.id.bluetooth_name_pref_dlg_changeSelection);
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
