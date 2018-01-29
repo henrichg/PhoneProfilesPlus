@@ -25,7 +25,7 @@ Required external libs
 - RelativePopupWindow - https://github.com/kakajika/RelativePopupWindow
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
 - crashlytics - https://fabric.io/kits/android/crashlytics
-- quickscroll - https://github.com/andraskindler/quickscroll
+- RecyclerView-FastScroll - https://github.com/timusus/RecyclerView-FastScroll
 - android-job - https://github.com/evernote/android-job
 - time-duration-picker - https://github.com/svenwiegand/time-duration-picker
 - android-betterpickers - https://github.com/code-troopers/android-betterpickers

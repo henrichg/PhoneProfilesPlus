@@ -30,9 +30,9 @@
 
     <color name="lockDevice_textColor">#FFFFFFFF</color>
 
-    <color name="colorQSScrollbar">#64000000</color>
-    <color name="colorQSHandlebarInactive">#80DC8160</color>
-    <color name="colorQSHandlebarActive">#FFDC8160</color>
-    <color name="colorQSHandlebarStroke">#80DC8160</color>
+    <color name="fastScrollTrackPP">#FFEFEFEF</color>
+    <color name="fastScrollThumbPP">#FFDC8160</color>
+    <color name="fastScrollPopupBackgroundPP">#FFDC8160</color>
+    <color name="fastScrollPopupTextPP">#FFFFFFFF</color>
 
 </resources>

@@ -1,19 +1,17 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
 
-import com.l4digital.fastscroll.FastScroller;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 class ApplicationEditorDialogAdapter extends RecyclerView.Adapter<ApplicationEditorDialogViewHolder>
-                                                implements FastScroller.SectionIndexer
+                                                implements FastScrollRecyclerView.SectionedAdapter
 {
-    private final LayoutInflater inflater;
     private final Context context;
 
     private final ApplicationEditorDialog dialog;
@@ -21,7 +19,6 @@ class ApplicationEditorDialogAdapter extends RecyclerView.Adapter<ApplicationEdi
     ApplicationEditorDialogAdapter(ApplicationEditorDialog dialog, Context context)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
-        inflater = LayoutInflater.from(context);
         this.context = context;
 
         this.dialog = dialog;
@@ -42,8 +39,9 @@ class ApplicationEditorDialogAdapter extends RecyclerView.Adapter<ApplicationEdi
         holder.bindApplication(application, position);
     }
 
+    @NonNull
     @Override
-    public String getSectionText(int position) {
+    public String getSectionName(int position) {
         Application application = dialog.cachedApplicationList.get(position);
         /*if (application.checked)
             return "*";
@@ -65,64 +63,6 @@ class ApplicationEditorDialogAdapter extends RecyclerView.Adapter<ApplicationEdi
 
     public long getItemId(int position) {
         return position;
-    }
-
-
-    @SuppressLint("SetTextI18n")
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
-        ApplicationEditorViewHolder holder;
-
-        ApplicationsCache applicationsCache = EditorProfilesActivity.getApplicationsCache();
-
-        // Application to display
-        Application application = applicationsCache.getApplication(position, false);
-        //System.out.println(String.valueOf(position));
-
-        // Create a new row view
-        if (convertView == null)
-        {
-            convertView = inflater.inflate(R.layout.applications_editor_dialog_list_item, parent, false);
-
-            // Find the child views.
-            holder = new ApplicationEditorViewHolder();
-            holder.imageViewIcon = convertView.findViewById(R.id.applications_editor_dialog_item_icon);
-            holder.textViewAppName = convertView.findViewById(R.id.applications_editor_dialog_item_app_name);
-            holder.radioBtn = convertView.findViewById(R.id.applications_editor_dialog_item_radiobutton);
-            holder.textViewAppType = convertView.findViewById(R.id.applications_editor_dialog_item_app_type);
-            convertView.setTag(holder);
-        }
-        // Reuse existing row view
-        else
-        {
-            // Because we use a ViewHolder, we avoid having to call
-            // findViewById().
-            holder = (ApplicationEditorViewHolder)convertView.getTag();
-        }
-
-        holder.radioBtn.setTag(position);
-        if (dialog.selectedPosition == position)
-            holder.radioBtn.setChecked(true);
-        else
-            holder.radioBtn.setChecked(false);
-        holder.radioBtn.setTag(position);
-        holder.radioBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                RadioButton rb = (RadioButton) v;
-                rb.setChecked(true);
-                dialog.doOnItemSelected((Integer)rb.getTag());
-            }
-        });
-
-        // Display Application data
-        holder.imageViewIcon.setImageBitmap(applicationsCache.getApplicationIcon(application, false));
-        holder.textViewAppName.setText(application.appLabel);
-        if (application.shortcut)
-            holder.textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_shortcut));
-        else
-            holder.textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_application));
-
-        return convertView;
     }
 
 }

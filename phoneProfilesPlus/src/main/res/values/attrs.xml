@@ -93,10 +93,10 @@
     <attr name="actionActivityLogPlayIcon" format="reference" />
     <attr name="actionActivityLogPauseIcon" format="reference" />
     <attr name="actionProfileActivtionDuration" format="reference" />
-    <attr name="colorQSScrollbar" format="reference" />
-    <attr name="colorQSHandlebarInactive" format="reference" />
-    <attr name="colorQSHandlebarActive" format="reference" />
-    <attr name="colorQSHandlebarStroke" format="reference" />
+    <attr name="fastScrollTrackPP" format="reference" />
+    <attr name="fastScrollThumbPP" format="reference" />
+    <attr name="fastScrollPopupBackgroundPP" format="reference" />
+    <attr name="fastScrollPopupTextPP" format="reference" />
     <attr name="actionDefaultProfile" format="reference" />
 
 </resources>
