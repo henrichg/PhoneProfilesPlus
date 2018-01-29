@@ -1177,13 +1177,8 @@ public class DataWrapper {
 
         activatedProfile = getActivatedProfile();
 
-        if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.showProfileNotification(activatedProfile, this);
-        ActivateProfileHelper.updateWidget(context, true);
-
         String profileIcon = "";
         int profileDuration = 0;
-
         if (profile != null)
         {
             profileIcon = profile._icon;
@@ -1191,8 +1186,6 @@ public class DataWrapper {
             if ((profile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING) &&
                     (profile._duration > 0))
                 profileDuration = profile._duration;
-
-            ActivateProfileHelper.execute(context, profile);
 
             // activation with duration
             if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
@@ -1220,6 +1213,13 @@ public class DataWrapper {
                 profileDuration = 0;
             }
         }
+
+        if (PhoneProfilesService.instance != null)
+            PhoneProfilesService.instance.showProfileNotification(activatedProfile, this);
+        ActivateProfileHelper.updateWidget(context, true);
+
+        if (profile != null)
+            ActivateProfileHelper.execute(context, profile);
 
         if ((profile != null) && (!merged)) {
             addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
@@ -1538,11 +1538,21 @@ public class DataWrapper {
     {
         int startupSource = PPApplication.STARTUP_SOURCE_SERVICE_MANUAL;
         Profile profile = getProfileById(profile_id, false);
-        if (profile == null) return;
+        PPApplication.logE("DataWrapper.activateProfileAfterDuration", "profile="+profile);
+        if (profile == null) {
+            PPApplication.logE("DataWrapper.activateProfileAfterDuration", "no activate");
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+            Profile.setActivatedProfileForDuration(context, 0);
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.showProfileNotification(getActivatedProfile(), this);
+            ActivateProfileHelper.updateWidget(context, true);
+            return;
+        }
         if (Permissions.grantProfilePermissions(context, profile, false, true,
                 forGUI, monochrome, monochromeValue,
                 startupSource, /*true,*/ null, true)) {
             // activateProfileAfterDuration is already called from handlerThread
+            PPApplication.logE("DataWrapper.activateProfileAfterDuration", "activate");
             _activateProfile(profile, false, startupSource);
         }
     }
