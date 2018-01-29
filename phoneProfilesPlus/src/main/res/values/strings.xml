@@ -1125,6 +1125,7 @@
     <string name="donation_thanks_dialog">Thank you for donating.\nI really appreciate it.</string>-->
     <string name="donation_google_android_market_not_supported">In-App Donations are not supported. Is Google Play Store installed correctly?</string>
     <string name="donation_google_error">Error.</string>
+    <string name="button_close">Close</string>-->
     <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
     <!--
     <string name="notification_channel_activated_profile">Activated profile</string>
@@ -1145,7 +1146,6 @@
     <!--<string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and interruption types with vibration.</string>-->
     <!--<string name="info_notification_unlink_ringer_notification_volumes2">If your device does not have separate volumes for ringtone and notifications, keep volume separation enabled.</string>-->
     <!--<string name="event_preferences_orientation_AccessibilitySettings_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
-    <!--<string name="donation_button_close">Close</string>-->
     <!--<string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>-->
     <!--<string name="donation_thanks_dialog_title">Thank you</string>-->
     <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->

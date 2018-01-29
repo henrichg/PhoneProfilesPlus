@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@+id/popup_window_close"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_gravity="end"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:textColor="?attr/colorAccent"
+          android:text="@string/button_close" />
+

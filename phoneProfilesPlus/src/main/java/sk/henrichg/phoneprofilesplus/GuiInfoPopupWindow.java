@@ -18,11 +18,11 @@ import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 
 class GuiInfoPopupWindow extends RelativePopupWindow {
 
-    final View view;
+    final View popupView;
 
     GuiInfoPopupWindow(int layoutId, Context context) {
-        view = LayoutInflater.from(context).inflate(layoutId, null);
-        setContentView(view);
+        popupView = LayoutInflater.from(context).inflate(layoutId, null);
+        setContentView(popupView);
         setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         setFocusable(true);
@@ -33,6 +33,15 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setAnimationStyle(0);
         }
+
+        popupView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
+
+
     }
 
     @Override
