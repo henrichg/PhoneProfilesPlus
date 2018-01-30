@@ -357,7 +357,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                 mStatus.setText(R.string.mobile_cells_registration_pref_dlg_status_stopped);
                 mRemainingTime.setVisibility(View.GONE);
             }
-            stopButton.setEnabled(PhoneStateScanner.enabledAutoRegistration);
+            stopButton.setEnabled(!started);
         }
     }
 
