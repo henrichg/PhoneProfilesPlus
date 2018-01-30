@@ -34,6 +34,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -297,6 +298,19 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerHeaderFilterImage = findViewById(R.id.editor_drawer_list_header_icon);
         drawerHeaderFilterTitle = findViewById(R.id.editor_drawer_list_header_title);
         drawerHeaderFilterSubtitle = findViewById(R.id.editor_drawer_list_header_subtitle);
+
+        /*
+        RelativeLayout headerBackground = findViewById(R.id.editor_drawer_list_header_background);
+        // set status bar background for Activity body layout
+        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
+            headerBackground.setBackgroundResource(R.drawable.editor_drawer_list_header_background);
+        else
+        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
+            headerBackground.setBackgroundResource(R.drawable.editor_drawer_list_header_background_dark);
+        else
+        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dlight"))
+            headerBackground.setBackgroundResource(R.drawable.editor_drawer_list_header_background);
+        */
 
         int drawerShadowId;
         if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))

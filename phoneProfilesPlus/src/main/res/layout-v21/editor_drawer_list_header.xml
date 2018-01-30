@@ -6,6 +6,7 @@
              android:layout_height="wrap_content" >
 
     <RelativeLayout
+        android:id="@+id/editor_drawer_list_header_background"
         android:background="?attr/editorDrawerListHeaderBackground"
         android:layout_width="match_parent"
         android:layout_height="105dp"
