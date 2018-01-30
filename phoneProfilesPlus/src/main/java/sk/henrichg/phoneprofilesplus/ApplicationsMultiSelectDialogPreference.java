@@ -176,7 +176,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         itemTouchHelper.attachToRecyclerView(listView);
         */
 
-        final Button unselectAllButton = layout.findViewById(R.id.applications_multiselect_pref_dlg_uselect_all);
+        final Button unselectAllButton = layout.findViewById(R.id.applications_multiselect_pref_dlg_unselect_all);
         unselectAllButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -12,8 +12,10 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -30,7 +32,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 
     // Layout widgets.
     private LinearLayout linlaProgress;
-    private LinearLayout linlaListView;
+    private RelativeLayout rellaData;
 
     private ContactGroupsMultiSelectPreferenceAdapter listAdapter;
 
@@ -53,7 +55,6 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .neutralText(R.string.pref_dlg_change_selection_button_unselect_all)
                 .content(getDialogMessage())
                 .customView(R.layout.activity_contact_groups_multiselect_pref_dialog, false)
                 .dividerColor(0)
@@ -91,13 +92,6 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         mDialog.dismiss();
                     }
-                })
-                .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        value="";
-                        refreshListView(false);
-                    }
                 });
 
         mBuilder.showListener(new DialogInterface.OnShowListener() {
@@ -113,7 +107,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_linla_progress);
         //noinspection ConstantConditions
-        linlaListView = layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_linla_listview);
+        rellaData = layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_rella_data);
         //noinspection ConstantConditions
         ListView listView = layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_listview);
 
@@ -129,6 +123,15 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 
         listAdapter = new ContactGroupsMultiSelectPreferenceAdapter(_context);
         listView.setAdapter(listAdapter);
+
+        final Button unselectAllButton = layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_unselect_all);
+        unselectAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                value="";
+                refreshListView(false);
+            }
+        });
 
         GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
@@ -149,7 +152,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
             {
                 super.onPreExecute();
                 if (notForUnselect) {
-                    linlaListView.setVisibility(View.GONE);
+                    rellaData.setVisibility(View.GONE);
                     linlaProgress.setVisibility(View.VISIBLE);
                 }
             }
@@ -175,7 +178,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                 listAdapter.notifyDataSetChanged();
 
                 if (notForUnselect) {
-                    linlaListView.setVisibility(View.VISIBLE);
+                    rellaData.setVisibility(View.VISIBLE);
                     linlaProgress.setVisibility(View.GONE);
                 }
             }

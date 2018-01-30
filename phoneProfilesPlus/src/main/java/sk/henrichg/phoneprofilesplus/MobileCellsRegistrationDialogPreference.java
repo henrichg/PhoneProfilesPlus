@@ -81,6 +81,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                 .icon(getDialogIcon())
                 .positiveText(R.string.mobile_cells_registration_pref_dlg_start_button)
                 .negativeText(getNegativeButtonText())
+                // not removed, buttons are not stacked in Galaxy Nexus.
                 .neutralText(R.string.mobile_cells_registration_pref_dlg_stop_button)
                 .content(getDialogMessage())
                 .customView(R.layout.activity_mobile_cells_registration_pref_dialog, true)

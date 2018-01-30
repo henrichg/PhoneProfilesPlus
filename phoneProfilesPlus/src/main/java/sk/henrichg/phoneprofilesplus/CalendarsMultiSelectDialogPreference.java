@@ -14,8 +14,10 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -35,7 +37,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
     // Layout widgets.
     private ListView listView = null;
     private LinearLayout linlaProgress;
-    private LinearLayout linlaLisView;
+    private RelativeLayout rellaData;
 
     private CalendarsMultiSelectPreferenceAdapter listAdapter;
 
@@ -68,7 +70,6 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .neutralText(R.string.pref_dlg_change_selection_button_unselect_all)
                 .content(getDialogMessage())
                 .customView(R.layout.activity_calendars_multiselect_pref_dialog, false)
                 .dividerColor(0)
@@ -105,13 +106,6 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         mDialog.dismiss();
                     }
-                })
-                .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        value="";
-                        refreshListView(false);
-                    }
                 });
 
         mBuilder.showListener(new DialogInterface.OnShowListener() {
@@ -127,7 +121,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.calendars_multiselect_pref_dlg_linla_progress);
         //noinspection ConstantConditions
-        linlaLisView = layout.findViewById(R.id.calendars_multiselect_pref_dlg_linla_listview);
+        rellaData = layout.findViewById(R.id.calendars_multiselect_pref_dlg_rella_data);
         //noinspection ConstantConditions
         listView = layout.findViewById(R.id.calendars_multiselect_pref_dlg_listview);
 
@@ -142,6 +136,15 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         });
 
         listAdapter = null;
+
+        final Button unselectAllButton = layout.findViewById(R.id.calendars_multiselect_pref_dlg_unselect_all);
+        unselectAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                value="";
+                refreshListView(false);
+            }
+        });
 
         GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
@@ -167,7 +170,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 _calendarList = new ArrayList<>();
 
                 if (notForUnselect) {
-                    linlaLisView.setVisibility(View.GONE);
+                    rellaData.setVisibility(View.GONE);
                     linlaProgress.setVisibility(View.VISIBLE);
                 }
             }
@@ -234,7 +237,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 else
                     listAdapter.setCalendarList(calendarList);
                 if (notForUnselect) {
-                    linlaLisView.setVisibility(View.VISIBLE);
+                    rellaData.setVisibility(View.VISIBLE);
                     linlaProgress.setVisibility(View.GONE);
                 }
             }

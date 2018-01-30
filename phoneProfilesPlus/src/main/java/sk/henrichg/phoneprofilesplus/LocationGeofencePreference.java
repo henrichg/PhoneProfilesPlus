@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
@@ -74,8 +75,7 @@ public class LocationGeofencePreference extends DialogPreference {
 
         if (onlyEdit == 0) {
             mBuilder.positiveText(getPositiveButtonText())
-                    .negativeText(getNegativeButtonText())
-                    .neutralText(R.string.pref_dlg_change_selection_button_unselect_all);
+                    .negativeText(getNegativeButtonText());
             mBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
                 @Override
                 public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -87,13 +87,6 @@ public class LocationGeofencePreference extends DialogPreference {
                 @Override
                 public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                     mDialog.dismiss();
-                }
-            });
-            mBuilder.onNeutral(new MaterialDialog.SingleButtonCallback() {
-                @Override
-                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                    DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence("", 0);
-                    refreshListView();
                 }
             });
 
@@ -183,6 +176,15 @@ public class LocationGeofencePreference extends DialogPreference {
             @Override
             public void onClick(View v) {
                 startEditor(0);
+            }
+        });
+
+        final Button unselectAllButton = layout.findViewById(R.id.location_pref_dlg_uselectAll);
+        unselectAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence("", 0);
+                refreshListView();
             }
         });
 

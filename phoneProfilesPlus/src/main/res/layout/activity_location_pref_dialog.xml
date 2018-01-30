@@ -38,6 +38,15 @@
                 android:layout_marginBottom="5dp"
                 android:background="?attr/dialogDivider" />
 
+            <Button
+                android:id="@+id/location_pref_dlg_uselectAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/pref_dlg_change_selection_button_unselect_all"
+                android:textColor="?attr/colorAccent"
+                android:background="?attr/selectableItemBackground" />
+
             <RelativeLayout
                 android:id="@+id/location_pref_dlg_et_btn2"
                 android:orientation="horizontal"
