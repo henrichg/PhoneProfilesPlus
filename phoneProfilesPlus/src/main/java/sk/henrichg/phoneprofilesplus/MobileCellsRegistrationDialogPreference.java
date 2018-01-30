@@ -14,6 +14,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
     private TextView mStatus;
     private TextView mRemainingTime;
     private TimeDurationPickerDialog mValueDialog;
+    private Button stopButton;
     private MobileCellNamesDialog mMobileCellNamesDialog;
 
     //private int mColor = 0;
@@ -81,8 +83,6 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                 .icon(getDialogIcon())
                 .positiveText(R.string.mobile_cells_registration_pref_dlg_start_button)
                 .negativeText(getNegativeButtonText())
-                // not removed, buttons are not stacked in Galaxy Nexus.
-                .neutralText(R.string.mobile_cells_registration_pref_dlg_stop_button)
                 .content(getDialogMessage())
                 .customView(R.layout.activity_mobile_cells_registration_pref_dialog, true)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -118,20 +118,14 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                         }
                         */
                     }
-                })
-                .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(context, 0);
-                        //PPApplication.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = 0;
-                        //PPApplication.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = "";
-                        PhoneStateScanner.enabledAutoRegistration = false;
-                        MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
-                        setSummaryDDP(0);
-                        PhoneStateScanner.stopAutoRegistration(context);
-                    }
-                })
-                ;
+                });
+
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                updateInterface(0);
+            }
+        });
 
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
@@ -258,21 +252,33 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         mTextViewRange.setText(sMin + " - " + sMax);
 
+        stopButton = layout.findViewById(R.id.mobile_cells_registration_stop_button);
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mStatus.setText(R.string.mobile_cells_registration_pref_dlg_status_stopped);
+                mRemainingTime.setVisibility(View.GONE);
+                MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(context, 0);
+                //PPApplication.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = 0;
+                //PPApplication.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = "";
+                PhoneStateScanner.enabledAutoRegistration = false;
+                MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
+                setSummaryDDP(0);
+                PhoneStateScanner.stopAutoRegistration(context);
+            }
+        });
+
         GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 
         mDialog.setOnDismissListener(this);
-
         String value = mCellsName.getText().toString();
         MDButton button = mDialog.getActionButton(DialogAction.POSITIVE);
         button.setEnabled(!value.isEmpty());
 
         mDialog.show();
-
-        updateInterface(0);
-
     }
 
     @Override
@@ -354,6 +360,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                 mStatus.setText(R.string.mobile_cells_registration_pref_dlg_status_stopped);
                 mRemainingTime.setVisibility(View.GONE);
             }
+            stopButton.setEnabled(PhoneStateScanner.enabledAutoRegistration);
         }
     }
 

@@ -33,7 +33,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:text="@android:string/ok"
-                android:textColor="?attr/colorAccent"
+                android:textColor="@color/action_button_text_color"
                 android:background="?attr/selectableItemBackground"/>
 
             <Button
@@ -43,7 +43,7 @@
                 android:layout_toStartOf = "@id/location_editor_ok"
                 android:layout_centerVertical="true"
                 android:text="@android:string/cancel"
-                android:textColor="?attr/colorAccent"
+                android:textColor="@color/action_button_text_color"
                 android:background="?attr/selectableItemBackground" />
 
         </RelativeLayout>

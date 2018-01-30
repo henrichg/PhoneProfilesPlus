@@ -2,10 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="20dp"
-              android:layout_marginRight="20dp">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/duration_pref_dlg_range"
@@ -128,8 +126,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:textSize="17sp"
         android:textStyle="bold"/>
 
@@ -138,10 +134,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:textSize="15sp"
         android:text="00:00:00"
         tools:ignore="HardcodedText"/>
+
+    <Button
+        android:id="@+id/mobile_cells_registration_stop_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/mobile_cells_registration_pref_dlg_stop_button"
+        android:textColor="@color/action_button_text_color"
+        android:background="?attr/selectableItemBackground" />
+
 
 </LinearLayout>

@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/pref_dlg_change_selection_button_unselect_all"
-                android:textColor="?attr/colorAccent"
+                android:textColor="@color/action_button_text_color"
                 android:background="?attr/selectableItemBackground" />
 
             <RelativeLayout

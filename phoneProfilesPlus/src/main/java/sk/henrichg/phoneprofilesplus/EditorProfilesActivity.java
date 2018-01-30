@@ -282,13 +282,13 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         // set status bar background for Activity body layout
         if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
-            drawerLayout.setStatusBarBackground(R.color.profile_all_primaryDark);
+            drawerLayout.setStatusBarBackground(R.color.primaryDark);
         else
         if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
-            drawerLayout.setStatusBarBackground(R.color.profile_all_primaryDark_dark);
+            drawerLayout.setStatusBarBackground(R.color.primaryDark_dark);
         else
         if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dlight"))
-            drawerLayout.setStatusBarBackground(R.color.profile_all_primaryDark_dark);
+            drawerLayout.setStatusBarBackground(R.color.primaryDark_dark);
 
         drawerListView = findViewById(R.id.editor_drawer_list);
         //noinspection ConstantConditions

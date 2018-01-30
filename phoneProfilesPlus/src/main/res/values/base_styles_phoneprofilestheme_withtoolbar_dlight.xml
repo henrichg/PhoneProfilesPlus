@@ -3,9 +3,10 @@
 
     <style name="Base.Theme.Phoneprofilestheme_withToolbar_dlight" parent="@style/Theme.AppCompat.Light.NoActionBar">
         
-        <item name="colorPrimary">@color/profile_all_primary_dark</item>
-        <item name="colorPrimaryDark">@color/profile_all_primaryDark_dark</item>
-        <item name="colorAccent">@color/profile_all_accent_dark</item>
+        <item name="colorPrimary">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/primaryDark_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorAccentDisabled">@color/accent_disabled</item>
 
         <item name="activityTextColor">@color/activityTextColor</item>
         <item name="activityCommandBackgroundColor">@color/activityCommandBackgroundColor</item>
@@ -24,7 +25,7 @@
         <item name="navigationDrawerText">@color/navigationDrawerTextColor_phoneprofiletheme</item>
         <item name="navigationDrawerSubText">@color/navigationDrawerSubTextColor_phoneprofiletheme</item>
         <item name="navigationDrawerSelector">@drawable/editor_drawer_selector</item>
-        <item name="filterStatusBarBackground">@color/profile_all_primary_dark</item>
+        <item name="filterStatusBarBackground">@color/primary_dark</item>
 <!--         <item name="editorDrawerSpinner">@style/editorDrawerSpinnerStyle</item>   --> 
         <item name="preferenceDialogBackground">@color/preferenceDialogBackgroud</item>
         <item name="editItemMenuIcon">@drawable/ic_profile_item_edit_menu</item> 

@@ -188,7 +188,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/fast_access_duration_activate_without_button_2"
-        android:textColor="?attr/colorAccent"
+        android:textColor="@color/action_button_text_color"
         android:background="?attr/selectableItemBackground" />
 
 </LinearLayout>

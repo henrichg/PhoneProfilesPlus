@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/imageview_resource_file_pref_dialog_gallery_btn"
-            android:textColor="?attr/colorAccent"
+            android:textColor="@color/action_button_text_color"
             android:background="?attr/selectableItemBackground" />
 
         <!-- <TextView
@@ -63,7 +63,7 @@
                 android:paddingRight="10dp"
                 android:layout_centerInParent="true"
                 android:text="@string/profileicon_pref_dialog_customColor_button"
-                android:textColor="?attr/colorAccent"
+                android:textColor="@color/action_button_text_color"
                 android:background="?attr/selectableItemBackground"
                 tools:ignore="RelativeOverlap"/>
 
