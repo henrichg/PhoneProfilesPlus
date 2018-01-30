@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -80,10 +81,10 @@ public class BluetoothNamePreference extends DialogPreference {
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .neutralText(R.string.bluetooth_name_pref_dlg_rescan_button)
                 .autoDismiss(false)
                 .content(getDialogMessage())
                 .customView(R.layout.activity_bluetooth_name_pref_dialog, false)
+                .dividerColor(0)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -110,13 +111,6 @@ public class BluetoothNamePreference extends DialogPreference {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         mDialog.dismiss();
-                    }
-                })
-                .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        if (Permissions.grantBluetoothScanDialogPermissions(context, BluetoothNamePreference.this))
-                            refreshListView(true, "");
                     }
                 });
 
@@ -200,46 +194,6 @@ public class BluetoothNamePreference extends DialogPreference {
 
         });
 
-        /*
-        final TextView helpText = layout.findViewById(R.id.bluetooth_name_pref_dlg_helpText);
-        String helpString = context.getString(R.string.event_preference_bluetooth_bt_types)+"\n\n"+
-                context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
-                context.getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
-                context.getString(R.string.bluetooth_name_pref_dlg_info_about_wildcards) + " " +
-                context.getString(R.string.pref_dlg_info_about_wildcards_3);
-        helpText.setText(helpString);
-
-        final ImageView helpIcon = layout.findViewById(R.id.bluetooth_name_pref_dlg_helpIcon);
-        ApplicationPreferences.getSharedPreferences(context);
-        if (ApplicationPreferences.preferences.getBoolean(PREF_SHOW_HELP, true)) {
-            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
-            helpText.setVisibility(View.VISIBLE);
-        }
-        else {
-            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
-            helpText.setVisibility(View.GONE);
-        }
-        helpIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ApplicationPreferences.getSharedPreferences(context);
-                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                int visibility = helpText.getVisibility();
-                if (visibility == View.VISIBLE) {
-                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
-                    visibility = View.GONE;
-                    editor.putBoolean(PREF_SHOW_HELP, false);
-                }
-                else {
-                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
-                    visibility = View.VISIBLE;
-                    editor.putBoolean(PREF_SHOW_HELP, true);
-                }
-                helpText.setVisibility(visibility);
-                editor.apply();
-            }
-        });
-        */
         final ImageView helpIcon = layout.findViewById(R.id.bluetooth_name_pref_dlg_helpIcon);
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -284,6 +238,15 @@ public class BluetoothNamePreference extends DialogPreference {
                         .positiveText(R.string.pref_dlg_change_selection_button)
                         .negativeText(getNegativeButtonText())
                         .show();
+            }
+        });
+
+        final Button rescanButton = layout.findViewById(R.id.bluetooth_name_pref_dlg_rescanButton);
+        rescanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Permissions.grantBluetoothScanDialogPermissions(context, BluetoothNamePreference.this))
+                    refreshListView(true, "");
             }
         });
 

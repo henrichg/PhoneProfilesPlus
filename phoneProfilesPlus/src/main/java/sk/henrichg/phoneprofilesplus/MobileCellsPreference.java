@@ -19,6 +19,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -101,10 +102,10 @@ public class MobileCellsPreference extends DialogPreference {
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .neutralText(R.string.mobile_cells_pref_dlg_rescan_button)
                 .autoDismiss(false)
                 .content(getDialogMessage())
                 .customView(R.layout.activity_mobile_cells_pref_dialog, false)
+                .dividerColor(0)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -125,13 +126,6 @@ public class MobileCellsPreference extends DialogPreference {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         mDialog.dismiss();
-                    }
-                })
-                .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        if (Permissions.grantMobileCellsDialogPermissions(context, MobileCellsPreference.this))
-                            refreshListView(true);
                     }
                 });
 
@@ -265,44 +259,20 @@ public class MobileCellsPreference extends DialogPreference {
             }
         });
 
-        /*
-        final TextView helpText = layout.findViewById(R.id.mobile_cells_pref_dlg_helpText);
-        final ImageView helpIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
-        ApplicationPreferences.getSharedPreferences(context);
-        if (ApplicationPreferences.preferences.getBoolean(PREF_SHOW_HELP, true)) {
-            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
-            helpText.setVisibility(View.VISIBLE);
-        }
-        else {
-            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
-            helpText.setVisibility(View.GONE);
-        }
-        helpIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ApplicationPreferences.getSharedPreferences(context);
-                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                int visibility = helpText.getVisibility();
-                if (visibility == View.VISIBLE) {
-                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
-                    visibility = View.GONE;
-                    editor.putBoolean(PREF_SHOW_HELP, false);
-                }
-                else {
-                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help_closed);
-                    visibility = View.VISIBLE;
-                    editor.putBoolean(PREF_SHOW_HELP, true);
-                }
-                helpText.setVisibility(visibility);
-                editor.apply();
-            }
-        });
-        */
         final ImageView helpIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogHelpPopupWindow.showPopup(mDialog, helpIcon, context, R.string.mobile_cells_pref_dlg_help);
+            }
+        });
+
+        final Button rescanButton = layout.findViewById(R.id.mobile_cells_pref_dlg_rescanButton);
+        rescanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Permissions.grantMobileCellsDialogPermissions(context, MobileCellsPreference.this))
+                    refreshListView(true);
             }
         });
 

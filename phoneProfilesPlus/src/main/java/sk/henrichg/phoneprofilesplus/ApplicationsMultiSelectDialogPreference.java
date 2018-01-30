@@ -17,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -40,7 +41,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
     // Layout widgets.
     private LinearLayout linlaProgress;
-    private LinearLayout linlaListView;
+    private RelativeLayout rellaData;
 
     private ImageView packageIcon;
     private RelativeLayout packageIcons;
@@ -103,7 +104,6 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .neutralText(R.string.pref_dlg_change_selection_button_unselect_all)
                 .autoDismiss(false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @SuppressWarnings("StringConcatenationInLoop")
@@ -141,15 +141,9 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         mDialog.dismiss();
                     }
                 })
-                .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        value="";
-                        refreshListView(false);
-                    }
-                })
                 .content(getDialogMessage())
-                .customView(R.layout.activity_applications_multiselect_pref_dialog, false);
+                .customView(R.layout.activity_applications_multiselect_pref_dialog, false)
+                .dividerColor(0);
 
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
@@ -164,7 +158,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.applications_multiselect_pref_dlg_linla_progress);
         //noinspection ConstantConditions
-        linlaListView = layout.findViewById(R.id.applications_multiselect_pref_dlg_linla_listview);
+        rellaData = layout.findViewById(R.id.applications_multiselect_pref_dlg_rella_data);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         //noinspection ConstantConditions
@@ -181,6 +175,15 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(listView);
         */
+
+        final Button unselectAllButton = layout.findViewById(R.id.applications_multiselect_pref_dlg_uselect_all);
+        unselectAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                value="";
+                refreshListView(false);
+            }
+        });
 
         GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
@@ -200,7 +203,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             {
                 super.onPreExecute();
                 if (notForUnselect) {
-                    linlaListView.setVisibility(View.GONE);
+                    rellaData.setVisibility(View.GONE);
                     linlaProgress.setVisibility(View.VISIBLE);
                 }
             }
@@ -225,7 +228,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
                 listAdapter.notifyDataSetChanged();
                 if (notForUnselect) {
-                    linlaListView.setVisibility(View.VISIBLE);
+                    rellaData.setVisibility(View.VISIBLE);
                     linlaProgress.setVisibility(View.GONE);
                 }
             }

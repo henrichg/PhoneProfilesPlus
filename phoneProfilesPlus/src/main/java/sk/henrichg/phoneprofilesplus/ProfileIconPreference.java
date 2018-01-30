@@ -96,6 +96,7 @@ public class ProfileIconPreference extends DialogPreference {
                 .autoDismiss(false)
                 .content(getDialogMessage())
                 .customView(R.layout.activity_profileicon_pref_dialog, false)
+                .dividerColor(0)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {

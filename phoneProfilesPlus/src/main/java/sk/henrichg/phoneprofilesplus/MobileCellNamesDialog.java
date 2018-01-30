@@ -53,7 +53,9 @@ class MobileCellNamesDialog {
                 //.disableDefaultFonts()
                 .negativeText(android.R.string.cancel)
                 .autoDismiss(true)
-                .customView(R.layout.activity_mobile_cell_names_dialog, false);
+                .customView(R.layout.activity_mobile_cell_names_dialog, false)
+                .dividerColor(0);
+
         if (!showFilterItems) {
             dialogBuilder.positiveText(android.R.string.ok)
                     .onPositive(new MaterialDialog.SingleButtonCallback() {

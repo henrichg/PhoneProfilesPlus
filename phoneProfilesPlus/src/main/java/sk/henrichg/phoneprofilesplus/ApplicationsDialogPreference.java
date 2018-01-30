@@ -110,7 +110,8 @@ public class ApplicationsDialogPreference  extends DialogPreference
                 //.disableDefaultFonts()
                 .autoDismiss(false)
                 .content(getDialogMessage())
-                .customView(R.layout.activity_applications_pref_dialog, false);
+                .customView(R.layout.activity_applications_pref_dialog, false)
+                .dividerColor(0);
 
         mBuilder.positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText());

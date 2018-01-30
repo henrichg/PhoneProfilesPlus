@@ -69,7 +69,8 @@ public class LocationGeofencePreference extends DialogPreference {
                 //.disableDefaultFonts()
                 .autoDismiss(false)
                 .content(getDialogMessage())
-                .customView(R.layout.activity_location_pref_dialog, false);
+                .customView(R.layout.activity_location_pref_dialog, false)
+                .dividerColor(0);
 
         if (onlyEdit == 0) {
             mBuilder.positiveText(getPositiveButtonText())

@@ -59,6 +59,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                 .neutralText(R.string.pref_dlg_change_selection_button_unselect_all)
                 .content(getDialogMessage())
                 .customView(R.layout.activity_contacts_multiselect_pref_dialog, false)
+                .dividerColor(0)
                 .autoDismiss(false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @SuppressWarnings("StringConcatenationInLoop")

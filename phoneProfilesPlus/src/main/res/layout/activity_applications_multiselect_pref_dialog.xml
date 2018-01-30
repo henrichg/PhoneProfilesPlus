@@ -19,30 +19,55 @@
         
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/applications_multiselect_pref_dlg_linla_listview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        >
+    <RelativeLayout
+        android:id="@+id/applications_multiselect_pref_dlg_rella_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" >
 
-        <View
-            android:id="@+id/applications_pref_dlg_titleBarDivider"
+        <LinearLayout
+            android:id="@+id/applications_multiselect_pref_dlg_et_btn"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?attr/dialogDivider" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical" >
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center">
+            <View
+                android:id="@+id/applications_multiselect_pref_dlg_buttonBarDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:background="?attr/dialogDivider" />
+
+            <Button
+                android:id="@+id/applications_multiselect_pref_dlg_uselect_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/pref_dlg_change_selection_button_unselect_all"
+                android:textColor="?attr/colorAccent"
+                android:background="?attr/selectableItemBackground" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/applications_pref_dlg_linla_listview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_above="@id/applications_multiselect_pref_dlg_et_btn"
+            android:layout_alignParentTop="true" >
+
+            <View
+                android:id="@+id/applications_pref_dlg_titleBarDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/dialogDivider" />
 
             <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
                 android:id="@+id/applications_multiselect_pref_dlg_listview"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_marginEnd="5dp"
                 app:fastScrollAutoHide="false"
                 app:fastScrollPopupTextSize="45sp"
@@ -52,14 +77,8 @@
                 app:fastScrollThumbColor="?attr/fastScrollThumbPP"
                 app:fastScrollTrackColor="?attr/fastScrollTrackPP" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <View
-            android:id="@+id/applications_multiselect_pref_dlg_buttonBarDivider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?attr/dialogDivider" />
-
-     </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

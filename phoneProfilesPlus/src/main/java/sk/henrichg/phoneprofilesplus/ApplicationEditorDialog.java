@@ -45,6 +45,7 @@ class ApplicationEditorDialog
                 .title(R.string.applications_editor_dialog_title)
                 //.disableDefaultFonts()
                 .customView(R.layout.activity_applications_editor_dialog, false)
+                .dividerColor(0)
                 .positiveText(android.R.string.ok)
                 .negativeText(android.R.string.cancel)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
