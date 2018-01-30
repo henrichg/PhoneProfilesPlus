@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
@@ -174,18 +175,16 @@ public class MobileCellsPreference extends DialogPreference {
         });
         */
 
-        RelativeLayout cellsFilterValueRoot = layout.findViewById(R.id.mobile_cells_pref_dlg_cells_filter_root);
         mMobileCellsFilterDialog = new MobileCellNamesDialog(context, this, true);
-        cellsFilterValueRoot.setOnClickListener(new View.OnClickListener() {
+        cellFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mMobileCellsFilterDialog.show();
             }
         });
 
-        RelativeLayout cellNamesValueRoot = layout.findViewById(R.id.mobile_cells_pref_dlg_cells_name_root);
         mMobileCellNamesDialog = new MobileCellNamesDialog(context, this, false);
-        cellNamesValueRoot.setOnClickListener(new View.OnClickListener() {
+        cellName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mMobileCellNamesDialog.show();

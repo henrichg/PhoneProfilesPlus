@@ -127,7 +127,6 @@ public class DurationDialogPreference extends DialogPreference
 
         mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
 
-        RelativeLayout valueRoot = layout.findViewById(R.id.duration_pref_dlg_value_root);
         mValueDialog = new TimeDurationPickerDialog(context, new TimeDurationPickerDialog.OnDurationSetListener() {
             @Override
             public void onDurationSet(TimeDurationPicker view, long duration) {
@@ -149,7 +148,7 @@ public class DurationDialogPreference extends DialogPreference
                 mSeekBarSeconds.setProgress(seconds);
             }
         }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
-        valueRoot.setOnClickListener(new View.OnClickListener() {
+        mValue.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int hours = mSeekBarHours.getProgress();

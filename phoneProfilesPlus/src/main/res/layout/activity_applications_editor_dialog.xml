@@ -4,41 +4,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/applications_editor_dialog_startApplicationDelay_root"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:orientation="vertical"
         android:padding="10dp"
         android:clickable="true"
         android:focusable="true" >
+
         <TextView
             android:id="@+id/applications_editor_dialog_startApplicationDelay_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
             android:textSize="15sp"
             android:text="@string/applications_editor_dialog_startApplicationDelay" />
+
         <TextView
             android:id="@+id/applications_editor_dialog_startApplicationDelay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginEnd="5dp"
-            android:layout_toEndOf="@id/applications_editor_dialog_startApplicationDelay_label"
+            android:textColor="?attr/colorAccent"
             android:textSize="18sp"/>
-        <TextView
-            android:id="@+id/applications_editor_dialog_startApplicationDelay_spinnerChar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_toEndOf="@id/applications_editor_dialog_startApplicationDelay"
-            android:textSize="12sp"
-            android:text="\u25BC"
-            tools:ignore="HardcodedText"/>
-    </RelativeLayout>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_above="@id/applications_editor_dialog_startApplicationDelay_root"

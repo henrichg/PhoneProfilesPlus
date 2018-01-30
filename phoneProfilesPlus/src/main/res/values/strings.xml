@@ -1125,8 +1125,9 @@
     <string name="donation_google_android_market_not_supported">In-App Donations are not supported. Is Google Play Store installed correctly?</string>
     <string name="donation_google_error">Error.</string>
     <string name="button_close">Close</string>
-    <string name="fast_access_duration_activate_without_button_2">Activ. without duration</string>
+    <string name="fast_access_duration_activate_without_button_2">Activate without duration</string>
     <string name="profileicon_pref_dlg_customIconButton">Custom icon</string>
+    <string name="mobile_cells_registration_cell_name_hint">Click to set cell name</string>
     <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
     <!--
     <string name="notification_channel_activated_profile">Activated profile</string>

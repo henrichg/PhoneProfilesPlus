@@ -197,7 +197,6 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
 
-        RelativeLayout valueRoot = layout.findViewById(R.id.duration_pref_dlg_value_root);
         mValueDialog = new TimeDurationPickerDialog(context, new TimeDurationPickerDialog.OnDurationSetListener() {
             @Override
             public void onDurationSet(TimeDurationPicker view, long duration) {
@@ -219,7 +218,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                 mSeekBarSeconds.setProgress(seconds);
             }
         }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
-        valueRoot.setOnClickListener(new View.OnClickListener() {
+        mValue.setOnClickListener(new View.OnClickListener() {
                                          @Override
                                          public void onClick(View view) {
                     int hours = mSeekBarHours.getProgress();
@@ -236,14 +235,13 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
              }
         );
 
-        RelativeLayout cellNamesValueRoot = layout.findViewById(R.id.mobile_cells_registration_cells_name_root);
         mMobileCellNamesDialog = new MobileCellNamesDialog(context, this, false);
-        cellNamesValueRoot.setOnClickListener(new View.OnClickListener() {
-                                         @Override
-                                         public void onClick(View view) {
-                                             mMobileCellNamesDialog.show();
-                                         }
-                                     }
+        mCellsName.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View view) {
+                     mMobileCellNamesDialog.show();
+                 }
+             }
         );
 
         mSeekBarHours.setOnSeekBarChangeListener(this);
@@ -256,8 +254,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mStatus.setText(R.string.mobile_cells_registration_pref_dlg_status_stopped);
-                mRemainingTime.setVisibility(View.GONE);
+                updateInterface(0);
                 MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(context, 0);
                 //PPApplication.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = 0;
                 //PPApplication.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = "";

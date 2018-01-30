@@ -166,7 +166,6 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
         mEnds.setText(GlobalGUIRoutines.getEndsAtString(iValue));
 
-        RelativeLayout valueRoot = layout.findViewById(R.id.duration_pref_dlg_value_root);
         mValueDialog = new TimeDurationPickerDialog(activity, new TimeDurationPickerDialog.OnDurationSetListener() {
             @Override
             public void onDurationSet(TimeDurationPicker view, long duration) {
@@ -190,7 +189,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 updateTextFields(false);
             }
         }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
-        valueRoot.setOnClickListener(new View.OnClickListener() {
+        mValue.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int hours = mSeekBarHours.getProgress();
