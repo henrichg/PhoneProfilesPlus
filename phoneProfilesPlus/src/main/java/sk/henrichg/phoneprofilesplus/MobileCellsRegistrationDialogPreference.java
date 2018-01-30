@@ -123,7 +123,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                updateInterface(0);
+                updateInterface(0, false);
             }
         });
 
@@ -254,7 +254,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateInterface(0);
+                updateInterface(0, true);
                 MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(context, 0);
                 //PPApplication.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = 0;
                 //PPApplication.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = "";
@@ -338,11 +338,11 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         setSummary(summary);
     }
 
-    private void updateInterface(long millisUntilFinished) {
+    private void updateInterface(long millisUntilFinished, boolean forceStop) {
         if ((mDialog != null) && mDialog.isShowing()) {
             boolean started = false;
             mCellsName.setText(PhoneStateScanner.cellsNameForAutoRegistration);
-            if (PhoneStateScanner.enabledAutoRegistration) {
+            if (PhoneStateScanner.enabledAutoRegistration && !forceStop) {
                 mStatus.setText(R.string.mobile_cells_registration_pref_dlg_status_started);
                 if (millisUntilFinished > 0) {
                     mRemainingTime.setVisibility(View.VISIBLE);
@@ -398,7 +398,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         public void onReceive(Context context, Intent intent) {
             //Log.d("MobileCellsRegistrationBroadcastReceiver", "xxx");
             long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
-            preference.updateInterface(millisUntilFinished);
+            preference.updateInterface(millisUntilFinished, false);
             preference.setSummaryDDP(millisUntilFinished);
         }
     }
