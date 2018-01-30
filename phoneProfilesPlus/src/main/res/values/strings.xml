@@ -33,7 +33,6 @@
     <string name="activate_profile_alert_message">Activate profile?</string>
     <string name="brightness_pref_dialog_no_change_chb">Do not change</string>
     <string name="brightness_pref_dialog_automatic_chb">Automatic</string>
-    <string name="imageview_resource_file_pref_dialog_gallery_btn">Custom&#8230;</string>
     <string name="volume_pref_dialog_no_change_chb">Do not change</string>
     <string name="phone_profiles_pref_category_activator">Activator</string>
     <string name="phone_profiles_pref_category_editor">Editor</string>
@@ -1127,6 +1126,7 @@
     <string name="donation_google_error">Error.</string>
     <string name="button_close">Close</string>
     <string name="fast_access_duration_activate_without_button_2">Activ. without duration</string>
+    <string name="profileicon_pref_dlg_customIconButton">Custom icon</string>
     <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
     <!--
     <string name="notification_channel_activated_profile">Activated profile</string>
@@ -1151,4 +1151,5 @@
     <!--<string name="donation_thanks_dialog_title">Thank you</string>-->
     <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->
     <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
+    <!--<string name="imageview_resource_file_pref_dialog_gallery_btn">Custom&#8230;</string>-->
 </resources>

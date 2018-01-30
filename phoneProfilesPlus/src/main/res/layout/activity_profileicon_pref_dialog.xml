@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/imageview_resource_file_pref_dialog_gallery_btn"
+            android:text="@string/profileicon_pref_dlg_customIconButton"
             android:textColor="@color/action_button_text_color"
             android:background="?attr/selectableItemBackground" />
 
