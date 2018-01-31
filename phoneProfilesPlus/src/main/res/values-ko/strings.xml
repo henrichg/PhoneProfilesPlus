@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">프로필을 활성화하시겠습니까?</string>
   <string name="brightness_pref_dialog_no_change_chb">변경 안함</string>
   <string name="brightness_pref_dialog_automatic_chb">자동모드</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">사용자 정의&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">변경 안함</string>
   <string name="phone_profiles_pref_category_activator">활성창</string>
   <string name="phone_profiles_pref_category_editor">편집기</string>

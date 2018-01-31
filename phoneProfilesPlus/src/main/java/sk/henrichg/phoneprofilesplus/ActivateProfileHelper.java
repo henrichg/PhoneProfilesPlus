@@ -972,7 +972,7 @@ public class ActivateProfileHelper {
                 setRingerMode(context, profile, audioManager, true, /*linkUnlink,*/ forProfileActivation);
                 PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
                 // !!! DO NOT CALL setVolumes before setRingerMode(..., firsCall:false).
-                //     Ringer mode must be changed before call of serVolumes() because is checked in setVolumes().
+                //     Ringer mode must be changed before call of setVolumes() because is checked in setVolumes().
                 setRingerMode(context, profile, audioManager, false, /*linkUnlink,*/ forProfileActivation);
                 PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
                 PPApplication.sleep(500);

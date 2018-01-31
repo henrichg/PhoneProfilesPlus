@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">啟動設定檔嗎?</string>
   <string name="brightness_pref_dialog_no_change_chb">不要變更</string>
   <string name="brightness_pref_dialog_automatic_chb">自動</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">自訂&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">不要變更</string>
   <string name="phone_profiles_pref_category_activator">啟用清單</string>
   <string name="phone_profiles_pref_category_editor">編輯器</string>

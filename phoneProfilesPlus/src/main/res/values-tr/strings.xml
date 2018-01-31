@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">Tercih faaliyete geçsin mi?</string>
   <string name="brightness_pref_dialog_no_change_chb">Değiştirilmesin</string>
   <string name="brightness_pref_dialog_automatic_chb">Otomatik parlaklık</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">Özel&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">Değiştirilmesin</string>
   <string name="phone_profiles_pref_category_activator">Muharrik</string>
   <string name="phone_profiles_pref_category_editor">Düzenleyici</string>

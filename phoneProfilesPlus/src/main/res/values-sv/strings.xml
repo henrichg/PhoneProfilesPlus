@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">Aktivera profil?</string>
   <string name="brightness_pref_dialog_no_change_chb">Ändra inte</string>
   <string name="brightness_pref_dialog_automatic_chb">Automatisk</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">Anpassad&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">Ändra inte</string>
   <string name="phone_profiles_pref_category_activator">Väljare</string>
   <string name="phone_profiles_pref_category_editor">Redigerare</string>

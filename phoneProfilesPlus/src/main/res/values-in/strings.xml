@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">Aktifkan profil?</string>
   <string name="brightness_pref_dialog_no_change_chb">Jangan mengubah</string>
   <string name="brightness_pref_dialog_automatic_chb">Otomatis</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">Custom&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">Jangan mengubah</string>
   <string name="phone_profiles_pref_category_activator">Aktivator</string>
   <string name="phone_profiles_pref_category_editor">Pengedit</string>

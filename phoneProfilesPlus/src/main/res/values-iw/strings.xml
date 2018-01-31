@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">להפעיל פרופיל?</string>
   <string name="brightness_pref_dialog_no_change_chb">ללא שינוי</string>
   <string name="brightness_pref_dialog_automatic_chb">אוטומטי</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">התאמה אישית&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">ללא שינוי</string>
   <string name="phone_profiles_pref_category_activator">מפעיל</string>
   <string name="phone_profiles_pref_category_editor">עורך</string>

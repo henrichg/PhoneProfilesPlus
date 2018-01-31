@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">Aktivovať profil?</string>
   <string name="brightness_pref_dialog_no_change_chb">Nemeniť</string>
   <string name="brightness_pref_dialog_automatic_chb">Automaticky</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">Užívateľská&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">Nemeniť</string>
   <string name="phone_profiles_pref_category_activator">Aktivátor</string>
   <string name="phone_profiles_pref_category_editor">Editor</string>

@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">تفعيل_نمط_تنبيه_رسالة</string>
   <string name="brightness_pref_dialog_no_change_chb">اضاءة_مفضلة_حوار_لا_تغيير_chb</string>
   <string name="brightness_pref_dialog_automatic_chb">اضاءة_مفضلة_حوار_تلقائي_chb</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">مخصص&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">صوت_مفضلة_حوار_لا_تغيير_chb</string>
   <string name="phone_profiles_pref_category_activator">منشّط</string>
   <string name="phone_profiles_pref_category_editor">معدّل</string>

@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">ప్రొఫైల్ను సక్రియం ?</string>
   <string name="brightness_pref_dialog_no_change_chb">మార్చవద్దు</string>
   <string name="brightness_pref_dialog_automatic_chb">ఆటొమెటిక్</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">కస్టమ్&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">మార్చవద్దు</string>
   <string name="phone_profiles_pref_category_activator">ఉత్తేజితం</string>
   <string name="phone_profiles_pref_category_editor">ఎడిటర్</string>

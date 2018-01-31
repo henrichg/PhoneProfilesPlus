@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">确定激活情景？</string>
   <string name="brightness_pref_dialog_no_change_chb">不做更改</string>
   <string name="brightness_pref_dialog_automatic_chb">自动</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">自定义&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">不要更改</string>
   <string name="phone_profiles_pref_category_activator">激活清单</string>
   <string name="phone_profiles_pref_category_editor">编辑器</string>

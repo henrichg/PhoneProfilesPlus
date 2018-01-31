@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">Активировать профиль?</string>
   <string name="brightness_pref_dialog_no_change_chb">Не изменять</string>
   <string name="brightness_pref_dialog_automatic_chb">Автоматическая</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">Персональная&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">Не изменять</string>
   <string name="phone_profiles_pref_category_activator">Активатор</string>
   <string name="phone_profiles_pref_category_editor">Редактор</string>

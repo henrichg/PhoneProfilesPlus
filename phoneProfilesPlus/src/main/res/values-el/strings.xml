@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">Ενεργοποίηση προφίλ;</string>
   <string name="brightness_pref_dialog_no_change_chb">Όπως πριν</string>
   <string name="brightness_pref_dialog_automatic_chb">Αυτόματη</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">Άλλο&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">Όπως πριν</string>
   <string name="phone_profiles_pref_category_activator">Ενεργοποιητής</string>
   <string name="phone_profiles_pref_category_editor">Επεξεργασία</string>

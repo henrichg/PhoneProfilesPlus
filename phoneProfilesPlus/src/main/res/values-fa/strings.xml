@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">نمایه فعال گردد؟</string>
   <string name="brightness_pref_dialog_no_change_chb">تغییر نده</string>
   <string name="brightness_pref_dialog_automatic_chb">خودکار</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">سفارشی&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">تغییر نده</string>
   <string name="phone_profiles_pref_category_activator">فعال کننده</string>
   <string name="phone_profiles_pref_category_editor">ویرایشگر</string>

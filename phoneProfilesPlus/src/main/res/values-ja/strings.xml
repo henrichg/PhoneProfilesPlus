@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">プロファイルを有効化しますか？</string>
   <string name="brightness_pref_dialog_no_change_chb">変更しない</string>
   <string name="brightness_pref_dialog_automatic_chb">自動</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">指定してカスタマイズ</string>
   <string name="volume_pref_dialog_no_change_chb">変更しない</string>
   <string name="phone_profiles_pref_category_activator">アクティベーター</string>
   <string name="phone_profiles_pref_category_editor">編集機能</string>

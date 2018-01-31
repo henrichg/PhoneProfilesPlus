@@ -30,7 +30,6 @@
   <string name="activate_profile_alert_message">¿Activar perfil?</string>
   <string name="brightness_pref_dialog_no_change_chb">No cambiar</string>
   <string name="brightness_pref_dialog_automatic_chb">Automático</string>
-  <string name="imageview_resource_file_pref_dialog_gallery_btn">Personalizar&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">No cambiar</string>
   <string name="phone_profiles_pref_category_activator">Activador</string>
   <string name="phone_profiles_pref_category_editor">Editor</string>
