@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 app:fastScrollAutoHide="false"
-                app:fastScrollPopupTextSize="45sp"
+                app:fastScrollPopupTextSize="44sp"
                 app:fastScrollPopupBackgroundSize="70dp"
                 app:fastScrollPopupBgColor="?attr/fastScrollPopupBackgroundPP"
                 app:fastScrollPopupTextColor="?attr/fastScrollPopupTextPP"
