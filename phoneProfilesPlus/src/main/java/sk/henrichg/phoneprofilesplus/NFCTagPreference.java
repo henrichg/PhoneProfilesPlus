@@ -196,7 +196,7 @@ public class NFCTagPreference extends DialogPreference {
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogHelpPopupWindow.showPopup(mDialog, helpIcon, context, R.string.nfc_tag_pref_dlg_help);
+                DialogHelpPopupWindow.showPopup(helpIcon, context, R.string.nfc_tag_pref_dlg_help);
             }
         });
 

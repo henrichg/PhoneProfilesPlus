@@ -189,7 +189,7 @@ public class ProfileIconPreference extends DialogPreference {
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogHelpPopupWindow.showPopup(mDialog, helpIcon, prefContext, R.string.profileicon_pref_dialog_info_about_status_bar_icon);
+                DialogHelpPopupWindow.showPopup(helpIcon, prefContext, R.string.profileicon_pref_dialog_info_about_status_bar_icon);
             }
         });
 

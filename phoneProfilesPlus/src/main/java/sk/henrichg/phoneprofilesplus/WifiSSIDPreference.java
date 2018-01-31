@@ -201,7 +201,7 @@ public class WifiSSIDPreference extends DialogPreference {
                         context.getString(R.string.wifi_ssid_pref_dlg_info_about_wildcards) + " " +
                         context.getString(R.string.pref_dlg_info_about_wildcards_3);
 
-                DialogHelpPopupWindow.showPopup(mDialog, helpIcon, context, helpString);
+                DialogHelpPopupWindow.showPopup(helpIcon, context, helpString);
             }
         });
 

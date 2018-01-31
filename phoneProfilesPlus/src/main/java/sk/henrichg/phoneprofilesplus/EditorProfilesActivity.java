@@ -445,7 +445,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 View contentView = popup.getContentView();
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                //int measuredW = contentView.getMeasuredWidth();
+                int measuredW = contentView.getMeasuredWidth();
                 //int measuredH = contentView.getMeasuredHeight();
                 //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","measuredW="+measuredW);
                 //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","measuredH="+measuredH);
@@ -453,16 +453,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                 int[] location = new int[2];
                 eventsRunStopIndicator.getLocationOnScreen(location);
 
-                /*int x = 0;
+                int x = 0;
                 int y = 0;
 
                 if (location[0] + eventsRunStopIndicator.getWidth() - measuredW < 0)
                     x = -(location[0] + eventsRunStopIndicator.getWidth() - measuredW);
-                */
 
                 popup.setClippingEnabled(false);
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
-                        RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT);
+                        RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
             }
         });
         
