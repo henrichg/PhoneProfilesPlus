@@ -3589,7 +3589,7 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldSystemRingerVolume=" + oldSystemRingerVolume);
             PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingerVolume=" + newRingerVolume);
 
-            if (ActivateProfileHelper.isAudibleRinging(newRingerMode, newZenMode)) {
+            if (ActivateProfileHelper.isAudibleRinging(newRingerMode, newZenMode, false)) {
 
                 PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringing is audible");
 
@@ -4110,7 +4110,7 @@ public class PhoneProfilesService extends Service
             {
                 int ringerMode = ActivateProfileHelper.getRingerMode(getApplicationContext());
                 int zenMode = ActivateProfileHelper.getZenMode(getApplicationContext());
-                boolean isAudible = ActivateProfileHelper.isAudibleRinging(ringerMode, zenMode);
+                boolean isAudible = ActivateProfileHelper.isAudibleRinging(ringerMode, zenMode, false);
                 PPApplication.logE("PhoneProfilesService.playNotificationSound", "isAudible="+isAudible);
                 if (isAudible) {
 
