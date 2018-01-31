@@ -36,11 +36,6 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
         int[] locationHelpIcon = new int[2];
         helpIcon.getLocationOnScreen(locationHelpIcon);
 
-        Log.e("DialogHelpPopupWindow.showPopup", "locationHelpIcon[0]="+locationHelpIcon[0]);
-        Log.e("DialogHelpPopupWindow.showPopup", "locationHelpIcon[1]="+locationHelpIcon[1]);
-        Log.e("DialogHelpPopupWindow.showPopup", "measuredWPopup="+measuredWPopup);
-        Log.e("DialogHelpPopupWindow.showPopup", "measuredHPopup="+measuredHPopup);
-
         int x = 0;
         int y = 0;
 
@@ -52,14 +47,9 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
         if ((screenSize != null) && (navigationBarSize != null)) {
             int screenBottom = screenSize.y - navigationBarSize.y;
 
-            Log.e("DialogHelpPopupWindow.showPopup", "screenBottom="+screenBottom);
-            Log.e("DialogHelpPopupWindow.showPopup", "locationHelpIcon[1] + measuredHPopup="+locationHelpIcon[1] + measuredHPopup);
-
             if ((locationHelpIcon[1] + measuredHPopup) > screenBottom)
                 y = -((locationHelpIcon[1] + measuredHPopup) - screenBottom);
         }
-        Log.e("DialogHelpPopupWindow.showPopup", "x="+x);
-        Log.e("DialogHelpPopupWindow.showPopup", "y="+y);
 
         popup.setClippingEnabled(false);
         popup.showOnAnchor(helpIcon, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
