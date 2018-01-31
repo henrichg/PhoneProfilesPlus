@@ -477,7 +477,7 @@ public class ActivateProfileHelper {
         return (ringerMode == Profile.RINGERMODE_VIBRATE);
     }
 
-    static boolean isAudibleSystemRingerMode(AudioManager audioManager) {
+    private static boolean isAudibleSystemRingerMode(AudioManager audioManager) {
         return audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
     }
 
