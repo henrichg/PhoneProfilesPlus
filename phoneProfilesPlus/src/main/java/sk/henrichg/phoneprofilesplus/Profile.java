@@ -148,6 +148,19 @@ public class Profile {
     static final String PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING = "prf_pref_applicationDisableOrientationScanning";
     static final String PREF_PROFILE_HEADS_UP_NOTIFICATIONS = "prf_pref_headsUpNotifications";
 
+    static final int RINGERMODE_RING = 1;
+    static final int RINGERMODE_RING_AND_VIBRATE = 2;
+    static final int RINGERMODE_VIBRATE = 3;
+    static final int RINGERMODE_SILENT = 4;
+    static final int RINGERMODE_ZENMODE = 5;
+
+    static final int ZENMODE_ALL = 1;
+    static final int ZENMODE_PRIORITY = 2;
+    static final int ZENMODE_NONE = 3;
+    static final int ZENMODE_ALL_AND_VIBRATE = 4;
+    static final int ZENMODE_PRIORITY_AND_VIBRATE = 5;
+    static final int ZENMODE_ALARMS = 6;
+
     static final int AFTERDURATIONDO_NOTHING = 0;
     static final int AFTERDURATIONDO_UNDOPROFILE = 1;
     static final int AFTERDURATIONDO_BACKGROUNPROFILE = 2;
@@ -1593,7 +1606,7 @@ public class Profile {
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == 99) {
                 mappedProfile._volumeRingerMode = defaultProfile._volumeRingerMode;
-                if (mappedProfile._volumeRingerMode == 5) {
+                if (mappedProfile._volumeRingerMode == RINGERMODE_ZENMODE) {
                     mappedProfile._volumeZenMode = defaultProfile._volumeZenMode;
                     zenModeMapped = true;
                 }
