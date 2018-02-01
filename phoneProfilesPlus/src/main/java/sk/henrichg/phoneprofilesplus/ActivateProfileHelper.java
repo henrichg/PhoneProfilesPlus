@@ -579,7 +579,7 @@ public class ActivateProfileHelper {
         PPApplication.logE("ActivateProfileHelper.setVolumes", "forProfileActivation=" + forProfileActivation);
 
         //if (isAudibleRinging(ringerMode, zenMode))
-        if (isAudibleSystemRingerMode(audioManager)) {
+        if (isAudibleSystemRingerMode(audioManager) || (ringerMode == 0)) {
             // test only system ringer mode
 
             PPApplication.logE("ActivateProfileHelper.setVolumes", "ringer/notification/system change");
