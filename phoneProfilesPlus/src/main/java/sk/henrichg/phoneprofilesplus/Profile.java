@@ -1910,10 +1910,11 @@ public class Profile {
                     PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
                     PPApplication.notAllowedReasonDetail = Build.VERSION.RELEASE;
                 }
-                /*if (PPApplication.isRooted())
+                /*else
+                if (PPApplication.isRooted())
                 {
                     // device is rooted
-                    if (ActivateProfileHelper.wifiServiceExists(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
+                    if (ActivateProfileHelper.wifiServiceExists(context, Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
                         if (PPApplication.serviceBinaryExists())
                             featurePresented = PPApplication.PREFERENCE_ALLOWED;
                         else
