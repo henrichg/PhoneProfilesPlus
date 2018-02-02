@@ -185,6 +185,9 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
                     });
         }
 
+        /* Better is using android:layout="@layout/mp_preference_material_widget" in each preference and
+           android:layout="@layout/mp_preference_category" in each PreferenceCategory.
+           In these layouts is also multiline title. ;-)
         //Apply custom layouts on pre-Lollipop
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             if (preference instanceof PreferenceScreen && preference.getLayoutResource()
@@ -209,6 +212,7 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
                 }
             }
         }
+        */
     }
 
     @Override

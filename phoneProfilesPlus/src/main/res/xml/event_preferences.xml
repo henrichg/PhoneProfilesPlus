@@ -8,23 +8,27 @@
 
     <PreferenceCategory
         android:summary="@string/event_preferences_category_eventidentification"
-        android:title="@string/event_preferences_category_eventidentification" >
+        android:title="@string/event_preferences_category_eventidentification"
+        android:layout="@layout/mp_preference_category" >
         <CheckBoxPreference
             android:key="eventEnabled"
             android:title="@string/event_preferences_eventEnabled"
             android:defaultValue="false"
-            android:widgetLayout="@layout/mp_preference_switch" />
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:layout="@layout/mp_preference_material_widget" />
         <com.afollestad.materialdialogs.prefs.MaterialEditTextPreference
             android:key="eventName"
             android:summary="@string/event_preferences_eventName"
             android:title="@string/event_preferences_eventName"
             android:selectAllOnFocus="true"
+            android:layout="@layout/mp_preference_material_widget"
             app:useStockLayout="true" />
         <Preference
             android:key="eventUsePriorityAppSettings"
             android:title="@string/phone_profiles_pref_eventUsePriorityAppSettings"
             android:summary="@string/phone_profiles_pref_eventUsePriorityAppSettings_summary"
-            android:widgetLayout="@layout/start_activity_preference" />
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/event_preferences_priority"
             android:summary="@string/array_event_pref_priorityMedium"
@@ -32,37 +36,44 @@
             android:defaultValue="0"
             android:entries="@array/eventPriorityArray"
             android:entryValues="@array/eventPriorityValues"
+            android:layout="@layout/mp_preference_material_widget"
             app:useStockLayout="true" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/event_preferences_category_startofevent"
-        android:key="eventStartCategory" >
+        android:key="eventStartCategory"
+        android:layout="@layout/mp_preference_category" >
         <sk.henrichg.phoneprofilesplus.ProfilePreference
             android:defaultValue="0"
             android:key="eventProfileStart"
             android:title="@string/event_preferences_eventProfileStart"
-            henrichg:addNoActivateItem="0" />
+            henrichg:addNoActivateItem="0"
+            android:layout="@layout/mp_preference_material_widget" />
         <CheckBoxPreference
             android:key="eventForceRun"
             android:title="@string/event_preferences_ForceRun"
             android:defaultValue="false"
             android:summary="@string/event_preferences_ForceRun_summary"
-            android:widgetLayout="@layout/mp_preference_switch" />
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:layout="@layout/mp_preference_material_widget" />
         <CheckBoxPreference
             android:key="eventNoPauseByManualActivation"
             android:title="@string/event_preferences_noPauseByManualActivation"
             android:defaultValue="false"
             android:summary="@string/event_preferences_noPauseByManualActivation_summary"
             android:dependency="eventForceRun"
-            android:widgetLayout="@layout/mp_preference_switch" />
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:layout="@layout/mp_preference_material_widget" />
         <PreferenceScreen
             android:title="@string/event_preferences_category_startofeventOthers"
             android:key="eventStartOthersCategory"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <sk.henrichg.phoneprofilesplus.ProfilePreference
                 android:defaultValue="0"
                 android:key="eventStartWhenActivatedProfile"
                 android:title="@string/event_preferences_eventStartWhenActivatedProfile"
+                android:layout="@layout/mp_preference_material_widget"
                 henrichg:addNoActivateItem="1"
                 henrichg:noActivateAsDoNotApply="1" />
             <CheckBoxPreference
@@ -70,36 +81,42 @@
                 android:title="@string/event_preferences_manualProfileActivation"
                 android:defaultValue="false"
                 android:disableDependentsState="true"
-                android:widgetLayout="@layout/mp_preference_switch"/>
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget"/>
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventDelayStart"
                 android:summary="@string/event_preferences_delayStart"
                 android:title="@string/event_preferences_delayStart"
                 android:defaultValue="0"
                 henrichg:dMin="0"
-                henrichg:dMax="86400" />
+                henrichg:dMax="86400"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventNotificationSoundInfo"
                 android:title="@string/event_preferences_notificationSound"
                 android:summary="@string/preferences_durationNotificationSoundInfo_summary"
-                android:widgetLayout="@layout/info_preference" />
+                android:widgetLayout="@layout/info_preference"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="eventNotificationSound"
                 android:summary="@string/array_pref_no_change"
                 android:title="@string/event_preferences_notificationSound"
                 app:ringtoneType="notification"
                 app:showSilent="true"
-                app:showDefault="true" />
+                app:showDefault="true"
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="eventNotificationVibrate"
                 android:title="@string/event_preferences_notificationVibrate"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch"/>
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget"/>
             <CheckBoxPreference
                 android:key="eventNotificationRepeat"
                 android:title="@string/event_preferences_notificationRepeat"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch"/>
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget"/>
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventNotificationRepeatInterval"
                 android:summary="@string/event_preferences_notificationRepeatInterval"
@@ -107,18 +124,21 @@
                 android:defaultValue="900"
                 henrichg:dMin="10"
                 henrichg:dMax="86400"
-                android:dependency="eventNotificationRepeat" />
+                android:dependency="eventNotificationRepeat"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/event_preferences_category_endofevent"
         android:key="eventEndCategory"
-        android:dependency="manualProfileActivation">
+        android:dependency="manualProfileActivation"
+        android:layout="@layout/mp_preference_category">
         <sk.henrichg.phoneprofilesplus.ProfilePreference
             android:defaultValue="-999"
             android:key="eventProfileEnd"
             android:title="@string/event_preferences_eventProfileEnd"
-            henrichg:addNoActivateItem="1" />
+            henrichg:addNoActivateItem="1"
+            android:layout="@layout/mp_preference_material_widget" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/event_preferences_atEndDo"
             android:summary="@string/array_pref_atEndDo_restartEvents"
@@ -126,83 +146,98 @@
             android:defaultValue="2"
             android:entries="@array/eventAtEndDoArray"
             android:entryValues="@array/eventAtEndDoValues"
+            android:layout="@layout/mp_preference_material_widget"
             app:useStockLayout="true" />
         <PreferenceScreen
             android:title="@string/event_preferences_category_startofeventOthers"
             android:key="eventEndOthersCategory"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventDelayEnd"
                 android:summary="@string/event_preferences_delayStart"
                 android:title="@string/event_preferences_delayStart"
                 android:defaultValue="0"
                 henrichg:dMin="0"
-                henrichg:dMax="86400" />
+                henrichg:dMax="86400"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/event_preferences_category_sensors"
-        android:key="eventEventsCategory" >
+        android:key="eventEventsCategory"
+        android:layout="@layout/mp_preference_category" >
         <sk.henrichg.phoneprofilesplus.InfoDialogPreference
             android:key="eventSensorsInfo"
             android:title="@string/event_preferences_sensorsInfo_title"
             android:summary="@string/info_preference_click_here"
             henrichg:infoText="@string/event_preferences_sensorsInfo_summary"
-            android:widgetLayout="@layout/info_preference" />
+            android:widgetLayout="@layout/info_preference"
+            android:layout="@layout/mp_preference_material_widget" />
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventTimeParameters"
             android:summary="@string/event_preference_sensor_time_summary"
             android:key="eventTimeCategory"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventTimeEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.DaysOfWeekPreference
                 android:key="eventTimeDays"
                 android:defaultValue="@string/empty_string"
                 android:title="@string/event_preferences_time_timeDays"
-                android:dependency="eventTimeEnabled" />
+                android:dependency="eventTimeEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.TimePreference
                 android:key="eventTimeStartTime"
                 android:defaultValue="0"
                 android:title="@string/event_preferences_time_startTime"
-                android:dependency="eventTimeEnabled" />
+                android:dependency="eventTimeEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
     <!--
             <CheckBoxPreference
                 android:key="eventTimeUseEndTime"
                 android:title="@string/event_preferences_time_useEndTime"
                 android:defaultValue="false"
                 android:dependency="eventTimeEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.TimePreference
                 android:key="eventTimeEndTime"
                 android:defaultValue="0"
                 android:title="@string/event_preferences_time_endTime"
-                android:dependency="eventTimeUseEndTime" />
+                android:dependency="eventTimeUseEndTime"
+                android:layout="@layout/mp_preference_material_widget" />
     -->
             <sk.henrichg.phoneprofilesplus.TimePreference
                 android:key="eventTimeEndTime"
                 android:defaultValue="0"
                 android:title="@string/event_preferences_time_endTime"
-                android:dependency="eventTimeEnabled" />
+                android:dependency="eventTimeEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventCalendarParameters"
             android:summary="@string/event_preference_sensor_calendar_summary"
             android:key="eventCalendarCategory"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventCalendarEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.CalendarsMultiSelectDialogPreference
                 android:key="eventCalendarCalendars"
                 android:defaultValue="@string/empty_string"
                 android:title="@string/event_preferences_calendar_calendars"
-                android:dependency="eventCalendarEnabled" />
+                android:dependency="eventCalendarEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_calendar_search_field"
                 android:summary="@string/array_event_pref_calendarSearchField_eventName"
@@ -211,6 +246,7 @@
                 android:entries="@array/eventCalendarSearchFieldArray"
                 android:entryValues="@array/eventCalendarSearchFieldValues"
                 android:dependency="eventCalendarEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <com.afollestad.materialdialogs.prefs.MaterialEditTextPreference
                 android:key="eventCalendarSearchString"
@@ -218,13 +254,15 @@
                 android:title="@string/event_preferences_calendar_search_string"
                 android:selectAllOnFocus="true"
                 android:dependency="eventCalendarEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <CheckBoxPreference
                 android:key="eventCalendarIgnoreAllDayEvents"
                 android:title="@string/event_preferences_calendar_ignore_all_day_events"
                 android:defaultValue="false"
                 android:dependency="eventCalendarEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preference_calendar_availability"
                 android:summary="@string/array_event_pref_calendarSearchField_eventName"
@@ -233,6 +271,7 @@
                 android:entries="@array/eventCalendarAvailabilityArray"
                 android:entryValues="@array/eventCalendarAvailabilityValues"
                 android:dependency="eventCalendarEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventCalendarStartBeforeEvent"
@@ -241,18 +280,21 @@
                 android:defaultValue="0"
                 henrichg:dMin="0"
                 henrichg:dMax="86400"
-                android:dependency="eventCalendarEnabled" />
+                android:dependency="eventCalendarEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventBatteryParameters"
             android:summary="@string/event_preference_sensor_battery_summary"
             android:key="eventBatteryCategory"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventBatteryEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
                 android:key="eventBatteryLevelLow"
                 android:summary="@string/event_preferences_battery_level_low"
@@ -260,7 +302,8 @@
                 android:defaultValue="0"
                 henrichg:min="0"
                 henrichg:max="100"
-                android:dependency="eventBatteryEnabled" />
+                android:dependency="eventBatteryEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
                 android:key="eventBatteryLevelHight"
                 android:summary="@string/event_preferences_battery_level_hight"
@@ -268,30 +311,35 @@
                 android:defaultValue="100"
                 henrichg:min="0"
                 henrichg:max="100"
-                android:dependency="eventBatteryEnabled" />
+                android:dependency="eventBatteryEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="eventBatteryCharging"
                 android:title="@string/event_preferences_battery_charging"
                 android:defaultValue="false"
                 android:dependency="eventBatteryEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="eventBatteryPowerSaveMode"
                 android:title="@string/event_preferences_battery_power_save_mode"
                 android:defaultValue="false"
                 android:dependency="eventBatteryEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventCallParameters"
             android:summary="@string/event_preference_sensor_call_summary"
             android:key="eventCallCategory"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventCallEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_call_event"
                 android:summary="@string/array_event_pref_ringing"
@@ -300,17 +348,20 @@
                 android:entries="@array/eventCallEventsArray"
                 android:entryValues="@array/eventCallEventsValues"
                 android:dependency="eventCallEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
                 android:key="eventCallContactGroups"
                 android:defaultValue="@string/empty_string"
                 android:title="@string/event_preferences_call_contact_groups"
-                android:dependency="eventCallEnabled" />
+                android:dependency="eventCallEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
                 android:key="eventCallContacts"
                 android:defaultValue="@string/empty_string"
                 android:title="@string/event_preferences_call_contacts"
-                android:dependency="eventCallEnabled" />
+                android:dependency="eventCallEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_ccontactListType"
                 android:summary="@string/array_event_pref_contact_list_type_white_list"
@@ -319,6 +370,7 @@
                 android:entries="@array/eventCallContactListTypeArray"
                 android:entryValues="@array/eventCallContactListTypeValues"
                 android:dependency="eventCallEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <CheckBoxPreference
                 android:key="eventCallPermanentRun"
@@ -326,7 +378,8 @@
                 android:summary="@string/pref_event_permanentRun_summary"
                 android:defaultValue="true"
                 android:dependency="eventCallEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventCallDuration"
                 android:summary="@string/event_preferences_duration"
@@ -334,35 +387,41 @@
                 android:defaultValue="5"
                 henrichg:dMin="5"
                 henrichg:dMax="86400"
-                android:dependency="eventCallEnabled" />
+                android:dependency="eventCallEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventSMSParameters"
             android:summary="@string/event_preference_sensor_sms_summary"
             android:key="eventSMSCategory"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventSMSEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
     <!-- 		<ListPreference android:title="@string/event_preferences_sms_event"
                 android:summary="@string/array_event_pref_incoming_sms"
                 android:key="eventSMSEvent"
                 android:defaultValue="0"
                 android:entries="@array/eventSMSEventsArray"
                 android:entryValues="@array/eventSMSEventsValues"
-                android:dependency="eventSMSEnabled" />  -->
+                android:dependency="eventSMSEnabled"
+                android:layout="@layout/mp_preference_material_widget" />  -->
             <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
                 android:key="eventSMSContactGroups"
                 android:defaultValue="@string/empty_string"
                 android:title="@string/event_preferences_sms_contact_groups"
-                android:dependency="eventSMSEnabled" />
+                android:dependency="eventSMSEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
                 android:key="eventSMSContacts"
                 android:defaultValue="@string/empty_string"
                 android:title="@string/event_preferences_sms_contacts"
-                android:dependency="eventSMSEnabled" />
+                android:dependency="eventSMSEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_ccontactListType"
                 android:summary="@string/array_event_pref_contact_list_type_white_list"
@@ -371,6 +430,7 @@
                 android:entries="@array/eventSMSContactListTypeArray"
                 android:entryValues="@array/eventSMSContactListTypeValues"
                 android:dependency="eventSMSEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <CheckBoxPreference
                 android:key="eventSMSPermanentRun"
@@ -378,7 +438,8 @@
                 android:summary="@string/pref_event_permanentRun_summary"
                 android:defaultValue="true"
                 android:dependency="eventSMSEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventSMSDuration"
                 android:summary="@string/event_preferences_duration"
@@ -386,24 +447,28 @@
                 android:defaultValue="5"
                 henrichg:dMin="5"
                 henrichg:dMax="86400"
-                android:dependency="eventSMSEnabled" />
+                android:dependency="eventSMSEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventRadioSwitchCategory"
             android:title="@string/event_preferences_category_eventRadioSwitchParameters"
             android:summary="@string/event_preference_sensor_radioSwitch_summary"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventRadioSwitchEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventRadioSwitchConfigInfo"
                 android:title="@string/event_preferences_radioSwitch_info_title"
                 android:summary="@string/event_preferences_radioSwitch_info_summary"
                 android:dependency="eventRadioSwitchEnabled"
-                android:widgetLayout="@layout/info_preference" />
+                android:widgetLayout="@layout/info_preference"
+                android:layout="@layout/mp_preference_material_widget" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_radioSwitch_wifi"
                 android:summary="@string/array_pref_radioSwitch_notDetect"
@@ -412,6 +477,7 @@
                 android:entries="@array/eventRadioSwitchArray"
                 android:entryValues="@array/eventRadioSwitchValues"
                 android:dependency="eventRadioSwitchEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_radioSwitch_bluetooth"
@@ -421,6 +487,7 @@
                 android:entries="@array/eventRadioSwitchArray"
                 android:entryValues="@array/eventRadioSwitchValues"
                 android:dependency="eventRadioSwitchEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_radioSwitch_mobileData"
@@ -430,6 +497,7 @@
                 android:entries="@array/eventRadioSwitchArray"
                 android:entryValues="@array/eventRadioSwitchValues"
                 android:dependency="eventRadioSwitchEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_radioSwitch_gps"
@@ -439,6 +507,7 @@
                 android:entries="@array/eventRadioSwitchArray"
                 android:entryValues="@array/eventRadioSwitchValues"
                 android:dependency="eventRadioSwitchEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_radioSwitch_nfc"
@@ -448,6 +517,7 @@
                 android:entries="@array/eventRadioSwitchArray"
                 android:entryValues="@array/eventRadioSwitchValues"
                 android:dependency="eventRadioSwitchEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_radioSwitch_airplaneMode"
@@ -457,53 +527,62 @@
                 android:entries="@array/eventRadioSwitchArray"
                 android:entryValues="@array/eventRadioSwitchValues"
                 android:dependency="eventRadioSwitchEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventLocationCategory"
             android:title="@string/event_preferences_category_eventLocationsParameters"
             android:summary="@string/event_preference_sensor_location_summary"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventLocationEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventLocationScanningSystemSettings"
                 android:title="@string/phone_profiles_pref_eventLocationAppSettings"
                 android:summary="@string/phone_profiles_pref_eventLocationAppSettings_summary"
                 android:dependency="eventLocationEnabled"
-                android:widgetLayout="@layout/start_activity_preference" />
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.LocationGeofencePreference
                 android:defaultValue="0"
                 android:key="eventLocationGeofences"
                 android:title="@string/event_preferences_locations_location"
                 henrichg:onlyEdit="0"
-                android:dependency="eventLocationEnabled" />
+                android:dependency="eventLocationEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="eventLocationStartWhenOutside"
                 android:title="@string/event_preferences_location_when_outside_pref_name"
                 android:defaultValue="false"
                 android:dependency="eventLocationEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventWifiCategory"
             android:title="@string/event_preferences_category_eventWifiParameters"
             android:summary="@string/event_preference_sensor_wifi_summary"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventWiFiEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventEnableWiFiScaningAppSettings"
                 android:title="@string/phone_profiles_pref_eventWifiAppSettings"
                 android:summary="@string/phone_profiles_pref_eventWifiAppSettings_summary"
                 android:dependency="eventWiFiEnabled"
-                android:widgetLayout="@layout/start_activity_preference" >
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
             </Preference>
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_wifi_connection_type"
@@ -513,29 +592,34 @@
                 android:entries="@array/eventWifiConnectionTypeArray"
                 android:entryValues="@array/eventWifiConnectionTypeValues"
                 android:dependency="eventWiFiEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <sk.henrichg.phoneprofilesplus.WifiSSIDPreference
                 android:key="eventWiFiSSID"
                 android:summary="@string/event_preferences_wifi_ssid"
                 android:title="@string/event_preferences_wifi_ssid"
-                android:dependency="eventWiFiEnabled" />
+                android:dependency="eventWiFiEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventBluetoothCategory"
             android:title="@string/event_preferences_category_eventBluetoothParameters"
             android:summary="@string/event_preference_sensor_bluetooth_summary"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventBluetoothEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventEnableBluetoothScaningAppSettings"
                 android:title="@string/phone_profiles_pref_eventBluetoothAppSettings"
                 android:summary="@string/phone_profiles_pref_eventBluetoothAppSettings_summary"
                 android:dependency="eventBluetoothEnabled"
-                android:widgetLayout="@layout/start_activity_preference" >
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
             </Preference>
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_bluetooth_connection_type"
@@ -545,6 +629,7 @@
                 android:entries="@array/eventBluetoothConnectionTypeArray"
                 android:entryValues="@array/eventBluetoothConnectionTypeValues"
                 android:dependency="eventBluetoothEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_bluetooth_devices_type"
@@ -554,52 +639,61 @@
                 android:entries="@array/eventBluetoothDevicesTypeArray"
                 android:entryValues="@array/eventBluetoothDevicesTypeValues"
                 android:dependency="eventBluetoothEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <sk.henrichg.phoneprofilesplus.BluetoothNamePreference
                 android:key="eventBluetoothAdapterNAME"
                 android:summary="@string/event_preferences_bluetooth_adapter_name"
                 android:title="@string/event_preferences_bluetooth_adapter_name"
-                android:dependency="eventBluetoothEnabled" />
+                android:dependency="eventBluetoothEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventMobileCellsCategory"
             android:title="@string/event_preferences_category_eventMobileCellsParameters"
             android:summary="@string/event_preference_sensor_mobile_cells_summary"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventMobileCellsEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventMobileCellsScaningAppSettings"
                 android:title="@string/phone_profiles_pref_eventMobileCellsAppSettings"
                 android:summary="@string/phone_profiles_pref_eventMobileCellsAppSettings_summary"
                 android:dependency="eventMobileCellsEnabled"
-                android:widgetLayout="@layout/start_activity_preference" >
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
             </Preference>
             <sk.henrichg.phoneprofilesplus.MobileCellsPreference
                 android:defaultValue="0"
                 android:key="eventMobileCellsCells"
                 android:title="@string/event_preferences_mobile_cells_cells"
-                android:dependency="eventMobileCellsEnabled" />
+                android:dependency="eventMobileCellsEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="eventMobileCellsStartWhenOutside"
                 android:title="@string/event_preferences_mobile_cells_when_outside_pref_name"
                 android:defaultValue="false"
                 android:dependency="eventMobileCellsEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventPeripheralParameters"
             android:summary="@string/event_preference_sensor_accessories_summary"
             android:key="eventAccessoriesCategory"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventPeripheralEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_peripheral_type"
                 android:summary="@string/array_event_pref_peripheralType_deskDock"
@@ -608,18 +702,21 @@
                 android:entries="@array/eventPeripheralTypeArray"
                 android:entryValues="@array/eventPeripheralTypeValues"
                 android:dependency="eventPeripheralEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventScreenParameters"
             android:summary="@string/event_preference_sensor_screen_summary"
             android:key="eventScreenCategory"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventScreenEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_screen_event_type"
                 android:summary="@string/array_event_pref_eventScreenEventType_screenOff"
@@ -628,63 +725,73 @@
                 android:entries="@array/eventScreenEventTypeArray"
                 android:entryValues="@array/eventScreenEventTypeValues"
                 android:dependency="eventScreenEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <CheckBoxPreference
                 android:key="eventScreenWhenUnlocked"
                 android:title="@string/event_preferences_screen_start_when_unlocked"
                 android:defaultValue="false"
                 android:dependency="eventScreenEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventNotificationCategory"
             android:title="@string/event_preferences_category_eventNotificationsParameters"
             android:summary="@string/event_preference_sensor_notification_summary"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventNotificationEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventNotificationNotificationsAccessSettings"
                 android:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
                 android:summary="@string/event_preferences_volumeNotificationsAccessSettings_summary"
                 android:dependency="eventNotificationEnabled"
-                android:widgetLayout="@layout/start_activity_preference" >
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
             </Preference>
             <CheckBoxPreference
                 android:key="eventNotificationInCall"
                 android:title="@string/event_preferences_notifications_inCall"
                 android:defaultValue="false"
                 android:dependency="eventNotificationEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="eventNotificationMissedCall"
                 android:title="@string/event_preferences_notifications_missedCall"
                 android:defaultValue="false"
                 android:dependency="eventNotificationEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
                 android:defaultValue="@string/dash_string"
                 android:key="eventNotificationApplications"
                 android:title="@string/event_preferences_notifications_applications"
                 app:addShortcuts="0"
                 app:systemSettings="notifications"
-                android:dependency="eventNotificationEnabled" />
+                android:dependency="eventNotificationEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
             <!--<CheckBoxPreference
                 android:key="eventNotificationEndWhenRemoved"
                 android:title="@string/event_preferences_notifications_end_when_removed"
                 android:defaultValue="false"
                 android:dependency="eventNotificationEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="eventNotificationPermanentRun"
                 android:title="@string/pref_event_permanentRun"
                 android:summary="@string/pref_event_permanentRun_summary"
                 android:defaultValue="true"
                 android:dependency="eventNotificationEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventNotificationDuration"
                 android:summary="@string/event_preferences_duration"
@@ -692,37 +799,43 @@
                 android:defaultValue="5"
                 henrichg:dMin="5"
                 henrichg:dMax="86400"
-                android:dependency="eventNotificationEnabled" /> -->
+                android:dependency="eventNotificationEnabled"
+                android:layout="@layout/mp_preference_material_widget" /> -->
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventApplicationCategory"
             android:title="@string/event_preferences_category_eventApplicationsParameters"
             android:summary="@string/event_preference_sensor_application_summary"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventApplicationEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventApplicationInstallExtender"
                 android:title="@string/event_preferences_applications_PPPExtender_title"
                 android:summary="@string/event_preferences_applications_PPPExtender_install_summary"
                 android:dependency="eventApplicationEnabled"
-                android:widgetLayout="@layout/start_activity_preference" >
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
             </Preference>
             <Preference
                 android:key="eventApplicationInstallExtenderInfo"
                 android:title="@string/event_preferences_PPPExtenderInstallInfo_text"
                 android:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
                 android:dependency="eventApplicationEnabled"
-                android:widgetLayout="@layout/info_preference" />
+                android:widgetLayout="@layout/info_preference"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventApplicationAccessibilitySettings"
                 android:title="@string/event_preferences_applications_AccessibilitySettings_title"
                 android:summary="@string/event_preferences_applications_AccessibilitySettingsForExtender_summary"
                 android:dependency="eventApplicationEnabled"
-                android:widgetLayout="@layout/start_activity_preference" >
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
             </Preference>
             <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
                 android:defaultValue="@string/dash_string"
@@ -730,24 +843,28 @@
                 android:title="@string/event_preferences_applications_applications"
                 app:addShortcuts="0"
                 app:systemSettings="accessibility"
-                android:dependency="eventApplicationEnabled" />
+                android:dependency="eventApplicationEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventOrientationCategory"
             android:title="@string/event_preferences_category_eventOrientationParameters"
             android:summary="@string/event_preference_sensor_orientation_summary"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventOrientationEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventEnableOrientationScanningAppSettings"
                 android:title="@string/phone_profiles_pref_eventOrientationAppSettings"
                 android:summary="@string/phone_profiles_pref_eventOrientationAppSettings_summary"
                 android:dependency="eventOrientationEnabled"
-                android:widgetLayout="@layout/start_activity_preference" >
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
             </Preference>
             <com.afollestad.materialdialogs.prefs.MaterialMultiSelectListPreference
                 android:key="eventOrientationDisplay"
@@ -756,6 +873,7 @@
                 android:entries="@array/eventOrientationDisplayArray"
                 android:entryValues="@array/eventOrientationDisplayValues"
                 android:dependency="eventOrientationEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <com.afollestad.materialdialogs.prefs.MaterialMultiSelectListPreference
                 android:key="eventOrientationSides"
@@ -764,6 +882,7 @@
                 android:entries="@array/eventOrientationSidesArray"
                 android:entryValues="@array/eventOrientationSidesValues"
                 android:dependency="eventOrientationEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_orientation_distance"
@@ -773,26 +892,30 @@
                 android:entries="@array/eventOrientationDistanceTypeArray"
                 android:entryValues="@array/eventOrientationDistanceTypeValues"
                 android:dependency="eventOrientationEnabled"
+                android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <Preference
                 android:key="eventOrientationInstallExtender"
                 android:title="@string/event_preferences_orientation_PPPExtender_title"
                 android:summary="@string/event_preferences_orientation_PPPExtender_install_summary"
                 android:dependency="eventOrientationEnabled"
-                android:widgetLayout="@layout/start_activity_preference" >
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
             </Preference>
             <Preference
                 android:key="eventOrientationInstallExtenderInfo"
                 android:title="@string/event_preferences_PPPExtenderInstallInfo_text"
                 android:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
                 android:dependency="eventOrientationEnabled"
-                android:widgetLayout="@layout/info_preference" />
+                android:widgetLayout="@layout/info_preference"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventOrientationAccessibilitySettings"
                 android:title="@string/event_preferences_applications_AccessibilitySettings_title"
                 android:summary="@string/event_preferences_orientation_AccessibilitySettingsForExtender_summary"
                 android:dependency="eventOrientationEnabled"
-                android:widgetLayout="@layout/start_activity_preference" >
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
             </Preference>
             <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
                 android:defaultValue="@string/dash_string"
@@ -800,31 +923,36 @@
                 android:title="@string/event_preferences_orientation_ignoreForApplications"
                 app:addShortcuts="0"
                 app:systemSettings="accessibility"
-                android:dependency="eventOrientationEnabled" />
+                android:dependency="eventOrientationEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventNFCCategory"
             android:title="@string/event_preferences_category_eventNFCParameters"
             android:summary="@string/event_preference_sensor_nfc_summary"
-            android:widgetLayout="@layout/start_activity_preference" >
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
             <CheckBoxPreference
                 android:key="eventNFCEnabled"
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.NFCTagPreference
                 android:defaultValue="@string/empty_string"
                 android:key="eventNFCTags"
                 android:title="@string/event_preferences_nfc_nfcTags"
                 app:addShortcuts="0"
-                android:dependency="eventNFCEnabled" />
+                android:dependency="eventNFCEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="eventNFCPermanentRun"
                 android:title="@string/pref_event_permanentRun"
                 android:summary="@string/pref_event_permanentRun_summary"
                 android:defaultValue="true"
                 android:dependency="eventNFCEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventNFCDuration"
                 android:summary="@string/event_preferences_duration"
@@ -832,7 +960,8 @@
                 android:defaultValue="5"
                 henrichg:dMin="5"
                 henrichg:dMax="86400"
-                android:dependency="eventNFCEnabled" />
+                android:dependency="eventNFCEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
     </PreferenceCategory>
 </PreferenceScreen>

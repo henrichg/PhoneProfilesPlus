@@ -431,7 +431,7 @@
   <string name="important_info_events">Udalosti</string>
   <string name="important_info_system">Systém</string>
   <string name="important_info_profile_root">Niektoré parametre profilu vyžadujú práva ROOT. Tieto parametre sú označená ako \"(R)\".</string>
-  <string name="event_preferences_eventStartWhenActivatedProfile">[#] Spusti len ak je aktiv. profil</string>
+  <string name="event_preferences_eventStartWhenActivatedProfile">[#] Spusti len ak je aktivovaný profil</string>
   <string name="profile_preference_do_not_apply">Neaplikovať</string>
   <string name="pref_dlg_info_about_wildcards_1">Môžete použiť zástupné znaky: \"%\"=nejaké znaky, \"_\"=nejaký jeden znak.</string>
   <string name="pref_dlg_info_about_wildcards_2">Ak máte \"%\" alebo \"_\"</string>
