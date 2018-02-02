@@ -1906,11 +1906,11 @@ public class Profile {
                         PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                     }
                 }
-                else {
+                /*else {
                     PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
                     PPApplication.notAllowedReasonDetail = Build.VERSION.RELEASE;
-                }
-                /*else
+                }*/
+                else
                 if (PPApplication.isRooted())
                 {
                     // device is rooted
@@ -1925,7 +1925,7 @@ public class Profile {
                     }
                 }
                 else
-                    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;*/
+                    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
             }
             else
                 PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
