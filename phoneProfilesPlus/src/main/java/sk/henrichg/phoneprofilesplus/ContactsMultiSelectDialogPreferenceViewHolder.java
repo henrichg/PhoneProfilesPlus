@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private ImageView imageViewPhoto;
-    private TextView textViewDisplayName;
-    private TextView textViewPhoneNumber;
-    private CheckBox checkBox;
+    private final ImageView imageViewPhoto;
+    private final TextView textViewDisplayName;
+    private final TextView textViewPhoneNumber;
+    private final CheckBox checkBox;
 
     private Contact contact;
 

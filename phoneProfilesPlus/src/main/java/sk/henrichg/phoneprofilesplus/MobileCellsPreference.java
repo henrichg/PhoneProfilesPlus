@@ -59,7 +59,7 @@ public class MobileCellsPreference extends DialogPreference {
 
     static boolean forceStart;
 
-    private static final String PREF_SHOW_HELP = "mobile_cells_pref_show_help";
+    //private static final String PREF_SHOW_HELP = "mobile_cells_pref_show_help";
 
     public MobileCellsPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

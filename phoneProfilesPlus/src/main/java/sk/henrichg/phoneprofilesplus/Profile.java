@@ -1913,7 +1913,7 @@ public class Profile {
                 if (PPApplication.isRooted())
                 {
                     // device is rooted
-                    if (ActivateProfileHelper.wifiServiceExists(context, Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
+                    if (ActivateProfileHelper.wifiServiceExists(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
                         if (PPApplication.serviceBinaryExists())
                             featurePresented = PPApplication.PREFERENCE_ALLOWED;
                         else

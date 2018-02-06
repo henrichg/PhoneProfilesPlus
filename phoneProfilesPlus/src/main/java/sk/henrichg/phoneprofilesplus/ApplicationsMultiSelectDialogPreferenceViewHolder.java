@@ -10,10 +10,10 @@ import android.widget.TextView;
 
 class ApplicationsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private ImageView imageViewIcon;
-    private TextView textViewAppName;
-    private CheckBox checkBox;
-    private TextView textViewAppType;
+    private final ImageView imageViewIcon;
+    private final TextView textViewAppName;
+    private final CheckBox checkBox;
+    private final TextView textViewAppType;
 
     private final Context context;
 

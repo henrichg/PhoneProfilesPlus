@@ -169,7 +169,10 @@ public class EditorProfilesActivity extends AppCompatActivity
         createContactsCache();
         createContactGroupsCache();
 
-        setContentView(R.layout.activity_editor_list_onepane);
+        if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) && (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP))
+            setContentView(R.layout.activity_editor_list_onepane_19);
+        else
+            setContentView(R.layout.activity_editor_list_onepane);
 
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 

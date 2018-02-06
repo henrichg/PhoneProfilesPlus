@@ -55,7 +55,7 @@ public class BluetoothNamePreference extends DialogPreference {
 
     static boolean forceRegister = false;
 
-    private static final String PREF_SHOW_HELP = "bluetooth_name_pref_show_help";
+    //private static final String PREF_SHOW_HELP = "bluetooth_name_pref_show_help";
 
     public BluetoothNamePreference(Context context, AttributeSet attrs) {
         super(context, attrs);

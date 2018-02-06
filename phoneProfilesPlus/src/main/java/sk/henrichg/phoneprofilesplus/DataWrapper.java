@@ -1154,7 +1154,7 @@ public class DataWrapper {
         //final Activity activity = _activity;
 
         // get currently activated profile
-        Profile activatedProfile = getActivatedProfile();
+        //Profile activatedProfile = getActivatedProfile();
 
         if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
             //(startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&  // on boot must set as manual activation
@@ -1174,7 +1174,7 @@ public class DataWrapper {
         DatabaseHandler.getInstance(context).activateProfile(_profile);
         setProfileActive(_profile);
 
-        activatedProfile = getActivatedProfile();
+        Profile activatedProfile = getActivatedProfile();
 
         String profileIcon = "";
         int profileDuration = 0;

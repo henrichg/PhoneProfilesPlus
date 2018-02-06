@@ -54,7 +54,7 @@ public class WifiSSIDPreference extends DialogPreference {
 
     static boolean forceRegister = false;
 
-    private static final String PREF_SHOW_HELP = "wifi_ssid_pref_show_help";
+    //private static final String PREF_SHOW_HELP = "wifi_ssid_pref_show_help";
 
     public WifiSSIDPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

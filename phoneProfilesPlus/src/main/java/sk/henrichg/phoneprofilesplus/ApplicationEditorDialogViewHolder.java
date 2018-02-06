@@ -10,10 +10,10 @@ import android.widget.TextView;
 
 class ApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private ImageView imageViewIcon;
-    private TextView textViewAppName;
-    private RadioButton radioBtn;
-    private TextView textViewAppType;
+    private final ImageView imageViewIcon;
+    private final TextView textViewAppName;
+    private final RadioButton radioBtn;
+    private final TextView textViewAppType;
 
     private final Context context;
     private final ApplicationEditorDialog dialog;

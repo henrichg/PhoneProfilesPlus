@@ -51,7 +51,7 @@ public class NFCTagPreference extends DialogPreference {
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
-    private static final String PREF_SHOW_HELP = "nfc_tag_pref_show_help";
+    //private static final String PREF_SHOW_HELP = "nfc_tag_pref_show_help";
 
     public NFCTagPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

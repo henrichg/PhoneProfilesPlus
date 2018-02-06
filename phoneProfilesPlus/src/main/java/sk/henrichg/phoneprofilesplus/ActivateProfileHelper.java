@@ -65,7 +65,7 @@ import static android.content.Context.POWER_SERVICE;
 
 //import android.app.NotificationChannel;
 
-public class ActivateProfileHelper {
+class ActivateProfileHelper {
 
     static boolean lockRefresh = false;
     static boolean disableScreenTimeoutInternalChange = false;
@@ -2715,7 +2715,7 @@ public class ActivateProfileHelper {
         }
     }
 
-    static boolean wifiServiceExists(Context context, String preference) {
+    static boolean wifiServiceExists(/*Context context, */String preference) {
         try {
             Object serviceManager = PPApplication.getServiceManager("wifi");
             if (serviceManager != null) {

@@ -57,9 +57,11 @@ class ApplicationEditorDialogAdapter extends RecyclerView.Adapter<ApplicationEdi
             return dialog.cachedApplicationList.size();
     }
 
+    /*
     public Object getItem(int position) {
         return dialog.cachedApplicationList.get(position);
     }
+    */
 
     public long getItemId(int position) {
         return position;

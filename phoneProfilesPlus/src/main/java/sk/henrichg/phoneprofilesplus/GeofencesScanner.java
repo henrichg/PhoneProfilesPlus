@@ -151,6 +151,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         } catch (Exception ignored) {}
     }
 
+    /*
     boolean isConnected() {
         try {
             return (mGoogleApiClient != null) && mGoogleApiClient.isConnected();
@@ -158,6 +159,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             return false;
         }
     }
+    */
 
     /**
      * Callback that fires when the location changes.

@@ -43,9 +43,11 @@ class ContactsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Contacts
             return contact.name.substring(0, 1);
     }
 
+    /*
     public Object getItem(int position) {
         return EditorProfilesActivity.getContactsCache().getContact(position);
     }
+    */
 
     public long getItemId(int position) {
         return position;

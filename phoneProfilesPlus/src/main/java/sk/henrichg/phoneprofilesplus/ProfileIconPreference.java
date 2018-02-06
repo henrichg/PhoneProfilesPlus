@@ -43,7 +43,7 @@ public class ProfileIconPreference extends DialogPreference {
 
     static final int RESULT_LOAD_IMAGE = 1971;
 
-    private static final String PREF_SHOW_HELP = "profile_icon_pref_show_help";
+    //private static final String PREF_SHOW_HELP = "profile_icon_pref_show_help";
 
     public ProfileIconPreference(Context context, AttributeSet attrs)
     {

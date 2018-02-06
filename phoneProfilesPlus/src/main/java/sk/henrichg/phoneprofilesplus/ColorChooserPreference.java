@@ -26,7 +26,7 @@ public class ColorChooserPreference extends DialogPreference implements View.OnC
     private MaterialDialog mDialog;
     private final Context context;
 
-    private int[] mColors;
+    private final int[] mColors;
 
     public ColorChooserPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

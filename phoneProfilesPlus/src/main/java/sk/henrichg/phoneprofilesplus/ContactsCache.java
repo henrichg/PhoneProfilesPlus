@@ -83,6 +83,7 @@ class ContactsCache {
         }
     }
 
+    /*
     public int getLength()
     {
         if (cached)
@@ -90,6 +91,7 @@ class ContactsCache {
         else
             return 0;
     }
+    */
 
     public List<Contact> getList()
     {

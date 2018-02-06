@@ -2,9 +2,6 @@
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
-.DS_Store
 /build
 
-/RootShell/build
-/RootTools/build
 /phoneProfilesPlus/build
