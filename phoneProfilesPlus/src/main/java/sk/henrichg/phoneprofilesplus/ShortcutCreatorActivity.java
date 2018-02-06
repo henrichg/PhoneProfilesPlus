@@ -79,6 +79,8 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_shortcut_creator);
 
+        //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle(R.string.title_activity_shortcut_creator);
 

@@ -2,7 +2,10 @@
 <resources>
 
     <style name="Base.Theme.Phoneprofilestheme_withToolbar_dlight" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        
+
+        <!-- disable initial empty screen - useful for dark theme -->
+        <item name="android:windowDisablePreview">true</item>
+
         <item name="colorPrimary">@color/primary_dark</item>
         <item name="colorPrimaryDark">@color/primaryDark_dark</item>
         <item name="colorAccent">@color/accent</item>

@@ -147,6 +147,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_activate_profile);
 
+        //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
         //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onCreate - setContentView");
 
         toolbar = findViewById(R.id.act_prof_tollbar);

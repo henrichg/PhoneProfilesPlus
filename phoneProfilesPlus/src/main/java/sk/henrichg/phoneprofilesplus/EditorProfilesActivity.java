@@ -158,10 +158,10 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         //Log.e("$$$ PPP","EditorProfilesActivity.onCreate");
 
+        super.onCreate(savedInstanceState);
+
         GlobalGUIRoutines.setTheme(this, false, true, true);
         GlobalGUIRoutines.setLanguage(getBaseContext());
-
-        super.onCreate(savedInstanceState);
 
         instance = this;
 
@@ -172,6 +172,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         createContactGroupsCache();
 
         setContentView(R.layout.activity_editor_list_onepane);
+
+        //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) && (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
             Window w = getWindow(); // in Activity's onCreate() for instance
