@@ -290,6 +290,12 @@
                 android:title="@string/profile_preferences_deviceConnectToSSID"
                 android:summary="@string/connect_to_ssid_pref_dlg_summary_text_just_any"
                 android:layout="@layout/mp_preference_material_widget" />
+            <Preference
+                android:key="prf_pref_deviceWiFiAPInfo"
+                android:title="@string/profile_preferences_deviceWiFiAP"
+                android:summary="@string/profile_preferences_deviceWiFiAPInfo_summary"
+                android:widgetLayout="@layout/info_preference"
+                android:layout="@layout/mp_preference_material_widget" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/profile_preferences_deviceWiFiAP"
                 android:summary="@string/array_pref_no_change"
