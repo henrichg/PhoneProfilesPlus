@@ -22,7 +22,6 @@ import android.widget.ListView;
 import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 public class ShortcutCreatorListFragment extends Fragment {
 

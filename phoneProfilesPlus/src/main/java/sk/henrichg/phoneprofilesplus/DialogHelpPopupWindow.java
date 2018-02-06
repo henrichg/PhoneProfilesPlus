@@ -3,12 +3,10 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 
 class DialogHelpPopupWindow extends GuiInfoPopupWindow {

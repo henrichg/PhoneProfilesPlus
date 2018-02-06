@@ -15,8 +15,6 @@ import android.widget.TextView;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
-import java.util.List;
-
 class ActivateProfileListAdapter extends BaseAdapter
 {
     private ActivateProfileListFragment fragment;

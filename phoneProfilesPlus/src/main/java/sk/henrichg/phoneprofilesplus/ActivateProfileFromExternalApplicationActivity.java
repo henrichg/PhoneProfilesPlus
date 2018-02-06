@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 
-import java.util.List;
-
 public class ActivateProfileFromExternalApplicationActivity extends AppCompatActivity {
 
     private DataWrapper dataWrapper;

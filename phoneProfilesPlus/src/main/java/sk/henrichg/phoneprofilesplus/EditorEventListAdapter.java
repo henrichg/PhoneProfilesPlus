@@ -14,7 +14,6 @@ import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
 class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHolder>
                                  implements ItemTouchHelperAdapter

@@ -21,7 +21,6 @@ import android.widget.TextView;
 import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 public class ActivateProfileListFragment extends Fragment {
 

@@ -11,8 +11,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
-import android.os.Handler;
-import android.os.PowerManager;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
@@ -21,8 +19,6 @@ import android.support.v4.app.NotificationCompat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-
-import static android.content.Context.POWER_SERVICE;
 
 class Event {
 

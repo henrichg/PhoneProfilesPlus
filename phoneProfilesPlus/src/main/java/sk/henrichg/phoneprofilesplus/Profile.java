@@ -13,7 +13,6 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 

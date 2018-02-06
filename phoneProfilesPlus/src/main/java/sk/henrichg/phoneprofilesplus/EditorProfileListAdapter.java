@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,7 +14,6 @@ import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
 class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListViewHolder>
                                  implements ItemTouchHelperAdapter

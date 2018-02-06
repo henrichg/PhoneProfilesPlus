@@ -8,8 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 class ShortcutProfileListAdapter extends BaseAdapter {
 
     private Fragment fragment;
