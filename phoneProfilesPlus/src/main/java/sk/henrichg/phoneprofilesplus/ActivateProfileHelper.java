@@ -571,10 +571,10 @@ class ActivateProfileHelper {
         }
 
         int ringerMode = getRingerMode(context);
-        int zenMode = getZenMode(context);
+        //int zenMode = getZenMode(context);
 
         PPApplication.logE("ActivateProfileHelper.setVolumes", "ringerMode=" + ringerMode);
-        PPApplication.logE("ActivateProfileHelper.setVolumes", "zenMode=" + zenMode);
+        //PPApplication.logE("ActivateProfileHelper.setVolumes", "zenMode=" + zenMode);
         PPApplication.logE("ActivateProfileHelper.setVolumes", "linkUnlink=" + linkUnlink);
         PPApplication.logE("ActivateProfileHelper.setVolumes", "forProfileActivation=" + forProfileActivation);
 
