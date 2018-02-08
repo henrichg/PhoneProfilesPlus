@@ -559,6 +559,7 @@ class GlobalGUIRoutines {
         return value.data;
     }
 
+    /*
     static int getResourceId(String pVariableName, String pResourceName, Context context)
     {
         try {
@@ -568,6 +569,7 @@ class GlobalGUIRoutines {
             return -1;
         }
     }
+    */
 
     static boolean activityActionExists(String action, Context context) {
         try {

@@ -20,6 +20,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Profile {
 
@@ -146,6 +148,76 @@ public class Profile {
     static final String PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING = "prf_pref_applicationDisableMobileCellScanning";
     static final String PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING = "prf_pref_applicationDisableOrientationScanning";
     static final String PREF_PROFILE_HEADS_UP_NOTIFICATIONS = "prf_pref_headsUpNotifications";
+
+    static final HashMap<String, Boolean> defaultValuesBoolean;
+    static {
+        defaultValuesBoolean = new HashMap<>();
+        defaultValuesBoolean.put("prf_pref_showInActivator", true);
+        defaultValuesBoolean.put("prf_pref_showInActivator_notShow", false);
+        defaultValuesBoolean.put("prf_pref_askForDuration", false);
+        defaultValuesBoolean.put("prf_pref_durationNotificationVibrate", false);
+        defaultValuesBoolean.put("prf_pref_hideStatusBarIcon", false);
+    }
+    static final HashMap<String, String> defaultValuesString;
+    static {
+        defaultValuesString = new HashMap<>();
+        defaultValuesString.put("prf_pref_profileName", "");
+        defaultValuesString.put("prf_pref_profileIcon", "ic_profile_default|1|0|0");
+        defaultValuesString.put("prf_pref_profileIcon_withoutIcon", "|1|0|0");
+        defaultValuesString.put("prf_pref_profileIcon_withoutIcon", "|1|0|0");
+        defaultValuesString.put("prf_pref_duration", "0");
+        defaultValuesString.put("prf_pref_afterDurationDo", "0");
+        defaultValuesString.put("prf_pref_durationNotificationSound", "");
+        defaultValuesString.put("prf_pref_volumeRingerMode", "0");
+        defaultValuesString.put("prf_pref_volumeZenMode", "0");
+        defaultValuesString.put("prf_pref_vibrationOnTouch", "0");
+        defaultValuesString.put("prf_pref_volumeRingtone", "-1|1|0");
+        defaultValuesString.put("prf_pref_volumeNotification", "-1|1|0");
+        defaultValuesString.put("prf_pref_volumeMedia", "-1|1|0");
+        defaultValuesString.put("prf_pref_volumeAlarm", "-1|1|0");
+        defaultValuesString.put("prf_pref_volumeSystem", "-1|1|0");
+        defaultValuesString.put("prf_pref_volumeVoice", "-1|1|0");
+        defaultValuesString.put("prf_pref_volumeSpeakerPhone", "0");
+        defaultValuesString.put("prf_pref_soundRingtoneChange", "0");
+        defaultValuesString.put("prf_pref_soundRingtone", "");
+        defaultValuesString.put("prf_pref_soundNotificationChange", "0");
+        defaultValuesString.put("prf_pref_soundNotification", "");
+        defaultValuesString.put("prf_pref_soundAlarmChange", "0");
+        defaultValuesString.put("prf_pref_soundAlarm", "");
+        defaultValuesString.put("prf_pref_deviceAirplaneMode", "0");
+        defaultValuesString.put("prf_pref_deviceAutosync", "0");
+        defaultValuesString.put("prf_pref_deviceMobileData", "0");
+        defaultValuesString.put("prf_pref_deviceMobileDataPrefs", "0");
+        defaultValuesString.put("prf_pref_deviceWiFi", "0");
+        defaultValuesString.put("prf_pref_deviceWiFiAP", "0");
+        defaultValuesString.put("prf_pref_deviceBluetooth", "0");
+        defaultValuesString.put("prf_pref_deviceGPS", "0");
+        defaultValuesString.put("prf_pref_deviceLocationServicePrefs", "0");
+        defaultValuesString.put("prf_pref_deviceNFC", "0");
+        defaultValuesString.put("prf_pref_deviceScreenTimeout", "0");
+        defaultValuesString.put("prf_pref_deviceKeyguard", "0");
+        defaultValuesString.put("prf_pref_deviceBrightness", "50|1|1|0");
+        defaultValuesString.put("prf_pref_deviceBrightness_withoutLevel", "|1|1|0");
+        defaultValuesString.put("prf_pref_deviceAutoRotation", "0");
+        defaultValuesString.put("prf_pref_devicePowerSaveMode", "0");
+        defaultValuesString.put("prf_pref_deviceRunApplicationChange", "0");
+        defaultValuesString.put("prf_pref_deviceRunApplicationPackageName", "-");
+        defaultValuesString.put("prf_pref_deviceWallpaperChange", "0");
+        defaultValuesString.put("prf_pref_deviceWallpaper", "-");
+        defaultValuesString.put("prf_pref_deviceNetworkType", "0");
+        defaultValuesString.put("prf_pref_notificationLed", "0");
+        defaultValuesString.put("prf_pref_vibrateWhenRinging", "0");
+        defaultValuesString.put("prf_pref_deviceWallpaperFor", "0");
+        defaultValuesString.put("prf_pref_lockDevice", "0");
+        defaultValuesString.put("prf_pref_deviceConnectToSSID", "^just_any^");
+        defaultValuesString.put("prf_pref_applicationDisableWifiScanning", "0");
+        defaultValuesString.put("prf_pref_applicationDisableBluetoothScanning", "0");
+        defaultValuesString.put("prf_pref_deviceWiFiAPPrefs", "0");
+        defaultValuesString.put("prf_pref_applicationDisableLocationScanning", "0");
+        defaultValuesString.put("prf_pref_applicationDisableMobileCellScanning", "0");
+        defaultValuesString.put("prf_pref_applicationDisableOrientationScanning", "0");
+        defaultValuesString.put("prf_pref_headsUpNotifications", "0");
+    }
 
     static final int RINGERMODE_RING = 1;
     static final int RINGERMODE_RING_AND_VIBRATE = 2;

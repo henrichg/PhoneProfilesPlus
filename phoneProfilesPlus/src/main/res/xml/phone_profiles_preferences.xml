@@ -148,7 +148,7 @@
             android:key="applicationPowerSaveModeInternal"
             android:title="@string/phone_profiles_pref_applicationPowerSaveMode"
             android:summary="@string/array_pref_powerSaveMode_15"
-            android:defaultValue="@string/applicationPowerSaveModeInternal"
+            android:defaultValue="@string/applicationPowerSaveModeInternal_defaultValue"
             android:entries="@array/powerSaveModeArray"
             android:entryValues="@array/powerSaveModeValues"
             android:layout="@layout/mp_preference_material_widget"
