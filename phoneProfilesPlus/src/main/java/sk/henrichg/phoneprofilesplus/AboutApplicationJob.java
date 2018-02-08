@@ -128,7 +128,7 @@ class AboutApplicationJob extends Job {
                 jobBuilder
                         .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
                         .build()
-                        .schedule();
+                        .scheduleAsync();
             } catch (Exception ignored) { }
         }
     }

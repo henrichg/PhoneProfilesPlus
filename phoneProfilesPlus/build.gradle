@@ -75,7 +75,7 @@ dependencies {
         transitive = true
     }
 
-    implementation 'com.evernote:android-job:1.2.2'
+    implementation 'com.evernote:android-job:1.2.4'
     implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.4'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
