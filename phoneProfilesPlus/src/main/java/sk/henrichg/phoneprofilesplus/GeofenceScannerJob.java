@@ -89,7 +89,7 @@ class GeofenceScannerJob extends Job {
     }
 
     private static void _scheduleJob(final Context context, final boolean startScanning, final boolean forScreenOn) {
-        synchronized (PPApplication.geofenceScannerMutex) {
+        //synchronized (PPApplication.geofenceScannerMutex) {
             if (startScanning) {
                 if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
                     PhoneProfilesService.getGeofencesScanner().mUpdatesStarted = false;
@@ -166,7 +166,7 @@ class GeofenceScannerJob extends Job {
                 } catch (Exception ignored) {
                 }
             }
-        }
+        //}
     }
 
     static void scheduleJob(final Context context, final boolean useHandler, final Handler _handler, final boolean startScanning, final boolean forScreenOn) {
