@@ -121,7 +121,7 @@ class WifiBluetoothScanner {
 
                     if (canScan) {
 
-                        dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
+                        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
 
                         // check if wifi scan events exists
                         //lock();
@@ -259,7 +259,7 @@ class WifiBluetoothScanner {
 
                         PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "start bt scan");
 
-                        dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
+                        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
 
                         // check if bluetooth scan events exists
                         //lock();

@@ -21,7 +21,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                     return;
 
                 SearchCalendarEventsJob.scheduleJob(/*appContext, */true, null, true);
-                DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
+                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                 dataWrapper.restartEvents(false, true/*, false*/);
             }
         }

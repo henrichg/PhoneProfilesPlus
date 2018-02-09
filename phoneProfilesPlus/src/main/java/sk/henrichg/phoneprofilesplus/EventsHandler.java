@@ -95,7 +95,7 @@ class EventsHandler {
 
             //PPApplication.setApplicationStarted(context, true);
 
-            dataWrapper = new DataWrapper(context.getApplicationContext(), true, false, 0);
+            dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
 
             ApplicationPreferences.getSharedPreferences(context);
             callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);

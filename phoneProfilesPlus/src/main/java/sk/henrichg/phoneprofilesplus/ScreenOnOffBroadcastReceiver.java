@@ -71,7 +71,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                     //ActivateProfileHelper.setScreenUnlocked(appContext, false);
                     if (!Event.getGlobalEventsRunning(appContext)) {
-                        DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
+                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                         //dataWrapper.getActivateProfileHelper().removeNotification();
                         //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
                         Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
@@ -83,7 +83,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
                     //ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
-                    final DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
+                    final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                     Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
 
                     if (ApplicationPreferences.notificationShowInStatusBar(appContext) &&
@@ -191,7 +191,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 if ((action != null) && action.equals(Intent.ACTION_SCREEN_ON)) {
                     if (ApplicationPreferences.notificationShowInStatusBar(appContext) &&
                             ApplicationPreferences.notificationHideInLockScreen(appContext)) {
-                        DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
+                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                         //dataWrapper.getActivateProfileHelper().removeNotification();
                         //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
                         Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);

@@ -57,7 +57,7 @@ public class ActivityLogActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.title_activity_activity_log);
         }
 
-        dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
+        dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
 
         listView = findViewById(R.id.activity_log_list);
 

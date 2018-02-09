@@ -25,7 +25,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
             (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT)) {
 
-            dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
+            dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
         }
     }
 

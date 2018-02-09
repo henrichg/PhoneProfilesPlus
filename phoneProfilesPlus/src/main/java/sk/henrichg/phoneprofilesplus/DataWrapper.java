@@ -43,7 +43,7 @@ import static android.content.Context.POWER_SERVICE;
 public class DataWrapper {
 
     public Context context = null;
-    private boolean forGUI = false;
+    //private boolean forGUI = false;
     private boolean monochrome = false;
     private int monochromeValue = 0xFF;
 
@@ -55,49 +55,50 @@ public class DataWrapper {
     //static final String EXTRA_INTERACTIVE = "interactive";
 
     DataWrapper(Context c,
-                        boolean fgui,
+                        //boolean fgui,
                         boolean mono,
                         int monoVal)
     {
         context = c;
 
-        setParameters(fgui, mono, monoVal);
+        setParameters(/*fgui, */mono, monoVal);
     }
 
     void setParameters(
-            boolean fgui,
+            //boolean fgui,
             boolean mono,
             int monoVal)
     {
-        forGUI = fgui;
+        //forGUI = fgui;
         monochrome = mono;
         monochromeValue = monoVal;
     }
 
-    void fillProfileList()
+    void fillProfileList(boolean generateIcons, boolean generateIndicators)
     {
         synchronized (profileList) {
             if (!profileListFilled)
             {
-                profileList.addAll(getNewProfileList());
+                profileList.addAll(getNewProfileList(generateIcons, generateIndicators));
                 profileListFilled = true;
             }
         }
     }
 
-    List<Profile> getNewProfileList() {
+    List<Profile> getNewProfileList(boolean generateIcons, boolean generateIndicators) {
         List<Profile> newProfileList = DatabaseHandler.getInstance(context).getAllProfiles();
 
-        if (forGUI)
-        {
+        //if (forGUI)
+        //{
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = newProfileList.iterator(); it.hasNext();) {
                 Profile profile = it.next();
-                profile.generateIconBitmap(context, monochrome, monochromeValue);
-                //if (generateIndicators)
-                profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+                if (generateIcons)
+                    profile.generateIconBitmap(context, monochrome, monochromeValue);
+                if (generateIndicators)
+                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
             }
-        }
+        //}
         return newProfileList;
     }
 
@@ -343,7 +344,7 @@ public class DataWrapper {
         return profile;
     }
 
-    void fillPredefinedProfileList()
+    void fillPredefinedProfileList(boolean generateIcons, boolean generateIndicators)
     {
         synchronized (profileList) {
             invalidateProfileList();
@@ -352,7 +353,7 @@ public class DataWrapper {
             for (int index = 0; index < 6; index++)
                 getPredefinedProfile(index, true);
 
-            fillProfileList();
+            fillProfileList(generateIcons, generateIndicators);
         }
     }
 
@@ -375,7 +376,7 @@ public class DataWrapper {
     Profile getActivatedProfileFromDB(boolean generateIcon, boolean generateIndicators)
     {
         Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
-        if (forGUI && (profile != null))
+        if (/*forGUI &&*/ (profile != null))
         {
             if (generateIcon)
                 profile.generateIconBitmap(context, monochrome, monochromeValue);
@@ -444,7 +445,7 @@ public class DataWrapper {
             startupSource = PPApplication.STARTUP_SOURCE_SERVICE_MANUAL;
         Profile profile = getProfileById(profile_id, true, true, merged);
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
-                forGUI, monochrome, monochromeValue,
+                monochrome, monochromeValue,
                 startupSource, /*interactive,*/ null, true)) {
             _activateProfile(profile, merged, startupSource);
         }
@@ -460,7 +461,7 @@ public class DataWrapper {
     private Profile getProfileByIdFromDB(long id, boolean generateIcon, boolean generateIndicators, boolean merged)
     {
         Profile profile = DatabaseHandler.getInstance(context).getProfile(id, merged);
-        if (forGUI && (profile != null))
+        if (/*forGUI &&*/ (profile != null))
         {
             if (generateIcon)
                 profile.generateIconBitmap(context, monochrome, monochromeValue);
@@ -556,8 +557,10 @@ public class DataWrapper {
             String iconIdentifier = profile.getIconIdentifier();
             DatabaseHandler.getInstance(context).getProfileIcon(profile);
             if (isIconResourceID && iconIdentifier.equals("ic_profile_default") && (!profile.getIsIconResourceID())) {
-                profile.generateIconBitmap(context, monochrome, monochromeValue);
-                profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+                if (profile._iconBitmap != null)
+                    profile.generateIconBitmap(context, monochrome, monochromeValue);
+                if (profile._preferencesIndicator != null)
+                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
             }
         }
     }
@@ -679,7 +682,7 @@ public class DataWrapper {
     }
 
     void stopEventsForProfileFromMainThread(final Profile profile, final boolean alsoUnlink) {
-        final DataWrapper dataWrapper = new DataWrapper(context, forGUI, monochrome, monochromeValue);
+        final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
         synchronized (profileList) {
             dataWrapper.setProfileList(profileList);
         }
@@ -755,7 +758,7 @@ public class DataWrapper {
     }
 
     private void pauseAllEventsFromMainThread(final boolean noSetSystemEvent, final boolean blockEvents) {
-        final DataWrapper dataWrapper = new DataWrapper(context, forGUI, monochrome, monochromeValue);
+        final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
         synchronized (profileList) {
             dataWrapper.setProfileList(profileList);
         }
@@ -812,7 +815,7 @@ public class DataWrapper {
     }
 
     void stopAllEventsFromMainThread(final boolean saveEventStatus, final boolean alsoDelete) {
-        final DataWrapper dataWrapper = new DataWrapper(context, forGUI, monochrome, monochromeValue);
+        final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
         synchronized (profileList) {
             dataWrapper.setProfileList(profileList);
         }
@@ -1251,7 +1254,7 @@ public class DataWrapper {
     void activateProfileFromMainThread(final Profile _profile, final boolean merged, final int startupSource,
                                     final Activity _activity)
     {
-        final DataWrapper dataWrapper = new DataWrapper(context, forGUI, monochrome, monochromeValue);
+        final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
         synchronized (profileList) {
             dataWrapper.setProfileList(profileList);
         }
@@ -1344,7 +1347,7 @@ public class DataWrapper {
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         if (Permissions.grantProfilePermissions(context, _profile, false, false,
-                                forGUI, monochrome, monochromeValue,
+                                monochrome, monochromeValue,
                                 _startupSource, /*true,*/ _activity, true))
                             _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, /*true,*/ _activity);
                         else {
@@ -1393,7 +1396,7 @@ public class DataWrapper {
                     GlobalGUIRoutines.setLanguage(activity.getBaseContext());
 
                     granted = Permissions.grantProfilePermissions(context, profile, false, false,
-                            forGUI, monochrome, monochromeValue,
+                            monochrome, monochromeValue,
                             startupSource, /*true,*/ activity, true);
                 /*}
                 else
@@ -1552,7 +1555,7 @@ public class DataWrapper {
             return;
         }
         if (Permissions.grantProfilePermissions(context, profile, false, true,
-                forGUI, monochrome, monochromeValue,
+                monochrome, monochromeValue,
                 startupSource, /*true,*/ null, true)) {
             // activateProfileAfterDuration is already called from handlerThread
             PPApplication.logE("DataWrapper.activateProfileAfterDuration", "activate");

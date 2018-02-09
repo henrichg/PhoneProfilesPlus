@@ -131,7 +131,7 @@ public class EditorProfileListFragment extends Fragment
                 getArguments().getInt(FILTER_TYPE_ARGUMENT, EditorProfileListFragment.FILTER_TYPE_ALL) :
                     EditorProfileListFragment.FILTER_TYPE_ALL;
 
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0);
 
         setHasOptionsMenu(true);
 
@@ -246,17 +246,17 @@ public class EditorProfileListFragment extends Fragment
         private LoadProfileListAsyncTask (EditorProfileListFragment fragment, int filterType) {
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
-            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
+            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            _dataWrapper.fillProfileList();
+            _dataWrapper.fillProfileList(true, true);
             if (_dataWrapper.profileList.size() == 0)
             {
                 // no profiles in DB, generate default profiles and events
 
-                _dataWrapper.fillPredefinedProfileList();
+                _dataWrapper.fillPredefinedProfileList(true, true);
                 defaultProfilesGenerated = true;
 
                 _dataWrapper.generatePredefinedEventList();
@@ -280,7 +280,7 @@ public class EditorProfileListFragment extends Fragment
             if ((fragment != null) && (fragment.isAdded())) {
 
                 // get local profileList
-                _dataWrapper.fillProfileList();
+                _dataWrapper.fillProfileList(true, true);
                 // set local profile list into activity dataWrapper
                 fragment.activityDataWrapper.setProfileList(_dataWrapper.profileList);
 

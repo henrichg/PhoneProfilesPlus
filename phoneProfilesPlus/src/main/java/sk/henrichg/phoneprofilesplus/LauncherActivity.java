@@ -14,7 +14,7 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-        dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
+        dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
 
         Intent intent = getIntent();
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, 0);

@@ -116,7 +116,7 @@ public class EventDetailsFragment extends Fragment {
         //}
         int defaultColor = eventName.getTextColors().getDefaultColor();
 
-        DataWrapper dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
+        DataWrapper dataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0);
 
         final Event event = dataWrapper.getEventById(event_id);
 

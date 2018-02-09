@@ -41,7 +41,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
         action = intent.getAction();
         //Log.d("ActionForExternalApplicationActivity.onCreate", "action="+action);
 
-        dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
+        dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
 
         if (action != null) {
             if (action.equals(ACTION_ACTIVATE_PROFILE)) {
@@ -51,7 +51,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     //Log.d("ActionForExternalApplicationActivity.onCreate", "profileName="+profileName);
 
                     if (!profileName.isEmpty()) {
-                        dataWrapper.fillProfileList();
+                        dataWrapper.fillProfileList(false, false);
                         for (Profile profile : this.dataWrapper.profileList) {
                             if (profile._name.trim().equals(profileName)) {
                                 profile_id = profile._id;
@@ -105,7 +105,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     Profile profile = dataWrapper.getProfileById(profile_id, true, true, false);
                     //Log.d("ActionForExternalApplicationActivity.onCreate", "profile="+profile);
                     if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
-                            true, false, 0, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this, true)) {
+                            false, 0, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this, true)) {
                         dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this);
                     }
                 } else {

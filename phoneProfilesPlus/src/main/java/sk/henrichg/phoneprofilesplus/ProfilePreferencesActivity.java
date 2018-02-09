@@ -231,7 +231,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     private Profile createProfile(int startupSource, Context context, long profile_id,
                                   int new_profile_mode, int predefinedProfileIndex, boolean leaveSaveMenu) {
         Profile profile;
-        DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
+        DataWrapper dataWrapper = new DataWrapper(context, false, 0);
 
         if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
             // no change this in shared profile
@@ -436,7 +436,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         else
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
 
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
+        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
         Profile profile = createProfile(startupSource, getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, true);
 
         //Log.d("------ ProfilePreferencesActivity.savePreferences", "startupSource="+startupSource);

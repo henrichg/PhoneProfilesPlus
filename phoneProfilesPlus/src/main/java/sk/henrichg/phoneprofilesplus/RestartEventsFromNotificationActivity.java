@@ -20,7 +20,7 @@ public class RestartEventsFromNotificationActivity extends AppCompatActivity
         Intent it = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         sendBroadcast(it);
 
-        dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
+        dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
     }
 
     @Override

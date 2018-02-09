@@ -212,7 +212,7 @@ public class EventPreferencesActivity extends PreferenceActivity
     private Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex,
                              boolean leaveSaveMenu) {
         Event event;
-        DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
+        DataWrapper dataWrapper = new DataWrapper(context, false, 0);
 
         if (!leaveSaveMenu)
             showSaveMenu = false;
@@ -315,7 +315,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
     private void savePreferences(int new_event_mode, int predefinedEventIndex)
     {
-        final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
+        final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
         final Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
         if (event == null)
             return;

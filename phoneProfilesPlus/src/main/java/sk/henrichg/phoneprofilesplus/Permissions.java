@@ -69,7 +69,7 @@ class Permissions {
     static final String EXTRA_MERGED_PROFILE = "merged_profile";
     static final String EXTRA_PERMISSION_TYPES = "permission_types";
     static final String EXTRA_ONLY_NOTIFICATION = "only_notification";
-    static final String EXTRA_FOR_GUI = "for_gui";
+    //static final String EXTRA_FOR_GUI = "for_gui";
     static final String EXTRA_MONOCHROME = "monochrome";
     static final String EXTRA_MONOCHROME_VALUE = "monochrome_value";
     //static final String EXTRA_INTERACTIVE = "interactive";
@@ -529,7 +529,7 @@ class Permissions {
         if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
-                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
+                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
                 Profile _profile = DatabaseHandler.getInstance(dataWrapper.context).getProfile(profile._id, false);
                 if (_profile == null) return;// true;
                 if (!_profile.getIsIconResourceID()) {
@@ -1091,7 +1091,7 @@ class Permissions {
 
     static boolean grantProfilePermissions(Context context, Profile profile, boolean mergedProfile,
                                                   boolean onlyNotification,
-                                                  boolean forGUI, boolean monochrome, int monochromeValue,
+                                                  /*boolean forGUI, */boolean monochrome, int monochromeValue,
                                                   int startupSource, /*boolean interactive,*/ Activity activity,
                                                   boolean activateProfile) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -1111,7 +1111,7 @@ class Permissions {
                     else
                         intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, onlyNotification);
-                    intent.putExtra(EXTRA_FOR_GUI, forGUI);
+                    //intent.putExtra(EXTRA_FOR_GUI, forGUI);
                     intent.putExtra(EXTRA_MONOCHROME, monochrome);
                     intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
                     intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);

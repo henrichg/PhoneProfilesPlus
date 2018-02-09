@@ -143,7 +143,7 @@ public class EditorEventListFragment extends Fragment
         //Log.d("EditorEventListFragment.onCreate","filterType="+filterType);
         //Log.d("EditorEventListFragment.onCreate","orderType="+orderType);
 
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0);
 
         getActivity().getIntent();
 
@@ -245,12 +245,12 @@ public class EditorEventListFragment extends Fragment
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
             _orderType = orderType;
-            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
+            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            _dataWrapper.fillProfileList();
+            _dataWrapper.fillProfileList(true, true);
             _dataWrapper.fillEventList();
             //Log.d("EditorEventListFragment.LoadEventListAsyncTask","filterType="+filterType);
             if (_filterType == FILTER_TYPE_START_ORDER)
@@ -269,7 +269,7 @@ public class EditorEventListFragment extends Fragment
             
             if ((fragment != null) && (fragment.isAdded())) {
                 // get local profileList
-                _dataWrapper.fillProfileList();
+                _dataWrapper.fillProfileList(true, true);
                 // set local profile list into activity dataWrapper
                 fragment.activityDataWrapper.setProfileList(_dataWrapper.profileList);
 

@@ -15,7 +15,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
         // Do NOT CLOSE APPLICATION AFTER RESTORE.
 
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
+        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
 
         PPApplication.exitApp(getApplicationContext(), dataWrapper, null, false);
 

@@ -28,7 +28,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                 //Log.e("AlarmClockBroadcastReceiver", "zen_mode != ALL");
 
-                DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
+                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
 
                 Profile profile = dataWrapper.getActivatedProfile(true, true);
                 profile = Profile.getMappedProfile(profile, appContext);

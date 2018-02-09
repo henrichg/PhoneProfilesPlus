@@ -44,11 +44,11 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
         if (dataWrapper == null)
         {
-            dataWrapper = new DataWrapper(context, true, ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"), monochromeValue);
+            dataWrapper = new DataWrapper(context, ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"), monochromeValue);
         }
         else
         {
-            dataWrapper.setParameters(true, ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"), monochromeValue);
+            dataWrapper.setParameters(ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"), monochromeValue);
         }
     }
 
@@ -209,7 +209,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
     public void onDataSetChanged() {
         createProfilesDataWrapper();
 
-        List<Profile> newProfileList = dataWrapper.getNewProfileList();
+        List<Profile> newProfileList = dataWrapper.getNewProfileList(true, true);
 
         if (!ApplicationPreferences.applicationSamsungEdgeHeader(context))
         {

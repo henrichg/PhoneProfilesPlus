@@ -52,7 +52,7 @@ public class ActivateProfileListFragment extends Fragment {
         // configuration changes for example
         setRetainInstance(true);
 
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0);
     }
 
     @Override
@@ -168,12 +168,12 @@ public class ActivateProfileListFragment extends Fragment {
 
         private LoadProfileListAsyncTask (ActivateProfileListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
-            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
+            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            dataWrapper.fillProfileList();
+            dataWrapper.fillProfileList(true, true);
 
             if (!ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
             {
@@ -217,7 +217,7 @@ public class ActivateProfileListFragment extends Fragment {
             if ((fragment != null) && (fragment.isAdded())) {
 
                 // get local profileList
-                this.dataWrapper.fillProfileList();
+                this.dataWrapper.fillProfileList(true, true);
                 // set copy local profile list into activity profilesDataWrapper
                 fragment.activityDataWrapper.setProfileList(this.dataWrapper.profileList);
 

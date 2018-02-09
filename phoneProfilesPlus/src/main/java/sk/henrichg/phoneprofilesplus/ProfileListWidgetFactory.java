@@ -44,11 +44,11 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
         if (dataWrapper == null)
         {
-            dataWrapper = new DataWrapper(context, true, ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"), monochromeValue);
+            dataWrapper = new DataWrapper(context, ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"), monochromeValue);
         }
         else
         {
-            dataWrapper.setParameters(true, ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"), monochromeValue);
+            dataWrapper.setParameters(ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"), monochromeValue);
         }
     }
 
@@ -203,8 +203,8 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
     public void onDataSetChanged() {
         createProfilesDataWrapper();
 
-        List<Profile> newProfileList = dataWrapper.getNewProfileList();
-
+        //TODO add this to AsyncTask
+        List<Profile> newProfileList = dataWrapper.getNewProfileList(true, true);
         if (!ApplicationPreferences.applicationWidgetListHeader(context))
         {
             // show activated profile in list if is not showed in activator
@@ -215,8 +215,8 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 profile._porder = -1;
             }
         }
-
         Collections.sort(newProfileList, new ProfileComparator());
+        //TODO end
 
         dataWrapper.invalidateProfileList();
         dataWrapper.setProfileList(newProfileList);

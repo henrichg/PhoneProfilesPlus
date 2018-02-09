@@ -50,7 +50,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     GeofencesScanner(Context context) {
         this.context = context;
-        dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
+        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
 
         // Create a GoogleApiClient instance
         mGoogleApiClient = new GoogleApiClient.Builder(context)

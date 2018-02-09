@@ -892,7 +892,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 Permissions.saveAllPermissions(context, permissionsChanged);
 
                 if (permissionsChanged) {
-                    DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
+                    DataWrapper dataWrapper = new DataWrapper(context, false, 0);
 
                     Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
                     dataWrapper.refreshProfileIcon(activatedProfile, false, 0);

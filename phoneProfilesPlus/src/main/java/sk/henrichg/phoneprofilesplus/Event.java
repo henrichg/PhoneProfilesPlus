@@ -732,7 +732,7 @@ class Event {
                     if (profileStartWhenActivatedChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_eventStartWhenActivatedProfile);
-                        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
+                        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
                         Profile profile = dataWrapper.getProfileById(fkProfileStartWhenActivated, false, false, false);
                         if (profile != null)
                             summary = summary + ": " + profile._name;

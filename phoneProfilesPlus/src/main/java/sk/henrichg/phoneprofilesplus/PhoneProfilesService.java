@@ -2293,7 +2293,7 @@ public class PhoneProfilesService extends Service
                     }
 
                     // set service foreground
-                    final DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
+                    final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                     Profile activatedProfile = null;
                     if (_onlyStart && _startOnBoot) {
                         if (ApplicationPreferences.applicationActivate(appContext) &&
@@ -2401,7 +2401,7 @@ public class PhoneProfilesService extends Service
 
                     PPNotificationListenerService.clearNotifiedPackages(appContext);
 
-                    DataWrapper dataWrapper = new DataWrapper(appContext, true, false, 0);
+                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                     DatabaseHandler.getInstance(appContext).deleteAllEventTimelines();
 
                     MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);

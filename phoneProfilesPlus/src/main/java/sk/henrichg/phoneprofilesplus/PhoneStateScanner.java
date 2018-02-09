@@ -367,7 +367,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
+                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                     if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);

@@ -43,7 +43,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         // configuration changes for example
         setRetainInstance(true);
 
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0);
 
     }
 
@@ -105,12 +105,12 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         private LoadProfileListAsyncTask (ShortcutCreatorListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
-            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
+            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            this.dataWrapper.fillProfileList();
+            this.dataWrapper.fillProfileList(true, true);
             Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
             return null;
         }
@@ -124,7 +124,7 @@ public class ShortcutCreatorListFragment extends Fragment {
             if ((fragment != null) && (fragment.isAdded())) {
 
                 // get local profileList
-                this.dataWrapper.fillProfileList();
+                this.dataWrapper.fillProfileList(true, true);
 
                 // add restart events
                 Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events),
