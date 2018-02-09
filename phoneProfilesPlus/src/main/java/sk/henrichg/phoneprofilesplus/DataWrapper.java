@@ -372,22 +372,24 @@ public class DataWrapper {
         }
     }
 
-    Profile getActivatedProfileFromDB()
+    Profile getActivatedProfileFromDB(boolean generateIcon, boolean generateIndicators)
     {
         Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
         if (forGUI && (profile != null))
         {
-            profile.generateIconBitmap(context, monochrome, monochromeValue);
-            profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+            if (generateIcon)
+                profile.generateIconBitmap(context, monochrome, monochromeValue);
+            if (generateIndicators)
+                profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
         }
         return profile;
     }
 
-    public Profile getActivatedProfile()
+    public Profile getActivatedProfile(boolean generateIcon, boolean generateIndicators)
     {
         synchronized (profileList) {
             if (!profileListFilled) {
-                return getActivatedProfileFromDB();
+                return getActivatedProfileFromDB(generateIcon, generateIndicators);
             } else {
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
@@ -397,14 +399,14 @@ public class DataWrapper {
                     }
                 }
                 // when filter is set and profile not found, get profile from db
-                return getActivatedProfileFromDB();
+                return getActivatedProfileFromDB(generateIcon, generateIndicators);
             }
         }
     }
 
-    public Profile getActivatedProfile(List<Profile> profileList) {
+    public Profile getActivatedProfile(List<Profile> profileList, boolean generateIcon, boolean generateIndicators) {
         if (profileList == null) {
-            return getActivatedProfileFromDB();
+            return getActivatedProfileFromDB(generateIcon, generateIndicators);
         } else {
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
@@ -413,7 +415,7 @@ public class DataWrapper {
                     return profile;
             }
             // when filter is set and profile not found, get profile from db
-            return getActivatedProfileFromDB();
+            return getActivatedProfileFromDB(generateIcon, generateIndicators);
         }
     }
 
@@ -440,7 +442,7 @@ public class DataWrapper {
         int startupSource = PPApplication.STARTUP_SOURCE_SERVICE;
         if (manual)
             startupSource = PPApplication.STARTUP_SOURCE_SERVICE_MANUAL;
-        Profile profile = getProfileById(profile_id, merged);
+        Profile profile = getProfileById(profile_id, true, true, merged);
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 forGUI, monochrome, monochromeValue,
                 startupSource, /*interactive,*/ null, true)) {
@@ -455,22 +457,24 @@ public class DataWrapper {
         ActivateProfileHelper.updateWidget(context, true);
     }
 
-    private Profile getProfileByIdFromDB(long id, boolean merged)
+    private Profile getProfileByIdFromDB(long id, boolean generateIcon, boolean generateIndicators, boolean merged)
     {
         Profile profile = DatabaseHandler.getInstance(context).getProfile(id, merged);
         if (forGUI && (profile != null))
         {
-            profile.generateIconBitmap(context, monochrome, monochromeValue);
-            profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+            if (generateIcon)
+                profile.generateIconBitmap(context, monochrome, monochromeValue);
+            if (generateIndicators)
+                profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
         }
         return profile;
     }
 
-    public Profile getProfileById(long id, boolean merged)
+    public Profile getProfileById(long id, boolean generateIcon, boolean generateIndicators, boolean merged)
     {
         synchronized (profileList) {
             if ((!profileListFilled) || merged) {
-                return getProfileByIdFromDB(id, merged);
+                return getProfileByIdFromDB(id, generateIcon, generateIndicators, merged);
             } else {
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
@@ -479,7 +483,7 @@ public class DataWrapper {
                         return profile;
                 }
                 // when filter is set and profile not found, get profile from db
-                return getProfileByIdFromDB(id, false);
+                return getProfileByIdFromDB(id, generateIcon, generateIndicators, false);
             }
         }
     }
@@ -488,7 +492,7 @@ public class DataWrapper {
     {
         if (profile != null)
         {
-            Profile origProfile = getProfileById(profile._id, false);
+            Profile origProfile = getProfileById(profile._id, true, true, false);
             if (origProfile != null)
                 origProfile.copyProfile(profile);
         }
@@ -1174,7 +1178,7 @@ public class DataWrapper {
         DatabaseHandler.getInstance(context).activateProfile(_profile);
         setProfileActive(_profile);
 
-        Profile activatedProfile = getActivatedProfile();
+        Profile activatedProfile = getActivatedProfile(true, true);
 
         String profileIcon = "";
         int profileDuration = 0;
@@ -1437,7 +1441,7 @@ public class DataWrapper {
         Profile profile;
 
         // for activated profile is recommended update of activity
-        profile = getActivatedProfile();
+        profile = getActivatedProfile(true, true);
 
         boolean actProfile = false;
         //boolean interactive = false;
@@ -1498,7 +1502,7 @@ public class DataWrapper {
             if (profile_id == 0)
                 profile = null;
             else
-                profile = getProfileById(profile_id, false);
+                profile = getProfileById(profile_id, true, true, false);
         }
 
 
@@ -1536,14 +1540,14 @@ public class DataWrapper {
     void activateProfileAfterDuration(long profile_id)
     {
         int startupSource = PPApplication.STARTUP_SOURCE_SERVICE_MANUAL;
-        Profile profile = getProfileById(profile_id, false);
+        Profile profile = getProfileById(profile_id, true, true, false);
         PPApplication.logE("DataWrapper.activateProfileAfterDuration", "profile="+profile);
         if (profile == null) {
             PPApplication.logE("DataWrapper.activateProfileAfterDuration", "no activate");
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
             Profile.setActivatedProfileForDuration(context, 0);
             if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.showProfileNotification(getActivatedProfile(), this);
+                PhoneProfilesService.instance.showProfileNotification(getActivatedProfile(true, true), this);
             ActivateProfileHelper.updateWidget(context, true);
             return;
         }
@@ -3379,7 +3383,7 @@ public class DataWrapper {
                 {
                     if ((!Event.getEventsBlocked(dataWrapper.context)) || (event._forceRun))
                     {
-                        Profile profile = dataWrapper.getActivatedProfile();
+                        Profile profile = dataWrapper.getActivatedProfile(false, false);
                         if ((profile != null) && (event._fkProfileStart == profile._id))
                             // last started event activates activated profile
                             return event._name;
@@ -3397,7 +3401,7 @@ public class DataWrapper {
                 long profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(dataWrapper.context));
                 if ((!Event.getEventsBlocked(dataWrapper.context)) && (profileId != Profile.PROFILE_NO_ACTIVATE))
                 {
-                    Profile profile = dataWrapper.getActivatedProfile();
+                    Profile profile = dataWrapper.getActivatedProfile(false, false);
                     if ((profile != null) && (profile._id == profileId))
                         return dataWrapper.context.getString(R.string.event_name_background_profile);
                     else

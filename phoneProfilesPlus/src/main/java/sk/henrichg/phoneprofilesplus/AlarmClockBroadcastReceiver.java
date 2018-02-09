@@ -30,7 +30,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
 
-                Profile profile = dataWrapper.getActivatedProfile();
+                Profile profile = dataWrapper.getActivatedProfile(true, true);
                 profile = Profile.getMappedProfile(profile, appContext);
 
                 //noinspection StatementWithEmptyBody

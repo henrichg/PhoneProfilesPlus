@@ -733,7 +733,7 @@ class Event {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_eventStartWhenActivatedProfile);
                         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
-                        Profile profile = dataWrapper.getProfileById(fkProfileStartWhenActivated, false);
+                        Profile profile = dataWrapper.getProfileById(fkProfileStartWhenActivated, false, false, false);
                         if (profile != null)
                             summary = summary + ": " + profile._name;
                     }
@@ -1004,7 +1004,7 @@ class Event {
 
         if (eventTimelineList.size() == 0)
         {
-            Profile profile = dataWrapper.getActivatedProfile();
+            Profile profile = dataWrapper.getActivatedProfile(false, false);
             if (profile != null)
                 eventTimeline._fkProfileEndActivated = profile._id;
             else
@@ -1065,7 +1065,7 @@ class Event {
 
         // check activated profile
         if (_fkProfileStartWhenActivated > 0) {
-            Profile activatedProfile = dataWrapper.getActivatedProfile();
+            Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
             if ((activatedProfile != null) && (activatedProfile._id != _fkProfileStartWhenActivated))
                 // if activated profile is not _fkProfileStartWhenActivated,
                 // no start event
@@ -1146,7 +1146,7 @@ class Event {
         }
 
         long activatedProfileId = 0;
-        Profile activatedProfile = dataWrapper.getActivatedProfile();
+        Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
         if (activatedProfile != null)
             activatedProfileId = activatedProfile._id;
 
@@ -1201,7 +1201,7 @@ class Event {
         }
 
         boolean profileActivated = false;
-        Profile activatedProfile = dataWrapper.getActivatedProfile();
+        Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
         // activate profile only when profile not already activated
         //noinspection ConstantConditions
         if (activateReturnProfile/* && canActivateReturnProfile()*/)

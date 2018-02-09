@@ -173,7 +173,7 @@ public class EventDetailsFragment extends Fragment {
             } else
                 _eventName = eventPriority + _eventName;
             if (event._fkProfileStartWhenActivated > 0) {
-                Profile profile =  dataWrapper.getProfileById(event._fkProfileStartWhenActivated, false);
+                Profile profile =  dataWrapper.getProfileById(event._fkProfileStartWhenActivated, false, false,false);
                 if (profile != null)
                     _eventName = _eventName + "\n" + "[#] " + profile._name;
             }
@@ -190,7 +190,7 @@ public class EventDetailsFragment extends Fragment {
             //}
 
             // profile start
-            Profile profile =  dataWrapper.getProfileById(event._fkProfileStart, false);
+            Profile profile =  dataWrapper.getProfileById(event._fkProfileStart, true, true, false);
             if (profile != null)
             {
                 String profileName = profile._name;
@@ -255,7 +255,7 @@ public class EventDetailsFragment extends Fragment {
                 if (profileEndIndicator != null)
                     profileEndIndicator.setVisibility(View.VISIBLE);
 
-                profile = dataWrapper.getProfileById(event._fkProfileEnd, false);
+                profile = dataWrapper.getProfileById(event._fkProfileEnd, true, true, false);
                 if (profile != null) {
                     String profileName = profile._name;
                     if (event._delayStart > 0)

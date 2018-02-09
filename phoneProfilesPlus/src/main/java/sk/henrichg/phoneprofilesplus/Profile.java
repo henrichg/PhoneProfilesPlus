@@ -663,7 +663,7 @@ public class Profile {
     {
         PPApplication.logE("$$$ Profile.mergeProfiles","withProfileId="+withProfileId);
 
-        Profile withProfile = dataWrapper.getProfileById(withProfileId, false);
+        Profile withProfile = dataWrapper.getProfileById(withProfileId, true, true, false);
 
         if (withProfile != null) {
             this._id = withProfile._id;

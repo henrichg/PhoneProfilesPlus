@@ -264,7 +264,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         if (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)
         {
             // duplicate profile
-            Profile origProfile = dataWrapper.getProfileById(profile_id, false);
+            Profile origProfile = dataWrapper.getProfileById(profile_id, false, false, false);
             profile = new Profile(
                     origProfile._name+"_d",
                     origProfile._icon,
@@ -328,7 +328,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             showSaveMenu = true;
         }
         else
-            profile = dataWrapper.getProfileById(profile_id, false);
+            profile = dataWrapper.getProfileById(profile_id, false, false, false);
 
         return profile;
     }
@@ -460,7 +460,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
             profile._hideStatusBarIcon = preferences.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
 
-            Profile activatedProfile = dataWrapper.getActivatedProfile();
+            Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
             if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
                 // set alarm for profile duration
                 ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, getApplicationContext());

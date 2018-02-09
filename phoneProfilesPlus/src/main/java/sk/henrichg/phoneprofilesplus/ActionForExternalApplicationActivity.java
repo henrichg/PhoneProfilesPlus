@@ -102,7 +102,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
             //noinspection SingleStatementInBlock
             if (action.equals(ACTION_ACTIVATE_PROFILE)) {
                 if (profile_id != 0) {
-                    Profile profile = dataWrapper.getProfileById(profile_id, false);
+                    Profile profile = dataWrapper.getProfileById(profile_id, true, true, false);
                     //Log.d("ActionForExternalApplicationActivity.onCreate", "profile="+profile);
                     if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                             true, false, 0, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this, true)) {

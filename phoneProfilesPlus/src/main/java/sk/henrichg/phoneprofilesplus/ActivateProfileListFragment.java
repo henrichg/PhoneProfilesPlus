@@ -177,7 +177,7 @@ public class ActivateProfileListFragment extends Fragment {
 
             if (!ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
             {
-                Profile profile = dataWrapper.getActivatedProfile();
+                Profile profile = dataWrapper.getActivatedProfile(false, false);
                 if ((profile != null) && (!profile._showInActivator))
                 {
                     profile._showInActivator = true;
@@ -272,7 +272,7 @@ public class ActivateProfileListFragment extends Fragment {
     {
         //long nanoTimeStart = PPApplication.startMeasuringRunTime();
 
-        Profile profile = activityDataWrapper.getActivatedProfile();
+        Profile profile = activityDataWrapper.getActivatedProfile(true, true);
 
         updateHeader(profile);
         setProfileSelection(profile, false);
@@ -414,7 +414,7 @@ public class ActivateProfileListFragment extends Fragment {
 
         Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
         if (profileFromDB != null) {
-            Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, false);
+            Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true, true, false);
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);

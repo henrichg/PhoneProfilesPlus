@@ -26,7 +26,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                                 ApplicationPreferences.applicationWidgetIconColor(context).equals("1"),
                                                 monochromeValue);
 
-        Profile profile = dataWrapper.getActivatedProfile();
+        Profile profile = dataWrapper.getActivatedProfile(true, true);
 
         // get all IconWidgetProvider widgets in launcher
         ComponentName thisWidget = new ComponentName(context, IconWidgetProvider.class);

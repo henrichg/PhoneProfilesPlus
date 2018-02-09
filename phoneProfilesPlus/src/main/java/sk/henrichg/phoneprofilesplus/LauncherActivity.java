@@ -61,7 +61,7 @@ public class LauncherActivity extends AppCompatActivity {
             {
                 // activity was not started from notification, widget
 
-                Profile profile = dataWrapper.getActivatedProfile();
+                Profile profile = dataWrapper.getActivatedProfile(true, true);
                 if (PhoneProfilesService.instance != null)
                     PhoneProfilesService.instance.showProfileNotification(profile, dataWrapper);
                 ActivateProfileHelper.updateWidget(dataWrapper.context, true);

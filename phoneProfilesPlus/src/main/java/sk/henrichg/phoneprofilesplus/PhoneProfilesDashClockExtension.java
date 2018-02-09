@@ -64,7 +64,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             return;
 
         profile = Profile.getMappedProfile(
-                                    dataWrapper.getActivatedProfile(), this);
+                                    dataWrapper.getActivatedProfile(true, true), this);
 
         boolean isIconResourceID;
         String iconIdentifier;

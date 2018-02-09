@@ -1717,7 +1717,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     (newProfileMode == EditorProfileListFragment.EDIT_MODE_DUPLICATE));
             fragment.updateListView(profile, newProfile, false, false);
 
-            Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile();
+            Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true, true);
             fragment.updateHeader(activeProfile);
             if (PhoneProfilesService.instance != null)
                 PhoneProfilesService.instance.showProfileNotification(activeProfile, fragment.activityDataWrapper);

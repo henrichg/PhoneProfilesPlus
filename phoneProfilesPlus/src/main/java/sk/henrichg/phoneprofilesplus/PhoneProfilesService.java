@@ -2298,11 +2298,11 @@ public class PhoneProfilesService extends Service
                     if (_onlyStart && _startOnBoot) {
                         if (ApplicationPreferences.applicationActivate(appContext) &&
                                 ApplicationPreferences.applicationStartEvents(appContext)) {
-                            activatedProfile = dataWrapper.getActivatedProfile();
+                            activatedProfile = dataWrapper.getActivatedProfile(true, true);
                         } else if (ApplicationPreferences.applicationActivate(appContext))
-                            activatedProfile = dataWrapper.getActivatedProfile();
+                            activatedProfile = dataWrapper.getActivatedProfile(true, true);
                     } else
-                        activatedProfile = dataWrapper.getActivatedProfile();
+                        activatedProfile = dataWrapper.getActivatedProfile(true, true);
                     showProfileNotification(activatedProfile, dataWrapper);
                     PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "after end of Handler.run");
 

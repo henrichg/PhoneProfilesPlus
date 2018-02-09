@@ -278,9 +278,9 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
                     Event event = it.next();
-                    Profile profile = activityDataWrapper.getProfileById(event._fkProfileStart, false);
+                    Profile profile = activityDataWrapper.getProfileById(event._fkProfileStart, true, true, false);
                     activityDataWrapper.refreshProfileIcon(profile, false, 0);
-                    profile = activityDataWrapper.getProfileById(event._fkProfileEnd, false);
+                    profile = activityDataWrapper.getProfileById(event._fkProfileEnd, true, true, false);
                     activityDataWrapper.refreshProfileIcon(profile, false, 0);
                 }
             }

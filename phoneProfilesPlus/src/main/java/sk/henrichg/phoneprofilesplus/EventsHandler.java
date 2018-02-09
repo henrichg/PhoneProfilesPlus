@@ -381,7 +381,7 @@ class EventsHandler {
             List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
             int runningEventCountE = eventTimelineList.size();
 
-            Profile activatedProfile = dataWrapper.getActivatedProfileFromDB();
+            Profile activatedProfile = dataWrapper.getActivatedProfileFromDB(true, true);
             long backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
             boolean notifyBackgroundProfile = false;
 
@@ -632,7 +632,7 @@ class EventsHandler {
                             (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL))
                         linkUnlink = true;
                     if (linkUnlink) {
-                        Profile profile = dataWrapper.getActivatedProfile();
+                        Profile profile = dataWrapper.getActivatedProfile(false, false);
                         profile = Profile.getMappedProfile(profile, context);
                         if (profile != null) {
                             //ExecuteVolumeProfilePrefsJob.start(context, profile._id, false, false);
@@ -680,7 +680,7 @@ class EventsHandler {
                 // set speakerphone ON for activated profile
                 if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
                         (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
-                    Profile profile = dataWrapper.getActivatedProfile();
+                    Profile profile = dataWrapper.getActivatedProfile(false, false);
                     profile = Profile.getMappedProfile(profile, context);
                     PhoneCallBroadcastReceiver.setSpeakerphoneOn(profile, context);
                 }

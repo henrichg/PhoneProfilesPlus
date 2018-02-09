@@ -26,7 +26,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         DataWrapper dataWrapper = new DataWrapper(context, true, ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"), monochromeValue);
 
-        Profile profile = dataWrapper.getActivatedProfile();
+        Profile profile = dataWrapper.getActivatedProfile(true, true);
 
         // get all OneRowWidgetProvider widgets in launcher
         ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);

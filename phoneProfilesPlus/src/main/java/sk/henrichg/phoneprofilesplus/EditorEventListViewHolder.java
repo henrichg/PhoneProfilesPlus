@@ -130,7 +130,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             } else
                 _eventName = eventStartOrder + eventPriority + _eventName;
             if (event._fkProfileStartWhenActivated > 0) {
-                Profile profile =  editorFragment.activityDataWrapper.getProfileById(event._fkProfileStartWhenActivated, false);
+                Profile profile =  editorFragment.activityDataWrapper.getProfileById(event._fkProfileStartWhenActivated, false, false, false);
                 if (profile != null)
                     _eventName = _eventName + "\n" + "[#] " + profile._name;
             }
@@ -147,7 +147,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
 
             // profile start
-            Profile profile =  editorFragment.activityDataWrapper.getProfileById(event._fkProfileStart, false);
+            Profile profile =  editorFragment.activityDataWrapper.getProfileById(event._fkProfileStart, true, true, false);
             if (profile != null)
             {
                 String profileName = profile._name;
@@ -212,7 +212,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 if (profileEndIndicator != null)
                     profileEndIndicator.setVisibility(View.VISIBLE);
 
-                profile = editorFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, false);
+                profile = editorFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true, true, false);
                 if (profile != null) {
                     String profileName = profile._name;
                     if (event._delayEnd > 0)

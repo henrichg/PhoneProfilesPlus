@@ -120,7 +120,7 @@ class AddEventAdapter extends BaseAdapter {
             } else
                 eventName = eventPriority + eventName;
             if (event._fkProfileStartWhenActivated > 0) {
-                Profile profile =  dialog.eventListFragment.activityDataWrapper.getProfileById(event._fkProfileStartWhenActivated, false);
+                Profile profile =  dialog.eventListFragment.activityDataWrapper.getProfileById(event._fkProfileStartWhenActivated, false, false, false);
                 if (profile != null)
                     eventName = eventName + "\n" + "[#] " + profile._name;
             }
@@ -137,7 +137,7 @@ class AddEventAdapter extends BaseAdapter {
             }
 
             // profile start
-            Profile profile =  dialog.eventListFragment.activityDataWrapper.getProfileById(event._fkProfileStart, false);
+            Profile profile =  dialog.eventListFragment.activityDataWrapper.getProfileById(event._fkProfileStart, true, true, false);
             if (profile != null)
             {
                 String profileName = profile._name;
@@ -209,7 +209,7 @@ class AddEventAdapter extends BaseAdapter {
                 if (holder.profileEndIndicator != null)
                     holder.profileEndIndicator.setVisibility(View.VISIBLE);
 
-                profile = dialog.eventListFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, false);
+                profile = dialog.eventListFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true, true, false);
                 if (profile != null) {
                     String profileName = profile._name;
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
