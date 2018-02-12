@@ -65,7 +65,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             Profile profile = dataWrapper.getProfileById(profile_id, true, true, false);
             //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "profile="+profile);
             if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
-                    false, 0, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this, true)) {
+                    true, false, 0, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this, true)) {
                 dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this);
             }
         }

@@ -445,7 +445,7 @@ public class DataWrapper {
             startupSource = PPApplication.STARTUP_SOURCE_SERVICE_MANUAL;
         Profile profile = getProfileById(profile_id, true, true, merged);
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
-                monochrome, monochromeValue,
+                true, monochrome, monochromeValue,
                 startupSource, /*interactive,*/ null, true)) {
             _activateProfile(profile, merged, startupSource);
         }
@@ -557,10 +557,8 @@ public class DataWrapper {
             String iconIdentifier = profile.getIconIdentifier();
             DatabaseHandler.getInstance(context).getProfileIcon(profile);
             if (isIconResourceID && iconIdentifier.equals("ic_profile_default") && (!profile.getIsIconResourceID())) {
-                if (profile._iconBitmap != null)
-                    profile.generateIconBitmap(context, monochrome, monochromeValue);
-                if (profile._preferencesIndicator != null)
-                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+                profile.generateIconBitmap(context, monochrome, monochromeValue);
+                profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
             }
         }
     }
@@ -1347,7 +1345,7 @@ public class DataWrapper {
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         if (Permissions.grantProfilePermissions(context, _profile, false, false,
-                                monochrome, monochromeValue,
+                                true, monochrome, monochromeValue,
                                 _startupSource, /*true,*/ _activity, true))
                             _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, /*true,*/ _activity);
                         else {
@@ -1396,7 +1394,7 @@ public class DataWrapper {
                     GlobalGUIRoutines.setLanguage(activity.getBaseContext());
 
                     granted = Permissions.grantProfilePermissions(context, profile, false, false,
-                            monochrome, monochromeValue,
+                            true, monochrome, monochromeValue,
                             startupSource, /*true,*/ activity, true);
                 /*}
                 else
@@ -1555,7 +1553,7 @@ public class DataWrapper {
             return;
         }
         if (Permissions.grantProfilePermissions(context, profile, false, true,
-                monochrome, monochromeValue,
+                true, monochrome, monochromeValue,
                 startupSource, /*true,*/ null, true)) {
             // activateProfileAfterDuration is already called from handlerThread
             PPApplication.logE("DataWrapper.activateProfileAfterDuration", "activate");
