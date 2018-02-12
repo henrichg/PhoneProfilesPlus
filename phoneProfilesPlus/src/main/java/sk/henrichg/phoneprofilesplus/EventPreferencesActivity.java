@@ -231,33 +231,37 @@ public class EventPreferencesActivity extends PreferenceActivity
         {
             // duplicate event
             Event origEvent = dataWrapper.getEventById(event_id);
-            event = new Event(
-                    origEvent._name+"_d",
-                    origEvent._startOrder,
-                    origEvent._fkProfileStart,
-                    origEvent._fkProfileEnd,
-                    origEvent.getStatus(),
-                    origEvent._notificationSound,
-                    origEvent._forceRun,
-                    origEvent._blocked,
-                    //origEvent._undoneProfile,
-                    origEvent._priority,
-                    origEvent._delayStart,
-                    origEvent._isInDelayStart,
-                    origEvent._atEndDo,
-                    origEvent._manualProfileActivation,
-                    origEvent._fkProfileStartWhenActivated,
-                    origEvent._delayEnd,
-                    origEvent._isInDelayEnd,
-                    origEvent._startStatusTime,
-                    origEvent._pauseStatusTime,
-                    origEvent._notificationVibrate,
-                    origEvent._noPauseByManualActivation,
-                    origEvent._repeatNotification,
-                    origEvent._repeatNotificationInterval
-            );
-            event.copyEventPreferences(origEvent);
-            showSaveMenu = true;
+            if (origEvent != null) {
+                event = new Event(
+                        origEvent._name + "_d",
+                        origEvent._startOrder,
+                        origEvent._fkProfileStart,
+                        origEvent._fkProfileEnd,
+                        origEvent.getStatus(),
+                        origEvent._notificationSound,
+                        origEvent._forceRun,
+                        origEvent._blocked,
+                        //origEvent._undoneProfile,
+                        origEvent._priority,
+                        origEvent._delayStart,
+                        origEvent._isInDelayStart,
+                        origEvent._atEndDo,
+                        origEvent._manualProfileActivation,
+                        origEvent._fkProfileStartWhenActivated,
+                        origEvent._delayEnd,
+                        origEvent._isInDelayEnd,
+                        origEvent._startStatusTime,
+                        origEvent._pauseStatusTime,
+                        origEvent._notificationVibrate,
+                        origEvent._noPauseByManualActivation,
+                        origEvent._repeatNotification,
+                        origEvent._repeatNotificationInterval
+                );
+                event.copyEventPreferences(origEvent);
+                showSaveMenu = true;
+            }
+            else
+                event = null;
         }
         else
             event = dataWrapper.getEventById(event_id);
@@ -267,6 +271,8 @@ public class EventPreferencesActivity extends PreferenceActivity
 
     private void loadPreferences(int new_event_mode, int predefinedEventIndex) {
         Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
+        if (event == null)
+            event = createEvent(getApplicationContext(), event_id, EditorEventListFragment.EDIT_MODE_INSERT, predefinedEventIndex, false);
 
         if (event != null)
         {
