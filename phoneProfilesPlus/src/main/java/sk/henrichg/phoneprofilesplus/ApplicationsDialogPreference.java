@@ -634,30 +634,32 @@ public class ApplicationsDialogPreference  extends DialogPreference
     }
 
     void updateShortcut(Intent shortcutIntent, String shortcutName, int position, int startApplicationDelay) {
-        /* Storing Intent to SQLite ;-)
-        You can simply store the intent in a String way:
-
-        String intentDescription = intent.toUri(0);
-        //Save the intent string into your database
-
-        Later you can restore the Intent:
-
-        String intentDescription = cursor.getString(intentIndex);
-        Intent intent = Intent.parseUri(intentDescription, 0);
-        */
-
-        String intentDescription = shortcutIntent.toUri(0);
-
         Application application = applicationsList.get(position);
-        Shortcut shortcut = new Shortcut();
-        shortcut._intent = intentDescription;
-        shortcut._name = shortcutName;
         if (application.shortcutId > 0) {
             DatabaseHandler.getInstance(context.getApplicationContext()).deleteShortcut(application.shortcutId);
         }
-        DatabaseHandler.getInstance(context.getApplicationContext()).addShortcut(shortcut);
-        application.shortcutId = shortcut._id;
-        application.startApplicationDelay = startApplicationDelay;
+
+        if (shortcutIntent != null) {
+            /* Storing Intent to SQLite ;-)
+            You can simply store the intent in a String way:
+
+            String intentDescription = intent.toUri(0);
+            //Save the intent string into your database
+
+            Later you can restore the Intent:
+
+            String intentDescription = cursor.getString(intentIndex);
+            Intent intent = Intent.parseUri(intentDescription, 0);
+            */
+            String intentDescription = shortcutIntent.toUri(0);
+
+            Shortcut shortcut = new Shortcut();
+            shortcut._intent = intentDescription;
+            shortcut._name = shortcutName;
+            DatabaseHandler.getInstance(context.getApplicationContext()).addShortcut(shortcut);
+            application.shortcutId = shortcut._id;
+            application.startApplicationDelay = startApplicationDelay;
+        }
 
         applicationsListView.getRecycledViewPool().clear();
         listAdapter.notifyDataSetChanged();
