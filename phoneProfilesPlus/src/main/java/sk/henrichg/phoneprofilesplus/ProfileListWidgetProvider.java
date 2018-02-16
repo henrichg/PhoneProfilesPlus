@@ -147,7 +147,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 profile.generateIconBitmap(context,
                         ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
                         monochromeValue);
-                profile.generatePreferencesIndicator(context,
+                if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
+                    profile.generatePreferencesIndicator(context,
                         ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
                         monochromeValue);
                 isIconResourceID = profile.getIsIconResourceID();
@@ -164,7 +165,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 profile.generateIconBitmap(context,
                         ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
                         monochromeValue);
-                profile.generatePreferencesIndicator(context,
+                if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
+                    profile.generatePreferencesIndicator(context,
                         ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
                         monochromeValue);
                 isIconResourceID = profile.getIsIconResourceID();

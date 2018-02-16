@@ -204,11 +204,12 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         createProfilesDataWrapper();
 
         //TODO add this to AsyncTask
-        List<Profile> newProfileList = dataWrapper.getNewProfileList(true, true);
+        List<Profile> newProfileList = dataWrapper.getNewProfileList(true,
+                                            ApplicationPreferences.applicationWidgetListPrefIndicator(context));
         if (!ApplicationPreferences.applicationWidgetListHeader(context))
         {
             // show activated profile in list if is not showed in activator
-            Profile profile = dataWrapper.getActivatedProfile(newProfileList, false, false);
+            Profile profile = dataWrapper.getActivatedProfile(newProfileList);
             if ((profile != null) && (!profile._showInActivator))
             {
                 profile._showInActivator = true;

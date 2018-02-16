@@ -405,9 +405,9 @@ public class DataWrapper {
         }
     }
 
-    public Profile getActivatedProfile(List<Profile> profileList, boolean generateIcon, boolean generateIndicators) {
+    public Profile getActivatedProfile(List<Profile> profileList) {
         if (profileList == null) {
-            return getActivatedProfileFromDB(generateIcon, generateIndicators);
+            return null;
         } else {
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
@@ -415,8 +415,7 @@ public class DataWrapper {
                 if (profile._checked)
                     return profile;
             }
-            // when filter is set and profile not found, get profile from db
-            return getActivatedProfileFromDB(generateIcon, generateIndicators);
+            return null;
         }
     }
 

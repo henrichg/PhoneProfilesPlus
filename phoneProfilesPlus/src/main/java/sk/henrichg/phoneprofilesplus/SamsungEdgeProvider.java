@@ -102,9 +102,9 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 profile.generateIconBitmap(context,
                         ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"),
                         monochromeValue);
-                profile.generatePreferencesIndicator(context,
+                /*profile.generatePreferencesIndicator(context,
                         ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"),
-                        monochromeValue);
+                        monochromeValue);*/
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
                 profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper);
@@ -119,9 +119,9 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 profile.generateIconBitmap(context,
                         ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"),
                         monochromeValue);
-                profile.generatePreferencesIndicator(context,
+                /*profile.generatePreferencesIndicator(context,
                         ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"),
-                        monochromeValue);
+                        monochromeValue);*/
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
                 profileName = profile._name;

@@ -209,12 +209,12 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
     public void onDataSetChanged() {
         createProfilesDataWrapper();
 
-        List<Profile> newProfileList = dataWrapper.getNewProfileList(true, true);
+        List<Profile> newProfileList = dataWrapper.getNewProfileList(true, false);
 
         if (!ApplicationPreferences.applicationSamsungEdgeHeader(context))
         {
             // show activated profile in list if is not showed in activator
-            Profile profile = dataWrapper.getActivatedProfile(newProfileList, false, false);
+            Profile profile = dataWrapper.getActivatedProfile(newProfileList);
             if ((profile != null) && (!profile._showInActivator))
             {
                 profile._showInActivator = true;
