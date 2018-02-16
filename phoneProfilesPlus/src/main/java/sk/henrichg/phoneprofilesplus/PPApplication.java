@@ -49,12 +49,13 @@ import io.fabric.sdk.android.Fabric;
 
 public class PPApplication extends Application {
 
+    static String romManufacturer = getROMManufacturer();
     static String PACKAGE_NAME;
 
     static final boolean newExtender = true;
     static final int VERSION_CODE_EXTENDER = 60;
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -303,7 +304,7 @@ public class PPApplication extends Application {
     {
         super.onCreate();
 
-        PPApplication.logE("##### PPApplication.onCreate", "xxx");
+        PPApplication.logE("##### PPApplication.onCreate", "romManufacturer="+romManufacturer);
 
         if (checkAppReplacingState())
             return;
@@ -1388,7 +1389,7 @@ public class PPApplication extends Application {
         try{ Thread.sleep(ms); }catch(InterruptedException ignored){ }
     }
 
-    public static String getROMManufacturer() {
+    private static String getROMManufacturer() {
         String line;
         BufferedReader input = null;
         try {
