@@ -442,9 +442,9 @@ public class DataWrapper {
         int startupSource = PPApplication.STARTUP_SOURCE_SERVICE;
         if (manual)
             startupSource = PPApplication.STARTUP_SOURCE_SERVICE_MANUAL;
-        Profile profile = getProfileById(profile_id, true, true, merged);
+        Profile profile = getProfileById(profile_id, false, false, merged);
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
-                true, monochrome, monochromeValue,
+                /*false, monochrome, monochromeValue,*/
                 startupSource, /*interactive,*/ null, true)) {
             _activateProfile(profile, merged, startupSource);
         }
@@ -492,7 +492,7 @@ public class DataWrapper {
     {
         if (profile != null)
         {
-            Profile origProfile = getProfileById(profile._id, true, true, false);
+            Profile origProfile = getProfileById(profile._id, false, false, false);
             if (origProfile != null)
                 origProfile.copyProfile(profile);
         }
@@ -1329,7 +1329,7 @@ public class DataWrapper {
 
             if (profile._askForDuration) {
                 FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper,
-                        monochrome, monochromeValue, _startupSource);
+                        /*monochrome, monochromeValue,*/ _startupSource);
                 dlg.show();
             }
             else {
@@ -1340,7 +1340,7 @@ public class DataWrapper {
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         if (Permissions.grantProfilePermissions(context, _profile, false, false,
-                                true, monochrome, monochromeValue,
+                                /*false, monochrome, monochromeValue,*/
                                 _startupSource, /*true,*/ _activity, true))
                             _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, /*true,*/ _activity);
                         else {
@@ -1377,7 +1377,7 @@ public class DataWrapper {
         {
             if (profile._askForDuration/* && interactive*/) {
                 FastAccessDurationDialog dlg = new FastAccessDurationDialog(activity, profile, this,
-                        monochrome, monochromeValue, startupSource);
+                        /*monochrome, monochromeValue,*/ startupSource);
                 dlg.show();
             }
             else {
@@ -1389,7 +1389,7 @@ public class DataWrapper {
                     GlobalGUIRoutines.setLanguage(activity.getBaseContext());
 
                     granted = Permissions.grantProfilePermissions(context, profile, false, false,
-                            true, monochrome, monochromeValue,
+                            /*false, monochrome, monochromeValue,*/
                             startupSource, /*true,*/ activity, true);
                 /*}
                 else
@@ -1437,7 +1437,7 @@ public class DataWrapper {
         Profile profile;
 
         // for activated profile is recommended update of activity
-        profile = getActivatedProfile(true, true);
+        profile = getActivatedProfile(false, false);
 
         boolean actProfile = false;
         //boolean interactive = false;
@@ -1498,7 +1498,7 @@ public class DataWrapper {
             if (profile_id == 0)
                 profile = null;
             else
-                profile = getProfileById(profile_id, true, true, false);
+                profile = getProfileById(profile_id, false, false, false);
         }
 
 
@@ -1536,7 +1536,7 @@ public class DataWrapper {
     void activateProfileAfterDuration(long profile_id)
     {
         int startupSource = PPApplication.STARTUP_SOURCE_SERVICE_MANUAL;
-        Profile profile = getProfileById(profile_id, true, true, false);
+        Profile profile = getProfileById(profile_id, false, false, false);
         PPApplication.logE("DataWrapper.activateProfileAfterDuration", "profile="+profile);
         if (profile == null) {
             PPApplication.logE("DataWrapper.activateProfileAfterDuration", "no activate");
@@ -1548,7 +1548,7 @@ public class DataWrapper {
             return;
         }
         if (Permissions.grantProfilePermissions(context, profile, false, true,
-                true, monochrome, monochromeValue,
+                /*false, monochrome, monochromeValue,*/
                 startupSource, /*true,*/ null, true)) {
             // activateProfileAfterDuration is already called from handlerThread
             PPApplication.logE("DataWrapper.activateProfileAfterDuration", "activate");

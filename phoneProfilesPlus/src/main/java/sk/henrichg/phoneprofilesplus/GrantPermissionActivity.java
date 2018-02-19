@@ -34,9 +34,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private boolean mergedProfile;
     private boolean onlyNotification;
     private boolean mergedNotification;
-    private boolean forGUI;
-    private boolean monochrome;
-    private int monochromeValue;
+    //private boolean forGUI;
+    //private boolean monochrome;
+    //private int monochromeValue;
     private int startupSource;
     //private boolean interactive;
     private String applicationDataPath;
@@ -75,9 +75,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
         mergedProfile = intent.getBooleanExtra(Permissions.EXTRA_MERGED_PROFILE, false);
-        forGUI = intent.getBooleanExtra(Permissions.EXTRA_FOR_GUI, false);
-        monochrome = intent.getBooleanExtra(Permissions.EXTRA_MONOCHROME, false);
-        monochromeValue = intent.getIntExtra(Permissions.EXTRA_MONOCHROME_VALUE, 0xFF);
+        //forGUI = intent.getBooleanExtra(Permissions.EXTRA_FOR_GUI, false);
+        //monochrome = intent.getBooleanExtra(Permissions.EXTRA_MONOCHROME, false);
+        //monochromeValue = intent.getIntExtra(Permissions.EXTRA_MONOCHROME_VALUE, 0xFF);
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
         //interactive = intent.getBooleanExtra(Permissions.EXTRA_INTERACTIVE, true);
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
@@ -86,9 +86,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
 
-        dataWrapper = new DataWrapper(getApplicationContext(), monochrome, monochromeValue);
+        dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/);
         if (profile_id != Profile.DEFAULT_PROFILE_ID)
-            profile = dataWrapper.getProfileById(profile_id, true, true, mergedProfile);
+            profile = dataWrapper.getProfileById(profile_id, false, false, mergedProfile);
         else
             profile = Profile.getDefaultProfile(getApplicationContext());
         event = dataWrapper.getEventById(event_id);
@@ -541,9 +541,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
             mBuilder.setDeleteIntent(deletePendingIntent);
 
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            intent.putExtra(Permissions.EXTRA_FOR_GUI, forGUI);
-            intent.putExtra(Permissions.EXTRA_MONOCHROME, monochrome);
-            intent.putExtra(Permissions.EXTRA_MONOCHROME_VALUE, monochromeValue);
+            //intent.putExtra(Permissions.EXTRA_FOR_GUI, forGUI);
+            //intent.putExtra(Permissions.EXTRA_MONOCHROME, monochrome);
+            //intent.putExtra(Permissions.EXTRA_MONOCHROME_VALUE, monochromeValue);
             notificationID = PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID;
         }
         permissions.clear();
@@ -794,11 +794,13 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private void finishGrant() {
         final Context context = getApplicationContext();
 
+        /*
         if (forGUI && (profile != null))
         {
             // regenerate profile icon
             dataWrapper.refreshProfileIcon(profile, monochrome, monochromeValue);
         }
+        */
 
         if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE) {
             //finishAffinity();
