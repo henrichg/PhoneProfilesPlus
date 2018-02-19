@@ -40,6 +40,9 @@ class ProfilePreferenceAdapter extends BaseAdapter {
     }
 
     public int getCount() {
+        if (profileList == null)
+            return 0;
+
         int count = profileList.size();
         if (preference.addNoActivateItem == 1)
             count++;

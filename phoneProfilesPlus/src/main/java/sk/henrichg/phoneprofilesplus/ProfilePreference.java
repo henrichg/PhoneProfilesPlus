@@ -1,8 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -12,6 +14,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -30,10 +33,11 @@ public class ProfilePreference extends DialogPreference {
     private final Context prefContext;
     private MaterialDialog mDialog;
 
+    private LinearLayout linlaProgress;
+    private ListView listView;
     private ProfilePreferenceAdapter profilePreferenceAdapter;
 
     private DataWrapper dataWrapper;
-
 
     public ProfilePreference(Context context, AttributeSet attrs)
     {
@@ -75,20 +79,21 @@ public class ProfilePreference extends DialogPreference {
                     }
                 });
 
-        /*
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 ProfilePreference.this.onShow(dialog);
             }
         });
-        */
 
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions
-        ListView listView = layout.findViewById(R.id.profile_pref_dlg_listview);
+        linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
+
+        //noinspection ConstantConditions
+        listView = layout.findViewById(R.id.profile_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)
@@ -97,43 +102,6 @@ public class ProfilePreference extends DialogPreference {
             }
         });
 
-        //TODO add this to AsyncTask
-        dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(dataWrapper.context));
-        Collections.sort(dataWrapper.profileList, new AlphabeticallyComparator());
-
-        profilePreferenceAdapter = new ProfilePreferenceAdapter(this, prefContext, profileId, dataWrapper.profileList);
-        listView.setAdapter(profilePreferenceAdapter);
-
-        int position;
-        long iProfileId;
-        if (profileId.isEmpty())
-            iProfileId = 0;
-        else
-            iProfileId = Long.valueOf(profileId);
-        if ((addNoActivateItem == 1) && (iProfileId == Profile.PROFILE_NO_ACTIVATE))
-            position = 0;
-        else
-        {
-            boolean found = false;
-            position = 0;
-            for (Profile profile : dataWrapper.profileList)
-            {
-                if (profile._id == iProfileId)
-                {
-                    found = true;
-                    break;
-                }
-                position++;
-            }
-            if (found)
-            {
-                if (addNoActivateItem == 1)
-                    position++;
-            }
-            else
-                position = 0;
-        }
-        listView.setSelection(position);
 
         GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
@@ -186,12 +154,72 @@ public class ProfilePreference extends DialogPreference {
         }
     }
 
-    /*
+    @SuppressLint("StaticFieldLeak")
     private void onShow(DialogInterface dialog) {
-        //if (Permissions.grantRingtonePreferencesDialogPermissions(prefContext, this))
-        //    refreshListView();
+        new AsyncTask<Void, Integer, Void>() {
+
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+                listView.setVisibility(View.GONE);
+                linlaProgress.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+
+                dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(dataWrapper.context));
+                Collections.sort(dataWrapper.profileList, new AlphabeticallyComparator());
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+
+                listView.setVisibility(View.VISIBLE);
+                linlaProgress.setVisibility(View.GONE);
+
+                profilePreferenceAdapter = new ProfilePreferenceAdapter(ProfilePreference.this, prefContext, profileId, dataWrapper.profileList);
+                listView.setAdapter(profilePreferenceAdapter);
+
+                int position;
+                long iProfileId;
+                if (profileId.isEmpty())
+                    iProfileId = 0;
+                else
+                    iProfileId = Long.valueOf(profileId);
+                if ((addNoActivateItem == 1) && (iProfileId == Profile.PROFILE_NO_ACTIVATE))
+                    position = 0;
+                else
+                {
+                    boolean found = false;
+                    position = 0;
+                    for (Profile profile : dataWrapper.profileList)
+                    {
+                        if (profile._id == iProfileId)
+                        {
+                            found = true;
+                            break;
+                        }
+                        position++;
+                    }
+                    if (found)
+                    {
+                        if (addNoActivateItem == 1)
+                            position++;
+                    }
+                    else
+                        position = 0;
+                }
+                listView.setSelection(position);
+            }
+
+        }.execute();
     }
-    */
 
     public void onDismiss (DialogInterface dialog)
     {

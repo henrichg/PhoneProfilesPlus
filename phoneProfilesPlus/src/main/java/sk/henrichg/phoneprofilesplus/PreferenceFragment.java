@@ -258,7 +258,6 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
             //    transaction.replace(android.R.id.content, fragment);
             //}
 
-            //TODO make animation optional (or give methods to animate it)
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             transaction.addToBackStack(preference.getKey());
             transaction.commitAllowingStateLoss();

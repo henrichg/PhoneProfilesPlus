@@ -1,10 +1,32 @@
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/profile_pref_dlg_listview"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:gravity="center"
-    android:clipToPadding="false"
-    android:choiceMode="singleChoice"
-    android:scrollbarStyle="outsideOverlay"
-    android:divider="@android:color/transparent" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/profile_pref_dlg_linla_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/profile_pref_dlg_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/profile_pref_dlg_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:gravity="center"
+        android:clipToPadding="false"
+        android:choiceMode="singleChoice"
+        android:scrollbarStyle="outsideOverlay"
+        android:divider="@android:color/transparent" />
+
+</LinearLayout>
