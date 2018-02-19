@@ -959,16 +959,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (PhoneProfilesService.instance != null)
                 PhoneProfilesService.instance.showProfileNotification(dataWrapper);
             ActivateProfileHelper.updateGUI(getApplicationContext(), true);
-
-            /*Intent intent5 = new Intent();
-            intent5.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
-            intent5.putExtra(RefreshGUIBroadcastReceiver.EXTRA_REFRESH_ICONS, true);
-            context.sendBroadcast(intent5);*/
-            LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
-            Intent intent5 = new Intent("RefreshGUIBroadcastReceiver");
-            LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
-
-
         //}
     }
 
