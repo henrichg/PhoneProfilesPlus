@@ -429,12 +429,17 @@ public class EditorProfileListFragment extends Fragment
         DatabaseHandler.getInstance(activityDataWrapper.context).deleteProfile(profile);
 
         profileListAdapter.notifyDataSetChanged();
-        //Profile profile = databaseHandler.getActivatedProfile();
-        Profile _profile = profileListAdapter.getActivatedProfile();
-        updateHeader(_profile);
-        if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.showProfileNotification(activityDataWrapper);
-        ActivateProfileHelper.updateGUI(activityDataWrapper.context, true);
+
+        if (!Event.getGlobalEventsRunning(activityDataWrapper.context)) {
+            //Profile profile = databaseHandler.getActivatedProfile();
+            Profile _profile = profileListAdapter.getActivatedProfile();
+            updateHeader(_profile);
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.showProfileNotification(activityDataWrapper);
+            ActivateProfileHelper.updateGUI(activityDataWrapper.context, true);
+        }
+        else
+            activityDataWrapper.restartEvents(false, true/*, false*/);
 
         Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
