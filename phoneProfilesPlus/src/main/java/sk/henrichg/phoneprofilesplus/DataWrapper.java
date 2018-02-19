@@ -550,14 +550,16 @@ public class DataWrapper {
         editor.apply();
     }
 
-    void refreshProfileIcon(Profile profile, boolean monochrome, int monochromeValue) {
+    void refreshProfileIcon(Profile profile, boolean generateIcon, boolean generateIndicators) {
         if (profile != null) {
             boolean isIconResourceID = profile.getIsIconResourceID();
             String iconIdentifier = profile.getIconIdentifier();
             DatabaseHandler.getInstance(context).getProfileIcon(profile);
             if (isIconResourceID && iconIdentifier.equals("ic_profile_default") && (!profile.getIsIconResourceID())) {
-                profile.generateIconBitmap(context, monochrome, monochromeValue);
-                profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+                if (generateIcon)
+                    profile.generateIconBitmap(context, monochrome, monochromeValue);
+                if (generateIndicators)
+                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
             }
         }
     }

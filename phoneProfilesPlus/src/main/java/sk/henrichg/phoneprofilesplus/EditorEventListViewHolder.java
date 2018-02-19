@@ -147,7 +147,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
 
             // profile start
-            Profile profile =  editorFragment.activityDataWrapper.getProfileById(event._fkProfileStart, true, true, false);
+            Profile profile =  editorFragment.activityDataWrapper.getProfileById(event._fkProfileStart, true,
+                    ApplicationPreferences.applicationEditorPrefIndicator(editorFragment.activityDataWrapper.context), false);
             if (profile != null)
             {
                 String profileName = profile._name;
@@ -212,7 +213,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 if (profileEndIndicator != null)
                     profileEndIndicator.setVisibility(View.VISIBLE);
 
-                profile = editorFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true, true, false);
+                profile = editorFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true,
+                        ApplicationPreferences.applicationEditorPrefIndicator(editorFragment.activityDataWrapper.context), false);
                 if (profile != null) {
                     String profileName = profile._name;
                     if (event._delayEnd > 0)

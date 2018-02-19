@@ -292,7 +292,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Profile> it = activityDataWrapper.profileList.iterator(); it.hasNext(); ) {
                     Profile profile = it.next();
-                    activityDataWrapper.refreshProfileIcon(profile, false, 0);
+                    activityDataWrapper.refreshProfileIcon(profile, true,
+                            ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
                 }
             }
         }

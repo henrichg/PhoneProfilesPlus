@@ -250,7 +250,7 @@ public class EditorEventListFragment extends Fragment
 
         @Override
         protected Void doInBackground(Void... params) {
-            _dataWrapper.fillProfileList(true, true);
+            _dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
             _dataWrapper.fillEventList();
             //Log.d("EditorEventListFragment.LoadEventListAsyncTask","filterType="+filterType);
             if (_filterType == FILTER_TYPE_START_ORDER)
@@ -269,7 +269,7 @@ public class EditorEventListFragment extends Fragment
             
             if ((fragment != null) && (fragment.isAdded())) {
                 // get local profileList
-                _dataWrapper.fillProfileList(true, true);
+                _dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
                 // set local profile list into activity dataWrapper
                 fragment.activityDataWrapper.setProfileList(_dataWrapper.profileList);
 

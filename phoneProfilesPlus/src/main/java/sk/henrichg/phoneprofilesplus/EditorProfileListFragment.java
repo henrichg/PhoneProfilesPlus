@@ -226,7 +226,8 @@ public class EditorProfileListFragment extends Fragment
                 // update activity for activated profile
                 fragment.listView.getRecycledViewPool().clear();
                 Profile profile;
-                profile = activityDataWrapper.getActivatedProfile(true, true);
+                profile = activityDataWrapper.getActivatedProfile(true,
+                        ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
                 updateHeader(profile);
                 profileListAdapter.notifyDataSetChanged(false);
                 setProfileSelection(profile);
@@ -251,12 +252,12 @@ public class EditorProfileListFragment extends Fragment
 
         @Override
         protected Void doInBackground(Void... params) {
-            _dataWrapper.fillProfileList(true, true);
+            _dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
             if (_dataWrapper.profileList.size() == 0)
             {
                 // no profiles in DB, generate default profiles and events
 
-                _dataWrapper.fillPredefinedProfileList(true, true);
+                _dataWrapper.fillPredefinedProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
                 defaultProfilesGenerated = true;
 
                 _dataWrapper.generatePredefinedEventList();
@@ -280,7 +281,7 @@ public class EditorProfileListFragment extends Fragment
             if ((fragment != null) && (fragment.isAdded())) {
 
                 // get local profileList
-                _dataWrapper.fillProfileList(true, true);
+                _dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
                 // set local profile list into activity dataWrapper
                 fragment.activityDataWrapper.setProfileList(_dataWrapper.profileList);
 
@@ -296,7 +297,8 @@ public class EditorProfileListFragment extends Fragment
                 // update activity for activated profile
                 fragment.listView.getRecycledViewPool().clear();
                 Profile profile;
-                profile = fragment.activityDataWrapper.getActivatedProfile(true, true);
+                profile = fragment.activityDataWrapper.getActivatedProfile(true,
+                                ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
                 fragment.updateHeader(profile);
                 fragment.profileListAdapter.notifyDataSetChanged(false);
                 fragment.setProfileSelection(profile);
@@ -607,7 +609,8 @@ public class EditorProfileListFragment extends Fragment
             if(resultCode == Activity.RESULT_OK)
             {
                 long profile_id = data.getLongExtra(PPApplication.EXTRA_PROFILE_ID, -1);
-                Profile profile = activityDataWrapper.getProfileById(profile_id, true, true, false);
+                Profile profile = activityDataWrapper.getProfileById(profile_id, true,
+                        ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context), false);
 
                 if (profileListAdapter != null)
                     profileListAdapter.activateProfile(profile);
@@ -734,7 +737,8 @@ public class EditorProfileListFragment extends Fragment
         Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
         if (profileFromDB != null) {
             PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile activated");
-            Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true, true, false);
+            Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
+                    ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context), false);
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);

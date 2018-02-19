@@ -173,7 +173,7 @@ public class ActivateProfileListFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            dataWrapper.fillProfileList(true, true);
+            dataWrapper.fillProfileList(true, ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context));
 
             if (!ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
             {
@@ -217,7 +217,7 @@ public class ActivateProfileListFragment extends Fragment {
             if ((fragment != null) && (fragment.isAdded())) {
 
                 // get local profileList
-                this.dataWrapper.fillProfileList(true, true);
+                this.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context));
                 // set copy local profile list into activity profilesDataWrapper
                 fragment.activityDataWrapper.setProfileList(this.dataWrapper.profileList);
 
@@ -272,7 +272,7 @@ public class ActivateProfileListFragment extends Fragment {
     {
         //long nanoTimeStart = PPApplication.startMeasuringRunTime();
 
-        Profile profile = activityDataWrapper.getActivatedProfile(true, true);
+        Profile profile = activityDataWrapper.getActivatedProfile(true, ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context));
 
         updateHeader(profile);
         setProfileSelection(profile, false);
@@ -414,7 +414,8 @@ public class ActivateProfileListFragment extends Fragment {
 
         Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
         if (profileFromDB != null) {
-            Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true, true, false);
+            Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
+                    ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context), false);
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);

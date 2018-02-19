@@ -894,8 +894,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 if (permissionsChanged) {
                     DataWrapper dataWrapper = new DataWrapper(context, false, 0);
 
-                    Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
-                    dataWrapper.refreshProfileIcon(activatedProfile, false, 0);
+                    //Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
+                    //dataWrapper.refreshProfileIcon(activatedProfile);
                     if (PhoneProfilesService.instance != null)
                         PhoneProfilesService.instance.showProfileNotification(dataWrapper);
                     ActivateProfileHelper.updateGUI(context, true);
