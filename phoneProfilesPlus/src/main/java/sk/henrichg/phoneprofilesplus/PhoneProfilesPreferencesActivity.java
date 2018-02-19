@@ -171,7 +171,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
                 //    startForegroundService(serviceIntent);
             }
         }, 500);
-        ActivateProfileHelper.updateWidget(getApplicationContext(), true);
+        ActivateProfileHelper.updateGUI(getApplicationContext(), true);
     }
 
     @Override

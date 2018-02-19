@@ -381,7 +381,7 @@ class EventsHandler {
             List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
             int runningEventCountE = eventTimelineList.size();
 
-            Profile activatedProfile = dataWrapper.getActivatedProfileFromDB(true, true);
+            Profile activatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);
             long backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
             boolean notifyBackgroundProfile = false;
 
@@ -473,7 +473,7 @@ class EventsHandler {
                 if (activatedProfile0 != null) prId0 = activatedProfile0._id;
                 if (activatedProfile != null) prId = activatedProfile._id;
                 if ((prId0 != prId) || (prId == 0))*/
-                dataWrapper.updateNotificationAndWidgets(activatedProfile);
+                dataWrapper.updateNotificationAndWidgets();
 
                 if (!((notifyEvent != null) && notifyEvent.notifyEventStart(context))) {
                     if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {

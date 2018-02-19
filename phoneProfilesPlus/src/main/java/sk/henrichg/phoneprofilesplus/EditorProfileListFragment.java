@@ -303,7 +303,7 @@ public class EditorProfileListFragment extends Fragment
 
                 if (defaultProfilesGenerated)
                 {
-                    ActivateProfileHelper.updateWidget(fragment.activityDataWrapper.context, true);
+                    ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true);
                     Toast msg = Toast.makeText(fragment.getActivity(),
                             fragment.getResources().getString(R.string.toast_default_profiles_generated),
                             Toast.LENGTH_SHORT);
@@ -431,8 +431,8 @@ public class EditorProfileListFragment extends Fragment
         Profile _profile = profileListAdapter.getActivatedProfile();
         updateHeader(_profile);
         if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.showProfileNotification(_profile, activityDataWrapper);
-        ActivateProfileHelper.updateWidget(activityDataWrapper.context, true);
+            PhoneProfilesService.instance.showProfileNotification(activityDataWrapper);
+        ActivateProfileHelper.updateGUI(activityDataWrapper.context, true);
 
         Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
@@ -531,8 +531,8 @@ public class EditorProfileListFragment extends Fragment
                     //Profile profile = profileListAdapter.getActivatedProfile();
                     updateHeader(null);
                     if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.showProfileNotification(null, activityDataWrapper);
-                    ActivateProfileHelper.updateWidget(activityDataWrapper.context, true);
+                        PhoneProfilesService.instance.showProfileNotification(activityDataWrapper);
+                    ActivateProfileHelper.updateGUI(activityDataWrapper.context, true);
 
                     Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);

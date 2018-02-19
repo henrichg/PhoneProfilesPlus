@@ -1292,9 +1292,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                     GlobalGUIRoutines.unlockScreenOrientation(activity);
 
                     if (result == 1) {
-                        this.dataWrapper.updateNotificationAndWidgets(null);
+                        this.dataWrapper.updateNotificationAndWidgets();
                         //dataWrapper.getActivateProfileHelper().showNotification(null, "");
-                        //dataWrapper.getActivateProfileHelper().updateWidget();
+                        //dataWrapper.getActivateProfileHelper().updateGUI();
 
                         Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
@@ -1720,8 +1720,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true, true);
             fragment.updateHeader(activeProfile);
             if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.showProfileNotification(activeProfile, fragment.activityDataWrapper);
-            ActivateProfileHelper.updateWidget(fragment.activityDataWrapper.context, true);
+                PhoneProfilesService.instance.showProfileNotification(fragment.activityDataWrapper);
+            ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true);
         }
         redrawProfilePreferences(profile, newProfileMode, predefinedProfileIndex, true/*startTargetHelps*/);
     }

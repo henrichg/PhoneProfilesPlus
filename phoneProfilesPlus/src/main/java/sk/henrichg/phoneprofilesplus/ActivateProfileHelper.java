@@ -2186,7 +2186,7 @@ class ActivateProfileHelper {
         }
     }
 
-    static void updateWidget(Context context, boolean alsoEditor)
+    static void updateGUI(Context context, boolean alsoEditor)
     {
         if (lockRefresh || EditorProfilesActivity.doImport)
             // no refresh widgets

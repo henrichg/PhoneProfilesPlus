@@ -23,8 +23,7 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
                     if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {
                         if (PhoneProfilesService.instance != null) {
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
-                            Profile profile = dataWrapper.getActivatedProfile(true, true);
-                            PhoneProfilesService.instance.showProfileNotification(profile, dataWrapper);
+                            PhoneProfilesService.instance.showProfileNotification(dataWrapper);
                         }
                     }
                 }

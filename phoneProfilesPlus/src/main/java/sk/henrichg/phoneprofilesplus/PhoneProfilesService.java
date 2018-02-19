@@ -2294,16 +2294,7 @@ public class PhoneProfilesService extends Service
 
                     // set service foreground
                     final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
-                    Profile activatedProfile = null;
-                    if (_onlyStart && _startOnBoot) {
-                        if (ApplicationPreferences.applicationActivate(appContext) &&
-                                ApplicationPreferences.applicationStartEvents(appContext)) {
-                            activatedProfile = dataWrapper.getActivatedProfile(true, true);
-                        } else if (ApplicationPreferences.applicationActivate(appContext))
-                            activatedProfile = dataWrapper.getActivatedProfile(true, true);
-                    } else
-                        activatedProfile = dataWrapper.getActivatedProfile(true, true);
-                    showProfileNotification(activatedProfile, dataWrapper);
+                    showProfileNotification(dataWrapper);
                     PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "after end of Handler.run");
 
                     if ((wakeLock != null) && wakeLock.isHeld())
@@ -2691,7 +2682,7 @@ public class PhoneProfilesService extends Service
     // profile notification -------------------
 
     @SuppressLint("NewApi")
-    void showProfileNotification(Profile profile, DataWrapper dataWrapper)
+    void showProfileNotification(DataWrapper dataWrapper)
     {
         if (ActivateProfileHelper.lockRefresh)
             // no refresh notification
@@ -2738,6 +2729,8 @@ public class PhoneProfilesService extends Service
             String profileName;
             Bitmap iconBitmap;
             Bitmap preferencesIndicator;
+
+            Profile profile = dataWrapper.getActivatedProfile(true, ApplicationPreferences.notificationPrefIndicator(dataWrapper.context));
 
             if (profile != null)
             {

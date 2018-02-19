@@ -399,7 +399,7 @@ public class DataWrapper {
                         return profile;
                     }
                 }
-                // when filter is set and profile not found, get profile from db
+                // when profile not found, get profile from db
                 return getActivatedProfileFromDB(generateIcon, generateIndicators);
             }
         }
@@ -450,11 +450,11 @@ public class DataWrapper {
         }
     }
 
-    void updateNotificationAndWidgets(Profile profile)
+    void updateNotificationAndWidgets()
     {
         if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.showProfileNotification(profile, this);
-        ActivateProfileHelper.updateWidget(context, true);
+            PhoneProfilesService.instance.showProfileNotification(this);
+        ActivateProfileHelper.updateGUI(context, true);
     }
 
     private Profile getProfileByIdFromDB(long id, boolean generateIcon, boolean generateIndicators, boolean merged)
@@ -1178,8 +1178,6 @@ public class DataWrapper {
         DatabaseHandler.getInstance(context).activateProfile(_profile);
         setProfileActive(_profile);
 
-        Profile activatedProfile = getActivatedProfile(true, true);
-
         String profileIcon = "";
         int profileDuration = 0;
         if (profile != null)
@@ -1201,9 +1199,7 @@ public class DataWrapper {
                 //// set profile duration alarm
 
                 // save before activated profile
-                long profileId = 0;
-                if (activatedProfile != null)
-                    profileId = activatedProfile._id;
+                long profileId = _profile._id;
                 PPApplication.logE("$$$ DataWrapper._activateProfile","setActivatedProfileForDuration profileId="+profileId);
                 PPApplication.logE("$$$ DataWrapper._activateProfile","setActivatedProfileForDuration duration="+profileDuration);
                 Profile.setActivatedProfileForDuration(context, profileId);
@@ -1218,8 +1214,8 @@ public class DataWrapper {
         }
 
         if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.showProfileNotification(activatedProfile, this);
-        ActivateProfileHelper.updateWidget(context, true);
+            PhoneProfilesService.instance.showProfileNotification(this);
+        ActivateProfileHelper.updateGUI(context, true);
 
         if (profile != null)
             ActivateProfileHelper.execute(context, profile);
@@ -1521,8 +1517,8 @@ public class DataWrapper {
             setProfileActive(profile);
 
             if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.showProfileNotification(profile, this);
-            ActivateProfileHelper.updateWidget(context, true);
+                PhoneProfilesService.instance.showProfileNotification(this);
+            ActivateProfileHelper.updateGUI(context, true);
 
             // for startActivityForResult
             if (activity != null)
@@ -1547,8 +1543,8 @@ public class DataWrapper {
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
             Profile.setActivatedProfileForDuration(context, 0);
             if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.showProfileNotification(getActivatedProfile(true, true), this);
-            ActivateProfileHelper.updateWidget(context, true);
+                PhoneProfilesService.instance.showProfileNotification(this);
+            ActivateProfileHelper.updateGUI(context, true);
             return;
         }
         if (Permissions.grantProfilePermissions(context, profile, false, true,

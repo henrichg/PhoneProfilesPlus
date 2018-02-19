@@ -897,8 +897,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
                     dataWrapper.refreshProfileIcon(activatedProfile, false, 0);
                     if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.showProfileNotification(activatedProfile, dataWrapper);
-                    ActivateProfileHelper.updateWidget(context, true);
+                        PhoneProfilesService.instance.showProfileNotification(dataWrapper);
+                    ActivateProfileHelper.updateGUI(context, true);
 
                     if (finishActivity) {
                         getActivity().setResult(Activity.RESULT_CANCELED);

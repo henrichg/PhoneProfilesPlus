@@ -1146,7 +1146,7 @@ class Event {
         }
 
         long activatedProfileId = 0;
-        Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
+        Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
         if (activatedProfile != null)
             activatedProfileId = activatedProfile._id;
 
@@ -1168,7 +1168,7 @@ class Event {
         }
         else
         {
-            dataWrapper.updateNotificationAndWidgets(activatedProfile);
+            dataWrapper.updateNotificationAndWidgets();
         }
 
         //return;
@@ -1201,7 +1201,7 @@ class Event {
         }
 
         boolean profileActivated = false;
-        Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
+        Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
         // activate profile only when profile not already activated
         //noinspection ConstantConditions
         if (activateReturnProfile/* && canActivateReturnProfile()*/)
@@ -1266,7 +1266,7 @@ class Event {
 
         if (!profileActivated)
         {
-            dataWrapper.updateNotificationAndWidgets(activatedProfile);
+            dataWrapper.updateNotificationAndWidgets();
         }
 
     }

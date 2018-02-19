@@ -954,12 +954,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.clearMergedPermissions(context);
 
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
-            Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-            if ((activatedProfile == null) || (activatedProfile._id == profile_id)) {
-                if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.showProfileNotification(profile, dataWrapper);
-            }
-            ActivateProfileHelper.updateWidget(getApplicationContext(), true);
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.showProfileNotification(dataWrapper);
+            ActivateProfileHelper.updateGUI(getApplicationContext(), true);
 
             /*Intent intent5 = new Intent();
             intent5.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
