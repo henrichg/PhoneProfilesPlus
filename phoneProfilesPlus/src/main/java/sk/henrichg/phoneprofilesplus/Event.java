@@ -261,7 +261,7 @@ class Event {
 
     private void createEventPreferencesBattery()
     {
-        this._eventPreferencesBattery = new EventPreferencesBattery(this, false, 0, 100, false, false);
+        this._eventPreferencesBattery = new EventPreferencesBattery(this, false, 0, 100, 0, false);
     }
 
     private void createEventPreferencesCall()

@@ -880,9 +880,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL_LOW + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL_HIGHT + "=100");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_CHARGING + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL_HIGHT + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL_LOW + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_CHARGING + "=0");
         }
 
         if (oldVersion < 1030)
@@ -3886,7 +3883,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BATTERY_ENABLED))) == 1);
                 eventPreferences._levelLow = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BATTERY_LEVEL_LOW)));
                 eventPreferences._levelHight = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BATTERY_LEVEL_HIGHT)));
-                eventPreferences._charging = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BATTERY_CHARGING))) == 1);
+                eventPreferences._charging = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BATTERY_CHARGING)));
                 eventPreferences._powerSaveMode = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BATTERY_POWER_SAVE_MODE))) == 1);
             }
             cursor.close();
@@ -4341,7 +4338,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_BATTERY_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_BATTERY_LEVEL_LOW, eventPreferences._levelLow);
         values.put(KEY_E_BATTERY_LEVEL_HIGHT, eventPreferences._levelHight);
-        values.put(KEY_E_BATTERY_CHARGING, eventPreferences._charging ? 1 : 0);
+        values.put(KEY_E_BATTERY_CHARGING, eventPreferences._charging);
         values.put(KEY_E_BATTERY_POWER_SAVE_MODE, eventPreferences._powerSaveMode ? 1 : 0);
 
         // updating row

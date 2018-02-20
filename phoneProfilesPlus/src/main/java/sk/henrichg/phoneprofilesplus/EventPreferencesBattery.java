@@ -260,8 +260,8 @@ class EventPreferencesBattery extends EventPreferences {
             chargingPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    boolean bNewValue = (boolean) newValue;
-                    if (bNewValue)
+                    int iNewValue = (int) newValue;
+                    if (iNewValue > 0)
                         powerSaveModePreference.setChecked(false);
                     return true;
                 }

@@ -1099,7 +1099,7 @@ public class DataWrapper {
                     event._eventPreferencesBattery._levelHight = 10;
                     event._eventPreferencesBattery._powerSaveMode = false;
                 }
-                event._eventPreferencesBattery._charging = false;
+                event._eventPreferencesBattery._charging = 0;
                 break;
             default:
                 event = null;
@@ -1675,8 +1675,12 @@ public class DataWrapper {
                         (batteryPct <= event._eventPreferencesBattery._levelHight))
                     batteryPassed = true;
 
-                if (event._eventPreferencesBattery._charging)
-                    batteryPassed = batteryPassed && isCharging;
+                if (event._eventPreferencesBattery._charging > 0) {
+                    if (event._eventPreferencesBattery._charging == 1)
+                        batteryPassed = batteryPassed && isCharging;
+                    else
+                        batteryPassed = batteryPassed && (!isCharging);
+                }
                 else
                 if (event._eventPreferencesBattery._powerSaveMode)
                     batteryPassed = batteryPassed && isPowerSaveMode;
