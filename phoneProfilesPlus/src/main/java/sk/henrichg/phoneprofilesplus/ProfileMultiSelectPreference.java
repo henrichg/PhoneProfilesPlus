@@ -1,0 +1,366 @@
+package sk.henrichg.phoneprofilesplus;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.TypedArray;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import java.util.Collections;
+import java.util.Comparator;
+
+public class ProfileMultiSelectPreference extends DialogPreference {
+
+    private String value;
+
+    private final Context prefContext;
+    private MaterialDialog mDialog;
+
+    private LinearLayout linlaProgress;
+    private ListView listView;
+    private ProfileMultiSelectPreferenceAdapter profilePreferenceAdapter;
+
+    private ImageView profileIcon;
+    private RelativeLayout profileIcons;
+    private ImageView profileIcon1;
+    private ImageView profileIcon2;
+    private ImageView profileIcon3;
+    private ImageView profileIcon4;
+
+    private DataWrapper dataWrapper;
+
+    public ProfileMultiSelectPreference(Context context, AttributeSet attrs)
+    {
+        super(context, attrs);
+
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ProfilePreference);
+
+        value = "";
+        prefContext = context;
+        //preferenceTitle = getTitle();
+
+        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
+
+        setWidgetLayoutResource(R.layout.profile_preference); // resource na layout custom preference - TextView-ImageView
+
+        typedArray.recycle();
+
+    }
+
+    protected void showDialog(Bundle state) {
+        PPApplication.logE("ProfilePreference.showDialog", "xx");
+
+        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
+                .title(getDialogTitle())
+                .icon(getDialogIcon())
+                //.disableDefaultFonts()
+                .content(getDialogMessage())
+                .customView(R.layout.activity_profile_multiselect_pref_dialog, false)
+                .autoDismiss(false);
+
+        mBuilder.positiveText(getPositiveButtonText())
+                .negativeText(getNegativeButtonText());
+        mBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
+            @SuppressWarnings("StringConcatenationInLoop")
+            @Override
+            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                if (shouldPersist())
+                {
+                    // fill with application strings separated with |
+                    value = "";
+                    if (dataWrapper.profileList != null)
+                    {
+                        for (Profile profile : dataWrapper.profileList)
+                        {
+                            if (!value.isEmpty())
+                                value = value + "|";
+                            value = value + profile._id;
+                            PPApplication.logE("ProfileMutiSelectPreference.onPositive","value="+value);
+                        }
+                    }
+
+                    persistString(value);
+
+                    setIcons();
+                    setSummaryPMSDP();
+                }
+                mDialog.dismiss();
+            }
+        });
+        mBuilder.onNegative(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                mDialog.dismiss();
+            }
+        });
+
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                ProfileMultiSelectPreference.this.onShow();
+            }
+        });
+
+        mDialog = mBuilder.build();
+        View layout = mDialog.getCustomView();
+
+        //noinspection ConstantConditions
+        linlaProgress = layout.findViewById(R.id.profile_multiselect_pref_dlg_linla_progress);
+
+        //noinspection ConstantConditions
+        listView = layout.findViewById(R.id.profile_multiselect_pref_dlg_listview);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View item, int position, long id)
+            {
+                Profile profile = (Profile)profilePreferenceAdapter.getItem(position);
+                profile._checked = !profile._checked;
+                ProfilesViewHolder viewHolder = (ProfilesViewHolder) item.getTag();
+                viewHolder.checkBox.setChecked(profile._checked);
+            }
+        });
+
+
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
+
+        if (state != null)
+            mDialog.onRestoreInstanceState(state);
+
+        mDialog.setOnDismissListener(this);
+        mDialog.show();
+    }
+
+    //@Override
+    protected void onBindView(View view)
+    {
+        super.onBindView(view);
+
+        profileIcon = view.findViewById(R.id.profile_multiselect_pref_icon);
+        profileIcons = view.findViewById(R.id.profile_multiselect_pref_icons);
+        profileIcon1 = view.findViewById(R.id.profile_multiselect_pref_icon1);
+        profileIcon2 = view.findViewById(R.id.profile_multiselect_pref_icon2);
+        profileIcon3 = view.findViewById(R.id.profile_multiselect_pref_icon3);
+        profileIcon4 = view.findViewById(R.id.profile_multiselect_pref_icon4);
+
+        setIcons();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void onShow(/*DialogInterface dialog*/) {
+        new AsyncTask<Void, Integer, Void>() {
+
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+                listView.setVisibility(View.GONE);
+                linlaProgress.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+
+                dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(dataWrapper.context));
+                Collections.sort(dataWrapper.profileList, new AlphabeticallyComparator());
+
+                getValuePMSDP();
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+
+                listView.setVisibility(View.VISIBLE);
+                linlaProgress.setVisibility(View.GONE);
+
+                profilePreferenceAdapter = new ProfileMultiSelectPreferenceAdapter(prefContext, dataWrapper.profileList);
+                listView.setAdapter(profilePreferenceAdapter);
+            }
+
+        }.execute();
+    }
+
+    public void onDismiss (DialogInterface dialog)
+    {
+        super.onDismiss(dialog);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
+    }
+
+    @Override
+    protected Object onGetDefaultValue(TypedArray a, int index)
+    {
+        super.onGetDefaultValue(a, index);
+
+        return a.getString(index);
+    }
+
+    @Override
+    protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
+    {
+        if (restoreValue) {
+            // restore state
+            getValuePMSDP();
+        }
+        else {
+            // set state
+            value = "";
+            persistString("");
+        }
+        setSummaryPMSDP();
+    }
+
+    @Override
+    protected void onPrepareForRemoval()
+    {
+        super.onPrepareForRemoval();
+        dataWrapper.invalidateDataWrapper();
+        dataWrapper = null;
+    }
+
+    private void getValuePMSDP()
+    {
+        // Get the persistent value
+        value = getPersistedString(value);
+
+        PPApplication.logE("ProfileMultiSelectPreference.getValueAMSDP","value="+value);
+
+        for (Profile profile : dataWrapper.profileList)
+            profile._checked = false;
+
+        String[] splits = value.split("\\|");
+        for (String split : splits) {
+            Profile profile = dataWrapper.getProfileById(Long.parseLong(split), true, false, false);
+            if (profile != null)
+                profile._checked = true;
+        }
+    }
+
+    private void setSummaryPMSDP()
+    {
+        String prefSummary = prefContext.getString(R.string.profile_multiselect_summary_text_not_selected);
+        if (!value.isEmpty() && !value.equals("-")) {
+            String[] splits = value.split("\\|");
+            prefSummary = prefContext.getString(R.string.profile_multiselect_summary_text_selected) + ": " + splits.length;
+            if (splits.length == 1) {
+                Profile profile = dataWrapper.getProfileById(Long.parseLong(value), true, false, false);
+                if (profile != null)
+                {
+                    prefSummary = profile._name;
+                }
+            }
+        }
+        setSummary(prefSummary);
+    }
+
+    private void setIcons() {
+        String[] splits = value.split("\\|");
+
+        if (!value.isEmpty() && !value.equals("-")) {
+            if (splits.length == 1) {
+                profileIcon.setVisibility(View.VISIBLE);
+                profileIcon1.setImageResource(R.drawable.ic_empty);
+                profileIcon2.setImageResource(R.drawable.ic_empty);
+                profileIcon3.setImageResource(R.drawable.ic_empty);
+                profileIcon4.setImageResource(R.drawable.ic_empty);
+                profileIcons.setVisibility(View.GONE);
+
+                Profile profile = dataWrapper.getProfileById(Long.parseLong(value), true, false, false);
+                if (profile != null)
+                {
+                    if (profile.getIsIconResourceID())
+                    {
+                        if (profile._iconBitmap != null)
+                            profileIcon.setImageBitmap(profile._iconBitmap);
+                        else {
+                            //profileIcon.setImageBitmap(null);
+                            int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                                    prefContext.getPackageName());
+                            profileIcon.setImageResource(res); // icon resource
+                        }
+                    }
+                    else
+                    {
+                        profileIcon.setImageBitmap(profile._iconBitmap);
+                    }
+                }
+                else
+                    profileIcon.setImageResource(R.drawable.ic_empty); // icon resource
+            } else {
+                profileIcons.setVisibility(View.VISIBLE);
+                profileIcon.setVisibility(View.GONE);
+                profileIcon.setImageResource(R.drawable.ic_empty);
+
+                ImageView profIcon = profileIcon1;
+                for (int i = 0; i < 4; i++) {
+                    if (i == 0) profIcon = profileIcon1;
+                    if (i == 1) profIcon = profileIcon2;
+                    if (i == 2) profIcon = profileIcon3;
+                    if (i == 3) profIcon = profileIcon4;
+                    if (i < splits.length) {
+                        Profile profile = dataWrapper.getProfileById(Long.parseLong(splits[i]), true, false, false);
+                        if (profile != null)
+                        {
+                            if (profile.getIsIconResourceID())
+                            {
+                                if (profile._iconBitmap != null)
+                                    profIcon.setImageBitmap(profile._iconBitmap);
+                                else {
+                                    //profileIcon.setImageBitmap(null);
+                                    int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                                            prefContext.getPackageName());
+                                    profIcon.setImageResource(res); // icon resource
+                                }
+                            }
+                            else
+                            {
+                                profIcon.setImageBitmap(profile._iconBitmap);
+                            }
+                        }
+                        else
+                            profIcon.setImageResource(R.drawable.ic_empty); // icon resource
+
+                    } else
+                        profIcon.setImageResource(R.drawable.ic_empty);
+                }
+            }
+        }
+        else {
+            profileIcon.setVisibility(View.VISIBLE);
+            profileIcons.setVisibility(View.GONE);
+            profileIcon.setImageResource(R.drawable.ic_empty);
+        }
+    }
+
+    private class AlphabeticallyComparator implements Comparator<Profile> {
+
+        public int compare(Profile lhs, Profile rhs) {
+            if (GlobalGUIRoutines.collator != null)
+                return GlobalGUIRoutines.collator.compare(lhs._name, rhs._name);
+            else
+                return 0;
+        }
+    }
+}
