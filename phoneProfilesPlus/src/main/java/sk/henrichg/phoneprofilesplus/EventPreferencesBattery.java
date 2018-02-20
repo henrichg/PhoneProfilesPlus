@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
@@ -13,7 +14,7 @@ class EventPreferencesBattery extends EventPreferences {
 
     int _levelLow;
     int _levelHight;
-    boolean _charging;
+    int _charging;
     boolean _powerSaveMode;
 
     static final String PREF_EVENT_BATTERY_ENABLED = "eventBatteryEnabled";
@@ -28,7 +29,7 @@ class EventPreferencesBattery extends EventPreferences {
                                     boolean enabled,
                                     int levelLow,
                                     int levelHight,
-                                    boolean charging,
+                                    int charging,
                                     boolean powerSaveMode)
     {
         super(event, enabled);
@@ -56,7 +57,8 @@ class EventPreferencesBattery extends EventPreferences {
         editor.putBoolean(PREF_EVENT_BATTERY_ENABLED, _enabled);
         editor.putString(PREF_EVENT_BATTERY_LEVEL_LOW, String.valueOf(this._levelLow));
         editor.putString(PREF_EVENT_BATTERY_LEVEL_HIGHT, String.valueOf(this._levelHight));
-        editor.putBoolean(PREF_EVENT_BATTERY_CHARGING, this._charging);
+        //editor.putBoolean(PREF_EVENT_BATTERY_CHARGING, this._charging);
+        editor.putString(PREF_EVENT_BATTERY_CHARGING, String.valueOf(this._charging));
         editor.putBoolean(PREF_EVENT_BATTERY_POWER_SAVE_MODE, this._powerSaveMode);
         editor.apply();
     }
@@ -81,7 +83,8 @@ class EventPreferencesBattery extends EventPreferences {
         if ((iLevel < 0) || (iLevel > 100)) iLevel = 100;
         this._levelHight= iLevel;
 
-        this._charging = preferences.getBoolean(PREF_EVENT_BATTERY_CHARGING, false);
+        //this._charging = preferences.getBoolean(PREF_EVENT_BATTERY_CHARGING, false);
+        this._charging = Integer.parseInt(preferences.getString(PREF_EVENT_BATTERY_CHARGING, "0"));
         this._powerSaveMode = preferences.getBoolean(PREF_EVENT_BATTERY_POWER_SAVE_MODE, false);
     }
 
@@ -103,10 +106,14 @@ class EventPreferencesBattery extends EventPreferences {
 
             descr = descr + context.getString(R.string.pref_event_battery_level);
             descr = descr + ": " + this._levelLow + "% - " + this._levelHight + "%";
-            if (this._charging)
-                descr = descr + ", " + context.getString(R.string.pref_event_battery_charging);
+
             if (this._powerSaveMode)
-                descr = descr + ", " + context.getString(R.string.pref_event_battery_power_save_mode);
+                descr = descr + "; " + context.getString(R.string.pref_event_battery_power_save_mode);
+            else {
+                descr = descr + "; " + context.getString(R.string.pref_event_battery_charging);
+                String[] charging = context.getResources().getStringArray(R.array.eventBatteryChargingArray);
+                descr = descr + ": " + charging[this._charging];
+            }
         }
 
         return descr;
@@ -121,12 +128,22 @@ class EventPreferencesBattery extends EventPreferences {
             if (preference != null)
                 preference.setSummary(value + "%");
         }
+        if (key.equals(PREF_EVENT_BATTERY_CHARGING)) {
+            ListPreference listPreference = (ListPreference) prefMng.findPreference(key);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(value);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+            }
+        }
     }
 
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_BATTERY_LEVEL_LOW) || key.equals(PREF_EVENT_BATTERY_LEVEL_HIGHT))
+        if (key.equals(PREF_EVENT_BATTERY_LEVEL_LOW) ||
+            key.equals(PREF_EVENT_BATTERY_LEVEL_HIGHT) ||
+            key.equals(PREF_EVENT_BATTERY_CHARGING))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -137,6 +154,7 @@ class EventPreferencesBattery extends EventPreferences {
     {
         setSummary(prefMng, PREF_EVENT_BATTERY_LEVEL_LOW, preferences, context);
         setSummary(prefMng, PREF_EVENT_BATTERY_LEVEL_HIGHT, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BATTERY_CHARGING, preferences, context);
     }
 
     @Override

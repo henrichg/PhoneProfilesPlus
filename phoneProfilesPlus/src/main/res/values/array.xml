@@ -1068,4 +1068,14 @@
     <item>1</item>
     <item>2</item>
 </string-array>
+<string-array name="eventBatteryChargingArray">
+    <item>@string/array_event_pref_battery_charging_not_use</item>
+    <item>@string/array_event_pref_battery_charging_start_when_charging</item>
+    <item>@string/array_event_pref_battery_charging_stop_when_charging</item>
+</string-array>
+<string-array name="eventBatteryChargingValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+</string-array>
 </resources>

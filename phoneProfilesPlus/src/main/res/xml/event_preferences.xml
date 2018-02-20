@@ -313,13 +313,16 @@
                 henrichg:max="100"
                 android:dependency="eventBatteryEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
-            <CheckBoxPreference
-                android:key="eventBatteryCharging"
+            <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/event_preferences_battery_charging"
-                android:defaultValue="false"
+                android:summary="@string/array_event_pref_battery_charging_not_use"
+                android:key="eventBatteryCharging"
+                android:defaultValue="0"
+                android:entries="@array/eventBatteryChargingArray"
+                android:entryValues="@array/eventBatteryChargingValues"
                 android:dependency="eventBatteryEnabled"
-                android:widgetLayout="@layout/mp_preference_switch"
-                android:layout="@layout/mp_preference_material_widget" />
+                android:layout="@layout/mp_preference_material_widget"
+                app:useStockLayout="true" />
             <CheckBoxPreference
                 android:key="eventBatteryPowerSaveMode"
                 android:title="@string/event_preferences_battery_power_save_mode"
