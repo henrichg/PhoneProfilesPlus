@@ -10,6 +10,8 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.prefs.MaterialListPreference;
+
 class EventPreferencesBattery extends EventPreferences {
 
     int _levelLow;
@@ -185,7 +187,7 @@ class EventPreferencesBattery extends EventPreferences {
     {
         final Preference lowLevelPreference = prefMng.findPreference(PREF_EVENT_BATTERY_LEVEL_LOW);
         final Preference hightLevelPreference = prefMng.findPreference(PREF_EVENT_BATTERY_LEVEL_HIGHT);
-        final CheckBoxPreference chargingPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_BATTERY_CHARGING);
+        final MaterialListPreference chargingPreference = (MaterialListPreference)prefMng.findPreference(PREF_EVENT_BATTERY_CHARGING);
         final CheckBoxPreference powerSaveModePreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_BATTERY_POWER_SAVE_MODE);
         final PreferenceManager _prefMng = prefMng;
         final Context _context = context;
@@ -260,8 +262,8 @@ class EventPreferencesBattery extends EventPreferences {
             chargingPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    int iNewValue = (int) newValue;
-                    if (iNewValue > 0)
+                    String sNewValue = (String) newValue;
+                    if (!sNewValue.equals("0"))
                         powerSaveModePreference.setChecked(false);
                     return true;
                 }
@@ -271,7 +273,7 @@ class EventPreferencesBattery extends EventPreferences {
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     boolean bNewValue = (boolean) newValue;
                     if (bNewValue)
-                        chargingPreference.setChecked(false);
+                        chargingPreference.setValue("0");
                     return true;
                 }
             });
