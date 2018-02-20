@@ -119,11 +119,19 @@ class AddEventAdapter extends BaseAdapter {
                 eventName = eventPriority + "[\u00BB] " + eventName;
             } else
                 eventName = eventPriority + eventName;
-            if (event._fkProfileStartWhenActivated > 0) {
-                Profile profile =  dialog.eventListFragment.activityDataWrapper.getProfileById(event._fkProfileStartWhenActivated, false, false, false);
-                if (profile != null)
-                    eventName = eventName + "\n" + "[#] " + profile._name;
+
+            if (!event._startWhenActivatedProfile.isEmpty()) {
+                String[] splits = event._startWhenActivatedProfile.split("\\|");
+                Profile profile;
+                if (splits.length == 1) {
+                    profile = dialog.eventListFragment.activityDataWrapper.getProfileById(Long.valueOf(event._startWhenActivatedProfile), false, false, false);
+                    if (profile != null)
+                        eventName = eventName + "\n" + "[#] " + profile._name;
+                } else {
+                    eventName = eventName + "\n" + "[#] " + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length;
+                }
             }
+
             //if (!isRunnable)
             //    eventName = eventName + "\n\n" + vi.getResources().getString(R.string.event_preferences_error);
             holder.eventName.setText(eventName);

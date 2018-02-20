@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2030;
+    private static final int DATABASE_VERSION = 2040;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -282,6 +282,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL = "notificationSoundRepeatInterval";
     private static final String KEY_E_NOTIFICATION_IN_CALL = "notificationRingingCall";
     private static final String KEY_E_NOTIFICATION_MISSED_CALL = "notificationMissedCall";
+    private static final String KEY_E_START_WHEN_ACTIVATED_PROFILE = "startWhenActivatedProfile";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -570,7 +571,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_NOTIFICATION_SOUND_REPEAT + " INTEGER,"
                 + KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL + " INTEGER,"
                 + KEY_E_NOTIFICATION_IN_CALL + " INTEGER,"
-                + KEY_E_NOTIFICATION_MISSED_CALL + " INTEGER"
+                + KEY_E_NOTIFICATION_MISSED_CALL + " INTEGER,"
+                + KEY_E_START_WHEN_ACTIVATED_PROFILE + " TEXT"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -2108,6 +2110,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_HEADS_UP_NOTIFICATIONS + "=0");
         }
 
+        if (oldVersion < 2040)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_START_WHEN_ACTIVATED_PROFILE + " TEXT");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_START_WHEN_ACTIVATED_PROFILE + "=\"\"");
+
+            final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                                                    KEY_E_FK_PROFILE_START_WHEN_ACTIVATED +
+                                        " FROM " + TABLE_EVENTS;
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    ContentValues values = new ContentValues();
+
+                    long fkProfile = cursor.getLong(cursor.getColumnIndex(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED));
+
+                    if (fkProfile != Profile.PROFILE_NO_ACTIVATE) {
+                        values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(fkProfile));
+                        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
+                    }
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+
+        }
+
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -2661,6 +2692,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.update(TABLE_EVENTS, values3, KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " = ?",
                             new String[]{String.valueOf(profile._id)});
 
+                    final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                                                            KEY_E_START_WHEN_ACTIVATED_PROFILE +
+                                                            " FROM " + TABLE_EVENTS;
+                    Cursor cursor = db.rawQuery(selectQuery, null);
+                    if (cursor.moveToFirst()) {
+                        do {
+                            values = new ContentValues();
+                            String oldFkProfiles = cursor.getString(cursor.getColumnIndex(KEY_E_START_WHEN_ACTIVATED_PROFILE));
+                            splits = oldFkProfiles.split("\\|");
+                            String newFkProfiles = "";
+                            for (String split : splits) {
+                                long fkProfile = Long.valueOf(split);
+                                if (fkProfile != profile._id) {
+                                   if (!newFkProfiles.isEmpty())
+                                       newFkProfiles = newFkProfiles + "|";
+                                   newFkProfiles = newFkProfiles + split;
+                                }
+                            }
+                            values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(newFkProfiles));
+                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
+                        } while (cursor.moveToNext());
+                    }
+                    cursor.close();
+
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
                     //Error in between database transaction
@@ -2698,6 +2753,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     values.put(KEY_E_FK_PROFILE_START, 0);
                     values.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
                     values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
+                    values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, "");
                     db.update(TABLE_EVENTS, values, null, null);
 
                     db.setTransactionSuccessful();
@@ -3335,12 +3391,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0); // event is in delay before start
                 values.put(KEY_E_AT_END_DO, event._atEndDo); //at end of event do
                 values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0); // manual profile activation
-                values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, event._fkProfileStartWhenActivated); // start when profile is activated
+                values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
                 values.put(KEY_E_DELAY_END, event._delayEnd); // delay for end
                 values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0); // event is in delay after pause
                 values.put(KEY_E_START_STATUS_TIME, event._startStatusTime); // time for status RUNNING
                 values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime); // time for change status from RUNNING to PAUSE
                 values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0); // no pause event by manual profile activation
+                values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, event._startWhenActivatedProfile); // start when profile is activated
 
                 db.beginTransaction();
 
@@ -3394,7 +3451,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_E_IS_IN_DELAY_START,
                                 KEY_E_AT_END_DO,
                                 KEY_E_MANUAL_PROFILE_ACTIVATION,
-                                KEY_E_FK_PROFILE_START_WHEN_ACTIVATED,
+                                KEY_E_START_WHEN_ACTIVATED_PROFILE,
                                 KEY_E_DELAY_END,
                                 KEY_E_IS_IN_DELAY_END,
                                 KEY_E_START_STATUS_TIME,
@@ -3423,7 +3480,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_START))) == 1,
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_AT_END_DO))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_MANUAL_PROFILE_ACTIVATION))) == 1,
-                                Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED))),
+                                cursor.getString(cursor.getColumnIndex(KEY_E_START_WHEN_ACTIVATED_PROFILE)),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_DELAY_END))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_END))) == 1,
                                 Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_START_STATUS_TIME))),
@@ -3476,7 +3533,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_IS_IN_DELAY_START + "," +
                         KEY_E_AT_END_DO + "," +
                         KEY_E_MANUAL_PROFILE_ACTIVATION + "," +
-                        KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + "," +
+                        KEY_E_START_WHEN_ACTIVATED_PROFILE + "," +
                         KEY_E_DELAY_END + "," +
                         KEY_E_IS_IN_DELAY_END + "," +
                         KEY_E_START_STATUS_TIME + "," +
@@ -3511,7 +3568,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         event._isInDelayStart = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_START))) == 1;
                         event._atEndDo = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_AT_END_DO)));
                         event._manualProfileActivation = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_MANUAL_PROFILE_ACTIVATION))) == 1;
-                        event._fkProfileStartWhenActivated = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED)));
+                        event._startWhenActivatedProfile = cursor.getString(cursor.getColumnIndex(KEY_E_START_WHEN_ACTIVATED_PROFILE));
                         event._delayEnd = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_DELAY_END)));
                         event._isInDelayEnd = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_IS_IN_DELAY_END))) == 1;
                         event._startStatusTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_START_STATUS_TIME)));
@@ -3564,7 +3621,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0);
                 values.put(KEY_E_AT_END_DO, event._atEndDo);
                 values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0);
-                values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, event._fkProfileStartWhenActivated);
+                values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, event._startWhenActivatedProfile);
                 values.put(KEY_E_DELAY_END, event._delayEnd);
                 values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0);
                 values.put(KEY_E_START_STATUS_TIME, event._startStatusTime);
@@ -3647,21 +3704,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 try {
                     ContentValues values = new ContentValues();
                     values.put(KEY_E_FK_PROFILE_START, 0);
-                    // updating row
                     db.update(TABLE_EVENTS, values, KEY_E_FK_PROFILE_START + " = ?",
                             new String[]{String.valueOf(profile._id)});
 
                     ContentValues values2 = new ContentValues();
                     values2.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
-                    // updating row
                     db.update(TABLE_EVENTS, values2, KEY_E_FK_PROFILE_END + " = ?",
                             new String[]{String.valueOf(profile._id)});
 
                     ContentValues values3 = new ContentValues();
                     values3.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
-                    // updating row
                     db.update(TABLE_EVENTS, values3, KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " = ?",
                             new String[]{String.valueOf(profile._id)});
+
+                    final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                            KEY_E_START_WHEN_ACTIVATED_PROFILE +
+                            " FROM " + TABLE_EVENTS;
+                    Cursor cursor = db.rawQuery(selectQuery, null);
+                    if (cursor.moveToFirst()) {
+                        do {
+                            values = new ContentValues();
+                            String oldFkProfiles = cursor.getString(cursor.getColumnIndex(KEY_E_START_WHEN_ACTIVATED_PROFILE));
+                            String[] splits = oldFkProfiles.split("\\|");
+                            String newFkProfiles = "";
+                            for (String split : splits) {
+                                long fkProfile = Long.valueOf(split);
+                                if (fkProfile != profile._id) {
+                                    if (!newFkProfiles.isEmpty())
+                                        newFkProfiles = newFkProfiles + "|";
+                                    newFkProfiles = newFkProfiles + split;
+                                }
+                            }
+                            values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(newFkProfiles));
+                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
+                        } while (cursor.moveToNext());
+                    }
+                    cursor.close();
 
                     db.setTransactionSuccessful();
 
@@ -3692,6 +3770,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_FK_PROFILE_START, 0);
                 values.put(KEY_E_FK_PROFILE_END, Profile.PROFILE_NO_ACTIVATE);
                 values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
+                values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, "");
 
                 // updating row
                 db.update(TABLE_EVENTS, values, null, null);
@@ -7678,6 +7757,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     String wifiSSID = "";
                                     String bluetoothAdapterName = "";
                                     int notificationRepeatInterval = 0;
+                                    long fkProfileStartWhenActivated = Profile.PROFILE_NO_ACTIVATE;
 
                                     if (cursorExportedDB.moveToFirst()) {
                                         do {
@@ -7687,21 +7767,43 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
                                                     if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START) ||
                                                             columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) ||
-                                                            columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED)) {
+                                                            columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED) ||
+                                                            columnNamesExportedDB[i].equals(KEY_E_START_WHEN_ACTIVATED_PROFILE)) {
                                                         // imported profile has new id
                                                         // map old profile id to new imported id
-                                                        int profileIdx = exportedDBEventProfileIds.indexOf(cursorExportedDB.getLong(i));
-                                                        if (profileIdx != -1)
-                                                            values.put(columnNamesExportedDB[i], importDBEventProfileIds.get(profileIdx));
-                                                        else {
-                                                            if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) &&
-                                                                    (cursorExportedDB.getLong(i) == Profile.PROFILE_NO_ACTIVATE))
-                                                                values.put(columnNamesExportedDB[i], Profile.PROFILE_NO_ACTIVATE);
-                                                            else if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED) &&
-                                                                    (cursorExportedDB.getLong(i) == Profile.PROFILE_NO_ACTIVATE))
-                                                                values.put(columnNamesExportedDB[i], Profile.PROFILE_NO_ACTIVATE);
+                                                        if (columnNamesExportedDB[i].equals(KEY_E_START_WHEN_ACTIVATED_PROFILE)) {
+                                                            String fkProfiles = cursorExportedDB.getString(i);
+                                                            if (!fkProfiles.isEmpty()) {
+                                                                String[] splits = fkProfiles.split("\\|");
+                                                                String newFkProfiles = "";
+                                                                for (String split : splits) {
+                                                                    long fkProfile = Long.valueOf(split);
+                                                                    int profileIdx = exportedDBEventProfileIds.indexOf(fkProfile);
+                                                                    if (profileIdx != -1) {
+                                                                        if (!newFkProfiles.isEmpty())
+                                                                            newFkProfiles = newFkProfiles + "|";
+                                                                        newFkProfiles = newFkProfiles + importDBEventProfileIds.get(profileIdx);
+                                                                    }
+                                                                }
+                                                                values.put(columnNamesExportedDB[i], newFkProfiles);
+                                                            }
                                                             else
-                                                                values.put(columnNamesExportedDB[i], 0);
+                                                                values.put(columnNamesExportedDB[i], "");
+                                                        }
+                                                        else {
+                                                            int profileIdx = exportedDBEventProfileIds.indexOf(cursorExportedDB.getLong(i));
+                                                            if (profileIdx != -1)
+                                                                values.put(columnNamesExportedDB[i], importDBEventProfileIds.get(profileIdx));
+                                                            else {
+                                                                if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) &&
+                                                                        (cursorExportedDB.getLong(i) == Profile.PROFILE_NO_ACTIVATE))
+                                                                    values.put(columnNamesExportedDB[i], Profile.PROFILE_NO_ACTIVATE);
+                                                                else if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED) &&
+                                                                        (cursorExportedDB.getLong(i) == Profile.PROFILE_NO_ACTIVATE))
+                                                                    values.put(columnNamesExportedDB[i], Profile.PROFILE_NO_ACTIVATE);
+                                                                else
+                                                                    values.put(columnNamesExportedDB[i], 0);
+                                                            }
                                                         }
                                                     } else
                                                         values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
@@ -7737,6 +7839,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     geofenceId = cursorExportedDB.getLong(i);
                                                 if (columnNamesExportedDB[i].equals(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL))
                                                     notificationRepeatInterval = cursorExportedDB.getInt(i);
+                                                if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED))
+                                                    fkProfileStartWhenActivated = cursorExportedDB.getLong(i);
                                             }
 
                                             // for non existent fields set default value
@@ -8093,6 +8197,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 values.put(KEY_E_NOTIFICATION_MISSED_CALL, 0);
                                             }
 
+                                            if (exportedDBObj.getVersion() < 2040) {
+                                                if (fkProfileStartWhenActivated != Profile.PROFILE_NO_ACTIVATE)
+                                                    values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(fkProfileStartWhenActivated));
+                                                else
+                                                    values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, "");
+                                            }
+
                                             // Inserting Row do db z SQLiteOpenHelper
                                             db.insert(TABLE_EVENTS, null, values);
 
@@ -8334,7 +8445,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         }
                     }
                 } catch (Exception e) {
-                    Log.e("DatabaseHandler.importDB", e.toString());
+                    Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));
                     ret = 0;
                 }
 

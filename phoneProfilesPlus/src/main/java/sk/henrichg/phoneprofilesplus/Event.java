@@ -40,7 +40,7 @@ class Event {
     int _delayStart;
     boolean _isInDelayStart;
     boolean _manualProfileActivation;
-    long _fkProfileStartWhenActivated;
+    String _startWhenActivatedProfile;
     int _delayEnd;
     boolean _isInDelayEnd;
     long _startStatusTime;
@@ -132,7 +132,7 @@ class Event {
                  boolean isInDelayStart,
                  int atEndDo,
                  boolean manualProfileActivation,
-                 long fkProfileStartWhenActivated,
+                 String startWhenActivatedProfile,
                  int delayEnd,
                  boolean isInDelayEnd,
                  long startStatusTime,
@@ -160,7 +160,7 @@ class Event {
         this._isInDelayStart = isInDelayStart;
         this._atEndDo = atEndDo;
         this._manualProfileActivation = manualProfileActivation;
-        this._fkProfileStartWhenActivated = fkProfileStartWhenActivated;
+        this._startWhenActivatedProfile = startWhenActivatedProfile;
         this._delayEnd = delayEnd;
         this._isInDelayEnd = isInDelayEnd;
         this._startStatusTime = startStatusTime;
@@ -187,7 +187,7 @@ class Event {
                  boolean isInDelayStart,
                  int atEndDo,
                  boolean manualProfileActivation,
-                 long fkProfileStartWhenActivated,
+                 String startWhenActivatedProfile,
                  int delayEnd,
                  boolean isInDelayEnd,
                  long startStatusTime,
@@ -214,7 +214,7 @@ class Event {
         this._isInDelayStart = isInDelayStart;
         this._atEndDo = atEndDo;
         this._manualProfileActivation = manualProfileActivation;
-        this._fkProfileStartWhenActivated = fkProfileStartWhenActivated;
+        this._startWhenActivatedProfile = startWhenActivatedProfile;
         this._delayEnd = delayEnd;
         this._isInDelayEnd = isInDelayEnd;
         this._startStatusTime = startStatusTime;
@@ -244,7 +244,7 @@ class Event {
         this._isInDelayStart = event._isInDelayStart;
         this._atEndDo = event._atEndDo;
         this._manualProfileActivation = event._manualProfileActivation;
-        this._fkProfileStartWhenActivated = event._fkProfileStartWhenActivated;
+        this._startWhenActivatedProfile = event._startWhenActivatedProfile;
         this._delayEnd = event._delayEnd;
         this._isInDelayEnd = event._isInDelayEnd;
         this._startStatusTime = event._startStatusTime;
@@ -479,7 +479,7 @@ class Event {
         editor.putString(PREF_EVENT_DELAY_START, Integer.toString(this._delayStart));
         editor.putString(PREF_EVENT_AT_END_DO, Integer.toString(this._atEndDo));
         editor.putBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, this._manualProfileActivation);
-        editor.putString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, Long.toString(this._fkProfileStartWhenActivated));
+        editor.putString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, this._startWhenActivatedProfile);
         editor.putString(PREF_EVENT_DELAY_END, Integer.toString(this._delayEnd));
         editor.putBoolean(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, this._noPauseByManualActivation);
         this._eventPreferencesTime.loadSharedPreferences(preferences);
@@ -516,7 +516,7 @@ class Event {
         this._priority = Integer.parseInt(preferences.getString(PREF_EVENT_PRIORITY, Integer.toString(EPRIORITY_MEDIUM)));
         this._atEndDo = Integer.parseInt(preferences.getString(PREF_EVENT_AT_END_DO, Integer.toString(EATENDDO_RESTART_EVENTS)));
         this._manualProfileActivation = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
-        this._fkProfileStartWhenActivated = Long.parseLong(preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, Long.toString(Profile.PROFILE_NO_ACTIVATE)));
+        this._startWhenActivatedProfile = preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, "");
         this._noPauseByManualActivation = preferences.getBoolean(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, false);
 
         String sDelayStart = preferences.getString(PREF_EVENT_DELAY_START, "0");
@@ -566,8 +566,7 @@ class Event {
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
         }
-        if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END)||
-                key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
+        if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END))
         {
             ProfilePreference preference = (ProfilePreference)prefMng.findPreference(key);
             if (preference != null) {
@@ -580,9 +579,13 @@ class Event {
                 preference.setSummary(lProfileId);
                 if (key.equals(PREF_EVENT_PROFILE_START))
                     GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
-                if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE)) {
-                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, lProfileId != Profile.PROFILE_NO_ACTIVATE, false, false, false);
-                }
+            }
+        }
+        if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
+        {
+            ProfileMultiSelectPreference preference = (ProfileMultiSelectPreference)prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, !value.isEmpty(), false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_SOUND))
@@ -681,15 +684,15 @@ class Event {
             boolean notificationVibrateChanged;
             boolean notificationRepeatChanged;
 
-            long fkProfileStartWhenActivated;
+            String startWhenActivatedProfile;
             int delayStart;
             int delayEnd;
 
             if (preferences == null) {
                 //forceRunChanged = this._forceRun;
                 manualProfileActivationChanged = this._manualProfileActivation;
-                profileStartWhenActivatedChanged = this._fkProfileStartWhenActivated != Profile.PROFILE_NO_ACTIVATE;
-                fkProfileStartWhenActivated = this._fkProfileStartWhenActivated;
+                profileStartWhenActivatedChanged = !this._startWhenActivatedProfile.isEmpty();
+                startWhenActivatedProfile = this._startWhenActivatedProfile;
                 delayStartChanged = this._delayStart != 0;
                 delayEndChanged = this._delayEnd != 0;
                 delayStart = this._delayStart;
@@ -701,8 +704,8 @@ class Event {
             else {
                 //forceRunChanged = preferences.getBoolean(PREF_EVENT_FORCE_RUN, false);
                 manualProfileActivationChanged = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
-                fkProfileStartWhenActivated = Long.parseLong(preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
-                profileStartWhenActivatedChanged = fkProfileStartWhenActivated != Profile.PROFILE_NO_ACTIVATE;
+                startWhenActivatedProfile = preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, "");
+                profileStartWhenActivatedChanged = !startWhenActivatedProfile.isEmpty();
                 delayStartChanged = !preferences.getString(PREF_EVENT_DELAY_START, "0").equals("0");
                 delayEndChanged = !preferences.getString(PREF_EVENT_DELAY_END, "0").equals("0");
                 delayStart = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_START, "0"));
@@ -731,11 +734,18 @@ class Event {
                     }
                     if (profileStartWhenActivatedChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_eventStartWhenActivatedProfile);
+                        summary = summary + context.getString(R.string.event_preferences_eventStartWhenActivatedProfile) + ": ";
                         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
-                        Profile profile = dataWrapper.getProfileById(fkProfileStartWhenActivated, false, false, false);
-                        if (profile != null)
-                            summary = summary + ": " + profile._name;
+                        String[] splits = startWhenActivatedProfile.split("\\|");
+                        Profile profile;
+                        if (splits.length == 1) {
+                            profile = dataWrapper.getProfileById(Long.valueOf(startWhenActivatedProfile), false, false, false);
+                            if (profile != null)
+                                summary = summary + profile._name;
+                        }
+                        else {
+                            summary = summary + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length;
+                        }
                     }
                     if (delayStartChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
@@ -1064,12 +1074,22 @@ class Event {
         }
 
         // check activated profile
-        if (_fkProfileStartWhenActivated > 0) {
+        if (!_startWhenActivatedProfile.isEmpty()) {
             Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-            if ((activatedProfile != null) && (activatedProfile._id != _fkProfileStartWhenActivated))
-                // if activated profile is not _fkProfileStartWhenActivated,
-                // no start event
-                return;
+            if (activatedProfile != null) {
+                boolean found = false;
+                String[] splits = _startWhenActivatedProfile.split("\\|");
+                for (String split : splits) {
+                    if (activatedProfile._id == Long.valueOf(split)) {
+                        // if activated profile is not _fkProfileStartWhenActivated,
+                        // no start event
+                        found = true;
+                        break;
+                    }
+                }
+                if (found)
+                    return;
+            }
         }
 
         // search for running event with higher priority

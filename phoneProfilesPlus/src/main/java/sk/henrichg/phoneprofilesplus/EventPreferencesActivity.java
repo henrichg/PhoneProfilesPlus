@@ -247,7 +247,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                         origEvent._isInDelayStart,
                         origEvent._atEndDo,
                         origEvent._manualProfileActivation,
-                        origEvent._fkProfileStartWhenActivated,
+                        origEvent._startWhenActivatedProfile,
                         origEvent._delayEnd,
                         origEvent._isInDelayEnd,
                         origEvent._startStatusTime,

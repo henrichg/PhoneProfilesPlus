@@ -46,18 +46,12 @@ public class ProfileMultiSelectPreference extends DialogPreference {
     {
         super(context, attrs);
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ProfilePreference);
-
         value = "";
         prefContext = context;
-        //preferenceTitle = getTitle();
 
         dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
 
-        setWidgetLayoutResource(R.layout.profile_preference); // resource na layout custom preference - TextView-ImageView
-
-        typedArray.recycle();
-
+        setWidgetLayoutResource(R.layout.profile_multiselect_preference);
     }
 
     protected void showDialog(Bundle state) {
@@ -79,17 +73,19 @@ public class ProfileMultiSelectPreference extends DialogPreference {
             public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                 if (shouldPersist())
                 {
-                    // fill with application strings separated with |
+                    // fill with profile id strings separated with |
                     value = "";
                     if (dataWrapper.profileList != null)
                     {
                         for (Profile profile : dataWrapper.profileList)
                         {
-                            if (!value.isEmpty())
-                                value = value + "|";
-                            value = value + profile._id;
-                            PPApplication.logE("ProfileMutiSelectPreference.onPositive","value="+value);
+                            if (profile._checked) {
+                                if (!value.isEmpty())
+                                    value = value + "|";
+                                value = value + profile._id;
+                            }
                         }
+                        PPApplication.logE("ProfileMutiSelectPreference.onPositive","value="+value);
                     }
 
                     persistString(value);
@@ -250,11 +246,13 @@ public class ProfileMultiSelectPreference extends DialogPreference {
         for (Profile profile : dataWrapper.profileList)
             profile._checked = false;
 
-        String[] splits = value.split("\\|");
-        for (String split : splits) {
-            Profile profile = dataWrapper.getProfileById(Long.parseLong(split), true, false, false);
-            if (profile != null)
-                profile._checked = true;
+        if (!value.isEmpty()) {
+            String[] splits = value.split("\\|");
+            for (String split : splits) {
+                Profile profile = dataWrapper.getProfileById(Long.parseLong(split), false, false, false);
+                if (profile != null)
+                    profile._checked = true;
+            }
         }
     }
 
@@ -265,7 +263,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
             String[] splits = value.split("\\|");
             prefSummary = prefContext.getString(R.string.profile_multiselect_summary_text_selected) + ": " + splits.length;
             if (splits.length == 1) {
-                Profile profile = dataWrapper.getProfileById(Long.parseLong(value), true, false, false);
+                Profile profile = dataWrapper.getProfileById(Long.parseLong(value), false, false, false);
                 if (profile != null)
                 {
                     prefSummary = profile._name;
@@ -276,9 +274,8 @@ public class ProfileMultiSelectPreference extends DialogPreference {
     }
 
     private void setIcons() {
-        String[] splits = value.split("\\|");
-
         if (!value.isEmpty() && !value.equals("-")) {
+            String[] splits = value.split("\\|");
             if (splits.length == 1) {
                 profileIcon.setVisibility(View.VISIBLE);
                 profileIcon1.setImageResource(R.drawable.ic_empty);

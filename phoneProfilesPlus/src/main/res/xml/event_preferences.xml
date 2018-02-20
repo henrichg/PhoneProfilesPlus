@@ -69,13 +69,11 @@
             android:key="eventStartOthersCategory"
             android:widgetLayout="@layout/start_activity_preference"
             android:layout="@layout/mp_preference_material_widget" >
-            <sk.henrichg.phoneprofilesplus.ProfilePreference
-                android:defaultValue="0"
+            <sk.henrichg.phoneprofilesplus.ProfileMultiSelectPreference
+                android:defaultValue="@string/empty_string"
                 android:key="eventStartWhenActivatedProfile"
                 android:title="@string/event_preferences_eventStartWhenActivatedProfile"
-                android:layout="@layout/mp_preference_material_widget"
-                henrichg:addNoActivateItem="1"
-                henrichg:noActivateAsDoNotApply="1" />
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="manualProfileActivation"
                 android:title="@string/event_preferences_manualProfileActivation"

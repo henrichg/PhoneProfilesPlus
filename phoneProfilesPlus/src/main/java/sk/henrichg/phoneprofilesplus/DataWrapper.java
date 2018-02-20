@@ -516,6 +516,19 @@ public class DataWrapper {
                     event._fkProfileStart = 0;
                 if (event._fkProfileEnd == profile._id)
                     event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
+
+                String oldFkProfiles = event._startWhenActivatedProfile;
+                String[] splits = oldFkProfiles.split("\\|");
+                String newFkProfiles = "";
+                for (String split : splits) {
+                    long fkProfile = Long.valueOf(split);
+                    if (fkProfile != profile._id) {
+                        if (!newFkProfiles.isEmpty())
+                            newFkProfiles = newFkProfiles + "|";
+                        newFkProfiles = newFkProfiles + split;
+                    }
+                }
+                event._startWhenActivatedProfile = newFkProfiles;
             }
         }
         // unlink profile from Background profile
@@ -541,6 +554,7 @@ public class DataWrapper {
                 Event event = it.next();
                 event._fkProfileStart = 0;
                 event._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
+                event._startWhenActivatedProfile = "";
             }
         }
         // unlink profiles from Background profile
@@ -960,7 +974,7 @@ public class DataWrapper {
                 false,
                 Event.EATENDDO_RESTART_EVENTS,
                 false,
-                Profile.PROFILE_NO_ACTIVATE,
+                "",
                 0,
                 false,
                 0,
