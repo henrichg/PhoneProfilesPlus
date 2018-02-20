@@ -1721,6 +1721,7 @@ public class DataWrapper {
             {
                 if (event._eventPreferencesCall._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE)
                 {
+                    PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "search in gropus");
                     // find phone number in groups
                     String[] splits = event._eventPreferencesCall._contactGroups.split("\\|");
                     for (String split : splits) {
@@ -1758,9 +1759,11 @@ public class DataWrapper {
                     }
 
                     if (!phoneNumberFound) {
+                        PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "search in contacts");
                         // find phone number in contacts
                         splits = event._eventPreferencesCall._contacts.split("\\|");
                         for (String split : splits) {
+                            //PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "split="+split);
                             String[] splits2 = split.split("#");
 
                             // get phone number from contacts
@@ -1777,6 +1780,7 @@ public class DataWrapper {
                                     if (phones != null) {
                                         while (phones.moveToNext()) {
                                             String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                            PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "_phoneNumber="+_phoneNumber);
                                             if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
                                                 phoneNumberFound = true;
                                                 break;
@@ -1883,6 +1887,8 @@ public class DataWrapper {
             }
             else
                 callPassed = false;
+
+            PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "callPassed="+callPassed);
 
             if (!callPassed) {
                 event._eventPreferencesCall._startTime = 0;

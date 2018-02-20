@@ -1081,13 +1081,12 @@ class Event {
                 String[] splits = _startWhenActivatedProfile.split("\\|");
                 for (String split : splits) {
                     if (activatedProfile._id == Long.valueOf(split)) {
-                        // if activated profile is not _fkProfileStartWhenActivated,
-                        // no start event
                         found = true;
                         break;
                     }
                 }
-                if (found)
+                if (!found)
+                    // if activated profile is not _startWhenActivatedProfile, not start event
                     return;
             }
         }
