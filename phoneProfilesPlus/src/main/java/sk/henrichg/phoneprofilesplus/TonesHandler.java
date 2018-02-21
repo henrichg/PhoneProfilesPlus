@@ -128,9 +128,13 @@ class TonesHandler {
     }
 
     private static boolean _installTone(int resID, int type, String title, Context context) {
-        // Make sure the shared storage is currently writable
-        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
+        try {
+            // Make sure the shared storage is currently writable
+            if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
+                return false;
+        } catch (Exception e) {
             return false;
+        }
 
         String directory;
         boolean isRingtone = false;
