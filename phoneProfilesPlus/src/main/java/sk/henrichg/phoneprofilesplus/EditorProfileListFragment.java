@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class EditorProfileListFragment extends Fragment
     private ImageView activeProfileIcon;
     private Toolbar bottomToolbar;
     TextView textViewNoData;
+    LinearLayout progressBar;
 
     private EditorProfileListAdapter profileListAdapter;
     private ItemTouchHelper itemTouchHelper;
@@ -181,6 +183,7 @@ public class EditorProfileListFragment extends Fragment
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
         textViewNoData = view.findViewById(R.id.editor_profiles_list_empty);
+        progressBar = view.findViewById(R.id.editor_profiles_list_linla_progress);
 
         final Activity activity = getActivity();
         final EditorProfileListFragment fragment = this;
@@ -251,6 +254,19 @@ public class EditorProfileListFragment extends Fragment
         }
 
         @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+            EditorProfileListFragment fragment = this.fragmentWeakRef.get();
+
+            if ((fragment != null) && (fragment.isAdded())) {
+                fragment.textViewNoData.setVisibility(View.GONE);
+                fragment.progressBar.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
             if (_dataWrapper.profileList.size() == 0)
@@ -279,6 +295,7 @@ public class EditorProfileListFragment extends Fragment
             EditorProfileListFragment fragment = fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
+                fragment.progressBar.setVisibility(View.GONE);
 
                 // get local profileList
                 _dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));

@@ -44,6 +44,7 @@ public class EditorEventListFragment extends Fragment
     RecyclerView listView;
     private Toolbar bottomToolbar;
     TextView textViewNoData;
+    LinearLayout progressBar;
 
     private EditorEventListAdapter eventListAdapter;
     private ItemTouchHelper itemTouchHelper;
@@ -180,6 +181,7 @@ public class EditorEventListFragment extends Fragment
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
         textViewNoData = view.findViewById(R.id.editor_events_list_empty);
+        progressBar = view.findViewById(R.id.editor_events_list_linla_progress);
 
         /*
         View footerView =  ((LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
@@ -249,6 +251,19 @@ public class EditorEventListFragment extends Fragment
         }
 
         @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+            EditorEventListFragment fragment = this.fragmentWeakRef.get();
+
+            if ((fragment != null) && (fragment.isAdded())) {
+                fragment.textViewNoData.setVisibility(View.GONE);
+                fragment.progressBar.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
             _dataWrapper.fillEventList();
@@ -268,6 +283,8 @@ public class EditorEventListFragment extends Fragment
             EditorEventListFragment fragment = fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
+                fragment.progressBar.setVisibility(View.GONE);
+
                 // get local profileList
                 _dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
                 // set local profile list into activity dataWrapper
