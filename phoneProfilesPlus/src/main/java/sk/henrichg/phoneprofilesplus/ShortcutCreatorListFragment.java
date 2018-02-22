@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class ShortcutCreatorListFragment extends Fragment {
     private ShortcutProfileListAdapter profileListAdapter;
     private ListView listView;
     TextView textViewNoData;
+    LinearLayout progressBar;
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 
@@ -68,6 +70,7 @@ public class ShortcutCreatorListFragment extends Fragment {
     {
         listView = view.findViewById(R.id.shortcut_profiles_list);
         textViewNoData = view.findViewById(R.id.shortcut_profiles_list_empty);
+        progressBar = view.findViewById(R.id.shortcut_profiles_list_linla_progress);
 
         listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -112,6 +115,19 @@ public class ShortcutCreatorListFragment extends Fragment {
         }
 
         @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+            ShortcutCreatorListFragment fragment = this.fragmentWeakRef.get();
+
+            if ((fragment != null) && (fragment.isAdded())) {
+                fragment.textViewNoData.setVisibility(View.GONE);
+                fragment.progressBar.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
         protected Void doInBackground(Void... params) {
             this.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationActivatorPrefIndicator(this.dataWrapper.context));
             Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
@@ -131,6 +147,7 @@ public class ShortcutCreatorListFragment extends Fragment {
             ShortcutCreatorListFragment fragment = this.fragmentWeakRef.get(); 
             
             if ((fragment != null) && (fragment.isAdded())) {
+                fragment.progressBar.setVisibility(View.GONE);
 
                 // get local profileList
                 this.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationActivatorPrefIndicator(this.dataWrapper.context));
