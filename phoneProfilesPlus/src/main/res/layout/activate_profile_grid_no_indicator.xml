@@ -67,6 +67,14 @@
             android:scrollbarStyle="outsideOverlay"
             android:drawSelectorOnTop="true" />
 
+        <TextView
+            android:id="@+id/act_prof_list_empty"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/profile_list_empty"
+            android:gravity="center"
+            android:textSize="15sp" />
+
     </FrameLayout>
 
 </LinearLayout>

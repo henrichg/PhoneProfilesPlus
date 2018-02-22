@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
@@ -28,6 +29,7 @@ public class ShortcutCreatorListFragment extends Fragment {
     private DataWrapper activityDataWrapper;
     private ShortcutProfileListAdapter profileListAdapter;
     private ListView listView;
+    TextView textViewNoData;
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 
@@ -65,6 +67,7 @@ public class ShortcutCreatorListFragment extends Fragment {
     private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
         listView = view.findViewById(R.id.shortcut_profiles_list);
+        textViewNoData = view.findViewById(R.id.shortcut_profiles_list_empty);
 
         listView.setOnItemClickListener(new OnItemClickListener() {
 

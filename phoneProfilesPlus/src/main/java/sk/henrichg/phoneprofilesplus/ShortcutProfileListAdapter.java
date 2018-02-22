@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +9,10 @@ import android.widget.TextView;
 
 class ShortcutProfileListAdapter extends BaseAdapter {
 
-    private Fragment fragment;
+    private ShortcutCreatorListFragment fragment;
     private DataWrapper activityDataWrapper;
 
-    ShortcutProfileListAdapter(Fragment f, DataWrapper dataWrapper)
+    ShortcutProfileListAdapter(ShortcutCreatorListFragment f, DataWrapper dataWrapper)
     {
         fragment = f;
         activityDataWrapper = dataWrapper;
@@ -26,6 +25,11 @@ class ShortcutProfileListAdapter extends BaseAdapter {
     }
 
     public int getCount() {
+        fragment.textViewNoData.setVisibility(
+                (((activityDataWrapper.profileList != null) &&
+                        (activityDataWrapper.profileList.size() > 0))
+                ) ? View.GONE : View.VISIBLE);
+
         return activityDataWrapper.profileList.size();
     }
 

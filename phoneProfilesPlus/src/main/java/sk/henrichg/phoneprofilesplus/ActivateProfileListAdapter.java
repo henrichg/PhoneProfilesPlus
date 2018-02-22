@@ -36,6 +36,11 @@ class ActivateProfileListAdapter extends BaseAdapter
 
     public int getCount()
     {
+        fragment.textViewNoData.setVisibility(
+                (((activityDataWrapper.profileList != null) &&
+                        (activityDataWrapper.profileList.size() > 0))
+                ) ? View.GONE : View.VISIBLE);
+
         int count = 0;
         for (Profile profile : activityDataWrapper.profileList)
         {

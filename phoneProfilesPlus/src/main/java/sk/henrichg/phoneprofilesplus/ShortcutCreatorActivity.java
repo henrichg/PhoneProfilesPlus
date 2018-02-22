@@ -64,8 +64,12 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
 
         // add list items height
         int profileCount = DatabaseHandler.getInstance(getApplicationContext()).getProfilesCount(false, getApplicationContext()) + 1; // profiles count + "Restart events"
-        popupHeight = popupHeight + (60f * scale * profileCount); // item
-        popupHeight = popupHeight + (1f * scale * (profileCount-1)); // divider
+        if (profileCount > 0) {
+            popupHeight = popupHeight + (60f * scale * profileCount); // item
+            popupHeight = popupHeight + (1f * scale * (profileCount - 1)); // divider
+        }
+        else
+            popupHeight = popupHeight + 60f * scale; // for empty TextView
 
         popupHeight = popupHeight + (20f * scale); // listview padding
 

@@ -107,26 +107,27 @@ public class ActivateProfileActivity extends AppCompatActivity {
         int profileCount = DatabaseHandler.getInstance(getApplicationContext()).getProfilesCount(true, getApplicationContext());
         dataWrapper.invalidateDataWrapper();
 
-        if (!ApplicationPreferences.applicationActivatorGridLayout(getApplicationContext()))
-        {
-            // add list items height
-            popupHeight = popupHeight + (60f * scale * profileCount); // item
-            popupHeight = popupHeight + (1f * scale * (profileCount)); // divider
+        if (profileCount > 0) {
+            if (!ApplicationPreferences.applicationActivatorGridLayout(getApplicationContext())) {
+                // add list items height
+                popupHeight = popupHeight + (60f * scale * profileCount); // item
+                popupHeight = popupHeight + (1f * scale * (profileCount)); // divider
 
-            popupHeight = popupHeight + (20f * scale); // listView padding
+                popupHeight = popupHeight + (20f * scale); // listView padding
+            } else {
+                // add grid items height
+                int modulo = profileCount % 3;
+                profileCount = profileCount / 3;
+                if (modulo > 0)
+                    ++profileCount;
+                popupHeight = popupHeight + (85f * scale * profileCount); // item
+                popupHeight = popupHeight + (1f * scale * (profileCount - 1)); // divider
+
+                popupHeight = popupHeight + (24f * scale); // gridView margin
+            }
         }
         else
-        {
-            // add grid items height
-            int modulo = profileCount % 3;
-            profileCount = profileCount / 3;
-            if (modulo > 0)
-                ++profileCount;
-            popupHeight = popupHeight + (85f * scale * profileCount); // item
-            popupHeight = popupHeight + (1f * scale * (profileCount-1)); // divider
-
-            popupHeight = popupHeight + (24f * scale); // gridView margin
-        }
+            popupHeight = popupHeight + 60f * scale; // for empty TextView
 
         if (popupHeight > popupMaxHeight)
             popupHeight = popupMaxHeight;
