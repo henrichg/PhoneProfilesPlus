@@ -69,7 +69,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
     static void setDelayAlarm(Context context, int startApplicationDelay, String runApplicationData)
     {
-        removeDelayAlarm(context);
+        //removeDelayAlarm(context);
 
         if (startApplicationDelay > 0)
         {
@@ -85,7 +85,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             Intent intent = new Intent(context, RunApplicationWithDelayBroadcastReceiver.class);
             intent.putExtra(EXTRA_RUN_APPLICATION_DATA, runApplicationData);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(),
+                    PPApplication.requestCodeForAlarm.nextInt(), intent, 0);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
             if (alarmManager != null) {
@@ -101,6 +102,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         }
     }
 
+    /*
     static private void removeDelayAlarm(Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
@@ -116,5 +118,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             }
         }
     }
+    */
 
 }

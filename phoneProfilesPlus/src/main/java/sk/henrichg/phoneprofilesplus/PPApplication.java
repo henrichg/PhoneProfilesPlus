@@ -42,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -155,6 +156,8 @@ public class PPApplication extends Application {
 
                                          //+"|BatteryBroadcastReceiver.onReceive"
                                          //+"|PowerSaveModeBroadcastReceiver.onReceive"
+
+                                         +"|RunApplicationWithDelayBroadcastReceiver"
             ;
 
 
@@ -298,6 +301,8 @@ public class PPApplication extends Application {
     // this refresh GUI, must by called from GUI thread no IntentService, Job
     public static final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver();
     public static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
+
+    public static Random requestCodeForAlarm = new Random();
 
     @Override
     public void onCreate()
