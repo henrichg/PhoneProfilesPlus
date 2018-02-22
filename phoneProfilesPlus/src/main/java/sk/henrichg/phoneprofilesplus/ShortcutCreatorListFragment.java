@@ -115,6 +115,12 @@ public class ShortcutCreatorListFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             this.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationActivatorPrefIndicator(this.dataWrapper.context));
             Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
+
+            // add restart events
+            Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events),
+                    "ic_action_events_restart_color", 0);
+            this.dataWrapper.profileList.add(0, profile);
+
             return null;
         }
 
@@ -128,11 +134,6 @@ public class ShortcutCreatorListFragment extends Fragment {
 
                 // get local profileList
                 this.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationActivatorPrefIndicator(this.dataWrapper.context));
-
-                // add restart events
-                Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events),
-                                            "ic_action_events_restart_color", 0);
-                this.dataWrapper.profileList.add(0, profile);
 
                 // set copy local profile list into activity profilesDataWrapper
                 fragment.activityDataWrapper.setProfileList(this.dataWrapper.profileList);
