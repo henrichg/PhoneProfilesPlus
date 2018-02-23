@@ -28,7 +28,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     private int grantType;
     private List<Permissions.PermissionType> permissions;
-    private long profile_id;
     private boolean mergedProfile;
     private boolean onlyNotification;
     private boolean mergedNotification;
@@ -71,7 +70,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             mergedNotification = true;
         }
 
-        profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+        long profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
         mergedProfile = intent.getBooleanExtra(Permissions.EXTRA_MERGED_PROFILE, false);
         //forGUI = intent.getBooleanExtra(Permissions.EXTRA_FOR_GUI, false);
         //monochrome = intent.getBooleanExtra(Permissions.EXTRA_MONOCHROME, false);

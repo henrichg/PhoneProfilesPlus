@@ -11,7 +11,7 @@ import java.util.List;
 
 class ProfileMultiSelectPreferenceAdapter extends BaseAdapter {
 
-    final List<Profile> profileList;
+    private final List<Profile> profileList;
 
     private final Context context;
 

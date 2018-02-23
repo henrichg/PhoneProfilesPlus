@@ -2278,8 +2278,6 @@ public class PhoneProfilesService extends Service
 
         if ((intent == null) || (!intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false))) {
             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "before start of handler");
-            final boolean _onlyStart = onlyStart;
-            final boolean _startOnBoot = startOnBoot;
             PPApplication.startHandlerThread();
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {

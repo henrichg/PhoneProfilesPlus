@@ -44,7 +44,7 @@ public class EditorEventListFragment extends Fragment
     RecyclerView listView;
     private Toolbar bottomToolbar;
     TextView textViewNoData;
-    LinearLayout progressBar;
+    private LinearLayout progressBar;
 
     private EditorEventListAdapter eventListAdapter;
     private ItemTouchHelper itemTouchHelper;

@@ -50,7 +50,7 @@ import io.fabric.sdk.android.Fabric;
 
 public class PPApplication extends Application {
 
-    static String romManufacturer = getROMManufacturer();
+    static final String romManufacturer = getROMManufacturer();
     static String PACKAGE_NAME;
 
     static final boolean newExtender = true;
@@ -302,7 +302,7 @@ public class PPApplication extends Application {
     public static final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver();
     public static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
 
-    public static Random requestCodeForAlarm = new Random();
+    public static final Random requestCodeForAlarm = new Random();
 
     @Override
     public void onCreate()
@@ -859,7 +859,7 @@ public class PPApplication extends Application {
      * @return true if SELinux set to enforcing, or false in the case of
      *         permissive or not present
      */
-    public static boolean isSELinuxEnforcing()
+    /*public static boolean isSELinuxEnforcing()
     {
         RootShell.debugMode = rootToolsDebug;
 
@@ -886,14 +886,6 @@ public class PPApplication extends Application {
                         } catch (Exception ignored) {
                         }
                     }
-
-                    /*
-                    // 4.4+ builds are enforcing by default, take the gamble
-                    if (!enforcing)
-                    {
-                        enforcing = (android.os.Build.VERSION.SDK_INT >= 19);
-                    }
-                    */
                 //}
 
                 isSELinuxEnforcing = enforcing;
@@ -904,7 +896,7 @@ public class PPApplication extends Application {
         PPApplication.logE("PPApplication.isSELinuxEnforcing", "isSELinuxEnforcing="+isSELinuxEnforcing);
         
         return isSELinuxEnforcing;
-    }
+    }*/
 
     /*
     public static String getSELinuxEnforceCommand(String command, Shell.ShellContext context)

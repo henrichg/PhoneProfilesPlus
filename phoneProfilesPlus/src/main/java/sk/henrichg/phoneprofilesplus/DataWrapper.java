@@ -519,16 +519,16 @@ public class DataWrapper {
 
                 String oldFkProfiles = event._startWhenActivatedProfile;
                 String[] splits = oldFkProfiles.split("\\|");
-                String newFkProfiles = "";
+                StringBuilder newFkProfiles = new StringBuilder();
                 for (String split : splits) {
                     long fkProfile = Long.valueOf(split);
                     if (fkProfile != profile._id) {
-                        if (!newFkProfiles.isEmpty())
-                            newFkProfiles = newFkProfiles + "|";
-                        newFkProfiles = newFkProfiles + split;
+                        if (newFkProfiles.length() > 0)
+                            newFkProfiles.append("|");
+                        newFkProfiles.append(split);
                     }
                 }
-                event._startWhenActivatedProfile = newFkProfiles;
+                event._startWhenActivatedProfile = newFkProfiles.toString();
             }
         }
         // unlink profile from Background profile

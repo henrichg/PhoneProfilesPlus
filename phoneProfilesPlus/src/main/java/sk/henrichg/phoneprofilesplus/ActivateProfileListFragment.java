@@ -32,7 +32,7 @@ public class ActivateProfileListFragment extends Fragment {
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
     TextView textViewNoData;
-    LinearLayout progressBar;
+    private LinearLayout progressBar;
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 

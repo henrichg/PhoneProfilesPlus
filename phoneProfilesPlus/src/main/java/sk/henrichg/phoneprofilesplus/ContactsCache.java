@@ -101,6 +101,7 @@ class ContactsCache {
             return null;
     }
 
+    /*
     Contact getContact(int position)
     {
         if (cached)
@@ -108,6 +109,7 @@ class ContactsCache {
         else
             return null;
     }
+    */
 
     /*
     public long getContactId(int position)

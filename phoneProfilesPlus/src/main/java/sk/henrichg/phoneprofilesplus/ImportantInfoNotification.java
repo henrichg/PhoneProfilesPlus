@@ -70,6 +70,7 @@ class ImportantInfoNotification {
         }
 
         if (news3670) {
+            //noinspection RedundantIfStatement
             if ((extenderVersion > 0) || ((applicationSensorsCount == 0) && (orientationSensorsCount == 0)))
                 news = false; // Extender is installed or not needed
             else {

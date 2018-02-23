@@ -2701,16 +2701,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             values = new ContentValues();
                             String oldFkProfiles = cursor.getString(cursor.getColumnIndex(KEY_E_START_WHEN_ACTIVATED_PROFILE));
                             splits = oldFkProfiles.split("\\|");
-                            String newFkProfiles = "";
+                            StringBuilder newFkProfiles = new StringBuilder();
                             for (String split : splits) {
                                 long fkProfile = Long.valueOf(split);
                                 if (fkProfile != profile._id) {
-                                   if (!newFkProfiles.isEmpty())
-                                       newFkProfiles = newFkProfiles + "|";
-                                   newFkProfiles = newFkProfiles + split;
+                                   if (newFkProfiles.length() > 0)
+                                       newFkProfiles.append("|");
+                                   newFkProfiles.append(split);
                                 }
                             }
-                            values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(newFkProfiles));
+                            values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(newFkProfiles.toString()));
                             db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
                         } while (cursor.moveToNext());
                     }
@@ -3726,16 +3726,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             values = new ContentValues();
                             String oldFkProfiles = cursor.getString(cursor.getColumnIndex(KEY_E_START_WHEN_ACTIVATED_PROFILE));
                             String[] splits = oldFkProfiles.split("\\|");
-                            String newFkProfiles = "";
+                            StringBuilder newFkProfiles = new StringBuilder();
                             for (String split : splits) {
                                 long fkProfile = Long.valueOf(split);
                                 if (fkProfile != profile._id) {
-                                    if (!newFkProfiles.isEmpty())
-                                        newFkProfiles = newFkProfiles + "|";
-                                    newFkProfiles = newFkProfiles + split;
+                                    if (newFkProfiles.length() > 0)
+                                        newFkProfiles.append("|");
+                                    newFkProfiles.append(split);
                                 }
                             }
-                            values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(newFkProfiles));
+                            values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(newFkProfiles.toString()));
                             db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
                         } while (cursor.moveToNext());
                     }
@@ -7775,17 +7775,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                             String fkProfiles = cursorExportedDB.getString(i);
                                                             if (!fkProfiles.isEmpty()) {
                                                                 String[] splits = fkProfiles.split("\\|");
-                                                                String newFkProfiles = "";
+                                                                StringBuilder newFkProfiles = new StringBuilder();
                                                                 for (String split : splits) {
                                                                     long fkProfile = Long.valueOf(split);
                                                                     int profileIdx = exportedDBEventProfileIds.indexOf(fkProfile);
                                                                     if (profileIdx != -1) {
-                                                                        if (!newFkProfiles.isEmpty())
-                                                                            newFkProfiles = newFkProfiles + "|";
-                                                                        newFkProfiles = newFkProfiles + importDBEventProfileIds.get(profileIdx);
+                                                                        if (newFkProfiles.length() > 0)
+                                                                            newFkProfiles.append("|");
+                                                                        newFkProfiles.append(importDBEventProfileIds.get(profileIdx));
                                                                     }
                                                                 }
-                                                                values.put(columnNamesExportedDB[i], newFkProfiles);
+                                                                values.put(columnNamesExportedDB[i], newFkProfiles.toString());
                                                             }
                                                             else
                                                                 values.put(columnNamesExportedDB[i], "");

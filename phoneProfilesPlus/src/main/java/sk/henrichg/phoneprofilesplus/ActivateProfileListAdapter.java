@@ -42,10 +42,11 @@ class ActivateProfileListAdapter extends BaseAdapter
                 ) ? View.GONE : View.VISIBLE);
 
         int count = 0;
-        for (Profile profile : activityDataWrapper.profileList)
-        {
-            if (profile._showInActivator)
-                ++count;
+        if (activityDataWrapper.profileList != null) {
+            for (Profile profile : activityDataWrapper.profileList) {
+                if (profile._showInActivator)
+                    ++count;
+            }
         }
         return count;
     }

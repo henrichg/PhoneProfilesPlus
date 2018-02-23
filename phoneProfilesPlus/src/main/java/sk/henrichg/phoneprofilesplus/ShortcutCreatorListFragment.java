@@ -31,7 +31,7 @@ public class ShortcutCreatorListFragment extends Fragment {
     private ShortcutProfileListAdapter profileListAdapter;
     private ListView listView;
     TextView textViewNoData;
-    LinearLayout progressBar;
+    private LinearLayout progressBar;
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 
