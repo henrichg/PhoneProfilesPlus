@@ -15,8 +15,6 @@ public class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("##### RefreshGUIBroadcastReceiver.onReceive", "xxx");
         CallsCounter.logCounter(context, "RefreshGUIBroadcastReceiver.onReceive", "RefreshGUIBroadcastReceiver_onReceive");
 
-        LocalBroadcastManager.getInstance(context.getApplicationContext()).unregisterReceiver(PPApplication.refreshGUIBroadcastReceiver);
-
         boolean refreshIcons = intent.getBooleanExtra(EXTRA_REFRESH_ICONS, false);
         boolean refreshAlsoEditor = intent.getBooleanExtra(EXTRA_REFRESH_ALSO_EDITOR, true);
 

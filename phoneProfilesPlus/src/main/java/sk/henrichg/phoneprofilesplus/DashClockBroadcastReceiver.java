@@ -16,8 +16,6 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
 
         CallsCounter.logCounter(context, "DashClockBroadcastReceiver.onReceive", "DashClockBroadcastReceiver_onReceive");
 
-        LocalBroadcastManager.getInstance(context.getApplicationContext()).unregisterReceiver(PPApplication.dashClockBroadcastReceiver);
-
         //DashClockJob.start(context.getApplicationContext());
         //final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThread();

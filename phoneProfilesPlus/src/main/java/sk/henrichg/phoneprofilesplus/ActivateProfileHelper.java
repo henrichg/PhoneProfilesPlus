@@ -2220,12 +2220,10 @@ class ActivateProfileHelper {
         } catch (Exception ignored) {}
 
         // dash clock extension
-        LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.dashClockBroadcastReceiver, new IntentFilter("DashClockBroadcastReceiver"));
         Intent intent3 = new Intent("DashClockBroadcastReceiver");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         // activities
-        LocalBroadcastManager.getInstance(context).registerReceiver(PPApplication.refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
         Intent intent5 = new Intent("RefreshGUIBroadcastReceiver");
         intent5.putExtra(RefreshGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
