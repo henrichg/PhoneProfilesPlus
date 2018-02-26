@@ -431,7 +431,7 @@
   <string name="important_info_events">Události</string>
   <string name="important_info_system">Systém</string>
   <string name="important_info_profile_root">Některé parametry profilu vyžadují práva ROOT. Tyto parametry jsou označeny jako \"(R)\".</string>
-  <string name="event_preferences_eventStartWhenActivatedProfile">[#] Spustit pouze pokud je activ. profil</string>
+  <string name="event_preferences_eventStartWhenActivatedProfile">[#] Spustit pouze pokud je aktivován profil</string>
   <string name="profile_preference_do_not_apply">Neaplikovat</string>
   <string name="pref_dlg_info_about_wildcards_1">Můžete použít zástupné znaky: \"%\"=nějaké znaky, \"_\"=libovolný jeden znak.</string>
   <string name="pref_dlg_info_about_wildcards_2">Pokud máte \"%\", nebo \"_\"</string>
@@ -1121,6 +1121,16 @@
   <string name="donation_thanks_dialog">Děkuji za darování.\nOpravdu si toho vážím.</string>
   <string name="donation_google_android_market_not_supported">Platby z aplikací nejsou podporovány. Jste si jistý, že je Obchod Google Play správně nainstalován?</string>
   <string name="donation_google_error">Chyba.</string>
+  <string name="button_close">Zavřít</string>
+  <string name="fast_access_duration_activate_without_button_2">Aktivovat bez trvání</string>
+  <string name="profileicon_pref_dlg_customIconButton">Vlastní ikona</string>
+  <string name="mobile_cells_registration_cell_name_hint">Klepnutím nastavíte název buňky</string>
+  <string name="profile_preferences_deviceWiFiAPInfo_summary">Nemusí pracovat připojení do přístupového bodu z jiných zařízení.</string>
+  <string name="array_event_pref_battery_charging_not_use">Nepoužij</string>
+  <string name="array_event_pref_battery_charging_start_when_charging">Start při nabíjení</string>
+  <string name="array_event_pref_battery_charging_stop_when_charging">Zastavení při nabíjení</string>
+  <string name="profile_multiselect_summary_text_selected">Vybrané</string>
+  <string name="profile_multiselect_summary_text_not_selected">Nevybrané</string>
   <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
   <!--
     <string name="notification_channel_activated_profile">Activated profile</string>
@@ -1141,9 +1151,9 @@
   <!--<string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and interruption types with vibration.</string>-->
   <!--<string name="info_notification_unlink_ringer_notification_volumes2">If your device does not have separate volumes for ringtone and notifications, keep volume separation enabled.</string>-->
   <!--<string name="event_preferences_orientation_AccessibilitySettings_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
-  <!--<string name="donation_button_close">Close</string>-->
   <!--<string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>-->
   <!--<string name="donation_thanks_dialog_title">Thank you</string>-->
   <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->
   <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
+  <!--<string name="imageview_resource_file_pref_dialog_gallery_btn">Custom&#8230;</string>-->
 </resources>

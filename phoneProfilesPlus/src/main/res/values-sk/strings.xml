@@ -431,7 +431,7 @@
   <string name="important_info_events">Udalosti</string>
   <string name="important_info_system">Systém</string>
   <string name="important_info_profile_root">Niektoré parametre profilu vyžadujú práva ROOT. Tieto parametre sú označená ako \"(R)\".</string>
-  <string name="event_preferences_eventStartWhenActivatedProfile">[#] Spusti len ak je aktivovaný profil</string>
+  <string name="event_preferences_eventStartWhenActivatedProfile">[#] Spustiť len ak je aktivovaný profil</string>
   <string name="profile_preference_do_not_apply">Neaplikovať</string>
   <string name="pref_dlg_info_about_wildcards_1">Môžete použiť zástupné znaky: \"%\"=nejaké znaky, \"_\"=nejaký jeden znak.</string>
   <string name="pref_dlg_info_about_wildcards_2">Ak máte \"%\" alebo \"_\"</string>
@@ -960,8 +960,8 @@
   <string name="action_for_external_application_notification_title">Podpora externých apl. (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">Parameter profile_name chýba alebo je prázdny.</string>
   <string name="action_for_external_application_notification_no_event_text">Parameter event_name chýba alebo je prázdny.</string>
-  <string name="array_pref_wifiModeArray_on_ignoreHotspot">Zapnúť (ignorovať hotspot)</string>
-  <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Prepnúť stav (ignorovať hotspot)</string>
+  <string name="array_pref_wifiModeArray_on_ignoreHotspot">Zapnúť (ignorovať prístupový bod)</string>
+  <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Prepnúť stav (ignorovať prístupový bod)</string>
   <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Detekcie zlúčenia hlasitosti</string>
   <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Zariadenie nemá zlúčenú hlasitosť zvonenia a notifikácií.</string>
   <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
@@ -1121,6 +1121,16 @@
   <string name="donation_thanks_dialog">Ďakujem za darovanie.\nNaozaj si to vážim.</string>
   <string name="donation_google_android_market_not_supported">Platby z aplikácií nie sú podporované. Ste si istý, že je Obchod Play správne nainštalovaný?</string>
   <string name="donation_google_error">Chyba.</string>
+  <string name="button_close">Zatvoriť</string>
+  <string name="fast_access_duration_activate_without_button_2">Aktivovať bez trvania</string>
+  <string name="profileicon_pref_dlg_customIconButton">Vlastná ikona</string>
+  <string name="mobile_cells_registration_cell_name_hint">Kliknite pre nastavenie názvu bunky</string>
+  <string name="profile_preferences_deviceWiFiAPInfo_summary">Nemusí pracovať pripojenie do prístupového bodu z iných zariadení.</string>
+  <string name="array_event_pref_battery_charging_not_use">Nepouži</string>
+  <string name="array_event_pref_battery_charging_start_when_charging">Štart pri nabíjaní</string>
+  <string name="array_event_pref_battery_charging_stop_when_charging">Zastavenie pri nabíjaní</string>
+  <string name="profile_multiselect_summary_text_selected">Vybraté</string>
+  <string name="profile_multiselect_summary_text_not_selected">Nevybraté</string>
   <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
   <!--
     <string name="notification_channel_activated_profile">Activated profile</string>
@@ -1141,9 +1151,9 @@
   <!--<string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">In Android 6 this system setting can be changed only on rooted devices. Affected are ringer modes and interruption types with vibration.</string>-->
   <!--<string name="info_notification_unlink_ringer_notification_volumes2">If your device does not have separate volumes for ringtone and notifications, keep volume separation enabled.</string>-->
   <!--<string name="event_preferences_orientation_AccessibilitySettings_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlus \"Accessibility\" in system settings.</string>-->
-  <!--<string name="donation_button_close">Close</string>-->
   <!--<string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>-->
   <!--<string name="donation_thanks_dialog_title">Thank you</string>-->
   <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->
   <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
+  <!--<string name="imageview_resource_file_pref_dialog_gallery_btn">Custom&#8230;</string>-->
 </resources>
