@@ -18,6 +18,7 @@ Required external libs
 - Google Play services library (GMS): location, maps
 - Google Billing library: donations
 - RootTools - https://github.com/Stericson/RootTools
+- android-hidden-api - https://github.com/anggrayudi/android-hidden-api 
 - DashClock API - https://github.com/romannurik/dashclock/wiki/API
 - SystemBarTint - https://github.com/jgilfelt/SystemBarTint
 - google-gson - https://code.google.com/p/google-gson/
