@@ -2698,20 +2698,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Cursor cursor = db.rawQuery(selectQuery, null);
                     if (cursor.moveToFirst()) {
                         do {
-                            values = new ContentValues();
                             String oldFkProfiles = cursor.getString(cursor.getColumnIndex(KEY_E_START_WHEN_ACTIVATED_PROFILE));
-                            splits = oldFkProfiles.split("\\|");
-                            StringBuilder newFkProfiles = new StringBuilder();
-                            for (String split : splits) {
-                                long fkProfile = Long.valueOf(split);
-                                if (fkProfile != profile._id) {
-                                   if (newFkProfiles.length() > 0)
-                                       newFkProfiles.append("|");
-                                   newFkProfiles.append(split);
+                            if (!oldFkProfiles.isEmpty()) {
+                                splits = oldFkProfiles.split("\\|");
+                                StringBuilder newFkProfiles = new StringBuilder();
+                                for (String split : splits) {
+                                    long fkProfile = Long.valueOf(split);
+                                    if (fkProfile != profile._id) {
+                                        if (newFkProfiles.length() > 0)
+                                            newFkProfiles.append("|");
+                                        newFkProfiles.append(split);
+                                    }
                                 }
+                                values = new ContentValues();
+                                values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(newFkProfiles.toString()));
+                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
                             }
-                            values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(newFkProfiles.toString()));
-                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
                         } while (cursor.moveToNext());
                     }
                     cursor.close();
@@ -3723,20 +3725,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Cursor cursor = db.rawQuery(selectQuery, null);
                     if (cursor.moveToFirst()) {
                         do {
-                            values = new ContentValues();
                             String oldFkProfiles = cursor.getString(cursor.getColumnIndex(KEY_E_START_WHEN_ACTIVATED_PROFILE));
-                            String[] splits = oldFkProfiles.split("\\|");
-                            StringBuilder newFkProfiles = new StringBuilder();
-                            for (String split : splits) {
-                                long fkProfile = Long.valueOf(split);
-                                if (fkProfile != profile._id) {
-                                    if (newFkProfiles.length() > 0)
-                                        newFkProfiles.append("|");
-                                    newFkProfiles.append(split);
+                            if (!oldFkProfiles.isEmpty()) {
+                                String[] splits = oldFkProfiles.split("\\|");
+                                StringBuilder newFkProfiles = new StringBuilder();
+                                for (String split : splits) {
+                                    long fkProfile = Long.valueOf(split);
+                                    if (fkProfile != profile._id) {
+                                        if (newFkProfiles.length() > 0)
+                                            newFkProfiles.append("|");
+                                        newFkProfiles.append(split);
+                                    }
                                 }
+                                values = new ContentValues();
+                                values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(newFkProfiles.toString()));
+                                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
                             }
-                            values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(newFkProfiles.toString()));
-                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
                         } while (cursor.moveToNext());
                     }
                     cursor.close();
