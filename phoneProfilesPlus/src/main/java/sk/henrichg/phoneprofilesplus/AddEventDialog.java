@@ -1,10 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -17,29 +22,17 @@ class AddEventDialog
     final EditorEventListFragment eventListFragment;
 
     final MaterialDialog mDialog;
+    final Context context;
+
+    private final LinearLayout linlaProgress;
+    private final RelativeLayout rellaData;
+    private final ListView listView;
+    private final TextView help;
 
     AddEventDialog(Context context, EditorEventListFragment eventListFragment)
     {
         this.eventListFragment = eventListFragment;
-
-        List<Event> eventList = new ArrayList<>();
-
-        //boolean monochrome = false;
-        //int monochromeValue = 0xFF;
-
-        Event event;
-        event = eventListFragment.activityDataWrapper.getNonInitializedEvent(context.getResources().getString(R.string.event_name_default), 0);
-        //event.generatePreferencesIndicator(context, monochrome, monochromeValue);
-        eventList.add(event);
-        boolean profileNotExists = false;
-        for (int index = 0; index < 6; index++) {
-            event = eventListFragment.activityDataWrapper.getPredefinedEvent(index, false);
-            //profile.generateIconBitmap(context, monochrome, monochromeValue);
-            //profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
-            if (event._fkProfileStart == 0)
-                profileNotExists = true;
-            eventList.add(event);
-        }
+        this.context = context;
 
         MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                            .title(R.string.new_event_predefined_events_dialog)
@@ -48,17 +41,25 @@ class AddEventDialog
                             .autoDismiss(true)
                             .customView(R.layout.activity_event_pref_dialog, false);
 
+        dialogBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                AddEventDialog.this.onShow(/*dialog*/);
+            }
+        });
+
         mDialog = dialogBuilder.build();
+        View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions
-        ListView listView = mDialog.getCustomView().findViewById(R.id.event_pref_dlg_listview);
+        linlaProgress = layout.findViewById(R.id.event_pref_dlg_linla_progress);
         //noinspection ConstantConditions
-        TextView help = mDialog.getCustomView().findViewById(R.id.event_pref_dlg_help);
-        if (!profileNotExists)
-            help.setVisibility(View.GONE);
+        rellaData = layout.findViewById(R.id.event_pref_dlg_rella_data);
 
-        AddEventAdapter addEventAdapter = new AddEventAdapter(this, context, eventList);
-        listView.setAdapter(addEventAdapter);
+        //noinspection ConstantConditions
+        listView = layout.findViewById(R.id.event_pref_dlg_listview);
+        //noinspection ConstantConditions
+        help = layout.findViewById(R.id.event_pref_dlg_help);
 
         listView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -67,6 +68,54 @@ class AddEventDialog
 
         });
 
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void onShow(/*DialogInterface dialog*/) {
+        new AsyncTask<Void, Integer, Void>() {
+
+            List<Event> eventList = new ArrayList<>();
+            boolean profileNotExists = false;
+
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+                rellaData.setVisibility(View.GONE);
+                linlaProgress.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                Event event;
+                event = eventListFragment.activityDataWrapper.getNonInitializedEvent(context.getResources().getString(R.string.event_name_default), 0);
+                eventList.add(event);
+                for (int index = 0; index < 6; index++) {
+                    event = eventListFragment.activityDataWrapper.getPredefinedEvent(index, false);
+                    if (event._fkProfileStart == 0)
+                        profileNotExists = true;
+                    eventList.add(event);
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+
+                rellaData.setVisibility(View.VISIBLE);
+                linlaProgress.setVisibility(View.GONE);
+
+                if (!profileNotExists)
+                    help.setVisibility(View.GONE);
+
+                AddEventAdapter addEventAdapter = new AddEventAdapter(AddEventDialog.this, context, eventList);
+                listView.setAdapter(addEventAdapter);
+            }
+
+        }.execute();
     }
 
     private void doOnItemSelected(int position)

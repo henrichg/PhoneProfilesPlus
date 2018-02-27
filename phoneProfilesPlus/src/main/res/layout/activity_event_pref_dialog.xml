@@ -1,26 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/event_pref_dlg_help"
+    <LinearLayout
+        android:id="@+id/event_pref_dlg_linla_progress"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_alignParentBottom="true"
-        android:textColor="#ffff0000"
-        android:text="@string/event_pref_dialog_help"/>
-
-    <ListView
-        android:id="@+id/event_pref_dlg_listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/event_pref_dlg_help"
-        android:padding="5dp"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:clipToPadding="false"
-        android:choiceMode="singleChoice"
-        android:scrollbarStyle="outsideOverlay" />
+        android:orientation="vertical"
+        android:visibility="gone" >
 
-</RelativeLayout>
+        <ProgressBar
+            android:id="@+id/event_pref_dlg_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/event_pref_dlg_rella_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/event_pref_dlg_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_alignParentBottom="true"
+            android:textColor="#ffff0000"
+            android:text="@string/event_pref_dialog_help"/>
+
+        <ListView
+            android:id="@+id/event_pref_dlg_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/event_pref_dlg_help"
+            android:padding="5dp"
+            android:gravity="center"
+            android:clipToPadding="false"
+            android:choiceMode="singleChoice"
+            android:scrollbarStyle="outsideOverlay" />
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -23,7 +23,7 @@ class AddProfileDialog
     final MaterialDialog mDialog;
     final Context context;
 
-    private LinearLayout linlaProgress;
+    private final LinearLayout linlaProgress;
     private final ListView listView;
 
     AddProfileDialog(Context context, EditorProfileListFragment profileListFragment)
