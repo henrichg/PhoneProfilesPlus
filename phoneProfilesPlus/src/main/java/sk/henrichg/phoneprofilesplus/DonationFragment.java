@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsResponseListener;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.PurchaseEvent;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 import sk.henrichg.phoneprofilesplus.billing.BillingProvider;
@@ -160,9 +166,55 @@ public class DonationFragment extends Fragment {
                 });
     }
 
-    public void purchaseSuccessfull() {
+    public void purchaseSuccessful(List<Purchase> purchases) {
+        if (purchases != null) {
+            for (Purchase purchase : purchases) {
+                String sku = purchase.getSku();
+                for (SkuDetails skuDetail : SKU_DETAILS) {
+                    if (skuDetail.getSku().equals(sku)) {
+                        Log.e("DonationFragment.purchaseSuccessful", "sku=" + sku);
+                        Log.e("DonationFragment.purchaseSuccessful", "currency=" + skuDetail.getPriceCurrencyCode());
+                        Log.e("DonationFragment.purchaseSuccessful", "priceS=" + skuDetail.getPrice());
+                        Log.e("DonationFragment.purchaseSuccessful", "priceMicros=" + skuDetail.getPriceAmountMicros());
+                        Log.e("DonationFragment.purchaseSuccessful", "price=" + skuDetail.getPriceAmountMicros() / 1000000);
+                        Answers.getInstance().logPurchase(new PurchaseEvent()
+                                .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000))
+                                .putCurrency(Currency.getInstance(skuDetail.getPriceCurrencyCode()))
+                                .putItemName("Donation")
+                                //.putItemType("Apparel")
+                                .putItemId(sku)
+                                .putSuccess(true));
+                    }
+                }
+            }
+        }
+
         if (getActivity() != null)
             Toast.makeText(getActivity().getApplicationContext(), getString(R.string.donation_thanks_dialog), Toast.LENGTH_LONG).show();
+    }
+
+    public void purchaseUnsuccessful(List<Purchase> purchases) {
+        if (purchases != null) {
+            for (Purchase purchase : purchases) {
+                String sku = purchase.getSku();
+                for (SkuDetails skuDetail : SKU_DETAILS) {
+                    if (skuDetail.getSku().equals(sku)) {
+                        Log.e("DonationFragment.purchaseUnsuccessful", "sku=" + sku);
+                        Log.e("DonationFragment.purchaseUnsuccessful", "currency=" + skuDetail.getPriceCurrencyCode());
+                        Log.e("DonationFragment.purchaseUnsuccessful", "priceS=" + skuDetail.getPrice());
+                        Log.e("DonationFragment.purchaseUnsuccessful", "priceMicros=" + skuDetail.getPriceAmountMicros());
+                        Log.e("DonationFragment.purchaseUnsuccessful", "price=" + skuDetail.getPriceAmountMicros() / 1000000);
+                        Answers.getInstance().logPurchase(new PurchaseEvent()
+                                .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000))
+                                .putCurrency(Currency.getInstance(skuDetail.getPriceCurrencyCode()))
+                                .putItemName("Donation")
+                                //.putItemType("Apparel")
+                                .putItemId(sku)
+                                .putSuccess(false));
+                    }
+                }
+            }
+        }
     }
 
     public void displayAnErrorIfNeeded(int response) {
