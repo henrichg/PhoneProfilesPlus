@@ -2321,15 +2321,12 @@ public class PhoneProfilesService extends Service
 
                     PPApplication.initRoot();
                     // grant root
-                    //if (PPApplication.isRooted(false))
-                    //{
                     if (PPApplication.isRootGranted())
                     {
                         PPApplication.settingsBinaryExists();
                         PPApplication.serviceBinaryExists();
                         //PPApplication.getSUVersion();
                     }
-                    //}
                     PPApplication.getServicesList();
                     /*
                     Object serviceManager = PPApplication.getServiceManager("wifi");
