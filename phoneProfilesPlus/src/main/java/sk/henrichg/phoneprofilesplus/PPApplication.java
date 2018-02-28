@@ -748,14 +748,14 @@ public class PPApplication extends Application {
             } else {
                 PPApplication.logE("PPApplication._isRooted", "root NOT available");
                 rooted = false;
-                settingsBinaryExists = false;
-                settingsBinaryChecked = false;
+                //settingsBinaryExists = false;
+                //settingsBinaryChecked = false;
                 //isSELinuxEnforcingChecked = false;
                 //isSELinuxEnforcing = false;
                 //suVersionChecked = false;
                 //suVersion = null;
-                serviceBinaryExists = false;
-                serviceBinaryChecked = false;
+                //serviceBinaryExists = false;
+                //serviceBinaryChecked = false;
             }
             rootChecked = true;
         } catch (Exception e) {
