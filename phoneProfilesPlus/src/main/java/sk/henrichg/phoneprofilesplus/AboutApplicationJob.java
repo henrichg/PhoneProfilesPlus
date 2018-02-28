@@ -41,8 +41,10 @@ class AboutApplicationJob extends Job {
         PPApplication.logE("AboutApplicationJob.onRunJob", "daysAfterFirstStart="+daysAfterFirstStart);
         int donationNotificationCount = PPApplication.getDonationNotificationCount(context);
         PPApplication.logE("AboutApplicationJob.onRunJob", "donationNotificationCount="+donationNotificationCount);
+        boolean donationDonated = PPApplication.getDonationDonated(context);
+        PPApplication.logE("AboutApplicationJob.onRunJob", "donationDonated="+donationDonated);
 
-        if (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT) {
+        if (!donationDonated && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)) {
             int daysForOneNotification = 7;
             switch (donationNotificationCount) {
                 case 1:
@@ -88,7 +90,7 @@ class AboutApplicationJob extends Job {
 
             PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
 
-            scheduleJob(/*context*/false);
+            scheduleJob(context, false);
 
             /*
             try {
@@ -133,8 +135,13 @@ class AboutApplicationJob extends Job {
         }
     }
 
-    static void scheduleJob(/*final Context context*/final boolean useHandler) {
+    static void scheduleJob(final Context context, final boolean useHandler) {
         PPApplication.logE("AboutApplicationJob.scheduleJob", "xxx");
+
+        boolean donationDonated = PPApplication.getDonationDonated(context);
+        PPApplication.logE("AboutApplicationJob.scheduleJob", "donationDonated="+donationDonated);
+        if (donationDonated)
+            return;
 
         if (useHandler) {
             PPApplication.startHandlerThread();

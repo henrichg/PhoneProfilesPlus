@@ -189,8 +189,10 @@ public class DonationFragment extends Fragment {
             }
         }
 
-        if (getActivity() != null)
+        if (getActivity() != null) {
+            PPApplication.setDonationDonated(getActivity().getApplicationContext());
             Toast.makeText(getActivity().getApplicationContext(), getString(R.string.donation_thanks_dialog), Toast.LENGTH_LONG).show();
+        }
     }
 
     public void purchaseUnsuccessful(List<Purchase> purchases) {

@@ -237,7 +237,7 @@ public class PhoneProfilesService extends Service
 
         registerReceiversAndJobs();
 
-        AboutApplicationJob.scheduleJob(/*getApplicationContext()*/true);
+        AboutApplicationJob.scheduleJob(getApplicationContext(), true);
 
         ringingMediaPlayer = null;
         //notificationMediaPlayer = null;
