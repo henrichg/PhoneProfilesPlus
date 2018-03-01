@@ -511,6 +511,11 @@ class EventPreferencesTime extends EventPreferences {
         else
             PPApplication.logE("EventPreferencesTime.setAlarm","endTime="+result);
 
+        // not set alarm if alarmTime is over.
+        Calendar now = Calendar.getInstance();
+        if (now.getTimeInMillis() > (alarmTime +  + Event.EVENT_ALARM_TIME_OFFSET))
+            return;
+
         Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
 
         //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
