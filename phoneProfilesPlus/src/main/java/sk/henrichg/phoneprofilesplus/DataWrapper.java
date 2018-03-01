@@ -1297,6 +1297,7 @@ public class DataWrapper {
     void activateProfileFromMainThread(final Profile _profile, final boolean merged, final int startupSource,
                                     final Activity _activity)
     {
+        PPApplication.logE("DataWrapper.activateProfileFromMainThread", "start");
         final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
         synchronized (profileList) {
             dataWrapper.copyProfileList(this);
@@ -1311,7 +1312,6 @@ public class DataWrapper {
         handler.post(new Runnable() {
             @Override
             public void run() {
-
                 PowerManager powerManager = (PowerManager) _context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
@@ -1319,10 +1319,13 @@ public class DataWrapper {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
+                PPApplication.logE("DataWrapper.activateProfileFromMainThread", "start in handler");
                 dataWrapper._activateProfile(_profile, merged, startupSource);
+                PPApplication.logE("DataWrapper.activateProfileFromMainThread", "end in handler");
 
                 if ((wakeLock != null) && wakeLock.isHeld())
                     wakeLock.release();
+
             }
         });
 

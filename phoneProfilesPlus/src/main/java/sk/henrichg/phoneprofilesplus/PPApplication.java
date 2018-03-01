@@ -71,6 +71,8 @@ public class PPApplication extends Application {
 
                                          //+"|GrantPermissionActivity"
 
+                                         +"|DataWrapper.activateProfileFromMainThread"
+
                                          //+"|$$$ DataWrapper._activateProfile"
                                          //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
                                          //+"|DataWrapper.activateProfileAfterDuration"
