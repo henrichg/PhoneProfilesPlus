@@ -393,7 +393,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
         // not set alarm if alarmTime is over.
         Calendar now = Calendar.getInstance();
-        if (now.getTimeInMillis() > (alarmTime +  + Event.EVENT_ALARM_TIME_OFFSET))
+        if (now.getTimeInMillis() > (alarmTime + Event.EVENT_ALARM_TIME_OFFSET))
             return;
 
         Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
