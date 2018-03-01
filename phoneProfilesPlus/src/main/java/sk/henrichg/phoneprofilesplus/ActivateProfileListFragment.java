@@ -238,7 +238,7 @@ public class ActivateProfileListFragment extends Fragment {
                 // get local profileList
                 this.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context));
                 // set copy local profile list into activity profilesDataWrapper
-                fragment.activityDataWrapper.setProfileList(this.dataWrapper.profileList);
+                fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
 
                 if (fragment.activityDataWrapper.profileList.size() == 0)
                 {

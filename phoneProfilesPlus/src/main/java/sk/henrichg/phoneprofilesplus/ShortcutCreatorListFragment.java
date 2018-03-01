@@ -153,7 +153,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                 this.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationActivatorPrefIndicator(this.dataWrapper.context));
 
                 // set copy local profile list into activity profilesDataWrapper
-                fragment.activityDataWrapper.setProfileList(this.dataWrapper.profileList);
+                fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
 
                 fragment.profileListAdapter = new ShortcutProfileListAdapter(fragment, fragment.activityDataWrapper);
                 fragment.listView.setAdapter(fragment.profileListAdapter);

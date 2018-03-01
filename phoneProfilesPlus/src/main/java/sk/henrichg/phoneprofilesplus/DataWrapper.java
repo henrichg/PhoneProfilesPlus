@@ -102,13 +102,27 @@ public class DataWrapper {
         return newProfileList;
     }
 
-    void setProfileList(List<Profile> _profileList/*, boolean recycleBitmaps*/)
+    void setProfileList(List<Profile> sourceProfileList)
     {
         synchronized (profileList) {
             if (profileListFilled)
                 profileList.clear();
-            profileList.addAll(_profileList);
+            profileList.addAll(sourceProfileList);
             profileListFilled = true;
+        }
+    }
+
+    void copyProfileList(DataWrapper fromDataWrapper)
+    {
+        synchronized (profileList) {
+            if (profileListFilled) {
+                profileList.clear();
+                profileListFilled = false;
+            }
+            if (fromDataWrapper.profileListFilled) {
+                profileList.addAll(fromDataWrapper.profileList);
+                profileListFilled = true;
+            }
         }
     }
 
@@ -592,12 +606,27 @@ public class DataWrapper {
         }
     }
 
-    void setEventList(List<Event> _eventList) {
+    /*
+    void setEventList(List<Event> sourceEventList) {
         synchronized (eventList) {
             if (eventListFilled)
                 eventList.clear();
-            eventList.addAll(_eventList);
+            eventList.addAll(sourceEventList);
             eventListFilled = true;
+        }
+    }
+    */
+
+    void copyEventList(DataWrapper fromDataWrapper) {
+        synchronized (eventList) {
+            if (eventListFilled) {
+                eventList.clear();
+                eventListFilled = false;
+            }
+            if (fromDataWrapper.eventListFilled) {
+                eventList.addAll(fromDataWrapper.eventList);
+                eventListFilled = true;
+            }
         }
     }
 
@@ -699,10 +728,10 @@ public class DataWrapper {
     void stopEventsForProfileFromMainThread(final Profile profile, final boolean alsoUnlink) {
         final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
         synchronized (profileList) {
-            dataWrapper.setProfileList(profileList);
+            dataWrapper.copyProfileList(this);
         }
         synchronized (eventList) {
-            dataWrapper.setEventList(eventList);
+            dataWrapper.copyEventList(this);
         }
 
         final Context _context = context;
@@ -733,16 +762,20 @@ public class DataWrapper {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
         synchronized (eventList) {
+            PPApplication.logE("DataWrapper.pauseAllEvents", "eventListFilled="+eventListFilled);
             fillEventList();
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
                 Event event = it.next();
                 if (event != null) {
                     int status = event.getStatusFromDB(this);
+                    PPApplication.logE("DataWrapper.pauseAllEvents", "event._name=" + event._name);
+                    PPApplication.logE("DataWrapper.pauseAllEvents", "status=" + status);
 
                     if (status == Event.ESTATUS_RUNNING) {
-                        if (!(event._forceRun && event._noPauseByManualActivation))
+                        if (!(event._forceRun && event._noPauseByManualActivation)) {
                             event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, true, null, false);
+                        }
                     }
 
                     setEventBlocked(event, false);
@@ -768,17 +801,16 @@ public class DataWrapper {
         }
 
         // blockEvents == true -> manual profile activation is set
-        PPApplication.logE("$$$ setEventsBlocked", "DataWrapper.pauseAllEvents, " + blockEvents);
         Event.setEventsBlocked(context, blockEvents);
     }
 
     private void pauseAllEventsFromMainThread(final boolean noSetSystemEvent, final boolean blockEvents) {
         final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
         synchronized (profileList) {
-            dataWrapper.setProfileList(profileList);
+            dataWrapper.copyProfileList(this);
         }
         synchronized (eventList) {
-            dataWrapper.setEventList(eventList);
+            dataWrapper.copyEventList(this);
         }
 
         final Context _context = context;
@@ -832,10 +864,10 @@ public class DataWrapper {
     void stopAllEventsFromMainThread(final boolean saveEventStatus, final boolean alsoDelete) {
         final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
         synchronized (profileList) {
-            dataWrapper.setProfileList(profileList);
+            dataWrapper.copyProfileList(this);
         }
         synchronized (eventList) {
-            dataWrapper.setEventList(eventList);
+            dataWrapper.copyEventList(this);
         }
 
         final Context _context = context;
@@ -1267,10 +1299,10 @@ public class DataWrapper {
     {
         final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
         synchronized (profileList) {
-            dataWrapper.setProfileList(profileList);
+            dataWrapper.copyProfileList(this);
         }
         synchronized (eventList) {
-            dataWrapper.setEventList(eventList);
+            dataWrapper.copyEventList(this);
         }
 
         final Context _context = context;

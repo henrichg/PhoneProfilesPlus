@@ -288,12 +288,12 @@ public class EditorEventListFragment extends Fragment
                 // get local profileList
                 _dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
                 // set local profile list into activity dataWrapper
-                fragment.activityDataWrapper.setProfileList(_dataWrapper.profileList);
+                fragment.activityDataWrapper.copyProfileList(_dataWrapper);
 
                 // get local eventList
                 _dataWrapper.fillEventList();
                 // set local event list into activity dataWrapper
-                fragment.activityDataWrapper.setEventList(_dataWrapper.eventList);
+                fragment.activityDataWrapper.copyEventList(_dataWrapper);
 
                 fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 

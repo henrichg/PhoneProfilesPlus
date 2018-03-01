@@ -300,7 +300,7 @@ public class EditorProfileListFragment extends Fragment
                 // get local profileList
                 _dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
                 // set local profile list into activity dataWrapper
-                fragment.activityDataWrapper.setProfileList(_dataWrapper.profileList);
+                fragment.activityDataWrapper.copyProfileList(_dataWrapper);
 
                 fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 
