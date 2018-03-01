@@ -163,14 +163,19 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 if (!json.isEmpty()) {
                     BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
 
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices","device.name="+device.getName());
-                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices","device.address="+device.getAddress());
-                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "device.timestamp="+sdf.format(device.timestamp));
+                    if (PPApplication.logEnabled()) {
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "device.name=" + device.getName());
+                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "device.address=" + device.getAddress());
+                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "device.timestamp=" + sdf.format(device.timestamp));
+                    }
                     //long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime() - gmtOffset;
                     Calendar calendar = Calendar.getInstance();
                     long bootTime = calendar.getTimeInMillis() - SystemClock.elapsedRealtime() - gmtOffset;
-                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "bootTime="+sdf.format(bootTime));
+                    if (PPApplication.logEnabled()) {
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "bootTime=" + sdf.format(bootTime));
+                    }
 
                     if (device.timestamp >= bootTime) {
                         PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "added");
@@ -284,13 +289,18 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 if (onlyOld) {
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                     for (BluetoothDeviceData device : connectedDevices) {
-                        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices","device.name="+device.name);
-                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "device.timestamp="+sdf.format(device.timestamp));
+                        if (PPApplication.logEnabled()) {
+                            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "device.name=" + device.name);
+                            PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "device.timestamp=" + sdf.format(device.timestamp));
+                        }
                         //long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime() - gmtOffset;
                         Calendar calendar = Calendar.getInstance();
                         long bootTime = calendar.getTimeInMillis() - SystemClock.elapsedRealtime() - gmtOffset;
-                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "bootTime="+sdf.format(bootTime));
+                        if (PPApplication.logEnabled()) {
+                            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            PPApplication.logE("BluetoothConnectionBroadcastReceiver.clearConnectedDevices", "bootTime=" + sdf.format(bootTime));
+                        }
                         if (device.timestamp < bootTime)
                             connectedDevices.remove(device);
                     }

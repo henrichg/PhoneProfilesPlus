@@ -316,9 +316,11 @@ class EventPreferencesNFC extends EventPreferences {
     {
         if (!_permanentRun) {
             if (_startTime > 0) {
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(alarmTime);
-                PPApplication.logE("EventPreferencesNFC.setAlarm", "endTime=" + result);
+                if (PPApplication.logEnabled()) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    String result = sdf.format(alarmTime);
+                    PPApplication.logE("EventPreferencesNFC.setAlarm", "endTime=" + result);
+                }
 
                 Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);

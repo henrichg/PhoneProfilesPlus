@@ -316,10 +316,12 @@ class EventPreferencesCall extends EventPreferences {
     private void setAlarm(long alarmTime, Context context) {
         if (!_permanentRun) {
             if (_startTime > 0) {
-                @SuppressLint("SimpleDateFormat")
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(alarmTime);
-                PPApplication.logE("EventPreferencesSMS.setAlarm", "endTime=" + result);
+                if (PPApplication.logEnabled()) {
+                    @SuppressLint("SimpleDateFormat")
+                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    String result = sdf.format(alarmTime);
+                    PPApplication.logE("EventPreferencesSMS.setAlarm", "endTime=" + result);
+                }
 
                 Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);

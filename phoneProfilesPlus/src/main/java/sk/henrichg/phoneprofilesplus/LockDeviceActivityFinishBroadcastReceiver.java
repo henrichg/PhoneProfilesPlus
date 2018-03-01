@@ -49,9 +49,11 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         now.add(Calendar.SECOND, delay);
         long alarmTime = now.getTimeInMillis();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-        String result = sdf.format(alarmTime);
-        PPApplication.logE("LockDeviceActivityFinishBroadcastReceiver.setAlarm", "alarmTime=" + result);
+        if (PPApplication.logEnabled()) {
+            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            String result = sdf.format(alarmTime);
+            PPApplication.logE("LockDeviceActivityFinishBroadcastReceiver.setAlarm", "alarmTime=" + result);
+        }
 
         Intent intent = new Intent(context, LockDeviceActivityFinishBroadcastReceiver.class);
 

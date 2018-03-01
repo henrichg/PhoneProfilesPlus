@@ -54,9 +54,11 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
         now.add(Calendar.MINUTE, delay);
         long alarmTime = now.getTimeInMillis();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-        String result = sdf.format(alarmTime);
-        PPApplication.logE("GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
+        if (PPApplication.logEnabled()) {
+            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            String result = sdf.format(alarmTime);
+            PPApplication.logE("GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
+        }
 
         Intent intent = new Intent(context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
 

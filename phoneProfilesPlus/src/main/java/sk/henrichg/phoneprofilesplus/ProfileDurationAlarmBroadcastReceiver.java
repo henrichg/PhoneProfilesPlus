@@ -123,9 +123,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
             Profile.setActivatedProfileEndDurationTime(context, alarmTime);
 
-            //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            //String result = sdf.format(alarmTime);
-
             Intent intent = new Intent(context, ProfileDurationAlarmBroadcastReceiver.class);
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
 

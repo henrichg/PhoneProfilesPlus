@@ -1843,19 +1843,27 @@ public class DataWrapper {
                         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                         long startTime = event._eventPreferencesCall._startTime - gmtOffset;
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String alarmTimeS = sdf.format(startTime);
-                        PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "startTime=" + alarmTimeS);
+                        if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String alarmTimeS = sdf.format(startTime);
+                            PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "startTime=" + alarmTimeS);
+                        }
 
                         // compute end datetime
                         long endAlarmTime = event._eventPreferencesCall.computeAlarm();
-                        alarmTimeS = sdf.format(endAlarmTime);
-                        PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                        if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String alarmTimeS = sdf.format(endAlarmTime);
+                            PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                        }
 
                         Calendar now = Calendar.getInstance();
                         long nowAlarmTime = now.getTimeInMillis();
-                        alarmTimeS = sdf.format(nowAlarmTime);
-                        PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                        if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String alarmTimeS = sdf.format(nowAlarmTime);
+                            PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                        }
 
                         if (sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
                             //noinspection StatementWithEmptyBody
@@ -2446,19 +2454,27 @@ public class DataWrapper {
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                 long startTime = event._eventPreferencesSMS._startTime - gmtOffset;
 
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String alarmTimeS = sdf.format(startTime);
-                PPApplication.logE("DataWrapper.doHandleEvents", "startTime=" + alarmTimeS);
+                if (PPApplication.logEnabled()) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    String alarmTimeS = sdf.format(startTime);
+                    PPApplication.logE("DataWrapper.doHandleEvents", "startTime=" + alarmTimeS);
+                }
 
                 // compute end datetime
                 long endAlarmTime = event._eventPreferencesSMS.computeAlarm();
-                alarmTimeS = sdf.format(endAlarmTime);
-                PPApplication.logE("DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                if (PPApplication.logEnabled()) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    String alarmTimeS = sdf.format(endAlarmTime);
+                    PPApplication.logE("DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                }
 
                 Calendar now = Calendar.getInstance();
                 long nowAlarmTime = now.getTimeInMillis();
-                alarmTimeS = sdf.format(nowAlarmTime);
-                PPApplication.logE("DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                if (PPApplication.logEnabled()) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    String alarmTimeS = sdf.format(nowAlarmTime);
+                    PPApplication.logE("DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                }
 
                 if (sensorType.equals(EventsHandler.SENSOR_TYPE_SMS))
                     smsPassed = true;
@@ -2775,19 +2791,27 @@ public class DataWrapper {
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                 long startTime = event._eventPreferencesNFC._startTime - gmtOffset;
 
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String alarmTimeS = sdf.format(startTime);
-                PPApplication.logE("DataWrapper.doHandleEvents", "startTime=" + alarmTimeS);
+                if (PPApplication.logEnabled()) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    String alarmTimeS = sdf.format(startTime);
+                    PPApplication.logE("DataWrapper.doHandleEvents", "startTime=" + alarmTimeS);
+                }
 
                 // compute end datetime
                 long endAlarmTime = event._eventPreferencesNFC.computeAlarm();
-                alarmTimeS = sdf.format(endAlarmTime);
-                PPApplication.logE("DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                if (PPApplication.logEnabled()) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    String alarmTimeS = sdf.format(endAlarmTime);
+                    PPApplication.logE("DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                }
 
                 Calendar now = Calendar.getInstance();
                 long nowAlarmTime = now.getTimeInMillis();
-                alarmTimeS = sdf.format(nowAlarmTime);
-                PPApplication.logE("DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                if (PPApplication.logEnabled()) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    String alarmTimeS = sdf.format(nowAlarmTime);
+                    PPApplication.logE("DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                }
 
                 if (sensorType.equals(EventsHandler.SENSOR_TYPE_NFC_TAG))
                     nfcPassed = true;

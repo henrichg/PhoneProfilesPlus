@@ -68,11 +68,13 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (sbn.getPackageName().equals(context.getPackageName()))
             return;
 
-        PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-        String alarmTimeS = sdf.format(sbn.getPostTime());
-        PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            String alarmTimeS = sdf.format(sbn.getPostTime());
+            PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
+        }
 
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
         long time = sbn.getPostTime() + gmtOffset;

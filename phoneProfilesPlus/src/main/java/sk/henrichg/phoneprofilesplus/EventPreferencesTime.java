@@ -504,12 +504,14 @@ class EventPreferencesTime extends EventPreferences {
     @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(boolean startEvent, long alarmTime, Context context)
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-        String result = sdf.format(alarmTime);
-        if (startEvent)
-            PPApplication.logE("EventPreferencesTime.setAlarm","startTime="+result);
-        else
-            PPApplication.logE("EventPreferencesTime.setAlarm","endTime="+result);
+        if (PPApplication.logEnabled()) {
+            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            String result = sdf.format(alarmTime);
+            if (startEvent)
+                PPApplication.logE("EventPreferencesTime.setAlarm", "startTime=" + result);
+            else
+                PPApplication.logE("EventPreferencesTime.setAlarm", "endTime=" + result);
+        }
 
         // not set alarm if alarmTime is over.
         Calendar now = Calendar.getInstance();

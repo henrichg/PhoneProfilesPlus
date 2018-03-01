@@ -1601,9 +1601,11 @@ class Event {
             now.add(Calendar.SECOND, this._delayStart);
             long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayStart;
 
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String result = sdf.format(alarmTime);
-            PPApplication.logE("Event.setDelayStartAlarm","startTime="+result);
+            if (PPApplication.logEnabled()) {
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(alarmTime);
+                PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
+            }
 
             Intent intent = new Intent(dataWrapper.context, EventDelayStartBroadcastReceiver.class);
             //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
@@ -1723,9 +1725,11 @@ class Event {
             now.add(Calendar.SECOND, this._delayEnd);
             long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayEnd;
 
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String result = sdf.format(alarmTime);
-            PPApplication.logE("Event.setDelayEndAlarm","endTime="+result);
+            if (PPApplication.logEnabled()) {
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(alarmTime);
+                PPApplication.logE("Event.setDelayEndAlarm", "endTime=" + result);
+            }
 
             Intent intent = new Intent(dataWrapper.context, EventDelayEndBroadcastReceiver.class);
             //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);

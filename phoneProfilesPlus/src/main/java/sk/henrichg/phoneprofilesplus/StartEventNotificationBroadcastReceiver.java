@@ -74,9 +74,11 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             now.add(Calendar.SECOND, event._repeatNotificationInterval);
             long alarmTime = now.getTimeInMillis();
 
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String result = sdf.format(alarmTime);
-            PPApplication.logE("StartEventNotificationBroadcastReceiver.setAlarm", "alarmTime=" + result);
+            if (PPApplication.logEnabled()) {
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(alarmTime);
+                PPApplication.logE("StartEventNotificationBroadcastReceiver.setAlarm", "alarmTime=" + result);
+            }
 
             Intent intent = new Intent(context, StartEventNotificationBroadcastReceiver.class);
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);

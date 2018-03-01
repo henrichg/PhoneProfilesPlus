@@ -77,10 +77,12 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             now.add(Calendar.SECOND, startApplicationDelay);
             long alarmTime = now.getTimeInMillis();
 
-            @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String result = sdf.format(alarmTime);
-            PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.setDelayAlarm","startTime="+result);
+            if (PPApplication.logEnabled()) {
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(alarmTime);
+                PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "startTime=" + result);
+            }
 
             Intent intent = new Intent(context, RunApplicationWithDelayBroadcastReceiver.class);
             intent.putExtra(EXTRA_RUN_APPLICATION_DATA, runApplicationData);
