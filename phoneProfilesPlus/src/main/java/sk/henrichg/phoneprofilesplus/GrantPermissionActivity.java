@@ -89,14 +89,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
         else
             profile = Profile.getDefaultProfile(getApplicationContext());
         event = dataWrapper.getEventById(event_id);
-
-        //Log.e("GrantPermissionActivity", "onShow grantType="+grantType);
-        //Log.e("GrantPermissionActivity", "onShow permissions.size()="+permissions.size());
-        //Log.e("GrantPermissionActivity", "onShow onlyNotification="+onlyNotification);
-        //if (profile != null)
-        //    Log.e("GrantPermissionActivity", "onShow profile._name="+profile._name);
-        //if (event != null)
-        //    Log.e("GrantPermissionActivity", "onShow event._name="+event._name);
     }
 
     @Override
@@ -187,11 +179,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         boolean showRequestAccessCoarseLocation = false;
         boolean showRequestAccessFineLocation = false;
 
-        //Log.e("GrantPermissionActivity.onStart", "permissions.size="+permissions.size());
-
         for (Permissions.PermissionType permissionType : permissions) {
-            //Log.e("GrantPermissionActivity.onStart", "permissionType.permission="+permissionType.permission);
-
             if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS))
                 showRequestWriteSettings = Permissions.getShowRequestWriteSettingsPermission(context);
             if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY))
@@ -221,22 +209,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION))
                 showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION);
         }
-
-        /*
-        Log.e("GrantPermissionActivity.onStart", "showRequestWriteSettings="+showRequestWriteSettings);
-        Log.e("GrantPermissionActivity.onStart", "showRequestReadExternalStorage="+showRequestReadExternalStorage);
-        Log.e("GrantPermissionActivity.onStart", "showRequestReadPhoneState="+showRequestReadPhoneState);
-        Log.e("GrantPermissionActivity.onStart", "showRequestProcessOutgoingCalls="+showRequestProcessOutgoingCalls);
-        Log.e("GrantPermissionActivity.onStart", "showRequestWriteExternalStorage="+showRequestWriteExternalStorage);
-        Log.e("GrantPermissionActivity.onStart", "showRequestReadCalendar="+showRequestReadCalendar);
-        Log.e("GrantPermissionActivity.onStart", "showRequestReadContacts="+showRequestReadContacts);
-        Log.e("GrantPermissionActivity.onStart", "showRequestReceiveSMS="+showRequestReceiveSMS);
-        Log.e("GrantPermissionActivity.onStart", "showRequestReadSMS="+showRequestReadSMS);
-        Log.e("GrantPermissionActivity.onStart", "showRequestAccessCoarseLocation="+showRequestAccessCoarseLocation);
-        Log.e("GrantPermissionActivity.onStart", "showRequestAccessFineLocation="+showRequestAccessFineLocation);
-        Log.e("GrantPermissionActivity.onStart", "showRequestAccessNotificationPolicy="+showRequestAccessNotificationPolicy);
-        Log.e("GrantPermissionActivity.onStart", "showRequestDrawOverlays="+showRequestDrawOverlays);
-        */
 
         if (showRequestWriteSettings ||
                 showRequestReadExternalStorage ||
@@ -310,47 +282,38 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
 
                 if (showRequestWriteSettings) {
-                    //Log.e("GrantPermissionActivity", "onStart - showRequestWriteSettings");
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_write_settings) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReadExternalStorage || showRequestWriteExternalStorage) {
-                    //Log.e("GrantPermissionActivity", "onStart - showRequestReadExternalStorage");
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_storage) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReadPhoneState || showRequestProcessOutgoingCalls) {
-                    //Log.e("GrantPermissionActivity", "onStart - showRequestReadPhoneState");
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_phone) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReadCalendar) {
-                    //Log.e("GrantPermissionActivity", "onStart - showRequestReadCalendar");
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_calendar) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReadContacts) {
-                    //Log.e("GrantPermissionActivity", "onStart - showRequestReadContacts");
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_contacts) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReceiveSMS || showRequestReadSMS || showRequestReceiveMMS) {
-                    //Log.e("GrantPermissionActivity", "onStart - showRequestReceiveSMS");
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_sms) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestAccessCoarseLocation || showRequestAccessFineLocation) {
-                    //Log.e("GrantPermissionActivity", "onStart - showRequestReadCalendar");
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_location) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestAccessNotificationPolicy) {
-                    //Log.e("GrantPermissionActivity", "onStart - showRequestAccessNotificationPolicy");
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_access_notification_policy) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestDrawOverlays) {
-                    //Log.e("GrantPermissionActivity", "onStart - showRequestDrawOverlays");
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_draw_overalys) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
@@ -768,7 +731,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     (!permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) &&
                     (!permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) &&
                     (!permList.contains(permissionType.permission))) {
-                    //Log.e("GrantPermissionActivity", "requestPermissions - permission=" + permissionType.permission);
                     //if (ContextCompat.checkSelfPermission(getApplicationContext(), permissionType.permission) != PackageManager.PERMISSION_GRANTED)
                         permList.add(permissionType.permission);
                 }

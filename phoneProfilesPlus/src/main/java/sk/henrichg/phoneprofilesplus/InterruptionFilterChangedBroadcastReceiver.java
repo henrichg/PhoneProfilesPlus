@@ -54,7 +54,6 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                         }
                         PPApplication.logE(TAG, "onReceive(zenMode=" + zenMode + ')');
                         if (zenMode != 0) {
-                            //Log.e(TAG, "onInterruptionFilterChanged  new zenMode=" + zenMode);
                             ActivateProfileHelper.setRingerMode(context.getApplicationContext(), 5);
                             ActivateProfileHelper.setZenMode(context.getApplicationContext(), zenMode);
                         }
@@ -134,7 +133,6 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                         interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALARMS;
                         break;
                 }
-                //Log.e(TAG, "requestInterruptionFilter(" + interruptionFilter + ')');
                 NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
                 if (mNotificationManager != null)
                     mNotificationManager.setInterruptionFilter(interruptionFilter);

@@ -409,8 +409,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
                             app = packageManager.getApplicationInfo(splits[0], 0);
                             if (app != null)
                                 prefSummary = packageManager.getApplicationLabel(app).toString();
-                        } catch (Exception e) {
-                            //e.printStackTrace();
+                        } catch (Exception ignored) {
                         }
                     }
                     else {
@@ -468,7 +467,6 @@ public class ApplicationsDialogPreference  extends DialogPreference
                                 packageIcon.setImageResource(R.drawable.ic_empty);
                             }
                         } catch (Exception e) {
-                            //e.printStackTrace();
                             packageIcon.setImageResource(R.drawable.ic_empty);
                         }
                     } else {
@@ -513,7 +511,6 @@ public class ApplicationsDialogPreference  extends DialogPreference
                                         packIcon.setImageResource(R.drawable.ic_empty);
                                     }
                                 } catch (Exception e) {
-                                    //e.printStackTrace();
                                     packIcon.setImageResource(R.drawable.ic_empty);
                                 }
                             } else {

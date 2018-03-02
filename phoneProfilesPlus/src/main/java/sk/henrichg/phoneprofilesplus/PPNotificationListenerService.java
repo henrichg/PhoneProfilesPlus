@@ -164,10 +164,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
     // Android 5.0 Lollipop
 
     @Override public void onListenerConnected() {
-        //Log.e(TAG, "onListenerConnected()");
     }
     @Override public void onListenerHintsChanged(int hints) {
-        //Log.e(TAG, "onListenerHintsChanged(" + hints + ')');
     }
 
     @Override
@@ -206,7 +204,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 }
                 PPApplication.logE(TAG, "onInterruptionFilterChanged(zenMode=" + zenMode + ')');
                 if (zenMode != 0) {
-                    //Log.e(TAG, "onInterruptionFilterChanged  new zenMode=" + zenMode);
                     ActivateProfileHelper.setRingerMode(getApplicationContext(), 5);
                     ActivateProfileHelper.setZenMode(getApplicationContext(), zenMode);
                 }
@@ -261,34 +258,26 @@ public class PPNotificationListenerService extends NotificationListenerService {
         ContentResolver contentResolver = context.getContentResolver();
         String enabledNotificationListeners = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
         String className = PPNotificationListenerService.class.getName();
-        //Log.e(TAG, "enabledNotificationListeners(" + enabledNotificationListeners + ')');
-        //Log.e(TAG, "className=" + className);
         // check to see if the enabledNotificationListeners String contains our package name
         if ((enabledNotificationListeners == null) || (!enabledNotificationListeners.contains(className)))
         {
             // in this situation we know that the user has not granted the app the Notification access permission
-            //Log.e(TAG, "isNotificationListenerServiceEnabled=false");
             return false;
         }
         else
         {
-            //Log.e(TAG, "isNotificationListenerServiceEnabled=true");
             return true;
         }
         */
 
         Set<String> packageNames = NotificationManagerCompat.getEnabledListenerPackages (context);
-        //Log.e(TAG, "enabledNotificationListeners(" + packageNames + ')');
         //String className = PPNotificationListenerService.class.getName();
         String packageName = context.getPackageName();
-        //Log.e(TAG, "enabledNotificationListeners(" + className + ')');
 
         //if (packageNames != null) {
             for (String pkgName : packageNames) {
-                //Log.e(TAG, "enabledNotificationListeners(" + pkgName + ')');
                 //if (className.contains(pkgName)) {
                 if (packageName.equals(pkgName)) {
-                    //Log.e(TAG, "enabledNotificationListeners(" + "true" + ')');
                     return true;
                 }
             }
@@ -326,7 +315,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                         interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALARMS;
                         break;
                 }
-                //Log.e(TAG, "requestInterruptionFilter(" + interruptionFilter + ')');
                 Intent request = getInterruptionFilterRequestIntent(interruptionFilter, context);
                 context.sendBroadcast(request);
             }
@@ -336,15 +324,12 @@ public class PPNotificationListenerService extends NotificationListenerService {
     /*
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e(TAG, "onStartCommand(" + intent.getAction() + ", " + flags + ", " + startId + ')');
-
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             // Handle being told to change the interruption filter (zen mode).
             if (!TextUtils.isEmpty(intent.getAction())) {
                 if (ACTION_REQUEST_INTERRUPTION_FILTER.equals(intent.getAction())) {
                     if (intent.hasExtra(EXTRA_FILTER)) {
                         final int zenMode = intent.getIntExtra(EXTRA_FILTER, ActivateProfileHelper.ZENMODE_ALL);
-                        Log.e(TAG, "zenMode = " + zenMode);
                         switch (zenMode) {
                             case ActivateProfileHelper.ZENMODE_ALL:
                                 requestInterruptionFilter(INTERRUPTION_FILTER_ALL);
@@ -373,8 +358,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
         @SuppressLint("InlinedApi")
         @Override
         public void onReceive(Context context, Intent intent) {
-            //Log.e(TAG, "NLServiceReceiver.onReceive(" + intent.getAction()  + ')');
-
             CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.NLServiceReceiver.onReceive", "PPNotificationListenerService_NLServiceReceiver_onReceive");
 
             boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
@@ -384,7 +367,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                     if (ACTION_REQUEST_INTERRUPTION_FILTER.equals(intent.getAction())) {
                         if (intent.hasExtra(EXTRA_FILTER)) {
                             final int filter = intent.getIntExtra(EXTRA_FILTER, INTERRUPTION_FILTER_ALL);
-                            //Log.e(TAG, "filter= " + filter);
                             switch (filter) {
                                 case INTERRUPTION_FILTER_ALL:
                                 case INTERRUPTION_FILTER_PRIORITY:

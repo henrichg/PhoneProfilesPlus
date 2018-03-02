@@ -493,7 +493,7 @@ public class BrightnessDialogPreference extends
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         //commandWait(command);
                                     } catch (Exception e) {
-                                        Log.e("BrightnessDialogPreference.setAdaptiveBrightness", "Error on run su: " + e.toString());
+                                        Log.e("BrightnessDialogPreference.setAdaptiveBrightness", Log.getStackTraceString(e));
                                     }
                                 }
                             }
@@ -503,30 +503,6 @@ public class BrightnessDialogPreference extends
             }
         }
     }
-
-    /*
-    private static void commandWait(Command cmd) throws Exception {
-        int waitTill = 50;
-        int waitTillMultiplier = 2;
-        int waitTillLimit = 3200; //7 tries, 6350 msec
-
-        while (!cmd.isFinished() && waitTill<=waitTillLimit) {
-            synchronized (cmd) {
-                try {
-                    if (!cmd.isFinished()) {
-                        cmd.wait(waitTill);
-                        waitTill *= waitTillMultiplier;
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        if (!cmd.isFinished()){
-            Log.e("ActivateProfileHelper", "Could not finish root command in " + (waitTill/waitTillMultiplier));
-        }
-    }
-    */
 
     static boolean changeEnabled(String value) {
         String[] splits = value.split("\\|");

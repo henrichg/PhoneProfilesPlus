@@ -105,8 +105,6 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         //else
             row=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_item);
 
-        //Log.e("SamsungEdgeFactory.getViewAt", "applicationSamsungEdgeHeader=true");
-
         Profile profile = getItem(position);
 
         if (profile != null) {
@@ -125,7 +123,6 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             int green;
             int blue;
             String applicationWidgetListLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT(context);
-            //Log.e("SamsungEdgeFactory.getViewAt", "applicationWidgetListLightnessT="+applicationWidgetListLightnessT);
             if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
             if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
             if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
@@ -134,7 +131,6 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             green = red;
             blue = red;
             if (!ApplicationPreferences.applicationSamsungEdgeHeader(context)) {
-                //Log.e("SamsungEdgeFactory.getViewAt", "applicationSamsungEdgeHeader=false");
                 if (profile._checked) {
                     row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_SP, 17);
 
@@ -151,7 +147,6 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                     //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
                 }
             } else {
-                //Log.e("SamsungEdgeFactory.getViewAt", "applicationSamsungEdgeHeader=true");
                 row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
             }
             if ((!ApplicationPreferences.applicationSamsungEdgeHeader(context)) && (profile._checked)) {

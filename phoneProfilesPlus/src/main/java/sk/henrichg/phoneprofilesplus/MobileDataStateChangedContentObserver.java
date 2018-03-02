@@ -21,8 +21,6 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 
         context=c;
 
-        //Log.e("### MobileDataStateChangedContentObserver", "xxx");
-
         previousState = ActivateProfileHelper.isMobileData(context);
     }
 

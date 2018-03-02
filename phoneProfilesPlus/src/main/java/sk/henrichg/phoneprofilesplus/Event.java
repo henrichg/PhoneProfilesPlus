@@ -168,8 +168,6 @@ class Event {
         this._noPauseByManualActivation = noPauseByManualActivation;
 
         createEventPreferences();
-
-        //Log.e("Event", "this._fkProfileEnd=" + this._fkProfileEnd);
     }
 
     // constructor

@@ -565,7 +565,6 @@ class GlobalGUIRoutines {
         try {
             return context.getResources().getIdentifier(pVariableName, pResourceName, context.getPackageName());
         } catch (Exception e) {
-            //e.printStackTrace();
             return -1;
         }
     }

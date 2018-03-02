@@ -548,13 +548,11 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
-            //Log.e("LocationGeofenceEditorActivity.onReceiveResult", "xxx");
             boolean enableAddressButton = false;
             if (resultCode == LocationGeofenceEditorActivity.SUCCESS_RESULT) {
                 // Display the address string
                 // or an error message sent from the intent service.
                 String addressOutput = resultData.getString(RESULT_DATA_KEY);
-                //Log.e("LocationGeofenceEditorActivity.onReceiveResult", "addressOutput="+addressOutput);
                 addressText.setText(addressOutput);
 
                 if (resultData.getBoolean(UPDATE_NAME_EXTRA, false))
@@ -622,7 +620,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             if (intent != null)
                 pkg = intent.getPackage();
             if (intent == null || (pkg != null && pkg.equals("com.android.vending")))
-                Log.e("LocationGeofenceEditorActivity", "ignoring startActivityForResult exception " + e.getMessage());
+                Log.e("LocationGeofenceEditorActivity", "ignoring startActivityForResult exception ", e);
             else
                 throw e;
         }

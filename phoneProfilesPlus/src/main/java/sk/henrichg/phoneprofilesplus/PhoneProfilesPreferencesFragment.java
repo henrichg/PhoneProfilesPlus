@@ -28,7 +28,6 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         preferences.registerOnSharedPreferenceChangeListener(this);
 
         extraScrollTo = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "");
-        //Log.e("------- PhoneProfilesPreferencesFragment", "extraScrollTo=" + extraScrollTo);
         //extraScrollToType = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "");
 
         updateSharedPreference();

@@ -162,8 +162,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 editor.apply();
                             }
                         }
-                    } catch (Exception e) {
-                        //e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
 
                     PPApplication.logE("PackageReplacedReceiver.onReceive","PhoneProfilesService.instance="+PhoneProfilesService.instance);

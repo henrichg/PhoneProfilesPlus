@@ -18,6 +18,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import java.io.InputStream;
 
@@ -81,6 +82,7 @@ class BitmapManipulator {
                 //Log.d("---- BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap="+decodedSampleBitmap);
                 return decodedSampleBitmap;
             } catch (Exception e) {
+                Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
                 e.printStackTrace();
                 return null;
             }
@@ -223,7 +225,6 @@ class BitmapManipulator {
             return bmRotated;
         }
         catch (OutOfMemoryError e) {
-            //e.printStackTrace();
             return null;
         }
     }

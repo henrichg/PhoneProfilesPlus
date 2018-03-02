@@ -27,8 +27,6 @@ public class LauncherActivity extends AppCompatActivity {
 
         if (!PPApplication.getApplicationStarted(getApplicationContext(), false))
         {
-            //Log.e("LauncherActivity.onStart","app. not started");
-
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
@@ -42,8 +40,6 @@ public class LauncherActivity extends AppCompatActivity {
         }
         else
         {
-            //Log.e("LauncherActivity.onStart","app. started");
-
             if (PhoneProfilesService.instance == null) {
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;

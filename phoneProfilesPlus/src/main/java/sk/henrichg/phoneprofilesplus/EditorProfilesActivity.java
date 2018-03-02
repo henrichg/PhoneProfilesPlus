@@ -154,8 +154,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Log.e("$$$ PPP","EditorProfilesActivity.onCreate");
-
         super.onCreate(savedInstanceState);
 
         GlobalGUIRoutines.setTheme(this, false, true, true);
@@ -491,7 +489,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     @Override
     protected void onStop()
     {
-        //Log.e("$$$ PPP","EditorProfilesActivity.onStop");
         super.onStop();
 
         if (addProfileDialog != null && addProfileDialog.mDialog != null && addProfileDialog.mDialog.isShowing())
@@ -506,7 +503,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     @Override
     protected void onResume()
     {
-        //Log.e("$$$ PPP","EditorProfilesActivity.onResume");
         //Debug.stopMethodTracing();
         super.onResume();
 
@@ -695,9 +691,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/henrichg/PhoneProfilesPlus/wiki"));
                 startActivity(myIntent);
             } catch (ActivityNotFoundException e) {
-                //Toast.makeText(this, "No application can handle this request."
-                //    + " Please install a web browser",  Toast.LENGTH_LONG).show();
-                e.printStackTrace();
+                Toast.makeText(this, "No application can handle this request."
+                    + " Please install a web browser",  Toast.LENGTH_LONG).show();
             }
             return true;*/
         case R.id.menu_about:
@@ -717,7 +712,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     // https://code.google.com/p/android/issues/detail?id=78154
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-         //Log.e("*** EditorPrActivity","keyCode="+keyCode);
         String manufacturer = PPApplication.getROMManufacturer();
         if ((keyCode == KeyEvent.KEYCODE_MENU) &&
             (Build.VERSION.SDK_INT <= 16) &&
@@ -1174,7 +1168,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 prefEdit.apply();
             } catch (FileNotFoundException ignored) {
                 // no error, this is OK
-                //e.printStackTrace();
             } catch (Exception e) {
                 res = false;
             }
@@ -1428,7 +1421,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 output.writeObject(pref.getAll());
             } catch (FileNotFoundException ignored) {
                 // this is OK
-                //e.printStackTrace();
             } catch (IOException e) {
                 res = false;
             }
@@ -1708,8 +1700,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         EditorProfileListFragment fragment = (EditorProfileListFragment) getFragmentManager().findFragmentById(R.id.editor_list_container);
         if (fragment != null) {
-            //Log.e("EditorProfilesActivity.redrawProfileListFragment","xxx");
-
             // update profile, this rewrite profile in profileList
             fragment.activityDataWrapper.updateProfile(profile);
 

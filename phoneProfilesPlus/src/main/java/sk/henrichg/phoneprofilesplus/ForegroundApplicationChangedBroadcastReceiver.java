@@ -87,7 +87,7 @@ public class ForegroundApplicationChangedBroadcastReceiver extends BroadcastRece
                     }
                 }
             } catch (Exception e) {
-                Log.e("ForegroundApplicationChangedBroadcastReceiver.onReceive", e.toString());
+                Log.e("ForegroundApplicationChangedBroadcastReceiver.onReceive", Log.getStackTraceString(e));
             }
         }
         else

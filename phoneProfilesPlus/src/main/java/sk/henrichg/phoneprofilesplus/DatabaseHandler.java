@@ -3642,7 +3642,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEvent", e.toString());
+                    Log.e("DatabaseHandler.updateEvent", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -4718,7 +4718,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEventStatus", e.toString());
+                    Log.e("DatabaseHandler.updateEventStatus", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -4755,7 +4755,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEventBlocked", e.toString());
+                    Log.e("DatabaseHandler.updateEventBlocked", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -4791,7 +4791,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.unblockAllEvents", e.toString());
+                    Log.e("DatabaseHandler.unblockAllEvents", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -4828,7 +4828,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateAllEventsStatus", e.toString());
+                    Log.e("DatabaseHandler.updateAllEventsStatus", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -4965,7 +4965,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEventCalendarTimes", e.toString());
+                    Log.e("DatabaseHandler.updateEventCalendarTimes", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -5078,7 +5078,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEventInDelayStart", e.toString());
+                    Log.e("DatabaseHandler.updateEventInDelayStart", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -5114,7 +5114,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.resetAllEventsInDelayStart", e.toString());
+                    Log.e("DatabaseHandler.resetAllEventsInDelayStart", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -5189,7 +5189,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEventInDelayEnd", e.toString());
+                    Log.e("DatabaseHandler.updateEventInDelayEnd", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -5226,7 +5226,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateSMSStartTimes", e.toString());
+                    Log.e("DatabaseHandler.updateSMSStartTimes", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -5298,7 +5298,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateNotificationStartTimes", e.toString());
+                    Log.e("DatabaseHandler.updateNotificationStartTimes", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -5416,7 +5416,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateNFCStartTimes", e.toString());
+                    Log.e("DatabaseHandler.updateNFCStartTimes", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -5526,7 +5526,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateCallStartTimes", e.toString());
+                    Log.e("DatabaseHandler.updateCallStartTimes", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -5741,7 +5741,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.deleteAllEventTimelines", e.toString());
+                    Log.e("DatabaseHandler.deleteAllEventTimelines", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -6023,7 +6023,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEvent", e.toString());
+                    Log.e("DatabaseHandler.updateEvent", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -6056,7 +6056,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateGeofenceTransition", e.toString());
+                    Log.e("DatabaseHandler.updateGeofenceTransition", Log.getStackTraceString(e));
                     //} finally {
                     //db.endTransaction();
                 }
@@ -6089,7 +6089,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.clearAllGeofenceTransitions", e.toString());
+                    Log.e("DatabaseHandler.clearAllGeofenceTransitions", Log.getStackTraceString(e));
                     //} finally {
                     //db.endTransaction();
                 }
@@ -6159,7 +6159,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.deleteGeofence", e.toString());
+                    Log.e("DatabaseHandler.deleteGeofence", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                     cursor.close();
@@ -6222,7 +6222,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.checkGeofence", e.toString());
+                    Log.e("DatabaseHandler.checkGeofence", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -6553,7 +6553,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.deleteShortcut", e.toString());
+                    Log.e("DatabaseHandler.deleteShortcut", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -6633,7 +6633,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateMobileCell", e.toString());
+                    Log.e("DatabaseHandler.updateMobileCell", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -6853,7 +6853,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.deleteMobileCell", e.toString());
+                    Log.e("DatabaseHandler.deleteMobileCell", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -6889,7 +6889,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateMobileCellLastConnectedTime", e.toString());
+                    Log.e("DatabaseHandler.updateMobileCellLastConnectedTime", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -7053,7 +7053,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateNFCTag", e.toString());
+                    Log.e("DatabaseHandler.updateNFCTag", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -7088,7 +7088,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.deleteNFCTag", e.toString());
+                    Log.e("DatabaseHandler.deleteNFCTag", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -7419,7 +7419,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.disableNotAllowedPreferences", e.toString());
+                    Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                     profilesCursor.close();
@@ -8496,7 +8496,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         ret = 1;
                     }
                 } catch (Exception e) {
-                    Log.e("DatabaseHandler.exportDB", e.toString());
+                    Log.e("DatabaseHandler.exportDB", Log.getStackTraceString(e));
                 }
 
             } catch (Exception ignored) {}

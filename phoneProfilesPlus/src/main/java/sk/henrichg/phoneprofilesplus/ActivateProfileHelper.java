@@ -248,7 +248,7 @@ class ActivateProfileHelper {
                                 try {
                                     wifiManager.setWifiEnabled(isWifiEnabled);
                                 } catch (Exception e) {
-                                    Log.e("ActivateProfileHelper.doExecuteForRadios", e.toString());
+                                    Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
                                 }
                                 //try { Thread.sleep(200); } catch (InterruptedException e) { }
                                 //SystemClock.sleep(200);
@@ -405,7 +405,6 @@ class ActivateProfileHelper {
         // setup NFC
         if (profile._deviceNFC != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, context) == PPApplication.PREFERENCE_ALLOWED) {
-                //Log.e("ActivateProfileHelper.doExecuteForRadios", "allowed");
                 NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
                 if (nfcAdapter != null) {
                     switch (profile._deviceNFC) {
@@ -425,8 +424,6 @@ class ActivateProfileHelper {
                     }
                 }
             }
-            //else
-            //    Log.e("ActivateProfileHelper.doExecuteForRadios", "not allowed");
         }
 
     }
@@ -643,11 +640,9 @@ class ActivateProfileHelper {
                     } else if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_LINK) {
                         // for separating ringing and notification
                         // in not ringing state ringer and notification volume must by change
-                        //Log.e("ActivateProfileHelper","setVolumes get audio mode="+audioManager.getMode());
                         int volume = getRingerVolume(context);
                         PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-link  ringer volume=" + volume);
                         if (volume != -999) {
-                            //Log.e("ActivateProfileHelper","setVolumes set ring volume="+volume);
                             try {
                                 audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
                                 PhoneProfilesService.ringingVolume = volume;
@@ -657,7 +652,6 @@ class ActivateProfileHelper {
                         volume = getNotificationVolume(context);
                         PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-link  notification volume=" + volume);
                         if (volume != -999) {
-                            //Log.e("ActivateProfileHelper","setVolumes set notification volume="+volume);
                             try {
                                 audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
                                 //PhoneProfilesService.notificationVolume = volume;
@@ -859,7 +853,7 @@ class ActivateProfileHelper {
                             Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
                             PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "wibrate when ringing set (API >= 23)");
                         } catch (Exception ee) {
-                            Log.e("ActivateProfileHelper.setVibrateWhenRinging", ee.toString());
+                            Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
 
                             if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
                                 synchronized (PPApplication.startRootCommandMutex) {
@@ -873,7 +867,7 @@ class ActivateProfileHelper {
                                         commandWait(command);
                                         PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "wibrate when ringing set (API >= 23 with root)");
                                     } catch (Exception e) {
-                                        Log.e("ActivateProfileHelper.setVibrateWhenRinging", "Error on run su: " + e.toString());
+                                        Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
                                     }
                                 }
                             }
@@ -1041,7 +1035,7 @@ class ActivateProfileHelper {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             commandWait(command);
                         } catch (Exception e) {
-                            Log.e("ActivateProfileHelper.setNotificationLed", "Error on run su: " + e.toString());
+                            Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(e));
                         }
                     }
                 }
@@ -1050,17 +1044,14 @@ class ActivateProfileHelper {
     }
 
     private static void setHeadsUpNotifications(Context context, int value) {
-        //Log.e("ActivateProfileHelper.setHeadsUpNotifications", "xxx");
         if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, context)
                 == PPApplication.PREFERENCE_ALLOWED) {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                    //Log.e("ActivateProfileHelper.setHeadsUpNotifications", "WRITE_SECURE_SETTINGS");
                     Settings.Global.putInt(context.getContentResolver(), "heads_up_notifications_enabled", value);
                 }
                 else
                 if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
-                    //Log.e("ActivateProfileHelper.setHeadsUpNotifications", "ROOT");
                     synchronized (PPApplication.startRootCommandMutex) {
                         String command1 = "settings put global " + "heads_up_notifications_enabled" + " " + value;
                         //if (PPApplication.isSELinuxEnforcing())
@@ -1071,7 +1062,7 @@ class ActivateProfileHelper {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             commandWait(command);
                         } catch (Exception e) {
-                            Log.e("ActivateProfileHelper.setHeadsUpNotifications", "Error on run su: " + e.toString());
+                            Log.e("ActivateProfileHelper.setHeadsUpNotifications", Log.getStackTraceString(e));
                         }
                     }
                 }
@@ -1413,7 +1404,7 @@ class ActivateProfileHelper {
                         } else
                             wallpaperManager.setBitmap(decodedSampleBitmap);
                     } catch (IOException e) {
-                        Log.e("ActivateProfileHelper.executeForWallpaper", "Cannot set wallpaper. Image=" + profile._deviceWallpaper);
+                        Log.e("ActivateProfileHelper.executeForWallpaper", Log.getStackTraceString(e));
                     }
                 }
             }
@@ -1533,7 +1524,7 @@ class ActivateProfileHelper {
                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                     commandWait(command);
                 } catch (Exception e) {
-                    Log.e("ActivateProfileHelper.execute", "Error on run su: " + e.toString());
+                    Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
                 }
             }
         }
@@ -2236,7 +2227,6 @@ class ActivateProfileHelper {
                 windowManager.addView(GlobalGUIRoutines.keepScreenOnView, params);
             } catch (Exception e) {
                 GlobalGUIRoutines.keepScreenOnView = null;
-                //e.printStackTrace();
             }
             //Log.d("ActivateProfileHelper.screenTimeoutLock","-- end");
         }
@@ -2300,7 +2290,6 @@ class ActivateProfileHelper {
                     windowManager.addView(GlobalGUIRoutines.brightnessView, params);
                 } catch (Exception e) {
                     GlobalGUIRoutines.brightnessView = null;
-                    //e.printStackTrace();
                 }
 
                 final Handler handler = new Handler(context.getMainLooper());
@@ -2429,7 +2418,6 @@ class ActivateProfileHelper {
                     getMobileDataEnabledMethod.setAccessible(true);
                     return (Boolean) getMobileDataEnabledMethod.invoke(connectivityManager);
                 } catch (Exception e) {
-                    //e.printStackTrace();
                     return false;
                 }
             }
@@ -2461,7 +2449,6 @@ class ActivateProfileHelper {
                     return (Boolean) getDataEnabledMethod.invoke(ITelephonyStub);
 
                 } catch (Exception e) {
-                    //e.printStackTrace();
                     return false;
                 }
             }
@@ -2484,7 +2471,6 @@ class ActivateProfileHelper {
                     return (Boolean) getDataEnabledMethod.invoke(telephonyManager);
 
                 } catch (Exception e) {
-                    //e.printStackTrace();
                     return false;
                 }
             }
@@ -2509,7 +2495,6 @@ class ActivateProfileHelper {
                     getDataEnabledMethod.setAccessible(true);
                     return true;
                 } catch (Exception e) {
-                    //e.printStackTrace();
                     return false;
                 }
             }
@@ -2530,7 +2515,6 @@ class ActivateProfileHelper {
                     getITelephonyMethod.setAccessible(true);
                     return true;
                 } catch (Exception e) {
-                    //e.printStackTrace();
                     return false;
                 }
             }
@@ -2645,7 +2629,7 @@ class ActivateProfileHelper {
                         //RootToolsSmall.runSuCommand(command1);
                         PPApplication.logE("ActivateProfileHelper.setMobileData", "after wait");
                     } catch (Exception e) {
-                        Log.e("ActivateProfileHelper.setMobileData", "Error on run su");
+                        Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
                     }
                 }
 
@@ -2674,7 +2658,7 @@ class ActivateProfileHelper {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     commandWait(command);
                                 } catch (Exception e) {
-                                    Log.e("ActivateProfileHelper.setMobileData", "Error on run su");
+                                    Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
                                 }
                             }
                         }
@@ -2689,12 +2673,12 @@ class ActivateProfileHelper {
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                 commandWait(command);
                             } catch (Exception e) {
-                                Log.e("ActivateProfileHelper.setMobileData", "Error on run su");
+                                Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
                             }
                         }
                     }
                 } catch(Exception e) {
-                    e.printStackTrace();
+                    Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
                 }
                 */
             }
@@ -2779,12 +2763,12 @@ class ActivateProfileHelper {
                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                         commandWait(command);
                     } catch (Exception e) {
-                        Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                        Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
                     }
                 }
 
             } catch(Exception e) {
-                e.printStackTrace();
+                Log.e("ActivateProfileHelper.getPreferredNetworkType", Log.getStackTraceString(e));
             }
         }
         else
@@ -2844,7 +2828,7 @@ class ActivateProfileHelper {
                                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                             commandWait(command);
                                         } catch (Exception e) {
-                                            Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                                            Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
                                         }
                                     }
                                 }
@@ -2859,7 +2843,7 @@ class ActivateProfileHelper {
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                 commandWait(command);
                             } catch (Exception e) {
-                                Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                                Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
                             }
                         }
                     }
@@ -2930,7 +2914,7 @@ class ActivateProfileHelper {
                                 commandWait(command);
                                 PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command end");
                             } catch (Exception e) {
-                                Log.e("ActivateProfileHelper.setWifiAP", "Error on run su");
+                                Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
                                 PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command error");
                             }
                         }
@@ -2950,16 +2934,13 @@ class ActivateProfileHelper {
         Test with release version.
         */
 
-        //Log.e("ActivateProfileHelper.setNFC", "xxx");
         if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-            //Log.e("ActivateProfileHelper.setNFC", "permission granted!!");
             CmdNfc.run(enable);
         }
         else
         if (PPApplication.isRooted()/*PPApplication.isRootGranted()*/) {
             synchronized (PPApplication.startRootCommandMutex) {
                 String command1 = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
-                //Log.e("ActivateProfileHelper.setNFC", "command1="+command1);
                 if (command1 != null) {
                     Command command = new Command(0, false, command1);
                     try {
@@ -2967,7 +2948,7 @@ class ActivateProfileHelper {
                         RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
                         commandWait(command);
                     } catch (Exception e) {
-                        Log.e("ActivateProfileHelper.setNFC", "Error on run su");
+                        Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));
                     }
                 }
                 //String command = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
@@ -3076,7 +3057,7 @@ class ActivateProfileHelper {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             commandWait(command);
                         } catch (Exception e) {
-                            //Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                            Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
                             PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                         }
                     }
@@ -3119,7 +3100,7 @@ class ActivateProfileHelper {
                     intent.putExtra("enabled", enable);
                     context.sendBroadcast(intent);
                 } catch (SecurityException e) {
-                    e.printStackTrace();
+                    Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
                 }*/
 
                 // for normal apps it is only possible to open the system settings dialog
@@ -3195,7 +3176,7 @@ class ActivateProfileHelper {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             commandWait(command);
                         } catch (Exception e) {
-                            //Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                            Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
                             PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                         }
                     }
@@ -3238,7 +3219,7 @@ class ActivateProfileHelper {
                     intent.putExtra("enabled", enable);
                     context.sendBroadcast(intent);
                 } catch (SecurityException e) {
-                    e.printStackTrace();
+                    Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
                 }*/
 
                 // for normal apps it is only possible to open the system settings dialog
@@ -3275,7 +3256,7 @@ class ActivateProfileHelper {
                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                     //commandWait(command);
                 } catch (Exception e) {
-                    Log.e("AirPlaneMode_SDK17.setAirplaneMode", "Error on run su");
+                    Log.e("AirPlaneMode_SDK17.setAirplaneMode", Log.getStackTraceString(e));
                 }
                 PPApplication.logE("ActivateProfileHelper.setAirplaneMode_SDK17", "done");
             }
@@ -3342,7 +3323,7 @@ class ActivateProfileHelper {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     commandWait(command);
                                 } catch (Exception e) {
-                                    Log.e("ActivateProfileHelper.setPowerSaveMode", "Error on run su: " + e.toString());
+                                    Log.e("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(e));
                                 }
                             }
                         }
@@ -3375,7 +3356,7 @@ class ActivateProfileHelper {
                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                         commandWait(command);
                     } catch (Exception e) {
-                        Log.e("ActivateProfileHelper.lockDevice", "Error on run su: " + e.toString());
+                        Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
                     }
                 }*/
                 if (PPApplication.isRooted())
@@ -3389,7 +3370,7 @@ class ActivateProfileHelper {
                                 RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
                                 commandWait(command);
                             } catch (Exception e) {
-                                Log.e("ActivateProfileHelper.lockDevice", "Error on run su");
+                                Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
                             }
                         }
                     }
@@ -3405,7 +3386,7 @@ class ActivateProfileHelper {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             commandWait(command);
                         } catch (Exception e) {
-                            Log.e("ActivateProfileHelper.lockDevice", "Error on run su");
+                            Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
                         }
                     } catch(Exception ignored) {
                     }
@@ -3447,14 +3428,13 @@ class ActivateProfileHelper {
                         cmd.wait(waitTill);
                         waitTill *= waitTillMultiplier;
                     }
-                } catch (Exception ignored) {
-                    Log.e("ActivateProfileHelper", "Exception: Could not finish root command in " + (waitTill/waitTillMultiplier));
-                    return;
+                } catch (Exception e) {
+                    Log.e("ActivateProfileHelper.commandWait", Log.getStackTraceString(e));
                 }
             }
         }
         if (!cmd.isFinished()){
-            Log.e("ActivateProfileHelper", "Could not finish root command in " + (waitTill/waitTillMultiplier));
+            Log.e("ActivateProfileHelper.commandWait", "Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }
 

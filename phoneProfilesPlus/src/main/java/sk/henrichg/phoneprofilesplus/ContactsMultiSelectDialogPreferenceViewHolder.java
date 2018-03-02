@@ -87,7 +87,6 @@ class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHol
             else
                 return null; // error in cursor process
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
         */

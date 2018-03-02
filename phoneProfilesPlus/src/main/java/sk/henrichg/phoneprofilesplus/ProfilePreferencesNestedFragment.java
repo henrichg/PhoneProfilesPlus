@@ -1011,8 +1011,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
-                    //if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
-                    //    Log.e("ProfilePreferencesFragment", "index="+index);
                     GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
                     setCategorySummary(listPreference, index > 0);
                 }
@@ -1577,8 +1575,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (requestCode == ApplicationsDialogPreference.RESULT_APPLICATIONS_EDITOR && resultCode == Activity.RESULT_OK && data != null)
         {
             if (ProfilePreferencesFragment.applicationsDialogPreference != null) {
-                //Log.e("ProfilePreferencesNestedFragment.doOnActivityResult", "data="+PPApplication.intentToString(data));
-
                 ProfilePreferencesFragment.applicationsDialogPreference.updateShortcut(
                         (Intent)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT),
                         data.getStringExtra(Intent.EXTRA_SHORTCUT_NAME),

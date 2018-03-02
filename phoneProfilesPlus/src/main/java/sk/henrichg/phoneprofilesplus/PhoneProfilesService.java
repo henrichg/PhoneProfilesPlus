@@ -208,8 +208,7 @@ public class PhoneProfilesService extends Service
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             int actualVersionCode = pInfo.versionCode;
             PPApplication.setSavedVersionCode(appContext, actualVersionCode);
-        } catch (Exception e) {
-            //e.printStackTrace();
+        } catch (Exception ignored) {
         }
 
         /*
@@ -2174,8 +2173,7 @@ public class PhoneProfilesService extends Service
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, intent, Intent.FILL_IN_DATA);
                 mSipManager.open(sipProfile, pendingIntent, null);
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ignored) {
             }
         }
         */

@@ -212,14 +212,9 @@ public class ShortcutCreatorListFragment extends Fragment {
         Intent shortcutIntent;
         if (position == 0) {
             // restart events
-            //Log.e("ShortcutCreatorListFragment.createShortcut","restart events");
             shortcutIntent = new Intent(getActivity().getApplicationContext(), ActionForExternalApplicationActivity.class);
             shortcutIntent.setAction(ActionForExternalApplicationActivity.ACTION_RESTART_EVENTS);
         } else {
-            //if (profile != null)
-            //    Log.e("ShortcutCreatorListFragment.createShortcut","profile="+profile._name);
-            //else
-            //    Log.e("ShortcutCreatorListFragment.createShortcut","profile=null");
             shortcutIntent = new Intent(getActivity().getApplicationContext(), BackgroundActivateProfileActivity.class);
             shortcutIntent.setAction(Intent.ACTION_MAIN);
             shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);

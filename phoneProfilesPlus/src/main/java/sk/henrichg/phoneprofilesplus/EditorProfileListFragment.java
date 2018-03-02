@@ -661,8 +661,6 @@ public class EditorProfileListFragment extends Fragment
             //else
             //    profilePos = listView.getCheckedItemPosition();
 
-            //Log.e("------- EditorProfileListFragment.setProfileSelection", "profilePos="+profilePos);
-
             if (/*(!ApplicationPreferences.applicationEditorHeader(dataWrapper.context)) && */(profilePos != ListView.INVALID_POSITION))
             {
                 // set profile visible in list
@@ -682,8 +680,6 @@ public class EditorProfileListFragment extends Fragment
 
     public void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition)
     {
-        //Log.e("------- EditorProfileListFragment.updateListView", "xxx");
-
         /*if (listView != null)
             listView.cancelDrag();*/
 

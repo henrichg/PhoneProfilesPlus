@@ -33,8 +33,7 @@ class ImportantInfoNotification {
             }
             else
                 setShowInfoNotificationOnStartVersion(context, packageVersionCode);
-        } catch (Exception e) {
-            //e.printStackTrace();
+        } catch (Exception ignored) {
         }
 
         if ((savedVersionCode == 0) || getShowInfoNotificationOnStart(context, packageVersionCode)) {

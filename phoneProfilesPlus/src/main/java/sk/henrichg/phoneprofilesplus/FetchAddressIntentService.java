@@ -32,17 +32,16 @@ public class FetchAddressIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         CallsCounter.logCounter(getApplicationContext(), "FetchAddressIntentService.onHandleIntent", "FetchAddressIntentService_onHandleIntent");
-        //Log.e("FetchAddressIntentService.onHandleIntent","xxx");
 
         if (intent == null) return;
 
-        String errorMessage = "";
+        //String errorMessage = "";
 
         mReceiver = intent.getParcelableExtra(LocationGeofenceEditorActivity.RECEIVER);
 
         // Check if receiver was properly registered.
         if (mReceiver == null) {
-            Log.e("FetchAddressIntentService", "No receiver received. There is nowhere to send the results.");
+            Log.e("FetchAddressIntentService.onHandleIntent", "No receiver received. There is nowhere to send the results.");
             return;
         }
 
@@ -53,7 +52,7 @@ public class FetchAddressIntentService extends IntentService {
         // Make sure that the location data was really sent over through an extra. If it wasn't,
         // send an error error message and return.
         if (location == null) {
-            Log.e("FetchAddressIntentService", errorMessage);
+            //Log.e("FetchAddressIntentService.onHandleIntent", errorMessage);
             deliverResultToReceiver(LocationGeofenceEditorActivity.FAILURE_RESULT, "No location data provided");
             return;
         }
@@ -71,10 +70,10 @@ public class FetchAddressIntentService extends IntentService {
                                                  1);
         } catch (IOException ioException) {
             // Catch network or other I/O problems.
-            Log.e("FetchAddressIntentService", "Service not available", ioException);
+            Log.e("FetchAddressIntentService.onHandleIntent", "Service not available", ioException);
         } catch (IllegalArgumentException illegalArgumentException) {
             // Catch invalid latitude or longitude values.
-            Log.e("FetchAddressIntentService", "Invalid location. " +
+            Log.e("FetchAddressIntentService.onHandleIntent", "Invalid location. " +
                     "Latitude = " + location.getLatitude() +
                     ", Longitude = " +
                     location.getLongitude(), illegalArgumentException);
@@ -82,24 +81,20 @@ public class FetchAddressIntentService extends IntentService {
 
         // Handle case where no address was found.
         if (addresses == null || addresses.size()  == 0) {
-            if (errorMessage.isEmpty()) {
-                Log.e("FetchAddressIntentService", "No address found");
-            }
+            //if (errorMessage.isEmpty()) {
+                Log.e("FetchAddressIntentService.onHandleIntent", "No address found");
+            //}
             deliverResultToReceiver(LocationGeofenceEditorActivity.FAILURE_RESULT,
                     getApplicationContext().getString(R.string.event_preferences_location_no_address_found));
         } else {
             Address address = addresses.get(0);
-            //Log.e("FetchAddressIntentService", "address="+address);
-            //Log.e("FetchAddressIntentService", "getMaxAddressLineIndex()="+address.getMaxAddressLineIndex());
             ArrayList<String> addressFragments = new ArrayList<>();
 
             // Fetch the address lines using getAddressLine,
             // join them, and send them to the thread.
             for(int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
-                //Log.e("FetchAddressIntentService", "adressLine="+address.getAddressLine(i));
                 addressFragments.add(address.getAddressLine(i));
             }
-            //Log.e("FetchAddressIntentService", "Address found");
             deliverResultToReceiver(LocationGeofenceEditorActivity.SUCCESS_RESULT,
                     TextUtils.join(System.getProperty("line.separator"), addressFragments));
         }

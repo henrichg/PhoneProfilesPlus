@@ -186,7 +186,7 @@ class TonesHandler {
                 }
 
             } catch (Exception e) {
-                Log.e("TonesHandler", "installTone: Error writing " + filename, e);
+                Log.e("TonesHandler._installTone", "Error writing " + filename, e);
                 isError = true;
             } finally {
                 // Close the streams
@@ -201,7 +201,7 @@ class TonesHandler {
             }
 
             if (!outFile.exists()) {
-                Log.e("TonesHandler", "installTone: Error writing " + filename);
+                Log.e("TonesHandler._installTone", "Error writing " + filename);
                 isError = true;
             }
         }
@@ -221,9 +221,6 @@ class TonesHandler {
                         MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null, null);
                 if (cursor != null) {
                     if (!cursor.moveToFirst()) {
-
-                        //Log.e("TonesHandler","not exists in resolver");
-
                         // not exists content
 
                         cursor.close();
@@ -261,7 +258,7 @@ class TonesHandler {
                             PPApplication.sleep(300);
                         }
                         else {
-                            Log.e("TonesHandler","newUri is empty");
+                            Log.e("TonesHandler._installTone","newUri is empty");
                             cursor.close();
                             isError = true;
                         }
@@ -271,7 +268,7 @@ class TonesHandler {
                     }
                 }
             } catch (Exception e) {
-                Log.e("TonesHandler", "installTone: Error installing tone " + filename);
+                Log.e("TonesHandler._installTone", "Error installing tone " + filename, e);
                 isError = true;
             }
         }

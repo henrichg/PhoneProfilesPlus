@@ -46,7 +46,6 @@ public class LaunchShortcutActivity extends AppCompatActivity {
             try {
                 startActivityForResult(intent, 100);
             } catch (Exception e) {
-                //e.printStackTrace();
                 finish();
             }
         //}

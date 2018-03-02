@@ -338,9 +338,6 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     }
 
     private void loadPreferences(int new_profile_mode, int predefinedProfileIndex) {
-
-        //Log.e("------------ ProfilePreferencesActivity", "loadPreferences");
-
         int startupSource;
         if (profile_id == Profile.DEFAULT_PROFILE_ID)
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE;

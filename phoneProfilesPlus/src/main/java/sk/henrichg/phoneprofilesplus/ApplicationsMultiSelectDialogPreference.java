@@ -382,8 +382,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                                 app = packageManager.getApplicationInfo(splits[0], 0);
                                 if (app != null)
                                     prefDataSummary = packageManager.getApplicationLabel(app).toString();
-                            } catch (Exception e) {
-                                //e.printStackTrace();
+                            } catch (Exception ignored) {
                             }
                         } else {
                             Intent intent = new Intent();
@@ -427,7 +426,6 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                             packageIcon.setImageResource(R.drawable.ic_empty);
                         }
                     } catch (Exception e) {
-                        //e.printStackTrace();
                         packageIcon.setImageResource(R.drawable.ic_empty);
                     }
                 }
@@ -477,7 +475,6 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                                     packIcon.setImageResource(R.drawable.ic_empty);
                                 }
                             } catch (Exception e) {
-                                //e.printStackTrace();
                                 packIcon.setImageResource(R.drawable.ic_empty);
                             }
                         }

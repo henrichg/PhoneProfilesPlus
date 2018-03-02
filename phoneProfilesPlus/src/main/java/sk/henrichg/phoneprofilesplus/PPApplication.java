@@ -330,8 +330,7 @@ public class PPApplication extends Application {
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             actualVersionCode = pInfo.versionCode;
-        } catch (Exception e) {
-            //e.printStackTrace();
+        } catch (Exception ignored) {
         }
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
         //}
@@ -761,7 +760,7 @@ public class PPApplication extends Application {
             }
             rootChecked = true;
         } catch (Exception e) {
-            Log.e("PPApplication._isRooted", "Error on check root: " + e.toString());
+            Log.e("PPApplication._isRooted", Log.getStackTraceString(e));
         }
         //if (rooted)
         //	getSUVersion();
@@ -795,7 +794,7 @@ public class PPApplication extends Application {
                         return false;
                     }
                 } catch (Exception e) {
-                    Log.e("PPApplication.isRootGranted", "Error on run su: " + e.toString());
+                    Log.e("PPApplication.isRootGranted", Log.getStackTraceString(e));
                     return false;
                 }
             } else {
@@ -912,7 +911,7 @@ public class PPApplication extends Application {
                 commandWait(command);
                 suVersionChecked = true;
             } catch (Exception e) {
-                Log.e("PPApplication.getSUVersion", "Error on run su");
+                Log.e("PPApplication.getSUVersion", Log.getStackTraceString(e));
             }
         }
         return suVersion;
@@ -945,7 +944,6 @@ public class PPApplication extends Application {
             return file.getAbsolutePath();
 
         } catch (Exception e) {
-            //e.printStackTrace();
             return null;
         }
     }
@@ -977,7 +975,7 @@ public class PPApplication extends Application {
                 RootTools.getShell(false).add(command);
                 commandWait(command);
             } catch (Exception e) {
-                Log.e("PPApplication.getServicesList", "Error on run su");
+                Log.e("PPApplication.getServicesList", Log.getStackTraceString(e));
             }
         }
     }
@@ -1011,13 +1009,13 @@ public class PPApplication extends Application {
                             code = field.getInt(field);
                             break;
                         } catch (Exception e) {
-                            Log.e("PPApplication.getTransactionCode", e.toString());
+                            Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
                         }
                     }
                 }
             }
         } catch (ClassNotFoundException e) {
-            Log.e("PPApplication.getTransactionCode", e.toString());
+            Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
         }
         return code;
     }
@@ -1052,7 +1050,7 @@ public class PPApplication extends Application {
                         waitTill *= waitTillMultiplier;
                     }
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Log.e("PPApplication.commandWait", Log.getStackTraceString(e));
                 }
             }
         }

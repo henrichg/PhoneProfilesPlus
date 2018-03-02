@@ -49,8 +49,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             versionCode = pInfo.versionCode;
-        } catch (Exception e) {
-            //e.printStackTrace();
+        } catch (Exception ignored) {
         }
 
         boolean news = false;

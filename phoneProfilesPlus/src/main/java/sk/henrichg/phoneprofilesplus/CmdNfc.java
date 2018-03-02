@@ -10,7 +10,6 @@ public class CmdNfc {
 
   public static void main(String[] args) {
       //PPApplication.logE("CmdNfc.main", "args="+args);
-      //Log.e("CmdNfc.main", "args="+args);
       if (!(run(Boolean.parseBoolean(args[0])))) {
           System.exit(1);
       }

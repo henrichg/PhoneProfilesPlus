@@ -508,7 +508,7 @@ class WifiBluetoothScanner {
                 wakeLock.acquire(10 * 60 * 1000);
             PPApplication.logE("$$$ WifiBluetoothScanner.lock","xxx");
         } catch(Exception e) {
-            Log.e("WifiBluetoothScanner.lock", "Error getting Lock: " + e.getMessage());
+            Log.e("WifiBluetoothScanner.lock", "Error getting Lock: ", e);
             PPApplication.logE("$$$ WifiBluetoothScanner.lock", "Error getting Lock: " + e.getMessage());
         }
     }
@@ -568,15 +568,6 @@ class WifiBluetoothScanner {
                             }
                         });
                         PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi","set enabled");
-
-                            /*
-                            try {
-                                Thread.sleep(700);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            */
-
                         return WifiManager.WIFI_STATE_ENABLING;
                     }
                 }
@@ -754,8 +745,6 @@ class WifiBluetoothScanner {
         if (Build.VERSION.SDK_INT >= 23) {
             // check for Location Settings
 
-            //Log.e("WifiBluetoothScanner.isLocationEnabled","scanType="+scanType);
-
             int locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
             boolean isScanAlwaysAvailable = true;
 
@@ -766,10 +755,6 @@ class WifiBluetoothScanner {
                 boolean isWifiEnabled = (wifiState == WifiManager.WIFI_STATE_ENABLED);
                 isScanAlwaysAvailable = isWifiEnabled || WifiScanJob.wifi.isScanAlwaysAvailable();
             }
-
-            //if (locationMode == Settings.Secure.LOCATION_MODE_OFF)
-            //    Log.e("WifiBluetoothScanner.isLocationEnabled","locationMode=LOCATION_MODE_OFF");
-            //Log.e("WifiBluetoothScanner.isLocationEnabled","isScanAlwaysAvailable="+isScanAlwaysAvailable);
 
             if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!isScanAlwaysAvailable)) {
                 // Location settings are not properly set, show notification about it

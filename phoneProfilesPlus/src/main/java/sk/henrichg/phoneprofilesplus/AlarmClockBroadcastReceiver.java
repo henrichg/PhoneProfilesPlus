@@ -22,12 +22,8 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
         if (android.os.Build.VERSION.SDK_INT >= 21) {
 
             int zenMode = ActivateProfileHelper.getSystemZenMode(context, ActivateProfileHelper.ZENMODE_ALL);
-            //Log.e("AlarmClockBroadcastReceiver", "zen_mode="+zenMode);
 
             if (zenMode != ActivateProfileHelper.ZENMODE_ALL) {
-
-                //Log.e("AlarmClockBroadcastReceiver", "zen_mode != ALL");
-
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
 
                 Profile profile = dataWrapper.getActivatedProfile(false, false);
@@ -35,17 +31,12 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                 //noinspection StatementWithEmptyBody
                 if (profile != null) {
-
-                    //Log.e("AlarmClockBroadcastReceiver", "profile is activated");
-
                     /*
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         //System.out.println(e);
                     }
-
-                    Log.e("AlarmClockBroadcastReceiver", "set interruption filter to ALL");
 
                     PPNotificationListenerService.requestInterruptionFilter(appContext,
                             NotificationListenerService.INTERRUPTION_FILTER_ALL);

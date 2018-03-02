@@ -509,7 +509,6 @@ public class RingtonePreference extends DialogPreference {
                 }, 3000);
             } catch (Exception e) {
                 PPApplication.logE("RingtonePreference.playRingtone", "exception");
-                //e.printStackTrace();
                 stopPlayRingtone();
                 PPApplication.startHandlerThread();
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

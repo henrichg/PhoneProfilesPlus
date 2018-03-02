@@ -497,12 +497,6 @@ class EventPreferencesCalendar extends EventPreferences {
         }
         selection.append(")");
 
-        /*
-        Log.e("** EventPrefCalendar", "selection="+selection);
-        for (String arg : selectionArgs)
-            Log.e("** EventPrefCalendar", "selectionArgs="+arg);
-        */
-
         // Construct the query with the desired date range.
         Calendar calendar = Calendar.getInstance();
         long now = calendar.getTimeInMillis();
@@ -549,8 +543,6 @@ class EventPreferencesCalendar extends EventPreferences {
                 long endVal;
                 //String title = null;
 
-                //Log.e("** EventPrefCalendar", "title="+cur.getString(PROJECTION_TITLE_INDEX));
-
                 // Get the field values
                 beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
                 endVal = cur.getLong(PROJECTION_END_INDEX);
@@ -575,8 +567,6 @@ class EventPreferencesCalendar extends EventPreferences {
                     _eventFound = true;
                     _startTime = beginVal + gmtOffset;
                     _endTime = endVal + gmtOffset;
-                    //Log.e("** EventPrefCalendar", "beginVal="+getDate(_startTime));
-                    //Log.e("** EventPrefCalendar", "endVal="+getDate(_endTime));
                     break;
                 }
                 else
@@ -586,8 +576,6 @@ class EventPreferencesCalendar extends EventPreferences {
                     _eventFound = true;
                     _startTime = beginVal + gmtOffset;
                     _endTime = endVal + gmtOffset;
-                    //Log.e("** EventPrefCalendar", "beginVal="+getDate(_startTime));
-                    //Log.e("** EventPrefCalendar", "endVal="+getDate(_endTime));
                     break;
                 }
 

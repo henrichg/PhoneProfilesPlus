@@ -191,7 +191,6 @@ class EventPreferencesOrientation extends EventPreferences {
                             if (app != null)
                                 selectedApplications = packageManager.getApplicationLabel(app).toString();
                         } catch (Exception e) {
-                            //e.printStackTrace();
                             selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                         }
                     }

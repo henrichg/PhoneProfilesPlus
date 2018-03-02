@@ -173,8 +173,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                         } catch (Exception ignored) {
                                         }
                                     }
-                                }// else
-                                //    e.printStackTrace();
+                                }
                             }
                         }
                         if (!activityExists) {
