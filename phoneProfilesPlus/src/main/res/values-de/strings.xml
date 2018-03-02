@@ -136,7 +136,7 @@
   <string name="profile_preferences_deviceMobileDataPrefs">(I) Einstellungen für mobiles Internet öffnen</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Farbig</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_android">Standard</string>
-  <string name="phone_profiles_pref_applicationLongClickActivation">Lang dr. für Profilaktivierung</string>
+  <string name="phone_profiles_pref_applicationLongClickActivation">Lang drücken für Profilaktivierung</string>
   <string name="alert_title_delete_all_profiles">Alle Profile löschen</string>
   <string name="alert_message_delete_all_profiles">Sicher?</string>
   <string name="alert_title_delete_all_events">Alle Ereignisse löschen</string>
