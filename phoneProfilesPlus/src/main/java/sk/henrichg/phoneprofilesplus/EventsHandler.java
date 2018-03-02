@@ -6,9 +6,13 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.PowerManager;
 import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.List;
+
+import static android.content.Context.POWER_SERVICE;
 
 class EventsHandler {
     
@@ -631,15 +635,28 @@ class EventsHandler {
                         linkUnlink = true;
                     if (linkUnlink) {
                         Profile profile = dataWrapper.getActivatedProfile(false, false);
-                        profile = Profile.getMappedProfile(profile, context);
+                        final Profile _profile = Profile.getMappedProfile(profile, context);
                         if (profile != null) {
-                            //ExecuteVolumeProfilePrefsJob.start(context, profile._id, false, false);
-                            ActivateProfileHelper.executeForVolumes(profile, false, context);
-                            // wait for link/unlink
-                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(1000);
-                            PPApplication.sleep(1000);
+                            Handler handler = new Handler(ActivateProfileHelper.handlerThreadVolumes.getLooper());
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+                                    PowerManager.WakeLock wakeLock = null;
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.handlerThreadVolumes");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    ActivateProfileHelper.executeForVolumes(_profile, false, context);
+
+                                    if ((wakeLock != null) && wakeLock.isHeld())
+                                        wakeLock.release();
+                                }
+                            });
                         }
+                        // wait for link/unlink
+                        PPApplication.sleep(1500);
                     }
                 } else
                     PhoneCallBroadcastReceiver.linkUnlinkExecuted = false;

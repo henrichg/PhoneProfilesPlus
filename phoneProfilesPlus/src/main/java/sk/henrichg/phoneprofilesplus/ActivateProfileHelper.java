@@ -70,7 +70,7 @@ class ActivateProfileHelper {
     static boolean lockRefresh = false;
     static boolean disableScreenTimeoutInternalChange = false;
 
-    private static HandlerThread handlerThreadVolumes = new HandlerThread("handlerThreadVolumes");
+    static HandlerThread handlerThreadVolumes = new HandlerThread("handlerThreadVolumes");
     private static HandlerThread handlerThreadRadios = new HandlerThread("handlerThreadRadios");
     private static HandlerThread handlerThreadAdaptiveBrightness = new HandlerThread("handlerThreadAdaptiveBrightness");
     private static HandlerThread handlerThreadWallpaper = new HandlerThread("handlerThreadWallpaper");
