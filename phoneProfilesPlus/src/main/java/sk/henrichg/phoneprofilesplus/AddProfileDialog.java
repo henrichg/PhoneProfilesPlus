@@ -20,7 +20,7 @@ class AddProfileDialog
     private final EditorProfileListFragment profileListFragment;
 
     final MaterialDialog mDialog;
-    final Context context;
+    private final Context context;
 
     private final LinearLayout linlaProgress;
     private final ListView listView;
@@ -66,7 +66,7 @@ class AddProfileDialog
     private void onShow(/*DialogInterface dialog*/) {
         new AsyncTask<Void, Integer, Void>() {
 
-            List<Profile> profileList = new ArrayList<>();
+            final List<Profile> profileList = new ArrayList<>();
 
             @Override
             protected void onPreExecute()

@@ -22,7 +22,7 @@ class AddEventDialog
     final EditorEventListFragment eventListFragment;
 
     final MaterialDialog mDialog;
-    final Context context;
+    private final Context context;
 
     private final LinearLayout linlaProgress;
     private final RelativeLayout rellaData;
@@ -74,7 +74,7 @@ class AddEventDialog
     private void onShow(/*DialogInterface dialog*/) {
         new AsyncTask<Void, Integer, Void>() {
 
-            List<Event> eventList = new ArrayList<>();
+            final List<Event> eventList = new ArrayList<>();
             boolean profileNotExists = false;
 
             @Override

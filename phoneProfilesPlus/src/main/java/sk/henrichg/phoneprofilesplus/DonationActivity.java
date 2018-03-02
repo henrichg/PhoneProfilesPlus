@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.Window;
@@ -54,12 +53,6 @@ public class DonationActivity extends AppCompatActivity implements BillingProvid
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(R.string.donation_activity_title);
         }
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        DonationFragment donationFragment = DonationFragment.newInstance();
-
-        ft.replace(R.id.donation_activity_container, donationFragment, "donationFragment");
-        ft.commit();
 
         // Create and initialize BillingManager which talks to BillingLibrary
         mBillingManager = new BillingManager(this);

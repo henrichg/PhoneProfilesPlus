@@ -70,14 +70,14 @@ class ActivateProfileHelper {
     static boolean lockRefresh = false;
     static boolean disableScreenTimeoutInternalChange = false;
 
-    static HandlerThread handlerThreadVolumes = new HandlerThread("handlerThreadVolumes");
-    private static HandlerThread handlerThreadRadios = new HandlerThread("handlerThreadRadios");
-    private static HandlerThread handlerThreadAdaptiveBrightness = new HandlerThread("handlerThreadAdaptiveBrightness");
-    private static HandlerThread handlerThreadWallpaper = new HandlerThread("handlerThreadWallpaper");
-    private static HandlerThread handlerThreadPowerSaveMode = new HandlerThread("handlerThreadPowerSaveMode");
-    private static HandlerThread handlerThreadLockDevice = new HandlerThread("handlerThreadLockDevice");
-    private static HandlerThread handlerThreadRunApplication = new HandlerThread("handlerThreadRunApplication");
-    private static HandlerThread handlerThreadHeadsUpNotifications = new HandlerThread("handlerThreadHeadsUpNotifications");
+    static final HandlerThread handlerThreadVolumes = new HandlerThread("handlerThreadVolumes");
+    private static final HandlerThread handlerThreadRadios = new HandlerThread("handlerThreadRadios");
+    private static final HandlerThread handlerThreadAdaptiveBrightness = new HandlerThread("handlerThreadAdaptiveBrightness");
+    private static final HandlerThread handlerThreadWallpaper = new HandlerThread("handlerThreadWallpaper");
+    private static final HandlerThread handlerThreadPowerSaveMode = new HandlerThread("handlerThreadPowerSaveMode");
+    private static final HandlerThread handlerThreadLockDevice = new HandlerThread("handlerThreadLockDevice");
+    private static final HandlerThread handlerThreadRunApplication = new HandlerThread("handlerThreadRunApplication");
+    private static final HandlerThread handlerThreadHeadsUpNotifications = new HandlerThread("handlerThreadHeadsUpNotifications");
 
     static {
         handlerThreadVolumes.start();

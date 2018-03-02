@@ -265,7 +265,7 @@ public class PPApplication extends Application {
 
     static final int SCANNER_RESTART_ALL_SCANNERS = 50;
 
-    public static HandlerThread handlerThread = new HandlerThread("PPHandlerThread");
+    public static final HandlerThread handlerThread = new HandlerThread("PPHandlerThread");
     static {
         handlerThread.start();
     }
@@ -305,8 +305,8 @@ public class PPApplication extends Application {
     //public static boolean sLookCocktailBarEnabled = false;
 
     // this refresh GUI, must by called from GUI thread no IntentService, Job
-    public static final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver();
-    public static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
+    private static final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver();
+    private static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
 
     public static final Random requestCodeForAlarm = new Random();
 
