@@ -167,7 +167,7 @@ public class DonationFragment extends Fragment {
     }
 
     public void purchaseSuccessful(List<Purchase> purchases) {
-        if (purchases != null) {
+        /*if (purchases != null) {
             for (Purchase purchase : purchases) {
                 String sku = purchase.getSku();
                 for (SkuDetails skuDetail : SKU_DETAILS) {
@@ -187,7 +187,7 @@ public class DonationFragment extends Fragment {
                     }
                 }
             }
-        }
+        }*/
 
         if (getActivity() != null) {
             PPApplication.setDonationDonated(getActivity().getApplicationContext());
@@ -195,7 +195,7 @@ public class DonationFragment extends Fragment {
         }
     }
 
-    public void purchaseUnsuccessful(List<Purchase> purchases) {
+    /*public void purchaseUnsuccessful(List<Purchase> purchases) {
         if (purchases != null) {
             for (Purchase purchase : purchases) {
                 String sku = purchase.getSku();
@@ -217,7 +217,7 @@ public class DonationFragment extends Fragment {
                 }
             }
         }
-    }
+    }*/
 
     public void displayAnErrorIfNeeded(int response) {
         if (getActivity() == null || getActivity().isFinishing()) {
