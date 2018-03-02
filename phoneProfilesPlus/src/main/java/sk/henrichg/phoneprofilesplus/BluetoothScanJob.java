@@ -147,7 +147,6 @@ class BluetoothScanJob extends Job {
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
                 == PPApplication.PREFERENCE_ALLOWED) {
             if (useHandler && (_handler == null)) {
-                PPApplication.startHandlerThread();
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -188,7 +187,6 @@ class BluetoothScanJob extends Job {
         PPApplication.logE("BluetoothScanJob.cancelJob", "xxx");
 
         if (useHandler && (_handler == null)) {
-            PPApplication.startHandlerThread();
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
@@ -802,7 +800,6 @@ class BluetoothScanJob extends Job {
                 {
                     // start job
                     final Context appContext = context.getApplicationContext();
-                    PPApplication.startHandlerThread();
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.postDelayed(new Runnable() {
                         @Override

@@ -96,7 +96,6 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                             final boolean incoming, final boolean missed,
                             final String number, final Date eventTime) {
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThread();
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override

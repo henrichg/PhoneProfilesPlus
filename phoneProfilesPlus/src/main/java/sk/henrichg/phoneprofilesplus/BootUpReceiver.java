@@ -25,7 +25,6 @@ public class BootUpReceiver extends BroadcastReceiver {
 
             // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
             PPApplication.startedOnBoot = true;
-            PPApplication.startHandlerThread();
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.postDelayed(new Runnable() {
                 @Override

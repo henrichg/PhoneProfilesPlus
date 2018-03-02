@@ -26,7 +26,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             if (intent != null) {
                 final Context appContext = context.getApplicationContext();
                 final long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-                PPApplication.startHandlerThread();
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

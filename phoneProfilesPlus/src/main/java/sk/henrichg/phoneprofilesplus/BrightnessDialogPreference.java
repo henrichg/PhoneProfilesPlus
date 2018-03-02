@@ -477,7 +477,6 @@ public class BrightnessDialogPreference extends
                             ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, value);
                 } catch (Exception ee) {
                     if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
-                        PPApplication.startHandlerThread();
                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.post(new Runnable() {
                             @Override

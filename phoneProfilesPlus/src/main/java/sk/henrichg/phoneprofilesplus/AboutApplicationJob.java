@@ -144,7 +144,6 @@ class AboutApplicationJob extends Job {
             return;
 
         if (useHandler) {
-            PPApplication.startHandlerThread();
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

@@ -65,7 +65,6 @@ public class ForegroundApplicationChangedBroadcastReceiver extends BroadcastRece
 
                     if (Event.getGlobalEventsRunning(appContext)) {
                         //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
-                        PPApplication.startHandlerThread();
                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.post(new Runnable() {
                             @Override
@@ -95,7 +94,6 @@ public class ForegroundApplicationChangedBroadcastReceiver extends BroadcastRece
             setApplicationInForeground(appContext, "");
 
             //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
-            PPApplication.startHandlerThread();
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

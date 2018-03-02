@@ -365,7 +365,6 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                             synchronized (PPApplication.geofenceScannerLastLocationMutex) {
                                 lastLocation.set(location);
                             }
-                            PPApplication.startHandlerThread();
                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                             handler.post(new Runnable() {
                                 @Override

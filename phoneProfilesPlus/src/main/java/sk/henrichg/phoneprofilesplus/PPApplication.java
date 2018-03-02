@@ -265,7 +265,10 @@ public class PPApplication extends Application {
 
     static final int SCANNER_RESTART_ALL_SCANNERS = 50;
 
-    public static HandlerThread handlerThread = null;
+    public static HandlerThread handlerThread = new HandlerThread("PPHandlerThread");
+    static {
+        handlerThread.start();
+    }
 
     public static Handler toastHandler;
     public static Handler brightnessHandler;
@@ -346,9 +349,6 @@ public class PPApplication extends Application {
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.dashClockBroadcastReceiver, new IntentFilter("DashClockBroadcastReceiver"));
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
 
-
-        startHandlerThread();
-
         JobConfig.setForceAllowApi14(true); // https://github.com/evernote/android-job/issues/197
         JobManager.create(this).addJobCreator(new PPJobsCreator());
 
@@ -409,13 +409,6 @@ public class PPApplication extends Application {
             return true;
         }
         return false;
-    }
-
-    static void startHandlerThread() {
-        if (handlerThread == null) {
-            handlerThread = new HandlerThread("PPHandlerThread");
-            handlerThread.start();
-        }
     }
 
     //--------------------------------------------------------------
@@ -1407,7 +1400,7 @@ public class PPApplication extends Application {
     public static void exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
                                final boolean shutdown) {
         try {
-            PPApplication.startHandlerThread();
+            PPApplication.handlerThread.start();
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
