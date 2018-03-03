@@ -34,6 +34,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
 
                 //EventsHandlerJob.startForNFCTagSensor(getApplicationContext(), tagRead, time);
                 final Context appContext = getApplicationContext();
+                PPApplication.startHandlerThread();
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

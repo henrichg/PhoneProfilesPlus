@@ -35,6 +35,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
         PPApplication.restartPhoneStateScanner(appContext, true);
         PPApplication.restartOrientationScanner(appContext);*/
 
+        PPApplication.startHandlerThread();
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override

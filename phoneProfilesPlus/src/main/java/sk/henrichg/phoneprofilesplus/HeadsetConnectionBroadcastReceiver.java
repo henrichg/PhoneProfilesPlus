@@ -98,6 +98,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
         {
             if (broadcast)
             {
+                PPApplication.startHandlerThread();
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

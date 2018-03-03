@@ -37,6 +37,7 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
             {*/
                 // start job
                 //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_CALENDAR);
+                PPApplication.startHandlerThread();
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

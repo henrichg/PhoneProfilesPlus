@@ -44,6 +44,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
 
                 if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                    PPApplication.startHandlerThread();
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
                         @Override
@@ -84,6 +85,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                 {
                                     PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "start EventsHandler (1)");
                                     // start job
+                                    PPApplication.startHandlerThread();
                                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                                     handler.postDelayed(new Runnable() {
                                         @Override

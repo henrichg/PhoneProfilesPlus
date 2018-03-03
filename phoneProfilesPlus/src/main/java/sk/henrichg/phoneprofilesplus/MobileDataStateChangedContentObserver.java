@@ -46,6 +46,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
                 if (Event.getGlobalEventsRunning(context)) {
                     //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
                     final Context appContext = context.getApplicationContext();
+                    PPApplication.startHandlerThread();
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
                         @Override

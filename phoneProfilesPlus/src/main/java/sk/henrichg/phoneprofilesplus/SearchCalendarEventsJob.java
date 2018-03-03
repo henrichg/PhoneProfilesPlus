@@ -99,6 +99,7 @@ class SearchCalendarEventsJob extends Job {
         PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "shortInterval="+shortInterval);
 
         if (useHandler && (_handler == null)) {
+            PPApplication.startHandlerThread();
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
@@ -128,6 +129,7 @@ class SearchCalendarEventsJob extends Job {
         PPApplication.logE("SearchCalendarEventsJob.cancelJob", "xxx");
 
         if (useHandler && (_handler == null)) {
+            PPApplication.startHandlerThread();
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

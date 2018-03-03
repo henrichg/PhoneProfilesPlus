@@ -39,6 +39,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                 final int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
 
+                PPApplication.startHandlerThread();
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -91,6 +92,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     // start scan
                                     if (WifiScanJob.getScanRequest(appContext)) {
                                         //final Context _context = appContext;
+                                        PPApplication.startHandlerThread();
                                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                                         handler.postDelayed(new Runnable() {
                                             @Override
@@ -119,6 +121,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                                     } else if (!WifiScanJob.getWaitForResults(appContext)) {
                                         // refresh configured networks list
+                                        PPApplication.startHandlerThread();
                                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                                         handler.post(new Runnable() {
                                             @Override

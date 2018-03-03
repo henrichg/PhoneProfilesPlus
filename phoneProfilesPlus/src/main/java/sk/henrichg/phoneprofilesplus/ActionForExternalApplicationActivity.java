@@ -122,6 +122,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     final Event event = dataWrapper.getEventById(event_id);
                     if (event.getStatus() != Event.ESTATUS_RUNNING) {
                         final List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+                        PPApplication.startHandlerThread();
                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.post(new Runnable() {
                             @Override
@@ -170,6 +171,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     final List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                     final Event event = dataWrapper.getEventById(event_id);
                     if (event.getStatus() != Event.ESTATUS_STOP) {
+                        PPApplication.startHandlerThread();
                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.post(new Runnable() {
                             @Override

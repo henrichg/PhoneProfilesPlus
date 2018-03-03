@@ -735,6 +735,7 @@ public class DataWrapper {
         }
 
         final Context _context = context;
+        PPApplication.startHandlerThread();
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -813,6 +814,7 @@ public class DataWrapper {
         }
 
         final Context _context = context;
+        PPApplication.startHandlerThread();
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -869,6 +871,7 @@ public class DataWrapper {
         }
 
         final Context _context = context;
+        PPApplication.startHandlerThread();
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -1304,6 +1307,7 @@ public class DataWrapper {
         }
 
         final Context _context = context;
+        PPApplication.startHandlerThread();
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -3167,6 +3171,7 @@ public class DataWrapper {
         if (Event.getEventsBlocked(context) && (!unblockEventsRun)) {
             //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE);
             final Context appContext = context.getApplicationContext();
+            PPApplication.startHandlerThread();
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
@@ -3219,6 +3224,7 @@ public class DataWrapper {
 
         //EventsHandlerJob.startForRestartEvents(context, interactive);
         final Context appContext = context.getApplicationContext();
+        PPApplication.startHandlerThread();
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -3376,6 +3382,7 @@ public class DataWrapper {
         final boolean _unblockEventsRun = unblockEventsRun;
         //final boolean _interactive = false/*interactive*/;
 
+        PPApplication.startHandlerThread();
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.postDelayed(new Runnable() {
             @Override

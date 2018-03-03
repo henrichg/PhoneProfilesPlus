@@ -355,6 +355,7 @@ class PhoneStateScanner extends PhoneStateListener {
         if (Event.getGlobalEventsRunning(context))
         {
             final Context appContext = context.getApplicationContext();
+            PPApplication.startHandlerThread();
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

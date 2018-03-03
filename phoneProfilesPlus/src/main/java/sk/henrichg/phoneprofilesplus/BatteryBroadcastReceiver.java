@@ -135,6 +135,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             PPApplication.restartOrientationScanner(appContext);*/
 
             if (Event.getGlobalEventsRunning(appContext)) {
+                PPApplication.startHandlerThread();
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
