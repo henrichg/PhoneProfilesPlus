@@ -3,10 +3,9 @@ apply plugin: 'io.fabric'
 apply from: '../dependencies.gradle'
 
 android {
-    compileSdkVersion ppVersions.compileSdk
-    buildToolsVersion ppVersions.buildTools
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
-    //noinspection GroovyMissingReturnStatement
     defaultConfig {
         applicationId "sk.henrichg.phoneprofilesplus"
         minSdkVersion 19
@@ -36,17 +35,7 @@ android {
             ext.enableCrashlytics = false
         }
     }
-    // this is for debuging billing
-    /*signingConfigs {
-        debug {
-            keyAlias 'xxxx'
-            keyPassword 'xxxx'
-            storePassword 'xxxx'
-            storeFile file('xxxx')
-        }
-    }*/
 
-    //noinspection GroovyMissingReturnStatement
     lintOptions {
         //checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,
@@ -60,12 +49,12 @@ android {
 
 dependencies {
     implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.android.support:support-core-ui:' + ppVersions.supportLib
-    implementation 'com.android.support:appcompat-v7:' + ppVersions.supportLib
-    implementation 'com.android.support:gridlayout-v7:' + ppVersions.supportLib
-    implementation 'com.android.support:cardview-v7:' + ppVersions.supportLib
-    implementation 'com.android.support:recyclerview-v7:' + ppVersions.supportLib
-    implementation 'com.android.support:design:' + ppVersions.supportLib
+    implementation 'com.android.support:support-core-ui:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:gridlayout-v7:27.1.0'
+    implementation 'com.android.support:cardview-v7:27.1.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
     implementation 'com.google.android.gms:play-services-location:11.8.0'
     implementation 'com.google.android.gms:play-services-maps:11.8.0'
     implementation 'com.android.billingclient:billing:1.0'
