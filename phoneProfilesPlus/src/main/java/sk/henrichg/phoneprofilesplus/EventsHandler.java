@@ -637,23 +637,7 @@ class EventsHandler {
                         Profile profile = dataWrapper.getActivatedProfile(false, false);
                         final Profile _profile = Profile.getMappedProfile(profile, context);
                         if (profile != null) {
-                            Handler handler = new Handler(ActivateProfileHelper.handlerThreadVolumes.getLooper());
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.handlerThreadVolumes");
-                                        wakeLock.acquire(10 * 60 * 1000);
-                                    }
-
-                                    ActivateProfileHelper.executeForVolumes(_profile, false, context);
-
-                                    if ((wakeLock != null) && wakeLock.isHeld())
-                                        wakeLock.release();
-                                }
-                            });
+                            ActivateProfileHelper.executeForVolumes(_profile, false, context);
                         }
                         // wait for link/unlink
                         PPApplication.sleep(1500);
