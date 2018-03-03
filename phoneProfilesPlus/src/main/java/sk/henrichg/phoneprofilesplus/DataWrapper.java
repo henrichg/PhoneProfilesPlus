@@ -1698,8 +1698,11 @@ public class DataWrapper {
             int batteryPct;
 
             // get battery status
-            IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-            Intent batteryStatus = context.registerReceiver(null, filter);
+            Intent batteryStatus = null;
+            try { // Huawei devices: java.lang.IllegalArgumentException: regist too many Broadcast Receivers
+                IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                batteryStatus = context.registerReceiver(null, filter);
+            } catch (Exception ignored) {}
 
             if (batteryStatus != null) {
                 batteryPassed = false;
@@ -3588,8 +3591,11 @@ public class DataWrapper {
                 isPowerSaveMode = powerManager.isPowerSaveMode();
         }
 
-        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        Intent batteryStatus = context.registerReceiver(null, filter);
+        Intent batteryStatus = null;
+        try { // Huawei devices: java.lang.IllegalArgumentException: regist too many Broadcast Receivers
+            IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+            batteryStatus = context.registerReceiver(null, filter);
+        } catch (Exception ignored) {}
         if (batteryStatus != null) {
             int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
             PPApplication.logE("DataWrapper.isPowerSaveMode", "status=" + status);

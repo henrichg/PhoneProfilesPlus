@@ -39,8 +39,11 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                     status == BatteryManager.BATTERY_STATUS_FULL;
         }
         else {
-            IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-            Intent batteryStatus = context.registerReceiver(null, ifilter);
+            Intent batteryStatus = null;
+            try { // Huawei devices: java.lang.IllegalArgumentException: regist too many Broadcast Receivers
+                IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                batteryStatus = context.registerReceiver(null, iFilter);
+            } catch (Exception ignored) {}
             if (batteryStatus != null) {
                 status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
                 if (status != -1) {
@@ -62,8 +65,11 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             pct = Math.round(level / (float) scale * 100);
         }
         else {
-            IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-            Intent batteryStatus = context.registerReceiver(null, ifilter);
+            Intent batteryStatus = null;
+            try { // Huawei devices: java.lang.IllegalArgumentException: regist too many Broadcast Receivers
+                IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                batteryStatus = context.registerReceiver(null, iFilter);
+            } catch (Exception ignored) {}
             if (batteryStatus != null) {
                 level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
                 if (level != -1) {

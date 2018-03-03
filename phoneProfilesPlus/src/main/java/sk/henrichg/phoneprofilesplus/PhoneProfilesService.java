@@ -2040,8 +2040,11 @@ public class PhoneProfilesService extends Service
         BluetoothScanJob.initialize(appContext);
 
         // get actual battery status
-        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        Intent batteryStatus = registerReceiver(null, filter);
+        Intent batteryStatus = null;
+        try { // Huawei devices: java.lang.IllegalArgumentException: regist too many Broadcast Receivers
+            IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+            batteryStatus = registerReceiver(null, filter);
+        } catch (Exception ignored) {}
         if (batteryStatus != null) {
             int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
             BatteryBroadcastReceiver.isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
