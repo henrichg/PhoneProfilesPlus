@@ -997,7 +997,7 @@ class ActivateProfileHelper {
                 //SystemClock.sleep(500);
                 PPApplication.sleep(500);
 
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                final Handler handler = new Handler(handlerThreadVolumes.getLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -1540,11 +1540,11 @@ class ActivateProfileHelper {
         final Profile profile = Profile.getMappedProfile(_profile, context);
 
         // setup volume
-        //TODO run it in separate handlerThread
         Handler handler = new Handler(handlerThreadVolumes.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("ActivateProfileHelper.execute","handlerThreadVolumes");
                 PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
@@ -1572,11 +1572,11 @@ class ActivateProfileHelper {
         }
 
         //// setup radio preferences
-        //TODO run it in separate handlerThread
         handler = new Handler(handlerThreadRadios.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("ActivateProfileHelper.execute","handlerThreadRadios");
                 PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
@@ -1625,6 +1625,7 @@ class ActivateProfileHelper {
                 if (PPApplication.screenTimeoutHandler != null) {
                     PPApplication.screenTimeoutHandler.post(new Runnable() {
                         public void run() {
+                            PPApplication.logE("ActivateProfileHelper.execute","screenTimeoutHandler");
                             setScreenTimeout(profile._deviceScreenTimeout, context);
                         }
                     });
@@ -1721,11 +1722,11 @@ class ActivateProfileHelper {
                                         profile.getDeviceBrightnessAdaptiveValue(context));
                             } catch (Exception ee) {
                                 // run service for execute radios
-                                //TODO run it in separate handlerThread
                                 handler = new Handler(handlerThreadAdaptiveBrightness.getLooper());
                                 handler.post(new Runnable() {
                                     @Override
                                     public void run() {
+                                        PPApplication.logE("ActivateProfileHelper.execute","handlerThreadAdaptiveBrightness");
                                         PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                                         PowerManager.WakeLock wakeLock = null;
                                         if (powerManager != null) {
@@ -1754,6 +1755,7 @@ class ActivateProfileHelper {
                 if (PPApplication.brightnessHandler != null) {
                     PPApplication.brightnessHandler.post(new Runnable() {
                         public void run() {
+                            PPApplication.logE("ActivateProfileHelper.execute","brightnessHandler");
                             createBrightnessView(context);
                         }
                     });
@@ -1814,11 +1816,11 @@ class ActivateProfileHelper {
         // setup wallpaper
         if (Permissions.checkProfileWallpaper(context, profile, null)) {
             if (profile._deviceWallpaperChange == 1) {
-                //TODO run it in separate handlerThread
                 handler = new Handler(handlerThreadWallpaper.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("ActivateProfileHelper.execute","handlerThreadWallpaper");
                         PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         if (powerManager != null) {
@@ -1836,11 +1838,11 @@ class ActivateProfileHelper {
         }
 
         // set power save mode
-        //TODO run it in separate handlerThread
         handler = new Handler(handlerThreadPowerSaveMode.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("ActivateProfileHelper.execute","handlerThreadPowerSaveMode");
                 PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
@@ -1863,11 +1865,11 @@ class ActivateProfileHelper {
                     keyguardLocked = kgMgr.isKeyguardLocked();
                     PPApplication.logE("---$$$ ActivateProfileHelper.execute", "keyguardLocked=" + keyguardLocked);
                     if (!keyguardLocked) {
-                        //TODO run it in separate handlerThread
                         handler = new Handler(handlerThreadLockDevice.getLooper());
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
+                                PPApplication.logE("ActivateProfileHelper.execute","handlerThreadLockDevice");
                                 PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                                 PowerManager.WakeLock wakeLock = null;
                                 if (powerManager != null) {
@@ -1888,11 +1890,11 @@ class ActivateProfileHelper {
 
         if (profile._deviceRunApplicationChange == 1)
         {
-            //TODO run it in separate handlerThread
             handler = new Handler(handlerThreadRunApplication.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("ActivateProfileHelper.execute","handlerThreadRunApplication");
                     PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     if (powerManager != null) {
@@ -1945,11 +1947,11 @@ class ActivateProfileHelper {
         }
 
         // set heads-up notifications
-        //TODO run it in separate handlerThread
         handler = new Handler(handlerThreadHeadsUpNotifications.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("ActivateProfileHelper.execute","handlerThreadHeadsUpNotifications");
                 PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {

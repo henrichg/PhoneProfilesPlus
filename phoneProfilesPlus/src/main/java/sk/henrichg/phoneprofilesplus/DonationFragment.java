@@ -45,9 +45,11 @@ public class DonationFragment extends Fragment {
         setRetainInstance(true);
     }
 
+    /*
     public static DonationFragment newInstance() {
         return new DonationFragment();
     }
+    */
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
