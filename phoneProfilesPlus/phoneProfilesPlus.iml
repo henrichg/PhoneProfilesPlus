@@ -101,12 +101,10 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
-      <excludeFolder url="file://$MODULE_DIR$/build/reports" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 27 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="com.android.support:multidex-1.0.2" level="project" />
     <orderEntry type="library" name="com.android.support:animated-vector-drawable-27.0.2" level="project" />
     <orderEntry type="library" name="com.google.code.gson:gson:2.8.0@jar" level="project" />
     <orderEntry type="library" name="com.simplecityapps:recyclerview-fastscroll-1.0.17" level="project" />
@@ -134,6 +132,7 @@
     <orderEntry type="library" name="com.android.support:support-media-compat-27.0.2" level="project" />
     <orderEntry type="library" name="com.crashlytics.sdk.android:answers-1.4.1" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-base-11.8.0" level="project" />
+    <orderEntry type="library" name="com.android.support:multidex-1.0.3" level="project" />
     <orderEntry type="library" name="com.android.support:support-v4-27.0.2" level="project" />
     <orderEntry type="library" name="com.evernote:android-job-1.2.4" level="project" />
     <orderEntry type="library" name="com.android.support:appcompat-v7-27.0.2" level="project" />
