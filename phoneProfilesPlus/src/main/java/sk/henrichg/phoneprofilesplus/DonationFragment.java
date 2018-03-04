@@ -174,13 +174,13 @@ public class DonationFragment extends Fragment {
                 String sku = purchase.getSku();
                 for (SkuDetails skuDetail : SKU_DETAILS) {
                     if (skuDetail.getSku().equals(sku)) {
-                        //Log.e("DonationFragment.purchaseSuccessful", "sku=" + sku);
-                        //Log.e("DonationFragment.purchaseSuccessful", "currency=" + skuDetail.getPriceCurrencyCode());
-                        //Log.e("DonationFragment.purchaseSuccessful", "priceS=" + skuDetail.getPrice());
-                        //Log.e("DonationFragment.purchaseSuccessful", "priceMicros=" + skuDetail.getPriceAmountMicros());
-                        //Log.e("DonationFragment.purchaseSuccessful", "price=" + skuDetail.getPriceAmountMicros() / 1000000);
+                        PPApplication.logE(TAG, "purchaseSuccessful - sku=" + sku);
+                        PPApplication.logE(TAG, "purchaseSuccessful - currency=" + skuDetail.getPriceCurrencyCode());
+                        PPApplication.logE(TAG, "purchaseSuccessful - priceS=" + skuDetail.getPrice());
+                        PPApplication.logE(TAG, "purchaseSuccessful - priceMicros=" + skuDetail.getPriceAmountMicros());
+                        PPApplication.logE(TAG, "purchaseSuccessful - price=" + skuDetail.getPriceAmountMicros() / 1000000.0);
                         Answers.getInstance().logPurchase(new PurchaseEvent()
-                                .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000))
+                                .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000.0))
                                 .putCurrency(Currency.getInstance(skuDetail.getPriceCurrencyCode()))
                                 .putItemName("Donation")
                                 //.putItemType("Apparel")
@@ -203,13 +203,13 @@ public class DonationFragment extends Fragment {
                 String sku = purchase.getSku();
                 for (SkuDetails skuDetail : SKU_DETAILS) {
                     if (skuDetail.getSku().equals(sku)) {
-                        //Log.e("DonationFragment.purchaseUnsuccessful", "sku=" + sku);
-                        //Log.e("DonationFragment.purchaseUnsuccessful", "currency=" + skuDetail.getPriceCurrencyCode());
-                        //Log.e("DonationFragment.purchaseUnsuccessful", "priceS=" + skuDetail.getPrice());
-                        //Log.e("DonationFragment.purchaseUnsuccessful", "priceMicros=" + skuDetail.getPriceAmountMicros());
-                        //Log.e("DonationFragment.purchaseUnsuccessful", "price=" + skuDetail.getPriceAmountMicros() / 1000000);
+                        PPApplication.logE(TAG, "purchaseUnsuccessful - sku=" + sku);
+                        PPApplication.logE(TAG, "purchaseUnsuccessful - currency=" + skuDetail.getPriceCurrencyCode());
+                        PPApplication.logE(TAG, "purchaseUnsuccessful - priceS=" + skuDetail.getPrice());
+                        PPApplication.logE(TAG, "purchaseUnsuccessful - priceMicros=" + skuDetail.getPriceAmountMicros());
+                        PPApplication.logE(TAG, "purchaseUnsuccessful - price=" + skuDetail.getPriceAmountMicros() / 1000000.0);
                         Answers.getInstance().logPurchase(new PurchaseEvent()
-                                .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000))
+                                .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000.0))
                                 .putCurrency(Currency.getInstance(skuDetail.getPriceCurrencyCode()))
                                 .putItemName("Donation")
                                 //.putItemType("Apparel")
