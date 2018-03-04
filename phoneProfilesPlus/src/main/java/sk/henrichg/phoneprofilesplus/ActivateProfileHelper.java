@@ -742,15 +742,18 @@ class ActivateProfileHelper {
                         catch (Exception ignored) {}
                     }
                     else {
-                        synchronized (PPApplication.startRootCommandMutex) {
-                            String command1 = "settings put global audio_safe_volume_state 2";
-                            Command command = new Command(0, false, command1);
-                            try {
-                                //RootTools.closeAllShells();
-                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                commandWait(command);
-                                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, profile.getVolumeMediaValue(), 0);
-                            } catch (Exception ignored) {}
+                        if (PPApplication.isRooted()) {
+                            synchronized (PPApplication.startRootCommandMutex) {
+                                String command1 = "settings put global audio_safe_volume_state 2";
+                                Command command = new Command(0, false, command1);
+                                try {
+                                    //RootTools.closeAllShells();
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    commandWait(command);
+                                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, profile.getVolumeMediaValue(), 0);
+                                } catch (Exception ignored) {
+                                }
+                            }
                         }
                     }
                 } catch (Exception ignored) {}
