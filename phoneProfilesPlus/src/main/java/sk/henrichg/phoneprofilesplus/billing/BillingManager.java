@@ -108,7 +108,7 @@ public class BillingManager implements PurchasesUpdatedListener {
             }
         }
         else {
-            //getFragment().purchaseUnsuccessful(purchases);
+            getFragment().purchaseUnsuccessful(purchases);
             getFragment().displayAnErrorIfNeeded(responseCode);
         }
     }

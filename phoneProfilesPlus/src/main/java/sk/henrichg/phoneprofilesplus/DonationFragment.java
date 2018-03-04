@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,12 @@ import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsResponseListener;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.PurchaseEvent;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 import sk.henrichg.phoneprofilesplus.billing.BillingProvider;
@@ -164,16 +169,16 @@ public class DonationFragment extends Fragment {
     }
 
     public void purchaseSuccessful(List<Purchase> purchases) {
-        /*if (purchases != null) {
+        if (purchases != null) {
             for (Purchase purchase : purchases) {
                 String sku = purchase.getSku();
                 for (SkuDetails skuDetail : SKU_DETAILS) {
                     if (skuDetail.getSku().equals(sku)) {
-                        Log.e("DonationFragment.purchaseSuccessful", "sku=" + sku);
-                        Log.e("DonationFragment.purchaseSuccessful", "currency=" + skuDetail.getPriceCurrencyCode());
-                        Log.e("DonationFragment.purchaseSuccessful", "priceS=" + skuDetail.getPrice());
-                        Log.e("DonationFragment.purchaseSuccessful", "priceMicros=" + skuDetail.getPriceAmountMicros());
-                        Log.e("DonationFragment.purchaseSuccessful", "price=" + skuDetail.getPriceAmountMicros() / 1000000);
+                        //Log.e("DonationFragment.purchaseSuccessful", "sku=" + sku);
+                        //Log.e("DonationFragment.purchaseSuccessful", "currency=" + skuDetail.getPriceCurrencyCode());
+                        //Log.e("DonationFragment.purchaseSuccessful", "priceS=" + skuDetail.getPrice());
+                        //Log.e("DonationFragment.purchaseSuccessful", "priceMicros=" + skuDetail.getPriceAmountMicros());
+                        //Log.e("DonationFragment.purchaseSuccessful", "price=" + skuDetail.getPriceAmountMicros() / 1000000);
                         Answers.getInstance().logPurchase(new PurchaseEvent()
                                 .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000))
                                 .putCurrency(Currency.getInstance(skuDetail.getPriceCurrencyCode()))
@@ -184,7 +189,7 @@ public class DonationFragment extends Fragment {
                     }
                 }
             }
-        }*/
+        }
 
         if (getActivity() != null) {
             PPApplication.setDonationDonated(getActivity().getApplicationContext());
@@ -192,17 +197,17 @@ public class DonationFragment extends Fragment {
         }
     }
 
-    /*public void purchaseUnsuccessful(List<Purchase> purchases) {
+    public void purchaseUnsuccessful(List<Purchase> purchases) {
         if (purchases != null) {
             for (Purchase purchase : purchases) {
                 String sku = purchase.getSku();
                 for (SkuDetails skuDetail : SKU_DETAILS) {
                     if (skuDetail.getSku().equals(sku)) {
-                        Log.e("DonationFragment.purchaseUnsuccessful", "sku=" + sku);
-                        Log.e("DonationFragment.purchaseUnsuccessful", "currency=" + skuDetail.getPriceCurrencyCode());
-                        Log.e("DonationFragment.purchaseUnsuccessful", "priceS=" + skuDetail.getPrice());
-                        Log.e("DonationFragment.purchaseUnsuccessful", "priceMicros=" + skuDetail.getPriceAmountMicros());
-                        Log.e("DonationFragment.purchaseUnsuccessful", "price=" + skuDetail.getPriceAmountMicros() / 1000000);
+                        //Log.e("DonationFragment.purchaseUnsuccessful", "sku=" + sku);
+                        //Log.e("DonationFragment.purchaseUnsuccessful", "currency=" + skuDetail.getPriceCurrencyCode());
+                        //Log.e("DonationFragment.purchaseUnsuccessful", "priceS=" + skuDetail.getPrice());
+                        //Log.e("DonationFragment.purchaseUnsuccessful", "priceMicros=" + skuDetail.getPriceAmountMicros());
+                        //Log.e("DonationFragment.purchaseUnsuccessful", "price=" + skuDetail.getPriceAmountMicros() / 1000000);
                         Answers.getInstance().logPurchase(new PurchaseEvent()
                                 .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000))
                                 .putCurrency(Currency.getInstance(skuDetail.getPriceCurrencyCode()))
@@ -214,7 +219,7 @@ public class DonationFragment extends Fragment {
                 }
             }
         }
-    }*/
+    }
 
     public void displayAnErrorIfNeeded(int response) {
         if (getActivity() == null || getActivity().isFinishing()) {
@@ -228,33 +233,43 @@ public class DonationFragment extends Fragment {
                 mErrorTextView.setVisibility(View.VISIBLE);
                 switch (response) {
                     case BillingClient.BillingResponse.BILLING_UNAVAILABLE:
+                        PPApplication.logE(TAG, "error=BILLING_UNAVAILABLE");
                         mErrorTextView.setText(R.string.donation_google_android_market_not_supported);
                         break;
                     case BillingClient.BillingResponse.DEVELOPER_ERROR:
+                        PPApplication.logE(TAG, "error=DEVELOPER_ERROR");
                         mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponse.ERROR:
+                        PPApplication.logE(TAG, "error=ERROR");
                         mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponse.FEATURE_NOT_SUPPORTED:
+                        PPApplication.logE(TAG, "error=FEATURE_NOT_SUPPORTED");
                         mErrorTextView.setText(R.string.donation_google_android_market_not_supported);
                         break;
                     case BillingClient.BillingResponse.ITEM_ALREADY_OWNED:
+                        PPApplication.logE(TAG, "error=ITEM_ALREADY_OWNED");
                         mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponse.ITEM_NOT_OWNED:
+                        PPApplication.logE(TAG, "error=ITEM_NOT_OWNED");
                         mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponse.ITEM_UNAVAILABLE:
+                        PPApplication.logE(TAG, "error=ITEM_UNAVAILABLE");
                         mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponse.SERVICE_DISCONNECTED:
+                        PPApplication.logE(TAG, "error=SERVICE_DISCONNECTED");
                         mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponse.SERVICE_UNAVAILABLE:
+                        PPApplication.logE(TAG, "error=SERVICE_UNAVAILABLE");
                         mErrorTextView.setText(R.string.donation_google_error);
                         break;
                     case BillingClient.BillingResponse.USER_CANCELED:
+                        PPApplication.logE(TAG, "error=USER_CANCELED");
                         mErrorTextView.setVisibility(View.GONE);
                         break;
                 }
