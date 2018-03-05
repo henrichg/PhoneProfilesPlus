@@ -482,16 +482,15 @@ public class BrightnessDialogPreference extends
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                synchronized (PPApplication.startRootCommandMutex) {
+                                synchronized (PPApplication.rootMutex) {
                                     String command1 = "settings put system " + ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
                                             Float.toString(value);
                                     //if (PPApplication.isSELinuxEnforcing())
                                     //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                                     Command command = new Command(0, false, command1); //, command2);
                                     try {
-                                        //RootTools.closeAllShells();
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        //commandWait(command);
+                                        PPApplication.commandWait(command);
                                     } catch (Exception e) {
                                         Log.e("BrightnessDialogPreference.setAdaptiveBrightness", Log.getStackTraceString(e));
                                     }
