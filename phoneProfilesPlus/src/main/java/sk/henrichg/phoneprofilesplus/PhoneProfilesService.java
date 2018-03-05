@@ -2720,7 +2720,7 @@ public class PhoneProfilesService extends Service
             Bitmap iconBitmap;
             Bitmap preferencesIndicator;
 
-            Profile profile = dataWrapper.getActivatedProfile(true, ApplicationPreferences.notificationPrefIndicator(dataWrapper.context));
+            Profile profile = dataWrapper.getActivatedProfileFromDB(true, ApplicationPreferences.notificationPrefIndicator(dataWrapper.context));
 
             if (profile != null)
             {
