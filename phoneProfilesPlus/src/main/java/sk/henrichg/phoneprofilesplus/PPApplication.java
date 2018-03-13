@@ -79,17 +79,17 @@ public class PPApplication extends Application {
                                          //+"|DataWrapper.activateProfileAfterDuration"
 
                                          //+"|BillingManager"
-                                         +"|DonationFragment"
+                                         //+"|DonationFragment"
 
                                          //+"|Permissions.grantProfilePermissions"
                                          //+"|Permissions.checkProfileVibrateWhenRinging"
                                          //+"|Permissions.checkVibrateWhenRinging"
-                                         /*+"|ActivateProfileHelper.setZenMode"
-                                         +"|ActivateProfileHelper.setRingerMode"
-                                         +"|ActivateProfileHelper.setVolumes"
+                                         //+"|ActivateProfileHelper.setZenMode"
+                                         //+"|ActivateProfileHelper.setRingerMode"
+                                         //+"|ActivateProfileHelper.setVolumes"
                                          +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
                                          +"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
-                                         +"|ActivateProfileHelper.setVibrateWhenRinging"*/
+                                         //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"

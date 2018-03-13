@@ -474,13 +474,13 @@ class ActivateProfileHelper {
         });
     }
 
-    static boolean isAudibleRinging(int ringerMode, int zenMode, boolean onlyVibrateSilent) {
-        if (onlyVibrateSilent)
+    static boolean isAudibleRinging(int ringerMode, int zenMode/*, boolean onlyVibrateSilent*/) {
+        /*if (onlyVibrateSilent)
             return (!((ringerMode == Profile.RINGERMODE_VIBRATE) || (ringerMode == Profile.RINGERMODE_SILENT) ||
                     ((ringerMode == Profile.RINGERMODE_ZENMODE) &&
                             ((zenMode == Profile.ZENMODE_ALL_AND_VIBRATE) || (zenMode == Profile.ZENMODE_PRIORITY_AND_VIBRATE)))
             ));
-        else
+        else*/
             return (!((ringerMode == Profile.RINGERMODE_VIBRATE) || (ringerMode == Profile.RINGERMODE_SILENT) ||
                       ((ringerMode == Profile.RINGERMODE_ZENMODE) &&
                               ((zenMode == Profile.ZENMODE_NONE) || (zenMode == Profile.ZENMODE_ALL_AND_VIBRATE) ||
@@ -1116,7 +1116,7 @@ class ActivateProfileHelper {
 
                 // for profile ringer/zen mode = "only vibrate" do not change ringer mode to Silent
                 if (!isVibrateRingerMode(profile._volumeRingerMode/*, profile._volumeZenMode*/)) {
-                    if (isAudibleRinging(profile._volumeRingerMode, profile._volumeZenMode, true)) {
+                    if (isAudibleRinging(profile._volumeRingerMode, profile._volumeZenMode/*, false*/)) {
                         // change ringer mode to Silent
                         PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "changed to silent");
                         profile._volumeRingerMode = Profile.RINGERMODE_SILENT;
