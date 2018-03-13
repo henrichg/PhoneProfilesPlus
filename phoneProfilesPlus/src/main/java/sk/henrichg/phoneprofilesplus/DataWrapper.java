@@ -1208,7 +1208,7 @@ public class DataWrapper {
         //final Activity activity = _activity;
 
         // get currently activated profile
-        //Profile activatedProfile = getActivatedProfile();
+        Profile activatedProfile = getActivatedProfile(false, false);
 
         if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
             //(startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&  // on boot must set as manual activation
@@ -1249,7 +1249,7 @@ public class DataWrapper {
                 //// set profile duration alarm
 
                 // save before activated profile
-                long profileId = _profile._id;
+                long profileId = activatedProfile._id;
                 PPApplication.logE("$$$ DataWrapper._activateProfile","setActivatedProfileForDuration profileId="+profileId);
                 PPApplication.logE("$$$ DataWrapper._activateProfile","setActivatedProfileForDuration duration="+profileDuration);
                 Profile.setActivatedProfileForDuration(context, profileId);

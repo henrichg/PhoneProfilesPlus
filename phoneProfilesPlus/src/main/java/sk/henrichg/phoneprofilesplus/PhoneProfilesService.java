@@ -2360,7 +2360,6 @@ public class PhoneProfilesService extends Service
                         InterruptionFilterChangedBroadcastReceiver.setZenMode(appContext, audioManager);
                     }
 
-                    Profile.setActivatedProfileForDuration(appContext, 0);
                     ForegroundApplicationChangedBroadcastReceiver.setApplicationInForeground(appContext, "");
 
                     ApplicationPreferences.getSharedPreferences(appContext);
