@@ -87,8 +87,8 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.setZenMode"
                                          //+"|ActivateProfileHelper.setRingerMode"
                                          //+"|ActivateProfileHelper.setVolumes"
-                                         +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
-                                         +"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
+                                         //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
+                                         //+"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
