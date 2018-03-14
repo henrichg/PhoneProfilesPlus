@@ -3683,8 +3683,10 @@ public class PhoneProfilesService extends Service
                 // play repeating: default ringtone with ringing volume level
                 try {
                     AudioManager am=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
-                    if (am != null)
+                    if (am != null) {
                         am.setMode(AudioManager.MODE_NORMAL);
+                        am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                    }
 
                     //int requestType = AudioManager.AUDIOFOCUS_GAIN;
                     int requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT;
