@@ -492,6 +492,7 @@ class ActivateProfileHelper {
         return (ringerMode == Profile.RINGERMODE_VIBRATE);
     }
 
+
     private static boolean isAudibleSystemRingerMode(AudioManager audioManager) {
         return audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
     }
@@ -586,14 +587,14 @@ class ActivateProfileHelper {
         }
 
         int ringerMode = getRingerMode(context);
-        //int zenMode = getZenMode(context);
+        int zenMode = getZenMode(context);
 
         PPApplication.logE("ActivateProfileHelper.setVolumes", "ringerMode=" + ringerMode);
-        //PPApplication.logE("ActivateProfileHelper.setVolumes", "zenMode=" + zenMode);
+        PPApplication.logE("ActivateProfileHelper.setVolumes", "zenMode=" + zenMode);
         PPApplication.logE("ActivateProfileHelper.setVolumes", "linkUnlink=" + linkUnlink);
         PPApplication.logE("ActivateProfileHelper.setVolumes", "forProfileActivation=" + forProfileActivation);
 
-        //if (isAudibleRinging(ringerMode, zenMode))
+        //if (isAudibleRinging(ringerMode, zenMode, true) || (ringerMode == 0)) {
         if (isAudibleSystemRingerMode(audioManager) || (ringerMode == 0)) {
             // test only system ringer mode
 
@@ -3385,6 +3386,7 @@ class ActivateProfileHelper {
 
     static void setRingerVolume(Context context, int volume)
     {
+        PPApplication.logE("ActivateProfileHelper.(s)setRingerVolume","volume="+volume);
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_RINGER_VOLUME, volume);

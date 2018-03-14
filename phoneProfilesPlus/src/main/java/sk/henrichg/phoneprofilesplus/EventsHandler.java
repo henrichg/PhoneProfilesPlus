@@ -620,6 +620,7 @@ class EventsHandler {
         PPApplication.logE("EventsHandler.doEndService","callEventType="+callEventType);
 
         if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
+            boolean linkUnlink = false;
             if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
                     ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
                 PPApplication.logE("EventsHandler.doEndService","unlink enabled");
@@ -627,7 +628,6 @@ class EventsHandler {
                     PPApplication.logE("EventsHandler.doEndService","profile is not activated from EventsHandler");
                     // no profile is activated from EventsHandler
                     // link, unlink volumes for activated profile
-                    boolean linkUnlink = false;
                     if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)
                         linkUnlink = true;
                     if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
@@ -640,7 +640,7 @@ class EventsHandler {
                             ActivateProfileHelper.executeForVolumes(_profile, false, context);
                         }
                         // wait for link/unlink
-                        PPApplication.sleep(1500);
+                        //PPApplication.sleep(1500);
                     }
                 } else
                     PhoneCallBroadcastReceiver.linkUnlinkExecuted = false;
@@ -650,6 +650,10 @@ class EventsHandler {
             if (eventsExists(sensorType, true)) {
                 // doEndHandler is called even if no event exists, but ringing call simualtion is only for running event with call sensor
                 if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)) {
+                    /*if (!linkUnlink) {
+                        // wait for change ringer mode + volume
+                        PPApplication.sleep(1500);
+                    }*/
                     // start PhoneProfilesService for ringing call simulation
                     PPApplication.logE("EventsHandler.doEndService","start simulating ringing call");
                     try {
