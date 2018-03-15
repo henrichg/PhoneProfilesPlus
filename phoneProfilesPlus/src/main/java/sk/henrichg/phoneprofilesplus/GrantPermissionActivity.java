@@ -385,7 +385,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
         }
         else {
-            //Log.e("GrantPermissionActivity.onStart","no show rationale");
             if (onlyNotification)
                 showNotification(context);
             else

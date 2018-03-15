@@ -56,7 +56,7 @@ public class PPApplication extends Application {
     static final boolean newExtender = true;
     static final int VERSION_CODE_EXTENDER = 60;
 
-    private static final boolean logIntoLogCat = true;
+    private static final boolean logIntoLogCat = false;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -144,6 +144,7 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.onSensorChanged"
                                          //+"|ForegroundApplicationChangedBroadcastReceiver"
 
+                                         /*
                                          +"|PhoneProfilesService.doSimulatingRingingCall"
                                          +"|PhoneProfilesService.startSimulatingRingingCall"
                                          +"|PhoneProfilesService.stopSimulatingRingingCall"
@@ -153,6 +154,7 @@ public class PPApplication extends Application {
                                          +"|ActivateProfileHelper.(s)setRingerVolume"
                                          //+"|@@@ EventsHandler.handleEvents"
                                          +"|EventsHandler.doEndService"
+                                         */
 
                                          //+"|$$$ WifiAP"
 
