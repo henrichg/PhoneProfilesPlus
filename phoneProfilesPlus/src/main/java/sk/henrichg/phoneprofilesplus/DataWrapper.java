@@ -1249,10 +1249,14 @@ public class DataWrapper {
                 //// set profile duration alarm
 
                 // save before activated profile
-                long profileId = activatedProfile._id;
-                PPApplication.logE("$$$ DataWrapper._activateProfile","setActivatedProfileForDuration profileId="+profileId);
-                PPApplication.logE("$$$ DataWrapper._activateProfile","setActivatedProfileForDuration duration="+profileDuration);
-                Profile.setActivatedProfileForDuration(context, profileId);
+                if (activatedProfile != null) {
+                    long profileId = activatedProfile._id;
+                    PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration profileId=" + profileId);
+                    PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration duration=" + profileDuration);
+                    Profile.setActivatedProfileForDuration(context, profileId);
+                }
+                else
+                    Profile.setActivatedProfileForDuration(context, 0);
 
                 ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, context);
                 ///////////
