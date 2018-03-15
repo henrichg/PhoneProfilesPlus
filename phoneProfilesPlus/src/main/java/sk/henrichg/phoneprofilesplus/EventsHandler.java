@@ -6,13 +6,9 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.PowerManager;
 import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.List;
-
-import static android.content.Context.POWER_SERVICE;
 
 class EventsHandler {
     
