@@ -10,5 +10,5 @@
 
 ext.ppVersions = [
         publishVersion: '3.5.8.3',
-        publishVersionCode: 3950,
+        publishVersionCode: 3960,
 ]
