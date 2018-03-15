@@ -164,10 +164,10 @@
   <string name="phone_profiles_pref_applicationWidgetLightnessT">Яркость текста</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessI">Яркость иконки</string>
   <string name="dashclock_extension_description">Отображает активный профиль с индикатором настроек. Открывает Активатор по прикосновению.</string>
-  <string name="phone_profiles_pref_category_widget_icon_shortcut">Иконка виджета; Ярлык</string>
-  <string name="array_pref_widgetColor_colorful">Цветной</string>
-  <string name="array_pref_widgetColor_monochrome">Монохромный</string>
-  <string name="phone_profiles_pref_applicationWidgetIconColor">Тип цвета иконки</string>
+  <string name="phone_profiles_pref_category_widget_icon_shortcut">Виджет «Иконка»; Ярлык</string>
+  <string name="array_pref_widgetColor_colorful">Цветная</string>
+  <string name="array_pref_widgetColor_monochrome">Монохромная</string>
+  <string name="phone_profiles_pref_applicationWidgetIconColor">Тип иконки</string>
   <string name="profile_list_empty">Нет профилей</string>
   <string name="event_list_empty">Нет событий</string>
   <string name="event_preferences_time_timeDays">Дни недели</string>
@@ -361,7 +361,7 @@
   <string name="phone_profiles_pref_applicationEventWifiRescan">Пересканировать Wi-Fi</string>
   <string name="phone_profiles_pref_applicationEventBluetoothRescan">Пересканировать Bluetooth</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOn">Включение экрана</string>
-  <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Включение экрана и Перезапуск событий</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">При включении экрана и перезапуске событий</string>
   <string name="array_pref_ringerModeArray_ZenMode">Режимы оповещения</string>
   <string name="profile_preferences_volumeZenMode">Типы режима оповещения</string>
   <string name="array_pref_zenModeArray_all">Все</string>
@@ -691,9 +691,9 @@
   <string name="event_preferences_mobile_cells_when_outside_description">Вне местоположения</string>
   <string name="permissions_for_mobile_cells_scan_dialog_text1">Определение мобильных вышек требует дополнительных разрешений.</string>
   <string name="mobile_cells_pref_dlg_rescan_button">Пересканировать</string>
-  <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) Новая вышка, (C) подключить к вышке.</string>
+  <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) новая вышка, (C) подключённая вышка.</string>
   <string name="mobile_cells_pref_dlg_cell_name_hint">Имя вышки</string>
-  <string name="mobile_cells_pref_dlg_cell_rename_title">Переименовать вышку</string>
+  <string name="mobile_cells_pref_dlg_cell_rename_title">Переименовать вышки</string>
   <string name="mobile_cells_pref_dlg_cell_rename_button">Переименовать</string>
   <string name="phone_profiles_pref_eventMobileCellsAppSettings">Настройки мобильных вышек</string>
   <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Настройка параметров мобильных вышек в параметрах приложения.</string>
@@ -704,11 +704,11 @@
   <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Пересканирование мобильных вышек</string>
   <string name="mobile_cells_registration_pref_dlg_start_button">Старт</string>
   <string name="mobile_cells_registration_pref_dlg_stop_button">Стоп</string>
-  <string name="mobile_cells_registration_pref_dlg_status_started">Запущен</string>
-  <string name="mobile_cells_registration_pref_dlg_status_stopped">Остановлен</string>
+  <string name="mobile_cells_registration_pref_dlg_status_started">Запущено</string>
+  <string name="mobile_cells_registration_pref_dlg_status_stopped">Остановлено</string>
   <string name="mobile_cells_registration_pref_dlg_status_remaining_time">Оставшееся время</string>
-  <string name="array_pref_mobile_cells_rename_new">Новый (N)</string>
-  <string name="array_pref_mobile_cells_rename_selected">Выбрано</string>
+  <string name="array_pref_mobile_cells_rename_new">Новые (N)</string>
+  <string name="array_pref_mobile_cells_rename_selected">Выбранные</string>
   <string name="preference_not_allowed_reason_no_hardware">нет оборудования</string>
   <string name="preference_not_allowed_reason_not_rooted">нет root прав</string>
   <string name="preference_not_allowed_reason_settings_not_found">утилита «настройки» не найдена</string>
@@ -784,7 +784,7 @@
   <string name="important_into_huawei_protected_apps">Если у Вас устройство Huawei, пожалуйста, включите защиту PhoneProfilesPlus в \"Расширенные настройки\" → \"Батарея\" → \"Защищенные приложения\". Без этого приложение не будет работать корректно.</string>
   <string name="important_into_xiaomi_no_restrictions">Если у вас телефон Xiaomi, для корректной работы приложения, пожалуйста, выберите \"Без ограничений\" для PhoneProfilesPlus в настройках: \"Настройки\"→\"Батарея и производительность\" → \"Управление использованием батареи приложениями\"→\"Выберите приложение\".</string>
   <string name="important_into_samsung_no_save_power">Если у вас телефон Samsung, для корректной работы приложения, пожалуйста, выключите \"Сохранение энергии\" для PhoneProfilesPlus в настройках: \"Настройки\"→\"Батарея\" → \"Сохранение энергии\" → \"Подробнее\".</string>
-  <string name="mobile_cells_pref_dlg_last_connected">подключен:</string>
+  <string name="mobile_cells_pref_dlg_last_connected">подключена:</string>
   <string name="bluetooth_name_pref_dlg_add_bt_name_icon">Добавить Bluetooth</string>
   <string name="mobile_cells_pref_dlg_rename_icon">Переименовать</string>
   <string name="nfc_tag_pref_dlg_add_icon">Добавить NFC-метку</string>
@@ -813,12 +813,12 @@
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Некоторые устройства не поддерживают цветные иконки в панели уведомлений.</string>
   <string name="pref_dlg_change_selection_title">Изменить выбор</string>
   <string name="pref_dlg_change_selection_button">Изменить</string>
-  <string name="array_pref_change_selection_unselect_all">Убрать все</string>
-  <string name="array_pref_change_selection_mobile_cells_select_by_name">Выберите имя</string>
+  <string name="array_pref_change_selection_unselect_all">Снять все отметки</string>
+  <string name="array_pref_change_selection_mobile_cells_select_by_name">Выбрать по имени вышки</string>
   <string name="pref_dlg_change_selection_button_unselect_all">Убрать все</string>
-  <string name="array_pref_change_selection_wifi_ssid_select_by_name">Выберите имя SSID</string>
-  <string name="array_pref_change_selection_bluetooth_name_select_by_name">Выберите имя bluetooth</string>
-  <string name="array_pref_change_selection_nfc_tags_select_by_name">Выберите имя тега NFC</string>
+  <string name="array_pref_change_selection_wifi_ssid_select_by_name">Выбрать по имени SSID</string>
+  <string name="array_pref_change_selection_bluetooth_name_select_by_name">Выбрать по имени Bluetooth</string>
+  <string name="array_pref_change_selection_nfc_tags_select_by_name">Выбрать по имени NFC-тега</string>
   <string name="event_preferences_enable_sensor">Включить датчик</string>
   <string name="info_preference_click_here">Нажмите для просмотра информации</string>
   <string name="profile_preferences_category_profileActivationParameters">Параметры активации</string>
@@ -963,7 +963,7 @@
   <string name="action_for_external_application_notification_no_event_text">Параметр event_name отсутствует или является пустым.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">Включить (игнорировать точку доступа)</string>
   <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Переключить (игнорировать точку доступа)</string>
-  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Обнаружение объёмного слияния</string>
+  <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Объединённость уровней громкости</string>
   <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Уровни громкости для звонка и уведомлений в вашем устройстве не объединены.</string>
   <string name="phone_profiles_pref_applicationLanguage_el">Ελληνικά</string>
   <string name="array_pref_value_el">el</string>
@@ -1032,7 +1032,7 @@
   <string name="phone_profiles_pref_systemAutoStartMIUI">Разрешение автозапуска</string>
   <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Нажмите здесь, чтобы включить автозапуск для PhoneProfilesPlus</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Сканировать только когда экран включен</string>
-  <string name="phone_profiles_pref_applicationRestartEventsAlert">Подтверждать перезагрузку событий</string>
+  <string name="phone_profiles_pref_applicationRestartEventsAlert">Подтверждать перезапуск событий</string>
   <string name="fast_access_duration_activate_with_button">Акт. с</string>
   <string name="fast_access_duration_activate_without_button">Акт. без</string>
   <string name="applications_editor_dialog_startApplicationDelay">Задержка запуска:</string>
@@ -1061,11 +1061,11 @@
   <string name="editor_activity_targetHelps_backgroundProfileButton_description">Этот профиль будет активирован, когда никакое событие не выполняется. Нажмите здесь, чтобы настроить его.</string>
   <string name="mobile_cell_names_dialog_title">Имя вышки</string>
   <string name="mobile_cell_names_dialog_filter_title">Фильтр вышек по имени</string>
-  <string name="mobile_cell_names_dialog_item_show_selected">[Выбранный]</string>
+  <string name="mobile_cell_names_dialog_item_show_selected">[Выбранные]</string>
   <string name="mobile_cell_names_dialog_item_show_without_name">[Без имени]</string>
-  <string name="mobile_cell_names_dialog_item_show_new">[Новый (N)]</string>
+  <string name="mobile_cell_names_dialog_item_show_new">[Новые (N)]</string>
   <string name="mobile_cell_names_dialog_item_show_all">[Все]</string>
-  <string name="array_pref_change_selection_mobile_cells_select_all_visible">Выделить видимые</string>
+  <string name="array_pref_change_selection_mobile_cells_select_all_visible">Выбрать все видимые</string>
   <string name="array_pref_mobile_cells_rename_all_visible">Все видимые</string>
   <string name="import_profiles_alert_error_database_newer_version">Резервная копия базы данных имеет более позднюю версию.</string>
   <string name="phone_profiles_pref_backgroundProfileNotificationSound">Профиль по умолчанию: звук уведомлений</string>
@@ -1100,9 +1100,9 @@
   <string name="event_preferences_notifications_inCall">Входящий вызов</string>
   <string name="event_preferences_notifications_missedCall">Пропущенный вызов</string>
   <string name="colorChooser_pref_dialog_defaultIconColor">Цвет иконки по умолчанию</string>
-  <string name="phone_profiles_pref_applicationWidgetBackgroundType">Тип цвета фона</string>
+  <string name="phone_profiles_pref_applicationWidgetBackgroundType">Цветной фон</string>
   <string name="phone_profiles_pref_applicationWidgetColorB">Цвет фона</string>
-  <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Тип цвета фона (виджет)</string>
+  <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Цветной фон (виджет)</string>
   <string name="phone_profiles_pref_applicationWidgetIconColorB">Цвет фона (виджет)</string>
   <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Включить сканирование Wi-Fi</string>
   <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Сканировать, даже если Wi-Fi отключён</string>
@@ -1126,7 +1126,7 @@
   <string name="fast_access_duration_activate_without_button_2">Активировать бессрочно</string>
   <string name="profileicon_pref_dlg_customIconButton">Пользовательская иконка</string>
   <string name="mobile_cells_registration_cell_name_hint">Нажмите, чтобы задать имя вышки</string>
-  <string name="profile_preferences_deviceWiFiAPInfo_summary">Соединение к точке доступа может не работать с других устройств.</string>
+  <string name="profile_preferences_deviceWiFiAPInfo_summary">Подключение к точке доступа с других устройств может не работать.</string>
   <string name="array_event_pref_battery_charging_not_use">Не использовать</string>
   <string name="array_event_pref_battery_charging_start_when_charging">Запускать при зарядке</string>
   <string name="array_event_pref_battery_charging_stop_when_charging">Останавливать при зарядке</string>
