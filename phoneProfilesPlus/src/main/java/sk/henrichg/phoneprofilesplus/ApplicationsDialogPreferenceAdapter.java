@@ -1,7 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -27,16 +27,16 @@ class ApplicationsDialogPreferenceAdapter extends RecyclerView.Adapter<Applicati
         this.mDragStartListener = dragStartListener;
     }
 
+    @NonNull
     @Override
-    public ApplicationsDialogPreferenceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ApplicationsDialogPreferenceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.applications_preference_list_item, parent, false);
         return new ApplicationsDialogPreferenceViewHolder(view, context, preference);
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
-    public void onBindViewHolder(final ApplicationsDialogPreferenceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ApplicationsDialogPreferenceViewHolder holder, int position) {
         Application application = preference.applicationsList.get(position);
         holder.bindApplication(application);
 

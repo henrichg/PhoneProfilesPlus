@@ -24,14 +24,15 @@ class ApplicationEditorDialogAdapter extends RecyclerView.Adapter<ApplicationEdi
         this.dialog = dialog;
     }
 
+    @NonNull
     @Override
-    public ApplicationEditorDialogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ApplicationEditorDialogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.applications_editor_dialog_list_item, parent, false);
         return new ApplicationEditorDialogViewHolder(view, context, dialog);
     }
 
     @Override
-    public void onBindViewHolder(ApplicationEditorDialogViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ApplicationEditorDialogViewHolder holder, int position) {
         // Application to display
         Application application = dialog.cachedApplicationList.get(position);
         //System.out.println(String.valueOf(position));

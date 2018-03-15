@@ -26,8 +26,9 @@ class ApplicationsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Appl
         noShortcuts = addShortcuts == 0;
     }
 
+    @NonNull
     @Override
-    public ApplicationsMultiSelectDialogPreferenceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ApplicationsMultiSelectDialogPreferenceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         int resource;
         if (noShortcuts)
             resource = R.layout.applications_multiselect_preference_ns_list_item;
@@ -39,7 +40,7 @@ class ApplicationsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Appl
     }
 
     @Override
-    public void onBindViewHolder(ApplicationsMultiSelectDialogPreferenceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ApplicationsMultiSelectDialogPreferenceViewHolder holder, int position) {
         // Application to display
         Application application = preference.applicationList.get(position);
         //System.out.println(String.valueOf(position));

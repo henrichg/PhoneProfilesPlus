@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -40,8 +41,9 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         this.mDragStartListener = dragStartListener;
     }
 
+    @NonNull
     @Override
-    public EditorEventListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EditorEventListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
             if (ApplicationPreferences.applicationEditorPrefIndicator(fragment.getActivity()))
@@ -64,7 +66,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     }
 
     @Override
-    public void onBindViewHolder(final EditorEventListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final EditorEventListViewHolder holder, int position) {
         Event event = getItem(position);
         holder.bindEvent(event);
 
