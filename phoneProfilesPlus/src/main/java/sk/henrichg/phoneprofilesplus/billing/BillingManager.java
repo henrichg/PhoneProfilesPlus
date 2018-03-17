@@ -103,8 +103,10 @@ public class BillingManager implements PurchasesUpdatedListener {
         if (responseCode == BillingClient.BillingResponse.OK) {
             getFragment().purchaseSuccessful(purchases);
 
-            for (Purchase purchase : purchases) {
-                consumePurchase(purchase);
+            if (purchases != null) {
+                for (Purchase purchase : purchases) {
+                    consumePurchase(purchase);
+                }
             }
         }
         else {
