@@ -153,18 +153,15 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true);
         PPApplication.startPPService(this, serviceIntent);
 
+        final Context context = this;
         Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_SET_SERVICE_FOREGROUND, true);
-                //TODO Android O
-                // if (Build.VERSION.SDK_INT < 26)
-                startService(serviceIntent);
-                //else
-                //    startForegroundService(serviceIntent);
+                PPApplication.startPPService(context, serviceIntent);
             }
         }, 500);
         ActivateProfileHelper.updateGUI(getApplicationContext(), true);
