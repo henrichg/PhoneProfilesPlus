@@ -995,11 +995,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                //TODO Android O
-                //if (Build.VERSION.SDK_INT < 26)
-                getApplicationContext().startService(serviceIntent);
-                //else
-                //    context.startForegroundService(serviceIntent);
+                PPApplication.startPPService(this, serviceIntent);
             }
         }
         else
@@ -1026,11 +1022,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                //TODO Android O
-                //if (Build.VERSION.SDK_INT < 26)
-                getApplicationContext().startService(serviceIntent);
-                //else
-                //    context.startForegroundService(serviceIntent);
+                PPApplication.startPPService(this, serviceIntent);
             }
         }
         else
@@ -1041,11 +1033,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                //TODO Android O
-                //if (Build.VERSION.SDK_INT < 26)
-                getApplicationContext().startService(serviceIntent);
-                //else
-                //    context.startForegroundService(serviceIntent);
+                PPApplication.startPPService(this, serviceIntent);
 
                 //if (PhoneProfilesService.instance != null) {
                     /*
@@ -1292,11 +1280,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
-                        //TODO Android O
-                        // if (Build.VERSION.SDK_INT < 26)
-                        startService(serviceIntent);
-                        //else
-                        //    startForegroundService(serviceIntent);
+                        PPApplication.startPPService(activity, serviceIntent);
 
                         // restart events
                         if (Event.getGlobalEventsRunning(getApplicationContext())) {
@@ -1317,11 +1301,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
-                        //TODO Android O
-                        // if (Build.VERSION.SDK_INT < 26)
-                        startService(serviceIntent);
-                        //else
-                        //    startForegroundService(serviceIntent);
+                        PPApplication.startPPService(activity, serviceIntent);
 
                         importExportErrorDialog(1, result);
                     }

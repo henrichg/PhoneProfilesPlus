@@ -67,11 +67,7 @@ class GeofenceScannerJob extends Job {
                 Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_LOCATION_UPDATES, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                //TODO Android O
-                //if (Build.VERSION.SDK_INT < 26)
-                context.startService(serviceIntent);
-                //else
-                //    context.startForegroundService(serviceIntent);
+                PPApplication.startPPService(context, serviceIntent);
             }
         }
 

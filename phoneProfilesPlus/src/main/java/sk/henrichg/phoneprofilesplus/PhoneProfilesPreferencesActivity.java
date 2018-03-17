@@ -151,11 +151,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true);
-        //TODO Android O
-        // if (Build.VERSION.SDK_INT < 26)
-        startService(serviceIntent);
-        //else
-        //    startForegroundService(serviceIntent);
+        PPApplication.startPPService(this, serviceIntent);
 
         Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {

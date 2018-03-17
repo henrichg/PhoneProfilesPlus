@@ -54,11 +54,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
-            //TODO Android O
-            //if (Build.VERSION.SDK_INT < 26)
-                startService(serviceIntent);
-            //else
-            //    startForegroundService(serviceIntent);
+            PPApplication.startPPService(this, serviceIntent);
         }
 
         if (profile_id != 0) {

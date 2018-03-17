@@ -653,22 +653,18 @@ class EventsHandler {
                     // start PhoneProfilesService for ringing call simulation
                     PPApplication.logE("EventsHandler.doEndService","start simulating ringing call");
                     try {
-                        Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-                        lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                        lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
-                        lIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
+                        Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
                         // add saved ringer mode, zen mode, ringtone before handle events as parameters
                         // ringing call simulator compare this with new (actual values), changed by currently activated profile
-                        lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
-                        lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
-                        lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
-                        lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
-                        lIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
-                        //TODO Android O
-                        //if (Build.VERSION.SDK_INT < 26)
-                        context.startService(lIntent);
-                        //else
-                        //    context.startForegroundService(lIntent);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
+                        PPApplication.startPPService(context, serviceIntent);
                     } catch (Exception ignored) {
                     }
                 }
@@ -709,29 +705,29 @@ class EventsHandler {
         /*else
         if (broadcastReceiverType.equals(SENSOR_TYPE_SMS)) {
             // start PhoneProfilesService for notification tone simulation
-            Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-            lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
-            lIntent.putExtra(EXTRA_SIMULATE_NOTIFICATION_TONE, true);
-            lIntent.putExtra(EXTRA_OLD_RINGER_MODE, oldRingerMode);
-            lIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
-            lIntent.putExtra(EXTRA_OLD_ZEN_MODE, oldZenMode);
-            lIntent.putExtra(EXTRA_OLD_NOTIFICATION_TONE, oldNotificationTone);
-            context.startService(lIntent);
+            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+            serviceIntent.putExtra(EXTRA_SIMULATE_NOTIFICATION_TONE, true);
+            serviceIntent.putExtra(EXTRA_OLD_RINGER_MODE, oldRingerMode);
+            serviceIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+            serviceIntent.putExtra(EXTRA_OLD_ZEN_MODE, oldZenMode);
+            serviceIntent.putExtra(EXTRA_OLD_NOTIFICATION_TONE, oldNotificationTone);
+            PPApplication.startPPService(context, serviceIntent);
         }
         else
         if (broadcastReceiverType.equals(SENSOR_TYPE_NOTIFICATION)) {
             if ((android.os.Build.VERSION.SDK_INT >= 21) && intent.getStringExtra(EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED).equals("posted")) {
                 // start PhoneProfilesService for notification tone simulation
-                Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-                lIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                lIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
-                lIntent.putExtra(EXTRA_SIMULATE_NOTIFICATION_TONE, true);
-                lIntent.putExtra(EXTRA_OLD_RINGER_MODE, oldRingerMode);
-                lIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
-                lIntent.putExtra(EXTRA_OLD_ZEN_MODE, oldZenMode);
-                lIntent.putExtra(EXTRA_OLD_NOTIFICATION_TONE, oldNotificationTone);
-                context.startService(lIntent);
+                Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+                serviceIntent.putExtra(EXTRA_SIMULATE_NOTIFICATION_TONE, true);
+                serviceIntent.putExtra(EXTRA_OLD_RINGER_MODE, oldRingerMode);
+                serviceIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+                serviceIntent.putExtra(EXTRA_OLD_ZEN_MODE, oldZenMode);
+                serviceIntent.putExtra(EXTRA_OLD_NOTIFICATION_TONE, oldNotificationTone);
+                PPApplication.startPPService(context, serviceIntent);
             }
         }*/
     }
