@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -607,11 +608,10 @@ public class PPApplication extends Application {
     //--------------------------------------------------------------
 
     static void startPPService(Context context, Intent serviceIntent) {
-        //TODO Android O
-        // if (Build.VERSION.SDK_INT < 26)
+        if (Build.VERSION.SDK_INT < 26)
             context.getApplicationContext().startService(serviceIntent);
-        //else
-        //    startForegroundService(serviceIntent);
+        else
+            context.getApplicationContext().startForegroundService(serviceIntent);
     }
 
     //--------------------------------------------------------------
