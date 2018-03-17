@@ -203,7 +203,6 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
     public void onDataSetChanged() {
         createProfilesDataWrapper();
 
-        //TODO add this to AsyncTask
         List<Profile> newProfileList = dataWrapper.getNewProfileList(true,
                                             ApplicationPreferences.applicationWidgetListPrefIndicator(context));
         if (!ApplicationPreferences.applicationWidgetListHeader(context))
@@ -217,7 +216,6 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             }
         }
         Collections.sort(newProfileList, new ProfileComparator());
-        //TODO end
 
         dataWrapper.invalidateProfileList();
         dataWrapper.setProfileList(newProfileList);
