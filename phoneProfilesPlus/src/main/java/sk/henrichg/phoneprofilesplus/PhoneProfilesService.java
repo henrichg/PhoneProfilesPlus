@@ -2753,7 +2753,7 @@ public class PhoneProfilesService extends Service
                 notificationBuilder.setSettingsText("Pokus");
 
                 // The id of the channel.
-                String channelId = "phoneProfiles_profile_activated";
+                String channelId = "phoneProfilesPlus_profile_activated";
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_activated_profile);
                 // The user-visible description of the channel.
@@ -3000,6 +3000,9 @@ public class PhoneProfilesService extends Service
 
     private void setAlarmForNotificationCancel(Context context)
     {
+        if (Build.VERSION.SDK_INT >= 26)
+            return;
+
         if (ApplicationPreferences.notificationStatusBarCancel(context).isEmpty() || ApplicationPreferences.notificationStatusBarCancel(context).equals("0"))
             return;
 

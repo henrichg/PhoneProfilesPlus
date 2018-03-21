@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 public class NotificationCancelAlarmBroadcastReceiver extends BroadcastReceiver {
 
@@ -12,6 +13,9 @@ public class NotificationCancelAlarmBroadcastReceiver extends BroadcastReceiver 
         PPApplication.logE("##### NotificationCancelAlarmBroadcastReceiver.onReceive", "xxx");
 
         CallsCounter.logCounter(context, "NotificationCancelAlarmBroadcastReceiver.onReceive", "NotificationCancelAlarmBroadcastReceiver_onReceive");
+
+        if (Build.VERSION.SDK_INT >= 26)
+            return;
 
         if (PhoneProfilesService.instance != null)
             PhoneProfilesService.instance.stopForeground(true);
