@@ -615,24 +615,25 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             return;
 
         PreferenceScreen preferenceCategoryNotifications = (PreferenceScreen) findPreference("categoryNotifications");
-        boolean notificationStatusBar = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true);
-        boolean notificationStatusBarPermanent = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
-        if (!(notificationStatusBar && notificationStatusBarPermanent)) {
-            GlobalGUIRoutines.setPreferenceTitleStyle(preferenceCategoryNotifications, true, false, true, false);
-            if (preferenceCategoryNotifications != null)
-                preferenceCategoryNotifications.setSummary(getString(R.string.phone_profiles_pref_notificationStatusBarNotEnabled_summary) + " " +
-                                                            getString(R.string.phone_profiles_pref_notificationStatusBarRequired));
-        }
-        else {
-            GlobalGUIRoutines.setPreferenceTitleStyle(preferenceCategoryNotifications, false, false, false, false);
-            if (preferenceCategoryNotifications != null)
-                preferenceCategoryNotifications.setSummary(R.string.empty_string);
-        }
-        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR)) {
+        if (Build.VERSION.SDK_INT < 26) {
+            boolean notificationStatusBar = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true);
+            boolean notificationStatusBarPermanent = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
+            if (!(notificationStatusBar && notificationStatusBarPermanent)) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preferenceCategoryNotifications, true, false, true, false);
+                if (preferenceCategoryNotifications != null)
+                    preferenceCategoryNotifications.setSummary(getString(R.string.phone_profiles_pref_notificationStatusBarNotEnabled_summary) + " " +
+                            getString(R.string.phone_profiles_pref_notificationStatusBarRequired));
+            } else {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preferenceCategoryNotifications, false, false, false, false);
+                if (preferenceCategoryNotifications != null)
+                    preferenceCategoryNotifications.setSummary(R.string.empty_string);
+            }
+            if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR)) {
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, !notificationStatusBar, false, !notificationStatusBar, false);
-        }
-        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT)) {
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, !notificationStatusBarPermanent, false, !notificationStatusBarPermanent, false);
+            }
+            if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT)) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, !notificationStatusBarPermanent, false, !notificationStatusBarPermanent, false);
+            }
         }
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {

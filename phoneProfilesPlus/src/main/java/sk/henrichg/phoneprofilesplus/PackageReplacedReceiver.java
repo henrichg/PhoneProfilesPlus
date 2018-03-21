@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -78,11 +79,13 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             if (actualVersionCode <= 2500) {
                                 // for old packages hide profile notification from status bar if notification is disabled
                                 ApplicationPreferences.getSharedPreferences(appContext);
-                                if (!ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true)) {
-                                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                                    PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "notificationShowInStatusBar=false");
-                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
-                                    editor.apply();
+                                if (Build.VERSION.SDK_INT < 26) {
+                                    if (!ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true)) {
+                                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                        PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "notificationShowInStatusBar=false");
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
+                                        editor.apply();
+                                    }
                                 }
                             }
                             if (actualVersionCode <= 2700) {

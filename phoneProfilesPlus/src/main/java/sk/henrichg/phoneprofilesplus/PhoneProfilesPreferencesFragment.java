@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
@@ -69,7 +70,8 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_HEADER);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_TOAST);
-        setSummary(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR);
+        if (Build.VERSION.SDK_INT < 26)
+            setSummary(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_THEME);
 
@@ -81,7 +83,8 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             }
         }
 
-        setSummary(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT);
+        if (Build.VERSION.SDK_INT < 26)
+            setSummary(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER);
