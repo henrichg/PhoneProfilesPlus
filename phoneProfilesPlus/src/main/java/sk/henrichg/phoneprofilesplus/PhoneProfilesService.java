@@ -196,9 +196,15 @@ public class PhoneProfilesService extends Service
         Context appContext = getApplicationContext();
 
         try {
-            Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, ApplicationPreferences.notificationStatusBar(appContext));
-            Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, ApplicationPreferences.notificationStatusBarPermanent(appContext));
-            Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar(appContext));
+            if ((Build.VERSION.SDK_INT >= 26)) {
+                Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true);
+                Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
+                Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar(this));
+            } else {
+                Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, ApplicationPreferences.notificationStatusBar(this));
+                Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, ApplicationPreferences.notificationStatusBarPermanent(this));
+                Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar(this));
+            }
 
             Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScannig(appContext));
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, ApplicationPreferences.applicationEventWifiScanInterval(appContext));
@@ -2678,7 +2684,7 @@ public class PhoneProfilesService extends Service
             // no refresh notification
             return;
 
-        if (serviceRunning && ApplicationPreferences.notificationStatusBar(dataWrapper.context))
+        if (serviceRunning && ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(dataWrapper.context)))
         {
             PPApplication.logE("ActivateProfileHelper.showNotification", "show");
 
@@ -2951,17 +2957,14 @@ public class PhoneProfilesService extends Service
             }
 
             if (phoneProfilesNotification != null) {
-                //TODO Android O
-                //if (Build.VERSION.SDK_INT < 26) {
-                if (notificationStatusBarPermanent) {
+                if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
                     //notification.flags |= Notification.FLAG_NO_CLEAR;
                     phoneProfilesNotification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
                 } else {
                     setAlarmForNotificationCancel(dataWrapper.context);
                 }
-                //}
 
-                if (notificationStatusBarPermanent)
+                if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent)
                     startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
                 else {
                     NotificationManager notificationManager = (NotificationManager) dataWrapper.context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -2972,7 +2975,7 @@ public class PhoneProfilesService extends Service
         }
         else
         {
-            if (ApplicationPreferences.notificationStatusBarPermanent(dataWrapper.context))
+            if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(dataWrapper.context))
                 stopForeground(true);
             else {
                 NotificationManager notificationManager = (NotificationManager) dataWrapper.context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -2985,7 +2988,7 @@ public class PhoneProfilesService extends Service
     private void removeProfileNotification(Context context)
     {
         try {
-            if (ApplicationPreferences.notificationStatusBarPermanent(context))
+            if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(context))
                 stopForeground(true);
             else {
                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
