@@ -2315,18 +2315,6 @@ public class PhoneProfilesService extends Service
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
-                        PPApplication.startedOnBoot = true;
-                        PPApplication.startHandlerThread();
-                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                PPApplication.logE("PhoneProfilesService.doForFirstStart", "delayed boot up");
-                                PPApplication.startedOnBoot = false;
-                            }
-                        }, 10000);
-
                         Permissions.setShowRequestAccessNotificationPolicyPermission(appContext, true);
                         Permissions.setShowRequestWriteSettingsPermission(appContext, true);
                         WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true);
@@ -2465,6 +2453,9 @@ public class PhoneProfilesService extends Service
                         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneProfilesService.doForFirstStart.2");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
+
+                    BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, true);
+                    BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
 
                     PPApplication.initRoot();
                     // grant root

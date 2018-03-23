@@ -22,8 +22,19 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             //PackageReplacedJob.start(context.getApplicationContext());
 
-            final Context appContext = context.getApplicationContext();
+            // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
+            PPApplication.startedOnBoot = true;
+            PPApplication.startHandlerThread();
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("PackageReplacedReceiver.onReceive", "delayed boot up");
+                    PPApplication.startedOnBoot = false;
+                }
+            }, 30000);
 
+            final Context appContext = context.getApplicationContext();
             if (PPApplication.getApplicationStarted(appContext, false))
             {
                 PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "start PhoneProfilesService");
