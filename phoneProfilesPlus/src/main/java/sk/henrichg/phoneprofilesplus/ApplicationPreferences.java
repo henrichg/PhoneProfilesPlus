@@ -73,7 +73,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B = "applicationWidgetIconLightnessB";
     static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T = "applicationWidgetIconLightnessT";
     static final String PREF_APPLICATION_EVENT_USE_PRIORITY = "applicationEventUsePriority";
-    static final String PREF_NOTIFICATION_THEME = "notificationTheme";
+    //static final String PREF_NOTIFICATION_THEME = "notificationTheme";
     static final String PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES = "applicationForceSetMergeRingNotificationVolumes";
     //private static final String PREF_APPLICATION_SAMSUNG_EDGE_PREF_INDICATOR = "applicationSamsungEdgePrefIndicator";
     static final String PREF_APPLICATION_SAMSUNG_EDGE_HEADER = "applicationSamsungEdgeHeader";
@@ -200,9 +200,11 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN, false);
     }
 
+    /*
     static String notificationTheme(Context context) {
         return getSharedPreferences(context).getString(PREF_NOTIFICATION_THEME, "0");
     }
+    */
 
     static boolean applicationWidgetListPrefIndicator(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, true);

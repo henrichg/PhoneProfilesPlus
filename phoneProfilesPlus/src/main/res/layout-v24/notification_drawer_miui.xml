@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:padding="6dp"
-    android:background="@color/notificationBackground_dark" >
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/notification_activated_profile_restart_events"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="3dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:contentDescription="@string/menu_restart_events"
         android:scaleType="center"
-        android:src="@drawable/ic_action_events_restart_dark"
+        android:src="@drawable/ic_action_events_restart"
         android:focusable="true"
         android:clickable="true" />
 
@@ -31,13 +27,13 @@
             android:id="@+id/notification_activated_profile_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="15dp"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
             android:maxHeight="40dp"
             android:maxWidth="40dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="6dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_profile_default" />
 
@@ -48,11 +44,9 @@
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@id/notification_activated_profile_icon"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
             android:text="@string/profile_name_default"
-            android:textAppearance="@style/NotificationTitle"
-            android:textColor="@color/notificationTextColor_dark"
-            android:maxLines="1"/>
+            style="@style/TextAppearance.Compat.Notification.Title"
+            android:maxLines="1" />
 
         <ImageView
             android:id="@+id/notification_activated_profile_pref_indicator"
