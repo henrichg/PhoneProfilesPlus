@@ -2870,9 +2870,11 @@ public class PhoneProfilesService extends Service
             else
                 contentView.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
 
+            /*
             Bitmap bitmap = BitmapFactory.decodeResource(dataWrapper.context.getResources(), R.drawable.ic_action_events_restart);
             bitmap = BitmapManipulator.recolorBitmap(bitmap, 0xFFDC8160);
             contentView.setImageViewBitmap(R.id.notification_activated_profile_restart_events, bitmap);
+            */
             contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
 
             if (android.os.Build.VERSION.SDK_INT >= 24) {
