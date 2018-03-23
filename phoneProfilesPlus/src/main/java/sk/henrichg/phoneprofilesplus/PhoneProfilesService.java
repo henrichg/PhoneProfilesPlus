@@ -201,7 +201,7 @@ public class PhoneProfilesService extends Service
             if ((Build.VERSION.SDK_INT >= 26)) {
                 Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true);
                 Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
-                Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar(this));
+                Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, true);
             } else {
                 Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, ApplicationPreferences.notificationStatusBar(this));
                 Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, ApplicationPreferences.notificationStatusBarPermanent(this));
@@ -2289,29 +2289,10 @@ public class PhoneProfilesService extends Service
         final Context appContext = getApplicationContext();
 
         if ((intent == null) || (!intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false))) {
-            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "before start of handler");
-            PPApplication.startHandlerThread();
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneProfilesService.doForFirstStart.1");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    // set service foreground
-                    final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
-                    showProfileNotification(dataWrapper);
-                    PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "after end of Handler.run");
-
-                    if ((wakeLock != null) && wakeLock.isHeld())
-                        wakeLock.release();
-                }
-            });
-            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "after start of handler");
+            // do not call this from handlerThread. In Android 8 handlerThread is not called
+            // when for service is not displayed foreground notification
+            final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+            showProfileNotification(dataWrapper);
         }
 
         if (onlyStart) {
@@ -2444,7 +2425,7 @@ public class PhoneProfilesService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        //PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
+        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
 
         serviceRunning = true;
 
@@ -2682,14 +2663,14 @@ public class PhoneProfilesService extends Service
     @SuppressLint("NewApi")
     void showProfileNotification(DataWrapper dataWrapper)
     {
+        PPApplication.logE("PhoneProfilesService.showProfileNotification", "serviceRunning="+serviceRunning);
+
         if (ActivateProfileHelper.lockRefresh)
             // no refresh notification
             return;
 
         if (serviceRunning && ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(dataWrapper.context)))
         {
-            PPApplication.logE("ActivateProfileHelper.showNotification", "show");
-
             boolean notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar(dataWrapper.context);
             boolean notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(dataWrapper.context);
 

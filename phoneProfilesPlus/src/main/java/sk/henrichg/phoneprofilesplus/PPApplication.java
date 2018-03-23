@@ -60,18 +60,20 @@ public class PPApplication extends Application {
     static final boolean newExtender = true;
     static final int VERSION_CODE_EXTENDER = 60;
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
-                                         //+"|PhoneProfilesService.onStartCommand"
-                                         //+"|PhoneProfilesService.doForFirstStart"
+                                         +"|PhoneProfilesService.onStartCommand"
+                                         +"|PhoneProfilesService.doForFirstStart"
                                          +"|PhoneProfilesService.showProfileNotification"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
+
+                                         +"|PPApplication.startPPService"
 
                                          //+"|GrantPermissionActivity"
 
@@ -616,6 +618,7 @@ public class PPApplication extends Application {
     //--------------------------------------------------------------
 
     static void startPPService(Context context, Intent serviceIntent) {
+        PPApplication.logE("PPApplication.startPPService", "xxx");
         if (Build.VERSION.SDK_INT < 26)
             context.getApplicationContext().startService(serviceIntent);
         else
@@ -736,7 +739,7 @@ public class PPApplication extends Application {
     static void createProfileNotificationChannel(Profile profile, Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             // no sound
-            int importance = NotificationManager.IMPORTANCE_LOW;
+            /*int importance = NotificationManager.IMPORTANCE_LOW;
             if (ApplicationPreferences.notificationShowInStatusBar(context)) {
                 KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
                 if (myKM != null) {
@@ -748,17 +751,17 @@ public class PPApplication extends Application {
                         importance = NotificationManager.IMPORTANCE_MIN;
                 }
             } else
-                importance = NotificationManager.IMPORTANCE_MIN;
+                importance = NotificationManager.IMPORTANCE_MIN;*/
 
             // The user-visible name of the channel.
             CharSequence name = context.getString(R.string.notification_channel_activated_profile);
             // The user-visible description of the channel.
             String description = context.getString(R.string.notification_channel_activated_profile_ppp);
 
-            NotificationChannel channel = new NotificationChannel(PROFILE_NOTIFICATION_CHANNEL, name, importance);
+            NotificationChannel channel = new NotificationChannel(PROFILE_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
 
             // Configure the notification channel.
-            channel.setImportance(importance);
+            //channel.setImportance(importance);
             channel.setDescription(description);
             channel.enableLights(false);
             // Sets the notification light color for notifications posted to this

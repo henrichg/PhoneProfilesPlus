@@ -211,51 +211,18 @@
         <PreferenceCategory
             android:title="@string/phone_profiles_pref_notificationStatusBarNew"
             android:layout="@layout/mp_preference_category" >
-        <!--    <Preference
-                android:key="notificationStatusBarInfo"
-                android:title="@string/phone_profiles_pref_notificationStatusBarInfo_title"
-                android:summary="@string/phone_profiles_pref_notificationStatusBarInfo_summary"
-                android:widgetLayout="@layout/info_preference"
-                android:layout="@layout/mp_preference_material_widget" />
-            <CheckBoxPreference
-                android:key="notificationStatusBar"
-                android:title="@string/phone_profiles_pref_notificationStatusBar"
-                android:summary="@string/phone_profiles_pref_notificationStatusBarRequired"
-                android:defaultValue="true"
-                android:widgetLayout="@layout/mp_preference_switch"
-                android:layout="@layout/mp_preference_material_widget" />
-            <CheckBoxPreference
-                android:key="notificationStatusBarPermanent"
-                android:title="@string/phone_profiles_pref_notificationStatusBarPermanent"
-                android:summary="@string/phone_profiles_pref_notificationStatusBarRequired"
-                android:defaultValue="true"
-                android:disableDependentsState="true"
-                android:dependency="notificationStatusBar"
-                android:widgetLayout="@layout/mp_preference_switch"
-                android:layout="@layout/mp_preference_material_widget" />
-            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
-                android:key="notificationStatusBarCancel"
-                android:summary="@string/phone_profiles_pref_notificationStatusBarCancel"
-                android:title="@string/phone_profiles_pref_notificationStatusBarCancel"
-                android:defaultValue="10"
-                henrichg:dMin="0"
-                henrichg:dMax="300"
-                android:dependency="notificationStatusBarPermanent"
-                android:layout="@layout/mp_preference_material_widget" /> -->
-            <CheckBoxPreference
+        <!--    <CheckBoxPreference
                 android:key="notificationShowInStatusBar"
                 android:title="@string/phone_profiles_pref_notificationShowInStatusBar"
                 android:defaultValue="true"
-                android:dependency="notificationStatusBar"
                 android:widgetLayout="@layout/mp_preference_switch"
                 android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="notificationHideInLockscreen"
                 android:title="@string/phone_profiles_pref_notificationHideInLockscreen"
                 android:defaultValue="false"
-                android:dependency="notificationStatusBar"
                 android:widgetLayout="@layout/mp_preference_switch"
-                android:layout="@layout/mp_preference_material_widget" />
+                android:layout="@layout/mp_preference_material_widget" /> -->
             <Preference
                 android:key="notificationStatusBarStyleInfo"
                 android:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"
@@ -269,14 +236,12 @@
                 android:defaultValue="1"
                 android:entries="@array/notificationIconStyleArray"
                 android:entryValues="@array/notificationIconStyleValues"
-                android:dependency="notificationStatusBar"
                 android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <CheckBoxPreference
                 android:key="notificationPrefIndicator"
                 android:title="@string/phone_profiles_pref_notificationPrefIndicator"
                 android:defaultValue="true"
-                android:dependency="notificationStatusBar"
                 android:widgetLayout="@layout/mp_preference_switch"
                 android:layout="@layout/mp_preference_material_widget" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
@@ -286,7 +251,6 @@
                 android:defaultValue="0"
                 android:entries="@array/notificationTextColorArray"
                 android:entryValues="@array/notificationTextColorValues"
-                android:dependency="notificationStatusBar"
                 android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
         <!--    <com.afollestad.materialdialogs.prefs.MaterialListPreference
@@ -296,7 +260,6 @@
                 android:defaultValue="0"
                 android:entries="@array/notificationThemeArray"
                 android:entryValues="@array/notificationThemeValues"
-                android:dependency="notificationStatusBar"
                 android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" /> -->
         </PreferenceCategory>
