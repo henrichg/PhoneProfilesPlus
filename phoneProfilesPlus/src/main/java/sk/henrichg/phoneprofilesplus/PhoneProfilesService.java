@@ -107,6 +107,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
     static final String EXTRA_START_STOP_SCANNER_TYPE = "start_stop_scanner_type";
     static final String EXTRA_START_ON_BOOT = "start_on_boot";
+    static final String EXTRA_START_ON_PACKAGE_REPLACE = "start_on_package_replace";
     static final String EXTRA_ONLY_START = "only_start";
     static final String EXTRA_SET_SERVICE_FOREGROUND = "set_service_foreground";
     static final String EXTRA_CLEAR_SERVICE_FOREGROUND = "clear_service_foreground";
@@ -2275,16 +2276,20 @@ public class PhoneProfilesService extends Service
     private boolean doForFirstStart(Intent intent/*, int flags, int startId*/) {
         boolean onlyStart = true;
         boolean startOnBoot = false;
+        boolean startOnPackageReplace = false;
 
         if (intent != null) {
             onlyStart = intent.getBooleanExtra(EXTRA_ONLY_START, true);
             startOnBoot = intent.getBooleanExtra(EXTRA_START_ON_BOOT, false);
+            startOnPackageReplace = intent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false);
         }
 
         if (onlyStart)
-            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START");
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START");
         if (startOnBoot)
-            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_BOOT");
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_BOOT");
+        if (startOnPackageReplace)
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_PACKAGE_REPLACE");
 
         final Context appContext = getApplicationContext();
 
@@ -2296,8 +2301,157 @@ public class PhoneProfilesService extends Service
         }
 
         if (onlyStart) {
-            // start FirstStartJob
-            //FirstStartJob.start(appContext, startOnBoot);
+
+            if (startOnPackageReplace) {
+                PPApplication.startHandlerThread();
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneProfilesService.doForFirstStart.1");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
+                        PPApplication.startedOnBoot = true;
+                        PPApplication.startHandlerThread();
+                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                PPApplication.logE("PhoneProfilesService.doForFirstStart", "delayed boot up");
+                                PPApplication.startedOnBoot = false;
+                            }
+                        }, 10000);
+
+                        Permissions.setShowRequestAccessNotificationPolicyPermission(appContext, true);
+                        Permissions.setShowRequestWriteSettingsPermission(appContext, true);
+                        WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true);
+                        //ActivateProfileHelper.setScreenUnlocked(appContext, true);
+
+                        int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart", "oldVersionCode="+oldVersionCode);
+                        int actualVersionCode;
+                        try {
+                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                            actualVersionCode = pInfo.versionCode;
+                            PPApplication.logE("PhoneProfilesService.doForFirstStart", "actualVersionCode=" + actualVersionCode);
+
+                            if (oldVersionCode < actualVersionCode) {
+                                if (actualVersionCode <= 2322) {
+                                    // for old packages use Priority in events
+                                    ApplicationPreferences.getSharedPreferences(appContext);
+                                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                    PPApplication.logE("PhoneProfilesService.doForFirstStart", "applicationEventUsePriority=true");
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
+                                    editor.apply();
+                                }
+                                if (actualVersionCode <= 2400) {
+                                    PPApplication.logE("PhoneProfilesService.doForFirstStart", "donation alarm restart");
+                                    PPApplication.setDaysAfterFirstStart(appContext, 0);
+                                    PPApplication.setDonationNotificationCount(appContext, 0);
+                                    AboutApplicationJob.scheduleJob(appContext, true);
+                                }
+                                if (actualVersionCode <= 2500) {
+                                    // for old packages hide profile notification from status bar if notification is disabled
+                                    ApplicationPreferences.getSharedPreferences(appContext);
+                                    if (Build.VERSION.SDK_INT < 26) {
+                                        if (!ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true)) {
+                                            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                            PPApplication.logE("PhoneProfilesService.doForFirstStart", "notificationShowInStatusBar=false");
+                                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
+                                            editor.apply();
+                                        }
+                                    }
+                                }
+                                if (actualVersionCode <= 2700) {
+                                    ApplicationPreferences.getSharedPreferences(appContext);
+                                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
+
+                                    editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, false);
+                                    editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
+                                    editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
+                                    editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, false);
+                                    editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
+                                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
+                                    editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+                                    editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
+                                    editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
+                                    editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+                                    editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS, false);
+                                    editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS_SAVE, false);
+                                    editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, false);
+                                    editor.apply();
+                                }
+                                if (actualVersionCode <= 3200) {
+                                    ApplicationPreferences.getSharedPreferences(appContext);
+                                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                    editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS, true);
+                                    editor.apply();
+                                }
+                                if (actualVersionCode <= 3500) {
+                                    ApplicationPreferences.getSharedPreferences(appContext);
+                                    if (!ApplicationPreferences.preferences.contains(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
+                                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert(appContext));
+
+                                        String rescan;
+                                        rescan = ApplicationPreferences.applicationEventLocationRescan(appContext);
+                                        if (rescan.equals("0"))
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
+                                        if (rescan.equals("2"))
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "3");
+                                        rescan = ApplicationPreferences.applicationEventWifiRescan(appContext);
+                                        if (rescan.equals("0"))
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "1");
+                                        if (rescan.equals("2"))
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "3");
+                                        rescan = ApplicationPreferences.applicationEventBluetoothRescan(appContext);
+                                        if (rescan.equals("0"))
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "1");
+                                        if (rescan.equals("2"))
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "3");
+                                        rescan = ApplicationPreferences.applicationEventMobileCellsRescan(appContext);
+                                        if (rescan.equals("0"))
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
+                                        if (rescan.equals("2"))
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");
+                                        rescan = ApplicationPreferences.applicationEventMobileCellsRescan(appContext);
+                                        if (rescan.equals("0"))
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
+                                        if (rescan.equals("2"))
+                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");
+                                        editor.apply();
+                                    }
+
+                                    // continue donation notification
+                                    if (PPApplication.getDaysAfterFirstStart(appContext) == 8)
+                                        PPApplication.setDonationNotificationCount(appContext, 1);
+                                }
+
+                                if (actualVersionCode <= 3900) {
+                                    ApplicationPreferences.getSharedPreferences(appContext);
+                                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF,
+                                            ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, true));
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF,
+                                            ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true));
+                                    editor.apply();
+                                }
+                            }
+                        } catch (Exception ignored) {
+                        }
+
+                        if ((wakeLock != null) && wakeLock.isHeld())
+                            wakeLock.release();
+                    }
+                });
+            }
 
             final boolean _startOnBoot = startOnBoot;
             PPApplication.startHandlerThread();
