@@ -17,8 +17,10 @@ import android.support.v4.content.ContextCompat;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -27,11 +29,11 @@ import java.util.List;
 import static android.content.Context.POWER_SERVICE;
 
 class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
-                                         GoogleApiClient.OnConnectionFailedListener,
-                                         LocationListener
+                                         GoogleApiClient.OnConnectionFailedListener
 {
-
     private final GoogleApiClient mGoogleApiClient;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private LocationCallback mLocationCallback;
     private final Context context;
     private final DataWrapper dataWrapper;
 
@@ -59,6 +61,26 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
+
+        mLocationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+
+                CallsCounter.logCounter(GeofencesScanner.this.context, "GeofencesScanner.LocationCallback", "GeofencesScanner_onLocationResult");
+
+                for (Location location : locationResult.getLocations()) {
+                    synchronized (PPApplication.geofenceScannerLastLocationMutex) {
+                        PPApplication.logE("##### GeofencesScanner.LocationCallback", "location=" + location);
+                        lastLocation.set(location);
+                        //updateGeofencesInDB();
+                    }
+                }
+            }
+        };
+
         lastLocation = new Location("GL");
     }
 
@@ -104,6 +126,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         PPApplication.logE("GeofenceScanner.onConnected", "xxx");
         try {
             if ((mGoogleApiClient != null) && mGoogleApiClient.isConnected()) {
+                mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
                 useGPS = true;
                 clearAllEventGeofences();
                 updateTransitionsByLastKnownLocation(false);
@@ -161,20 +184,6 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         }
     }
     */
-
-    /**
-     * Callback that fires when the location changes.
-     */
-    @Override
-    public void onLocationChanged(Location location) {
-        PPApplication.logE("##### GeofenceScanner.onLocationChanged", "location=" + location);
-        CallsCounter.logCounter(context, "GeofencesScanner.onLocationChanged", "GeofencesScanner.onLocationChanged");
-
-        synchronized (PPApplication.geofenceScannerLastLocationMutex) {
-            lastLocation.set(location);
-            //updateGeofencesInDB();
-        }
-    }
 
     void updateGeofencesInDB() {
         synchronized (PPApplication.geofenceScannerLastLocationMutex) {
@@ -280,8 +289,6 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         if (!ApplicationPreferences.applicationEventLocationEnableScannig(context))
             return;
 
-        // The final argument to {@code requestLocationUpdates()} is a LocationListener
-        // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
         synchronized (PPApplication.geofenceScannerMutex) {
             try {
                 if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
@@ -290,7 +297,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                         try {
                             PPApplication.logE("****** GeofenceScanner.startLocationUpdates", "xxx");
                             createLocationRequest();
-                            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+                            if (mFusedLocationClient != null)
+                                mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
                             PPApplication.logE("****** GeofenceScanner.startLocationUpdates", "mUpdatesStarted=true");
                             mUpdatesStarted = true;
                         } catch (SecurityException securityException) {
@@ -323,16 +331,14 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         // stopped state. Doing so helps battery performance and is especially
         // recommended in applications that request frequent location updates.
 
-        // The final argument to {@code requestLocationUpdates()} is a LocationListener
-        // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
-
         synchronized (PPApplication.geofenceScannerMutex) {
             try {
                 if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
-                        PPApplication.logE("##### GeofenceScanner.stopLocationUpdates", "xxx");
-                        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-                        PPApplication.logE("GeofenceScannerJob.mUpdatesStarted=false", "from GeofenceScanner.stopLocationUpdates");
-                        mUpdatesStarted = false;
+                    PPApplication.logE("##### GeofenceScanner.stopLocationUpdates", "xxx");
+                    if (mFusedLocationClient != null)
+                        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+                    PPApplication.logE("GeofenceScannerJob.mUpdatesStarted=false", "from GeofenceScanner.stopLocationUpdates");
+                    mUpdatesStarted = false;
                 }
             } catch (Exception ignored) {}
         }

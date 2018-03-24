@@ -876,7 +876,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         PhoneProfilesService.instance.scheduleGeofenceScannerJob(true,  true, false, false);
                     }
                     if (Permissions.locationGeofenceEditorActivity != null)
-                        Permissions.locationGeofenceEditorActivity.refreshActivity(true);
+                        Permissions.locationGeofenceEditorActivity.getLastLocation();
 
                     dataWrapper.restartEvents(false, true/*, false*/);
 

@@ -65,15 +65,15 @@ public class PPApplication extends Application {
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
-                                         +"|PhoneProfilesService.onStartCommand"
-                                         +"|PhoneProfilesService.doForFirstStart"
-                                         +"|PhoneProfilesService.showProfileNotification"
+                                         //+"|PhoneProfilesService.onStartCommand"
+                                         //+"|PhoneProfilesService.doForFirstStart"
+                                         //+"|PhoneProfilesService.showProfileNotification"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
 
-                                         +"|PPApplication.startPPService"
+                                         //+"|PPApplication.startPPService"
 
                                          //+"|GrantPermissionActivity"
 
@@ -136,6 +136,7 @@ public class PPApplication extends Application {
                                          */
                                          //+"|GeofenceScanner"
                                          //+"|GeofenceScannerJob"
+                                         +"|LocationGeofenceEditorActivity"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|[BTScan] DataWrapper.doHandleEvents"

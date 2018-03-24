@@ -27,8 +27,11 @@ import android.widget.TextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,14 +42,16 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 public class LocationGeofenceEditorActivity extends AppCompatActivity
                                      implements GoogleApiClient.ConnectionCallbacks,
                                                 GoogleApiClient.OnConnectionFailedListener,
-                                                LocationListener,
                                                 OnMapReadyCallback
 {
     private GoogleApiClient mGoogleApiClient;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private LocationCallback mLocationCallback;
     private GoogleMap mMap;
     private Marker editedMarker;
     private Circle editedRadius;
@@ -117,6 +122,30 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
+
+
+        mLocationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                PPApplication.logE("LocationGeofenceEditorActivity.LocationCallback","xxx");
+                if (locationResult == null) {
+                    return;
+                }
+
+                for (Location location : locationResult.getLocations()) {
+                    mLastLocation = location;
+                    PPApplication.logE("LocationGeofenceEditorActivity.LocationCallback","location="+location);
+
+                    if (mLocation == null) {
+                        mLocation = new Location(mLastLocation);
+                        refreshActivity(true);
+                    }
+                    else
+                        updateEditedMarker(false);
+                }
+            }
+        };
+
         createLocationRequest();
 
         mResolvingError = savedInstanceState != null
@@ -294,7 +323,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        refreshActivity(true);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        getLastLocation();
         startLocationUpdates();
     }
 
@@ -326,24 +356,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             showErrorDialog(result.getErrorCode());
             mResolvingError = true;
         }
-    }
-
-    /**
-     * Callback that fires when the location changes.
-     */
-    @Override
-    public void onLocationChanged(Location location) {
-        mLastLocation = location;
-
-        //Log.d("LocationGeofenceEditorActivity.onLocationChanged", "latitude=" + String.valueOf(location.getLatitude()));
-        //Log.d("LocationGeofenceEditorActivity.onLocationChanged", "longitude=" + String.valueOf(location.getLongitude()));
-
-        if (mLocation == null) {
-            mLocation = new Location(mLastLocation);
-            refreshActivity(true);
-        }
-        else
-            updateEditedMarker(false);
     }
 
     /**
@@ -427,14 +439,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     //----------------------------------------------------
 
-    public void refreshActivity(boolean setMapCamera) {
-        //Log.d("LocationGeofenceEditorActivity.refreshActivity", "xxx");
-        getLastLocation();
+    private void refreshActivity(boolean setMapCamera) {
         boolean enableAddressButton = false;
         if (mLocation != null) {
-            //Log.d("LocationGeofenceEditorActivity.refreshActivity", "latitude=" + String.valueOf(mLocation.getLatitude()));
-            //Log.d("LocationGeofenceEditorActivity.refreshActivity", "longitude=" + String.valueOf(mLocation.getLongitude()));
-
             // Determine whether a Geocoder is available.
             if (Geocoder.isPresent()) {
                 startIntentService(false);
@@ -451,21 +458,26 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     }
 
     @SuppressLint("MissingPermission")
-    private void getLastLocation() {
+    void getLastLocation() {
         if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this)) {
             try {
-                //noinspection MissingPermission
-                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            } catch (Exception ignored) {
-                return;
-            }
-
-            //Log.d("LocationGeofenceEditorActivity.getLastLocation", "mLastLocation="+mLastLocation);
-
-            if (mLastLocation == null)
-                startLocationUpdates();
-            else if (mLocation == null)
-                mLocation = new Location(mLastLocation);
+                mFusedLocationClient.getLastLocation()
+                        .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                // Got last known location. In some rare situations this can be null.
+                                PPApplication.logE("LocationGeofenceEditorActivity.getLastLocation","location="+location);
+                                if (location != null) {
+                                    mLastLocation = location;
+                                }
+                                if (mLastLocation == null)
+                                    startLocationUpdates();
+                                else if (mLocation == null)
+                                    mLocation = new Location(mLastLocation);
+                                refreshActivity(true);
+                            }
+                        });
+            } catch (Exception ignored) {}
         }
     }
 
@@ -491,12 +503,10 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
      */
     @SuppressLint("MissingPermission")
     private void startLocationUpdates() {
-        // The final argument to {@code requestLocationUpdates()} is a LocationListener
-        // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
         if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this)) {
             try {
-                //noinspection MissingPermission
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+                if (mFusedLocationClient != null)
+                    mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
             } catch (Exception ignored) {
             }
         }
@@ -510,9 +520,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         // stopped state. Doing so helps battery performance and is especially
         // recommended in applications that request frequent location updates.
 
-        // The final argument to {@code requestLocationUpdates()} is a LocationListener
-        // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
-        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        if (mFusedLocationClient != null)
+            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
     }
 
     private  void getGeofenceAddress(/*boolean updateName*/) {
