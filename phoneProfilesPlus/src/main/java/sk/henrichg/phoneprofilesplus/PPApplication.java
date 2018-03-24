@@ -835,7 +835,7 @@ public class PPApplication extends Application {
             // The user-visible description of the channel.
             String description = context.getString(R.string.empty_string);
 
-            NotificationChannel channel = new NotificationChannel(EXCLAMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+            NotificationChannel channel = new NotificationChannel(EXCLAMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
             // Configure the notification channel.
             //channel.setImportance(importance);
@@ -860,7 +860,7 @@ public class PPApplication extends Application {
             // The user-visible description of the channel.
             String description = context.getString(R.string.notification_channel_grant_permission_description);
 
-            NotificationChannel channel = new NotificationChannel(GRANT_PERMISSION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+            NotificationChannel channel = new NotificationChannel(GRANT_PERMISSION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
             // Configure the notification channel.
             //channel.setImportance(importance);
