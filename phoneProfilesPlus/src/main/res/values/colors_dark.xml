@@ -16,8 +16,10 @@
     <color name="editorDrawerListHeaderTitleColor_dark">#FFFFFFFF</color>
     <color name="dialog_divider_dark">#10FFFFFF</color>
 
+    <!--
     <color name="notificationBackground_dark">#FF263238</color>
     <color name="notificationTextColor_dark">#FFFFFFFF</color>
+    -->
 
     <color name="fastScrollTrackPP_dark">#FF5F5F5F</color>
     <color name="fastScrollThumbPP_dark">#FFDC8160</color>

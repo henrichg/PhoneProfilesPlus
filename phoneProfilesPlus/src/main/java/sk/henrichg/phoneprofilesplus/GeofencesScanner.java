@@ -232,7 +232,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             return;
         }
 
-        mLocationRequest = new LocationRequest();
+        mLocationRequest = LocationRequest.create();
 
         /*
          * The desired interval for location updates. Inexact. Updates may be more or less frequent.

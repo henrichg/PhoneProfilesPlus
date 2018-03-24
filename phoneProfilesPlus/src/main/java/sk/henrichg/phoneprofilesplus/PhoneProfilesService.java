@@ -2886,7 +2886,7 @@ public class PhoneProfilesService extends Service
                 notificationBuilder.setColor(ContextCompat.getColor(dataWrapper.context, R.color.primary));
 
             if (Build.VERSION.SDK_INT >= 26) {
-                PPApplication.createProfileNotificationChannel(profile, dataWrapper.context);
+                PPApplication.createProfileNotificationChannel(/*profile, */dataWrapper.context);
                 notificationBuilder.setChannelId(PPApplication.PROFILE_NOTIFICATION_CHANNEL);
                 //notificationBuilder.setSettingsText("Pokus");
             }

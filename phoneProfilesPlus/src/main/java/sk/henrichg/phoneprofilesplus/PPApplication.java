@@ -738,7 +738,7 @@ public class PPApplication extends Application {
 
     // notification channels -------------------------
 
-    static void createProfileNotificationChannel(Profile profile, Context context) {
+    static void createProfileNotificationChannel(/*Profile profile, */Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             // no sound
             /*int importance = NotificationManager.IMPORTANCE_LOW;
