@@ -15,6 +15,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -1967,7 +1968,9 @@ class Event {
                     nTitle = context.getString(R.string.app_name);
                     nText = context.getString(R.string.start_event_notification_title) + ": " + nText;
                 }
-                mBuilder = new NotificationCompat.Builder(context)
+                PPApplication.createNotifyEventStartNotificationChannel(context);
+                mBuilder = new NotificationCompat.Builder(context, PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL)
+                        .setColor(ContextCompat.getColor(context, R.color.primary))
                         .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText)

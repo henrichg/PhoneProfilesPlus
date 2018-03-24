@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 
 class ImportantInfoNotification {
 
@@ -107,7 +108,9 @@ class ImportantInfoNotification {
             nTitle = context.getString(R.string.app_name);
             nText = title+": "+text;
         }
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
+        PPApplication.createInformationNotificationChannel(context);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(context, R.color.primary))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(nTitle) // title for notification
                 .setContentText(nText) // message for notification

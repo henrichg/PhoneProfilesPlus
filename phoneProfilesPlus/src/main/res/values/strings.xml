@@ -1135,8 +1135,15 @@
     <string name="profile_multiselect_summary_text_selected">Selected</string>
     <string name="profile_multiselect_summary_text_not_selected">None selected</string>
     <string name="notification_channel_activated_profile">Activated profile</string>
-    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
-    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
+    <string name="notification_channel_activated_profile_description_ppp">Shows the activated profile with the event that triggered it</string>
+    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile</string>
+    <string name="notification_channel_mobile_cells_registration_description">Shows the remaining time of mobile cell registration</string>
+    <string name="notification_channel_information">Information</string>
+    <string name="notification_channel_exclamation">Exclamation</string>
+    <string name="notification_channel_grant_permission">Grant permission</string>
+    <string name="notification_channel_grant_permission_description">Shows permission witch is needed grant it.</string>
+    <string name="notification_channel_notify_event_start">Start event notification</string>
+    <string name="notification_channel_notify_event_start_description">Shows notification about start of event</string>
 
     <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
     <!-- <string name="donation_paypal">PayPal</string> -->

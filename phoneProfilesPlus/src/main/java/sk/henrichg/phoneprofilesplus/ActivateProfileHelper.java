@@ -39,6 +39,7 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
@@ -2053,7 +2054,9 @@ class ActivateProfileHelper {
             nTitle = context.getString(R.string.app_name);
             nText = title+": "+text;
         }
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
+        PPApplication.createInformationNotificationChannel(context);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(context, R.color.primary))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(nTitle) // title for notification
                 .setContentText(nText) // message for notification

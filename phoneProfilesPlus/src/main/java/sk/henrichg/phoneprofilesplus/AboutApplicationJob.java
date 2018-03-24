@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
@@ -59,6 +60,8 @@ class AboutApplicationJob extends Job {
                 PPApplication.setDonationNotificationCount(context, donationNotificationCount+1);
 
                 // show notification about "Please donate me."
+                PPApplication.createInformationNotificationChannel(context);
+
                 NotificationCompat.Builder mBuilder;
                 Intent _intent = new Intent(context, AboutApplicationActivity.class);
 
@@ -69,7 +72,8 @@ class AboutApplicationJob extends Job {
                     nText = context.getString(R.string.about_application_donate_button) + ": " +
                             context.getString(R.string.donation_description);
                 }
-                mBuilder = new NotificationCompat.Builder(context)
+                mBuilder = new NotificationCompat.Builder(context, PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
+                        .setColor(ContextCompat.getColor(context, R.color.primary))
                         .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText)

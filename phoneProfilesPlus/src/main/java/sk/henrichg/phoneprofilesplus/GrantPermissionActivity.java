@@ -17,6 +17,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -405,6 +406,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private void showNotification(Context context) {
         int notificationID;
         NotificationCompat.Builder mBuilder;
+
+        PPApplication.createGrantPermissionNotificationChannel(context);
+
         Intent intent = new Intent(context, GrantPermissionActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
@@ -416,7 +420,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 nText = context.getString(R.string.permissions_for_install_tone_text_notification) + ": " +
                         context.getString(R.string.permissions_for_install_tone_big_text_notification);
             }
-            mBuilder =   new NotificationCompat.Builder(context)
+            mBuilder =   new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                    .setColor(ContextCompat.getColor(context, R.color.primary))
                     .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                     .setContentTitle(nTitle) // title for notification
                     .setContentText(nText)
@@ -433,7 +438,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 nText = context.getString(R.string.permissions_for_install_tone_text_notification) + ": " +
                         context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
             }
-            mBuilder =   new NotificationCompat.Builder(context)
+            mBuilder =   new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                    .setColor(ContextCompat.getColor(context, R.color.primary))
                     .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                     .setContentTitle(nTitle) // title for notification
                     .setContentText(nText)
@@ -459,7 +465,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     nText = nText + "\"" + event._name + "\" ";
                 nText = nText + context.getString(R.string.permissions_for_event_big_text_notification);
             }
-            mBuilder =   new NotificationCompat.Builder(context)
+            mBuilder =   new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                    .setColor(ContextCompat.getColor(context, R.color.primary))
                     .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                     .setContentTitle(nTitle) // title for notification
                     .setContentText(nText) // message for notification
@@ -489,7 +496,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     nText = nText + "\"" + profile._name + "\" ";
                 nText = nText + context.getString(R.string.permissions_for_profile_big_text_notification);
             }
-            mBuilder =   new NotificationCompat.Builder(context)
+            mBuilder =   new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                    .setColor(ContextCompat.getColor(context, R.color.primary))
                     .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                     .setContentTitle(nTitle) // title for notification
                     .setContentText(nText) // message for notification

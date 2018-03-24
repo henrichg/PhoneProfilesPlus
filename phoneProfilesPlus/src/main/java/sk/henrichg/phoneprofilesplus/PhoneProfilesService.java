@@ -44,6 +44,7 @@ import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.provider.Telephony;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -2881,10 +2882,13 @@ public class PhoneProfilesService extends Service
             notificationBuilder = new Notification.Builder(dataWrapper.context);
             notificationBuilder.setContentIntent(pIntent);
 
+            if (Build.VERSION.SDK_INT >= 21)
+                notificationBuilder.setColor(ContextCompat.getColor(dataWrapper.context, R.color.primary));
+
             if (Build.VERSION.SDK_INT >= 26) {
                 PPApplication.createProfileNotificationChannel(profile, dataWrapper.context);
                 notificationBuilder.setChannelId(PPApplication.PROFILE_NOTIFICATION_CHANNEL);
-                notificationBuilder.setSettingsText("Pokus");
+                //notificationBuilder.setSettingsText("Pokus");
             }
             else {
                 if (notificationShowInStatusBar) {

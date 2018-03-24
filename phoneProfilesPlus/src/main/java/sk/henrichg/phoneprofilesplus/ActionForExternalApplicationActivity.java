@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
@@ -224,7 +225,9 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
             nTitle = getString(R.string.app_name);
             nText = title+": "+text;
         }
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext())
+        PPApplication.createExclamationNotificationChannel(getApplicationContext());
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(this, R.color.primary))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(nTitle) // title for notification
                 .setContentText(nText) // message for notification

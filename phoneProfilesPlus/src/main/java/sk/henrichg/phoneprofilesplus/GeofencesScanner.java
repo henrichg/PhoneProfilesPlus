@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -406,7 +407,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             nText = context.getString(R.string.event_preferences_location_google_api_connection_error_title)+": "+
                     context.getString(R.string.event_preferences_location_google_api_connection_error_text);
         }
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
+        PPApplication.createExclamationNotificationChannel(context);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(context, R.color.primary))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(nTitle) // title for notification
                 .setContentText(nText) // message for notification

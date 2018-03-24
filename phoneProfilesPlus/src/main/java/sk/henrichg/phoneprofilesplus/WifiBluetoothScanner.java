@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.List;
@@ -780,7 +781,9 @@ class WifiBluetoothScanner {
                         nTitle = context.getString(R.string.app_name);
                         nText = notificationText+": "+notificationBigText;
                     }
-                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+                    PPApplication.createExclamationNotificationChannel(context);
+                    NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                            .setColor(ContextCompat.getColor(context, R.color.primary))
                             .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                             .setContentTitle(nTitle) // title for notification
                             .setContentText(nText) // message for notification

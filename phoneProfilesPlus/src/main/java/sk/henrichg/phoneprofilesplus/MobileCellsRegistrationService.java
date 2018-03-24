@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 
 public class MobileCellsRegistrationService extends Service {
 
@@ -107,7 +108,9 @@ public class MobileCellsRegistrationService extends Service {
         time = time + ": " + GlobalGUIRoutines.getDurationString((int)iValue);
         text = text + "; " + time;
 
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this)
+        PPApplication.createMobileCellsRegistrationNotificationChannel(this);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this, PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(this, R.color.primary))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
                 .setContentText(text+" ("+getString(R.string.app_name)+")") // message for notification
