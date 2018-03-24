@@ -13,6 +13,7 @@ import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -65,6 +66,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
+                PPApplication.logE("##### GeofenceScanner.LocationCallback", "xxx");
                 if (locationResult == null) {
                     return;
                 }
@@ -73,7 +75,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
                 for (Location location : locationResult.getLocations()) {
                     synchronized (PPApplication.geofenceScannerLastLocationMutex) {
-                        PPApplication.logE("##### GeofencesScanner.LocationCallback", "location=" + location);
+                        PPApplication.logE("##### GeofenceScanner.LocationCallback", "location=" + location);
                         lastLocation.set(location);
                         //updateGeofencesInDB();
                     }
@@ -85,7 +87,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     }
 
     void connect(boolean resetUseGPS) {
-        PPApplication.logE("GeofenceScanner.connect", "mResolvingError="+mResolvingError);
+        PPApplication.logE("##### GeofenceScanner.connect", "mResolvingError="+mResolvingError);
         try {
             if (!mResolvingError) {
                 //if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
@@ -97,10 +99,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     }
 
     void connectForResolve() {
-        PPApplication.logE("GeofenceScanner.connectForResolve", "xxx");
+        PPApplication.logE("##### GeofenceScanner.connectForResolve", "xxx");
         try {
             if ((mGoogleApiClient != null) && !mGoogleApiClient.isConnecting() && !mGoogleApiClient.isConnected()) {
-                PPApplication.logE("GeofenceScanner.connectForResolve", "not connected, connect it");
+                PPApplication.logE("##### GeofenceScanner.connectForResolve", "not connected, connect it");
                 //if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
                 mGoogleApiClient.connect();
             }
@@ -108,7 +110,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     }
 
     void disconnect() {
-        PPApplication.logE("GeofenceScanner.disconnect", "xxx");
+        PPApplication.logE("##### GeofenceScanner.disconnect", "xxx");
         try {
             if (mGoogleApiClient != null) {
                 if (mGoogleApiClient.isConnected()) {
@@ -123,25 +125,27 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     @Override
     public void onConnected(Bundle bundle) {
-        PPApplication.logE("GeofenceScanner.onConnected", "xxx");
+        PPApplication.logE("##### GeofenceScanner.onConnected", "xxx");
         try {
             if ((mGoogleApiClient != null) && mGoogleApiClient.isConnected()) {
+                //PPApplication.logE("##### GeofenceScanner.onConnected", "xxx2");
                 mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
                 useGPS = true;
                 clearAllEventGeofences();
                 updateTransitionsByLastKnownLocation(false);
                 if (PPApplication.getApplicationStarted(context, true)) {
-                    PPApplication.logE("GeofenceScanner.mUpdatesStarted=false", "from GeofenceScanner.onConnected");
+                    //PPApplication.logE("##### GeofenceScanner.mUpdatesStarted=false", "from GeofenceScanner.onConnected");
                     mUpdatesStarted = false;
-                    PPApplication.logE("GeofenceScanner.scheduleJob", "from GeofenceScanner.onConnected");
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+            //PPApplication.logE("##### GeofenceScanner.onConnected", Log.getStackTraceString(e));
+        }
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        PPApplication.logE("GeofenceScanner.onConnectionSuspended", "xxx");
+        PPApplication.logE("##### GeofenceScanner.onConnectionSuspended", "xxx");
         // The connection has been interrupted.
         // Disable any UI components that depend on Google APIs
         // until onConnected() is called.
@@ -151,7 +155,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        PPApplication.logE("GeofenceScanner.onConnectionFailed", "xxx");
+        PPApplication.logE("##### GeofenceScanner.onConnectionFailed", "xxx");
         try {
             //noinspection StatementWithEmptyBody
             if (mResolvingError) {
@@ -209,9 +213,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 int savedTransition = DatabaseHandler.getInstance(dataWrapper.context).getGeofenceTransition(geofence._id);
 
                 if (savedTransition != transitionType) {
-                    PPApplication.logE("GeofenceScanner.updateGeofencesInDB", "geofence._name=" + geofence._name);
-                    PPApplication.logE("GeofenceScanner.updateGeofencesInDB", "transitionType=" + transitionType);
-                    PPApplication.logE("GeofenceScanner.updateGeofencesInDB", "savedTransition=" + savedTransition);
+                    PPApplication.logE("##### GeofenceScanner.updateGeofencesInDB", "geofence._name=" + geofence._name);
+                    PPApplication.logE("##### GeofenceScanner.updateGeofencesInDB", "transitionType=" + transitionType);
+                    PPApplication.logE("##### GeofenceScanner.updateGeofencesInDB", "savedTransition=" + savedTransition);
 
                     DatabaseHandler.getInstance(dataWrapper.context).updateGeofenceTransition(geofence._id, transitionType);
                     //change = true;
@@ -272,11 +276,11 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         mLocationRequest.setMaxWaitTime(UPDATE_INTERVAL_IN_MILLISECONDS * 4);
 
         if ((!ApplicationPreferences.applicationEventLocationUseGPS(context)) || isPowerSaveMode || (!useGPS)) {
-            PPApplication.logE("GeofenceScanner.createLocationRequest","PRIORITY_BALANCED_POWER_ACCURACY");
+            PPApplication.logE("##### GeofenceScanner.createLocationRequest","PRIORITY_BALANCED_POWER_ACCURACY");
             mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         }
         else {
-            PPApplication.logE("GeofenceScanner.createLocationRequest","PRIORITY_HIGH_ACCURACY");
+            PPApplication.logE("##### GeofenceScanner.createLocationRequest","PRIORITY_HIGH_ACCURACY");
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         }
     }
@@ -295,22 +299,23 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
                     if (Permissions.checkLocation(context)) {
                         try {
-                            PPApplication.logE("****** GeofenceScanner.startLocationUpdates", "xxx");
+                            PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "xxx");
                             createLocationRequest();
+                            PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mFusedLocationClient="+mFusedLocationClient);
                             if (mFusedLocationClient != null)
                                 mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
-                            PPApplication.logE("****** GeofenceScanner.startLocationUpdates", "mUpdatesStarted=true");
+                            PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=true");
                             mUpdatesStarted = true;
                         } catch (SecurityException securityException) {
                             // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
-                            PPApplication.logE("****** GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
+                            PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
                             mUpdatesStarted = false;
                             return;
                         }
                     }
                 }
             } catch (Exception e) {
-                PPApplication.logE("****** GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
+                PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
                 mUpdatesStarted = false;
             }
         }
@@ -337,7 +342,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     PPApplication.logE("##### GeofenceScanner.stopLocationUpdates", "xxx");
                     if (mFusedLocationClient != null)
                         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-                    PPApplication.logE("GeofenceScannerJob.mUpdatesStarted=false", "from GeofenceScanner.stopLocationUpdates");
+                    PPApplication.logE("##### GeofenceScannerJob.mUpdatesStarted=false", "from GeofenceScanner.stopLocationUpdates");
                     mUpdatesStarted = false;
                 }
             } catch (Exception ignored) {}
@@ -359,7 +364,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     void updateTransitionsByLastKnownLocation(final boolean startEventsHandler) {
         try {
             if (Permissions.checkLocation(context) && (mGoogleApiClient != null) && mGoogleApiClient.isConnected()) {
-                PPApplication.logE("GeofenceScanner.updateTransitionsByLastKnownLocation", "xxx");
+                PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation", "xxx");
                 FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
                 final Context appContext = context.getApplicationContext();
                 //noinspection MissingPermission
@@ -367,7 +372,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     @Override
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
-                        PPApplication.logE("GeofenceScanner.updateTransitionsByLastKnownLocation", "onSuccess");
+                        PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation", "onSuccess");
                         if (location != null) {
                             synchronized (PPApplication.geofenceScannerLastLocationMutex) {
                                 lastLocation.set(location);
