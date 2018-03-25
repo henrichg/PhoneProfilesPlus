@@ -480,6 +480,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
                 ActivatorTargetHelpsActivity.activity.finish();
                 ActivatorTargetHelpsActivity.activity = null;
+                ActivatorTargetHelpsActivity.activatorActivity = null;
             }
         }
     }

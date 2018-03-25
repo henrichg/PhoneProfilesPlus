@@ -493,11 +493,10 @@ public class ActivateProfileListFragment extends Fragment {
                 @Override
                 public void run() {
                     if (ActivatorTargetHelpsActivity.activity != null) {
-                        if (ActivatorTargetHelpsActivity.activity != null) {
-                            //Log.d("ActivateProfileListFragment.showTargetHelps", "finish activity");
-                            ActivatorTargetHelpsActivity.activity.finish();
-                            ActivatorTargetHelpsActivity.activity = null;
-                        }
+                        //Log.d("ActivateProfileListFragment.showTargetHelps", "finish activity");
+                        ActivatorTargetHelpsActivity.activity.finish();
+                        ActivatorTargetHelpsActivity.activity = null;
+                        ActivatorTargetHelpsActivity.activatorActivity = null;
                     }
                 }
             }, 500);
@@ -536,11 +535,10 @@ public class ActivateProfileListFragment extends Fragment {
                 @Override
                 public void run() {
                     if (ActivatorTargetHelpsActivity.activity != null) {
-                        if (ActivatorTargetHelpsActivity.activity != null) {
-                            //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "finish activity");
-                            ActivatorTargetHelpsActivity.activity.finish();
-                            ActivatorTargetHelpsActivity.activity = null;
-                        }
+                        //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "finish activity");
+                        ActivatorTargetHelpsActivity.activity.finish();
+                        ActivatorTargetHelpsActivity.activity = null;
+                        ActivatorTargetHelpsActivity.activatorActivity = null;
                     }
                 }
             }, 500);
