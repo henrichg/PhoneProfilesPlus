@@ -1609,7 +1609,7 @@ class Event {
             Intent intent = new Intent(dataWrapper.context, EventDelayStartBroadcastReceiver.class);
             //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
             if (alarmManager != null) {
@@ -1733,7 +1733,7 @@ class Event {
             Intent intent = new Intent(dataWrapper.context, EventDelayEndBroadcastReceiver.class);
             //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
 

@@ -190,7 +190,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         widget.setOnClickPendingIntent(R.id.widget_profile_list_header, pendingIntent);
 
         Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
-        PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
         widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events, pIntentRE);
 
         /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))

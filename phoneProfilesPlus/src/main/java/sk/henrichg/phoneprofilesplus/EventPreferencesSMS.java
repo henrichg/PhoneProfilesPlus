@@ -323,7 +323,7 @@ class EventPreferencesSMS extends EventPreferences {
                 Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
                 if (alarmManager != null) {
