@@ -153,11 +153,11 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.onSensorChanged"
                                          //+"|ForegroundApplicationChangedBroadcastReceiver"
 
-                                         /*
                                          +"|PhoneProfilesService.doSimulatingRingingCall"
                                          +"|PhoneProfilesService.startSimulatingRingingCall"
                                          +"|PhoneProfilesService.stopSimulatingRingingCall"
                                          +"|PhoneProfilesService.onAudioFocusChange"
+                                         /*
                                          +"|ActivateProfileHelper.(s)setRingerMode"
                                          +"|ActivateProfileHelper.(s)setZenMode"
                                          +"|ActivateProfileHelper.(s)setRingerVolume"
