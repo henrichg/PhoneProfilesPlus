@@ -897,10 +897,6 @@
   <string name="event_preference_activity_targetHelps_save_description">Cliquez sur ce bouton pour enregistrer les modifications des préférences événement.</string>
   <string name="about_application_privacy_policy">Charte de confidentialité :</string>
   <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">Ce profil sera activé si aucun événement n’est en cours d’exécution.</string>
-  <string name="phone_profiles_pref_notificationTheme">Thème de notification</string>
-  <string name="array_pref_color_native">Natif</string>
-  <string name="array_pref_color_dark">Foncé</string>
-  <string name="array_pref_color_light">Lumineux</string>
   <string name="altype_applicationStartOnBoot">activer au démarrage</string>
   <string name="profile_preferences_hideStatusBarIcon">Masquer l’icône de barre d’État</string>
   <string name="device_admin_description">Prend en charge certaines actions PhoneProfilesPlus</string>
@@ -1033,8 +1029,6 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Cliquez ici pour activer la permission de démarrage automatique pour PhoneProfilesPlus</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Analyser seulement lorsque l’écran est allumé</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Confirmer le redémarrage événements</string>
-  <string name="fast_access_duration_activate_with_button">Act. avec</string>
-  <string name="fast_access_duration_activate_without_button">Act. sans</string>
   <string name="applications_editor_dialog_startApplicationDelay">Délai de démarrage :</string>
   <string name="number_picker_min_error">Il vous plaît, veuillez indiquer un nombre plus grand ou égal à %1$s</string>
   <string name="number_picker_max_error">Il vous plaît, veuillez indiquer un nombre plus petit ou égal à %1$s</string>
@@ -1118,7 +1112,6 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="profile_preferences_headsUpNotifications">(G1)(R) Utiliser des notifications contextuelles (Popup)</string>
   <string name="event_preferences_PPPExtenderInstallInfo_text">Comment installer phoneProfilesPlusExtender</string>
   <string name="event_preferences_PPPExtenderInstallInfo_summary">Télécharger dernière version de PhoneProfilesPlusExtender.apk sur son GitHub. Valider l\'installation d\'apk téléchargé, puis installez-le.</string>
-  <string name="editor_drawer_open">Ouvrir le tiroir de navigation</string>
   <string name="donation_thanks_dialog">Merci pour le don. \nJ\'apprécie vraiment (la traduction est entièrement gratuite).</string>
   <string name="donation_google_android_market_not_supported">Les Dons dans l\' application ne sont pas supportés. Google play store est-il installé correctement ?</string>
   <string name="donation_google_error">Erreur.</string>
@@ -1132,12 +1125,24 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="array_event_pref_battery_charging_stop_when_charging">Stop when charging</string>
   <string name="profile_multiselect_summary_text_selected">Selected</string>
   <string name="profile_multiselect_summary_text_not_selected">None selected</string>
+  <string name="notification_channel_activated_profile">Activated profile</string>
+  <string name="notification_channel_activated_profile_description_ppp">Shows the activated profile with started event.</string>
+  <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>
+  <string name="notification_channel_mobile_cells_registration_description">Shows the remaining time of mobile cell registration.</string>
+  <string name="notification_channel_information">Information</string>
+  <string name="notification_channel_exclamation">Exclamation</string>
+  <string name="notification_channel_grant_permission">Grant permission</string>
+  <string name="notification_channel_grant_permission_description">Shows permission witch is needed grant it.</string>
+  <string name="notification_channel_notify_event_start">Start event notification</string>
+  <string name="notification_channel_notify_event_start_description">Shows notification about start of event.</string>
+  <string name="editor_drawer_open">Ouvrir le tiroir de navigation</string>
+  <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
+    <string name="array_pref_color_native">Native</string>
+    <string name="array_pref_color_dark">Dark</string>
+    <string name="array_pref_color_light">Light</string>-->
+  <!--<string name="fast_access_duration_activate_with_button">Act. with</string>
+    <string name="fast_access_duration_activate_without_button">Act. without</string>-->
   <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
-  <!--
-    <string name="notification_channel_activated_profile">Activated profile</string>
-    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
-    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
-    -->
   <!-- <string name="donation_paypal">PayPal</string> -->
   <!--<string name="title_activity_image_view_preference_dialog">Change icon</string>-->
   <!--<string name="title_activity_profile_preference_dialog">Set profile</string>-->

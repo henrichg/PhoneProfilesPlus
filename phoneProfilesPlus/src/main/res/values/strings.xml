@@ -1128,8 +1128,8 @@
     <string name="profile_multiselect_summary_text_selected">Selected</string>
     <string name="profile_multiselect_summary_text_not_selected">None selected</string>
     <string name="notification_channel_activated_profile">Activated profile</string>
-    <string name="notification_channel_activated_profile_description_ppp">Shows the activated profile with the event that triggered it.</string>
-    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile</string>
+    <string name="notification_channel_activated_profile_description_ppp">Shows the activated profile with started event.</string>
+    <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>
     <string name="notification_channel_mobile_cells_registration_description">Shows the remaining time of mobile cell registration.</string>
     <string name="notification_channel_information">Information</string>
     <string name="notification_channel_exclamation">Exclamation</string>

@@ -897,10 +897,6 @@
   <string name="event_preference_activity_targetHelps_save_description">Click this to save event preference changes.</string>
   <string name="about_application_privacy_policy">Privacy Policy:</string>
   <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">This profile will activate when no event is running.</string>
-  <string name="phone_profiles_pref_notificationTheme">Notification theme</string>
-  <string name="array_pref_color_native">Native</string>
-  <string name="array_pref_color_dark">Dark</string>
-  <string name="array_pref_color_light">Light</string>
   <string name="altype_applicationStartOnBoot">start on boot</string>
   <string name="profile_preferences_hideStatusBarIcon">Hide status bar icon</string>
   <string name="device_admin_description">Provides support for some PhoneProfilesPlus actions</string>
@@ -1032,8 +1028,6 @@
   <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Click here to enable AutoStart permission for PhoneProfilesPlus</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Scan only when screen is on</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Confirm restart events</string>
-  <string name="fast_access_duration_activate_with_button">Act. with</string>
-  <string name="fast_access_duration_activate_without_button">Act. without</string>
   <string name="applications_editor_dialog_startApplicationDelay">Startup delay:</string>
   <string name="number_picker_min_error">Please input a number greater than or equal to %1$s</string>
   <string name="number_picker_max_error">Please input a number less than or equal to %1$s</string>
@@ -1117,7 +1111,6 @@
   <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
   <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>
   <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
-  <string name="editor_drawer_open">Öppna navigeringslåda</string>
   <string name="donation_thanks_dialog">Thank you for donating.\nI really appreciate it.</string>
   <string name="donation_google_android_market_not_supported">In-App Donations are not supported. Is Google Play Store installed correctly?</string>
   <string name="donation_google_error">Error.</string>
@@ -1131,12 +1124,24 @@
   <string name="array_event_pref_battery_charging_stop_when_charging">Stop when charging</string>
   <string name="profile_multiselect_summary_text_selected">Selected</string>
   <string name="profile_multiselect_summary_text_not_selected">None selected</string>
+  <string name="notification_channel_activated_profile">Activated profile</string>
+  <string name="notification_channel_activated_profile_description_ppp">Shows the activated profile with started event.</string>
+  <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>
+  <string name="notification_channel_mobile_cells_registration_description">Shows the remaining time of mobile cell registration.</string>
+  <string name="notification_channel_information">Information</string>
+  <string name="notification_channel_exclamation">Exclamation</string>
+  <string name="notification_channel_grant_permission">Grant permission</string>
+  <string name="notification_channel_grant_permission_description">Shows permission witch is needed grant it.</string>
+  <string name="notification_channel_notify_event_start">Start event notification</string>
+  <string name="notification_channel_notify_event_start_description">Shows notification about start of event.</string>
+  <string name="editor_drawer_open">Öppna navigeringslåda</string>
+  <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
+    <string name="array_pref_color_native">Native</string>
+    <string name="array_pref_color_dark">Dark</string>
+    <string name="array_pref_color_light">Light</string>-->
+  <!--<string name="fast_access_duration_activate_with_button">Act. with</string>
+    <string name="fast_access_duration_activate_without_button">Act. without</string>-->
   <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
-  <!--
-    <string name="notification_channel_activated_profile">Activated profile</string>
-    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
-    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
-    -->
   <!-- <string name="donation_paypal">PayPal</string> -->
   <!--<string name="title_activity_image_view_preference_dialog">Change icon</string>-->
   <!--<string name="title_activity_profile_preference_dialog">Set profile</string>-->

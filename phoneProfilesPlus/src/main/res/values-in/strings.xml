@@ -897,10 +897,6 @@
   <string name="event_preference_activity_targetHelps_save_description">Klik ini untuk menyimpan perubahan preferensi ac.</string>
   <string name="about_application_privacy_policy">Kebijakan pribadi:</string>
   <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">Profil ini akan aktif bila tidak ada acara yang sedang berjalan.</string>
-  <string name="phone_profiles_pref_notificationTheme">Tema pemberitahuan</string>
-  <string name="array_pref_color_native">Asli</string>
-  <string name="array_pref_color_dark">Gelap</string>
-  <string name="array_pref_color_light">Cahaya</string>
   <string name="altype_applicationStartOnBoot">mulai saat boot</string>
   <string name="profile_preferences_hideStatusBarIcon">Sembunyikan ikon bilah status</string>
   <string name="device_admin_description">Memberikan dukungan untuk beberapa tindakan PhoneProfilesPlus</string>
@@ -1032,8 +1028,6 @@
   <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Klik di sini untuk mengaktifkan izin AutoStart untuk PhoneProfilesPlus</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Scan hanya saat layar aktif</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Konfirmasi acara restart</string>
-  <string name="fast_access_duration_activate_with_button">Bertindak. dengan</string>
-  <string name="fast_access_duration_activate_without_button">Bertindak. tanpa</string>
   <string name="applications_editor_dialog_startApplicationDelay">Keterlambatan startup:</string>
   <string name="number_picker_min_error">Harap masukan angka lebih besar dari atau sama dengan %1$s</string>
   <string name="number_picker_max_error">Harap masukan angka kurang dari atau sama dengan %1$s</string>
@@ -1117,7 +1111,6 @@
   <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
   <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>
   <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
-  <string name="editor_drawer_open">Buka laci navigasi</string>
   <string name="donation_thanks_dialog">Terima kasih telah menyumbang. \ n Saya sangat menghargai itu.</string>
   <string name="donation_google_android_market_not_supported">Sumbangan dalam aplikasi tidak didukung Apakah Google Play Store terpasang dengan benar?</string>
   <string name="donation_google_error">Error.</string>
@@ -1131,12 +1124,24 @@
   <string name="array_event_pref_battery_charging_stop_when_charging">Stop when charging</string>
   <string name="profile_multiselect_summary_text_selected">Selected</string>
   <string name="profile_multiselect_summary_text_not_selected">None selected</string>
+  <string name="notification_channel_activated_profile">Activated profile</string>
+  <string name="notification_channel_activated_profile_description_ppp">Shows the activated profile with started event.</string>
+  <string name="notification_channel_activated_profile_description_pp">Shows the activated profile.</string>
+  <string name="notification_channel_mobile_cells_registration_description">Shows the remaining time of mobile cell registration.</string>
+  <string name="notification_channel_information">Information</string>
+  <string name="notification_channel_exclamation">Exclamation</string>
+  <string name="notification_channel_grant_permission">Grant permission</string>
+  <string name="notification_channel_grant_permission_description">Shows permission witch is needed grant it.</string>
+  <string name="notification_channel_notify_event_start">Start event notification</string>
+  <string name="notification_channel_notify_event_start_description">Shows notification about start of event.</string>
+  <string name="editor_drawer_open">Buka laci navigasi</string>
+  <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
+    <string name="array_pref_color_native">Native</string>
+    <string name="array_pref_color_dark">Dark</string>
+    <string name="array_pref_color_light">Light</string>-->
+  <!--<string name="fast_access_duration_activate_with_button">Act. with</string>
+    <string name="fast_access_duration_activate_without_button">Act. without</string>-->
   <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
-  <!--
-    <string name="notification_channel_activated_profile">Activated profile</string>
-    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
-    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
-    -->
   <!-- <string name="donation_paypal">PayPal</string> -->
   <!--<string name="title_activity_image_view_preference_dialog">Change icon</string>-->
   <!--<string name="title_activity_profile_preference_dialog">Set profile</string>-->

@@ -400,7 +400,7 @@
   <string name="array_event_pref_calendarSearchField_location">Poloha</string>
   <string name="profile_preferences_vibrationOnTouch">Vibrovanie pri klepntí</string>
   <string name="phone_profiles_pref_notificationShowInStatusBar">Zobraziť v stavovom riadku</string>
-  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Zobraziť v stav. riadku a uzamykacej obr.</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Zobraziť v stavovom riadku a uzamykacej obrazovke</string>
   <string name="menu_activity_log_reload">Znovu načítať</string>
   <string name="event_preferences_atEndDo">A urobiť</string>
   <string name="array_pref_atEndDo_none">Nič</string>
@@ -897,10 +897,6 @@
   <string name="event_preference_activity_targetHelps_save_description">Kliknite sem pre uloženie zmien parametrov udalosti.</string>
   <string name="about_application_privacy_policy">Ochrana osobných údajov:</string>
   <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">Tento profil sa aktivuje, ak nebeží žiadna udalosť.</string>
-  <string name="phone_profiles_pref_notificationTheme">Téma notifikácie</string>
-  <string name="array_pref_color_native">Natívna</string>
-  <string name="array_pref_color_dark">Tmavá</string>
-  <string name="array_pref_color_light">Svetlá</string>
   <string name="altype_applicationStartOnBoot">štart pri boote</string>
   <string name="profile_preferences_hideStatusBarIcon">Skryť ikonu v stavovom riadku</string>
   <string name="device_admin_description">Poskytuje podporu pre niektoré akcie PhoneProfilesPlus</string>
@@ -1032,8 +1028,6 @@
   <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Kliknite sem pre zapnutie povolenia AutoStart pre PhoneProfilesPlus</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Skenovať len keď je obrazovka zapnutá</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Pýtať sa na reštart udalostí</string>
-  <string name="fast_access_duration_activate_with_button">Aktiv. s</string>
-  <string name="fast_access_duration_activate_without_button">Aktiv. bez</string>
   <string name="applications_editor_dialog_startApplicationDelay">Oneskorenie spustenia:</string>
   <string name="number_picker_min_error">Vložte prosím číslo väčšie alebo rovné %1$s</string>
   <string name="number_picker_max_error">Vložte prosím číslo menšie alebo rovné %1$s</string>
@@ -1117,7 +1111,6 @@
   <string name="profile_preferences_headsUpNotifications">(G1) (R) Vyskakovacie notifikácie</string>
   <string name="event_preferences_PPPExtenderInstallInfo_text">Ako nainštalovať PhoneProfilesPlusExtender</string>
   <string name="event_preferences_PPPExtenderInstallInfo_summary">Stiahnite si najnovšiu verziu PhoneProfilesPlusExtender.apk z jeho GitHub. Kliknite na notifikáciu o stiahnutom apk a nainštalujte ho.</string>
-  <string name="editor_drawer_open">Otvor navigačný panel</string>
   <string name="donation_thanks_dialog">Ďakujem za darovanie.\nNaozaj si to vážim.</string>
   <string name="donation_google_android_market_not_supported">Platby z aplikácií nie sú podporované. Ste si istý, že je Obchod Play správne nainštalovaný?</string>
   <string name="donation_google_error">Chyba.</string>
@@ -1131,12 +1124,24 @@
   <string name="array_event_pref_battery_charging_stop_when_charging">Zastavenie pri nabíjaní</string>
   <string name="profile_multiselect_summary_text_selected">Vybraté</string>
   <string name="profile_multiselect_summary_text_not_selected">Nevybraté</string>
+  <string name="notification_channel_activated_profile">Aktivovaný profil</string>
+  <string name="notification_channel_activated_profile_description_ppp">Zobrazí aktivovaný profil so spustenou udalosťou.</string>
+  <string name="notification_channel_activated_profile_description_pp">Zobrazí aktivovaný profil.</string>
+  <string name="notification_channel_mobile_cells_registration_description">Zobrazuje zostávajúci čas registrácie mobilných buniek.</string>
+  <string name="notification_channel_information">Informácia</string>
+  <string name="notification_channel_exclamation">Upozornenie</string>
+  <string name="notification_channel_grant_permission">Udelenie povolení</string>
+  <string name="notification_channel_grant_permission_description">Zobrazuje povolenie, ktoré je potrebné, aby ste udelili.</string>
+  <string name="notification_channel_notify_event_start">Notifikácia spustenia udalosti</string>
+  <string name="notification_channel_notify_event_start_description">Zobrazuje notifikáciu o spustení udalosti.</string>
+  <string name="editor_drawer_open">Otvor navigačný panel</string>
+  <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
+    <string name="array_pref_color_native">Native</string>
+    <string name="array_pref_color_dark">Dark</string>
+    <string name="array_pref_color_light">Light</string>-->
+  <!--<string name="fast_access_duration_activate_with_button">Act. with</string>
+    <string name="fast_access_duration_activate_without_button">Act. without</string>-->
   <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
-  <!--
-    <string name="notification_channel_activated_profile">Activated profile</string>
-    <string name="notification_channel_activated_profile_ppp">Shows the activated profile with the event that triggered it</string>
-    <string name="notification_channel_activated_profile_pp">Shows the activated profile</string>
-    -->
   <!-- <string name="donation_paypal">PayPal</string> -->
   <!--<string name="title_activity_image_view_preference_dialog">Change icon</string>-->
   <!--<string name="title_activity_profile_preference_dialog">Set profile</string>-->
