@@ -3787,9 +3787,9 @@ public class PhoneProfilesService extends Service
                     }
 
                     //int requestType = AudioManager.AUDIOFOCUS_GAIN;
-                    int requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT;
-                    if (android.os.Build.VERSION.SDK_INT >= 19)
-                        requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE;
+                    //int requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT;
+                    //if (android.os.Build.VERSION.SDK_INT >= 19)
+                    //    requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE;
                     //int result = audioManager.requestAudioFocus(this, usedRingingStream, requestType);
                     //if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                         ringingMediaPlayer = new MediaPlayer();
@@ -4088,8 +4088,8 @@ public class PhoneProfilesService extends Service
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldMediaVolume, 0);
             PPApplication.logE("PhoneProfilesService.stopSimulatingNotificationTone", "notification stopped");
         }
-        if (abandonFocus)
-            audioManager.abandonAudioFocus(this);
+        //if (abandonFocus)
+        //    audioManager.abandonAudioFocus(this);
         //}
         notificationToneIsSimulating = false;
         RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
