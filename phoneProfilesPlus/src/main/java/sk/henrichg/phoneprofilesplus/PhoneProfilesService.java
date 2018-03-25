@@ -1012,7 +1012,7 @@ public class PhoneProfilesService extends Service
                         intentFilter23.addAction(PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED);
                         intentFilter23.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
                         appContext.registerReceiver(accessibilityServiceBroadcastReceiver, intentFilter23,
-                                PPApplication.ACCESSIBILITY_SERVICE_BROADCAST, null);
+                                PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
                     }
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "registered");

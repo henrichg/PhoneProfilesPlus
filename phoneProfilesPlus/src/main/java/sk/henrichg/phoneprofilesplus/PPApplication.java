@@ -58,7 +58,7 @@ public class PPApplication extends Application {
     static String PACKAGE_NAME;
 
     static final boolean newExtender = true;
-    static final int VERSION_CODE_EXTENDER = 60;
+    static final int VERSION_CODE_EXTENDER = 62;
 
     private static final boolean logIntoLogCat = true;
     private static final boolean logIntoFile = false;
@@ -288,7 +288,7 @@ public class PPApplication extends Application {
     static final String EXTENDER_ACCESSIBILITY_SERVICE_ID = "sk.henrichg.phoneprofilesplusextender/.PPPEAccessibilityService";
     static final String ACTION_FOREGROUND_APPLICATION_CHANGED = "sk.henrichg.phoneprofilesplusextender.ACTION_FOREGROUND_APPLICATION_CHANGED";
     static final String ACTION_ACCESSIBILITY_SERVICE_UNBIND = "sk.henrichg.phoneprofilesplusextender.ACTION_ACCESSIBILITY_SERVICE_UNBIND";
-    static final String ACCESSIBILITY_SERVICE_BROADCAST = "sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_BROADCAST";
+    static final String ACCESSIBILITY_SERVICE_PERMISSION = "sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION";
 
     public static HandlerThread handlerThread = null;
 
