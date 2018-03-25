@@ -2830,14 +2830,12 @@ public class PhoneProfilesService extends Service
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             // setup sturtupSource
             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
-            PendingIntent pIntent = PendingIntent.getActivity(dataWrapper.context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pIntent = PendingIntent.getActivity(dataWrapper.context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             // intent for restart events
-            /*Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
+            Intent intentRE = new Intent(dataWrapper.context, RestartEventsFromNotificationActivity.class);
             intentRE.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-            PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);*/
-            Intent intentRE = new Intent(dataWrapper.context, RestartEventsFromNotificationBroadcastReceiver.class);
-            PendingIntent pIntentRE = PendingIntent.getBroadcast(dataWrapper.context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pIntentRE = PendingIntent.getActivity(dataWrapper.context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
 
             Notification.Builder notificationBuilder;
 

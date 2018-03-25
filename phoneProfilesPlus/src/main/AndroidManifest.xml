@@ -513,11 +513,6 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".RestartEventsFromNotificationBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
             android:name=".StartEventNotificationDeletedReceiver"
             android:enabled="true"
             android:exported="false">
