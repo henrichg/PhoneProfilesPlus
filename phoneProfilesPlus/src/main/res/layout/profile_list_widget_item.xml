@@ -3,7 +3,8 @@
     android:id="@+id/widget_profile_list_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
     android:orientation="horizontal" >
 
     <ImageView

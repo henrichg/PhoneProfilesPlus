@@ -217,15 +217,17 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, red, green, blue));
             }
 
-            monochromeValue = 0xFF;
-            if (applicationWidgetListLightnessT.equals("0")) monochromeValue = 0x00;
-            if (applicationWidgetListLightnessT.equals("25")) monochromeValue = 0x40;
-            if (applicationWidgetListLightnessT.equals("50")) monochromeValue = 0x80;
-            if (applicationWidgetListLightnessT.equals("75")) monochromeValue = 0xC0;
-            if (applicationWidgetListLightnessT.equals("100")) monochromeValue = 0xFF;
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_action_events_restart);
-            bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
-            widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
+            if (ApplicationPreferences.applicationWidgetListIconColor(context).equals("1")) {
+                monochromeValue = 0xFF;
+                if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
+                if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
+                if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
+                if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
+                if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
+                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_action_events_restart_notification);
+                bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
+                widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
+            }
 
         }
         ////////////////////////////////////////////////

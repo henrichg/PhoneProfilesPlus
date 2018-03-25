@@ -22,7 +22,7 @@
             android:id="@+id/widget_profile_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dip"
+            android:padding="5dip"
             android:divider="@android:color/transparent"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay" />

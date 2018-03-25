@@ -22,7 +22,7 @@
             android:id="@+id/widget_profile_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="5dp"
             android:columnWidth="70dp"
             android:gravity="center"
             android:horizontalSpacing="@dimen/gridView_horizontalSpacing"

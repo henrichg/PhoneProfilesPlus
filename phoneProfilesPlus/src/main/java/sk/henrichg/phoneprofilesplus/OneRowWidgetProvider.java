@@ -145,15 +145,17 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_pref_indicator, profile._preferencesIndicator);
             }
 
-            monochromeValue = 0xFF;
-            if (applicationWidgetListLightnessT.equals("0")) monochromeValue = 0x00;
-            if (applicationWidgetListLightnessT.equals("25")) monochromeValue = 0x40;
-            if (applicationWidgetListLightnessT.equals("50")) monochromeValue = 0x80;
-            if (applicationWidgetListLightnessT.equals("75")) monochromeValue = 0xC0;
-            if (applicationWidgetListLightnessT.equals("100")) monochromeValue = 0xFF;
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_action_events_restart);
-            bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
-            remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
+            if (ApplicationPreferences.applicationWidgetListIconColor(context).equals("1")) {
+                monochromeValue = 0xFF;
+                if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
+                if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
+                if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
+                if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
+                if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
+                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_action_events_restart_notification);
+                bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
+                remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
+            }
 
             Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
             PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
