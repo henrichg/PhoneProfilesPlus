@@ -2232,6 +2232,14 @@ public class Profile {
             }
         }
         else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
+        {
+            //if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
+                featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            //else
+            //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
+        }
+        else
             featurePresented = PPApplication.PREFERENCE_ALLOWED;
 
         return featurePresented;

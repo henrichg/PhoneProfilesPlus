@@ -56,7 +56,7 @@ class ImportantInfoNotification {
         boolean news1772 = ((packageVersionCode >= 1772) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean afterInstall = savedVersionCode == 0;
 
-        int extenderVersion = ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context);
+        int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
         int applicationSensorsCount = 0;
         int orientationSensorsCount = 0;
         if (extenderVersion == 0) {

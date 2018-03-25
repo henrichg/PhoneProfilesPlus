@@ -162,7 +162,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 descr = descr + "; " + context.getString(R.string.event_preferences_orientation_distance) + ": " + distanceNames[i];
 
             String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            int extenderVersion = ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
+            int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
             if (extenderVersion == 0) {
                 selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
@@ -173,7 +173,7 @@ class EventPreferencesOrientation extends EventPreferences {
                         ": "+context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
             }
             else
-            if (!ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
+            if (!AccessibilityServiceBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
                 selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
             }
@@ -252,7 +252,7 @@ class EventPreferencesOrientation extends EventPreferences {
         if (key.equals(PREF_EVENT_ORIENTATION_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context) > 0)
+                if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context) > 0)
                     preference.setSummary(R.string.event_preferences_orientation_PPPExtender_upgrade_summary);
                 else
                     preference.setSummary(R.string.event_preferences_orientation_PPPExtender_install_summary);
@@ -395,7 +395,7 @@ class EventPreferencesOrientation extends EventPreferences {
                         ": "+context.getString(R.string.preference_not_allowed_reason_no_hardware));
             preference.setEnabled(enabled);
         }
-        enabled = ForegroundApplicationChangedBroadcastReceiver.isEnabled(context.getApplicationContext());
+        enabled = AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext());
         ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
         if (applicationsPreference != null) {
             applicationsPreference.setEnabled(enabled);

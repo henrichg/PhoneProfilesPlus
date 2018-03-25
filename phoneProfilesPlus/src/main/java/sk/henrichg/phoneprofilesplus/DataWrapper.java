@@ -2599,8 +2599,8 @@ public class DataWrapper {
         {
             applicationPassed = false;
 
-            if (ForegroundApplicationChangedBroadcastReceiver.isEnabled(context.getApplicationContext())) {
-                String foregroundApplication = ForegroundApplicationChangedBroadcastReceiver.getApplicationInForeground(context);
+            if (AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext())) {
+                String foregroundApplication = AccessibilityServiceBroadcastReceiver.getApplicationInForeground(context);
 
                 if (!foregroundApplication.isEmpty()) {
                     String[] splits = event._eventPreferencesApplication._applications.split("\\|");
@@ -2695,8 +2695,8 @@ public class DataWrapper {
                 synchronized (PPApplication.orientationScannerMutex) {
                     if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isOrientationScannerStarted()) {
                         boolean lApplicationPassed = false;
-                        if (ForegroundApplicationChangedBroadcastReceiver.isEnabled(context.getApplicationContext())) {
-                            String foregroundApplication = ForegroundApplicationChangedBroadcastReceiver.getApplicationInForeground(context);
+                        if (AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext())) {
+                            String foregroundApplication = AccessibilityServiceBroadcastReceiver.getApplicationInForeground(context);
                             if (!foregroundApplication.isEmpty()) {
                                 String[] splits = event._eventPreferencesOrientation._ignoredApplications.split("\\|");
                                 for (String split : splits) {

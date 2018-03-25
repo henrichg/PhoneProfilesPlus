@@ -350,7 +350,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         }
         else
         if (systemSettings.equals("accessibility")) {
-            int exctenderVersion = ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(_context);
+            int exctenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(_context);
             if (exctenderVersion == 0) {
                 ok = false;
                 prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
@@ -363,7 +363,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         ": " + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
             }
             else
-            if (!ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled(_context)) {
+            if (!AccessibilityServiceBroadcastReceiver.isAccessibilityServiceEnabled(_context)) {
                 ok = false;
                 prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+_context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);

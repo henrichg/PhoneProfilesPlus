@@ -60,7 +60,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         boolean news1804 = ((versionCode >= 1804) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1772 = ((versionCode >= 1772) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
 
-        int extenderVersion = ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context);
+        int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
         int applicationSensorsCount = 0;
         int orientationSensorsCount = 0;
         if (extenderVersion == 0) {

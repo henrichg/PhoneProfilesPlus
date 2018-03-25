@@ -151,7 +151,7 @@ public class PPApplication extends Application {
                                          //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
                                          //+"|PhoneProfilesService.onSensorChanged"
-                                         //+"|ForegroundApplicationChangedBroadcastReceiver"
+                                         //+"|AccessibilityServiceBroadcastReceiver"
 
                                          /*
                                          +"|PhoneProfilesService.doSimulatingRingingCall"
@@ -284,6 +284,11 @@ public class PPApplication extends Application {
     static final int SCANNER_RESTART_BLUETOOTH_SCANNER = 16;
 
     static final int SCANNER_RESTART_ALL_SCANNERS = 50;
+
+    static final String EXTENDER_ACCESSIBILITY_SERVICE_ID = "sk.henrichg.phoneprofilesplusextender/.PPPEAccessibilityService";
+    static final String ACTION_FOREGROUND_APPLICATION_CHANGED = "sk.henrichg.phoneprofilesplusextender.ACTION_FOREGROUND_APPLICATION_CHANGED";
+    static final String ACTION_ACCESSIBILITY_SERVICE_UNBIND = "sk.henrichg.phoneprofilesplusextender.ACTION_ACCESSIBILITY_SERVICE_UNBIND";
+    static final String ACCESSIBILITY_SERVICE_BROADCAST = "sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_BROADCAST";
 
     public static HandlerThread handlerThread = null;
 

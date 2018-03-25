@@ -84,7 +84,7 @@ class EventPreferencesApplication extends EventPreferences {
             }
 
             String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            int extenderVersion = ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
+            int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
             if (extenderVersion == 0) {
                 selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
@@ -95,7 +95,7 @@ class EventPreferencesApplication extends EventPreferences {
                         ": "+context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
             }
             else
-            if (!ForegroundApplicationChangedBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
+            if (!AccessibilityServiceBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
                 selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
             }
@@ -146,7 +146,7 @@ class EventPreferencesApplication extends EventPreferences {
         if (key.equals(PREF_EVENT_APPLICATION_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (ForegroundApplicationChangedBroadcastReceiver.isExtenderInstalled(context) > 0) {
+                if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context) > 0) {
                     preference.setSummary(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
                 }
                 else
@@ -210,7 +210,7 @@ class EventPreferencesApplication extends EventPreferences {
     public void checkPreferences(PreferenceManager prefMng, Context context) {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             final boolean enabled =
-                    ForegroundApplicationChangedBroadcastReceiver.isEnabled(context.getApplicationContext());
+                    AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext());
             ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
             if (applicationsPreference != null) {
                 //Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);

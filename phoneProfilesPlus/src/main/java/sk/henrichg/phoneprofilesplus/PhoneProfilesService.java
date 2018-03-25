@@ -43,14 +43,11 @@ import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.provider.Telephony;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.RemoteViews;
 
 import com.crashlytics.android.Crashlytics;
@@ -97,7 +94,7 @@ public class PhoneProfilesService extends Service
     private WifiScanBroadcastReceiver wifiScanReceiver = null;
     private BluetoothScanBroadcastReceiver bluetoothScanReceiver = null;
     private BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = null;
-    private ForegroundApplicationChangedBroadcastReceiver foregroundApplicationChangedBroadcastReceiver = null;
+    private AccessibilityServiceBroadcastReceiver accessibilityServiceBroadcastReceiver = null;
 
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
@@ -976,26 +973,28 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void registerForegroundApplicationChangedReceiver(boolean register, boolean checkDatabase) {
+    private void registerAccessibilityServiceReceiver(boolean register, boolean checkDatabase) {
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerForegroundApplicationChangedReceiver", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
         PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "xxx");
         if (!register) {
-            if (foregroundApplicationChangedBroadcastReceiver != null) {
+            if (accessibilityServiceBroadcastReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerForegroundApplicationChangedReceiver->UNREGISTER", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "UNREGISTER");
                 try {
-                    appContext.unregisterReceiver(foregroundApplicationChangedBroadcastReceiver);
-                    foregroundApplicationChangedBroadcastReceiver = null;
+                    appContext.unregisterReceiver(accessibilityServiceBroadcastReceiver);
+                    accessibilityServiceBroadcastReceiver = null;
                 } catch (Exception e) {
-                    foregroundApplicationChangedBroadcastReceiver = null;
+                    accessibilityServiceBroadcastReceiver = null;
                 }
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "not registered");
         }
         if (register) {
-            if ((Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext) ==
+            if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED) ||
+                (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED) ||
                 (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED)) {
@@ -1005,24 +1004,24 @@ public class PhoneProfilesService extends Service
                     eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
                 }
                 if (eventCount > 0) {
-                    if (foregroundApplicationChangedBroadcastReceiver == null) {
+                    if (accessibilityServiceBroadcastReceiver == null) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerForegroundApplicationChangedReceiver->REGISTER", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "REGISTER");
-                        foregroundApplicationChangedBroadcastReceiver = new ForegroundApplicationChangedBroadcastReceiver();
+                        accessibilityServiceBroadcastReceiver = new AccessibilityServiceBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
-                        intentFilter23.addAction(ForegroundApplicationChangedBroadcastReceiver.ACTION_FOREGROUND_APPLICATION_CHANGED);
-                        intentFilter23.addAction(ForegroundApplicationChangedBroadcastReceiver.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
-                        appContext.registerReceiver(foregroundApplicationChangedBroadcastReceiver, intentFilter23,
-                                ForegroundApplicationChangedBroadcastReceiver.ACCESSIBILITY_SERVICE_PERMISSION, null);
+                        intentFilter23.addAction(PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED);
+                        intentFilter23.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
+                        appContext.registerReceiver(accessibilityServiceBroadcastReceiver, intentFilter23,
+                                PPApplication.ACCESSIBILITY_SERVICE_BROADCAST, null);
                     }
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "registered");
                 } else {
-                    registerForegroundApplicationChangedReceiver(false, false);
+                    registerAccessibilityServiceReceiver(false, false);
                 }
             }
             else
-                registerForegroundApplicationChangedReceiver(false, false);
+                registerAccessibilityServiceReceiver(false, false);
         }
     }
 
@@ -2094,8 +2093,8 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchNFCSensor(true, true);
         registerReceiverForRadioSwitchAirplaneModeSensor(true, true);
 
-        // required for applications and orientation event
-        registerForegroundApplicationChangedReceiver(true, true);
+        // required for force stop applications, applications event and orientation event
+        registerAccessibilityServiceReceiver(true, true);
 
         // required for location and radio switch event
         registerLocationModeChangedBroadcastReceiver(true, true);
@@ -2217,7 +2216,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchMobileDataSensor(false, false);
         registerReceiverForRadioSwitchNFCSensor(false, false);
         registerReceiverForRadioSwitchAirplaneModeSensor(false, false);
-        registerForegroundApplicationChangedReceiver(false, false);
+        registerAccessibilityServiceReceiver(false, false);
         registerLocationModeChangedBroadcastReceiver(false, false);
         registerBluetoothStateChangedBroadcastReceiver(false, false, false);
         //registerBluetoothConnectionBroadcastReceiver(false, true, false, false);
@@ -2255,7 +2254,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchMobileDataSensor(true, true);
         registerReceiverForRadioSwitchNFCSensor(true, true);
         registerReceiverForRadioSwitchAirplaneModeSensor(true, true);
-        registerForegroundApplicationChangedReceiver(true, true);
+        registerAccessibilityServiceReceiver(true, true);
         registerLocationModeChangedBroadcastReceiver(true, true);
         registerBluetoothStateChangedBroadcastReceiver(true, true, false);
         //registerBluetoothConnectionBroadcastReceiver(true, true, true, false);
@@ -2500,7 +2499,7 @@ public class PhoneProfilesService extends Service
                         InterruptionFilterChangedBroadcastReceiver.setZenMode(appContext, audioManager);
                     }
 
-                    ForegroundApplicationChangedBroadcastReceiver.setApplicationInForeground(appContext, "");
+                    AccessibilityServiceBroadcastReceiver.setApplicationInForeground(appContext, "");
 
                     ApplicationPreferences.getSharedPreferences(appContext);
                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
