@@ -238,10 +238,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             Intent intent = new Intent(context, EditorProfilesActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
                                                         PendingIntent.FLAG_UPDATE_CURRENT);
-            widget.setOnClickPendingIntent(R.id.widget_profile_list_header, pendingIntent);
+            widget.setOnClickPendingIntent(R.id.widget_profile_list_header_profile_root, pendingIntent);
 
             Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
-            PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
             widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events, pIntentRE);
 
             if (!ApplicationPreferences.applicationWidgetListGridLayout(context))

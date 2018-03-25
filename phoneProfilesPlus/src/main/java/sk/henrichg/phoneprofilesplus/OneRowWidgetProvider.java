@@ -158,14 +158,14 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             }
 
             Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
-            PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
             remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_restart_events, pIntentRE);
 
             // intent for start LauncherActivity on widget click
             Intent intent = new Intent(context, LauncherActivity.class);
             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header, pendingIntent);
+            remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_profile_root, pendingIntent);
 
             // widget update
             try {
