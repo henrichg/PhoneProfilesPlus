@@ -61,7 +61,7 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER = 60;
 
     private static final boolean logIntoLogCat = true;
-    private static final boolean logIntoFile = true;
+    private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
@@ -137,6 +137,8 @@ public class PPApplication extends Application {
                                          +"|##### GeofenceScanner"
                                          //+"|GeofenceScannerJob"
                                          +"|LocationGeofenceEditorActivity"
+                                         +"|LocationModeChangedBroadcastReceiver"
+                                         +"|RJS] PhoneProfilesService.scheduleGeofenceScannerJob"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|[BTScan] DataWrapper.doHandleEvents"

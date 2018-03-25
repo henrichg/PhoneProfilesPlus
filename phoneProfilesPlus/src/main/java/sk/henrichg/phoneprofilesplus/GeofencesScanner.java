@@ -132,6 +132,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
                 useGPS = true;
                 clearAllEventGeofences();
+                PPApplication.logE("##### GeofenceScanner.onConnected", "updateTransitionsByLastKnownLocation");
                 updateTransitionsByLastKnownLocation(false);
                 if (PPApplication.getApplicationStarted(context, true)) {
                     //PPApplication.logE("##### GeofenceScanner.mUpdatesStarted=false", "from GeofenceScanner.onConnected");
@@ -213,9 +214,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 int savedTransition = DatabaseHandler.getInstance(dataWrapper.context).getGeofenceTransition(geofence._id);
 
                 if (savedTransition != transitionType) {
-                    PPApplication.logE("##### GeofenceScanner.updateGeofencesInDB", "geofence._name=" + geofence._name);
-                    PPApplication.logE("##### GeofenceScanner.updateGeofencesInDB", "transitionType=" + transitionType);
-                    PPApplication.logE("##### GeofenceScanner.updateGeofencesInDB", "savedTransition=" + savedTransition);
+                    //PPApplication.logE("##### GeofenceScanner.updateGeofencesInDB", "geofence._name=" + geofence._name);
+                    //PPApplication.logE("##### GeofenceScanner.updateGeofencesInDB", "transitionType=" + transitionType);
+                    //PPApplication.logE("##### GeofenceScanner.updateGeofencesInDB", "savedTransition=" + savedTransition);
 
                     DatabaseHandler.getInstance(dataWrapper.context).updateGeofenceTransition(geofence._id, transitionType);
                     //change = true;

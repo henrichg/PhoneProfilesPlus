@@ -1783,12 +1783,12 @@ public class PhoneProfilesService extends Service
 
     private void cancelGeofenceScannerJob(final Context context, final Handler _handler) {
         if (GeofenceScannerJob.isJobScheduled()) {
-            CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleGeofenceScannerJob->CANCEL", "PhoneProfilesService_scheduleGeofenceScannerJob");
-            PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "CANCEL");
+            CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelGeofenceScannerJob->CANCEL", "PhoneProfilesService_scheduleGeofenceScannerJob");
+            PPApplication.logE("[RJS] PhoneProfilesService.cancelGeofenceScannerJob", "CANCEL");
             GeofenceScannerJob.cancelJob(true, _handler);
         }
         else
-            PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "not scheduled");
+            PPApplication.logE("[RJS] PhoneProfilesService.cancelGeofenceScannerJob", "not scheduled");
     }
 
     void scheduleGeofenceScannerJob(final boolean schedule, /*final boolean cancel,*/ final boolean checkDatabase,
@@ -1823,16 +1823,20 @@ public class PhoneProfilesService extends Service
                                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob->SCHEDULE", "PhoneProfilesService_scheduleGeofenceScannerJob");
                                         PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "SCHEDULE");
                                         synchronized (PPApplication.geofenceScannerMutex) {
-                                            if (isGeofenceScannerStarted())
+                                            if (isGeofenceScannerStarted()) {
+                                                PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "updateTransitionsByLastKnownLocation");
                                                 getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
+                                            }
                                         }
                                         GeofenceScannerJob.scheduleJob(appContext, true, handler, true, forScreenOn);
                                     } else {
                                         PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "scheduled");
                                         if (rescan) {
                                             synchronized (PPApplication.geofenceScannerMutex) {
-                                                if (isGeofenceScannerStarted())
+                                                if (isGeofenceScannerStarted()) {
+                                                    PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "updateTransitionsByLastKnownLocation");
                                                     getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
+                                                }
                                             }
                                             GeofenceScannerJob.scheduleJob(appContext, true, handler, true, forScreenOn);
                                         }
@@ -1901,19 +1905,19 @@ public class PhoneProfilesService extends Service
         });
     }
 
-    private void startGeofenceScanner(boolean start, /*boolean stop,*/ boolean checkDatabase, boolean forScreenOn) {
+    private void startGeofenceScanner(boolean start, boolean stop, boolean checkDatabase, boolean forScreenOn) {
         synchronized (PPApplication.geofenceScannerMutex) {
             Context appContext = getApplicationContext();
             CallsCounter.logCounter(appContext, "PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService_startGeofenceScanner");
             PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "xxx");
-            //if (stop) {
+            if (stop) {
                 if (isGeofenceScannerStarted()) {
                     CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->STOP", "PhoneProfilesService_startGeofenceScanner");
                     PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "STOP");
                     stopGeofenceScanner();
                 } else
                     PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "not started");
-            //}
+            }
             if (start) {
                 boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
                         PPApplication.PREFERENCE_ALLOWED;
@@ -1940,13 +1944,13 @@ public class PhoneProfilesService extends Service
                                     PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "started");
                                 }
                             } else
-                                startGeofenceScanner(false, false, forScreenOn);
+                                startGeofenceScanner(false, true, false, forScreenOn);
                         } else
-                            startGeofenceScanner(false, false, forScreenOn);
+                            startGeofenceScanner(false, true, false, forScreenOn);
                     } else
-                        startGeofenceScanner(false, false, forScreenOn);
+                        startGeofenceScanner(false, true, false, forScreenOn);
                 } else
-                    startGeofenceScanner(false, false, forScreenOn);
+                    startGeofenceScanner(false, true, false, forScreenOn);
             }
         }
     }
@@ -2196,7 +2200,7 @@ public class PhoneProfilesService extends Service
         scheduleGeofenceScannerJob(true,  true, false, false);
         scheduleSearchCalendarEventsJob(true, true, true);
 
-        startGeofenceScanner(true, true, false);
+        startGeofenceScanner(true, true, true, false);
         scheduleGeofenceScannerJob(true,  true, false, false);
         startPhoneStateScanner(true, true, true, false, false);
         startOrientationScanner(true, true, true);
@@ -2235,7 +2239,7 @@ public class PhoneProfilesService extends Service
         scheduleGeofenceScannerJob(false,  false, false, false);
         scheduleSearchCalendarEventsJob(false, true, false);
 
-        startGeofenceScanner(false, false, false);
+        startGeofenceScanner(false, true, false, false);
         scheduleGeofenceScannerJob(false,  false, false, false);
         startPhoneStateScanner(false, true, false, false, false);
         startOrientationScanner(false, true, false);
@@ -2267,7 +2271,7 @@ public class PhoneProfilesService extends Service
         scheduleGeofenceScannerJob(true,  true, false, false);
         scheduleSearchCalendarEventsJob(true, false, true);
 
-        startGeofenceScanner(true, true, false);
+        startGeofenceScanner(true, true, true, false);
         scheduleGeofenceScannerJob(true,  true, false, false);
         startPhoneStateScanner(true, true, true, false, false);
         startOrientationScanner(true, true, true);
@@ -2676,12 +2680,12 @@ public class PhoneProfilesService extends Service
                     switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
                         case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_GEOFENCE_SCANNER");
-                            startGeofenceScanner(true, true, false);
+                            startGeofenceScanner(true, true, true, false);
                             scheduleGeofenceScannerJob(true,  true, false, false);
                             break;
                         case PPApplication.SCANNER_STOP_GEOFENCE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_GEOFENCE_SCANNER");
-                            startGeofenceScanner(false, false, false);
+                            startGeofenceScanner(false, true, false, false);
                             scheduleGeofenceScannerJob(false,  false, false, false);
                             break;
                         case PPApplication.SCANNER_START_ORIENTATION_SCANNER:
@@ -2755,7 +2759,7 @@ public class PhoneProfilesService extends Service
                         case PPApplication.SCANNER_RESTART_GEOFENCE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_GEOFENCE_SCANNER");
                             registerLocationModeChangedBroadcastReceiver(true, true);
-                            startGeofenceScanner(true, true, forScreenOn);
+                            startGeofenceScanner(true, true, true, forScreenOn);
                             scheduleGeofenceScannerJob(true,  true, forScreenOn, true);
                             break;
                         case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
@@ -2781,7 +2785,7 @@ public class PhoneProfilesService extends Service
                             startPhoneStateScanner(true, true, true, false, true);
 
                             registerLocationModeChangedBroadcastReceiver(true, true);
-                            startGeofenceScanner(true, true, forScreenOn);
+                            startGeofenceScanner(true, false, true, forScreenOn);
                             scheduleGeofenceScannerJob(true,  true, forScreenOn, true);
 
                             startOrientationScanner(true, false, true);
