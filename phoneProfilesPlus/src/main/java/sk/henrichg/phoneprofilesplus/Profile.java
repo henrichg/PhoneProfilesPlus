@@ -84,6 +84,8 @@ public class Profile {
     int _applicationDisableMobileCellScanning;
     int _applicationDisableOrientationScanning;
     int _headsUpNotifications;
+    int _deviceForceStopApplicationChange;
+    String _deviceForceStopApplicationPackageName;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -147,6 +149,8 @@ public class Profile {
     static final String PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING = "prf_pref_applicationDisableMobileCellScanning";
     static final String PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING = "prf_pref_applicationDisableOrientationScanning";
     static final String PREF_PROFILE_HEADS_UP_NOTIFICATIONS = "prf_pref_headsUpNotifications";
+    static final String PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE = "prf_pref_deviceForceStopApplicationChange";
+    static final String PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME = "prf_pref_deviceForceStopApplicationPackageName";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -216,6 +220,8 @@ public class Profile {
         defaultValuesString.put("prf_pref_applicationDisableMobileCellScanning", "0");
         defaultValuesString.put("prf_pref_applicationDisableOrientationScanning", "0");
         defaultValuesString.put("prf_pref_headsUpNotifications", "0");
+        defaultValuesString.put("prf_pref_deviceForceStopApplicationChange", "0");
+        defaultValuesString.put("prf_pref_deviceForceStopApplicationPackageName", "-");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -398,7 +404,9 @@ public class Profile {
                    int applicationDisableLocationScanning,
                    int applicationDisableMobileCellScanning,
                    int applicationDisableOrientationScanning,
-                   int headsUpNotifications)
+                   int headsUpNotifications,
+                   int deviceForceStopApplicationChange,
+                   String deviceForceStopApplicationPackageName)
     {
         this._id = id;
         this._name = name;
@@ -461,6 +469,8 @@ public class Profile {
         this._applicationDisableMobileCellScanning = applicationDisableMobileCellScanning;
         this._applicationDisableOrientationScanning = applicationDisableOrientationScanning;
         this._headsUpNotifications = headsUpNotifications;
+        this._deviceForceStopApplicationChange = deviceForceStopApplicationChange;
+        this._deviceForceStopApplicationPackageName = deviceForceStopApplicationPackageName;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -525,7 +535,9 @@ public class Profile {
                    int applicationDisableLocationScanning,
                    int applicationDisableMobileCellScanning,
                    int applicationDisableOrientationScanning,
-                   int headsUpNotifications)
+                   int headsUpNotifications,
+                   int deviceForceStopApplicationChange,
+                   String deviceForceStopApplicationPackageName)
     {
         this._name = name;
         this._icon = icon;
@@ -586,6 +598,8 @@ public class Profile {
         this._applicationDisableMobileCellScanning = applicationDisableMobileCellScanning;
         this._applicationDisableOrientationScanning = applicationDisableOrientationScanning;
         this._headsUpNotifications = headsUpNotifications;
+        this._deviceForceStopApplicationChange = deviceForceStopApplicationChange;
+        this._deviceForceStopApplicationPackageName = deviceForceStopApplicationPackageName;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -653,6 +667,8 @@ public class Profile {
         this._applicationDisableMobileCellScanning = profile._applicationDisableMobileCellScanning;
         this._applicationDisableOrientationScanning = profile._applicationDisableOrientationScanning;
         this._headsUpNotifications = profile._headsUpNotifications;
+        this._deviceForceStopApplicationChange = profile._deviceForceStopApplicationChange;
+        this._deviceForceStopApplicationPackageName = profile._deviceForceStopApplicationPackageName;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -852,6 +868,14 @@ public class Profile {
                 this._applicationDisableOrientationScanning = withProfile._applicationDisableOrientationScanning;
             if (withProfile._headsUpNotifications != 0)
                 this._headsUpNotifications = withProfile._headsUpNotifications;
+            if (withProfile._deviceForceStopApplicationChange != 0) {
+                this._deviceForceStopApplicationChange = 1;
+                if (this._deviceForceStopApplicationPackageName.isEmpty())
+                    this._deviceForceStopApplicationPackageName = withProfile._deviceForceStopApplicationPackageName;
+                else
+                    this._deviceForceStopApplicationPackageName = this._deviceForceStopApplicationPackageName + "|" +
+                            withProfile._deviceForceStopApplicationPackageName;
+            }
 
             DatabaseHandler.getInstance(dataWrapper.context).activateProfile(withProfile);
             dataWrapper.setProfileActive(withProfile);
@@ -1601,6 +1625,8 @@ public class Profile {
         profile._applicationDisableMobileCellScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, "0"));
         profile._applicationDisableOrientationScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, "0"));
         profile._headsUpNotifications = Integer.parseInt(preferences.getString(PREF_PROFILE_HEADS_UP_NOTIFICATIONS, "0"));
+        profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0"));
+        profile._deviceForceStopApplicationPackageName = preferences.getString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, "-");
 
         return profile;
     }
@@ -1671,7 +1697,9 @@ public class Profile {
                     profile._applicationDisableLocationScanning,
                     profile._applicationDisableMobileCellScanning,
                     profile._applicationDisableOrientationScanning,
-                    profile._headsUpNotifications);
+                    profile._headsUpNotifications,
+                    profile._deviceForceStopApplicationChange,
+                    profile._deviceForceStopApplicationPackageName);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == 99) {
@@ -1779,6 +1807,11 @@ public class Profile {
                 mappedProfile._applicationDisableOrientationScanning = defaultProfile._applicationDisableOrientationScanning;
             if (profile._headsUpNotifications == 99)
                 mappedProfile._headsUpNotifications = defaultProfile._headsUpNotifications;
+            if (profile._deviceForceStopApplicationChange == 99)
+            {
+                mappedProfile._deviceForceStopApplicationChange = defaultProfile._deviceForceStopApplicationChange;
+                mappedProfile._deviceForceStopApplicationPackageName = defaultProfile._deviceForceStopApplicationPackageName;
+            }
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;
@@ -2236,6 +2269,14 @@ public class Profile {
         {
             //if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
                 featurePresented = PPApplication.PREFERENCE_ALLOWED;
+            //else
+            //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
+        }
+        else
+        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE))
+        {
+            //if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
+            featurePresented = PPApplication.PREFERENCE_ALLOWED;
             //else
             //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
         }

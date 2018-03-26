@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2040;
+    private static final int DATABASE_VERSION = 2050;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -172,6 +172,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING = "applicationDisableMobileCellScanning";
     private static final String KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING = "applicationDisableOrientationScanning";
     private static final String KEY_HEADS_UP_NOTIFICATIONS = "headsUpNotifications";
+    private static final String KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE = "deviceForceStopApplicationChange";
+    private static final String KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME = "deviceForceStopApplicationPackageName";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -449,7 +451,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_APPLICATION_DISABLE_LOCATION_SCANNING + " INTEGER,"
                 + KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + " INTEGER,"
                 + KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + " INTEGER,"
-                + KEY_HEADS_UP_NOTIFICATIONS + " INTEGER"
+                + KEY_HEADS_UP_NOTIFICATIONS + " INTEGER,"
+                + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + " INTEGER,"
+                + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + " TEXT"
                 + ")";
     }
 
@@ -2139,6 +2143,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         }
 
+        if (oldVersion < 2050)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + " TEXT");
+            if (!doMergedTableCreate) {
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + " INTEGER");
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + " TEXT");
+            }
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + "=\"-\"");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + "=\"-\"");
+        }
+
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -2230,6 +2249,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, profile._applicationDisableMobileCellScanning);
                 values.put(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, profile._applicationDisableOrientationScanning);
                 values.put(KEY_HEADS_UP_NOTIFICATIONS, profile._headsUpNotifications);
+                values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, profile._deviceForceStopApplicationChange);
+                values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
 
                 // Insert Row
                 if (!merged) {
@@ -2323,7 +2344,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_APPLICATION_DISABLE_LOCATION_SCANNING,
                                 KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING,
                                 KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING,
-                                KEY_HEADS_UP_NOTIFICATIONS
+                                KEY_HEADS_UP_NOTIFICATIONS,
+                                KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
+                                KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -2391,7 +2414,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_LOCATION_SCANNING))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING))),
-                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS)))
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME))
                         );
                     }
 
@@ -2478,7 +2503,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_APPLICATION_DISABLE_LOCATION_SCANNING + "," +
                         KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + "," +
                         KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + "," +
-                        KEY_HEADS_UP_NOTIFICATIONS +
+                        KEY_HEADS_UP_NOTIFICATIONS + "," +
+                        KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "," +
+                        KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -2550,6 +2577,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._applicationDisableMobileCellScanning = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING)));
                         profile._applicationDisableOrientationScanning = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING)));
                         profile._headsUpNotifications = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS)));
+                        profile._deviceForceStopApplicationChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE)));
+                        profile._deviceForceStopApplicationPackageName = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME));
                         // Adding contact to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -2638,6 +2667,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, profile._applicationDisableMobileCellScanning);
                 values.put(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, profile._applicationDisableOrientationScanning);
                 values.put(KEY_HEADS_UP_NOTIFICATIONS, profile._headsUpNotifications);
+                values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, profile._deviceForceStopApplicationChange);
+                values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -2976,7 +3007,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_APPLICATION_DISABLE_LOCATION_SCANNING,
                                 KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING,
                                 KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING,
-                                KEY_HEADS_UP_NOTIFICATIONS
+                                KEY_HEADS_UP_NOTIFICATIONS,
+                                KEY_DEVICE_RUN_APPLICATION_CHANGE,
+                                KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -3046,7 +3079,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_LOCATION_SCANNING))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING))),
-                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS)))
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE))),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME))
                         );
                     } else
                         profile = null;
@@ -7715,6 +7750,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         }
                                         if (exportedDBObj.getVersion() < 2030) {
                                             values.put(KEY_HEADS_UP_NOTIFICATIONS, 0);
+                                        }
+                                        if (exportedDBObj.getVersion() < 2050) {
+                                            values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, 0);
+                                            values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, "-");
                                         }
 
                                         ///////////////////////////////////////////////////////
