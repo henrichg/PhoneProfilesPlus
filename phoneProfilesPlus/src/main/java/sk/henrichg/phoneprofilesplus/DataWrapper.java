@@ -187,7 +187,9 @@ public class DataWrapper {
                 Integer.valueOf(Profile.defaultValuesString.get("prf_pref_applicationDisableLocationScanning")),
                 Integer.valueOf(Profile.defaultValuesString.get("prf_pref_applicationDisableMobileCellScanning")),
                 Integer.valueOf(Profile.defaultValuesString.get("prf_pref_applicationDisableOrientationScanning")),
-                Integer.valueOf(Profile.defaultValuesString.get("prf_pref_headsUpNotifications"))
+                Integer.valueOf(Profile.defaultValuesString.get("prf_pref_headsUpNotifications")),
+                Integer.valueOf(Profile.defaultValuesString.get("prf_pref_deviceForceStopApplicationChange")),
+                Profile.defaultValuesString.get("prf_pref_deviceForceStopApplicationPackageName")
             );
     }
 

@@ -3008,8 +3008,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING,
                                 KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING,
                                 KEY_HEADS_UP_NOTIFICATIONS,
-                                KEY_DEVICE_RUN_APPLICATION_CHANGE,
-                                KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME
+                                KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
+                                KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
