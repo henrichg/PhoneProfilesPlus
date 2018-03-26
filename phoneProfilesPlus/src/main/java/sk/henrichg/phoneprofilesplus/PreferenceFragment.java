@@ -105,7 +105,8 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
-        PPApplication.logE("PreferenceFragment.onSaveInstanceState", getSavedInstanceStateKeyName());
+        PPApplication.logE("PreferenceFragment.onSaveInstanceState", "getSavedInstanceStateKeyName()="+getSavedInstanceStateKeyName());
+        PPApplication.logE("PreferenceFragment.onSaveInstanceState", "getPreferenceScreen()="+getPreferenceScreen());
         if (getPreferenceScreen() != null)
             savedInstanceState.putString(getSavedInstanceStateKeyName(), getPreferenceScreen().getKey());
         super.onSaveInstanceState(savedInstanceState);

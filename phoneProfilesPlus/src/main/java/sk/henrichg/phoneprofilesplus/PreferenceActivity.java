@@ -48,6 +48,18 @@ abstract class PreferenceActivity extends AppCompatPreferenceActivity
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        GlobalGUIRoutines.lockScreenOrientation(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GlobalGUIRoutines.unlockScreenOrientation(this);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:

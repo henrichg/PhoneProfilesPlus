@@ -75,6 +75,7 @@ public class PPApplication extends Application {
 
                                          //+"|PPApplication.startPPService"
 
+
                                          //+"|GrantPermissionActivity"
 
                                          //+"|DataWrapper.activateProfileFromMainThread"
@@ -134,11 +135,11 @@ public class PPApplication extends Application {
                                          /*+"|$$$ WifiScanBroadcastReceiver.onReceive"
                                          +"|----- DataWrapper.doHandleEvents"
                                          */
-                                         +"|##### GeofenceScanner"
+                                         //+"|##### GeofenceScanner"
                                          //+"|GeofenceScannerJob"
-                                         +"|LocationGeofenceEditorActivity"
-                                         +"|LocationModeChangedBroadcastReceiver"
-                                         +"|RJS] PhoneProfilesService.scheduleGeofenceScannerJob"
+                                         //+"|LocationGeofenceEditorActivity"
+                                         //+"|LocationModeChangedBroadcastReceiver"
+                                         //+"|RJS] PhoneProfilesService.scheduleGeofenceScannerJob"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|[BTScan] DataWrapper.doHandleEvents"
@@ -172,7 +173,9 @@ public class PPApplication extends Application {
                                          //+"|BatteryBroadcastReceiver.onReceive"
                                          //+"|PowerSaveModeBroadcastReceiver.onReceive"
 
-                                         +"|RunApplicationWithDelayBroadcastReceiver"
+                                         //+"|RunApplicationWithDelayBroadcastReceiver"
+
+                                         +"|PreferenceFragment"
             ;
 
 
