@@ -512,22 +512,28 @@
                 android:key="prf_pref_deviceRunApplicationPackageName"
                 android:title="@string/profile_preferences_deviceRunApplicationsShortcutsPackageName"
                 android:layout="@layout/mp_preference_material_widget" />
-            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            <PreferenceScreen
                 android:title="@string/profile_preferences_deviceForceStopApplicationsChange"
-                android:summary="@string/array_pref_no_change"
-                android:key="prf_pref_deviceForceStopApplicationChange"
-                android:defaultValue="0"
-                android:entries="@array/forceStopApplicationDPArray"
-                android:entryValues="@array/forceStopApplicationDPValues"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
-            <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
-                android:defaultValue="@string/dash_string"
-                android:key="prf_pref_deviceForceStopApplicationPackageName"
-                android:title="@string/profile_preferences_deviceForceStopApplicationsPackageName"
-                app:addShortcuts="0"
-                app:systemSettings="accessibility"
-                android:layout="@layout/mp_preference_material_widget" />
+                android:key="prf_pref_forceStopApplicationsCategory"
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
+                <com.afollestad.materialdialogs.prefs.MaterialListPreference
+                    android:title="@string/profile_preferences_deviceForceStopApplicationsChange"
+                    android:summary="@string/array_pref_no_change"
+                    android:key="prf_pref_deviceForceStopApplicationChange"
+                    android:defaultValue="0"
+                    android:entries="@array/forceStopApplicationDPArray"
+                    android:entryValues="@array/forceStopApplicationDPValues"
+                    android:layout="@layout/mp_preference_material_widget"
+                    app:useStockLayout="true" />
+                <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
+                    android:defaultValue="@string/dash_string"
+                    android:key="prf_pref_deviceForceStopApplicationPackageName"
+                    android:title="@string/profile_preferences_deviceForceStopApplicationsPackageName"
+                    app:addShortcuts="0"
+                    app:systemSettings="accessibility"
+                    android:layout="@layout/mp_preference_material_widget" />
+            </PreferenceScreen>
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/profile_preferences_deviceWallpaperChange"
                 android:summary="@string/array_pref_no_change"

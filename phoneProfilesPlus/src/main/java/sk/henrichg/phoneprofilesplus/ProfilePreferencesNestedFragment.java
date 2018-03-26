@@ -41,6 +41,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
     private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
+    private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY = "prf_pref_forceStopApplicationsCategory";
 
     private static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 1981;
 
@@ -1106,6 +1107,35 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             }
         }
+
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME)) {
+            Preference preferenceScreen = prefMng.findPreference(PREF_FORCE_STOP_APPLICATIONS_CATEGORY);
+            if (preferenceScreen != null) {
+                int index = 0;
+                String sValue = "0";
+                CharSequence summary = "";
+                ListPreference listPreference =
+                        (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
+                if (listPreference != null) {
+                    sValue = listPreference.getValue();
+                    index = listPreference.findIndexOfValue(sValue);
+                    summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                    listPreference.setSummary(summary);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                    setCategorySummary(listPreference, index > 0);
+                }
+                if (sValue.equals("1")) {
+                    ApplicationsMultiSelectDialogPreference appMultiSelectPreference =
+                            (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME);
+                    if (appMultiSelectPreference != null)
+                        summary = summary + " • " + appMultiSelectPreference.getSummaryAMSDP();
+                }
+                preferenceScreen.setSummary(summary);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preferenceScreen, (index > 0), false, false, false);
+            }
+        }
+
         if (key.equals(Profile.PREF_PROFILE_NOTIFICATION_LED))
         {
             ListPreference listPreference = (ListPreference) prefMng.findPreference(key);
@@ -1281,7 +1311,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             }
         }
-
     }
 
     void setSummary(String key) {

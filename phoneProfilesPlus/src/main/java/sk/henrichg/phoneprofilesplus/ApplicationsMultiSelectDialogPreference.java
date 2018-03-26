@@ -339,7 +339,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         }
     }
 
-    void setSummaryAMSDP()
+    String getSummaryAMSDP()
     {
         String prefDataSummary = _context.getString(R.string.applications_multiselect_summary_text_not_selected);
         boolean ok = true;
@@ -402,6 +402,12 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             }
         }
         setSummary(prefDataSummary);
+        return prefDataSummary;
+    }
+
+    void setSummaryAMSDP()
+    {
+        setSummary(getSummaryAMSDP());
     }
 
     private void setIcons() {
