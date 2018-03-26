@@ -2863,10 +2863,13 @@ public class PhoneProfilesService extends Service
             Bitmap iconBitmap;
             Bitmap preferencesIndicator;
 
+            //PPApplication.logE("PhoneProfilesService.showProfileNotification", "before get activated profile");
             Profile profile = dataWrapper.getActivatedProfileFromDB(true, ApplicationPreferences.notificationPrefIndicator(dataWrapper.context));
+            //PPApplication.logE("PhoneProfilesService.showProfileNotification", "after get activated profile");
 
             if (profile != null)
             {
+                //PPApplication.logE("PhoneProfilesService.showProfileNotification", "profile != null");
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
                 profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper);
