@@ -333,6 +333,11 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, this) == PPApplication.PREFERENCE_ALLOWED)
                     indicator1 = addIntoIndicator(indicator1, "rap");
             }
+            // force stop application
+            if (profile._deviceForceStopApplicationChange == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, this) == PPApplication.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "sap");
+            }
             // wallpaper
             if (profile._deviceWallpaperChange == 1) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, this) == PPApplication.PREFERENCE_ALLOWED)

@@ -994,6 +994,8 @@ public class PhoneProfilesService extends Service
         if (register) {
             if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED) ||
+                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, appContext) ==
+                    PPApplication.PREFERENCE_ALLOWED) ||
                 (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED) ||
                 (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext) ==

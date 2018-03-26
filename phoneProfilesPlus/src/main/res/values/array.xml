@@ -1080,4 +1080,22 @@
     <item>1</item>
     <item>2</item>
 </string-array>
+<string-array name="forceStopApplicationArray">
+    <item>@string/array_pref_no_force_stop</item>
+    <item>@string/array_pref_default_profile</item>
+    <item>@string/array_pref_force_stop</item>
+</string-array>
+<string-array name="forceStopApplicationValues">
+    <item>0</item>
+    <item>99</item>
+    <item>1</item>
+</string-array>
+<string-array name="forceStopApplicationDPArray">
+    <item>@string/array_pref_no_force_stop</item>
+    <item>@string/array_pref_force_stop</item>
+</string-array>
+<string-array name="forceStopApplicationDPValues">
+    <item>0</item>
+    <item>1</item>
+</string-array>
 </resources>

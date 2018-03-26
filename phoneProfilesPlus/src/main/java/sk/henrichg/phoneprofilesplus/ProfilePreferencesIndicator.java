@@ -279,6 +279,11 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, context) == PPApplication.PREFERENCE_ALLOWED)
                     drawables[countDrawables++] = R.drawable.ic_profile_pref_run_application;
             }
+            // force stop application
+            if (profile._deviceForceStopApplicationChange == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, context) == PPApplication.PREFERENCE_ALLOWED)
+                    drawables[countDrawables++] = R.drawable.ic_profile_pref_force_stop_application;
+            }
             // wallpaper
             if (profile._deviceWallpaperChange == 1) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, context) == PPApplication.PREFERENCE_ALLOWED)

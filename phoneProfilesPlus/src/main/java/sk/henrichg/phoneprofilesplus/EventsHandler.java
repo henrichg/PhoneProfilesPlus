@@ -450,7 +450,6 @@ class EventsHandler {
                 // activate merged profile
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "profileName=" + mergedProfile._name);
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "profileId=" + mergedProfile._id);
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "profile._deviceRunApplicationPackageName=" + mergedProfile._deviceRunApplicationPackageName);
                 //PPApplication.logE("$$$ EventsHandler.handleEvents", "interactive=" + interactive);
                 DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ false, true);

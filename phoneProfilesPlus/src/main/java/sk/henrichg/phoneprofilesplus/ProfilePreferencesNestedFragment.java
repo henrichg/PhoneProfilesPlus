@@ -756,9 +756,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
         if (key.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
-            //key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
-            //key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER)
             key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {
             String title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, false);
             if (!title.isEmpty()) {
@@ -771,14 +770,18 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            //_bold = _bold || isBold(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
             title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            //_bold = _bold || isBold(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
             title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_LOCK_DEVICE, false);
             if (!title.isEmpty()) {
                 _bold = true;
@@ -1067,6 +1070,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
             key.equals(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE) ||
             key.equals(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH) ||
@@ -1376,6 +1380,13 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         {
             boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+            if (preference != null)
+                preference.setEnabled(enabled);
+        }
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE))
+        {
+            boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME);
             if (preference != null)
                 preference.setEnabled(enabled);
         }

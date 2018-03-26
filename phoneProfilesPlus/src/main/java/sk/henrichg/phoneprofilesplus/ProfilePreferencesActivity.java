@@ -325,7 +325,9 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                         origProfile._applicationDisableLocationScanning,
                         origProfile._applicationDisableMobileCellScanning,
                         origProfile._applicationDisableOrientationScanning,
-                        origProfile._headsUpNotifications);
+                        origProfile._headsUpNotifications,
+                        origProfile._deviceForceStopApplicationChange,
+                        origProfile._deviceForceStopApplicationPackageName);
                 showSaveMenu = true;
             }
             else
@@ -427,6 +429,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, Integer.toString(profile._applicationDisableMobileCellScanning));
             editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, Integer.toString(profile._applicationDisableOrientationScanning));
             editor.putString(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, Integer.toString(profile._headsUpNotifications));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, Integer.toString(profile._deviceForceStopApplicationChange));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
             editor.apply();
         }
     }
@@ -527,6 +531,11 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             profile._applicationDisableMobileCellScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, ""));
             profile._applicationDisableOrientationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, ""));
             profile._headsUpNotifications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, ""));
+            profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, ""));
+            if (profile._deviceForceStopApplicationChange == 1)
+                profile._deviceForceStopApplicationPackageName = preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, "-");
+            else
+                profile._deviceForceStopApplicationPackageName = "-";
 
             if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
                 if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
