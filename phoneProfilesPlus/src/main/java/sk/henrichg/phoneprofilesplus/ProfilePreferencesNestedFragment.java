@@ -1178,18 +1178,21 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         ok = false;
                         changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
+                        categorySummary = changeSummary;
                     }
                     else
                     if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER) {
                         ok = false;
                         changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                        categorySummary = changeSummary;
                     }
                     else
                     if (!AccessibilityServiceBroadcastReceiver.isAccessibilityServiceEnabled(context)) {
                         ok = false;
                         changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                        categorySummary = changeSummary;
                     }
                     if (!ok) {
                         listPreference.setSummary(changeSummary);
@@ -1494,13 +1497,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             if (preference != null)
                 preference.setEnabled(enabled);
         }
-        if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE))
-        {
-            boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
-            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME);
-            if (preference != null)
-                preference.setEnabled(enabled);
-        }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
         {
             boolean enabled = !sValue.equals(ON);
@@ -1576,7 +1572,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             ApplicationsMultiSelectDialogPreference appPreference =
                     (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME);
             if (appPreference != null) {
-                appPreference.setEnabled(ok);
+                appPreference.setEnabled(ok && (!(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE))));
                 appPreference.setSummaryAMSDP();
             }
         }

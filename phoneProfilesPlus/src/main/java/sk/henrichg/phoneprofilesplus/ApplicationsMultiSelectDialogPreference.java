@@ -350,14 +350,14 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         }
         else
         if (systemSettings.equals("accessibility")) {
-            int exctenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(_context);
-            if (exctenderVersion == 0) {
+            int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(_context);
+            if (extenderVersion == 0) {
                 ok = false;
                 prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + _context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
             }
             else
-            if (exctenderVersion < PPApplication.VERSION_CODE_EXTENDER) {
+            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER) {
                 ok = false;
                 prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
