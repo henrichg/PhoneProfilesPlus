@@ -47,6 +47,7 @@ import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.Surface;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
@@ -92,6 +93,8 @@ class ActivateProfileHelper {
     private static final String PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT = "activated_profile_screen_timeout";
     static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
 
+    static final String ACTION_FORCE_STOP_INFO_START = "sk.henrichg.phoneprofilesplus.ACTION_FORCE_STOP_START";
+    static final String ACTION_FORCE_STOP_INFO_STOP = "sk.henrichg.phoneprofilesplus.ACTION_FORCE_STOP_STOP";
 
     private static void doExecuteForRadios(Context context, Profile profile)
     {
@@ -1879,6 +1882,11 @@ class ActivateProfileHelper {
             ActivateProfileHelper.executeForRunApplications(profile, context);
         }
 
+        if (profile._deviceForceStopApplicationChange == 1)
+        {
+            ActivateProfileHelper.executeForForceStopApplications(profile, context);
+        }
+
         if (profile._applicationDisableWifiScanning != 0) {
             ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
@@ -3372,6 +3380,19 @@ class ActivateProfileHelper {
                     wakeLock.release();
             }
         });
+    }
+
+    private static void executeForForceStopApplications(final Profile profile, Context context) {
+        if (PPApplication.startedOnBoot)
+            // not force stop applications after boot
+            return;
+
+        String applications = profile._deviceForceStopApplicationPackageName;
+        if (!(applications.isEmpty() || (applications.equals("-")))) {
+            Intent intent = new Intent(ACTION_FORCE_STOP_INFO_START);
+            intent.putExtra("extra_applications", applications);
+            context.sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+        }
     }
 
     static int getRingerVolume(Context context)
