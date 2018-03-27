@@ -1148,79 +1148,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             }
         }
 
-        if (key.equals(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER)) {
-            Preference preference = prefMng.findPreference(key);
-            if (preference != null) {
-                if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context) > 0) {
-                    preference.setSummary(R.string.profile_preferences_deviceForceStopApplications_PPPExtender_upgrade_summary);
-                }
-                else
-                    preference.setSummary(R.string.profile_preferences_deviceForceStopApplications_PPPExtender_install_summary);
-            }
-        }
-        if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE) ||
-            key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME)) {
-            Preference preferenceScreen = prefMng.findPreference(PREF_FORCE_STOP_APPLICATIONS_CATEGORY);
-            if (preferenceScreen != null) {
-                int index = 0;
-                String sValue = "0";
-                CharSequence categorySummary = "";
-
-
-                ListPreference listPreference =
-                        (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
-                if (listPreference != null) {
-
-                    boolean ok = true;
-                    CharSequence changeSummary = "";
-                    int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
-                    if (extenderVersion == 0) {
-                        ok = false;
-                        changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                        categorySummary = changeSummary;
-                    }
-                    else
-                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER) {
-                        ok = false;
-                        changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                        categorySummary = changeSummary;
-                    }
-                    else
-                    if (!AccessibilityServiceBroadcastReceiver.isAccessibilityServiceEnabled(context)) {
-                        ok = false;
-                        changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
-                        categorySummary = changeSummary;
-                    }
-                    if (!ok) {
-                        listPreference.setSummary(changeSummary);
-                        GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
-                        setCategorySummary(listPreference, false);
-                    }
-                    else {
-                        sValue = listPreference.getValue();
-                        index = listPreference.findIndexOfValue(sValue);
-                        changeSummary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                        categorySummary = changeSummary;
-                        listPreference.setSummary(changeSummary);
-                        GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
-                        setCategorySummary(listPreference, index > 0);
-                    }
-                }
-
-                if (sValue.equals("1")) {
-                    ApplicationsMultiSelectDialogPreference appMultiSelectPreference =
-                            (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME);
-                    if (appMultiSelectPreference != null)
-                        categorySummary = categorySummary + " • " + appMultiSelectPreference.getSummaryAMSDP();
-                }
-                preferenceScreen.setSummary(categorySummary);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preferenceScreen, (index > 0), false, false, false);
-            }
-        }
-
         if (key.equals(Profile.PREF_PROFILE_NOTIFICATION_LED))
         {
             ListPreference listPreference = (ListPreference) prefMng.findPreference(key);
@@ -1396,6 +1323,83 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             }
         }
+
+        if (key.equals(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
+                if (extenderVersion == 0)
+                    preference.setSummary(R.string.profile_preferences_deviceForceStopApplications_PPPExtender_install_summary);
+                else
+                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER)
+                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_new_version_summary);
+                else
+                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
+            }
+        }
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME)) {
+            Preference preferenceScreen = prefMng.findPreference(PREF_FORCE_STOP_APPLICATIONS_CATEGORY);
+            if (preferenceScreen != null) {
+                int index = 0;
+                String sValue = "0";
+                CharSequence categorySummary = "";
+
+
+                ListPreference listPreference =
+                        (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
+                if (listPreference != null) {
+
+                    boolean ok = true;
+                    CharSequence changeSummary = "";
+                    int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
+                    if (extenderVersion == 0) {
+                        ok = false;
+                        changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
+                        categorySummary = changeSummary;
+                    }
+                    else
+                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER) {
+                        ok = false;
+                        changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                        categorySummary = changeSummary;
+                    }
+                    else
+                    if (!AccessibilityServiceBroadcastReceiver.isAccessibilityServiceEnabled(context)) {
+                        ok = false;
+                        changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                                ": "+getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                        categorySummary = changeSummary;
+                    }
+                    if (!ok) {
+                        listPreference.setSummary(changeSummary);
+                        GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
+                        setCategorySummary(listPreference, false);
+                    }
+                    else {
+                        sValue = listPreference.getValue();
+                        index = listPreference.findIndexOfValue(sValue);
+                        changeSummary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                        categorySummary = changeSummary;
+                        listPreference.setSummary(changeSummary);
+                        GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                        setCategorySummary(listPreference, index > 0);
+                    }
+                }
+
+                if (sValue.equals("1")) {
+                    ApplicationsMultiSelectDialogPreference appMultiSelectPreference =
+                            (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME);
+                    if (appMultiSelectPreference != null)
+                        categorySummary = categorySummary + " • " + appMultiSelectPreference.getSummaryAMSDP();
+                }
+                preferenceScreen.setSummary(categorySummary);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preferenceScreen, (index > 0), false, false, false);
+            }
+        }
+
     }
 
     void setSummary(String key) {

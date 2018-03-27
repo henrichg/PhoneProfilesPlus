@@ -146,11 +146,14 @@ class EventPreferencesApplication extends EventPreferences {
         if (key.equals(PREF_EVENT_APPLICATION_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context) > 0) {
-                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
-                }
-                else
+                int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
+                if (extenderVersion == 0)
                     preference.setSummary(R.string.event_preferences_applications_PPPExtender_install_summary);
+                else
+                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER)
+                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_new_version_summary);
+                else
+                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
             }
         }
     }
