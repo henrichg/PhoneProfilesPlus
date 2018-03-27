@@ -775,6 +775,7 @@
                 android:key="eventNotificationApplications"
                 android:title="@string/event_preferences_notifications_applications"
                 app:addShortcuts="0"
+                app:removePPApplications="0"
                 app:systemSettings="notifications"
                 android:dependency="eventNotificationEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -843,6 +844,7 @@
                 android:key="eventApplicationApplications"
                 android:title="@string/event_preferences_applications_applications"
                 app:addShortcuts="0"
+                app:removePPApplications="0"
                 app:systemSettings="accessibility"
                 android:dependency="eventApplicationEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -923,6 +925,7 @@
                 android:key="eventOrientationIgnoredApplications"
                 android:title="@string/event_preferences_orientation_ignoreForApplications"
                 app:addShortcuts="0"
+                app:removePPApplications="0"
                 app:systemSettings="accessibility"
                 android:dependency="eventOrientationEnabled"
                 android:layout="@layout/mp_preference_material_widget" />

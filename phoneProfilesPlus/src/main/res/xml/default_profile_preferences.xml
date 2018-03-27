@@ -551,6 +551,7 @@
                     android:key="prf_pref_deviceForceStopApplicationPackageName"
                     android:title="@string/profile_preferences_deviceForceStopApplicationsPackageName"
                     app:addShortcuts="0"
+                    app:removePPApplications="1"
                     app:systemSettings="accessibility"
                     android:layout="@layout/mp_preference_material_widget" />
             </PreferenceScreen>

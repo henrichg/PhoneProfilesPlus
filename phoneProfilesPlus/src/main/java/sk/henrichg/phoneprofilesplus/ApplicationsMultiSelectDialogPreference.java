@@ -26,17 +26,19 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 {
 
-    private Context _context = null;
+    private Context _context;
     private String value = "";
 
     private MaterialDialog mDialog;
 
     private final int addShortcuts;
+    private final int removePPApplications;
     private final String systemSettings;
 
     // Layout widgets.
@@ -62,11 +64,15 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
         _context = context;
 
+        applicationList = new ArrayList<>();
+
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.ApplicationsMultiSelectDialogPreference);
 
         addShortcuts = typedArray.getInteger(
                 R.styleable.ApplicationsMultiSelectDialogPreference_addShortcuts, 0);
+        removePPApplications = typedArray.getInteger(
+                R.styleable.ApplicationsMultiSelectDialogPreference_removePPApplications, 0);
         systemSettings = typedArray.getString(
                 R.styleable.ApplicationsMultiSelectDialogPreference_systemSettings);
 
@@ -282,12 +288,14 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             // Get the persistent value
             value = getPersistedString(value);
 
+        applicationList.clear();
+
         // change checked state by value
-        applicationList = EditorProfilesActivity.getApplicationsCache().getList(addShortcuts == 0);
-        if (applicationList != null)
+        List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(addShortcuts == 0);
+        if (cachedApplicationList != null)
         {
             String[] splits = value.split("\\|");
-            for (Application application : applicationList)
+            for (Application application : cachedApplicationList)
             {
                 application.checked = false;
                 for (String split : splits) {
@@ -327,15 +335,27 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             // move checked on top
             int i = 0;
             int ich = 0;
-            while (i < applicationList.size()) {
-                Application application = applicationList.get(i);
+            while (i < cachedApplicationList.size()) {
+                Application application = cachedApplicationList.get(i);
+                if (removePPApplications == 1) {
+                    if (
+                           application.packageName.equals("sk.henrichg.phoneprofiles") ||
+                           application.packageName.equals("sk.henrichg.phoneprofilesplus") ||
+                           application.packageName.equals("sk.henrichg.phoneprofilesplusextender")
+                       )
+                    {
+                        cachedApplicationList.remove(i);
+                        continue;
+                    }
+                }
                 if (application.checked) {
-                    applicationList.remove(i);
-                    applicationList.add(ich, application);
+                    cachedApplicationList.remove(i);
+                    cachedApplicationList.add(ich, application);
                     ich++;
                 }
                 i++;
             }
+            applicationList.addAll(cachedApplicationList);
         }
     }
 
