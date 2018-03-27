@@ -1143,6 +1143,13 @@
     <string name="profile_preferences_deviceForceStopApplicationsChange">Force stop applications</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Applications to force stop it</string>
 
+    <string name="profile_preferences_deviceForceStopApplications_PPPExtender_title">PhoneProfilesPlusExtender</string>
+    <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">To enable \"Force stop applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_deviceForceStopApplications_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
+
+    <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Accessibility settings</string>
+    <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">To enable \"Force stop applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
+
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
     <string name="array_pref_color_native">Native</string>
     <string name="array_pref_color_dark">Dark</string>

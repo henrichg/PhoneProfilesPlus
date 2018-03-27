@@ -43,8 +43,6 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private static final int RESULT_MOBILE_CELLS_SCANNING_SETTINGS = 1987;
     private static final String PREF_USE_PRIORITY_APP_SETTINGS = "eventUsePriorityAppSettings";
     private static final int RESULT_USE_PRIORITY_SETTINGS = 1988;
-    private static final String PREF_APPLICATIONS_PPP_EXTENDER = "eventApplicationInstallExtender";
-    private static final String PREF_ORIENTATION_PPP_EXTENDER = "eventOrientationInstallExtender";
 
     @Override
     public int addPreferencesFromResource() {
@@ -120,7 +118,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-        Preference extenderPreference = prefMng.findPreference(PREF_APPLICATIONS_PPP_EXTENDER);
+        Preference extenderPreference = prefMng.findPreference(EventPreferencesApplication.PREF_EVENT_APPLICATION_INSTALL_EXTENDER);
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -216,7 +214,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-        extenderPreference = prefMng.findPreference(PREF_ORIENTATION_PPP_EXTENDER);
+        extenderPreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_INSTALL_EXTENDER);
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

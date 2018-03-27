@@ -281,7 +281,8 @@ class ProfilePreferencesIndicator {
             }
             // force stop application
             if (profile._deviceForceStopApplicationChange == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, context) == PPApplication.PREFERENCE_ALLOWED)
+                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, context) == PPApplication.PREFERENCE_ALLOWED) &&
+                        AccessibilityServiceBroadcastReceiver.isEnabled(context))
                     drawables[countDrawables++] = R.drawable.ic_profile_pref_force_stop_application;
             }
             // wallpaper

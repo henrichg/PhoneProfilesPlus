@@ -100,6 +100,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
         setSummary(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
         setSummary(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
         setSummary(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME);
+        setSummary(ProfilePreferencesNestedFragment.PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
         setSummary(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS);
         setSummary(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE);
         setSummary(Profile.PREF_PROFILE_DEVICE_NFC);

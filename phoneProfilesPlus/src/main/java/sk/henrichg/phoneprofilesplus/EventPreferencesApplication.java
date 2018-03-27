@@ -18,7 +18,7 @@ class EventPreferencesApplication extends EventPreferences {
 
     static final String PREF_EVENT_APPLICATION_ENABLED = "eventApplicationEnabled";
     private static final String PREF_EVENT_APPLICATION_APPLICATIONS = "eventApplicationApplications";
-    private static final String PREF_EVENT_APPLICATION_INSTALL_EXTENDER = "eventApplicationInstallExtender";
+    static final String PREF_EVENT_APPLICATION_INSTALL_EXTENDER = "eventApplicationInstallExtender";
 
     private static final String PREF_EVENT_APPLICATION_CATEGORY = "eventApplicationCategory";
 
