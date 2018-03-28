@@ -3,13 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.os.Build;
 import android.os.Handler;
-import android.os.PowerManager;
-
-import static android.content.Context.POWER_SERVICE;
 
 public class PackageReplacedReceiver extends BroadcastReceiver {
 

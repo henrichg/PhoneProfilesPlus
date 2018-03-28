@@ -17,7 +17,7 @@ class RingtonePreferenceAdapter extends BaseAdapter {
     final Map<String, String> toneList;
     private final RingtonePreference preference;
 
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
 
     RingtonePreferenceAdapter(RingtonePreference preference, Context c, Map<String, String> toneList)
     {

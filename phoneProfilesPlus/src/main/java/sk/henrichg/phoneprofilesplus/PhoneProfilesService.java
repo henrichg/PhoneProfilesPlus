@@ -171,9 +171,9 @@ public class PhoneProfilesService extends Service
     private int oldMediaVolume = 0;
     private MediaPlayer ringingMediaPlayer = null;
     //private MediaPlayer notificationMediaPlayer = null;
-    private int mediaRingingVolume = 0;
+    //private int mediaRingingVolume = 0;
     //private int mediaNotificationVolume = 0;
-    private int usedRingingStream = AudioManager.STREAM_MUSIC;
+    //private int usedRingingStream = AudioManager.STREAM_MUSIC;
     //private int usedNotificationStream = AudioManager.STREAM_MUSIC;
 
     private MediaPlayer notificationMediaPlayer = null;
@@ -3779,7 +3779,7 @@ public class PhoneProfilesService extends Service
             if ((ringtone != null) && !ringtone.isEmpty()) {
                 RingerModeChangeReceiver.internalChange = true;
 
-                usedRingingStream = stream;
+                int usedRingingStream = stream;
                 // play repeating: default ringtone with ringing volume level
                 try {
                     AudioManager am=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -3808,7 +3808,7 @@ public class PhoneProfilesService extends Service
                         int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
 
                         float percentage = (float) ringingVolume / maximumRingValue * 100.0f;
-                        mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * percentage);
+                        int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
                         PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "mediaRingingVolume=" + mediaRingingVolume);
 

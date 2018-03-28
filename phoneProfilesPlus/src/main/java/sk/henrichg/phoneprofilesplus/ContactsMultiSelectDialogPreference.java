@@ -26,7 +26,7 @@ import java.util.List;
 public class ContactsMultiSelectDialogPreference extends DialogPreference
 {
 
-    private Context _context = null;
+    private Context _context;
     private String value = "";
 
     private MaterialDialog mDialog;

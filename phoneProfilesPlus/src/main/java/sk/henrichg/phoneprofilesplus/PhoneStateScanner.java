@@ -34,7 +34,7 @@ import static android.content.Context.POWER_SERVICE;
 class PhoneStateScanner extends PhoneStateListener {
 
     private final Context context;
-    private TelephonyManager telephonyManager = null;
+    private TelephonyManager telephonyManager;
     //private TelephonyManager telephonyManager2 = null;
 
     int registeredCell = Integer.MAX_VALUE;

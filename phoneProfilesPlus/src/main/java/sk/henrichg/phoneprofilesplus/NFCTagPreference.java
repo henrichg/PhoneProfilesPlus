@@ -36,7 +36,7 @@ import java.util.List;
 public class NFCTagPreference extends DialogPreference {
 
     private String value;
-    List<NFCTagData> nfcTagList = null;
+    List<NFCTagData> nfcTagList;
 
     private final Context context;
 

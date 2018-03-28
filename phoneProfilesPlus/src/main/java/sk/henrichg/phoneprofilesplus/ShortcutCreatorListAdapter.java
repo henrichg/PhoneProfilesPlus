@@ -7,12 +7,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-class ShortcutProfileListAdapter extends BaseAdapter {
+class ShortcutCreatorListAdapter extends BaseAdapter {
 
     private ShortcutCreatorListFragment fragment;
     private DataWrapper activityDataWrapper;
 
-    ShortcutProfileListAdapter(ShortcutCreatorListFragment f, DataWrapper dataWrapper)
+    ShortcutCreatorListAdapter(ShortcutCreatorListFragment f, DataWrapper dataWrapper)
     {
         fragment = f;
         activityDataWrapper = dataWrapper;

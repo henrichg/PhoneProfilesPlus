@@ -26,7 +26,7 @@
         <attr name="noActivateAsDoNotApply" format="integer" />
         <attr name="showDuration" format="integer" />
     </declare-styleable>
-    <declare-styleable name="NumberPickerPreference">
+    <declare-styleable name="BetterNumberPickerPreference">
         <attr name="max" format="integer" />
         <attr name="min" format="integer" />
         <attr name="maxExternal" format="string" />

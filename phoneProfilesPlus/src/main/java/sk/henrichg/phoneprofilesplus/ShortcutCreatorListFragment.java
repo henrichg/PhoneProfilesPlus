@@ -28,7 +28,7 @@ import java.util.Comparator;
 public class ShortcutCreatorListFragment extends Fragment {
 
     private DataWrapper activityDataWrapper;
-    private ShortcutProfileListAdapter profileListAdapter;
+    private ShortcutCreatorListAdapter profileListAdapter;
     private ListView listView;
     TextView textViewNoData;
     private LinearLayout progressBar;
@@ -155,7 +155,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                 // set copy local profile list into activity profilesDataWrapper
                 fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
 
-                fragment.profileListAdapter = new ShortcutProfileListAdapter(fragment, fragment.activityDataWrapper);
+                fragment.profileListAdapter = new ShortcutCreatorListAdapter(fragment, fragment.activityDataWrapper);
                 fragment.listView.setAdapter(fragment.profileListAdapter);
             }
         }

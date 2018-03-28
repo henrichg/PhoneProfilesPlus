@@ -37,8 +37,8 @@ public class MobileCellsPreference extends DialogPreference {
 
     private String value;
     //private String persistedValue;
-    private List<MobileCellsData> cellsList = null;
-    List<MobileCellsData> filteredCellsList = null;
+    private List<MobileCellsData> cellsList;
+    List<MobileCellsData> filteredCellsList;
 
     private final Context context;
 

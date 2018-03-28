@@ -19,7 +19,7 @@ class ProfilePreferenceAdapter extends BaseAdapter {
 
     private final Context context;
 
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
 
     ProfilePreferenceAdapter(ProfilePreference preference, Context c, String profileId, List<Profile> profileList)
     {

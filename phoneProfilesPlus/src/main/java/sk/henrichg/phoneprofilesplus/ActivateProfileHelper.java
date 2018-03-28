@@ -47,7 +47,6 @@ import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.Surface;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
@@ -63,8 +62,6 @@ import java.util.List;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
 import static android.content.Context.POWER_SERVICE;
-
-//import android.app.NotificationChannel;
 
 class ActivateProfileHelper {
 
@@ -93,8 +90,7 @@ class ActivateProfileHelper {
     private static final String PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT = "activated_profile_screen_timeout";
     static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
 
-    static final String ACTION_FORCE_STOP_INFO_START = "sk.henrichg.phoneprofilesplus.ACTION_FORCE_STOP_START";
-    static final String ACTION_FORCE_STOP_INFO_STOP = "sk.henrichg.phoneprofilesplus.ACTION_FORCE_STOP_STOP";
+    private static final String ACTION_FORCE_STOP_INFO_START = "sk.henrichg.phoneprofilesplus.ACTION_FORCE_STOP_START";
 
     private static void doExecuteForRadios(Context context, Profile profile)
     {
@@ -1163,7 +1159,8 @@ class ActivateProfileHelper {
             else
                 return PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
         }
-        if ((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23))
+        else
+        if (android.os.Build.VERSION.SDK_INT >= 21)
             return PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
         return false;
     }
@@ -2668,6 +2665,7 @@ class ActivateProfileHelper {
 
                 if (!OK) {
                     try {
+                        //noinspection JavaReflectionMemberAccess
                         @SuppressLint("PrivateApi")
                         Method setMobileDataEnabledMethod = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
 
@@ -2742,8 +2740,7 @@ class ActivateProfileHelper {
                 else
                 if (preference.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE))
                     transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setPreferredNetworkType");
-                if (transactionCode != -1)
-                    return true;
+                return transactionCode != -1;
             }
             return false;
         } catch(Exception e) {
@@ -2813,8 +2810,7 @@ class ActivateProfileHelper {
                 int transactionCode = -1;
                 if (preference.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
                     transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setWifiApEnabled");
-                if (transactionCode != -1)
-                    return true;
+                return transactionCode != -1;
             }
             return false;
         } catch(Exception e) {

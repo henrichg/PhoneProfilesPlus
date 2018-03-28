@@ -46,7 +46,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     private final TextView mEnds;
     private final TimeDurationPickerDialog mValueDialog;
 
-    private volatile Timer updateEndsTimer = null;
+    private volatile Timer updateEndsTimer;
 
     //private int mColor = 0;
 

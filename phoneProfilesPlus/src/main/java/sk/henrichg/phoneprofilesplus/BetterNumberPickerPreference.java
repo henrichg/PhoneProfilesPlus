@@ -34,13 +34,13 @@ class BetterNumberPickerPreference extends DialogPreference {
         this.context = context;
 
         TypedArray numberPickerType = context.obtainStyledAttributes(attrs,
-                R.styleable.NumberPickerPreference, 0, 0);
+                R.styleable.BetterNumberPickerPreference, 0, 0);
 
-        mMaxExternalKey = numberPickerType.getString(R.styleable.NumberPickerPreference_maxExternal);
-        mMinExternalKey = numberPickerType.getString(R.styleable.NumberPickerPreference_minExternal);
+        mMaxExternalKey = numberPickerType.getString(R.styleable.BetterNumberPickerPreference_maxExternal);
+        mMinExternalKey = numberPickerType.getString(R.styleable.BetterNumberPickerPreference_minExternal);
 
-        mMax = numberPickerType.getInt(R.styleable.NumberPickerPreference_max, 5);
-        mMin = numberPickerType.getInt(R.styleable.NumberPickerPreference_min, 0);
+        mMax = numberPickerType.getInt(R.styleable.BetterNumberPickerPreference_max, 5);
+        mMin = numberPickerType.getInt(R.styleable.BetterNumberPickerPreference_min, 0);
 
         numberPickerType.recycle();
     }

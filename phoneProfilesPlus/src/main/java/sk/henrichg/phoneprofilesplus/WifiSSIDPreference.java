@@ -36,8 +36,8 @@ import java.util.List;
 public class WifiSSIDPreference extends DialogPreference {
 
     private String value;
-    List<WifiSSIDData> SSIDList = null;
-    private List<WifiSSIDData> customSSIDList = null;
+    List<WifiSSIDData> SSIDList;
+    private List<WifiSSIDData> customSSIDList;
 
     private final Context context;
 

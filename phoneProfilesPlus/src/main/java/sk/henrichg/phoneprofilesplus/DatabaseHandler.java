@@ -3364,16 +3364,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 startRunningCommand();
 
                 final String countQuery;
-                String profileTypeChecked = "";
+                String whereString = "";
                 if (profileType == PTYPE_CONNECT_TO_SSID) {
+                    String profileTypeChecked;
                     if (!sharedProfile)
-                        profileTypeChecked = profileTypeChecked + KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_JUSTANY + "\"";
+                        profileTypeChecked = KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_JUSTANY + "\"";
                     else
-                        profileTypeChecked = profileTypeChecked + KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_DEFAULTPROFILE + "\"";
+                        profileTypeChecked = KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_DEFAULTPROFILE + "\"";
+                    whereString = " WHERE " + profileTypeChecked;
                 }
 
-                countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES +
-                        " WHERE " + profileTypeChecked;
+                countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES + whereString;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();
@@ -5391,8 +5392,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 if (forceScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     final String countQuery;
-                    String devicesTypeChecked = "";
-                    devicesTypeChecked = devicesTypeChecked + KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
+                    String devicesTypeChecked;
+                    devicesTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
                     devicesTypeChecked = devicesTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND ";
                     devicesTypeChecked = devicesTypeChecked + "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=1 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=3) AND ";
                     if (devicesType == EventPreferencesBluetooth.DTYPE_CLASSIC)

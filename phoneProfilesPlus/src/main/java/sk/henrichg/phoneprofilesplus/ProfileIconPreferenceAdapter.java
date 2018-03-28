@@ -14,7 +14,7 @@ import android.widget.ImageView;
 class ProfileIconPreferenceAdapter extends BaseAdapter {
 
     private final Context context;
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
     private String imageIdentifier;
     private boolean isImageResourceID;
     private boolean useCustomColor;

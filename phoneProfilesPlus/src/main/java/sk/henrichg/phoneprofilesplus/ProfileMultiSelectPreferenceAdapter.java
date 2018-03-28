@@ -15,7 +15,7 @@ class ProfileMultiSelectPreferenceAdapter extends BaseAdapter {
 
     private final Context context;
 
-    private LayoutInflater inflater = null;
+    private LayoutInflater inflater;
 
     ProfileMultiSelectPreferenceAdapter(Context c, List<Profile> profileList)
     {

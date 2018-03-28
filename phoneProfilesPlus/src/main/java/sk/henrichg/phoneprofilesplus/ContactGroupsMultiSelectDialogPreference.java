@@ -25,7 +25,7 @@ import java.util.List;
 public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 {
 
-    private Context _context = null;
+    private Context _context;
     private String value = "";
 
     private MaterialDialog mDialog;

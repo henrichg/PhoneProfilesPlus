@@ -803,10 +803,8 @@ class WifiBluetoothScanner {
                     PendingIntent pi = PendingIntent.getActivity(context, requestCode, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     mBuilder.setContentIntent(pi);
                     mBuilder.setPriority(Notification.PRIORITY_MAX);
-                    if (android.os.Build.VERSION.SDK_INT >= 21) {
-                        mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
-                        mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-                    }
+                    mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
+                    mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
                     NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (mNotificationManager != null) {
                         if (scanType.equals(SCANNER_TYPE_WIFI))

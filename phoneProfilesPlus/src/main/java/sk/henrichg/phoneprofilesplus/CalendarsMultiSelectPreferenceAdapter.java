@@ -13,7 +13,7 @@ import java.util.List;
 
 class CalendarsMultiSelectPreferenceAdapter extends BaseAdapter
 {
-    private List<CalendarEvent> calendarList = null;
+    private List<CalendarEvent> calendarList;
 
     private final LayoutInflater inflater;
     //private Context context;

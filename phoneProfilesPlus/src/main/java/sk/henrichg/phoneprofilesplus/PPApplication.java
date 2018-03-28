@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
-import android.app.KeyguardManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -13,11 +12,9 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.Parcelable;
 import android.os.PowerManager;
 import android.support.multidex.MultiDex;
 import android.support.v4.content.LocalBroadcastManager;
@@ -44,7 +41,6 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -521,9 +517,11 @@ public class PPApplication extends Application {
     }
 
     static public boolean logEnabled() {
+        //noinspection ConstantConditions
         return (logIntoLogCat || logIntoFile);
     }
 
+    @SuppressWarnings("unused")
     static public void logI(String tag, String text)
     {
         if (!logEnabled())
@@ -536,6 +534,7 @@ public class PPApplication extends Application {
         }
     }
 
+    @SuppressWarnings("unused")
     static public void logW(String tag, String text)
     {
         if (!logEnabled())
@@ -548,6 +547,7 @@ public class PPApplication extends Application {
         }
     }
 
+    @SuppressWarnings("unused")
     static public void logE(String tag, String text)
     {
         if (!logEnabled())
@@ -560,6 +560,7 @@ public class PPApplication extends Application {
         }
     }
 
+    @SuppressWarnings("unused")
     static public void logD(String tag, String text)
     {
         if (!logEnabled())
@@ -572,6 +573,7 @@ public class PPApplication extends Application {
         }
     }
 
+    /*
     public static String intentToString(Intent intent) {
         if (intent == null) {
             return null;
@@ -579,7 +581,9 @@ public class PPApplication extends Application {
 
         return intent.toString() + " " + bundleToString(intent.getExtras());
     }
+    */
 
+    /*
     private static String bundleToString(Bundle bundle) {
         StringBuilder out = new StringBuilder("Bundle[");
 
@@ -629,6 +633,7 @@ public class PPApplication extends Application {
         out.append("]");
         return out.toString();
     }
+    */
 
     //--------------------------------------------------------------
 

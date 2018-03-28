@@ -31,24 +31,24 @@ public class VolumeDialogPreference extends
     private CheckBox noChangeChBox = null;
     private CheckBox defaultProfileChBox = null;
 
-    private AudioManager audioManager = null;
+    private AudioManager audioManager;
     private MediaPlayer mediaPlayer = null;
 
     // Custom xml attributes.
-    private String volumeType = null;
-    private int noChange = 0;
-    private int defaultProfile = 0;
-    private int disableDefaultProfile = 0;
+    private String volumeType;
+    private int noChange;
+    private int defaultProfile;
+    private int disableDefaultProfile;
 
     private int maximumValue = 7;
     private final int minimumValue = 0;
-    private int maximumMediaValue = 15;
-    private int defaultValueRing = 0;
-    private int defaultValueNotification = 0;
-    private int defaultValueMusic = 0;
-    private int defaultValueAlarm = 0;
-    private int defaultValueSystem = 0;
-    private int defaultValueVoice = 0;
+    private int maximumMediaValue;
+    private int defaultValueRing;
+    private int defaultValueNotification;
+    private int defaultValueMusic;
+    private int defaultValueAlarm;
+    private int defaultValueSystem;
+    private int defaultValueVoice;
     private final int stepSize = 1;
 
     private String sValue = "0|1";

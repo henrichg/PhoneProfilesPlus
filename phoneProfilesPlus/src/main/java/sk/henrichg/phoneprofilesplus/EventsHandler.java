@@ -303,7 +303,7 @@ class EventsHandler {
                     if (_event.getStatus() != Event.ESTATUS_STOP)
                         // only pause events
                         // pause also paused events
-                        dataWrapper.doHandleEvents(_event, true, true, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, true, true, /*interactive,*/ false, forDelayEndAlarm, true, mergedProfile, sensorType);
                 }
 
                 // get running events count
@@ -320,7 +320,7 @@ class EventsHandler {
                     if (_event.getStatus() != Event.ESTATUS_STOP)
                         // only start events
                         // start all events
-                        dataWrapper.doHandleEvents(_event, false, true, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, false, true, /*interactive,*/ false, forDelayEndAlarm, true, mergedProfile, sensorType);
                 }
             } else {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "NO restart events");

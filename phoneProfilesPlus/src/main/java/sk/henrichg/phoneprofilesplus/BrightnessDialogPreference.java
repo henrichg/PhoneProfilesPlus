@@ -33,7 +33,7 @@ import com.stericson.RootTools.RootTools;
 public class BrightnessDialogPreference extends
         DialogPreference implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
 
-    private Context _context = null;
+    private Context _context;
     private MaterialDialog mDialog;
 
     // Layout widgets.
@@ -44,10 +44,10 @@ public class BrightnessDialogPreference extends
     private CheckBox defaultProfileChBox = null;
 
     // Custom xml attributes.
-    private int noChange = 0;
-    private int automatic = 0;
-    private int defaultProfile = 0;
-    private int disableDefaultProfile = 0;
+    private int noChange;
+    private int automatic;
+    private int defaultProfile;
+    private int disableDefaultProfile;
 
     @SuppressWarnings("FieldCanBeLocal")
     private final int maximumValue = 100;
@@ -57,7 +57,7 @@ public class BrightnessDialogPreference extends
     private String sValue = "";
     private int value = 0;
 
-    private boolean adaptiveAllowed = true;
+    private boolean adaptiveAllowed;
     private final Profile _defaultProfile;
 
     private final int savedBrightness;

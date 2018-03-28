@@ -22,7 +22,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private DataWrapper dataWrapper;
 
-    private Context context = null;
+    private Context context;
     //private int appWidgetId;
     private List<Profile> profileList = new ArrayList<>();
 

@@ -24,7 +24,7 @@ import java.util.List;
 
 class MobileCellNamesDialog {
 
-    List<String> cellNamesList = new ArrayList<>();
+    List<String> cellNamesList;
 
     private final Context context;
     private final boolean showFilterItems;

@@ -37,8 +37,8 @@ import java.util.List;
 public class BluetoothNamePreference extends DialogPreference {
 
     private String value;
-    List<BluetoothDeviceData> bluetoothList = null;
-    private List<BluetoothDeviceData> customBluetoothList = null;
+    List<BluetoothDeviceData> bluetoothList;
+    private List<BluetoothDeviceData> customBluetoothList;
 
     private final Context context;
 

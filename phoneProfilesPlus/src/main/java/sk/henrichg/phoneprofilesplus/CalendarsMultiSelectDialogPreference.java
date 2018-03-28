@@ -28,10 +28,10 @@ import java.util.List;
 public class CalendarsMultiSelectDialogPreference extends DialogPreference
 {
 
-    private Context _context = null;
+    private Context _context;
     private String value = "";
 
-    private List<CalendarEvent> calendarList = null;
+    private List<CalendarEvent> calendarList;
     private MaterialDialog mDialog;
 
     // Layout widgets.
