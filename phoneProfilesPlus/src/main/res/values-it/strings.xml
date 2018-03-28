@@ -1045,7 +1045,6 @@ Non chiedere nuovamente?</string>
   <string name="event_preferences_orientation_PPPExtender_title">PhoneProfilesPlusExtender</string>
   <string name="event_preferences_orientation_PPPExtender_install_summary">To enable \"Ignore for applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
   <string name="event_preferences_applications_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
-  <string name="event_preferences_orientation_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
   <string name="important_info_accessibility_service_text1">A causa della modifica delle regole sull\'utilizzo dei servizi di accesso facilitato da parte di Google, è necessario installare PhoneProfilesPlusExtender per utilizzare i sensori \"Parametri applicazioni\" e \"Parametri di orientamento\". Verificare i parametri di questi sensori per ulteriori informazioni.</string>
   <string name="about_application_extender_source_code">Codice sorgente - Extender:</string>
   <string name="pref_dlg_info_about_wildcards_4">È possibile configurare più stringhe. Usare il carattere \"|\" per separarle.</string>
@@ -1136,6 +1135,15 @@ Non chiedere nuovamente?</string>
   <string name="notification_channel_notify_event_start">Start event notification</string>
   <string name="notification_channel_notify_event_start_description">Shows notification about start of event.</string>
   <string name="editor_drawer_open">Apri il riquadro di navigazione</string>
+  <string name="array_pref_no_force_stop">Do not force stop</string>
+  <string name="array_pref_force_stop">Force stop</string>
+  <string name="profile_preferences_deviceForceStopApplicationsChange">Force stop applications</string>
+  <string name="profile_preferences_deviceForceStopApplicationsPackageName">Applications to force stop it</string>
+  <string name="profile_preferences_deviceForceStopApplications_PPPExtender_title">PhoneProfilesPlusExtender</string>
+  <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">To enable \"Force stop applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
+  <string name="event_preferences_applications_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
+  <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Accessibility settings</string>
+  <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">To enable \"Force stop applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
   <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
     <string name="array_pref_color_native">Native</string>
     <string name="array_pref_color_dark">Dark</string>

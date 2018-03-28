@@ -212,10 +212,10 @@
   <string name="array_pref_value_270_degrees" formatted="false">270°</string>
   <string name="array_pref_value_auto_rotate">Automático. rotar</string>
   <string name="default_profile_name">Perfil compartido</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Perfíl Compartido</string>
-  <string name="preference_profile_default_profile">Perfíl Compartido</string>
-  <string name="volume_pref_dialog_default_profile_chb">Perfíl Compartido</string>
-  <string name="array_pref_default_profile">Perfíl Compartido</string>
+  <string name="brightness_pref_dialog_default_profile_chb">Perfil Compartido</string>
+  <string name="preference_profile_default_profile">Perfil Compartido</string>
+  <string name="volume_pref_dialog_default_profile_chb">Perfil Compartido</string>
+  <string name="array_pref_default_profile">Perfil Compartido</string>
   <string name="array_pref_change">Cambiar</string>
   <string name="array_pref_no_show">No mostrar</string>
   <string name="array_pref_show">Mostrar</string>
@@ -446,7 +446,7 @@
   <string name="array_pref_zenModeArray_allWithVibration">Todas con vibración</string>
   <string name="array_pref_zenModeArray_priorityWithVibration">Prioritario con vibración</string>
   <string name="important_info_news">Noticias</string>
-  <string name="important_info_profile_zenMode">\"Interrupciones\" en el perfil \"Modo Timbre\" requiere habilitar \"Acceso a las notificaciones\" a PhoneProfilesPlus enblos ajustes del sistema. Presione aqui y habilite PhoneProfilesPlus.</string>
+  <string name="important_info_profile_zenMode">\"Interrupciones\" en el perfil \"Modo Timbre\" requiere habilitar \"Acceso a las notificaciones\" a PhoneProfilesPlus enblos ajustes del sistema. Presione aquí y habilite PhoneProfilesPlus.</string>
   <string name="profile_preferences_zenMode_none_summary">Sin interrupciones. Ni siquiera alarmas</string>
   <string name="profile_preferences_zenMode_priority_summary">Sólo interrupciones prioritarias</string>
   <string name="profile_preferences_zenMode_all_summary">Todas las interrupciones</string>
@@ -487,7 +487,7 @@
   <string name="permissions_for_export_app_data_text1">Respaldar la configuración de la aplicacion requiere algunos permisos.</string>
   <string name="permissions_for_export_app_data_text2">Por favor, concédalos en el próximo diálogo. La configuración será respaldada.</string>
   <string name="permissions_for_import_app_data_text1">Restaurar la configuración de la aplicación requiere algunos permisos.</string>
-  <string name="permissions_for_import_app_data_text2">Por favor, concédalos en el próximo diálogo. La configuración sera restaurada.</string>
+  <string name="permissions_for_import_app_data_text2">Por favor, concédalos en el próximo diálogo. La configuración será restaurada.</string>
   <string name="permissions_write_settings_not_allowed_confirm">No ha activado \"Modificar ajustes de sistema\". ¿No preguntarlo de nuevo?</string>
   <string name="phone_profiles_pref_category_permissions">Permisos</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions">Modificar ajustes del sistema</string>
@@ -1001,8 +1001,8 @@
   <string name="important_info_quick_guide_events_2">Los Eventos contienen parámetros importantes de sensor, los cuales deben ser cumplidos todos antes que ser puesto en funcionamiento. Si algún sensor no cumple con los parámetros, el evento finalizará (pausa).</string>
   <string name="important_info_quick_guide_sensors_1">Ejemplos de sensores:</string>
   <string name="important_info_quick_guide_sensors_2"><b>• Time parameters:</b> Iniciar y finalizar en un día específico de la semana, o a una hora específica.</string>
-  <string name="important_info_quick_guide_sensors_3"><b>• Wi-Fi parameters:</b> Iniciar y Finalizar por Wi-Fi SSID (conectado, dispositivo cercano). La característica de cercanía es util para detectar la localización del dispositivo. Por ejemplo: Iniciar evento cuando el dispositivo esté dentro del rango de escaneo de la red Wi-Fi de su casa.</string>
-  <string name="important_info_quick_guide_sensors_4"><b>• Bluetooth parameters:</b> Similar a los parámetros de Wi-Fi. Util para el Bluetooth del vehículo.</string>
+  <string name="important_info_quick_guide_sensors_3"><b>• Wi-Fi parameters:</b> Iniciar y Finalizar por Wi-Fi SSID (conectado, dispositivo cercano). La característica de cercanía es útil para detectar la localización del dispositivo. Por ejemplo: Iniciar evento cuando el dispositivo esté dentro del rango de escaneo de la red Wi-Fi de su casa.</string>
+  <string name="important_info_quick_guide_sensors_4"><b>• Bluetooth parameters:</b> Similar a los parámetros de Wi-Fi. Útil para el Bluetooth del vehículo.</string>
   <string name="important_info_quick_guide_sensors_5"><b>• Location parameters:</b> Iniciar y Finalizar por la ubicación del GPS del dispositivo. Usted debe habilitar los Servicios de Ubicación en la configuración de sistema de su dispositivo.</string>
   <string name="important_info_quick_guide_sensors_6"><b>• Mobile cell parameters:</b> Iniciar y Finalizar por conexión o desconexión de las torres de células móviles.</string>
   <string name="important_info_quick_guide_sensors_7"><b>• Call parameters:</b> Iniciar y Finalizar a través de los contactos configurados. Por ejemplo cuando se activa el tono de llamada.</string>
@@ -1044,10 +1044,9 @@
   <string name="event_preferences_orientation_PPPExtender_title">PhoneProfilesPlusExtender</string>
   <string name="event_preferences_orientation_PPPExtender_install_summary">Para habilitar el parámetro \"Ignorar aplicaciones\", haga click aquí para instalar PhoneProfilesPlusExtender.</string>
   <string name="event_preferences_applications_PPPExtender_upgrade_summary">Haga click aquí para ver los cambios y actualizar PhoneProfilesPlusExtender.</string>
-  <string name="event_preferences_orientation_PPPExtender_upgrade_summary">Haga click aquí para ver los cambios y actualizar PhoneProfilesPlusExtender.</string>
   <string name="important_info_accessibility_service_text1">Debido a un cambio en las reglas de Google, sobre el uso de los servicios de accesibilidad, debe instalar PhoneProfilesPlusExtender para usar los sensores de evento \"Parámetros de Aplicación\" y \"Parámetros de Orientación\". Revise los parámetros de esos sensores para más información.</string>
   <string name="about_application_extender_source_code">Código fuente - extensor:</string>
-  <string name="pref_dlg_info_about_wildcards_4">Puede configurar más cadenas. Separándolas con el caracter \"|\".</string>
+  <string name="pref_dlg_info_about_wildcards_4">Puede configurar más cadenas. Separándolas con el carácter \"|\".</string>
   <string name="profile_preferences_sourceProfileInfoX_title">Perfil de funcionalidad compartido.</string>
   <string name="profile_preferences_sourceProfileInfoX_summary">Puede configurar cada parámetro de perfil al usar \"Perfil compartido\" y durante la activación se utilizarán valores del perfil compartido.</string>
   <string name="editor_activity_targetHelps_backgroundProfileButton_title">Perfil predeterminado</string>
@@ -1135,6 +1134,15 @@
   <string name="notification_channel_notify_event_start">Start event notification</string>
   <string name="notification_channel_notify_event_start_description">Shows notification about start of event.</string>
   <string name="editor_drawer_open">Abrir diseño navegación</string>
+  <string name="array_pref_no_force_stop">Do not force stop</string>
+  <string name="array_pref_force_stop">Force stop</string>
+  <string name="profile_preferences_deviceForceStopApplicationsChange">Force stop applications</string>
+  <string name="profile_preferences_deviceForceStopApplicationsPackageName">Applications to force stop it</string>
+  <string name="profile_preferences_deviceForceStopApplications_PPPExtender_title">PhoneProfilesPlusExtender</string>
+  <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">To enable \"Force stop applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
+  <string name="event_preferences_applications_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
+  <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Accessibility settings</string>
+  <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">To enable \"Force stop applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
   <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
     <string name="array_pref_color_native">Native</string>
     <string name="array_pref_color_dark">Dark</string>
