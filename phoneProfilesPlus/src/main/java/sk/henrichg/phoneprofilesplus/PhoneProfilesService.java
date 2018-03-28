@@ -3779,7 +3779,6 @@ public class PhoneProfilesService extends Service
             if ((ringtone != null) && !ringtone.isEmpty()) {
                 RingerModeChangeReceiver.internalChange = true;
 
-                int usedRingingStream = stream;
                 // play repeating: default ringtone with ringing volume level
                 try {
                     AudioManager am=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -3795,7 +3794,7 @@ public class PhoneProfilesService extends Service
                     //int result = audioManager.requestAudioFocus(this, usedRingingStream, requestType);
                     //if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                         ringingMediaPlayer = new MediaPlayer();
-                        ringingMediaPlayer.setAudioStreamType(usedRingingStream);
+                        ringingMediaPlayer.setAudioStreamType(stream);
                         ringingMediaPlayer.setDataSource(this, Uri.parse(ringtone));
                         ringingMediaPlayer.prepare();
                         ringingMediaPlayer.setLooping(true);

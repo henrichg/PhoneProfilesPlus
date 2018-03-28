@@ -25,7 +25,7 @@ public class DaysOfWeekPreference extends DialogPreference {
     private final Context _context;
     private String value = "";
 
-    private List<DayOfWeek> daysOfWeekList;
+    private final List<DayOfWeek> daysOfWeekList;
 
     private MaterialDialog mDialog;
     private DaysOfWeekPreferenceAdapter listAdapter;

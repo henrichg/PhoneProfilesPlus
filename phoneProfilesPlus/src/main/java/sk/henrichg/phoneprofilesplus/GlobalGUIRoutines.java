@@ -9,10 +9,8 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
@@ -32,12 +30,8 @@ import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
 import android.view.Display;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.NumberPicker;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.Collator;
 import java.text.DateFormat;
@@ -324,9 +318,11 @@ class GlobalGUIRoutines {
     }
     */
 
+    /*
     private static float spToPixels(Context context, float sp) {
         return sp * context.getResources().getDisplayMetrics().scaledDensity;
     }
+    */
 
     /*static int dpToPx(int dp)
     {
@@ -342,7 +338,7 @@ class GlobalGUIRoutines {
      * Uses reflection to access divider private attribute and override its color
      * Use Color.Transparent if you wish to hide them
      */
-    static void setSeparatorColorForNumberPicker(NumberPicker picker, int separatorColor) {
+    /*static void setSeparatorColorForNumberPicker(NumberPicker picker, int separatorColor) {
         Field[] pickerFields = NumberPicker.class.getDeclaredFields();
         for (Field pf : pickerFields) {
             if (pf.getName().equals("mSelectionDivider")) {
@@ -354,9 +350,9 @@ class GlobalGUIRoutines {
                 break;
             }
         }
-    }
-
-    static void updateTextAttributesForNumberPicker(NumberPicker picker, /*int textColor,*/ int textSizeSP) {
+    }*/
+    /*
+    static void updateTextAttributesForNumberPicker(NumberPicker picker, int textSizeSP) {
         for (int i = 0; i < picker.getChildCount(); i++){
             View child = picker.getChildAt(i);
             if (child instanceof EditText) {
@@ -380,6 +376,7 @@ class GlobalGUIRoutines {
             }
         }
     }
+    */
 
     static String formatDateTime(Context context, String timeToFormat) {
 

@@ -39,7 +39,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
     private String value = "";
 
-    List<Application> applicationsList;
+    final List<Application> applicationsList;
 
     private MaterialDialog mDialog;
     private ApplicationEditorDialog mEditorDialog;

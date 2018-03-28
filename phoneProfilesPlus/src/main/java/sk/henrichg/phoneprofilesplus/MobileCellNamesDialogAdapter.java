@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 class MobileCellNamesDialogAdapter extends BaseAdapter {
 
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
 
     private final MobileCellNamesDialog dialog;
 

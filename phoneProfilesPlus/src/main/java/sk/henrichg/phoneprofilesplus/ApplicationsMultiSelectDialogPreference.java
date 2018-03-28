@@ -32,7 +32,7 @@ import java.util.List;
 public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 {
 
-    private Context _context;
+    private final Context _context;
     private String value = "";
 
     private MaterialDialog mDialog;
@@ -57,7 +57,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
     private AsyncTask asyncTask = null;
 
-    List<Application> applicationList;
+    final List<Application> applicationList;
 
     public ApplicationsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

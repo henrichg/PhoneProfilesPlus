@@ -32,7 +32,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 {
     private final GoogleApiClient mGoogleApiClient;
     private FusedLocationProviderClient mFusedLocationClient;
-    private LocationCallback mLocationCallback;
+    private final LocationCallback mLocationCallback;
     private final Context context;
     private final DataWrapper dataWrapper;
 

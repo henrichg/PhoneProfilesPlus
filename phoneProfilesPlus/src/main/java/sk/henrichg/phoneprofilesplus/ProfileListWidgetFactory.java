@@ -22,7 +22,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
     private DataWrapper dataWrapper;
 
-    private Context context;
+    private final Context context;
     //private int appWidgetId;
     private List<Profile> profileList = new ArrayList<>();
 

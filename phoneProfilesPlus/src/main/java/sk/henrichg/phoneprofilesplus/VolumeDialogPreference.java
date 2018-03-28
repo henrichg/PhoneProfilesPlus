@@ -31,7 +31,7 @@ public class VolumeDialogPreference extends
     private CheckBox noChangeChBox = null;
     private CheckBox defaultProfileChBox = null;
 
-    private AudioManager audioManager;
+    private final AudioManager audioManager;
     private MediaPlayer mediaPlayer = null;
 
     // Custom xml attributes.
@@ -42,13 +42,13 @@ public class VolumeDialogPreference extends
 
     private int maximumValue = 7;
     private final int minimumValue = 0;
-    private int maximumMediaValue;
-    private int defaultValueRing;
-    private int defaultValueNotification;
-    private int defaultValueMusic;
-    private int defaultValueAlarm;
-    private int defaultValueSystem;
-    private int defaultValueVoice;
+    private int maximumMediaValue = 15;
+    private int defaultValueRing = 0;
+    private int defaultValueNotification = 0;
+    private int defaultValueMusic = 0;
+    private int defaultValueAlarm = 0;
+    private int defaultValueSystem = 0;
+    private int defaultValueVoice = 0;
     private final int stepSize = 1;
 
     private String sValue = "0|1";
@@ -73,33 +73,30 @@ public class VolumeDialogPreference extends
 
         audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        // get max. values from audio manager
-        if (volumeType.equalsIgnoreCase("RINGTONE"))
-            maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-        else
-        if (volumeType.equalsIgnoreCase("NOTIFICATION"))
-            maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-        else
-        if (volumeType.equalsIgnoreCase("MEDIA"))
-            maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        else
-        if (volumeType.equalsIgnoreCase("ALARM"))
-            maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-        else
-        if (volumeType.equalsIgnoreCase("SYSTEM"))
-            maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
-        else
-        if (volumeType.equalsIgnoreCase("VOICE"))
-            maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
-        maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        if (audioManager != null) {
+            // get max. values from audio manager
+            if (volumeType.equalsIgnoreCase("RINGTONE"))
+                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+            else if (volumeType.equalsIgnoreCase("NOTIFICATION"))
+                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+            else if (volumeType.equalsIgnoreCase("MEDIA"))
+                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+            else if (volumeType.equalsIgnoreCase("ALARM"))
+                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+            else if (volumeType.equalsIgnoreCase("SYSTEM"))
+                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
+            else if (volumeType.equalsIgnoreCase("VOICE"))
+                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
+            maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
-        // get actual values from audio manager
-        defaultValueRing = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-        defaultValueNotification = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-        defaultValueMusic = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        defaultValueAlarm = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-        defaultValueSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
-        defaultValueVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+            // get actual values from audio manager
+            defaultValueRing = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+            defaultValueNotification = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+            defaultValueMusic = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            defaultValueAlarm = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+            defaultValueSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
+            defaultValueVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+        }
 
         try {
             mediaPlayer = MediaPlayer.create(context, R.raw.volume_change_notif);

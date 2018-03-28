@@ -12,7 +12,7 @@ import java.util.List;
 
 class DaysOfWeekPreferenceAdapter extends BaseAdapter
 {
-    private List<DayOfWeek> daysOfWeekList;
+    private final List<DayOfWeek> daysOfWeekList;
 
     private final LayoutInflater inflater;
     //private Context context;

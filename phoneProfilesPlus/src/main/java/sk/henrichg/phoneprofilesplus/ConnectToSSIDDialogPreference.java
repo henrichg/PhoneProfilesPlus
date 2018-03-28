@@ -27,7 +27,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
     private final Context context;
 
     String value = "";
-    private int disableDefaultProfile;
+    private final int disableDefaultProfile;
 
     List<WifiSSIDData> ssidList;
 

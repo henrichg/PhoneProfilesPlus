@@ -37,7 +37,7 @@ public class WifiSSIDPreference extends DialogPreference {
 
     private String value;
     List<WifiSSIDData> SSIDList;
-    private List<WifiSSIDData> customSSIDList;
+    private final List<WifiSSIDData> customSSIDList;
 
     private final Context context;
 

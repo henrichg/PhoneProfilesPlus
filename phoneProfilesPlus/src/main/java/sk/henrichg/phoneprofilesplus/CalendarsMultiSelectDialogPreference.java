@@ -28,7 +28,7 @@ import java.util.List;
 public class CalendarsMultiSelectDialogPreference extends DialogPreference
 {
 
-    private Context _context;
+    private final Context _context;
     private String value = "";
 
     private List<CalendarEvent> calendarList;
