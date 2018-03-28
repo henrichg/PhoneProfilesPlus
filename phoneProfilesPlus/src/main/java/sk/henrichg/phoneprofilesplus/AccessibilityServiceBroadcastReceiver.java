@@ -22,8 +22,8 @@ import static android.content.Context.POWER_SERVICE;
 
 public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
 
-    private static final String EXTRA_PACKAGE_NAME = "sk.henrichg.phoneprofilesplus.package_name";
-    private static final String EXTRA_CLASS_NAME = "sk.henrichg.phoneprofilesplus.class_name";
+    private static final String EXTRA_PACKAGE_NAME = "sk.henrichg.phoneprofilesplusextender.package_name";
+    private static final String EXTRA_CLASS_NAME = "sk.henrichg.phoneprofilesplusextender.class_name";
 
     private static final String PREF_APPLICATION_IN_FOREGROUND = "application_in_foreground";
 
