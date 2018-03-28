@@ -3387,6 +3387,10 @@ class ActivateProfileHelper {
             // not force stop applications after boot
             return;
 
+        if (profile._lockDevice != 0)
+            // not force stop if profile has lock device enabled
+            return;
+
         String applications = profile._deviceForceStopApplicationPackageName;
         if (!(applications.isEmpty() || (applications.equals("-")))) {
             Intent intent = new Intent(ACTION_FORCE_STOP_INFO_START);
