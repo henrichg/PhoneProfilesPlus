@@ -2,6 +2,6 @@
 <resources>
 
     <style name="Theme.Phoneprofilestheme_withToolbar_withDrawerLayout_dark" parent="@style/Base.Theme.Phoneprofilestheme_withToolbar_dark">
-	</style>
+    </style>
 
 </resources>
