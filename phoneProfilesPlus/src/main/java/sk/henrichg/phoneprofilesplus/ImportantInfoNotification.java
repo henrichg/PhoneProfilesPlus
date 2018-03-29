@@ -90,10 +90,8 @@ class ImportantInfoNotification {
             }
         }
 
-        if (PPApplication.newExtender) {
-            if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER))
-                news = true;
-        }
+        if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER))
+            news = true;
 
         if (afterInstall)
             news = true;

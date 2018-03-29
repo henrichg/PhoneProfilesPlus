@@ -421,7 +421,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoTextGrant1Command.setText(spannable);
 
-        if (PPApplication.newExtender && (extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER)) {
+        if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER)) {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
             infoText1.setVisibility(View.VISIBLE);

@@ -53,7 +53,6 @@ public class PPApplication extends Application {
     static final String romManufacturer = getROMManufacturer();
     static String PACKAGE_NAME;
 
-    static final boolean newExtender = true;
     static final int VERSION_CODE_EXTENDER = 62;
 
     private static final boolean logIntoLogCat = true;

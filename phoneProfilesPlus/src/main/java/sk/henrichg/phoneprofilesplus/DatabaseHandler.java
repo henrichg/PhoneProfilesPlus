@@ -59,6 +59,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // profile type
     static final int PTYPE_CONNECT_TO_SSID = 1;
+    static final int PTYPE_FORCE_STOP = 2;
 
     // event type
     static final int ETYPE_TIME = 1;
@@ -3371,6 +3372,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profileTypeChecked = KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_JUSTANY + "\"";
                     else
                         profileTypeChecked = KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_DEFAULTPROFILE + "\"";
+                    whereString = " WHERE " + profileTypeChecked;
+                }
+                if (profileType == PTYPE_FORCE_STOP) {
+                    String profileTypeChecked;
+                    if (!sharedProfile)
+                        profileTypeChecked = KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "!=0";
+                    else
+                        profileTypeChecked = KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "!=99";
                     whereString = " WHERE " + profileTypeChecked;
                 }
 
