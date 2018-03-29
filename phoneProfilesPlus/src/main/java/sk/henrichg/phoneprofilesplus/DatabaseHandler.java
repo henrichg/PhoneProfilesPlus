@@ -59,7 +59,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // profile type
     static final int PTYPE_CONNECT_TO_SSID = 1;
-    static final int PTYPE_FORCE_STOP = 2;
+    private static final int PTYPE_FORCE_STOP = 2;
 
     // event type
     static final int ETYPE_TIME = 1;

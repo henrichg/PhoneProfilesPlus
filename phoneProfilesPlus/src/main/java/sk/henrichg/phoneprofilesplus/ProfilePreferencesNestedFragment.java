@@ -41,7 +41,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
     private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
-    private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY = "prf_pref_forceStopApplicationsCategory";
 
     private static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 1981;
 
@@ -50,6 +49,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     static final String PREF_DEVICE_ADMINISTRATOR_SETTINGS = "prf_pref_lockDevice_deviceAdminSettings";
     private static final int RESULT_DEVICE_ADMINISTRATOR_SETTINGS = 1982;
 
+    private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY = "prf_pref_forceStopApplicationsCategory";
     static final String PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER = "prf_pref_deviceForceStopApplicationInstallExtender";
     private static final String PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS = "prf_pref_deviceForceStopApplicationAccessibilitySettings";
     private static final int RESULT_ACCESSIBILITY_SETTINGS = 1983;
