@@ -57,7 +57,7 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER = 62;
 
     private static final boolean logIntoLogCat = true;
-    private static final boolean logIntoFile = false;
+    private static final boolean logIntoFile = true;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
@@ -115,13 +115,6 @@ public class PPApplication extends Application {
                                          //+"|[RJS] PPApplication"
                                          //+"|[RJS] PhoneProfilesService"
 
-                                         //+"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
-                                         //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
-                                         //+"|ActivateProfileHelper.executeForVolumes"
-                                         //+"|ActivateProfileHelper.setRingerMode"
-                                         //+"|ActivateProfileHelper.setVolumes"
-                                         //+"|ActivateProfileHelper.setZenMode"
-
                                          //+"|ActivateProfileHelper.setAirplaneMode_SDK17"
                                          //+"|ActivateProfileHelper.executeForRadios"
                                          //+"|$$$ WifiAP"
@@ -131,11 +124,13 @@ public class PPApplication extends Application {
                                          /*+"|$$$ WifiScanBroadcastReceiver.onReceive"
                                          +"|----- DataWrapper.doHandleEvents"
                                          */
-                                         //+"|##### GeofenceScanner"
-                                         //+"|GeofenceScannerJob"
+
+                                         +"|##### GeofenceScanner"
+                                         +"|GeofenceScannerJob"
                                          //+"|LocationGeofenceEditorActivity"
                                          //+"|LocationModeChangedBroadcastReceiver"
-                                         //+"|RJS] PhoneProfilesService.scheduleGeofenceScannerJob"
+                                         +"|RJS] PhoneProfilesService.scheduleGeofenceScannerJob"
+                                         +"|[GeoSensor] DataWrapper.doHandleEvents"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|[BTScan] DataWrapper.doHandleEvents"
@@ -171,7 +166,7 @@ public class PPApplication extends Application {
 
                                          //+"|RunApplicationWithDelayBroadcastReceiver"
 
-                                         +"|PreferenceFragment"
+                                         //+"|PreferenceFragment"
             ;
 
 

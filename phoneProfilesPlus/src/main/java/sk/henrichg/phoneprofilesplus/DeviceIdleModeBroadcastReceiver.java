@@ -36,7 +36,6 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         if (powerManager != null) {
@@ -50,6 +49,8 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
 
                         // rescan
                         if (PhoneProfilesService.instance != null) {
+                            PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive", "rescan/reschedule jobs");
+
                             // schedule job for one wifi scan
                             PhoneProfilesService.instance.scheduleWifiJob(true,  true, true, false, false, false);
                             // schedule job for one bluetooth scan

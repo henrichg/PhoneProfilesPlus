@@ -42,7 +42,7 @@ class GeofenceScannerJob extends Job {
             synchronized (PPApplication.geofenceScannerMutex) {
                 if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.getGeofencesScanner() != null)) {
                     if (PhoneProfilesService.getGeofencesScanner().mUpdatesStarted) {
-                        PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates started - start EventsHandler");
+                        PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates started - save to DB");
 
                         //PhoneProfilesService.geofencesScanner.stopLocationUpdates();
 
@@ -61,14 +61,14 @@ class GeofenceScannerJob extends Job {
                 EventsHandler eventsHandler = new EventsHandler(context);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER/*, false*/);
 
-            } else {
+            }/* else {
                 // this is required, for example for GeofenceScanner.resetLocationUpdates()
                 PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates not started - start it");
                 Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_LOCATION_UPDATES, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 PPApplication.startPPService(context, serviceIntent);
-            }
+            }*/
         }
 
         GeofenceScannerJob.scheduleJob(context, false, null, false, false);
@@ -85,12 +85,12 @@ class GeofenceScannerJob extends Job {
     }
 
     private static void _scheduleJob(final Context context, final boolean startScanning, final boolean forScreenOn) {
-        if (startScanning) {
+        /*if (startScanning) {
             synchronized (PPApplication.geofenceScannerMutex) {
                 if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
                     PhoneProfilesService.getGeofencesScanner().mUpdatesStarted = false;
             }
-        }
+        }*/
 
         JobManager jobManager = null;
         try {
@@ -112,7 +112,7 @@ class GeofenceScannerJob extends Job {
                         PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=false");
 
                     // look at GeofenceScanner:UPDATE_INTERVAL_IN_MILLISECONDS
-                    int updateDuration = 30;
+                    //int updateDuration = 30;
 
                     if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted() &&
                             PhoneProfilesService.getGeofencesScanner().mUpdatesStarted) {
@@ -124,7 +124,7 @@ class GeofenceScannerJob extends Job {
                             interval = 2 * interval;
                         //interval = interval - updateDuration;
                     } else {
-                        interval = updateDuration;
+                        interval = 5;
                     }
                 }
 
@@ -150,9 +150,9 @@ class GeofenceScannerJob extends Job {
                 _cancelJob();
                 jobBuilder = new JobRequest.Builder(JOB_TAG_START);
                 if (forScreenOn)
-                    jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+                    jobBuilder.setExact(5);
                 else
-                    jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+                    jobBuilder.setExact(5);
             }
 
             PPApplication.logE("GeofenceScannerJob.scheduleJob", "build and schedule");

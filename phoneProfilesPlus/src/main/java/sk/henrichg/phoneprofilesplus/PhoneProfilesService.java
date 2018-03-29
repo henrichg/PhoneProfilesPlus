@@ -122,8 +122,8 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_UNREGISTER_RECEIVERS_AND_JOBS = "unregister_receivers_and_jobs";
     static final String EXTRA_REREGISTER_RECEIVERS_AND_JOBS = "reregister_receivers_and_jobs";
     static final String EXTRA_FOR_SCREEN_ON = "for_screen_on";
-    static final String EXTRA_START_LOCATION_UPDATES = "start_location_updates";
-    private static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
+    //static final String EXTRA_START_LOCATION_UPDATES = "start_location_updates";
+    //private static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
 
     //-----------------------
 
@@ -1820,7 +1820,7 @@ public class PhoneProfilesService extends Service
                                     eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION, false);
                                 }
                                 if (eventCount > 0) {
-                                    if (!GeofenceScannerJob.isJobScheduled()) {
+                                    if (!GeofenceScannerJob.isJobScheduled() || rescan) {
                                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob->SCHEDULE", "PhoneProfilesService_scheduleGeofenceScannerJob");
                                         PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "SCHEDULE");
                                         synchronized (PPApplication.geofenceScannerMutex) {
@@ -1829,18 +1829,7 @@ public class PhoneProfilesService extends Service
                                                 getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
                                             }
                                         }
-                                        GeofenceScannerJob.scheduleJob(appContext, true, handler, true, forScreenOn);
-                                    } else {
-                                        PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "scheduled");
-                                        if (rescan) {
-                                            synchronized (PPApplication.geofenceScannerMutex) {
-                                                if (isGeofenceScannerStarted()) {
-                                                    PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "updateTransitionsByLastKnownLocation");
-                                                    getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
-                                                }
-                                            }
-                                            GeofenceScannerJob.scheduleJob(appContext, true, handler, true, forScreenOn);
-                                        }
+                                        GeofenceScannerJob.scheduleJob(appContext, false, handler, true, forScreenOn);
                                     }
                                 } else
                                     cancelGeofenceScannerJob(appContext, handler);
@@ -2638,6 +2627,7 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
+                /*
                 if (intent.getBooleanExtra(EXTRA_START_LOCATION_UPDATES, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_START_LOCATION_UPDATES");
                     //synchronized (PPApplication.geofenceScannerMutex) {
@@ -2654,6 +2644,7 @@ public class PhoneProfilesService extends Service
                         PhoneProfilesService.getGeofencesScanner().stopLocationUpdates();
                     //}
                 }
+                */
 
                 if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_JOBS, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_REGISTER_RECEIVERS_AND_JOBS");

@@ -2639,13 +2639,17 @@ public class DataWrapper {
                             locationPassed = false;
 
                             String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
-                            PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "geofences=" + event._eventPreferencesLocation._geofences);
+                            PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "--------");
+                            PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "_eventPreferencesLocation._geofences=" + event._eventPreferencesLocation._geofences);
                             for (String _geofence : splits) {
                                 if (!_geofence.isEmpty()) {
                                     PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "geofence=" + DatabaseHandler.getInstance(context).getGeofenceName(Long.valueOf(_geofence)));
 
                                     int geofenceTransition = DatabaseHandler.getInstance(context).getGeofenceTransition(Long.valueOf(_geofence));
-                                    PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "geofenceTransition=" + geofenceTransition);
+                                    if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
+                                        PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "transitionType=GEOFENCE_TRANSITION_ENTER");
+                                    else
+                                        PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "transitionType=GEOFENCE_TRANSITION_EXIT");
 
                                     if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
                                         locationPassed = true;
