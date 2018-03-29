@@ -1578,6 +1578,23 @@ class ActivateProfileHelper {
         }
     }
 
+    private static void executeForForceStopApplications(final Profile profile, Context context) {
+        if (PPApplication.startedOnBoot)
+            // not force stop applications after boot
+            return;
+
+        if (profile._lockDevice != 0)
+            // not force stop if profile has lock device enabled
+            return;
+
+        String applications = profile._deviceForceStopApplicationPackageName;
+        if (!(applications.isEmpty() || (applications.equals("-")))) {
+            Intent intent = new Intent(ACTION_FORCE_STOP_INFO_START);
+            intent.putExtra("extra_applications", applications);
+            context.sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+        }
+    }
+
     private static void executeRootForAdaptiveBrightness(final Profile profile, final Context context) {
         /* not working (private secure settings) :-/
         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -3376,23 +3393,6 @@ class ActivateProfileHelper {
                     wakeLock.release();
             }
         });
-    }
-
-    private static void executeForForceStopApplications(final Profile profile, Context context) {
-        if (PPApplication.startedOnBoot)
-            // not force stop applications after boot
-            return;
-
-        if (profile._lockDevice != 0)
-            // not force stop if profile has lock device enabled
-            return;
-
-        String applications = profile._deviceForceStopApplicationPackageName;
-        if (!(applications.isEmpty() || (applications.equals("-")))) {
-            Intent intent = new Intent(ACTION_FORCE_STOP_INFO_START);
-            intent.putExtra("extra_applications", applications);
-            context.sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
-        }
     }
 
     static int getRingerVolume(Context context)
