@@ -1896,11 +1896,6 @@ class ActivateProfileHelper {
             ActivateProfileHelper.executeForRunApplications(profile, context);
         }
 
-        if (profile._deviceForceStopApplicationChange == 1)
-        {
-            ActivateProfileHelper.executeForForceStopApplications(profile, context);
-        }
-
         if (profile._applicationDisableWifiScanning != 0) {
             ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
@@ -2065,6 +2060,13 @@ class ActivateProfileHelper {
                 }
             }
         //}
+
+        /// !!!! must be last !!!!
+        if (profile._deviceForceStopApplicationChange == 1)
+        {
+            ActivateProfileHelper.executeForForceStopApplications(profile, context);
+        }
+
 
 //        throw new RuntimeException("test Crashlytics + TopExceptionHandler");
     }
