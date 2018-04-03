@@ -352,6 +352,10 @@ public class PPApplication extends Application {
         Fabric.with(getApplicationContext(), crashlyticsKit);
         // Crashlytics.logException(exception); -- this log will be associated with crash log.
 
+        try {
+            Crashlytics.setBool("DEBUG", BuildConfig.DEBUG);
+        } catch (Exception ignored) {}
+
         //if (BuildConfig.DEBUG) {
         int actualVersionCode = 0;
         try {
