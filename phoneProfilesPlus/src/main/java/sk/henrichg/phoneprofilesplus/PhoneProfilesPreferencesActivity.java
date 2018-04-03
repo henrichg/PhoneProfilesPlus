@@ -44,6 +44,9 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
     public static final String EXTRA_RESET_EDITOR = "reset_editor";
 
+    static final String ACTION_CHANGE_LANGUAGE = "sk.henrichg.phoneprofilesplusextender.ACTION_CHANGE_LANGUAGE";
+    static final String EXTRA_LANGUAGE = "sk.henrichg.phoneprofilesplusextender.language";
+
     @SuppressLint("InlinedApi")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -253,6 +256,10 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         }
         */
 
+        // broadcast language to PhoneProfilesPlusExtender
+        Intent intent = new Intent(ACTION_CHANGE_LANGUAGE);
+        intent.putExtra(EXTRA_LANGUAGE, ApplicationPreferences.applicationLanguage(this));
+        sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
 
         // for startActivityForResult
         Intent returnIntent = new Intent();
