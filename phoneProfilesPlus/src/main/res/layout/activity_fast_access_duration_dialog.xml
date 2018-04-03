@@ -61,7 +61,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="?attr/colorAccent"
                 android:maxLines="1"
                 android:clickable="true"
@@ -74,7 +74,7 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:text="00:00:00"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 tools:ignore="HardcodedText"/>
 
         </LinearLayout>
