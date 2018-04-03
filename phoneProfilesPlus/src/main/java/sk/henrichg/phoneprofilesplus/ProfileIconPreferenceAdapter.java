@@ -67,7 +67,8 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
             holder = (ViewHolder)vi.getTag();
         }
 
-        if (Profile.profileIconId[position].equals(imageIdentifier) && isImageResourceID) {
+        String iconResName = context.getResources().getResourceEntryName(Profile.profileIconId[position]);
+        if (iconResName.equals(imageIdentifier) && isImageResourceID) {
             if (Build.VERSION.SDK_INT >= 21)
                 holder.icon.setBackgroundColor(GlobalGUIRoutines.getThemeColorControlHighlight(context));
             else {
@@ -80,14 +81,14 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
         else
             holder.icon.setBackgroundResource(0);
 
-        int res = context.getResources().getIdentifier(Profile.profileIconId[position], "drawable", context.getPackageName());
-        if (Profile.profileIconId[position].equals(imageIdentifier) && isImageResourceID && useCustomColor) {
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), res);
+        int iconRes = Profile.profileIconId[position];
+        if (iconResName.equals(imageIdentifier) && isImageResourceID && useCustomColor) {
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), iconRes);
             bitmap = BitmapManipulator.recolorBitmap(bitmap, customColor/*, context*/);
             holder.icon.setImageBitmap(bitmap);
         }
         else
-            holder.icon.setImageResource(res);
+            holder.icon.setImageResource(iconRes);
 
         return vi;
     }
@@ -102,9 +103,10 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    static int getImageResourcePosition(String imageIdentifier) {
+    static int getImageResourcePosition(String imageIdentifier, Context context) {
         for (int pos = 0; pos < Profile.profileIconId.length; pos++) {
-            if (Profile.profileIconId[pos].equals(imageIdentifier))
+            String resName = context.getResources().getResourceEntryName(Profile.profileIconId[pos]);
+            if (resName.equals(imageIdentifier))
                 return pos;
         }
         return 0;
@@ -116,8 +118,8 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    static int getIconColor(String imageIdentifier) {
-        return Profile.profileIconColor[getImageResourcePosition(imageIdentifier)];
+    static int getIconColor(String imageIdentifier, Context context) {
+        return Profile.profileIconColor[getImageResourcePosition(imageIdentifier, context)];
     }
 
 }

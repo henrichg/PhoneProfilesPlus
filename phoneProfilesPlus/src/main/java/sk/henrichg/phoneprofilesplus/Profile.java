@@ -253,40 +253,50 @@ public class Profile {
     private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
     private static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
 
-    static final String[] profileIconId = {
-            "ic_profile_default",
+    static final int[] profileIconId = {
+            R.drawable.ic_profile_default,
 
-            "ic_profile_home", "ic_profile_home_2", "ic_profile_home_3", "ic_profile_home_4", "ic_profile_home_5",
-            "ic_profile_home_6",
+            R.drawable.ic_profile_home, R.drawable.ic_profile_home_2, R.drawable.ic_profile_home_3,
+            R.drawable.ic_profile_home_4, R.drawable.ic_profile_home_5, R.drawable.ic_profile_home_6,
 
-            "ic_profile_outdoors_1", "ic_profile_outdoors_2", "ic_profile_outdoors_3", "ic_profile_outdoors_4",
-            "ic_profile_outdoors_5", "ic_profile_outdoors_6", "ic_profile_outdoors_7", "ic_profile_outdoors_8",
-            "ic_profile_outdoors_9",
+            R.drawable.ic_profile_outdoors_1, R.drawable.ic_profile_outdoors_2, R.drawable.ic_profile_outdoors_3,
+            R.drawable.ic_profile_outdoors_4, R.drawable.ic_profile_outdoors_5, R.drawable.ic_profile_outdoors_6,
+            R.drawable.ic_profile_outdoors_7, R.drawable.ic_profile_outdoors_8, R.drawable.ic_profile_outdoors_9,
 
-            "ic_profile_meeting", "ic_profile_meeting_2", "ic_profile_meeting_3", "ic_profile_mute", "ic_profile_mute_2",
-            "ic_profile_volume_4", "ic_profile_volume_1", "ic_profile_volume_2", "ic_profile_volume_3", "ic_profile_vibrate_1",
+            R.drawable.ic_profile_meeting, R.drawable.ic_profile_meeting_2, R.drawable.ic_profile_meeting_3,
+            R.drawable.ic_profile_mute, R.drawable.ic_profile_mute_2, R.drawable.ic_profile_volume_4,
+            R.drawable.ic_profile_volume_1, R.drawable.ic_profile_volume_2, R.drawable.ic_profile_volume_3,
+            R.drawable.ic_profile_vibrate_1,
 
-            "ic_profile_work_1", "ic_profile_work_2", "ic_profile_work_12", "ic_profile_work_3", "ic_profile_work_4",
-            "ic_profile_work_5", "ic_profile_work_6", "ic_profile_work_7", "ic_profile_work_8", "ic_profile_work_9",
-            "ic_profile_work_10", "ic_profile_work_11", "ic_profile_work_13", "ic_profile_work_14", "ic_profile_work_15",
+            R.drawable.ic_profile_work_1, R.drawable.ic_profile_work_2, R.drawable.ic_profile_work_12,
+            R.drawable.ic_profile_work_3, R.drawable.ic_profile_work_4, R.drawable.ic_profile_work_5,
+            R.drawable.ic_profile_work_6, R.drawable.ic_profile_work_7, R.drawable.ic_profile_work_8,
+            R.drawable.ic_profile_work_9, R.drawable.ic_profile_work_10, R.drawable.ic_profile_work_11,
+            R.drawable.ic_profile_work_13, R.drawable.ic_profile_work_14, R.drawable.ic_profile_work_15,
 
-            "ic_profile_sleep", "ic_profile_sleep_2", "ic_profile_night", "ic_profile_call_1", "ic_profile_food_1",
-            "ic_profile_food_2","ic_profile_food_3","ic_profile_food_4","ic_profile_food_5", "ic_profile_alarm",
+            R.drawable.ic_profile_sleep, R.drawable.ic_profile_sleep_2, R.drawable.ic_profile_night,
+            R.drawable.ic_profile_call_1, R.drawable.ic_profile_food_1, R.drawable.ic_profile_food_2,
+            R.drawable.ic_profile_food_3, R.drawable.ic_profile_food_4, R.drawable.ic_profile_food_5,
+            R.drawable.ic_profile_alarm,
 
-            "ic_profile_car_1", "ic_profile_car_2", "ic_profile_car_3", "ic_profile_car_4", "ic_profile_car_5",
-            "ic_profile_car_6", "ic_profile_car_7", "ic_profile_car_8", "ic_profile_car_9", "ic_profile_car_10",
-            "ic_profile_airplane_1", "ic_profile_airplane_2", "ic_profile_airplane_3", "ic_profile_ship_1",
-            "ic_profile_ship_2", "ic_profile_ship_3", "ic_profile_tram_1", "ic_profile_tickets_1",
-            "ic_profile_tickets_2",
+            R.drawable.ic_profile_car_1, R.drawable.ic_profile_car_2, R.drawable.ic_profile_car_3,
+            R.drawable.ic_profile_car_4, R.drawable.ic_profile_car_5, R.drawable.ic_profile_car_6,
+            R.drawable.ic_profile_car_7, R.drawable.ic_profile_car_8, R.drawable.ic_profile_car_9,
+            R.drawable.ic_profile_car_10, R.drawable.ic_profile_airplane_1, R.drawable.ic_profile_airplane_2,
+            R.drawable.ic_profile_airplane_3, R.drawable.ic_profile_ship_1, R.drawable.ic_profile_ship_2,
+            R.drawable.ic_profile_ship_3, R.drawable.ic_profile_tram_1, R.drawable.ic_profile_tickets_1,
+            R.drawable.ic_profile_tickets_2,
 
-            "ic_profile_culture_1", "ic_profile_culture_6", "ic_profile_culture_7", "ic_profile_culture_2",
-            "ic_profile_culture_8", "ic_profile_culture_9", "ic_profile_culture_3", "ic_profile_culture_10",
-            "ic_profile_culture_11", "ic_profile_culture_12", "ic_profile_culture_13", "ic_profile_culture_5",
-            "ic_profile_culture_14", "ic_profile_culture_4", "ic_profile_culture_15", "ic_profile_culture_16",
+            R.drawable.ic_profile_culture_1, R.drawable.ic_profile_culture_6, R.drawable.ic_profile_culture_7,
+            R.drawable.ic_profile_culture_2, R.drawable.ic_profile_culture_8, R.drawable.ic_profile_culture_9,
+            R.drawable.ic_profile_culture_3, R.drawable.ic_profile_culture_10, R.drawable.ic_profile_culture_11,
+            R.drawable.ic_profile_culture_12, R.drawable.ic_profile_culture_13, R.drawable.ic_profile_culture_5,
+            R.drawable.ic_profile_culture_14, R.drawable.ic_profile_culture_4, R.drawable.ic_profile_culture_15,
+            R.drawable.ic_profile_culture_16,
 
-            "ic_profile_battery_1", "ic_profile_battery_2", "ic_profile_battery_3",
+            R.drawable.ic_profile_battery_1, R.drawable.ic_profile_battery_2, R.drawable.ic_profile_battery_3,
 
-            "ic_profile_lock"
+            R.drawable.ic_profile_lock
     };
 
     static final int[] profileIconColor = {
