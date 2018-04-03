@@ -1082,7 +1082,6 @@
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Please enable Location and Bluetooth scanning in System Settings. Without this, Bluetooth scanning will not work.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Keep Wi-Fi on\" system setting</string>
   <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Please configure \"Keep Wi-Fi on during sleep\" to \"Always\". Without this, Wi-Fi scanning will not work during device sleep.</string>
-  <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender to use the event sensors \"Applications parameters\" and \"Orientation parameters\". Check the parameters of these sensors for more information.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Please do not configure interval to value less than</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minutes. This greatly increases the battery consumption.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">seconds. This greatly increases the battery consumption.</string>
@@ -1138,6 +1137,7 @@
   <string name="notification_channel_notify_event_start">Start event notification</string>
   <string name="notification_channel_notify_event_start_description">Shows notification about start of event.</string>
   <string name="editor_drawer_open">פתיחת מגירת הניווט</string>
+  <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender. More information about installation is in parameters for which is PhoneProfilesPlusExtender required.</string>
   <string name="array_pref_no_force_stop">Do not force stop</string>
   <string name="array_pref_force_stop">Force stop</string>
   <string name="profile_preferences_deviceForceStopApplicationsChange">Force stop applications</string>
@@ -1147,6 +1147,17 @@
   <string name="event_preferences_applications_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
   <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Accessibility settings</string>
   <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">To enable \"Force stop applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
+  <string name="extender_app_name">PhoneProfilesPlusExtender</string>
+  <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
+  <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event sensors \"Application parameters\" and \"Orientation parameters\".</string>
+  <string name="extender_about_application_version">Version:</string>
+  <string name="extender_accessibility_service_profile_force_stop_applications">• Accessibility service for profile parameter \"Force stop applications\":</string>
+  <string name="extender_accessibility_service_event_sensor_applications_orientation">• Accessibility service for event sensor \"Application parameters\" and \"Orientation parameters\":</string>
+  <string name="extender_accessibility_service_enabled">Enabled</string>
+  <string name="extender_accessibility_service_disabled">Disabled</string>
+  <string name="extender_accessibility_service_button">Enable/Disable\nAccessibility service</string>
+  <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
+  <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
   <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
     <string name="array_pref_color_native">Native</string>
     <string name="array_pref_color_dark">Dark</string>
