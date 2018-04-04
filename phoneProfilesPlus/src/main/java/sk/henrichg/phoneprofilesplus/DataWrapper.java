@@ -1458,6 +1458,10 @@ public class DataWrapper {
 
                 PPApplication.logE("DataWrapper.activateProfileFromMainThread", "start in handler");
                 dataWrapper._activateProfile(_profile, merged, startupSource);
+                if (_activity != null) {
+                    DatabaseHandler.getInstance(context).increaseActivationByUserCount(_profile);
+                    dataWrapper.setDynamicLauncherShortcuts();
+                }
                 PPApplication.logE("DataWrapper.activateProfileFromMainThread", "end in handler");
 
                 if ((wakeLock != null) && wakeLock.isHeld())
