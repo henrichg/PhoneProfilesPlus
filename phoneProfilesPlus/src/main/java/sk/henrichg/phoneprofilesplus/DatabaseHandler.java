@@ -3433,7 +3433,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    long getActivationByUserCount(long profileId) {
+    private long getActivationByUserCount(long profileId) {
         importExportLock.lock();
         try {
             long r = 0;
@@ -3505,6 +3505,65 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ++count;
             profile._activationByUserCount = count;
             increaseActivationByUserCount(profile._id);
+        }
+    }
+
+    List<Profile> getProfilesForDynamicShortcuts(boolean counted) {
+        importExportLock.lock();
+        try {
+
+            List<Profile> profileList = new ArrayList<>();
+
+            try {
+                startRunningCommand();
+
+                // Select All Query
+                String selectQuery = "SELECT " + KEY_ID + "," +
+                                                KEY_NAME + "," +
+                                                KEY_ICON +
+                                    " FROM " + TABLE_PROFILES +
+                                    " WHERE " + KEY_SHOW_IN_ACTIVATOR + "=1";
+
+                if (counted) {
+                    selectQuery = selectQuery +
+                            " AND " + KEY_ACTIVATION_BY_USER_COUNT + "> 0" +
+                            " ORDER BY " + KEY_ACTIVATION_BY_USER_COUNT + " DESC " +
+                            " LIMIT 4";
+                }
+                else {
+                    selectQuery = selectQuery +
+                            " AND " + KEY_ACTIVATION_BY_USER_COUNT + "= 0" +
+                            " ORDER BY " + KEY_PORDER +
+                            " LIMIT 4";
+                }
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        Profile profile = new Profile();
+                        profile._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                        profile._name = cursor.getString(cursor.getColumnIndex(KEY_NAME));
+                        profile._icon = (cursor.getString(cursor.getColumnIndex(KEY_ICON)));
+                        // Adding contact to list
+                        profileList.add(profile);
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+
+            return profileList;
+
+        } finally {
+            stopRunningCommand();
         }
     }
 

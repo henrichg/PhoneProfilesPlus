@@ -2514,6 +2514,8 @@ public class PhoneProfilesService extends Service
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                     DatabaseHandler.getInstance(appContext).deleteAllEventTimelines();
 
+                    dataWrapper.setDynamicLauncherShortcuts();
+
                     MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
 
                     PPApplication.setApplicationStarted(appContext, true);

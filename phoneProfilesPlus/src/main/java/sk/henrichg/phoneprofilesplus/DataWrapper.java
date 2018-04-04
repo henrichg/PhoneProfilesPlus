@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.bluetooth.BluetoothAdapter;
@@ -10,12 +11,19 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Icon;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
@@ -25,6 +33,9 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.support.v4.content.pm.ShortcutInfoCompat;
+import android.support.v4.content.pm.ShortcutManagerCompat;
+import android.support.v4.graphics.drawable.IconCompat;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
@@ -593,6 +604,103 @@ public class DataWrapper {
                     profile.generateIconBitmap(context, monochrome, monochromeValue);
                 if (generateIndicators)
                     profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+            }
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.N_MR1)
+    private ShortcutInfo createShortcutInfo(Profile profile) {
+        boolean isIconResourceID;
+        String iconIdentifier;
+        Bitmap profileBitmap;
+        boolean useCustomColor;
+
+        Intent shortcutIntent;
+
+        isIconResourceID = profile.getIsIconResourceID();
+        iconIdentifier = profile.getIconIdentifier();
+        useCustomColor = profile.getUseCustomColorForIcon();
+
+        if (isIconResourceID) {
+            //noinspection ConstantConditions
+            if (profile._iconBitmap != null)
+                profileBitmap = profile._iconBitmap;
+            else {
+                int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+                profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
+            }
+        } else {
+            Resources resources = context.getResources();
+            int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
+            int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+            //Log.d("---- ShortcutCreatorListFragment.generateIconBitmap","resampleBitmapUri");
+            profileBitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, context.getApplicationContext());
+            if (profileBitmap == null) {
+                int iconResource = R.drawable.ic_profile_default;
+                profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
+            }
+        }
+
+        if (ApplicationPreferences.applicationWidgetIconColor(context).equals("1")) {
+            int monochromeValue = 0xFF;
+            String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness(context);
+            if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
+            if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
+            if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
+            if (applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
+            if (applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
+
+            if (isIconResourceID || useCustomColor) {
+                // icon is from resource or colored by custom color
+                profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, getActivity().getBaseContext()*/);
+            } else
+                profileBitmap = BitmapManipulator.grayScaleBitmap(profileBitmap);
+        }
+
+        shortcutIntent = new Intent(context.getApplicationContext(), BackgroundActivateProfileActivity.class);
+        shortcutIntent.setAction(Intent.ACTION_MAIN);
+        shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
+        //noinspection ConstantConditions
+        shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+
+        return new ShortcutInfo.Builder(context, "profile_" + profile._id)
+                .setShortLabel(profile._name)
+                .setLongLabel(context.getString(R.string.shortcut_activate_profile) + profile._name)
+                .setIcon(Icon.createWithBitmap(profileBitmap))
+                .setIntent(shortcutIntent)
+                .build();
+    }
+
+    void setDynamicLauncherShortcuts() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
+            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+
+            if (shortcutManager != null) {
+                List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(true);
+                List<Profile> notCountedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(false);
+
+                ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
+
+                for (Profile profile : countedProfiles) {
+                    PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "countedProfile=" + profile._name);
+                    profile.generateIconBitmap(context, monochrome, monochromeValue);
+                    shortcuts.add(0, createShortcutInfo(profile));
+                }
+
+                int shortcutsCount = countedProfiles.size();
+                if (shortcutsCount < 4) {
+                    for (Profile profile : notCountedProfiles) {
+                        PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "notCountedProfile=" + profile._name);
+                        profile.generateIconBitmap(context, monochrome, monochromeValue);
+                        shortcuts.add(0, createShortcutInfo(profile));
+
+                        ++shortcutsCount;
+                        if (shortcutsCount == 4)
+                            break;
+                    }
+                }
+
+                shortcutManager.setDynamicShortcuts(shortcuts);
             }
         }
     }

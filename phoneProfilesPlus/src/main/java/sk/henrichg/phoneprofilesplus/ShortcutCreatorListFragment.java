@@ -231,7 +231,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         ShortcutInfoCompat.Builder shortcutBuilder = new ShortcutInfoCompat.Builder(getActivity(), "profile_shortcut");
         shortcutBuilder.setIntent(shortcutIntent);
         shortcutBuilder.setShortLabel(profileName);
-        shortcutBuilder.setLongLabel(profileName);
+        shortcutBuilder.setLongLabel(getString(R.string.shortcut_activate_profile) + profileName);
 
         if (isIconResourceID) {
             //noinspection ConstantConditions
