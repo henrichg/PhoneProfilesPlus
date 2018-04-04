@@ -609,7 +609,7 @@ public class DataWrapper {
     }
 
     @TargetApi(Build.VERSION_CODES.N_MR1)
-    private ShortcutInfo createShortcutInfo(Profile profile) {
+    private ShortcutInfo createShortcutInfo(Profile profile, boolean restartEvents) {
         boolean isIconResourceID;
         String iconIdentifier;
         Bitmap profileBitmap;
@@ -657,15 +657,36 @@ public class DataWrapper {
                 profileBitmap = BitmapManipulator.grayScaleBitmap(profileBitmap);
         }
 
-        shortcutIntent = new Intent(context.getApplicationContext(), BackgroundActivateProfileActivity.class);
-        shortcutIntent.setAction(Intent.ACTION_MAIN);
-        shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
-        //noinspection ConstantConditions
-        shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+        if (restartEvents) {
+            shortcutIntent = new Intent(context.getApplicationContext(), ActionForExternalApplicationActivity.class);
+            shortcutIntent.setAction(ActionForExternalApplicationActivity.ACTION_RESTART_EVENTS);
+        }
+        else {
+            shortcutIntent = new Intent(context.getApplicationContext(), BackgroundActivateProfileActivity.class);
+            shortcutIntent.setAction(Intent.ACTION_MAIN);
+            shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
+            //noinspection ConstantConditions
+            shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+        }
 
-        return new ShortcutInfo.Builder(context, "profile_" + profile._id)
-                .setShortLabel(profile._name)
-                .setLongLabel(context.getString(R.string.shortcut_activate_profile) + profile._name)
+        String id;
+        String profileName;
+        String longLabel;
+
+        if (restartEvents) {
+            id = "restart_events";
+            profileName = context.getString(R.string.menu_restart_events);
+            longLabel = context.getString(R.string.shortcut_activate_profile) + profileName;
+        }
+        else {
+            id = "profile_" + profile._id;
+            profileName = profile._name;
+            longLabel = context.getString(R.string.shortcut_activate_profile) + profileName;
+        }
+
+        return new ShortcutInfo.Builder(context, id)
+                .setShortLabel(profileName)
+                .setLongLabel(longLabel)
                 .setIcon(Icon.createWithBitmap(profileBitmap))
                 .setIntent(shortcutIntent)
                 .build();
@@ -684,21 +705,26 @@ public class DataWrapper {
                 for (Profile profile : countedProfiles) {
                     PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "countedProfile=" + profile._name);
                     profile.generateIconBitmap(context, monochrome, monochromeValue);
-                    shortcuts.add(0, createShortcutInfo(profile));
+                    shortcuts.add(0, createShortcutInfo(profile, false));
                 }
 
                 int shortcutsCount = countedProfiles.size();
-                if (shortcutsCount < 4) {
+                if (shortcutsCount < 3) {
                     for (Profile profile : notCountedProfiles) {
                         PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "notCountedProfile=" + profile._name);
                         profile.generateIconBitmap(context, monochrome, monochromeValue);
-                        shortcuts.add(0, createShortcutInfo(profile));
+                        shortcuts.add(0, createShortcutInfo(profile, false));
 
                         ++shortcutsCount;
-                        if (shortcutsCount == 4)
+                        if (shortcutsCount == 3)
                             break;
                     }
                 }
+
+                Profile profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
+                        context.getResources().getResourceEntryName(R.drawable.ic_action_events_restart_color)+"|1|0|0", 0);
+                profile.generateIconBitmap(context, monochrome, monochromeValue);
+                shortcuts.add(0, createShortcutInfo(profile, true));
 
                 shortcutManager.setDynamicShortcuts(shortcuts);
             }

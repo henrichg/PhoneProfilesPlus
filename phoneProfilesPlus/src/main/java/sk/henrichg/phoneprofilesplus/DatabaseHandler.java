@@ -3528,13 +3528,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     selectQuery = selectQuery +
                             " AND " + KEY_ACTIVATION_BY_USER_COUNT + "> 0" +
                             " ORDER BY " + KEY_ACTIVATION_BY_USER_COUNT + " DESC " +
-                            " LIMIT 4";
+                            " LIMIT 3";
                 }
                 else {
                     selectQuery = selectQuery +
                             " AND " + KEY_ACTIVATION_BY_USER_COUNT + "= 0" +
                             " ORDER BY " + KEY_PORDER +
-                            " LIMIT 4";
+                            " LIMIT 3";
                 }
 
                 //SQLiteDatabase db = this.getReadableDatabase();

@@ -134,7 +134,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
             // add restart events
             Profile profile = DataWrapper.getNonInitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events),
-                    "ic_action_events_restart_color", 0);
+                    this.dataWrapper.context.getResources().getResourceEntryName(R.drawable.ic_action_events_restart_color)+"|1|0|0", 0);
             this.dataWrapper.profileList.add(0, profile);
 
             return null;
@@ -195,17 +195,24 @@ public class ShortcutCreatorListFragment extends Fragment {
         Bitmap shortcutOverlayBitmap;
         Bitmap profileShortcutBitmap;
         String profileName;
+        String longLabel;
         boolean useCustomColor;
 
         if (profile != null) {
             isIconResourceID = profile.getIsIconResourceID();
             iconIdentifier = profile.getIconIdentifier();
             profileName = profile._name;
+            longLabel = getString(R.string.shortcut_activate_profile) + profileName;
             useCustomColor = profile.getUseCustomColorForIcon();
+            if (position == 0) {
+                profileName = getResources().getString(R.string.menu_restart_events);
+                longLabel = profileName;
+            }
         } else {
             isIconResourceID = true;
             iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
             profileName = getResources().getString(R.string.profile_name_default);
+            longLabel = getString(R.string.shortcut_activate_profile) + profileName;
             useCustomColor = false;
         }
 
@@ -231,7 +238,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         ShortcutInfoCompat.Builder shortcutBuilder = new ShortcutInfoCompat.Builder(getActivity(), "profile_shortcut");
         shortcutBuilder.setIntent(shortcutIntent);
         shortcutBuilder.setShortLabel(profileName);
-        shortcutBuilder.setLongLabel(getString(R.string.shortcut_activate_profile) + profileName);
+        shortcutBuilder.setLongLabel(longLabel);
 
         if (isIconResourceID) {
             //noinspection ConstantConditions
