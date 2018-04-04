@@ -37,7 +37,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
     private static final String PREFS_NAME_ACTIVITY = "profile_preferences_activity";
     //static final String PREFS_NAME_FRAGMENT = "profile_preferences_fragment";
-    private static final String PREFS_NAME_DEFAULT_PROFILE = PPApplication.DEFAULT_PROFILE_PREFS_NAME;
+    private static final String PREFS_NAME_SHARED_PROFILE = PPApplication.SHARED_PROFILE_PREFS_NAME;
 
     private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
@@ -88,8 +88,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
             PREFS_NAME = PREFS_NAME_FRAGMENT;*/
         else
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
-            PREFS_NAME = PREFS_NAME_DEFAULT_PROFILE;
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
+            PREFS_NAME = PREFS_NAME_SHARED_PROFILE;
         else
             PREFS_NAME = PREFS_NAME_ACTIVITY;
         return PREFS_NAME;
@@ -109,7 +109,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
         PPApplication.logE("ProfilePreferencesNestedFragment.onActivityCreated","startupSource="+startupSource);
 
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
             Toolbar toolbar = getActivity().findViewById(R.id.mp_toolbar);
             Bundle bundle = getArguments();
             if (bundle.getBoolean(PreferenceFragment.EXTRA_NESTED, false))
@@ -177,7 +177,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 } else {
                     if (ringerModePreference != null) {
                         CharSequence[] entries = ringerModePreference.getEntries();
-                        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
+                        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
                             entries[5] = "(S) " + getString(R.string.array_pref_ringerModeArray_ZenMode);
                         else
                             entries[6] = "(S) " + getString(R.string.array_pref_ringerModeArray_ZenMode);
@@ -321,7 +321,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     phoneType = telephonyManager.getPhoneType();
 
                 if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
-                    if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
+                    if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
                         networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMDPArray));
                         networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMDPValues));
                     } else {
@@ -334,7 +334,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
 
                 if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
-                    if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
+                    if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
                         networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMADPArray));
                         networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMADPValues));
                     } else {
@@ -1437,7 +1437,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         String sValue = value.toString();
 
         final String NO_CHANGE = "0";
-        final String DEFAULT_PROFILE = "99";
+        final String SHARED_PROFILE = "99";
         final String ON = "1";
 
         if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGTONE)) {
@@ -1465,28 +1465,28 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE))
         {
-            boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
+            boolean enabled = !(sValue.equals(SHARED_PROFILE) || sValue.equals(NO_CHANGE));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
         if (key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE))
         {
-            boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
+            boolean enabled = !(sValue.equals(SHARED_PROFILE) || sValue.equals(NO_CHANGE));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
         if (key.equals(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE))
         {
-            boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
+            boolean enabled = !(sValue.equals(SHARED_PROFILE) || sValue.equals(NO_CHANGE));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_ALARM);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE))
         {
-            boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
+            boolean enabled = !(sValue.equals(SHARED_PROFILE) || sValue.equals(NO_CHANGE));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
             if (preference != null)
                 preference.setEnabled(enabled);
@@ -1496,7 +1496,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
         {
-            boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
+            boolean enabled = !(sValue.equals(SHARED_PROFILE) || sValue.equals(NO_CHANGE));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
             if (preference != null)
                 preference.setEnabled(enabled);
@@ -1538,7 +1538,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             ListPreference lockDevicePreference = (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_LOCK_DEVICE);
             if (lockDevicePreference != null) {
                 CharSequence[] entries = lockDevicePreference.getEntries();
-                if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
+                if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
                     if (!manager.isAdminActive(component))
                         entries[1] = getString(R.string.array_pref_lockDevice_deviceAdmin) + " (" +
                                 getString(R.string.array_pref_lockDevice_not_enabled) + ")";
@@ -1576,7 +1576,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             ApplicationsMultiSelectDialogPreference appPreference =
                     (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME);
             if (appPreference != null) {
-                appPreference.setEnabled(ok && (!(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE))));
+                appPreference.setEnabled(ok && (!(sValue.equals(SHARED_PROFILE) || sValue.equals(NO_CHANGE))));
                 appPreference.setSummaryAMSDP();
             }
         }
@@ -1615,7 +1615,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         // disable depended preferences
         disableDependedPref(key, value);
 
-        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
+        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
             // no save menu for shared profile
             ProfilePreferencesActivity activity = (ProfilePreferencesActivity)getActivity();
             ProfilePreferencesActivity.showSaveMenu = true;
@@ -1637,10 +1637,10 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 //int newProfileMode = data.getIntExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
                 //int predefinedProfileIndex = data.getIntExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
-                if (profile_id == Profile.DEFAULT_PROFILE_ID)
+                if (profile_id == Profile.SHARED_PROFILE_ID)
                 {
-                    Profile defaultProfile = Profile.getDefaultProfile(context);
-                    Permissions.grantProfilePermissions(context, defaultProfile, false, true,
+                    Profile sharedProfile = Profile.getSharedProfile(context);
+                    Permissions.grantProfilePermissions(context, sharedProfile, false, true,
                             /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, /*true,*/ null, false);
 
                     Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
@@ -1744,8 +1744,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     @Override
     protected String getSavedInstanceStateKeyName() {
         //Log.d("------ ProfilePreferencesFragment.addPreferencesFromResource", "startupSource="+startupSource);
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
-            return "DefaultProfilePreferencesFragment_PreferenceScreenKey";
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
+            return "SharedProfilePreferencesFragment_PreferenceScreenKey";
         else
             return "ProfilePreferencesFragment_PreferenceScreenKey";
     }

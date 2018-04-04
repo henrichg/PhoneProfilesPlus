@@ -982,13 +982,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                             /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, /*true,*/ this, false);
                 }
                 else
-                if (profile_id == Profile.DEFAULT_PROFILE_ID)
+                if (profile_id == Profile.SHARED_PROFILE_ID)
                 {
-                    // refresh activity for changes of default profile
+                    // refresh activity for changes of shared profile
                     GlobalGUIRoutines.reloadActivity(this, false);
 
-                    Profile defaultProfile = Profile.getDefaultProfile(getApplicationContext());
-                    Permissions.grantProfilePermissions(getApplicationContext(), defaultProfile, false, false,
+                    Profile sharedProfile = Profile.getSharedProfile(getApplicationContext());
+                    Permissions.grantProfilePermissions(getApplicationContext(), sharedProfile, false, false,
                             /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, /*true,*/ this, false);
                 }
 
@@ -1123,7 +1123,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (what == 1)
                     prefEdit = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE).edit();
                 else
-                    prefEdit = getSharedPreferences(PPApplication.DEFAULT_PROFILE_PREFS_NAME, Activity.MODE_PRIVATE).edit();
+                    prefEdit = getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Activity.MODE_PRIVATE).edit();
                 prefEdit.clear();
                 //noinspection unchecked
                 Map<String, ?> entries = (Map<String, ?>) input.readObject();
@@ -1237,7 +1237,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                             exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                             if (!importApplicationPreferences(exportFile, 2)) {
                                 ret = 0;
-                                //Log.d("EditorProfilesActivity.doImportData"," importApplicationPreferences(DefaultProfilePreferences) ret="+ret);
                             }
                         }
                         else
@@ -1395,7 +1394,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (what == 1)
                     pref = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
                 else
-                    pref = getSharedPreferences(PPApplication.DEFAULT_PROFILE_PREFS_NAME, Activity.MODE_PRIVATE);
+                    pref = getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.commit();
                 output.writeObject(pref.getAll());

@@ -65,7 +65,7 @@ class ConnectToSSIDPreferenceAdapter extends BaseAdapter
         if (wifiSSID.ssid.equals(Profile.CONNECTTOSSID_JUSTANY))
             holder.SSIDName.setText(R.string.connect_to_ssid_pref_dlg_summary_text_just_any);
         else
-        if (wifiSSID.ssid.equals(Profile.CONNECTTOSSID_DEFAULTPROFILE))
+        if (wifiSSID.ssid.equals(Profile.CONNECTTOSSID_SHAREDPROFILE))
             holder.SSIDName.setText(R.string.array_pref_default_profile);
         else
             holder.SSIDName.setText(wifiSSID.ssid);

@@ -14,7 +14,7 @@
         android:text="@string/volume_pref_dialog_no_change_chb" />
 
     <CheckBox
-        android:id="@+id/volumePrefDialogDefaultProfile"
+        android:id="@+id/volumePrefDialogSharedProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/volume_pref_dialog_default_profile_chb" />

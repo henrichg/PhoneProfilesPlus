@@ -10,14 +10,14 @@
     <declare-styleable name="VolumeDialogPreference">
         <attr name="volumeType" format="string" />
         <attr name="vNoChange" format="integer" />
-        <attr name="vDefaultProfile" format="integer" />
-        <attr name="vDisableDefaultProfile" format="integer" />
+        <attr name="vSharedProfile" format="integer" />
+        <attr name="vDisableSharedProfile" format="integer" />
     </declare-styleable>
     <declare-styleable name="BrightnessDialogPreference">
         <attr name="bNoChange" format="integer" />
         <attr name="bAutomatic" format="integer" />
-        <attr name="bDefaultProfile" format="integer" />
-        <attr name="bDisableDefaultProfile" format="integer" />
+        <attr name="bSharedProfile" format="integer" />
+        <attr name="bDisableSharedProfile" format="integer" />
     </declare-styleable>
     <declare-styleable name="EventTypePreference">
     </declare-styleable>
@@ -48,7 +48,7 @@
         <attr name="infoText" format="string" />
     </declare-styleable>
     <declare-styleable name="ConnectToSSIDDialogPreference">
-        <attr name="ctsdpDisableDefaultProfile" format="integer" />
+        <attr name="ctsdpDisableSharedProfile" format="integer" />
     </declare-styleable>
     <declare-styleable name="RingtonePreference">
         <attr name="ringtoneType" format="string" />

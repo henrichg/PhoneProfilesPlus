@@ -29,7 +29,7 @@ public class VolumeDialogPreference extends
     private SeekBar seekBar = null;
     private TextView valueText = null;
     private CheckBox noChangeChBox = null;
-    private CheckBox defaultProfileChBox = null;
+    private CheckBox sharedProfileChBox = null;
 
     private final AudioManager audioManager;
     private MediaPlayer mediaPlayer = null;
@@ -37,8 +37,8 @@ public class VolumeDialogPreference extends
     // Custom xml attributes.
     private String volumeType;
     private int noChange;
-    private int defaultProfile;
-    private int disableDefaultProfile;
+    private int sharedProfile;
+    private int disableSharedProfile;
 
     private int maximumValue = 7;
     private final int minimumValue = 0;
@@ -66,10 +66,10 @@ public class VolumeDialogPreference extends
             R.styleable.VolumeDialogPreference_volumeType);
         noChange = typedArray.getInteger(
             R.styleable.VolumeDialogPreference_vNoChange, 1);
-        defaultProfile = typedArray.getInteger(
-                R.styleable.VolumeDialogPreference_vDefaultProfile, 0);
-        disableDefaultProfile = typedArray.getInteger(
-                R.styleable.VolumeDialogPreference_vDisableDefaultProfile, 0);
+        sharedProfile = typedArray.getInteger(
+                R.styleable.VolumeDialogPreference_vSharedProfile, 0);
+        disableSharedProfile = typedArray.getInteger(
+                R.styleable.VolumeDialogPreference_vDisableSharedProfile, 0);
 
         audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
@@ -123,7 +123,7 @@ public class VolumeDialogPreference extends
                         if (shouldPersist()) {
                             persistString(Integer.toString(value + minimumValue)
                                     + "|" + Integer.toString(noChange)
-                                    + "|" + Integer.toString(defaultProfile));
+                                    + "|" + Integer.toString(sharedProfile));
                             setSummaryVDP();
                         }
                     }
@@ -139,7 +139,7 @@ public class VolumeDialogPreference extends
         //noinspection ConstantConditions
         noChangeChBox = layout.findViewById(R.id.volumePrefDialogNoChange);
         //noinspection ConstantConditions
-        defaultProfileChBox = layout.findViewById(R.id.volumePrefDialogDefaultProfile);
+        sharedProfileChBox = layout.findViewById(R.id.volumePrefDialogSharedProfile);
 
         seekBar.setOnSeekBarChangeListener(this);
         seekBar.setKeyProgressIncrement(stepSize);
@@ -152,17 +152,17 @@ public class VolumeDialogPreference extends
         noChangeChBox.setOnCheckedChangeListener(this);
         noChangeChBox.setChecked((noChange == 1));
 
-        defaultProfileChBox.setOnCheckedChangeListener(this);
-        defaultProfileChBox.setChecked((defaultProfile == 1));
-        defaultProfileChBox.setEnabled(disableDefaultProfile == 0);
+        sharedProfileChBox.setOnCheckedChangeListener(this);
+        sharedProfileChBox.setChecked((sharedProfile == 1));
+        sharedProfileChBox.setEnabled(disableSharedProfile == 0);
 
         if (noChange == 1)
-            defaultProfileChBox.setChecked(false);
-        if (defaultProfile == 1)
+            sharedProfileChBox.setChecked(false);
+        if (sharedProfile == 1)
             noChangeChBox.setChecked(false);
 
-        valueText.setEnabled((noChange == 0) && (defaultProfile == 0));
-        seekBar.setEnabled((noChange == 0) && (defaultProfile == 0));
+        valueText.setEnabled((noChange == 0) && (sharedProfile == 0));
+        seekBar.setEnabled((noChange == 0) && (sharedProfile == 0));
 
         GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
@@ -196,18 +196,18 @@ public class VolumeDialogPreference extends
         {
             noChange = (isChecked)? 1 : 0;
 
-            valueText.setEnabled((noChange == 0) && (defaultProfile == 0));
-            seekBar.setEnabled((noChange == 0) && (defaultProfile == 0));
+            valueText.setEnabled((noChange == 0) && (sharedProfile == 0));
+            seekBar.setEnabled((noChange == 0) && (sharedProfile == 0));
             if (isChecked)
-                defaultProfileChBox.setChecked(false);
+                sharedProfileChBox.setChecked(false);
         }
 
-        if (buttonView.getId() == R.id.volumePrefDialogDefaultProfile)
+        if (buttonView.getId() == R.id.volumePrefDialogSharedProfile)
         {
-            defaultProfile = (isChecked)? 1 : 0;
+            sharedProfile = (isChecked)? 1 : 0;
 
-            valueText.setEnabled((noChange == 0) && (defaultProfile == 0));
-            seekBar.setEnabled((noChange == 0) && (defaultProfile == 0));
+            valueText.setEnabled((noChange == 0) && (sharedProfile == 0));
+            seekBar.setEnabled((noChange == 0) && (sharedProfile == 0));
             if (isChecked)
                 noChangeChBox.setChecked(false);
         }
@@ -247,10 +247,10 @@ public class VolumeDialogPreference extends
             // set state
             value = 0;
             noChange = 1;
-            defaultProfile = 0;
+            sharedProfile = 0;
             persistString(Integer.toString(value + minimumValue)
                     + "|" + Integer.toString(noChange)
-                    + "|" + Integer.toString(defaultProfile));
+                    + "|" + Integer.toString(sharedProfile));
         }
         setSummaryVDP();
     }
@@ -293,9 +293,9 @@ public class VolumeDialogPreference extends
             noChange = 1;
         }
         try {
-            defaultProfile = Integer.parseInt(splits[2]);
+            sharedProfile = Integer.parseInt(splits[2]);
         } catch (Exception e) {
-            defaultProfile = 0;
+            sharedProfile = 0;
         }
 
         // You're never know...
@@ -310,7 +310,7 @@ public class VolumeDialogPreference extends
         if (noChange == 1)
             prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_no_change);
         else
-        if (defaultProfile == 1)
+        if (sharedProfile == 1)
             prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_default_profile);
         else
             prefVolumeDataSummary = String.valueOf(value) + " / " + String.valueOf(maximumValue);
@@ -364,8 +364,8 @@ public class VolumeDialogPreference extends
         myState.value = value;
         myState.volumeType = volumeType;
         myState.noChange = noChange;
-        myState.defaultProfile = defaultProfile;
-        myState.disableDefaultProfile = disableDefaultProfile;
+        myState.sharedProfile = sharedProfile;
+        myState.disableSharedProfile = disableSharedProfile;
         return myState;
     }
 
@@ -385,8 +385,8 @@ public class VolumeDialogPreference extends
         value = myState.value;
         volumeType = myState.volumeType;
         noChange = myState.noChange;
-        defaultProfile = myState.defaultProfile;
-        disableDefaultProfile = myState.disableDefaultProfile;
+        sharedProfile = myState.sharedProfile;
+        disableSharedProfile = myState.disableSharedProfile;
 
         setSummaryVDP();
         notifyChanged();
@@ -398,8 +398,8 @@ public class VolumeDialogPreference extends
         int value = 0;
         String volumeType = null;
         int noChange = 0;
-        int defaultProfile = 0;
-        int disableDefaultProfile = 0;
+        int sharedProfile = 0;
+        int disableSharedProfile = 0;
 
         SavedState(Parcel source)
         {
@@ -409,8 +409,8 @@ public class VolumeDialogPreference extends
             value = source.readInt();
             volumeType = source.readString();
             noChange = source.readInt();
-            defaultProfile = source.readInt();
-            disableDefaultProfile = source.readInt();
+            sharedProfile = source.readInt();
+            disableSharedProfile = source.readInt();
         }
 
         @Override
@@ -422,8 +422,8 @@ public class VolumeDialogPreference extends
             dest.writeInt(value);
             dest.writeString(volumeType);
             dest.writeInt(noChange);
-            dest.writeInt(defaultProfile);
-            dest.writeInt(disableDefaultProfile);
+            dest.writeInt(sharedProfile);
+            dest.writeInt(disableSharedProfile);
         }
 
         SavedState(Parcelable superState)

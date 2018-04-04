@@ -78,7 +78,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         profile_id = getIntent().getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-        if (profile_id == Profile.DEFAULT_PROFILE_ID)
+        if (profile_id == Profile.SHARED_PROFILE_ID)
             resultCode = RESULT_OK;
         newProfileMode = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
         predefinedProfileIndex = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
@@ -86,7 +86,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         //Log.d("------ ProfilePreferencesActivity.onCreate", "profile_id="+profile_id);
 
         /*
-        if (profile_id == PPApplication.DEFAULT_PROFILE_ID)
+        if (profile_id == PPApplication.SHARED_PROFILE_ID)
             getSupportActionBar().setTitle(R.string.title_activity_default_profile_preferences);
         else
             getSupportActionBar().setTitle(R.string.title_activity_profile_preferences);
@@ -110,8 +110,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         Bundle arguments = new Bundle();
         arguments.putLong(PPApplication.EXTRA_PROFILE_ID, profile_id);
         arguments.putInt(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, newProfileMode);
-        if (profile_id == Profile.DEFAULT_PROFILE_ID)
-            arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE);
+        if (profile_id == Profile.SHARED_PROFILE_ID)
+            arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE);
         else
             arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
         arguments.putInt(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
@@ -138,15 +138,15 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         // Inflate the menu; this adds items to the action bar if it is present.
 
         if (showSaveMenu) {
-            // for shared profile is not needed, for shared profile is used PPApplication.DEFAULT_PROFILE_PREFS_NAME
-            // and this is used in Profile.getDefaultProfile()
-            if (profile_id != Profile.DEFAULT_PROFILE_ID) {
+            // for shared profile is not needed, for shared profile is used PPApplication.SHARED_PROFILE_PREFS_NAME
+            // and this is used in Profile.getSharedProfile()
+            if (profile_id != Profile.SHARED_PROFILE_ID) {
                 toolbar.inflateMenu(R.menu.profile_preferences_save);
             }
         }
         else {
             // no menu for shared profile
-            if (profile_id != Profile.DEFAULT_PROFILE_ID) {
+            if (profile_id != Profile.SHARED_PROFILE_ID) {
                 toolbar.inflateMenu(R.menu.profile_preferences);
             }
         }
@@ -177,7 +177,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean ret = super.onPrepareOptionsMenu(menu);
 
-        if (profile_id != Profile.DEFAULT_PROFILE_ID) {
+        if (profile_id != Profile.SHARED_PROFILE_ID) {
             // no menu for shared profile
 
             onNextLayout(toolbar, new Runnable() {
@@ -205,7 +205,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             case R.id.profile_preferences_shared_profile:
                 // start preferences activity for default profile
                 Intent intent = new Intent(this, ProfilePreferencesActivity.class);
-                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.DEFAULT_PROFILE_ID);
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.SHARED_PROFILE_ID);
                 intent.putExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
                 intent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
                 startActivityForResult(intent, EditorProfilesActivity.REQUEST_CODE_PROFILE_PREFERENCES);
@@ -233,7 +233,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         Profile profile;
         DataWrapper dataWrapper = new DataWrapper(context, false, 0);
 
-        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
+        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
             // no change this in shared profile
             if (!leaveSaveMenu)
                 showSaveMenu = false;
@@ -241,9 +241,9 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         //Log.d("------ ProfilePreferencesActivity.createProfile", "startupSource="+startupSource);
 
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         {
-            profile = Profile.getDefaultProfile(context);
+            profile = Profile.getSharedProfile(context);
         }
         else
         if (new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT)
@@ -341,8 +341,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
     private void loadPreferences(int new_profile_mode, int predefinedProfileIndex) {
         int startupSource;
-        if (profile_id == Profile.DEFAULT_PROFILE_ID)
-            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE;
+        if (profile_id == Profile.SHARED_PROFILE_ID)
+            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE;
         else
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
 
@@ -352,7 +352,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         if (profile != null)
         {
-            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
+            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
                 Toolbar toolbar = findViewById(R.id.mp_toolbar);
                 toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profile._name);
             }
@@ -362,7 +362,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 
             SharedPreferences.Editor editor = preferences.edit();
-            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE)
+            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
             {
                 /*
                 editor.remove(Profile.PREF_PROFILE_NAME).putString(Profile.PREF_PROFILE_NAME, profile._name);
@@ -438,8 +438,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     private void savePreferences(int new_profile_mode, int predefinedProfileIndex)
     {
         int startupSource;
-        if (profile_id == Profile.DEFAULT_PROFILE_ID)
-            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE;
+        if (profile_id == Profile.SHARED_PROFILE_ID)
+            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE;
         else
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
 
@@ -452,7 +452,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 
             // save preferences into profile
-            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
+            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
                 profile._name = preferences.getString(Profile.PREF_PROFILE_NAME, "");
                 profile._icon = preferences.getString(Profile.PREF_PROFILE_ICON, "");
                 profile._showInActivator = preferences.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, true);
@@ -537,7 +537,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             else
                 profile._deviceForceStopApplicationPackageName = "-";
 
-            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAULT_PROFILE) {
+            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
                 if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                         (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)) {
                     // add profile into DB

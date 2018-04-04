@@ -1474,7 +1474,7 @@ public class PhoneProfilesService extends Service
                     if (profileAllowed) {
                         profileCount = 0;
                         if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, true) > 0) {
-                            Profile profile = Profile.getDefaultProfile(appContext);
+                            Profile profile = Profile.getSharedProfile(appContext);
                             if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY))
                                 ++profileCount;
                         }
@@ -1553,7 +1553,7 @@ public class PhoneProfilesService extends Service
                     if (profileAllowed) {
                         profileCount = 0;
                         if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, true) > 0) {
-                            Profile profile = Profile.getDefaultProfile(appContext);
+                            Profile profile = Profile.getSharedProfile(appContext);
                             if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY))
                                 ++profileCount;
                         }

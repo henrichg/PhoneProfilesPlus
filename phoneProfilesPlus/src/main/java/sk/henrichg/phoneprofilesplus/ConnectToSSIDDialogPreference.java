@@ -27,7 +27,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
     private final Context context;
 
     String value = "";
-    private final int disableDefaultProfile;
+    private final int disableSharedProfile;
 
     List<WifiSSIDData> ssidList;
 
@@ -46,8 +46,8 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.ConnectToSSIDDialogPreference);
 
-        disableDefaultProfile = typedArray.getInteger(
-                R.styleable.ConnectToSSIDDialogPreference_ctsdpDisableDefaultProfile, 0);
+        disableSharedProfile = typedArray.getInteger(
+                R.styleable.ConnectToSSIDDialogPreference_ctsdpDisableSharedProfile, 0);
 
         this.context = context;
         ssidList = new ArrayList<>();
@@ -160,8 +160,8 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
 
                 Collections.sort(_SSIDList, new ConnectToSSIDDialogPreference.SortList());
 
-                if (disableDefaultProfile == 0)
-                    _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_DEFAULTPROFILE, "", false));
+                if (disableSharedProfile == 0)
+                    _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_SHAREDPROFILE, "", false));
                 _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_JUSTANY, "", false));
 
                 return null;
@@ -234,7 +234,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
     private void setSummaryCTSDP()
     {
         String prefSummary = context.getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any);
-        if (!value.isEmpty() && value.equals(Profile.CONNECTTOSSID_DEFAULTPROFILE))
+        if (!value.isEmpty() && value.equals(Profile.CONNECTTOSSID_SHAREDPROFILE))
             prefSummary = context.getString(R.string.array_pref_default_profile);
         else
         if (!value.isEmpty() && !value.equals(Profile.CONNECTTOSSID_JUSTANY))
