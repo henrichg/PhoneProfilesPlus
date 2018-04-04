@@ -86,7 +86,7 @@ public class Profile {
     int _headsUpNotifications;
     int _deviceForceStopApplicationChange;
     String _deviceForceStopApplicationPackageName;
-    //long _activationByUserCount;
+    long _activationByUserCount;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -250,6 +250,11 @@ public class Profile {
     static final long SHARED_PROFILE_ID = -999L;
     static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
     static final long PROFILE_NO_ACTIVATE = -999;
+
+    static final int NO_CHANGE_VALUE = 0;
+    static final int SHARED_PROFILE_VALUE = 99;
+    static final String NO_CHANGE_VALUE_STR = "0";
+    static final String SHARED_PROFILE_VALUE_STR = "99";
 
     private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
     private static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
@@ -416,7 +421,8 @@ public class Profile {
                    int applicationDisableOrientationScanning,
                    int headsUpNotifications,
                    int deviceForceStopApplicationChange,
-                   String deviceForceStopApplicationPackageName)
+                   String deviceForceStopApplicationPackageName,
+                   long activationByUserCount)
     {
         this._id = id;
         this._name = name;
@@ -484,7 +490,7 @@ public class Profile {
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
-        //this._activationByUserCount = 0;
+        this._activationByUserCount = activationByUserCount;
     }
 
     // constructor
@@ -548,7 +554,8 @@ public class Profile {
                    int applicationDisableOrientationScanning,
                    int headsUpNotifications,
                    int deviceForceStopApplicationChange,
-                   String deviceForceStopApplicationPackageName)
+                   String deviceForceStopApplicationPackageName,
+                   long activationByUserCount)
     {
         this._name = name;
         this._icon = icon;
@@ -614,7 +621,7 @@ public class Profile {
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
-        //this._activationByUserCount = 0;
+        this._activationByUserCount = activationByUserCount;
     }
 
     void copyProfile(Profile profile)
@@ -684,7 +691,7 @@ public class Profile {
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
-        //this._activationByUserCount = profile._activationByUserCount;
+        this._activationByUserCount = profile._activationByUserCount;
     }
 
     void mergeProfiles(long withProfileId, DataWrapper dataWrapper, boolean setDuration)
@@ -711,6 +718,7 @@ public class Profile {
             this._durationNotificationVibrate = withProfile._durationNotificationVibrate;
             this._hideStatusBarIcon = withProfile._hideStatusBarIcon;
             this._deviceConnectToSSID = withProfile._deviceConnectToSSID;
+            this._activationByUserCount = withProfile._activationByUserCount;
 
             if (withProfile._volumeRingerMode != 0)
                 this._volumeRingerMode = withProfile._volumeRingerMode;
@@ -1590,6 +1598,7 @@ public class Profile {
         profile._afterDurationDo = Profile.AFTERDURATIONDO_RESTARTEVENTS;
         profile._durationNotificationSound = "";
         profile._durationNotificationVibrate = false;
+        profile._activationByUserCount = 0;
         profile._volumeRingerMode = Integer.parseInt(preferences.getString(PREF_PROFILE_VOLUME_RINGER_MODE, "1")); // ring
         profile._volumeZenMode = Integer.parseInt(preferences.getString(PREF_PROFILE_VOLUME_ZEN_MODE, "1")); // all
         profile._volumeRingtone = preferences.getString(PREF_PROFILE_VOLUME_RINGTONE, getVolumeLevelString(71, maximumValueRing) + "|0|0");
@@ -1712,17 +1721,18 @@ public class Profile {
                     profile._applicationDisableOrientationScanning,
                     profile._headsUpNotifications,
                     profile._deviceForceStopApplicationChange,
-                    profile._deviceForceStopApplicationPackageName);
+                    profile._deviceForceStopApplicationPackageName,
+                    profile._activationByUserCount);
 
             boolean zenModeMapped = false;
-            if (profile._volumeRingerMode == 99) {
+            if (profile._volumeRingerMode == SHARED_PROFILE_VALUE) {
                 mappedProfile._volumeRingerMode = sharedProfile._volumeRingerMode;
                 if (mappedProfile._volumeRingerMode == RINGERMODE_ZENMODE) {
                     mappedProfile._volumeZenMode = sharedProfile._volumeZenMode;
                     zenModeMapped = true;
                 }
             }
-            if ((profile._volumeZenMode == 99) && (!zenModeMapped))
+            if ((profile._volumeZenMode == SHARED_PROFILE_VALUE) && (!zenModeMapped))
                 mappedProfile._volumeZenMode = sharedProfile._volumeZenMode;
             if (profile.getVolumeRingtoneSharedProfile())
                 mappedProfile._volumeRingtone = sharedProfile._volumeRingtone;
@@ -1736,91 +1746,91 @@ public class Profile {
                 mappedProfile._volumeSystem = sharedProfile._volumeSystem;
             if (profile.getVolumeVoiceSharedProfile())
                 mappedProfile._volumeVoice = sharedProfile._volumeVoice;
-            if (profile._soundRingtoneChange == 99)
+            if (profile._soundRingtoneChange == SHARED_PROFILE_VALUE)
             {
                 mappedProfile._soundRingtoneChange = sharedProfile._soundRingtoneChange;
                 mappedProfile._soundRingtone = sharedProfile._soundRingtone;
             }
-            if (profile._soundNotificationChange == 99)
+            if (profile._soundNotificationChange == SHARED_PROFILE_VALUE)
             {
                 mappedProfile._soundNotificationChange = sharedProfile._soundNotificationChange;
                 mappedProfile._soundNotification = sharedProfile._soundNotification;
             }
-            if (profile._soundAlarmChange == 99)
+            if (profile._soundAlarmChange == SHARED_PROFILE_VALUE)
             {
                 mappedProfile._soundAlarmChange = sharedProfile._soundAlarmChange;
                 mappedProfile._soundAlarm = sharedProfile._soundAlarm;
             }
-            if (profile._deviceAirplaneMode == 99)
+            if (profile._deviceAirplaneMode == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceAirplaneMode = sharedProfile._deviceAirplaneMode;
-            if (profile._deviceAutoSync == 99)
+            if (profile._deviceAutoSync == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceAutoSync = sharedProfile._deviceAutoSync;
-            if (profile._deviceMobileData == 99)
+            if (profile._deviceMobileData == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceMobileData = sharedProfile._deviceMobileData;
-            if (profile._deviceMobileDataPrefs == 99)
+            if (profile._deviceMobileDataPrefs == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceMobileDataPrefs = sharedProfile._deviceMobileDataPrefs;
-            if (profile._deviceWiFi == 99)
+            if (profile._deviceWiFi == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceWiFi = sharedProfile._deviceWiFi;
-            if (profile._deviceBluetooth == 99)
+            if (profile._deviceBluetooth == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceBluetooth = sharedProfile._deviceBluetooth;
-            if (profile._deviceGPS == 99)
+            if (profile._deviceGPS == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceGPS = sharedProfile._deviceGPS;
-            if (profile._deviceLocationServicePrefs == 99)
+            if (profile._deviceLocationServicePrefs == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceLocationServicePrefs = sharedProfile._deviceLocationServicePrefs;
-            if (profile._deviceScreenTimeout == 99)
+            if (profile._deviceScreenTimeout == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceScreenTimeout = sharedProfile._deviceScreenTimeout;
             if (profile.getDeviceBrightnessSharedProfile())
                 mappedProfile._deviceBrightness = sharedProfile._deviceBrightness;
-            if (profile._deviceAutoRotate == 99)
+            if (profile._deviceAutoRotate == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceAutoRotate = sharedProfile._deviceAutoRotate;
-            if (profile._deviceRunApplicationChange == 99)
+            if (profile._deviceRunApplicationChange == SHARED_PROFILE_VALUE)
             {
                 mappedProfile._deviceRunApplicationChange = sharedProfile._deviceRunApplicationChange;
                 mappedProfile._deviceRunApplicationPackageName = sharedProfile._deviceRunApplicationPackageName;
             }
-            if (profile._deviceWallpaperChange == 99)
+            if (profile._deviceWallpaperChange == SHARED_PROFILE_VALUE)
             {
                 mappedProfile._deviceWallpaperChange = sharedProfile._deviceWallpaperChange;
                 mappedProfile._deviceWallpaper = sharedProfile._deviceWallpaper;
                 mappedProfile._deviceWallpaperFor = sharedProfile._deviceWallpaperFor;
             }
-            if (profile._volumeSpeakerPhone == 99)
+            if (profile._volumeSpeakerPhone == SHARED_PROFILE_VALUE)
                 mappedProfile._volumeSpeakerPhone = sharedProfile._volumeSpeakerPhone;
-            if (profile._deviceNFC == 99)
+            if (profile._deviceNFC == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceNFC = sharedProfile._deviceNFC;
-            if (profile._deviceKeyguard == 99)
+            if (profile._deviceKeyguard == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceKeyguard = sharedProfile._deviceKeyguard;
-            if (profile._vibrationOnTouch == 99)
+            if (profile._vibrationOnTouch == SHARED_PROFILE_VALUE)
                 mappedProfile._vibrationOnTouch = sharedProfile._vibrationOnTouch;
-            if (profile._deviceWiFiAP == 99)
+            if (profile._deviceWiFiAP == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceWiFiAP = sharedProfile._deviceWiFiAP;
-            if (profile._devicePowerSaveMode == 99)
+            if (profile._devicePowerSaveMode == SHARED_PROFILE_VALUE)
                 mappedProfile._devicePowerSaveMode = sharedProfile._devicePowerSaveMode;
-            if (profile._deviceNetworkType == 99)
+            if (profile._deviceNetworkType == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceNetworkType = sharedProfile._deviceNetworkType;
-            if (profile._notificationLed == 99)
+            if (profile._notificationLed == SHARED_PROFILE_VALUE)
                 mappedProfile._notificationLed = sharedProfile._notificationLed;
-            if (profile._vibrateWhenRinging == 99)
+            if (profile._vibrateWhenRinging == SHARED_PROFILE_VALUE)
                 mappedProfile._vibrateWhenRinging = sharedProfile._vibrateWhenRinging;
-            if (profile._lockDevice == 99)
+            if (profile._lockDevice == SHARED_PROFILE_VALUE)
                 mappedProfile._lockDevice = sharedProfile._lockDevice;
             if ((profile._deviceConnectToSSID != null) && (profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_SHAREDPROFILE)))
                 mappedProfile._deviceConnectToSSID = sharedProfile._deviceConnectToSSID;
-            if (profile._applicationDisableWifiScanning == 99)
+            if (profile._applicationDisableWifiScanning == SHARED_PROFILE_VALUE)
                 mappedProfile._applicationDisableWifiScanning = sharedProfile._applicationDisableWifiScanning;
-            if (profile._applicationDisableBluetoothScanning == 99)
+            if (profile._applicationDisableBluetoothScanning == SHARED_PROFILE_VALUE)
                 mappedProfile._applicationDisableBluetoothScanning = sharedProfile._applicationDisableBluetoothScanning;
-            if (profile._deviceWiFiAPPrefs == 99)
+            if (profile._deviceWiFiAPPrefs == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceWiFiAPPrefs = sharedProfile._deviceWiFiAPPrefs;
-            if (profile._applicationDisableLocationScanning == 99)
+            if (profile._applicationDisableLocationScanning == SHARED_PROFILE_VALUE)
                 mappedProfile._applicationDisableLocationScanning = sharedProfile._applicationDisableLocationScanning;
-            if (profile._applicationDisableMobileCellScanning == 99)
+            if (profile._applicationDisableMobileCellScanning == SHARED_PROFILE_VALUE)
                 mappedProfile._applicationDisableMobileCellScanning = sharedProfile._applicationDisableMobileCellScanning;
-            if (profile._applicationDisableOrientationScanning == 99)
+            if (profile._applicationDisableOrientationScanning == SHARED_PROFILE_VALUE)
                 mappedProfile._applicationDisableOrientationScanning = sharedProfile._applicationDisableOrientationScanning;
-            if (profile._headsUpNotifications == 99)
+            if (profile._headsUpNotifications == SHARED_PROFILE_VALUE)
                 mappedProfile._headsUpNotifications = sharedProfile._headsUpNotifications;
-            if (profile._deviceForceStopApplicationChange == 99)
+            if (profile._deviceForceStopApplicationChange == SHARED_PROFILE_VALUE)
             {
                 mappedProfile._deviceForceStopApplicationChange = sharedProfile._deviceForceStopApplicationChange;
                 mappedProfile._deviceForceStopApplicationPackageName = sharedProfile._deviceForceStopApplicationPackageName;

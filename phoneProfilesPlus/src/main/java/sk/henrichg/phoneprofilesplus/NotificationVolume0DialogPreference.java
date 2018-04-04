@@ -46,7 +46,7 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
             String message = "";
             if (!notificationToneChange.equals("0")) {
                 message = _context.getString(R.string.profile_preferences_volumeNotificationVolume0_questionNowConfigured);
-                if (notificationToneChange.equals("99"))
+                if (notificationToneChange.equals(Profile.SHARED_PROFILE_VALUE_STR))
                     message = message + " " + _context.getString(R.string.default_profile_name);
                 else {
                     message = message + " " + TonesHandler.getToneName(_context, RingtoneManager.TYPE_NOTIFICATION, notificationTone);
