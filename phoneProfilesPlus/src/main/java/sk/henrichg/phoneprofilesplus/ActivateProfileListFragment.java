@@ -377,8 +377,10 @@ public class ActivateProfileListFragment extends Fragment {
         if ((activityDataWrapper == null) || (profile == null))
             return;
 
-        if (profile._porder != PORDER_FOR_IGNORED_PROFILE)
+        if (profile._porder != PORDER_FOR_IGNORED_PROFILE) {
             activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity()/*, ""*/);
+            DatabaseHandler.getInstance(activityDataWrapper.context).increaseActivationByUserCount(profile);
+        }
     }
 
     private void setProfileSelection(Profile profile, boolean refreshIcons) {

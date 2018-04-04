@@ -327,7 +327,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                         origProfile._applicationDisableOrientationScanning,
                         origProfile._headsUpNotifications,
                         origProfile._deviceForceStopApplicationChange,
-                        origProfile._deviceForceStopApplicationPackageName);
+                        origProfile._deviceForceStopApplicationPackageName,
+                        origProfile._activationByUserCount);
                 showSaveMenu = true;
             }
             else
