@@ -22,6 +22,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Icon;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -2931,7 +2932,7 @@ public class PhoneProfilesService extends Service
                                 (android.os.Build.VERSION.SDK_INT == 23);
                         //Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
                         if ((android.os.Build.VERSION.SDK_INT >= 23) && (!isNote4)) {
-                            notificationBuilder.setSmallIcon(ColorNotificationIcon.getFromBitmap(iconBitmap));
+                            notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
                         }
                         else {
                             iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", dataWrapper.context.getPackageName());
@@ -2987,7 +2988,7 @@ public class PhoneProfilesService extends Service
                         (android.os.Build.VERSION.SDK_INT == 23);
                 //Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
                 if ((Build.VERSION.SDK_INT >= 23) && (!isNote4) && (iconBitmap != null)) {
-                    notificationBuilder.setSmallIcon(ColorNotificationIcon.getFromBitmap(iconBitmap));
+                    notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
                 }
                 else {
                     int iconSmallResource;
