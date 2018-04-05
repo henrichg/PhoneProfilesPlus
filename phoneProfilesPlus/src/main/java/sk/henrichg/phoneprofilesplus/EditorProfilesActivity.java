@@ -658,8 +658,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (dataWrapper != null)
                 dataWrapper.runStopEvents();
 
-            invalidateOptionsMenu();
             refreshGUI(false, true);
+            ActivateProfileHelper.updateGUI(this, false);
             return true;
         case R.id.menu_activity_log:
             intent = new Intent(getBaseContext(), ActivityLogActivity.class);

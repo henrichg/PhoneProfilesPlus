@@ -26,14 +26,12 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (_dataWrapper != null) {
                     _dataWrapper.runStopEvents();
-                    if (_activity instanceof EditorProfilesActivity) {
-                        _activity.invalidateOptionsMenu();
+                    if (_activity instanceof EditorProfilesActivity)
                         ((EditorProfilesActivity) _activity).refreshGUI(false, true);
-                    } else if (_activity instanceof ActivateProfileActivity) {
-                        _activity.invalidateOptionsMenu();
+                    else if (_activity instanceof ActivateProfileActivity)
                         ((ActivateProfileActivity) _activity).refreshGUI(false);
-                    }
                 }
+                ActivateProfileHelper.updateGUI(_activity, false);
             }
         });
     }

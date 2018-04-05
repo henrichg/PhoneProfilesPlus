@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.view.View;
 import android.widget.RemoteViews;
 
 public class OneRowWidgetProvider extends AppWidgetProvider {
@@ -145,21 +146,28 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_pref_indicator, profile._preferencesIndicator);
             }
 
-            if (ApplicationPreferences.applicationWidgetListIconColor(context).equals("1")) {
-                monochromeValue = 0xFF;
-                if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
-                if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
-                if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
-                if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
-                if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
-                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_action_events_restart_notification);
-                bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
-                remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
+            if (Event.getGlobalEventsRunning(context)) {
+                if (ApplicationPreferences.applicationWidgetListIconColor(context).equals("1")) {
+                    monochromeValue = 0xFF;
+                    if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
+                    if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
+                    if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
+                    if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
+                    if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
+                    Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_action_events_restart_notification);
+                    bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
+                    remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
+                }
             }
 
-            Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
-            PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_restart_events, pIntentRE);
+            if (Event.getGlobalEventsRunning(context)) {
+                remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, View.VISIBLE);
+                Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
+                PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
+                remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_restart_events, pIntentRE);
+            }
+            else
+                remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, View.GONE);
 
             // intent for start LauncherActivity on widget click
             Intent intent = new Intent(context, LauncherActivity.class);
