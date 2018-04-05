@@ -1148,6 +1148,7 @@
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">To enable \"Force stop applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="shortcut_activate_profile">Activate profile:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">It works only when the screen is on and unlocked.</string>
+    <string name="important_info_contact">If you have problems, questions and suggestions, write me an email:</string>
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

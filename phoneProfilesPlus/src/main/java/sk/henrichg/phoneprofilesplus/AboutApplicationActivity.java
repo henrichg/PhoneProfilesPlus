@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
@@ -74,41 +75,14 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         text.setText(sbt);
 
-        text = findViewById(R.id.about_application_email);
-        str1 = getString(R.string.about_application_email);
-        str2 = str1 + " henrich.gron@gmail.com";
-        sbt = new SpannableString(str2);
-        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View textView) {
-                Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-                String[] email = { "henrich.gron@gmail.com" };
-                intent.putExtra(Intent.EXTRA_EMAIL, email);
-                String packageVersion = "";
-                try {
-                    PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-                    packageVersion = " - v" + pInfo.versionName + " (" + pInfo.versionCode + ")";
-                } catch (Exception ignored) {
-                }
-                intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion);
-                try {
-                    startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
-                } catch (Exception ignored) {}
-            }
-        };
-        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
-        text.setText(sbt);
-        text.setMovementMethod(LinkMovementMethod.getInstance());
+        emailMe((TextView) findViewById(R.id.about_application_email), getString(R.string.about_application_email), false, this);
 
         text = findViewById(R.id.about_application_privacy_policy);
         str1 = getString(R.string.about_application_privacy_policy);
         str2 = str1 + " https://sites.google.com/site/phoneprofilesplus/home/privacy-policy";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        clickableSpan = new ClickableSpan() {
+        ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View textView) {
                 String url = "https://sites.google.com/site/phoneprofilesplus/home/privacy-policy";
@@ -263,6 +237,38 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    static void emailMe(final TextView textView, final String text, final boolean boldLink, final Context context) {
+        String str2 = text + " henrich.gron@gmail.com";
+        Spannable sbt = new SpannableString(str2);
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                String[] email = { "henrich.gron@gmail.com" };
+                intent.putExtra(Intent.EXTRA_EMAIL, email);
+                String packageVersion = "";
+                try {
+                    PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+                    packageVersion = " - v" + pInfo.versionName + " (" + pInfo.versionCode + ")";
+                } catch (Exception ignored) {
+                }
+                intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion);
+                try {
+                    context.startActivity(Intent.createChooser(intent, context.getString(R.string.email_chooser)));
+                } catch (Exception ignored) {}
+            }
+        };
+        sbt.setSpan(clickableSpan, text.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        if (boldLink)
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), text.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        else
+            sbt.setSpan(new UnderlineSpan(), text.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(sbt);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
 }

@@ -421,6 +421,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoTextGrant1Command.setText(spannable);
 
+        AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_notification_dialog_contact),
+                getString(R.string.important_info_contact), true, getActivity());
+
         if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER)) {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
