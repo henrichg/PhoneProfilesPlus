@@ -218,6 +218,7 @@ public class PPApplication extends Application {
     static final int PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID = 700434;
     static final int PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID = 700435;
     static final int PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID = 700436;
+    static final int PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID = 700437;
 
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
     static final String SHARED_PROFILE_PREFS_NAME = "profile_preferences_default_profile";

@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2060;
+    private static final int DATABASE_VERSION = 2070;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -176,6 +176,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE = "deviceForceStopApplicationChange";
     private static final String KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME = "deviceForceStopApplicationPackageName";
     private static final String KEY_ACTIVATION_BY_USER_COUNT = "activationByUserCount";
+    private static final String KEY_DEVICE_NETWORK_TYPE_PREFS = "deviceNetworkTypePrefs";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -456,7 +457,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_HEADS_UP_NOTIFICATIONS + " INTEGER,"
                 + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + " INTEGER,"
                 + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + " TEXT,"
-                + KEY_ACTIVATION_BY_USER_COUNT + " INTEGER"
+                + KEY_ACTIVATION_BY_USER_COUNT + " INTEGER,"
+                + KEY_DEVICE_NETWORK_TYPE_PREFS + " INTEGER"
                 + ")";
     }
 
@@ -2176,6 +2178,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("CREATE INDEX IF NOT EXISTS IDX_ACTIVATION_BY_USER_COUNT ON " + TABLE_PROFILES + " (" + KEY_ACTIVATION_BY_USER_COUNT + ")");
         }
 
+        if (oldVersion < 2070)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_NETWORK_TYPE_PREFS + " INTEGER");
+            if (!doMergedTableCreate) {
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_NETWORK_TYPE_PREFS + " INTEGER");
+            }
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_NETWORK_TYPE_PREFS + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_NETWORK_TYPE_PREFS + "=0");
+        }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
@@ -2271,6 +2283,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, profile._deviceForceStopApplicationChange);
                 values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
                 values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
+                values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
 
                 // Insert Row
                 if (!merged) {
@@ -2367,7 +2380,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_HEADS_UP_NOTIFICATIONS,
                                 KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
                                 KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
-                                KEY_ACTIVATION_BY_USER_COUNT
+                                KEY_ACTIVATION_BY_USER_COUNT,
+                                KEY_DEVICE_NETWORK_TYPE_PREFS
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -2438,7 +2452,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE))),
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME)),
-                                Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT)))
+                                Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS)))
                         );
                     }
 
@@ -2528,7 +2543,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_HEADS_UP_NOTIFICATIONS + "," +
                         KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "," +
                         KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + "," +
-                        KEY_ACTIVATION_BY_USER_COUNT +
+                        KEY_ACTIVATION_BY_USER_COUNT + "," +
+                        KEY_DEVICE_NETWORK_TYPE_PREFS +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -2603,6 +2619,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._deviceForceStopApplicationChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE)));
                         profile._deviceForceStopApplicationPackageName = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME));
                         profile._activationByUserCount = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT)));
+                        profile._deviceNetworkTypePrefs = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS)));
                         // Adding contact to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -2694,6 +2711,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, profile._deviceForceStopApplicationChange);
                 values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
                 values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
+                values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -3035,7 +3053,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_HEADS_UP_NOTIFICATIONS,
                                 KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
                                 KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
-                                KEY_ACTIVATION_BY_USER_COUNT
+                                KEY_ACTIVATION_BY_USER_COUNT,
+                                KEY_DEVICE_NETWORK_TYPE_PREFS
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -3108,7 +3127,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE))),
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME)),
-                                Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT)))
+                                Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS)))
                         );
                     } else
                         profile = null;
@@ -7329,6 +7349,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DEVICE_POWER_SAVE_MODE + "," +
                         KEY_VOLUME_ZEN_MODE + "," +
                         KEY_DEVICE_NETWORK_TYPE + "," +
+                        KEY_DEVICE_NETWORK_TYPE_PREFS + "," +
                         KEY_NOTIFICATION_LED + "," +
                         KEY_VIBRATE_WHEN_RINGING + "," +
                         KEY_DEVICE_CONNECT_TO_SSID + "," +
@@ -7537,6 +7558,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_HEADS_UP_NOTIFICATIONS, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
+                            }
+
+                            if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS))) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, context)
+                                            == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                         new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
                             }
@@ -7927,6 +7957,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         }
                                         if (exportedDBObj.getVersion() < 2060) {
                                             values.put(KEY_ACTIVATION_BY_USER_COUNT, 0);
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 2070) {
+                                            values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, 0);
                                         }
 
                                         ///////////////////////////////////////////////////////

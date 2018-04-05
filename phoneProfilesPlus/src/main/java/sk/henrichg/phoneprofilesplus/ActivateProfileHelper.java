@@ -2014,6 +2014,29 @@ class ActivateProfileHelper {
                 }
             }
 
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, context) == PPApplication.PREFERENCE_ALLOWED)
+            {
+                if (profile._deviceNetworkTypePrefs == 1)
+                {
+                    if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
+                        try {
+                            final Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    else {
+                        Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                        String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                context.getString(R.string.profile_preferences_deviceNetworkTypePrefs);
+                        showNotificationForInteractiveParameters(context, title, text, intent, PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID);
+                    }
+                }
+            }
+
             //if (PPApplication.hardwareCheck(PPApplication.PREF_PROFILE_DEVICE_GPS, context))
             //{  No check only GPS
                 if (profile._deviceLocationServicePrefs == 1)

@@ -201,7 +201,8 @@ public class DataWrapper {
                 Integer.valueOf(Profile.defaultValuesString.get("prf_pref_headsUpNotifications")),
                 Integer.valueOf(Profile.defaultValuesString.get("prf_pref_deviceForceStopApplicationChange")),
                 Profile.defaultValuesString.get("prf_pref_deviceForceStopApplicationPackageName"),
-                0
+                0,
+                Integer.valueOf(Profile.defaultValuesString.get("prf_pref_deviceNetworkTypePrefs"))
             );
     }
 

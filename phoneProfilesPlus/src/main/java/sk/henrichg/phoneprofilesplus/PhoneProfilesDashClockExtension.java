@@ -199,6 +199,11 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, this) == PPApplication.PREFERENCE_ALLOWED)
                     indicator1 = addIntoIndicator(indicator1, "ntt");
             }
+            // Network type prefs
+            if (profile._deviceNetworkTypePrefs != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, this) == PPApplication.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "ntp");
+            }
             // mobile data
             if (profile._deviceMobileData != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, this) == PPApplication.PREFERENCE_ALLOWED) {
