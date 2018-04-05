@@ -588,6 +588,12 @@
                 android:widgetLayout="@layout/start_activity_preference"
                 android:layout="@layout/mp_preference_material_widget" >
                 <Preference
+                    android:key="prf_pref_forceStopApplicationsInfo"
+                    android:title="@string/profile_preferences_deviceForceStopApplicationsChange"
+                    android:summary="@string/profile_preferences_deviceForceStopApplicationsInfo_summary"
+                    android:widgetLayout="@layout/info_preference"
+                    android:layout="@layout/mp_preference_material_widget" />
+                <Preference
                     android:key="prf_pref_deviceForceStopApplicationInstallExtender"
                     android:title="@string/profile_preferences_deviceForceStopApplications_PPPExtender_title"
                     android:summary="@string/profile_preferences_deviceForceStopApplications_PPPExtender_install_summary"
