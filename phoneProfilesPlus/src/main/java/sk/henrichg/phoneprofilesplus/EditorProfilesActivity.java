@@ -655,9 +655,11 @@ public class EditorProfilesActivity extends AppCompatActivity
             return true;
         case R.id.menu_run_stop_events:
             DataWrapper dataWrapper = getDataWrapper();
-            if (dataWrapper != null)
+            if (dataWrapper != null) {
                 dataWrapper.runStopEvents();
-
+                if (PhoneProfilesService.instance != null)
+                    PhoneProfilesService.instance.showProfileNotification(dataWrapper);
+            }
             refreshGUI(false, true);
             ActivateProfileHelper.updateGUI(this, false);
             return true;

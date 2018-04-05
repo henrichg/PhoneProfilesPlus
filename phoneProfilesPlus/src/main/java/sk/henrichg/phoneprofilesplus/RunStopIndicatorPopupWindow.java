@@ -26,6 +26,8 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (_dataWrapper != null) {
                     _dataWrapper.runStopEvents();
+                    if (PhoneProfilesService.instance != null)
+                        PhoneProfilesService.instance.showProfileNotification(_dataWrapper);
                     if (_activity instanceof EditorProfilesActivity)
                         ((EditorProfilesActivity) _activity).refreshGUI(false, true);
                     else if (_activity instanceof ActivateProfileActivity)
