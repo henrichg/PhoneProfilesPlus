@@ -1559,7 +1559,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 Preference preference = prefMng.findPreference(PREF_DEVICE_ADMINISTRATOR_SETTINGS);
                 if (preference != null) {
                     preference.setSummary(R.string.profile_preferences_lockDevice_deviceAdminSettings_summary_activated);
-                    preference.setEnabled(false);
+                    //preference.setEnabled(false);
                 }
             }
         }
