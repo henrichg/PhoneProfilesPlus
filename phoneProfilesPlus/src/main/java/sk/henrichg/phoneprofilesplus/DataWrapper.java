@@ -3187,6 +3187,7 @@ public class DataWrapper {
               ignoreNfc ||
               ignoreRadioSwitch)) {
             // if all sensors are not ignored, do event start/pause
+            // ignore any sensor = do not change event status
 
             if (timePassed &&
                 batteryPassed &&
