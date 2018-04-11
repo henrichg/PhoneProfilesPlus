@@ -1163,6 +1163,9 @@
     <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
     <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
     <string name="profile_preferences_deviceNetworkTypePrefs">(I) Mobile network type preferences</string>
+    <string name="profile_preferences_deviceCloseAllApplications">Close all applications</string>
+    <string name="array_pref_not_to_close">Not to close</string>
+    <string name="array_pref_close">Close</string>
 
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
     <string name="array_pref_color_native">Native</string>

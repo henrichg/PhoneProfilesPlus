@@ -516,6 +516,15 @@
                 android:entryValues="@array/runApplicationDPValues"
                 android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
+            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+                android:title="@string/profile_preferences_deviceCloseAllApplications"
+                android:summary="@string/array_pref_no_change"
+                android:key="prf_pref_deviceCloseAllApplications"
+                android:defaultValue="0"
+                android:entries="@array/closeAllApplicationsDPArray"
+                android:entryValues="@array/closeAllApplicationsDPValues"
+                android:layout="@layout/mp_preference_material_widget"
+                app:useStockLayout="true" />
             <sk.henrichg.phoneprofilesplus.ApplicationsDialogPreference
                 android:defaultValue="-"
                 android:key="prf_pref_deviceRunApplicationPackageName"

@@ -1945,6 +1945,16 @@ class ActivateProfileHelper {
             }
         }
 
+        // close all applications
+        if (profile._deviceCloseAllApplications == 1) {
+            if (!PPApplication.startedOnBoot) {
+                Intent startMain = new Intent(Intent.ACTION_MAIN);
+                startMain.addCategory(Intent.CATEGORY_HOME);
+                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(startMain);
+            }
+        }
+
         PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
         KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
         //if (_interactive*/)

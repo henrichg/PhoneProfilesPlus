@@ -329,7 +329,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                         origProfile._deviceForceStopApplicationChange,
                         origProfile._deviceForceStopApplicationPackageName,
                         origProfile._activationByUserCount,
-                        origProfile._deviceNetworkTypePrefs);
+                        origProfile._deviceNetworkTypePrefs,
+                        origProfile._deviceCloseAllApplications);
                 showSaveMenu = true;
             }
             else
@@ -434,6 +435,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             editor.putString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, Integer.toString(profile._deviceForceStopApplicationChange));
             editor.putString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
             editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, Integer.toString(profile._deviceNetworkTypePrefs));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, Integer.toString(profile._deviceCloseAllApplications));
             editor.apply();
         }
     }
@@ -540,6 +542,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             else
                 profile._deviceForceStopApplicationPackageName = "-";
             profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, ""));
+            profile._deviceCloseAllApplications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, ""));
 
             if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
                 if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||

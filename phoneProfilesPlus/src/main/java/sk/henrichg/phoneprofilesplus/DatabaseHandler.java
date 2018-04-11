@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2070;
+    private static final int DATABASE_VERSION = 2080;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -177,6 +177,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME = "deviceForceStopApplicationPackageName";
     private static final String KEY_ACTIVATION_BY_USER_COUNT = "activationByUserCount";
     private static final String KEY_DEVICE_NETWORK_TYPE_PREFS = "deviceNetworkTypePrefs";
+    private static final String KEY_DEVICE_CLOSE_ALL_APPLICATIONS = "deviceCloseAllApplications";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -458,7 +459,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + " INTEGER,"
                 + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + " TEXT,"
                 + KEY_ACTIVATION_BY_USER_COUNT + " INTEGER,"
-                + KEY_DEVICE_NETWORK_TYPE_PREFS + " INTEGER"
+                + KEY_DEVICE_NETWORK_TYPE_PREFS + " INTEGER,"
+                + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + " INTEGER"
                 + ")";
     }
 
@@ -2189,6 +2191,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_NETWORK_TYPE_PREFS + "=0");
         }
 
+        if (oldVersion < 2080)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + " INTEGER");
+            if (!doMergedTableCreate) {
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + " INTEGER");
+            }
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + "=0");
+        }
+
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -2284,6 +2297,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
                 values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
                 values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
+                values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
 
                 // Insert Row
                 if (!merged) {
@@ -2381,7 +2395,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
                                 KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
                                 KEY_ACTIVATION_BY_USER_COUNT,
-                                KEY_DEVICE_NETWORK_TYPE_PREFS
+                                KEY_DEVICE_NETWORK_TYPE_PREFS,
+                                KEY_DEVICE_CLOSE_ALL_APPLICATIONS
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -2453,7 +2468,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE))),
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME)),
                                 Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT))),
-                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS)))
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_CLOSE_ALL_APPLICATIONS)))
                         );
                     }
 
@@ -2544,7 +2560,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "," +
                         KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + "," +
                         KEY_ACTIVATION_BY_USER_COUNT + "," +
-                        KEY_DEVICE_NETWORK_TYPE_PREFS +
+                        KEY_DEVICE_NETWORK_TYPE_PREFS + "," +
+                        KEY_DEVICE_CLOSE_ALL_APPLICATIONS +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -2620,6 +2637,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._deviceForceStopApplicationPackageName = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME));
                         profile._activationByUserCount = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT)));
                         profile._deviceNetworkTypePrefs = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS)));
+                        profile._deviceCloseAllApplications = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_CLOSE_ALL_APPLICATIONS)));
                         // Adding contact to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -2712,6 +2730,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
                 values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
                 values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
+                values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -3054,7 +3073,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
                                 KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
                                 KEY_ACTIVATION_BY_USER_COUNT,
-                                KEY_DEVICE_NETWORK_TYPE_PREFS
+                                KEY_DEVICE_NETWORK_TYPE_PREFS,
+                                KEY_DEVICE_CLOSE_ALL_APPLICATIONS
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -3128,7 +3148,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE))),
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME)),
                                 Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT))),
-                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS)))
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_CLOSE_ALL_APPLICATIONS)))
                         );
                     } else
                         profile = null;
@@ -7958,9 +7979,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         if (exportedDBObj.getVersion() < 2060) {
                                             values.put(KEY_ACTIVATION_BY_USER_COUNT, 0);
                                         }
-
                                         if (exportedDBObj.getVersion() < 2070) {
                                             values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, 0);
+                                        }
+                                        if (exportedDBObj.getVersion() < 2080) {
+                                            values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, 0);
                                         }
 
                                         ///////////////////////////////////////////////////////

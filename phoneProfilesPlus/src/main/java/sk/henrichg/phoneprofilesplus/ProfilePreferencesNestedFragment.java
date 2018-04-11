@@ -805,6 +805,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
         if (key.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
             key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {
@@ -814,6 +815,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 summary = summary + title;
             }
             title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -1120,6 +1127,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
+            key.equals(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS) ||
             key.equals(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
             key.equals(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE) ||
             key.equals(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH) ||

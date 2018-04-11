@@ -284,6 +284,11 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, context) == PPApplication.PREFERENCE_ALLOWED)
                     drawables[countDrawables++] = R.drawable.ic_profile_pref_run_application;
             }
+            // close app applications
+            if (profile._deviceCloseAllApplications != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, context) == PPApplication.PREFERENCE_ALLOWED)
+                    drawables[countDrawables++] = R.drawable.ic_profile_pref_close_all_applications;
+            }
             // force stop application
             if (profile._deviceForceStopApplicationChange == 1) {
                 if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, context) == PPApplication.PREFERENCE_ALLOWED) &&
