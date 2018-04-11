@@ -677,12 +677,12 @@ public class DataWrapper {
         if (restartEvents) {
             id = "restart_events";
             profileName = context.getString(R.string.menu_restart_events);
-            longLabel = context.getString(R.string.shortcut_activate_profile) + profileName;
+            longLabel = profileName;
         }
         else {
             id = "profile_" + profile._id;
             profileName = profile._name;
-            longLabel = context.getString(R.string.shortcut_activate_profile) + profileName;
+            longLabel = /*context.getString(R.string.shortcut_activate_profile) + */profileName;
         }
 
         return new ShortcutInfo.Builder(context, id)
