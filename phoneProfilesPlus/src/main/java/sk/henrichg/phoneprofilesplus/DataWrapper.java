@@ -1833,6 +1833,8 @@ public class DataWrapper {
 
             //eventStart = eventStart && timePassed;
         }
+        else
+            ignoreTime = true;
 
         if (event._eventPreferencesBattery._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
@@ -1884,6 +1886,8 @@ public class DataWrapper {
             else
                 ignoreBattery = true;
         }
+        else
+            ignoreBattery = true;
 
         if ((event._eventPreferencesCall._enabled)  &&
                 (Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)&&
@@ -2084,8 +2088,9 @@ public class DataWrapper {
                 event._eventPreferencesCall._startTime = 0;
                 DatabaseHandler.getInstance(context).updateCallStartTime(event);
             }
-
         }
+        else
+            ignoreCall = true;
 
         if (event._eventPreferencesPeripherals._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
@@ -2150,6 +2155,8 @@ public class DataWrapper {
                 //eventStart = eventStart && peripheralPassed;
             }
         }
+        else
+            ignorePeripheral = true;
 
         if ((event._eventPreferencesCalendar._enabled) &&
                 (Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) &&
@@ -2186,6 +2193,8 @@ public class DataWrapper {
 
             //eventStart = eventStart && calendarPassed;
         }
+        else
+            ignoreCalendar = true;
         
 
         if (event._eventPreferencesWifi._enabled &&
@@ -2396,6 +2405,8 @@ public class DataWrapper {
 
             //eventStart = eventStart && wifiPassed;
         }
+        else
+            ignoreWifi = true;
 
 
         if (event._eventPreferencesScreen._enabled &&
@@ -2439,6 +2450,8 @@ public class DataWrapper {
 
             //eventStart = eventStart && screenPassed;
         }
+        else
+            ignoreScreen = true;
 
 
         if (event._eventPreferencesBluetooth._enabled &&
@@ -2622,6 +2635,8 @@ public class DataWrapper {
 
             //eventStart = eventStart && bluetoothPassed;
         }
+        else
+            ignoreBluetooth = true;
 
         if ((event._eventPreferencesSMS._enabled) &&
                 (Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
@@ -2676,6 +2691,8 @@ public class DataWrapper {
                 DatabaseHandler.getInstance(context).updateSMSStartTime(event);
             }
         }
+        else
+            ignoreSms = true;
 
         if (event._eventPreferencesNotification._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
@@ -2730,6 +2747,8 @@ public class DataWrapper {
                 ignoreNotification = true;
             }*/
         }
+        else
+            ignoreNotification = true;
 
 
         if (event._eventPreferencesApplication._enabled &&
@@ -2756,6 +2775,8 @@ public class DataWrapper {
             else
                 ignoreApplication = true;
         }
+        else
+            ignoreApplication = true;
 
         if (event._eventPreferencesLocation._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
@@ -2808,6 +2829,8 @@ public class DataWrapper {
                 }
             }
         }
+        else
+            ignoreLocation = true;
 
         if (event._eventPreferencesOrientation._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
@@ -2927,6 +2950,8 @@ public class DataWrapper {
                 }
             }
         }
+        else
+            ignoreOrientation = true;
 
         if (event._eventPreferencesMobileCells._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
@@ -2965,6 +2990,8 @@ public class DataWrapper {
                 }
             }
         }
+        else
+            ignoreMobileCell = true;
 
         if (event._eventPreferencesNFC._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
@@ -3016,6 +3043,8 @@ public class DataWrapper {
                 DatabaseHandler.getInstance(context).updateNFCStartTime(event);
             }
         }
+        else
+            ignoreNfc = true;
 
         if (event._eventPreferencesRadioSwitch._enabled &&
                 (Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
@@ -3129,6 +3158,77 @@ public class DataWrapper {
 
             radioSwitchPassed = radioSwitchPassed && tested;
         }
+        else
+            ignoreRadioSwitch = true;
+
+        List<EventTimeline> eventTimelineList = getEventTimelineList();
+
+        boolean allPassed = true;
+        boolean allIgnored = true;
+        if (!ignoreTime) {
+            allPassed &= timePassed;
+            allIgnored = false;
+        }
+        if (!ignoreBattery) {
+            allPassed &= batteryPassed;
+            allIgnored = false;
+        }
+        if (!ignoreCall) {
+            allPassed &= callPassed;
+            allIgnored = false;
+        }
+        if (!ignorePeripheral) {
+            allPassed &= peripheralPassed;
+            allIgnored = false;
+        }
+        if (!ignoreCalendar) {
+            allPassed &= calendarPassed;
+            allIgnored = false;
+        }
+        if (!ignoreWifi) {
+            allPassed &= wifiPassed;
+            allIgnored = false;
+        }
+        if (!ignoreScreen) {
+            allPassed &= screenPassed;
+            allIgnored = false;
+        }
+        if (!ignoreBluetooth) {
+            allPassed &= bluetoothPassed;
+            allIgnored = false;
+        }
+        if (!ignoreSms) {
+            allPassed &= smsPassed;
+            allIgnored = false;
+        }
+        if (!ignoreNotification) {
+            allPassed &= notificationPassed;
+            allIgnored = false;
+        }
+        if (!ignoreApplication) {
+            allPassed &= applicationPassed;
+            allIgnored = false;
+        }
+        if (!ignoreLocation) {
+            allPassed &= locationPassed;
+            allIgnored = false;
+        }
+        if (!ignoreOrientation) {
+            allPassed &= orientationPassed;
+            allIgnored = false;
+        }
+        if (!ignoreMobileCell) {
+            allPassed &= mobileCellPassed;
+            allIgnored = false;
+        }
+        if (!ignoreNfc) {
+            allPassed &= nfcPassed;
+            allIgnored = false;
+        }
+        if (!ignoreRadioSwitch) {
+            allPassed &= radioSwitchPassed;
+            allIgnored = false;
+        }
 
         PPApplication.logE("DataWrapper.doHandleEvents","timePassed="+timePassed);
         PPApplication.logE("DataWrapper.doHandleEvents","batteryPassed="+batteryPassed);
@@ -3164,47 +3264,18 @@ public class DataWrapper {
         PPApplication.logE("DataWrapper.doHandleEvents","ignoreNfc="+ignoreNfc);
         PPApplication.logE("DataWrapper.doHandleEvents","ignoreRadioSwitch="+ignoreRadioSwitch);
 
+        PPApplication.logE("DataWrapper.doHandleEvents","allPassed="+allPassed);
+        PPApplication.logE("DataWrapper.doHandleEvents","allIgnored="+allIgnored);
+
         //PPApplication.logE("DataWrapper.doHandleEvents","eventStart="+eventStart);
         PPApplication.logE("DataWrapper.doHandleEvents","restartEvent="+restartEvent);
         PPApplication.logE("DataWrapper.doHandleEvents","statePause="+statePause);
 
-        List<EventTimeline> eventTimelineList = getEventTimelineList();
-
-        if (!(ignoreTime ||
-              ignoreBattery ||
-              ignoreCall ||
-              ignorePeripheral ||
-              ignoreCalendar ||
-              ignoreWifi ||
-              ignoreScreen ||
-              ignoreBluetooth ||
-              ignoreSms ||
-              ignoreNotification ||
-              ignoreApplication ||
-              ignoreLocation ||
-              ignoreOrientation ||
-              ignoreMobileCell ||
-              ignoreNfc ||
-              ignoreRadioSwitch)) {
+        if (!allIgnored) {
             // if all sensors are not ignored, do event start/pause
-            // ignore any sensor = do not change event status
+            // ignore all sensors = do not change event status
 
-            if (timePassed &&
-                batteryPassed &&
-                callPassed &&
-                peripheralPassed &&
-                calendarPassed &&
-                wifiPassed &&
-                screenPassed &&
-                bluetoothPassed &&
-                smsPassed &&
-                notificationPassed &&
-                applicationPassed &&
-                locationPassed &&
-                orientationPassed &&
-                mobileCellPassed &&
-                nfcPassed &&
-                radioSwitchPassed ) {
+            if (allPassed) {
                 // all sensors are passed
 
                 //if (eventStart)
