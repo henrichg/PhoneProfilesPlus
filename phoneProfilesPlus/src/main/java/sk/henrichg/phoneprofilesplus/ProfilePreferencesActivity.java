@@ -330,7 +330,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                         origProfile._deviceForceStopApplicationPackageName,
                         origProfile._activationByUserCount,
                         origProfile._deviceNetworkTypePrefs,
-                        origProfile._deviceCloseAllApplications);
+                        origProfile._deviceCloseAllApplications,
+                        origProfile._screenNightMode);
                 showSaveMenu = true;
             }
             else
@@ -436,6 +437,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             editor.putString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
             editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, Integer.toString(profile._deviceNetworkTypePrefs));
             editor.putString(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, Integer.toString(profile._deviceCloseAllApplications));
+            editor.putString(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, Integer.toString(profile._screenNightMode));
             editor.apply();
         }
     }
@@ -543,6 +545,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                 profile._deviceForceStopApplicationPackageName = "-";
             profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, ""));
             profile._deviceCloseAllApplications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, ""));
+            profile._screenNightMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, ""));
 
             if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
                 if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||

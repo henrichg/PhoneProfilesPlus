@@ -166,8 +166,6 @@ public class PPApplication extends Application {
                                          //+"|RunApplicationWithDelayBroadcastReceiver"
 
                                          //+"|PreferenceFragment"
-
-                                         +"|DataWrapper.setDynamicLauncherShortcuts"
             ;
 
 

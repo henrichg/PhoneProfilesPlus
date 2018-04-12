@@ -764,7 +764,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 key.equals(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_AUTOROTATE) ||
                 key.equals(Profile.PREF_PROFILE_NOTIFICATION_LED) ||
-                key.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS)) {
+                key.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS) ||
+                key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE)) {
             String title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, false);
             if (!title.isEmpty()) {
                 _bold = true;
@@ -795,6 +796,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 summary = summary + title;
             }
             title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            title = getTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -1193,7 +1200,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             }
         }
-        if (key.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS))
+        if (key.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS) ||
+                key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE))
         {
             ListPreference listPreference = (ListPreference) prefMng.findPreference(key);
             if (listPreference != null) {

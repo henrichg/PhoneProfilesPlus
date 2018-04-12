@@ -432,6 +432,17 @@
                 android:entryValues="@array/headsUpNotificationsDPValues"
                 android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
+            <!--
+            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+                android:title="@string/profile_preferences_screenNightMode"
+                android:summary="@string/array_pref_no_change"
+                android:key="prf_pref_screenNightMode"
+                android:defaultValue="0"
+                android:entries="@array/screenNightModeDPArray"
+                android:entryValues="@array/screenNightModeDPValues"
+                android:layout="@layout/mp_preference_material_widget"
+                app:useStockLayout="true" />
+            -->
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/profile_preferences_category_application"

@@ -7,6 +7,7 @@ import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.UiModeManager;
 import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
 import android.appwidget.AppWidgetManager;
@@ -1945,6 +1946,13 @@ class ActivateProfileHelper {
             }
         }
 
+        /*
+        // set screen night mode
+        if (profile._screenNightMode != 0) {
+            setScreenNightMode(context, profile._screenNightMode);
+        }
+        */
+
         // close all applications
         if (profile._deviceCloseAllApplications == 1) {
             if (!PPApplication.startedOnBoot) {
@@ -3430,6 +3438,29 @@ class ActivateProfileHelper {
             }
         });
     }
+
+    /*
+    private static void setScreenNightMode(Context context, final int value) {
+        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, context)
+                == PPApplication.PREFERENCE_ALLOWED) {
+            UiModeManager uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
+            PPApplication.logE("ActivateProfileHelper.setScreenNightMode", "uiModeManager="+uiModeManager);
+            if (uiModeManager != null) {
+                switch (value) {
+                    case 1:
+                        uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
+                        break;
+                    case 2:
+                        uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
+                        break;
+                    case 3:
+                        uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_AUTO);
+                        break;
+                }
+            }
+        }
+    }
+    */
 
     static int getRingerVolume(Context context)
     {

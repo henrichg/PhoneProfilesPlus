@@ -270,6 +270,17 @@ class ProfilePreferencesIndicator {
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off;
                 }
             }
+            /*
+            // screen night mode
+            if (profile._screenNightMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, context) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._screenNightMode == 1) || (profile._screenNightMode == 3))
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_mode;
+                    if (profile._screenNightMode == 2)
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_mode_off;
+                }
+            }
+            */
             // power save mode
             if (profile._devicePowerSaveMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context) == PPApplication.PREFERENCE_ALLOWED) {

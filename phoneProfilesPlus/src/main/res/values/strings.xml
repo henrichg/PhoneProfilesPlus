@@ -1168,6 +1168,10 @@
     <string name="array_pref_close">Close</string>
     <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simulates press of Home button in navigation bar.</string>
 
+
+<!--    <string name="profile_preferences_screenNightMode">Night mode</string>
+    <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
+
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
     <string name="array_pref_color_native">Native</string>
     <string name="array_pref_color_dark">Dark</string>
