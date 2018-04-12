@@ -1117,7 +1117,7 @@
         <item>1</item>
     </string-array>
     <string-array name="closeAllApplicationsArray">
-        <item>@string/array_pref_not_to_close</item>
+        <item>@string/array_pref_do_not_close</item>
         <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_close</item>
     </string-array>
@@ -1127,7 +1127,7 @@
         <item>1</item>
     </string-array>
     <string-array name="closeAllApplicationsDPArray">
-        <item>@string/array_pref_not_to_close</item>
+        <item>@string/array_pref_do_not_close</item>
         <item>@string/array_pref_close</item>
     </string-array>
     <string-array name="closeAllApplicationsDPValues">
