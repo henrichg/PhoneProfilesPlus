@@ -61,7 +61,9 @@ public class DonationActivity extends AppCompatActivity implements BillingProvid
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mBillingManager.destroy();
+        try {
+            mBillingManager.destroy();
+        } catch (Exception ignored) {};
     }
 
     /**
