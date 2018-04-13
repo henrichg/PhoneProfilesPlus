@@ -24,7 +24,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
         final Context appContext = context.getApplicationContext();
         final long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
-        PPApplication.startHandlerThread();
+        PPApplication.startHandlerThread("StartEventNotificationBroadcastReceiver.onReceive");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override

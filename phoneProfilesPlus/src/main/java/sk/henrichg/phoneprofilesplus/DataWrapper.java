@@ -700,34 +700,36 @@ public class DataWrapper {
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
 
             if (shortcutManager != null) {
-                List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(true);
-                List<Profile> notCountedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(false);
+                final int limit = 4;
+
+                List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(true, limit);
+                List<Profile> notCountedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(false, limit);
 
                 ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
+
+                Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
+                        context.getResources().getResourceEntryName(R.drawable.ic_action_events_restart_color)+"|1|0|0", 0);
+                _profile.generateIconBitmap(context, monochrome, monochromeValue);
+                shortcuts.add(createShortcutInfo(_profile, true));
 
                 for (Profile profile : countedProfiles) {
                     PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "countedProfile=" + profile._name);
                     profile.generateIconBitmap(context, monochrome, monochromeValue);
-                    shortcuts.add(0, createShortcutInfo(profile, false));
+                    shortcuts.add(createShortcutInfo(profile, false));
                 }
 
                 int shortcutsCount = countedProfiles.size();
-                if (shortcutsCount < 3) {
+                if (shortcutsCount < limit) {
                     for (Profile profile : notCountedProfiles) {
                         PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "notCountedProfile=" + profile._name);
                         profile.generateIconBitmap(context, monochrome, monochromeValue);
-                        shortcuts.add(0, createShortcutInfo(profile, false));
+                        shortcuts.add(createShortcutInfo(profile, false));
 
                         ++shortcutsCount;
-                        if (shortcutsCount == 3)
+                        if (shortcutsCount == limit)
                             break;
                     }
                 }
-
-                Profile profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
-                        context.getResources().getResourceEntryName(R.drawable.ic_action_events_restart_color)+"|1|0|0", 0);
-                profile.generateIconBitmap(context, monochrome, monochromeValue);
-                shortcuts.add(0, createShortcutInfo(profile, true));
 
                 shortcutManager.setDynamicShortcuts(shortcuts);
             }
@@ -874,7 +876,7 @@ public class DataWrapper {
             dataWrapper.copyEventList(this);
         }
 
-        PPApplication.startHandlerThread();
+        PPApplication.startHandlerThread("DataWrapper.stopEventsForProfileFromMainThread");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -952,7 +954,7 @@ public class DataWrapper {
             dataWrapper.copyEventList(this);
         }
 
-        PPApplication.startHandlerThread();
+        PPApplication.startHandlerThread("DataWrapper.pauseAllEventsFromMainThread");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -1008,7 +1010,7 @@ public class DataWrapper {
             dataWrapper.copyEventList(this);
         }
 
-        PPApplication.startHandlerThread();
+        PPApplication.startHandlerThread("DataWrapper.stopAllEventsFromMainThread");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -1447,7 +1449,7 @@ public class DataWrapper {
             dataWrapper.copyEventList(this);
         }
 
-        PPApplication.startHandlerThread();
+        PPApplication.startHandlerThread("DataWrapper.activateProfileFromMainThread");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -3391,7 +3393,7 @@ public class DataWrapper {
         if (Event.getEventsBlocked(context) && (!unblockEventsRun)) {
             //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE);
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThread();
+            PPApplication.startHandlerThread("DataWrapper.restartEvents.1");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
@@ -3444,7 +3446,7 @@ public class DataWrapper {
 
         //EventsHandlerJob.startForRestartEvents(context, interactive);
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThread();
+        PPApplication.startHandlerThread("DataWrapper.restartEvents.2");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -3602,7 +3604,7 @@ public class DataWrapper {
         final boolean _unblockEventsRun = unblockEventsRun;
         //final boolean _interactive = false/*interactive*/;
 
-        PPApplication.startHandlerThread();
+        PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.postDelayed(new Runnable() {
             @Override

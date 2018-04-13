@@ -18,7 +18,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
             PPApplication.startedOnBoot = true;
-            PPApplication.startHandlerThread();
+            PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.postDelayed(new Runnable() {
                 @Override
@@ -34,13 +34,16 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "start PhoneProfilesService");
 
                 if (PhoneProfilesService.instance != null) {
+                    PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "instance != null");
                     // stop PhoneProfilesService
                     appContext.stopService(new Intent(appContext, PhoneProfilesService.class));
                     PPApplication.sleep(2000);
                     startService(appContext);
                 }
-                else
+                else {
+                    PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "instance == null");
                     startService(appContext);
+                }
             }
         }
     }

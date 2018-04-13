@@ -343,7 +343,7 @@ public class EventPreferencesActivity extends PreferenceActivity
             event_id = event._id;
 
             // restart Events
-            PPApplication.logE("$$$ restartEvents","from EventPreferencesFragment.savePreferences");
+            PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
             dataWrapper.restartEvents(false, true/*, false*/);
         }
         else
@@ -356,7 +356,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
             if (event.getStatus() == Event.ESTATUS_STOP)
             {
-                PPApplication.startHandlerThread();
+                PPApplication.startHandlerThread("EventPreferencesActivity.savePreferences.1");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -364,7 +364,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                         PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "EditorPreferencesActivity.savePreferences");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "EditorPreferencesActivity.savePreferences.1");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -384,7 +384,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                 });
             }
             else {
-                PPApplication.startHandlerThread();
+                PPApplication.startHandlerThread("EventPreferencesActivity.savePreferences.2");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -392,7 +392,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                         PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "EditorPreferencesActivity.savePreferences");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "EditorPreferencesActivity.savePreferences.2");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 

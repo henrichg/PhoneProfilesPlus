@@ -35,7 +35,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
             {
                 PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive","xxx");
 
-                PPApplication.startHandlerThread();
+                PPApplication.startHandlerThread("BluetoothLEScanBroadcastReceiver.onReceive.1");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -57,7 +57,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                         if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                         {
                             // start job
-                            PPApplication.startHandlerThread();
+                            PPApplication.startHandlerThread("BluetoothLEScanBroadcastReceiver.onReceive.2");
                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                             handler.postDelayed(new Runnable() {
                                 @Override

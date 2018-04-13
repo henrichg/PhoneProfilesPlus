@@ -34,7 +34,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
             final int bluetoothState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
 
-            PPApplication.startHandlerThread();
+            PPApplication.startHandlerThread("BluetoothStateChangedBroadcastReceiver.onReceive");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

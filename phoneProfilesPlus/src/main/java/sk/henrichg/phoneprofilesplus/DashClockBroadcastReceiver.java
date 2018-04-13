@@ -17,7 +17,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
 
         //DashClockJob.start(context.getApplicationContext());
         //final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThread();
+        PPApplication.startHandlerThread("DashClockBroadcastReceiver.onReceive");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override

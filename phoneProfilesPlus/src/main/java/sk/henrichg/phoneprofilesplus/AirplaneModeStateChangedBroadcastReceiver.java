@@ -26,7 +26,7 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
                 if (action.equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)) {
                     //EventsHandlerJob.startForSensor(context.getApplicationContext(), EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
                     final Context appContext = context.getApplicationContext();
-                    PPApplication.startHandlerThread();
+                    PPApplication.startHandlerThread("AirplaneModeStateChangedBroadcastReceiver.onReceive");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
                         @Override

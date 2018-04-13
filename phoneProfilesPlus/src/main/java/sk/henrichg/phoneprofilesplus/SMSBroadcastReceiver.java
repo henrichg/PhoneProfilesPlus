@@ -117,7 +117,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                 // start job
                 //EventsHandlerJob.startForSMSSensor(context.getApplicationContext(), origin, time);
                 final Context appContext = context.getApplicationContext();
-                PPApplication.startHandlerThread();
+                PPApplication.startHandlerThread("SMSBroadcastReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

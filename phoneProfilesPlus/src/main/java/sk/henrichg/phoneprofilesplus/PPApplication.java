@@ -60,13 +60,16 @@ public class PPApplication extends Application {
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
-                                         //+"|PhoneProfilesService.onStartCommand"
+                                         +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.doForFirstStart"
                                          //+"|PhoneProfilesService.showProfileNotification"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
+
+                                         //+"|PPApplication.startHandlerThread"
+                                         //+"|[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers"
 
                                          //+"|PPApplication.startPPService"
 
@@ -378,7 +381,7 @@ public class PPApplication extends Application {
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.dashClockBroadcastReceiver, new IntentFilter("DashClockBroadcastReceiver"));
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
 
-        startHandlerThread();
+        startHandlerThread("PPApplication.onCreate");
         startHandlerThreadVolumes();
         startHandlerThreadRadios();
         startHandlerThreadAdaptiveBrightness();
@@ -1547,7 +1550,7 @@ public class PPApplication extends Application {
     public static void exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
                                final boolean shutdown) {
         try {
-            PPApplication.startHandlerThread();
+            PPApplication.startHandlerThread("PPApplication.exitApp");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
@@ -1628,7 +1631,8 @@ public class PPApplication extends Application {
         }
     }
 
-    static void startHandlerThread() {
+    static void startHandlerThread(String from) {
+        PPApplication.logE("PPApplication.startHandlerThread", "from="+from);
         if (handlerThread == null) {
             handlerThread = new HandlerThread("PPHandlerThread");
             handlerThread.start();

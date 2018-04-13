@@ -59,7 +59,7 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
 
                     if (Event.getGlobalEventsRunning(appContext)) {
                         //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
-                        PPApplication.startHandlerThread();
+                        PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.1");
                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.post(new Runnable() {
                             @Override
@@ -89,7 +89,7 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
             setApplicationInForeground(appContext, "");
 
             //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
-            PPApplication.startHandlerThread();
+            PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.2");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

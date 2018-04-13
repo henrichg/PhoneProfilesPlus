@@ -34,7 +34,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
 
                 if (info != null) {
 
-                    PPApplication.startHandlerThread();
+                    PPApplication.startHandlerThread("WifiConnectionBroadcastReceiver.onReceive");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
                         @Override

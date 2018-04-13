@@ -36,7 +36,7 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
             if (notificationEventsExists)
             {*/
                 // start job
-                PPApplication.startHandlerThread();
+                PPApplication.startHandlerThread("NotificationEventEndBroadcastReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

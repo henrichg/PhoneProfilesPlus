@@ -58,7 +58,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             final boolean connected = action.equals(BluetoothDevice.ACTION_ACL_CONNECTED);
             final String newName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
 
-            PPApplication.startHandlerThread();
+            PPApplication.startHandlerThread("BluetoothConnectionBroadcastReceiver.onReceive");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
