@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -72,7 +73,9 @@ class BluetoothScanJob extends Job {
 
         if (Event.getGlobalEventsRunning(context))
         {
-            startScanner(context, false);
+            if ((!params.getExtras().getBoolean("shortInterval", false)) ||
+                params.getExtras().getBoolean("notShortIsExact", true))
+                startScanner(context, false);
         }
 
         BluetoothScanJob.scheduleJob(context, false, null, false, false);
@@ -94,14 +97,15 @@ class BluetoothScanJob extends Job {
 
         if (jobManager != null) {
             final JobRequest.Builder jobBuilder;
+
+            int interval = ApplicationPreferences.applicationEventBluetoothScanInterval(context);
+            //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            if (isPowerSaveMode && ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context).equals("1"))
+                interval = 2 * interval;
+
             if (!shortInterval) {
                 jobManager.cancelAllForTag(JOB_TAG_SHORT);
-
-                int interval = ApplicationPreferences.applicationEventBluetoothScanInterval(context);
-                //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                if (isPowerSaveMode && ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context).equals("1"))
-                    interval = 2 * interval;
 
                 jobBuilder = new JobRequest.Builder(JOB_TAG);
 
@@ -133,8 +137,13 @@ class BluetoothScanJob extends Job {
             PPApplication.logE("BluetoothScanJob.scheduleJob", "build and schedule");
 
             try {
+                PersistableBundleCompat bundleCompat = new PersistableBundleCompat();
+                bundleCompat.putBoolean("shortInterval", shortInterval);
+                bundleCompat.putBoolean("notShortIsExact", TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL);
+
                 jobBuilder
                         .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                        .setExtras(bundleCompat)
                         .build()
                         .scheduleAsync();
             } catch (Exception ignored) {}

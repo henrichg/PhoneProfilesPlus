@@ -132,7 +132,7 @@ public class PPApplication extends Application {
                                          //+"|RJS] PhoneProfilesService.scheduleGeofenceScannerJob"
                                          //+"|[GeoSensor] DataWrapper.doHandleEvents"
 
-                                         +"|$$$B WifiBluetoothScanner.doScan"
+                                         +"|$$$B WifiBluetoothScanner"
 
                                          //+"|WifiScanJob"
                                          /*+"|$$$ WifiScanBroadcastReceiver.onReceive"

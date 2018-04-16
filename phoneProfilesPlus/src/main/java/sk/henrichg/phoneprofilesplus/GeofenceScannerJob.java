@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 
 import java.util.concurrent.TimeUnit;
 
@@ -38,37 +39,32 @@ class GeofenceScannerJob extends Job {
         }
 
         if (Event.getGlobalEventsRunning(context)) {
-            boolean geofenceScannerUpdatesStarted = false;
-            synchronized (PPApplication.geofenceScannerMutex) {
-                if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.getGeofencesScanner() != null)) {
-                    if (PhoneProfilesService.getGeofencesScanner().mUpdatesStarted) {
-                        PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates started - save to DB");
+            if ((!params.getExtras().getBoolean("shortInterval", false)) ||
+                params.getExtras().getBoolean("notShortIsExact", true)) {
 
-                        //PhoneProfilesService.geofencesScanner.stopLocationUpdates();
+                boolean geofenceScannerUpdatesStarted = false;
+                synchronized (PPApplication.geofenceScannerMutex) {
+                    if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.getGeofencesScanner() != null)) {
+                        if (PhoneProfilesService.getGeofencesScanner().mUpdatesStarted) {
+                            PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates started - save to DB");
 
-                        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
-                            PhoneProfilesService.getGeofencesScanner().updateGeofencesInDB();
+                            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
+                                PhoneProfilesService.getGeofencesScanner().updateGeofencesInDB();
 
-                        geofenceScannerUpdatesStarted = true;
+                            geofenceScannerUpdatesStarted = true;
+                        }
                     }
                 }
+
+                if (geofenceScannerUpdatesStarted) {
+                    PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates started - start EventsHandler");
+
+                    // start events handler
+                    EventsHandler eventsHandler = new EventsHandler(context);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER/*, false*/);
+
+                }
             }
-
-            if (geofenceScannerUpdatesStarted) {
-                PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates started - start EventsHandler");
-
-                // start events handler
-                EventsHandler eventsHandler = new EventsHandler(context);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER/*, false*/);
-
-            }/* else {
-                // this is required, for example for GeofenceScanner.resetLocationUpdates()
-                PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates not started - start it");
-                Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_LOCATION_UPDATES, true);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                PPApplication.startPPService(context, serviceIntent);
-            }*/
         }
 
         GeofenceScannerJob.scheduleJob(context, false, null, false, false);
@@ -84,14 +80,7 @@ class GeofenceScannerJob extends Job {
         return Result.SUCCESS;
     }
 
-    private static void _scheduleJob(final Context context, final boolean startScanning, final boolean forScreenOn) {
-        /*if (startScanning) {
-            synchronized (PPApplication.geofenceScannerMutex) {
-                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
-                    PhoneProfilesService.getGeofencesScanner().mUpdatesStarted = false;
-            }
-        }*/
-
+    private static void _scheduleJob(final Context context, boolean shortInterval, final boolean forScreenOn) {
         JobManager jobManager = null;
         try {
             jobManager = JobManager.instance();
@@ -100,33 +89,35 @@ class GeofenceScannerJob extends Job {
 
         if (jobManager != null) {
             final JobRequest.Builder jobBuilder;
-            if (!startScanning) {
+
+            int interval;
+            synchronized (PPApplication.geofenceScannerMutex) {
+                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
+                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=" + PhoneProfilesService.getGeofencesScanner().mUpdatesStarted);
+                else
+                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=false");
+
+                // look at GeofenceScanner:UPDATE_INTERVAL_IN_MILLISECONDS
+                //int updateDuration = 30;
+
+                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted() &&
+                        PhoneProfilesService.getGeofencesScanner().mUpdatesStarted) {
+                    interval = ApplicationPreferences.applicationEventLocationUpdateInterval(context) * 60;
+                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "interval=" + interval);
+                    //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                    if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("1"))
+                        interval = 2 * interval;
+                    //interval = interval - updateDuration;
+                } else {
+                    interval = 5;
+                    shortInterval = true;
+                }
+            }
+
+            if (!shortInterval) {
 
                 jobManager.cancelAllForTag(JOB_TAG_START);
-
-                int interval;
-                synchronized (PPApplication.geofenceScannerMutex) {
-                    if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
-                        PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=" + PhoneProfilesService.getGeofencesScanner().mUpdatesStarted);
-                    else
-                        PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=false");
-
-                    // look at GeofenceScanner:UPDATE_INTERVAL_IN_MILLISECONDS
-                    //int updateDuration = 30;
-
-                    if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted() &&
-                            PhoneProfilesService.getGeofencesScanner().mUpdatesStarted) {
-                        interval = ApplicationPreferences.applicationEventLocationUpdateInterval(context) * 60;
-                        PPApplication.logE("GeofenceScannerJob.scheduleJob", "interval=" + interval);
-                        //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                        if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("1"))
-                            interval = 2 * interval;
-                        //interval = interval - updateDuration;
-                    } else {
-                        interval = 5;
-                    }
-                }
 
                 jobBuilder = new JobRequest.Builder(JOB_TAG);
 
@@ -158,6 +149,10 @@ class GeofenceScannerJob extends Job {
             PPApplication.logE("GeofenceScannerJob.scheduleJob", "build and schedule");
 
             try {
+                PersistableBundleCompat bundleCompat = new PersistableBundleCompat();
+                bundleCompat.putBoolean("shortInterval", shortInterval);
+                bundleCompat.putBoolean("notShortIsExact", TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL);
+
                 jobBuilder
                         .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
                         .build()

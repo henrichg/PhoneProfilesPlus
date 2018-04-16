@@ -14,6 +14,7 @@ import android.util.Log;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -64,7 +65,9 @@ class WifiScanJob extends Job {
 
         if (Event.getGlobalEventsRunning(context))
         {
-            startScanner(context, false);
+            if ((!params.getExtras().getBoolean("shortInterval", false)) ||
+                params.getExtras().getBoolean("notShortIsExact", true))
+                startScanner(context, false);
         }
 
         PPApplication.logE("WifiScanJob.onRunJob", "schedule job");
@@ -87,14 +90,15 @@ class WifiScanJob extends Job {
 
         if (jobManager != null) {
             final JobRequest.Builder jobBuilder;
+
+            int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
+            //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("1"))
+                interval = 2 * interval;
+
             if (!shortInterval) {
                 jobManager.cancelAllForTag(JOB_TAG_SHORT);
-
-                int interval = ApplicationPreferences.applicationEventWifiScanInterval(context);
-                //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context).equals("1"))
-                    interval = 2 * interval;
 
                 jobBuilder = new JobRequest.Builder(JOB_TAG);
 
@@ -128,8 +132,13 @@ class WifiScanJob extends Job {
             PPApplication.logE("WifiScanJob.scheduleJob", "build and schedule");
 
             try {
+                PersistableBundleCompat bundleCompat = new PersistableBundleCompat();
+                bundleCompat.putBoolean("shortInterval", shortInterval);
+                bundleCompat.putBoolean("notShortIsExact", TimeUnit.MINUTES.toMillis(interval) < JobRequest.MIN_INTERVAL);
+
                 jobBuilder
                         .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                        .setExtras(bundleCompat)
                         .build()
                         .scheduleAsync();
             } catch (Exception e) {

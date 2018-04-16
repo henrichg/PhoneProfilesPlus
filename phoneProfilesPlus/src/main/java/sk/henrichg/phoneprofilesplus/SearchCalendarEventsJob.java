@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,20 +34,11 @@ class SearchCalendarEventsJob extends Job {
 
         if (Event.getGlobalEventsRunning(appContext))
         {
-            /*boolean calendarEventsExists = false;
-
-            DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-            calendarEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR) > 0;
-            PPApplication.logE("SearchCalendarEventsBroadcastReceiver.onReceive", "calendarEventsExists=" + calendarEventsExists);
-            dataWrapper.invalidateDataWrapper();
-
-            if (calendarEventsExists)
-            {*/
-            // start events handler
-            EventsHandler eventsHandler = new EventsHandler(appContext);
-            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS/*, false*/);
-            //}
-
+            if (!params.getExtras().getBoolean("shortInterval", false)) {
+                // start events handler
+                EventsHandler eventsHandler = new EventsHandler(appContext);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS/*, false*/);
+            }
         }
 
         SearchCalendarEventsJob.scheduleJob(/*appContext, */false,null, false);
@@ -87,8 +79,12 @@ class SearchCalendarEventsJob extends Job {
             PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "build and schedule");
 
             try {
+                PersistableBundleCompat bundleCompat = new PersistableBundleCompat();
+                bundleCompat.putBoolean("shortInterval", shortInterval);
+
                 jobBuilder
                         .setUpdateCurrent(false) // don't update current, it would cancel this currently running job
+                        .setExtras(bundleCompat)
                         .build()
                         .scheduleAsync();
             } catch (Exception ignored) { }

@@ -585,7 +585,7 @@ class WifiBluetoothScanner {
                                 Handler wifiBluetoothChangeHandler,
                                 boolean forLE)
     {
-        PPApplication.logE("@@@ WifiBluetoothScanner.enableBluetooth","xxx");
+        PPApplication.logE("$$$B WifiBluetoothScanner.enableBluetooth","xxx");
 
         int bluetoothState = bluetooth.getState();
         int forceScan;
@@ -606,7 +606,7 @@ class WifiBluetoothScanner {
                         (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                 if (scan)
                 {
-                    PPApplication.logE("@@@ WifiBluetoothScanner.enableBluetooth","set enabled");
+                    PPApplication.logE("$$$B WifiBluetoothScanner.enableBluetooth","set enabled");
                     BluetoothScanJob.setBluetoothEnabledForScan(dataWrapper.context, true);
                     if (!forLE)
                         BluetoothScanJob.setScanRequest(dataWrapper.context, true);
@@ -626,7 +626,7 @@ class WifiBluetoothScanner {
         }
         else
         {
-            PPApplication.logE("@@@ WifiBluetoothScanner.enableBluetooth","already enabled");
+            PPApplication.logE("$$$B WifiBluetoothScanner.enableBluetooth","already enabled");
             return bluetoothState;
         }
         //}
