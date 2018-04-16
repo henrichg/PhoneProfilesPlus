@@ -73,8 +73,11 @@ public class PPApplication extends Application {
 
                                          //+"|PPApplication.startPPService"
 
-
                                          //+"|GrantPermissionActivity"
+
+                                         +"|[XXX] PowerSaveModeBroadcastReceiver.onReceive"
+                                         +"|[XXX] BatteryBroadcastReceiver.onReceive"
+                                         +"|[XXX] ScreenOnOffBroadcastReceiver.onReceive"
 
                                          //+"|DataWrapper.activateProfileFromMainThread"
                                          //+"|ActivateProfileHelper.execute"
@@ -122,11 +125,6 @@ public class PPApplication extends Application {
                                          //+"|$$$ WifiAP"
 
 
-                                         //+"|WifiScanJob"
-                                         /*+"|$$$ WifiScanBroadcastReceiver.onReceive"
-                                         +"|----- DataWrapper.doHandleEvents"
-                                         */
-
                                          //+"|##### GeofenceScanner"
                                          //+"|GeofenceScannerJob"
                                          //+"|LocationGeofenceEditorActivity"
@@ -134,13 +132,20 @@ public class PPApplication extends Application {
                                          //+"|RJS] PhoneProfilesService.scheduleGeofenceScannerJob"
                                          //+"|[GeoSensor] DataWrapper.doHandleEvents"
 
+                                         +"|$$$B WifiBluetoothScanner.doScan"
+
+                                         //+"|WifiScanJob"
+                                         /*+"|$$$ WifiScanBroadcastReceiver.onReceive"
+                                         +"|----- DataWrapper.doHandleEvents"
+                                         */
+
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|[BTScan] DataWrapper.doHandleEvents"
                                          //+"|BluetoothConnectedDevices"
                                          //+"|BluetoothConnectionBroadcastReceiver"
                                          //+"|BluetoothStateChangedBroadcastReceiver"
-                                         //+"|BluetoothScanBroadcastReceiver"
-                                         //+"|BluetoothScanJob"
+                                         +"|BluetoothScanBroadcastReceiver"
+                                         +"|BluetoothScanJob"
 
                                          //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"

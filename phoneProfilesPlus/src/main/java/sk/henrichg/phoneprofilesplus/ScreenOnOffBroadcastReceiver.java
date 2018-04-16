@@ -47,6 +47,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                 if ((action != null) && action.equals(Intent.ACTION_SCREEN_ON)) {
                     PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
+                    PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
                     PPApplication.restartAllScanners(appContext, true);
                     /*PPApplication.restartWifiScanner(appContext, true);
                     PPApplication.restartBluetoothScanner(appContext, true);
@@ -56,6 +57,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 }
                 else if ((action != null) && action.equals(Intent.ACTION_SCREEN_OFF)) {
                     PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
+                    PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
                     PPApplication.restartAllScanners(appContext, true);
                     /*PPApplication.restartWifiScanner(appContext, true);
                     PPApplication.restartBluetoothScanner(appContext, true);

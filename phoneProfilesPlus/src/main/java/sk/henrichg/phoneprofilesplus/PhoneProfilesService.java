@@ -2442,8 +2442,10 @@ public class PhoneProfilesService extends Service
                 });
             }
 
+            /*
             registerReceiversAndJobs();
             AboutApplicationJob.scheduleJob(getApplicationContext(), true);
+            */
 
             final boolean _startOnBoot = startOnBoot;
             PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart.2");
@@ -2531,6 +2533,9 @@ public class PhoneProfilesService extends Service
                     List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(appContext);
                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+
+                    registerReceiversAndJobs();
+                    AboutApplicationJob.scheduleJob(getApplicationContext(), true);
 
                     PPApplication.setApplicationStarted(appContext, true);
                     if (_startOnBoot)

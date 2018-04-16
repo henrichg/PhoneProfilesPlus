@@ -27,7 +27,7 @@ class WifiBluetoothScanner {
     private final Context context;
 
     private static final int wifiScanDuration = 25;      // 25 seconds for wifi scan
-    private static final int classicBTScanDuration = 20; // 20 seconds for classic bluetooth scan
+    private static final int classicBTScanDuration = 25; // 25 seconds for classic bluetooth scan
 
     static List<BluetoothDeviceData> tmpBluetoothScanResults = null;
     static boolean bluetoothDiscoveryStarted = false;
@@ -154,14 +154,11 @@ class WifiBluetoothScanner {
                                     public void run() {
                                         //lock();
                                         WifiScanJob.wifi.setWifiEnabled(false);
-                                        WifiScanJob.setScanRequest(context, false);
-                                        WifiScanJob.setWaitForResults(context, false);
-                                        WifiScanJob.setWifiEnabledForScan(context, false);
                                     }
                                 });
-                                //try { Thread.sleep(700); } catch (InterruptedException e) { }
-                                //SystemClock.sleep(700);
-                                PPApplication.sleep(700);
+                                //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                                //SystemClock.sleep(1000);
+                                PPApplication.sleep(1000);
                                 //unlock();
                             }
 
@@ -194,8 +191,8 @@ class WifiBluetoothScanner {
                                     setForceOneWifiScan(context, FORCE_ONE_SCAN_DISABLED);
                                 }
 
-                                if ((WifiScanJob.getScanRequest(context)) ||
-                                        (WifiScanJob.getWaitForResults(context))) {
+                                if (WifiScanJob.getScanRequest(context) ||
+                                        WifiScanJob.getWaitForResults(context)) {
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "waiting for scan end");
 
                                     // wait for scan end
@@ -241,9 +238,9 @@ class WifiBluetoothScanner {
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "keep enabled wifi");
                             }
                         });
-                        //try { Thread.sleep(700); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(700);
-                        PPApplication.sleep(700);
+                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(1000);
+                        PPApplication.sleep(1000);
                         //unlock();
                     }
 
@@ -299,16 +296,11 @@ class WifiBluetoothScanner {
                                         public void run() {
                                             //lock();
                                             BluetoothScanJob.bluetooth.disable();
-                                            BluetoothScanJob.setScanRequest(context, false);
-                                            BluetoothScanJob.setLEScanRequest(context, false);
-                                            BluetoothScanJob.setWaitForResults(context, false);
-                                            BluetoothScanJob.setWaitForLEResults(context, false);
-                                            BluetoothScanJob.setBluetoothEnabledForScan(context, false);
                                         }
                                     });
-                                    //try { Thread.sleep(700); } catch (InterruptedException e) { }
-                                    //SystemClock.sleep(700);
-                                    PPApplication.sleep(700);
+                                    //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                                    //SystemClock.sleep(1000);
+                                    PPApplication.sleep(1000);
                                     //unlock();
                                 }
 
@@ -429,9 +421,9 @@ class WifiBluetoothScanner {
                                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "keep enabled bluetooth");
                                     }
                                 });
-                                //try { Thread.sleep(700); } catch (InterruptedException e) { }
-                                //SystemClock.sleep(700);
-                                PPApplication.sleep(700);
+                                //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                                //SystemClock.sleep(1000);
+                                PPApplication.sleep(1000);
                                 //unlock();
                             }
                         }
