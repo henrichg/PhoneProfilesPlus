@@ -93,6 +93,7 @@ class ActivateProfileHelper {
     static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
 
     private static final String ACTION_FORCE_STOP_START = "sk.henrichg.phoneprofilesplusextender.ACTION_FORCE_STOP_START";
+    private static final String ACTION_FORCE_STOP_STOP = "sk.henrichg.phoneprofilesplusextender.ACTION_FORCE_STOP_STOP";
     private static final String EXTRA_APPLICATIONS = "extra_applications";
 
     private static void doExecuteForRadios(Context context, Profile profile)
