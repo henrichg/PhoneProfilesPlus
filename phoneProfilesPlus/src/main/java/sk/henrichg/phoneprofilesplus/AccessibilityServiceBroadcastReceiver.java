@@ -67,7 +67,7 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                                 PowerManager.WakeLock wakeLock = null;
                                 if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AccessibilityServiceBroadcastReceiver.onReceive");
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AccessibilityServiceBroadcastReceiver.onReceive.1");
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
@@ -97,7 +97,7 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AccessibilityServiceBroadcastReceiver.onReceive");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AccessibilityServiceBroadcastReceiver.onReceive.2");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -108,6 +108,31 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.release();
                 }
             });
+        }
+        else
+        if (intent.getAction().equals(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END)) {
+            final long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+            if (profileId != 0) {
+                PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.3");
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AccessibilityServiceBroadcastReceiver.onReceive.3");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        Profile profile = DatabaseHandler.getInstance(appContext).getProfile(profileId, false);
+                        ActivateProfileHelper.executeForInteractivePreferences(profile, appContext);
+
+                        if ((wakeLock != null) && wakeLock.isHeld())
+                            wakeLock.release();
+                    }
+                });
+            }
         }
     }
 

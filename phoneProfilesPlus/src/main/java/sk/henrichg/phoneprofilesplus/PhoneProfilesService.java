@@ -1017,6 +1017,7 @@ public class PhoneProfilesService extends Service
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED);
                         intentFilter23.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
+                        intentFilter23.addAction(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END);
                         appContext.registerReceiver(accessibilityServiceBroadcastReceiver, intentFilter23,
                                 PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
                     }

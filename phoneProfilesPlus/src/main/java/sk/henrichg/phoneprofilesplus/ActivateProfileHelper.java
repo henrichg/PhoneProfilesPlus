@@ -63,7 +63,6 @@ import java.util.List;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
 import static android.content.Context.POWER_SERVICE;
-import static sk.henrichg.phoneprofilesplus.PPApplication.EXTRA_PROFILE_ID;
 
 class ActivateProfileHelper {
 
@@ -91,10 +90,6 @@ class ActivateProfileHelper {
     //private static final String PREF_SCREEN_UNLOCKED = "screen_unlocked";
     private static final String PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT = "activated_profile_screen_timeout";
     static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
-
-    private static final String ACTION_FORCE_STOP_START = "sk.henrichg.phoneprofilesplusextender.ACTION_FORCE_STOP_START";
-    private static final String ACTION_FORCE_STOP_STOP = "sk.henrichg.phoneprofilesplusextender.ACTION_FORCE_STOP_STOP";
-    private static final String EXTRA_APPLICATIONS = "extra_applications";
 
     private static void doExecuteForRadios(Context context, Profile profile)
     {
@@ -1593,9 +1588,9 @@ class ActivateProfileHelper {
 
         String applications = profile._deviceForceStopApplicationPackageName;
         if (!(applications.isEmpty() || (applications.equals("-")))) {
-            Intent intent = new Intent(ACTION_FORCE_STOP_START);
-            intent.putExtra(EXTRA_PROFILE_ID, profile._id);
-            intent.putExtra(EXTRA_APPLICATIONS, applications);
+            Intent intent = new Intent(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_START);
+            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+            intent.putExtra(PPApplication.EXTRA_APPLICATIONS, applications);
             context.sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
         }
     }
@@ -1642,6 +1637,148 @@ class ActivateProfileHelper {
             }
         });
         //}
+    }
+
+    static void executeForInteractivePreferences(final Profile profile, final Context context) {
+        if (profile._deviceRunApplicationChange == 1)
+        {
+            executeForRunApplications(profile, context);
+        }
+
+        PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
+        KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context) == PPApplication.PREFERENCE_ALLOWED)
+        {
+            if (profile._deviceMobileDataPrefs == 1)
+            {
+                if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
+                    boolean ok = true;
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_MAIN, null);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
+                        context.startActivity(intent);
+                    } catch (Exception e) {
+                        ok = false;
+                    }
+                    if (!ok) {
+                        ok = true;
+                        try {
+                            final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            final ComponentName componentName = new ComponentName("com.android.phone", "com.android.phone.Settings");
+                            intent.setComponent(componentName);
+                            context.startActivity(intent);
+                        } catch (Exception e) {
+                            ok = false;
+                        }
+                    }
+                    if (!ok) {
+                        try {
+                            final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+                else {
+                    boolean ok = false;
+                    Intent intent = new Intent(Intent.ACTION_MAIN, null);
+                    intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
+                    if (GlobalGUIRoutines.activityIntentExists(intent, context))
+                        ok = true;
+                    if (!ok) {
+                        intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                        intent.setComponent(new ComponentName("com.android.phone", "com.android.phone.Settings"));
+                        if (GlobalGUIRoutines.activityIntentExists(intent, context))
+                            ok = true;
+                    }
+                    if (!ok) {
+                        intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                        if (GlobalGUIRoutines.activityIntentExists(intent, context))
+                            ok = true;
+                    }
+                    if (ok) {
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                        String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                context.getString(R.string.profile_preferences_deviceMobileDataPrefs);
+                        showNotificationForInteractiveParameters(context, title, text, intent, PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID);
+                    }
+                }
+            }
+        }
+
+        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, context) == PPApplication.PREFERENCE_ALLOWED)
+        {
+            if (profile._deviceNetworkTypePrefs == 1)
+            {
+                if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
+                    try {
+                        final Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                    } catch (Exception ignored) {
+                    }
+                }
+                else {
+                    Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                    String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                            context.getString(R.string.profile_preferences_deviceNetworkTypePrefs);
+                    showNotificationForInteractiveParameters(context, title, text, intent, PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID);
+                }
+            }
+        }
+
+        //if (PPApplication.hardwareCheck(PPApplication.PREF_PROFILE_DEVICE_GPS, context))
+        //{  No check only GPS
+        if (profile._deviceLocationServicePrefs == 1)
+        {
+            if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
+                try {
+                    final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                } catch (Exception ignored) {
+                }
+            }
+            else {
+                final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                    String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                            context.getString(R.string.profile_preferences_deviceLocationServicePrefs);
+                    showNotificationForInteractiveParameters(context, title, text, intent, PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID);
+                }
+            }
+        }
+        //}
+        if (profile._deviceWiFiAPPrefs == 1) {
+            if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_MAIN, null);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.TetherSettings"));
+                    context.startActivity(intent);
+                } catch (Exception ignored) {
+                }
+            }
+            else {
+                Intent intent = new Intent(Intent.ACTION_MAIN, null);
+                intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.TetherSettings"));
+                if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                    String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                            context.getString(R.string.profile_preferences_deviceWiFiAPPrefs);
+                    showNotificationForInteractiveParameters(context, title, text, intent, PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID);
+                }
+            }
+        }
     }
 
     static void execute(final Context context, final Profile _profile/*, boolean merged, *//*boolean _interactive*/)
@@ -1896,11 +2033,6 @@ class ActivateProfileHelper {
             }
         }
 
-        if (profile._deviceRunApplicationChange == 1)
-        {
-            ActivateProfileHelper.executeForRunApplications(profile, context);
-        }
-
         if (profile._applicationDisableWifiScanning != 0) {
             ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
@@ -1966,151 +2098,13 @@ class ActivateProfileHelper {
             }
         }
 
-        PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
-        KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-        //if (_interactive*/)
-        //{
-            // preferences, which requires user interaction
-
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context) == PPApplication.PREFERENCE_ALLOWED)
-            {
-                if (profile._deviceMobileDataPrefs == 1)
-                {
-                    if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
-                        boolean ok = true;
-                        try {
-                            Intent intent = new Intent(Intent.ACTION_MAIN, null);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
-                            context.startActivity(intent);
-                        } catch (Exception e) {
-                            ok = false;
-                        }
-                        if (!ok) {
-                            ok = true;
-                            try {
-                                final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                final ComponentName componentName = new ComponentName("com.android.phone", "com.android.phone.Settings");
-                                intent.setComponent(componentName);
-                                context.startActivity(intent);
-                            } catch (Exception e) {
-                                ok = false;
-                            }
-                        }
-                        if (!ok) {
-                            try {
-                                final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                context.startActivity(intent);
-                            } catch (Exception ignored) {
-                            }
-                        }
-                    }
-                    else {
-                        boolean ok = false;
-                        Intent intent = new Intent(Intent.ACTION_MAIN, null);
-                        intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
-                        if (GlobalGUIRoutines.activityIntentExists(intent, context))
-                            ok = true;
-                        if (!ok) {
-                            intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
-                            intent.setComponent(new ComponentName("com.android.phone", "com.android.phone.Settings"));
-                            if (GlobalGUIRoutines.activityIntentExists(intent, context))
-                                ok = true;
-                        }
-                        if (!ok) {
-                            intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
-                            if (GlobalGUIRoutines.activityIntentExists(intent, context))
-                                ok = true;
-                        }
-                        if (ok) {
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
-                            String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
-                                    context.getString(R.string.profile_preferences_deviceMobileDataPrefs);
-                            showNotificationForInteractiveParameters(context, title, text, intent, PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID);
-                        }
-                    }
-                }
-            }
-
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, context) == PPApplication.PREFERENCE_ALLOWED)
-            {
-                if (profile._deviceNetworkTypePrefs == 1)
-                {
-                    if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
-                        try {
-                            final Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(intent);
-                        } catch (Exception ignored) {
-                        }
-                    }
-                    else {
-                        Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
-                        String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
-                                context.getString(R.string.profile_preferences_deviceNetworkTypePrefs);
-                        showNotificationForInteractiveParameters(context, title, text, intent, PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID);
-                    }
-                }
-            }
-
-            //if (PPApplication.hardwareCheck(PPApplication.PREF_PROFILE_DEVICE_GPS, context))
-            //{  No check only GPS
-                if (profile._deviceLocationServicePrefs == 1)
-                {
-                    if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
-                        try {
-                            final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(intent);
-                        } catch (Exception ignored) {
-                        }
-                    }
-                    else {
-                        final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
-                            String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
-                                    context.getString(R.string.profile_preferences_deviceLocationServicePrefs);
-                            showNotificationForInteractiveParameters(context, title, text, intent, PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID);
-                        }
-                    }
-                }
-            //}
-            if (profile._deviceWiFiAPPrefs == 1) {
-                if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
-                    try {
-                        Intent intent = new Intent(Intent.ACTION_MAIN, null);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.TetherSettings"));
-                        context.startActivity(intent);
-                    } catch (Exception ignored) {
-                    }
-                }
-                else {
-                    Intent intent = new Intent(Intent.ACTION_MAIN, null);
-                    intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.TetherSettings"));
-                    if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        String title = context.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
-                        String text = context.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
-                                context.getString(R.string.profile_preferences_deviceWiFiAPPrefs);
-                        showNotificationForInteractiveParameters(context, title, text, intent, PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID);
-                    }
-                }
-            }
-        //}
-
-        /// !!!! must be last !!!!
         if (profile._deviceForceStopApplicationChange == 1)
         {
+            // executeForInteractivePreferences() is called from broadcast receiver AccessibilityServiceBroadcastReceiver
             ActivateProfileHelper.executeForForceStopApplications(profile, context);
         }
+        else
+            executeForInteractivePreferences(profile, context);
 
 
 //        throw new RuntimeException("test Crashlytics + TopExceptionHandler");
