@@ -63,6 +63,7 @@ import java.util.List;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
 import static android.content.Context.POWER_SERVICE;
+import static sk.henrichg.phoneprofilesplus.PPApplication.EXTRA_PROFILE_ID;
 
 class ActivateProfileHelper {
 
@@ -1592,6 +1593,7 @@ class ActivateProfileHelper {
         String applications = profile._deviceForceStopApplicationPackageName;
         if (!(applications.isEmpty() || (applications.equals("-")))) {
             Intent intent = new Intent(ACTION_FORCE_STOP_START);
+            intent.putExtra(EXTRA_PROFILE_ID, profile._id);
             intent.putExtra(EXTRA_APPLICATIONS, applications);
             context.sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
         }
