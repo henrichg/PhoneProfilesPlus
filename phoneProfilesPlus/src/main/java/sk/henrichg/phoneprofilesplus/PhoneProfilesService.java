@@ -979,12 +979,12 @@ public class PhoneProfilesService extends Service
 
     private void registerAccessibilityServiceReceiver(boolean register, boolean checkDatabase) {
         Context appContext = getApplicationContext();
-        CallsCounter.logCounter(appContext, "PhoneProfilesService.registerForegroundApplicationChangedReceiver", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
-        PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "xxx");
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.registerAccessibilityServiceReceiver", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
+        PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "xxx");
         if (!register) {
             if (accessibilityServiceBroadcastReceiver != null) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerForegroundApplicationChangedReceiver->UNREGISTER", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "UNREGISTER");
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAccessibilityServiceReceiver->UNREGISTER", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "UNREGISTER");
                 try {
                     appContext.unregisterReceiver(accessibilityServiceBroadcastReceiver);
                     accessibilityServiceBroadcastReceiver = null;
@@ -993,26 +993,41 @@ public class PhoneProfilesService extends Service
                 }
             }
             else
-                PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "not registered");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "not registered");
         }
         if (register) {
-            if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, appContext) ==
-                    PPApplication.PREFERENCE_ALLOWED) ||
-                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, appContext) ==
-                    PPApplication.PREFERENCE_ALLOWED) ||
-                (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext) ==
-                    PPApplication.PREFERENCE_ALLOWED) ||
-                (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext) ==
-                    PPApplication.PREFERENCE_ALLOWED)) {
+            boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, appContext) ==
+                                        PPApplication.PREFERENCE_ALLOWED;
+            boolean eventAllowed = (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext) ==
+                                        PPApplication.PREFERENCE_ALLOWED) ||
+                                   (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext) ==
+                                        PPApplication.PREFERENCE_ALLOWED);
+            if (profileAllowed || eventAllowed) {
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "profile or event allowed");
+                int profileCount = 1;
                 int eventCount = 1;
                 if (checkDatabase) {
-                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
-                    eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
+                    if (profileAllowed) {
+                        profileCount = 0;
+                        if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_FORCE_STOP, true) > 0) {
+                            Profile profile = Profile.getSharedProfile(appContext);
+                            if (profile._deviceForceStopApplicationChange != 0)
+                                ++profileCount;
+                        }
+                        else
+                            profileCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_FORCE_STOP, false);
+                    }
+                    if (eventAllowed) {
+                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
+                        eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
+                    }
                 }
-                if (eventCount > 0) {
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "profileCount="+profileCount);
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "eventCount="+eventCount);
+                if ((profileCount > 0) || (eventCount > 0)) {
                     if (accessibilityServiceBroadcastReceiver == null) {
-                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerForegroundApplicationChangedReceiver->REGISTER", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
-                        PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "REGISTER");
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAccessibilityServiceReceiver->REGISTER", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "REGISTER");
                         accessibilityServiceBroadcastReceiver = new AccessibilityServiceBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED);
@@ -1022,7 +1037,7 @@ public class PhoneProfilesService extends Service
                                 PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
                     }
                     else
-                        PPApplication.logE("[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver", "registered");
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "registered");
                 } else {
                     registerAccessibilityServiceReceiver(false, false);
                 }

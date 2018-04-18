@@ -75,9 +75,11 @@ public class PPApplication extends Application {
 
                                          //+"|GrantPermissionActivity"
 
+                                         /*
                                          +"|[XXX] PowerSaveModeBroadcastReceiver.onReceive"
                                          +"|[XXX] BatteryBroadcastReceiver.onReceive"
                                          +"|[XXX] ScreenOnOffBroadcastReceiver.onReceive"
+                                         */
 
                                          //+"|DataWrapper.activateProfileFromMainThread"
                                          //+"|ActivateProfileHelper.execute"
@@ -174,6 +176,10 @@ public class PPApplication extends Application {
                                          //+"|RunApplicationWithDelayBroadcastReceiver"
 
                                          //+"|PreferenceFragment"
+
+                                        //+"|PhoneProfilesService.registerAccessibilityServiceReceiver"
+                                        //+"|DatabaseHandler.getTypeProfilesCount"
+                                        //+"|AccessibilityServiceBroadcastReceiver.onReceive"
             ;
 
 

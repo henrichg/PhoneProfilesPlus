@@ -527,6 +527,11 @@
                 android:entryValues="@array/runApplicationDPValues"
                 android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
+            <sk.henrichg.phoneprofilesplus.ApplicationsDialogPreference
+                android:defaultValue="-"
+                android:key="prf_pref_deviceRunApplicationPackageName"
+                android:title="@string/profile_preferences_deviceRunApplicationsShortcutsPackageName"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="prf_pref_deviceCloseAllApplicationsInfo"
                 android:title="@string/profile_preferences_deviceCloseAllApplications"
@@ -542,11 +547,6 @@
                 android:entryValues="@array/closeAllApplicationsDPValues"
                 android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
-            <sk.henrichg.phoneprofilesplus.ApplicationsDialogPreference
-                android:defaultValue="-"
-                android:key="prf_pref_deviceRunApplicationPackageName"
-                android:title="@string/profile_preferences_deviceRunApplicationsShortcutsPackageName"
-                android:layout="@layout/mp_preference_material_widget" />
             <PreferenceScreen
                 android:title="@string/profile_preferences_deviceForceStopApplicationsChange"
                 android:key="prf_pref_forceStopApplicationsCategory"

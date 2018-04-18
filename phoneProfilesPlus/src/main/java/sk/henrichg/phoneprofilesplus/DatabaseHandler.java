@@ -59,7 +59,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // profile type
     static final int PTYPE_CONNECT_TO_SSID = 1;
-    private static final int PTYPE_FORCE_STOP = 2;
+    static final int PTYPE_FORCE_STOP = 2;
 
     // event type
     static final int ETYPE_TIME = 1;
@@ -3459,7 +3459,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     if (!sharedProfile)
                         profileTypeChecked = KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_JUSTANY + "\"";
                     else
-                        profileTypeChecked = KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_SHAREDPROFILE + "\"";
+                        profileTypeChecked = KEY_DEVICE_CONNECT_TO_SSID + "=\"" + Profile.CONNECTTOSSID_SHAREDPROFILE + "\"";
                     whereString = " WHERE " + profileTypeChecked;
                 }
                 if (profileType == PTYPE_FORCE_STOP) {
@@ -3467,11 +3467,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     if (!sharedProfile)
                         profileTypeChecked = KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "!="+Profile.NO_CHANGE_VALUE_STR;
                     else
-                        profileTypeChecked = KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "!="+Profile.SHARED_PROFILE_VALUE_STR;
+                        profileTypeChecked = KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "="+Profile.SHARED_PROFILE_VALUE_STR;
                     whereString = " WHERE " + profileTypeChecked;
                 }
 
                 countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES + whereString;
+                //PPApplication.logE("DatabaseHandler.getTypeProfilesCount", "countQuery="+countQuery);
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();
@@ -3484,10 +3485,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursor.close();
                 } else
                     r = 0;
+                //PPApplication.logE("DatabaseHandler.getTypeProfilesCount", "r="+r);
 
                 //db.close();
 
             } catch (Exception ignored) {
+                //PPApplication.logE("DatabaseHandler.getTypeProfilesCount", Log.getStackTraceString(e));
             }
             return r;
         } finally {
