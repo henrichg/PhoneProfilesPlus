@@ -459,6 +459,8 @@ public class EditorProfileListFragment extends Fragment
         else
             activityDataWrapper.restartEvents(false, true/*, false*/);
 
+        activityDataWrapper.setDynamicLauncherShortcuts();
+
         Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -554,6 +556,7 @@ public class EditorProfileListFragment extends Fragment
                     if (PhoneProfilesService.instance != null)
                         PhoneProfilesService.instance.showProfileNotification(activityDataWrapper);
                     ActivateProfileHelper.updateGUI(activityDataWrapper.context, true);
+                    activityDataWrapper.setDynamicLauncherShortcuts();
 
                     Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
