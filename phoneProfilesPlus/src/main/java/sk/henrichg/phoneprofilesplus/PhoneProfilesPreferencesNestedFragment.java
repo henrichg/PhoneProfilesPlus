@@ -579,7 +579,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     _preference.setEnabled(true);
             }
         }
-        if (Build.VERSION.SDK_INT <= 27) {
+        if (Build.VERSION.SDK_INT >= 27) {
             preference = prefMng.findPreference("applicationEventWiFiKeepOnSystemSettings");
             if (preference != null) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("wifiScanningCategory");
