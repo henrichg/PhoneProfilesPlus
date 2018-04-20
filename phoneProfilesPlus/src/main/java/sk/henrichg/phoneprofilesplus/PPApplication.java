@@ -134,20 +134,21 @@ public class PPApplication extends Application {
                                          //+"|RJS] PhoneProfilesService.scheduleGeofenceScannerJob"
                                          //+"|[GeoSensor] DataWrapper.doHandleEvents"
 
-                                         +"|$$$B WifiBluetoothScanner"
+                                         //+"|$$$B WifiBluetoothScanner"
+                                         +"|$$$W WifiBluetoothScanner"
 
-                                         //+"|WifiScanJob"
-                                         /*+"|$$$ WifiScanBroadcastReceiver.onReceive"
-                                         +"|----- DataWrapper.doHandleEvents"
-                                         */
+                                         +"|WifiScanJob"
+                                         +"|WifiScanBroadcastReceiver.onReceive"
+                                         //+"|----- DataWrapper.doHandleEvents"
+
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|[BTScan] DataWrapper.doHandleEvents"
                                          //+"|BluetoothConnectedDevices"
                                          //+"|BluetoothConnectionBroadcastReceiver"
                                          //+"|BluetoothStateChangedBroadcastReceiver"
-                                         +"|BluetoothScanBroadcastReceiver"
-                                         +"|BluetoothScanJob"
+                                         //+"|BluetoothScanBroadcastReceiver"
+                                         //+"|BluetoothScanJob"
 
                                          //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
