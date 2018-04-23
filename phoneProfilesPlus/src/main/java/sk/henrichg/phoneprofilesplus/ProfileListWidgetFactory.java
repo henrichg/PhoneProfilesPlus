@@ -216,10 +216,11 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             }
         }
         Collections.sort(newProfileList, new ProfileComparator());
-
-        dataWrapper.invalidateProfileList();
-        dataWrapper.setProfileList(newProfileList);
-        profileList = newProfileList;
+        if (dataWrapper != null) {
+            dataWrapper.invalidateProfileList();
+            dataWrapper.setProfileList(newProfileList);
+            profileList = newProfileList;
+        }
     }
 
     private class ProfileComparator implements Comparator<Profile> {
