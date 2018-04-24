@@ -739,8 +739,9 @@ class WifiBluetoothScanner {
             // check for Location Settings
 
             int locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
-            boolean isScanAlwaysAvailable = true;
 
+            /* isScanAlwaysAvailable() may be disabled for unknown reason :-(
+            //boolean isScanAlwaysAvailable = true;
             if (scanType.equals(SCANNER_TYPE_WIFI)) {
                 if (WifiScanJob.wifi == null)
                     WifiScanJob.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -748,8 +749,9 @@ class WifiBluetoothScanner {
                 boolean isWifiEnabled = (wifiState == WifiManager.WIFI_STATE_ENABLED);
                 isScanAlwaysAvailable = isWifiEnabled || WifiScanJob.wifi.isScanAlwaysAvailable();
             }
+            */
 
-            if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!isScanAlwaysAvailable)) {
+            if ((locationMode == Settings.Secure.LOCATION_MODE_OFF)/* || (!isScanAlwaysAvailable)*/) {
                 // Location settings are not properly set, show notification about it
 
                 if (getShowEnableLocationNotification(context)) {
