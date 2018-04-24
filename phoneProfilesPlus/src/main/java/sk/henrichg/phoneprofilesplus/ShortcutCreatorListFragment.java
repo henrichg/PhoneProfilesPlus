@@ -215,6 +215,8 @@ public class ShortcutCreatorListFragment extends Fragment {
             longLabel = getString(R.string.shortcut_activate_profile) + profileName;
             useCustomColor = false;
         }
+        if (profileName.isEmpty())
+            profileName = " ";
 
         Intent shortcutIntent;
         if (position == 0) {

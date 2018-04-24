@@ -3,6 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
+import android.app.KeyguardManager;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -63,6 +65,7 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.doForFirstStart"
                                          //+"|PhoneProfilesService.showProfileNotification"
+                                         +"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
@@ -776,19 +779,24 @@ public class PPApplication extends Application {
 
     static void createProfileNotificationChannel(/*Profile profile, */Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
-            // no sound
-            /*int importance = NotificationManager.IMPORTANCE_LOW;
+            /*int importance;
+            PPApplication.logE("PPApplication.createProfileNotificationChannel","show in status bar="+ApplicationPreferences.notificationShowInStatusBar(context));
             if (ApplicationPreferences.notificationShowInStatusBar(context)) {
                 KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
                 if (myKM != null) {
                     //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
-                    //boolean screenUnlocked = getScreenUnlocked(context);
                     boolean screenUnlocked = !myKM.isKeyguardLocked();
+                    //boolean screenUnlocked = getScreenUnlocked(context);
                     if ((ApplicationPreferences.notificationHideInLockScreen(context) && (!screenUnlocked)) ||
                             ((profile != null) && profile._hideStatusBarIcon))
                         importance = NotificationManager.IMPORTANCE_MIN;
+                    else
+                        importance = NotificationManager.IMPORTANCE_DEFAULT;
                 }
-            } else
+                else
+                    importance = NotificationManager.IMPORTANCE_DEFAULT;
+            }
+            else
                 importance = NotificationManager.IMPORTANCE_MIN;*/
 
             // The user-visible name of the channel.

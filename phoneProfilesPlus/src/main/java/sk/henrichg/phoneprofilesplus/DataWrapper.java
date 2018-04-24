@@ -686,6 +686,8 @@ public class DataWrapper {
             profileName = profile._name;
             longLabel = /*context.getString(R.string.shortcut_activate_profile) + */profileName;
         }
+        if (profileName.isEmpty())
+            profileName = " ";
 
         return new ShortcutInfo.Builder(context, id)
                 .setShortLabel(profileName)
