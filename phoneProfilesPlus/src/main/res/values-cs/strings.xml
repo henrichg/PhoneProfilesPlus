@@ -1074,8 +1074,8 @@
   <string name="duration_pref_dlg_activation_minutes_label">Minuty:</string>
   <string name="duration_pref_dlg_activation_seconds_label">Sekundy:</string>
   <string name="preferences_durationNotificationSoundInfo_summary">Toto oznámení používá kanál média. Proto používá hlasitost médií.</string>
-  <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Prosím, zapněte Polohu a skenování Wi-Fi v nastavení systému. Bez toho Wi-fi skenování nebude fungovat.</string>
-  <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Prosím, zapněte Polohu a skenování Bluetooth v nastavení systému. Bez toho skenování Bluetooth nebude fungovat.</string>
+  <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Prosím, zapněte Polohu a Vyhledávání Wi-Fi v nastavení systému. Bez toho Wi-fi skenování nebude fungovat.</string>
+  <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Prosím, zapněte Polohu a Vyhledávání Bluetooth v nastavení systému. Bez toho skenování Bluetooth nebude fungovat.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">Systémové nastavení \"Ponechat Wi-Fi zapnuto\"</string>
   <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Nakonfigurujte \"Ponechat Wi-Fi zapnuto během spánku\" na \"Vždy\". Bez toho skenování Wi-Fi nebude fungovat během spánku zařízení.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Prosím nenastavujte interval na menší hodnotu než</string>
