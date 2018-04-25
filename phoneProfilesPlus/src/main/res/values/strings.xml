@@ -1148,6 +1148,16 @@
     <string name="shortcut_activate_profile">Activate profile:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">It works only when the screen is on and unlocked.</string>
     <string name="important_info_contact">If you have problems, questions and suggestions, write me an email:</string>
+    <string name="profile_preferences_deviceNetworkTypePrefs">(I) Mobile network type preferences</string>
+    <string name="profile_preferences_deviceCloseAllApplications">Close all applications</string>
+    <string name="array_pref_do_not_close">Do not close</string>
+    <string name="array_pref_close">Close</string>
+    <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simulates press of Home button in navigation bar.</string>
+    <string name="phone_profiles_pref_applicationEventLocation_info">These settings are for event sensor \"Location parameters\".</string>
+    <string name="phone_profiles_pref_applicationEventWifi_info">These settings are for event sensor \"Wi-Fi parameters\".</string>
+    <string name="phone_profiles_pref_applicationEventBluetooth_info">These settings are for event sensor \"Bluetooth parameters\".</string>
+    <string name="phone_profiles_pref_applicationEventMobileCell_info">These settings are for event sensor \"Mobile cell parameters\".</string>
+    <string name="phone_profiles_pref_applicationEventOrientation_info">These settings are for event sensor \"Orientation parameters\".</string>
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
@@ -1161,16 +1171,6 @@
     <string name="extender_accessibility_service_button">Enable/Disable\nAccessibility service</string>
     <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
     <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
-    <string name="profile_preferences_deviceNetworkTypePrefs">(I) Mobile network type preferences</string>
-    <string name="profile_preferences_deviceCloseAllApplications">Close all applications</string>
-    <string name="array_pref_do_not_close">Do not close</string>
-    <string name="array_pref_close">Close</string>
-    <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simulates press of Home button in navigation bar.</string>
-    <string name="phone_profiles_pref_applicationEventLocation_info">These settings are for event sensor \"Location parameters\".</string>
-    <string name="phone_profiles_pref_applicationEventWifi_info">These settings are for event sensor \"Wi-Fi parameters\".</string>
-    <string name="phone_profiles_pref_applicationEventBluetooth_info">These settings are for event sensor \"Bluetooth parameters\".</string>
-    <string name="phone_profiles_pref_applicationEventMobileCell_info">These settings are for event sensor \"Mobile cell parameters\".</string>
-    <string name="phone_profiles_pref_applicationEventOrientation_info">These settings are for event sensor \"Orientation parameters\".</string>
 
 <!--    <string name="profile_preferences_screenNightMode">Night mode</string>
     <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
