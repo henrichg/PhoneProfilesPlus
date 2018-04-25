@@ -419,7 +419,6 @@
   <string name="colorChooser_pref_dialog_title">Výber farby</string>
   <string name="phone_profiles_pref_category_system">Systém</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Oddeľ hlasitosť zvonenia a notif.</string>
-  <string name="profileicon_pref_dialog_info_about_status_bar_icon">Ak zmeníte farbu ikony, ikona v stavovom riadku bude biela. Ak zvolíte vlastnú ikonu, v stavovom riadku bude ikona aplikácie.</string>
   <string name="info_notification_title">Dôležité informácie</string>
   <string name="info_notification_text">Kliknite sem pre zobrazenie dôležitých informácií</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi prístupový bod</string>
@@ -1143,6 +1142,19 @@
   <string name="event_preferences_applications_PPPExtender_new_version_summary">Je potrebná nová verzia PhoneProfilesPlusExtender. Kliknutím sem ho môžete aktualizovať.</string>
   <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Dostupnosť</string>
   <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">Povoľ PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\", pre povolenie parametra \"Vynútiť zastavenie aplikácií\".</string>
+  <string name="shortcut_activate_profile">Aktivácia profilu:</string>
+  <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Pracuje len keď je obrazovka zapnutá a odomknutá.</string>
+  <string name="important_info_contact">Ak máte problémy, otázky a návrhy, napíšte mi e-mail:</string>
+  <string name="profile_preferences_deviceNetworkTypePrefs">(I) Nastavenia typu mobilnej siete</string>
+  <string name="profile_preferences_deviceCloseAllApplications">Zatvoriť všetky aplikácie</string>
+  <string name="array_pref_do_not_close">Nezatvoriť</string>
+  <string name="array_pref_close">Zatvoriť</string>
+  <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simuluje stlačenie tlačidla Domov v navigačnom paneli.</string>
+  <string name="phone_profiles_pref_applicationEventLocation_info">Tieto nastavenia sú pre senzor udalosti \"Parametre polohy\".</string>
+  <string name="phone_profiles_pref_applicationEventWifi_info">Tieto nastavenia sú pre senzor udalosti \"Parametre Wi-Fi\".</string>
+  <string name="phone_profiles_pref_applicationEventBluetooth_info">Tieto nastavenia sú pre senzor udalosti \"Parametre Bluetooth\".</string>
+  <string name="phone_profiles_pref_applicationEventMobileCell_info">Tieto nastavenia sú pre senzor udalosti \"Parametre mobilných buniek\".</string>
+  <string name="phone_profiles_pref_applicationEventOrientation_info">Tieto nastavenia sú pre senzor udalosti \"Parametre orientácie\".</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• sensory udalostí \"Parametre aplikácií\" and \"Parametre orientácie\".</string>
@@ -1154,6 +1166,8 @@
   <string name="extender_accessibility_service_button">Povoliť/Zakázať\nslužbu Dostupnosť</string>
   <string name="extender_setting_screen_not_found_alert">Obrazovka nastavenia nebola nájdená.</string>
   <string name="extender_accessibility_service_permission">Služba dostupnosti PhoneProfilesPlusExtender</string>
+  <!--    <string name="profile_preferences_screenNightMode">Night mode</string>
+    <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
   <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
     <string name="array_pref_color_native">Native</string>
     <string name="array_pref_color_dark">Dark</string>
@@ -1180,4 +1194,5 @@
   <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->
   <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
   <!--<string name="imageview_resource_file_pref_dialog_gallery_btn">Custom&#8230;</string>-->
+  <!--<string name="profileicon_pref_dialog_info_about_status_bar_icon">If you change the color of the icon, the icon in the status bar will be white. If you select a custom icon, the icon in the status bar will be the application icon.</string>-->
 </resources>

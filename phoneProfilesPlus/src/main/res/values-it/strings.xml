@@ -419,7 +419,6 @@
   <string name="colorChooser_pref_dialog_title">Imposta colore</string>
   <string name="phone_profiles_pref_category_system">Sistema</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Separa volumi di suoneria e notifica</string>
-  <string name="profileicon_pref_dialog_info_about_status_bar_icon">Modificando il colore dell\'icona, l\'icona nella barra di stato sarà bianca. Selezionando l\'icona personalizzata, nella barra di stato verrà visualizzata l\'icona dell\'applicazione.</string>
   <string name="info_notification_title">Informazioni importanti</string>
   <string name="info_notification_text">Clicca qui per avere informazioni importanti</string>
   <string name="profile_preferences_deviceWiFiAP">Hotspot Wi-Fi</string>
@@ -1144,6 +1143,19 @@ Non chiedere nuovamente?</string>
   <string name="event_preferences_applications_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
   <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Accessibility settings</string>
   <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">To enable \"Force stop applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
+  <string name="shortcut_activate_profile">Activate profile:</string>
+  <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">It works only when the screen is on and unlocked.</string>
+  <string name="important_info_contact">If you have problems, questions and suggestions, write me an email:</string>
+  <string name="profile_preferences_deviceNetworkTypePrefs">(I) Mobile network type preferences</string>
+  <string name="profile_preferences_deviceCloseAllApplications">Close all applications</string>
+  <string name="array_pref_do_not_close">Do not close</string>
+  <string name="array_pref_close">Close</string>
+  <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simulates press of Home button in navigation bar.</string>
+  <string name="phone_profiles_pref_applicationEventLocation_info">These settings are for event sensor \"Location parameters\".</string>
+  <string name="phone_profiles_pref_applicationEventWifi_info">These settings are for event sensor \"Wi-Fi parameters\".</string>
+  <string name="phone_profiles_pref_applicationEventBluetooth_info">These settings are for event sensor \"Bluetooth parameters\".</string>
+  <string name="phone_profiles_pref_applicationEventMobileCell_info">These settings are for event sensor \"Mobile cell parameters\".</string>
+  <string name="phone_profiles_pref_applicationEventOrientation_info">These settings are for event sensor \"Orientation parameters\".</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event sensors \"Application parameters\" and \"Orientation parameters\".</string>
@@ -1155,6 +1167,8 @@ Non chiedere nuovamente?</string>
   <string name="extender_accessibility_service_button">Enable/Disable\nAccessibility service</string>
   <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
   <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
+  <!--    <string name="profile_preferences_screenNightMode">Night mode</string>
+    <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
   <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
     <string name="array_pref_color_native">Native</string>
     <string name="array_pref_color_dark">Dark</string>
@@ -1181,4 +1195,5 @@ Non chiedere nuovamente?</string>
   <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->
   <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
   <!--<string name="imageview_resource_file_pref_dialog_gallery_btn">Custom&#8230;</string>-->
+  <!--<string name="profileicon_pref_dialog_info_about_status_bar_icon">If you change the color of the icon, the icon in the status bar will be white. If you select a custom icon, the icon in the status bar will be the application icon.</string>-->
 </resources>

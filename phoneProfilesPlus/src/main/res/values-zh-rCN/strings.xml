@@ -419,7 +419,6 @@
   <string name="colorChooser_pref_dialog_title">设置颜色</string>
   <string name="phone_profiles_pref_category_system">系统</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">不关联铃声和通知音量</string>
-  <string name="profileicon_pref_dialog_info_about_status_bar_icon">如果更改了图标颜色，在任务栏中图标将以白色显示；如果选择了自定义图标，在任务栏中将显示应用程序图标。</string>
   <string name="info_notification_title">重要信息</string>
   <string name="info_notification_text">点击此处显示重要信息</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi 热点</string>
@@ -1143,6 +1142,19 @@
   <string name="event_preferences_applications_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
   <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Accessibility settings</string>
   <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">To enable \"Force stop applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
+  <string name="shortcut_activate_profile">Activate profile:</string>
+  <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">It works only when the screen is on and unlocked.</string>
+  <string name="important_info_contact">If you have problems, questions and suggestions, write me an email:</string>
+  <string name="profile_preferences_deviceNetworkTypePrefs">(I) Mobile network type preferences</string>
+  <string name="profile_preferences_deviceCloseAllApplications">Close all applications</string>
+  <string name="array_pref_do_not_close">Do not close</string>
+  <string name="array_pref_close">Close</string>
+  <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simulates press of Home button in navigation bar.</string>
+  <string name="phone_profiles_pref_applicationEventLocation_info">These settings are for event sensor \"Location parameters\".</string>
+  <string name="phone_profiles_pref_applicationEventWifi_info">These settings are for event sensor \"Wi-Fi parameters\".</string>
+  <string name="phone_profiles_pref_applicationEventBluetooth_info">These settings are for event sensor \"Bluetooth parameters\".</string>
+  <string name="phone_profiles_pref_applicationEventMobileCell_info">These settings are for event sensor \"Mobile cell parameters\".</string>
+  <string name="phone_profiles_pref_applicationEventOrientation_info">These settings are for event sensor \"Orientation parameters\".</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event sensors \"Application parameters\" and \"Orientation parameters\".</string>
@@ -1154,6 +1166,8 @@
   <string name="extender_accessibility_service_button">Enable/Disable\nAccessibility service</string>
   <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
   <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
+  <!--    <string name="profile_preferences_screenNightMode">Night mode</string>
+    <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
   <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
     <string name="array_pref_color_native">Native</string>
     <string name="array_pref_color_dark">Dark</string>
@@ -1180,4 +1194,5 @@
   <!--<string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>-->
   <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
   <!--<string name="imageview_resource_file_pref_dialog_gallery_btn">Custom&#8230;</string>-->
+  <!--<string name="profileicon_pref_dialog_info_about_status_bar_icon">If you change the color of the icon, the icon in the status bar will be white. If you select a custom icon, the icon in the status bar will be the application icon.</string>-->
 </resources>
