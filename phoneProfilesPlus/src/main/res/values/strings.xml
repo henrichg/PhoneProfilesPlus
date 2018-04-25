@@ -1166,7 +1166,11 @@
     <string name="array_pref_do_not_close">Do not close</string>
     <string name="array_pref_close">Close</string>
     <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simulates press of Home button in navigation bar.</string>
-
+    <string name="phone_profiles_pref_applicationEventLocation_info">These settings are for event sensor \"Location parameters\".</string>
+    <string name="phone_profiles_pref_applicationEventWifi_info">These settings are for event sensor \"Wi-Fi parameters\".</string>
+    <string name="phone_profiles_pref_applicationEventBluetooth_info">These settings are for event sensor \"Bluetooth parameters\".</string>
+    <string name="phone_profiles_pref_applicationEventMobileCell_info">These settings are for event sensor \"Mobile cell parameters\".</string>
+    <string name="phone_profiles_pref_applicationEventOrientation_info">These settings are for event sensor \"Orientation parameters\".</string>
 
 <!--    <string name="profile_preferences_screenNightMode">Night mode</string>
     <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
