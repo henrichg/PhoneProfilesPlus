@@ -93,6 +93,7 @@ public class Profile {
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
+    int _ringerModeForZenMode;
 
     static final String PREF_PROFILE_NAME = "prf_pref_profileName";
     static final String PREF_PROFILE_ICON = "prf_pref_profileIcon";

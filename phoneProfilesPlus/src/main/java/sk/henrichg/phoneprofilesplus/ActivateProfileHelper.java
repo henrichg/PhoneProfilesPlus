@@ -1108,11 +1108,14 @@ class ActivateProfileHelper {
         PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneChange=" + profile.getVolumeRingtoneChange());
         PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneValue=" + profile.getVolumeRingtoneValue());
 
+        profile._ringerModeForZenMode = AudioManager.RINGER_MODE_NORMAL;
+
         if (profile.getVolumeRingtoneChange()) {
 
             if (profile.getVolumeRingtoneValue() == 0) {
                 // HENO
                 profile.setVolumeRingtoneValue(1);
+                profile._ringerModeForZenMode = AudioManager.RINGER_MODE_SILENT;
 
                 // for profile ringer/zen mode = "only vibrate" do not change ringer mode to Silent
                 if (!isVibrateRingerMode(profile._volumeRingerMode/*, profile._volumeZenMode*/)) {
@@ -1345,12 +1348,12 @@ class ActivateProfileHelper {
                     switch (zenMode) {
                         case Profile.ZENMODE_ALL:
                             PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALL");
-                            setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
+                            setZenMode(context, ZENMODE_ALL, audioManager, /*AudioManager.RINGER_MODE_NORMAL*/profile._ringerModeForZenMode);
                             setVibrateWhenRinging(context, profile, -1);
                             break;
                         case Profile.ZENMODE_PRIORITY:
                             PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY");
-                            setZenMode(context, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_NORMAL);
+                            setZenMode(context, ZENMODE_PRIORITY, audioManager, /*AudioManager.RINGER_MODE_NORMAL*/profile._ringerModeForZenMode);
                             setVibrateWhenRinging(context, profile, -1);
                             break;
                         case Profile.ZENMODE_NONE:
@@ -1361,7 +1364,7 @@ class ActivateProfileHelper {
                             //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                             //SystemClock.sleep(1000);
                             PPApplication.sleep(1000);
-                            setZenMode(context, ZENMODE_NONE, audioManager, AudioManager.RINGER_MODE_NORMAL);
+                            setZenMode(context, ZENMODE_NONE, audioManager, /*AudioManager.RINGER_MODE_NORMAL*/profile._ringerModeForZenMode);
                             break;
                         case Profile.ZENMODE_ALL_AND_VIBRATE:
                             PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALL & VIBRATE");
@@ -1381,7 +1384,7 @@ class ActivateProfileHelper {
                             //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                             //SystemClock.sleep(1000);
                             PPApplication.sleep(1000);
-                            setZenMode(context, ZENMODE_ALARMS, audioManager, AudioManager.RINGER_MODE_NORMAL);
+                            setZenMode(context, ZENMODE_ALARMS, audioManager, /*AudioManager.RINGER_MODE_NORMAL*/profile._ringerModeForZenMode);
                             break;
                     }
                     break;
