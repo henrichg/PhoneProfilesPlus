@@ -2098,7 +2098,7 @@ class ActivateProfileHelper {
             }
         }
 
-        if (profile._deviceForceStopApplicationChange == 1)
+        if ((profile._deviceForceStopApplicationChange == 1) && AccessibilityServiceBroadcastReceiver.isEnabled(context))
         {
             // executeForInteractivePreferences() is called from broadcast receiver AccessibilityServiceBroadcastReceiver
             ActivateProfileHelper.executeForForceStopApplications(profile, context);
