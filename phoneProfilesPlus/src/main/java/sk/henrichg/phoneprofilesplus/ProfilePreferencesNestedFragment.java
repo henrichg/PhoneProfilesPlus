@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -23,6 +24,7 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
+import android.widget.Toast;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
 
@@ -1711,10 +1713,21 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     }
                 }
 
-                if (ProfilePreferencesFragment.changedProfileIconPreference != null) {
-                    // set image identifier ant type for get bitmap path
-                    ProfilePreferencesFragment.changedProfileIconPreference.setImageIdentifierAndType(selectedImage.toString(), false, true);
-                    ProfilePreferencesFragment.changedProfileIconPreference = null;
+                Resources resources = context.getResources();
+                int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
+                int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+                if (BitmapManipulator.checkBitmapSize(selectedImage.toString(), width, height, context)) {
+                    if (ProfilePreferencesFragment.changedProfileIconPreference != null) {
+                        // set image identifier ant type for get bitmap path
+                        ProfilePreferencesFragment.changedProfileIconPreference.setImageIdentifierAndType(selectedImage.toString(), false, true);
+                        ProfilePreferencesFragment.changedProfileIconPreference = null;
+                    }
+                }
+                else {
+                    Toast msg = Toast.makeText(context,
+                            context.getResources().getString(R.string.profileicon_pref_dialog_custom_icon_image_too_large),
+                            Toast.LENGTH_SHORT);
+                    msg.show();
                 }
             }
         }

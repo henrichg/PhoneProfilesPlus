@@ -24,6 +24,8 @@ import java.io.InputStream;
 
 class BitmapManipulator {
 
+    private static final int ICON_BITMAP_SIZE_MULTIPLIER = 4;
+
     static Bitmap resampleBitmapUri(String bitmapUri, int width, int height, boolean checkSize, Context context) {
         //Log.d("---- BitmapManipulator.resampleBitmapUri", "bitmapUri="+bitmapUri);
         if (bitmapUri == null)
@@ -47,7 +49,7 @@ class BitmapManipulator {
                     // raw height and width of image
                     final int rawHeight = options.outHeight;
                     final int rawWidth = options.outWidth;
-                    if ((rawWidth > 2 * width) || (rawHeight > 2 * height))
+                    if ((rawWidth > ICON_BITMAP_SIZE_MULTIPLIER * width) || (rawHeight > ICON_BITMAP_SIZE_MULTIPLIER * height))
                         return null;
                 }
 
@@ -118,6 +120,30 @@ class BitmapManipulator {
         }
         else
             return -1;
+    }
+
+    static boolean checkBitmapSize(String bitmapUri, int width, int height, Context context) {
+        Uri uri = Uri.parse(bitmapUri);
+        if (uri != null) {
+            try {
+                InputStream inputStream = context.getContentResolver().openInputStream(uri);
+                final BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeStream(inputStream, null, options);
+                //noinspection ConstantConditions
+                inputStream.close();
+
+                // raw height and width of image
+                final int rawHeight = options.outHeight;
+                final int rawWidth = options.outWidth;
+                return (rawWidth <= ICON_BITMAP_SIZE_MULTIPLIER * width) && (rawHeight <= ICON_BITMAP_SIZE_MULTIPLIER * height);
+            } catch (Exception e) {
+                Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return false;
     }
 
     /*
