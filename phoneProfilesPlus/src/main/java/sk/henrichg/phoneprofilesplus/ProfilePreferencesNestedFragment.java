@@ -1355,7 +1355,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 if (extenderVersion == 0)
                     preference.setSummary(R.string.profile_preferences_deviceForceStopApplications_PPPExtender_install_summary);
                 else
-                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER)
+                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_2_0)
                     preference.setSummary(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                 else
                     preference.setSummary(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
@@ -1384,7 +1384,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         categorySummary = changeSummary;
                     }
                     else
-                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER) {
+                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_2_0) {
                         ok = false;
                         changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
@@ -1589,7 +1589,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)) {
             setSummary(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
-            boolean ok = AccessibilityServiceBroadcastReceiver.isEnabled(context);
+            boolean ok = AccessibilityServiceBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_2_0);
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
             if (preference != null) {
                 preference.setEnabled(ok);

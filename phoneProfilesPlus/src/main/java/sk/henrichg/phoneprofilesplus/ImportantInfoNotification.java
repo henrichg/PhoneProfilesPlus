@@ -90,7 +90,7 @@ class ImportantInfoNotification {
             }
         }
 
-        if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER))
+        if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
             news = true;
 
         if (afterInstall)

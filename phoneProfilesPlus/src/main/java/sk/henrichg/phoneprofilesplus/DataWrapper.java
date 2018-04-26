@@ -2762,7 +2762,7 @@ public class DataWrapper {
         {
             applicationPassed = false;
 
-            if (AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext())) {
+            if (AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_1_0_4)) {
                 String foregroundApplication = AccessibilityServiceBroadcastReceiver.getApplicationInForeground(context);
 
                 if (!foregroundApplication.isEmpty()) {
@@ -2866,7 +2866,7 @@ public class DataWrapper {
                 synchronized (PPApplication.orientationScannerMutex) {
                     if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isOrientationScannerStarted()) {
                         boolean lApplicationPassed = false;
-                        if (AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext())) {
+                        if (AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_1_0_4)) {
                             String foregroundApplication = AccessibilityServiceBroadcastReceiver.getApplicationInForeground(context);
                             if (!foregroundApplication.isEmpty()) {
                                 String[] splits = event._eventPreferencesOrientation._ignoredApplications.split("\\|");

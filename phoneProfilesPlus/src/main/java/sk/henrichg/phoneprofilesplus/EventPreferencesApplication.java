@@ -90,7 +90,7 @@ class EventPreferencesApplication extends EventPreferences {
                         ": "+context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
             }
             else
-            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER) {
+            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_1_0_4) {
                 selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
             }
@@ -150,7 +150,7 @@ class EventPreferencesApplication extends EventPreferences {
                 if (extenderVersion == 0)
                     preference.setSummary(R.string.event_preferences_applications_PPPExtender_install_summary);
                 else
-                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER)
+                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_1_0_4)
                     preference.setSummary(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                 else
                     preference.setSummary(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
@@ -213,7 +213,7 @@ class EventPreferencesApplication extends EventPreferences {
     public void checkPreferences(PreferenceManager prefMng, Context context) {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             final boolean enabled =
-                    AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext());
+                    AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_1_0_4);
             ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
             if (applicationsPreference != null) {
                 //Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);

@@ -357,7 +357,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             // force stop application
             if (profile._deviceForceStopApplicationChange == 1) {
                 if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, this) == PPApplication.PREFERENCE_ALLOWED) &&
-                        AccessibilityServiceBroadcastReceiver.isEnabled(this))
+                        AccessibilityServiceBroadcastReceiver.isEnabled(this, PPApplication.VERSION_CODE_EXTENDER_2_0))
                     indicator1 = addIntoIndicator(indicator1, "sap");
             }
             // wallpaper

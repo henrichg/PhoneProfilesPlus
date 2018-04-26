@@ -593,7 +593,7 @@
                     android:title="@string/profile_preferences_deviceForceStopApplicationsPackageName"
                     app:addShortcuts="0"
                     app:removePPApplications="1"
-                    app:systemSettings="accessibility"
+                    app:systemSettings="accessibility_2.0"
                     android:layout="@layout/mp_preference_material_widget" />
             </PreferenceScreen>
             <com.afollestad.materialdialogs.prefs.MaterialListPreference

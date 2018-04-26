@@ -189,12 +189,12 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static boolean isEnabled(Context context) {
+    static boolean isEnabled(Context context, int version) {
         int extenderVersion = isExtenderInstalled(context);
         boolean enabled = false;
-        if (extenderVersion >= PPApplication.VERSION_CODE_EXTENDER)
+        if (extenderVersion >= version)
             enabled = isAccessibilityServiceEnabled(context);
-        return  (extenderVersion >= PPApplication.VERSION_CODE_EXTENDER) && enabled;
+        return  (extenderVersion >= version) && enabled;
     }
 
     static public String getApplicationInForeground(Context context)
