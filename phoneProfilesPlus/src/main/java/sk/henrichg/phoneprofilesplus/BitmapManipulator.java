@@ -24,7 +24,7 @@ import java.io.InputStream;
 
 class BitmapManipulator {
 
-    private static final int ICON_BITMAP_SIZE_MULTIPLIER = 4;
+    static final int ICON_BITMAP_SIZE_MULTIPLIER = 4;
 
     static Bitmap resampleBitmapUri(String bitmapUri, int width, int height, boolean checkSize, Context context) {
         //Log.d("---- BitmapManipulator.resampleBitmapUri", "bitmapUri="+bitmapUri);

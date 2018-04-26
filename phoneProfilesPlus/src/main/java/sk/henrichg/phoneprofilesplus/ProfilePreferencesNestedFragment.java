@@ -1724,9 +1724,10 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     }
                 }
                 else {
-                    Toast msg = Toast.makeText(context,
-                            context.getResources().getString(R.string.profileicon_pref_dialog_custom_icon_image_too_large),
-                            Toast.LENGTH_SHORT);
+                    String text = context.getResources().getString(R.string.profileicon_pref_dialog_custom_icon_image_too_large);
+                    text = text + " " + (width * BitmapManipulator.ICON_BITMAP_SIZE_MULTIPLIER);
+                    text = text + "x" + (height * BitmapManipulator.ICON_BITMAP_SIZE_MULTIPLIER);
+                    Toast msg = Toast.makeText(context, text, Toast.LENGTH_LONG);
                     msg.show();
                 }
             }
