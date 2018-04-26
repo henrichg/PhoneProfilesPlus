@@ -78,7 +78,7 @@ class Permissions {
     static final String EXTRA_GRANT_ALSO_CONTACTS = "grant_also_contacts";
 
     static Activity profileActivationActivity = null;
-    static ImageViewPreference imageViewPreference = null;
+    static WallpaperViewPreference wallpaperViewPreference = null;
     static ProfileIconPreference profileIconPreference = null;
     static EditorProfilesActivity editorActivity = null;
     static WifiSSIDPreference wifiSSIDPreference = null;
@@ -1179,7 +1179,7 @@ class Permissions {
         //    return true;
     }
 
-    static boolean grantWallpaperPermissions(Context context, ImageViewPreference preference) {
+    static boolean grantWallpaperPermissions(Context context, WallpaperViewPreference preference) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = checkGallery(context);
             if (!granted) {
@@ -1193,7 +1193,7 @@ class Permissions {
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WALLPAPER);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    imageViewPreference = preference;
+                    wallpaperViewPreference = preference;
                     context.startActivity(intent);
                 } catch (Exception e) {
                     return false;
@@ -1601,7 +1601,7 @@ class Permissions {
 
     static void releaseReferences() {
         profileActivationActivity = null;
-        imageViewPreference = null;
+        wallpaperViewPreference = null;
         profileIconPreference = null;
         editorActivity = null;
         wifiSSIDPreference = null;

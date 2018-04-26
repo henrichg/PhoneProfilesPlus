@@ -637,7 +637,7 @@ public class DataWrapper {
             int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
             int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
             //Log.d("---- ShortcutCreatorListFragment.generateIconBitmap","resampleBitmapUri");
-            profileBitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, context.getApplicationContext());
+            profileBitmap = BitmapManipulator.resampleBitmapUri(iconIdentifier, width, height, true, context.getApplicationContext());
             if (profileBitmap == null) {
                 int iconResource = R.drawable.ic_profile_default;
                 profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);

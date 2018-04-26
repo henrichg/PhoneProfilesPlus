@@ -605,7 +605,7 @@
                 android:entryValues="@array/changeWallpaperDPValues"
                 android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
-            <sk.henrichg.phoneprofilesplus.ImageViewPreference
+            <sk.henrichg.phoneprofilesplus.WallpaperViewPreference
                 android:defaultValue="-|0"
                 android:key="prf_pref_deviceWallpaper"
                 android:title="@string/profile_preferences_deviceWallpaper"

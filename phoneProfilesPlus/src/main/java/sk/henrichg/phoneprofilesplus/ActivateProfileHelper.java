@@ -1430,7 +1430,7 @@ class ActivateProfileHelper {
                         if ((android.os.Build.VERSION.SDK_INT < 24) || (profile._deviceWallpaperFor != 2))
                             width = width << 1; // best wallpaper width is twice screen width
 
-                        Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(profile._deviceWallpaper, width, height, context);
+                        Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(profile._deviceWallpaper, width, height, false, context);
                         if (decodedSampleBitmap != null) {
                             // set wallpaper
                             WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);

@@ -783,8 +783,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
         else
         if (grantType == Permissions.GRANT_TYPE_WALLPAPER) {
             finish();
-            if (Permissions.imageViewPreference != null)
-                Permissions.imageViewPreference.startGallery();
+            if (Permissions.wallpaperViewPreference != null)
+                Permissions.wallpaperViewPreference.startGallery();
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON) {

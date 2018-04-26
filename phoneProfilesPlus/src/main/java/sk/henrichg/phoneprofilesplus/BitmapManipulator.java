@@ -24,7 +24,7 @@ import java.io.InputStream;
 
 class BitmapManipulator {
 
-    static Bitmap resampleBitmapUri(String bitmapUri, int width, int height, Context context) {
+    static Bitmap resampleBitmapUri(String bitmapUri, int width, int height, boolean checkSize, Context context) {
         //Log.d("---- BitmapManipulator.resampleBitmapUri", "bitmapUri="+bitmapUri);
         if (bitmapUri == null)
             return null;
@@ -42,6 +42,14 @@ class BitmapManipulator {
                 BitmapFactory.decodeStream(inputStream, null, options);
                 //noinspection ConstantConditions
                 inputStream.close();
+
+                if (checkSize) {
+                    // raw height and width of image
+                    final int rawHeight = options.outHeight;
+                    final int rawWidth = options.outWidth;
+                    if ((rawWidth > 2 * width) || (rawHeight > 2 * height))
+                        return null;
+                }
 
                 int rotatedWidth, rotatedHeight;
                 int orientation = getBitmapUriOrientation(context, uri);
