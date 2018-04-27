@@ -1801,9 +1801,16 @@ class ActivateProfileHelper {
             switch (profile._vibrationOnTouch) {
                 case 1:
                     Settings.System.putInt(context.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
+                    //Settings.System.putInt(context.getContentResolver(), Settings.Global.CHARGING_SOUNDS_ENABLED, 1);
+                    // Settings.System.DTMF_TONE_WHEN_DIALING - working
+                    // Settings.System.SOUND_EFFECTS_ENABLED - working
+                    // Settings.System.LOCKSCREEN_SOUNDS_ENABLED - private secure settings :-(
+                    // Settings.Global.CHARGING_SOUNDS_ENABLED - java.lang.IllegalArgumentException: You cannot keep your settings in the secure settings. :-/
+                    //                                           (G1) nefunguje :-/
                     break;
                 case 2:
                     Settings.System.putInt(context.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 0);
+                    //Settings.System.putInt(context.getContentResolver(), Settings.Global.CHARGING_SOUNDS_ENABLED, 0);
                     break;
             }
         }
