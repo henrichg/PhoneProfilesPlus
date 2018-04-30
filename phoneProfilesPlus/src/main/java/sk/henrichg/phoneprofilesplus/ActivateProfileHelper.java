@@ -1816,6 +1816,28 @@ class ActivateProfileHelper {
                     break;
             }
         }
+        // set dtmf tone when dialing
+        if (Permissions.checkProfileDtmfToneWhenDialing(context, profile, null)) {
+            switch (profile._dtmfToneWhenDialing) {
+                case 1:
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING, 1);
+                    break;
+                case 2:
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING, 0);
+                    break;
+            }
+        }
+        // set sound on touch
+        if (Permissions.checkProfileSoundOnTouch(context, profile, null)) {
+            switch (profile._soundOnTouch) {
+                case 1:
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 1);
+                    break;
+                case 2:
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 0);
+                    break;
+            }
+        }
 
         //// setup radio preferences
         ActivateProfileHelper.executeForRadios(profile, context);
