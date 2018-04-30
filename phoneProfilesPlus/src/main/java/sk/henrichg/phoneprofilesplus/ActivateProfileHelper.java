@@ -96,8 +96,10 @@ class ActivateProfileHelper {
         PPApplication.sleep(300);
 
         // setup network type
+        // in array.xml, networkTypeGSMValues are 100+ values
         if (profile._deviceNetworkType >= 100) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, context) == PPApplication.PREFERENCE_ALLOWED) {
+                // in array.xml, networkTypeGSMValues are 100+ values
                 setPreferredNetworkType(context, profile._deviceNetworkType - 100);
                 //try { Thread.sleep(200); } catch (InterruptedException e) { }
                 //SystemClock.sleep(200);
@@ -2843,12 +2845,14 @@ class ActivateProfileHelper {
                                     int subscriptionId = subscriptionInfo.getSubscriptionId();
                                     synchronized (PPApplication.rootMutex) {
                                         String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, networkType);
-                                        Command command = new Command(0, false, command1);
-                                        try {
-                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                            PPApplication.commandWait(command);
-                                        } catch (Exception e) {
-                                            Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
+                                        if (command1 != null) {
+                                            Command command = new Command(0, false, command1);
+                                            try {
+                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                PPApplication.commandWait(command);
+                                            } catch (Exception e) {
+                                                Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
+                                            }
                                         }
                                     }
                                 }
@@ -2857,12 +2861,14 @@ class ActivateProfileHelper {
                     } else {
                         synchronized (PPApplication.rootMutex) {
                             String command1 = PPApplication.getServiceCommand("phone", transactionCode, networkType);
-                            Command command = new Command(0, false, command1);
-                            try {
-                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                PPApplication.commandWait(command);
-                            } catch (Exception e) {
-                                Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
+                            if (command1 != null) {
+                                Command command = new Command(0, false, command1);
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    PPApplication.commandWait(command);
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
+                                }
                             }
                         }
                     }
@@ -2924,15 +2930,17 @@ class ActivateProfileHelper {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-start root command");
                             String command1 = PPApplication.getServiceCommand("wifi", transactionCode, 0, (enable) ? 1 : 0);
-                            PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-command1="+command1);
-                            Command command = new Command(0, false, command1);
-                            try {
-                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                PPApplication.commandWait(command);
-                                PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command end");
-                            } catch (Exception e) {
-                                Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
-                                PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command error");
+                            if (command1 != null) {
+                                PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-command1=" + command1);
+                                Command command = new Command(0, false, command1);
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    PPApplication.commandWait(command);
+                                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command end");
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
+                                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command error");
+                                }
                             }
                         }
                     }

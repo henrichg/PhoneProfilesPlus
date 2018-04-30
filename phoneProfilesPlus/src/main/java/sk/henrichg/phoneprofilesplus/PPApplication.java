@@ -1249,19 +1249,23 @@ public class PPApplication extends Application {
     }
 
     static String getServiceCommand(String serviceType, int transactionCode, Object... params) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("service").append(" ").append("call").append(" ").append(serviceType).append(" ").append(transactionCode);
-        for (Object param : params) {
-            if (param != null) {
-                stringBuilder.append(" ");
-                if (param instanceof Integer) {
-                    stringBuilder.append("i32").append(" ").append(param);
-                } else if (param instanceof String) {
-                    stringBuilder.append("s16").append(" ").append("'").append(((String) param).replace("'", "'\\''")).append("'");
+        if (params.length > 0) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("service").append(" ").append("call").append(" ").append(serviceType).append(" ").append(transactionCode);
+            for (Object param : params) {
+                if (param != null) {
+                    stringBuilder.append(" ");
+                    if (param instanceof Integer) {
+                        stringBuilder.append("i32").append(" ").append(param);
+                    } else if (param instanceof String) {
+                        stringBuilder.append("s16").append(" ").append("'").append(((String) param).replace("'", "'\\''")).append("'");
+                    }
                 }
             }
+            return stringBuilder.toString();
         }
-        return stringBuilder.toString();
+        else
+            return null;
     }
 
     static void commandWait(Command cmd) /*throws Exception*/ {
