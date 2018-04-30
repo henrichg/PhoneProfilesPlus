@@ -134,15 +134,6 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         indicator1 = addIntoIndicator(indicator1, "wr0");
                 }
             }*/
-            // vibration on touch
-            if (profile._vibrationOnTouch != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, this) == PPApplication.PREFERENCE_ALLOWED) {
-                    if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3))
-                        indicator1 = addIntoIndicator(indicator1, "vt1");
-                    if (profile._vibrationOnTouch == 2)
-                        indicator1 = addIntoIndicator(indicator1, "vt0");
-                }
-            }
             // volume level
             if (profile.getVolumeAlarmChange() ||
                 profile.getVolumeMediaChange() ||
@@ -175,6 +166,33 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, this) == PPApplication.PREFERENCE_ALLOWED) ||
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, this) == PPApplication.PREFERENCE_ALLOWED))
                     indicator1 = addIntoIndicator(indicator1, "snd");
+            }
+            // sound on touch
+            if (profile._soundOnTouch != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ON_TOUCH, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._soundOnTouch == 1) || (profile._soundOnTouch == 3))
+                        indicator1 = addIntoIndicator(indicator1, "st1");
+                    if (profile._soundOnTouch == 2)
+                        indicator1 = addIntoIndicator(indicator1, "st0");
+                }
+            }
+            // vibration on touch
+            if (profile._vibrationOnTouch != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3))
+                        indicator1 = addIntoIndicator(indicator1, "vt1");
+                    if (profile._vibrationOnTouch == 2)
+                        indicator1 = addIntoIndicator(indicator1, "vt0");
+                }
+            }
+            // dtmf tone when dialing
+            if (profile._dtmfToneWhenDialing != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, this) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._dtmfToneWhenDialing == 1) || (profile._dtmfToneWhenDialing == 3))
+                        indicator1 = addIntoIndicator(indicator1, "dd1");
+                    if (profile._dtmfToneWhenDialing == 2)
+                        indicator1 = addIntoIndicator(indicator1, "dd0");
+                }
             }
             // airplane mode
             if (profile._deviceAirplaneMode != 0) {

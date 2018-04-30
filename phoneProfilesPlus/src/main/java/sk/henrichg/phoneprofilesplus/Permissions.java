@@ -48,6 +48,8 @@ class Permissions {
     private static final int PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY = 23;
     private static final int PERMISSION_PROFILE_LOCK_DEVICE = 24;
     private static final int PERMISSION_RINGTONE_PREFERENCE = 25;
+    private static final int PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING = 26;
+    private static final int PERMISSION_PROFILE_SOUND_ON_TOUCH = 27;
 
     static final int GRANT_TYPE_PROFILE = 1;
     static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -203,6 +205,8 @@ class Permissions {
             checkCustomProfileIcon(context, profile, permissions);
             checkProfileAccessNotificationPolicy(context, profile, permissions);
             checkProfileLockDevice(context, profile, permissions);
+            checkProfileDtmfToneWhenDialing(context, profile, permissions);
+            checkProfileSoundOnTouch(context, profile, permissions);
 
             return permissions;
         }
@@ -815,6 +819,48 @@ class Permissions {
                             permissions.add(new PermissionType(PERMISSION_PROFILE_LOCK_DEVICE, permission.SYSTEM_ALERT_WINDOW));
                     }
                     return grantedWriteSettings && grantedDrawOverlays;
+                } else
+                    return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        else
+            return true;
+    }
+
+    static boolean checkProfileDtmfToneWhenDialing(Context context, Profile profile, List<PermissionType>  permissions) {
+        if (profile == null) return true;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            try {
+                if (profile._dtmfToneWhenDialing != 0) {
+                    boolean granted = Settings.System.canWrite(context);
+                    if (granted)
+                        setShowRequestWriteSettingsPermission(context, true);
+                    else if (permissions != null)
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING, permission.WRITE_SETTINGS));
+                    return granted;
+                } else
+                    return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        else
+            return true;
+    }
+
+    static boolean checkProfileSoundOnTouch(Context context, Profile profile, List<PermissionType>  permissions) {
+        if (profile == null) return true;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            try {
+                if (profile._soundOnTouch != 0) {
+                    boolean granted = Settings.System.canWrite(context);
+                    if (granted)
+                        setShowRequestWriteSettingsPermission(context, true);
+                    else if (permissions != null)
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_SOUND_ON_TOUCH, permission.WRITE_SETTINGS));
+                    return granted;
                 } else
                     return true;
             } catch (Exception e) {

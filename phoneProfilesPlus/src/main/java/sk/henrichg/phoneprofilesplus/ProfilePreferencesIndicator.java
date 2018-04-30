@@ -81,15 +81,6 @@ class ProfilePreferencesIndicator {
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_vibrate_when_ringing_off;
                 }
             }*/
-            // vibration on touch
-            if (profile._vibrationOnTouch != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, context) == PPApplication.PREFERENCE_ALLOWED) {
-                    if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch;
-                    if (profile._vibrationOnTouch == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off;
-                }
-            }
             // volume level
             if (profile.getVolumeAlarmChange() ||
                 profile.getVolumeMediaChange() ||
@@ -122,6 +113,33 @@ class ProfilePreferencesIndicator {
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, context) == PPApplication.PREFERENCE_ALLOWED) ||
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, context) == PPApplication.PREFERENCE_ALLOWED))
                     drawables[countDrawables++] = R.drawable.ic_profile_pref_sound;
+            }
+            // sound on touch
+            if (profile._soundOnTouch != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ON_TOUCH, context) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._soundOnTouch == 1) || (profile._soundOnTouch == 3))
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch;
+                    if (profile._soundOnTouch == 2)
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch_off;
+                }
+            }
+            // vibration on touch
+            if (profile._vibrationOnTouch != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, context) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3))
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch;
+                    if (profile._vibrationOnTouch == 2)
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off;
+                }
+            }
+            // dtmf tone when dialing
+            if (profile._dtmfToneWhenDialing != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, context) == PPApplication.PREFERENCE_ALLOWED) {
+                    if ((profile._dtmfToneWhenDialing == 1) || (profile._dtmfToneWhenDialing == 3))
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing;
+                    if (profile._dtmfToneWhenDialing == 2)
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing_off;
+                }
             }
             // airplane mode
             if (profile._deviceAirplaneMode != 0) {

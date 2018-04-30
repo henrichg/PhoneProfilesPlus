@@ -90,6 +90,8 @@ public class Profile {
     int _deviceNetworkTypePrefs;
     int _deviceCloseAllApplications;
     int _screenNightMode;
+    int _dtmfToneWhenDialing;
+    int _soundOnTouch;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -159,6 +161,8 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS = "prf_pref_deviceNetworkTypePrefs";
     static final String PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS = "prf_pref_deviceCloseAllApplications";
     static final String PREF_PROFILE_SCREEN_NIGHT_MODE = "prf_pref_screenNightMode";
+    static final String PREF_PROFILE_DTMF_TONE_WHEN_DIALING = "prf_pref_dtmfToneWhenDialing";
+    static final String PREF_PROFILE_SOUND_ON_TOUCH = "prf_pref_soundOnTouch";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -232,6 +236,8 @@ public class Profile {
         defaultValuesString.put("prf_pref_deviceNetworkTypePrefs", "0");
         defaultValuesString.put("prf_pref_deviceCloseAllApplications", "0");
         defaultValuesString.put("prf_pref_screenNightMode", "0");
+        defaultValuesString.put("prf_pref_dtmfToneWhenDialing", "0");
+        defaultValuesString.put("prf_pref_soundOnTouch", "0");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -435,7 +441,9 @@ public class Profile {
                    long activationByUserCount,
                    int deviceNetworkTypePrefs,
                    int deviceCloseAllApplications,
-                   int screenNightMode)
+                   int screenNightMode,
+                   int dtmfToneWhenDialing,
+                   int soundOnTouch)
     {
         this._id = id;
         this._name = name;
@@ -503,6 +511,8 @@ public class Profile {
         this._deviceNetworkTypePrefs = deviceNetworkTypePrefs;
         this._deviceCloseAllApplications = deviceCloseAllApplications;
         this._screenNightMode = screenNightMode;
+        this._dtmfToneWhenDialing = dtmfToneWhenDialing;
+        this._soundOnTouch = soundOnTouch;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -574,7 +584,9 @@ public class Profile {
                    long activationByUserCount,
                    int deviceNetworkTypePrefs,
                    int deviceCloseAllApplications,
-                   int screenNightMode)
+                   int screenNightMode,
+                   int dtmfToneWhenDialing,
+                   int soundOnTouch)
     {
         this._name = name;
         this._icon = icon;
@@ -640,6 +652,8 @@ public class Profile {
         this._deviceNetworkTypePrefs = deviceNetworkTypePrefs;
         this._deviceCloseAllApplications = deviceCloseAllApplications;
         this._screenNightMode = screenNightMode;
+        this._dtmfToneWhenDialing = dtmfToneWhenDialing;
+        this._soundOnTouch = soundOnTouch;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -713,6 +727,8 @@ public class Profile {
         this._deviceNetworkTypePrefs = profile._deviceNetworkTypePrefs;
         this._deviceCloseAllApplications = profile._deviceCloseAllApplications;
         this._screenNightMode = profile._screenNightMode;
+        this._dtmfToneWhenDialing = profile._dtmfToneWhenDialing;
+        this._soundOnTouch = profile._soundOnTouch;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -928,6 +944,10 @@ public class Profile {
                 this._deviceCloseAllApplications = withProfile._deviceCloseAllApplications;
             if (withProfile._screenNightMode != 0)
                 this._screenNightMode = withProfile._screenNightMode;
+            if (withProfile._dtmfToneWhenDialing != 0)
+                this._dtmfToneWhenDialing = withProfile._dtmfToneWhenDialing;
+            if (withProfile._soundOnTouch != 0)
+                this._soundOnTouch = withProfile._soundOnTouch;
 
             DatabaseHandler.getInstance(dataWrapper.context).activateProfile(withProfile);
             dataWrapper.setProfileActive(withProfile);
@@ -1683,6 +1703,8 @@ public class Profile {
         profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, "0"));
         profile._deviceCloseAllApplications = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, "0"));
         profile._screenNightMode = Integer.parseInt(preferences.getString(PREF_PROFILE_SCREEN_NIGHT_MODE, "0"));
+        profile._dtmfToneWhenDialing = Integer.parseInt(preferences.getString(PREF_PROFILE_DTMF_TONE_WHEN_DIALING, "0"));
+        profile._soundOnTouch = Integer.parseInt(preferences.getString(PREF_PROFILE_SOUND_ON_TOUCH, "0"));
 
         return profile;
     }
@@ -1759,7 +1781,9 @@ public class Profile {
                     profile._activationByUserCount,
                     profile._deviceNetworkTypePrefs,
                     profile._deviceCloseAllApplications,
-                    profile._screenNightMode);
+                    profile._screenNightMode,
+                    profile._dtmfToneWhenDialing,
+                    profile._soundOnTouch);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE) {
@@ -1878,6 +1902,10 @@ public class Profile {
                 mappedProfile._deviceCloseAllApplications = sharedProfile._deviceCloseAllApplications;
             if (profile._screenNightMode == SHARED_PROFILE_VALUE)
                 mappedProfile._screenNightMode = sharedProfile._screenNightMode;
+            if (profile._dtmfToneWhenDialing == SHARED_PROFILE_VALUE)
+                mappedProfile._dtmfToneWhenDialing = sharedProfile._dtmfToneWhenDialing;
+            if (profile._soundOnTouch == SHARED_PROFILE_VALUE)
+                mappedProfile._soundOnTouch = sharedProfile._soundOnTouch;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;

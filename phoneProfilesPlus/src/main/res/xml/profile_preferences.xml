@@ -147,15 +147,6 @@
                 android:entryValues="@array/vibrateWhenRingingValues"
                 android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
-            <com.afollestad.materialdialogs.prefs.MaterialListPreference
-                android:title="@string/profile_preferences_vibrationOnTouch"
-                android:summary="@string/array_pref_no_change"
-                android:key="prf_pref_vibrationOnTouch"
-                android:defaultValue="0"
-                android:entries="@array/vibrationOnTouchArray"
-                android:entryValues="@array/vibrationOnTouchValues"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/profile_preferences_category_volumes"
@@ -302,6 +293,21 @@
                 app:showDefault="true"
                 android:dependency="prf_pref_soundAlarmChange"
                 android:layout="@layout/mp_preference_material_widget" />
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:title="@string/profile_preferences_category_touchEffects"
+            android:key="prf_pref_touchEffectsCategory"
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
+            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+                android:title="@string/profile_preferences_vibrationOnTouch"
+                android:summary="@string/array_pref_no_change"
+                android:key="prf_pref_vibrationOnTouch"
+                android:defaultValue="0"
+                android:entries="@array/vibrationOnTouchArray"
+                android:entryValues="@array/vibrationOnTouchValues"
+                android:layout="@layout/mp_preference_material_widget"
+                app:useStockLayout="true" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/profile_preferences_category_radios"

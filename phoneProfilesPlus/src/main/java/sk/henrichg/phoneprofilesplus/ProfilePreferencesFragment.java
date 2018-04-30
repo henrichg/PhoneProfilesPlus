@@ -131,6 +131,8 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
         setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS);
         setSummary(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS);
         setSummary(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE);
+        setSummary(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING);
+        setSummary(Profile.PREF_PROFILE_SOUND_ON_TOUCH);
 
         //}
     }

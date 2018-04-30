@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2090;
+    private static final int DATABASE_VERSION = 2100;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -179,6 +179,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DEVICE_NETWORK_TYPE_PREFS = "deviceNetworkTypePrefs";
     private static final String KEY_DEVICE_CLOSE_ALL_APPLICATIONS = "deviceCloseAllApplications";
     private static final String KEY_SCREEN_NIGHT_MODE = "screenNightMode";
+    private static final String KEY_DTMF_TONE_WHEN_DIALING = "dtmfToneWhenDialing";
+    private static final String KEY_SOUND_ON_TOUCH = "soundOnTouch";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -462,7 +464,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_ACTIVATION_BY_USER_COUNT + " INTEGER,"
                 + KEY_DEVICE_NETWORK_TYPE_PREFS + " INTEGER,"
                 + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + " INTEGER,"
-                + KEY_SCREEN_NIGHT_MODE + " INTEGER"
+                + KEY_SCREEN_NIGHT_MODE + " INTEGER,"
+                + KEY_DTMF_TONE_WHEN_DIALING + " INTEGER,"
+                + KEY_SOUND_ON_TOUCH + " INTEGER"
                 + ")";
     }
 
@@ -2215,6 +2219,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SCREEN_NIGHT_MODE + "=0");
         }
 
+        if (oldVersion < 2090)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_SCREEN_NIGHT_MODE + " INTEGER");
+            if (!doMergedTableCreate) {
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_SCREEN_NIGHT_MODE + " INTEGER");
+            }
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SCREEN_NIGHT_MODE + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SCREEN_NIGHT_MODE + "=0");
+        }
+
+        if (oldVersion < 2100)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DTMF_TONE_WHEN_DIALING + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_SOUND_ON_TOUCH + " INTEGER");
+            if (!doMergedTableCreate) {
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DTMF_TONE_WHEN_DIALING + " INTEGER");
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_SOUND_ON_TOUCH + " INTEGER");
+            }
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DTMF_TONE_WHEN_DIALING + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_ON_TOUCH + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DTMF_TONE_WHEN_DIALING + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_ON_TOUCH + "=0");
+        }
+
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -2312,6 +2342,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
                 values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
                 values.put(KEY_SCREEN_NIGHT_MODE, profile._screenNightMode);
+                values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
+                values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
 
                 // Insert Row
                 if (!merged) {
@@ -2411,7 +2443,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_ACTIVATION_BY_USER_COUNT,
                                 KEY_DEVICE_NETWORK_TYPE_PREFS,
                                 KEY_DEVICE_CLOSE_ALL_APPLICATIONS,
-                                KEY_SCREEN_NIGHT_MODE
+                                KEY_SCREEN_NIGHT_MODE,
+                                KEY_DTMF_TONE_WHEN_DIALING,
+                                KEY_SOUND_ON_TOUCH
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -2485,7 +2519,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_CLOSE_ALL_APPLICATIONS))),
-                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SCREEN_NIGHT_MODE)))
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SCREEN_NIGHT_MODE))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DTMF_TONE_WHEN_DIALING))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ON_TOUCH)))
                         );
                     }
 
@@ -2578,7 +2614,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_ACTIVATION_BY_USER_COUNT + "," +
                         KEY_DEVICE_NETWORK_TYPE_PREFS + "," +
                         KEY_DEVICE_CLOSE_ALL_APPLICATIONS + "," +
-                        KEY_SCREEN_NIGHT_MODE +
+                        KEY_SCREEN_NIGHT_MODE + "," +
+                        KEY_DTMF_TONE_WHEN_DIALING + "," +
+                        KEY_SOUND_ON_TOUCH +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -2656,6 +2694,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._deviceNetworkTypePrefs = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS)));
                         profile._deviceCloseAllApplications = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_CLOSE_ALL_APPLICATIONS)));
                         profile._screenNightMode = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SCREEN_NIGHT_MODE)));
+                        profile._dtmfToneWhenDialing = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DTMF_TONE_WHEN_DIALING)));
+                        profile._soundOnTouch = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ON_TOUCH)));
                         // Adding contact to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -2750,6 +2790,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
                 values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
                 values.put(KEY_SCREEN_NIGHT_MODE, profile._screenNightMode);
+                values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
+                values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -3094,7 +3136,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_ACTIVATION_BY_USER_COUNT,
                                 KEY_DEVICE_NETWORK_TYPE_PREFS,
                                 KEY_DEVICE_CLOSE_ALL_APPLICATIONS,
-                                KEY_SCREEN_NIGHT_MODE
+                                KEY_SCREEN_NIGHT_MODE,
+                                KEY_DTMF_TONE_WHEN_DIALING,
+                                KEY_SOUND_ON_TOUCH
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -3170,7 +3214,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS))),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DEVICE_CLOSE_ALL_APPLICATIONS))),
-                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SCREEN_NIGHT_MODE)))
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SCREEN_NIGHT_MODE))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_DTMF_TONE_WHEN_DIALING))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ON_TOUCH)))
                         );
                     } else
                         profile = null;
@@ -8015,6 +8061,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         }
                                         if (exportedDBObj.getVersion() < 2090) {
                                             values.put(KEY_SCREEN_NIGHT_MODE, 0);
+                                        }
+                                        if (exportedDBObj.getVersion() < 2100) {
+                                            values.put(KEY_DTMF_TONE_WHEN_DIALING, 0);
+                                            values.put(KEY_SOUND_ON_TOUCH, 0);
                                         }
 
                                         ///////////////////////////////////////////////////////

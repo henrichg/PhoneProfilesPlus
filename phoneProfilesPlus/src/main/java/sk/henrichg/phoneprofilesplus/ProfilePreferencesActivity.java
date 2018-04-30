@@ -331,7 +331,9 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                         origProfile._activationByUserCount,
                         origProfile._deviceNetworkTypePrefs,
                         origProfile._deviceCloseAllApplications,
-                        origProfile._screenNightMode);
+                        origProfile._screenNightMode,
+                        origProfile._dtmfToneWhenDialing,
+                        origProfile._soundOnTouch);
                 showSaveMenu = true;
             }
             else
@@ -438,6 +440,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, Integer.toString(profile._deviceNetworkTypePrefs));
             editor.putString(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, Integer.toString(profile._deviceCloseAllApplications));
             editor.putString(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, Integer.toString(profile._screenNightMode));
+            editor.putString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, Integer.toString(profile._dtmfToneWhenDialing));
+            editor.putString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, Integer.toString(profile._soundOnTouch));
             editor.apply();
         }
     }
@@ -546,6 +550,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, ""));
             profile._deviceCloseAllApplications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, ""));
             profile._screenNightMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, ""));
+            profile._dtmfToneWhenDialing = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, ""));
+            profile._soundOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, ""));
 
             if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
                 if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
