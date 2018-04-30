@@ -2208,7 +2208,7 @@ public class Profile {
         else
         if (preferenceKey.equals(Profile.PREF_PROFILE_NOTIFICATION_LED))
         {
-            int value = Settings.System.getInt(context.getContentResolver(), "notification_light_pulse", -10);
+            int value = Settings.System.getInt(context.getContentResolver(), Settings.System.NOTIFICATION_LIGHT_PULSE, -10);
             if ((value != -10) && (android.os.Build.VERSION.SDK_INT >= 23)) {
                 /* not working (private secure settings) :-/
                 if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
