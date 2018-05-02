@@ -300,12 +300,30 @@
             android:widgetLayout="@layout/start_activity_preference"
             android:layout="@layout/mp_preference_material_widget" >
             <com.afollestad.materialdialogs.prefs.MaterialListPreference
+                android:title="@string/profile_preferences_soundOnTouch"
+                android:summary="@string/array_pref_no_change"
+                android:key="prf_pref_soundOnTouch"
+                android:defaultValue="0"
+                android:entries="@array/soundOnTouchArray"
+                android:entryValues="@array/soundOnTouchValues"
+                android:layout="@layout/mp_preference_material_widget"
+                app:useStockLayout="true" />
+            <com.afollestad.materialdialogs.prefs.MaterialListPreference
                 android:title="@string/profile_preferences_vibrationOnTouch"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_vibrationOnTouch"
                 android:defaultValue="0"
                 android:entries="@array/vibrationOnTouchArray"
                 android:entryValues="@array/vibrationOnTouchValues"
+                android:layout="@layout/mp_preference_material_widget"
+                app:useStockLayout="true" />
+            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+                android:title="@string/profile_preferences_dtmfToneWhenDialing"
+                android:summary="@string/array_pref_no_change"
+                android:key="prf_pref_dtmfToneWhenDialing"
+                android:defaultValue="0"
+                android:entries="@array/dtmfToneWhenDialingArray"
+                android:entryValues="@array/dtmfToneWhenDialingValues"
                 android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
         </PreferenceScreen>
