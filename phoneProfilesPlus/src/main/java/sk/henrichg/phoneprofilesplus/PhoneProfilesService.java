@@ -3078,6 +3078,13 @@ public class PhoneProfilesService extends Service
             }
 
             if (phoneProfilesNotification != null) {
+
+                if (Build.VERSION.SDK_INT < 26) {
+                    phoneProfilesNotification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
+                    phoneProfilesNotification.ledOnMS = 0;
+                    phoneProfilesNotification.ledOffMS = 0;
+                }
+
                 if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
                     //notification.flags |= Notification.FLAG_NO_CLEAR;
                     phoneProfilesNotification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
