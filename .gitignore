@@ -6,4 +6,6 @@
 /.idea/codeStyles
 /build
 
+/RootShell/build
+/RootTools/build
 /phoneProfilesPlus/build
