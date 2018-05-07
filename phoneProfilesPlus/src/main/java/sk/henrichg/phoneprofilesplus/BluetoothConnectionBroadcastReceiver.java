@@ -50,8 +50,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
         if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED) ||
                 action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED) ||
-                action.equals(BluetoothDevice.ACTION_NAME_CHANGED) ||
-                action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED)) {
+                action.equals(BluetoothDevice.ACTION_NAME_CHANGED)/* ||
+                action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED)*/) {
             // BluetoothConnectionBroadcastReceiver
 
             final BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);

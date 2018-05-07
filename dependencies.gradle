@@ -9,13 +9,13 @@
 //        and applicationEventWifiScanIfWifiOff with applicationEventBluetoothScanIfBluetoothOff
 
 ext.ppVersions = [
-        publishVersion: '3.6b',
-        publishVersionCode: 3969,
+    publishVersion: '3.6b',
+    publishVersionCode: 3970,
 
-        minSdk: 19,
-        targetSdk: 27,
-        compileSdk: 27,
-        buildTools: '27.0.3',
+    minSdk: 19,
+    targetSdk: 27,
+    compileSdk: 27,
+    buildTools: '27.0.3',
 
-        supportLib: '27.1.1'
+    supportLib: '27.1.1'
 ]

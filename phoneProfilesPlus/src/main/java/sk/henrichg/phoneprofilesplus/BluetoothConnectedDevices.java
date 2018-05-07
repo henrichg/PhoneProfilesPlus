@@ -23,6 +23,9 @@ class BluetoothConnectedDevices {
 
         BluetoothAdapter bluetoothAdapter = BluetoothScanJob.getBluetoothAdapter(context);
         if (bluetoothAdapter != null) {
+            if (!bluetoothAdapter.isEnabled())
+                return connectedDevices;
+
             BluetoothProfile.ServiceListener profileListener = new BluetoothProfile.ServiceListener() {
                 public void onServiceConnected(int profile, BluetoothProfile proxy) {
                     if (profile == BluetoothProfile.HEADSET) {
