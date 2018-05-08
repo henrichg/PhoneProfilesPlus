@@ -27,8 +27,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // All Static variables
 
     // singleton fields
-    private static DatabaseHandler instance;
-    private static SQLiteDatabase writableDb;
+    private static volatile DatabaseHandler instance;
+    private SQLiteDatabase writableDb;
 
     private final Context context;
     
@@ -333,42 +333,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_NT_ID = "_id";
     private static final String KEY_NT_NAME = "name";
 
-    /**
-     * Constructor takes and keeps a reference of the passed context in order to
-     * access to the application assets and resources.
-     *
-     * @param context
-     *            the application context
-     */	
     private DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
 
-    /**
-     * Get default instance of the class to keep it a singleton
-     *
-     * @param context
-     *            the application context
-     */
-    public static synchronized DatabaseHandler getInstance(Context context) {
-        if (instance == null) {
-            instance = new DatabaseHandler(context);
+    public static DatabaseHandler getInstance(Context context) {
+        //Double check locking pattern
+        if (instance == null) { //Check for the first time
+            synchronized (DatabaseHandler.class) {   //Check for the second time.
+                //if there is no instance available... create new one
+                if (instance == null) instance = new DatabaseHandler(context);
+            }
         }
         return instance;
     }
     
-    /**
-     * Returns a writable database instance in order not to open and close many
-     * SQLiteDatabase objects simultaneously
-     *
-     * @return a writable instance to SQLiteDatabase
-     */
     private SQLiteDatabase getMyWritableDatabase() {
         if ((writableDb == null) || (!writableDb.isOpen())) {
             writableDb = this.getWritableDatabase();
         }
- 
         return writableDb;
     }
  
