@@ -5,12 +5,10 @@
 
     <ImageView
         android:id="@+id/profile_multiselect_pref_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:adjustViewBounds="true"
-        android:maxHeight="50dp"
-        android:maxWidth="50dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_profile_default"
         android:contentDescription="@string/empty_string" />
 
@@ -21,53 +19,45 @@
 
         <ImageView
             android:id="@+id/profile_multiselect_pref_icon1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
-            android:maxHeight="25dp"
-            android:maxWidth="25dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default"
             android:contentDescription="@string/empty_string" />
 
         <ImageView
             android:id="@+id/profile_multiselect_pref_icon2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
-            android:maxHeight="25dp"
-            android:maxWidth="25dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default"
             android:contentDescription="@string/empty_string" />
 
         <ImageView
             android:id="@+id/profile_multiselect_pref_icon3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:adjustViewBounds="true"
-            android:maxHeight="25dp"
-            android:maxWidth="25dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:src="@mipmap/ic_launcher"
             android:contentDescription="@string/empty_string" />
 
         <ImageView
             android:id="@+id/profile_multiselect_pref_icon4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:adjustViewBounds="true"
-            android:maxHeight="25dp"
-            android:maxWidth="25dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default"
             android:contentDescription="@string/empty_string" />
 

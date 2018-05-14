@@ -21,7 +21,8 @@
             android:layout_marginTop="30dp"
             android:layout_marginStart="5dp"
             android:contentDescription="@string/empty_string"
-            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_events_drawer_filter_header_bg" />
 
         <ImageView
@@ -33,7 +34,8 @@
             android:layout_marginTop="37dp"
             android:layout_marginStart="12dp"
             android:contentDescription="@string/empty_string"
-            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_events_drawer_profile_filter_0" />
 
         <TextView

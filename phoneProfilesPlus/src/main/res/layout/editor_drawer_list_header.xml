@@ -20,7 +20,8 @@
             android:layout_alignParentTop="true"
             android:layout_margin="5dp"
             android:contentDescription="@string/empty_string"
-            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_events_drawer_filter_header_bg" />
 
         <ImageView
@@ -31,7 +32,8 @@
             android:layout_alignParentTop="true"
             android:layout_margin="12dp"
             android:contentDescription="@string/empty_string"
-            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_events_drawer_profile_filter_0" />
 
         <TextView

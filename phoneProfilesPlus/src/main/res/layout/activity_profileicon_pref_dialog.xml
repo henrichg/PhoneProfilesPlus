@@ -43,15 +43,13 @@
 
             <ImageView
                 android:id="@+id/profileicon_pref_dlg_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:padding="5dp"
                 android:layout_marginStart="10dp"
                 android:layout_alignParentStart="true"
                 android:adjustViewBounds="true"
-                android:maxHeight="50dp"
-                android:maxWidth="50dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_profile_default"
                 android:contentDescription="@string/profile_preferences_profileIcon"/>
 
@@ -70,16 +68,14 @@
             <!--
             <ImageView
                 android:id="@+id/profileicon_pref_dlg_helpIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:padding="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:adjustViewBounds="true"
-                android:maxHeight="50dp"
-                android:maxWidth="50dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_action_profileicon_help"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"

@@ -25,7 +25,7 @@
                 android:layout_height="45dp"
                 android:padding="5dp"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:clickable="true"
                 android:background="?attr/selectableItemBackground"
                 android:contentDescription="@string/empty_string"
@@ -43,15 +43,13 @@
 
             <ImageView
                 android:id="@+id/profile_detail_profile_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="3dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/profile_preferences_profileIcon"
-                android:maxHeight="40dp"
-                android:maxWidth="40dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_profile_default" />
 
             <TextView
