@@ -71,6 +71,7 @@ class Permissions {
     static final String EXTRA_MERGED_PROFILE = "merged_profile";
     static final String EXTRA_PERMISSION_TYPES = "permission_types";
     static final String EXTRA_ONLY_NOTIFICATION = "only_notification";
+    static final String EXTRA_FORCE_GRANT = "force_grant";
     //static final String EXTRA_FOR_GUI = "for_gui";
     //static final String EXTRA_MONOCHROME = "monochrome";
     //static final String EXTRA_MONOCHROME_VALUE = "monochrome_value";
@@ -1277,6 +1278,7 @@ class Permissions {
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WALLPAPER);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
                     wallpaperViewPreference = preference;
                     context.startActivity(intent);
                 } catch (Exception e) {
@@ -1303,6 +1305,7 @@ class Permissions {
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CUSTOM_PROFILE_ICON);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
                     profileIconPreference = preference;
                     context.startActivity(intent);
                 } catch (Exception e) {
@@ -1327,6 +1330,7 @@ class Permissions {
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_BRIGHTNESS_DIALOG);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
                     brightnessDialogPreference = preference;
                     context.startActivity(intent);
                 } catch (Exception e) {
@@ -1353,6 +1357,7 @@ class Permissions {
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
                     editorActivity = editor;
                     context.startActivity(intent);
                 } catch (Exception e) {
@@ -1380,6 +1385,7 @@ class Permissions {
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_APPLICATION_DATA_PATH, applicationDataPath);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
                     editorActivity = editor;
                     context.startActivity(intent);
                 } catch (Exception e) {
@@ -1434,6 +1440,7 @@ class Permissions {
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
                     wifiSSIDPreference = preference;
                     bluetoothNamePreference = null;
                     locationGeofenceEditorActivity = null;
@@ -1464,6 +1471,7 @@ class Permissions {
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
                     bluetoothNamePreference = preference;
                     wifiSSIDPreference = null;
                     locationGeofenceEditorActivity = null;
@@ -1493,6 +1501,7 @@ class Permissions {
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CALENDAR_DIALOG);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
                     calendarsMultiSelectDialogPreference = preference;
                     context.startActivity(intent);
                 } catch (Exception e) {
@@ -1519,6 +1528,7 @@ class Permissions {
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONTACT_DIALOG);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
                     contactsMultiSelectDialogPreference = preference;
                     contactGroupsMultiSelectDialogPreference = null;
                     context.startActivity(intent);
@@ -1546,6 +1556,7 @@ class Permissions {
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONTACT_DIALOG);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
                     contactGroupsMultiSelectDialogPreference = preference;
                     contactsMultiSelectDialogPreference = null;
                     context.startActivity(intent);
@@ -1574,6 +1585,7 @@ class Permissions {
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
                     bluetoothNamePreference = null;
                     wifiSSIDPreference = null;
                     locationGeofenceEditorActivity = activity;
@@ -1604,6 +1616,7 @@ class Permissions {
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
                     wifiSSIDPreference = null;
                     bluetoothNamePreference = null;
                     locationGeofenceEditorActivity = null;
@@ -1633,6 +1646,7 @@ class Permissions {
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_RINGTONE_PREFERENCE);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
                     ringtonePreference = preference;
                     context.startActivity(intent);
                 } catch (Exception e) {
