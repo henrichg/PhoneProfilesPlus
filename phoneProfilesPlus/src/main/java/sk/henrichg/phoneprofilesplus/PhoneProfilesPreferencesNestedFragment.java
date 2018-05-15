@@ -894,6 +894,24 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         // finish Editor when permission is disabled
                         finishActivity = permissionsChanged && (!storagePermission);
                     }
+                    if (!permissionsChanged) {
+                        boolean cameraPermission = Permissions.checkCamera(context);
+                        permissionsChanged = Permissions.getCameraPermission(context) != cameraPermission;
+                        // finish Editor when permission is disabled
+                        finishActivity = permissionsChanged && (!cameraPermission);
+                    }
+                    if (!permissionsChanged) {
+                        boolean microphonePermission = Permissions.checkMicrophone(context);
+                        permissionsChanged = Permissions.getMicrophonePermission(context) != microphonePermission;
+                        // finish Editor when permission is disabled
+                        finishActivity = permissionsChanged && (!microphonePermission);
+                    }
+                    if (!permissionsChanged) {
+                        boolean sensorsPermission = Permissions.checkSensors(context);
+                        permissionsChanged = Permissions.getSensorsPermission(context) != sensorsPermission;
+                        // finish Editor when permission is disabled
+                        finishActivity = permissionsChanged && (!sensorsPermission);
+                    }
                 }
 
                 Permissions.saveAllPermissions(context, permissionsChanged);
