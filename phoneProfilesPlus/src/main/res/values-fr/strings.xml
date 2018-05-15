@@ -1156,6 +1156,10 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="phone_profiles_pref_applicationEventBluetooth_info">These settings are for event sensor \"Bluetooth parameters\".</string>
   <string name="phone_profiles_pref_applicationEventMobileCell_info">These settings are for event sensor \"Mobile cell parameters\".</string>
   <string name="phone_profiles_pref_applicationEventOrientation_info">These settings are for event sensor \"Orientation parameters\".</string>
+  <string name="profileicon_pref_dialog_custom_icon_image_too_large">Custom icon image is too large. Allowed is max.</string>
+  <string name="profile_preferences_category_touchEffects">Touch effects</string>
+  <string name="profile_preferences_soundOnTouch">Sound on touch</string>
+  <string name="profile_preferences_dtmfToneWhenDialing">DTMF tone when dialing</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event sensors \"Application parameters\" and \"Orientation parameters\".</string>

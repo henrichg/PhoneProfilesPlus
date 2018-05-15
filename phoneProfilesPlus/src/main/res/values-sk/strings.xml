@@ -1155,6 +1155,10 @@
   <string name="phone_profiles_pref_applicationEventBluetooth_info">Tieto nastavenia sú pre senzor udalosti \"Parametre Bluetooth\".</string>
   <string name="phone_profiles_pref_applicationEventMobileCell_info">Tieto nastavenia sú pre senzor udalosti \"Parametre mobilných buniek\".</string>
   <string name="phone_profiles_pref_applicationEventOrientation_info">Tieto nastavenia sú pre senzor udalosti \"Parametre orientácie\".</string>
+  <string name="profileicon_pref_dialog_custom_icon_image_too_large">Obrázok vlastnej ikony je príliš veľký. Povolené je max.</string>
+  <string name="profile_preferences_category_touchEffects">Efekty klepnutia</string>
+  <string name="profile_preferences_soundOnTouch">Tón pri klepnutí</string>
+  <string name="profile_preferences_dtmfToneWhenDialing">DTMF tón pri vytáčaní</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• sensory udalostí \"Parametre aplikácií\" and \"Parametre orientácie\".</string>
