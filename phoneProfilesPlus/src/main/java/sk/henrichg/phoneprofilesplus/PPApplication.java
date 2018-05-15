@@ -1004,6 +1004,9 @@ public class PPApplication extends Application {
     }
 
     static boolean isRooted() {
+        if (rootMutex.rootChecked)
+            return rootMutex.rooted;
+
         synchronized (PPApplication.rootMutex) {
             return _isRooted();
         }
@@ -1039,6 +1042,9 @@ public class PPApplication extends Application {
     {
         RootShell.debugMode = rootToolsDebug;
 
+        if (rootMutex.settingsBinaryChecked)
+            return rootMutex.settingsBinaryExists;
+
         synchronized (PPApplication.rootMutex) {
             if (!rootMutex.settingsBinaryChecked) {
                 PPApplication.logE("PPApplication.settingsBinaryExists", "start");
@@ -1053,6 +1059,9 @@ public class PPApplication extends Application {
     static boolean serviceBinaryExists()
     {
         RootShell.debugMode = rootToolsDebug;
+
+        if (rootMutex.serviceBinaryChecked)
+            return rootMutex.serviceBinaryExists;
 
         synchronized (PPApplication.rootMutex) {
             if (!rootMutex.serviceBinaryChecked) {
