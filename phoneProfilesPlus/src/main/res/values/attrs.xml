@@ -88,7 +88,7 @@
     <attr name="editorDrawerListHeaderBackground" format="reference" />
     <attr name="editorDrawerListHeaderTitle" format="reference" />
     <attr name="dialogDivider" format="reference" />
-    <attr name="actionActivityLogIcon" format="reference" />
+    <!--<attr name="actionActivityLogIcon" format="reference" />-->
     <attr name="actionActivityLogReloadIcon" format="reference" />
     <attr name="actionSharedProfileIcon" format="reference" />
     <attr name="actionHelpIcon" format="reference" />
@@ -100,5 +100,6 @@
     <attr name="fastScrollPopupBackgroundPP" format="reference" />
     <attr name="fastScrollPopupTextPP" format="reference" />
     <attr name="actionDefaultProfile" format="reference" />
+    <attr name="actionRunStopEventsIcon" format="reference" />
 
 </resources>

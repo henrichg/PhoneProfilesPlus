@@ -47,7 +47,7 @@
 
         <item name="dialogDivider">@color/dialog_divider_dark</item>
 
-        <item name="actionActivityLogIcon">@drawable/ic_action_activity_log</item>
+        <!--<item name="actionActivityLogIcon">@drawable/ic_action_activity_log</item> -->
         <item name="actionActivityLogReloadIcon">@drawable/ic_action_activity_log_reload</item>
         <item name="actionActivityLogPlayIcon">@drawable/ic_action_activity_log_play</item>
         <item name="actionActivityLogPauseIcon">@drawable/ic_action_activity_log_pause</item>
@@ -66,6 +66,8 @@
         <item name="fastScrollPopupTextPP">@color/fastScrollPopupTextPP_dark</item>
 
         <item name="actionDefaultProfile">@drawable/ic_action_default_profile</item>
+
+        <item name="actionRunStopEventsIcon">@drawable/ic_action_run_stop_events_icon</item>
 
     </style>
 
