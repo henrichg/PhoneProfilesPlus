@@ -2142,7 +2142,7 @@ class ActivateProfileHelper {
             executeForInteractivePreferences(profile, context);
 
 
-//        throw new RuntimeException("test Crashlytics + TopExceptionHandler");
+        //throw new RuntimeException("test Crashlytics + TopExceptionHandler");
     }
 
     private static void showNotificationForInteractiveParameters(Context context, String title, String text, Intent intent, int notificationId) {
