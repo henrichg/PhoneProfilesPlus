@@ -11,7 +11,7 @@
         android:title="@string/menu_run_events"
         android:orderInCategory="101"
         android:icon="?attr/actionRunStopEventsIcon"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item android:id="@+id/important_info"
         android:title="@string/important_info_activity_title"
         android:orderInCategory="102"

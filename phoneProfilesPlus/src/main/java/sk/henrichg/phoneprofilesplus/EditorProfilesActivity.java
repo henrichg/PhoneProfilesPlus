@@ -601,10 +601,12 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (Event.getGlobalEventsRunning(getApplicationContext()))
             {
                 menuItem.setTitle(R.string.menu_stop_events);
+                menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
             }
             else
             {
                 menuItem.setTitle(R.string.menu_run_events);
+                menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             }
         }
 
