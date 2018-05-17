@@ -3,11 +3,13 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -202,6 +204,9 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
             case R.id.profile_preferences_shared_profile:
                 // start preferences activity for default profile
                 Intent intent = new Intent(this, ProfilePreferencesActivity.class);
@@ -217,6 +222,30 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!showSaveMenu)
+            super.onBackPressed();
+        else {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setTitle(R.string.not_saved_changes_alert_title);
+            dialogBuilder.setMessage(R.string.not_saved_changes_alert_message);
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    savePreferences(newProfileMode, predefinedProfileIndex);
+                    resultCode = RESULT_OK;
+                    finish();
+                }
+            });
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    ProfilePreferencesActivity.super.onBackPressed();
+                }
+            });
+            dialogBuilder.show();
         }
     }
 

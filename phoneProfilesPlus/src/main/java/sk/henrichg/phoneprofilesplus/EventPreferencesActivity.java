@@ -189,6 +189,9 @@ public class EventPreferencesActivity extends PreferenceActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
             case R.id.event_preferences_save:
                 if (checkPreferences(newEventMode, predefinedEventIndex)) {
                     savePreferences(newEventMode, predefinedEventIndex);
@@ -198,6 +201,32 @@ public class EventPreferencesActivity extends PreferenceActivity
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!showSaveMenu)
+            super.onBackPressed();
+        else {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setTitle(R.string.not_saved_changes_alert_title);
+            dialogBuilder.setMessage(R.string.not_saved_changes_alert_message);
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    if (checkPreferences(newEventMode, predefinedEventIndex)) {
+                        savePreferences(newEventMode, predefinedEventIndex);
+                        resultCode = RESULT_OK;
+                        finish();
+                    }
+                }
+            });
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    EventPreferencesActivity.super.onBackPressed();
+                }
+            });
+            dialogBuilder.show();
         }
     }
 

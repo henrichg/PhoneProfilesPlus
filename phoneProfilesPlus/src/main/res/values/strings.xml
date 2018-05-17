@@ -1162,6 +1162,8 @@
     <string name="profile_preferences_category_touchEffects">Touch effects</string>
     <string name="profile_preferences_soundOnTouch">Sound on touch</string>
     <string name="profile_preferences_dtmfToneWhenDialing">DTMF tone when dialing</string>
+    <string name="not_saved_changes_alert_title">Preferences changed</string>
+    <string name="not_saved_changes_alert_message">Save changes?</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
