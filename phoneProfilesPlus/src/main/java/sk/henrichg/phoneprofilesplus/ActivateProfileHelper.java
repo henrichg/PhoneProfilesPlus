@@ -494,8 +494,19 @@ class ActivateProfileHelper {
     }
 
 
-    private static boolean isAudibleSystemRingerMode(AudioManager audioManager) {
-        return audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
+    private static boolean isAudibleSystemRingerMode(AudioManager audioManager, Context context) {
+        int ringerMode = audioManager.getRingerMode();
+        if (ringerMode != AudioManager.RINGER_MODE_NORMAL) {
+            if (ringerMode == AudioManager.RINGER_MODE_SILENT) {
+                int zenMode = getSystemZenMode(context, -1);
+                return (zenMode == ActivateProfileHelper.ZENMODE_PRIORITY) ||
+                        (zenMode == ActivateProfileHelper.ZENMODE_ALL);
+            }
+            else
+                return false;
+        }
+        else
+            return true;
     }
 
     /*
@@ -596,7 +607,7 @@ class ActivateProfileHelper {
         PPApplication.logE("ActivateProfileHelper.setVolumes", "forProfileActivation=" + forProfileActivation);
 
         //if (isAudibleRinging(ringerMode, zenMode, true) || (ringerMode == 0)) {
-        if (isAudibleSystemRingerMode(audioManager) || (ringerMode == 0)) {
+        if (isAudibleSystemRingerMode(audioManager, context) || (ringerMode == 0)) {
             // test only system ringer mode
 
             PPApplication.logE("ActivateProfileHelper.setVolumes", "ringer/notification/system change");
