@@ -75,6 +75,8 @@ public class PPApplication extends Application {
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
 
+                                         +"|DatabaseHandler.onUpgrade"
+
                                          //+"|PPApplication.startHandlerThread"
                                          //+"|[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers"
 

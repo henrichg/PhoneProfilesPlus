@@ -2144,6 +2144,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2050)
         {
+            PPApplication.logE("DatabaseHandler.onUpgrade", "< 2050");
+
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + " INTEGER");
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + " TEXT");
             if (!doMergedTableCreate) {
@@ -2159,6 +2161,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2060)
         {
+            PPApplication.logE("DatabaseHandler.onUpgrade", "< 2060");
+
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_ACTIVATION_BY_USER_COUNT + " INTEGER");
             if (!doMergedTableCreate) {
                 db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_ACTIVATION_BY_USER_COUNT + " INTEGER");
@@ -2172,6 +2176,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2070)
         {
+            PPApplication.logE("DatabaseHandler.onUpgrade", "< 2070");
+
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_NETWORK_TYPE_PREFS + " INTEGER");
             if (!doMergedTableCreate) {
                 db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_NETWORK_TYPE_PREFS + " INTEGER");
@@ -2183,6 +2189,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2080)
         {
+            PPApplication.logE("DatabaseHandler.onUpgrade", "< 2080");
+
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + " INTEGER");
             if (!doMergedTableCreate) {
                 db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + " INTEGER");
@@ -2194,17 +2202,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2090)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_SCREEN_NIGHT_MODE + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_SCREEN_NIGHT_MODE + " INTEGER");
-            }
+            PPApplication.logE("DatabaseHandler.onUpgrade", "< 2090");
 
-            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SCREEN_NIGHT_MODE + "=0");
-            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SCREEN_NIGHT_MODE + "=0");
-        }
-
-        if (oldVersion < 2090)
-        {
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_SCREEN_NIGHT_MODE + " INTEGER");
             if (!doMergedTableCreate) {
                 db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_SCREEN_NIGHT_MODE + " INTEGER");
@@ -2216,6 +2215,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2100)
         {
+            PPApplication.logE("DatabaseHandler.onUpgrade", "< 2100");
+
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DTMF_TONE_WHEN_DIALING + " INTEGER");
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_SOUND_ON_TOUCH + " INTEGER");
             if (!doMergedTableCreate) {
