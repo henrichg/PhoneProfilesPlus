@@ -209,24 +209,35 @@ public class EventPreferencesActivity extends PreferenceActivity
         if (!showSaveMenu)
             super.onBackPressed();
         else {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.not_saved_changes_alert_title);
-            dialogBuilder.setMessage(R.string.not_saved_changes_alert_message);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    if (checkPreferences(newEventMode, predefinedEventIndex)) {
-                        savePreferences(newEventMode, predefinedEventIndex);
-                        resultCode = RESULT_OK;
-                        finish();
+            boolean nested = false;
+            PreferenceFragment fragment = getFragment();
+            if (fragment != null) {
+                Bundle bundle = fragment.getArguments();
+                if (bundle.getBoolean(PreferenceFragment.EXTRA_NESTED, false))
+                    nested = true;
+            }
+            if (!nested) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setTitle(R.string.not_saved_changes_alert_title);
+                dialogBuilder.setMessage(R.string.not_saved_changes_alert_message);
+                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (checkPreferences(newEventMode, predefinedEventIndex)) {
+                            savePreferences(newEventMode, predefinedEventIndex);
+                            resultCode = RESULT_OK;
+                            finish();
+                        }
                     }
-                }
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    EventPreferencesActivity.super.onBackPressed();
-                }
-            });
-            dialogBuilder.show();
+                });
+                dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        EventPreferencesActivity.super.onBackPressed();
+                    }
+                });
+                dialogBuilder.show();
+            }
+            else
+                EventPreferencesActivity.super.onBackPressed();
         }
     }
 

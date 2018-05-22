@@ -230,22 +230,33 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         if (!showSaveMenu)
             super.onBackPressed();
         else {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.not_saved_changes_alert_title);
-            dialogBuilder.setMessage(R.string.not_saved_changes_alert_message);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    savePreferences(newProfileMode, predefinedProfileIndex);
-                    resultCode = RESULT_OK;
-                    finish();
-                }
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    ProfilePreferencesActivity.super.onBackPressed();
-                }
-            });
-            dialogBuilder.show();
+            boolean nested = false;
+            PreferenceFragment fragment = getFragment();
+            if (fragment != null) {
+                Bundle bundle = fragment.getArguments();
+                if (bundle.getBoolean(PreferenceFragment.EXTRA_NESTED, false))
+                    nested = true;
+            }
+            if (!nested) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setTitle(R.string.not_saved_changes_alert_title);
+                dialogBuilder.setMessage(R.string.not_saved_changes_alert_message);
+                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        savePreferences(newProfileMode, predefinedProfileIndex);
+                        resultCode = RESULT_OK;
+                        finish();
+                    }
+                });
+                dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ProfilePreferencesActivity.super.onBackPressed();
+                    }
+                });
+                dialogBuilder.show();
+            }
+            else
+                ProfilePreferencesActivity.super.onBackPressed();
         }
     }
 
