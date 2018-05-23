@@ -48,7 +48,8 @@ class ApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder implemen
         this.application = application;
 
         // Display Application data
-        imageViewIcon.setImageBitmap(EditorProfilesActivity.getApplicationsCache().getApplicationIcon(application, false));
+        if (EditorProfilesActivity.getApplicationsCache() != null)
+            imageViewIcon.setImageBitmap(EditorProfilesActivity.getApplicationsCache().getApplicationIcon(application, false));
         textViewAppName.setText(application.appLabel);
         if (application.shortcut)
             textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_shortcut));

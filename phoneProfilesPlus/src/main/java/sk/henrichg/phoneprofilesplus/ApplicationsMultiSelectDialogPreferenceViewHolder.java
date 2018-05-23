@@ -53,7 +53,8 @@ class ApplicationsMultiSelectDialogPreferenceViewHolder extends RecyclerView.Vie
         this.application = application;
 
         // Display Application data
-        imageViewIcon.setImageBitmap(EditorProfilesActivity.getApplicationsCache().getApplicationIcon(application, noShortcuts));
+        if (EditorProfilesActivity.getApplicationsCache() != null)
+            imageViewIcon.setImageBitmap(EditorProfilesActivity.getApplicationsCache().getApplicationIcon(application, noShortcuts));
         textViewAppName.setText(application.appLabel);
         if (!noShortcuts) {
             if (application.shortcut)

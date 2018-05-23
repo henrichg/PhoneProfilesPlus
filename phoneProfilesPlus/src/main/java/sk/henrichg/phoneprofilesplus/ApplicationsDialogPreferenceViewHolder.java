@@ -49,7 +49,8 @@ class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder imp
         // 4. Bind the data to the ViewHolder
         this.application = application;
 
-        imageViewIcon.setImageBitmap(EditorProfilesActivity.getApplicationsCache().getApplicationIcon(application, false));
+        if (EditorProfilesActivity.getApplicationsCache() != null)
+            imageViewIcon.setImageBitmap(EditorProfilesActivity.getApplicationsCache().getApplicationIcon(application, false));
         String text = application.appLabel;
         if (application.shortcutId > 0) {
             Shortcut shortcut = DatabaseHandler.getInstance(context.getApplicationContext()).getShortcut(application.shortcutId);

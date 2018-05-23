@@ -214,8 +214,9 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
             @Override
             protected Void doInBackground(Void... params) {
-                if (!EditorProfilesActivity.getApplicationsCache().cached)
-                    EditorProfilesActivity.getApplicationsCache().getApplicationsList(context);
+                if (EditorProfilesActivity.getApplicationsCache() != null)
+                    if (!EditorProfilesActivity.getApplicationsCache().cached)
+                        EditorProfilesActivity.getApplicationsCache().getApplicationsList(context);
 
                 getValueAMSDP();
 
@@ -227,8 +228,9 @@ public class ApplicationsDialogPreference  extends DialogPreference
             {
                 super.onPostExecute(result);
 
-                if (!EditorProfilesActivity.getApplicationsCache().cached)
-                    EditorProfilesActivity.getApplicationsCache().clearCache(false);
+                if (EditorProfilesActivity.getApplicationsCache() != null)
+                    if (!EditorProfilesActivity.getApplicationsCache().cached)
+                        EditorProfilesActivity.getApplicationsCache().clearCache(false);
 
                 applicationsListView.setAdapter(listAdapter);
                 rellaDialog.setVisibility(View.VISIBLE);
@@ -252,9 +254,11 @@ public class ApplicationsDialogPreference  extends DialogPreference
             asyncTask.cancel(true);
         }
 
-        EditorProfilesActivity.getApplicationsCache().cancelCaching();
-        if (!EditorProfilesActivity.getApplicationsCache().cached)
-            EditorProfilesActivity.getApplicationsCache().clearCache(false);
+        if (EditorProfilesActivity.getApplicationsCache() != null) {
+            EditorProfilesActivity.getApplicationsCache().cancelCaching();
+            if (!EditorProfilesActivity.getApplicationsCache().cached)
+                EditorProfilesActivity.getApplicationsCache().clearCache(false);
+        }
         GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 
@@ -291,104 +295,103 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
         applicationsList.clear();
 
-        List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(false);
-        if (cachedApplicationList != null)
-        {
-            String[] splits = value.split("\\|");
-            for (String split : splits) {
-                Application _application = null;
-                for (Application application : cachedApplicationList) {
-                    application.checked = false;
+        if (EditorProfilesActivity.getApplicationsCache() != null) {
+            List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(false);
+            if (cachedApplicationList != null) {
+                String[] splits = value.split("\\|");
+                for (String split : splits) {
+                    Application _application = null;
+                    for (Application application : cachedApplicationList) {
+                        application.checked = false;
 
-                    String packageName;
-                    String activityName;
-                    String shortcut;
-                    String shortcutId = "";
-                    String startApplicationDelay = "0";
-                    String[] splits2 = split.split("/"); // activity
-                    if (split.length() > 2) {
-                        if (splits2.length == 2) {
-                            // activity exists
-                            shortcut = splits2[0].substring(0, 3);
-                            packageName = splits2[0];
-                            String[] splits4 = splits2[1].split("#"); // shortcut id, startApplicationDelay
-                            activityName = splits4[0];
-                            if (shortcut.equals("(s)")) {
-                                if (splits4.length >= 2)
-                                    shortcutId = splits4[1];
-                                if (splits4.length >= 3)
-                                    startApplicationDelay = splits4[2];
-                            }
-                            else {
-                                if (splits4.length >= 2)
+                        String packageName;
+                        String activityName;
+                        String shortcut;
+                        String shortcutId = "";
+                        String startApplicationDelay = "0";
+                        String[] splits2 = split.split("/"); // activity
+                        if (split.length() > 2) {
+                            if (splits2.length == 2) {
+                                // activity exists
+                                shortcut = splits2[0].substring(0, 3);
+                                packageName = splits2[0];
+                                String[] splits4 = splits2[1].split("#"); // shortcut id, startApplicationDelay
+                                activityName = splits4[0];
+                                if (shortcut.equals("(s)")) {
+                                    if (splits4.length >= 2)
+                                        shortcutId = splits4[1];
+                                    if (splits4.length >= 3)
+                                        startApplicationDelay = splits4[2];
+                                } else {
+                                    if (splits4.length >= 2)
+                                        startApplicationDelay = splits4[1];
+                                }
+                            } else {
+                                // activity not exists
+                                shortcut = split.substring(0, 3);
+                                String[] splits4 = split.split("#"); // startApplicationDelay
+                                if (splits4.length >= 2) {
+                                    packageName = splits4[0];
                                     startApplicationDelay = splits4[1];
+                                } else {
+                                    packageName = split;
+                                }
+                                activityName = "";
                             }
-                        } else {
-                            // activity not exists
-                            shortcut = split.substring(0, 3);
-                            String[] splits4 = split.split("#"); // startApplicationDelay
-                            if (splits4.length >= 2) {
-                                packageName = splits4[0];
-                                startApplicationDelay = splits4[1];
-                            }
-                            else {
-                                packageName = split;
-                            }
-                            activityName = "";
-                        }
-                        if (shortcut.equals("(s)"))
-                            packageName = packageName.substring(3);
-                        else
-                            shortcut = "";
+                            if (shortcut.equals("(s)"))
+                                packageName = packageName.substring(3);
+                            else
+                                shortcut = "";
 
-                        boolean shortcutPassed = shortcut.equals("(s)") == application.shortcut;
-                        boolean packagePassed = packageName.equals(application.packageName);
-                        boolean activityPassed = activityName.equals(application.activityName);
+                            boolean shortcutPassed = shortcut.equals("(s)") == application.shortcut;
+                            boolean packagePassed = packageName.equals(application.packageName);
+                            boolean activityPassed = activityName.equals(application.activityName);
 
-                        if (!activityName.isEmpty()) {
-                            if (shortcutPassed && packagePassed && activityPassed) {
-                                application.checked = true;
-                                try {
-                                    application.shortcutId = Long.parseLong(shortcutId);
-                                } catch (Exception e) {
-                                    application.shortcutId = 0;
+                            if (!activityName.isEmpty()) {
+                                if (shortcutPassed && packagePassed && activityPassed) {
+                                    application.checked = true;
+                                    try {
+                                        application.shortcutId = Long.parseLong(shortcutId);
+                                    } catch (Exception e) {
+                                        application.shortcutId = 0;
+                                    }
+                                }
+                            } else {
+                                if (!shortcut.equals("(s)")) {
+                                    if (packagePassed && (!application.shortcut))
+                                        application.checked = true;
                                 }
                             }
-                        } else {
-                            if (!shortcut.equals("(s)")) {
-                                if (packagePassed && (!application.shortcut))
-                                    application.checked = true;
+                            _application = application;
+                            try {
+                                _application.startApplicationDelay = Integer.parseInt(startApplicationDelay);
+                            } catch (Exception e) {
+                                _application.startApplicationDelay = 0;
                             }
-                        }
-                        _application = application;
-                        try {
-                            _application.startApplicationDelay = Integer.parseInt(startApplicationDelay);
-                        } catch (Exception e) {
-                            _application.startApplicationDelay = 0;
-                        }
 
-                        PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP","packageName="+packageName);
-                        PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP","activityName="+activityName);
-                        PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP","shortcut="+shortcut);
-                        PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP","shortcutId="+shortcutId);
-                        PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP","startApplicationDelay="+startApplicationDelay);
-                        PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP","checked="+_application.checked);
+                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "packageName=" + packageName);
+                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "activityName=" + activityName);
+                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcut=" + shortcut);
+                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutId=" + shortcutId);
+                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "startApplicationDelay=" + startApplicationDelay);
+                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "checked=" + _application.checked);
 
-                        if (_application.checked)
-                            break;
+                            if (_application.checked)
+                                break;
+                        }
                     }
-                }
-                if ((_application != null) && _application.checked) {
-                    Application newInfo = new Application();
+                    if ((_application != null) && _application.checked) {
+                        Application newInfo = new Application();
 
-                    newInfo.shortcut = _application.shortcut;
-                    newInfo.appLabel = _application.appLabel;
-                    newInfo.packageName = _application.packageName;
-                    newInfo.activityName = _application.activityName;
-                    newInfo.shortcutId = _application.shortcutId;
-                    newInfo.startApplicationDelay = _application.startApplicationDelay;
+                        newInfo.shortcut = _application.shortcut;
+                        newInfo.appLabel = _application.appLabel;
+                        newInfo.packageName = _application.packageName;
+                        newInfo.activityName = _application.activityName;
+                        newInfo.shortcutId = _application.shortcutId;
+                        newInfo.startApplicationDelay = _application.startApplicationDelay;
 
-                    applicationsList.add(newInfo);
+                        applicationsList.add(newInfo);
+                    }
                 }
             }
         }
@@ -595,37 +598,39 @@ public class ApplicationsDialogPreference  extends DialogPreference
     }
 
     void updateApplication(Application application, int positionInEditor, int startApplicationDelay) {
-        List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(false);
-        if (cachedApplicationList != null) {
-            int _position = applicationsList.indexOf(application);
-            Application cachedApplication = cachedApplicationList.get(positionInEditor);
-            Application editedApplication = application;
-            if (editedApplication == null) {
-                editedApplication = new Application();
-                applicationsList.add(editedApplication);
-                _position = applicationsList.size()-1;
-            }
-            editedApplication.shortcut = cachedApplication.shortcut;
-            editedApplication.appLabel = cachedApplication.appLabel;
-            editedApplication.packageName = cachedApplication.packageName;
-            editedApplication.activityName = cachedApplication.activityName;
-            if (!editedApplication.shortcut)
-                editedApplication.shortcutId = 0;
-            editedApplication.startApplicationDelay = startApplicationDelay;
+        if (EditorProfilesActivity.getApplicationsCache() != null) {
+            List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(false);
+            if (cachedApplicationList != null) {
+                int _position = applicationsList.indexOf(application);
+                Application cachedApplication = cachedApplicationList.get(positionInEditor);
+                Application editedApplication = application;
+                if (editedApplication == null) {
+                    editedApplication = new Application();
+                    applicationsList.add(editedApplication);
+                    _position = applicationsList.size() - 1;
+                }
+                editedApplication.shortcut = cachedApplication.shortcut;
+                editedApplication.appLabel = cachedApplication.appLabel;
+                editedApplication.packageName = cachedApplication.packageName;
+                editedApplication.activityName = cachedApplication.activityName;
+                if (!editedApplication.shortcut)
+                    editedApplication.shortcutId = 0;
+                editedApplication.startApplicationDelay = startApplicationDelay;
 
-            applicationsListView.getRecycledViewPool().clear();
-            listAdapter.notifyDataSetChanged();
+                applicationsListView.getRecycledViewPool().clear();
+                listAdapter.notifyDataSetChanged();
 
-            if (editedApplication.shortcut &&
-                (editedApplication.packageName != null)) {
-                Intent intent = new Intent(context, LaunchShortcutActivity.class);
-                intent.putExtra(LaunchShortcutActivity.EXTRA_PACKAGE_NAME, editedApplication.packageName);
-                intent.putExtra(LaunchShortcutActivity.EXTRA_ACTIVITY_NAME, editedApplication.activityName);
-                intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, _position);
-                intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
+                if (editedApplication.shortcut &&
+                        (editedApplication.packageName != null)) {
+                    Intent intent = new Intent(context, LaunchShortcutActivity.class);
+                    intent.putExtra(LaunchShortcutActivity.EXTRA_PACKAGE_NAME, editedApplication.packageName);
+                    intent.putExtra(LaunchShortcutActivity.EXTRA_ACTIVITY_NAME, editedApplication.activityName);
+                    intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, _position);
+                    intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
 
-                ProfilePreferencesFragment.setApplicationsDialogPreference(this);
-                ((Activity)context).startActivityForResult(intent, RESULT_APPLICATIONS_EDITOR);
+                    ProfilePreferencesFragment.setApplicationsDialogPreference(this);
+                    ((Activity) context).startActivityForResult(intent, RESULT_APPLICATIONS_EDITOR);
+                }
             }
         }
     }

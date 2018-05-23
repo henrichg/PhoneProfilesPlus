@@ -216,8 +216,9 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
             @Override
             protected Void doInBackground(Void... params) {
-                if (!EditorProfilesActivity.getApplicationsCache().cached)
-                    EditorProfilesActivity.getApplicationsCache().getApplicationsList(_context);
+                if (EditorProfilesActivity.getApplicationsCache() != null)
+                    if (!EditorProfilesActivity.getApplicationsCache().cached)
+                        EditorProfilesActivity.getApplicationsCache().getApplicationsList(_context);
 
                 getValueAMSDP(notForUnselect);
 
@@ -229,8 +230,9 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             {
                 super.onPostExecute(result);
 
-                if (!EditorProfilesActivity.getApplicationsCache().cached)
-                    EditorProfilesActivity.getApplicationsCache().clearCache(false);
+                if (EditorProfilesActivity.getApplicationsCache() != null)
+                    if (!EditorProfilesActivity.getApplicationsCache().cached)
+                        EditorProfilesActivity.getApplicationsCache().clearCache(false);
 
                 listAdapter.notifyDataSetChanged();
                 if (notForUnselect) {
@@ -254,9 +256,11 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             asyncTask.cancel(true);
         }
 
-        EditorProfilesActivity.getApplicationsCache().cancelCaching();
-        if (!EditorProfilesActivity.getApplicationsCache().cached)
-            EditorProfilesActivity.getApplicationsCache().clearCache(false);
+        if (EditorProfilesActivity.getApplicationsCache() != null) {
+            EditorProfilesActivity.getApplicationsCache().cancelCaching();
+            if (!EditorProfilesActivity.getApplicationsCache().cached)
+                EditorProfilesActivity.getApplicationsCache().clearCache(false);
+        }
         GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 
@@ -291,71 +295,70 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         applicationList.clear();
 
         // change checked state by value
-        List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(addShortcuts == 0);
-        if (cachedApplicationList != null)
-        {
-            String[] splits = value.split("\\|");
-            for (Application application : cachedApplicationList)
-            {
-                application.checked = false;
-                for (String split : splits) {
-                    String packageName;
-                    String activityName;
-                    String shortcut;
-                    String[] splits2 = split.split("/");
-                    if (split.length() > 2) {
-                        if (splits2.length == 2) {
-                            shortcut = splits2[0].substring(0, 3);
-                            packageName = splits2[0];
-                            activityName = splits2[1];
-                        } else {
-                            shortcut = value.substring(0, 3);
-                            packageName = value;
-                            activityName = "";
-                        }
-                        if (shortcut.equals("(s)")) {
-                            packageName = packageName.substring(3);
-                        }
-                        boolean shortcutPassed = shortcut.equals("(s)") == application.shortcut;
-                        boolean packagePassed = packageName.equals(application.packageName);
-                        boolean activityPassed = activityName.equals(application.activityName);
+        if (EditorProfilesActivity.getApplicationsCache() != null) {
+            List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(addShortcuts == 0);
+            if (cachedApplicationList != null) {
+                String[] splits = value.split("\\|");
+                for (Application application : cachedApplicationList) {
+                    application.checked = false;
+                    for (String split : splits) {
+                        String packageName;
+                        String activityName;
+                        String shortcut;
+                        String[] splits2 = split.split("/");
+                        if (split.length() > 2) {
+                            if (splits2.length == 2) {
+                                shortcut = splits2[0].substring(0, 3);
+                                packageName = splits2[0];
+                                activityName = splits2[1];
+                            } else {
+                                shortcut = value.substring(0, 3);
+                                packageName = value;
+                                activityName = "";
+                            }
+                            if (shortcut.equals("(s)")) {
+                                packageName = packageName.substring(3);
+                            }
+                            boolean shortcutPassed = shortcut.equals("(s)") == application.shortcut;
+                            boolean packagePassed = packageName.equals(application.packageName);
+                            boolean activityPassed = activityName.equals(application.activityName);
 
-                        if (!activityName.isEmpty()) {
-                            if (shortcutPassed && packagePassed && activityPassed)
-                                application.checked = true;
-                        } else {
-                            if (!shortcut.equals("(s)") && (!application.shortcut)) {
-                                if (packagePassed)
+                            if (!activityName.isEmpty()) {
+                                if (shortcutPassed && packagePassed && activityPassed)
                                     application.checked = true;
+                            } else {
+                                if (!shortcut.equals("(s)") && (!application.shortcut)) {
+                                    if (packagePassed)
+                                        application.checked = true;
+                                }
                             }
                         }
                     }
                 }
-            }
-            // move checked on top
-            int i = 0;
-            int ich = 0;
-            while (i < cachedApplicationList.size()) {
-                Application application = cachedApplicationList.get(i);
-                if (removePPApplications == 1) {
-                    if (
-                           application.packageName.equals("sk.henrichg.phoneprofiles") ||
-                           application.packageName.equals("sk.henrichg.phoneprofilesplus") ||
-                           application.packageName.equals("sk.henrichg.phoneprofilesplusextender")
-                       )
-                    {
-                        cachedApplicationList.remove(i);
-                        continue;
+                // move checked on top
+                int i = 0;
+                int ich = 0;
+                while (i < cachedApplicationList.size()) {
+                    Application application = cachedApplicationList.get(i);
+                    if (removePPApplications == 1) {
+                        if (
+                                application.packageName.equals("sk.henrichg.phoneprofiles") ||
+                                        application.packageName.equals("sk.henrichg.phoneprofilesplus") ||
+                                        application.packageName.equals("sk.henrichg.phoneprofilesplusextender")
+                                ) {
+                            cachedApplicationList.remove(i);
+                            continue;
+                        }
                     }
+                    if (application.checked) {
+                        cachedApplicationList.remove(i);
+                        cachedApplicationList.add(ich, application);
+                        ich++;
+                    }
+                    i++;
                 }
-                if (application.checked) {
-                    cachedApplicationList.remove(i);
-                    cachedApplicationList.add(ich, application);
-                    ich++;
-                }
-                i++;
+                applicationList.addAll(cachedApplicationList);
             }
-            applicationList.addAll(cachedApplicationList);
         }
     }
 
